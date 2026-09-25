@@ -379,6 +379,204 @@
           "type": "upstream-doc"
         }
       ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-PAPYRUS-NATIVE-PROVIDER-MISSING",
+      "title": "Papyrus compiles but required native provider is unavailable at runtime",
+      "scope": [
+        "papyrus",
+        "SKSE",
+        "runtime"
+      ],
+      "severity": "BLOCKER",
+      "preconditions": [
+        "A PSC/PEX calls one or more Native functions supplied by SKSE or a third-party native provider"
+      ],
+      "bad_pattern": "Compilation succeeds because a PSC declaration exists, but the runtime DLL/provider does not load or register the declared native function.",
+      "why": "Papyrus compilation validates declarations, not the native implementation that must be registered by SKSE at runtime.",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Build a provider map from pinned PSC declarations, identify every Native function used by project scripts, map each to its provider DLL/version, then verify the exact provider loads and a runtime smoke assertion can resolve/call the function. Fail on Papyrus '<Native> is not a valid function' or provider-load errors.",
+        "required_data": [
+          "PSC/PEX call graph",
+          "provider source manifest",
+          "installed SKSE DLLs",
+          "runtime/SKSE version",
+          "Papyrus/SKSE logs"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Install/build the correct provider for the target runtime or remove/replace the unsupported API call; recompile and rerun native-binding smoke tests.",
+        "postconditions": [
+          "provider DLL loads on exact runtime",
+          "native functions register",
+          "owned Papyrus native-binding errors are zero"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/terminology/skse-papyrus-high-impact-api-signatures.md",
+          "type": "user-validated",
+          "notes": "Repository distinguishes PSC declarations from runtime native registration."
+        },
+        {
+          "source": "knowledge/libraries/skyrim-modding/terminology/papyrus-extender-po3-api-catalog.md",
+          "type": "user-validated",
+          "notes": "po3 provider catalog is explicitly compile-time plus runtime-provider scoped."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-SPRIGGIT-SEMANTIC-ROUNDTRIP-DRIFT",
+      "title": "Spriggit plugin round-trip changes undeclared semantics",
+      "scope": [
+        "plugin",
+        "generated-output"
+      ],
+      "severity": "BLOCKER",
+      "preconditions": [
+        "A plugin is serialized/deserialized through Spriggit or another text interchange representation"
+      ],
+      "bad_pattern": "Binary -> text -> binary round-trip produces semantic record/field changes outside the declared project touch-set.",
+      "why": "Git-friendly representation is valuable, but serializer/deserializer coverage or translation-version differences must not silently alter plugin semantics.",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Serialize the source plugin, deserialize to a second staged binary, load both with independent parsers, normalize records/FormLinks/order-insensitive collections, then compare semantic fingerprints and declared touch-set. Preserve translation package/version.",
+        "required_data": [
+          "source binary",
+          "serialized tree",
+          "round-trip binary",
+          "Spriggit translation version",
+          "xEdit/Mutagen normalized views"
+        ],
+        "false_positive_exclusions": [
+          "documented normalization differences proven semantically equivalent"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Pin a compatible translation package/version, isolate the differing record/field, and keep the original binary authoritative until independent parsers prove semantic equivalence.",
+        "postconditions": [
+          "round-trip semantic fingerprint matches",
+          "no unexplained touch-set changes",
+          "xEdit and Mutagen both load output"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/Mutagen-Modding/Spriggit",
+          "type": "upstream-doc",
+          "notes": "Spriggit is a plugin-to-YAML/JSON round-trip tool with versioned translation packages."
+        },
+        {
+          "source": "knowledge/libraries/skyrim-modding/automation/schema-triangulation-and-self-checks.md",
+          "type": "user-validated",
+          "notes": "Repository requires independent plugin round-trip validation."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-NATIVE-TARGET-MATRIX-INCOMPLETE",
+      "title": "Declared native runtime target was not built and verified",
+      "scope": [
+        "native",
+        "SKSE",
+        "build"
+      ],
+      "severity": "BLOCKER",
+      "preconditions": [
+        "Project manifest declares more than one Skyrim runtime/distribution target for a native DLL"
+      ],
+      "bad_pattern": "Release artifact is promoted after building/testing only a subset of the declared target matrix.",
+      "why": "CommonLib abstractions and one successful binary do not prove every runtime's relocations, ABI, metadata, imports and hooks are valid.",
+      "detection": {
+        "kind": "native",
+        "algorithm": "Compare project target matrix against CMake preset/configure/build records, output DLL hashes, metadata/import scans and runtime smoke results. Every declared target must have an explicit pass, supported universal-binary proof, or removal from the support claim.",
+        "required_data": [
+          "project targets",
+          "build reports",
+          "DLL hashes",
+          "runtime compatibility declarations",
+          "runtime test results"
+        ],
+        "false_positive_exclusions": [
+          "single verified universal binary whose exact declared runtime coverage is independently confirmed"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Build and validate missing target(s), narrow the published support matrix, or supply a verified universal binary with exact runtime guards.",
+        "postconditions": [
+          "all published targets have build evidence",
+          "all release-native targets have load/init evidence"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/automation/validation-gates.md",
+          "type": "user-validated",
+          "notes": "G09 already requires every declared target build; this rule makes incomplete matrices machine-detectable."
+        },
+        {
+          "source": "https://github.com/alandtse/CommonLibSSE-NG",
+          "type": "upstream-doc"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-RUNTIME-HARNESS-STALE-STATE",
+      "title": "Runtime harness assertion may be answering from stale or wrong game state",
+      "scope": [
+        "runtime-test",
+        "SKSE",
+        "test-harness"
+      ],
+      "severity": "BLOCKER",
+      "preconditions": [
+        "Automated runtime harness communicates with a running Skyrim process through files, probe IPC, logs or detached session state"
+      ],
+      "bad_pattern": "A test passes using stale probe/log data, another Skyrim process, an old session, or pre-trigger evidence instead of the test launch being asserted.",
+      "why": "Detached/headless automation can produce false positives if evidence is not session-scoped and freshness-checked.",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Require unique session/build id, process identity, launch timestamp/marker, runtime/version match, evidence mtime/sequence after trigger, read-act-wait-read state transition, and—where feasible—an A/B vanilla control. Reject pre-launch or already-consumed evidence.",
+        "required_data": [
+          "game PID/session id",
+          "launch marker",
+          "runtime/SKSE pair",
+          "probe/log sequence",
+          "test trigger timestamp",
+          "pre/post state"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "automatic",
+        "algorithm": "Reset test/probe IO, stop stale sessions, rebuild isolated test profile, relaunch, and rerun the failed scenario from a clean fixture. Escalate if process/profile ownership is ambiguous.",
+        "postconditions": [
+          "all evidence belongs to current session",
+          "assertion observes a post-trigger state change",
+          "control/test profile identity is recorded"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/myaiexp/skyrim-headless-mods/tree/master/skytest",
+          "type": "upstream-doc",
+          "notes": "Skytest documents stale shared-probe/log and second-running-game failure modes and uses launch markers/session guards."
+        },
+        {
+          "source": "knowledge/libraries/skyrim-modding/automation/agent-runtime-test-harness.md",
+          "type": "user-validated",
+          "notes": "Repository requires read-act-wait-read assertions."
+        }
+      ]
     }
   ]
 }
