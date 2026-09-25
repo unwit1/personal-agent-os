@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-runtime-patch-intent-v1.schema.json",
+  "title": "Skyrim Runtime Patch Intent v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "intent_id",
+    "framework",
+    "grammar_source",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-runtime-patch-intent-v1"
+    },
+    "intent_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "framework": {
+      "enum": [
+        "spid",
+        "kid",
+        "bos",
+        "flm",
+        "skypatcher",
+        "oar"
+      ]
+    },
+    "framework_version": {
+      "type": "string"
+    },
+    "grammar_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "snapshot"
+      ],
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "snapshot": {
+          "type": "string"
+        },
+        "sha": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "output_file": {
+      "type": "string"
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/spidEntry"
+          },
+          {
+            "$ref": "#/$defs/genericEntry"
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "formRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "editor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "form_id": {
+          "type": "string",
+          "pattern": "^0[xX][0-9A-Fa-f]+$"
+        },
+        "plugin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dynamic_keyword": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "editor_id"
+          ]
+        },
+        {
+          "required": [
+            "form_id",
+            "plugin"
+          ]
+        },
+        {
+          "required": [
+            "dynamic_keyword"
+          ]
+        }
+      ]
+    },
+    "spidEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "form"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "Spell",
+            "Perk",
+            "Item",
+            "Shout",
+            "Package",
+            "Keyword",
+            "Outfit",
+            "SleepOutfit",
+            "Faction",
+            "Skin",
+            "Form"
+          ]
+        },
+        "form": {
+          "$ref": "#/$defs/formRef"
+        },
+        "string_filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "form_filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "level_filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trait_filter": {
+          "type": "string"
+        },
+        "count_or_package_index": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "minimum": 0
+        },
+        "chance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "percent"
+          ],
+          "properties": {
+            "percent": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "deterministic": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "genericEntry": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "semantic_action": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
