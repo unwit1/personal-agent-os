@@ -58,11 +58,8 @@
             "library",
             "gui-supervised",
             "hybrid",
-            "mcp-stdio",
-            "mcp-http",
-            "rest",
-            "named-pipe",
-            "in-process-api"
+            "service",
+            "mcp"
           ]
         },
         "executable": {
@@ -87,22 +84,11 @@
           "type": "integer",
           "minimum": 1
         },
-        "endpoint": {
-          "type": "string"
-        },
         "transport": {
           "type": "string"
         },
-        "health_probe": {
-          "type": "string"
-        },
         "requires_running_game": {
-          "type": "boolean",
-          "default": false
-        },
-        "requires_mo2_context": {
-          "type": "boolean",
-          "default": false
+          "type": "boolean"
         }
       }
     },
@@ -182,42 +168,10 @@
         "type": "string"
       }
     },
-    "evidence": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "source_url",
-        "verified_date"
-      ],
-      "properties": {
-        "source_url": {
-          "type": "string"
-        },
-        "verified_date": {
-          "type": "string",
-          "format": "date"
-        },
-        "notes": {
-          "type": "string"
-        }
-      }
-    },
     "coverage": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
-        "record_types": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "api_entries": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "tools": {
-          "type": "integer",
-          "minimum": 0
-        },
         "description": {
           "type": "string"
         },
@@ -234,17 +188,10 @@
     },
     "safety": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "mutation_default": {
-          "enum": [
-            "read-only",
-            "dry-run",
-            "new-output",
-            "in-place",
-            "runtime-only",
-            "mixed"
-          ]
+          "type": "string"
         },
         "supports_dry_run": {
           "type": "boolean"
@@ -268,7 +215,7 @@
     },
     "verification": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "independent_validators": {
           "type": "array",
@@ -281,15 +228,12 @@
         },
         "output_readback": {
           "type": "string"
-        },
-        "mutation_test_fixture": {
-          "type": "string"
         }
       }
     },
     "ai": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "typed_tooling": {
           "type": "boolean"
@@ -300,11 +244,27 @@
         "provider_neutral": {
           "type": "boolean"
         },
-        "tool_count": {
-          "type": "integer",
-          "minimum": 0
-        },
         "context_cost_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_url",
+        "verified_date"
+      ],
+      "properties": {
+        "source_url": {
+          "type": "string"
+        },
+        "verified_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
           "type": "string"
         }
       }
