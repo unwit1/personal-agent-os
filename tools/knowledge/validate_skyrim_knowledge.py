@@ -98,9 +98,16 @@ build_report_schema = schema("skyrim-mod-build-report-v1.schema.json")
 # Adapter manifests.
 adapter_dir = LIB / "automation" / "adapters"
 adapter_ids: set[str] = set()
+aggregate_adapter_registries = 0
 if adapter_dir.exists():
     for path in sorted(adapter_dir.glob("*.json")):
         data = load_json(path)
+        if isinstance(data, dict) and isinstance(data.get("adapters"), list):
+            # Aggregate execution registries (for example core-adapters.json) are
+            # intentionally not one skyrim-tool-adapter-v1 manifest. The dedicated
+            # adapter validator handles this same distinction.
+            aggregate_adapter_registries += 1
+            continue
         validate(data, adapter_schema, str(path.relative_to(ROOT)))
         if isinstance(data, dict) and data.get("adapter_id"):
             adapter_id = data["adapter_id"]
@@ -184,6 +191,7 @@ if errors:
 print(
     "Skyrim knowledge validation passed: "
     f"{len(modules)} terminology modules, {len(adapter_ids)} adapter manifests, "
+    f"{aggregate_adapter_registries} aggregate adapter registries, "
     f"{len(rule_pack.get('rules', [])) if isinstance(rule_pack, dict) else 0} analyzer rules, "
     f"{len(pattern_pack.get('patterns', [])) if isinstance(pattern_pack, dict) else 0} implementation patterns."
 )
