@@ -74,5 +74,52 @@ class AdapterRunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             MOD.run_adapter(adapter,adapter_id="library-only",execute=False)
 
+    def test_forbidden_log_pattern_fails_zero_exit_code(self):
+        adapter={"success":{"exit_codes":[0],"forbidden_log_patterns":["FATAL"]}}
+        verdict=MOD.evaluate_process_result(
+            adapter,returncode=0,stdout="FATAL: bad graph",stderr="",outputs_after=[]
+        )
+        self.assertEqual(verdict["status"],"failed")
+        self.assertIn("FORBIDDEN_LOG_PATTERN",verdict["issue_codes"])
+
+    def test_warning_diagnostic_is_evidence_but_not_failure(self):
+        adapter={"diagnostics":[{
+            "issue_code":"CACHE_STALE",
+            "pattern":"stale cache",
+            "stream":"stderr",
+            "severity":"WARNING",
+            "analyzer_rule_id":"SKYRIM-GENERATED-OUTPUT-STALE",
+        }]}
+        verdict=MOD.evaluate_process_result(
+            adapter,returncode=0,stdout="",stderr="stale cache detected",outputs_after=[]
+        )
+        self.assertEqual(verdict["status"],"passed")
+        self.assertIn("CACHE_STALE",verdict["issue_codes"])
+        self.assertIn("SKYRIM-GENERATED-OUTPUT-STALE",verdict["analyzer_rule_ids"])
+
+    def test_error_diagnostic_fails_and_emits_rule_id(self):
+        adapter={"diagnostics":[{
+            "issue_code":"STALE_OUTPUT",
+            "pattern":"output is stale",
+            "severity":"ERROR",
+            "analyzer_rule_id":"SKYRIM-GENERATED-OUTPUT-STALE",
+        }]}
+        verdict=MOD.evaluate_process_result(
+            adapter,returncode=0,stdout="output is stale",stderr="",outputs_after=[]
+        )
+        self.assertEqual(verdict["status"],"failed")
+        self.assertIn("SKYRIM-GENERATED-OUTPUT-STALE",verdict["analyzer_rule_ids"])
+
+    def test_missing_declared_output_fails(self):
+        verdict=MOD.evaluate_process_result(
+            {"success":{"exit_codes":[0]}},
+            returncode=0,
+            stdout="ok",
+            stderr="",
+            outputs_after=[{"path":"missing.txt","exists":False}],
+        )
+        self.assertEqual(verdict["status"],"failed")
+        self.assertIn("DECLARED_OUTPUT_MISSING",verdict["issue_codes"])
+
 if __name__=="__main__":
     unittest.main()
