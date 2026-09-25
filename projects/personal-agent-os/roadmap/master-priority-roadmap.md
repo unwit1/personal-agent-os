@@ -1050,6 +1050,68 @@ Dream Eater and other writing projects should reuse the same selective/evidence-
 
 ---
 
+## Candidate roadmap initiatives
+
+The following durable themes have surfaced but are not yet ordered in the
+current engineering queue. They should be scoped and prioritized through the
+existing roadmap process; recording them here does not promote them above the
+active foundation work.
+
+### Relationship Graph + Unified Personal Event Timeline
+
+Extend per-person dossiers into a provenance-backed graph connecting the user,
+people, organizations, projects, places, conversations, and events. Resolve
+personal and cross-system events into a timeline with participants, dates,
+identity confidence, and source provenance. Support relationship history,
+interaction patterns, introductions, and queries such as "how do I know this
+person?" Raw source material stays within its owning privacy boundary.
+
+### Universal Capture Status + Intake Reliability
+
+Give browser and other capture surfaces a read path into Agent OS so they can
+show whether an item is already known, watched, saved, ingested, rejected, or
+archived. Make intake observable end to end with acknowledgements and states
+from capture through classification and promotion, plus deduplication,
+retry/error reporting, and reconciliation when a capture is missing downstream.
+
+### Transactional Shopping
+
+Capture Amazon items individually and support importing selected items into a
+cart. Prepare carts and checkout details as reviewable drafts; cart changes and
+purchase submission remain behind explicit user approval. Preserve item-level
+identity, price/source provenance, and execution status for safe retries.
+
+### Vehicle + OBD-II Intelligence
+
+Add a vehicle-data capability for authorized OBD-II and related maintenance
+data, with vehicle and sensor identity, timestamped readings, diagnostic-code
+history, provenance, and useful maintenance/event timelines. Keep device access
+permissioned and separate observed data from inferred diagnoses or actions.
+
+### Personal Communications + Mobile Ingestion
+
+Handle oversized phone-backup parsing through bounded, restart-safe extraction
+and indexing. Add iOS/mobile capture paths and permissioned Messages/iCloud-style
+communications bridges that feed the local personal archive and shared
+timeline. Keep raw messages and backup contents local by default; expose only
+approved, provenance-backed derived facts across project boundaries.
+
+### Permissioned Cross-Device Computer + Remote Control
+
+Keep computer interaction across devices as a future candidate capability,
+not a confirmed high-priority requirement. If pursued, define explicit device
+enrollment, scoped user-granted permissions, visible session state, auditable
+actions, and approval gates for consequential operations before enabling
+remote viewing or control.
+
+### Project-Specific Importers
+
+Keep Cosmere, Elder Scrolls/TES, and HR importer implementation work in their
+respective project roadmaps. Promote only genuinely reusable ingestion
+architecture or privacy controls into this global Agent OS roadmap.
+
+---
+
 ## Current engineering queue
 
 Unless an urgent correctness/privacy bug or explicitly promoted user request intervenes, coding agents should pull work in this order:
