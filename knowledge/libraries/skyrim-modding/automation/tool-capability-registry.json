@@ -868,14 +868,16 @@
         "error-check",
         "conflict-analysis",
         "cleaning",
-        "definition-export"
+        "definition-export",
+        "check-for-errors-log"
       ],
       "validation_role": "independent-validator",
       "can_mutate": true,
       "requires_running_game": false,
       "known_gaps": [
         "GUI/CLI semantics vary by mode/version"
-      ]
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xedit.json"
     },
     {
       "adapter_id": "xeditlib",
