@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-compatibility-touchset-v1.schema.json",
+  "title": "Skyrim Compatibility Touch Set v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "records",
+    "assets",
+    "runtime_mutations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-compatibility-touchset-v1"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "signature",
+          "action"
+        ],
+        "properties": {
+          "signature": {
+            "type": "string"
+          },
+          "form_key": {
+            "type": "string"
+          },
+          "selector": {
+            "type": "string"
+          },
+          "action": {
+            "enum": [
+              "add",
+              "override",
+              "delete",
+              "runtime-only",
+              "read"
+            ]
+          },
+          "field_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "authority": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "action"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "action": {
+            "enum": [
+              "add",
+              "replace",
+              "generate",
+              "read"
+            ]
+          },
+          "kind": {
+            "type": "string"
+          },
+          "winner_required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "runtime_mutations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "framework",
+          "domain",
+          "action"
+        ],
+        "properties": {
+          "framework": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "selector": {
+            "type": "string"
+          },
+          "field_or_effect": {
+            "type": "string"
+          },
+          "ordering": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "native_hooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "ui_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "save_state": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "generated_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "known_assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
