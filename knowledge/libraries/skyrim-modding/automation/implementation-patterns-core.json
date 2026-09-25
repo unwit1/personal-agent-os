@@ -519,11 +519,12 @@
       "selection": {
         "preferred": [
           "papyrus-vscode",
-          "official-papyruscompiler"
+          "official-papyruscompiler",
+          "pyro"
         ],
         "alternatives": [
           "caprica",
-          "po3-papyrus-extender"
+          "papyrus-extender"
         ],
         "avoid_by_default": [
           "frame polling when an event exists"
@@ -567,7 +568,7 @@
         "save state",
         "quests"
       ],
-      "notes": "Generate a Lilac/runtime test for pure logic where possible."
+      "notes": "Generate a Lilac/runtime test for pure logic where possible. Use Pyro to own repeatable multi-script/project builds; search Papyrus Extender APIs/events before escalating to a custom native DLL."
     },
     {
       "schema_version": "skyrim-implementation-pattern-v1",
@@ -583,11 +584,13 @@
       ],
       "selection": {
         "preferred": [
-          "commonlibsse-ng"
+          "commonlibsse-ng",
+          "commonlib-cmake-configure",
+          "commonlib-cmake-build"
         ],
         "alternatives": [
-          "po3-papyrus-extender",
-          "papyrus"
+          "papyrus",
+          "papyrus-extender"
         ],
         "avoid_by_default": [
           "hard-coded addresses"
@@ -633,7 +636,7 @@
         "Address Library",
         "hook conflicts"
       ],
-      "notes": "Prefer engine event/API over machine-code hook when possible."
+      "notes": "Prefer engine event/API over machine-code hook when possible. Before writing a new hook/API, search Papyrus Extender and existing SKSE/CommonLib event/API surfaces; compile every declared runtime target through the native build adapters."
     },
     {
       "schema_version": "skyrim-implementation-pattern-v1",
