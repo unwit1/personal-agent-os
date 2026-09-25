@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-runtime-patch-bundle-report-v1.schema.json",
+  "title": "Skyrim Runtime Patch Bundle Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "intents",
+    "findings",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-runtime-patch-bundle-report-v1"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "needs-review"
+      ]
+    },
+    "intents": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "code",
+          "message"
+        ],
+        "properties": {
+          "severity": {
+            "enum": [
+              "ERROR",
+              "WARNING"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "intent_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "entry_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intents",
+        "spid_entries",
+        "kid_entries",
+        "bos_entries"
+      ],
+      "properties": {
+        "intents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "spid_entries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "kid_entries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bos_entries": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}
