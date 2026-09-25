@@ -1,0 +1,1646 @@
+{
+  "schema_version": "skyrim-implementation-pattern-pack-v1",
+  "pack_id": "skyrim-mod-factory-core",
+  "patterns": [
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "static-record-edit",
+      "intent": [
+        "change stable stats or fields",
+        "add deterministic records"
+      ],
+      "preferred_layers": [
+        "records"
+      ],
+      "selection": {
+        "preferred": [
+          "housecarl",
+          "mutagen",
+          "spriggit"
+        ],
+        "alternatives": [
+          "spooky-automod",
+          "creation-kit"
+        ],
+        "avoid_by_default": [
+          "papyrus polling",
+          "native hook"
+        ],
+        "conditions": [
+          "No runtime/load-order discovery is required."
+        ]
+      },
+      "artifacts": [
+        "plugin",
+        "Spriggit source",
+        "intent diff"
+      ],
+      "preemptive_questions": [
+        "Which exact fields are authoritative?",
+        "Does this need an ESL/light plugin?"
+      ],
+      "validation": {
+        "gates": [
+          "G02",
+          "G03",
+          "G04",
+          "G05",
+          "G24",
+          "G25"
+        ],
+        "runtime_tests": [
+          "Load plugin and inspect affected forms."
+        ],
+        "negative_tests": [
+          "Verify unrelated override fields remain unchanged."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "record fields",
+        "masters",
+        "load order"
+      ],
+      "notes": "Prefer typed field edits over whole-record copying."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "load-order-derived-patch",
+      "intent": [
+        "merge or reconcile many installed mods",
+        "patch final load order"
+      ],
+      "preferred_layers": [
+        "records",
+        "compatibility"
+      ],
+      "selection": {
+        "preferred": [
+          "synthesis"
+        ],
+        "alternatives": [
+          "housecarl",
+          "mutagen"
+        ],
+        "avoid_by_default": [
+          "hard-coded compatibility patch"
+        ],
+        "conditions": [
+          "Result depends on the user's active load order."
+        ]
+      },
+      "artifacts": [
+        "generated patch",
+        "patcher source/settings"
+      ],
+      "preemptive_questions": [
+        "Which fields merge vs choose one source?",
+        "When is regeneration required?"
+      ],
+      "validation": {
+        "gates": [
+          "G02",
+          "G03",
+          "G05",
+          "G17",
+          "G18",
+          "G24",
+          "G29"
+        ],
+        "runtime_tests": [
+          "Query final winner for representative records."
+        ],
+        "negative_tests": [
+          "Run with missing/extra source mods."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "record conflicts",
+        "generated-output freshness"
+      ],
+      "notes": "Generated output is never canonical source."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "actor-distribution",
+      "intent": [
+        "give actors spells perks items outfits factions keywords"
+      ],
+      "preferred_layers": [
+        "runtime-patching"
+      ],
+      "selection": {
+        "preferred": [
+          "spid"
+        ],
+        "alternatives": [
+          "skypatcher",
+          "static patch"
+        ],
+        "avoid_by_default": [
+          "per-actor Papyrus polling"
+        ],
+        "conditions": [
+          "Targets are expressible through SPID filters and supported distribution types."
+        ]
+      },
+      "artifacts": [
+        "_DISTR.ini",
+        "distribution report"
+      ],
+      "preemptive_questions": [
+        "Base NPC or runtime actor?",
+        "Chance/count/level filters?",
+        "Existing-save behavior?"
+      ],
+      "validation": {
+        "gates": [
+          "G06",
+          "G18",
+          "G24",
+          "G26",
+          "G27"
+        ],
+        "runtime_tests": [
+          "Positive and negative actor recipients; duplicate prevention."
+        ],
+        "negative_tests": [
+          "Actor failing filter must not receive distribution."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "SPID rule overlap",
+        "NPC overhauls"
+      ],
+      "notes": "Runtime distribution usually reduces NPC_ conflicts."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "keyword-distribution",
+      "intent": [
+        "classify records with keywords",
+        "add or remove semantic keywords"
+      ],
+      "preferred_layers": [
+        "runtime-patching"
+      ],
+      "selection": {
+        "preferred": [
+          "kid"
+        ],
+        "alternatives": [
+          "skypatcher",
+          "static plugin"
+        ],
+        "avoid_by_default": [
+          "broad record overrides"
+        ],
+        "conditions": [
+          "Target form types and filters are supported by KID."
+        ]
+      },
+      "artifacts": [
+        "_KID.ini"
+      ],
+      "preemptive_questions": [
+        "Is keyword UI-only or gameplay semantic?",
+        "Can another framework generate same keyword?"
+      ],
+      "validation": {
+        "gates": [
+          "G06",
+          "G18",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "Query representative forms after KID applies."
+        ],
+        "negative_tests": [
+          "Excluded forms remain unchanged."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "keyword semantics",
+        "runtime patch ordering"
+      ],
+      "notes": "Document runtime-added keywords because xEdit cannot show them."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "base-object-swap",
+      "intent": [
+        "replace placed object bases conditionally",
+        "seasonal or contextual object swaps"
+      ],
+      "preferred_layers": [
+        "runtime-patching"
+      ],
+      "selection": {
+        "preferred": [
+          "bos"
+        ],
+        "alternatives": [
+          "skypatcher",
+          "static REFR patch"
+        ],
+        "avoid_by_default": [
+          "mass static REFR overrides"
+        ],
+        "conditions": [
+          "Swap preserves compatible reference semantics."
+        ]
+      },
+      "artifacts": [
+        "_SWAP.ini"
+      ],
+      "preemptive_questions": [
+        "Does new base have compatible type/collision/scripts?",
+        "Should swap be random/conditional?"
+      ],
+      "validation": {
+        "gates": [
+          "G06",
+          "G11",
+          "G18",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "Inspect swapped and non-swapped references."
+        ],
+        "negative_tests": [
+          "Prevent recursive or type-incompatible swaps."
+        ],
+        "human_checks": [
+          "Visual placement check when geometry differs."
+        ]
+      },
+      "compatibility_surfaces": [
+        "placed refs",
+        "collision",
+        "scripts"
+      ],
+      "notes": "BOS changes base object, not reference position/save identity."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "formlist-mutation",
+      "intent": [
+        "add or remove forms from FormLists"
+      ],
+      "preferred_layers": [
+        "runtime-patching"
+      ],
+      "selection": {
+        "preferred": [
+          "flm"
+        ],
+        "alternatives": [
+          "skypatcher",
+          "static FLST patch"
+        ],
+        "avoid_by_default": [
+          "script loops mutating lists every load"
+        ],
+        "conditions": [
+          "Order/pairing semantics are understood."
+        ]
+      },
+      "artifacts": [
+        "_FLM.ini"
+      ],
+      "preemptive_questions": [
+        "Does list order matter?",
+        "Are parallel FormLists index-paired?"
+      ],
+      "validation": {
+        "gates": [
+          "G06",
+          "G18",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "Inspect final list and count after load."
+        ],
+        "negative_tests": [
+          "No duplicates; paired-list invariants stay aligned."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "FLST runtime state",
+        "other FLM configs"
+      ],
+      "notes": "Index-paired FormLists require cross-list validation."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "general-runtime-patch",
+      "intent": [
+        "runtime patch supported record fields without plugin conflicts"
+      ],
+      "preferred_layers": [
+        "runtime-patching"
+      ],
+      "selection": {
+        "preferred": [
+          "skypatcher"
+        ],
+        "alternatives": [
+          "static patch",
+          "ipm"
+        ],
+        "avoid_by_default": [
+          "unbounded Papyrus polling"
+        ],
+        "conditions": [
+          "SkyPatcher supports the exact record/property semantics."
+        ]
+      },
+      "artifacts": [
+        "SkyPatcher configs"
+      ],
+      "preemptive_questions": [
+        "When does patch apply?",
+        "What wins if several configs touch same field?"
+      ],
+      "validation": {
+        "gates": [
+          "G06",
+          "G18",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "Static winner vs post-patch runtime state."
+        ],
+        "negative_tests": [
+          "Overlapping rules resolve as intended."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "runtime provenance",
+        "config ordering"
+      ],
+      "notes": "Always preserve a static→runtime provenance chain."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "conditional-animation-replacement",
+      "intent": [
+        "replace animations by actor state equipment keywords conditions"
+      ],
+      "preferred_layers": [
+        "animation"
+      ],
+      "selection": {
+        "preferred": [
+          "oar"
+        ],
+        "alternatives": [
+          "dar"
+        ],
+        "avoid_by_default": [
+          "behavior graph edit"
+        ],
+        "conditions": [
+          "Existing graph semantics are sufficient; only clip selection changes."
+        ]
+      },
+      "artifacts": [
+        "OAR config",
+        "HKX assets"
+      ],
+      "preemptive_questions": [
+        "First/third person?",
+        "Actors/creatures?",
+        "Priority?",
+        "User overrides?"
+      ],
+      "validation": {
+        "gates": [
+          "G06",
+          "G11",
+          "G14",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "Condition positive/negative; transition states."
+        ],
+        "negative_tests": [
+          "No unintended higher-priority submod match."
+        ],
+        "human_checks": [
+          "Animation feel/contact quality."
+        ]
+      },
+      "compatibility_surfaces": [
+        "OAR priority",
+        "skeleton",
+        "animation assets"
+      ],
+      "notes": "Use behavior tooling only if state machine semantics must change."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "behavior-graph-change",
+      "intent": [
+        "add animation graph state transition event or behavior semantics"
+      ],
+      "preferred_layers": [
+        "behavior",
+        "animation"
+      ],
+      "selection": {
+        "preferred": [
+          "pandora"
+        ],
+        "alternatives": [
+          "native graph injection",
+          "behavior-data-injector"
+        ],
+        "avoid_by_default": [
+          "manual editing generated HKX"
+        ],
+        "conditions": [
+          "A graph-level change is genuinely required."
+        ]
+      },
+      "artifacts": [
+        "behavior patch source",
+        "Pandora output"
+      ],
+      "preemptive_questions": [
+        "Which project/graph/node?",
+        "What event/transitions are required?"
+      ],
+      "validation": {
+        "gates": [
+          "G11",
+          "G14",
+          "G17",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "Trigger each new transition and recover."
+        ],
+        "negative_tests": [
+          "Unknown event/state does not deadlock graph."
+        ],
+        "human_checks": [
+          "Animation contact/feel."
+        ]
+      },
+      "compatibility_surfaces": [
+        "behavior patch order",
+        "skeleton",
+        "OAR"
+      ],
+      "notes": "Generated behavior output should be rebuilt, not hand-edited."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "papyrus-gameplay-feature",
+      "intent": [
+        "event-driven quest gameplay state",
+        "moderate-frequency scripted mechanics"
+      ],
+      "preferred_layers": [
+        "papyrus"
+      ],
+      "selection": {
+        "preferred": [
+          "papyrus-vscode",
+          "official-papyruscompiler"
+        ],
+        "alternatives": [
+          "caprica",
+          "po3-papyrus-extender"
+        ],
+        "avoid_by_default": [
+          "frame polling when an event exists"
+        ],
+        "conditions": [
+          "Engine/Papyrus exposes needed events and latency is acceptable."
+        ]
+      },
+      "artifacts": [
+        "PSC",
+        "PEX",
+        "VMAD bindings",
+        "tests"
+      ],
+      "preemptive_questions": [
+        "Script host/lifecycle?",
+        "Persistent state?",
+        "Registrations?",
+        "Migration?",
+        "Extender APIs?"
+      ],
+      "validation": {
+        "gates": [
+          "G07",
+          "G08",
+          "G21",
+          "G24",
+          "G26",
+          "G27"
+        ],
+        "runtime_tests": [
+          "new game save/load upgrade; feature-specific events."
+        ],
+        "negative_tests": [
+          "dependency absent; None references; repeated event."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "Papyrus providers",
+        "save state",
+        "quests"
+      ],
+      "notes": "Generate a Lilac/runtime test for pure logic where possible."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "native-skse-feature",
+      "intent": [
+        "engine hook",
+        "per-frame high-volume feature",
+        "custom serialization",
+        "deep render input physics access"
+      ],
+      "preferred_layers": [
+        "native"
+      ],
+      "selection": {
+        "preferred": [
+          "commonlibsse-ng"
+        ],
+        "alternatives": [
+          "po3-papyrus-extender",
+          "papyrus"
+        ],
+        "avoid_by_default": [
+          "hard-coded addresses"
+        ],
+        "conditions": [
+          "Papyrus/data/runtime patchers cannot safely meet requirements."
+        ]
+      },
+      "artifacts": [
+        "C++ source",
+        "DLL",
+        "PDB",
+        "serialization schema",
+        "logs"
+      ],
+      "preemptive_questions": [
+        "Exact runtimes?",
+        "Hook or event sink?",
+        "Thread affinity?",
+        "Save data?",
+        "Soft dependencies?"
+      ],
+      "validation": {
+        "gates": [
+          "G09",
+          "G10",
+          "G21",
+          "G24",
+          "G26",
+          "G27",
+          "G29"
+        ],
+        "runtime_tests": [
+          "startup new-game load save revert dependency-absent runtime matrix."
+        ],
+        "negative_tests": [
+          "Unsupported runtime/API provider must fail closed."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "ABI",
+        "Address Library",
+        "hook conflicts"
+      ],
+      "notes": "Prefer engine event/API over machine-code hook when possible."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "mcm-settings",
+      "intent": [
+        "add persistent user settings",
+        "expose native/Papyrus configuration"
+      ],
+      "preferred_layers": [
+        "ui",
+        "save-persistence"
+      ],
+      "selection": {
+        "preferred": [
+          "mcm-helper"
+        ],
+        "alternatives": [
+          "skyui-mcm",
+          "native-menu"
+        ],
+        "avoid_by_default": [
+          "duplicate settings stores"
+        ],
+        "conditions": [
+          "SkyUI/MCM is acceptable dependency and values map cleanly to settings."
+        ]
+      },
+      "artifacts": [
+        "config.json",
+        "settings INI",
+        "localization"
+      ],
+      "preemptive_questions": [
+        "Global/profile-wide or save-specific?",
+        "Hot reload?",
+        "Migration defaults?"
+      ],
+      "validation": {
+        "gates": [
+          "G06",
+          "G08",
+          "G11",
+          "G21",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "change setting restart/load and verify behavior."
+        ],
+        "negative_tests": [
+          "Missing/old setting uses safe default."
+        ],
+        "human_checks": [
+          "UI wording/accessibility."
+        ]
+      },
+      "compatibility_surfaces": [
+        "SkyUI",
+        "external INI",
+        "save state"
+      ],
+      "notes": "Keep one canonical setting store."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "native-debug-menu",
+      "intent": [
+        "native developer/config UI",
+        "rich C++ diagnostics"
+      ],
+      "preferred_layers": [
+        "ui",
+        "native"
+      ],
+      "selection": {
+        "preferred": [
+          "skse-menu-framework",
+          "dmenu"
+        ],
+        "alternatives": [
+          "prismai"
+        ],
+        "avoid_by_default": [
+          "custom renderer from scratch"
+        ],
+        "conditions": [
+          "Native plugin already exists and UI is primarily settings/debugging."
+        ]
+      },
+      "artifacts": [
+        "DLL UI integration",
+        "config"
+      ],
+      "preemptive_questions": [
+        "Controller?",
+        "Text input?",
+        "Pause behavior?",
+        "Persistence store?"
+      ],
+      "validation": {
+        "gates": [
+          "G09",
+          "G10",
+          "G11",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "open close input focus settings persistence."
+        ],
+        "negative_tests": [
+          "Typing must not trigger gameplay hotkeys."
+        ],
+        "human_checks": [
+          "UI scaling/controller usability."
+        ]
+      },
+      "compatibility_surfaces": [
+        "native menu focus",
+        "input"
+      ],
+      "notes": "Do not make UI framework the settings source of truth."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "html-ui",
+      "intent": [
+        "rich HTML CSS JS in-game interface"
+      ],
+      "preferred_layers": [
+        "ui",
+        "native"
+      ],
+      "selection": {
+        "preferred": [
+          "prismaui"
+        ],
+        "alternatives": [
+          "native-menu"
+        ],
+        "avoid_by_default": [
+          "external arbitrary web content"
+        ],
+        "conditions": [
+          "Feature materially benefits from web-layout UI."
+        ]
+      },
+      "artifacts": [
+        "HTML",
+        "CSS",
+        "JS",
+        "native bridge"
+      ],
+      "preemptive_questions": [
+        "Local-only or networked?",
+        "Gamepad?",
+        "Validation boundary?",
+        "Pause/focus?"
+      ],
+      "validation": {
+        "gates": [
+          "G09",
+          "G11",
+          "G24",
+          "G26",
+          "G29"
+        ],
+        "runtime_tests": [
+          "open interact command validation reload."
+        ],
+        "negative_tests": [
+          "Malformed/untrusted UI command rejected."
+        ],
+        "human_checks": [
+          "Visual scaling and controls."
+        ]
+      },
+      "compatibility_surfaces": [
+        "PrismaUI version",
+        "input focus",
+        "native bridge"
+      ],
+      "notes": "Native backend validates all UI commands."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "mesh-authoring",
+      "intent": [
+        "create or modify Skyrim mesh",
+        "rigging partitions collision shader"
+      ],
+      "preferred_layers": [
+        "mesh",
+        "texture",
+        "physics"
+      ],
+      "selection": {
+        "preferred": [
+          "blender-mcp",
+          "pynifly"
+        ],
+        "alternatives": [
+          "nifskope",
+          "nifblend"
+        ],
+        "avoid_by_default": [
+          "AI mesh direct to release"
+        ],
+        "conditions": [
+          "Geometry work is required."
+        ]
+      },
+      "artifacts": [
+        "blend/source",
+        "NIF",
+        "textures",
+        "TRI/HKX if needed"
+      ],
+      "preemptive_questions": [
+        "Static/skinned?",
+        "Slots?",
+        "Skeleton?",
+        "Collision?",
+        "Morphs?",
+        "Shader?",
+        "LOD?"
+      ],
+      "validation": {
+        "gates": [
+          "G11",
+          "G12",
+          "G13",
+          "G24",
+          "G26",
+          "G28",
+          "G29"
+        ],
+        "runtime_tests": [
+          "in-game first/third-person or world fixture."
+        ],
+        "negative_tests": [
+          "Missing textures bones partitions rejected."
+        ],
+        "human_checks": [
+          "Clipping aesthetics material appearance."
+        ]
+      },
+      "compatibility_surfaces": [
+        "skeleton",
+        "BodySlide",
+        "renderer",
+        "collision"
+      ],
+      "notes": "AI 3D is source geometry only until Skyrim-specific validation passes."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "outfit-body-morph",
+      "intent": [
+        "armor outfit conversion",
+        "BodySlide sliders",
+        "body morph distribution"
+      ],
+      "preferred_layers": [
+        "mesh",
+        "save-persistence"
+      ],
+      "selection": {
+        "preferred": [
+          "bodyslide-outfit-studio",
+          "pynifly"
+        ],
+        "alternatives": [
+          "obody",
+          "synthebd"
+        ],
+        "avoid_by_default": [
+          "editing generated BodySlide output as source"
+        ],
+        "conditions": [
+          "Body/outfit topology and target body family are known."
+        ]
+      },
+      "artifacts": [
+        "OSP/project",
+        "NIF _0/_1",
+        "TRI"
+      ],
+      "preemptive_questions": [
+        "Target body?",
+        "Male/female?",
+        "Slots?",
+        "Preset distribution?",
+        "Physics?"
+      ],
+      "validation": {
+        "gates": [
+          "G11",
+          "G12",
+          "G17",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "naked/equipped morphs; weights 0/100; representative races."
+        ],
+        "negative_tests": [
+          "Preset missing or topology mismatch."
+        ],
+        "human_checks": [
+          "Clipping and weight quality."
+        ]
+      },
+      "compatibility_surfaces": [
+        "skeleton",
+        "body mod",
+        "physics",
+        "OBody"
+      ],
+      "notes": "Generated meshes are downstream of BodySlide project source."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "npc-appearance",
+      "intent": [
+        "choose or synthesize NPC face replacers",
+        "resolve dark-face issues"
+      ],
+      "preferred_layers": [
+        "records",
+        "mesh",
+        "texture"
+      ],
+      "selection": {
+        "preferred": [
+          "easynpc"
+        ],
+        "alternatives": [
+          "synthebd",
+          "creation-kit"
+        ],
+        "avoid_by_default": [
+          "mixing face fields from several sources"
+        ],
+        "conditions": [
+          "Goal is appearance selection/merge."
+        ]
+      },
+      "artifacts": [
+        "NPC patch",
+        "FaceGeom",
+        "FaceTint",
+        "profile"
+      ],
+      "preemptive_questions": [
+        "Appearance source per NPC?",
+        "Gameplay source?",
+        "HPH/hair masters?"
+      ],
+      "validation": {
+        "gates": [
+          "G02",
+          "G05",
+          "G11",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "spawn/photo-test touched NPCs."
+        ],
+        "negative_tests": [
+          "Record/FaceGen source mismatch."
+        ],
+        "human_checks": [
+          "Appearance quality."
+        ]
+      },
+      "compatibility_surfaces": [
+        "NPC overhauls",
+        "FaceGen VFS"
+      ],
+      "notes": "One coherent visual source per NPC unless deliberately regenerated."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "quest-dialogue",
+      "intent": [
+        "quest stages aliases dialogue scenes packages"
+      ],
+      "preferred_layers": [
+        "quest-dialogue",
+        "papyrus"
+      ],
+      "selection": {
+        "preferred": [
+          "creation-kit",
+          "ckpe"
+        ],
+        "alternatives": [
+          "housecarl",
+          "spriggit"
+        ],
+        "avoid_by_default": [
+          "blind raw binary generation for complex editor bookkeeping"
+        ],
+        "conditions": [
+          "Editor-owned relationships or visual graph authoring are material."
+        ]
+      },
+      "artifacts": [
+        "plugin",
+        "PSC/PEX",
+        "voice assets"
+      ],
+      "preemptive_questions": [
+        "Start event?",
+        "Alias fill?",
+        "Stages?",
+        "Scene?",
+        "Voice?",
+        "Mid-quest updates?"
+      ],
+      "validation": {
+        "gates": [
+          "G02",
+          "G07",
+          "G08",
+          "G16",
+          "G21",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "start conditions aliases every stage scene save/load."
+        ],
+        "negative_tests": [
+          "Invalid alias fill and condition paths."
+        ],
+        "human_checks": [
+          "Pacing/dialogue timing."
+        ]
+      },
+      "compatibility_surfaces": [
+        "Story Manager",
+        "voice",
+        "save state"
+      ],
+      "notes": "Generate static data where safe, but post-validate CK bookkeeping."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "voice-dialogue-generation",
+      "intent": [
+        "generate voiced dialogue",
+        "batch AI voice lines"
+      ],
+      "preferred_layers": [
+        "audio",
+        "quest-dialogue"
+      ],
+      "selection": {
+        "preferred": [
+          "vospeaker"
+        ],
+        "alternatives": [
+          "xvasynth",
+          "spooky-automod"
+        ],
+        "avoid_by_default": [
+          "untracked one-off generated audio"
+        ],
+        "conditions": [
+          "Dialogue text and voice identity are final enough to generate."
+        ]
+      },
+      "artifacts": [
+        "source text manifest",
+        "WAV",
+        "XWM",
+        "LIP",
+        "FUZ"
+      ],
+      "preemptive_questions": [
+        "VoiceType?",
+        "Pronunciation?",
+        "AI voice rights?",
+        "Language?",
+        "Final INFO IDs?"
+      ],
+      "validation": {
+        "gates": [
+          "G11",
+          "G16",
+          "G24",
+          "G26",
+          "G28"
+        ],
+        "runtime_tests": [
+          "play representative lines and lip sync."
+        ],
+        "negative_tests": [
+          "Missing/renumbered INFO path must fail."
+        ],
+        "human_checks": [
+          "Pronunciation emotion noise lip quality."
+        ]
+      },
+      "compatibility_surfaces": [
+        "voice path",
+        "plugin identity",
+        "permissions"
+      ],
+      "notes": "Generate voice after IDs stabilize or regenerate on identity changes."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "worldspace-cell-edit",
+      "intent": [
+        "place objects edit cells interiors exteriors landscape"
+      ],
+      "preferred_layers": [
+        "world",
+        "records"
+      ],
+      "selection": {
+        "preferred": [
+          "creation-kit",
+          "ckpe"
+        ],
+        "alternatives": [
+          "housecarl"
+        ],
+        "avoid_by_default": [
+          "coordinate-only UI automation without postvalidation"
+        ],
+        "conditions": [
+          "Spatial authoring is required."
+        ]
+      },
+      "artifacts": [
+        "plugin",
+        "world references",
+        "possibly LAND"
+      ],
+      "preemptive_questions": [
+        "Interior/exterior?",
+        "Persistent refs?",
+        "Location?",
+        "Lighting/water?",
+        "LOD?"
+      ],
+      "validation": {
+        "gates": [
+          "G02",
+          "G05",
+          "G11",
+          "G15",
+          "G17",
+          "G24",
+          "G26"
+        ],
+        "runtime_tests": [
+          "visit cells transitions collision references."
+        ],
+        "negative_tests": [
+          "No stale missing refs or unintended cell-field reverts."
+        ],
+        "human_checks": [
+          "Placement/aesthetics."
+        ]
+      },
+      "compatibility_surfaces": [
+        "CELL",
+        "LAND",
+        "water",
+        "lighting",
+        "LOD"
+      ],
+      "notes": "CK is the spatial authoring authority; xEdit is post-save validator."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "navmesh-edit",
+      "intent": [
+        "change walkable geometry or pathing"
+      ],
+      "preferred_layers": [
+        "navmesh",
+        "world"
+      ],
+      "selection": {
+        "preferred": [
+          "creation-kit",
+          "ckpe"
+        ],
+        "alternatives": [
+          "xedit-inspection"
+        ],
+        "avoid_by_default": [
+          "automatic raw NAVM surgery"
+        ],
+        "conditions": [
+          "World geometry changes require AI traversal update."
+        ]
+      },
+      "artifacts": [
+        "NAVM",
+        "door links"
+      ],
+      "preemptive_questions": [
+        "Which geometry changed?",
+        "Door triangles?",
+        "Preferred paths?",
+        "Existing navmesh ownership?"
+      ],
+      "validation": {
+        "gates": [
+          "G15",
+          "G24",
+          "G26",
+          "G27"
+        ],
+        "runtime_tests": [
+          "NPC traverses paths doors combat follow."
+        ],
+        "negative_tests": [
+          "Deleted NAVM and broken islands."
+        ],
+        "human_checks": [
+          "Edge-case pathing."
+        ]
+      },
+      "compatibility_surfaces": [
+        "NAVM",
+        "doors",
+        "collision"
+      ],
+      "notes": "Keep navmesh mutation supervised until a validated typed CK worker exists."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "lod-world-generation",
+      "intent": [
+        "generate terrain object tree grass distant LOD"
+      ],
+      "preferred_layers": [
+        "lod"
+      ],
+      "selection": {
+        "preferred": [
+          "xlodgen",
+          "texgen",
+          "dyndolod"
+        ],
+        "alternatives": [
+          "parallaxgen"
+        ],
+        "avoid_by_default": [
+          "hand-edit generated LOD"
+        ],
+        "conditions": [
+          "World/assets changed in a way affecting distant representation."
+        ]
+      },
+      "artifacts": [
+        "LOD output mod",
+        "generator manifest"
+      ],
+      "preemptive_questions": [
+        "Which worldspaces?",
+        "Seasons?",
+        "Grass?",
+        "Parallax material inputs?"
+      ],
+      "validation": {
+        "gates": [
+          "G11",
+          "G17",
+          "G18",
+          "G24",
+          "G27"
+        ],
+        "runtime_tests": [
+          "near/far transition representative worldspaces."
+        ],
+        "negative_tests": [
+          "Input hash/load-order change marks output stale."
+        ],
+        "human_checks": [
+          "Visual popping/quality."
+        ]
+      },
+      "compatibility_surfaces": [
+        "worldspace",
+        "asset winners",
+        "seasons"
+      ],
+      "notes": "Hash generator inputs and rebuild downstream only."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "ai-npc-conversation",
+      "intent": [
+        "freeform NPC conversation memory actions LLM behavior"
+      ],
+      "preferred_layers": [
+        "native",
+        "audio",
+        "ui",
+        "save-persistence"
+      ],
+      "selection": {
+        "preferred": [
+          "skyrimnet"
+        ],
+        "alternatives": [
+          "mantella"
+        ],
+        "avoid_by_default": [
+          "custom LLM stack from scratch"
+        ],
+        "conditions": [
+          "Freeform model-driven behavior is explicitly part of the mod design."
+        ]
+      },
+      "artifacts": [
+        "framework configs",
+        "prompts",
+        "actions",
+        "knowledge",
+        "voice"
+      ],
+      "preemptive_questions": [
+        "Model backend?",
+        "Privacy/network?",
+        "Memory retention?",
+        "Action permission?",
+        "Fallback behavior?"
+      ],
+      "validation": {
+        "gates": [
+          "G09",
+          "G11",
+          "G20",
+          "G21",
+          "G24",
+          "G26",
+          "G28",
+          "G29"
+        ],
+        "runtime_tests": [
+          "conversation memory action eligibility offline/provider failure."
+        ],
+        "negative_tests": [
+          "Model must not execute unapproved consequential action."
+        ],
+        "human_checks": [
+          "Dialogue quality/latency."
+        ]
+      },
+      "compatibility_surfaces": [
+        "LLM provider",
+        "TTS/STT",
+        "save/memory"
+      ],
+      "notes": "Use deterministic vanilla quest/dialogue if freeform AI is not a requirement."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "runtime-regression-test",
+      "intent": [
+        "automate live game testing",
+        "drive repeatable scenario"
+      ],
+      "preferred_layers": [
+        "compatibility"
+      ],
+      "selection": {
+        "preferred": [
+          "devbench"
+        ],
+        "alternatives": [
+          "skylink-ai",
+          "autotest"
+        ],
+        "avoid_by_default": [
+          "manual-only reproduction for deterministic scenario"
+        ],
+        "conditions": [
+          "A running-game state can be queried/controlled safely on a fixture."
+        ]
+      },
+      "artifacts": [
+        "runtime test manifest",
+        "recording/scenario",
+        "evidence"
+      ],
+      "preemptive_questions": [
+        "Fixture save?",
+        "Allowed mutations?",
+        "Expected events?",
+        "Performance baseline?"
+      ],
+      "validation": {
+        "gates": [
+          "G19",
+          "G20",
+          "G24",
+          "G25",
+          "G26",
+          "G27",
+          "G29"
+        ],
+        "runtime_tests": [
+          "scenario assertions."
+        ],
+        "negative_tests": [
+          "Health stall/missing event/transport success without state change."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "runtime adapter",
+        "save fixture"
+      ],
+      "notes": "Prefer event waits and read-act-read over sleeps."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "save-migration",
+      "intent": [
+        "update persistent mod state across versions"
+      ],
+      "preferred_layers": [
+        "save-persistence",
+        "papyrus",
+        "native"
+      ],
+      "selection": {
+        "preferred": [
+          "papyrus",
+          "skse-serialization"
+        ],
+        "alternatives": [
+          "storageutil",
+          "jcontainers"
+        ],
+        "avoid_by_default": [
+          "ReSaver auto surgery"
+        ],
+        "conditions": [
+          "Released version already persists state."
+        ]
+      },
+      "artifacts": [
+        "migration code",
+        "schema version",
+        "fixture saves"
+      ],
+      "preemptive_questions": [
+        "Where is state stored?",
+        "Old versions supported?",
+        "Rollback/uninstall promised?"
+      ],
+      "validation": {
+        "gates": [
+          "G08",
+          "G21",
+          "G24",
+          "G26",
+          "G27"
+        ],
+        "runtime_tests": [
+          "upgrade from every supported prior schema; save/load/revert."
+        ],
+        "negative_tests": [
+          "Missing/extra/old fields."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "ESS ChangeForms",
+        "Papyrus",
+        "co-save",
+        "external JSON"
+      ],
+      "notes": "Migration code, not cleanup tools, is the primary solution."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "fomod-release",
+      "intent": [
+        "build installer and release package"
+      ],
+      "preferred_layers": [
+        "installer"
+      ],
+      "selection": {
+        "preferred": [
+          "typed-fomod-generator"
+        ],
+        "alternatives": [
+          "spooky-automod",
+          "skyrimforge-reference"
+        ],
+        "avoid_by_default": [
+          "hand-edited unvalidated XML"
+        ],
+        "conditions": [
+          "Project has options/dependencies needing installer."
+        ]
+      },
+      "artifacts": [
+        "ModuleConfig.xml",
+        "staging tree",
+        "release archive"
+      ],
+      "preemptive_questions": [
+        "Option combinations?",
+        "Dependencies?",
+        "Public redistribution rights?",
+        "AI asset disclosures?"
+      ],
+      "validation": {
+        "gates": [
+          "G22",
+          "G23",
+          "G24",
+          "G28",
+          "G29"
+        ],
+        "runtime_tests": [
+          "simulate supported option combinations."
+        ],
+        "negative_tests": [
+          "Every option path must resolve files/dependencies."
+        ],
+        "human_checks": [
+          "Installer wording."
+        ]
+      },
+      "compatibility_surfaces": [
+        "permissions",
+        "package paths"
+      ],
+      "notes": "Public release adds rights/provenance gate beyond private packaging."
+    },
+    {
+      "schema_version": "skyrim-implementation-pattern-v1",
+      "pattern_id": "crash-debugging",
+      "intent": [
+        "diagnose CTD freeze native crash"
+      ],
+      "preferred_layers": [
+        "compatibility"
+      ],
+      "selection": {
+        "preferred": [
+          "crash-logger",
+          "devbench"
+        ],
+        "alternatives": [
+          "xedit",
+          "papyrus-triage"
+        ],
+        "avoid_by_default": [
+          "blaming nearest plugin name"
+        ],
+        "conditions": [
+          "Failure is runtime crash/freeze."
+        ]
+      },
+      "artifacts": [
+        "crash log",
+        "runtime matrix",
+        "load order",
+        "PDB/symbols",
+        "health evidence"
+      ],
+      "preemptive_questions": [
+        "Crash or hang?",
+        "Repeatable?",
+        "New game?",
+        "Last known good build?"
+      ],
+      "validation": {
+        "gates": [
+          "G19",
+          "G24",
+          "G25",
+          "G27"
+        ],
+        "runtime_tests": [
+          "minimal reproduction and regression scenario."
+        ],
+        "negative_tests": [
+          "Disable suspected layer one at a time."
+        ],
+        "human_checks": []
+      },
+      "compatibility_surfaces": [
+        "native hooks",
+        "assets",
+        "forms",
+        "save"
+      ],
+      "notes": "First causal evidence outranks frequency folklore."
+    }
+  ]
+}
