@@ -160,6 +160,29 @@
       ]
     },
     {
+      "id": "visual_normalization",
+      "prerequisites": [
+        "materialized official reference assets or local game/film renders/frames"
+      ],
+      "action": "Detect/segment minifigures, extract component crops, classify views, compute quality metrics, track video characters, and deduplicate state-equivalent frames.",
+      "tools": [
+        "Grounding DINO candidate detector",
+        "SAM 2.1 segmentation/tracking",
+        "LEGO-specific detector after reviewed dataset exists"
+      ],
+      "success_metrics": [
+        "source asset preserved",
+        "every derived crop links to source",
+        "view confidence stored",
+        "low-confidence samples quarantined"
+      ],
+      "followups": [
+        "build per-sample ReferenceSet",
+        "style feature extraction",
+        "translation-pair population"
+      ]
+    },
+    {
       "id": "translation_pairs",
       "prerequisites": [
         "resolved official LEGO visual samples",
@@ -194,5 +217,6 @@
     "Do not conflate community reconstruction with LEGO-authored artwork."
   ],
   "game_strategy_registry": "data/game-asset-extraction-strategy-registry.json",
-  "web_game_registry": "data/web-game-preservation-source-registry.json"
+  "web_game_registry": "data/web-game-preservation-source-registry.json",
+  "visual_normalization_registry": "data/visual-normalization-tool-registry.json"
 }
