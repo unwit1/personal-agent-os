@@ -1,0 +1,64 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "blender-mcp",
+  "tool": "Blender MCP",
+  "source": "https://github.com/teamipc/blender-mcp",
+  "targets": [
+    "blender"
+  ],
+  "capabilities": [
+    "scene-query",
+    "mesh-edit",
+    "material-edit",
+    "object-transform",
+    "python-execution",
+    "render-preview",
+    "asset-import",
+    "asset-export",
+    "ai-3d-source-generation"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "MCP client/server bridge to Blender",
+    "requires_running_game": false
+  },
+  "coverage": {
+    "description": "General Blender control plane for LLM-assisted 3D work.",
+    "known_gaps": [
+      "not Skyrim-format aware by itself",
+      "different Blender MCP implementations expose different typed tool surfaces"
+    ],
+    "denominator_probe": "Enumerate MCP tools and Blender scene objects before/after operation."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "arbitrary external Python/network operations where enabled"
+    ],
+    "sandbox_or_scope": "Work on copied/source Blender assets; export to staging."
+  },
+  "verification": {
+    "independent_validators": [
+      "pynifly",
+      "nifskope",
+      "headless-render",
+      "game-visual-test"
+    ],
+    "version_probe": "MCP package/repo + Blender version",
+    "output_readback": "Re-query scene and render before export."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Prefer typed scene operations; reserve arbitrary Python for missing capabilities."
+  },
+  "evidence": {
+    "source_url": "https://github.com/teamipc/blender-mcp",
+    "verified_date": "2026-09-24",
+    "notes": "Candidate generic 3D AI plane; Skyrim release output must pass NIF-specific pipeline."
+  }
+}
