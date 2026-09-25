@@ -41,9 +41,32 @@ def main():
     validated=0; registries=0
     for path in paths:
         data=json.loads(path.read_text(encoding="utf-8"))
-        # core-adapters.json is an aggregate execution registry, not one adapter manifest.
+        # Aggregate execution registry: validate runnable entry basics too.
         if isinstance(data,dict) and isinstance(data.get("adapters"),list):
             registries+=1
+            seen=set()
+            for idx,entry in enumerate(data.get("adapters",[])):
+                label=f"{path}: adapters[{idx}]"
+                if not isinstance(entry,dict):
+                    errors.append(f"{label}: entry must be object"); continue
+                aid=entry.get("adapter_id")
+                if not isinstance(aid,str) or not ID_RE.fullmatch(aid):
+                    errors.append(f"{label}: adapter_id missing or invalid")
+                elif aid in seen:
+                    errors.append(f"{label}: duplicate adapter_id {aid}")
+                else:
+                    seen.add(aid)
+                if not entry.get("tool"):
+                    errors.append(f"{label}: tool missing")
+                caps=entry.get("capabilities")
+                if not isinstance(caps,list) or not caps or len(caps)!=len(set(caps)):
+                    errors.append(f"{label}: capabilities must be a non-empty unique list")
+                inv=entry.get("invocation")
+                if not isinstance(inv,dict) or inv.get("mode") not in {"cli","hybrid"} or not inv.get("executable"):
+                    errors.append(f"{label}: runnable invocation needs cli/hybrid mode and executable")
+                ev=entry.get("evidence")
+                if not isinstance(ev,dict) or not ev.get("source_url") or not ev.get("verified_date"):
+                    errors.append(f"{label}: evidence.source_url and verified_date are required")
             continue
         validated+=1
         for e in validate_manifest(path,data):
