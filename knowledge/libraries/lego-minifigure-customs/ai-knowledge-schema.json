@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.2",
+  "schema_version": "0.3",
   "generation_request": {
     "target_type": [
       "concept_render",
@@ -47,7 +47,21 @@
       "reference_fidelity",
       "official_lego_likeness",
       "production_feasibility"
-    ]
+    ],
+    "control_group": {
+      "enabled": true,
+      "protocol": "chatgpt-image-control-group",
+      "prompt_schema_version": "0.1",
+      "experiment_id": null,
+      "run_id": null,
+      "reference_roles": [],
+      "p0_features": [],
+      "p1_features": [],
+      "allowed_changes": [],
+      "forbidden_changes": [],
+      "mask_translation_route": null,
+      "record_evaluation": true
+    }
   },
   "character_translation": {
     "source_decomposition": {
@@ -86,7 +100,9 @@
     "profile": "",
     "control_samples": [],
     "critical_failures": [],
-    "reviewer_notes": []
+    "reviewer_notes": [],
+    "failure_labels": [],
+    "prompt_revision_hypothesis": null
   },
   "digital_twin": {
     "part_id": "",
