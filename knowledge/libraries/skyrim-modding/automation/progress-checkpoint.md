@@ -12,14 +12,14 @@ The broad knowledge-ingestion phase is already mature. Resume from the executabl
 ## Current measured repository state
 
 - Skyrim terminology/reference modules: **165**
-- Tool/framework capability entries: **57**
+- Tool/framework capability entries: **58**
 - Implementation patterns: **46**
 - Analyzer rules: **24**
 - Validation gates: **30** (G00–G29)
-- Skyrim-specific JSON Schemas: **42**
-- Mod Factory Python tools: **43**
-- Mod Factory unit-test modules: **37**
-- Dedicated adapter manifests: **54** plus capability-only/manual/framework entries
+- Skyrim-specific JSON Schemas: **43**
+- Mod Factory Python tools: **44**
+- Mod Factory unit-test modules: **38**
+- Dedicated adapter manifests: **55** plus capability-only/manual/framework entries
 
 These are repository counts, not estimates of ecosystem completeness.
 
@@ -106,7 +106,7 @@ Small frequent commits now exist for:
 35. project-plugin xDump semantic export wrapper + adapter;
 36. typed FLM intent/schema coverage, deterministic *_FLM.ini renderer, tests and adapter registration;
 37. typed OAR root/submod author-config baseline, safe config-tree renderer, tests and adapter registration;
-38. deterministic DDS structural validator with DX10/DXGI identity, mip policy, block-payload truncation checks, LE BC7 policy, tests and adapter registration;\n39. typed PresentMon frame-summary schema, process-scoped capture/summarizer, executable adapter, and MO2+DevBench composite lifecycle integration feeding G20.
+38. deterministic DDS structural validator with DX10/DXGI identity, mip policy, block-payload truncation checks, LE BC7 policy, tests and adapter registration;\n39. typed PresentMon frame-summary schema, process-scoped capture/summarizer, executable adapter, and MO2+DevBench composite lifecycle integration feeding G20;\n40. typed FaceGen manifest plus defining-plugin/local-FormID path, NIF+DDS pair, fingerprint and orphan-coverage validator/tests/adapter.
 
 ## Current resume point
 
@@ -203,7 +203,7 @@ Complete typed renderers/generators for:
 ### P1 — Asset validators
 
 Add deterministic validation for:
-- FaceGen NPC_ ↔ FaceGeom/FaceTint fingerprint coherence;
+- ✅ FaceGen defining-plugin/local-FormID path, NIF+DDS pair, optional fingerprint and complete-manifest orphan baseline; semantic NPC_↔NIF face-field comparison remains;
 - NIF blocks/shaders/texture closure;
 - TRI vertex/topology consistency;
 - skin partitions/weights/skeleton bones;
