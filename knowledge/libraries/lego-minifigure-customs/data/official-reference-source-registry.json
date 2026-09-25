@@ -13,10 +13,25 @@
         "names",
         "categories",
         "inventories",
-        "images"
+        "images",
+        "authenticated_api_item_images",
+        "authenticated_api_subsets",
+        "color_specific_part_images"
       ],
       "observed_count": 19250,
-      "notes": "Catalog records, not unique characters."
+      "notes": "Catalog records, not unique characters.",
+      "api": {
+        "url": "https://www.bricklink.com/v3/api.page",
+        "auth": "OAuth 1.0-style credentials; registered client IP required",
+        "useful_methods": [
+          "Get Item",
+          "Get Item Image",
+          "Get Subsets",
+          "Get Supersets",
+          "Get Known Colors"
+        ],
+        "local_adapter": "tools/knowledge/enrich_bricklink_minifigure_references.py"
+      }
     },
     {
       "id": "brickset_minifigs",
