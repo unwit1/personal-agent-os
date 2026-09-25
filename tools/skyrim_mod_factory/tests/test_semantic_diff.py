@@ -96,5 +96,51 @@ class SemanticDiffTests(unittest.TestCase):
         self.assertTrue(result["comparability_reasons"])
 
 
+    def test_declared_coverage_ignores_producer_private_evidence(self):
+        before=self.semantic_doc()
+        after=self.semantic_doc()
+        before["provenance"]["coverage"]={"semantic_fields":["editor_id"]}
+        after["provenance"]["coverage"]={"semantic_fields":["editor_id"]}
+        before["records"][0]["editor_id"]="SameEDID"
+        after["records"][0]["editor_id"]="SameEDID"
+        before["records"][0]["fields"]={"_xdump":{"raw":"different-a"}}
+        after["records"][0]["fields"]={"_mutagen":{"raw":"different-b"}}
+        result=MOD.compare(before,after)
+        self.assertEqual(result["verdict"],"equivalent")
+        self.assertEqual(
+            result["coverage"]["compared_fields"],
+            ["editor_id"],
+        )
+
+    def test_declared_coverage_detects_shared_semantic_field_change(self):
+        before=self.semantic_doc()
+        after=self.semantic_doc()
+        before["provenance"]["coverage"]={"semantic_fields":["editor_id"]}
+        after["provenance"]["coverage"]={"semantic_fields":["editor_id"]}
+        before["records"][0]["editor_id"]="BeforeEDID"
+        after["records"][0]["editor_id"]="AfterEDID"
+        result=MOD.compare(before,after)
+        self.assertEqual(result["verdict"],"different")
+        self.assertEqual(result["summary"]["changed"],1)
+
+    def test_declared_coverage_does_not_compare_one_sided_field(self):
+        before=self.semantic_doc()
+        after=self.semantic_doc()
+        before["provenance"]["coverage"]={
+            "semantic_fields":["editor_id","asset_paths"]
+        }
+        after["provenance"]["coverage"]={"semantic_fields":["editor_id"]}
+        before["records"][0]["editor_id"]="SameEDID"
+        after["records"][0]["editor_id"]="SameEDID"
+        before["records"][0]["asset_paths"]=["a.nif"]
+        after["records"][0]["asset_paths"]=["b.nif"]
+        result=MOD.compare(before,after)
+        self.assertEqual(result["verdict"],"equivalent")
+        self.assertEqual(
+            result["coverage"]["before_only_fields"],
+            ["asset_paths"],
+        )
+
+
 if __name__=="__main__":
     unittest.main()
