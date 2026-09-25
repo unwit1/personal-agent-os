@@ -27,5 +27,7 @@ jobs:
           python-version: "3.12"
       - name: Compile Mod Factory Python
         run: python -m compileall -q tools/skyrim_mod_factory tools/knowledge
+      - name: Validate adapter manifests
+        run: python tools/skyrim_mod_factory/validate_adapters.py knowledge/libraries/skyrim-modding/automation/adapters
       - name: Run standard-library unit tests
         run: python -m unittest discover -s tools/skyrim_mod_factory/tests -p "test_*.py"
