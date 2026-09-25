@@ -59,6 +59,11 @@
       "action": "Enumerate all LEGO official game titles from LEGO/developer sources, classify whether standard minifigure-form characters are present, and assign extraction strategy.",
       "success_metrics": [
         "every discovered title has classification and verification status"
+      ],
+      "followups": [
+        "Assign each title to a known extraction family or unresolved family.",
+        "Prefer original texture/model extraction over screenshots.",
+        "Attach title/build/tool hashes to all local assets."
       ]
     },
     {
@@ -137,5 +142,6 @@
     "Use community tools only on locally obtained files and record tool/version provenance.",
     "Preserve LDraw contributor license/attribution metadata.",
     "Do not conflate community reconstruction with LEGO-authored artwork."
-  ]
+  ],
+  "game_strategy_registry": "data/game-asset-extraction-strategy-registry.json"
 }
