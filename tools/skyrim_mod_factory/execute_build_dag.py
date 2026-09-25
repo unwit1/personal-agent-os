@@ -413,7 +413,8 @@ def main()->None:
     log_dir.mkdir(parents=True,exist_ok=True)
     report_path=args.report or (args.run_dir/"build-report.json")
 
-    capability_map=load_capability_map(args.capabilities)\n    gate_registry=load_json(args.gate_registry)
+    capability_map=load_capability_map(args.capabilities)
+    gate_registry=load_json(args.gate_registry)
     ordered=topological_order(dag)
     policy=context.get("policy") or {}
     stop_on_failure=policy.get("stop_on_failure",True)
