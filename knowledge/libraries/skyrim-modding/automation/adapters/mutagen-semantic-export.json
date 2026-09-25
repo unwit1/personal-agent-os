@@ -1,0 +1,94 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "mutagen-semantic-export",
+  "tool": "Mutagen.Bethesda semantic exporter",
+  "tool_version": "0.54.4",
+  "source": "https://github.com/Mutagen-Modding/Mutagen",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "typed-plugin-read",
+    "semantic-export",
+    "canonical-formkey",
+    "asset-link-enumeration",
+    "record-signature-enumeration"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "{python_executable}",
+    "arguments_template": [
+      "{repo_root}/tools/skyrim_mod_factory/run_mutagen_semantic_export.py",
+      "{plugin_path}",
+      "--output",
+      "{semantic_output}",
+      "--release",
+      "{skyrim_release}",
+      "--execute"
+    ],
+    "transport": "Python harness -> pinned .NET Mutagen.Bethesda 0.54.4 console exporter",
+    "requires_running_game": false,
+    "timeout_seconds": 900
+  },
+  "inputs": [
+    "plugin file"
+  ],
+  "outputs": [
+    "skyrim-semantic-plugin-v1 JSON"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [],
+  "human_checks": [
+    "record-specific semantic fields not yet emitted by the v1 producer remain outside its declared coverage"
+  ],
+  "coverage": {
+    "description": "Read-only Mutagen oracle that emits canonical record identity, record signature, EditorID and listed asset links for differential validation.",
+    "known_gaps": [
+      "record-specific typed fields are not yet normalized",
+      "VMAD is not yet emitted",
+      "typed read success does not prove xEdit/game/runtime correctness"
+    ],
+    "denominator_probe": "records emitted versus Mutagen EnumerateMajorRecords count"
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Reads one plugin and writes only a new JSON evidence artifact."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "xdump"
+    ],
+    "version_probe": "Pinned NuGet package 0.54.4 plus emitted assembly version",
+    "output_readback": "Python harness reopens JSON, validates skyrim-semantic-plugin-v1 and requires canonical Mutagen FormKey provenance."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Use normalized JSON and semantic diff summaries rather than feeding binary/plugin dumps into model context."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Mutagen-Modding/Mutagen",
+    "verified_date": "2026-09-25",
+    "notes": "Mutagen source verifies canonical FormKey string format, generic major-record enumeration, AssociatedRecordTypesAttribute signatures and listed asset-link enumeration."
+  }
+}
