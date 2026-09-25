@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse, json, re
 from pathlib import Path
 
-DEFAULT_GATES=["G00","G01","G02","G03","G05","G11","G18","G19","G23"]
+DEFAULT_GATES=["G00","G01","G02","G03","G05","G11","G18","G19","G23","G24","G25","G26","G27","G29"]
 
 def slugify(value:str)->str:
     s=re.sub(r"[^a-z0-9._-]+","-",value.lower()).strip("-")
@@ -38,8 +38,8 @@ def main():
     layer_gates={
       "papyrus":["G07","G08"],
       "native":["G09","G10"],
-      "mesh":["G12"],
-      "texture":["G13"],
+      "mesh":["G12","G28"],
+      "texture":["G13","G28"],
       "animation":["G14"],
       "behavior":["G14"],
       "world":["G15"],
@@ -76,6 +76,7 @@ def main():
       },
       "layers":list(dict.fromkeys(args.layer)),
       "frameworks":[],
+      "features":[],
       "dependency_lock":"dependencies.lock.json",
       "inputs":[],
       "outputs":outputs or [{"path":"dist/.keep","type":"other","generated":True,"generator":"project"}],
@@ -85,6 +86,18 @@ def main():
         "uses_external_state":False,
         "supports_upgrade":False,
         "supports_uninstall":False
+      },
+      "automation":{
+        "preferred_adapters":["housecarl","xedit","spriggit","devbench"],
+        "static_data_plane":"housecarl",
+        "schema_oracles":["xedit","mutagen"],
+        "runtime_test_plane":"devbench",
+        "asset_ai_plane":"blender-mcp",
+        "voice_ai_plane":"vospeaker",
+        "require_dry_run_for_mutation":True,
+        "require_readback":True,
+        "require_independent_validation":True,
+        "allow_in_place_third_party_edits":False
       },
       "compatibility":{
         "records_touched":[],
@@ -97,7 +110,10 @@ def main():
         "required_gates":gates,
         "warnings_as_errors":False,
         "runtime_tests":["new-game smoke test"],
-        "human_checks":[]
+        "human_checks":[],
+        "runtime_test_manifests":[],
+        "minimum_schema_confidence":"C",
+        "require_validator_mutation_tests":True
       },
       "release":{
         "license":"",
