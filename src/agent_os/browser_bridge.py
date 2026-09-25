@@ -237,6 +237,70 @@ class BridgeStore:
             result.append(item)
         return result
 
+    def find_discord_author_matches(
+        self,
+        aliases: list[str],
+        *,
+        limit: int = 20,
+        scan_limit: int = 50000,
+    ) -> list[dict[str, Any]]:
+        """Find Discord authors whose rendered-message names match creator aliases.
+
+        This is deliberately evidence-only. Matching Discord display names are
+        surfaced as identity candidates rather than silently promoted into a
+        confirmed cross-provider account.
+        """
+        wanted = {
+            re.sub(r"[^a-z0-9]+", "", str(alias or "").casefold().removeprefix("@"))
+            for alias in aliases
+            if str(alias or "").strip()
+        }
+        wanted.discard("")
+        if not wanted:
+            return []
+
+        scan_limit = max(1, min(int(scan_limit), 250000))
+        with self._connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT occurred_at, received_at, payload_json
+                FROM browser_events
+                WHERE source='discord'
+                ORDER BY received_at DESC
+                LIMIT ?
+                """,
+                (scan_limit,),
+            ).fetchall()
+
+        grouped: dict[str, dict[str, Any]] = {}
+        for row in rows:
+            try:
+                payload = json.loads(row["payload_json"])
+            except (TypeError, ValueError):
+                continue
+            author = str(payload.get("author") or "").strip()
+            normalized = re.sub(r"[^a-z0-9]+", "", author.casefold().removeprefix("@"))
+            if not normalized or normalized not in wanted:
+                continue
+            current = grouped.setdefault(normalized, {
+                "author": author,
+                "message_count": 0,
+                "last_seen": None,
+                "sample_message_url": None,
+                "confidence": "candidate",
+            })
+            current["message_count"] += 1
+            seen = payload.get("timestamp") or row["occurred_at"] or row["received_at"]
+            if seen and (not current["last_seen"] or str(seen) > str(current["last_seen"])):
+                current["last_seen"] = seen
+            if not current["sample_message_url"] and payload.get("message_url"):
+                current["sample_message_url"] = payload.get("message_url")
+
+        return sorted(
+            grouped.values(),
+            key=lambda item: (-int(item.get("message_count") or 0), str(item.get("author") or "").casefold()),
+        )[: max(1, min(int(limit), 100))]
+
     def mark_ingested(self, event_ids: list[str]) -> int:
         ids = [str(value) for value in dict.fromkeys(event_ids) if str(value)]
         if not ids:
