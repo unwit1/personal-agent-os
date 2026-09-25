@@ -924,6 +924,26 @@
       ],
       "maturity": "executable-wrapper",
       "notes": "Read-only pinned Mutagen 0.54.4 semantic oracle; output is schema-validated by Python harness."
+    },
+    {
+      "adapter_id": "xdump-semantic-export",
+      "tool": "xEdit xDump semantic exporter",
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xdump-semantic-export.json",
+      "category": "plugin-schema-oracle",
+      "targets": [
+        "skyrim-le",
+        "skyrim-se-ae",
+        "vr-1.4.15"
+      ],
+      "capabilities": [
+        "record-dump",
+        "semantic-export",
+        "canonical-formkey",
+        "asset-path-extraction",
+        "vmad-evidence"
+      ],
+      "maturity": "executable-wrapper",
+      "notes": "Read-only xDump wrapper; canonical comparison requires a validated load-order FormID map."
     }
   ]
 }
