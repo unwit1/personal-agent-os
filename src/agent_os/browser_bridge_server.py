@@ -12,7 +12,10 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from .browser_bridge import BridgeStore
+from .creator_profiles import follow_status as creator_follow_status
+from .creator_profiles import upsert_creator_follow
 from .paths import INDEX_DIR
+from .watching import add_browser_follow
 
 
 DEFAULT_HOST = "127.0.0.1"
@@ -98,6 +101,11 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
                     if not isinstance(events, list):
                         raise ValueError("events must be a list")
                     result = store.ingest(events)
+                elif path == "/api/v1/browser/follow/status":
+                    result = {
+                        "schema": "agent-os/follow-status/v1",
+                        **creator_follow_status(body),
+                    }
                 elif path == "/api/v1/browser/capture":
                     capture = body
                     source_key = str(
@@ -132,6 +140,38 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
                         result["status"] = "updated"
                     else:
                         result["status"] = "stored"
+
+                    metadata = dict(capture.get("metadata") or {})
+                    if str(capture.get("intent") or "") == "follow":
+                        watch = add_browser_follow(capture)
+                        result["follow"] = {
+                            "watch_id": watch.get("watch_id"),
+                            "target_type": watch.get("kind"),
+                        }
+
+                        target_type = str(
+                            metadata.get("follow_target_type")
+                            or capture.get("content_type")
+                            or ""
+                        )
+                        if target_type == "creator":
+                            creator = upsert_creator_follow(
+                                capture,
+                                watch_id=watch.get("watch_id"),
+                            )
+                            aliases = [
+                                str(alias.get("value") or "")
+                                for alias in creator.get("aliases") or []
+                                if str(alias.get("value") or "").strip()
+                            ]
+                            discord_matches = store.find_discord_author_matches(aliases)
+                            if discord_matches:
+                                creator = upsert_creator_follow(
+                                    capture,
+                                    watch_id=watch.get("watch_id"),
+                                    discord_matches=discord_matches,
+                                )
+                            result["follow"]["creator"] = creator
                 else:
                     self._send(HTTPStatus.NOT_FOUND, {"error": "not found"})
                     return
@@ -170,6 +210,7 @@ def serve(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> int:
         "service": "agent-os-browser-bridge",
         "endpoint": f"http://{host}:{actual}/api/v1/browser/batch",
         "capture_endpoint": f"http://{host}:{actual}/api/v1/browser/capture",
+        "follow_status_endpoint": f"http://{host}:{actual}/api/v1/browser/follow/status",
         "token": token,
         "database": str(store.path),
     }), flush=True)
