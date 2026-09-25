@@ -278,6 +278,128 @@ def copy_changed_evidence(delta:list[dict[str,Any]],session_dir:Path)->list[dict
         out.append(item)
     return out
 
+def evaluate_g19(
+    config:dict[str,Any],
+    log_delta:list[dict[str,Any]],
+    crash_delta:list[dict[str,Any]],
+)->dict[str,Any]:
+    cfg=config.get("evidence") or {}
+    evidence=[]
+    issues=[]
+    crash_changes=[
+        row for row in crash_delta
+        if row.get("change") in {"added","changed"}
+    ]
+    if crash_changes:
+        return {
+            "gate":"G19",
+            "status":"fail",
+            "evidence":[
+                f'new/changed crash artifact: {row["path"]}'
+                for row in crash_changes
+            ],
+            "issues":["runtime session produced new or changed crash evidence"],
+        }
+
+    removed=[
+        row for row in (list(log_delta)+list(crash_delta))
+        if row.get("change")=="removed"
+    ]
+    if removed:
+        return {
+            "gate":"G19",
+            "status":"needs-review",
+            "evidence":[f'removed evidence source: {row["path"]}' for row in removed],
+            "issues":["configured runtime evidence disappeared during the session"],
+        }
+
+    raw_patterns=list(cfg.get("forbidden_log_patterns") or [])
+    compiled=[]
+    for pattern in raw_patterns:
+        try:
+            compiled.append((pattern,re.compile(pattern,re.I)))
+        except re.error as exc:
+            issues.append(f"invalid forbidden_log_pattern {pattern!r}: {exc}")
+    if issues:
+        return {
+            "gate":"G19",
+            "status":"needs-review",
+            "evidence":[],
+            "issues":issues,
+        }
+
+    hits=[]
+    for row in log_delta:
+        captured=row.get("captured_path")
+        if not captured or not Path(captured).is_file():
+            continue
+        try:
+            text=Path(captured).read_text(encoding="utf-8",errors="replace")
+        except OSError as exc:
+            issues.append(f"could not read captured log {captured}: {exc}")
+            continue
+        for pattern,rx in compiled:
+            if rx.search(text):
+                hits.append((row["path"],pattern))
+    if hits:
+        return {
+            "gate":"G19",
+            "status":"fail",
+            "evidence":[
+                f"forbidden runtime log pattern {pattern!r} matched {path}"
+                for path,pattern in hits
+            ],
+            "issues":["runtime log cleanliness check found forbidden signatures"],
+        }
+    if issues:
+        return {
+            "gate":"G19",
+            "status":"needs-review",
+            "evidence":[],
+            "issues":issues,
+        }
+
+    configured_sources=bool(
+        cfg.get("log_paths") or cfg.get("crash_paths")
+    )
+    if not configured_sources:
+        return {
+            "gate":"G19",
+            "status":"needs-review",
+            "evidence":[],
+            "issues":["no runtime log/crash sources are configured"],
+        }
+    if cfg.get("log_paths") and not raw_patterns:
+        return {
+            "gate":"G19",
+            "status":"needs-review",
+            "evidence":[],
+            "issues":[
+                "runtime log sources are configured but no forbidden log patterns "
+                "define what should fail"
+            ],
+        }
+    if not cfg.get("complete_for_g19",False):
+        return {
+            "gate":"G19",
+            "status":"needs-review",
+            "evidence":[
+                "configured sources had no new crash artifact or forbidden log match"
+            ],
+            "issues":[
+                "runtime evidence configuration is not declared complete_for_g19"
+            ],
+        }
+    evidence.append("no configured crash artifact was added or changed")
+    if cfg.get("log_paths"):
+        evidence.append("no forbidden pattern matched configured runtime log deltas")
+    return {
+        "gate":"G19",
+        "status":"pass",
+        "evidence":evidence,
+        "issues":[],
+    }
+
 def default_gate_rows(test:dict[str,Any])->list[dict[str,Any]]:
     performance_required=bool(
         (test.get("evidence") or {}).get("performance")
@@ -554,6 +676,13 @@ def run_session(
         x for x in captured
         if x not in result["evidence"]["crash_delta"]
     ]
+    gates={row["gate"]:row for row in result["gates"]}
+    gates["G19"]=evaluate_g19(
+        config,
+        result["evidence"]["log_delta"],
+        result["evidence"]["crash_delta"],
+    )
+    result["gates"]=[gates[g] for g in ("G19","G20","G21","G26")]
 
     result["finished_at"]=now()
     if timed_out:
