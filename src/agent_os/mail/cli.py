@@ -175,7 +175,7 @@ def dispatch(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
         from . import attachments
         from .attachment_analysis import analyze_recovered
 
-        recovery = attachments.export_missing_live(args.scope, root=Path(args.folder) if args.folder else None) if args.recover else None
+        recovery = attachments.export_missing_live(args.scope, root=Path(args.folder) if args.folder else None, reconcile_occurrences=True) if args.recover else None
         result = analyze_recovered(args.scope, root=Path(args.folder) if args.folder else None, ocr=args.ocr, limit=args.limit)
         if recovery is not None:
             result["recovery"] = recovery
