@@ -1,0 +1,116 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "pyro",
+  "tool": "Pyro",
+  "source": "https://github.com/fireundubh/pyro",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "papyrus-project-build",
+    "papyrus-incremental-build",
+    "papyrus-parallel-compile",
+    "papyruscompiler-orchestration",
+    "bsa-package",
+    "distribution-zip",
+    "project-resolve"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "python",
+    "arguments_template": [
+      "-m",
+      "pyro",
+      "{project}",
+      "--game-type",
+      "sse",
+      "--compiler-path",
+      "{compiler}",
+      "--output-path",
+      "{output}",
+      "--package-path",
+      "{package_output}",
+      "--zip-output-path",
+      "{zip_output}"
+    ],
+    "transport": "Python CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "Pyro project XML",
+    "PSC sources",
+    "PapyrusCompiler.exe",
+    "Papyrus import/source roots",
+    "optional BSArch"
+  ],
+  "outputs": [
+    "PEX files",
+    "optional BSA package",
+    "optional distribution ZIP",
+    "build diagnostics"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "forbidden_log_patterns": [
+      "FATAL",
+      "Traceback"
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "auto_fixable_issue_codes": [
+    "STALE_PEX",
+    "STALE_PAPYRUS_BUILD",
+    "MISSING_DERIVED_PACKAGE"
+  ],
+  "destructive_actions": [
+    "writing build/package output over manually authored release artifacts"
+  ],
+  "human_checks": [],
+  "coverage": {
+    "description": "Project-level incremental/parallel Papyrus build orchestration using the official compiler plus packaging/distribution support.",
+    "known_gaps": [
+      "Pyro orchestrates PapyrusCompiler; successful build does not prove runtime native providers exist",
+      "project/package behavior depends on project XML and external compiler/archive tools",
+      "run from a pinned local Pyro environment rather than assuming the module is globally installed"
+    ],
+    "denominator_probe": "PSC inputs discovered vs compiled/skipped/failed PEX outputs; package source files vs archived/extracted files."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Compile/package into isolated build directories; canonical PSC remains source of truth."
+  },
+  "verification": {
+    "independent_validators": [
+      "official-papyruscompiler-direct",
+      "champollion",
+      "pex-header-inspection",
+      "archive-extract-hash"
+    ],
+    "version_probe": "Pyro source commit/release + project schema",
+    "output_readback": "Inspect/decompile PEX; list/extract generated archive and hash-compare staged payload."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Useful build orchestrator after the factory has already resolved provider roots and project semantics."
+  },
+  "evidence": {
+    "source_url": "https://github.com/fireundubh/pyro",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream describes Pyro as a parallelized incremental TES5/SSE/FO4 build system. Current __main__.py exposes project path, incremental/parallel controls, compiler/output paths, BSA package and ZIP output options."
+  }
+}
