@@ -197,6 +197,18 @@
             "type": "string"
           },
           "uniqueItems": true
+        },
+        "forbidden_log_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "complete_for_g19": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
