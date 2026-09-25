@@ -399,6 +399,7 @@ def run_observer(
     health_wait_seconds:float=60.0,
     request_timeout_seconds:float=30.0,
     evidence_dir:Path|None=None,
+    initial_health:dict[str,Any]|None=None,
 )->dict[str,Any]:
     validate(test,TEST_SCHEMA,"runtime test")
     validate(session,SESSION_SCHEMA,"runtime session")
@@ -407,11 +408,13 @@ def run_observer(
     if not session["launch"]["attempted"] or not session.get("started_at"):
         raise ValueError("devbench observer requires an already-launched runtime session")
 
-    before=wait_for_health(
+    before=initial_health or wait_for_health(
         base_url,
         wait_seconds=health_wait_seconds,
         request_timeout_seconds=min(request_timeout_seconds,5.0),
     )
+    if before.get("ok") is not True:
+        raise ValueError("initial DevBench health must report ok=true")
     artifacts=[]
     artifact=write_artifact(
         evidence_dir,"devbench-health-before.json",before,"devbench-health"
