@@ -1,0 +1,41 @@
+{
+  "schema": "personal-agent-os/meta-improvement-research-manifest/v1",
+  "research_id": "MIR-2026-09-24-FOUNDATION-01",
+  "title": "Meta-Improvement Engine foundational research pass",
+  "status": "active",
+  "started_at": "2026-09-24T20:38:00-04:00",
+  "branch": "research/meta-improvement-foundation-20260924",
+  "objective": "Establish the state of the art, failure landscape, architecture, evaluation model, security model, knowledge model, gap analysis, backlog, open questions, and next research agenda for a controlled recursive-improvement control plane.",
+  "canonical_scope": "projects/personal-agent-os/research/meta-improvement",
+  "epistemic_policy": {
+    "allowed": [
+      "official_documentation",
+      "standard",
+      "peer_reviewed_paper",
+      "preprint",
+      "maintainer_engineering_report",
+      "measured_repo_evidence",
+      "community_report",
+      "inference",
+      "hypothesis"
+    ],
+    "require_provenance": true,
+    "distinguish_claim_from_inference": true,
+    "preserve_disagreement": true,
+    "staleness_review": true
+  },
+  "outputs": [
+    "README.md",
+    "research-manifest.json",
+    "source-index.md",
+    "foundational-pass-2026-09-24.md",
+    "improvement-backlog.json",
+    "open-questions.json"
+  ],
+  "next_actions": [
+    "Complete primary-source pass on agent architecture, durable execution, evaluation, retrieval, routing, security, proactivity, authorization, provenance, and simplification.",
+    "Map findings to current repository primitives and identify extend-vs-replace decisions.",
+    "Version the initial backlog and unresolved-question registry.",
+    "Run a second pass focused on evaluation science, authorization/data-flow security, proactive HCI, and complexity reduction."
+  ]
+}
