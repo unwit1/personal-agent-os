@@ -1,0 +1,57 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "nifblend",
+  "tool": "NifBlend",
+  "source": "https://github.com/Tzeentchnet/NifBlend",
+  "targets": [
+    "skyrim-se-ae",
+    "blender-5"
+  ],
+  "capabilities": [
+    "nif-import",
+    "nif-export",
+    "kf-import-export",
+    "blender-extension",
+    "schema-derived-nif"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "Blender extension/Python",
+    "requires_running_game": false
+  },
+  "coverage": {
+    "description": "New fast Blender NIF/KF tooling with SSE support.",
+    "known_gaps": [
+      "pre-alpha",
+      "export coverage narrower than import",
+      "upstream explicitly states round-trip is not proof of game-ready output"
+    ],
+    "denominator_probe": "Report parsed/exported block types and unsupported features."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_readback": true,
+    "requires_confirmation_for": [],
+    "sandbox_or_scope": "Experimental cross-validator only until game validation matures."
+  },
+  "verification": {
+    "independent_validators": [
+      "pynifly",
+      "nifskope",
+      "game-test"
+    ],
+    "version_probe": "repo commit/version",
+    "output_readback": "Re-import plus independent parser comparison."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Useful as independent implementation diversity for NIF triangulation."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Tzeentchnet/NifBlend",
+    "verified_date": "2026-09-24",
+    "notes": "GPL-3.0-or-later; upstream explicitly labels project pre-alpha."
+  }
+}
