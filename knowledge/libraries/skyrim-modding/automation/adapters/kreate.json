@@ -1,0 +1,71 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "kreate",
+  "tool": "KreatE",
+  "tool_version": "1.5.1",
+  "source": "https://www.nexusmods.com/skyrimspecialedition/mods/83757",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "live-weather-edit",
+    "live-imagespace-edit",
+    "live-volumetric-lighting-edit",
+    "live-cell-lighting-edit",
+    "live-lighting-template-edit",
+    "preset-save",
+    "weather-time-control"
+  ],
+  "invocation": {
+    "mode": "gui-supervised",
+    "transport": "in-game SKSE ImGui editor",
+    "requires_running_game": true
+  },
+  "inputs": [
+    "loaded weather/lighting records",
+    "KreatE presets"
+  ],
+  "outputs": [
+    "non-destructive presets",
+    "runtime visual state"
+  ],
+  "logs": [
+    "SKSE/KreatE log"
+  ],
+  "coverage": {
+    "description": "Non-destructive in-game visual editor for weather, ImageSpace, volumetric lighting, cell lighting and Lighting Templates.",
+    "known_gaps": [
+      "interactive visual tuning remains inherently supervised",
+      "preset export to static plugin requires separate xEdit conversion/validation",
+      "console should not be used concurrently while KreatE GUI owns input"
+    ],
+    "denominator_probe": "managed records/preset entries vs active/applied records and saved preset values."
+  },
+  "safety": {
+    "mutation_default": "non-destructive-runtime-preset",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Development profile; preserve source weather/lighting plugin and export static changes separately."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "runtime-screenshot",
+      "renderdoc"
+    ],
+    "version_probe": "KreatE SKSE log/version",
+    "output_readback": "Reopen preset, compare form-symbol values, export and validate static patch if release uses plugin values."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Excellent supervised visual-tuning plane; future Agent OS bridge should manipulate/read presets rather than synthesize mouse clicks."
+  },
+  "evidence": {
+    "source_url": "https://www.nexusmods.com/skyrimspecialedition/mods/83757",
+    "verified_date": "2026-09-24",
+    "notes": "Version 1.5.1. v1.5 moved presets to form-symbol handling for light-plugin-safe identity."
+  }
+}
