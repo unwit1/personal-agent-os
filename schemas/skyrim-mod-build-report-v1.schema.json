@@ -166,6 +166,21 @@
           },
           "evidence": {
             "type": "object"
+          },
+          "issue_codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "analyzer_rule_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^SKYRIM-[A-Z0-9-]+$"
+            },
+            "uniqueItems": true
           }
         }
       }
