@@ -363,33 +363,43 @@ def write_artifact(
         "sha256":sha256_file(path),
     }
 
-def performance_gate(
+def assertion_targets_gate(assertion:dict[str,Any],gate:str)->bool:
+    declared=set(assertion.get("gates") or [])
+    if gate in declared:
+        return True
+    if gate=="G20" and assertion.get("kind")=="performance":
+        return True
+    return False
+
+def scoped_assertion_gate(
+    gate:str,
     test:dict[str,Any],
     observations:list[dict[str,Any]],
 )->dict[str,Any]|None:
     by_id={row["id"]:row for row in observations}
-    perf=[
+    selected=[
         assertion for assertion in test["assertions"]
-        if assertion.get("kind")=="performance"
+        if assertion_targets_gate(assertion,gate)
     ]
-    if not perf:
+    if not selected:
         return None
-    rows=[by_id[x["id"]] for x in perf if x["id"] in by_id]
-    if len(rows)!=len(perf) or any(x["status"]=="needs-review" for x in rows):
+    rows=[by_id[x["id"]] for x in selected if x["id"] in by_id]
+    if len(rows)!=len(selected) or any(x["status"]=="needs-review" for x in rows):
         status="needs-review"
-        issues=["one or more performance assertions lack decisive evidence"]
+        issues=[f"one or more {gate} assertions lack decisive evidence"]
     elif any(x["status"]=="fail" for x in rows):
         status="fail"
-        issues=["one or more performance assertions exceeded the declared budget"]
+        issues=[f"one or more {gate} assertions failed"]
     else:
         status="pass"
         issues=[]
     return {
-        "gate":"G20",
+        "gate":gate,
         "status":status,
         "evidence":[f'{row["id"]}: {row["status"]}' for row in rows],
         "issues":issues,
     }
+
 
 def run_observer(
     test:dict[str,Any],
@@ -477,9 +487,10 @@ def run_observer(
                 row["issues"].append("game instance identity changed during scenario")
 
     gates=[]
-    g20=performance_gate(test,assertions)
-    if g20 is not None:
-        gates.append(g20)
+    for gate in ("G20","G21"):
+        row=scoped_assertion_gate(gate,test,assertions)
+        if row is not None:
+            gates.append(row)
 
     observation={
         "schema_version":"skyrim-runtime-observation-v1",
