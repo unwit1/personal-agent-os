@@ -214,6 +214,62 @@
         "film_physical_crosswalk"
       ],
       "notes": "Official LEGO article says associated set contains 30+ new minifigure heads."
+    },
+    {
+      "id": "lego_games_30_history",
+      "medium": "game",
+      "authority": "lego_primary",
+      "url": "https://www.lego.com/en-es/aboutus/news/2025/december/game-on-30-years-of-lego-video-games",
+      "roles": [
+        "global_game_history",
+        "legacy_game_anchors",
+        "official_over_200_titles_fact"
+      ],
+      "notes": "LEGO says it has produced over 200 game titles since 1995; confirms Fun to Build as first title and highlights Island/Racers/Star Wars."
+    },
+    {
+      "id": "lego_retro_pc_games",
+      "medium": "game",
+      "authority": "lego_primary",
+      "url": "https://www.lego.com/en-us/categories/adults-welcome/article/best-retro-lego-pc-games",
+      "roles": [
+        "1990s_pc_title_inventory",
+        "legacy_character_reference"
+      ],
+      "notes": "Lists seven 1990s PC games including Island, Loco, Chess, Creator, Friends, Racers and Rock Raiders."
+    },
+    {
+      "id": "bits_n_bricks_lego_island",
+      "medium": "game",
+      "authority": "lego_primary",
+      "url": "https://www.lego.com/cdn/cs/set/assets/bltd399c039fb565168/bits_n_bricks_s01e04_lego_island_feature_and_transcript.pdf",
+      "roles": [
+        "legacy_game_history",
+        "digital_minifigure_design_history",
+        "character_context"
+      ]
+    },
+    {
+      "id": "lego_games_25_timeline",
+      "medium": "game",
+      "authority": "lego_primary",
+      "url": "https://www.lego.com/cdn/cs/legal/assets/blt21bc97206babfbab/lego_games_25_years_timeline_2020_highres_download.pdf",
+      "roles": [
+        "official_game_timeline",
+        "legacy_title_discovery",
+        "release_history"
+      ]
+    },
+    {
+      "id": "wikipedia_lego_video_games",
+      "medium": "game",
+      "authority": "secondary_discovery",
+      "url": "https://en.wikipedia.org/wiki/List_of_Lego_video_games",
+      "roles": [
+        "historical_candidate_title_inventory",
+        "platform_discovery"
+      ],
+      "notes": "Discovery only; verify candidates against LEGO/developer/publisher sources."
     }
   ],
   "priority_order": [
