@@ -33,6 +33,7 @@ class DagTests(unittest.TestCase):
 
     def test_release_waits_for_runtime_and_package(self):
         m,q=fixture(["records"])
+        q["gates"].append("G26")
         d=MOD.compile_dag(m,q)
         by={n["id"]:n for n in d["nodes"]}
         self.assertEqual(by["package.staging"]["depends_on"],["runtime.regression"])
@@ -49,6 +50,7 @@ class DagTests(unittest.TestCase):
 
     def test_declared_runtime_adapter_reaches_runtime_nodes(self):
         m,q=fixture(["papyrus"])
+        q["gates"].append("G26")
         q["adapters"]["preferred"].append("skytest")
         d=MOD.compile_dag(m,q)
         by={n["id"]:n for n in d["nodes"]}
@@ -57,6 +59,7 @@ class DagTests(unittest.TestCase):
 
     def test_devbench_runtime_is_wrapped_by_mo2_closed_loop_harness(self):
         m,q=fixture(["records"])
+        q["gates"].append("G26")
         d=MOD.compile_dag(m,q)
         by={n["id"]:n for n in d["nodes"]}
         self.assertIn("mo2-devbench-runtime",by["runtime.smoke"]["adapters"])
@@ -66,6 +69,7 @@ class DagTests(unittest.TestCase):
 
     def test_explicit_composite_runtime_adapter_is_not_duplicated(self):
         m,q=fixture(["records"])
+        q["gates"].append("G26")
         q["adapters"]["preferred"].append("mo2-devbench-runtime")
         d=MOD.compile_dag(m,q)
         by={n["id"]:n for n in d["nodes"]}
@@ -92,6 +96,24 @@ class DagTests(unittest.TestCase):
         by={n["id"]:n for n in d["nodes"]}
         self.assertEqual(by["runtime.smoke"]["gates"],["G26"])
         self.assertEqual(by["runtime.regression"]["gates"],["G21","G26"])
+
+
+    def test_no_runtime_gate_omits_mandatory_runtime_nodes(self):
+        m,q=fixture(["records"])
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertNotIn("runtime.smoke",by)
+        self.assertNotIn("runtime.regression",by)
+        self.assertEqual(by["package.staging"]["depends_on"],["integrate.gates"])
+
+    def test_smoke_only_runtime_gate_omits_regression_stage(self):
+        m,q=fixture(["records"])
+        q["gates"].append("G19")
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertIn("runtime.smoke",by)
+        self.assertNotIn("runtime.regression",by)
+        self.assertEqual(by["package.staging"]["depends_on"],["runtime.smoke"])
 
 
 if __name__=="__main__":
