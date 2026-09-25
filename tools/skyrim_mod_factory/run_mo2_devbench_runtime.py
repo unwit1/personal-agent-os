@@ -195,9 +195,7 @@ def run_session(
     if os.name!="nt":
         result["status"]="aborted"
         result["issues"].append("MO2 + devbench runtime execution requires Windows")
-        apply_presentmon_gate(result,test,performance_summary)
-
-    result["_template_before"]=private_template_before
+        result["_template_before"]=private_template_before
         MO2.finalize_cleanup(result,config,success=False)
         MO2.validate(result,MO2.RESULT_SCHEMA,"runtime session result")
         return result
