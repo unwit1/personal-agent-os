@@ -1,0 +1,1401 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-25",
+  "domain": "symbolic_solvers_optimization_formal_control",
+  "techniques": [
+    {
+      "id": "AIT-0266",
+      "name": "Natural-language → formal specification → solver",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "reasoning",
+        "tools",
+        "verification"
+      ],
+      "goal": "Move exact reasoning/search out of the LLM",
+      "mechanism": "Translate user intent into formal constraints/program, validate translation, solve with deterministic engine, then render result.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0292, SRC-AI-0293, SRC-AI-0294, SRC-AI-0301.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Treat formal spec as reviewable artifact with provenance.",
+      "use_when": [
+        "Scheduling",
+        "Logic",
+        "Resource allocation",
+        "Eligibility",
+        "Constraint-heavy workflows"
+      ],
+      "avoid_when": [
+        "Objective/constraints are fundamentally subjective or impossible to formalize"
+      ],
+      "required_evals": [
+        "semantic translation accuracy",
+        "solver validity",
+        "user-intent agreement"
+      ],
+      "risks": [
+        "Correct solution to wrong formalization"
+      ],
+      "cost_profile": "usually cheaper than repeated LLM search",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0292",
+        "SRC-AI-0293",
+        "SRC-AI-0294",
+        "SRC-AI-0301"
+      ],
+      "keywords": [
+        "symbolic_solver",
+        "formalization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0267",
+      "name": "SAT/SMT offloading",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "reasoning",
+        "verification"
+      ],
+      "goal": "Guarantee logical/constraint consistency relative to specification",
+      "mechanism": "Model emits propositional/first-order/arithmetic constraints; SAT/SMT solver proves satisfiable/unsatisfiable and returns model/core.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0294.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "High-value for Agent OS policy/configuration consistency checks.",
+      "use_when": [
+        "Permissions",
+        "Schedules",
+        "Configuration",
+        "Dependency constraints",
+        "Logic puzzles"
+      ],
+      "avoid_when": [
+        "Semantics cannot be expressed in supported theory"
+      ],
+      "required_evals": [
+        "translation accuracy",
+        "solver result",
+        "unsat-core usefulness"
+      ],
+      "risks": [
+        "Specification omission",
+        "solver complexity explosion"
+      ],
+      "cost_profile": "local deterministic compute",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0294"
+      ],
+      "keywords": [
+        "SAT",
+        "SMT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0268",
+      "name": "Classical planning / PDDL offloading",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "planning",
+        "verification"
+      ],
+      "goal": "Find feasible or optimal action plans with explicit state transitions",
+      "mechanism": "Translate domain/actions/goal into PDDL or equivalent and use search planner.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0301.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Potential deterministic backend for Orchestrator DAG planning.",
+      "use_when": [
+        "Workflow planning",
+        "Resource/action sequencing",
+        "Dependency planning"
+      ],
+      "avoid_when": [
+        "Open world where state/action effects are unknown"
+      ],
+      "required_evals": [
+        "plan feasibility",
+        "optimality",
+        "translation fidelity"
+      ],
+      "risks": [
+        "World model/formalization may be stale"
+      ],
+      "cost_profile": "local planner cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0301"
+      ],
+      "keywords": [
+        "PDDL",
+        "planner"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0269",
+      "name": "Solver-error-guided semantic repair",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "reasoning",
+        "tools"
+      ],
+      "goal": "Use exact compiler/solver feedback to repair formalization",
+      "mechanism": "Feed syntax/type/unsat/error diagnostics back to model to revise only broken specification pieces.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0293.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Bound retries and retain every formalization/version.",
+      "use_when": [
+        "Generated SQL/code/PDDL/SMT/optimization models"
+      ],
+      "avoid_when": [
+        "No deterministic diagnostic exists"
+      ],
+      "required_evals": [
+        "repair success",
+        "iterations",
+        "regression"
+      ],
+      "risks": [
+        "Model can patch symptom rather than intent"
+      ],
+      "cost_profile": "few bounded retries",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0293"
+      ],
+      "keywords": [
+        "solver_feedback",
+        "repair"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0270",
+      "name": "Faithful executable rationale",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "reasoning",
+        "verification"
+      ],
+      "goal": "Make intermediate explanation causally tied to final answer",
+      "mechanism": "Use an executable symbolic/program representation whose execution produces answer rather than free-form chain-of-thought.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0292.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Prefer user-visible evidence/artifacts over private rationale.",
+      "use_when": [
+        "Arithmetic",
+        "Logic",
+        "Planning",
+        "Data transformations"
+      ],
+      "avoid_when": [
+        "Natural-language interpretation/explanation is itself the main task"
+      ],
+      "required_evals": [
+        "execution correctness",
+        "spec fidelity"
+      ],
+      "risks": [
+        "Executable representation can still encode wrong assumptions"
+      ],
+      "cost_profile": "small solver/tool cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0292"
+      ],
+      "keywords": [
+        "faithful_cot",
+        "executable_reasoning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0271",
+      "name": "Optimization-model extraction",
+      "aliases": [],
+      "category": "operations_research",
+      "layer": [
+        "reasoning",
+        "optimization"
+      ],
+      "goal": "Turn natural-language resource decisions into an exact mathematical model",
+      "mechanism": "Extract sets/parameters/variables/objective/constraints into structured intermediate representation and compile to LP/MIP/NLP/CP solver.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0296, SRC-AI-0297, SRC-AI-0298.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Could support grocery/budget/scheduling modules once objective is explicit.",
+      "use_when": [
+        "Budgeting",
+        "Scheduling",
+        "Shopping mix",
+        "Routing",
+        "Staffing",
+        "Resource allocation"
+      ],
+      "avoid_when": [
+        "Preferences cannot be quantified without user values"
+      ],
+      "required_evals": [
+        "formulation match",
+        "optimal solution correctness",
+        "constraint omissions"
+      ],
+      "risks": [
+        "Objective misspecification",
+        "silent unit errors"
+      ],
+      "cost_profile": "local solver + parsing",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0296",
+        "SRC-AI-0297",
+        "SRC-AI-0298"
+      ],
+      "keywords": [
+        "LP",
+        "MIP",
+        "optimization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0272",
+      "name": "What-if optimization interface",
+      "aliases": [],
+      "category": "operations_research",
+      "layer": [
+        "optimization",
+        "human_system"
+      ],
+      "goal": "Let user explore consequences without manually editing mathematical models",
+      "mechanism": "LLM translates question into constrained edits/query against trusted optimization model; solver recomputes scenario; model explains delta.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0295.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Keep numeric/proprietary state in solver process, not prompt where possible.",
+      "use_when": [
+        "Budgets",
+        "Scheduling",
+        "Operations"
+      ],
+      "avoid_when": [
+        "No validated underlying model"
+      ],
+      "required_evals": [
+        "numeric correctness",
+        "scenario fidelity",
+        "explanation"
+      ],
+      "risks": [
+        "LLM may mutate wrong parameter or misstate solver result"
+      ],
+      "cost_profile": "solver calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0295"
+      ],
+      "keywords": [
+        "what_if",
+        "decision_intelligence"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0273",
+      "name": "Solver-informed preference/decision support",
+      "aliases": [],
+      "category": "operations_research",
+      "layer": [
+        "optimization",
+        "human_system"
+      ],
+      "goal": "Separate hard optimization from human value choices",
+      "mechanism": "Compute Pareto/feasible alternatives using solver; model explains tradeoffs and asks only value questions needed to choose among them.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0295.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agent recommends implications, not hidden objective weights.",
+      "use_when": [
+        "Shopping",
+        "Scheduling",
+        "Project prioritization",
+        "Budget allocation"
+      ],
+      "avoid_when": [
+        "One objectively dominant option exists"
+      ],
+      "required_evals": [
+        "user effort",
+        "decision quality",
+        "constraint compliance"
+      ],
+      "risks": [
+        "Model may frame tradeoffs persuasively rather than neutrally"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0295"
+      ],
+      "keywords": [
+        "pareto",
+        "decision_support"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0274",
+      "name": "Unsat-core explanation",
+      "aliases": [],
+      "category": "formal_methods",
+      "layer": [
+        "verification",
+        "human_system"
+      ],
+      "goal": "Explain why a set of requirements cannot all be true simultaneously",
+      "mechanism": "Use SMT/constraint solver unsatisfiable core to identify minimal/conflicting constraint subset; model translates to plain language.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0294.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Very useful for 'why can't Agent OS do all of these constraints?'",
+      "use_when": [
+        "Configuration",
+        "Scheduling",
+        "Policy",
+        "User requirements"
+      ],
+      "avoid_when": [
+        "Solver/theory cannot produce useful core"
+      ],
+      "required_evals": [
+        "correct conflict identification",
+        "explanation fidelity"
+      ],
+      "risks": [
+        "Core can be non-minimal or implementation-dependent"
+      ],
+      "cost_profile": "low local compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0294"
+      ],
+      "keywords": [
+        "unsat_core",
+        "conflict"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0275",
+      "name": "Invariant/property-based testing",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "evaluation",
+        "verification"
+      ],
+      "goal": "Test behavioral properties across broad generated input space",
+      "mechanism": "Specify invariants and automatically generate/mutate cases; shrink failures to minimal reproducer.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Meta Engine should generate candidate invariants from failures but humans/code own final oracle.",
+      "use_when": [
+        "Schemas",
+        "State machines",
+        "Authorization",
+        "Parsers",
+        "Caches"
+      ],
+      "avoid_when": [
+        "Purely subjective text quality"
+      ],
+      "required_evals": [
+        "property coverage",
+        "failure discovery",
+        "shrink quality"
+      ],
+      "risks": [
+        "Properties can be incomplete"
+      ],
+      "cost_profile": "cheap local compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "property_testing",
+        "QuickCheck"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0276",
+      "name": "Model checking workflow state machines",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "verification",
+        "distributed_systems"
+      ],
+      "goal": "Exhaustively find invalid transition/interleaving states in bounded system model",
+      "mechanism": "Specify workflow/auth protocol as state machine and check safety/liveness invariants.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0257.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Reserve for high-risk state machines, not ordinary business logic.",
+      "use_when": [
+        "Authorization",
+        "Approval gates",
+        "Durable workflow resume",
+        "Concurrency"
+      ],
+      "avoid_when": [
+        "Large unconstrained implementation details"
+      ],
+      "required_evals": [
+        "counterexample discovery",
+        "spec-code correspondence"
+      ],
+      "risks": [
+        "Specification drift from implementation"
+      ],
+      "cost_profile": "offline formal-model cost",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0257"
+      ],
+      "keywords": [
+        "TLA+",
+        "model_checking"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0277",
+      "name": "Counterexample-guided repair",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "verification",
+        "agents"
+      ],
+      "goal": "Turn formal/test failures directly into focused candidate fixes",
+      "mechanism": "When property/model checker finds counterexample, give minimal trace and violated invariant to repairer; rerun checker.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0257, SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Counterexamples enter failure registry and regression suite.",
+      "use_when": [
+        "Code/config/workflow generation"
+      ],
+      "avoid_when": [
+        "No trustworthy invariant"
+      ],
+      "required_evals": [
+        "repair rate",
+        "new regressions",
+        "iterations"
+      ],
+      "risks": [
+        "Patch may overfit counterexample"
+      ],
+      "cost_profile": "bounded model+local tests",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0257",
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "counterexample",
+        "repair"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0278",
+      "name": "Black-box Bayesian optimization",
+      "aliases": [],
+      "category": "meta_optimization",
+      "layer": [
+        "evaluation",
+        "optimization"
+      ],
+      "goal": "Optimize expensive continuous/mixed hyperparameters with fewer trials",
+      "mechanism": "Fit probabilistic surrogate to observed configuration→metric outcomes and choose new trials via acquisition function.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0260.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Useful for system knobs after stable eval harness exists.",
+      "use_when": [
+        "Retrieval weights",
+        "Thresholds",
+        "Prompt numeric knobs",
+        "Cache budgets"
+      ],
+      "avoid_when": [
+        "Cheap exhaustive search",
+        "Highly nonstationary objective"
+      ],
+      "required_evals": [
+        "best-found objective",
+        "trial count",
+        "holdout"
+      ],
+      "risks": [
+        "Surrogate overconfidence",
+        "metric overfit"
+      ],
+      "cost_profile": "reduces trial count",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0260"
+      ],
+      "keywords": [
+        "Bayesian_optimization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0279",
+      "name": "Successive halving / Hyperband",
+      "aliases": [],
+      "category": "meta_optimization",
+      "layer": [
+        "evaluation",
+        "optimization"
+      ],
+      "goal": "Terminate poor candidate configurations early",
+      "mechanism": "Evaluate many configs on small budget/subset then allocate more resources to promising configs.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0261.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use cheap sentinel suite first, full protected suite for finalists.",
+      "use_when": [
+        "Prompt/model/reranker sweeps",
+        "Training HPO",
+        "Agent architecture search"
+      ],
+      "avoid_when": [
+        "Early metric poorly predicts full result"
+      ],
+      "required_evals": [
+        "time-to-best",
+        "false pruning of winner"
+      ],
+      "risks": [
+        "Early-stop bias"
+      ],
+      "cost_profile": "major search savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0261"
+      ],
+      "keywords": [
+        "Hyperband",
+        "successive_halving"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0280",
+      "name": "Population-based search",
+      "aliases": [],
+      "category": "meta_optimization",
+      "layer": [
+        "optimization",
+        "training"
+      ],
+      "goal": "Optimize configurations and schedules jointly while retaining diversity",
+      "mechanism": "Run population, periodically exploit strong members and mutate hyperparameters/structures.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0262.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Conceptually useful for prompt/architecture evolution but needs strict compute budget.",
+      "use_when": [
+        "Long-running training",
+        "Prompt/agent search with continuous feedback"
+      ],
+      "avoid_when": [
+        "Small cheap search space"
+      ],
+      "required_evals": [
+        "quality vs compute",
+        "diversity"
+      ],
+      "risks": [
+        "Population collapse",
+        "large compute"
+      ],
+      "cost_profile": "high parallel compute",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0262"
+      ],
+      "keywords": [
+        "PBT",
+        "population"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0281",
+      "name": "Trial pruning in experiment manager",
+      "aliases": [],
+      "category": "meta_optimization",
+      "layer": [
+        "evaluation",
+        "optimization"
+      ],
+      "goal": "Make broad experimentation economical",
+      "mechanism": "Central experiment registry supports intermediate reports and prunes trials unlikely to beat baseline.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0263.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Part of EXP/EVR registry rather than optimizer-specific ad hoc logic.",
+      "use_when": [
+        "Any automated optimizer"
+      ],
+      "avoid_when": [
+        "Intermediate metric is misleading"
+      ],
+      "required_evals": [
+        "compute saved",
+        "best-candidate preservation"
+      ],
+      "risks": [
+        "Premature pruning"
+      ],
+      "cost_profile": "saves experiment budget",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0263"
+      ],
+      "keywords": [
+        "Optuna",
+        "pruner"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0282",
+      "name": "Prefix-cache-aware request scheduling",
+      "aliases": [],
+      "category": "serving_optimization",
+      "layer": [
+        "runtime",
+        "inference"
+      ],
+      "goal": "Increase KV-prefix reuse across replicas",
+      "mechanism": "Route requests with shared prefix to same worker/cache while balancing queue load and memory.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0299.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Future serving layer can use Agent OS prompt hashes as scheduling hints.",
+      "use_when": [
+        "Future multi-GPU local serving with repeated Agent OS prefixes"
+      ],
+      "avoid_when": [
+        "Single model server",
+        "No prefix locality"
+      ],
+      "required_evals": [
+        "TTFT",
+        "p95/p99 latency",
+        "cache hit",
+        "load skew"
+      ],
+      "risks": [
+        "Hot prefix overload"
+      ],
+      "cost_profile": "systems optimization",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0299"
+      ],
+      "keywords": [
+        "prefix_scheduling",
+        "Preble"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0283",
+      "name": "API/document retrieval before tool generation",
+      "aliases": [],
+      "category": "tool_learning",
+      "layer": [
+        "tools",
+        "retrieval"
+      ],
+      "goal": "Reduce hallucinated/stale tool calls",
+      "mechanism": "Retrieve current API/tool documentation/schema at tool-call generation time rather than relying only on parametric memory.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0300.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Retrieve trusted connector schema, never web docs as executable authority.",
+      "use_when": [
+        "Rapidly changing integrations",
+        "Large tool catalog"
+      ],
+      "avoid_when": [
+        "Schema already supplied exactly in context"
+      ],
+      "required_evals": [
+        "valid call rate",
+        "stale API failures"
+      ],
+      "risks": [
+        "Untrusted docs/injection",
+        "retrieval latency"
+      ],
+      "cost_profile": "small retrieval cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0300"
+      ],
+      "keywords": [
+        "API_retrieval",
+        "tool_docs"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0284",
+      "name": "Formal-spec diff review",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "human_system",
+        "verification"
+      ],
+      "goal": "Make model-generated formalization auditable before consequential solve/action",
+      "mechanism": "Render structured diff: inferred variables/constraints/objective/assumptions vs source requirements; require review based on risk.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0298.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "High-risk solver-backed actions require semantic review, not just solver success.",
+      "use_when": [
+        "Optimization/policy/action plans"
+      ],
+      "avoid_when": [
+        "Low-risk synthetic puzzles"
+      ],
+      "required_evals": [
+        "review catch rate",
+        "user effort"
+      ],
+      "risks": [
+        "Review can be tedious"
+      ],
+      "cost_profile": "small UI overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0298"
+      ],
+      "keywords": [
+        "spec_diff",
+        "review"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0285",
+      "name": "Units/dimensions validation",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "verification",
+        "data"
+      ],
+      "goal": "Catch common numeric/formulation mistakes deterministically",
+      "mechanism": "Attach units to quantities and validate arithmetic/constraints dimensional consistency before solver/model use.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0296.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Store normalized unit with structured numeric values.",
+      "use_when": [
+        "Finance",
+        "Groceries",
+        "Scheduling",
+        "Physical quantities"
+      ],
+      "avoid_when": [
+        "Unitless abstract scores"
+      ],
+      "required_evals": [
+        "unit-error catch rate"
+      ],
+      "risks": [
+        "Metadata burden"
+      ],
+      "cost_profile": "very low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0296"
+      ],
+      "keywords": [
+        "units",
+        "dimensional_analysis"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0286",
+      "name": "Range/domain constraint validation",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "verification",
+        "data"
+      ],
+      "goal": "Prevent impossible values from propagating",
+      "mechanism": "Validate numeric bounds, allowed dates, enumerations, cardinality, monotonicity and domain-specific invariants before model/solver actions.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0294.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Schema validation + domain predicates.",
+      "use_when": [
+        "Structured state and tool args"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "invalid-state rejection",
+        "false rejection"
+      ],
+      "risks": [
+        "Outdated constraints"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0294"
+      ],
+      "keywords": [
+        "constraints",
+        "validation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0287",
+      "name": "Optimization sensitivity analysis",
+      "aliases": [],
+      "category": "operations_research",
+      "layer": [
+        "optimization",
+        "human_system"
+      ],
+      "goal": "Identify which uncertain assumptions actually matter",
+      "mechanism": "Perturb parameters/constraints and measure objective/solution changes; surface high-sensitivity variables for better data/user input.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0295.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Feeds proactive question selection: ask only for information that can change decision.",
+      "use_when": [
+        "Budgeting",
+        "Scheduling",
+        "Purchasing",
+        "Operations"
+      ],
+      "avoid_when": [
+        "No explicit optimization model"
+      ],
+      "required_evals": [
+        "decision stability",
+        "value of information"
+      ],
+      "risks": [
+        "Local sensitivity may miss nonlinear regime changes"
+      ],
+      "cost_profile": "solver sweeps",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0295"
+      ],
+      "keywords": [
+        "sensitivity",
+        "what_if"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0288",
+      "name": "Pareto-front generation",
+      "aliases": [],
+      "category": "operations_research",
+      "layer": [
+        "optimization",
+        "human_system"
+      ],
+      "goal": "Avoid hiding subjective tradeoffs in one weighted score",
+      "mechanism": "Compute nondominated solutions across cost/time/quality/risk objectives and let user choose or provide preferences.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0295.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use clustering/progressive disclosure to show a few representative tradeoffs.",
+      "use_when": [
+        "Personal planning",
+        "Shopping",
+        "Project priorities"
+      ],
+      "avoid_when": [
+        "One hard objective with no tradeoff"
+      ],
+      "required_evals": [
+        "frontier correctness",
+        "choice burden"
+      ],
+      "risks": [
+        "Too many options can overwhelm"
+      ],
+      "cost_profile": "solver/repeated runs",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0295"
+      ],
+      "keywords": [
+        "multiobjective",
+        "pareto"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0289",
+      "name": "Constraint relaxation suggestions",
+      "aliases": [],
+      "category": "operations_research",
+      "layer": [
+        "optimization",
+        "human_system"
+      ],
+      "goal": "Find smallest changes that make an infeasible request feasible",
+      "mechanism": "Use slack variables/soft constraints/unsat analysis to quantify relaxation candidates; model explains tradeoffs.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0294.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Policy marks hard constraints that may never be relaxed.",
+      "use_when": [
+        "Scheduling",
+        "Budgets",
+        "Planning"
+      ],
+      "avoid_when": [
+        "Constraints are legally/security non-negotiable"
+      ],
+      "required_evals": [
+        "minimal relaxation",
+        "user acceptance"
+      ],
+      "risks": [
+        "Model may present forbidden constraint as negotiable"
+      ],
+      "cost_profile": "solver compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0294"
+      ],
+      "keywords": [
+        "relaxation",
+        "slack"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0290",
+      "name": "Exact database/query execution over model arithmetic",
+      "aliases": [],
+      "category": "deterministic_substitution",
+      "layer": [
+        "tools",
+        "data"
+      ],
+      "goal": "Avoid asking language model to aggregate/filter structured data mentally",
+      "mechanism": "Compile structured question into SQL/dataframe operations and execute; model handles interpretation/explanation.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0242, SRC-AI-0296.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer query plans + validation over copying thousands of rows into context.",
+      "use_when": [
+        "Transactions",
+        "HR tables",
+        "Logs",
+        "Analytics"
+      ],
+      "avoid_when": [
+        "Small qualitative data only"
+      ],
+      "required_evals": [
+        "numeric exactness",
+        "query semantic fidelity"
+      ],
+      "risks": [
+        "Wrong query semantics"
+      ],
+      "cost_profile": "low local compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0242",
+        "SRC-AI-0296"
+      ],
+      "keywords": [
+        "SQL",
+        "dataframe"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0291",
+      "name": "Two-model semantic parser + deterministic solver",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "reasoning",
+        "routing"
+      ],
+      "goal": "Use cheap model for formalization and strong model only on ambiguous parse failures",
+      "mechanism": "First model extracts schema/formal spec; validators/solver detect issues; escalate unresolved semantic ambiguity.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0293.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Require source-to-spec coverage checks before trusting successful solve.",
+      "use_when": [
+        "High-volume solver-backed tasks"
+      ],
+      "avoid_when": [
+        "Parse ambiguity is consistently high"
+      ],
+      "required_evals": [
+        "cost/success",
+        "parse failure",
+        "escalation precision"
+      ],
+      "risks": [
+        "Weak parser can create plausible-but-wrong valid spec"
+      ],
+      "cost_profile": "adaptive",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0293"
+      ],
+      "keywords": [
+        "semantic_parser",
+        "cascade"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0292",
+      "name": "Formal assumptions registry",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "knowledge",
+        "verification"
+      ],
+      "goal": "Make hidden modeling assumptions explicit and revisitable",
+      "mechanism": "Every solver/formal model lists assumptions, source/evidence, validity range and review date; changed assumptions invalidate affected results.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0295.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Links to Meta-Improvement staleness/research radar.",
+      "use_when": [
+        "Any recurring optimization/policy model"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "stale-assumption incidents",
+        "recompute correctness"
+      ],
+      "risks": [
+        "Registry overhead"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0295"
+      ],
+      "keywords": [
+        "assumption_registry"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0293",
+      "name": "Proof/certificate retention",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "verification",
+        "provenance"
+      ],
+      "goal": "Preserve machine-checkable evidence behind exact decisions",
+      "mechanism": "Store solver status, objective, constraint/model hash and available proof/certificate/unsat core with decision record.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0294.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Future model can verify rather than trust prose summary.",
+      "use_when": [
+        "High-impact optimization/configuration/security decisions"
+      ],
+      "avoid_when": [
+        "Solver lacks certificate and decision is low-risk"
+      ],
+      "required_evals": [
+        "reverification from artifact"
+      ],
+      "risks": [
+        "Certificate format/version portability"
+      ],
+      "cost_profile": "small storage",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0294"
+      ],
+      "keywords": [
+        "certificate",
+        "proof"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0294",
+      "name": "Formal model versioning + migration",
+      "aliases": [],
+      "category": "formal_control",
+      "layer": [
+        "verification",
+        "maintenance"
+      ],
+      "goal": "Keep old decisions reproducible when business rules change",
+      "mechanism": "Version variables/constraints/objectives and migration rules; results reference exact model version and input snapshot.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0298.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Same principle as prompt/eval versioning.",
+      "use_when": [
+        "Recurring solver-backed workflow"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "replay equivalence",
+        "migration correctness"
+      ],
+      "risks": [
+        "Model/schema proliferation"
+      ],
+      "cost_profile": "maintenance",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0298"
+      ],
+      "keywords": [
+        "model_version",
+        "migration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0295",
+      "name": "Solver-first privacy boundary",
+      "aliases": [],
+      "category": "operations_research",
+      "layer": [
+        "privacy",
+        "optimization"
+      ],
+      "goal": "Keep sensitive numeric/structured data out of model context when model only needs conclusions/tradeoffs",
+      "mechanism": "Run optimization locally over private inputs; expose sanitized deltas, aggregate results or parameter handles to model.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0295.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Strong architecture for work/financial Agent OS modules.",
+      "use_when": [
+        "Work data",
+        "Finance",
+        "Personal sensitive schedules"
+      ],
+      "avoid_when": [
+        "Model genuinely needs raw semantic details and policy permits"
+      ],
+      "required_evals": [
+        "privacy audit",
+        "decision quality"
+      ],
+      "risks": [
+        "Over-sanitization may hide rationale"
+      ],
+      "cost_profile": "local compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0295"
+      ],
+      "keywords": [
+        "privacy",
+        "local_solver"
+      ],
+      "notes": ""
+    }
+  ]
+}
