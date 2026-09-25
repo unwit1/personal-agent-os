@@ -179,5 +179,58 @@ class ExecuteRepairTests(unittest.TestCase):
                     execute_mutation=True,
                 )
 
+    def test_execute_backs_up_allowlisted_generated_output(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            generated=root/"generated"
+            generated.mkdir()
+            artifact=generated/"patch.esp"
+            artifact.write_text("old",encoding="utf-8")
+
+            state=make_state()
+            state["nodes"]["generate.records"]["output_fingerprints"]=[
+                REPAIR.EXEC.path_fingerprint(str(artifact))
+            ]
+            state_path=root/"state.json"
+            REPAIR.EXEC.save_execution_state(state_path,state)
+
+            updated,checkpoint=REPAIR.execute(
+                make_plan(),DAG,state,HANDLER,
+                state_path=state_path,
+                checkpoint_dir=root/"checkpoints",
+                execute_mutation=True,
+                allowed_output_roots=[generated],
+            )
+            self.assertEqual(len(checkpoint["output_backups"]),1)
+            backup=checkpoint["output_backups"][0]
+            self.assertEqual(backup["path"],str(artifact))
+            backup_path=Path(backup["backup_path"])
+            self.assertTrue(backup_path.exists())
+            self.assertEqual(backup_path.read_text(encoding="utf-8"),"old")
+            self.assertEqual(backup["sha256"],REPAIR.EXEC.sha256(artifact))
+            self.assertTrue(Path(updated["rollback"]["checkpoint"]).exists())
+
+    def test_execute_refuses_output_outside_allowed_root_before_state_mutation(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            allowed=root/"allowed"
+            allowed.mkdir()
+            outside=root/"outside.esp"
+            outside.write_text("old",encoding="utf-8")
+            state=make_state()
+            state["nodes"]["generate.records"]["output_fingerprints"]=[
+                REPAIR.EXEC.path_fingerprint(str(outside))
+            ]
+            before=set(state["nodes"])
+            with self.assertRaises(ValueError):
+                REPAIR.execute(
+                    make_plan(),DAG,state,HANDLER,
+                    state_path=root/"state.json",
+                    checkpoint_dir=root/"checkpoints",
+                    execute_mutation=True,
+                    allowed_output_roots=[allowed],
+                )
+            self.assertEqual(before,set(state["nodes"]))
+
 if __name__=="__main__":
     unittest.main()
