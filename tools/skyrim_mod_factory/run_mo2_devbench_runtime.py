@@ -42,6 +42,54 @@ def add_file_artifact(result:dict[str,Any],path:Path,kind:str)->None:
             "sha256":MO2.sha256_file(path),
         })
 
+def validate_session_health_for_termination(
+    health:dict[str,Any],
+    config:dict[str,Any],
+)->tuple[int,str]:
+    policy=config.get("process_policy") or {}
+    if not policy.get("allow_force_kill_session_game",False):
+        raise ValueError("force-kill policy is disabled")
+    raw_pid=health.get("pid")
+    if not isinstance(raw_pid,int) or raw_pid<=0:
+        raise ValueError("DevBench health did not provide a valid positive session pid")
+    exe=Path(str(health.get("exe") or "")).name
+    expected=[
+        Path(str(x)).name.lower()
+        for x in policy.get("session_game_executables") or []
+        if str(x).strip()
+    ]
+    if not expected:
+        raise ValueError(
+            "force-kill requires process_policy.session_game_executables"
+        )
+    if exe.lower() not in expected:
+        raise ValueError(
+            f"DevBench session executable {exe!r} is not in allowed session game executables"
+        )
+    return raw_pid,exe
+
+def force_kill_session_game(
+    health:dict[str,Any],
+    config:dict[str,Any],
+)->dict[str,Any]:
+    if os.name!="nt":
+        raise ValueError("session game termination requires Windows")
+    pid,exe=validate_session_health_for_termination(health,config)
+    proc=subprocess.run(
+        ["taskkill","/PID",str(pid),"/T","/F"],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    return {
+        "pid":pid,
+        "exe":exe,
+        "exit_code":proc.returncode,
+        "stdout":proc.stdout,
+        "stderr":proc.stderr,
+        "killed":proc.returncode==0,
+    }
+
 def capture_runtime_evidence(
     result:dict[str,Any],
     config:dict[str,Any],
