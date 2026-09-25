@@ -633,7 +633,7 @@
       ],
       "known_gaps": [
         "measures presentation/performance, not gameplay correctness",
-        "composite MO2 lifecycle integration is pending"
+        "requires real Windows/MO2 qualification and explicit performance budgets for release decisions"
       ],
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/presentmon.json"
     },
