@@ -1,0 +1,60 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "facegen-coherence-validator",
+  "tool": "Agent OS FaceGen coherence validator",
+  "source": "https://ck.uesp.net/wiki/Dark_Face_Bug/ja",
+  "targets": ["skyrim-le", "skyrim-se-ae", "vr-1.4.15"],
+  "capabilities": [
+    "facegen-path-validate",
+    "facegen-pair-validate",
+    "facegen-fingerprint-validate",
+    "facegen-manifest-coverage"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "python",
+    "arguments_template": [
+      "tools/skyrim_mod_factory/validate_facegen.py",
+      "{facegen_manifest}",
+      "--output",
+      "{output}"
+    ],
+    "transport": "local deterministic filesystem validator",
+    "requires_running_game": false
+  },
+  "inputs": ["skyrim-facegen-manifest-v1", "FaceGeom NIFs", "FaceTint DDS files"],
+  "outputs": ["skyrim-static-invariant-report-v1"],
+  "logs": ["validator report"],
+  "coverage": {
+    "description": "Checks defining-plugin folder identity, zero-prefixed local FormID filenames, NIF+DDS pairing, optional approved fingerprints and optional complete-manifest orphan detection.",
+    "known_gaps": [
+      "does not yet compare winning NPC_ face fields against exported NIF geometry",
+      "does not parse NIF face morph data",
+      "DDS structural/channel validation is delegated to the DDS validator"
+    ],
+    "denominator_probe": "declared NPCs vs complete NIF+DDS pairs vs fingerprint-checked assets."
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Read-only asset-tree inspection."
+  },
+  "verification": {
+    "independent_validators": ["Creation Kit FaceGen export", "NIF validator", "DDS structural validator", "runtime NPC appearance fixture"],
+    "version_probe": "FaceGen path rule is generation-independent; plugin/FormKey provenance comes from the project semantic oracle.",
+    "output_readback": "Require both expected files; optionally require exact generated/approved SHA-256 fingerprints."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Cheap deterministic guard against missing/misnamed/stale FaceGen pairs before runtime visual tests."
+  },
+  "evidence": {
+    "source_url": "https://ck.uesp.net/wiki/Dark_Face_Bug/ja",
+    "verified_date": "2026-09-25",
+    "notes": "Creation Kit documentation shows FaceGeom/<mod>/<FormID>.nif and FaceTint/<mod>/<FormID>.dds packaging; community/xEdit evidence clarifies the defining plugin and zeroed load-order prefix."
+  }
+}
