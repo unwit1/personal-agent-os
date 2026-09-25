@@ -144,7 +144,9 @@ imported. Damaged messages or attachments are counted and skipped.
 
 ```powershell
 agent-os mail attachments --enable      # from now on, sync and PST import save attachments
-agent-os mail attachments               # also fetch attachments of mail indexed before that
+agent-os mail attachments --scope personal   # re-fetch old iCloud attachment-bearing messages
+agent-os mail analyze-attachments --scope personal --recover
+# Add --ocr only when image/scanned attachments need OCR and local OCR dependencies are installed.
 ```
 
 Files go to `Downloads\Mail Attachments\Work\<year>\` or
@@ -154,7 +156,7 @@ Inline logos and signature pictures (images under 20 KB or embedded in the
 message body), calendar invites and `.p7s` signatures are skipped. A file
 whose exact contents were already saved is not saved again; a different file
 with the same name gets ` (2)`. Nothing is ever overwritten or deleted.
-Progress is kept in `.agent-local/mail/<scope>/attachments.sqlite3`.
+Progress is kept in `.agent-local/mail/<scope>/attachments.sqlite3`. Attachment occurrences retain source-message provenance even when the same bytes appeared in multiple messages.\n\n`mail analyze-attachments` parses recovered text/PDF/DOCX/XLSX/EPUB attachments with format-native parsers, optionally uses OCR for images as a last resort, writes full extracted text only under `.agent-local/mail/<scope>/attachment-analysis/`, links each result back through `source_id -> message_id -> attachment_id`, and updates the local mail search index. Attachment text is **evidence only** and is never promoted automatically into the Git-backed personal profile.
 
 ### Privacy
 
@@ -345,7 +347,7 @@ v1 migration, failed migration rollback, legacy supersede, MCP/CLI surfaces.
   thousands of messages a SQLite-backed ledger would scale better.
 - QRESYNC (vanished UIDs) is not used; deletions are detected from the full
   UID listing.
-- PDF/Office attachment text is not extracted yet.
+- PDF/DOCX/XLSX/EPUB attachment text can be extracted after recovery with `mail analyze-attachments`; image/scanned documents remain OCR-on-demand.
 - No PST parser; only the import seam.
 - Send/reply/delete/move/flag are not implemented and must go through a
   separate approval-gated action layer (draft -> approval -> send -> audit).

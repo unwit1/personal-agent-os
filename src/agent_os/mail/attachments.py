@@ -126,6 +126,7 @@ class Exporter:
         self.conn.executescript(
             "CREATE TABLE IF NOT EXISTS files (sha256 TEXT PRIMARY KEY, path TEXT, source_id TEXT, saved_at TEXT);"
             "CREATE TABLE IF NOT EXISTS done (source_id TEXT PRIMARY KEY, saved INTEGER, at TEXT);"
+            "CREATE TABLE IF NOT EXISTS occurrences (source_id TEXT, sha256 TEXT, at TEXT, PRIMARY KEY(source_id, sha256));"
         )
         self.counts = {"saved": 0, "duplicates": 0, "skipped": 0, "messages": 0}
 
@@ -166,6 +167,7 @@ class Exporter:
                 self.counts["skipped"] += 1
                 continue
             digest = hashlib.sha256(data).hexdigest()
+            self.conn.execute("INSERT OR IGNORE INTO occurrences VALUES (?,?,?)", (source_id, digest, datetime.now(timezone.utc).isoformat()))
             if self.conn.execute("SELECT 1 FROM files WHERE sha256=?", (digest,)).fetchone():
                 self.counts["duplicates"] += 1
                 continue

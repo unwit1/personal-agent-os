@@ -87,6 +87,12 @@ def register(commands: argparse._SubParsersAction) -> None:
     attach.add_argument("--disable", action="store_true")
     attach.add_argument("--folder", help="where to save (default: Downloads\Mail Attachments)")
     attach.add_argument("--scope", choices=config.SCOPES, help="without --enable/--disable: download attachments of mail already indexed")
+    analyze_attach = sub.add_parser("analyze-attachments", help="extract/search text from recovered attachments locally")
+    analyze_attach.add_argument("--scope", choices=config.SCOPES, default="personal")
+    analyze_attach.add_argument("--folder", help="attachment export root; defaults to configured Mail Attachments folder")
+    analyze_attach.add_argument("--recover", action="store_true", help="first re-fetch attachment-bearing indexed messages over read-only IMAP")
+    analyze_attach.add_argument("--ocr", action="store_true", help="OCR image/scanned attachments only when local OCR dependencies are available")
+    analyze_attach.add_argument("--limit", type=int)
     sub.add_parser("split-scopes", help="one-time: split the older combined index into work and personal")
     bench = sub.add_parser("benchmark", help="time sync and search on synthetic mail (no network, no real mail)")
     bench.add_argument("--messages", type=int, default=1000, help="messages per synthetic account (two accounts)")
@@ -164,6 +170,16 @@ def dispatch(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
             emit({"export_attachments": current["export_attachments"], "folder": str(attachments.default_root())})
         else:
             emit([attachments.export_missing_live(scope) for scope in ([args.scope] if args.scope else config.SCOPES)])
+    elif command == "analyze-attachments":
+        from pathlib import Path
+        from . import attachments
+        from .attachment_analysis import analyze_recovered
+
+        recovery = attachments.export_missing_live(args.scope, root=Path(args.folder) if args.folder else None) if args.recover else None
+        result = analyze_recovered(args.scope, root=Path(args.folder) if args.folder else None, ocr=args.ocr, limit=args.limit)
+        if recovery is not None:
+            result["recovery"] = recovery
+        emit(result)
     elif command == "split-scopes":
         from .scopes import split_combined_index
 
