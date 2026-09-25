@@ -136,6 +136,41 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/ckpe.json"
     },
     {
+      "adapter_id": "commonlib-cmake-build",
+      "role": "native-build",
+      "priority": "preferred",
+      "capabilities": [
+        "native-build",
+        "skse-dll-build",
+        "debug-symbol-build"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "one successful target does not prove all runtime targets",
+        "compile success does not prove hooks/APIs initialize in-game"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/commonlib-cmake-build.json"
+    },
+    {
+      "adapter_id": "commonlib-cmake-configure",
+      "role": "native-build",
+      "priority": "preferred",
+      "capabilities": [
+        "native-project-configure",
+        "compile-database-generate",
+        "runtime-target-configuration"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "project-specific toolchain/preset arguments may be required"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/commonlib-cmake-configure.json"
+    },
+    {
       "adapter_id": "crash-logger",
       "role": "diagnostics",
       "priority": "preferred",
@@ -456,6 +491,29 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pandora.json"
     },
     {
+      "adapter_id": "papyrus-extender",
+      "role": "papyrus",
+      "priority": "preferred",
+      "capabilities": [
+        "papyrus-api-provider",
+        "papyrus-event-provider",
+        "actor-query-mutation",
+        "form-query-mutation",
+        "objectreference-query-mutation",
+        "magic-effect-query-mutation",
+        "loaded-3d-node-material-operations"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "known_gaps": [
+        "compile stubs do not prove native DLL registration",
+        "loaded-3D functions are lifecycle-sensitive",
+        "base-form mutations can have global effect"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/papyrus-extender.json"
+    },
+    {
       "adapter_id": "papyrus-utility",
       "role": "papyrus",
       "priority": "experimental",
@@ -549,6 +607,26 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pynifly.json"
     },
     {
+      "adapter_id": "pyro",
+      "role": "papyrus",
+      "priority": "preferred",
+      "capabilities": [
+        "papyrus-project-build",
+        "papyrus-incremental-build",
+        "papyrus-parallel-compile",
+        "bsa-package",
+        "distribution-zip"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "compilation success does not prove native provider availability",
+        "project/package behavior depends on external compiler/archive tools"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pyro.json"
+    },
+    {
       "adapter_id": "renderdoc",
       "role": "diagnostics",
       "priority": "preferred",
@@ -627,6 +705,36 @@
         "best when SkyrimNet is target/dependency"
       ],
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/skyrimnet.json"
+    },
+    {
+      "adapter_id": "skytest",
+      "role": "runtime-test",
+      "priority": "experimental",
+      "capabilities": [
+        "isolated-runtime-profile",
+        "vanilla-ab-control",
+        "runtime-launch",
+        "headless-render",
+        "screenshot",
+        "input-injection",
+        "probe-state-query",
+        "replayable-runtime-test",
+        "runtime-gates",
+        "save-isolation"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "version_scope": [
+        "Linux/gamescope workflow",
+        "Skyrim 1.7.104 upstream test environment"
+      ],
+      "known_gaps": [
+        "not yet validated on user's machine",
+        "synthetic held input cannot prove every real input-state mechanism",
+        "upstream documents current 1.7.104 autoload dependency caveat"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/skytest.json"
     },
     {
       "adapter_id": "spid",
