@@ -3,6 +3,7 @@ from __future__ import annotations
 import sqlite3
 import tempfile
 import unittest
+from unittest import mock
 from email.message import EmailMessage
 from pathlib import Path
 
@@ -43,7 +44,7 @@ class AttachmentAnalysisTests(unittest.TestCase):
                 store.conn.commit()
                 message_id = outcome["message_id"]
 
-            with unittest.mock.patch.object(config, "scope_dir", return_value=manifest_dir):
+            with mock.patch.object(config, "scope_dir", return_value=manifest_dir):
                 with Exporter("personal", downloads) as exporter:
                     exporter.export(raw, "src_test")
 
