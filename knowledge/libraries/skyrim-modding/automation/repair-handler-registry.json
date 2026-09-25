@@ -1,0 +1,26 @@
+{
+  "schema_version": "skyrim-repair-handler-registry-v1",
+  "handlers": [
+    {
+      "handler_id": "generated-output.invalidate-and-regenerate",
+      "rule_id": "SKYRIM-GENERATED-OUTPUT-STALE",
+      "automatic": true,
+      "implementation": {
+        "kind": "executor-native",
+        "entrypoint": "invalidate_and_regenerate_generated_node"
+      },
+      "reversible": true,
+      "checkpoint_required": true,
+      "mutation_scope": [
+        "execution-state",
+        "generated-output"
+      ],
+      "postconditions": [
+        "generator node reruns from current inputs rather than a cached PASS",
+        "declared generated outputs are re-read and fingerprinted",
+        "generator and downstream required gates do not regress"
+      ],
+      "notes": "The first implementation invalidates cached execution state and reruns the owning generator. Destructive output cleanup remains separately gated by execution policy and safe generated-output roots."
+    }
+  ]
+}
