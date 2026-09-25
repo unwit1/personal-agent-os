@@ -18,6 +18,7 @@ from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
 from .connectors import connector_import_candidates, import_connector_candidate, register_connector
+from .creator_profiles import list_profiles as creator_list_profiles, pending_discovery as creator_pending_discovery
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -223,6 +224,12 @@ def parser() -> argparse.ArgumentParser:
     watch_list.add_argument("--status")
     watch_remove = commands.add_parser("watch-remove", help="remove a proactive watch target")
     watch_remove.add_argument("watch_id")
+    creator_list = commands.add_parser("creator-list", help="list followed creator identity profiles")
+    creator_list.add_argument("--status")
+    commands.add_parser(
+        "creator-discovery-pending",
+        help="list creator profiles waiting for cross-provider identity discovery",
+    )
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
@@ -484,6 +491,10 @@ def main(argv: list[str] | None = None) -> int:
             _print({"targets": watch_list_targets(status=args.status)})
         elif args.command == "watch-remove":
             _print({"removed": watch_remove_target(args.watch_id), "watch_id": args.watch_id})
+        elif args.command == "creator-list":
+            _print({"creators": creator_list_profiles(status=args.status)})
+        elif args.command == "creator-discovery-pending":
+            _print({"creators": creator_pending_discovery()})
         elif args.command == "validate":
             result = validate()
             _print(result)
