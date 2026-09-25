@@ -38,7 +38,7 @@ MISSING=object()
 def now()->str:
     return dt.datetime.now(dt.timezone.utc).isoformat()
 
-def load(path:Path)->dict[str,Any]:
+def load(path:Path)->Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 def schema_errors(value:dict[str,Any],name:str)->list[str]:
@@ -81,8 +81,6 @@ def http_json(
         value=json.loads(raw or "{}")
     except json.JSONDecodeError as exc:
         raise ValueError(f"devbench returned invalid JSON for {url}: {exc}") from exc
-    if not isinstance(value,dict):
-        raise ValueError(f"devbench returned non-object JSON for {url}")
     return value
 
 def health(base_url:str,timeout_seconds:float=5.0)->dict[str,Any]:
@@ -91,6 +89,8 @@ def health(base_url:str,timeout_seconds:float=5.0)->dict[str,Any]:
         base_url.rstrip("/")+"/api/health",
         timeout_seconds=timeout_seconds,
     )
+    if not isinstance(value,dict):
+        raise ValueError(f"devbench health returned non-object JSON: {value!r}")
     if value.get("ok") is not True:
         raise ValueError(f"devbench health did not report ok=true: {value}")
     return value
@@ -120,7 +120,7 @@ def post_tool(
     arguments:dict[str,Any],
     *,
     timeout_seconds:float=30.0,
-)->dict[str,Any]:
+)->Any:
     encoded=urllib.parse.quote(name,safe="")
     return http_json(
         "POST",
@@ -349,7 +349,7 @@ def sha256_file(path:Path)->str:
 def write_artifact(
     evidence_dir:Path|None,
     name:str,
-    value:dict[str,Any],
+    value:Any,
     kind:str,
 )->dict[str,Any]|None:
     if evidence_dir is None:
