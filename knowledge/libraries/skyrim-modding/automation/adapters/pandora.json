@@ -1,0 +1,112 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "pandora",
+  "tool": "Pandora Behaviour Engine+",
+  "tool_version": "4.4.0-beta",
+  "source": "https://github.com/Monitor221hz/Pandora-Behaviour-Engine-Plus",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "behavior-patching",
+    "character-project-patching",
+    "skeleton-project-patching",
+    "hkx-output",
+    "nemesis-format-compatibility",
+    "fnis-format-compatibility",
+    "pandora-patch-format",
+    "graph-injection",
+    "animdata",
+    "animsetdata",
+    "behavior-node-validation",
+    "autorun",
+    "custom-output-path"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "arguments_template": [
+      "--auto_run",
+      "--auto_close",
+      "--output={output_path}",
+      "--tesv={game_root}"
+    ],
+    "transport": "CLI/GUI executable",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "active behavior patches",
+    "HKX/behavior sources",
+    "cached active-mod order",
+    "game path"
+  ],
+  "outputs": [
+    "game-ready HKX behavior output",
+    "Engine.log",
+    "ActiveMods.json"
+  ],
+  "logs": [
+    "Engine.log"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "forbidden_log_patterns": [
+      "FATAL",
+      "failed edit"
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 2,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [
+    "STALE_PANDORA_OUTPUT",
+    "OUTPUT_PATH_INVALID",
+    "CACHE_STALE"
+  ],
+  "destructive_actions": [
+    "writing generated behavior directly over source behavior assets"
+  ],
+  "human_checks": [
+    "animation feel/contact quality after graph correctness is proven"
+  ],
+  "coverage": {
+    "description": "Behavior/character/skeleton patcher with explicit author patch format, validation, logs and automation arguments.",
+    "known_gaps": [
+      "current release is beta",
+      "warnings require classification rather than blanket failure",
+      "runtime animation/graph behavior still requires in-game assertions"
+    ],
+    "denominator_probe": "active patches discovered vs patches applied/failed; output behavior files expected vs produced"
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Always generate to a dedicated Pandora Output mod and validate log/output ownership."
+  },
+  "verification": {
+    "independent_validators": [
+      "oar-condition-validator",
+      "hkx-structure-check",
+      "runtime-test"
+    ],
+    "version_probe": "Pandora release/tag",
+    "output_readback": "Parse Engine.log and enumerate generated HKX against expected patch graph."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Prefer Pandora only when behavior graph changes are required; use OAR for pure animation replacement."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Monitor221hz/Pandora-Behaviour-Engine-Plus/releases",
+    "verified_date": "2026-09-24",
+    "notes": "Latest release observed: v4.4.0-beta. Upstream documents --auto_run, --auto_close, --output and --tesv automation arguments."
+  }
+}
