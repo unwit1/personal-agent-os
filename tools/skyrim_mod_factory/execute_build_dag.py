@@ -38,6 +38,8 @@ REPO=HERE.parents[1]
 DEFAULT_CAPABILITIES=REPO/"knowledge/libraries/skyrim-modding/automation/tool-capability-registry.json"
 DEFAULT_ADAPTER_DIR=REPO/"knowledge/libraries/skyrim-modding/automation/adapters"
 DEFAULT_GATE_REGISTRY=REPO/"knowledge/libraries/skyrim-modding/automation/validation-gate-registry.json"
+DEFAULT_REPAIR_RULE_PACK=REPO/"knowledge/libraries/skyrim-modding/automation/analyzer-rule-pack-core.json"
+DEFAULT_REPAIR_HANDLERS=REPO/"knowledge/libraries/skyrim-modding/automation/repair-handler-registry.json"
 SCHEMAS=REPO/"schemas"
 
 def load_module(name:str, path:Path):
@@ -754,6 +756,43 @@ def blocked_by_dependencies(node:dict[str,Any],steps:dict[str,dict[str,Any]],con
 def validate_report(report:dict[str,Any])->list[str]:
     return schema_errors(report,"skyrim-mod-build-report-v1.schema.json")
 
+def run_automatic_repair(
+    args:argparse.Namespace,
+    *,
+    report_path:Path,
+    state_path:Path,
+)->dict[str,Any]:
+    loop=load_module("run_repair_loop",HERE/"run_repair_loop.py")
+    loop_args=argparse.Namespace(
+        failed_report=report_path,
+        manifest=args.manifest,
+        quality_plan=args.quality_plan,
+        build_dag=args.build_dag,
+        run_dir=args.run_dir,
+        work_dir=args.repair_work_dir,
+        state=state_path,
+        toolchain_lock=args.toolchain_lock,
+        context=args.context,
+        capabilities=args.capabilities,
+        adapter_dir=args.adapter_dir,
+        gate_registry=args.gate_registry,
+        rule_pack=args.repair_rule_pack,
+        handler_registry=args.repair_handler_registry,
+        allowed_output_root=list(args.allowed_output_root or []),
+        git_commit=args.git_commit,
+        execute=True,
+        output=None,
+    )
+    try:
+        return loop.run_cycle(loop_args)
+    except ValueError as exc:
+        return {
+            "schema_version":"skyrim-repair-loop-result-v1",
+            "result_status":"escalated",
+            "executed":False,
+            "reason":str(exc),
+        }
+
 def main()->None:
     ap=argparse.ArgumentParser()
     ap.add_argument("manifest",type=Path)
@@ -769,6 +808,11 @@ def main()->None:
     ap.add_argument("--state",type=Path)
     ap.add_argument("--no-resume",action="store_true")
     ap.add_argument("--git-commit")
+    ap.add_argument("--auto-repair",action="store_true")
+    ap.add_argument("--repair-work-dir",type=Path)
+    ap.add_argument("--repair-rule-pack",type=Path,default=DEFAULT_REPAIR_RULE_PACK)
+    ap.add_argument("--repair-handler-registry",type=Path,default=DEFAULT_REPAIR_HANDLERS)
+    ap.add_argument("--allowed-output-root",type=Path,action="append",default=[])
     ap.add_argument("--execute",action="store_true")
     args=ap.parse_args()
 
@@ -972,6 +1016,17 @@ def main()->None:
         "report":str(report_path),
     },indent=2))
 
+    if final=="failed" and args.execute and args.auto_repair:
+        repair_result=run_automatic_repair(
+            args,
+            report_path=report_path,
+            state_path=state_path,
+        )
+        print(json.dumps({"auto_repair":repair_result},indent=2))
+        if repair_result.get("result_status")=="repaired":
+            return
+        if repair_result.get("result_status") in {"escalated","decision-required"}:
+            raise SystemExit(3)
     if final=="failed":
         raise SystemExit(2)
     if final=="needs-review":
