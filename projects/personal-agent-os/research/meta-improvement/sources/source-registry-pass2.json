@@ -3149,6 +3149,118 @@
       "evidence_notes": "More recent empirical project across GPT-5.2, Claude Sonnet 4.5 and Gemini-3 Flash Preview reports minimal/no statistically significant accuracy effect from politeness on sampled MMLU-Pro questions.",
       "limits": "Community study, modest benchmark sample and only one task family.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0284",
+      "title": "Efficient and robust approximate nearest neighbor search using HNSW",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1603.09320",
+      "topics": [
+        "ANN",
+        "HNSW",
+        "vector_search"
+      ],
+      "evidence_notes": "Hierarchical navigable small-world graph index provides high-recall approximate nearest-neighbor search with tunable construction/search effort.",
+      "limits": "Worst-case behavior can be poor; optimal parameters depend strongly on data distribution.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0285",
+      "title": "Worst-case Performance of Popular Approximate Nearest Neighbor Search Implementations",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.19126",
+      "topics": [
+        "ANN",
+        "HNSW",
+        "limitations"
+      ],
+      "evidence_notes": "Shows popular graph ANN methods including HNSW can have linear-time behavior on constructed hard instances, reinforcing need for local recall/latency benchmarking.",
+      "limits": "Worst-case constructions do not imply typical practical failure.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0286",
+      "title": "Detecting near-duplicates for web crawling",
+      "type": "research",
+      "url": "https://doi.org/10.1145/1242572.1242592",
+      "topics": [
+        "near_duplicate",
+        "SimHash",
+        "web"
+      ],
+      "evidence_notes": "Large-scale near-duplicate detection using fingerprinting/SimHash-style technique for web crawling.",
+      "limits": "Near-duplicate page detection differs from semantically complementary documents.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0287",
+      "title": "On the Resemblance and Containment of Documents",
+      "type": "research",
+      "url": "https://doi.org/10.1109/SEQUEN.1997.666900",
+      "topics": [
+        "MinHash",
+        "document_similarity",
+        "deduplication"
+      ],
+      "evidence_notes": "Defines document resemblance/containment using shingles and random-sampling fingerprints, foundational for MinHash/LSH duplicate detection.",
+      "limits": "Lexical resemblance is not semantic identity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0288",
+      "title": "Splink Fellegi-Sunter model guide",
+      "type": "open_source_docs",
+      "url": "https://github.com/moj-analytical-services/splink/blob/master/docs/topic_guides/theory/fellegi_sunter.md",
+      "topics": [
+        "entity_resolution",
+        "record_linkage",
+        "probabilistic_matching"
+      ],
+      "evidence_notes": "Explains probabilistic record linkage using prior match probability and m/u evidence weights; supports interpretable match probabilities and field-level evidence.",
+      "limits": "Conditional-independence assumptions can be violated by correlated fields.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0289",
+      "title": "Dedupe blocking and smart comparisons",
+      "type": "open_source_docs",
+      "url": "https://docs.dedupe.io/en/latest/how-it-works/Making-smart-comparisons.html",
+      "topics": [
+        "entity_resolution",
+        "blocking",
+        "active_learning"
+      ],
+      "evidence_notes": "Blocking/index predicates drastically reduce pair comparisons while trying to preserve coverage of true duplicate pairs; learned blocking can select a compact rule set.",
+      "limits": "Poor blocking causes unrecoverable false negatives.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0290",
+      "title": "Comprehensive insights into bitemporal databases",
+      "type": "research_review",
+      "url": "https://link.springer.com/article/10.1007/s42488-026-00162-x",
+      "topics": [
+        "bitemporal",
+        "valid_time",
+        "transaction_time"
+      ],
+      "evidence_notes": "2026 review distinguishes valid time (when fact is true in modeled reality) from transaction time (when stored/known by system), useful for evolving personal/organizational knowledge.",
+      "limits": "Database literature is broader than lightweight file/SQLite implementations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0291",
+      "title": "Semantics of time-varying information",
+      "type": "research",
+      "url": "https://www.sciencedirect.com/science/article/pii/0306437996000178",
+      "topics": [
+        "temporal_database",
+        "bitemporal",
+        "validity"
+      ],
+      "evidence_notes": "Formal treatment of valid time and transaction time semantics for changing facts.",
+      "limits": "Older relational-database framing; core temporal semantics remain useful.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
