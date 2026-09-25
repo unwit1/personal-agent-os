@@ -59,7 +59,12 @@
             "gui-supervised",
             "hybrid",
             "service",
-            "mcp"
+            "mcp",
+            "mcp-stdio",
+            "mcp-http",
+            "rest",
+            "named-pipe",
+            "in-process-api"
           ]
         },
         "executable": {
