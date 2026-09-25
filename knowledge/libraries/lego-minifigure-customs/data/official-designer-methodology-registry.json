@@ -264,6 +264,21 @@
         "cross_asset_consistency"
       ],
       "confidence": "explicit_summary"
+    },
+    {
+      "id": "individuality_vs_reference_at_tiny_scale",
+      "source_id": "ghostbusters_ideas_6115700",
+      "authority": "lego_primary_designer",
+      "source": "https://www.lego.com/cdn/product-assets/product.bi.core.pdf/6115700.pdf",
+      "designer": "Adam Corbally",
+      "rule": "At minifigure scale, maximize individual differentiation while staying close to film references; small scale creates an explicit tradeoff between likeness and readable distinctiveness.",
+      "labels": [
+        "identity_discrimination",
+        "reference_fidelity",
+        "small_scale_readability",
+        "detail_budget"
+      ],
+      "confidence": "explicit"
     }
   ],
   "derived_training_targets": [
