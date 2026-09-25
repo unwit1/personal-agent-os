@@ -1,0 +1,188 @@
+{
+  "schema_version": "0.1",
+  "researched_at": "2026-09-24",
+  "datasets": [
+    {
+      "id": "armaggheddon_lego_minifigure_captions",
+      "url": "https://huggingface.co/datasets/Armaggheddon/lego_minifigure_captions",
+      "source_repo": "https://github.com/Armaggheddon/BricksFinder",
+      "scale": {
+        "published_images": 12966,
+        "source_rebrickable_rows": 14985,
+        "source_snapshot": "2024-11-27"
+      },
+      "contents": [
+        "image",
+        "fig_num",
+        "Rebrickable short caption",
+        "Gemini-generated long caption",
+        "part inventory metadata"
+      ],
+      "code_license": "MIT",
+      "data_license_claim": "dataset card/repository should be snapshotted and audited separately",
+      "underlying_image_source": "Rebrickable",
+      "training_status": "rights_review",
+      "best_use": [
+        "retrieval benchmark",
+        "caption/metadata analysis",
+        "compare against own Rebrickable ingest"
+      ],
+      "warnings": [
+        "MIT software license does not by itself grant rights in the source images.",
+        "Avoid duplicate weighting because the same Rebrickable images will appear in the canonical physical corpus."
+      ]
+    },
+    {
+      "id": "iechevarria_lego_face_vae",
+      "url": "https://github.com/iechevarria/lego-face-VAE",
+      "article": "https://www.echevarria.io/blog/lego-face-vae/",
+      "scale": {
+        "repo_training_images_approx": 2600,
+        "blog_curated_total_approx": 3800
+      },
+      "contents": [
+        "128x128 minifigure face images",
+        "BrickLink-derived head catalog CSV",
+        "scraper/normalization code",
+        "VAE weights"
+      ],
+      "source_images": [
+        "BrickLink",
+        "Bartneck photography referenced in blog; repository README says packaged training images are BrickLink-derived"
+      ],
+      "repository_license": "no LICENSE file found in repository audit",
+      "training_status": "research_precedent_rights_review",
+      "best_use": [
+        "face-cropping/normalization precedent",
+        "BrickLink head semantic-name list",
+        "latent-expression research precedent"
+      ],
+      "warnings": [
+        "Public repository availability is not a reuse license.",
+        "Packaged BrickLink images should not be imported automatically without source-rights review.",
+        "Published paper/blog counts differ because of curation/source subsets; preserve exact snapshot provenance."
+      ]
+    },
+    {
+      "id": "bartneck_faces_627_722",
+      "publications": [
+        "https://bartneck.de/publications/2013/agentsWithFaces/bartneckLEGOAgent.pdf",
+        "https://www.bartneck.de/publications/2015/LEGOPictorialScales/LegoPictorialScalesforAssessingAffectiveResponse.pdf"
+      ],
+      "scale": {
+        "original_presented_faces": 628,
+        "valid_faces_2013": 627,
+        "expanded_face_pool_reported_2015": 722,
+        "raters": 264,
+        "ratings_per_2013_face": 30
+      },
+      "labels": [
+        "anger",
+        "disgust",
+        "fear",
+        "happiness",
+        "sadness",
+        "surprise",
+        "1-5 intensity"
+      ],
+      "raw_data_location": "not found in web search during this pass",
+      "training_status": "metadata_and_method_ready_raw_data_request_needed",
+      "best_use": [
+        "expression ground truth",
+        "emotion ambiguity distributions",
+        "face evaluation"
+      ],
+      "next_action": "contact/search author institutional data/archive; preserve exact IDs if raw stimuli/ratings become available"
+    },
+    {
+      "id": "gts_lego_minifigure_faces_800",
+      "url": "https://gts.ai/dataset-download/lego-minifigure-faces-dataset/",
+      "scale": {
+        "images": 800,
+        "train": 700,
+        "validation": 100
+      },
+      "labels": "Pascal VOC face bounding boxes",
+      "publisher_license_claim": "CC0",
+      "publisher_source_claim": "Kaggle",
+      "original_provenance": "unresolved",
+      "training_status": "do_not_use_until_origin_resolved",
+      "warning": "A downstream CC0 label is not sufficient if the publisher cannot establish rights to the underlying images."
+    },
+    {
+      "id": "roboflow_lego_minifigure_faces_31",
+      "url": "https://universe.roboflow.com/sparrowdhanashree/lego-minifigure-faces/dataset/1",
+      "scale": {
+        "images": 31,
+        "classes": [
+          "Angry",
+          "Happy",
+          "sad"
+        ]
+      },
+      "platform_license_claim": "CC BY 4.0",
+      "original_provenance": "requires per-image/source audit",
+      "training_status": "low_value_rights_review",
+      "best_use": [
+        "annotation-schema precedent"
+      ]
+    },
+    {
+      "id": "rioforce_lego_textures",
+      "url": "https://github.com/rioforce/LEGO-Textures",
+      "license": "CC BY 3.0",
+      "provenance": "README states textures were scanned from real LEGO bricks and vectorized/provided as SVG and PNG",
+      "contents": [
+        "SVG",
+        "PNG",
+        "theme folders including minifigures and licensed themes"
+      ],
+      "training_status": "license_compatible_with_attribution_for_repo_work_subject_to_underlying_IP_review",
+      "best_use": [
+        "flat-pattern supervision",
+        "vector/line analysis",
+        "template reconstruction"
+      ],
+      "priority": "very_high"
+    },
+    {
+      "id": "jpgerdeman_minifig_svg_decals",
+      "url": "https://github.com/jpgerdeman/minifig-svg-decals",
+      "license": "CC BY-NC-SA 3.0",
+      "contents": [
+        "custom SVG figures",
+        "reusable clothing/torsos/logos",
+        "templates",
+        "palette"
+      ],
+      "training_status": "noncommercial_research_only_unless_separate_permission",
+      "best_use": [
+        "thesis custom-extension corpus",
+        "template grammar",
+        "negative/positive custom examples"
+      ]
+    },
+    {
+      "id": "brickognize_2023_real_synthetic",
+      "publication": "https://www.mdpi.com/1424-8220/23/4/1898",
+      "scale": {
+        "synthetic_scenes": 1000,
+        "renders_per_scene": 20,
+        "synthetic_images_over": 20000,
+        "synthetic_annotated_items_over": 1100000,
+        "real_controlled_train_images": 20,
+        "real_controlled_validation_images": 5,
+        "real_uncontrolled_test_images": 100,
+        "real_uncontrolled_annotations": 6700,
+        "real_controlled_test_images": 160
+      },
+      "task": "LEGO brick instance segmentation/classification, not minifigure style",
+      "training_status": "methodology_precedent",
+      "best_use": [
+        "synthetic-data experimental design",
+        "few-shot real fine-tuning precedent",
+        "controlled capture design"
+      ]
+    }
+  ]
+}
