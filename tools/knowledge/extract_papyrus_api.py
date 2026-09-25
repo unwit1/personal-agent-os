@@ -74,6 +74,26 @@ def scan_file(path: Path, root: Path) -> dict:
         "properties": properties,
     }
 
+def symbol_inventory(data: list[dict], provenance: str) -> dict:
+    return {
+        "schema_version":"skyrim-papyrus-symbol-inventory-v1",
+        "scripts":[{
+            "name":s["script"],
+            "parent":s["extends"],
+            "properties":[{
+                "name":p["name"],
+                "type":p["type"],
+                "required":False,
+                "auto":p["auto"],
+            } for p in s.get("properties",[])],
+        } for s in data],
+        "provenance":{
+            "source":"PSC source extraction",
+            "detail":provenance,
+            "required_property_policy":"PSC syntax does not encode CK/project-requiredness; defaults false until overlaid by project policy",
+        },
+    }
+
 def markdown(data: list[dict], provenance: str) -> str:
     out = [
         "# Generated Papyrus API Candidate Index", "",
@@ -115,24 +135,7 @@ def main():
     }, indent=2), encoding="utf-8")
     args.markdown.write_text(markdown(data, args.provenance), encoding="utf-8")
     if args.symbol_inventory:
-        inventory={
-            "schema_version":"skyrim-papyrus-symbol-inventory-v1",
-            "scripts":[{
-                "name":s["script"],
-                "parent":s["extends"],
-                "properties":[{
-                    "name":p["name"],
-                    "type":p["type"],
-                    "required":False,
-                    "auto":p["auto"],
-                } for p in s.get("properties",[])],
-            } for s in data],
-            "provenance":{
-                "source":"PSC source extraction",
-                "detail":args.provenance,
-                "required_property_policy":"PSC syntax does not encode CK/project-requiredness; defaults false until overlaid by project policy",
-            },
-        }
+        inventory=symbol_inventory(data,args.provenance)
         schema_path=Path(__file__).resolve().parents[2]/"schemas"/"skyrim-papyrus-symbol-inventory-v1.schema.json"
         from jsonschema import Draft202012Validator
         schema=json.loads(schema_path.read_text(encoding="utf-8"))
