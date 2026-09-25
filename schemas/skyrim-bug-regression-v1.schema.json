@@ -104,6 +104,25 @@
       "items": {
         "type": "string"
       }
+    },
+    "failing_task": {
+      "type": "string"
+    },
+    "adapter": {
+      "type": "string"
+    },
+    "exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
     }
   }
 }
