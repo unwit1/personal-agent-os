@@ -1,0 +1,1385 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "tools_agents_runtime",
+  "techniques": [
+    {
+      "id": "AIT-0061",
+      "name": "Narrow task-oriented tools",
+      "aliases": [],
+      "category": "tool_design",
+      "layer": [
+        "tools",
+        "agents"
+      ],
+      "goal": "Improve tool selection and reduce agent computation",
+      "mechanism": "Expose tools around meaningful user/task primitives rather than raw low-level APIs or overly broad mega-tools.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0071, SRC-AI-0096.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Mine traces to merge/split tools based on confusion and repeated sequences.",
+      "use_when": [
+        "Repeated workflows",
+        "Large service APIs"
+      ],
+      "avoid_when": [
+        "Low-level primitive is itself the stable contract"
+      ],
+      "required_evals": [
+        "tool-selection accuracy",
+        "argument errors",
+        "calls/task"
+      ],
+      "risks": [
+        "Too many tiny tools can also confuse model"
+      ],
+      "cost_profile": "usually lowers context/model work",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0071",
+        "SRC-AI-0096"
+      ],
+      "keywords": [
+        "tool_granularity"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0062",
+      "name": "Descriptive tool names and namespaces",
+      "aliases": [],
+      "category": "tool_design",
+      "layer": [
+        "tools"
+      ],
+      "goal": "Make correct tool choice easier",
+      "mechanism": "Use consistent service/resource/action naming and disambiguating descriptions.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0071.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Treat names/descriptions as versioned prompt assets with evals.",
+      "use_when": [
+        "Tool catalogs > a few functions"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "tool selection eval by naming variant"
+      ],
+      "risks": [
+        "Naming effect is model-specific"
+      ],
+      "cost_profile": "negligible",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0071"
+      ],
+      "keywords": [
+        "tool_names",
+        "namespace"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0063",
+      "name": "High-signal tool responses",
+      "aliases": [],
+      "category": "tool_design",
+      "layer": [
+        "tools",
+        "context"
+      ],
+      "goal": "Reduce context waste and result misinterpretation",
+      "mechanism": "Return only fields needed for likely next decisions, with pagination/filtering and compact identifiers for follow-up.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0071.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Default summary + stable fetch handle for full detail.",
+      "use_when": [
+        "Large API/search results"
+      ],
+      "avoid_when": [
+        "User explicitly needs complete raw export"
+      ],
+      "required_evals": [
+        "tokens/tool call",
+        "task success",
+        "follow-up fetch rate"
+      ],
+      "risks": [
+        "Over-truncation hides needed evidence"
+      ],
+      "cost_profile": "saves context",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0071"
+      ],
+      "keywords": [
+        "tool_output",
+        "signal"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0064",
+      "name": "Typed/structured tool outputs",
+      "aliases": [],
+      "category": "tool_design",
+      "layer": [
+        "tools",
+        "structured_output"
+      ],
+      "goal": "Make downstream reasoning and validation reliable",
+      "mechanism": "Return structured schemas with explicit status/error/provenance rather than prose whenever possible.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0069.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Version schemas and retain human-readable summary separately.",
+      "use_when": [
+        "Agent-to-tool boundary",
+        "Machine-actionable results"
+      ],
+      "avoid_when": [
+        "Pure display text"
+      ],
+      "required_evals": [
+        "parse failures",
+        "wrong-field use"
+      ],
+      "risks": [
+        "Schema churn"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0069"
+      ],
+      "keywords": [
+        "typed_tools",
+        "schema"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0065",
+      "name": "Strict function/tool argument schemas",
+      "aliases": [],
+      "category": "tool_design",
+      "layer": [
+        "tools",
+        "structured_output"
+      ],
+      "goal": "Reduce malformed or ambiguous calls",
+      "mechanism": "Constrain arguments using JSON Schema/types/enums and clear field descriptions.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0069, SRC-AI-0094.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Add deterministic semantic validation after schema validation.",
+      "use_when": [
+        "All consequential tools"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "invalid-call rate",
+        "semantic argument errors"
+      ],
+      "risks": [
+        "Schema can be syntactically valid but semantically wrong"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0069",
+        "SRC-AI-0094"
+      ],
+      "keywords": [
+        "function_calling",
+        "schema"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0066",
+      "name": "Tool preconditions and postconditions",
+      "aliases": [],
+      "category": "tool_reliability",
+      "layer": [
+        "tools",
+        "verification"
+      ],
+      "goal": "Catch unsafe or semantically invalid actions",
+      "mechanism": "Define deterministic checks before action and read-back/validation after action.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0135, SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every mutating Agent OS tool declares invariants.",
+      "use_when": [
+        "Writes",
+        "External side effects",
+        "File changes"
+      ],
+      "avoid_when": [
+        "Read-only lookup may need only basic validation"
+      ],
+      "required_evals": [
+        "blocked bad actions",
+        "readback mismatches"
+      ],
+      "risks": [
+        "False blocks if predicates incomplete"
+      ],
+      "cost_profile": "small local compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0135",
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "precondition",
+        "postcondition"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0067",
+      "name": "Dry-run / preview before consequential action",
+      "aliases": [],
+      "category": "tool_reliability",
+      "layer": [
+        "tools",
+        "human_control"
+      ],
+      "goal": "Make irreversible actions inspectable",
+      "mechanism": "Generate intended changes without committing them; require policy/user approval as appropriate.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0132, SRC-AI-0135.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Policy engine assigns action risk class and approval rule.",
+      "use_when": [
+        "Send/delete/purchase/change-record operations"
+      ],
+      "avoid_when": [
+        "Low-risk reversible local cache work"
+      ],
+      "required_evals": [
+        "preview/action divergence",
+        "approval burden"
+      ],
+      "risks": [
+        "Preview may not exactly match final environment"
+      ],
+      "cost_profile": "extra local/tool roundtrip",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0132",
+        "SRC-AI-0135"
+      ],
+      "keywords": [
+        "dry_run",
+        "preview"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0068",
+      "name": "Idempotency keys",
+      "aliases": [],
+      "category": "distributed_systems",
+      "layer": [
+        "tools",
+        "runtime"
+      ],
+      "goal": "Prevent duplicate external side effects under retry/resume",
+      "mechanism": "Attach stable operation identity to retried writes and have receiver/store recognize duplicates.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0144.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Operation ID derived from run/stage/action identity.",
+      "use_when": [
+        "Payments",
+        "messages",
+        "records",
+        "durable workflows"
+      ],
+      "avoid_when": [
+        "Pure reads"
+      ],
+      "required_evals": [
+        "duplicate-side-effect tests",
+        "retry/resume tests"
+      ],
+      "risks": [
+        "Poor key scoping can suppress legitimate repeats"
+      ],
+      "cost_profile": "negligible",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "keywords": [
+        "idempotency",
+        "retry"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0069",
+      "name": "Read-after-write verification",
+      "aliases": [],
+      "category": "tool_reliability",
+      "layer": [
+        "tools",
+        "verification"
+      ],
+      "goal": "Verify external system actually reached intended state",
+      "mechanism": "After mutating action, fetch state and compare expected invariant rather than trusting success response.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Allow policy-defined retry window for eventually consistent systems.",
+      "use_when": [
+        "APIs with eventual/partial failure",
+        "Files/configuration"
+      ],
+      "avoid_when": [
+        "Write endpoint is transactional and verification adds disproportionate cost"
+      ],
+      "required_evals": [
+        "mismatch rate",
+        "repair rate"
+      ],
+      "risks": [
+        "Eventual consistency can cause false alarms"
+      ],
+      "cost_profile": "one extra read",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "readback",
+        "verification"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0070",
+      "name": "Deterministic substitution for learned steps",
+      "aliases": [],
+      "category": "automation",
+      "layer": [
+        "tools",
+        "runtime"
+      ],
+      "goal": "Improve reliability/cost when a model is unnecessary",
+      "mechanism": "Replace stable repeated extraction/transform/calculation/routing with code, schemas, regex, parser, solver, query or validator.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0143, SRC-AI-0052.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Automation Miner proposes conversion only after repeated trace evidence.",
+      "use_when": [
+        "Known rules",
+        "Repeated task pattern",
+        "Exact computations"
+      ],
+      "avoid_when": [
+        "Ambiguous semantic judgment"
+      ],
+      "required_evals": [
+        "quality parity",
+        "latency",
+        "cost",
+        "maintenance"
+      ],
+      "risks": [
+        "Brittle rules if domain changes"
+      ],
+      "cost_profile": "often major savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0143",
+        "SRC-AI-0052"
+      ],
+      "keywords": [
+        "deterministic",
+        "automation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0071",
+      "name": "Tool-result caching",
+      "aliases": [],
+      "category": "runtime_optimization",
+      "layer": [
+        "tools",
+        "cache"
+      ],
+      "goal": "Avoid repeated expensive/stable calls",
+      "mechanism": "Cache read-only results by normalized inputs, source version and TTL/invalidation rules.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0068.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Distinguish canonical truth from disposable cache.",
+      "use_when": [
+        "Stable metadata",
+        "Repeated retrieval",
+        "OCR/extraction"
+      ],
+      "avoid_when": [
+        "Highly volatile data without reliable invalidation"
+      ],
+      "required_evals": [
+        "hit rate",
+        "stale-result rate",
+        "cost saved"
+      ],
+      "risks": [
+        "Staleness",
+        "privacy retention"
+      ],
+      "cost_profile": "usually saves cost/latency",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0068"
+      ],
+      "keywords": [
+        "cache",
+        "memoization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0072",
+      "name": "Content-addressed caching",
+      "aliases": [],
+      "category": "runtime_optimization",
+      "layer": [
+        "tools",
+        "cache"
+      ],
+      "goal": "Reuse work when bytes/content are unchanged",
+      "mechanism": "Key deterministic transforms on content hash + relevant processor/version dependencies.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Already aligns with Agent OS document intelligence architecture.",
+      "use_when": [
+        "Documents",
+        "builds",
+        "embeddings",
+        "OCR",
+        "parsing"
+      ],
+      "avoid_when": [
+        "Outputs depend on hidden external mutable state"
+      ],
+      "required_evals": [
+        "cache correctness",
+        "invalidation tests"
+      ],
+      "risks": [
+        "Incorrect dependency key returns stale output"
+      ],
+      "cost_profile": "strong savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "content_hash",
+        "cache"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0073",
+      "name": "Dependency-aware cache invalidation",
+      "aliases": [],
+      "category": "runtime_optimization",
+      "layer": [
+        "tools",
+        "cache"
+      ],
+      "goal": "Avoid both stale reuse and unnecessary recomputation",
+      "mechanism": "Key/cache lineage records upstream content plus exact component/version dependencies so downstream changes invalidate only affected stages.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0144.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Knowledge Engine processor manifests declare dependency versions.",
+      "use_when": [
+        "Multi-stage ingestion/analysis"
+      ],
+      "avoid_when": [
+        "Tiny cheap workflow"
+      ],
+      "required_evals": [
+        "recomputation avoided",
+        "stale-cache defects"
+      ],
+      "risks": [
+        "Dependency graph omissions"
+      ],
+      "cost_profile": "engineering cost; recurring savings",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "keywords": [
+        "cache_invalidation",
+        "lineage"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0074",
+      "name": "Batch API / offline batching",
+      "aliases": [],
+      "category": "runtime_optimization",
+      "layer": [
+        "runtime",
+        "cost"
+      ],
+      "goal": "Lower cost/overhead for non-interactive independent tasks",
+      "mechanism": "Group many model/tool operations into asynchronous batch execution when latency is not user-facing.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0068.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Scheduler tags deadline/interactive class before routing.",
+      "use_when": [
+        "Indexing",
+        "evals",
+        "bulk extraction",
+        "research preprocessing"
+      ],
+      "avoid_when": [
+        "Interactive blocking task"
+      ],
+      "required_evals": [
+        "throughput",
+        "cost/item",
+        "completion latency"
+      ],
+      "risks": [
+        "Delayed failures",
+        "batch retry complexity"
+      ],
+      "cost_profile": "lower unit cost where provider supports",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0068"
+      ],
+      "keywords": [
+        "batching"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0075",
+      "name": "Parallelize independent model/tool calls",
+      "aliases": [],
+      "category": "latency_optimization",
+      "layer": [
+        "runtime",
+        "agents"
+      ],
+      "goal": "Reduce wall-clock time",
+      "mechanism": "Execute independent branches concurrently and join once dependencies require it.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0068.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Planner emits dependency DAG; concurrency budget enforced.",
+      "use_when": [
+        "Independent retrievals",
+        "Section research",
+        "Validators"
+      ],
+      "avoid_when": [
+        "Shared mutable state",
+        "Strict dependency chain"
+      ],
+      "required_evals": [
+        "wall time",
+        "duplicate work",
+        "race errors"
+      ],
+      "risks": [
+        "Cost spikes",
+        "rate limits",
+        "merge inconsistency"
+      ],
+      "cost_profile": "same compute compressed in time",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0068"
+      ],
+      "keywords": [
+        "parallelism",
+        "fanout"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0076",
+      "name": "Speculative execution of likely next step",
+      "aliases": [],
+      "category": "latency_optimization",
+      "layer": [
+        "runtime",
+        "agents"
+      ],
+      "goal": "Hide latency when an earlier gate usually passes",
+      "mechanism": "Start a reversible/abortable probable next operation in parallel, cancel if prerequisite fails.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0068.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Never speculate irreversible/external side effects.",
+      "use_when": [
+        "Cheap cancellable operations",
+        "High probability branch"
+      ],
+      "avoid_when": [
+        "Consequential/expensive action",
+        "Low branch certainty"
+      ],
+      "required_evals": [
+        "latency saved",
+        "wasted work rate"
+      ],
+      "risks": [
+        "Wasted compute",
+        "accidental side effects if boundary wrong"
+      ],
+      "cost_profile": "trade compute for latency",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0068"
+      ],
+      "keywords": [
+        "speculative_execution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0077",
+      "name": "Streaming partial results",
+      "aliases": [],
+      "category": "ux_runtime",
+      "layer": [
+        "runtime",
+        "human_system"
+      ],
+      "goal": "Reduce perceived wait and expose progress",
+      "mechanism": "Stream tokens/events/status instead of waiting for complete result.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0068.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Distinguish provisional vs validated status in UI.",
+      "use_when": [
+        "Interactive UI",
+        "Long orchestration"
+      ],
+      "avoid_when": [
+        "Output must be atomically validated before display/action"
+      ],
+      "required_evals": [
+        "time-to-first-useful-output",
+        "cancellation rate"
+      ],
+      "risks": [
+        "Partial result can be mistaken as final"
+      ],
+      "cost_profile": "little quality cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0068"
+      ],
+      "keywords": [
+        "streaming",
+        "progress"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0078",
+      "name": "Checkpointed staged execution",
+      "aliases": [],
+      "category": "durable_agents",
+      "layer": [
+        "agents",
+        "runtime"
+      ],
+      "goal": "Resume long work without replaying completed stages",
+      "mechanism": "Persist stage inputs/outputs/status and only rerun invalidated or failed work.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0144, SRC-AI-0145.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Already present; Meta Engine should measure correctness and granularity.",
+      "use_when": [
+        "Long research/import/code runs"
+      ],
+      "avoid_when": [
+        "Single cheap atomic call"
+      ],
+      "required_evals": [
+        "resume success",
+        "repeated work avoided"
+      ],
+      "risks": [
+        "Stale checkpoint/schema migrations"
+      ],
+      "cost_profile": "storage + major retry savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0144",
+        "SRC-AI-0145"
+      ],
+      "keywords": [
+        "checkpoint",
+        "resume"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0079",
+      "name": "Event history / replay",
+      "aliases": [],
+      "category": "durable_agents",
+      "layer": [
+        "agents",
+        "runtime",
+        "observability"
+      ],
+      "goal": "Reconstruct execution and safely recover or branch experiments",
+      "mechanism": "Record deterministic workflow decisions and non-deterministic activity results as append-only event history/materialized state.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0144.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Adopt selectively; don't event-source every cache.",
+      "use_when": [
+        "Side-effecting long workflows",
+        "Need forensic replay"
+      ],
+      "avoid_when": [
+        "High-volume trivial events where simpler checkpoint suffices"
+      ],
+      "required_evals": [
+        "replay equivalence",
+        "history size",
+        "migration"
+      ],
+      "risks": [
+        "Sensitive logs",
+        "history complexity"
+      ],
+      "cost_profile": "medium-high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "keywords": [
+        "event_sourcing",
+        "replay"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0080",
+      "name": "Bounded agent loops",
+      "aliases": [],
+      "category": "agent_control",
+      "layer": [
+        "agents",
+        "control"
+      ],
+      "goal": "Prevent runaway retries/tool loops",
+      "mechanism": "Set maximum turns/actions/retries/time/cost and explicit stop states; escalate instead of looping indefinitely.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Budgets vary by risk/task; record exhaustion reason.",
+      "use_when": [
+        "Any autonomous loop"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "loop-guard triggers",
+        "unfinished work rate",
+        "cost overruns"
+      ],
+      "risks": [
+        "Too-tight budget aborts recoverable tasks"
+      ],
+      "cost_profile": "saves catastrophic tails",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "loop_guard",
+        "budget"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0081",
+      "name": "Validator-driven escalation",
+      "aliases": [],
+      "category": "agent_control",
+      "layer": [
+        "agents",
+        "routing"
+      ],
+      "goal": "Use stronger/more expensive behavior only when cheaper path demonstrably fails",
+      "mechanism": "Start deterministic/smaller/lower-effort path and escalate on test/validator/uncertainty signals.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Existing Agent OS strength; broaden beyond coding.",
+      "use_when": [
+        "Agent OS staged work"
+      ],
+      "avoid_when": [
+        "High-risk tasks whose minimum tier is policy-constrained"
+      ],
+      "required_evals": [
+        "cost/success",
+        "escalation precision",
+        "false passes"
+      ],
+      "risks": [
+        "Weak validators allow bad cheap output through"
+      ],
+      "cost_profile": "expected savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "escalation",
+        "validator"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0082",
+      "name": "Manager-worker orchestration",
+      "aliases": [],
+      "category": "multi_agent",
+      "layer": [
+        "agents"
+      ],
+      "goal": "Separate global coordination from specialized execution",
+      "mechanism": "Manager decomposes/assigns tasks; workers return bounded artifacts/evidence.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use only when decomposition saves enough breadth/time to justify overhead.",
+      "use_when": [
+        "Parallelizable complex projects"
+      ],
+      "avoid_when": [
+        "Simple task",
+        "Tightly shared mutable context"
+      ],
+      "required_evals": [
+        "coordination overhead",
+        "task success",
+        "duplication"
+      ],
+      "risks": [
+        "Manager bottleneck",
+        "context loss",
+        "token multiplier"
+      ],
+      "cost_profile": "high vs single agent",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "manager_worker"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0083",
+      "name": "Specialist-agent roles",
+      "aliases": [],
+      "category": "multi_agent",
+      "layer": [
+        "agents"
+      ],
+      "goal": "Apply task-specific prompts/tools/evals to recurring domains",
+      "mechanism": "Define specialist configurations for research, coding, review, security, extraction, etc.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Prefer capability profiles over separate 'agent personalities'.",
+      "use_when": [
+        "Stable distinct capability/tool requirements"
+      ],
+      "avoid_when": [
+        "Roles differ only by prose/persona"
+      ],
+      "required_evals": [
+        "specialist vs generalist A/B",
+        "maintenance cost"
+      ],
+      "risks": [
+        "Agent proliferation",
+        "duplicated prompts/tools"
+      ],
+      "cost_profile": "variable",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "specialists"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0084",
+      "name": "Independent reviewer agent",
+      "aliases": [],
+      "category": "multi_agent",
+      "layer": [
+        "agents",
+        "evaluation"
+      ],
+      "goal": "Reduce author-review correlated blind spots",
+      "mechanism": "A separate run/provider/model reviews artifact against rubric/tests before integration.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0098, SRC-AI-0100.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Blind reviewer to author rationale when possible; focus on artifact/evidence.",
+      "use_when": [
+        "Code/config/policy changes",
+        "High-value research conclusions"
+      ],
+      "avoid_when": [
+        "Deterministic verifier completely covers correctness"
+      ],
+      "required_evals": [
+        "defect catch rate",
+        "review false positives",
+        "cost"
+      ],
+      "risks": [
+        "Reviewer correlation",
+        "style bikeshedding"
+      ],
+      "cost_profile": "extra call(s)",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098",
+        "SRC-AI-0100"
+      ],
+      "keywords": [
+        "reviewer"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0085",
+      "name": "Multi-agent debate",
+      "aliases": [],
+      "category": "multi_agent",
+      "layer": [
+        "agents",
+        "evaluation"
+      ],
+      "goal": "Expose competing arguments/perspectives",
+      "mechanism": "Agents iteratively critique opposing solutions before a final decision.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "low_medium",
+        "summary": "Evidence basis: SRC-AI-0101.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Not a default reviewer architecture.",
+      "use_when": [
+        "Hard ambiguous reasoning experiments"
+      ],
+      "avoid_when": [
+        "Routine production",
+        "Judge bias poorly understood"
+      ],
+      "required_evals": [
+        "quality vs rounds",
+        "bias amplification",
+        "cost"
+      ],
+      "risks": [
+        "Bias amplification",
+        "groupthink",
+        "large token multiplier"
+      ],
+      "cost_profile": "very high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0101"
+      ],
+      "keywords": [
+        "debate"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0086",
+      "name": "Meta-judge aggregation",
+      "aliases": [],
+      "category": "multi_agent",
+      "layer": [
+        "agents",
+        "evaluation"
+      ],
+      "goal": "Aggregate multiple candidate/judge signals without free-form debate",
+      "mechanism": "Collect independent evaluations then use deterministic/meta-judge synthesis with disagreement preserved.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0100, SRC-AI-0101.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Report disagreement; never convert vote count directly to confidence.",
+      "use_when": [
+        "High-value subjective eval"
+      ],
+      "avoid_when": [
+        "Correlated judges without calibration"
+      ],
+      "required_evals": [
+        "human agreement",
+        "disagreement resolution"
+      ],
+      "risks": [
+        "False certainty from correlated models"
+      ],
+      "cost_profile": "multiple judge calls",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0100",
+        "SRC-AI-0101"
+      ],
+      "keywords": [
+        "meta_judge"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0087",
+      "name": "Tool-library skill extraction",
+      "aliases": [],
+      "category": "agent_learning",
+      "layer": [
+        "agents",
+        "memory",
+        "skills"
+      ],
+      "goal": "Turn repeated successful action sequences into reusable procedures",
+      "mechanism": "Mine traces for repeated tool sequences, preconditions and validators; create candidate skill/workflow, replay-evaluate before promotion.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0085.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Matches existing Skill Miner roadmap.",
+      "use_when": [
+        "Repeated workflows"
+      ],
+      "avoid_when": [
+        "One-off exploratory tasks"
+      ],
+      "required_evals": [
+        "replay success",
+        "token/call savings",
+        "generalization"
+      ],
+      "risks": [
+        "Overfitted skill",
+        "stale workflow"
+      ],
+      "cost_profile": "offline mining + future savings",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0085"
+      ],
+      "keywords": [
+        "skill_mining",
+        "procedural_memory"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0088",
+      "name": "Toolformer-style learned API use",
+      "aliases": [],
+      "category": "agent_training",
+      "layer": [
+        "agents",
+        "training",
+        "tools"
+      ],
+      "goal": "Internalize when/how to call tools through training",
+      "mechanism": "Generate candidate tool calls, filter useful calls, train model on interleaved tool annotations.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0090.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Lower priority than prompt/tool-schema optimization for Agent OS.",
+      "use_when": [
+        "Owning/fine-tuning local model at scale"
+      ],
+      "avoid_when": [
+        "Hosted frontier model routing",
+        "Rapidly changing APIs"
+      ],
+      "required_evals": [
+        "tool call accuracy",
+        "generalization",
+        "training cost"
+      ],
+      "risks": [
+        "Stale tool semantics",
+        "training complexity"
+      ],
+      "cost_profile": "high upfront",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0090"
+      ],
+      "keywords": [
+        "Toolformer"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0089",
+      "name": "Modular router-expert architecture (MRKL)",
+      "aliases": [],
+      "category": "agent_architecture",
+      "layer": [
+        "agents",
+        "tools"
+      ],
+      "goal": "Route queries to deterministic/specialized modules",
+      "mechanism": "Classifier/router selects expert calculator, DB, retrieval, model, or service and integrates answer.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0092.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS capability registry is a modern version of this idea.",
+      "use_when": [
+        "Many distinct capability modules"
+      ],
+      "avoid_when": [
+        "Router cannot reliably distinguish tasks"
+      ],
+      "required_evals": [
+        "route accuracy",
+        "fallback rate",
+        "cost"
+      ],
+      "risks": [
+        "Misrouting",
+        "integration burden"
+      ],
+      "cost_profile": "usually efficient",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0092"
+      ],
+      "keywords": [
+        "MRKL",
+        "router"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0090",
+      "name": "Agent-computer-interface optimization",
+      "aliases": [],
+      "category": "tool_design",
+      "layer": [
+        "agents",
+        "tools",
+        "ux"
+      ],
+      "goal": "Improve agent performance by redesigning the action/observation interface rather than model prompt alone",
+      "mechanism": "Expose concise purpose-built commands, navigable observations, structured search/edit primitives and useful feedback.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0096, SRC-AI-0071.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Meta Engine should treat tool UX as a trainable/evaluable artifact.",
+      "use_when": [
+        "Coding",
+        "GUI/computer use",
+        "complex services"
+      ],
+      "avoid_when": [
+        "Interface already minimal and task-aligned"
+      ],
+      "required_evals": [
+        "task success across interface variants",
+        "actions/task"
+      ],
+      "risks": [
+        "Interface can overfit one model",
+        "maintenance"
+      ],
+      "cost_profile": "engineering cost; may reduce model cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0096",
+        "SRC-AI-0071"
+      ],
+      "keywords": [
+        "ACI",
+        "interface"
+      ],
+      "notes": ""
+    }
+  ]
+}
