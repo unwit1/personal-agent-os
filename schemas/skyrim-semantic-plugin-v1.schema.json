@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-semantic-plugin-v1.schema.json",
+  "title": "Skyrim Semantic Plugin v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plugin",
+    "records",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-semantic-plugin-v1"
+    },
+    "plugin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mod_key"
+      ],
+      "properties": {
+        "mod_key": {
+          "type": "string"
+        },
+        "game_release": {
+          "type": "string"
+        },
+        "masters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "localized": {
+          "type": "boolean"
+        },
+        "header_version": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "form_key",
+          "signature",
+          "fields"
+        ],
+        "properties": {
+          "form_key": {
+            "type": "string"
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{4}$"
+          },
+          "editor_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "deleted": {
+            "type": "boolean",
+            "default": false
+          },
+          "flags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "bit",
+                "value"
+              ],
+              "properties": {
+                "bit": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 31
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "name": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "fields": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "vmad": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true
+          },
+          "asset_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "producer",
+        "producer_version"
+      ],
+      "properties": {
+        "producer": {
+          "type": "string"
+        },
+        "producer_version": {
+          "type": "string"
+        },
+        "source_plugin_sha256": {
+          "type": "string"
+        },
+        "load_order_sha256": {
+          "type": "string"
+        },
+        "schema_source": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
