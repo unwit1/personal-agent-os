@@ -201,6 +201,24 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/creation-kit.json"
     },
     {
+      "adapter_id": "facegen-coherence-validator",
+      "role": "asset-validator",
+      "priority": "preferred",
+      "capabilities": [
+        "facegen-path-validate",
+        "facegen-pair-validate",
+        "facegen-fingerprint-validate",
+        "facegen-manifest-coverage"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": false,
+      "requires_running_game": false,
+      "known_gaps": [
+        "does not yet compare NPC_ face fields to NIF geometry"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/facegen-coherence-validator.json"
+    },
+    {
       "adapter_id": "dds-structural-validator",
       "role": "asset-validator",
       "priority": "preferred",
