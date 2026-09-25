@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-25",
+  "purpose": "Sanitized relationship reconciliation and source-attribution policy. Detailed third-party identifiers, raw messages, contact data, and uncertain identity evidence remain local/private.",
+  "durable_relationship_context": {
+    "partner": {
+      "person_id": "person:olivia",
+      "display_name": "Olivia",
+      "identity_confidence": "stated",
+      "relationship_type": "romantic_partner",
+      "relationship_confidence": "stated",
+      "current_label": "girlfriend",
+      "household_planning": true,
+      "historical_labels": [
+        {
+          "label": "fiancée",
+          "observed": "2025-09",
+          "status": "historical_only"
+        }
+      ],
+      "rule": "Newest direct user wording controls the current relationship label; household evidence does not establish Olivia's individual preferences."
+    },
+    "family": {
+      "sibling_structure": "User is the oldest of five siblings.",
+      "confidence": "stated",
+      "privacy_class": "restricted_detail",
+      "rule": "Keep individual sibling identities and private family dynamics local unless a task explicitly requires them."
+    }
+  },
+  "source_attribution_policy": {
+    "account_owner_not_equal_actor": true,
+    "allowed_actor_states": [
+      "user",
+      "user_confirmed",
+      "other_account_user",
+      "third_party",
+      "organization_archive",
+      "automated",
+      "unknown"
+    ],
+    "profile_promotion_default": "Only user/user_confirmed actor evidence may directly qualify for personal-profile promotion; every other actor state requires explicit reconciliation.",
+    "mixed_archive_rule": "Organizational mail/PST archives must resolve message actor and subject before creating personal-profile candidates.",
+    "same_name_rule": "Name equality alone never merges people."
+  },
+  "quarantined_or_unresolved": [
+    {
+      "id": "claim:regent-it-biography",
+      "status": "quarantined",
+      "reason": "Conflicts with stronger/current biography and is plausibly attributable to another user of the shared ChatGPT account.",
+      "promotion_rule": "Requires independent user confirmation."
+    },
+    {
+      "id": "claim:audio-engineering-masters",
+      "status": "quarantined",
+      "reason": "Single historical account-authored claim with unresolved actor attribution and no corroborated completion/current enrollment.",
+      "promotion_rule": "Requires actor attribution or newer direct user confirmation."
+    }
+  ],
+  "unresolved_identity_candidates": [
+    {
+      "id": "candidate:mark-allison",
+      "label": "Mark Allison",
+      "domain": "personal",
+      "status": "candidate",
+      "reason": "Recurring imported social context does not establish closeness/current relationship."
+    },
+    {
+      "id": "candidate:recurring-male-friend",
+      "label": "Unidentified recurring male friend",
+      "domain": "personal",
+      "status": "candidate",
+      "reason": "Recurring friend/photo context exists without reliable identity."
+    },
+    {
+      "id": "candidate:workplace-olivia",
+      "label": "Olivia (workplace context)",
+      "domain": "work",
+      "status": "candidate",
+      "reason": "Do not merge with partner Olivia by first name alone."
+    },
+    {
+      "id": "candidate:brian-ingle",
+      "label": "Brian Ingle",
+      "domain": "work",
+      "status": "candidate_same_person_link",
+      "reason": "Name appears across work contexts; organization/time evidence must establish continuity."
+    },
+    {
+      "id": "candidate:regina",
+      "label": "Regina",
+      "domain": "work",
+      "status": "candidate_collision",
+      "reason": "Current work and historical archive references may refer to different people."
+    }
+  ],
+  "provenance": [
+    {
+      "source": "cross_source_reconciliation_2026-09-25",
+      "status": "derived_context",
+      "note": "Built from previously ingested personal mail/profile/conversation evidence; uncertain third-party links remain non-canonical candidates."
+    }
+  ]
+}
