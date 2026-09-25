@@ -1,0 +1,106 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "xdump-semantic-export",
+  "tool": "xEdit xDump semantic exporter",
+  "tool_version": "4.1.5f",
+  "source": "https://github.com/TES5Edit/TES5Edit",
+  "targets": [
+    "skyrim-le",
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "record-dump",
+    "semantic-export",
+    "canonical-formkey",
+    "asset-path-extraction",
+    "vmad-evidence"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "{python_executable}",
+    "arguments_template": [
+      "{repo_root}/tools/skyrim_mod_factory/run_xdump_semantic_export.py",
+      "{xdump_executable}",
+      "{plugin_path}",
+      "--raw-output",
+      "{xdump_raw_output}",
+      "--semantic-output",
+      "{semantic_output}",
+      "--game-mode",
+      "{game_mode}",
+      "--game-release",
+      "{game_release}",
+      "--load-order-map",
+      "{load_order_map}",
+      "--execute"
+    ],
+    "transport": "Python harness -> xDump -Dump -> semantic normalizer",
+    "requires_running_game": false,
+    "timeout_seconds": 900
+  },
+  "inputs": [
+    "plugin file",
+    "xDump executable",
+    "load-order FormID map"
+  ],
+  "outputs": [
+    "raw xDump text",
+    "skyrim-semantic-plugin-v1 JSON"
+  ],
+  "logs": [
+    "stdout",
+    "stderr",
+    "raw xDump text"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [],
+  "human_checks": [
+    "xDump field text beyond declared semantic coverage remains audit evidence, not automatically equivalent typed semantics"
+  ],
+  "coverage": {
+    "description": "Read-only xEdit/xDump oracle that decodes one plugin and normalizes canonical record identity plus currently declared shared semantic fields.",
+    "known_gaps": [
+      "record-specific typed semantics remain outside v1 declared comparison coverage",
+      "localized display text may not be canonical semantic identity",
+      "requires a correct load-order map for canonical FormKeys"
+    ],
+    "denominator_probe": "xDump record headers emitted versus normalized records; parser retains raw evidence and producer omissions"
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Reads one plugin/masters and writes only local raw/JSON evidence."
+  },
+  "verification": {
+    "independent_validators": [
+      "mutagen-semantic-export",
+      "xedit"
+    ],
+    "version_probe": "Pin xDump/xEdit release and executable SHA-256",
+    "output_readback": "Require fresh decoded stdout, normalize, schema-validate, then differential-compare shared fields."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Feed semantic JSON/diff summaries to models; keep full raw xDump local unless specific evidence is needed."
+  },
+  "evidence": {
+    "source_url": "https://github.com/TES5Edit/TES5Edit/blob/dev-4.1.5/xDump.dpr",
+    "verified_date": "2026-09-25",
+    "notes": "xDump source documents Dump mode, plugin/master loading, -d Data path, optional record/group filtering and stdout decoded output."
+  }
+}
