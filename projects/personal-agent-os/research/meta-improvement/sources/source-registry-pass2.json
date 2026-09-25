@@ -3673,6 +3673,430 @@
       "evidence_notes": "Contextual Thompson sampling variant incorporates multiple outcome/safety constraints relative to policy objectives.",
       "limits": "Empirical/theoretical setting does not automatically translate to human-notification or personal-assistant harms.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0326",
+      "title": "OpenAI Responses API create reference",
+      "type": "official",
+      "url": "https://developers.openai.com/api/reference/cli/resources/responses/methods/create",
+      "topics": [
+        "decoding",
+        "tool_budget",
+        "truncation",
+        "logprobs"
+      ],
+      "evidence_notes": "Current Responses API reference exposes model-dependent temperature/top_p/logprobs and operational controls including max_output_tokens, max_tool_calls and truncation behavior.",
+      "limits": "Capabilities/parameters are model dependent and evolve.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0327",
+      "title": "OpenAI Token Counting",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/token-counting",
+      "topics": [
+        "tokens",
+        "cost",
+        "reasoning"
+      ],
+      "evidence_notes": "Current token-counting docs explain exact input counting and that output budgets include non-visible reasoning/formatting tokens, requiring headroom.",
+      "limits": "Provider-specific accounting.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0328",
+      "title": "Guidance: A Language for Controlling Large Language Models",
+      "type": "open_source",
+      "url": "https://github.com/guidance-ai/guidance",
+      "topics": [
+        "prompt_programming",
+        "constrained_generation"
+      ],
+      "evidence_notes": "Interleaves deterministic Python control with model generation and supports regex/CFG/JSON-schema constrained generation plus token fast-forwarding.",
+      "limits": "Framework abstraction and backend integration add maintenance; semantic correctness still requires validators.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0329",
+      "title": "MIPRO: Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2406.11695",
+      "topics": [
+        "prompt_optimization",
+        "DSPy"
+      ],
+      "evidence_notes": "Jointly optimizes instructions and demonstrations across multi-stage LM programs using downstream metrics/surrogate search; reported gains on most studied programs.",
+      "limits": "Optimizer can overfit development metric and costs many evaluations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0330",
+      "title": "GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2507.19457",
+      "topics": [
+        "prompt_optimization",
+        "evolution",
+        "reflection"
+      ],
+      "evidence_notes": "Uses trajectory reflection and Pareto/genetic search to evolve prompts; reported large gains with fewer rollouts than GRPO on studied tasks.",
+      "limits": "Recent method; reflection can mutate crucial constraints and holdout governance is essential.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0331",
+      "title": "RAG-Fusion",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03367",
+      "topics": [
+        "retrieval",
+        "query_expansion",
+        "RRF"
+      ],
+      "evidence_notes": "Generates multiple query perspectives and fuses ranked lists via reciprocal rank fusion for broader retrieval.",
+      "limits": "Small/manual evaluation and query drift risk.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0332",
+      "title": "Corrective Retrieval Augmented Generation (CRAG)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.15884",
+      "topics": [
+        "retrieval",
+        "adaptive_rag"
+      ],
+      "evidence_notes": "Retrieval evaluator triggers corrective retrieval actions, web extension, and selective document decomposition/recomposition.",
+      "limits": "Quality depends on evaluator; web expansion increases trust/injection surface.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0333",
+      "title": "Adaptive-RAG",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.14403",
+      "topics": [
+        "retrieval",
+        "routing"
+      ],
+      "evidence_notes": "Routes queries among no-retrieval, single-step and iterative retrieval based on predicted complexity.",
+      "limits": "Complexity is only a proxy for evidence need; classifier may not transfer.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0334",
+      "title": "Query2doc: Query Expansion with Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2303.07678",
+      "topics": [
+        "retrieval",
+        "query_expansion"
+      ],
+      "evidence_notes": "LLM-generated pseudo-documents expand queries and improved sparse/dense retrieval in original experiments.",
+      "limits": "Fabricated pseudo-document details can bias retrieval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0335",
+      "title": "RankGPT / Is ChatGPT Good at Search?",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2304.09542",
+      "topics": [
+        "retrieval",
+        "reranking",
+        "distillation"
+      ],
+      "evidence_notes": "Permutation-style LLM passage reranking was competitive with strong supervised rankers; ranking behavior was also distilled into a smaller model.",
+      "limits": "High inference cost and positional/order biases require controls.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0336",
+      "title": "ColPali: Efficient Document Retrieval with Vision Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.01449",
+      "topics": [
+        "document_retrieval",
+        "vision",
+        "late_interaction"
+      ],
+      "evidence_notes": "Retrieves visually rich document pages directly with vision-language multi-vector embeddings and late interaction.",
+      "limits": "Visual retrieval does not replace extraction/OCR where exact field values are needed; index is expensive.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0337",
+      "title": "Compacter: Efficient Low-Rank Hypercomplex Adapter Layers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2106.04647",
+      "topics": [
+        "PEFT",
+        "adapters"
+      ],
+      "evidence_notes": "Highly parameter-efficient hypercomplex adapter architecture reported competitive or better results with very small trainable fraction.",
+      "limits": "Older model regime and higher implementation complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0338",
+      "title": "DoRA: Weight-Decomposed Low-Rank Adaptation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.09353",
+      "topics": [
+        "PEFT",
+        "LoRA"
+      ],
+      "evidence_notes": "Separates weight magnitude and direction, applying low-rank updates to direction; reported stronger quality/stability than LoRA across several tasks.",
+      "limits": "Requires local training and exact-task revalidation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0339",
+      "title": "VeRA: Vector-based Random Matrix Adaptation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.11454",
+      "topics": [
+        "PEFT",
+        "LoRA"
+      ],
+      "evidence_notes": "Shares frozen random low-rank matrices and learns only scaling vectors, greatly reducing per-task trainable/storage parameters.",
+      "limits": "Quality depends on task/model/random basis.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0340",
+      "title": "NEFTune: Noisy Embeddings Improve Instruction Finetuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.05914",
+      "topics": [
+        "finetuning",
+        "regularization"
+      ],
+      "evidence_notes": "Embedding noise during fine-tuning produced large gains in original instruction-tuning experiments without extra data.",
+      "limits": "Authors note judge bias, limited large-model validation, fixed hyperparameters and unclear mechanism.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0341",
+      "title": "Editing Models with Task Arithmetic",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2212.04089",
+      "topics": [
+        "model_merging",
+        "task_vectors"
+      ],
+      "evidence_notes": "Fine-tune weight deltas can be added/subtracted to compose/suppress capabilities across compatible models.",
+      "limits": "Nonlinear interference and scale sensitivity require broad evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0342",
+      "title": "Language Models are Super Mario / DARE",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2311.03099",
+      "topics": [
+        "model_merging",
+        "DARE"
+      ],
+      "evidence_notes": "Randomly drops/rescales fine-tuning deltas and merges homologous models; reported strong capability composition without retraining.",
+      "limits": "Aggressive delta sparsification can cause hidden regressions and results depend on compatible models.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0343",
+      "title": "ShortGPT: Layers in Large Language Models are More Redundant Than You Expect",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.03853",
+      "topics": [
+        "pruning",
+        "layer_pruning"
+      ],
+      "evidence_notes": "Block-influence metric identifies low-impact transformer blocks for structured layer removal with reported strong compression.",
+      "limits": "Low average influence does not imply low importance on rare capabilities.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0344",
+      "title": "Compact Language Models via Pruning and Knowledge Distillation (Minitron)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.14679",
+      "topics": [
+        "pruning",
+        "distillation"
+      ],
+      "evidence_notes": "Systematic structured width/depth/attention/MLP pruning plus distillation produced smaller models with large training-token savings.",
+      "limits": "Requires significant retraining and exact model/task replication.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0345",
+      "title": "Mixture-of-Depths",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2404.02258",
+      "topics": [
+        "dynamic_compute",
+        "model_architecture"
+      ],
+      "evidence_notes": "Learns token-wise routing through transformer blocks under fixed compute budget and reported faster sampling at matched performance/FLOPs.",
+      "limits": "Training architecture and serving changes required.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0346",
+      "title": "H2O: Heavy-Hitter Oracle for Efficient Generative Inference",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.14048",
+      "topics": [
+        "KV_cache",
+        "inference"
+      ],
+      "evidence_notes": "Retains recent and high-attention heavy-hitter tokens while evicting others; reported substantial KV-memory/throughput gains.",
+      "limits": "Attention-importance policy can discard details needed later; workload/model dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0347",
+      "title": "Scissorhands: KV Cache Compression at Test Time",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.17118",
+      "topics": [
+        "KV_cache",
+        "inference"
+      ],
+      "evidence_notes": "Uses persistence-of-importance to retain pivotal KV entries and reported strong KV compression.",
+      "limits": "Heuristic may fail when previously low-attention tokens become important.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0348",
+      "title": "StreamingLLM: Efficient Streaming Language Models with Attention Sinks",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.17453",
+      "topics": [
+        "KV_cache",
+        "streaming",
+        "long_context"
+      ],
+      "evidence_notes": "Keeps initial attention-sink tokens plus recent rolling window to enable stable streaming with bounded cache.",
+      "limits": "Not equivalent to random-access long context; old content is discarded from KV.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0349",
+      "title": "LongLoRA",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.12307",
+      "topics": [
+        "long_context",
+        "PEFT"
+      ],
+      "evidence_notes": "Shifted short attention during fine-tuning with LoRA reduces long-context adaptation cost while using dense attention at inference.",
+      "limits": "Model-specific training/inference tradeoffs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0350",
+      "title": "Ring Attention with Blockwise Transformers for Near-Infinite Context",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.01889",
+      "topics": [
+        "long_context",
+        "distributed_attention"
+      ],
+      "evidence_notes": "Distributes sequence blocks across devices in a ring and overlaps attention computation with KV communication.",
+      "limits": "Multi-device complexity and total attention computation remain substantial.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0351",
+      "title": "Landmark Attention: Random-Access Infinite Context Length for Transformers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.16300",
+      "topics": [
+        "long_context",
+        "attention_retrieval"
+      ],
+      "evidence_notes": "Landmark tokens learn to route attention to relevant context blocks for long-range random access.",
+      "limits": "Requires training/model modification and is less auditable than external retrieval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0352",
+      "title": "WebArena",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2307.13854",
+      "topics": [
+        "web_agents",
+        "evaluation"
+      ],
+      "evidence_notes": "Reproducible realistic web environments with execution-based functional evaluation for long-horizon agents.",
+      "limits": "Rehosted websites do not fully reproduce live-web drift/security.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0353",
+      "title": "OSWorld",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2404.07972",
+      "topics": [
+        "computer_use",
+        "evaluation"
+      ],
+      "evidence_notes": "Real desktop applications/OS with execution-based evaluators for multimodal computer-use agents.",
+      "limits": "Benchmark task/app distribution differs from a user's real desktop.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0354",
+      "title": "AssistantBench",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2407.15711",
+      "topics": [
+        "web_agents",
+        "research_agents"
+      ],
+      "evidence_notes": "Realistic time-consuming web assistant tasks exposed low precision/hallucination and weak open-web agent performance in early systems.",
+      "limits": "Small/rapidly aging benchmark relative to agent progress.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0355",
+      "title": "AgentBench",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2308.03688",
+      "topics": [
+        "agents",
+        "evaluation"
+      ],
+      "evidence_notes": "Multi-environment benchmark exposes long-horizon reasoning/decision/instruction-following weaknesses across interactive environments.",
+      "limits": "Older model/scaffold generation and abstract task mix.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0356",
+      "title": "ProgPrompt: Generating Situated Robot Task Plans using Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2209.11302",
+      "topics": [
+        "planning",
+        "programmatic_prompting"
+      ],
+      "evidence_notes": "Program-like action/object specifications and examples constrain plans to executable action space.",
+      "limits": "Embodied domain and older model regime.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0357",
+      "title": "Inner Monologue: Embodied Reasoning through Planning with Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2207.05608",
+      "topics": [
+        "planning",
+        "environment_feedback"
+      ],
+      "evidence_notes": "Structured environment feedback, perception and success detection improve closed-loop embodied planning.",
+      "limits": "Robot-specific evidence; feedback quality remains the limiting oracle.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
