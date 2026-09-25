@@ -1,0 +1,1126 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "failure_analysis_safety_engineering",
+  "techniques": [
+    {
+      "id": "AIT-0291",
+      "name": "Blameless postmortem",
+      "aliases": [],
+      "category": "failure_learning",
+      "layer": [
+        "reliability",
+        "human_system",
+        "governance"
+      ],
+      "goal": "Turn meaningful failures into durable systemic improvements",
+      "mechanism": "Document timeline, impact, contributing causes, detection/response quality, what went well/poorly, and measurable preventive/mitigating actions without person-blame.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0233, SRC-AI-0234.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Failure registry can auto-draft evidence/timeline; final causal claims remain reviewable.",
+      "use_when": [
+        "Significant Agent OS incident",
+        "Repeated stream interruption",
+        "Security/privacy near miss"
+      ],
+      "avoid_when": [
+        "Trivial isolated failure with no learning value"
+      ],
+      "required_evals": [
+        "action completion",
+        "recurrence",
+        "time-to-detect/mitigate"
+      ],
+      "risks": [
+        "Postmortem theater without action",
+        "excessive overhead"
+      ],
+      "cost_profile": "human/model analysis time",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233",
+        "SRC-AI-0234"
+      ],
+      "keywords": [
+        "postmortem",
+        "blameless"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0292",
+      "name": "Predefined postmortem trigger policy",
+      "aliases": [],
+      "category": "failure_learning",
+      "layer": [
+        "reliability",
+        "governance"
+      ],
+      "goal": "Avoid selective learning only from dramatic failures",
+      "mechanism": "Define thresholds such as user impact, data loss, security event, repeated manual intervention, long resolution, monitoring failure or recurring defect.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0233.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Include model/tool loops and repeated user corrections as triggers, not only outages.",
+      "use_when": [
+        "Mature Agent OS"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "coverage of significant incidents",
+        "postmortem burden"
+      ],
+      "risks": [
+        "Threshold too low produces bureaucracy"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233"
+      ],
+      "keywords": [
+        "postmortem_trigger"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0293",
+      "name": "Corrective and Preventive Action (CAPA)",
+      "aliases": [],
+      "category": "failure_learning",
+      "layer": [
+        "reliability",
+        "governance"
+      ],
+      "goal": "Separate immediate repair from actions that prevent recurrence or reduce impact",
+      "mechanism": "For each incident identify correction, root/system cause, preventive design change, detection improvement and verification of action effectiveness.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0234.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every action item requires a verifiable end state.",
+      "use_when": [
+        "Recurring/systemic failures"
+      ],
+      "avoid_when": [
+        "No evidence a preventive action is feasible"
+      ],
+      "required_evals": [
+        "action verified",
+        "recurrence"
+      ],
+      "risks": [
+        "Action list grows without closure"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0234"
+      ],
+      "keywords": [
+        "CAPA",
+        "preventive_action"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0294",
+      "name": "Bottom-up FMEA",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "reliability",
+        "architecture"
+      ],
+      "goal": "Identify how each component/tool/state can fail and how failures propagate",
+      "mechanism": "Enumerate failure modes at component/interface level, effects, severity, detection/controls and corrective provisions.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0235.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Run at subsystem boundaries, not every trivial function.",
+      "use_when": [
+        "Authorization plane",
+        "Knowledge promotion",
+        "External action adapters"
+      ],
+      "avoid_when": [
+        "Low-risk tiny helper"
+      ],
+      "required_evals": [
+        "hazards covered",
+        "controls implemented"
+      ],
+      "risks": [
+        "Combinatorial analysis effort",
+        "missed unknown modes"
+      ],
+      "cost_profile": "high design time",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235"
+      ],
+      "keywords": [
+        "FMEA",
+        "failure_modes"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0295",
+      "name": "Top-down Fault Tree Analysis",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "reliability",
+        "architecture"
+      ],
+      "goal": "Discover combinations of causes that could produce a predefined catastrophic outcome",
+      "mechanism": "Start from hazard/top event and decompose logical AND/OR causal paths until actionable basic events/controls emerge.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0236.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use for 'must never happen' Agent OS invariants.",
+      "use_when": [
+        "Unauthorized spend",
+        "private data exfiltration",
+        "canonical corruption",
+        "duplicate external action"
+      ],
+      "avoid_when": [
+        "No meaningful top hazard defined"
+      ],
+      "required_evals": [
+        "minimal cut sets",
+        "control coverage"
+      ],
+      "risks": [
+        "Causal tree can oversimplify dynamic interactions"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0236"
+      ],
+      "keywords": [
+        "FTA",
+        "fault_tree"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0296",
+      "name": "STPA / unsafe-control-action analysis",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "control",
+        "architecture"
+      ],
+      "goal": "Find hazards caused by interactions, timing and unsafe control even when individual components do not 'fail'",
+      "mechanism": "Model controller, controlled process, feedback and constraints; enumerate missing/wrong/too-early/too-late/too-long control actions and causal scenarios.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0237.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Especially relevant because AI hazards often arise from nominal-but-wrong actions, not crashes.",
+      "use_when": [
+        "Recursive improvement",
+        "Human approvals",
+        "Multi-agent orchestration",
+        "Cross-service automation"
+      ],
+      "avoid_when": [
+        "Simple component whose hazards are fully local"
+      ],
+      "required_evals": [
+        "unsafe control scenarios",
+        "constraints implemented"
+      ],
+      "risks": [
+        "Modeling effort and conceptual complexity"
+      ],
+      "cost_profile": "very high analysis",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0237"
+      ],
+      "keywords": [
+        "STPA",
+        "control_safety"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0297",
+      "name": "Hazard register",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "governance"
+      ],
+      "goal": "Keep severe failure possibilities visible through design changes",
+      "mechanism": "Maintain stable hazard IDs, causes, affected assets, severity, controls, verification, residual risk, owner/review date.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0235, SRC-AI-0237.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Link hazards to eval cases, authorization rules and incidents.",
+      "use_when": [
+        "Agent OS autonomy expansion"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "open uncontrolled hazards",
+        "review freshness"
+      ],
+      "risks": [
+        "Stale paperwork"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235",
+        "SRC-AI-0237"
+      ],
+      "keywords": [
+        "hazard_registry"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0298",
+      "name": "Near-miss capture",
+      "aliases": [],
+      "category": "failure_learning",
+      "layer": [
+        "reliability",
+        "security"
+      ],
+      "goal": "Learn from failures caught before user harm",
+      "mechanism": "Record events where validator, reviewer, approval, sandbox or user correction stopped an unsafe/wrong action; analyze repeated near-miss patterns.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0233.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Near misses are evidence about both upstream failure and downstream control effectiveness.",
+      "use_when": [
+        "Tool authorization",
+        "Data leakage",
+        "Wrong project/person routing"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "near-miss recurrence",
+        "gate catch rate"
+      ],
+      "risks": [
+        "High volume/noise if every rejected candidate counted"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233"
+      ],
+      "keywords": [
+        "near_miss"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0299",
+      "name": "Barrier/control effectiveness tracking",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "evaluation"
+      ],
+      "goal": "Measure whether each protective layer actually catches relevant failure modes",
+      "mechanism": "For hazards map preventive/detective/mitigating barriers and record tests/incidents that exercised each one.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0235, SRC-AI-0236.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Avoid counting multiple correlated model prompts as independent barriers.",
+      "use_when": [
+        "Defense-in-depth systems"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "barrier test coverage",
+        "escape rate"
+      ],
+      "risks": [
+        "Assumes known hazard classes"
+      ],
+      "cost_profile": "medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235",
+        "SRC-AI-0236"
+      ],
+      "keywords": [
+        "barrier_analysis",
+        "defense_in_depth"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0300",
+      "name": "Common-cause failure analysis",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "reliability",
+        "multi_agent",
+        "evaluation"
+      ],
+      "goal": "Detect supposedly independent checks that can fail together",
+      "mechanism": "Identify shared model family, training data, prompt, retrieval source, service, dependency or code path among generator/reviewer/fallbacks.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0236.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "A 'second agent' is not independent evidence if it shares the same failure source.",
+      "use_when": [
+        "Multi-model review",
+        "Redundant integrations"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "independence map",
+        "correlated failure rate"
+      ],
+      "risks": [
+        "True dependency relationships can be hidden by providers"
+      ],
+      "cost_profile": "medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0236"
+      ],
+      "keywords": [
+        "common_cause",
+        "correlation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0301",
+      "name": "Defense-in-depth with heterogeneous controls",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "reliability"
+      ],
+      "goal": "Reduce dependence on one failure-prone control type",
+      "mechanism": "Combine architectural authorization, schema validation, static checks, sandbox, external verifier, readback and human approval according to risk.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0235, SRC-AI-0135.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer heterogeneous barriers over repeated prompting.",
+      "use_when": [
+        "Consequential actions"
+      ],
+      "avoid_when": [
+        "Adding redundant controls with no independent value"
+      ],
+      "required_evals": [
+        "escape probability",
+        "control latency/burden"
+      ],
+      "risks": [
+        "Excess friction/complexity"
+      ],
+      "cost_profile": "variable",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235",
+        "SRC-AI-0135"
+      ],
+      "keywords": [
+        "defense_in_depth"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0302",
+      "name": "Swiss-cheese failure-path analysis",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "reliability"
+      ],
+      "goal": "Understand how multiple imperfect defenses can align to permit a failure",
+      "mechanism": "Map hazard path through layers and identify holes/conditions that must coincide; strengthen independent weak layers.",
+      "maturity": "historical",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0233.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Useful communication layer over barrier/control registry.",
+      "use_when": [
+        "Postmortems",
+        "Authorization architecture"
+      ],
+      "avoid_when": [
+        "Used as a substitute for quantitative testing"
+      ],
+      "required_evals": [
+        "multi-barrier escape tests"
+      ],
+      "risks": [
+        "Metaphor can oversimplify causality"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233"
+      ],
+      "keywords": [
+        "barriers",
+        "defense"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0303",
+      "name": "Five-Whys-style causal drilling",
+      "aliases": [],
+      "category": "root_cause",
+      "layer": [
+        "failure_learning"
+      ],
+      "goal": "Push analysis beyond proximate symptom",
+      "mechanism": "Iteratively ask why an event/control was possible until reaching an actionable system/process/design condition.",
+      "maturity": "historical",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0233.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use as question generator, never as proof of one true root cause.",
+      "use_when": [
+        "Simple causal chain",
+        "Quick triage"
+      ],
+      "avoid_when": [
+        "Complex multi-causal sociotechnical incident"
+      ],
+      "required_evals": [
+        "actionability",
+        "repeat recurrence"
+      ],
+      "risks": [
+        "Creates a false single root cause",
+        "stops at arbitrary depth"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233"
+      ],
+      "keywords": [
+        "five_whys",
+        "root_cause"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0304",
+      "name": "Causal graph / contributing-factor analysis",
+      "aliases": [],
+      "category": "root_cause",
+      "layer": [
+        "failure_learning",
+        "provenance"
+      ],
+      "goal": "Represent multi-factor incidents without forcing one root cause",
+      "mechanism": "Build directed graph of necessary/enabling/triggering conditions, evidence and uncertainties; link potential interventions to nodes/edges.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0233.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Explicitly distinguish observed sequence, inferred cause and hypothesis.",
+      "use_when": [
+        "Complex orchestration/security incidents"
+      ],
+      "avoid_when": [
+        "Tiny isolated bug"
+      ],
+      "required_evals": [
+        "causal evidence coverage",
+        "intervention validation"
+      ],
+      "risks": [
+        "Correlation mistaken for causation"
+      ],
+      "cost_profile": "medium-high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233"
+      ],
+      "keywords": [
+        "causal_graph",
+        "contributing_factors"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0305",
+      "name": "Incident timeline reconstruction",
+      "aliases": [],
+      "category": "root_cause",
+      "layer": [
+        "failure_learning",
+        "observability"
+      ],
+      "goal": "Recover what actually happened before theorizing why",
+      "mechanism": "Merge logs, tool events, commits, approvals, messages and state snapshots into ordered evidence timeline with clock/source confidence.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0233, SRC-AI-0102.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Diagnosis starts after observable timeline is assembled.",
+      "use_when": [
+        "Long-running agent failures",
+        "Race/side-effect incidents"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "timeline completeness",
+        "clock uncertainty"
+      ],
+      "risks": [
+        "Missing telemetry",
+        "timestamp skew"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233",
+        "SRC-AI-0102"
+      ],
+      "keywords": [
+        "timeline",
+        "incident"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0306",
+      "name": "Detection-gap analysis",
+      "aliases": [],
+      "category": "failure_learning",
+      "layer": [
+        "reliability",
+        "observability"
+      ],
+      "goal": "Improve how quickly future failures become visible",
+      "mechanism": "Ask when failure began, when system could first have detected it, when it actually did, and what signal/rule would close the gap.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0234.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Action item may be an eval or invariant, not necessarily an alert.",
+      "use_when": [
+        "Silent bad outputs",
+        "Stale integrations",
+        "Security near miss"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "mean time to detect",
+        "monitor recall"
+      ],
+      "risks": [
+        "More monitoring can create alert fatigue"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0234"
+      ],
+      "keywords": [
+        "detection_gap",
+        "MTTD"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0307",
+      "name": "Mitigation-gap analysis",
+      "aliases": [],
+      "category": "failure_learning",
+      "layer": [
+        "reliability",
+        "control"
+      ],
+      "goal": "Reduce harm duration even when prevention is impossible",
+      "mechanism": "Analyze rollback, isolation, fallback, degradation, cancellation and human intervention options between detection and full repair.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0234.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Separate prevention from containment; both create backlog candidates.",
+      "use_when": [
+        "External-provider failures",
+        "Bad model rollout"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "time to mitigation",
+        "blast radius"
+      ],
+      "risks": [
+        "Fallback can have its own hidden risk"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0234"
+      ],
+      "keywords": [
+        "mitigation",
+        "MTTR"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0308",
+      "name": "Positive deviance / what-went-well analysis",
+      "aliases": [],
+      "category": "success_learning",
+      "layer": [
+        "failure_learning",
+        "skills"
+      ],
+      "goal": "Learn from controls/actions that unexpectedly limited impact or produced excellent outcomes",
+      "mechanism": "Postmortem successful detection, fallback, reviewer, workflow or user behavior; test whether it generalizes into reusable design.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0233.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Postmortem records 'went well' as evidence for skill/control improvement.",
+      "use_when": [
+        "Incidents",
+        "Exceptional runs"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "generalized successes",
+        "false generalization"
+      ],
+      "risks": [
+        "Survivorship bias"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233"
+      ],
+      "keywords": [
+        "success_learning",
+        "positive_deviance"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0309",
+      "name": "Bayesian online change-point detection",
+      "aliases": [],
+      "category": "drift_detection",
+      "layer": [
+        "monitoring",
+        "statistics"
+      ],
+      "goal": "Detect regime shifts that rolling averages/control charts may smear",
+      "mechanism": "Maintain posterior over run length/regime and signal when observations are more consistent with a new generative regime.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0238.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use after stratifying task family; a model release can deliberately reset baseline.",
+      "use_when": [
+        "Provider model alias silently changes",
+        "User workflow changes",
+        "Major retrieval distribution shift"
+      ],
+      "avoid_when": [
+        "Very sparse/nonstationary mixed metrics"
+      ],
+      "required_evals": [
+        "detection delay",
+        "false change points"
+      ],
+      "risks": [
+        "Prior/model assumptions",
+        "computation"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0238"
+      ],
+      "keywords": [
+        "BOCPD",
+        "change_point"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0310",
+      "name": "Baseline segmentation by regime/version",
+      "aliases": [],
+      "category": "drift_detection",
+      "layer": [
+        "monitoring",
+        "provenance"
+      ],
+      "goal": "Avoid comparing incompatible periods as if one stationary process",
+      "mechanism": "Reset/annotate monitoring baselines at known model, prompt, tool, dataset, policy or workflow version changes.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Telemetry event stream marks change points intentionally.",
+      "use_when": [
+        "All quality telemetry"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "false alarms around version changes",
+        "cross-version comparability"
+      ],
+      "risks": [
+        "Too many segments reduce statistical power"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "regime",
+        "version"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0311",
+      "name": "Leading vs lagging indicators",
+      "aliases": [],
+      "category": "monitoring",
+      "layer": [
+        "evaluation",
+        "control"
+      ],
+      "goal": "Detect risk before final user failure while retaining outcome truth",
+      "mechanism": "Track leading signals such as retries, validator disagreement, context overflow, low retrieval coverage alongside lagging task success/corrections.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Only promote a leading metric after proving correlation/predictive value.",
+      "use_when": [
+        "Orchestrator",
+        "Proactivity",
+        "Retrieval"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "lead-time",
+        "predictive value"
+      ],
+      "risks": [
+        "Proxy optimization can Goodhart away from actual outcome"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "leading_indicator",
+        "lagging_indicator"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0312",
+      "name": "Sentinel canary cases",
+      "aliases": [],
+      "category": "monitoring",
+      "layer": [
+        "evaluation",
+        "deployment"
+      ],
+      "goal": "Continuously detect catastrophic regression on a tiny stable set",
+      "mechanism": "Run a small set of critical known cases regularly across active model/tool/config versions.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0103, SRC-AI-0234.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Combine immutable security sentinels with rotating functional sentinels.",
+      "use_when": [
+        "Provider/model updates",
+        "Security/privacy invariants"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "sentinel pass",
+        "time to detection"
+      ],
+      "risks": [
+        "Can overfit known sentinels",
+        "doesn't represent full task mix"
+      ],
+      "cost_profile": "small recurring cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0103",
+        "SRC-AI-0234"
+      ],
+      "keywords": [
+        "sentinel",
+        "canary"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0313",
+      "name": "Risk-based test depth",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "evaluation",
+        "governance"
+      ],
+      "goal": "Spend verification effort proportional to consequence and novelty",
+      "mechanism": "Assign risk class from action/data/irreversibility/uncertainty; increase test, reviewer, canary and approval requirements with risk.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0235, SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Authorization risk class feeds experiment/promotion policy.",
+      "use_when": [
+        "All change promotion"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "defect escape by risk class",
+        "verification cost"
+      ],
+      "risks": [
+        "Risk classification mistakes"
+      ],
+      "cost_profile": "adaptive",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235",
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "risk_based_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0314",
+      "name": "Pre-mortem / prospective failure analysis",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "planning",
+        "challenge"
+      ],
+      "goal": "Find likely failure modes before implementation or rollout",
+      "mechanism": "Assume proposed feature failed badly; enumerate plausible causal paths, warning signs and mitigations, then convert credible items into tests/controls.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0235, SRC-AI-0237.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Constructive Challenge Engine runs bounded premortem on high-risk proposals.",
+      "use_when": [
+        "New autonomy/integration",
+        "Large architecture change"
+      ],
+      "avoid_when": [
+        "Routine tiny change"
+      ],
+      "required_evals": [
+        "pre-identified failures later observed",
+        "tests/controls generated"
+      ],
+      "risks": [
+        "Imagination bias",
+        "can become pessimistic bureaucracy"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235",
+        "SRC-AI-0237"
+      ],
+      "keywords": [
+        "premortem",
+        "prospective"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0315",
+      "name": "Safety case / assurance argument",
+      "aliases": [],
+      "category": "safety_analysis",
+      "layer": [
+        "security",
+        "governance",
+        "provenance"
+      ],
+      "goal": "Make explicit why a high-risk capability is believed safe enough",
+      "mechanism": "Build structured claims→arguments→evidence for critical properties, with unresolved assumptions and evidence freshness.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0235, SRC-AI-0133.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Future model can audit claim links instead of trusting a narrative 'security review'.",
+      "use_when": [
+        "Spending authority",
+        "Sensitive HR actions",
+        "Autonomous external messaging"
+      ],
+      "avoid_when": [
+        "Low-risk local reversible features"
+      ],
+      "required_evals": [
+        "evidence completeness",
+        "invalidated assumptions",
+        "review"
+      ],
+      "risks": [
+        "Can become documentation theater if evidence is weak"
+      ],
+      "cost_profile": "high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235",
+        "SRC-AI-0133"
+      ],
+      "keywords": [
+        "safety_case",
+        "assurance"
+      ],
+      "notes": ""
+    }
+  ]
+}
