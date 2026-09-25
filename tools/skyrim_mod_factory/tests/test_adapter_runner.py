@@ -21,5 +21,58 @@ class AdapterRunnerTests(unittest.TestCase):
         fact=MOD.file_fact("__definitely_missing_skyrim_factory_test__")
         self.assertFalse(fact["exists"])
 
+    def test_build_invocation(self):
+        adapter={
+            "adapter_id":"fixture",
+            "invocation":{
+                "mode":"cli",
+                "executable":"{tool}",
+                "arguments_template":["--input","{input}"],
+                "working_directory":"{cwd}",
+                "environment":{"FIXTURE_VALUE":"{value}"},
+            }
+        }
+        inv=MOD.build_invocation(adapter,{
+            "tool":"tool.exe",
+            "input":"input.txt",
+            "cwd":"C:/work",
+            "value":"ok",
+        })
+        self.assertEqual(inv["argv"],["tool.exe","--input","input.txt"])
+        self.assertEqual(inv["cwd"],"C:/work")
+        self.assertEqual(inv["env"]["FIXTURE_VALUE"],"ok")
+
+    def test_run_adapter_dry_run_is_safe_and_records_evidence(self):
+        adapter={
+            "adapter_id":"fixture",
+            "tool":"Fixture Tool",
+            "tool_version":"1.0",
+            "invocation":{
+                "mode":"cli",
+                "executable":"python",
+                "arguments_template":["-c","print('should not execute')"],
+            },
+            "evidence":{"source_url":"https://example.invalid/fixture"},
+        }
+        with tempfile.TemporaryDirectory() as td:
+            record=MOD.run_adapter(
+                adapter,
+                adapter_id="fixture",
+                log_dir=Path(td),
+                execute=False,
+                record_id="step.fixture",
+            )
+        self.assertEqual(record["id"],"step.fixture")
+        self.assertEqual(record["adapter_id"],"fixture")
+        self.assertEqual(record["status"],"skipped")
+        self.assertTrue(record["dry_run"])
+        self.assertIsNone(record["exit_code"])
+        self.assertIn("dry-run",record["issues"][0])
+
+    def test_run_adapter_rejects_non_cli_adapter(self):
+        adapter={"adapter_id":"library-only","invocation":{"mode":"library"}}
+        with self.assertRaises(ValueError):
+            MOD.run_adapter(adapter,adapter_id="library-only",execute=False)
+
 if __name__=="__main__":
     unittest.main()
