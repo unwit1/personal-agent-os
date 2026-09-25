@@ -551,11 +551,11 @@
     {
       "provider_id": "prismai",
       "kind": "alias",
-      "adapter_id": "prismaui",
       "validation_adapters": [
         "devbench"
       ],
-      "notes": "Legacy typo/alias in early pattern data; normalize to prismaui."
+      "notes": "Legacy typo/alias in early pattern data; normalize to prismaui.",
+      "resolves_to": "prismaui"
     }
   ]
 }
