@@ -16,10 +16,10 @@ The broad knowledge-ingestion phase is already mature. Resume from the executabl
 - Implementation patterns: **46**
 - Analyzer rules: **24**
 - Validation gates: **30** (G00–G29)
-- Skyrim-specific JSON Schemas: **41**
-- Mod Factory Python tools: **42**
-- Mod Factory unit-test modules: **36**
-- Dedicated adapter manifests: **53** plus capability-only/manual/framework entries
+- Skyrim-specific JSON Schemas: **42**
+- Mod Factory Python tools: **43**
+- Mod Factory unit-test modules: **37**
+- Dedicated adapter manifests: **54** plus capability-only/manual/framework entries
 
 These are repository counts, not estimates of ecosystem completeness.
 
@@ -106,7 +106,7 @@ Small frequent commits now exist for:
 35. project-plugin xDump semantic export wrapper + adapter;
 36. typed FLM intent/schema coverage, deterministic *_FLM.ini renderer, tests and adapter registration;
 37. typed OAR root/submod author-config baseline, safe config-tree renderer, tests and adapter registration;
-38. deterministic DDS structural validator with DX10/DXGI identity, mip policy, block-payload truncation checks, LE BC7 policy, tests and adapter registration.
+38. deterministic DDS structural validator with DX10/DXGI identity, mip policy, block-payload truncation checks, LE BC7 policy, tests and adapter registration;\n39. typed PresentMon frame-summary schema, process-scoped capture/summarizer, executable adapter, and MO2+DevBench composite lifecycle integration feeding G20.
 
 ## Current resume point
 
@@ -168,7 +168,7 @@ Implemented:
 
 Remaining runtime depth:
 - qualify the harness on the user's actual Windows/MO2/Skyrim installation;
-- add first-class PresentMon/frame-trace lifecycle integration rather than treating traces only as collected artifacts;
+- ✅ PresentMon is now process-scoped to the fresh DevBench-reported game PID, summarized into typed frame metrics, and can satisfy/fail G20 without hiding explicit performance assertions;
 - add more observer backends where DevBench is not available;
 - expand save/new-game migration fixtures and crash-signature ingestion;
 - prove end-to-end release gates against real game runs before calling runtime testing M5.
