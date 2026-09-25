@@ -1,0 +1,121 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "skytest",
+  "tool": "skytest (skyrim-headless-mods)",
+  "source": "https://github.com/myaiexp/skyrim-headless-mods",
+  "targets": [
+    "ae-1.7.x",
+    "linux-proton"
+  ],
+  "capabilities": [
+    "isolated-runtime-profile",
+    "vanilla-ab-control",
+    "runtime-launch",
+    "headless-render",
+    "screenshot",
+    "input-injection",
+    "probe-state-query",
+    "replayable-runtime-test",
+    "runtime-gates",
+    "save-isolation"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "skytest",
+    "arguments_template": [
+      "replay",
+      "{mod}",
+      "{steps}",
+      "--headless"
+    ],
+    "transport": "Linux shell + gamescope/libei + SKSE probe",
+    "requires_running_game": false,
+    "timeout_seconds": 600
+  },
+  "inputs": [
+    "mod under test",
+    "steps script",
+    "authorized local Skyrim installation",
+    "skytest profile/base dependencies"
+  ],
+  "outputs": [
+    "runtime assertion result",
+    "replay screenshots",
+    "SkytestProbe trace",
+    "SKSE/plugin logs"
+  ],
+  "logs": [
+    "SkytestProbe trace.jsonl",
+    "SKSE logs",
+    "plugin logs",
+    "skytest command output"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "forbidden_log_patterns": [
+      "FATAL:",
+      "SKSE/runtime mismatch"
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "auto_fixable_issue_codes": [
+    "SKYTEST_STALE_TEST_PROFILE",
+    "SKYTEST_RUNTIME_PROFILE_NOT_RESTORED"
+  ],
+  "destructive_actions": [
+    "retargeting live game Data symlink/profile",
+    "driving console/game state",
+    "spawning or changing fixture state"
+  ],
+  "human_checks": [
+    "real-hardware verification for input-state mechanisms that synthetic libei input cannot prove reliable"
+  ],
+  "coverage": {
+    "description": "Experimental external Linux test harness that isolates a mod, launches Skyrim under gamescope, injects input, takes screenshots and polls structured probe/game state.",
+    "known_gaps": [
+      "not yet validated by Agent OS against the user's own machine/profile",
+      "headless/libei held input is not equivalent to every real hardware held-input state",
+      "upstream currently documents a 1.7.104 Start On Save autoload dependency incompatibility in its bundled setup; menu boot workaround exists",
+      "project is third-party experimental infrastructure, not an official Skyrim test framework"
+    ],
+    "denominator_probe": "Replay steps planned vs executed/passed/failed; probe assertions vs expected; profile files/plugins vs generated isolated profile."
+  },
+  "safety": {
+    "mutation_default": "disposable-test-profile-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "initial conversion of a real Data directory into the tool's symlink-managed profile layout"
+    ],
+    "sandbox_or_scope": "Development/test installation only. Never point autonomous tests at a primary long-play save."
+  },
+  "verification": {
+    "independent_validators": [
+      "vanilla-ab-control",
+      "skytestprobe-readback",
+      "plugin-log-delta",
+      "screenshot-review",
+      "manual-real-hardware-check-when-required"
+    ],
+    "version_probe": "skytest source commit + Skyrim/SKSE/Address Library status",
+    "output_readback": "Use probe gates/trace and A/B vanilla control; transport success alone is not a test pass."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Promising implementation candidate for G26 runtime assertions, but keep experimental until local fixtures mutation-test the harness."
+  },
+  "evidence": {
+    "source_url": "https://github.com/myaiexp/skyrim-headless-mods/tree/master/skytest",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream documents test/replay/ready/shot/drive/stop, vanilla A/B control, gamescope headless mode, save isolation and SkytestProbe state gates."
+  }
+}
