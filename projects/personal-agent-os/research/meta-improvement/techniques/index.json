@@ -1,0 +1,97 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-index/v1",
+  "as_of": "2026-09-24",
+  "total_techniques": 290,
+  "total_micro_optimizations": 135,
+  "catalogs": [
+    {
+      "file": "catalog-01-prompting-reasoning.json",
+      "range": "AIT-0001..AIT-0030",
+      "count": 30,
+      "domain": "prompting_reasoning"
+    },
+    {
+      "file": "catalog-02-context-retrieval-memory.json",
+      "range": "AIT-0031..AIT-0060",
+      "count": 30,
+      "domain": "context_retrieval_memory"
+    },
+    {
+      "file": "catalog-03-tools-agents-runtime.json",
+      "range": "AIT-0061..AIT-0090",
+      "count": 30,
+      "domain": "tools_agents_runtime"
+    },
+    {
+      "file": "catalog-04-evaluation-security-control.json",
+      "range": "AIT-0091..AIT-0120",
+      "count": 30,
+      "domain": "evaluation_security_control"
+    },
+    {
+      "file": "catalog-05-data-training-model-inference.json",
+      "range": "AIT-0121..AIT-0155",
+      "count": 35,
+      "domain": "data_training_model_inference"
+    },
+    {
+      "file": "catalog-06-human-proactivity-ux.json",
+      "range": "AIT-0156..AIT-0175",
+      "count": 20,
+      "domain": "human_proactivity_ux"
+    },
+    {
+      "file": "catalog-07-frontier-model-control-and-oversight.json",
+      "range": "AIT-0176..AIT-0210",
+      "count": 35,
+      "domain": "frontier_model_control_and_oversight"
+    },
+    {
+      "file": "catalog-08-decoding-structured-rag-prompt-optimization.json",
+      "range": "AIT-0211..AIT-0235",
+      "count": 25,
+      "domain": "decoding_structured_rag_prompt_optimization"
+    },
+    {
+      "file": "catalog-09-code-verification-search-and-testing.json",
+      "range": "AIT-0236..AIT-0265",
+      "count": 30,
+      "domain": "code_verification_search_and_testing"
+    },
+    {
+      "file": "catalog-10-online-learning-experimentation-control.json",
+      "range": "AIT-0266..AIT-0290",
+      "count": 25,
+      "domain": "online_learning_experimentation_control"
+    }
+  ],
+  "micro_catalogs": [
+    {
+      "file": "../micro-optimizations/micro-01-prompt-context-tools.json",
+      "range": "MIC-0001..MIC-0045",
+      "count": 45
+    },
+    {
+      "file": "../micro-optimizations/micro-02-runtime-reliability.json",
+      "range": "MIC-0046..MIC-0090",
+      "count": 45
+    },
+    {
+      "file": "../micro-optimizations/micro-03-retrieval-evaluation.json",
+      "range": "MIC-0091..MIC-0135",
+      "count": 45
+    }
+  ],
+  "priority_read_order": [
+    "README.md",
+    "index.json",
+    "../experiments/technique-experiment.schema.json",
+    "../experiments/technique-to-experiment-playbook.md"
+  ],
+  "retrieval_guidance": {
+    "broad_question": "Search catalog names/category/layer/keywords first, then fetch only matching entries and sources.",
+    "implementation_question": "Retrieve matching AIT entries plus relevant MIC entries and their required_evals.",
+    "adoption_question": "Never infer adoption from source count. Compare agent_os_fit, maturity, evidence, risks, avoid_when, and local experiment results.",
+    "historical_question": "Include negative_result/historical entries; do not silently filter them out."
+  }
+}
