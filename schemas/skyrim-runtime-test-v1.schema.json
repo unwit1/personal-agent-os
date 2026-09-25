@@ -322,6 +322,17 @@
                 ]
               }
             }
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "G20",
+                "G21",
+                "G26"
+              ]
+            },
+            "uniqueItems": true
           }
         }
       }
