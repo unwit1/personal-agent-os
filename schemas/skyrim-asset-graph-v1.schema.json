@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-asset-graph-v1.schema.json",
+  "title": "Skyrim Asset Graph v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "references"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-asset-graph-v1"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "roots": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "kind",
+          "required",
+          "source"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "nif",
+              "dds",
+              "hkx",
+              "tri",
+              "pex",
+              "psc",
+              "wav",
+              "xwm",
+              "fuz",
+              "lip",
+              "swf",
+              "json",
+              "ini",
+              "xml",
+              "strings",
+              "bsa",
+              "dll",
+              "other"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "source": {
+            "type": "string"
+          },
+          "source_form_key": {
+            "type": "string"
+          },
+          "source_field": {
+            "type": "string"
+          },
+          "case_sensitive_expected": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "generated": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_external": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
