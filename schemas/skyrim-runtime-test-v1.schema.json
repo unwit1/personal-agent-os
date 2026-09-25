@@ -132,6 +132,104 @@
             "items": {
               "type": "string"
             }
+          },
+          "driver": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "adapter",
+              "kind"
+            ],
+            "properties": {
+              "adapter": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "tool",
+                  "wait-for",
+                  "wait-until",
+                  "wait"
+                ]
+              },
+              "tool": {
+                "type": "string"
+              },
+              "arguments": {
+                "type": "object"
+              },
+              "event": {},
+              "condition": {
+                "type": "string"
+              },
+              "milliseconds": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "timeout_ms": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "const": "tool"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "tool"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "const": "wait-for"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "event"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "const": "wait-until"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "condition"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "const": "wait"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "milliseconds"
+                  ]
+                }
+              }
+            ]
           }
         }
       }
@@ -197,6 +295,33 @@
               "INFO"
             ],
             "default": "ERROR"
+          },
+          "probe": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "adapter",
+              "tool"
+            ],
+            "properties": {
+              "adapter": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tool": {
+                "type": "string",
+                "minLength": 1
+              },
+              "arguments": {
+                "type": "object"
+              },
+              "json_path": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
           }
         }
       }
