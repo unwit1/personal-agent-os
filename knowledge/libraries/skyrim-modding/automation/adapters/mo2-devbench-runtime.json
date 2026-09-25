@@ -1,0 +1,124 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "mo2-devbench-runtime",
+  "tool": "Agent OS MO2 + DevBench closed-loop runtime harness",
+  "source": "https://github.com/unwit1/personal-agent-os",
+  "targets": [
+    "skyrim-se-ae",
+    "skyrim-vr"
+  ],
+  "capabilities": [
+    "runtime-test",
+    "runtime-query",
+    "runtime-action",
+    "scenario-run",
+    "event-wait",
+    "runtime-assertion",
+    "runtime-log-cleanliness",
+    "performance-assertion",
+    "disposable-runtime-profile",
+    "save-fixture-copy",
+    "runtime-evidence-capture",
+    "runtime-session-boundary",
+    "mo2-vfs-launch",
+    "devbench-rest"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "{python_executable}",
+    "arguments_template": [
+      "{repo_root}/tools/skyrim_mod_factory/run_mo2_devbench_runtime.py",
+      "{runtime_test}",
+      "{runtime_worker_config}",
+      "--run-id",
+      "{runtime_run_id}",
+      "--output",
+      "{runtime_result}",
+      "--execute"
+    ],
+    "transport": "Agent OS host worker -> MO2 documented CLI -> Skyrim/SKSE -> DevBench loopback REST",
+    "requires_running_game": false,
+    "timeout_seconds": 1800
+  },
+  "inputs": [
+    "skyrim-runtime-test-v1",
+    "skyrim-runtime-worker-config-v1",
+    "MO2 template profile",
+    "DevBench installed in the disposable test profile"
+  ],
+  "outputs": [
+    "skyrim-runtime-session-result-v1"
+  ],
+  "logs": [
+    "MO2/runtime stdout and stderr",
+    "configured SKSE/Papyrus/plugin log deltas",
+    "configured crash-log deltas",
+    "DevBench health/scenario/probe JSON evidence"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "required_output_patterns": [
+      "skyrim-runtime-session-result-v1"
+    ]
+  },
+  "retry": {
+    "safe": false,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [
+    "creates a disposable copy of the configured MO2 template profile",
+    "may copy save fixtures into that disposable profile",
+    "runs typed test actions only against the disposable runtime",
+    "requests game shutdown after the scenario"
+  ],
+  "human_checks": [
+    "visual/screenshot-only judgments remain advisory unless paired with deterministic state",
+    "unsupported DevBench tools/operators remain needs-review rather than being guessed"
+  ],
+  "coverage": {
+    "description": "Composite Windows runtime adapter that owns the full isolated session lifecycle: prepare disposable MO2 profile, launch configured Skyrim executable, wait for fresh DevBench identity, run event-driven typed scenario/probes, evaluate G19/G20/G26 evidence, request clean shutdown, capture evidence deltas, and clean up or retain the fixture.",
+    "known_gaps": [
+      "G21 save-migration proof requires a dedicated typed migration flow",
+      "screenshot/vision verdicts are not yet normalized into deterministic assertions",
+      "frame traces require an external configured producer",
+      "runtime execution requires a Windows machine with the configured MO2/Skyrim/DevBench toolchain"
+    ],
+    "denominator_probe": "Unique session token + DevBench pid/port/exe/vr identity before/after + scenario transcript + assertion probes + configured crash/log evidence + cleanup result."
+  },
+  "safety": {
+    "mutation_default": "disposable-profile-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "any configuration that points writable roots outside the dedicated runtime workspace",
+      "non-fixture save mutation"
+    ],
+    "sandbox_or_scope": "All host-side writes must remain under worker-config allowed_mutation_roots; pre-existing conflicting MO2/Skyrim processes are rejected; stale/cross-session observer evidence is rejected by session token and timestamp."
+  },
+  "verification": {
+    "independent_validators": [
+      "DevBench health/instance identity",
+      "typed runtime observation merger",
+      "runtime crash/log evidence evaluator",
+      "template/disposable profile manifest comparison"
+    ],
+    "version_probe": "Pin Python, MO2, Skyrim runtime/SKSE, DevBench and configured executable versions/hashes in the project toolchain lock.",
+    "output_readback": "Validate skyrim-runtime-session-result-v1. Runtime PASS requires successful typed assertions, G19 evidence, applicable G20/G21 evidence, stable DevBench instance identity, clean process boundary and cleanup."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Prefer normalized session/observation JSON and load raw logs only for diagnosis."
+  },
+  "evidence": {
+    "source_url": "https://github.com/unwit1/personal-agent-os",
+    "verified_date": "2026-09-25",
+    "notes": "Composite uses verified MO2 command-line behavior from ModOrganizer2/modorganizer and verified DevBench REST/scenario/health behavior from alandtse/devbench. It exists because DAG adapters are alternatives, while MO2 lifecycle isolation and DevBench in-game observation are complementary responsibilities."
+  }
+}
