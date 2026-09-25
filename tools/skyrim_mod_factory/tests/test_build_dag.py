@@ -75,5 +75,24 @@ class DagTests(unittest.TestCase):
         )
 
 
+    def test_runtime_gate_assignments_follow_quality_plan(self):
+        m,q=fixture(["native"])
+        q["gates"] += ["G19","G20","G26"]
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertEqual(by["runtime.smoke"]["gates"],["G19","G26"])
+        self.assertEqual(by["runtime.regression"]["gates"],["G20","G26"])
+        self.assertNotIn("G21",by["runtime.regression"]["gates"])
+        self.assertNotIn("G27",by["runtime.regression"]["gates"])
+
+    def test_save_migration_gate_only_attaches_when_required(self):
+        m,q=fixture(["save-persistence"])
+        q["gates"] += ["G21","G26"]
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertEqual(by["runtime.smoke"]["gates"],["G26"])
+        self.assertEqual(by["runtime.regression"]["gates"],["G21","G26"])
+
+
 if __name__=="__main__":
     unittest.main()
