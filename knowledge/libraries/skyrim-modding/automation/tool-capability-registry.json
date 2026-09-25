@@ -3,6 +3,241 @@
   "snapshot_date": "2026-09-24",
   "adapters": [
     {
+      "adapter_id": "autotest",
+      "role": "runtime-test",
+      "priority": "fallback",
+      "capabilities": [
+        "npc-screenshot",
+        "npc-head-screenshot",
+        "cell-test"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "known_gaps": [
+        "specialized older framework"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/autotest.json"
+    },
+    {
+      "adapter_id": "bind",
+      "capabilities": [
+        "papyrus-dev-binding",
+        "script-oninit-test",
+        "generated-test-binding"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/bind.json"
+    },
+    {
+      "adapter_id": "blender-mcp",
+      "role": "asset-3d",
+      "priority": "secondary",
+      "capabilities": [
+        "mesh",
+        "material",
+        "rigging",
+        "animation",
+        "render",
+        "python"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "not Skyrim-format authoritative"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/blender-mcp.json"
+    },
+    {
+      "adapter_id": "bodyslide-outfit-studio",
+      "role": "asset-3d",
+      "priority": "preferred",
+      "capabilities": [
+        "body-outfit-authoring",
+        "slider-projects",
+        "batch-build",
+        "weights",
+        "partitions",
+        "morphs"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Bethesda body/outfit workflows"
+      ],
+      "known_gaps": [
+        "visual clipping/weight quality needs human/game review"
+      ]
+    },
+    {
+      "adapter_id": "bos",
+      "capabilities": [
+        "bos-config-generate",
+        "base-object-swap-config",
+        "bos-intent-validate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/bos.json"
+    },
+    {
+      "adapter_id": "caprica",
+      "capabilities": [
+        "papyrus-compile",
+        "papyrus-cross-compiler",
+        "compile-diagnostics"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/caprica.json"
+    },
+    {
+      "adapter_id": "cathedral-assets-optimizer",
+      "capabilities": [
+        "asset-porting",
+        "nif-optimization",
+        "dds-processing",
+        "bsa-pack",
+        "batch-assets"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/cathedral-assets-optimizer.json"
+    },
+    {
+      "adapter_id": "champollion",
+      "capabilities": [
+        "pex-decompile",
+        "pex-assembly",
+        "pex-inspect"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/champollion.json"
+    },
+    {
+      "adapter_id": "ck-cmd",
+      "capabilities": [
+        "fbx-to-nif",
+        "asset-conversion",
+        "vertex-color-transfer",
+        "material-split"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/ck-cmd.json"
+    },
+    {
+      "adapter_id": "ckpe",
+      "role": "generator",
+      "priority": "secondary",
+      "capabilities": [
+        "creation-kit-platform",
+        "editor-extension",
+        "plugin-api"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "GUI/editor-state heavy until Agent OS CK worker exists"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/ckpe.json"
+    },
+    {
+      "adapter_id": "crash-logger",
+      "role": "diagnostics",
+      "priority": "preferred",
+      "capabilities": [
+        "native-crash-log",
+        "module-offset",
+        "form-clues"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": false,
+      "requires_running_game": true,
+      "known_gaps": [
+        "correlation is not causation"
+      ]
+    },
+    {
+      "adapter_id": "creation-kit",
+      "capabilities": [
+        "quest-authoring",
+        "dialogue-authoring",
+        "scene-authoring",
+        "world-cell-authoring",
+        "navmesh-authoring",
+        "facegen-export",
+        "lip-generation",
+        "papyrus-compile"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/creation-kit.json"
+    },
+    {
+      "adapter_id": "devbench",
+      "role": "runtime-test",
+      "priority": "preferred",
+      "capabilities": [
+        "runtime-query",
+        "runtime-action",
+        "scenario",
+        "event-wait",
+        "record-replay",
+        "health",
+        "performance"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "known_gaps": [
+        "development-only localhost service"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/devbench.json"
+    },
+    {
+      "adapter_id": "directxtex",
+      "capabilities": [
+        "dds-convert",
+        "dds-compress",
+        "mipmap-generate",
+        "texture-diagnostics",
+        "cubemap-assemble"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/directxtex.json"
+    },
+    {
+      "adapter_id": "dyndolod",
+      "role": "generator",
+      "priority": "preferred",
+      "capabilities": [
+        "texgen",
+        "object-lod",
+        "tree-lod",
+        "grass-lod",
+        "occlusion"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "generated output tied to exact inputs"
+      ]
+    },
+    {
+      "adapter_id": "fallrimtools",
+      "role": "diagnostics",
+      "priority": "secondary",
+      "capabilities": [
+        "ess-parse",
+        "papyrus-save-analysis",
+        "changeform-analysis",
+        "save-structure-report",
+        "targeted-repair"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Skyrim SE saves"
+      ],
+      "known_gaps": [
+        "save surgery is consequential",
+        "not a routine optimizer"
+      ]
+    },
+    {
       "adapter_id": "housecarl",
       "role": "static-data",
       "priority": "preferred",
@@ -26,61 +261,333 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/housecarl.json"
     },
     {
-      "adapter_id": "xedit",
-      "role": "schema-oracle",
+      "adapter_id": "kid",
+      "capabilities": [
+        "kid-config-generate",
+        "keyword-distribution-config",
+        "kid-intent-validate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/kid.json"
+    },
+    {
+      "adapter_id": "libloot",
+      "role": "diagnostics",
       "priority": "preferred",
       "capabilities": [
-        "plugin-schema",
-        "error-check",
-        "conflict-analysis",
-        "cleaning",
-        "definition-export"
+        "load-order-graph",
+        "metadata-api",
+        "sorting-api",
+        "condition-evaluation",
+        "cycle-detection",
+        "masterlist-analysis"
       ],
-      "validation_role": "independent-validator",
-      "can_mutate": true,
+      "validation_role": "primary-validator",
+      "can_mutate": false,
       "requires_running_game": false,
       "known_gaps": [
-        "GUI/CLI semantics vary by mode/version"
+        "valid ordering cannot prove semantic record/asset compatibility"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/libloot.json"
+    },
+    {
+      "adapter_id": "lilac",
+      "capabilities": [
+        "papyrus-unit-test",
+        "papyrus-assertions",
+        "quest-driven-test-runner"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/lilac.json"
+    },
+    {
+      "adapter_id": "loot",
+      "capabilities": [
+        "load-order-sort",
+        "metadata-evaluate",
+        "cycle-detect",
+        "dirty-plugin-metadata"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/loot.json"
+    },
+    {
+      "adapter_id": "mcp-blender-rich",
+      "role": "asset-3d",
+      "priority": "secondary",
+      "capabilities": [
+        "218-typed-blender-tools",
+        "mesh",
+        "materials",
+        "rigging",
+        "animation",
+        "render",
+        "baking",
+        "geometry-nodes",
+        "physics",
+        "vision-refinement",
+        "ai-3d-backends"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Blender"
+      ],
+      "known_gaps": [
+        "AGPL-3.0 upstream",
+        "not Skyrim NIF authoritative",
+        "AI generated assets need provenance and cleanup"
       ]
     },
     {
-      "adapter_id": "spriggit",
-      "role": "plugin-source",
+      "adapter_id": "mo2",
+      "role": "mod-manager",
       "priority": "preferred",
       "capabilities": [
-        "plugin-yaml",
-        "plugin-json",
-        "git-diff",
-        "roundtrip"
+        "profiles",
+        "vfs",
+        "run-executable",
+        "asset-priority"
+      ],
+      "validation_role": "none",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "not a semantic validator"
+      ]
+    },
+    {
+      "adapter_id": "mutagen",
+      "role": "static-data",
+      "priority": "preferred",
+      "capabilities": [
+        "typed-plugin-read",
+        "typed-plugin-write",
+        "formlink",
+        "load-order"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "schema coverage can differ from xEdit"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/mutagen.json"
+    },
+    {
+      "adapter_id": "mutagen-analyzers",
+      "capabilities": [
+        "mod-health-research",
+        "load-order-analysis",
+        "known-bug-catalog",
+        "cli-analysis"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/mutagen-analyzers.json"
+    },
+    {
+      "adapter_id": "nifblend",
+      "role": "asset-3d",
+      "priority": "experimental",
+      "capabilities": [
+        "nif",
+        "kf",
+        "blender"
       ],
       "validation_role": "independent-validator",
       "can_mutate": true,
       "requires_running_game": false,
       "known_gaps": [
-        "translation package coverage"
+        "pre-alpha"
       ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spriggit.json"
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/nifblend.json"
     },
     {
-      "adapter_id": "devbench",
-      "role": "runtime-test",
+      "adapter_id": "nifskope",
+      "capabilities": [
+        "nif-inspect",
+        "nif-edit",
+        "shader-inspect",
+        "collision-inspect"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/nifskope.json"
+    },
+    {
+      "adapter_id": "official-papyruscompiler",
+      "capabilities": [
+        "papyrus-compile",
+        "ppj-project-compile",
+        "official-compiler-oracle"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/official-papyruscompiler.json"
+    },
+    {
+      "adapter_id": "openfacefx",
+      "role": "voice-audio",
+      "priority": "experimental",
+      "capabilities": [
+        "audio-transcript-visemes",
+        "lip-generation-experimental",
+        "facefxwrapper-compatible-shim",
+        "batch-qa"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Skyrim LIP path experimental"
+      ],
+      "known_gaps": [
+        "upstream explicitly says Skyrim .lip writer not yet verified in-game"
+      ]
+    },
+    {
+      "adapter_id": "pandora",
+      "role": "generator",
       "priority": "preferred",
       "capabilities": [
-        "runtime-query",
-        "runtime-action",
-        "scenario",
-        "event-wait",
-        "record-replay",
-        "health",
-        "performance"
+        "behavior-patch",
+        "hkx-output",
+        "animation-graph-generation"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "runtime animation still needs test"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pandora.json"
+    },
+    {
+      "adapter_id": "papyrus-utility",
+      "role": "papyrus",
+      "priority": "experimental",
+      "capabilities": [
+        "papyrus-compile",
+        "papyrus-format",
+        "papyrus-format-check",
+        "pex-metadata-dump",
+        "declaration-package-generation",
+        "flow-source-generation"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "Skyrim support is not yet certified by upstream against a committed real source corpus; do not use as sole release compiler gate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/papyrus-utility.json"
+    },
+    {
+      "adapter_id": "papyrus-vscode",
+      "role": "papyrus",
+      "priority": "secondary",
+      "capabilities": [
+        "language-server",
+        "diagnostics",
+        "compile-workflow",
+        "optional-mcp"
+      ],
+      "validation_role": "primary-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "editor/runtime validation still separate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/papyrus-vscode.json"
+    },
+    {
+      "adapter_id": "pgpatcher",
+      "capabilities": [
+        "nif-dynamic-patch",
+        "parallax",
+        "pbr",
+        "complex-material",
+        "plugin-patch"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pgpatcher.json"
+    },
+    {
+      "adapter_id": "presentmon",
+      "role": "diagnostics",
+      "priority": "preferred",
+      "capabilities": [
+        "frame-time",
+        "cpu-frame",
+        "gpu-frame",
+        "display-latency",
+        "csv-capture",
+        "hardware-telemetry"
       ],
       "validation_role": "runtime-observer",
-      "can_mutate": true,
+      "can_mutate": false,
       "requires_running_game": true,
-      "known_gaps": [
-        "development-only localhost service"
+      "version_scope": [
+        "Windows"
       ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/devbench.json"
+      "known_gaps": [
+        "measures presentation/performance, not gameplay correctness"
+      ]
+    },
+    {
+      "adapter_id": "pynifly",
+      "role": "asset-3d",
+      "priority": "preferred",
+      "capabilities": [
+        "nif",
+        "tri",
+        "hkx",
+        "skinning",
+        "partition",
+        "shader",
+        "collision"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "Windows only",
+        "requires visual/game validation"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pynifly.json"
+    },
+    {
+      "adapter_id": "renderdoc",
+      "role": "diagnostics",
+      "priority": "preferred",
+      "capabilities": [
+        "graphics-frame-capture",
+        "draw-call-inspection",
+        "resource-inspection",
+        "shader-debugging",
+        "render-target-analysis"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": false,
+      "requires_running_game": true,
+      "version_scope": [
+        "graphics development builds"
+      ],
+      "known_gaps": [
+        "capture setup and anti-overlay interactions can vary"
+      ]
+    },
+    {
+      "adapter_id": "resaver-cli",
+      "role": "diagnostics",
+      "priority": "secondary",
+      "capabilities": [
+        "headless-save-parse",
+        "cross-reference",
+        "changeform-diagnostics",
+        "cosave-related-analysis"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "FallrimTools-compatible saves"
+      ],
+      "known_gaps": [
+        "mutating real saves requires explicit approval and backup"
+      ]
     },
     {
       "adapter_id": "skylink-ai",
@@ -122,6 +629,15 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/skyrimnet.json"
     },
     {
+      "adapter_id": "spid",
+      "capabilities": [
+        "spid-config-generate",
+        "actor-distribution-config",
+        "spid-intent-validate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spid.json"
+    },
+    {
       "adapter_id": "spooky-automod",
       "role": "generator",
       "priority": "secondary",
@@ -143,168 +659,22 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spooky-automod.json"
     },
     {
-      "adapter_id": "pynifly",
-      "role": "asset-3d",
+      "adapter_id": "spriggit",
+      "role": "plugin-source",
       "priority": "preferred",
       "capabilities": [
-        "nif",
-        "tri",
-        "hkx",
-        "skinning",
-        "partition",
-        "shader",
-        "collision"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "Windows only",
-        "requires visual/game validation"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pynifly.json"
-    },
-    {
-      "adapter_id": "blender-mcp",
-      "role": "asset-3d",
-      "priority": "secondary",
-      "capabilities": [
-        "mesh",
-        "material",
-        "rigging",
-        "animation",
-        "render",
-        "python"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "not Skyrim-format authoritative"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/blender-mcp.json"
-    },
-    {
-      "adapter_id": "nifblend",
-      "role": "asset-3d",
-      "priority": "experimental",
-      "capabilities": [
-        "nif",
-        "kf",
-        "blender"
+        "plugin-yaml",
+        "plugin-json",
+        "git-diff",
+        "roundtrip"
       ],
       "validation_role": "independent-validator",
       "can_mutate": true,
       "requires_running_game": false,
       "known_gaps": [
-        "pre-alpha"
+        "translation package coverage"
       ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/nifblend.json"
-    },
-    {
-      "adapter_id": "papyrus-vscode",
-      "role": "papyrus",
-      "priority": "secondary",
-      "capabilities": [
-        "language-server",
-        "diagnostics",
-        "compile-workflow",
-        "optional-mcp"
-      ],
-      "validation_role": "primary-validator",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "editor/runtime validation still separate"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/papyrus-vscode.json"
-    },
-    {
-      "adapter_id": "ckpe",
-      "role": "generator",
-      "priority": "secondary",
-      "capabilities": [
-        "creation-kit-platform",
-        "editor-extension",
-        "plugin-api"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "GUI/editor-state heavy until Agent OS CK worker exists"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/ckpe.json"
-    },
-    {
-      "adapter_id": "autotest",
-      "role": "runtime-test",
-      "priority": "fallback",
-      "capabilities": [
-        "npc-screenshot",
-        "npc-head-screenshot",
-        "cell-test"
-      ],
-      "validation_role": "runtime-observer",
-      "can_mutate": true,
-      "requires_running_game": true,
-      "known_gaps": [
-        "specialized older framework"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/autotest.json"
-    },
-    {
-      "adapter_id": "vospeaker",
-      "role": "voice-audio",
-      "priority": "secondary",
-      "capabilities": [
-        "ai-voice",
-        "xwm",
-        "lip",
-        "fuz",
-        "batch-dialogue"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "quality/rights/human QA"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/vospeaker.json"
-    },
-    {
-      "adapter_id": "xeditlib",
-      "role": "schema-oracle",
-      "priority": "fallback",
-      "capabilities": [
-        "xeditlib-ffi",
-        "record-query",
-        "record-write"
-      ],
-      "validation_role": "primary-validator",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "FFI/version matching"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xeditlib.json"
-    },
-    {
-      "adapter_id": "mutagen",
-      "role": "static-data",
-      "priority": "preferred",
-      "capabilities": [
-        "typed-plugin-read",
-        "typed-plugin-write",
-        "formlink",
-        "load-order"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "schema coverage can differ from xEdit"
-      ]
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spriggit.json"
     },
     {
       "adapter_id": "synthesis",
@@ -320,125 +690,8 @@
       "requires_running_game": false,
       "known_gaps": [
         "requires deterministic patch logic"
-      ]
-    },
-    {
-      "adapter_id": "mo2",
-      "role": "mod-manager",
-      "priority": "preferred",
-      "capabilities": [
-        "profiles",
-        "vfs",
-        "run-executable",
-        "asset-priority"
       ],
-      "validation_role": "none",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "not a semantic validator"
-      ]
-    },
-    {
-      "adapter_id": "pandora",
-      "role": "generator",
-      "priority": "preferred",
-      "capabilities": [
-        "behavior-patch",
-        "hkx-output",
-        "animation-graph-generation"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "runtime animation still needs test"
-      ]
-    },
-    {
-      "adapter_id": "dyndolod",
-      "role": "generator",
-      "priority": "preferred",
-      "capabilities": [
-        "texgen",
-        "object-lod",
-        "tree-lod",
-        "grass-lod",
-        "occlusion"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "known_gaps": [
-        "generated output tied to exact inputs"
-      ]
-    },
-    {
-      "adapter_id": "crash-logger",
-      "role": "diagnostics",
-      "priority": "preferred",
-      "capabilities": [
-        "native-crash-log",
-        "module-offset",
-        "form-clues"
-      ],
-      "validation_role": "runtime-observer",
-      "can_mutate": false,
-      "requires_running_game": true,
-      "known_gaps": [
-        "correlation is not causation"
-      ]
-    },
-    {
-      "adapter_id": "mcp-blender-rich",
-      "role": "asset-3d",
-      "priority": "secondary",
-      "capabilities": [
-        "218-typed-blender-tools",
-        "mesh",
-        "materials",
-        "rigging",
-        "animation",
-        "render",
-        "baking",
-        "geometry-nodes",
-        "physics",
-        "vision-refinement",
-        "ai-3d-backends"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "version_scope": [
-        "Blender"
-      ],
-      "known_gaps": [
-        "AGPL-3.0 upstream",
-        "not Skyrim NIF authoritative",
-        "AI generated assets need provenance and cleanup"
-      ]
-    },
-    {
-      "adapter_id": "presentmon",
-      "role": "diagnostics",
-      "priority": "preferred",
-      "capabilities": [
-        "frame-time",
-        "cpu-frame",
-        "gpu-frame",
-        "display-latency",
-        "csv-capture",
-        "hardware-telemetry"
-      ],
-      "validation_role": "runtime-observer",
-      "can_mutate": false,
-      "requires_running_game": true,
-      "version_scope": [
-        "Windows"
-      ],
-      "known_gaps": [
-        "measures presentation/performance, not gameplay correctness"
-      ]
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/synthesis.json"
     },
     {
       "adapter_id": "tracy",
@@ -461,187 +714,77 @@
       ]
     },
     {
-      "adapter_id": "renderdoc",
-      "role": "diagnostics",
-      "priority": "preferred",
-      "capabilities": [
-        "graphics-frame-capture",
-        "draw-call-inspection",
-        "resource-inspection",
-        "shader-debugging",
-        "render-target-analysis"
-      ],
-      "validation_role": "runtime-observer",
-      "can_mutate": false,
-      "requires_running_game": true,
-      "version_scope": [
-        "graphics development builds"
-      ],
-      "known_gaps": [
-        "capture setup and anti-overlay interactions can vary"
-      ]
-    },
-    {
-      "adapter_id": "fallrimtools",
-      "role": "diagnostics",
-      "priority": "secondary",
-      "capabilities": [
-        "ess-parse",
-        "papyrus-save-analysis",
-        "changeform-analysis",
-        "save-structure-report",
-        "targeted-repair"
-      ],
-      "validation_role": "independent-validator",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "version_scope": [
-        "Skyrim SE saves"
-      ],
-      "known_gaps": [
-        "save surgery is consequential",
-        "not a routine optimizer"
-      ]
-    },
-    {
-      "adapter_id": "bodyslide-outfit-studio",
-      "role": "asset-3d",
-      "priority": "preferred",
-      "capabilities": [
-        "body-outfit-authoring",
-        "slider-projects",
-        "batch-build",
-        "weights",
-        "partitions",
-        "morphs"
-      ],
-      "validation_role": "author",
-      "can_mutate": true,
-      "requires_running_game": false,
-      "version_scope": [
-        "Bethesda body/outfit workflows"
-      ],
-      "known_gaps": [
-        "visual clipping/weight quality needs human/game review"
-      ]
-    },
-    {
-      "adapter_id": "openfacefx",
+      "adapter_id": "vospeaker",
       "role": "voice-audio",
-      "priority": "experimental",
+      "priority": "secondary",
       "capabilities": [
-        "audio-transcript-visemes",
-        "lip-generation-experimental",
-        "facefxwrapper-compatible-shim",
-        "batch-qa"
+        "ai-voice",
+        "xwm",
+        "lip",
+        "fuz",
+        "batch-dialogue"
       ],
       "validation_role": "author",
       "can_mutate": true,
       "requires_running_game": false,
-      "version_scope": [
-        "Skyrim LIP path experimental"
-      ],
       "known_gaps": [
-        "upstream explicitly says Skyrim .lip writer not yet verified in-game"
-      ]
+        "quality/rights/human QA"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/vospeaker.json"
     },
     {
-      "adapter_id": "resaver-cli",
-      "role": "diagnostics",
-      "priority": "secondary",
+      "adapter_id": "xdump",
+      "role": "schema-oracle",
+      "priority": "preferred",
       "capabilities": [
-        "headless-save-parse",
-        "cross-reference",
-        "changeform-diagnostics",
-        "cosave-related-analysis"
+        "plugin-definition-export",
+        "raw-schema-export",
+        "record-dump",
+        "official-master-decode",
+        "schema-oracle"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": false,
+      "requires_running_game": false,
+      "known_gaps": [
+        "schema structure does not encode gameplay intent"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xdump.json"
+    },
+    {
+      "adapter_id": "xedit",
+      "role": "schema-oracle",
+      "priority": "preferred",
+      "capabilities": [
+        "plugin-schema",
+        "error-check",
+        "conflict-analysis",
+        "cleaning",
+        "definition-export"
       ],
       "validation_role": "independent-validator",
       "can_mutate": true,
       "requires_running_game": false,
-      "version_scope": [
-        "FallrimTools-compatible saves"
-      ],
       "known_gaps": [
-        "mutating real saves requires explicit approval and backup"
+        "GUI/CLI semantics vary by mode/version"
       ]
     },
     {
-      "adapter_id": "caprica",
+      "adapter_id": "xeditlib",
+      "role": "schema-oracle",
+      "priority": "fallback",
       "capabilities": [
-        "papyrus-compile",
-        "papyrus-cross-compiler",
-        "compile-diagnostics"
+        "xeditlib-ffi",
+        "record-query",
+        "record-write"
       ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/caprica.json"
-    },
-    {
-      "adapter_id": "champollion",
-      "capabilities": [
-        "pex-decompile",
-        "pex-assembly",
-        "pex-inspect"
+      "validation_role": "primary-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "FFI/version matching"
       ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/champollion.json"
-    },
-    {
-      "adapter_id": "lilac",
-      "capabilities": [
-        "papyrus-unit-test",
-        "papyrus-assertions",
-        "quest-driven-test-runner"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/lilac.json"
-    },
-    {
-      "adapter_id": "bind",
-      "capabilities": [
-        "papyrus-dev-binding",
-        "script-oninit-test",
-        "generated-test-binding"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/bind.json"
-    },
-    {
-      "adapter_id": "ck-cmd",
-      "capabilities": [
-        "fbx-to-nif",
-        "asset-conversion",
-        "vertex-color-transfer",
-        "material-split"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/ck-cmd.json"
-    },
-    {
-      "adapter_id": "cathedral-assets-optimizer",
-      "capabilities": [
-        "asset-porting",
-        "nif-optimization",
-        "dds-processing",
-        "bsa-pack",
-        "batch-assets"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/cathedral-assets-optimizer.json"
-    },
-    {
-      "adapter_id": "directxtex",
-      "capabilities": [
-        "dds-convert",
-        "dds-compress",
-        "mipmap-generate",
-        "texture-diagnostics",
-        "cubemap-assemble"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/directxtex.json"
-    },
-    {
-      "adapter_id": "loot",
-      "capabilities": [
-        "load-order-sort",
-        "metadata-evaluate",
-        "cycle-detect",
-        "dirty-plugin-metadata"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/loot.json"
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xeditlib.json"
     },
     {
       "adapter_id": "xlodgen",
@@ -652,87 +795,6 @@
         "worldspace-lod"
       ],
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xlodgen.json"
-    },
-    {
-      "adapter_id": "pgpatcher",
-      "capabilities": [
-        "nif-dynamic-patch",
-        "parallax",
-        "pbr",
-        "complex-material",
-        "plugin-patch"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pgpatcher.json"
-    },
-    {
-      "adapter_id": "mutagen-analyzers",
-      "capabilities": [
-        "mod-health-research",
-        "load-order-analysis",
-        "known-bug-catalog",
-        "cli-analysis"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/mutagen-analyzers.json"
-    },
-    {
-      "adapter_id": "creation-kit",
-      "capabilities": [
-        "quest-authoring",
-        "dialogue-authoring",
-        "scene-authoring",
-        "world-cell-authoring",
-        "navmesh-authoring",
-        "facegen-export",
-        "lip-generation",
-        "papyrus-compile"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/creation-kit.json"
-    },
-    {
-      "adapter_id": "official-papyruscompiler",
-      "capabilities": [
-        "papyrus-compile",
-        "ppj-project-compile",
-        "official-compiler-oracle"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/official-papyruscompiler.json"
-    },
-    {
-      "adapter_id": "nifskope",
-      "capabilities": [
-        "nif-inspect",
-        "nif-edit",
-        "shader-inspect",
-        "collision-inspect"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/nifskope.json"
-    },
-    {
-      "adapter_id": "spid",
-      "capabilities": [
-        "spid-config-generate",
-        "actor-distribution-config",
-        "spid-intent-validate"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spid.json"
-    },
-    {
-      "adapter_id": "kid",
-      "capabilities": [
-        "kid-config-generate",
-        "keyword-distribution-config",
-        "kid-intent-validate"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/kid.json"
-    },
-    {
-      "adapter_id": "bos",
-      "capabilities": [
-        "bos-config-generate",
-        "base-object-swap-config",
-        "bos-intent-validate"
-      ],
-      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/bos.json"
     }
   ]
 }
