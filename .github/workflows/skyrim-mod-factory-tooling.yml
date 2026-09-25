@@ -33,3 +33,10 @@ jobs:
         run: python tools/skyrim_mod_factory/validate_adapters.py knowledge/libraries/skyrim-modding/automation/adapters
       - name: Run standard-library unit tests
         run: python -m unittest discover -s tools/skyrim_mod_factory/tests -p "test_*.py"
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Restore Mutagen semantic oracle
+        run: dotnet restore tools/skyrim_mod_factory/mutagen_semantic_oracle/MutagenSemanticOracle.csproj
+      - name: Build Mutagen semantic oracle
+        run: dotnet build tools/skyrim_mod_factory/mutagen_semantic_oracle/MutagenSemanticOracle.csproj --configuration Release --no-restore --warnaserror
