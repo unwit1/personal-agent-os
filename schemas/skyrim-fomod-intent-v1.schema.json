@@ -33,7 +33,14 @@
           "$ref": "#/$defs/path"
         },
         "destination": {
-          "$ref": "#/$defs/path"
+          "oneOf": [
+            {
+              "const": ""
+            },
+            {
+              "$ref": "#/$defs/path"
+            }
+          ]
         },
         "always_install": {
           "type": "boolean",
