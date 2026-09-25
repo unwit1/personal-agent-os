@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.1",
+  "id": "lego-official-reference-acquisition",
+  "purpose": "Restartable acquisition plan for the official LEGO minifigure visual corpus.",
+  "storage_root": ".agent-local/lego-minifigure-corpus",
+  "stages": [
+    {
+      "id": "physical_bulk",
+      "prerequisites": [
+        "Download current Rebrickable bulk CSV files into a local reviewed source directory."
+      ],
+      "command": "python tools/knowledge/ingest_lego_minifigure_references.py --rebrickable-dir <bulk-dir> --output-dir .agent-local/lego-minifigure-corpus/catalog/rebrickable",
+      "success_metrics": [
+        "physical_samples > 0",
+        "reference_assets > 0",
+        "source file hashes recorded"
+      ],
+      "followups": [
+        "materialize reviewed image hosts",
+        "crosswalk BrickLink IDs",
+        "run LDraw pattern indexing"
+      ]
+    },
+    {
+      "id": "physical_images",
+      "prerequisites": [
+        "physical_bulk reference_manifest.jsonl",
+        "source host policy reviewed"
+      ],
+      "command": "python tools/knowledge/materialize_lego_reference_images.py --manifest <reference_manifest.jsonl> --output-dir .agent-local/lego-minifigure-corpus/physical --allow-host <reviewed-host>",
+      "success_metrics": [
+        "download/error counts reported",
+        "unique SHA blobs counted"
+      ],
+      "followups": [
+        "perceptual dedupe",
+        "component crops",
+        "view classification"
+      ]
+    },
+    {
+      "id": "ldraw_patterns",
+      "prerequisites": [
+        "Local current LDraw Parts Library"
+      ],
+      "command": "python tools/knowledge/index_ldraw_minifig_patterns.py --ldraw-root <ldraw-root> --output-dir .agent-local/lego-minifigure-corpus/catalog/ldraw",
+      "success_metrics": [
+        "patterned minifigure parts indexed",
+        "licenses retained"
+      ],
+      "followups": [
+        "optional LDView renders",
+        "crosswalk part IDs"
+      ]
+    },
+    {
+      "id": "game_title_census",
+      "prerequisites": [],
+      "action": "Enumerate all LEGO official game titles from LEGO/developer sources, classify whether standard minifigure-form characters are present, and assign extraction strategy.",
+      "success_metrics": [
+        "every discovered title has classification and verification status"
+      ]
+    },
+    {
+      "id": "game_local_assets",
+      "prerequisites": [
+        "Legally obtained local game install",
+        "game-specific extraction step documented"
+      ],
+      "command": "python tools/knowledge/index_ttgames_minifigure_assets.py --game-id <slug> --game-title <title> --source-root <already-extracted-assets> --output-dir .agent-local/lego-minifigure-corpus/games/<slug>",
+      "success_metrics": [
+        "candidate texture/model/config assets hashed",
+        "game version/platform/tool provenance recorded"
+      ],
+      "followups": [
+        "decode models/textures",
+        "character resolution",
+        "canonical renders",
+        "physical counterpart crosswalk"
+      ]
+    },
+    {
+      "id": "film_title_census",
+      "prerequisites": [],
+      "action": "Verify every minifigure-form theatrical/direct-to-video LEGO film and classify standard minifigure/minidoll/non-minifigure scope.",
+      "success_metrics": [
+        "every candidate is verified/rejected with source"
+      ]
+    },
+    {
+      "id": "film_frames",
+      "prerequisites": [
+        "Legally obtained local film video",
+        "verified in-scope film"
+      ],
+      "command": "python tools/knowledge/extract_lego_film_reference_frames.py --film-id <slug> --film-title <title> --input <video> --output-dir .agent-local/lego-minifigure-corpus/films/<slug>",
+      "success_metrics": [
+        "interval + scene-change frames hashed and manifested"
+      ],
+      "followups": [
+        "character tracking",
+        "crops",
+        "dHash/embedding dedupe",
+        "costume/expression/view clustering"
+      ]
+    },
+    {
+      "id": "translation_pairs",
+      "prerequisites": [
+        "resolved official LEGO visual samples",
+        "exact external source-reference identity"
+      ],
+      "action": "Populate TranslationPair records and derive preserved/simplified/omitted/mould/accessory decisions.",
+      "success_metrics": [
+        "pair confidence and exactness recorded",
+        "no ambiguous pair silently promoted"
+      ]
+    },
+    {
+      "id": "training_snapshot",
+      "prerequisites": [
+        "coverage metrics",
+        "deduplicated derived assets",
+        "grouped train/eval splits"
+      ],
+      "action": "Freeze a versioned training/retrieval snapshot with source authority weights and held-out character/theme benchmarks.",
+      "success_metrics": [
+        "no same OutfitDesign leakage across train/eval",
+        "coverage report published",
+        "rollback/version manifest saved"
+      ]
+    }
+  ],
+  "safety_and_rights": [
+    "Raw copyrighted product/game/film media stays local unless source license explicitly permits redistribution.",
+    "Do not bypass DRM or download game/film assets from unauthorized sources.",
+    "Use community tools only on locally obtained files and record tool/version provenance.",
+    "Preserve LDraw contributor license/attribution metadata.",
+    "Do not conflate community reconstruction with LEGO-authored artwork."
+  ]
+}
