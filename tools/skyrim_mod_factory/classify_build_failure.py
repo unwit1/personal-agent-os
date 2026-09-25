@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -93,7 +94,11 @@ def classify(report:dict[str,Any],rule_pack:dict[str,Any])->dict[str,Any]:
     symptom=issues[0] if issues else f"Build step {step.get('id')} failed"
     record={
         "schema_version":"skyrim-bug-regression-v1",
-        "bug_id":f"{report.get('build_id','build')}-{step.get('id','failed')}".replace(":","-"),
+        "bug_id":re.sub(
+            r"[^A-Za-z0-9._-]+",
+            "-",
+            f"{report.get('build_id','build')}-{step.get('id','failed')}",
+        ).strip("-") or "build-failure",
         "project_id":report.get("project_id","unknown"),
         "build_id":report.get("build_id"),
         "status":"reported",
