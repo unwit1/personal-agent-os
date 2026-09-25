@@ -1146,7 +1146,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0242, SRC-AI-0296.",
+        "summary": "Evidence basis: SRC-AI-0292, SRC-AI-0296.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1171,7 +1171,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0242",
+        "SRC-AI-0292",
         "SRC-AI-0296"
       ],
       "keywords": [
