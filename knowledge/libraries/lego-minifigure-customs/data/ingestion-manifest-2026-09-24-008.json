@@ -1,0 +1,39 @@
+{
+  "manifest_version": "1.0",
+  "id": "lego-minifigure-reference-acquisition-2026-09-24-008",
+  "created_at": "2026-09-24",
+  "objective": "Build exhaustive provenance-aware reference acquisition for official physical, game and film minifigures.",
+  "created_files": [
+    "official-reference-acquisition.md",
+    "game-and-film-visual-corpus-pipeline.md",
+    "official-training-corpus-design.md",
+    "data/official-reference-source-registry.json",
+    "data/official-media-corpus-scope.json",
+    "data/translation-pair-schema.json",
+    "tools/knowledge/ingest_lego_minifigure_references.py",
+    "tools/knowledge/index_ttgames_minifigure_assets.py",
+    "tools/knowledge/extract_lego_film_reference_frames.py",
+    "tools/knowledge/index_ldraw_minifig_patterns.py"
+  ],
+  "updated_files": [
+    "data-model.json"
+  ],
+  "key_findings": [
+    "Physical catalog coverage is approximately 19.2k catalog records, not unique characters.",
+    "LEGO says it has produced over 200 game titles since 1995, so TT Games alone is insufficient.",
+    "TT Games local assets can provide textures/models/configs unavailable on public pages.",
+    "Film frames should be scene-sampled and deduplicated rather than treated as millions of equal samples.",
+    "LDraw patterned minifigure parts provide licensed community reconstructions useful for linework/geometry analysis.",
+    "Source-to-LEGO TranslationPair records are the highest-value supervision for learning faithful official-style character translation."
+  ],
+  "next_steps": [
+    "Run Rebrickable bulk importer against current downloaded CSVs and persist row-count report.",
+    "Acquire current LDraw Parts Library and index/render patterned minifigure parts.",
+    "Enumerate all official game titles, classify which contain standard minifigure-form characters, and resolve local-extraction availability.",
+    "Start Skywalker Saga as the first exhaustive game corpus because official LEGO hosts hundreds of profile icons and game files expose a large roster.",
+    "Enumerate/verify all minifigure-form LEGO films and begin local frame extraction.",
+    "Build image materializer plus SHA/perceptual-hash dedupe layer.",
+    "Create automated character/part cropping and canonical-view classification.",
+    "Begin TranslationPair linking for licensed physical figures."
+  ]
+}
