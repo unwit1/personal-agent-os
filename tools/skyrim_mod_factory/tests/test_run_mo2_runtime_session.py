@@ -243,5 +243,79 @@ class RunMO2RuntimeSessionTests(unittest.TestCase):
             self.assertEqual(gates["G21"]["status"],"needs-review")
 
 
+    def test_g19_pass_requires_explicit_complete_evidence_config(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            config=worker_config(root,template)
+            log=root/"captured.log"
+            log.write_text("all good",encoding="utf-8")
+            config["evidence"].update({
+                "log_paths":[str(root/"source.log")],
+                "forbidden_log_patterns":["\\b(?:ERROR|FATAL)\\b"],
+                "complete_for_g19":True,
+            })
+            gate=MOD.evaluate_g19(
+                config,
+                [{
+                    "path":str(root/"source.log"),
+                    "change":"changed",
+                    "captured_path":str(log),
+                }],
+                [],
+            )
+            self.assertEqual(gate["status"],"pass")
+
+    def test_g19_forbidden_log_signature_fails(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            config=worker_config(root,template)
+            log=root/"captured.log"
+            log.write_text("ERROR fixture exploded",encoding="utf-8")
+            config["evidence"].update({
+                "log_paths":[str(root/"source.log")],
+                "forbidden_log_patterns":["\\bERROR\\b"],
+                "complete_for_g19":True,
+            })
+            gate=MOD.evaluate_g19(
+                config,
+                [{
+                    "path":str(root/"source.log"),
+                    "change":"changed",
+                    "captured_path":str(log),
+                }],
+                [],
+            )
+            self.assertEqual(gate["status"],"fail")
+            self.assertTrue(gate["evidence"])
+
+    def test_g19_new_crash_artifact_fails_even_without_log_match(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            config=worker_config(root,template)
+            config["evidence"]["complete_for_g19"]=True
+            gate=MOD.evaluate_g19(
+                config,
+                [],
+                [{"path":"Crash-2026-09-25.log","change":"added"}],
+            )
+            self.assertEqual(gate["status"],"fail")
+
+    def test_g19_incomplete_source_declaration_never_passes(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            config=worker_config(root,template)
+            config["evidence"].update({
+                "log_paths":[str(root/"source.log")],
+                "forbidden_log_patterns":["\\bERROR\\b"],
+                "complete_for_g19":False,
+            })
+            gate=MOD.evaluate_g19(config,[],[])
+            self.assertEqual(gate["status"],"needs-review")
+
+
 if __name__=="__main__":
     unittest.main()
