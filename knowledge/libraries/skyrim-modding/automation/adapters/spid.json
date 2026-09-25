@@ -1,0 +1,72 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "spid",
+  "tool": "SPID typed-config renderer",
+  "source": "https://github.com/powerof3/Spell-Perk-Item-Distributor",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "spid-config-generate",
+    "spid-intent-validate",
+    "actor-distribution-config"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "python",
+    "arguments_template": [
+      "tools/skyrim_mod_factory/render_spid.py",
+      "{intent}",
+      "--output",
+      "{output}"
+    ],
+    "transport": "local deterministic renderer + SPID runtime parser",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "skyrim-runtime-patch-intent-v1 framework=spid"
+  ],
+  "outputs": [
+    "_DISTR.ini"
+  ],
+  "logs": [
+    "renderer stderr",
+    "SPID runtime log"
+  ],
+  "coverage": {
+    "description": "Agent OS typed renderer for source-pinned SPID config grammar; runtime SPID remains final parser/application oracle.",
+    "known_gaps": [
+      "renderer supports the typed rule subset represented by current schema",
+      "new SPID grammar features require schema/renderer update"
+    ],
+    "denominator_probe": "intent entries vs rendered rules vs SPID accepted/rejected runtime rules."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Generate config from canonical intent JSON; edit intent, not generated INI."
+  },
+  "verification": {
+    "independent_validators": [
+      "spid-runtime-parser",
+      "form-resolution",
+      "runtime-positive-negative-fixtures"
+    ],
+    "version_probe": "grammar_source snapshot + installed SPID log/version",
+    "output_readback": "Parse rendered line count and compare runtime application."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Deterministic bridge from semantic actor-distribution intent to SPID grammar."
+  },
+  "evidence": {
+    "source_url": "https://github.com/powerof3/Spell-Perk-Item-Distributor",
+    "verified_date": "2026-09-24",
+    "notes": "Local renderer already exists under tools/skyrim_mod_factory/render_spid.py."
+  }
+}
