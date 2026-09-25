@@ -258,5 +258,34 @@ class DevBenchRuntimeObserverTests(unittest.TestCase):
         gates={x["gate"]:x for x in obs["gates"]}
         self.assertEqual(gates["G20"]["status"],"pass")
 
+    def test_assertion_probe_can_select_from_array_tool_result(self):
+        assertion={
+            "id":"first-item",
+            "kind":"value",
+            "expected":"alpha",
+            "operator":"eq",
+            "severity":"ERROR",
+            "probe":{
+                "adapter":"devbench",
+                "tool":"fixture-array",
+                "arguments":{},
+                "json_path":"0.name",
+            },
+        }
+        with patch.object(
+            MOD,
+            "post_tool",
+            return_value=[{"name":"alpha"},{"name":"beta"}],
+        ):
+            row,raw=MOD.assertion_observation(
+                assertion,
+                base_url="http://127.0.0.1:8920",
+                timeout_seconds=1.0,
+            )
+        self.assertEqual(row["status"],"pass")
+        self.assertEqual(row["observed"],"alpha")
+        self.assertEqual(raw[1]["name"],"beta")
+
+
 if __name__=="__main__":
     unittest.main()
