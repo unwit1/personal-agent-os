@@ -17,7 +17,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0193.",
+        "summary": "Evidence basis: SRC-AI-0326.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -43,7 +43,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193"
+        "SRC-AI-0326"
       ],
       "keywords": [
         "temperature"
@@ -64,7 +64,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0193, SRC-AI-0164.",
+        "summary": "Evidence basis: SRC-AI-0326, SRC-AI-0164.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -86,7 +86,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193",
+        "SRC-AI-0326",
         "SRC-AI-0164"
       ],
       "keywords": [
@@ -108,7 +108,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0193.",
+        "summary": "Evidence basis: SRC-AI-0326.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -134,7 +134,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193"
+        "SRC-AI-0326"
       ],
       "keywords": [
         "determinism",
@@ -156,7 +156,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0193.",
+        "summary": "Evidence basis: SRC-AI-0326.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -181,7 +181,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193"
+        "SRC-AI-0326"
       ],
       "keywords": [
         "logprobs",
@@ -203,7 +203,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0193, SRC-AI-0194.",
+        "summary": "Evidence basis: SRC-AI-0326, SRC-AI-0327.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -226,8 +226,8 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193",
-        "SRC-AI-0194"
+        "SRC-AI-0326",
+        "SRC-AI-0327"
       ],
       "keywords": [
         "max_output_tokens"
@@ -248,7 +248,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0193.",
+        "summary": "Evidence basis: SRC-AI-0326.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -270,7 +270,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193"
+        "SRC-AI-0326"
       ],
       "keywords": [
         "max_tool_calls",
@@ -292,7 +292,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0193.",
+        "summary": "Evidence basis: SRC-AI-0326.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -317,7 +317,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193"
+        "SRC-AI-0326"
       ],
       "keywords": [
         "verbosity"
@@ -338,7 +338,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0193.",
+        "summary": "Evidence basis: SRC-AI-0326.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -361,7 +361,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0193"
+        "SRC-AI-0326"
       ],
       "keywords": [
         "truncation",
@@ -383,7 +383,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0205, SRC-AI-0206, SRC-AI-0207.",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0252, SRC-AI-0253.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -411,9 +411,9 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0205",
-        "SRC-AI-0206",
-        "SRC-AI-0207"
+        "SRC-AI-0251",
+        "SRC-AI-0252",
+        "SRC-AI-0253"
       ],
       "keywords": [
         "constrained_decoding",
@@ -435,7 +435,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0205, SRC-AI-0069.",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0252, SRC-AI-0069.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -459,7 +459,8 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0205",
+        "SRC-AI-0251",
+        "SRC-AI-0252",
         "SRC-AI-0069"
       ],
       "keywords": [
@@ -482,7 +483,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0206, SRC-AI-0207.",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0252.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -507,8 +508,8 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0206",
-        "SRC-AI-0207"
+        "SRC-AI-0251",
+        "SRC-AI-0252"
       ],
       "keywords": [
         "regex",
@@ -530,7 +531,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0208.",
+        "summary": "Evidence basis: SRC-AI-0328.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -555,7 +556,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0208"
+        "SRC-AI-0328"
       ],
       "keywords": [
         "Guidance",
@@ -577,7 +578,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0203.",
+        "summary": "Evidence basis: SRC-AI-0329.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -603,7 +604,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0203"
+        "SRC-AI-0329"
       ],
       "keywords": [
         "MIPRO",
@@ -626,7 +627,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0204.",
+        "summary": "Evidence basis: SRC-AI-0330.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -652,7 +653,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0204"
+        "SRC-AI-0330"
       ],
       "keywords": [
         "GEPA",
@@ -674,7 +675,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0202, SRC-AI-0062, SRC-AI-0063.",
+        "summary": "Evidence basis: SRC-AI-0062, SRC-AI-0063.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -698,7 +699,6 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0202",
         "SRC-AI-0062",
         "SRC-AI-0063"
       ],
@@ -722,7 +722,7 @@
       "maturity": "engineering_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0205, SRC-AI-0204.",
+        "summary": "Evidence basis: SRC-AI-0069, SRC-AI-0099, SRC-AI-0251.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -743,8 +743,9 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0205",
-        "SRC-AI-0204"
+        "SRC-AI-0069",
+        "SRC-AI-0099",
+        "SRC-AI-0251"
       ],
       "keywords": [
         "prompt_stability",
@@ -765,7 +766,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0195.",
+        "summary": "Evidence basis: SRC-AI-0331.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -792,7 +793,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0195"
+        "SRC-AI-0331"
       ],
       "keywords": [
         "RAG_Fusion",
@@ -814,7 +815,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0196.",
+        "summary": "Evidence basis: SRC-AI-0332.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -838,7 +839,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0196"
+        "SRC-AI-0332"
       ],
       "keywords": [
         "CRAG",
@@ -860,7 +861,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0197.",
+        "summary": "Evidence basis: SRC-AI-0333.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -882,7 +883,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0197"
+        "SRC-AI-0333"
       ],
       "keywords": [
         "Adaptive_RAG",
@@ -904,7 +905,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0198.",
+        "summary": "Evidence basis: SRC-AI-0334.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -927,7 +928,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0198"
+        "SRC-AI-0334"
       ],
       "keywords": [
         "Query2doc",
@@ -949,7 +950,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0199, SRC-AI-0100.",
+        "summary": "Evidence basis: SRC-AI-0335, SRC-AI-0100.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -974,7 +975,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0199",
+        "SRC-AI-0335",
         "SRC-AI-0100"
       ],
       "keywords": [
@@ -997,7 +998,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0199.",
+        "summary": "Evidence basis: SRC-AI-0335.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -1021,7 +1022,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0199"
+        "SRC-AI-0335"
       ],
       "keywords": [
         "reranker_distillation"
@@ -1042,7 +1043,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0200.",
+        "summary": "Evidence basis: SRC-AI-0336.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -1070,7 +1071,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0200"
+        "SRC-AI-0336"
       ],
       "keywords": [
         "ColPali",
@@ -1092,7 +1093,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0201.",
+        "summary": "Evidence basis: SRC-AI-0255.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -1117,7 +1118,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0201"
+        "SRC-AI-0255"
       ],
       "keywords": [
         "Matryoshka",
@@ -1139,7 +1140,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0201, SRC-AI-0077.",
+        "summary": "Evidence basis: SRC-AI-0255, SRC-AI-0077.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -1163,7 +1164,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0201",
+        "SRC-AI-0255",
         "SRC-AI-0077"
       ],
       "keywords": [
