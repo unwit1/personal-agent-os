@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-repair-checkpoint-v1.schema.json",
+  "title": "Skyrim Mod Factory Repair Checkpoint v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repair_id",
+    "project_id",
+    "created_at",
+    "execution_state_path",
+    "invalidated_nodes",
+    "prior_nodes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-repair-checkpoint-v1"
+    },
+    "repair_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "build_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "execution_state_path": {
+      "type": "string"
+    },
+    "invalidated_nodes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "prior_nodes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    }
+  }
+}
