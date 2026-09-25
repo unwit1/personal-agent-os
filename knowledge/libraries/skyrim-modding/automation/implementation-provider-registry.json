@@ -248,11 +248,13 @@
       "provider_id": "mcm-helper",
       "kind": "framework",
       "validation_adapters": [
+        "mcm-helper-config-generator",
         "papyrus-vscode",
         "devbench"
       ],
-      "notes": "Settings/UI framework.",
-      "source": "https://github.com/Exit-9B/MCM-Helper"
+      "notes": "MCM Helper settings/UI framework with deterministic Agent OS config/settings generator and static cross-validation.",
+      "source": "https://github.com/Exit-9B/MCM-Helper",
+      "adapter_id": "mcm-helper-config-generator"
     },
     {
       "provider_id": "mcm-helper-settings-loader",
@@ -601,6 +603,17 @@
         "vospeaker"
       ],
       "notes": "Voice synthesis backend; VOSpeaker is the preferred adapted voice plane."
+    },
+    {
+      "provider_id": "typed-mcm-helper-generator",
+      "kind": "strategy",
+      "adapter_id": "mcm-helper-config-generator",
+      "validation_adapters": [
+        "mcm-helper-config-generator",
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "Typed deterministic MCM Helper config.json/settings.ini generation strategy."
     }
   ]
 }
