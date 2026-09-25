@@ -1,0 +1,93 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "commonlib-cmake-configure",
+  "tool": "CMake / CommonLibSSE-NG project configure",
+  "source": "https://github.com/alandtse/CommonLibSSE-NG",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "native-project-configure",
+    "compile-database-generate",
+    "dependency-resolution",
+    "runtime-target-configuration"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "cmake",
+    "arguments_template": [
+      "-S",
+      "{source_dir}",
+      "-B",
+      "{build_dir}",
+      "-DCMAKE_BUILD_TYPE={config}"
+    ],
+    "transport": "CMake CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "CMakeLists.txt",
+    "CMakePresets/toolchain files",
+    "CommonLibSSE-NG pin",
+    "native source"
+  ],
+  "outputs": [
+    "configured build tree",
+    "CMake cache",
+    "compile database when enabled"
+  ],
+  "logs": [
+    "stdout",
+    "stderr",
+    "CMake configure logs"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "forbidden_log_patterns": [
+      "CMake Error"
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "coverage": {
+    "description": "Deterministic native-project configuration step before compilation.",
+    "known_gaps": [
+      "project-specific generator/toolchain/cache arguments may be required",
+      "successful configure does not prove all target runtimes compile"
+    ],
+    "denominator_probe": "Declared native build targets/presets vs configured targets."
+  },
+  "safety": {
+    "mutation_default": "build-tree-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Dedicated build directory outside source tree."
+  },
+  "verification": {
+    "independent_validators": [
+      "cmake-cache-inspection",
+      "toolchain-lock",
+      "source-runtime-matrix"
+    ],
+    "version_probe": "cmake --version + CommonLib source/tag/commit",
+    "output_readback": "Inspect CMakeCache and generated compile commands/presets."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Use before build; project manifest should own target runtime and dependency pins."
+  },
+  "evidence": {
+    "source_url": "https://github.com/alandtse/CommonLibSSE-NG",
+    "verified_date": "2026-09-24",
+    "notes": "Standard CMake configure surface; CommonLib projects may add presets/toolchain options."
+  }
+}
