@@ -1,0 +1,86 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "loot",
+  "tool": "LOOT",
+  "tool_version": "0.29.2",
+  "source": "https://github.com/loot/loot",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "load-order-sort",
+    "masterlist-update",
+    "metadata-evaluate",
+    "cycle-detect",
+    "bash-tag-metadata",
+    "dirty-plugin-metadata"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "executable": "LOOT.exe",
+    "arguments_template": [
+      "--game={game}",
+      "--auto-sort"
+    ],
+    "transport": "CLI auto-sort + GUI metadata editor",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "plugins.txt/load order",
+    "masterlist",
+    "user metadata"
+  ],
+  "outputs": [
+    "sorted load order",
+    "LOOT report/log",
+    "load-order backup"
+  ],
+  "logs": [
+    "LOOTDebugLog.txt",
+    "application report"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "coverage": {
+    "description": "Graph-based plugin ordering and metadata analysis. Current CLI supports --auto-sort when --game is supplied.",
+    "known_gaps": [
+      "successful sort cannot merge semantic record conflicts",
+      "masterlist/user metadata may be incomplete or wrong for unpublished/private mods"
+    ],
+    "denominator_probe": "plugins discovered vs plugins sorted/metadata-evaluated; cycle/error count."
+  },
+  "safety": {
+    "mutation_default": "proposal-first",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "applying sorted order to a non-test profile"
+    ],
+    "sandbox_or_scope": "Prefer cloned/dedicated MO2 test profile and retain LOOT load-order backup."
+  },
+  "verification": {
+    "independent_validators": [
+      "plugin-master-graph",
+      "touchset-compatibility-scan",
+      "xedit-conflict-analysis"
+    ],
+    "version_probe": "LOOT --version/release",
+    "output_readback": "Compare before/after load order and parse errors/messages."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Ordering oracle, not semantic compatibility oracle."
+  },
+  "evidence": {
+    "source_url": "https://github.com/loot/loot",
+    "verified_date": "2026-09-24",
+    "notes": "Latest GitHub release observed is 0.29.2; docs expose --auto-sort, --game-path and --loot-data-path."
+  }
+}
