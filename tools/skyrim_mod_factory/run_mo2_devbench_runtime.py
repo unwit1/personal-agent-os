@@ -32,7 +32,7 @@ def load_module(name:str,path:Path):
 
 MO2=load_module("run_mo2_runtime_session",HERE/"run_mo2_runtime_session.py")
 DB=load_module("run_devbench_runtime_observer",HERE/"run_devbench_runtime_observer.py")
-MERGE=load_module("apply_runtime_observation",HERE/"apply_runtime_observation.py")
+MERGE=load_module("apply_runtime_observation",HERE/"apply_runtime_observation.py")\nPM=load_module("run_presentmon_capture",HERE/"run_presentmon_capture.py")
 
 def add_file_artifact(result:dict[str,Any],path:Path,kind:str)->None:
     if path.is_file():
@@ -41,6 +41,46 @@ def add_file_artifact(result:dict[str,Any],path:Path,kind:str)->None:
             "path":str(path),
             "sha256":MO2.sha256_file(path),
         })
+
+def performance_requested(test:dict[str,Any])->bool:
+    return bool(
+        (test.get("evidence") or {}).get("performance")
+        or any(x.get("kind")=="performance" for x in test.get("assertions") or [])
+    )
+
+def apply_presentmon_gate(
+    result:dict[str,Any],
+    test:dict[str,Any],
+    summary:dict[str,Any]|None,
+)->None:
+    if not performance_requested(test):
+        return
+    gates={row["gate"]:row for row in result["gates"]}
+    gate=gates["G20"]
+    explicit=any(
+        x.get("kind")=="performance" or "G20" in (x.get("gates") or [])
+        for x in test.get("assertions") or []
+    )
+    if summary is None:
+        if gate["status"]!="fail":
+            gate["status"]="needs-review"
+        gate["issues"].append("PresentMon performance evidence was requested but unavailable")
+    else:
+        pm_status=summary["status"]
+        gate["evidence"].append(
+            f'PresentMon frames={summary["frame_count"]} status={pm_status}'
+        )
+        if pm_status=="fail":
+            gate["status"]="fail"
+        elif pm_status=="needs-review" and gate["status"]!="fail":
+            gate["status"]="needs-review"
+        elif not explicit and pm_status=="pass":
+            gate["status"]="pass"
+            gate["issues"]=[
+                x for x in gate["issues"]
+                if x!="performance evidence has not been supplied"
+            ]
+    result["gates"]=[gates[g] for g in ("G19","G20","G21","G26")]
 
 def validate_session_health_for_termination(
     health:dict[str,Any],
@@ -155,7 +195,9 @@ def run_session(
     if os.name!="nt":
         result["status"]="aborted"
         result["issues"].append("MO2 + devbench runtime execution requires Windows")
-        result["_template_before"]=private_template_before
+        apply_presentmon_gate(result,test,performance_summary)
+
+    result["_template_before"]=private_template_before
         MO2.finalize_cleanup(result,config,success=False)
         MO2.validate(result,MO2.RESULT_SCHEMA,"runtime session result")
         return result
@@ -183,6 +225,14 @@ def run_session(
     session_health=None
     launch_error=None
     force_kill_result=None
+    performance_summary=None
+    pm_proc=None
+    pm_stdout_handle=None
+    pm_stderr_handle=None
+    pm_trace_path=session_dir/"presentmon.csv"
+    pm_summary_path=session_dir/"presentmon-summary.json"
+    pm_stdout_path=session_dir/"presentmon.stdout.log"
+    pm_stderr_path=session_dir/"presentmon.stderr.log"
     with stdout_path.open("w",encoding="utf-8") as stdout, \
          stderr_path.open("w",encoding="utf-8") as stderr:
         try:
@@ -206,6 +256,33 @@ def run_session(
                 encoding="utf-8",
             )
             add_file_artifact(result,health_path,"devbench-session-health")
+            if performance_requested(test):
+                perf_cfg=config.get("performance_capture")
+                if perf_cfg:
+                    try:
+                        pm_trace_path.unlink(missing_ok=True)
+                        pm_summary_path.unlink(missing_ok=True)
+                        pm_stdout_handle=pm_stdout_path.open("w",encoding="utf-8")
+                        pm_stderr_handle=pm_stderr_path.open("w",encoding="utf-8")
+                        pm_proc=subprocess.Popen(
+                            PM.build_command(
+                                Path(perf_cfg["executable"]),
+                                process_id=int(session_health["pid"]),
+                                output_csv=pm_trace_path,
+                                timed_seconds=perf_cfg.get("timed_seconds"),
+                            ),
+                            stdout=pm_stdout_handle,
+                            stderr=pm_stderr_handle,
+                            text=True,
+                        )
+                    except (OSError,ValueError) as exc:
+                        result["issues"].append(
+                            "PresentMon capture did not start: "+str(exc)
+                        )
+                else:
+                    result["issues"].append(
+                        "performance evidence requested but performance_capture is not configured"
+                    )
             observation=DB.run_observer(
                 test,
                 result,
@@ -278,6 +355,39 @@ def run_session(
                             result["issues"].append(
                                 "scoped runtime force-kill refused: "+str(exc)
                             )
+
+    if pm_proc is not None:
+        try:
+            pm_exit=pm_proc.wait(timeout=config["timeouts"]["shutdown_seconds"])
+        except subprocess.TimeoutExpired:
+            result["issues"].append(
+                "PresentMon did not exit within shutdown timeout; terminating capture process"
+            )
+            pm_proc.terminate()
+            try:
+                pm_exit=pm_proc.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                pm_proc.kill()
+                pm_exit=pm_proc.wait(timeout=5)
+        if pm_exit!=0:
+            result["issues"].append(f"PresentMon exited with code {pm_exit}")
+    if pm_stdout_handle is not None:
+        pm_stdout_handle.close()
+        add_file_artifact(result,pm_stdout_path,"presentmon-stdout")
+    if pm_stderr_handle is not None:
+        pm_stderr_handle.close()
+        add_file_artifact(result,pm_stderr_path,"presentmon-stderr")
+    if performance_requested(test) and session_health is not None:
+        performance_summary=PM.summarize_csv(
+            pm_trace_path,
+            int(session_health["pid"]),
+        )
+        pm_summary_path.write_text(
+            json.dumps(performance_summary,indent=2)+"\n",
+            encoding="utf-8",
+        )
+        add_file_artifact(result,pm_trace_path,"presentmon-csv")
+        add_file_artifact(result,pm_summary_path,"presentmon-summary")
 
     result["finished_at"]=MO2.now()
     if proc is not None and result["launch"]["exit_code"] is None and proc.poll() is not None:
