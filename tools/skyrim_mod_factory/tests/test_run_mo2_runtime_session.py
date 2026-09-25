@@ -134,6 +134,7 @@ class RunMO2RuntimeSessionTests(unittest.TestCase):
             self.assertTrue(copied.exists())
             self.assertEqual(MOD.sha256_file(save),MOD.sha256_file(copied))
             self.assertEqual(result["status"],"prepared")
+            self.assertRegex(result["session_token"],r"^[0-9a-f]{64}$")
             self.assertEqual(
                 MOD.schema_errors(
                     {k:v for k,v in result.items() if k!="_template_before"},
