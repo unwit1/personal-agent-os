@@ -1,0 +1,79 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "synthebd",
+  "tool": "SynthEBD",
+  "source": "https://github.com/Synthesis-Collective/SynthEBD",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "npc-asset-distribution",
+    "bodyshape-distribution",
+    "height-distribution",
+    "headpart-distribution",
+    "consistency-assignments",
+    "synthesis-patch",
+    "conflict-logging"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "executable": "SynthEBD.exe",
+    "transport": "standalone configuration GUI + generated/Synthesis patching",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "load order",
+    "asset configs",
+    "BodyGen/BodySlide settings",
+    "specific NPC assignments",
+    "consistency data"
+  ],
+  "outputs": [
+    "NPC patch",
+    "distributed assets/configs",
+    "consistency assignments",
+    "operation logs"
+  ],
+  "logs": [
+    "SynthEBD/Logs timestamp folders"
+  ],
+  "coverage": {
+    "description": "Rule-based NPC appearance/body/height/headpart distribution with saved consistency assignments and detailed conflict logging.",
+    "known_gaps": [
+      "configuration UI is complex and not yet exposed through a typed Mod Factory API",
+      "headpart Script Mode has documented custom-sculpt corruption risk; NifEdit mode is experimental and needs visual verification"
+    ],
+    "denominator_probe": "eligible NPCs vs assigned/excluded/conflicted; verbose conflict logs for unresolved cases."
+  },
+  "safety": {
+    "mutation_default": "dedicated-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "enabling experimental headpart NifEdit mode for release"
+    ],
+    "sandbox_or_scope": "Dedicated MO2 SynthEBD Output plus saved config/consistency state."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "pynifly",
+      "synthesis",
+      "npc-runtime-screenshot"
+    ],
+    "version_probe": "SynthEBD executable/source release",
+    "output_readback": "Operation logs, NPC patch diff, assigned assets and representative in-game NPCs."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Agent can generate/analyze distribution rules and consistency reports; GUI configuration remains supervised until a typed config editor is built."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Synthesis-Collective/SynthEBD",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream documents asset/body/height/headpart assignment, persistent consistency, verbose conflict logs and dedicated output folder."
+  }
+}
