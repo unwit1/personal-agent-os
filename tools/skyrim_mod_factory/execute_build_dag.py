@@ -835,43 +835,92 @@ def attach_runtime_session_evidence(
     return step
 
 def combine_runtime_gate_rows(
-    summaries:list[dict[str,Any]],
+    summaries_by_step:dict[str,list[dict[str,Any]]],
     gate_registry:dict[str,Any],
+    dag:dict[str,Any],
 )->list[dict[str,Any]]:
     policies={
         row["gate"]:row
         for row in gate_registry.get("gates") or []
         if isinstance(row,dict) and row.get("gate")
     }
-    grouped:dict[str,list[dict[str,Any]]]={}
-    for summary in summaries:
-        for row in summary.get("gates") or []:
-            if isinstance(row,dict) and row.get("gate"):
-                grouped.setdefault(row["gate"],[]).append({
-                    **copy.deepcopy(row),
-                    "_test_id":summary.get("test_id"),
-                    "_path":summary.get("path"),
-                })
-    rank={"fail":4,"needs-review":3,"warning":3,"pass":2,"not-applicable":1}
+    runtime_nodes=[
+        node for node in dag.get("nodes") or []
+        if isinstance(node,dict) and node.get("phase")=="runtime"
+    ]
+    required={
+        gate:[
+            node["id"] for node in runtime_nodes
+            if gate in (node.get("gates") or [])
+        ]
+        for gate in sorted({
+            gate
+            for node in runtime_nodes
+            for gate in (node.get("gates") or [])
+        },key=lambda x:int(x[1:]))
+    }
     result=[]
-    for gate,rows in sorted(grouped.items(),key=lambda kv:int(kv[0][1:])):
+    for gate,node_ids in required.items():
         policy=policies.get(gate) or {"severity":"BLOCKER"}
-        worst=max(rows,key=lambda row:rank.get(row.get("status"),3))
+        rows=[]
+        for node_id in node_ids:
+            summaries=summaries_by_step.get(node_id) or []
+            if not summaries:
+                rows.append({
+                    "status":"needs-review",
+                    "evidence":[],
+                    "issues":[
+                        f"required runtime node {node_id} produced no typed runtime session evidence"
+                    ],
+                    "_test_id":node_id,
+                    "_path":None,
+                })
+                continue
+            for summary in summaries:
+                matches=[
+                    row for row in summary.get("gates") or []
+                    if isinstance(row,dict) and row.get("gate")==gate
+                ]
+                if not matches:
+                    rows.append({
+                        "status":"needs-review",
+                        "evidence":[],
+                        "issues":[
+                            f"runtime session omitted required gate {gate}"
+                        ],
+                        "_test_id":summary.get("test_id"),
+                        "_path":summary.get("path"),
+                    })
+                    continue
+                for row in matches:
+                    copied=copy.deepcopy(row)
+                    copied["_test_id"]=summary.get("test_id")
+                    copied["_path"]=summary.get("path")
+                    if copied.get("status")=="not-applicable":
+                        copied["status"]="needs-review"
+                        copied.setdefault("issues",[]).append(
+                            f"{gate} is assigned to runtime node {node_id}; "
+                            "not-applicable evidence cannot discharge that required gate"
+                        )
+                    rows.append(copied)
+
         statuses=[row.get("status") for row in rows]
         if "fail" in statuses:
             status="fail"
         elif any(x in {"warning","needs-review"} for x in statuses):
             status="warning"
-        elif "pass" in statuses:
+        elif rows and all(x=="pass" for x in statuses):
             status="pass"
         else:
-            status="not-applicable"
+            status="warning"
+
         evidence=[]
         issues=[]
         for row in rows:
             prefix=f"{row.get('_test_id')}: "
             evidence.extend(prefix+str(x) for x in row.get("evidence") or [])
-            evidence.append(prefix+f"runtime-session:{row.get('_path')}")
+            if row.get("_path"):
+                evidence.append(prefix+f"runtime-session:{row.get('_path')}")
             issues.extend(prefix+str(x) for x in row.get("issues") or [])
         result.append({
             "gate":gate,
@@ -886,11 +935,19 @@ def combine_runtime_gate_rows(
 def collect_runtime_report_evidence(
     steps:list[dict[str,Any]],
     gate_registry:dict[str,Any],
+    dag:dict[str,Any],
 )->tuple[list[dict[str,Any]],list[dict[str,Any]]]:
+    summaries_by_step={
+        step.get("id"):list(
+            (step.get("evidence") or {}).get("runtime_sessions") or []
+        )
+        for step in steps
+        if step.get("id")
+    }
     summaries=[
         summary
-        for step in steps
-        for summary in ((step.get("evidence") or {}).get("runtime_sessions") or [])
+        for rows in summaries_by_step.values()
+        for summary in rows
     ]
     runtime_tests=[
         {
@@ -902,8 +959,13 @@ def collect_runtime_report_evidence(
         }
         for summary in summaries
     ]
-    gates=combine_runtime_gate_rows(summaries,gate_registry)
+    gates=combine_runtime_gate_rows(
+        summaries_by_step,
+        gate_registry,
+        dag,
+    )
     return runtime_tests,gates
+
 
 def run_automatic_repair(
     args:argparse.Namespace,
@@ -1096,7 +1158,7 @@ def main()->None:
     statuses=[s.get("status") for s in steps]
 
     runtime_tests,runtime_gates=collect_runtime_report_evidence(
-        steps,gate_registry
+        steps,gate_registry,dag
     )
 
     report={
