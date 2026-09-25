@@ -472,6 +472,172 @@
       "implication": "Track meta-overhead and research-to-verified-value conversion; simplify or pause when ROI falls.",
       "status": "active_caution",
       "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0041",
+      "claim": "Self-modification benchmark gains do not establish general self-improvement",
+      "evidence": "DGM/Gödel Agent show empirical benchmark improvement, but the evaluator and benchmark define what counts as improvement; transfer to real user value/security is not automatic.",
+      "source_refs": [
+        "SRC-AI-0215",
+        "SRC-AI-0217"
+      ],
+      "implication": "Treat self-modifying agents as candidate generators inside immutable evaluation/security boundaries, never as self-authorizing production control.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0042",
+      "claim": "Generated agent code is untrusted code",
+      "evidence": "ADAS, DGM, FunSearch and AlphaEvolve deliberately generate executable programs; successful search depends on sandboxed execution and external evaluation.",
+      "source_refs": [
+        "SRC-AI-0212",
+        "SRC-AI-0213",
+        "SRC-AI-0216",
+        "SRC-AI-0217"
+      ],
+      "implication": "All automatically generated code executes with least privilege in disposable/isolate environments before review/promotion.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0043",
+      "claim": "The evaluator becomes the true objective of automated self-improvement",
+      "evidence": "Evolutionary/search systems optimize what can be scored, not necessarily what the user intended.",
+      "source_refs": [
+        "SRC-AI-0211",
+        "SRC-AI-0212",
+        "SRC-AI-0213",
+        "SRC-AI-0220"
+      ],
+      "implication": "Use target plus guardrail metrics, hidden holdouts, adversarial evaluator tests and post-deployment monitoring; never allow candidate to edit evaluator.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0044",
+      "claim": "Automated agent architecture search can overfit one benchmark/model family",
+      "evidence": "ADAS, AgentSquare and Archon search large configuration spaces against finite task sets; gains can reflect benchmark-specific composition.",
+      "source_refs": [
+        "SRC-AI-0216",
+        "SRC-AI-0219",
+        "SRC-AI-0220"
+      ],
+      "implication": "Require cross-domain/model transfer checks and private Agent OS holdouts before promotion.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0045",
+      "claim": "Quality-diversity archives trade local-optimum protection for storage/evaluation complexity",
+      "evidence": "Island/archive search preserves stepping stones but can grow indefinitely and make selection/reproduction expensive.",
+      "source_refs": [
+        "SRC-AI-0212",
+        "SRC-AI-0217"
+      ],
+      "implication": "Use capped archives, novelty only when predictive of transfer, terminal compaction, and explicit archive-retention policy.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0046",
+      "claim": "Automatic curriculum can optimize exploration rather than user value",
+      "evidence": "Voyager's curriculum is valuable in an open sandbox, but a personal assistant can waste time inventing tasks that are novel but irrelevant.",
+      "source_refs": [
+        "SRC-AI-0210"
+      ],
+      "implication": "Constrain curriculum by user/project priorities, improvement backlog and explicit exploration budget.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0047",
+      "claim": "Executable skill libraries can institutionalize a lucky or brittle trajectory",
+      "evidence": "A skill that worked once may encode hidden environment assumptions, obsolete APIs or unsafe workarounds.",
+      "source_refs": [
+        "SRC-AI-0210"
+      ],
+      "implication": "Require replay across variants, dependency/version metadata, failure conditions and deprecation review before promotion.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0048",
+      "claim": "Surrogate predictors can suppress breakthrough candidates",
+      "evidence": "AgentSquare-style performance prediction saves evaluation compute but can bias search toward known regions.",
+      "source_refs": [
+        "SRC-AI-0219"
+      ],
+      "implication": "Reserve randomized exploration and audit false-negative discarded candidates on samples.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0049",
+      "claim": "Inference-time architecture search can buy benchmark quality with unsustainable production cost",
+      "evidence": "Archon-style systems can compose repeated sampling, critique, fusion and multiple models; quality must be evaluated against real latency/cost budgets.",
+      "source_refs": [
+        "SRC-AI-0220"
+      ],
+      "implication": "Optimize Pareto frontier and cost per successful task, not accuracy alone.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0050",
+      "claim": "Layered Mixture-of-Agents magnifies inference and context costs",
+      "evidence": "MoA can improve language benchmarks, but every layer consumes all previous outputs, causing large token multipliers and correlated evidence repetition.",
+      "source_refs": [
+        "SRC-AI-0224"
+      ],
+      "implication": "Compare against best-of-N, one independent reviewer, and stronger single model before adoption.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0051",
+      "claim": "MCTS agent search can be unsafe with real side effects",
+      "evidence": "Tree search assumes branches can be explored/evaluated; external actions such as sends/purchases/deletes cannot be casually expanded as search nodes.",
+      "source_refs": [
+        "SRC-AI-0221"
+      ],
+      "implication": "Search only simulated/reversible states; execute one authorized selected branch outside search.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0052",
+      "claim": "Policy-level reflection can create plausible but false causal lessons",
+      "evidence": "Trajectory reflection may assign an incorrect cause to success/failure and then make it persistent.",
+      "source_refs": [
+        "SRC-AI-0222",
+        "SRC-AI-0218"
+      ],
+      "implication": "Treat reflection as HYP evidence; validate policy patch on unseen cases before retention.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0053",
+      "claim": "Proactive clarification can become avoidable user labor",
+      "evidence": "Question-asking models can improve underspecified tasks, but asking instead of retrieving known context or making a safe reversible assumption can increase cognitive burden.",
+      "source_refs": [
+        "SRC-AI-0225"
+      ],
+      "implication": "Retrieve current conversation/project/profile first; ask only when missing information is material and not otherwise obtainable.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0054",
+      "claim": "Self-improvement must not control its own promotion gates",
+      "evidence": "Any optimizer that can change its authorization, holdout, scoring, audit or rollback conditions can improve its measured score by weakening oversight rather than improving capability.",
+      "source_refs": [
+        "SRC-AI-0216",
+        "SRC-AI-0217"
+      ],
+      "implication": "Mount promotion/eval/security controls outside optimizer write scope and require explicit human approval for changes to those controls.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
     }
   ]
 }
