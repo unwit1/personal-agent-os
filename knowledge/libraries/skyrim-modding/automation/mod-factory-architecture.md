@@ -465,6 +465,13 @@ Responsibilities:
 - collect runtime evidence;
 - support record/replay and A/B testing where available.
 
+Executable baseline:
+- `run_mo2_runtime_session.py` owns the disposable profile, fixture, process boundary, evidence snapshots and cleanup;
+- `run_devbench_runtime_observer.py` owns typed in-game actions/probes/assertions;
+- `run_mo2_devbench_runtime.py` composes both rather than treating them as interchangeable adapters;
+- optional `performance_capture.provider=presentmon` starts PresentMon only after fresh DevBench health identifies the launched game PID, summarizes target-PID frames into `skyrim-frame-trace-summary-v1`, and feeds G20 without overriding explicit failed performance assertions;
+- missing runtime/performance evidence remains unproven rather than being silently promoted to PASS.
+
 ### 3D AI plane
 Blender MCP + PyNifly/Nifly.
 
@@ -474,7 +481,7 @@ Responsibilities:
 - automate transforms/material/rig/animation work;
 - export to staging.
 
-NIF-specific independent checks remain mandatory.
+NIF-specific independent checks remain mandatory. Cheap deterministic asset guards should run before heavier visual/runtime checks: the DDS structural validator rejects malformed/truncated or generation-incompatible texture containers, while the FaceGen coherence validator checks defining-plugin/local-FormID paths, NIF+DDS pairing and optional approved fingerprints. Neither substitutes for decoded-channel, NIF semantic, or in-game visual validation.
 
 ### Papyrus AI plane
 Papyrus language tooling + pinned provider index + compiler/runtime debugger.
