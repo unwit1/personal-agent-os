@@ -48,6 +48,39 @@
       "additionalProperties": {
         "type": "object"
       }
+    },
+    "output_backups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "backup_path",
+          "kind"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "backup_path": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "file",
+              "directory"
+            ]
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
     }
   }
 }
