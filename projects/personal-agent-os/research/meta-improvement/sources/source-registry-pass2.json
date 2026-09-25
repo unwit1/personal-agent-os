@@ -2154,6 +2154,241 @@
       "evidence_notes": "One model orchestrates specialized expert instances/subqueries and aggregates results; reported gains on reasoning/puzzle tasks with tools.",
       "limits": "High call/coordination cost and overlaps with normal orchestrator-worker systems.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0210",
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.16291",
+      "topics": [
+        "lifelong_agent",
+        "curriculum",
+        "skill_library"
+      ],
+      "evidence_notes": "Automatic curriculum, executable skill library, environment feedback and self-verification produced cumulative in-context lifelong learning in Minecraft without fine-tuning.",
+      "limits": "Embodied sandbox domain; performance claims do not establish general personal-assistant transfer.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0211",
+      "title": "Eureka: Human-Level Reward Design via Coding Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.12931",
+      "topics": [
+        "reward_design",
+        "evolutionary_search",
+        "RL"
+      ],
+      "evidence_notes": "LLM evolves executable reward code and uses simulator/RL feedback; reported outperforming human-engineered rewards on 83% of 29 environments.",
+      "limits": "Requires cheaply executable objective feedback; simulator/reward misspecification remains central risk.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0212",
+      "title": "Mathematical discoveries from program search with large language models (FunSearch)",
+      "type": "research",
+      "url": "https://www.nature.com/articles/s41586-023-06924-6",
+      "topics": [
+        "program_search",
+        "evolutionary_search",
+        "algorithm_discovery"
+      ],
+      "evidence_notes": "Frozen LLM plus systematic evaluator, best-shot prompting, skeletonized code search and island diversity discovered new mathematical constructions and algorithms.",
+      "limits": "Works best where candidate programs are cheaply and objectively evaluable; used very large sampling budgets.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0213",
+      "title": "AlphaEvolve: A Gemini-powered coding agent for designing advanced algorithms",
+      "type": "engineering_report",
+      "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
+      "topics": [
+        "algorithm_discovery",
+        "evolutionary_search",
+        "automated_evaluation"
+      ],
+      "evidence_notes": "Uses fast/strong model ensemble, automated evaluators and evolutionary program database; reported deployed improvements to data-center scheduling, AI training kernels, hardware and math.",
+      "limits": "Primary builder report rather than peer-reviewed end-to-end system paper; domains have executable evaluators.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0214",
+      "title": "AlphaEvolve: How our Gemini-powered coding agent is scaling impact across fields",
+      "type": "engineering_report",
+      "url": "https://deepmind.google/blog/alphaevolve-impact/",
+      "topics": [
+        "algorithm_discovery",
+        "production_optimization"
+      ],
+      "evidence_notes": "2026 follow-up reports AlphaEvolve as a regular infrastructure optimization tool and additional production/scientific impacts.",
+      "limits": "Vendor report; detailed independent reproduction is limited.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0215",
+      "title": "Gödel Agent: A Self-Referential Agent Framework for Recursive Self-Improvement",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.04444",
+      "topics": [
+        "self_modification",
+        "agent_design"
+      ],
+      "evidence_notes": "Agent modifies its own logic/behavior under high-level objectives and reports iterative performance gains on math/agent tasks.",
+      "limits": "Benchmark success does not establish safe unconstrained self-modification; high governance risk.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0216",
+      "title": "Automated Design of Agentic Systems",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2408.08435",
+      "topics": [
+        "ADAS",
+        "agent_architecture_search",
+        "code_search"
+      ],
+      "evidence_notes": "Meta Agent Search programs new agent systems in code, maintains an archive of discoveries, and reports transfer across domains/models.",
+      "limits": "Generated agent code is an untrusted artifact; search can overfit benchmark/evaluator.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0217",
+      "title": "Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2505.22954",
+      "topics": [
+        "self_modification",
+        "open_ended_search",
+        "coding_agents"
+      ],
+      "evidence_notes": "Maintains an archive/tree of self-modified coding agents and empirically validates variants, reporting SWE-bench 20→50 and Polyglot 14.2→30.7 with sandboxing/human oversight.",
+      "limits": "Benchmark improvements do not prove real-life utility or safety; self-modification search is costly and evaluator-bound.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0218",
+      "title": "Polaris: A Gödel Agent Framework for Small Language Models through Experience-Abstracted Policy Repair",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2603.23129",
+      "topics": [
+        "policy_repair",
+        "self_improvement",
+        "experience_abstraction"
+      ],
+      "evidence_notes": "2026 framework distills failures into compact reusable strategies and applies conservative persistent policy/code patches for smaller models.",
+      "limits": "Recent preprint; benchmark setting and self-reported policy repair need broader replication.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0219",
+      "title": "AgentSquare: Automatic LLM Agent Search in Modular Design Space",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.06153",
+      "topics": [
+        "agent_search",
+        "modular_agents",
+        "surrogate_model"
+      ],
+      "evidence_notes": "Searches Planning/Reasoning/Tool/Memory modules via evolution/recombination and uses an in-context performance predictor to skip poor designs; reported 17.2% average gain over best known human designs on six benchmarks.",
+      "limits": "Benchmark-defined module space can bias discoveries; predictor can discard unconventional good designs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0220",
+      "title": "An Architecture Search Framework for Inference-Time Techniques (Archon)",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v267/saad-falcon25a.html",
+      "topics": [
+        "inference_architecture_search",
+        "test_time_compute",
+        "model_ensembles"
+      ],
+      "evidence_notes": "Automates selection/composition of inference-time techniques and models under compute budget; reported 15.1 percentage-point average improvement over frontier baselines on studied benchmarks.",
+      "limits": "Search may overfit target benchmarks and can be inference-expensive.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0221",
+      "title": "Language Agent Tree Search",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.04406",
+      "topics": [
+        "agent_search",
+        "MCTS",
+        "reasoning_acting"
+      ],
+      "evidence_notes": "Combines reasoning, acting, planning, LM value functions, reflection and environmental feedback through Monte Carlo tree search.",
+      "limits": "High test-time compute and value-model quality sensitivity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0222",
+      "title": "Agent-Pro: Learning to Evolve via Policy-Level Reflection and Optimization",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.acl-long.292/",
+      "topics": [
+        "policy_reflection",
+        "agent_learning"
+      ],
+      "evidence_notes": "Reflects over trajectories/beliefs and uses depth-first search to refine persistent behavioral policy in interactive games.",
+      "limits": "Game domains; policy beliefs can overfit or encode incorrect causal stories.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0223",
+      "title": "AgentPro: Enhancing LLM Agents with Automated Process Supervision",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.emnlp-main.506/",
+      "topics": [
+        "process_supervision",
+        "MCTS",
+        "agents"
+      ],
+      "evidence_notes": "Uses MCTS-generated step annotations, process reward model and rejection sampling to avoid erroneous reasoning paths; reported gains on four datasets.",
+      "limits": "Process supervision inherits reward-model biases and adds substantial training/inference complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0224",
+      "title": "Mixture-of-Agents Enhances Large Language Model Capabilities",
+      "type": "research",
+      "url": "https://openreview.net/pdf?id=h0ZfDIrj7T",
+      "topics": [
+        "multi_agent",
+        "ensemble",
+        "layered_aggregation"
+      ],
+      "evidence_notes": "Layered architecture feeds outputs from multiple agents into subsequent agents and reported gains on several language-model benchmarks.",
+      "limits": "Large inference multiplier, correlated errors, and benchmark-specific aggregator behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0225",
+      "title": "Teaching Language Models To Gather Information Proactively",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.findings-emnlp.843/",
+      "topics": [
+        "proactivity",
+        "clarification",
+        "reinforcement_finetuning"
+      ],
+      "evidence_notes": "Trains proactive information gathering by rewarding questions that reveal genuinely new hidden user context; reported automatic/human-evaluation gains.",
+      "limits": "Clarification-heavy benchmark; proactive questioning can impose user effort and should be utility-gated.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0226",
+      "title": "Tunable LLM-based Proactive Recommendation Agent",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.acl-long.944/",
+      "topics": [
+        "proactivity",
+        "recommendation",
+        "tunable_behavior"
+      ],
+      "evidence_notes": "Studies tunable proactive recommendation agents and the tradeoff between proactive behavior and user preference.",
+      "limits": "Recommendation setting; transfer to general personal assistant needs local HCI evaluation.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
