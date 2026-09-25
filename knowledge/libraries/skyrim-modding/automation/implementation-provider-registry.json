@@ -555,8 +555,11 @@
     {
       "provider_id": "typed-fomod-generator",
       "kind": "strategy",
-      "validation_adapters": [],
-      "notes": "Planned deterministic FOMOD XML generator; not yet implemented."
+      "validation_adapters": [
+        "fomod-matrix-simulator"
+      ],
+      "notes": "Deterministic typed FOMOD renderer with vendored MIT XSD validation, package-source checks, and bounded option-matrix simulation.",
+      "adapter_id": "typed-fomod-generator"
     },
     {
       "provider_id": "vrik",
