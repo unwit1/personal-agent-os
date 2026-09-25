@@ -177,7 +177,11 @@ class RunMO2RuntimeSessionTests(unittest.TestCase):
             self.assertTrue(result["launch"]["attempted"])
             self.assertEqual(result["launch"]["exit_code"],0)
             self.assertFalse(Path(result["profile"]["disposable_dir"]).exists())
-            self.assertTrue(all(x["status"]=="needs-review" for x in result["gates"]))
+            gates={x["gate"]:x for x in result["gates"]}
+            self.assertEqual(gates["G19"]["status"],"needs-review")
+            self.assertEqual(gates["G20"]["status"],"not-applicable")
+            self.assertEqual(gates["G21"]["status"],"not-applicable")
+            self.assertEqual(gates["G26"]["status"],"needs-review")
 
     def test_conflicting_process_aborts_before_launch(self):
         with tempfile.TemporaryDirectory() as td:
@@ -214,6 +218,30 @@ class RunMO2RuntimeSessionTests(unittest.TestCase):
             MOD.finalize_cleanup(result,config,success=False)
             self.assertEqual(result["cleanup"]["status"],"failed")
             self.assertFalse(result["profile"]["restored"])
+
+    def test_performance_and_save_fixture_activate_related_gates(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            save=root/"Fixture.ess"
+            save.write_bytes(b"save-fixture")
+            test=runtime_test(save)
+            test["assertions"].append({
+                "id":"frametime",
+                "kind":"performance",
+                "expected":16.7,
+                "operator":"lte",
+                "severity":"ERROR",
+            })
+            result,_=MOD.prepare_session(
+                test,
+                worker_config(root,template),
+                run_id="run-1",
+            )
+            gates={x["gate"]:x for x in result["gates"]}
+            self.assertEqual(gates["G20"]["status"],"needs-review")
+            self.assertEqual(gates["G21"]["status"],"needs-review")
+
 
 if __name__=="__main__":
     unittest.main()
