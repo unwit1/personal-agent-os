@@ -55,7 +55,8 @@ def main():
 
     outputs=[]
     if args.plugin_kind!="none":
-        outputs.append({"path":f"generated/{pid}.esp","type":"plugin","generated":True,"generator":"TBD"})
+        ext={"esm":".esm","esl":".esl","esp":".esp","esp-fe":".esp","generated":".esp"}[args.plugin_kind]
+        outputs.append({"path":f"generated/{pid}{ext}","type":"plugin","generated":True,"generator":"TBD"})
     if "papyrus" in args.layer:
         outputs.append({"path":"generated/Scripts","type":"pex","generated":True,"generator":"Papyrus compiler"})
     if "native" in args.layer:
@@ -75,6 +76,7 @@ def main():
       },
       "layers":list(dict.fromkeys(args.layer)),
       "frameworks":[],
+      "dependency_lock":"dependencies.lock.json",
       "inputs":[],
       "outputs":outputs or [{"path":"dist/.keep","type":"other","generated":True,"generator":"project"}],
       "persistence":{
@@ -105,6 +107,14 @@ def main():
       }
     }
     (root/"mod.project.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
+
+    dependency_lock={
+      "schema_version":"skyrim-dependency-lock-v1",
+      "project_id":pid,
+      "generated_at":"UNRESOLVED",
+      "dependencies":[]
+    }
+    (root/"dependencies.lock.json").write_text(json.dumps(dependency_lock,indent=2)+"\n",encoding="utf-8")
 
     gitignore="""# generated/build output
 generated/
@@ -145,7 +155,7 @@ Validate:
 Plan:
 `python <agent-os>/tools/skyrim_mod_factory/plan_project.py mod.project.json`
 
-Fill in the project manifest before implementation.
+Fill in the project manifest and `dependencies.lock.json` before implementation.
 """
     (root/"README.md").write_text(readme,encoding="utf-8")
     print(f"Bootstrapped {args.name} at {root}")
