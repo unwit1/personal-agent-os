@@ -241,3 +241,105 @@ Before implementing, Agent OS should produce:
 9. remaining genuinely creative decisions.
 
 The goal is to make the user answer design questions, not low-level questions the repository can answer itself.
+
+
+## Questions the agent must resolve with tools before asking the user
+
+These are **not user questions** when the relevant data/tool is available.
+
+### Current project/load-order facts
+Resolve automatically:
+- active MO2 profile;
+- enabled plugins and priority;
+- winning record;
+- complete override chain;
+- asset winner/VFS chain;
+- plugin masters;
+- current FormIDs/EditorIDs;
+- current runtime/SKSE/Address Library;
+- installed framework versions;
+- current generated-output freshness.
+
+Preferred sources:
+houseCARL/MO2/xEdit/static adapters.
+
+### API/schema facts
+Resolve automatically:
+- whether a record field exists;
+- field type/cardinality;
+- valid enum values;
+- CTDA function/parameter schema;
+- Papyrus function/provider/signature;
+- CommonLib class/member/relocation availability;
+- SPID/KID/BOS/OAR/SkyPatcher grammar;
+- NIF block/shader/texture-slot structure.
+
+Preferred sources:
+generated schema corpora, xEdit definitions, Papyrus provider index, CommonLib source, pinned framework docs.
+
+### Feasibility/tool choice
+Resolve automatically:
+- can a static record do it?
+- can a runtime distributor avoid a conflict?
+- does Papyrus expose the needed event?
+- does OAR avoid a behavior edit?
+- does Pandora need to patch the graph?
+- does PyNifly support the required NIF operation?
+- can DevBench observe/assert the result?
+
+Use `implementation-patterns-core.json` and `tool-capability-registry.json`.
+
+### Validation facts
+Resolve automatically:
+- binary parses;
+- references resolve;
+- output matches schema;
+- source/output hashes;
+- missing assets;
+- stale generated artifacts;
+- runtime assertion result;
+- new owned errors/warnings;
+- tool coverage denominator.
+
+### Ask the user only when
+
+A question materially changes:
+- player-facing creative intent;
+- desired balance/feel;
+- aesthetic direction;
+- target support policy when no prior project policy exists;
+- whether an incompatible alternative should be chosen;
+- save-breaking migration promise;
+- public redistribution/licensing decision;
+- use of generated voice/visual identity with rights implications;
+- a consequential action the project's approval policy reserves for the user.
+
+## Automatic research before implementation
+
+If the selected implementation depends on a framework/tool not already pinned in the project:
+
+1. inspect current upstream source/release;
+2. record license;
+3. record latest supported runtime matrix;
+4. ingest syntax/API docs;
+5. identify known breaking changes;
+6. add/update adapter manifest;
+7. build a minimal fixture;
+8. mutation-test the validator;
+9. only then use it as an autonomous dependency.
+
+## Unknown implementation mechanism
+
+If the user asks for behavior not covered by any current pattern:
+
+1. decompose observable behavior into engine systems;
+2. search the knowledge repository;
+3. query actual game/master records for analogous vanilla behavior;
+4. search current frameworks/tools;
+5. inspect upstream source if docs are insufficient;
+6. create candidate implementation patterns;
+7. rank by invasiveness, compatibility surface and testability;
+8. implement a minimal proof fixture;
+9. promote the validated pattern to the registry.
+
+The default response to an unfamiliar implementation problem is **research + prototype**, not asking the user to choose among low-level technologies they should not need to know.
