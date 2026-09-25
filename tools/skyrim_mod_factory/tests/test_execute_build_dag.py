@@ -281,5 +281,146 @@ class ExecuteBuildDagTests(unittest.TestCase):
             )
             self.assertEqual(out.read_text(encoding="utf-8"),"two")
 
+    def test_main_executes_two_node_chain_with_pinned_fake_toolchain(self):
+        import sys
+        from unittest.mock import patch
+
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            adapter_dir=root/"adapters"
+            adapter_dir.mkdir()
+            run_dir=root/"run"
+            middle=root/"middle.txt"
+            final=root/"final.txt"
+
+            manifest=root/"manifest.json"
+            quality=root/"quality.json"
+            dag=root/"dag.json"
+            context=root/"context.json"
+            capabilities=root/"capabilities.json"
+            toolchain=root/"toolchain.json"
+
+            manifest.write_text(json.dumps({
+                "project_id":"fixture-chain"
+            }),encoding="utf-8")
+            quality.write_text(json.dumps({"gates":[]}),encoding="utf-8")
+            dag.write_text(json.dumps({
+                "schema_version":"skyrim-build-dag-v1",
+                "project_id":"fixture-chain",
+                "nodes":[
+                    {
+                        "id":"generate.first",
+                        "phase":"generate",
+                        "action":"write first fixture",
+                        "depends_on":[],
+                        "adapters":["fixture-write"],
+                        "gates":[],
+                        "invalidated_by":[],
+                        "outputs":[str(middle)],
+                    },
+                    {
+                        "id":"generate.second",
+                        "phase":"generate",
+                        "action":"consume first fixture",
+                        "depends_on":["generate.first"],
+                        "adapters":["fixture-copy"],
+                        "gates":[],
+                        "invalidated_by":["generate.first"],
+                        "outputs":[str(final)],
+                    },
+                ],
+            }),encoding="utf-8")
+            context.write_text(json.dumps({
+                "schema_version":"skyrim-execution-context-v1",
+                "project_id":"fixture-chain",
+                "nodes":{
+                    "generate.first":{
+                        "outputs":[str(middle)],
+                    },
+                    "generate.second":{
+                        "inputs":[str(middle)],
+                        "outputs":[str(final)],
+                        "variables":{"input_path":str(middle)},
+                    },
+                },
+            }),encoding="utf-8")
+            capabilities.write_text(json.dumps({
+                "schema_version":"skyrim-tool-capability-registry-v1",
+                "snapshot_date":"2026-09-24",
+                "adapters":[],
+            }),encoding="utf-8")
+            toolchain.write_text(json.dumps({
+                "adapters":[
+                    {
+                        "adapter_id":"fixture-write",
+                        "executable":sys.executable,
+                        "version":"fixture-python",
+                    },
+                    {
+                        "adapter_id":"fixture-copy",
+                        "executable":sys.executable,
+                        "version":"fixture-python",
+                    },
+                ]
+            }),encoding="utf-8")
+
+            (adapter_dir/"fixture-write.json").write_text(json.dumps({
+                "schema_version":"skyrim-tool-adapter-v1",
+                "adapter_id":"fixture-write",
+                "tool":"Fixture Writer",
+                "invocation":{
+                    "mode":"cli",
+                    "arguments_template":[
+                        "-c",
+                        "from pathlib import Path; Path(r'{output_path}').write_text('stage-one', encoding='utf-8')",
+                    ],
+                },
+                "success":{"exit_codes":[0]},
+                "retry":{"safe":False,"max_attempts":1,"cleanup_outputs_first":False},
+            }),encoding="utf-8")
+            (adapter_dir/"fixture-copy.json").write_text(json.dumps({
+                "schema_version":"skyrim-tool-adapter-v1",
+                "adapter_id":"fixture-copy",
+                "tool":"Fixture Copier",
+                "invocation":{
+                    "mode":"cli",
+                    "arguments_template":[
+                        "-c",
+                        "from pathlib import Path; src=Path(r'{input_path}'); Path(r'{output_path}').write_text(src.read_text(encoding='utf-8')+'|stage-two', encoding='utf-8')",
+                    ],
+                },
+                "success":{"exit_codes":[0]},
+                "retry":{"safe":False,"max_attempts":1,"cleanup_outputs_first":False},
+            }),encoding="utf-8")
+
+            argv=[
+                "execute_build_dag.py",
+                str(manifest),
+                str(quality),
+                str(dag),
+                "--context",str(context),
+                "--capabilities",str(capabilities),
+                "--adapter-dir",str(adapter_dir),
+                "--toolchain-lock",str(toolchain),
+                "--run-dir",str(run_dir),
+                "--execute",
+            ]
+            with patch("sys.argv",argv):
+                MOD.main()
+
+            report=json.loads((run_dir/"build-report.json").read_text(encoding="utf-8"))
+            self.assertEqual(report["status"],"passed")
+            self.assertEqual(
+                [step["id"] for step in report["steps"]],
+                ["generate.first","generate.second"],
+            )
+            self.assertEqual(
+                [step.get("adapter_id") for step in report["steps"]],
+                ["fixture-write","fixture-copy"],
+            )
+            self.assertEqual(final.read_text(encoding="utf-8"),"stage-one|stage-two")
+            self.assertTrue(all(step["status"]=="passed" for step in report["steps"]))
+            self.assertTrue(all(step["outputs_after"][0]["exists"] for step in report["steps"]))
+
 if __name__=="__main__":
     unittest.main()
