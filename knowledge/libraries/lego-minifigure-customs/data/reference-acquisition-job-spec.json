@@ -183,6 +183,38 @@
       ]
     },
     {
+      "id": "feature_extraction",
+      "prerequisites": [
+        "normalized DerivedAssets"
+      ],
+      "command": "python tools/knowledge/extract_minifigure_visual_features.py --input <derived_assets.jsonl> --output .agent-local/lego-minifigure-corpus/features/deterministic_features.jsonl",
+      "success_metrics": [
+        "every usable crop has auditable deterministic features",
+        "analysis version and source hash recorded"
+      ],
+      "followups": [
+        "aggregate by official style profile",
+        "anomaly review"
+      ]
+    },
+    {
+      "id": "embedding_indexes",
+      "prerequisites": [
+        "normalized DerivedAssets",
+        "pinned embedding model revisions"
+      ],
+      "action": "Build separate DINOv3 visual and SigLIP2 multimodal embedding spaces using tools/knowledge/embed_minifigure_reference_images.py.",
+      "success_metrics": [
+        "source hashes and exact model IDs recorded",
+        "DINOv3 and SigLIP2 indexes kept separate"
+      ],
+      "followups": [
+        "nearest-neighbor retrieval",
+        "visual duplicate clustering",
+        "analogue retrieval"
+      ]
+    },
+    {
       "id": "translation_pairs",
       "prerequisites": [
         "resolved official LEGO visual samples",
@@ -218,5 +250,7 @@
   ],
   "game_strategy_registry": "data/game-asset-extraction-strategy-registry.json",
   "web_game_registry": "data/web-game-preservation-source-registry.json",
-  "visual_normalization_registry": "data/visual-normalization-tool-registry.json"
+  "visual_normalization_registry": "data/visual-normalization-tool-registry.json",
+  "training_curriculum": "training-and-retrieval-curriculum.md",
+  "visual_feature_schema": "data/visual-feature-schema.json"
 }
