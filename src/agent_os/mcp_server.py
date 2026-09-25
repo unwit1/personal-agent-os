@@ -7,6 +7,7 @@ from typing import Any, Callable
 
 from .browser_control import command_status as browser_command_status
 from .browser_control import execute as browser_execute
+from .browser_control import inspect as browser_inspect
 from .browser_control import sessions as browser_sessions
 from .candidates import stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, search_changes, update_change
@@ -105,6 +106,39 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
                 "active_only": {"type": "boolean", "default": True},
                 "active_within_seconds": {"type": "integer", "minimum": 5, "maximum": 86400, "default": 90}
             }
+        },
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "openWorldHint": False
+        }
+    },
+    "browser.inspect": {
+        "description": "Read or wait on the current DOM of one registered Firefox/Tampermonkey session without clicking, typing, navigating, or opening tabs. Supports only inspect, extract, and wait actions.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "session_id": {"type": "string"},
+                "actions": {
+                    "type": ["array", "null"],
+                    "minItems": 1,
+                    "maxItems": 25,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "op": {"type": "string", "enum": ["inspect", "extract", "wait"]},
+                            "selector": {"type": "string"},
+                            "attribute": {"type": "string"},
+                            "timeout_ms": {"type": "integer"}
+                        },
+                        "required": ["op"],
+                        "additionalProperties": True
+                    }
+                },
+                "issued_by": {"type": "string", "default": "chatgpt"},
+                "wait_seconds": {"type": "number", "minimum": 0, "maximum": 30, "default": 12}
+            },
+            "required": ["session_id"]
         },
         "annotations": {
             "readOnlyHint": True,
@@ -591,6 +625,7 @@ TOOL_SCHEMAS.update(ORCHESTRATE_TOOL_SCHEMAS)
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
         "browser.sessions": browser_sessions,
+        "browser.inspect": browser_inspect,
         "browser.execute": browser_execute,
         "browser.command_status": browser_command_status,
         "project.list": lambda: projects(),
@@ -708,7 +743,7 @@ SERVER_CAPABILITIES = {"tools": {"listChanged": False}}
 # otherwise offers the newest one, which is what the MCP lifecycle requires.
 SUPPORTED_PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")
 INSTRUCTIONS = (
-    "Use browser.sessions before browser.execute whenever the user asks you to operate their registered Firefox browser. "
+    "Use browser.sessions first. Prefer browser.inspect for read-only page context, and use browser.execute only when the user asks you to interact with their registered Firefox browser. "
     "Use browser.execute only for browser actions the user requested. If it returns approval_required, explain the pending action and call it again with approved_consequential=true only after explicit user approval. "
     "Never request, extract, or type passwords, payment-card data, security codes, or other authentication secrets through browser.execute. "
     "Use agent.context first for substantial project work. It retrieves compact context only. "
