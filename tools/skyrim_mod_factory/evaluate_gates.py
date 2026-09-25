@@ -45,7 +45,13 @@ def explicit_evidence(report:dict[str,Any])->dict[str,dict[str,Any]]:
     }
 
 def gate_nodes(gate:str,dag:dict[str,Any])->list[dict[str,Any]]:
-    return [x for x in dag.get("nodes",[]) if gate in (x.get("gates") or [])]
+    # Gate-evaluator aggregation nodes declare the gates they evaluate but are not
+    # evidence for those gates themselves.
+    return [
+        x for x in dag.get("nodes",[])
+        if gate in (x.get("gates") or [])
+        and x.get("id") not in {"integrate.gates"}
+    ]
 
 def status_by_step(report:dict[str,Any])->dict[str,str]:
     return {
