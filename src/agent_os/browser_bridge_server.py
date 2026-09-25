@@ -171,6 +171,18 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
                                     watch_id=watch.get("watch_id"),
                                     discord_matches=discord_matches,
                                 )
+
+                            linked_capture = dict(capture)
+                            linked_metadata = dict(metadata)
+                            linked_metadata["creator_profile_id"] = creator.get("creator_id")
+                            linked_metadata["creator_aliases"] = [
+                                alias.get("value")
+                                for alias in creator.get("aliases") or []
+                                if alias.get("value")
+                            ]
+                            linked_capture["metadata"] = linked_metadata
+                            watch = add_browser_follow(linked_capture)
+                            result["follow"]["watch_id"] = watch.get("watch_id")
                             result["follow"]["creator"] = creator
                 else:
                     self._send(HTTPStatus.NOT_FOUND, {"error": "not found"})
