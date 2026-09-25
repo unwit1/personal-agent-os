@@ -1,15 +1,19 @@
-name: Skyrim Knowledge Validation
+name: Skyrim Knowledge and Mod Factory Validation
 
 on:
   push:
     paths:
       - "knowledge/libraries/skyrim-modding/**"
       - "tools/knowledge/**"
+      - "tools/skyrim_mod_factory/**"
+      - "schemas/skyrim-*.schema.json"
       - ".github/workflows/skyrim-knowledge-validation.yml"
   pull_request:
     paths:
       - "knowledge/libraries/skyrim-modding/**"
       - "tools/knowledge/**"
+      - "tools/skyrim_mod_factory/**"
+      - "schemas/skyrim-*.schema.json"
       - ".github/workflows/skyrim-knowledge-validation.yml"
 
 permissions:
@@ -29,3 +33,5 @@ jobs:
         run: python -m pip install --disable-pip-version-check jsonschema
       - name: Validate Skyrim knowledge and automation schemas
         run: python tools/knowledge/validate_skyrim_knowledge.py
+      - name: Run Skyrim Mod Factory unit tests
+        run: python -m unittest discover -s tools/skyrim_mod_factory/tests -p "test_*.py" -v
