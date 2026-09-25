@@ -54,6 +54,9 @@
           },
           "notes": {
             "type": "string"
+          },
+          "resolves_to": {
+            "type": "string"
           }
         }
       }
