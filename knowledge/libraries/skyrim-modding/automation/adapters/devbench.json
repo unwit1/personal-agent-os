@@ -1,0 +1,71 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "devbench",
+  "tool": "devbench",
+  "source": "https://github.com/alandtse/devbench",
+  "targets": [
+    "skyrim-se-ae",
+    "skyrim-vr"
+  ],
+  "capabilities": [
+    "runtime-mcp",
+    "runtime-rest",
+    "tool-registry",
+    "event-bus",
+    "scenario-run",
+    "event-wait",
+    "record-replay",
+    "console-with-output",
+    "save-load-test",
+    "health-probe",
+    "performance-ab-test",
+    "tracy-integration",
+    "cross-plugin-test-api"
+  ],
+  "invocation": {
+    "mode": "mcp-http",
+    "endpoint": "http://127.0.0.1:8920/mcp",
+    "transport": "MCP streamable HTTP + REST",
+    "health_probe": "GET /api/health",
+    "requires_running_game": true,
+    "requires_mo2_context": false
+  },
+  "coverage": {
+    "description": "Runtime development test bench whose tool registry can be extended by other SKSE plugins.",
+    "known_gaps": [
+      "not a static plugin schema editor",
+      "local server has no authentication and must stay loopback-only"
+    ],
+    "denominator_probe": "GET /api/tools plus health/event counters; scenario returns per-step transcript."
+  },
+  "safety": {
+    "mutation_default": "runtime-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": false,
+    "requires_confirmation_for": [
+      "eval-class tools",
+      "mutation of non-fixture saves"
+    ],
+    "sandbox_or_scope": "127.0.0.1 only; eval-class tools explicitly gated."
+  },
+  "verification": {
+    "independent_validators": [
+      "static-data-plane",
+      "game-log-collector"
+    ],
+    "version_probe": "runtime/plugin metadata and health endpoint",
+    "output_readback": "Runtime query after each mutation/scenario step."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "One extensible registry serves MCP and REST; use narrow tools/scenarios over broad eval."
+  },
+  "evidence": {
+    "source_url": "https://github.com/alandtse/devbench",
+    "verified_date": "2026-09-24",
+    "notes": "Preferred runtime QA/test-plane candidate; upstream active on snapshot date."
+  }
+}
