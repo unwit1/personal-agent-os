@@ -380,14 +380,19 @@
         "profiles",
         "vfs",
         "run-executable",
-        "asset-priority"
+        "asset-priority",
+        "disposable-runtime-profile",
+        "save-fixture-copy",
+        "runtime-evidence-capture",
+        "runtime-session-boundary"
       ],
       "validation_role": "none",
       "can_mutate": true,
       "requires_running_game": false,
       "known_gaps": [
         "not a semantic validator"
-      ]
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/mo2.json"
     },
     {
       "adapter_id": "mutagen",
