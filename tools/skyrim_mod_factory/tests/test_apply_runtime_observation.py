@@ -187,5 +187,28 @@ class ApplyRuntimeObservationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"runtime observation failed schema"):
             MOD.merge_observation(session(),value)
 
+    def test_screenshot_artifact_is_promoted_to_session_evidence(self):
+        value=observation()
+        value["artifacts"].append({
+            "kind":"screenshot",
+            "path":"Data/SKSE/Plugins/devbench/captures/checkpoint.png",
+            "sha256":None,
+            "provider":"d3d11",
+            "inconclusive":False,
+            "ssim":0.99,
+            "threshold":0.98,
+            "passed":True,
+        })
+        merged=MOD.merge_observation(session(),value)
+        self.assertIn(
+            "Data/SKSE/Plugins/devbench/captures/checkpoint.png",
+            merged["evidence"]["screenshots"],
+        )
+        self.assertTrue(any(
+            row.get("kind")=="screenshot"
+            for row in merged["evidence"]["artifacts"]
+        ))
+
+
 if __name__=="__main__":
     unittest.main()
