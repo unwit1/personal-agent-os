@@ -1,0 +1,80 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "housecarl",
+  "tool": "houseCARL",
+  "source": "https://github.com/Avick3110/houseCARL",
+  "targets": [
+    "skyrim-se-ae",
+    "mo2"
+  ],
+  "capabilities": [
+    "load-order-query",
+    "record-schema-query",
+    "record-read",
+    "record-patch-dry-run",
+    "record-create",
+    "record-forward",
+    "record-copy",
+    "plugin-create",
+    "plugin-compact",
+    "plugin-merge",
+    "asset-winner-query",
+    "nif-inspect",
+    "nif-edit-limited",
+    "papyrus-compile",
+    "papyrus-decompile",
+    "bsa-list",
+    "bsa-extract",
+    "bsa-repack",
+    "skypatcher-layer",
+    "skse-layer-audit",
+    "nexus-query"
+  ],
+  "invocation": {
+    "mode": "mcp-stdio",
+    "transport": "MCP stdio",
+    "requires_running_game": false,
+    "requires_mo2_context": true
+  },
+  "coverage": {
+    "record_types": 133,
+    "tools": 31,
+    "description": "Generated Mutagen-backed schema and MO2/VFS data plane as described by upstream README.",
+    "known_gaps": [
+      "Mutagen coverage may lag xEdit for some record/subrecord semantics",
+      "does not observe running-game state"
+    ],
+    "denominator_probe": "Use houseCARL schema/reference coverage and load_order_status/epoch reporting."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": false,
+    "requires_confirmation_for": [
+      "in-place plugin overwrite"
+    ],
+    "sandbox_or_scope": "Writes default patches into a new MO2 mod/plugin rather than third-party input."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "spriggit-roundtrip",
+      "mutagen-reload"
+    ],
+    "version_probe": "houseCARL update/status and package/repo version",
+    "output_readback": "Built-in touched-field/deep record readback."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "tool_count": 31,
+    "context_cost_notes": "Generated references should be queried selectively rather than loaded wholesale."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Avick3110/houseCARL",
+    "verified_date": "2026-09-24",
+    "notes": "Preferred static data-plane candidate; GPL-3.0-only upstream."
+  }
+}
