@@ -50,8 +50,10 @@ def bool_text(value:bool)->str:
 
 def render_file_item(parent:ET.Element,item:dict[str,Any])->None:
     attrs={"source":clean_rel_path(item["source"])}
-    if item.get("destination"):
-        attrs["destination"]=clean_rel_path(item["destination"])
+    if "destination" in item:
+        attrs["destination"]=(
+            "" if item["destination"]=="" else clean_rel_path(item["destination"])
+        )
     if item.get("always_install",False):
         attrs["alwaysInstall"]="true"
     if item.get("install_if_usable",False):
