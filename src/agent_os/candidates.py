@@ -11,6 +11,7 @@ from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .registry import get_project
 from .storage import load_json, write_json
+from .source_attribution import ACTOR_STATES, profile_promotion_allowed
 
 
 KINDS = {
@@ -24,6 +25,9 @@ KINDS = {
     "test_candidate",
     "deterministic_rule_candidate",
     "documentation_candidate",
+    "profile_fact_candidate",
+    "relationship_candidate",
+    "identity_link_candidate",
 }
 STATUSES = {"candidate", "rejected", "merged", "promoted", "superseded"}
 
@@ -129,6 +133,11 @@ def _require_candidate(candidate: dict[str, Any]) -> None:
     confidence = candidate.get("confidence")
     if confidence is not None and (not isinstance(confidence, (int, float)) or not 0 <= confidence <= 1):
         raise ValueError("candidate confidence must be between 0 and 1")
+    source_actor = candidate.get("source_actor")
+    if source_actor is not None and source_actor not in ACTOR_STATES:
+        raise ValueError(f"unsupported source_actor: {source_actor}")
+    if kind in {"profile_fact_candidate", "relationship_candidate", "identity_link_candidate"} and source_actor is None:
+        raise ValueError(f"{kind} requires source_actor")
 
 
 def stage_candidates(
@@ -166,6 +175,9 @@ def stage_candidates(
             "resolved_at": None,
             "fingerprint": fingerprint,
         }
+        for key in ("source_actor", "user_confirmed", "domain", "privacy_class", "subject_id", "object_id", "relationship", "observed_at"):
+            if key in candidate:
+                record[key] = candidate[key]
         write_json(_candidate_dir(project["id"]) / f"{record['id']}.json", record)
         existing[fingerprint] = record
         created.append(record)
@@ -204,12 +216,14 @@ def curate_candidates(project_id: str, candidate_ids: Iterable[str] | None = Non
             continue
         has_evidence = bool(record.get("evidence"))
         confidence = record.get("confidence")
-        material = record["kind"] in {"decision_candidate", "skill_candidate", "skill_patch_candidate", "project_state_candidate", "deterministic_rule_candidate"}
+        material = record["kind"] in {"decision_candidate", "skill_candidate", "skill_patch_candidate", "project_state_candidate", "deterministic_rule_candidate", "profile_fact_candidate", "relationship_candidate", "identity_link_candidate"}
         review = {
             "deterministic_checks": {"valid_kind": record.get("kind") in KINDS, "has_evidence": has_evidence},
             "peer_review_required": material,
             "reason": "material candidate requires independent evidence review" if material else "routine candidate; deterministic checks first",
         }
+        actor_allowed, actor_reason = profile_promotion_allowed(record.get("source_actor"), explicitly_confirmed=bool(record.get("user_confirmed")))
+        review["source_actor_gate"] = {"allowed": actor_allowed, "reason": actor_reason}
         if action == "review":
             results.append({"id": record["id"], "outcome": "review_required", "review": review})
             continue
@@ -218,6 +232,9 @@ def curate_candidates(project_id: str, candidate_ids: Iterable[str] | None = Non
             record["resolved_at"] = datetime.now(timezone.utc).isoformat()
             write_json(path, record)
             results.append({"id": record["id"], "outcome": "rejected"})
+            continue
+        if not actor_allowed:
+            results.append({"id": record["id"], "outcome": "not_promoted", "reason": actor_reason, "review": review})
             continue
         if not has_evidence or (confidence is not None and confidence < 0.7):
             results.append({"id": record["id"], "outcome": "not_promoted", "reason": "evidence and confidence threshold not met", "review": review})
