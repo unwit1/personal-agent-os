@@ -55,6 +55,8 @@ def runtime_test():
 
 def worker_config(root,template,*,retain_on_failure=True):
     managed=root/"managed"
+    owned_log=root/"owned-runtime.log"
+    owned_log.write_text("fixture log baseline\n",encoding="utf-8")
     profiles=managed/"profiles"
     runs=managed/"runs"
     evidence=managed/"evidence"
@@ -97,7 +99,7 @@ def worker_config(root,template,*,retain_on_failure=True):
             "allow_force_kill_session_game":False,
         },
         "evidence":{
-            "log_paths":[str(root/"owned-runtime.log")],
+            "log_paths":[str(owned_log)],
             "crash_paths":[],
             "frame_trace_paths":[],
             "screenshot_dir":None,
