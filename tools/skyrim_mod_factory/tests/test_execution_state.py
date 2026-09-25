@@ -71,5 +71,100 @@ class ExecutionStateTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 MOD.load_execution_state(path,"project-b")
 
+    def test_node_fingerprint_changes_with_declared_input(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            inp=root/"input.txt"
+            inp.write_text("one",encoding="utf-8")
+            node={
+                "id":"generate.fixture",
+                "depends_on":[],
+                "adapters":[],
+                "gates":[],
+                "outputs":[],
+            }
+            context={"nodes":{"generate.fixture":{"inputs":[str(inp)]}}}
+            kwargs=dict(
+                manifest={"project_id":"fixture"},
+                quality={},
+                lock={},
+                context=context,
+                capability_map={},
+                adapter_dir=root/"adapters",
+                gate_registry={},
+                dependency_fingerprints={},
+            )
+            first=MOD.compute_node_fingerprint(node,**kwargs)
+            inp.write_text("two",encoding="utf-8")
+            second=MOD.compute_node_fingerprint(node,**kwargs)
+            self.assertNotEqual(first,second)
+
+    def test_dependency_fingerprint_invalidates_downstream(self):
+        node={
+            "id":"validate.fixture",
+            "depends_on":["generate.fixture"],
+            "adapters":[],
+            "gates":[],
+            "outputs":[],
+        }
+        common=dict(
+            manifest={"project_id":"fixture"},
+            quality={},
+            lock={},
+            context={},
+            capability_map={},
+            adapter_dir=Path("."),
+            gate_registry={},
+        )
+        first=MOD.compute_node_fingerprint(
+            node,dependency_fingerprints={"generate.fixture":"a"*64},**common
+        )
+        second=MOD.compute_node_fingerprint(
+            node,dependency_fingerprints={"generate.fixture":"b"*64},**common
+        )
+        self.assertNotEqual(first,second)
+
+    def test_reuse_requires_matching_output_content(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            out=root/"output.txt"
+            out.write_text("good",encoding="utf-8")
+            node={
+                "id":"generate.fixture",
+                "depends_on":[],
+                "adapters":[],
+                "gates":[],
+                "outputs":[str(out)],
+            }
+            context={}
+            state=MOD.new_execution_state("fixture","build-1")
+            step={"id":"generate.fixture","status":"passed","issues":[]}
+            MOD.checkpoint_node(
+                state,
+                node=node,
+                fingerprint="c"*64,
+                step=step,
+                context=context,
+            )
+            reused=MOD.reusable_prior_step(node,"c"*64,state)
+            self.assertIsNotNone(reused)
+            self.assertTrue(reused["evidence"]["resumed_from_state"])
+
+            out.write_text("changed",encoding="utf-8")
+            self.assertIsNone(MOD.reusable_prior_step(node,"c"*64,state))
+
+    def test_failed_or_review_checkpoint_is_never_reused(self):
+        node={"id":"fixture","depends_on":[],"adapters":[],"gates":[],"outputs":[]}
+        for status in ("failed","needs-review","skipped"):
+            state=MOD.new_execution_state("fixture","build-1")
+            state["nodes"]["fixture"]={
+                "fingerprint":"d"*64,
+                "status":status,
+                "updated_at":"2026-09-24T00:00:00+00:00",
+                "step_record":{"id":"fixture","status":status},
+                "output_fingerprints":[],
+            }
+            self.assertIsNone(MOD.reusable_prior_step(node,"d"*64,state))
+
 if __name__=="__main__":
     unittest.main()
