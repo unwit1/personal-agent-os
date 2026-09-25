@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse, json, re, sys
 from pathlib import Path
 
-MODES={"cli","library","gui-supervised","hybrid","service","mcp"}
+MODES={"cli","library","gui-supervised","hybrid","service","mcp","mcp-stdio","mcp-http","rest","named-pipe","in-process-api"}
 ID_RE=re.compile(r"^[a-z0-9][a-z0-9._-]*$")
 
 def validate_manifest(path:Path,data:dict)->list[str]:
