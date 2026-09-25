@@ -27,7 +27,8 @@ This directory turns the Skyrim Modding Knowledge Repository into a practical im
 ## Machine-readable surfaces
 
 - `adapters/core-adapters.json` — current core tool adapter registry.
-- `analyzers/core-rules.json` — machine-readable bug/analyzer rules.
+- `analyzer-rule-pack-core.json` — canonical machine-readable bug/analyzer rule pack.
+- `analyzers/core-rules.json` — generated compatibility mirror of the canonical pack; do not edit directly.
 
 Repository-wide schemas currently include:
 - `schemas/skyrim-mod-project-v1.schema.json`;
