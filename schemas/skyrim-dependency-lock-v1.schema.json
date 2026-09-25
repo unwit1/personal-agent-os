@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-dependency-lock-v1.schema.json",
+  "title": "Skyrim Mod Factory Dependency Lock v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "generated_at",
+    "dependencies"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-dependency-lock-v1"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "role",
+          "source",
+          "required",
+          "license_status",
+          "redistribution"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "role": {
+            "enum": [
+              "tool",
+              "build-library",
+              "runtime-framework",
+              "runtime-mod",
+              "plugin-master",
+              "asset-source",
+              "compiler",
+              "generator",
+              "test-framework",
+              "official-game-data",
+              "other"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "string"
+          },
+          "commit": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "download": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[A-Fa-f0-9]{64}$"
+          },
+          "runtime_scope": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "linkage": {
+            "enum": [
+              "none",
+              "process-tool",
+              "dynamic",
+              "static",
+              "source-copy",
+              "asset-derivative",
+              "runtime-dependency",
+              "unknown"
+            ]
+          },
+          "license_expression": {
+            "type": "string"
+          },
+          "license_status": {
+            "enum": [
+              "verified",
+              "unknown",
+              "not-applicable"
+            ]
+          },
+          "license_source": {
+            "type": "string"
+          },
+          "redistribution": {
+            "enum": [
+              "not-shipped",
+              "user-installed",
+              "bundled",
+              "generated-derivative",
+              "permission-required",
+              "unknown"
+            ]
+          },
+          "source_release_required": {
+            "type": "boolean"
+          },
+          "permission_evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "update_policy": {
+            "enum": [
+              "pinned",
+              "manual-review",
+              "compatible-range",
+              "follow-latest-candidate",
+              "never-auto-update"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
