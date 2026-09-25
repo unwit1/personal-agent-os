@@ -38,5 +38,22 @@ class DagTests(unittest.TestCase):
         self.assertEqual(by["package.staging"]["depends_on"],["runtime.regression"])
         self.assertEqual(by["release.audit"]["depends_on"],["package.staging"])
 
+    def test_native_configure_precedes_native_build(self):
+        m,q=fixture(["native"])
+        q["adapters"]["preferred"] += ["commonlib-cmake-configure","commonlib-cmake-build"]
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertEqual(by["generate.native-configure"]["depends_on"],["source.lock"])
+        self.assertEqual(by["generate.native"]["depends_on"],["generate.native-configure"])
+        self.assertIn("commonlib-cmake-build",by["generate.native"]["adapters"])
+
+    def test_declared_runtime_adapter_reaches_runtime_nodes(self):
+        m,q=fixture(["papyrus"])
+        q["adapters"]["preferred"].append("skytest")
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertIn("skytest",by["runtime.smoke"]["adapters"])
+        self.assertIn("skytest",by["runtime.regression"]["adapters"])
+
 if __name__=="__main__":
     unittest.main()
