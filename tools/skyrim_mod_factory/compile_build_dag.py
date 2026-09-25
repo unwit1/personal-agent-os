@@ -7,8 +7,8 @@ from pathlib import Path
 GENERATE={
  "records":("generate.records","Generate/patch typed plugin data",["housecarl","mutagen","spriggit"]),
  "runtime-patching":("generate.runtime-patching","Render runtime patch/distribution configs",[]),
- "papyrus":("generate.papyrus","Compile Papyrus sources",["papyrus-vscode","caprica"]),
- "native":("generate.native","Build native SKSE targets",[]),
+ "papyrus":("generate.papyrus","Build Papyrus project and compile sources",["pyro","official-papyruscompiler","caprica"]),
+ "native":("generate.native","Build native SKSE targets",["commonlib-cmake-build"]),
  "ui":("generate.ui","Build/generate UI artifacts",[]),
  "animation":("generate.animation","Stage animation/OAR assets",[]),
  "behavior":("generate.behavior","Generate behavior graph output",["pandora"]),
@@ -106,8 +106,16 @@ def compile_dag(manifest, quality):
         invalid=quality.get("invalidation_triggers",[])
         preferred=quality.get("adapters",{}).get("preferred",[])
         gadapters=[x for x in defaults if x in preferred] or defaults
+        gen_deps=["source.lock"]
+        if layer=="native":
+            preferred_set=set(preferred)
+            cfg=["commonlib-cmake-configure"] if ("commonlib-cmake-configure" in preferred_set or not preferred_set) else ["commonlib-cmake-configure"]
+            add(nodes,{"id":"generate.native-configure","phase":"generate","action":"Configure native SKSE/CommonLib build tree","layers":[layer],
+              "depends_on":["source.lock"],"adapters":cfg,"gates":[],"invalidated_by":invalid,
+              "outputs":[],"parallel_group":"layer-generate"})
+            gen_deps=["generate.native-configure"]
         add(nodes,{"id":gid,"phase":"generate","action":action,"layers":[layer],
-          "depends_on":["source.lock"],"adapters":gadapters,"gates":[],"invalidated_by":invalid,
+          "depends_on":gen_deps,"adapters":gadapters,"gates":[],"invalidated_by":invalid,
           "outputs":output_by_layer.get(layer,[]),"parallel_group":"layer-generate"})
         vid,vdefaults=VALIDATE[layer]
         vadapters=[x for x in vdefaults if x in preferred or x in quality.get("adapters",{}).get("supporting",[])] or vdefaults
@@ -121,10 +129,14 @@ def compile_dag(manifest, quality):
       "depends_on":validators,"adapters":["xedit"],"gates":["G11","G18","G24"],"invalidated_by":["any validated layer output","load order","asset priority"],"layers":layers,"outputs":[]})
     add(nodes,{"id":"integrate.gates","phase":"integrate","action":"Evaluate all required quality gates and mutation-test validators",
       "depends_on":["integrate.cross-layer"],"adapters":[],"gates":quality.get("gates",[]),"invalidated_by":["quality plan","validation evidence"],"layers":layers,"outputs":[]})
+    runtime_capable={"devbench","skytest","skylink-ai","skyrimnet","autotest"}
+    chosen_runtime=[x for x in quality.get("adapters",{}).get("preferred",[])+quality.get("adapters",{}).get("supporting",[]) if x in runtime_capable]
+    smoke_adapters=uniq(chosen_runtime) or ["devbench","skylink-ai"]
+    regression_adapters=uniq(chosen_runtime) or ["devbench"]
     add(nodes,{"id":"runtime.smoke","phase":"runtime","action":"Run isolated smoke scenarios with log/state readback",
-      "depends_on":["integrate.gates"],"adapters":["devbench","skylink-ai"],"gates":["G19","G26"],"invalidated_by":["runtime-affecting output","test fixture"],"layers":layers,"outputs":[]})
+      "depends_on":["integrate.gates"],"adapters":smoke_adapters,"gates":["G19","G26"],"invalidated_by":["runtime-affecting output","test fixture"],"layers":layers,"outputs":[]})
     add(nodes,{"id":"runtime.regression","phase":"runtime","action":"Run layer-derived regression, negative and migration scenarios",
-      "depends_on":["runtime.smoke"],"adapters":["devbench"],"gates":["G20","G21","G26","G27"],"invalidated_by":["runtime-affecting output","regression corpus"],"layers":layers,"outputs":[]})
+      "depends_on":["runtime.smoke"],"adapters":regression_adapters,"gates":["G20","G21","G26","G27"],"invalidated_by":["runtime-affecting output","regression corpus"],"layers":layers,"outputs":[]})
 
     package_dep="runtime.regression"
     if "installer" in layers:
