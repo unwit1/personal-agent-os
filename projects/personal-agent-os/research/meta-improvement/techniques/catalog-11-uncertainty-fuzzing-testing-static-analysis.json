@@ -1,0 +1,1402 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-25",
+  "domain": "uncertainty_fuzzing_testing_static_analysis",
+  "techniques": [
+    {
+      "id": "AIT-0296",
+      "name": "Semantic entropy uncertainty",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "reasoning"
+      ],
+      "goal": "Detect meaning-level answer instability rather than token-level variation",
+      "mechanism": "Sample multiple answers, cluster semantically equivalent meanings, and compute entropy over meaning clusters.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0318.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use internally as escalation feature, not a user-facing confidence percentage.",
+      "use_when": [
+        "Research answers",
+        "Ambiguous factual QA",
+        "Routing/abstention experiments"
+      ],
+      "avoid_when": [
+        "Systematic confidently wrong model",
+        "Very latency-sensitive tasks"
+      ],
+      "required_evals": [
+        "AUROC/error detection",
+        "cost",
+        "calibration by task"
+      ],
+      "risks": [
+        "Multiple samples are expensive",
+        "semantic clustering itself can be wrong"
+      ],
+      "cost_profile": "multiple model samples",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0318"
+      ],
+      "keywords": [
+        "semantic_entropy"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0297",
+      "name": "P(True) self-evaluation",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "reasoning"
+      ],
+      "goal": "Estimate whether a proposed answer is likely correct",
+      "mechanism": "After generating candidate answer, ask model to evaluate probability that answer is correct, optionally after seeing multiple alternative samples.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0319.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Only one feature in uncertainty ensemble; calibrate locally.",
+      "use_when": [
+        "Low-cost uncertainty feature",
+        "Compatible task distributions"
+      ],
+      "avoid_when": [
+        "High-impact action without independent verification",
+        "OOD tasks without recalibration"
+      ],
+      "required_evals": [
+        "ECE/Brier",
+        "selective risk",
+        "OOD drift"
+      ],
+      "risks": [
+        "Same model shares blind spots with answer",
+        "verbal probability not stable across models"
+      ],
+      "cost_profile": "one extra model evaluation",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0319"
+      ],
+      "keywords": [
+        "PTrue",
+        "self_evaluation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0298",
+      "name": "P(IK) know/unknown prediction",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "routing"
+      ],
+      "goal": "Predict whether model likely knows enough before attempting full answer",
+      "mechanism": "Ask/train self-assessment of probability of knowing answer independent of a specific candidate answer.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0319.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Combine with task policy and evidence availability, never use alone.",
+      "use_when": [
+        "Retrieval gate",
+        "Model escalation"
+      ],
+      "avoid_when": [
+        "OOD tasks where calibration is untested"
+      ],
+      "required_evals": [
+        "retrieval-needed recall",
+        "calibration"
+      ],
+      "risks": [
+        "Can be overconfident on unfamiliar distributions"
+      ],
+      "cost_profile": "small extra call or classifier",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0319"
+      ],
+      "keywords": [
+        "PIK",
+        "know_unknown"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0299",
+      "name": "Post-hoc temperature calibration",
+      "aliases": [],
+      "category": "calibration",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Map raw confidence/logits to probabilities better aligned with empirical correctness",
+      "mechanism": "Fit a scalar temperature on held-out labeled calibration data.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0311.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Version calibration artifact with exact model/task distribution.",
+      "use_when": [
+        "Fixed-label classifiers/rerankers/local models"
+      ],
+      "avoid_when": [
+        "Free-form outputs without a meaningful base confidence"
+      ],
+      "required_evals": [
+        "ECE",
+        "Brier",
+        "NLL",
+        "risk-coverage"
+      ],
+      "risks": [
+        "Calibration can drift after distribution/model change"
+      ],
+      "cost_profile": "tiny fit/inference overhead",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0311"
+      ],
+      "keywords": [
+        "temperature_scaling",
+        "calibration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0300",
+      "name": "Reliability diagrams + ECE/Brier diagnostics",
+      "aliases": [],
+      "category": "calibration",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Measure whether confidence corresponds to empirical correctness",
+      "mechanism": "Bin or score confidence/outcome pairs and inspect calibration error/proper scoring rule.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0311, SRC-AI-0312.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Never ship confidence score without a calibration report for intended task.",
+      "use_when": [
+        "Any confidence-like Agent OS score"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "ECE",
+        "Brier",
+        "NLL",
+        "subgroup calibration"
+      ],
+      "risks": [
+        "ECE depends on binning and can hide subgroup error"
+      ],
+      "cost_profile": "offline",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0311",
+        "SRC-AI-0312"
+      ],
+      "keywords": [
+        "ECE",
+        "Brier",
+        "reliability_diagram"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0301",
+      "name": "Selective prediction / reject option",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "control"
+      ],
+      "goal": "Trade coverage for lower error on answered/automated cases",
+      "mechanism": "Only answer/act when confidence/evidence exceeds threshold; otherwise abstain, retrieve, escalate or ask user.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0303, SRC-AI-0312.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Risk class determines acceptable coverage/error tradeoff.",
+      "use_when": [
+        "High-impact classifications/actions",
+        "Automation gating"
+      ],
+      "avoid_when": [
+        "User requires best-effort answer and harmless uncertainty is acceptable"
+      ],
+      "required_evals": [
+        "risk-coverage curve",
+        "abstention burden",
+        "missed opportunities"
+      ],
+      "risks": [
+        "Over-abstention creates friction",
+        "threshold drift"
+      ],
+      "cost_profile": "usually reduces error at cost of coverage",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0303",
+        "SRC-AI-0312"
+      ],
+      "keywords": [
+        "selective_prediction",
+        "abstention"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0302",
+      "name": "Conformal prediction / calibrated prediction sets",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "control"
+      ],
+      "goal": "Produce sets/abstention regions with empirical coverage guarantees under stated assumptions",
+      "mechanism": "Use held-out calibration nonconformity scores to choose prediction set/threshold satisfying target coverage.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0302.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential strong gate for stable Agent OS classifiers, not magic confidence for arbitrary generation.",
+      "use_when": [
+        "Classification/extraction",
+        "Some black-box generative uncertainty setups"
+      ],
+      "avoid_when": [
+        "Strong distribution shift",
+        "No exchangeable calibration sample"
+      ],
+      "required_evals": [
+        "empirical coverage",
+        "set size",
+        "distribution-shift stress"
+      ],
+      "risks": [
+        "Guarantee is conditional on assumptions and correctness definition"
+      ],
+      "cost_profile": "calibration set + inference scoring",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0302"
+      ],
+      "keywords": [
+        "conformal_prediction",
+        "coverage"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0303",
+      "name": "Uncertainty-triggered information gathering",
+      "aliases": [],
+      "category": "active_information",
+      "layer": [
+        "reasoning",
+        "human_system",
+        "retrieval"
+      ],
+      "goal": "Ask the most informative question instead of guessing",
+      "mechanism": "Estimate uncertainty over possible states and expected information gain of candidate questions/actions; choose one reducing decision uncertainty most.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0313.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Combine with value-of-information and interruption-cost policy.",
+      "use_when": [
+        "Personal Executive",
+        "Troubleshooting",
+        "Project clarification"
+      ],
+      "avoid_when": [
+        "Question has high interruption cost and decision does not depend on answer"
+      ],
+      "required_evals": [
+        "questions/task",
+        "task success",
+        "information gain proxy"
+      ],
+      "risks": [
+        "Simulation may invent wrong possible worlds",
+        "can over-question"
+      ],
+      "cost_profile": "extra planning/simulation",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0313"
+      ],
+      "keywords": [
+        "information_gain",
+        "active_questioning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0304",
+      "name": "Uncertainty ensemble",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "routing"
+      ],
+      "goal": "Reduce dependence on any one unreliable confidence signal",
+      "mechanism": "Combine calibrated features such as retrieval support, validator results, semantic entropy, model disagreement, self-eval, OOD indicators and task risk.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0312.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use simple interpretable model initially; preserve feature-level contributions.",
+      "use_when": [
+        "Routing/abstention/proactivity gates"
+      ],
+      "avoid_when": [
+        "No outcome data to calibrate combination"
+      ],
+      "required_evals": [
+        "selective risk",
+        "feature ablation",
+        "drift"
+      ],
+      "risks": [
+        "Correlated features create false certainty"
+      ],
+      "cost_profile": "moderate feature cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0312"
+      ],
+      "keywords": [
+        "uncertainty_ensemble"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0305",
+      "name": "Coverage-guided fuzz testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "code"
+      ],
+      "goal": "Discover unexpected parser/state/code failures automatically",
+      "mechanism": "Mutate corpus inputs while using execution coverage to retain mutations exploring new paths; crash/exception becomes regression seed.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0309, SRC-AI-0310.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Fuzz deterministic boundaries around LLM systems heavily.",
+      "use_when": [
+        "Agent OS parsers",
+        "Schemas",
+        "CLI",
+        "Ingestion",
+        "native/Python utilities"
+      ],
+      "avoid_when": [
+        "Expensive nondeterministic model calls as direct fuzz target"
+      ],
+      "required_evals": [
+        "coverage",
+        "unique crashes",
+        "time-to-bug"
+      ],
+      "risks": [
+        "Low semantic validity for structured inputs"
+      ],
+      "cost_profile": "cheap local compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0309",
+        "SRC-AI-0310"
+      ],
+      "keywords": [
+        "fuzzing",
+        "coverage"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0306",
+      "name": "Structure-aware fuzzing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "code"
+      ],
+      "goal": "Reach deep code paths for complex structured inputs",
+      "mechanism": "Use grammar/schema-aware generators or custom mutators instead of random bytes.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0309, SRC-AI-0310.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Generate both valid and near-valid payloads.",
+      "use_when": [
+        "JSON schemas",
+        "MCP payloads",
+        "workflow manifests",
+        "document metadata"
+      ],
+      "avoid_when": [
+        "Flat byte parsers"
+      ],
+      "required_evals": [
+        "coverage vs mutation-only",
+        "unique failures"
+      ],
+      "risks": [
+        "Generator may encode same assumptions as implementation"
+      ],
+      "cost_profile": "local",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0309",
+        "SRC-AI-0310"
+      ],
+      "keywords": [
+        "grammar_fuzzing",
+        "structured_fuzzing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0307",
+      "name": "Fuzz-corpus minimization",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Keep a compact regression corpus that preserves discovered coverage/failures",
+      "mechanism": "Minimize inputs/corpus while retaining code coverage or failure behavior.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0310.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Promote minimal reproducer to regression suite with source failure link.",
+      "use_when": [
+        "Long-running fuzz campaigns"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "corpus size",
+        "coverage retained",
+        "CI runtime"
+      ],
+      "risks": [
+        "Coverage equivalence may drop semantic diversity"
+      ],
+      "cost_profile": "offline local",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0310"
+      ],
+      "keywords": [
+        "corpus_minimization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0308",
+      "name": "Metamorphic testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "AI_testing"
+      ],
+      "goal": "Test systems lacking exact output oracle through relations that should hold under transformed inputs",
+      "mechanism": "Define semantics-preserving or predictably changing transformations and assert output/state relation rather than exact answer.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0305, SRC-AI-0306.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Excellent source of robust evals for probabilistic systems.",
+      "use_when": [
+        "LLM prompts",
+        "RAG",
+        "Classifiers",
+        "Generated code",
+        "Agent workflows"
+      ],
+      "avoid_when": [
+        "No defensible metamorphic relation"
+      ],
+      "required_evals": [
+        "relation violation rate",
+        "false-positive relation rate"
+      ],
+      "risks": [
+        "Invalid relation can label good behavior as failure"
+      ],
+      "cost_profile": "multiple executions",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0305",
+        "SRC-AI-0306"
+      ],
+      "keywords": [
+        "metamorphic_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0309",
+      "name": "Paraphrase invariance testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "prompt"
+      ],
+      "goal": "Detect brittle behavior under semantically equivalent wording",
+      "mechanism": "Generate/curate meaning-preserving prompt paraphrases and require invariant core answer/action/schema.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0307, SRC-AI-0306.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Human/semantic checker validates high-value relation set.",
+      "use_when": [
+        "Prompts",
+        "Tool routing",
+        "Classification"
+      ],
+      "avoid_when": [
+        "Style/writing tasks where wording legitimately changes output"
+      ],
+      "required_evals": [
+        "invariance pass",
+        "paraphrase validity"
+      ],
+      "risks": [
+        "Paraphrase may subtly change semantics"
+      ],
+      "cost_profile": "multiple calls",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0307",
+        "SRC-AI-0306"
+      ],
+      "keywords": [
+        "paraphrase",
+        "robustness"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0310",
+      "name": "Transformation robustness testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "AI_testing"
+      ],
+      "goal": "Find sensitivity to irrelevant presentation changes",
+      "mechanism": "Apply formatting, order, casing, benign noise, whitespace, document-layout or equivalent representation transformations and test invariant properties.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0305, SRC-AI-0306.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Build domain-specific relation library from actual failures.",
+      "use_when": [
+        "Extraction",
+        "Retrieval",
+        "Classification",
+        "Tool calls"
+      ],
+      "avoid_when": [
+        "Presentation is part of intended signal"
+      ],
+      "required_evals": [
+        "robustness by transformation",
+        "failure clusters"
+      ],
+      "risks": [
+        "Transformation may remove useful cues"
+      ],
+      "cost_profile": "offline eval",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0305",
+        "SRC-AI-0306"
+      ],
+      "keywords": [
+        "robustness",
+        "transformation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0311",
+      "name": "Differential testing across implementations/models",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "models"
+      ],
+      "goal": "Find discrepancies without knowing the correct answer a priori",
+      "mechanism": "Run same case through multiple implementations/providers/configurations and investigate disagreements.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0304, SRC-AI-0308.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Disagreement triggers investigation/strong oracle, not majority vote.",
+      "use_when": [
+        "Parsers",
+        "Solvers",
+        "Models",
+        "Rerankers",
+        "Tool adapters"
+      ],
+      "avoid_when": [
+        "All implementations share same bug/training lineage"
+      ],
+      "required_evals": [
+        "disagreement yield",
+        "confirmed defect rate"
+      ],
+      "risks": [
+        "Difference may be legitimate",
+        "majority is not truth"
+      ],
+      "cost_profile": "multiple executions",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0304",
+        "SRC-AI-0308"
+      ],
+      "keywords": [
+        "differential_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0312",
+      "name": "Cross-provider behavioral differential testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "models"
+      ],
+      "goal": "Detect model-specific brittle assumptions in Agent OS scaffolds",
+      "mechanism": "Run identical task/tool/context contract on multiple eligible providers and compare constraint/tool/state behavior.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0308.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Required before swapping default provider/model.",
+      "use_when": [
+        "Provider-neutral workflows",
+        "Migration tests"
+      ],
+      "avoid_when": [
+        "Provider-specific capability intentionally differs"
+      ],
+      "required_evals": [
+        "behavioral delta",
+        "task success",
+        "failure taxonomy"
+      ],
+      "risks": [
+        "Costs multiple providers",
+        "different refusals/style may be valid"
+      ],
+      "cost_profile": "multi-provider eval cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0308"
+      ],
+      "keywords": [
+        "provider_diff",
+        "migration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0313",
+      "name": "Differential specification testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "code"
+      ],
+      "goal": "Use natural-language spec + multiple implementations to generate tests targeting likely discrepancies",
+      "mechanism": "Model reads spec/code differences, proposes high-information test cases, then actual implementations provide observable outputs.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0308.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Strong future tool for provider adapters and migration code.",
+      "use_when": [
+        "Multiple adapters implementing same Agent OS contract",
+        "Provider SDK parity"
+      ],
+      "avoid_when": [
+        "Only one implementation exists"
+      ],
+      "required_evals": [
+        "confirmed bugs/test",
+        "coverage"
+      ],
+      "risks": [
+        "LLM can misread spec; implementation difference may be intentional"
+      ],
+      "cost_profile": "model + local executions",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0308"
+      ],
+      "keywords": [
+        "DiffSpec"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0314",
+      "name": "Symbolic execution test generation",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "code",
+        "verification"
+      ],
+      "goal": "Generate path-covering test inputs using program constraints rather than random mutation",
+      "mechanism": "Execute code symbolically, fork on branches, solve path constraints to reach unexplored states.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0314.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use selectively on small critical native/core components.",
+      "use_when": [
+        "Security-sensitive deterministic components",
+        "Parsers",
+        "State machines"
+      ],
+      "avoid_when": [
+        "Heavy dynamic/external environment",
+        "Python code unsupported by chosen engine"
+      ],
+      "required_evals": [
+        "coverage",
+        "bugs",
+        "solver time"
+      ],
+      "risks": [
+        "Path explosion",
+        "environment modeling"
+      ],
+      "cost_profile": "offline potentially expensive",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0314"
+      ],
+      "keywords": [
+        "symbolic_execution",
+        "KLEE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0315",
+      "name": "Static semantic analysis",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "security",
+        "code"
+      ],
+      "goal": "Find bug/vulnerability patterns without executing generated code",
+      "mechanism": "Parse/index control/data flow and run queries/rules over source code.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0316.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Run before model reviewer where supported; feed precise findings to repair loop.",
+      "use_when": [
+        "Agent-generated code",
+        "Security review",
+        "PR gates"
+      ],
+      "avoid_when": [
+        "Dynamic behavior outside analyzer model"
+      ],
+      "required_evals": [
+        "true positives",
+        "CWE coverage",
+        "false positives"
+      ],
+      "risks": [
+        "False positives/negatives",
+        "language coverage"
+      ],
+      "cost_profile": "offline local/CI",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0316"
+      ],
+      "keywords": [
+        "static_analysis",
+        "CodeQL"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0316",
+      "name": "Runtime sanitizers",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "security",
+        "code"
+      ],
+      "goal": "Detect memory/undefined behavior during tests/fuzzing",
+      "mechanism": "Compile/instrument native code with ASan/UBSan/etc. and run generated/regression inputs.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0315, SRC-AI-0310.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Enable in fuzz/CI variants, not necessarily production.",
+      "use_when": [
+        "Native extensions",
+        "C/C++ tools"
+      ],
+      "avoid_when": [
+        "Pure Python except extension boundaries"
+      ],
+      "required_evals": [
+        "sanitizer findings",
+        "test runtime"
+      ],
+      "risks": [
+        "Runtime overhead",
+        "not proof of absence"
+      ],
+      "cost_profile": "test-only overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0315",
+        "SRC-AI-0310"
+      ],
+      "keywords": [
+        "ASan",
+        "UBSan"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0317",
+      "name": "Property-based generated testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "verification"
+      ],
+      "goal": "Explore broad input/state space from invariants instead of handpicked examples",
+      "mechanism": "Define generators and properties; automatically generate cases and shrink failures.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0317, SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every deterministic Agent OS subsystem should expose properties where possible.",
+      "use_when": [
+        "Schemas",
+        "Parsers",
+        "Authorization",
+        "State machines",
+        "Conversions"
+      ],
+      "avoid_when": [
+        "Subjective quality with no property"
+      ],
+      "required_evals": [
+        "cases/sec",
+        "failures",
+        "coverage"
+      ],
+      "risks": [
+        "Generator/property blind spots"
+      ],
+      "cost_profile": "cheap local",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0317",
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "property_based",
+        "QuickCheck"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0318",
+      "name": "State-machine property testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "runtime"
+      ],
+      "goal": "Explore sequences of actions and state transitions, not only individual inputs",
+      "mechanism": "Generate command sequences against model/reference state machine and compare postconditions/invariants.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0317.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Especially valuable for interruption/resume and approval transitions.",
+      "use_when": [
+        "Workflow engine",
+        "Authorization",
+        "Candidate lifecycle",
+        "Caches"
+      ],
+      "avoid_when": [
+        "Stateless pure function"
+      ],
+      "required_evals": [
+        "sequence length/coverage",
+        "minimal failing sequence"
+      ],
+      "risks": [
+        "Reference model can share design error"
+      ],
+      "cost_profile": "local",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0317"
+      ],
+      "keywords": [
+        "stateful_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0319",
+      "name": "Mutation testing of test/eval suite",
+      "aliases": [],
+      "category": "evaluation_quality",
+      "layer": [
+        "evaluation",
+        "code"
+      ],
+      "goal": "Measure whether tests are capable of catching plausible defects",
+      "mechanism": "Inject small code/config/prompt mutations and measure how many are detected by existing suite.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0317.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Can mutate prompts/tool schemas too, not just code.",
+      "use_when": [
+        "Critical deterministic code",
+        "Prompt/eval gates"
+      ],
+      "avoid_when": [
+        "Mutation operators poorly model failures"
+      ],
+      "required_evals": [
+        "mutation score",
+        "surviving mutants"
+      ],
+      "risks": [
+        "Expensive; equivalent mutants"
+      ],
+      "cost_profile": "offline",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0317"
+      ],
+      "keywords": [
+        "mutation_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0320",
+      "name": "Prompt mutation testing",
+      "aliases": [],
+      "category": "evaluation_quality",
+      "layer": [
+        "evaluation",
+        "prompt"
+      ],
+      "goal": "Determine whether evals catch accidental prompt regressions",
+      "mechanism": "Automatically delete/reorder/negate/weaken individual prompt requirements/examples and require eval/security suite to fail appropriately.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0306.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Strong defense against eval suites that only rubber-stamp changes.",
+      "use_when": [
+        "Critical prompts",
+        "Automated prompt optimizer"
+      ],
+      "avoid_when": [
+        "No stable prompt contract"
+      ],
+      "required_evals": [
+        "mutants killed",
+        "security mutants killed"
+      ],
+      "risks": [
+        "Some harmless changes counted as mutants"
+      ],
+      "cost_profile": "offline model calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0306"
+      ],
+      "keywords": [
+        "prompt_mutation",
+        "eval_quality"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0321",
+      "name": "Tool-schema fuzz testing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "tools"
+      ],
+      "goal": "Find parser/validator/authorization edge cases before an LLM discovers them accidentally",
+      "mechanism": "Generate malformed, boundary, oversized, contradictory, extra-field and type-confused tool payloads.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0309, SRC-AI-0310.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Seed fuzzer from real schemas and prior failed calls.",
+      "use_when": [
+        "MCP/functions/APIs"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "crashes",
+        "invalid accepts",
+        "coverage"
+      ],
+      "risks": [
+        "Doesn't test semantic model misuse alone"
+      ],
+      "cost_profile": "cheap local",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0309",
+        "SRC-AI-0310"
+      ],
+      "keywords": [
+        "schema_fuzz",
+        "tool_fuzz"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0322",
+      "name": "Agent state/event fuzzing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "agents",
+        "runtime"
+      ],
+      "goal": "Find orchestration bugs from rare event sequences",
+      "mechanism": "Generate/reorder/drop/duplicate delay-safe synthetic events and transitions under state-machine invariants.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0317.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Run only on simulated/fixture side effects.",
+      "use_when": [
+        "Orchestrator",
+        "Browser bridge",
+        "Ingestion ledger"
+      ],
+      "avoid_when": [
+        "External real side effects not isolated"
+      ],
+      "required_evals": [
+        "invalid transition",
+        "duplicate action",
+        "deadlock"
+      ],
+      "risks": [
+        "Unrealistic event schedules can create noise"
+      ],
+      "cost_profile": "local test compute",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0317"
+      ],
+      "keywords": [
+        "event_fuzz",
+        "state_machine"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0323",
+      "name": "Adversarial prompt/property fuzzing",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "security",
+        "prompt"
+      ],
+      "goal": "Systematically mutate user/untrusted strings to discover instruction-boundary and parser failures",
+      "mechanism": "Generate encodings, nesting, delimiters, injections, oversized inputs and semantic mutations while checking security invariants.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0137, SRC-AI-0306.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Security suite owns invariant; model-generated attacks are just input generator.",
+      "use_when": [
+        "RAG/tool agents",
+        "Browser/email ingestion"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "invariant violations",
+        "attack coverage"
+      ],
+      "risks": [
+        "Attack generator can miss novel classes"
+      ],
+      "cost_profile": "offline model/local cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0137",
+        "SRC-AI-0306"
+      ],
+      "keywords": [
+        "prompt_fuzz",
+        "injection_fuzz"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0324",
+      "name": "Test-case shrinking / minimal reproducer generation",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "debugging"
+      ],
+      "goal": "Make discovered failures understandable and durable",
+      "mechanism": "Delta-debug or property-testing shrink failing input/sequence while preserving failure.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0310, SRC-AI-0317.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Store minimal case + original case provenance.",
+      "use_when": [
+        "Fuzz/property/metamorphic failures"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "reproducer size",
+        "failure preservation"
+      ],
+      "risks": [
+        "Shrink can remove semantically meaningful context"
+      ],
+      "cost_profile": "local",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0310",
+        "SRC-AI-0317"
+      ],
+      "keywords": [
+        "shrinking",
+        "delta_debug"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0325",
+      "name": "Failure-seed regression corpus",
+      "aliases": [],
+      "category": "software_testing",
+      "layer": [
+        "evaluation",
+        "learning"
+      ],
+      "goal": "Ensure every meaningful discovered bug becomes permanently replayable",
+      "mechanism": "Persist minimized fuzz/property/metamorphic/production failures as versioned regression fixtures.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0310.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Private failures stay local; sanitized mechanisms become canonical tests.",
+      "use_when": [
+        "All Agent OS subsystems"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "repeat-failure rate",
+        "suite runtime"
+      ],
+      "risks": [
+        "Corpus bloat",
+        "sensitive fixture leakage"
+      ],
+      "cost_profile": "growing offline suite",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0310"
+      ],
+      "keywords": [
+        "regression_corpus"
+      ],
+      "notes": ""
+    }
+  ]
+}
