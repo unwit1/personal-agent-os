@@ -1,0 +1,733 @@
+{
+  "schema": "personal-agent-os/ai-micro-optimizations/v1",
+  "as_of": "2026-09-24",
+  "domain": "retrieval_evaluation",
+  "items": [
+    {
+      "id": "MIC-0091",
+      "layer": "retrieval",
+      "optimization": "Run exact-ID/title lookup before semantic search",
+      "mechanism": "Exact identifiers should not pay embedding/rerank cost or risk semantic false positives",
+      "expected_effect": [
+        "lower latency",
+        "higher precision"
+      ],
+      "test": "Compare exact-known-item queries through exact-first vs hybrid-only",
+      "failure_mode": "Aliases/typos can miss exact match",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0092",
+      "layer": "retrieval",
+      "optimization": "Scope by domain/project/security before ranking",
+      "mechanism": "Remove impossible/disallowed candidates before expensive relevance scoring",
+      "expected_effect": [
+        "higher precision",
+        "lower cost",
+        "privacy"
+      ],
+      "test": "Cross-domain query suite",
+      "failure_mode": "Wrong metadata can exclude relevant item",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0070"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0093",
+      "layer": "retrieval",
+      "optimization": "Apply cheap lexical+dense candidate generation before expensive reranker",
+      "mechanism": "Reserve strong scorer for a small high-recall pool",
+      "expected_effect": [
+        "lower average cost"
+      ],
+      "test": "Recall@candidate_pool and final NDCG",
+      "failure_mode": "Weak stage-1 recall irreversibly loses item",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0094",
+      "layer": "retrieval",
+      "optimization": "Tune candidate-pool size by measured recall, not arbitrary top-k",
+      "mechanism": "Use smallest pool that meets high-recall threshold",
+      "expected_effect": [
+        "lower rerank cost"
+      ],
+      "test": "Recall@k curve",
+      "failure_mode": "Corpus/query drift changes optimum",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0079"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0095",
+      "layer": "retrieval",
+      "optimization": "Tune final context-k separately from retrieval candidate-k",
+      "mechanism": "Broad search does not imply broad prompt injection",
+      "expected_effect": [
+        "lower context tokens"
+      ],
+      "test": "Answer success by final k",
+      "failure_mode": "Too-small final k misses complementary evidence",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0080"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0096",
+      "layer": "retrieval",
+      "optimization": "Deduplicate overlapping chunks before prompt packing",
+      "mechanism": "Avoid repeating same facts/window overlap",
+      "expected_effect": [
+        "lower context"
+      ],
+      "test": "Duplicate-token ratio and task success",
+      "failure_mode": "Dedup can remove useful repeated qualifier",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0097",
+      "layer": "retrieval",
+      "optimization": "Merge adjacent selected chunks from same source into one window",
+      "mechanism": "Recover continuity without duplicated overlap boilerplate",
+      "expected_effect": [
+        "better coherence",
+        "fewer tokens"
+      ],
+      "test": "Answer quality and token count",
+      "failure_mode": "Merged window can reintroduce irrelevant text",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0070"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0098",
+      "layer": "retrieval",
+      "optimization": "Keep source title/section/date beside each retrieved span",
+      "mechanism": "Make provenance and temporal scope immediately available to synthesis model",
+      "expected_effect": [
+        "fewer source confusions"
+      ],
+      "test": "Groundedness/temporal QA",
+      "failure_mode": "Metadata costs tokens",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0099",
+      "layer": "retrieval",
+      "optimization": "Boost exact rare terms after semantic candidate retrieval",
+      "mechanism": "Protect error codes/names/IDs from semantic dilution",
+      "expected_effect": [
+        "better technical retrieval"
+      ],
+      "test": "Rare-term technical query suite",
+      "failure_mode": "May over-weight incidental identifier",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0100",
+      "layer": "retrieval",
+      "optimization": "Treat recency as a feature only for time-sensitive facts",
+      "mechanism": "Avoid biasing timeless authoritative sources toward newer but weaker material",
+      "expected_effect": [
+        "better source quality"
+      ],
+      "test": "Temporal vs timeless eval split",
+      "failure_mode": "Incorrect task freshness classification",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0101",
+      "layer": "retrieval",
+      "optimization": "Downrank superseded claims rather than deleting them",
+      "mechanism": "Keep historical truth available while preferring current state",
+      "expected_effect": [
+        "temporal correctness"
+      ],
+      "test": "Past-vs-current queries",
+      "failure_mode": "Supersession edges can be wrong",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0082"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0102",
+      "layer": "retrieval",
+      "optimization": "Co-retrieve a credible contradiction when selected evidence is contested",
+      "mechanism": "Prevent one-sided synthesis",
+      "expected_effect": [
+        "better uncertainty handling"
+      ],
+      "test": "Conflict recall suite",
+      "failure_mode": "Extra context and false conflicts",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0103",
+      "layer": "retrieval",
+      "optimization": "Generate query variants only after baseline retrieval confidence/coverage is low",
+      "mechanism": "Avoid paying query-expansion cost routinely",
+      "expected_effect": [
+        "lower cost"
+      ],
+      "test": "Adaptive vs always multi-query",
+      "failure_mode": "Gate may miss hidden recall failure",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0197"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0104",
+      "layer": "retrieval",
+      "optimization": "Limit generated query variants and measure marginal unique-relevant gain",
+      "mechanism": "Prevent RAG-Fusion query explosion",
+      "expected_effect": [
+        "bounded calls"
+      ],
+      "test": "Relevant unique docs per variant",
+      "failure_mode": "Small variant cap can miss perspective",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0195"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0105",
+      "layer": "retrieval",
+      "optimization": "Require generated query variant remain semantically tied to original request",
+      "mechanism": "Reduce query drift",
+      "expected_effect": [
+        "higher precision"
+      ],
+      "test": "Human/reranker relevance of variants",
+      "failure_mode": "Overconstraint reduces useful expansion",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0195"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0106",
+      "layer": "retrieval",
+      "optimization": "Never treat pseudo-document/query-expansion text as evidence",
+      "mechanism": "Keep synthetic retrieval aids out of factual provenance",
+      "expected_effect": [
+        "groundedness"
+      ],
+      "test": "Citation/provenance invariant test",
+      "failure_mode": "None if metadata preserved",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0198"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0107",
+      "layer": "retrieval",
+      "optimization": "Cache deterministic query normalization/entity resolution",
+      "mechanism": "Avoid repeating preprocessing on frequent entities",
+      "expected_effect": [
+        "lower latency"
+      ],
+      "test": "Cache hit/freshness",
+      "failure_mode": "Entity aliases evolve",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0108",
+      "layer": "retrieval",
+      "optimization": "Cache reranking only against immutable candidate/version hashes",
+      "mechanism": "Avoid stale rank results after source/index changes",
+      "expected_effect": [
+        "correct cache reuse"
+      ],
+      "test": "Index mutation tests",
+      "failure_mode": "Hash key complexity",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0109",
+      "layer": "retrieval",
+      "optimization": "Measure retrieval failure separately from synthesis failure",
+      "mechanism": "Do not tune generator when evidence was absent, or retrieval when generator ignored good evidence",
+      "expected_effect": [
+        "faster diagnosis"
+      ],
+      "test": "RAGChecker-style component metrics",
+      "failure_mode": "Attribution can be ambiguous",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0080"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0110",
+      "layer": "retrieval",
+      "optimization": "Sample context-ablation runs for high-cost sources",
+      "mechanism": "Learn whether a retrieved memory/library materially changes outcomes",
+      "expected_effect": [
+        "context utility"
+      ],
+      "test": "With/without source replay",
+      "failure_mode": "Counterfactual cost; interactions",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0111",
+      "layer": "evaluation",
+      "optimization": "Randomize A/B output order for model judges",
+      "mechanism": "Remove fixed position advantage",
+      "expected_effect": [
+        "less biased comparison"
+      ],
+      "test": "Swap-order consistency",
+      "failure_mode": "Doubles some evals if both orders used",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0100"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0112",
+      "layer": "evaluation",
+      "optimization": "Blind model/provider identity in judge prompt",
+      "mechanism": "Reduce brand/model priors",
+      "expected_effect": [
+        "fairer comparison"
+      ],
+      "test": "Named vs blinded judge study",
+      "failure_mode": "Output style may still reveal model",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0113",
+      "layer": "evaluation",
+      "optimization": "Blind candidate implementation rationale when evaluating artifact correctness",
+      "mechanism": "Prevent persuasive explanation from biasing reviewer",
+      "expected_effect": [
+        "artifact-focused review"
+      ],
+      "test": "Review catch rate with/without rationale",
+      "failure_mode": "Some rationale is relevant to intended semantics",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0114",
+      "layer": "evaluation",
+      "optimization": "Separate correctness, completeness, style, cost and safety rubrics",
+      "mechanism": "Prevent one attractive dimension from masking a critical regression",
+      "expected_effect": [
+        "diagnostic clarity"
+      ],
+      "test": "Criterion-specific human agreement",
+      "failure_mode": "More grading overhead",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0115",
+      "layer": "evaluation",
+      "optimization": "Use hard veto criteria for security/privacy invariants",
+      "mechanism": "Do not average catastrophic failure into a good total score",
+      "expected_effect": [
+        "safety"
+      ],
+      "test": "Injected security regression",
+      "failure_mode": "Could block release on false-positive gate",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0139"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0116",
+      "layer": "evaluation",
+      "optimization": "Report mean plus tail/worst-case on repeated stochastic evals",
+      "mechanism": "Avoid hiding unstable catastrophic cases behind average",
+      "expected_effect": [
+        "reliability"
+      ],
+      "test": "Multi-seed eval",
+      "failure_mode": "More samples/cost",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0117",
+      "layer": "evaluation",
+      "optimization": "Track variance across repeated identical tasks",
+      "mechanism": "Detect nondeterministic fragility",
+      "expected_effect": [
+        "stability"
+      ],
+      "test": "Repeated-run variance",
+      "failure_mode": "Provider backend variation may be unavoidable",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0193"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0118",
+      "layer": "evaluation",
+      "optimization": "Record exact prompt/model/tool/schema versions with every eval run",
+      "mechanism": "Make comparisons reproducible and attributable",
+      "expected_effect": [
+        "auditability"
+      ],
+      "test": "Fresh-clone replay",
+      "failure_mode": "Provider hidden updates may remain",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0119",
+      "layer": "evaluation",
+      "optimization": "Store environment/machine info for latency/performance benchmarks",
+      "mechanism": "Prevent hardware changes from being misattributed to AI improvement",
+      "expected_effect": [
+        "valid performance evidence"
+      ],
+      "test": "Cross-machine benchmark",
+      "failure_mode": "Metadata overhead",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0143"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0120",
+      "layer": "evaluation",
+      "optimization": "Warm-cache and cold-cache benchmarks separately",
+      "mechanism": "Avoid reporting cache benefit as general compute speedup",
+      "expected_effect": [
+        "clear performance evidence"
+      ],
+      "test": "Warm/cold benchmark pair",
+      "failure_mode": "More benchmark runs",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0067"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0121",
+      "layer": "evaluation",
+      "optimization": "Use cost per successful task, not cost per call, as primary economic metric",
+      "mechanism": "Cheap failures/retries can cost more than an expensive successful route",
+      "expected_effect": [
+        "better routing decisions"
+      ],
+      "test": "Historical route replay",
+      "failure_mode": "Defining success can be hard",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0188"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0122",
+      "layer": "evaluation",
+      "optimization": "Exclude infrastructure quota/outage failures from model-quality score but retain reliability metric",
+      "mechanism": "Do not confuse capability with availability while still measuring provider dependability",
+      "expected_effect": [
+        "cleaner evidence"
+      ],
+      "test": "Failure taxonomy reconciliation",
+      "failure_mode": "User experiences both, so total route metric must also include availability",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0102"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0123",
+      "layer": "evaluation",
+      "optimization": "Track human corrections as first-class failures even when automated tests pass",
+      "mechanism": "Tests do not capture all user utility",
+      "expected_effect": [
+        "better real-world quality signal"
+      ],
+      "test": "Correction linkage rate",
+      "failure_mode": "Correction may reflect preference rather than correctness",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0124",
+      "layer": "evaluation",
+      "optimization": "Turn verified production failure into regression case before fixing when feasible",
+      "mechanism": "Ensure repair is measurable and permanent",
+      "expected_effect": [
+        "less recurrence"
+      ],
+      "test": "Failure→test→fix audit",
+      "failure_mode": "Urgent incident may require fix first",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0141"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0125",
+      "layer": "evaluation",
+      "optimization": "Keep fixed anchor suite plus rolling recent suite",
+      "mechanism": "Preserve longitudinal comparability while adapting to new workloads",
+      "expected_effect": [
+        "better drift detection"
+      ],
+      "test": "Old/new suite divergence",
+      "failure_mode": "Double suite maintenance",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0103"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0126",
+      "layer": "evaluation",
+      "optimization": "Reserve an optimizer-inaccessible holdout",
+      "mechanism": "Measure real generalization of prompt/workflow search",
+      "expected_effect": [
+        "less overfit"
+      ],
+      "test": "Access-control test",
+      "failure_mode": "Small holdout increases uncertainty",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0102"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0127",
+      "layer": "evaluation",
+      "optimization": "Rotate/refresh part of holdout over time without exposing future cases",
+      "mechanism": "Reduce long-term contamination",
+      "expected_effect": [
+        "more trustworthy optimizer evidence"
+      ],
+      "test": "Versioned split audit",
+      "failure_mode": "Longitudinal comparisons become harder",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0103"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0128",
+      "layer": "evaluation",
+      "optimization": "Check judge consistency before trusting judge score changes smaller than its noise",
+      "mechanism": "Avoid optimizing within evaluator variance",
+      "expected_effect": [
+        "less false progress"
+      ],
+      "test": "Repeat-grading confidence interval",
+      "failure_mode": "Extra cost",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0100"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0129",
+      "layer": "evaluation",
+      "optimization": "Escalate material judge disagreement instead of majority-voting it away",
+      "mechanism": "Preserve uncertainty where evidence conflicts",
+      "expected_effect": [
+        "safer decisions"
+      ],
+      "test": "Disagreement-resolution outcome",
+      "failure_mode": "More human/strong-model review",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0101"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0130",
+      "layer": "evaluation",
+      "optimization": "Normalize/record output length when judging style/quality",
+      "mechanism": "Detect verbosity bias",
+      "expected_effect": [
+        "fairer judging"
+      ],
+      "test": "Length-correlation analysis",
+      "failure_mode": "Length can legitimately correlate with completeness",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0131",
+      "layer": "evaluation",
+      "optimization": "Run metamorphic paraphrase tests on prompts before promotion",
+      "mechanism": "Detect brittle dependence on incidental wording",
+      "expected_effect": [
+        "robustness"
+      ],
+      "test": "Paraphrase consistency",
+      "failure_mode": "Some wording differences are semantically meaningful",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0218"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0132",
+      "layer": "evaluation",
+      "optimization": "Run irrelevant-context injection tests",
+      "mechanism": "Detect distraction/context-pollution sensitivity",
+      "expected_effect": [
+        "robustness"
+      ],
+      "test": "Add benign distractors and compare",
+      "failure_mode": "Distractors may accidentally add information",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0073"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0133",
+      "layer": "evaluation",
+      "optimization": "Run reorder tests for independent context blocks/tools/examples",
+      "mechanism": "Detect positional sensitivity",
+      "expected_effect": [
+        "robustness"
+      ],
+      "test": "Permutation suite",
+      "failure_mode": "Cost grows combinatorially",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0073",
+        "SRC-AI-0100"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0134",
+      "layer": "evaluation",
+      "optimization": "Use mutation testing to validate new deterministic tests",
+      "mechanism": "Prevent generated tests that merely encode current implementation",
+      "expected_effect": [
+        "stronger oracle"
+      ],
+      "test": "Mutation score delta",
+      "failure_mode": "Equivalent mutants and cost",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0217"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0135",
+      "layer": "evaluation",
+      "optimization": "Shrink adversarial/failing prompts to minimal reproducer",
+      "mechanism": "Improve diagnosis and durable regression quality",
+      "expected_effect": [
+        "lower context",
+        "clearer cause"
+      ],
+      "test": "Failure-preserving delta-debug",
+      "failure_mode": "Shrunk prompt may change model stochastic behavior",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0216"
+      ],
+      "adoption_tier": "default_candidate"
+    }
+  ]
+}
