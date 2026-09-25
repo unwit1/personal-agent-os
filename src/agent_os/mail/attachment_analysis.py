@@ -6,7 +6,6 @@ contents into Git-backed profile state.
 """
 from __future__ import annotations
 
-import hashlib
 import html
 import json
 import re
@@ -18,7 +17,6 @@ from pathlib import Path
 from typing import Any
 
 from . import config
-from .attachments import SCOPE_FOLDERS, default_root
 
 SCHEMA = "agent-os/mail-attachment-analysis/v1"
 MAX_TEXT = 2_000_000
@@ -58,13 +56,38 @@ def _html_text(raw: str) -> str:
     return parser.text()
 
 
-def _pdf(path: Path) -> tuple[str, str]:
+def _pdf_ocr(path: Path) -> tuple[str, str]:
+    try:
+        import pymupdf
+        from PIL import Image
+        import pytesseract
+    except ImportError:
+        return "", "pdf-ocr:unavailable"
+    chunks: list[str] = []
+    try:
+        with pymupdf.open(path) as document:
+            for page in document:
+                pixmap = page.get_pixmap(matrix=pymupdf.Matrix(2, 2), alpha=False)
+                image = Image.frombytes("RGB", (pixmap.width, pixmap.height), pixmap.samples)
+                chunks.append(pytesseract.image_to_string(image))
+                if sum(map(len, chunks)) >= MAX_TEXT:
+                    break
+    except Exception:
+        return "", "pdf-ocr:failed"
+    return _trim("\n".join(chunks)), "pymupdf+pytesseract"
+
+
+def _pdf(path: Path, *, ocr: bool) -> tuple[str, str]:
     from pypdf import PdfReader
     reader = PdfReader(str(path))
     if reader.is_encrypted and not reader.decrypt(""):
         return "", "pypdf:encrypted"
-    text = "\n".join((page.extract_text() or "") for page in reader.pages)
-    return _trim(text), "pypdf"
+    text = _trim("\n".join((page.extract_text() or "") for page in reader.pages))
+    if text.strip():
+        return text, "pypdf"
+    if ocr:
+        return _pdf_ocr(path)
+    return "", "pypdf:needs_ocr"
 
 
 def _docx(path: Path) -> tuple[str, str]:
@@ -139,7 +162,7 @@ def extract_text(path: Path, *, mime_type: str = "", ocr: bool = False) -> dict[
             raw, method = _plain(path)
             text, method = _html_text(raw), "html-parser"
         elif ext == ".pdf" or mime_type == "application/pdf":
-            text, method = _pdf(path)
+            text, method = _pdf(path, ocr=ocr)
         elif ext == ".docx" or "wordprocessingml" in mime_type:
             text, method = _docx(path)
         elif ext == ".xlsx" or "spreadsheetml" in mime_type:
@@ -154,7 +177,9 @@ def extract_text(path: Path, *, mime_type: str = "", ocr: bool = False) -> dict[
         return {"status": "dependency_missing", "method": type(exc).__name__, "text": ""}
     except Exception as exc:
         return {"status": "error", "method": type(exc).__name__, "text": ""}
-    return {"status": "parsed" if text.strip() else ("needs_ocr" if method == "image:needs_ocr" else "empty_text"), "method": method, "text": text}
+    needs_ocr = method in {"image:needs_ocr", "pypdf:needs_ocr"}
+    unavailable_ocr = method in {"image:ocr_unavailable", "pdf-ocr:unavailable"}
+    return {"status": "parsed" if text.strip() else ("needs_ocr" if needs_ocr else ("ocr_unavailable" if unavailable_ocr else "empty_text")), "method": method, "text": text}
 
 
 def _safe_name(value: str) -> str:
@@ -213,43 +238,48 @@ def analyze_recovered(
             if source is None:
                 counts["source_unresolved"] += 1
                 continue
-            attachment = conn.execute(
-                "SELECT id,filename,mime_type,size FROM mail_attachments WHERE message_id=? AND content_hash=? LIMIT 1",
+            attachments = conn.execute(
+                "SELECT id,filename,mime_type,size FROM mail_attachments WHERE message_id=? AND content_hash=? ORDER BY id",
                 (source["message_id"], row["sha256"]),
-            ).fetchone()
-            mime = str(attachment["mime_type"] or "") if attachment else ""
+            ).fetchall()
+            exempl = attachments[0] if attachments else None
+            mime = str(exempl["mime_type"] or "") if exempl else ""
             result = extract_text(path, mime_type=mime, ocr=ocr) if path.exists() else {"status":"missing_file","method":"none","text":""}
             text = result.pop("text", "")
-            record = {
-                "schema": SCHEMA,
-                "scope": scope,
-                "source_id": row["source_id"],
-                "message_id": source["message_id"],
-                "attachment_id": attachment["id"] if attachment else None,
-                "sha256": row["sha256"],
-                "path": str(path),
-                "filename": attachment["filename"] if attachment else path.name,
-                "mime_type": mime,
-                "message_subject": source["subject"],
-                "message_sender": source["sender"],
-                "message_date": source["date_utc"],
-                "source_kind": source["source_kind"],
-                "account_id": source["account_id"],
-                "mailbox": source["mailbox"],
-                "privacy": "local_private",
-                "promotion_eligible": False,
-                **result,
-                "text_chars": len(text),
-            }
+            text_path = None
             if text:
                 text_path = text_dir / f"{_safe_name(str(row['sha256']))}.txt"
                 text_path.write_text(text, encoding="utf-8")
-                record["text_path"] = str(text_path)
-            if attachment and result["status"] in {"parsed", "empty_text", "needs_ocr"}:
-                conn.execute("UPDATE mail_attachments SET text=?, extraction=? WHERE id=?", (text or None, result["method"], attachment["id"]))
-                touched_messages.add(str(source["message_id"]))
-            records.append(record)
-            counts[result["status"]] += 1
+            targets = attachments or [None]
+            for attachment in targets:
+                record = {
+                    "schema": SCHEMA,
+                    "scope": scope,
+                    "source_id": row["source_id"],
+                    "message_id": source["message_id"],
+                    "attachment_id": attachment["id"] if attachment else None,
+                    "sha256": row["sha256"],
+                    "path": str(path),
+                    "filename": attachment["filename"] if attachment else path.name,
+                    "mime_type": str(attachment["mime_type"] or "") if attachment else mime,
+                    "message_subject": source["subject"],
+                    "message_sender": source["sender"],
+                    "message_date": source["date_utc"],
+                    "source_kind": source["source_kind"],
+                    "account_id": source["account_id"],
+                    "mailbox": source["mailbox"],
+                    "privacy": "local_private",
+                    "promotion_eligible": False,
+                    **result,
+                    "text_chars": len(text),
+                }
+                if text_path is not None:
+                    record["text_path"] = str(text_path)
+                records.append(record)
+                counts[result["status"]] += 1
+                if attachment and result["status"] in {"parsed", "empty_text", "needs_ocr", "ocr_unavailable"}:
+                    conn.execute("UPDATE mail_attachments SET text=?, extraction=? WHERE id=?", (text or None, result["method"], attachment["id"]))
+                    touched_messages.add(str(source["message_id"]))
 
         for message_id in touched_messages:
             try:
