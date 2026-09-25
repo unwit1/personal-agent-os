@@ -1,0 +1,1609 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "data_training_model_inference",
+  "techniques": [
+    {
+      "id": "AIT-0121",
+      "name": "Training-data exact/near deduplication",
+      "aliases": [],
+      "category": "data_quality",
+      "layer": [
+        "data",
+        "training"
+      ],
+      "goal": "Reduce memorization, train-test leakage and wasted training compute",
+      "mechanism": "Remove exact/near duplicate sequences/documents and explicitly decontaminate evaluation sets.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0116.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "General principle also applies to Agent OS knowledge/context candidate stores.",
+      "use_when": [
+        "Any local model training/fine-tuning corpus",
+        "Synthetic data generation"
+      ],
+      "avoid_when": [
+        "Tiny intentionally repeated curriculum where repetition is controlled"
+      ],
+      "required_evals": [
+        "memorization",
+        "held-out accuracy",
+        "steps-to-target",
+        "contamination"
+      ],
+      "risks": [
+        "Over-aggressive dedupe removes legitimate repeated forms"
+      ],
+      "cost_profile": "preprocessing saves training compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0116"
+      ],
+      "keywords": [
+        "dedupe",
+        "decontamination"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0122",
+      "name": "Data quality filtering",
+      "aliases": [],
+      "category": "data_quality",
+      "layer": [
+        "data",
+        "training"
+      ],
+      "goal": "Train on fewer, higher-value examples",
+      "mechanism": "Score/filter incorrect, irrelevant, malformed, low-information or low-quality examples before training.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0112, SRC-AI-0113.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Preserve rejected sample metadata/reasons for audit.",
+      "use_when": [
+        "Fine-tuning/local model corpus"
+      ],
+      "avoid_when": [
+        "Filter score is unvalidated or systematically biased"
+      ],
+      "required_evals": [
+        "full vs filtered training",
+        "subgroup coverage"
+      ],
+      "risks": [
+        "Judge/filter bias",
+        "loss of diversity/tail cases"
+      ],
+      "cost_profile": "filter cost; lower training cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0112",
+        "SRC-AI-0113"
+      ],
+      "keywords": [
+        "data_quality",
+        "filtering"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0123",
+      "name": "Targeted influence-based data selection",
+      "aliases": [],
+      "category": "data_selection",
+      "layer": [
+        "data",
+        "training"
+      ],
+      "goal": "Train a capability with only examples most influential for it",
+      "mechanism": "Use target examples and gradient/influence similarity to select a small relevant subset.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0114.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Useful research lead if Agent OS later trains domain adapters.",
+      "use_when": [
+        "Future specialized local model/adapter"
+      ],
+      "avoid_when": [
+        "No model-weight access",
+        "General-purpose broad alignment"
+      ],
+      "required_evals": [
+        "target task success",
+        "transfer",
+        "selection cost"
+      ],
+      "risks": [
+        "Target overfit",
+        "selection complexity"
+      ],
+      "cost_profile": "high preprocessing, lower training",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0114"
+      ],
+      "keywords": [
+        "LESS",
+        "influence"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0124",
+      "name": "Domain mixture optimization",
+      "aliases": [],
+      "category": "data_selection",
+      "layer": [
+        "data",
+        "pretraining"
+      ],
+      "goal": "Allocate training tokens across source domains more effectively",
+      "mechanism": "Train proxy/reference models and optimize domain weights based on excess loss/minimax objective.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0115.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Low near-term Agent OS priority.",
+      "use_when": [
+        "Pretraining a local foundational/domain model"
+      ],
+      "avoid_when": [
+        "Ordinary hosted-model Agent OS"
+      ],
+      "required_evals": [
+        "downstream performance per FLOP"
+      ],
+      "risks": [
+        "Proxy-to-large transfer failure",
+        "domain definition choices"
+      ],
+      "cost_profile": "very high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0115"
+      ],
+      "keywords": [
+        "DoReMi",
+        "data_mixture"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0125",
+      "name": "Small curated instruction-tuning set",
+      "aliases": [],
+      "category": "instruction_tuning",
+      "layer": [
+        "training",
+        "data"
+      ],
+      "goal": "Teach behavior efficiently when base model already has knowledge",
+      "mechanism": "Fine-tune on small diverse high-quality demonstrations rather than maximizing example count.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0112, SRC-AI-0113.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Prefer skills/prompts first unless repeated workload justifies training.",
+      "use_when": [
+        "Specialized local assistant adapter"
+      ],
+      "avoid_when": [
+        "Base model lacks underlying capability/knowledge"
+      ],
+      "required_evals": [
+        "generalization",
+        "catastrophic forgetting",
+        "data ablation"
+      ],
+      "risks": [
+        "Curated set may miss tails",
+        "judge bias"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0112",
+        "SRC-AI-0113"
+      ],
+      "keywords": [
+        "LIMA",
+        "instruction_tuning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0126",
+      "name": "Self-Instruct synthetic instruction generation",
+      "aliases": [],
+      "category": "synthetic_data",
+      "layer": [
+        "data",
+        "training"
+      ],
+      "goal": "Expand instruction diversity cheaply",
+      "mechanism": "Model generates instruction/input/output triples, filters invalid/similar examples, then trains on accepted synthetic set.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0117.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Synthetic examples need provenance, dedupe, filter and real-data anchoring.",
+      "use_when": [
+        "Local fine-tuning where human labels scarce"
+      ],
+      "avoid_when": [
+        "Synthetic generator shares severe blind spots",
+        "High-stakes behavior without human validation"
+      ],
+      "required_evals": [
+        "novel-task eval",
+        "diversity",
+        "error propagation"
+      ],
+      "risks": [
+        "Self-generated errors",
+        "model collapse if recursive/unfiltered"
+      ],
+      "cost_profile": "generation + training",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0117"
+      ],
+      "keywords": [
+        "Self_Instruct",
+        "synthetic"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0127",
+      "name": "Synthetic textbook/curriculum data",
+      "aliases": [],
+      "category": "synthetic_data",
+      "layer": [
+        "data",
+        "training"
+      ],
+      "goal": "Increase information density and pedagogical structure",
+      "mechanism": "Generate high-quality textbook-like explanations/exercises covering target concepts, then filter and train.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0118.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Potential for offline specialized utilities, not personal facts.",
+      "use_when": [
+        "Narrow local model skill domains"
+      ],
+      "avoid_when": [
+        "Generator accuracy cannot be verified"
+      ],
+      "required_evals": [
+        "held-out target tasks",
+        "factual audits"
+      ],
+      "risks": [
+        "Synthetic factual errors",
+        "coverage bias"
+      ],
+      "cost_profile": "high generation/training",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0118"
+      ],
+      "keywords": [
+        "textbook_data",
+        "phi"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0128",
+      "name": "Real-data anchoring for synthetic corpora",
+      "aliases": [],
+      "category": "synthetic_data",
+      "layer": [
+        "data",
+        "training"
+      ],
+      "goal": "Reduce recursive synthetic-data collapse",
+      "mechanism": "Maintain verified real/human/reference data mixture and provenance rather than recursively replacing distribution with model outputs.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0117.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Never train future personalization solely on previous model-generated interpretations.",
+      "use_when": [
+        "Any iterative synthetic training"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "tail coverage",
+        "distribution drift",
+        "real/synthetic mix ablation"
+      ],
+      "risks": [
+        "Real data may itself contain errors/bias"
+      ],
+      "cost_profile": "data governance",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0117"
+      ],
+      "keywords": [
+        "model_collapse",
+        "real_data"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0129",
+      "name": "Active learning / uncertainty sampling",
+      "aliases": [],
+      "category": "data_selection",
+      "layer": [
+        "data",
+        "human_feedback"
+      ],
+      "goal": "Spend human labels on examples expected to teach most",
+      "mechanism": "Prioritize uncertain, novel, disagreement-heavy or representative unlabeled examples for review.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0114.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Already good fit for HR scanner and memory candidate review.",
+      "use_when": [
+        "Scanner learning",
+        "Classifier/retriever tuning",
+        "Preference collection"
+      ],
+      "avoid_when": [
+        "Uncertainty poorly calibrated",
+        "Query model mismatches final model"
+      ],
+      "required_evals": [
+        "accuracy per human label",
+        "selection bias"
+      ],
+      "risks": [
+        "Sampling bias",
+        "model mismatch"
+      ],
+      "cost_profile": "reduces annotation volume",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0114"
+      ],
+      "keywords": [
+        "active_learning",
+        "human_in_loop"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0130",
+      "name": "Curriculum learning",
+      "aliases": [],
+      "category": "training_strategy",
+      "layer": [
+        "training",
+        "data"
+      ],
+      "goal": "Improve optimization by ordering examples from easier/structured to harder",
+      "mechanism": "Control sample order/difficulty rather than iid random training.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0120.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Catalog for future model training, not near-term Agent OS core.",
+      "use_when": [
+        "Training local model where curriculum hypothesis can be measured"
+      ],
+      "avoid_when": [
+        "Hosted-model workflows"
+      ],
+      "required_evals": [
+        "convergence",
+        "final performance",
+        "curriculum ablation"
+      ],
+      "risks": [
+        "Wrong difficulty order",
+        "reduced diversity"
+      ],
+      "cost_profile": "training experiment",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0120"
+      ],
+      "keywords": [
+        "curriculum"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0131",
+      "name": "Supervised fine-tuning (SFT)",
+      "aliases": [],
+      "category": "model_adaptation",
+      "layer": [
+        "training"
+      ],
+      "goal": "Change model behavior on demonstrated input-output mappings",
+      "mechanism": "Optimize model on curated demonstrations with supervised loss.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0109, SRC-AI-0112.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Prompts/skills/routing should generally be exhausted first.",
+      "use_when": [
+        "Stable high-volume repeated behavior where prompting is inadequate/expensive"
+      ],
+      "avoid_when": [
+        "Rapidly changing requirements",
+        "Insufficient data/evals"
+      ],
+      "required_evals": [
+        "target quality",
+        "generalization",
+        "forgetting",
+        "safety"
+      ],
+      "risks": [
+        "Catastrophic forgetting",
+        "data leakage",
+        "maintenance"
+      ],
+      "cost_profile": "high upfront",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0109",
+        "SRC-AI-0112"
+      ],
+      "keywords": [
+        "SFT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0132",
+      "name": "LoRA parameter-efficient fine-tuning",
+      "aliases": [],
+      "category": "PEFT",
+      "layer": [
+        "training"
+      ],
+      "goal": "Adapt local models with much lower trainable-parameter/memory cost",
+      "mechanism": "Freeze base weights and learn low-rank adapter matrices.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0110.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Store adapter provenance/base hash/eval suite.",
+      "use_when": [
+        "Local/open model specialization"
+      ],
+      "avoid_when": [
+        "Closed hosted model",
+        "Need changes outside adapter capacity"
+      ],
+      "required_evals": [
+        "target eval",
+        "base capability regression",
+        "adapter size"
+      ],
+      "risks": [
+        "Adapter proliferation",
+        "rank/module tuning"
+      ],
+      "cost_profile": "lower than full fine-tune",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0110"
+      ],
+      "keywords": [
+        "LoRA",
+        "PEFT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0133",
+      "name": "QLoRA",
+      "aliases": [],
+      "category": "PEFT",
+      "layer": [
+        "training",
+        "quantization"
+      ],
+      "goal": "Fine-tune large local models under limited GPU memory",
+      "mechanism": "Backpropagate into LoRA adapters through frozen 4-bit quantized base with NF4/double quantization/paged optimizers.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0111.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Candidate for future local domain model experiments only.",
+      "use_when": [
+        "Resource-limited local fine-tuning"
+      ],
+      "avoid_when": [
+        "Hosted model",
+        "Latency-only issue"
+      ],
+      "required_evals": [
+        "full-vs-QLoRA quality",
+        "memory",
+        "throughput"
+      ],
+      "risks": [
+        "Quantization/kernel compatibility",
+        "training complexity"
+      ],
+      "cost_profile": "lowers GPU memory dramatically",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0111"
+      ],
+      "keywords": [
+        "QLoRA",
+        "NF4"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0134",
+      "name": "Knowledge distillation",
+      "aliases": [],
+      "category": "model_compression",
+      "layer": [
+        "training",
+        "model"
+      ],
+      "goal": "Move capability from expensive teacher to smaller/faster student",
+      "mechanism": "Train student on teacher soft/sequence outputs and/or task labels.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0119.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential end-state for deterministic-ish Agent OS classifiers.",
+      "use_when": [
+        "Very frequent stable task",
+        "Local serving",
+        "Strong teacher available"
+      ],
+      "avoid_when": [
+        "Task distribution changes quickly",
+        "Teacher output cannot be retained safely"
+      ],
+      "required_evals": [
+        "student-teacher task parity",
+        "latency",
+        "cost"
+      ],
+      "risks": [
+        "Student inherits teacher errors",
+        "capability narrowing"
+      ],
+      "cost_profile": "high offline; low online",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0119"
+      ],
+      "keywords": [
+        "distillation",
+        "student"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0135",
+      "name": "Rationale-augmented distillation",
+      "aliases": [],
+      "category": "model_compression",
+      "layer": [
+        "training",
+        "reasoning"
+      ],
+      "goal": "Teach smaller model using teacher intermediate rationales as auxiliary supervision",
+      "mechanism": "Train on labels plus teacher-produced rationale/task explanation.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0119.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Use synthetic/private-safe reasoning traces only.",
+      "use_when": [
+        "Stable reasoning classifier/task with verifiable outputs"
+      ],
+      "avoid_when": [
+        "Rationales contain private data or are unfaithful"
+      ],
+      "required_evals": [
+        "student task success",
+        "rationale ablation"
+      ],
+      "risks": [
+        "Teacher rationale errors",
+        "privacy"
+      ],
+      "cost_profile": "high offline",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0119"
+      ],
+      "keywords": [
+        "distill_step_by_step"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0136",
+      "name": "STaR self-taught reasoning",
+      "aliases": [],
+      "category": "reasoning_training",
+      "layer": [
+        "training",
+        "reasoning"
+      ],
+      "goal": "Bootstrap reasoning ability from small rationale seed and answer correctness",
+      "mechanism": "Generate rationales; retain those producing correct answers; rationalize failed questions conditioned on correct answer; fine-tune and repeat.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0119.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Requires external correctness—do not equate self-generated rationale with truth.",
+      "use_when": [
+        "Training a local reasoning model with objective answer oracle"
+      ],
+      "avoid_when": [
+        "No trustworthy correctness oracle"
+      ],
+      "required_evals": [
+        "held-out reasoning",
+        "iteration stability"
+      ],
+      "risks": [
+        "Selection bias",
+        "self-reinforced spurious rationales"
+      ],
+      "cost_profile": "very high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0119"
+      ],
+      "keywords": [
+        "STaR",
+        "bootstrapping"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0137",
+      "name": "Quiet-STaR-style latent rationale training",
+      "aliases": [],
+      "category": "reasoning_training",
+      "layer": [
+        "training",
+        "reasoning"
+      ],
+      "goal": "Teach model to infer useful internal rationales broadly across text",
+      "mechanism": "Generate token-level rationales and train model to use them to predict future text.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0120.",
+        "limitations": []
+      },
+      "agent_os_fit": "unlikely",
+      "agent_os_pattern": "Track as frontier research, not implementation target.",
+      "use_when": [
+        "Foundational-model research"
+      ],
+      "avoid_when": [
+        "Personal Agent OS application layer"
+      ],
+      "required_evals": [
+        "perplexity",
+        "reasoning benchmarks",
+        "compute"
+      ],
+      "risks": [
+        "Huge training complexity",
+        "unclear transfer"
+      ],
+      "cost_profile": "extreme",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0120"
+      ],
+      "keywords": [
+        "Quiet_STaR"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0138",
+      "name": "RLHF",
+      "aliases": [],
+      "category": "alignment",
+      "layer": [
+        "training",
+        "human_feedback"
+      ],
+      "goal": "Optimize behavior against learned human preferences",
+      "mechanism": "SFT, collect ranked outputs, train reward model, optimize policy with RL such as PPO.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0109.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Not justified for Agent OS until simpler adaptation demonstrably plateaus.",
+      "use_when": [
+        "Training aligned foundation/local model at scale"
+      ],
+      "avoid_when": [
+        "Application-level Agent OS behavior can be controlled by simpler mechanisms"
+      ],
+      "required_evals": [
+        "human preference",
+        "reward hacking",
+        "safety"
+      ],
+      "risks": [
+        "Reward misspecification",
+        "instability",
+        "high expense"
+      ],
+      "cost_profile": "very high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0109"
+      ],
+      "keywords": [
+        "RLHF",
+        "PPO"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0139",
+      "name": "RLAIF / Constitutional AI",
+      "aliases": [],
+      "category": "alignment",
+      "layer": [
+        "training",
+        "AI_feedback"
+      ],
+      "goal": "Scale preference supervision using principle-guided AI feedback",
+      "mechanism": "Use explicit principles for critique/revision and AI-generated preference labels/reward.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0107, SRC-AI-0108.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Useful conceptual lesson: principles are inspectable; authorization still deterministic.",
+      "use_when": [
+        "Future local model alignment research"
+      ],
+      "avoid_when": [
+        "System policy can simply be enforced deterministically/application-side"
+      ],
+      "required_evals": [
+        "human safety/helpfulness eval",
+        "principle sensitivity"
+      ],
+      "risks": [
+        "AI labeler bias",
+        "constitution misspecification"
+      ],
+      "cost_profile": "very high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0107",
+        "SRC-AI-0108"
+      ],
+      "keywords": [
+        "RLAIF",
+        "constitution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0140",
+      "name": "Direct Preference Optimization (DPO)",
+      "aliases": [],
+      "category": "preference_optimization",
+      "layer": [
+        "training"
+      ],
+      "goal": "Align model to pairwise preferences without PPO/reward-model loop",
+      "mechanism": "Optimize policy directly on chosen/rejected response pairs relative to reference model.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0104.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Catalog among preference methods; never assume universal superiority.",
+      "use_when": [
+        "Fine-tuning local model with quality preference pairs"
+      ],
+      "avoid_when": [
+        "No trustworthy preference dataset"
+      ],
+      "required_evals": [
+        "human preference",
+        "holdout",
+        "length/style bias"
+      ],
+      "risks": [
+        "Preference overfit",
+        "loss tradeoffs"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0104"
+      ],
+      "keywords": [
+        "DPO"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0141",
+      "name": "KTO binary-feedback alignment",
+      "aliases": [],
+      "category": "preference_optimization",
+      "layer": [
+        "training"
+      ],
+      "goal": "Learn preference behavior from desirable/undesirable labels without pairs",
+      "mechanism": "Optimize prospect-theory-inspired utility from binary feedback.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0105.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Potential future use if sufficient explicit user feedback exists and privacy policy permits.",
+      "use_when": [
+        "Feedback logs naturally contain thumbs-up/down rather than pairs"
+      ],
+      "avoid_when": [
+        "Binary labels are noisy/contextual"
+      ],
+      "required_evals": [
+        "held-out preference",
+        "calibration",
+        "subgroups"
+      ],
+      "risks": [
+        "Inductive bias mismatch"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0105"
+      ],
+      "keywords": [
+        "KTO"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0142",
+      "name": "SimPO reference-free preference optimization",
+      "aliases": [],
+      "category": "preference_optimization",
+      "layer": [
+        "training"
+      ],
+      "goal": "Simplify preference optimization and lower memory/compute",
+      "mechanism": "Use sequence-normalized log probability as implicit reward plus target reward margin without reference model.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0106.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Benchmark rather than choosing by paper ranking.",
+      "use_when": [
+        "Local preference fine-tuning research"
+      ],
+      "avoid_when": [
+        "No robust preference eval"
+      ],
+      "required_evals": [
+        "DPO vs SimPO head-to-head"
+      ],
+      "risks": [
+        "Method churn",
+        "dataset sensitivity"
+      ],
+      "cost_profile": "lower than reference-model methods",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0106"
+      ],
+      "keywords": [
+        "SimPO"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0143",
+      "name": "Self-play fine-tuning (SPIN)",
+      "aliases": [],
+      "category": "self_training",
+      "layer": [
+        "training"
+      ],
+      "goal": "Improve SFT model using its own generated responses contrasted with human data",
+      "mechanism": "Iteratively generate responses and train discriminator/preference objective to separate self-generated from human demonstrations.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0117.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Low priority; synthetic recursion safeguards required.",
+      "use_when": [
+        "Research into local model self-training"
+      ],
+      "avoid_when": [
+        "Weak human anchor set",
+        "Repeated self-training without holdout"
+      ],
+      "required_evals": [
+        "iteration generalization",
+        "collapse"
+      ],
+      "risks": [
+        "Self-reinforcement",
+        "distribution narrowing"
+      ],
+      "cost_profile": "very high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0117"
+      ],
+      "keywords": [
+        "SPIN",
+        "self_play"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0144",
+      "name": "Compute-optimal parameter/token scaling",
+      "aliases": [],
+      "category": "training_efficiency",
+      "layer": [
+        "training",
+        "scaling"
+      ],
+      "goal": "Allocate fixed pretraining compute more efficiently",
+      "mechanism": "Balance model size and training tokens rather than scaling parameters alone.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0120, SRC-AI-0121.",
+        "limitations": []
+      },
+      "agent_os_fit": "unlikely",
+      "agent_os_pattern": "Knowledge for future local-model strategy, not near-term feature.",
+      "use_when": [
+        "Training foundation model"
+      ],
+      "avoid_when": [
+        "Application-layer Agent OS"
+      ],
+      "required_evals": [
+        "loss/downstream per FLOP"
+      ],
+      "risks": [
+        "Scaling law shifts with architecture/data"
+      ],
+      "cost_profile": "extreme",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0120",
+        "SRC-AI-0121"
+      ],
+      "keywords": [
+        "Chinchilla",
+        "scaling_laws"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0145",
+      "name": "Sparse Mixture-of-Experts model",
+      "aliases": [],
+      "category": "model_architecture",
+      "layer": [
+        "model",
+        "training"
+      ],
+      "goal": "Increase parameter capacity without activating all parameters per token",
+      "mechanism": "Router sends tokens to small subset of expert feed-forward modules.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0121.",
+        "limitations": []
+      },
+      "agent_os_fit": "unlikely",
+      "agent_os_pattern": "Do not confuse model-level MoE with Agent OS model routing; only conceptual analogy.",
+      "use_when": [
+        "Foundation/model-serving research"
+      ],
+      "avoid_when": [
+        "Agent OS application architecture"
+      ],
+      "required_evals": [
+        "quality/FLOP",
+        "routing balance",
+        "latency"
+      ],
+      "risks": [
+        "Training instability",
+        "communication complexity"
+      ],
+      "cost_profile": "extreme",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0121"
+      ],
+      "keywords": [
+        "MoE",
+        "Switch"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0146",
+      "name": "Model routing / cascade",
+      "aliases": [],
+      "category": "model_routing",
+      "layer": [
+        "model",
+        "runtime"
+      ],
+      "goal": "Use cheapest/fastest model that meets task quality",
+      "mechanism": "Predict task difficulty/capability need, choose model, escalate on validation failure.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Task-specific capability evidence should replace generic leaderboards.",
+      "use_when": [
+        "All Agent OS workloads"
+      ],
+      "avoid_when": [
+        "Risk policy mandates a minimum model/independent review"
+      ],
+      "required_evals": [
+        "cost/success",
+        "quality noninferiority",
+        "latency",
+        "route errors"
+      ],
+      "risks": [
+        "Router adds error mode",
+        "stale evidence"
+      ],
+      "cost_profile": "major savings potential",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "routing",
+        "cascade"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0147",
+      "name": "Champion/challenger model evaluation",
+      "aliases": [],
+      "category": "model_routing",
+      "layer": [
+        "model",
+        "evaluation"
+      ],
+      "goal": "Continuously test new models without destabilizing production",
+      "mechanism": "Keep current champion; shadow candidate challenger on representative tasks; promote only on target/guardrail evidence.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0107, SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Research Radar automatically opens challenger trial candidate.",
+      "use_when": [
+        "Rapid model ecosystem"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "noninferiority",
+        "cost",
+        "latency",
+        "failure clusters"
+      ],
+      "risks": [
+        "Eval drift",
+        "provider-specific hidden changes"
+      ],
+      "cost_profile": "offline/shadow cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0107",
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "champion_challenger"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0148",
+      "name": "Reasoning-effort routing",
+      "aliases": [],
+      "category": "model_routing",
+      "layer": [
+        "model",
+        "test_time_compute"
+      ],
+      "goal": "Spend internal reasoning compute proportionally to task difficulty",
+      "mechanism": "Select low/medium/high reasoning effort based on task class, uncertainty and failed validators.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0065.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Treat effort as capability parameter with empirical task evidence.",
+      "use_when": [
+        "Models exposing effort controls"
+      ],
+      "avoid_when": [
+        "Provider does not expose meaningful effort knob"
+      ],
+      "required_evals": [
+        "success-cost frontier by task"
+      ],
+      "risks": [
+        "Higher effort can add latency/cost without gain"
+      ],
+      "cost_profile": "adaptive",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0065"
+      ],
+      "keywords": [
+        "reasoning_effort"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0149",
+      "name": "Quantized local inference",
+      "aliases": [],
+      "category": "model_inference",
+      "layer": [
+        "model",
+        "inference"
+      ],
+      "goal": "Fit larger/local models in less memory and potentially increase speed",
+      "mechanism": "Represent weights/activations at lower precision with calibration-aware methods.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0126, SRC-AI-0127.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Capability registry records exact quantization variant as distinct deployment.",
+      "use_when": [
+        "Local models",
+        "On-device/privacy-first processing"
+      ],
+      "avoid_when": [
+        "Hosted models",
+        "Task is highly sensitive to quantization degradation"
+      ],
+      "required_evals": [
+        "task quality",
+        "memory",
+        "tokens/sec",
+        "energy"
+      ],
+      "risks": [
+        "Quality loss",
+        "kernel/hardware mismatch"
+      ],
+      "cost_profile": "lower serving resource",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0126",
+        "SRC-AI-0127"
+      ],
+      "keywords": [
+        "quantization",
+        "GPTQ",
+        "SmoothQuant"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0150",
+      "name": "FlashAttention / IO-aware attention kernels",
+      "aliases": [],
+      "category": "model_inference",
+      "layer": [
+        "model",
+        "inference"
+      ],
+      "goal": "Reduce attention memory traffic and accelerate long-sequence compute",
+      "mechanism": "Tile exact attention to minimize HBM/SRAM IO.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0122.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Provider/server implementation detail, not Agent OS prompt logic.",
+      "use_when": [
+        "Self-hosted compatible GPU model stack"
+      ],
+      "avoid_when": [
+        "Hosted API where provider owns kernels"
+      ],
+      "required_evals": [
+        "tokens/sec",
+        "memory",
+        "numerical equivalence"
+      ],
+      "risks": [
+        "Kernel compatibility"
+      ],
+      "cost_profile": "systems optimization",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0122"
+      ],
+      "keywords": [
+        "FlashAttention"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0151",
+      "name": "Paged KV-cache management / continuous batching",
+      "aliases": [],
+      "category": "model_inference",
+      "layer": [
+        "model",
+        "serving"
+      ],
+      "goal": "Increase serving throughput and memory utilization",
+      "mechanism": "Manage KV blocks like virtual memory and schedule requests dynamically instead of reserving contiguous cache.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0123.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Relevant if Agent OS eventually serves local models to many subsystems.",
+      "use_when": [
+        "Self-hosting multi-request models"
+      ],
+      "avoid_when": [
+        "Single occasional local request"
+      ],
+      "required_evals": [
+        "throughput",
+        "p95 latency",
+        "GPU utilization"
+      ],
+      "risks": [
+        "Serving complexity"
+      ],
+      "cost_profile": "systems optimization",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0123"
+      ],
+      "keywords": [
+        "PagedAttention",
+        "continuous_batching"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0152",
+      "name": "Speculative decoding",
+      "aliases": [],
+      "category": "model_inference",
+      "layer": [
+        "model",
+        "inference"
+      ],
+      "goal": "Reduce autoregressive latency without changing target output distribution",
+      "mechanism": "Cheap draft model proposes several tokens; target verifies them in parallel with correction sampling.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0124.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Benchmark per target/draft pair; not universally faster.",
+      "use_when": [
+        "Self-hosted compatible models",
+        "Low batch/latency-sensitive generation"
+      ],
+      "avoid_when": [
+        "Draft acceptance low",
+        "Hosted API hides decoding stack"
+      ],
+      "required_evals": [
+        "speedup",
+        "acceptance rate",
+        "output equivalence"
+      ],
+      "risks": [
+        "Extra draft model memory/complexity"
+      ],
+      "cost_profile": "lower latency at extra draft compute",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0124"
+      ],
+      "keywords": [
+        "speculative_decoding"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0153",
+      "name": "Multi-head speculative decoding (Medusa)",
+      "aliases": [],
+      "category": "model_inference",
+      "layer": [
+        "model",
+        "inference",
+        "training"
+      ],
+      "goal": "Accelerate generation without maintaining separate draft model",
+      "mechanism": "Add future-token prediction heads and verify candidate tree with base model.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0125.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Lower priority than provider/model routing or caching.",
+      "use_when": [
+        "Local model with stable checkpoint and latency pressure"
+      ],
+      "avoid_when": [
+        "Hosted model",
+        "No tuning infrastructure"
+      ],
+      "required_evals": [
+        "speedup",
+        "quality",
+        "training burden"
+      ],
+      "risks": [
+        "Model modification",
+        "version coupling"
+      ],
+      "cost_profile": "training + lower inference latency",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0125"
+      ],
+      "keywords": [
+        "Medusa"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0154",
+      "name": "Prompt/prefix KV caching",
+      "aliases": [],
+      "category": "model_inference",
+      "layer": [
+        "model",
+        "runtime",
+        "cache"
+      ],
+      "goal": "Avoid recomputing repeated prompt prefixes",
+      "mechanism": "Reuse cached attention KV tensors or provider prompt-cache entries for identical/stable prefixes.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0067, SRC-AI-0129.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Compiler should explicitly report cacheability and churn source.",
+      "use_when": [
+        "Long stable system/tool/context prefixes"
+      ],
+      "avoid_when": [
+        "Every request prefix differs"
+      ],
+      "required_evals": [
+        "cache-hit tokens",
+        "TTFT",
+        "cost"
+      ],
+      "risks": [
+        "Prefix churn",
+        "cache expiry"
+      ],
+      "cost_profile": "large possible savings",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0067",
+        "SRC-AI-0129"
+      ],
+      "keywords": [
+        "KV_cache",
+        "prompt_cache"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0155",
+      "name": "Output-token minimization / early stopping",
+      "aliases": [],
+      "category": "model_inference",
+      "layer": [
+        "model",
+        "runtime"
+      ],
+      "goal": "Reduce dominant generation latency/cost",
+      "mechanism": "Ask for only necessary fields/detail, use structured outputs, stop when verified answer/goal reached rather than fixed verbose generation.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0068, SRC-AI-0069.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Separate machine artifact from optional human explanation.",
+      "use_when": [
+        "Machine-facing agent steps",
+        "High-volume calls"
+      ],
+      "avoid_when": [
+        "User explicitly needs explanatory prose"
+      ],
+      "required_evals": [
+        "output tokens",
+        "latency",
+        "quality"
+      ],
+      "risks": [
+        "Overcompression removes useful nuance"
+      ],
+      "cost_profile": "strong recurring savings",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0068",
+        "SRC-AI-0069"
+      ],
+      "keywords": [
+        "output_tokens",
+        "early_stop"
+      ],
+      "notes": ""
+    }
+  ]
+}
