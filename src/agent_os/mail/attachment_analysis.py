@@ -386,6 +386,12 @@ def analyze_recovered(
         for attachment in indexed_rows:
             if str(attachment["id"]) in processed_attachment_ids:
                 continue
+            filename = str(attachment["filename"] or "")
+            mime = str(attachment["mime_type"] or "")
+            ext = Path(filename).suffix.casefold()
+            intentional = mime in {"application/pkcs7-signature", "application/x-pkcs7-signature"} or ext == ".p7s"
+            status = "intentionally_skipped" if intentional else "not_recovered"
+            method = "signature_metadata_only" if intentional else "indexed_metadata_only"
             records.append({
                 "schema": SCHEMA,
                 "scope": scope,
@@ -401,11 +407,11 @@ def analyze_recovered(
                 "message_date": attachment["date_utc"],
                 "privacy": "local_private",
                 "promotion_eligible": False,
-                "status": "not_recovered",
-                "method": "indexed_metadata_only",
+                "status": status,
+                "method": method,
                 "text_chars": 0,
             })
-            counts["not_recovered"] += 1
+            counts[status] += 1
 
         for message_id in touched_messages:
             try:
