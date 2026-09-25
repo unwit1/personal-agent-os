@@ -581,5 +581,81 @@ class ExecuteBuildDagTests(unittest.TestCase):
             self.assertIn("rollback checkpoint",record["issues"][-1])
 
 
+    def test_main_invokes_auto_repair_bridge_after_failed_execution(self):
+        import sys
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            adapter_dir=root/"adapters"
+            adapter_dir.mkdir()
+            run_dir=root/"run"
+            manifest=root/"manifest.json"
+            quality=root/"quality.json"
+            dag=root/"dag.json"
+            context=root/"context.json"
+            capabilities=root/"capabilities.json"
+
+            manifest.write_text(json.dumps({"project_id":"fixture-auto"}),encoding="utf-8")
+            quality.write_text(json.dumps({"gates":[]}),encoding="utf-8")
+            dag.write_text(json.dumps({
+                "schema_version":"skyrim-build-dag-v1",
+                "project_id":"fixture-auto",
+                "nodes":[{
+                    "id":"generate.fixture",
+                    "phase":"generate",
+                    "action":"fail fixture",
+                    "depends_on":[],
+                    "adapters":["fixture"],
+                    "gates":[],
+                    "invalidated_by":[],
+                    "outputs":[],
+                }],
+            }),encoding="utf-8")
+            context.write_text(json.dumps({
+                "schema_version":"skyrim-execution-context-v1",
+                "project_id":"fixture-auto",
+            }),encoding="utf-8")
+            capabilities.write_text(json.dumps({
+                "schema_version":"skyrim-tool-capability-registry-v1",
+                "snapshot_date":"2026-09-24",
+                "adapters":[],
+            }),encoding="utf-8")
+            (adapter_dir/"fixture.json").write_text(json.dumps({
+                "schema_version":"skyrim-tool-adapter-v1",
+                "adapter_id":"fixture",
+                "tool":"Fixture",
+                "invocation":{
+                    "mode":"cli",
+                    "executable":sys.executable,
+                    "arguments_template":["-c","import sys; sys.exit(7)"],
+                },
+                "success":{"exit_codes":[0]},
+                "retry":{"safe":False,"max_attempts":1,"cleanup_outputs_first":False},
+            }),encoding="utf-8")
+
+            argv=[
+                "execute_build_dag.py",
+                str(manifest),
+                str(quality),
+                str(dag),
+                "--context",str(context),
+                "--capabilities",str(capabilities),
+                "--adapter-dir",str(adapter_dir),
+                "--run-dir",str(run_dir),
+                "--execute",
+                "--auto-repair",
+            ]
+            repaired={"result_status":"repaired","executed":True}
+            with patch("sys.argv",argv), patch.object(
+                MOD,"run_automatic_repair",return_value=repaired
+            ) as bridge:
+                MOD.main()
+
+            bridge.assert_called_once()
+            report=json.loads((run_dir/"build-report.json").read_text(encoding="utf-8"))
+            self.assertEqual(report["status"],"failed")
+            self.assertTrue((run_dir/"execution-state.json").exists())
+
+
 if __name__=="__main__":
     unittest.main()
