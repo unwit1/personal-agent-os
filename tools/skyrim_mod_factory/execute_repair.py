@@ -36,6 +36,7 @@ def load_module(name:str,path:Path):
     return mod
 
 EXEC=load_module("execute_build_dag",HERE/"execute_build_dag.py")
+PROMOTE=load_module("promote_bug_regression",HERE/"promote_bug_regression.py")
 
 def now()->str:
     return dt.datetime.now(dt.timezone.utc).isoformat()
@@ -379,6 +380,8 @@ def finalize_repair(
     state_path:Path|None=None,
     allowed_output_roots:list[Path]|None=None,
     execute_rollback:bool=True,
+    bug:dict[str,Any]|None=None,
+    regression_output:Path|None=None,
 )->dict[str,Any]:
     result=copy.deepcopy(plan)
     assessment=assess_repair_postconditions(result,report)
@@ -392,6 +395,39 @@ def finalize_repair(
 
     if assessment["status"]=="repaired":
         out["status"]="repaired"
+        if bug is not None:
+            eligible=bool(bug.get("root_cause") and bug.get("reproduction"))
+            if eligible:
+                validated_bug=copy.deepcopy(bug)
+                validated_bug["status"]="validated"
+                fixed_by=list(validated_bug.get("fixed_by") or [])
+                for action in (result.get("repair") or {}).get("actions") or []:
+                    label=action.get("handler_id") or action.get("action")
+                    if label and label not in fixed_by:
+                        fixed_by.append(label)
+                validated_bug["fixed_by"]=fixed_by
+                validation=list(validated_bug.get("validation") or [])
+                validation.append(
+                    f"repair {result['repair_id']} rerun passed target "
+                    f"{assessment.get('target')}"
+                )
+                validated_bug["validation"]=validation
+                packet=PROMOTE.promote(validated_bug)
+                destination=regression_output
+                if destination is None and state_path is not None:
+                    destination=(
+                        state_path.parent/"regression-candidates"/
+                        f"{validated_bug['bug_id']}.json"
+                    )
+                if destination is not None:
+                    EXEC.atomic_write_json(destination,packet)
+                    out["regression_promoted"]=True
+                    out["evidence"].append(f"regression candidate: {destination}")
+            else:
+                out["evidence"].append(
+                    "regression candidate not promoted: bug lacks explicit root cause "
+                    "or reproduction evidence"
+                )
     elif assessment["status"]=="unproven":
         out["status"]="escalated"
     elif (
