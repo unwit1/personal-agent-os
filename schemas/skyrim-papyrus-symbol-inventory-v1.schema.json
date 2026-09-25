@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-papyrus-symbol-inventory-v1.schema.json",
+  "title": "Skyrim Papyrus Symbol Inventory v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scripts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-papyrus-symbol-inventory-v1"
+    },
+    "scripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "parent",
+          "properties"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parent": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "type",
+                "required"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "required": {
+                  "type": "boolean"
+                },
+                "auto": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object"
+    }
+  }
+}
