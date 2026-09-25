@@ -66,6 +66,12 @@
             "$ref": "#/$defs/spidEntry"
           },
           {
+            "$ref": "#/$defs/kidEntry"
+          },
+          {
+            "$ref": "#/$defs/bosEntry"
+          },
+          {
             "$ref": "#/$defs/genericEntry"
           }
         ]
@@ -201,6 +207,106 @@
           "type": "string"
         },
         "semantic_action": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "kidEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "keyword",
+        "target_type"
+      ],
+      "properties": {
+        "kind": {
+          "const": "KIDKeyword"
+        },
+        "keyword": {
+          "$ref": "#/$defs/formRef"
+        },
+        "target_type": {
+          "enum": [
+            "Armor",
+            "Weapon",
+            "Ammo",
+            "Magic Effect",
+            "Potion",
+            "Scroll",
+            "Location",
+            "Ingredient",
+            "Book",
+            "Misc Item",
+            "Key",
+            "Soul Gem",
+            "Spell",
+            "Activator",
+            "Flora",
+            "Furniture",
+            "Race",
+            "Talking Activator",
+            "Enchantment"
+          ]
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "traits": {
+          "type": "string"
+        },
+        "chance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "bosEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "base",
+        "swap"
+      ],
+      "properties": {
+        "kind": {
+          "const": "BOSFormSwap"
+        },
+        "base": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/formRef"
+          }
+        },
+        "swap": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/formRef"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties_raw": {
+          "type": "string"
+        },
+        "chance_raw": {
           "type": "string"
         },
         "comment": {
