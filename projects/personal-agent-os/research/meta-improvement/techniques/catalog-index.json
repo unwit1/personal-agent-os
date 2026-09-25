@@ -2,9 +2,9 @@
   "schema": "personal-agent-os/ai-improvement-technique-index/v1",
   "as_of": "2026-09-25",
   "branch": "research/meta-improvement-foundation-20260924",
-  "total_techniques": 355,
+  "total_techniques": 385,
   "first_id": "AIT-0001",
-  "last_id": "AIT-0355",
+  "last_id": "AIT-0385",
   "contiguous_ids": true,
   "unresolved_source_refs": [],
   "catalogs": [
@@ -115,12 +115,23 @@
         "AIT-0326",
         "AIT-0355"
       ]
+    },
+    {
+      "file": "catalog-13-specialized-prompting-behavioral-scaffolds.json",
+      "domain": "specialized_prompting_behavioral_scaffolds",
+      "count": 30,
+      "id_range": [
+        "AIT-0356",
+        "AIT-0385"
+      ]
     }
   ],
   "validation": {
     "duplicate_technique_ids": 0,
     "missing_numeric_ids": 0,
     "unresolved_source_refs": 0,
+    "duplicate_source_ids": 0,
+    "duplicate_source_titles": 0,
     "last_validated_at": "2026-09-25"
   },
   "headline_counts": {
@@ -154,5 +165,10 @@
     "adoption_rule": "An AIT entry is evidence, not an adoption decision. Link it to IMP/HYP/EXP/EVR records before promotion.",
     "negative_evidence": "Consult negative-results/anti-pattern-registry.json before treating any technique as a default.",
     "source_rule": "Every source ID in the current index resolves in sources/source-registry-pass2.json."
+  },
+  "source_registry": {
+    "path": "../sources/source-registry-pass2.json",
+    "source_count": 302,
+    "max_source_id": "SRC-AI-0357"
   }
 }
