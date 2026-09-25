@@ -59,7 +59,7 @@ These are repository counts, not estimates of ecosystem completeness.
 | Auto repair planning | **M4** | Evidence-first planner is typed/tested and selects automatic mutation only when a registered reversible handler and provable postconditions exist. |
 | Auto repair execution | **M4 baseline** | Bounded loop can classify a failed step, select a registered automatic handler, checkpoint outputs/state, invalidate only the downstream closure, rerun via the normal executor, compare postconditions, roll back regressions and escalate unproven results. `--auto-repair` connects this loop to the executor. Current executable mutation coverage is intentionally narrow: generated-output invalidation/regeneration is the registered automatic handler. |
 | Bug → regression learning | **M4** | Regression candidates are typed and successful repairs automatically promote only when explicit root-cause + reproduction evidence already exists. |
-| Packaging/FOMOD | M2 | Gate and architecture exist; deterministic typed FOMOD generator + option-matrix simulator still needed. |
+| Packaging/FOMOD | **M4 baseline** | Typed FOMOD intent, deterministic info.xml/ModuleConfig.xml renderer, vendored MIT ModuleConfig XSD validation, package-source checks, and bounded option-matrix simulation are implemented/tested. Dynamic dependencyType option typing and manager-specific extensions remain out of the conservative baseline. |
 | Release audit/reproducibility | M3 | Build report/provenance/audit schemas exist; final executor integration remains incomplete. |
 | Dependency/license audit | M3 | Policies/validators exist; needs stronger automatic source/license resolution. |
 | Tool/framework update watching | M1/M2 | Version/provenance policy and watchlist exist; recurring automated watcher/regression trigger not finished. |
@@ -167,7 +167,7 @@ Complete typed renderers/generators for:
 - FLM;
 - SkyPatcher;
 - OAR;
-- FOMOD;
+- ✅ FOMOD baseline (typed renderer + XSD validation + option-matrix simulator);
 - common xEdit/Mutagen static patch patterns;
 - MCM Helper config;
 - common SPID/KID/BOS combinations;
