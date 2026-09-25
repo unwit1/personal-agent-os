@@ -1801,6 +1801,128 @@
       "evidence_notes": "800k human step-level correctness labels accompanying Let's Verify Step by Step; repository archived May 29, 2026 but remains a useful historical dataset.",
       "limits": "Math-only labels and archived project.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0184",
+      "title": "OpenAI Function Calling",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/function-calling",
+      "topics": [
+        "tools",
+        "schemas",
+        "function_calling"
+      ],
+      "evidence_notes": "Current API guidance for schema-based tools; recommends tool search/deferred loading for large catalogs.",
+      "limits": "Provider/model-specific behavior evolves.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0185",
+      "title": "OpenAI Tool Search",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/tools-tool-search",
+      "topics": [
+        "tools",
+        "context",
+        "caching"
+      ],
+      "evidence_notes": "Deferred tool loading can reduce upfront schema tokens and preserve cache; namespaces/MCP recommended, with fewer than ~10 functions per namespace as a best-practice target.",
+      "limits": "Only supported by selected newer models; discovery adds a step.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0186",
+      "title": "OpenAI Compaction",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/compaction",
+      "topics": [
+        "context",
+        "long_running_agents"
+      ],
+      "evidence_notes": "Server-side or explicit compaction reduces long-running context while carrying forward needed state; supports threshold-based compaction.",
+      "limits": "Opaque provider compaction must be treated as provider-specific derived state, not canonical memory.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0187",
+      "title": "OpenAI Background Mode",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/background",
+      "topics": [
+        "runtime",
+        "long_running_agents"
+      ],
+      "evidence_notes": "Asynchronous long-running responses can be polled and streaming can resume from sequence cursors.",
+      "limits": "Provider-specific retention and latency behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0188",
+      "title": "OpenAI Model Selection",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/model-selection",
+      "topics": [
+        "routing",
+        "cost",
+        "latency"
+      ],
+      "evidence_notes": "Current guidance explicitly treats model and reasoning effort as cost/latency/quality choices by task.",
+      "limits": "Provider claims are priors; Agent OS needs local workload evals.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0189",
+      "title": "OpenAI Reasoning Models",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/reasoning",
+      "topics": [
+        "reasoning_effort",
+        "cost"
+      ],
+      "evidence_notes": "Current models expose model-dependent reasoning effort/mode controls; higher effort trades latency/tokens for more reasoning.",
+      "limits": "Values/defaults/model support change over time.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0190",
+      "title": "OpenAI Deployment Checklist",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/deployment-checklist",
+      "topics": [
+        "production",
+        "tools",
+        "agents"
+      ],
+      "evidence_notes": "Current production checklist includes deferred tool search and preservation of progress/final-response phase metadata in supported models.",
+      "limits": "Provider-specific.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0191",
+      "title": "OpenAI Using Tools",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/tools",
+      "topics": [
+        "tools",
+        "agents"
+      ],
+      "evidence_notes": "Current overview for built-in tools, functions, tool search, MCP and programmatic tool calling.",
+      "limits": "Provider-specific.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0192",
+      "title": "OpenAI Model Guidance",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/latest-model",
+      "topics": [
+        "models",
+        "routing",
+        "migration"
+      ],
+      "evidence_notes": "Current model-family guidance and migration considerations; emphasizes task requirements, cost and latency rather than one universal model.",
+      "limits": "Vendor guidance and rapid product churn.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
