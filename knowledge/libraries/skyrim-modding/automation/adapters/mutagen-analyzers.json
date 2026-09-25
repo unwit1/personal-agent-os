@@ -1,0 +1,66 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "mutagen-analyzers",
+  "tool": "Mutagen.Bethesda.Analyzers / Antigen",
+  "source": "https://github.com/Mutagen-Modding/Mutagen.Bethesda.Analyzers",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "mod-health-research",
+    "load-order-analysis",
+    "known-bug-catalog",
+    "cli-analysis",
+    "library-analysis",
+    "live-analysis-target"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "C# library/CLI research-stage surfaces",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "plugin/mod/load-order data"
+  ],
+  "outputs": [
+    "analysis findings"
+  ],
+  "logs": [
+    "CLI/application diagnostics"
+  ],
+  "coverage": {
+    "description": "Research-stage Mutagen project cataloging conditions that cause crashes, oddities and atypical mod data, with intended reusable library/CLI access.",
+    "known_gaps": [
+      "upstream explicitly describes the project as research-stage",
+      "analyzer coverage is incomplete and must not be used as the only release gate"
+    ],
+    "denominator_probe": "available analyzer rules vs applicable records/load-order surfaces; findings plus skipped/unsupported count."
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Analysis only."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "mod-factory-analyzer-rules",
+      "runtime-regression-fixtures"
+    ],
+    "version_probe": "source/release commit",
+    "output_readback": "Compare findings with known bad/good fixtures."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Excellent upstream bug-knowledge source and future analyzer backend, but evidence must be triangulated until mature."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Mutagen-Modding/Mutagen.Bethesda.Analyzers",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream goal is programmable CLI/library health analysis; current README still describes the effort as research-stage."
+  }
+}
