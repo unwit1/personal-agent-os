@@ -1,0 +1,170 @@
+{
+  "schema_version": "0.1",
+  "created_at": "2026-09-24",
+  "purpose": "Rank missing supervision rather than merely missing sources.",
+  "gaps": [
+    {
+      "id": "exact_flat_official_print_art",
+      "priority": "critical",
+      "status": "partial",
+      "why": "Assembled renders hide curvature and back/side regions; flat maps are strongest supervision for template generation.",
+      "sources": [
+        "LDraw patterns",
+        "Mecabricks official decorations/UV layouts subject to terms",
+        "rioforce LEGO-Textures",
+        "game texture files",
+        "BrickLink Studio reference templates"
+      ],
+      "next_actions": [
+        "rights review Mecabricks bulk use",
+        "index rioforce minifigure-related SVGs",
+        "crosswalk each flat map to physical component ID"
+      ]
+    },
+    {
+      "id": "source_to_lego_translation_pairs",
+      "priority": "critical",
+      "status": "major_gap",
+      "why": "Directly teaches which source details LEGO preserves/simplifies/omits/moves to mould/accessory.",
+      "sources": [
+        "Fortnite Outfit -> LEGO Style pairs",
+        "Star Wars designer reference material + physical figures",
+        "official film/game/source images paired to licensed LEGO figures",
+        "Wednesday/Nightmare/BTS/Viking/Pirates designer articles"
+      ],
+      "next_actions": [
+        "build automatic Fortnite pair census",
+        "create licensor-source registry",
+        "populate exactness/confidence"
+      ]
+    },
+    {
+      "id": "multi_view_physical_ground_truth",
+      "priority": "critical",
+      "status": "major_gap",
+      "why": "Front catalog renders cannot teach backs, sides, wraps or mask geometry.",
+      "sources": [
+        "user controlled photography",
+        "BrickLink component images",
+        "Mecabricks/LDraw reconstructed views",
+        "licensed catalog books where permitted"
+      ],
+      "next_actions": [
+        "build capture rig/protocol",
+        "prioritize rare figures missing side/back references",
+        "component-level macro captures"
+      ]
+    },
+    {
+      "id": "facial_expression_landmarks_and_labels",
+      "priority": "very_high",
+      "status": "partial",
+      "why": "Official-looking faces depend on tiny landmark relationships that generic image embeddings do not explain.",
+      "sources": [
+        "Bartneck 627/722 expression research",
+        "physical head catalog",
+        "LDraw/Mecabricks/rioforce head patterns",
+        "DK/Bartneck head photography"
+      ],
+      "next_actions": [
+        "seek/request underlying research data",
+        "derive eye/brow/mouth landmarks from official head crops",
+        "stratify by era/theme/skin-tone system"
+      ]
+    },
+    {
+      "id": "mask_headgear_decision_pairs",
+      "priority": "very_high",
+      "status": "partial",
+      "why": "Need examples where source design became print, existing headgear, new mould, or hybrid.",
+      "sources": [
+        "Fortnite pairs",
+        "official superhero/Star Wars figures",
+        "game-only digital designs",
+        "license-filtered community geometry as negative/alternative examples"
+      ],
+      "next_actions": [
+        "label route on official TranslationPairs",
+        "measure silhouette dependence vs graphic dependence"
+      ]
+    },
+    {
+      "id": "official_digital_only_variants",
+      "priority": "very_high",
+      "status": "partial",
+      "sources": [
+        "Skywalker Saga icons/assets",
+        "TT game assets",
+        "LEGO Fortnite/UEFN styles",
+        "LEGO Universe",
+        "legacy web games"
+      ],
+      "next_actions": [
+        "controlled UEFN capture",
+        "extract local game textures/models",
+        "crosswalk physical counterparts"
+      ]
+    },
+    {
+      "id": "custom_style_extensions",
+      "priority": "high_after_official_baseline",
+      "status": "large_unscored_pool",
+      "sources": [
+        "Bob's Customs",
+        "rioforce scans where applicable",
+        "SVG decal repository",
+        "Flickr/Eurobricks makers",
+        "priority current customizers"
+      ],
+      "next_actions": [
+        "score against nearest official profile",
+        "admit only novel patterns",
+        "retain failures as negative examples"
+      ]
+    },
+    {
+      "id": "negative_controls",
+      "priority": "high",
+      "status": "underdeveloped",
+      "sources": [
+        "purist minifigs",
+        "over-detailed customs",
+        "incorrect AI generations",
+        "wrong mask-route generations",
+        "generic non-LEGO toy renders"
+      ],
+      "next_actions": [
+        "label failure type",
+        "balance against positive official samples",
+        "use in preference/critic training rather than style imitation"
+      ]
+    },
+    {
+      "id": "production_template_alignment",
+      "priority": "high",
+      "status": "partial",
+      "sources": [
+        "BrickLink Studio templates",
+        "Mecabricks UV layouts",
+        "physical measurement",
+        "AV/Bob/custom decal layouts"
+      ],
+      "next_actions": [
+        "normalize to millimeter surface coordinates",
+        "validate print survivability",
+        "separate research template from production template"
+      ]
+    },
+    {
+      "id": "copyright_and_license_metadata",
+      "priority": "critical",
+      "status": "ongoing",
+      "why": "Long-lived research requires knowing what can be cached, trained on, redistributed or commercialized.",
+      "next_actions": [
+        "store license per asset/source occurrence",
+        "snapshot terms/version",
+        "separate thesis-only from business-eligible data"
+      ]
+    }
+  ]
+}
