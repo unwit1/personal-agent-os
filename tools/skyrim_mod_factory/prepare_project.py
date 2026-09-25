@@ -38,6 +38,10 @@ DOCTOR = load_module("doctor", "doctor_toolchain.py")
 READINESS = load_module("readiness", "resolve_implementation_readiness.py")
 TEST_MATRIX = load_module("test_matrix", "derive_test_matrix.py")
 SELECTOR = load_module("selector", "select_implementation_pattern.py")
+RUNTIME_SMOKE = load_module("runtime_smoke", "derive_runtime_smoke.py")
+RUNTIME_CONTEXT = load_module(
+    "runtime_context", "build_runtime_execution_context.py"
+)
 
 
 def uniq(xs):
@@ -270,6 +274,26 @@ def main():
     )
     ap.add_argument("--toolchain-lock", type=Path)
     ap.add_argument(
+        "--runtime-worker-config",
+        type=Path,
+        help="Optional skyrim-runtime-worker-config-v1 used to generate executable runtime context.",
+    )
+    ap.add_argument(
+        "--runtime-regression-test",
+        type=Path,
+        help="Optional typed feature/regression runtime test bound to runtime.regression.",
+    )
+    ap.add_argument(
+        "--runtime-context-base",
+        type=Path,
+        help="Optional base skyrim-execution-context-v1 merged with generated runtime wiring.",
+    )
+    ap.add_argument(
+        "--runtime-run-root",
+        type=Path,
+        help="Runtime result root. Defaults to <workspace>/runtime-runs.",
+    )
+    ap.add_argument(
         "--feature-intent",
         type=Path,
         help="Optional skyrim-feature-intent-v1 document used for pattern selection/readiness/tests.",
@@ -309,6 +333,20 @@ def main():
         effective_manifest, quality=quality, feature=feature, toolchain=lock
     )
     test_matrix = TEST_MATRIX.derive(effective_manifest, feature)
+    runtime_smoke = RUNTIME_SMOKE.derive(effective_manifest)
+
+    runtime_regression = None
+    if args.runtime_regression_test:
+        runtime_regression = load_json(args.runtime_regression_test)
+        RUNTIME_CONTEXT.validate(
+            runtime_regression,
+            RUNTIME_CONTEXT.RUNTIME_TEST_SCHEMA,
+            f"runtime regression test {args.runtime_regression_test}",
+        )
+        if runtime_regression.get("project_id") != effective_manifest.get("project_id"):
+            raise SystemExit(
+                "Runtime regression test project_id does not match effective manifest"
+            )
 
     epath = args.workspace / "effective-manifest.json"
     ppath = args.workspace / "pattern-selection.json"
@@ -316,6 +354,8 @@ def main():
     dpath = args.workspace / "build-dag.json"
     ipath = args.workspace / "implementation-readiness.json"
     tpath = args.workspace / "test-matrix.json"
+    spath = args.workspace / "runtime-smoke.json"
+    cpath = args.workspace / "execution-context.json"
     rpath = args.workspace / "preparation-report.json"
 
     epath.write_text(json.dumps(effective_manifest, indent=2) + "\n", encoding="utf-8")
@@ -325,6 +365,47 @@ def main():
     dpath.write_text(json.dumps(dag, indent=2) + "\n", encoding="utf-8")
     ipath.write_text(json.dumps(readiness, indent=2) + "\n", encoding="utf-8")
     tpath.write_text(json.dumps(test_matrix, indent=2) + "\n", encoding="utf-8")
+    spath.write_text(json.dumps(runtime_smoke, indent=2) + "\n", encoding="utf-8")
+
+    runtime_nodes = [
+        n for n in dag.get("nodes", [])
+        if n.get("phase") == "runtime" and n.get("gates")
+    ]
+    required_runtime_ids = [n["id"] for n in runtime_nodes]
+    runtime_bindings = {}
+    if "runtime.smoke" in required_runtime_ids:
+        runtime_bindings["runtime.smoke"] = spath
+    if "runtime.regression" in required_runtime_ids and args.runtime_regression_test:
+        runtime_bindings["runtime.regression"] = args.runtime_regression_test
+    unbound_runtime_ids = [
+        node_id for node_id in required_runtime_ids
+        if node_id not in runtime_bindings
+    ]
+
+    runtime_context = None
+    if args.runtime_worker_config:
+        runtime_context = RUNTIME_CONTEXT.build_context(
+            project_id=effective_manifest.get("project_id"),
+            dag=dag,
+            worker_config_path=args.runtime_worker_config,
+            run_root=args.runtime_run_root or (args.workspace / "runtime-runs"),
+            smoke_test=runtime_bindings.get("runtime.smoke"),
+            regression_test=runtime_bindings.get("runtime.regression"),
+            base_context=load_json(args.runtime_context_base),
+        )
+        cpath.write_text(
+            json.dumps(runtime_context, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+    runtime_execution_ready = (
+        not required_runtime_ids
+        or (
+            args.runtime_worker_config is not None
+            and not unbound_runtime_ids
+            and runtime_context is not None
+        )
+    )
 
     blocking_provider_issues = [
         x for x in quality.get("provider_issues", []) if x.startswith("preferred:")
@@ -340,7 +421,7 @@ def main():
         and not quality.get("pattern_issues")
         and not blocking_provider_issues
     )
-    supervised_ready = design_ok and environment_ok
+    supervised_ready = design_ok and environment_ok and runtime_execution_ready
     autonomous_ready = supervised_ready and not quality.get("unadapted_providers")
     autonomous_resolution_ready = (
         environment_ok
@@ -380,6 +461,19 @@ def main():
         "test_coverage_gaps": test_matrix.get("coverage", {}).get("gaps", []),
         "dag_nodes": len(dag["nodes"]),
         "toolchain": doctor,
+        "runtime_execution": {
+            "required_nodes": required_runtime_ids,
+            "bound_nodes": sorted(runtime_bindings),
+            "unbound_nodes": unbound_runtime_ids,
+            "worker_config": (
+                str(args.runtime_worker_config)
+                if args.runtime_worker_config else None
+            ),
+            "execution_context": (
+                str(cpath) if runtime_context is not None else None
+            ),
+            "ready": runtime_execution_ready,
+        },
         "ready_for_execution": supervised_ready,
         "ready_for_autonomous_execution": autonomous_ready,
         "ready_for_autonomous_resolution": autonomous_resolution_ready,
@@ -391,6 +485,14 @@ def main():
             "build_dag": str(dpath),
             "implementation_readiness": str(ipath),
             "test_matrix": str(tpath),
+            "runtime_smoke": str(spath),
+            "runtime_regression": (
+                str(args.runtime_regression_test)
+                if args.runtime_regression_test else None
+            ),
+            "execution_context": (
+                str(cpath) if runtime_context is not None else None
+            ),
         },
     }
     rpath.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
