@@ -1,0 +1,97 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "typed-fomod-generator",
+  "tool": "Agent OS typed FOMOD generator",
+  "tool_version": "1.0",
+  "source": "tools/skyrim_mod_factory/render_fomod.py",
+  "targets": [
+    "skyrim-le",
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "fomod-render",
+    "fomod-xsd-validation",
+    "package-source-validation",
+    "installer-metadata",
+    "installer-option-groups",
+    "conditional-installs"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "{python_executable}",
+    "arguments_template": [
+      "{repo_root}/tools/skyrim_mod_factory/render_fomod.py",
+      "{fomod_intent}",
+      "--output-dir",
+      "{package_root}",
+      "--package-root",
+      "{package_root}"
+    ],
+    "transport": "typed JSON intent -> deterministic XML -> vendored MIT ModConfig XSD validation",
+    "requires_running_game": false,
+    "timeout_seconds": 120
+  },
+  "inputs": [
+    "skyrim-fomod-intent-v1 JSON",
+    "package source tree"
+  ],
+  "outputs": [
+    "fomod/info.xml",
+    "fomod/ModuleConfig.xml"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [
+    "overwriting an existing fomod/info.xml or fomod/ModuleConfig.xml at the selected generated package root"
+  ],
+  "human_checks": [
+    "installer copy and option wording remain presentation choices even when structure validates"
+  ],
+  "coverage": {
+    "description": "Conservative FOMOD 5.0-compatible subset covering metadata, dependencies, required files, install steps/groups/options, flags and conditional installs.",
+    "known_gaps": [
+      "dependency-driven dynamic option typeDescriptor is not yet emitted",
+      "mod-manager-specific extensions outside the maintained schema are intentionally excluded"
+    ],
+    "denominator_probe": "all referenced package sources are checked when --package-root is provided; ModuleConfig must validate against vendored XSD"
+  },
+  "safety": {
+    "mutation_default": "generated-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Write only inside the generated package root; source references must be relative and traversal-free."
+  },
+  "verification": {
+    "independent_validators": [
+      "fomod-matrix-simulator"
+    ],
+    "version_probe": "Vendored dh-nunes/fomod-schema ModuleConfig.xsd with preserved MIT license",
+    "output_readback": "Reload XML, validate ModuleConfig against pinned XSD, and simulate option matrix before packaging."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Generate from compact typed intent; do not ask a model to hand-author large XML trees."
+  },
+  "evidence": {
+    "source_url": "https://github.com/dh-nunes/fomod-schema",
+    "verified_date": "2026-09-25",
+    "notes": "Exact MIT ModuleConfig schema is vendored under third_party/fomod-schema."
+  }
+}
