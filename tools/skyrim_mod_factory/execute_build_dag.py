@@ -634,6 +634,8 @@ def main()->None:
     ap.add_argument("--gate-registry",type=Path,default=DEFAULT_GATE_REGISTRY)
     ap.add_argument("--run-dir",type=Path,required=True)
     ap.add_argument("--report",type=Path)
+    ap.add_argument("--state",type=Path)
+    ap.add_argument("--no-resume",action="store_true")
     ap.add_argument("--git-commit")
     ap.add_argument("--execute",action="store_true")
     args=ap.parse_args()
@@ -663,6 +665,14 @@ def main()->None:
     step_dir.mkdir(parents=True,exist_ok=True)
     log_dir.mkdir(parents=True,exist_ok=True)
     report_path=args.report or (args.run_dir/"build-report.json")
+    state_path=args.state or (args.run_dir/"execution-state.json")
+    if args.no_resume:
+        execution_state=new_execution_state(manifest.get("project_id"))
+    else:
+        execution_state=load_execution_state(state_path,manifest.get("project_id"))
+    if not execution_state.get("build_id"):
+        execution_state["build_id"]=str(uuid.uuid4())
+    save_execution_state(state_path,execution_state)
 
     capability_map=load_capability_map(args.capabilities)
     gate_registry=load_json(args.gate_registry)
@@ -673,11 +683,30 @@ def main()->None:
 
     started=now()
     steps_by_id={}
+    node_fingerprints={}
     agent_actions=[]
     hard_stop=False
 
     for node in ordered:
-        if hard_stop:
+        fingerprint=compute_node_fingerprint(
+            node,
+            manifest=manifest,
+            quality=quality,
+            lock=lock,
+            context=context,
+            capability_map=capability_map,
+            adapter_dir=args.adapter_dir,
+            gate_registry=gate_registry,
+            dependency_fingerprints=node_fingerprints,
+        )
+        node_fingerprints[node["id"]]=fingerprint
+        reused=None if args.no_resume else reusable_prior_step(
+            node,fingerprint,execution_state
+        )
+
+        if reused is not None:
+            step=reused
+        elif hard_stop:
             step=simple_step(node,"skipped",["execution stopped after prior failure"])
         else:
             blocked=blocked_by_dependencies(node,steps_by_id,continue_review)
@@ -716,8 +745,16 @@ def main()->None:
                 hard_stop=True
 
         steps_by_id[node["id"]]=step
+        checkpoint_node(
+            execution_state,
+            node=node,
+            fingerprint=fingerprint,
+            step=step,
+            context=context,
+        )
+        save_execution_state(state_path,execution_state)
         safe=re.sub(r"[^A-Za-z0-9_.-]+","_",node["id"])
-        (step_dir/f"{safe}.json").write_text(json.dumps(step,indent=2)+"\n",encoding="utf-8")
+        atomic_write_json(step_dir/f"{safe}.json",step)
         if step.get("adapter_id"):
             agent_actions.append({
                 "adapter_id":step["adapter_id"],
@@ -734,7 +771,7 @@ def main()->None:
     report={
         "schema_version":"skyrim-mod-build-report-v1",
         "project_id":manifest.get("project_id"),
-        "build_id":str(uuid.uuid4()),
+        "build_id":execution_state["build_id"],
         "git_commit":args.git_commit,
         "manifest_sha256":sha256(args.manifest),
         "started_at":started,
@@ -794,6 +831,11 @@ def main()->None:
         "failed":sum(x=="failed" for x in statuses),
         "needs_review":sum(x=="needs-review" for x in statuses),
         "skipped":sum(x=="skipped" for x in statuses),
+        "resumed":sum(
+            bool((x.get("evidence") or {}).get("resumed_from_state"))
+            for x in steps
+        ),
+        "execution_state":str(state_path),
         "report":str(report_path),
     },indent=2))
 
