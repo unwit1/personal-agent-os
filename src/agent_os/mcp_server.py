@@ -5,6 +5,9 @@ import sys
 from pathlib import Path
 from typing import Any, Callable
 
+from .browser_control import command_status as browser_command_status
+from .browser_control import execute as browser_execute
+from .browser_control import sessions as browser_sessions
 from .candidates import stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, search_changes, update_change
 from .chat import context as chat_context
@@ -94,6 +97,78 @@ from .workflows import (
 
 
 TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "browser.sessions": {
+        "description": "List live Agent OS browser sessions registered by the Firefox/Tampermonkey bridge. Use this before browser.execute to choose the correct current tab/session.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "active_only": {"type": "boolean", "default": True},
+                "active_within_seconds": {"type": "integer", "minimum": 5, "maximum": 86400, "default": 90}
+            }
+        },
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "openWorldHint": False
+        }
+    },
+    "browser.execute": {
+        "description": "Run bounded DOM/browser actions in one registered Firefox/Tampermonkey session. Supported ops: inspect, extract, wait, click, type, scroll, navigate, back, forward, reload, open_tab. The browser-side safety gate blocks sensitive credential/payment fields and pauses risky submit/send/delete/purchase-style clicks unless approved_consequential=true. Use only when the user asked to operate their browser.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "session_id": {"type": "string"},
+                "actions": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 25,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "op": {"type": "string"},
+                            "selector": {"type": "string"},
+                            "text": {"type": "string"},
+                            "url": {"type": "string"},
+                            "attribute": {"type": "string"},
+                            "x": {"type": "number"},
+                            "y": {"type": "number"},
+                            "timeout_ms": {"type": "integer"}
+                        },
+                        "required": ["op"],
+                        "additionalProperties": True
+                    }
+                },
+                "issued_by": {"type": "string", "default": "chatgpt"},
+                "approved_consequential": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": "Set true only after the user has explicitly approved the consequential action that previously returned approval_required."
+                },
+                "wait_seconds": {"type": "number", "minimum": 0, "maximum": 30, "default": 12}
+            },
+            "required": ["session_id", "actions"]
+        },
+        "annotations": {
+            "readOnlyHint": False,
+            "destructiveHint": False,
+            "openWorldHint": True
+        }
+    },
+    "browser.command_status": {
+        "description": "Read the result/state of a previously queued browser command without creating a duplicate action.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "command_id": {"type": "string"}
+            },
+            "required": ["command_id"]
+        },
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "openWorldHint": False
+        }
+    },
     "agent.context": {
         "description": "Resolve one likely project and return a compact, token-budgeted context packet. Use this first for substantial project work.",
         "inputSchema": {
@@ -515,6 +590,9 @@ TOOL_SCHEMAS.update(ORCHESTRATE_TOOL_SCHEMAS)
 
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
+        "browser.sessions": browser_sessions,
+        "browser.execute": browser_execute,
+        "browser.command_status": browser_command_status,
         "project.list": lambda: projects(),
         "project.identify": lambda path: identify_project(Path(path)),
         "project.status": lambda project: {"state": load_state(get_project(project)), "git": git_status(get_project(project))},
@@ -630,6 +708,9 @@ SERVER_CAPABILITIES = {"tools": {"listChanged": False}}
 # otherwise offers the newest one, which is what the MCP lifecycle requires.
 SUPPORTED_PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")
 INSTRUCTIONS = (
+    "Use browser.sessions before browser.execute whenever the user asks you to operate their registered Firefox browser. "
+    "Use browser.execute only for browser actions the user requested. If it returns approval_required, explain the pending action and call it again with approved_consequential=true only after explicit user approval. "
+    "Never request, extract, or type passwords, payment-card data, security codes, or other authentication secrets through browser.execute. "
     "Use agent.context first for substantial project work. It retrieves compact context only. "
     "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory. "
     "Use connector.list to discover registered connector metadata; credential references stay local."
