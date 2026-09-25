@@ -248,7 +248,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0117.",
+        "summary": "Evidence basis: SRC-AI-0148, SRC-AI-0117.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -273,6 +273,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
+        "SRC-AI-0148",
         "SRC-AI-0117"
       ],
       "keywords": [
@@ -617,7 +618,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0119.",
+        "summary": "Evidence basis: SRC-AI-0152, SRC-AI-0119.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -644,6 +645,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
+        "SRC-AI-0152",
         "SRC-AI-0119"
       ],
       "keywords": [
@@ -710,7 +712,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0119.",
+        "summary": "Evidence basis: SRC-AI-0149.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -733,7 +735,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0119"
+        "SRC-AI-0149"
       ],
       "keywords": [
         "STaR",
@@ -755,7 +757,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0120.",
+        "summary": "Evidence basis: SRC-AI-0150.",
         "limitations": []
       },
       "agent_os_fit": "unlikely",
@@ -779,7 +781,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0120"
+        "SRC-AI-0150"
       ],
       "keywords": [
         "Quiet_STaR"
@@ -1021,7 +1023,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0117.",
+        "summary": "Evidence basis: SRC-AI-0153, SRC-AI-0117.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -1045,6 +1047,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
+        "SRC-AI-0153",
         "SRC-AI-0117"
       ],
       "keywords": [
@@ -1111,7 +1114,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0121.",
+        "summary": "Evidence basis: SRC-AI-0151.",
         "limitations": []
       },
       "agent_os_fit": "unlikely",
@@ -1135,7 +1138,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0121"
+        "SRC-AI-0151"
       ],
       "keywords": [
         "MoE",
