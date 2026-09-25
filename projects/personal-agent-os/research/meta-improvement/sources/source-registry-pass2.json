@@ -3550,6 +3550,74 @@
       "evidence_notes": "Uses scenario simulation and information-gain-style uncertainty rewards to choose follow-up questions; reported higher task success and question efficiency across multiple interactive tasks/models.",
       "limits": "Simulation quality and uncertainty estimate can be wrong; medical examples do not justify clinical use.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0314",
+      "title": "KLEE: Unassisted and Automatic Generation of High-Coverage Tests for Complex Systems Programs",
+      "type": "research",
+      "url": "https://www.usenix.org/conference/osdi-08/klee-unassisted-and-automatic-generation-high-coverage-tests-complex-systems",
+      "topics": [
+        "symbolic_execution",
+        "test_generation"
+      ],
+      "evidence_notes": "Symbolically executes program paths and uses constraint solving to generate high-coverage tests; found longstanding real bugs in mature utilities.",
+      "limits": "Path explosion and environment modeling constrain scale.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0315",
+      "title": "AddressSanitizer: A Fast Address Sanity Checker",
+      "type": "research",
+      "url": "https://www.usenix.org/conference/atc12/technical-sessions/presentation/serebryany",
+      "topics": [
+        "sanitizers",
+        "memory_safety",
+        "testing"
+      ],
+      "evidence_notes": "Compiler instrumentation detects out-of-bounds/use-after-free errors at runtime with practical overhead and has found many production bugs.",
+      "limits": "Primarily native-memory bugs; not directly relevant to pure Python unless native extensions are involved.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0316",
+      "title": "CodeQL Documentation",
+      "type": "official",
+      "url": "https://codeql.github.com/docs/",
+      "topics": [
+        "static_analysis",
+        "security",
+        "code_query"
+      ],
+      "evidence_notes": "Queries code as data to identify vulnerability patterns across supported languages; current documentation includes security/quality query suites.",
+      "limits": "Static analysis has false positives/coverage limits and only supports specific languages/frameworks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0317",
+      "title": "Software testing with QuickCheck",
+      "type": "research",
+      "url": "https://research.chalmers.se/en/publication/154999",
+      "topics": [
+        "property_testing",
+        "state_machine_testing"
+      ],
+      "evidence_notes": "Property-based generators and state-machine models test broad input/state spaces rather than fixed examples.",
+      "limits": "Quality depends on properties/generators and generated cases may miss semantically important regions.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0318",
+      "title": "Semantic Entropy for Hallucination Detection",
+      "type": "research",
+      "url": "https://www.nature.com/articles/s41586-024-07421-0",
+      "topics": [
+        "uncertainty",
+        "semantic_entropy",
+        "hallucination"
+      ],
+      "evidence_notes": "Clusters sampled answers by semantic meaning and estimates entropy over meanings; reported stronger detection of confabulations than several baselines across tasks/models.",
+      "limits": "Requires multiple samples/semantic clustering and only targets uncertainty-driven confabulation, not systematic confidently wrong answers.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
