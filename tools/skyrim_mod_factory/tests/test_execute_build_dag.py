@@ -422,5 +422,67 @@ class ExecuteBuildDagTests(unittest.TestCase):
             self.assertTrue(all(step["status"]=="passed" for step in report["steps"]))
             self.assertTrue(all(step["outputs_after"][0]["exists"] for step in report["steps"]))
 
+    def test_artifact_contract_accepts_schema_valid_json(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            artifact=root/"dag.json"
+            artifact.write_text(json.dumps({
+                "schema_version":"skyrim-build-dag-v1",
+                "project_id":"fixture",
+                "nodes":[],
+            }),encoding="utf-8")
+            node={"id":"generate.fixture"}
+            context={"nodes":{"generate.fixture":{"artifact_contracts":[{
+                "path":str(artifact),
+                "validator":"json-schema",
+                "schema":"skyrim-build-dag-v1.schema.json",
+            }]}}}
+            step={"id":"generate.fixture","status":"passed","issues":[]}
+            checked=MOD.enforce_artifact_contracts(step,node,context)
+            self.assertEqual(checked["status"],"passed")
+            self.assertEqual(
+                checked["evidence"]["artifact_contracts"][0]["status"],
+                "pass",
+            )
+
+    def test_artifact_contract_fails_schema_invalid_json(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            artifact=root/"dag.json"
+            artifact.write_text(json.dumps({
+                "schema_version":"wrong",
+                "project_id":"fixture",
+                "nodes":[],
+            }),encoding="utf-8")
+            node={"id":"generate.fixture"}
+            context={"nodes":{"generate.fixture":{"artifact_contracts":[{
+                "path":str(artifact),
+                "validator":"json-schema",
+                "schema":"skyrim-build-dag-v1.schema.json",
+            }]}}}
+            step={"id":"generate.fixture","status":"passed","issues":[]}
+            checked=MOD.enforce_artifact_contracts(step,node,context)
+            self.assertEqual(checked["status"],"failed")
+            self.assertIn("artifact contract failed",checked["issues"][0])
+
+    def test_optional_missing_artifact_contract_does_not_fail(self):
+        with tempfile.TemporaryDirectory() as td:
+            artifact=Path(td)/"missing.json"
+            node={"id":"generate.fixture"}
+            context={"nodes":{"generate.fixture":{"artifact_contracts":[{
+                "path":str(artifact),
+                "validator":"json-schema",
+                "schema":"skyrim-build-dag-v1.schema.json",
+                "required":False,
+            }]}}}
+            step={"id":"generate.fixture","status":"passed","issues":[]}
+            checked=MOD.enforce_artifact_contracts(step,node,context)
+            self.assertEqual(checked["status"],"passed")
+            self.assertEqual(
+                checked["evidence"]["artifact_contracts"][0]["status"],
+                "not-applicable",
+            )
+
+
 if __name__=="__main__":
     unittest.main()
