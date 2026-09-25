@@ -143,9 +143,14 @@ class Exporter:
     def is_done(self, source_id: str) -> bool:
         return self.conn.execute("SELECT 1 FROM done WHERE source_id=?", (source_id,)).fetchone() is not None
 
-    def export(self, raw: bytes, source_id: str) -> int:
-        """Save this message's attachments; returns how many new files."""
-        if self.is_done(source_id):
+    def export(self, raw: bytes, source_id: str, *, reconcile_occurrences: bool = False) -> int:
+        """Save this message's attachments; returns how many new files.
+
+        With ``reconcile_occurrences`` an already-completed message is parsed
+        again so the occurrence table can be rebuilt without rewriting any
+        attachment whose content hash is already present.
+        """
+        if self.is_done(source_id) and not reconcile_occurrences:
             return 0
         message = email.message_from_bytes(raw, policy=default_policy)
         when = email_date(str(message.get("Date") or ""))
@@ -192,9 +197,15 @@ class Exporter:
         return saved
 
 
-def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int = 50, root: Path | None = None) -> dict[str, Any]:
-    """Download attachments for mail that was indexed before exporting was on:
-    re-reads (read-only) only messages the index says carry attachments."""
+def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int = 50, root: Path | None = None,
+                        reconcile_occurrences: bool = False) -> dict[str, Any]:
+    """Download attachments for indexed live mail.
+
+    Normally only sources not already marked done are re-read. With
+    ``reconcile_occurrences`` every attachment-bearing live source is re-read
+    over read-only IMAP so provenance can be reconstructed for duplicate files
+    exported before occurrence tracking existed.
+    """
     from .accounts import get_secret
     from .imap import connect
     from .scopes import accounts_in
@@ -209,7 +220,7 @@ def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int =
                 (account.id,)).fetchall()
             pending: dict[tuple[str, str], list[tuple[int, str]]] = {}
             for row in rows:
-                if not exporter.is_done(row["id"]):
+                if reconcile_occurrences or not exporter.is_done(row["id"]):
                     pending.setdefault((row["mailbox"], row["uidvalidity"]), []).append((int(row["uid"]), row["id"]))
             summary = {"account_id": account.id, "messages": sum(len(items) for items in pending.values()), "errors": 0}
             if pending:
@@ -227,11 +238,11 @@ def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int =
                             try:
                                 for record in client.fetch(uids[start:start + batch], body=True):
                                     if record.raw is not None and record.uid in by_uid:
-                                        exporter.export(record.raw, by_uid[record.uid])
+                                        exporter.export(record.raw, by_uid[record.uid], reconcile_occurrences=reconcile_occurrences)
                             except Exception:
                                 summary["errors"] += len(uids[start:start + batch])
                 finally:
                     client.logout()
             results.append(summary)
         counts = dict(exporter.counts)
-    return {"scope": scope, "accounts": results, **counts, "folder": str(Path(root or default_root()) / SCOPE_FOLDERS[scope])}
+    return {"scope": scope, "accounts": results, **counts, "reconciled_occurrences": bool(reconcile_occurrences), "folder": str(Path(root or default_root()) / SCOPE_FOLDERS[scope])}
