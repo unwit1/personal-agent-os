@@ -218,6 +218,46 @@ def copy_fixture(
         "sha256":sha256_file(destination),
     }
 
+def path_matches_source(path_text:str,source_text:str)->bool:
+    path=Path(path_text)
+    source=Path(source_text)
+    path_norm=str(path.resolve()).replace("\\","/").lower()
+    source_raw=str(source).replace("\\","/")
+    if any(ch in source_raw for ch in "*?[]"):
+        if Path(source_raw).is_absolute():
+            pattern=str(Path(source_raw)).replace("\\","/").lower()
+        else:
+            pattern=str(Path(source_raw).resolve()).replace("\\","/").lower()
+        return fnmatch.fnmatchcase(path_norm,pattern)
+    if source.is_dir():
+        return is_within(path,[source])
+    try:
+        return path.resolve()==source.resolve()
+    except OSError:
+        return False
+
+def source_root_exists(source_text:str)->bool:
+    raw=str(source_text)
+    if not any(ch in raw for ch in "*?[]"):
+        path=Path(raw)
+        return path.exists() if path.is_dir() else path.parent.exists()
+    wildcard_positions=[raw.find(ch) for ch in "*?[" if ch in raw]
+    cut=min(x for x in wildcard_positions if x>=0)
+    prefix=raw[:cut]
+    root=Path(prefix).parent
+    return root.exists()
+
+def validate_g19_source_coverage(config:dict[str,Any])->list[str]:
+    cfg=config.get("evidence") or {}
+    issues=[]
+    for raw in cfg.get("log_paths") or []:
+        if not expand_paths([raw]):
+            issues.append(f"configured runtime log source has no readable file match: {raw}")
+    for raw in cfg.get("crash_paths") or []:
+        if not source_root_exists(raw):
+            issues.append(f"configured crash evidence root is unavailable: {raw}")
+    return issues
+
 def expand_paths(patterns:list[str])->list[Path]:
     found=[]
     for raw in patterns:
@@ -362,6 +402,14 @@ def evaluate_g19(
     configured_sources=bool(
         cfg.get("log_paths") or cfg.get("crash_paths")
     )
+    coverage_issues=validate_g19_source_coverage(config)
+    if coverage_issues:
+        return {
+            "gate":"G19",
+            "status":"needs-review",
+            "evidence":[],
+            "issues":coverage_issues,
+        }
     if not configured_sources:
         return {
             "gate":"G19",
@@ -663,14 +711,16 @@ def run_session(
     delta=evidence_delta(before,after)
     captured=copy_changed_evidence(delta,session_dir)
     result["evidence"]["artifacts"]=captured
-    crash_roots=[str(Path(x)) for x in (config.get("evidence") or {}).get("crash_paths") or []]
-    frame_roots=[str(Path(x)) for x in (config.get("evidence") or {}).get("frame_trace_paths") or []]
+    crash_sources=list((config.get("evidence") or {}).get("crash_paths") or [])
+    frame_sources=list((config.get("evidence") or {}).get("frame_trace_paths") or [])
     result["evidence"]["crash_delta"]=[
-        x for x in captured if any(x["path"].startswith(root) for root in crash_roots)
+        x for x in captured
+        if any(path_matches_source(x["path"],source) for source in crash_sources)
     ]
     result["evidence"]["frame_traces"]=[
         x.get("captured_path") for x in captured
-        if x.get("captured_path") and any(x["path"].startswith(root) for root in frame_roots)
+        if x.get("captured_path")
+        and any(path_matches_source(x["path"],source) for source in frame_sources)
     ]
     result["evidence"]["log_delta"]=[
         x for x in captured
