@@ -1,0 +1,922 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "human_proactivity_ux",
+  "techniques": [
+    {
+      "id": "AIT-0156",
+      "name": "Mixed-initiative control",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "agents"
+      ],
+      "goal": "Let human and agent contribute where each is strongest",
+      "mechanism": "Dynamically choose automation, suggestion, question, or direct manipulation based on uncertainty, cost and authority.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Core proactivity principle: autonomy level is a decision, not a fixed setting.",
+      "use_when": [
+        "Personal assistant",
+        "Complex work"
+      ],
+      "avoid_when": [
+        "Fully deterministic background maintenance"
+      ],
+      "required_evals": [
+        "user effort",
+        "override rate",
+        "task success"
+      ],
+      "risks": [
+        "Wrong initiative timing",
+        "loss of control"
+      ],
+      "cost_profile": "design complexity",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "mixed_initiative"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0157",
+      "name": "Interruption-cost-aware alerting",
+      "aliases": [],
+      "category": "proactivity",
+      "layer": [
+        "human_system",
+        "proactivity"
+      ],
+      "goal": "Surface information only when value exceeds disruption",
+      "mechanism": "Estimate urgency/value of alert and user's likely interruption cost; delay/batch when appropriate.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use immediate/digest/queue/do-nothing action classes.",
+      "use_when": [
+        "Reminders",
+        "proactive insights",
+        "research radar"
+      ],
+      "avoid_when": [
+        "Critical safety/deadline event where delay cost dominates"
+      ],
+      "required_evals": [
+        "acted-on rate",
+        "dismissal",
+        "time-to-action",
+        "fatigue"
+      ],
+      "risks": [
+        "Bad context estimate misses urgent item"
+      ],
+      "cost_profile": "low runtime; model optional",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "interruption_cost",
+        "alerting"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0158",
+      "name": "Notification batching / digest",
+      "aliases": [],
+      "category": "proactivity",
+      "layer": [
+        "human_system",
+        "proactivity"
+      ],
+      "goal": "Reduce repeated low-value interruptions",
+      "mechanism": "Accumulate nonurgent related items and summarize at natural review times.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Urgency classifier can promote item out of digest.",
+      "use_when": [
+        "Research radar",
+        "low-urgency reminders",
+        "after-hours logs"
+      ],
+      "avoid_when": [
+        "Time-sensitive action"
+      ],
+      "required_evals": [
+        "notifications/day",
+        "digest action rate",
+        "missed urgency"
+      ],
+      "risks": [
+        "Important item buried"
+      ],
+      "cost_profile": "saves attention",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "digest",
+        "batch_notifications"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0159",
+      "name": "Candidate queue instead of interruption",
+      "aliases": [],
+      "category": "proactivity",
+      "layer": [
+        "human_system",
+        "proactivity",
+        "memory"
+      ],
+      "goal": "Preserve useful inference without demanding immediate attention",
+      "mechanism": "Capture low-confidence/nonurgent insight as reviewable candidate with evidence.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Default for uncertain proactive observations.",
+      "use_when": [
+        "Memory/roadmap/project suggestions"
+      ],
+      "avoid_when": [
+        "Urgent commitment or safety issue"
+      ],
+      "required_evals": [
+        "candidate acceptance",
+        "queue age",
+        "noise"
+      ],
+      "risks": [
+        "Backlog accumulation"
+      ],
+      "cost_profile": "low attention now",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "candidate_queue"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0160",
+      "name": "Prepare-before-approval",
+      "aliases": [],
+      "category": "proactivity",
+      "layer": [
+        "human_system",
+        "agents"
+      ],
+      "goal": "Reduce user effort while preserving authority",
+      "mechanism": "Perform reversible research/drafting/local preparation before asking for approval only at consequential boundary.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0132, SRC-AI-0156.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Authorization distinguishes prepare/propose/commit.",
+      "use_when": [
+        "Emails",
+        "purchases",
+        "calendar",
+        "code changes"
+      ],
+      "avoid_when": [
+        "Preparation itself accesses disallowed data/spends material resources"
+      ],
+      "required_evals": [
+        "approval-to-completion time",
+        "wasted prep"
+      ],
+      "risks": [
+        "Agent prepares wrong path",
+        "hidden cost"
+      ],
+      "cost_profile": "uses background/local work",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0132",
+        "SRC-AI-0156"
+      ],
+      "keywords": [
+        "prepare_then_approve"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0161",
+      "name": "Immediate undo for reversible AI actions",
+      "aliases": [],
+      "category": "human_control",
+      "layer": [
+        "human_system",
+        "control"
+      ],
+      "goal": "Lower cost of correction and enable safer automation",
+      "mechanism": "Keep reversible action log and expose undo/cancel/correct commands prominently.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0156.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Voice/browser systems should support 'cancel that', 'wrong project', 'undo'.",
+      "use_when": [
+        "Local state changes",
+        "Candidate routing",
+        "Voice captures"
+      ],
+      "avoid_when": [
+        "Irreversible external action"
+      ],
+      "required_evals": [
+        "undo success",
+        "time-to-correct"
+      ],
+      "risks": [
+        "Undo may be partial if side effects cascade"
+      ],
+      "cost_profile": "storage/logging overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0156"
+      ],
+      "keywords": [
+        "undo",
+        "reversibility"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0162",
+      "name": "Graceful correction and learning",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "learning"
+      ],
+      "goal": "Turn user corrections into future improvement evidence without silently changing behavior",
+      "mechanism": "Capture predicted action, correction, context and outcome; produce candidate rule/eval rather than direct self-modification.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every correction asks: what test would prevent recurrence?",
+      "use_when": [
+        "Classification",
+        "Routing",
+        "Personalization"
+      ],
+      "avoid_when": [
+        "Sensitive correction should not become global knowledge"
+      ],
+      "required_evals": [
+        "repeat-error rate",
+        "promotion precision"
+      ],
+      "risks": [
+        "Overgeneralizing one correction"
+      ],
+      "cost_profile": "low + offline review",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "correction_learning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0163",
+      "name": "Communicate uncertainty and limitations contextually",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "evaluation"
+      ],
+      "goal": "Support appropriate reliance rather than maximal trust",
+      "mechanism": "Expose evidence gaps, provenance, known failure modes or verification status relevant to decision, not generic disclaimers.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer 'verified by X / unresolved Y' over uncalibrated numeric confidence.",
+      "use_when": [
+        "Decision support",
+        "Research",
+        "Automated actions"
+      ],
+      "avoid_when": [
+        "Low-stakes simple response where warnings add noise"
+      ],
+      "required_evals": [
+        "appropriate reliance",
+        "correction",
+        "decision time"
+      ],
+      "risks": [
+        "Confidence/explanation can increase overreliance if poorly designed"
+      ],
+      "cost_profile": "small UX cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "uncertainty",
+        "trust_calibration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0164",
+      "name": "Failure-mode explanations",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "evaluation"
+      ],
+      "goal": "Help user know when not to rely on automation",
+      "mechanism": "Show known conditions where model/tool commonly fails, linked to current case when applicable.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Generated from failure registry, not improvised by model.",
+      "use_when": [
+        "High-impact decision support",
+        "Novel/ambiguous cases"
+      ],
+      "avoid_when": [
+        "No validated failure-mode data"
+      ],
+      "required_evals": [
+        "reliance discrimination",
+        "decision accuracy"
+      ],
+      "risks": [
+        "Extra cognitive burden",
+        "false reassurance"
+      ],
+      "cost_profile": "small display/analysis",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "failure_modes",
+        "trust"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0165",
+      "name": "Avoid naked confidence scores",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "evaluation"
+      ],
+      "goal": "Prevent false precision and over-reliance",
+      "mechanism": "Do not surface uncalibrated model self-confidence as authority; pair calibrated uncertainty with evidence/failure context if used.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agent OS internal confidence remains evidence-scored and inspectable.",
+      "use_when": [
+        "Any user-facing confidence display"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "calibration",
+        "appropriate reliance"
+      ],
+      "risks": [
+        "Ordinal confidence can still mislead"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "confidence",
+        "calibration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0166",
+      "name": "Progressive disclosure",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "context"
+      ],
+      "goal": "Reduce cognitive/context load while preserving drill-down",
+      "mechanism": "Show concise state/action first, expose technical details/evidence only when useful or requested.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0070.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Simple Mode + Advanced Mode pattern is already aligned.",
+      "use_when": [
+        "Run visibility",
+        "Documentation",
+        "Research",
+        "Dashboards"
+      ],
+      "avoid_when": [
+        "Critical detail must be seen before action"
+      ],
+      "required_evals": [
+        "time-to-understand",
+        "drilldown rate",
+        "missed info"
+      ],
+      "risks": [
+        "Important detail hidden"
+      ],
+      "cost_profile": "usually reduces attention cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0070"
+      ],
+      "keywords": [
+        "progressive_disclosure"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0167",
+      "name": "State-aware next-action recommendation",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "workflow"
+      ],
+      "goal": "Reduce choice/cognitive burden",
+      "mechanism": "Use current workflow state and blocked dependencies to offer one most relevant next action rather than a menu.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0156.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Explain observable reason, allow alternatives.",
+      "use_when": [
+        "Orchestrator UI",
+        "Personal Executive"
+      ],
+      "avoid_when": [
+        "Multiple choices genuinely require user values"
+      ],
+      "required_evals": [
+        "time-to-action",
+        "wrong recommendation rate"
+      ],
+      "risks": [
+        "Automation bias",
+        "over-narrowing options"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0156"
+      ],
+      "keywords": [
+        "next_action"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0168",
+      "name": "Show progress, not a spinner",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "observability"
+      ],
+      "goal": "Reduce uncertainty during long work",
+      "mechanism": "Expose planned stages, active stage, checkpoints, completed evidence, blockers and resumability rather than vague busy state.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0102.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Human-readable event projection; no private chain-of-thought.",
+      "use_when": [
+        "Long agent workflows"
+      ],
+      "avoid_when": [
+        "Sub-second work"
+      ],
+      "required_evals": [
+        "abandonment",
+        "duplicate clicks",
+        "perceived wait"
+      ],
+      "risks": [
+        "Excess log noise"
+      ],
+      "cost_profile": "telemetry/UI",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0102"
+      ],
+      "keywords": [
+        "progress",
+        "run_visibility"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0169",
+      "name": "Automation-bias guardrails",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "security"
+      ],
+      "goal": "Prevent user from blindly accepting incorrect AI recommendation",
+      "mechanism": "For material decisions, show evidence/verification and retain independent check or meaningful user choice rather than presenting AI output as authoritative.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Risk class determines independent validation requirement.",
+      "use_when": [
+        "HR/work decisions",
+        "Finance",
+        "Security",
+        "High-impact actions"
+      ],
+      "avoid_when": [
+        "Pure low-risk drafting"
+      ],
+      "required_evals": [
+        "appropriate reliance",
+        "override quality"
+      ],
+      "risks": [
+        "Extra friction"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "automation_bias"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0170",
+      "name": "User correction without punitive friction",
+      "aliases": [],
+      "category": "human_ai",
+      "layer": [
+        "human_system",
+        "learning"
+      ],
+      "goal": "Encourage feedback that improves future behavior",
+      "mechanism": "Make dismiss, correct, reroute, 'don't retain', 'not relevant', and undo low-effort; capture structured feedback silently where safe.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0156.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "One-tap/short-phrase correction where possible.",
+      "use_when": [
+        "Proactivity",
+        "Memory",
+        "Browser/voice capture"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "feedback rate",
+        "repeat errors"
+      ],
+      "risks": [
+        "Accidental correction"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0156"
+      ],
+      "keywords": [
+        "feedback",
+        "correction"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0171",
+      "name": "Preference learning with context specificity",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "human_system",
+        "memory"
+      ],
+      "goal": "Avoid turning situational choices into universal preferences",
+      "mechanism": "Attach preference evidence to context/domain/time and promote only recurring/generalizing patterns.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0082.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Maintain separate style/workflow profiles by interaction mode/domain.",
+      "use_when": [
+        "Writing style",
+        "Shopping",
+        "Food",
+        "Workflow preferences"
+      ],
+      "avoid_when": [
+        "Explicit durable user instruction may promote faster"
+      ],
+      "required_evals": [
+        "preference precision",
+        "wrong-generalization rate"
+      ],
+      "risks": [
+        "Overpersonalization",
+        "stale preferences"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0082"
+      ],
+      "keywords": [
+        "preferences",
+        "contextual"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0172",
+      "name": "Novelty/dedup suppression for proactive suggestions",
+      "aliases": [],
+      "category": "proactivity",
+      "layer": [
+        "human_system",
+        "proactivity"
+      ],
+      "goal": "Prevent repeated nagging and backlog spam",
+      "mechanism": "Compare new suggestion to prior shown/dismissed/captured items and suppress unless evidence/material state changed.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0143.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Recurrence can raise priority without creating duplicate records.",
+      "use_when": [
+        "Challenge engine",
+        "Research radar",
+        "Shopping/tasks"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "duplicate notification rate",
+        "re-surface usefulness"
+      ],
+      "risks": [
+        "May suppress legitimately recurring obligation"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0143"
+      ],
+      "keywords": [
+        "dedupe",
+        "notification_noise"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0173",
+      "name": "Actionability gate",
+      "aliases": [],
+      "category": "proactivity",
+      "layer": [
+        "human_system",
+        "proactivity"
+      ],
+      "goal": "Avoid surfacing observations the user cannot use",
+      "mechanism": "Only interrupt for insight with a plausible next action or material decision; otherwise capture quietly/research further.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Action may be 'watch condition' rather than immediate work.",
+      "use_when": [
+        "Proactive insight engine"
+      ],
+      "avoid_when": [
+        "Awareness itself is valuable despite no action"
+      ],
+      "required_evals": [
+        "acted-on precision",
+        "ignored rate"
+      ],
+      "risks": [
+        "Could hide useful awareness"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "actionability"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0174",
+      "name": "Value-of-information stopping",
+      "aliases": [],
+      "category": "research_control",
+      "layer": [
+        "human_system",
+        "research",
+        "control"
+      ],
+      "goal": "Stop research when another search is less valuable than acting/testing",
+      "mechanism": "Estimate whether uncertainty can change decision and whether additional evidence is likely to resolve it relative to cost/delay.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0143.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Explicit unresolved questions survive even when research stops.",
+      "use_when": [
+        "Deep research",
+        "Purchasing",
+        "Architecture choices"
+      ],
+      "avoid_when": [
+        "Safety-critical evidence requirements mandate further verification"
+      ],
+      "required_evals": [
+        "research cost per changed decision",
+        "late discoveries"
+      ],
+      "risks": [
+        "Premature stopping",
+        "hard-to-estimate information value"
+      ],
+      "cost_profile": "potential major savings",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0143"
+      ],
+      "keywords": [
+        "VOI",
+        "stopping_rule"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0175",
+      "name": "Meta-overhead budget",
+      "aliases": [],
+      "category": "meta_improvement",
+      "layer": [
+        "human_system",
+        "control",
+        "evaluation"
+      ],
+      "goal": "Prevent the optimizer from consuming more value than it creates",
+      "mechanism": "Track research/eval/review/model-call cost attributable to improvement machinery against measured accepted gains; throttle or simplify when ROI falls.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0142, SRC-AI-0143.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Permanent falsifiability condition for the Meta-Improvement Engine.",
+      "use_when": [
+        "Meta-Improvement Engine itself"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "improvement overhead",
+        "accepted-change value",
+        "stale backlog"
+      ],
+      "risks": [
+        "Benefits may be delayed/hard to quantify"
+      ],
+      "cost_profile": "measurement overhead with long-term savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0142",
+        "SRC-AI-0143"
+      ],
+      "keywords": [
+        "meta_cost",
+        "self_audit"
+      ],
+      "notes": ""
+    }
+  ]
+}
