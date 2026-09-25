@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-execution-state-v1.schema.json",
+  "title": "Skyrim Mod Factory Execution State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "updated_at",
+    "nodes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-execution-state-v1"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "build_id": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nodes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fingerprint",
+          "status",
+          "updated_at"
+        ],
+        "properties": {
+          "fingerprint": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "needs-review",
+              "skipped"
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "adapter_id": {
+            "type": "string"
+          },
+          "step_record": {
+            "type": "object"
+          },
+          "output_fingerprints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "path",
+                "exists",
+                "kind"
+              ],
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "exists": {
+                  "type": "boolean"
+                },
+                "kind": {
+                  "enum": [
+                    "file",
+                    "directory",
+                    "missing"
+                  ]
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "file_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "size": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
