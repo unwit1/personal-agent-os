@@ -75,9 +75,31 @@
             "$ref": "#/$defs/flmEntry"
           },
           {
+            "$ref": "#/$defs/oarEntry"
+          },
+          {
             "$ref": "#/$defs/genericEntry"
           }
         ]
+      }
+    },
+    "oar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "author": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
       }
     }
   },
@@ -744,6 +766,88 @@
           }
         }
       ]
+    },
+    "oarCondition": {
+      "type": "object",
+      "required": [
+        "condition"
+      ],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true,
+      "description": "Source-shaped OAR condition object. The condition discriminator is typed; condition-specific arguments remain upstream-shaped until provider-specific schemas are added."
+    },
+    "oarEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "directory",
+        "name",
+        "priority",
+        "conditions"
+      ],
+      "properties": {
+        "kind": {
+          "const": "OARSubmod"
+        },
+        "directory": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?![\\\\/])(?!.*(?:^|[\\\\/])\\\\.\\\\.(?:[\\\\/]|$)).+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "override_animations_folder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_behavior_project_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interruptible": {
+          "type": "boolean"
+        },
+        "replace_on_loop": {
+          "type": "boolean"
+        },
+        "replace_on_echo": {
+          "type": "boolean"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/oarCondition"
+          }
+        },
+        "paired_conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/oarCondition"
+          }
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
     }
   }
 }
