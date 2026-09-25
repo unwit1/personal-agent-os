@@ -57,6 +57,72 @@ def diff_values(a:Any,b:Any,path:str,out:list[dict]):
     elif a!=b:
         out.append({"path":path,"kind":"changed","before":a,"after":b})
 
+def strip_producer_private(value:Any)->Any:
+    if isinstance(value,dict):
+        return {
+            k:strip_producer_private(v)
+            for k,v in value.items()
+            if not str(k).startswith("_")
+        }
+    if isinstance(value,list):
+        return [strip_producer_private(x) for x in value]
+    return value
+
+def declared_semantic_fields(doc:dict[str,Any])->list[str]|None:
+    coverage=((doc.get("provenance") or {}).get("coverage") or {})
+    fields=coverage.get("semantic_fields")
+    if not isinstance(fields,list) or not all(isinstance(x,str) for x in fields):
+        return None
+    return sorted(set(fields))
+
+def get_path(value:dict[str,Any],path:str)->Any:
+    current:Any=value
+    for part in path.split("."):
+        if not isinstance(current,dict) or part not in current:
+            return MISSING
+        current=current[part]
+    return current
+
+def set_path(target:dict[str,Any],path:str,value:Any)->None:
+    parts=path.split(".")
+    current=target
+    for part in parts[:-1]:
+        current=current.setdefault(part,{})
+    current[parts[-1]]=strip_producer_private(value)
+
+def semantic_coverage(
+    before:dict[str,Any],
+    after:dict[str,Any],
+)->tuple[dict[str,Any],list[str]|None]:
+    a=declared_semantic_fields(before)
+    b=declared_semantic_fields(after)
+    if a is None or b is None:
+        return {
+            "mode":"legacy-full-record",
+            "compared_fields":[],
+            "before_only_fields":[],
+            "after_only_fields":[],
+        },None
+    aset=set(a)
+    bset=set(b)
+    common=sorted(aset & bset)
+    return {
+        "mode":"declared-intersection",
+        "compared_fields":common,
+        "before_only_fields":sorted(aset-bset),
+        "after_only_fields":sorted(bset-aset),
+    },common
+
+def project_record(record:dict[str,Any],fields:list[str]|None)->dict[str,Any]:
+    if fields is None:
+        return strip_producer_private(record)
+    projected={}
+    for path in fields:
+        value=get_path(record,path)
+        if value is not MISSING:
+            set_path(projected,path,value)
+    return projected
+
 def identity_facts(doc:dict[str,Any])->dict[str,Any]:
     provenance=doc.get("provenance") or {}
     canonical=provenance.get("canonical_cross_load_order_form_keys")
@@ -129,6 +195,7 @@ def compare(
             )
 
     comparable,reasons,identity=identity_comparability(before,after)
+    coverage,semantic_fields=semantic_coverage(before,after)
     ar={record_key(x):x for x in before.get("records",[])}
     br={record_key(x):x for x in after.get("records",[])}
 
@@ -146,7 +213,12 @@ def compare(
         changed=[]
         for key in sorted(set(ar)&set(br)):
             diffs=[]
-            diff_values(ar[key],br[key],"",diffs)
+            diff_values(
+                project_record(ar[key],semantic_fields),
+                project_record(br[key],semantic_fields),
+                "",
+                diffs,
+            )
             if diffs:
                 changed.append({"record":key,"changes":diffs})
     else:
@@ -166,6 +238,7 @@ def compare(
         "comparable":comparable,
         "comparability_reasons":reasons,
         "identity":identity,
+        "coverage":coverage,
         "summary":{
             "records_before":len(ar),
             "records_after":len(br),
