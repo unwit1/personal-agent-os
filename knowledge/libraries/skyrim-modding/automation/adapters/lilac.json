@@ -1,0 +1,66 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "lilac",
+  "tool": "Lilac",
+  "source": "https://github.com/chesko256/Lilac",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "papyrus-unit-test",
+    "papyrus-assertions",
+    "quest-driven-test-runner",
+    "papyrus-log-results"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "Papyrus test script + in-game quest execution",
+    "requires_running_game": true
+  },
+  "inputs": [
+    "Lilac.psc",
+    "test PSC",
+    "test quest/plugin binding"
+  ],
+  "outputs": [
+    "Papyrus assertion results",
+    "Papyrus log evidence"
+  ],
+  "logs": [
+    "Papyrus.0.log"
+  ],
+  "coverage": {
+    "description": "Minimal Papyrus unit-test framework whose tests can be attached to quests and explicitly started.",
+    "known_gaps": [
+      "old framework and limited matcher/runtime integration compared with a custom Agent OS runtime bridge",
+      "tests still execute inside real Papyrus VM and inherit save/session state"
+    ],
+    "denominator_probe": "test/spec count declared vs executed/passed/failed."
+  },
+  "safety": {
+    "mutation_default": "test-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Dedicated development profile/save; test quest disabled in release unless intentionally retained."
+  },
+  "verification": {
+    "independent_validators": [
+      "runtime-state-readback",
+      "papyrus-log-parser"
+    ],
+    "version_probe": "repository/release snapshot",
+    "output_readback": "Parse assertion totals and rerun fixture from clean session."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Useful immediately for generated Papyrus regression suites while richer runtime MCP tests are developed."
+  },
+  "evidence": {
+    "source_url": "https://github.com/chesko256/Lilac",
+    "verified_date": "2026-09-24",
+    "notes": "MIT Papyrus unit-test framework; no extra runtime dependencies beyond Skyrim according to upstream."
+  }
+}
