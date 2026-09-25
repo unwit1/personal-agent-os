@@ -1,0 +1,73 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "xvasynth",
+  "tool": "xVASynth",
+  "source": "https://github.com/DanRuta/xVA-Synth",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "voice-synthesis",
+    "batch-voice-source",
+    "local-http-backend",
+    "voice-model-plugin",
+    "pronunciation-dictionary"
+  ],
+  "invocation": {
+    "mode": "service",
+    "transport": "local Python HTTP backend used by Electron frontend (documented default port 8008)",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "text lines",
+    "voice model",
+    "prosody/pronunciation settings"
+  ],
+  "outputs": [
+    "generated voice audio"
+  ],
+  "logs": [
+    "server.log",
+    "backend diagnostics"
+  ],
+  "coverage": {
+    "description": "ML game-character voice synthesis application with Electron frontend and Python inference server communicating over local HTTP.",
+    "known_gaps": [
+      "backend API is app-internal rather than a stability-guaranteed public Mod Factory API",
+      "generated raw audio still needs deterministic WAV/XWM/FUZ/LIP packaging and rights/provenance checks",
+      "voice quality remains human-reviewed"
+    ],
+    "denominator_probe": "requested lines vs generated audio files plus failed model/inference requests."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "public release of generated character-voice output when rights/permissions are unresolved"
+    ],
+    "sandbox_or_scope": "Generate into voice staging; canonical line manifest records text/model/settings/hash."
+  },
+  "verification": {
+    "independent_validators": [
+      "vospeaker",
+      "audio-format-check",
+      "voice-path-closure",
+      "human-audio-qa"
+    ],
+    "version_probe": "xVASynth app/server version",
+    "output_readback": "Audio file existence/duration/format and subsequent FUZ/LIP packaging."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Potentially automatable via local backend, but wrap only documented/observed endpoints behind a version-probed adapter."
+  },
+  "evidence": {
+    "source_url": "https://github.com/DanRuta/xVA-Synth",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream README documents Electron frontend + Python backend with localhost HTTP communication; backend source is public."
+  }
+}
