@@ -1,7 +1,7 @@
 # Technical debt
 
 Status: active record
-Updated: 2026-09-21
+Updated: 2026-09-25
 
 Debt is recorded here rather than left implicit in a roadmap that describes
 intent. Each item names what is missing, why it was acceptable to stop there,
@@ -122,17 +122,28 @@ Every fact inherits its source file's `updated_at` and provenance statuses, so
 seeded months ago in the same file. Per-fact capture dates would make the
 supersede rule meaningfully sharper.
 
-### Profile-specific promotion rule — partially resolved 2026-09-25
+### Profile-specific promotion rule — substantially hardened 2026-09-25
 
-Profile, relationship, and identity-link candidates now require an explicit
-source-actor classification. Evidence attributed to another account user, a
-third party, a mixed organizational archive, automation, or an unknown actor is
-blocked from direct personal-profile promotion unless the user explicitly
-confirms it. These candidates also remain material-review items.
+Profile, relationship, and identity-link candidates now require both an
+explicit source-actor classification and an explicit subject relation. This
+separates three concepts that mixed archives routinely conflate: account
+ownership, who authored a record, and who the record is about. Evidence
+attributed to another account user, a third party, a mixed organizational
+archive, automation, or an unknown actor is blocked from direct personal
+profile promotion. Even a user-authored record is blocked when its subject is
+a third party, organization, mixed set, or unknown. Explicit user confirmation
+can override the gate, and these candidate types remain material-review items.
+
+A local-first people/relationship SQLite store now also separates identity
+confidence from relationship confidence, retains aliases and temporal bounds,
+keeps same-name identities separate by default, supports provenance evidence,
+and models professional person↔organization role/process edges independently
+from personal relationships.
 
 Remaining debt is richer contradiction/supersession reconciliation across
-multiple evidence records and provider-specific actor resolution; the basic
-account-owner != actor safety boundary is now implemented.
+multiple evidence records, provider-specific actor/subject resolution, and
+eventually a reviewed MCP surface for private people data. The fundamental
+account-owner != actor != subject boundary is implemented.
 
 ## From P0.3 — Shared document intelligence
 
