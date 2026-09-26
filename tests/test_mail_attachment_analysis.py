@@ -75,6 +75,18 @@ class AttachmentAnalysisTests(unittest.TestCase):
         self.assertFalse(review["promotion_eligible"])
         self.assertIn("education", review["candidate_destinations"])
 
+    def test_privacy_findings_raise_attachment_sensitivity(self) -> None:
+        review = classify_for_review(
+            "application.pdf",
+            "application/pdf",
+            "Contact test.person@example.com and SSN 123-45-6789.",
+        )
+        self.assertEqual(review["sensitivity_hint"], "restricted_high")
+        self.assertEqual(review["review_priority"], "high")
+        self.assertIn("email", review["privacy_findings"])
+        self.assertIn("ssn", review["privacy_findings"])
+        self.assertFalse(review["promotion_eligible"])
+
 
 if __name__ == "__main__":
     unittest.main()
