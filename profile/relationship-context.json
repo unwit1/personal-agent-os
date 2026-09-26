@@ -18,7 +18,9 @@
           "status": "historical_only"
         }
       ],
-      "rule": "Newest direct user wording controls the current relationship label; household evidence does not establish Olivia's individual preferences."
+      "rule": "Newest direct user wording controls the current relationship label; household evidence does not establish Olivia's individual preferences.",
+      "first_seen": "2023",
+      "last_seen": "2026-09-25"
     },
     "family": {
       "sibling_structure": "User is the oldest of five siblings.",
