@@ -38,7 +38,8 @@ class PeopleStore:
             CREATE TABLE IF NOT EXISTS people (
               person_id TEXT PRIMARY KEY, display_name TEXT NOT NULL, domain TEXT NOT NULL,
               status TEXT NOT NULL, privacy_class TEXT NOT NULL,
-              identity_confidence REAL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+              identity_confidence REAL, first_seen TEXT, last_seen TEXT,
+              created_at TEXT NOT NULL, updated_at TEXT NOT NULL
             );
             CREATE TABLE IF NOT EXISTS aliases (
               alias_id TEXT PRIMARY KEY, person_id TEXT NOT NULL, alias TEXT NOT NULL,
@@ -61,9 +62,29 @@ class PeopleStore:
               candidate_id TEXT PRIMARY KEY, label TEXT NOT NULL, domain TEXT NOT NULL,
               status TEXT NOT NULL, rationale TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS organizations (
+              org_id TEXT PRIMARY KEY, display_name TEXT NOT NULL, domain TEXT NOT NULL,
+              status TEXT NOT NULL, privacy_class TEXT NOT NULL,
+              first_seen TEXT, last_seen TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS person_organization_roles (
+              role_edge_id TEXT PRIMARY KEY, person_id TEXT NOT NULL, org_id TEXT NOT NULL,
+              role_label TEXT, process_context TEXT, valid_from TEXT, valid_to TEXT,
+              relationship_confidence REAL, status TEXT NOT NULL, privacy_class TEXT NOT NULL,
+              created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_person_org_person ON person_organization_roles(person_id);
+            CREATE INDEX IF NOT EXISTS idx_person_org_org ON person_organization_roles(org_id);
             """
         )
+        self._ensure_column("people", "first_seen", "TEXT")
+        self._ensure_column("people", "last_seen", "TEXT")
         self.conn.commit()
+
+    def _ensure_column(self, table: str, column: str, declaration: str) -> None:
+        columns = {row["name"] for row in self.conn.execute(f"PRAGMA table_info({table})").fetchall()}
+        if column not in columns:
+            self.conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {declaration}")
 
     def close(self) -> None:
         self.conn.close()
@@ -78,6 +99,7 @@ class PeopleStore:
         self, display_name: str, *, person_id: str | None = None, domain: str = "personal",
         status: str = "active", privacy_class: str = "personal_summary",
         identity_confidence: float | None = None,
+        first_seen: str | None = None, last_seen: str | None = None,
     ) -> str:
         if status not in STATUSES:
             raise ValueError(f"unsupported person status: {status}")
@@ -85,12 +107,18 @@ class PeopleStore:
             raise ValueError(f"unsupported privacy class: {privacy_class}")
         pid = person_id or _id("person", domain, display_name.casefold())
         stamp = utc_now_iso()
+        first = first_seen or stamp
+        last = last_seen or first
         self.conn.execute(
-            "INSERT INTO people VALUES (?,?,?,?,?,?,?,?) "
-            "ON CONFLICT(person_id) DO UPDATE SET display_name=excluded.display_name,domain=excluded.domain,"
-            "status=excluded.status,privacy_class=excluded.privacy_class,"
-            "identity_confidence=excluded.identity_confidence,updated_at=excluded.updated_at",
-            (pid, display_name, domain, status, privacy_class, identity_confidence, stamp, stamp),
+            "INSERT INTO people (person_id,display_name,domain,status,privacy_class,identity_confidence,first_seen,last_seen,created_at,updated_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?) "
+            "ON CONFLICT(person_id) DO UPDATE SET "
+            "display_name=excluded.display_name,domain=excluded.domain,status=excluded.status,"
+            "privacy_class=excluded.privacy_class,identity_confidence=COALESCE(excluded.identity_confidence,people.identity_confidence),"
+            "first_seen=CASE WHEN people.first_seen IS NULL THEN excluded.first_seen WHEN excluded.first_seen IS NULL THEN people.first_seen ELSE MIN(people.first_seen,excluded.first_seen) END,"
+            "last_seen=CASE WHEN people.last_seen IS NULL THEN excluded.last_seen WHEN excluded.last_seen IS NULL THEN people.last_seen ELSE MAX(people.last_seen,excluded.last_seen) END,"
+            "updated_at=excluded.updated_at",
+            (pid, display_name, domain, status, privacy_class, identity_confidence, first, last, stamp, stamp),
         )
         self.conn.commit()
         return pid
@@ -153,6 +181,63 @@ class PeopleStore:
         self.conn.commit()
         return eid
 
+    def upsert_organization(
+        self, display_name: str, *, org_id: str | None = None, domain: str = "work",
+        status: str = "active", privacy_class: str = "work_context",
+        first_seen: str | None = None, last_seen: str | None = None,
+    ) -> str:
+        if status not in STATUSES:
+            raise ValueError(f"unsupported organization status: {status}")
+        if privacy_class not in PRIVACY_CLASSES:
+            raise ValueError(f"unsupported privacy class: {privacy_class}")
+        oid = org_id or _id("org", domain, display_name.casefold())
+        stamp = utc_now_iso()
+        first = first_seen or stamp
+        last = last_seen or first
+        self.conn.execute(
+            "INSERT INTO organizations (org_id,display_name,domain,status,privacy_class,first_seen,last_seen,created_at,updated_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?) "
+            "ON CONFLICT(org_id) DO UPDATE SET display_name=excluded.display_name,domain=excluded.domain,"
+            "status=excluded.status,privacy_class=excluded.privacy_class,"
+            "first_seen=CASE WHEN organizations.first_seen IS NULL THEN excluded.first_seen WHEN excluded.first_seen IS NULL THEN organizations.first_seen ELSE MIN(organizations.first_seen,excluded.first_seen) END,"
+            "last_seen=CASE WHEN organizations.last_seen IS NULL THEN excluded.last_seen WHEN excluded.last_seen IS NULL THEN organizations.last_seen ELSE MAX(organizations.last_seen,excluded.last_seen) END,"
+            "updated_at=excluded.updated_at",
+            (oid, display_name, domain, status, privacy_class, first, last, stamp, stamp),
+        )
+        self.conn.commit()
+        return oid
+
+    def link_person_organization_role(
+        self, person_id: str, org_id: str, *, role_label: str | None = None,
+        process_context: str | None = None, valid_from: str | None = None,
+        valid_to: str | None = None, relationship_confidence: float | None = None,
+        status: str = "active", privacy_class: str = "work_context",
+    ) -> str:
+        if status not in STATUSES:
+            raise ValueError(f"unsupported role-edge status: {status}")
+        if privacy_class not in PRIVACY_CLASSES:
+            raise ValueError(f"unsupported privacy class: {privacy_class}")
+        edge = _id("orgrole", person_id, org_id, role_label or "", process_context or "", valid_from or "", valid_to or "")
+        stamp = utc_now_iso()
+        self.conn.execute(
+            "INSERT OR REPLACE INTO person_organization_roles "
+            "(role_edge_id,person_id,org_id,role_label,process_context,valid_from,valid_to,relationship_confidence,status,privacy_class,created_at,updated_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            (edge, person_id, org_id, role_label, process_context, valid_from, valid_to,
+             relationship_confidence, status, privacy_class, stamp, stamp),
+        )
+        self.conn.commit()
+        return edge
+
+    def organization_roles_for(self, person_id: str) -> list[dict[str, Any]]:
+        rows = self.conn.execute(
+            "SELECT r.*,o.display_name AS organization_name,o.domain AS organization_domain "
+            "FROM person_organization_roles r JOIN organizations o ON o.org_id=r.org_id "
+            "WHERE r.person_id=? ORDER BY COALESCE(r.valid_from,''),r.role_edge_id",
+            (person_id,),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
     def relationships_for(self, person_id: str) -> list[dict[str, Any]]:
         rows = self.conn.execute(
             "SELECT * FROM relationships WHERE subject_id=? OR object_id=? "
@@ -169,6 +254,8 @@ class PeopleStore:
             "relationships": self.conn.execute("SELECT COUNT(*) FROM relationships").fetchone()[0],
             "evidence": self.conn.execute("SELECT COUNT(*) FROM evidence").fetchone()[0],
             "identity_candidates": self.conn.execute("SELECT COUNT(*) FROM identity_candidates WHERE status='candidate'").fetchone()[0],
+            "organizations": self.conn.execute("SELECT COUNT(*) FROM organizations").fetchone()[0],
+            "organization_roles": self.conn.execute("SELECT COUNT(*) FROM person_organization_roles").fetchone()[0],
             "local_private": True,
         }
 
@@ -302,3 +389,9 @@ def alias_lookup(alias: str, db_path: Path | None = None) -> dict[str, Any]:
 def relationship_lookup(person_id: str, db_path: Path | None = None) -> dict[str, Any]:
     with PeopleStore(db_path) as store:
         return {"person_id": person_id, "relationships": store.relationships_for(person_id), "local_private": True}
+
+
+
+def organization_role_lookup(person_id: str, db_path: Path | None = None) -> dict[str, Any]:
+    with PeopleStore(db_path) as store:
+        return {"person_id": person_id, "organization_roles": store.organization_roles_for(person_id), "local_private": True}
