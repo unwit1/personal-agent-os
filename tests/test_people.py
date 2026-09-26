@@ -85,5 +85,47 @@ class PeopleStoreTests(unittest.TestCase):
             self.assertEqual(second["stats"]["identity_candidates"], 1)
 
 
+    def test_person_temporal_bounds_expand_without_resetting(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            with PeopleStore(Path(tmp) / "people.sqlite3") as store:
+                pid = store.upsert_person(
+                    "Example",
+                    person_id="person:example",
+                    first_seen="2025-01-01",
+                    last_seen="2025-06-01",
+                )
+                store.upsert_person(
+                    "Example",
+                    person_id=pid,
+                    first_seen="2024-12-01",
+                    last_seen="2025-05-01",
+                )
+                row = store.conn.execute(
+                    "SELECT first_seen,last_seen FROM people WHERE person_id=?",
+                    (pid,),
+                ).fetchone()
+                self.assertEqual(row["first_seen"], "2024-12-01")
+                self.assertEqual(row["last_seen"], "2025-06-01")
+
+    def test_professional_role_edges_are_separate_from_personal_relationships(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            with PeopleStore(Path(tmp) / "people.sqlite3") as store:
+                person = store.upsert_person("Regina", person_id="person:regina-work", domain="work")
+                org = store.upsert_organization("Example Org", org_id="org:example", domain="work")
+                edge = store.link_person_organization_role(
+                    person,
+                    org,
+                    role_label="HR contact",
+                    process_context="onboarding",
+                    valid_from="2026-04",
+                    relationship_confidence=0.8,
+                )
+                roles = store.organization_roles_for(person)
+                self.assertEqual(len(roles), 1)
+                self.assertEqual(roles[0]["role_edge_id"], edge)
+                self.assertEqual(roles[0]["organization_name"], "Example Org")
+                self.assertEqual(store.relationships_for(person), [])
+
+
 if __name__ == "__main__":
     unittest.main()
