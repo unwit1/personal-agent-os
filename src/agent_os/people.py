@@ -349,6 +349,87 @@ def bootstrap_from_sanitized_context(
             created["people"].append(partner_id)
             created["relationships"].append(edge)
 
+            current_label = partner.get("current_label")
+            if current_label:
+                label_edge = store.add_relationship(
+                    user_id,
+                    "relationship_label",
+                    object_id=partner_id,
+                    object_label=str(current_label),
+                    domain="personal",
+                    status="active",
+                    identity_confidence=1.0,
+                    relationship_confidence=1.0,
+                    valid_from=str(partner.get("last_seen") or observed or "") or None,
+                    privacy_class="personal_summary",
+                )
+                store.add_evidence(
+                    "relationship",
+                    label_edge,
+                    source_type="sanitized_profile",
+                    source_ref=f"{path.name}#durable_relationship_context.partner.current_label",
+                    source_actor="user_confirmed",
+                    subject_relation="user_confirmed",
+                    observed_at=str(data.get("updated_at") or ""),
+                    confidence=1.0,
+                    note="Current user-stated relationship label; historical labels remain separate dated edges.",
+                )
+                created["relationships"].append(label_edge)
+
+            if partner.get("household_planning"):
+                household_edge = store.add_relationship(
+                    user_id,
+                    "shared_household_planning",
+                    object_id=partner_id,
+                    domain="personal",
+                    status="active",
+                    identity_confidence=1.0,
+                    relationship_confidence=1.0,
+                    valid_from=str(partner.get("first_seen") or "") or None,
+                    privacy_class="personal_summary",
+                )
+                store.add_evidence(
+                    "relationship",
+                    household_edge,
+                    source_type="sanitized_profile",
+                    source_ref=f"{path.name}#durable_relationship_context.partner.household_planning",
+                    source_actor="user_confirmed",
+                    subject_relation="user_confirmed",
+                    observed_at=str(data.get("updated_at") or ""),
+                    confidence=1.0,
+                    note="Shared planning context only; does not infer the partner's individual preferences.",
+                )
+                created["relationships"].append(household_edge)
+
+            for historical in partner.get("historical_labels") or []:
+                if not isinstance(historical, dict) or not historical.get("label"):
+                    continue
+                historical_edge = store.add_relationship(
+                    user_id,
+                    "relationship_label",
+                    object_id=partner_id,
+                    object_label=str(historical["label"]),
+                    domain="personal",
+                    status="historical",
+                    identity_confidence=1.0,
+                    relationship_confidence=1.0,
+                    valid_from=str(historical.get("observed") or "") or None,
+                    valid_to=str(historical.get("observed") or "") or None,
+                    privacy_class="personal_summary",
+                )
+                store.add_evidence(
+                    "relationship",
+                    historical_edge,
+                    source_type="sanitized_profile",
+                    source_ref=f"{path.name}#durable_relationship_context.partner.historical_labels",
+                    source_actor="user_confirmed",
+                    subject_relation="user_confirmed",
+                    observed_at=str(historical.get("observed") or data.get("updated_at") or ""),
+                    confidence=1.0,
+                    note="Historical relationship wording only; does not override the current label.",
+                )
+                created["relationships"].append(historical_edge)
+
         family = durable.get("family")
         if isinstance(family, dict) and family.get("sibling_structure"):
             edge = store.add_relationship(
