@@ -172,6 +172,42 @@ def validate() -> dict[str, Any]:
         if fact["privacy_findings"]:
             errors.append(f"retrievable profile fact {fact['id']} carries {', '.join(fact['privacy_findings'])}")
 
+    relationship_context_path = ROOT / "profile" / "relationship-context.json"
+    checked += 1
+    if relationship_context_path.exists():
+        try:
+            relationship_context = load_json(relationship_context_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"relationship context: {exc}")
+        else:
+            _required(
+                relationship_context,
+                {"schema_version", "updated_at", "purpose", "durable_relationship_context", "source_attribution_policy", "unresolved_identity_candidates"},
+                "relationship context",
+                errors,
+            )
+            findings = privacy_findings(relationship_context)
+            if findings:
+                errors.append(f"relationship context: privacy findings {', '.join(findings)}")
+            forbidden_unresolved_keys = {
+                "name", "display_name", "email", "phone", "address", "aliases",
+                "contact_identifiers", "source_ref", "source_refs", "evidence",
+                "raw_evidence", "message_id", "message_ids",
+            }
+            for index, candidate in enumerate(relationship_context.get("unresolved_identity_candidates", [])):
+                label = f"relationship context unresolved candidate {index}"
+                if not isinstance(candidate, dict):
+                    errors.append(f"{label}: must be an object")
+                    continue
+                _required(candidate, {"id", "label", "domain", "status", "reason"}, label, errors)
+                leaked = forbidden_unresolved_keys.intersection(candidate)
+                if leaked:
+                    errors.append(f"{label}: local-only identity fields present: {', '.join(sorted(leaked))}")
+                if not str(candidate.get("status", "")).startswith("candidate"):
+                    errors.append(f"{label}: unresolved identity must remain a candidate")
+    else:
+        warnings.append("profile relationship context is missing")
+
     checked += 1
     gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8") if (ROOT / ".gitignore").exists() else ""
     if ".agent-local/" not in gitignore:
