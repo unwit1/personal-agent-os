@@ -152,11 +152,12 @@ agent-os mail analyze-attachments --scope personal --recover
 Files go to `Downloads\Mail Attachments\Work\<year>\` or
 `...\Personal\<year>\`, named `2019-05-01 - Shirley Cummings - W4 2019.pdf`
 (email date, sender, original name) and dated with the email's date.
-Inline logos and signature pictures (images under 20 KB or embedded in the
-message body), calendar invites and `.p7s` signatures are skipped. A file
+Normal attachment export skips inline/signature images, calendar invites and `.p7s` signatures. Exhaustive analysis recovery deliberately re-reads calendar attachments and explicit image attachments; cryptographic signature blobs remain metadata-only. A file
 whose exact contents were already saved is not saved again; a different file
 with the same name gets ` (2)`. Nothing is ever overwritten or deleted.
-Progress is kept in `.agent-local/mail/<scope>/attachments.sqlite3`. Attachment occurrences retain source-message provenance even when the same bytes appeared in multiple messages.\n\n`mail analyze-attachments` parses recovered text/PDF/DOCX/XLSX/EPUB/calendar attachments with format-native parsers, extracts basic metadata from supported audio/video files, sniffs common extensionless document types, and optionally uses OCR for images and image-only PDFs as a last resort, writes full extracted text only under `.agent-local/mail/<scope>/attachment-analysis/`, links each result back through `source_id -> message_id -> attachment_id`, and updates the local mail search index. Attachment text is **evidence only** and is never promoted automatically into the Git-backed personal profile. The local summary reports every indexed attachment as parsed, metadata-only/intentionally skipped, or not recovered, so an exhaustive pass can distinguish a finished corpus from a recovery gap.
+Progress is kept in `.agent-local/mail/<scope>/attachments.sqlite3`. Attachment occurrences retain source-message provenance even when the same bytes appeared in multiple messages.
+
+`mail analyze-attachments` parses recovered text/PDF/DOCX/XLSX/EPUB/calendar attachments with format-native parsers, extracts basic metadata from supported audio/video files, sniffs common extensionless document types, and optionally uses OCR for images and image-only PDFs as a last resort, writes full extracted text only under `.agent-local/mail/<scope>/attachment-analysis/`, links each result back through `source_id -> message_id -> attachment_id`, and updates the local mail search index. Attachment text is **evidence only** and is never promoted automatically into the Git-backed personal profile. The local summary reports every indexed attachment as parsed, metadata-only/intentionally skipped, or not recovered, so an exhaustive pass can distinguish a finished corpus from a recovery gap. A local `review-queue.jsonl` then prioritizes likely resumes/CVs, education, employment, housing, calendar, spreadsheet, vehicle and other evidence for reconciliation without making those filename/content signals canonical facts.
 
 ### Privacy
 
@@ -280,9 +281,7 @@ Results carry `id`, `thread_id`, a 400-character snippet, source labels
 
 Filename, MIME type, size and SHA-256 are indexed for every attachment. Text
 of `text/plain`, `text/csv`, `text/markdown` and `text/html` attachments is
-extracted (20,000 characters) and searchable. Other types are
-`metadata-only`; raw attachment bytes are not stored. PDF/Office extraction
-through the shared document layer is the next step (see limits).
+extracted (20,000 characters) and searchable. Other types remain metadata-only in the base mail index until a local attachment-analysis pass recovers their bytes. `mail analyze-attachments` can then extract supported document/calendar/media metadata, update local FTS text, and produce coverage + review diagnostics while keeping raw bytes and extracted text out of Git.
 
 ### Archive / PST seam
 
