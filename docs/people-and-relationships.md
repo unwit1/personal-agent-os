@@ -53,8 +53,15 @@ mailboxes, imported PSTs, applicant records, forwarded mail, and inherited
 organizational archives must resolve actor/subject before they can change the
 personal profile.
 
-Only direct user/user-confirmed actor evidence is eligible for direct personal
-profile promotion. Other actor classes remain review/reconciliation evidence.
+Authorship is only half of the gate. Profile evidence also records who the
+statement is *about*: `user`, `user_confirmed`, `third_party`,
+`organization`, `mixed`, or `unknown`. A user-authored HR email about an
+applicant is therefore not autobiographical evidence.
+
+Direct personal-profile promotion requires both user/user-confirmed authorship
+and user/user-confirmed subject attribution unless the user explicitly confirms
+the candidate. Other actor/subject combinations remain review/reconciliation
+evidence.
 
 ## Local schema
 
@@ -76,3 +83,17 @@ Olivia's dated/current relationship context, broad sibling structure, source
 attribution policy, quarantined biography claims, and unresolved identity
 candidates. Quarantined and unresolved sections are excluded from selective
 profile retrieval.
+
+
+## Local commands
+
+```powershell
+agent-os people-bootstrap
+agent-os people-status
+agent-os people-alias "Olivia"
+agent-os people-relationships person:user
+```
+
+`people-bootstrap` is idempotent and copies only the sanitized Git-backed
+projection into the private local SQLite graph. It does not import raw email,
+contact identifiers, or private third-party records.
