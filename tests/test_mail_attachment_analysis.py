@@ -9,7 +9,7 @@ from pathlib import Path
 
 from agent_os.mail import config
 from agent_os.mail.attachments import Exporter
-from agent_os.mail.attachment_analysis import analyze_recovered
+from agent_os.mail.attachment_analysis import analyze_recovered, classify_for_review
 from agent_os.mail.message import parse
 from agent_os.mail.store import Store
 
@@ -50,6 +50,10 @@ class AttachmentAnalysisTests(unittest.TestCase):
 
             result = analyze_recovered("personal", root=downloads, manifest_path=manifest, mail_db=db, output_dir=output)
             self.assertEqual(result["counts"]["parsed"], 1)
+            self.assertTrue(result["coverage_complete"])
+            self.assertTrue(result["analysis_complete"])
+            self.assertEqual(result["attachment_records_accounted_for"], 1)
+            self.assertEqual(result["attachment_records_recovered"], 1)
             records = (output / "records.jsonl").read_text(encoding="utf-8")
             self.assertIn("src_test", records)
             self.assertIn(message_id, records)
@@ -57,6 +61,19 @@ class AttachmentAnalysisTests(unittest.TestCase):
             with sqlite3.connect(db) as conn:
                 text = conn.execute("SELECT text FROM mail_attachments").fetchone()[0]
             self.assertIn("relationship notes", text)
+            queue = (output / "review-queue.jsonl").read_text(encoding="utf-8")
+            self.assertIn('"promotion_eligible": false', queue)
+
+    def test_resume_triage_is_high_priority_but_not_promotion(self) -> None:
+        review = classify_for_review(
+            "Jacob Resume.docx",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "Education\nEmployment Experience\nSkills",
+        )
+        self.assertEqual(review["review_category"], "resume_or_cv")
+        self.assertEqual(review["review_priority"], "high")
+        self.assertFalse(review["promotion_eligible"])
+        self.assertIn("education", review["candidate_destinations"])
 
 
 if __name__ == "__main__":
