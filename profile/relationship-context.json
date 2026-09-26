@@ -38,9 +38,18 @@
       "automated",
       "unknown"
     ],
-    "profile_promotion_default": "Only user/user_confirmed actor evidence may directly qualify for personal-profile promotion; every other actor state requires explicit reconciliation.",
+    "profile_promotion_default": "Direct personal-profile promotion requires both user/user_confirmed authorship and user/user_confirmed subject attribution, unless the user explicitly confirms the candidate.",
     "mixed_archive_rule": "Organizational mail/PST archives must resolve message actor and subject before creating personal-profile candidates.",
-    "same_name_rule": "Name equality alone never merges people."
+    "same_name_rule": "Name equality alone never merges people.",
+    "allowed_subject_states": [
+      "user",
+      "user_confirmed",
+      "third_party",
+      "organization",
+      "mixed",
+      "unknown"
+    ],
+    "subject_not_equal_actor": "Authorship and subject identity are separate. A user-authored message about an applicant, coworker, family member, or organization is not autobiographical evidence."
   },
   "quarantined_or_unresolved": [
     {
