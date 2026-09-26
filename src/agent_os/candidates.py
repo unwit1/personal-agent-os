@@ -11,7 +11,7 @@ from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .registry import get_project
 from .storage import load_json, write_json
-from .source_attribution import ACTOR_STATES, profile_promotion_allowed
+from .source_attribution import ACTOR_STATES, SUBJECT_STATES, profile_promotion_allowed
 
 
 KINDS = {
@@ -136,8 +136,14 @@ def _require_candidate(candidate: dict[str, Any]) -> None:
     source_actor = candidate.get("source_actor")
     if source_actor is not None and source_actor not in ACTOR_STATES:
         raise ValueError(f"unsupported source_actor: {source_actor}")
-    if kind in {"profile_fact_candidate", "relationship_candidate", "identity_link_candidate"} and source_actor is None:
+    profile_kind = kind in {"profile_fact_candidate", "relationship_candidate", "identity_link_candidate"}
+    if profile_kind and source_actor is None:
         raise ValueError(f"{kind} requires source_actor")
+    subject_relation = candidate.get("subject_relation")
+    if subject_relation is not None and subject_relation not in SUBJECT_STATES:
+        raise ValueError(f"unsupported subject_relation: {subject_relation}")
+    if profile_kind and subject_relation is None:
+        raise ValueError(f"{kind} requires subject_relation")
 
 
 def stage_candidates(
@@ -175,7 +181,7 @@ def stage_candidates(
             "resolved_at": None,
             "fingerprint": fingerprint,
         }
-        for key in ("source_actor", "user_confirmed", "domain", "privacy_class", "subject_id", "object_id", "relationship", "observed_at"):
+        for key in ("source_actor", "subject_relation", "user_confirmed", "domain", "privacy_class", "subject_id", "object_id", "relationship", "observed_at"):
             if key in candidate:
                 record[key] = candidate[key]
         write_json(_candidate_dir(project["id"]) / f"{record['id']}.json", record)
@@ -222,7 +228,13 @@ def curate_candidates(project_id: str, candidate_ids: Iterable[str] | None = Non
             "peer_review_required": material,
             "reason": "material candidate requires independent evidence review" if material else "routine candidate; deterministic checks first",
         }
-        actor_allowed, actor_reason = profile_promotion_allowed(record.get("source_actor"), explicitly_confirmed=bool(record.get("user_confirmed")))
+        profile_kind = record["kind"] in {"profile_fact_candidate", "relationship_candidate", "identity_link_candidate"}
+        actor_allowed, actor_reason = profile_promotion_allowed(
+            record.get("source_actor"),
+            subject_relation=record.get("subject_relation"),
+            explicitly_confirmed=bool(record.get("user_confirmed")),
+            require_subject=profile_kind,
+        )
         review["source_actor_gate"] = {"allowed": actor_allowed, "reason": actor_reason}
         if action == "review":
             results.append({"id": record["id"], "outcome": "review_required", "review": review})
