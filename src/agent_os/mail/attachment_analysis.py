@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from . import config
+from ..privacy import privacy_findings
 
 SCHEMA = "agent-os/mail-attachment-analysis/v1"
 MAX_TEXT = 2_000_000
@@ -340,7 +341,8 @@ def classify_for_review(filename: str, mime_type: str, text: str = "") -> dict[s
         sensitivity = "personal_private"
         destinations = ["media_or_routine"]
 
-    if any_term("social security", "ssn", "passport", "driver's license", "medical", "diagnosis", "bank account", "routing number"):
+    findings = privacy_findings((text or "")[:50000])
+    if any_term("social security", "ssn", "passport", "driver's license", "medical", "diagnosis", "bank account", "routing number") or findings:
         sensitivity = "restricted_high"
         priority = "high"
 
@@ -349,6 +351,7 @@ def classify_for_review(filename: str, mime_type: str, text: str = "") -> dict[s
         "review_priority": priority,
         "sensitivity_hint": sensitivity,
         "candidate_destinations": destinations,
+        "privacy_findings": findings,
         "promotion_eligible": False,
     }
 
@@ -534,6 +537,7 @@ def analyze_recovered(
                 "review_priority": item.get("review_priority"),
                 "sensitivity_hint": item.get("sensitivity_hint"),
                 "candidate_destinations": item.get("candidate_destinations", []),
+                "privacy_findings": item.get("privacy_findings", []),
                 "promotion_eligible": False,
             }
             for item in records
