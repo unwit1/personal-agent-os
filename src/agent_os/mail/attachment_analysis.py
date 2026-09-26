@@ -504,19 +504,48 @@ def analyze_recovered(
 
     records_path = out / "records.jsonl"
     records_path.write_text("".join(json.dumps(item, ensure_ascii=False) + "\n" for item in records), encoding="utf-8")
-    indexed_total = sum(1 for item in records if item.get("attachment_id"))
-    recovered_total = sum(1 for item in records if item.get("attachment_id") and item.get("status") not in {"not_recovered", "missing_file"})
+    attachment_ids = {str(item["attachment_id"]) for item in records if item.get("attachment_id")}
+    status_by_attachment: dict[str, set[str]] = {}
+    for item in records:
+        attachment_id = item.get("attachment_id")
+        if attachment_id:
+            status_by_attachment.setdefault(str(attachment_id), set()).add(str(item.get("status") or ""))
+
+    gap_statuses = {"not_recovered", "missing_file"}
+    pending_analysis_statuses = {"needs_ocr", "ocr_unavailable", "dependency_missing", "unsupported", "metadata_only", "error"}
+    recovered_ids = {
+        attachment_id
+        for attachment_id, statuses in status_by_attachment.items()
+        if statuses and not statuses.issubset(gap_statuses | {"intentionally_skipped"})
+        and not statuses.intersection(gap_statuses)
+    }
+    intentionally_skipped_ids = {
+        attachment_id
+        for attachment_id, statuses in status_by_attachment.items()
+        if statuses == {"intentionally_skipped"}
+    }
+    gap_ids = {
+        attachment_id
+        for attachment_id, statuses in status_by_attachment.items()
+        if statuses.intersection(gap_statuses)
+    }
+    pending_ids = {
+        attachment_id
+        for attachment_id, statuses in status_by_attachment.items()
+        if statuses.intersection(pending_analysis_statuses)
+    }
+
     summary = {
         "schema": SCHEMA,
         "scope": scope,
-        "attachment_records_accounted_for": indexed_total,
-        "attachment_records_recovered": recovered_total,
-        "attachment_records_not_recovered": counts.get("not_recovered", 0),
-        "coverage_complete": indexed_total > 0 and not any(counts.get(key, 0) for key in ("not_recovered", "missing_file")),
-        "analysis_complete": indexed_total > 0 and not any(
-            counts.get(key, 0) for key in ("not_recovered", "missing_file", "needs_ocr", "ocr_unavailable", "dependency_missing", "unsupported", "error")
-        ),
-        "records_written": len(records),
+        "attachment_records_accounted_for": len(attachment_ids),
+        "attachment_records_recovered": len(recovered_ids),
+        "attachment_records_intentionally_skipped": len(intentionally_skipped_ids),
+        "attachment_records_not_recovered": len(gap_ids),
+        "attachment_records_pending_analysis": len(pending_ids),
+        "coverage_complete": bool(attachment_ids) and not gap_ids,
+        "analysis_complete": bool(attachment_ids) and not gap_ids and not pending_ids,
+        "occurrence_records_written": len(records),
         "counts": dict(sorted(counts.items())),
         "ocr_requested": bool(ocr),
         "records": str(records_path),
@@ -524,15 +553,22 @@ def analyze_recovered(
         "privacy": "All binaries and extracted text remain local/private; no automatic profile promotion.",
     }
     review_rank = {"high": 0, "medium": 1, "low": 2}
-    review_items = sorted(
-        (
-            {
-                "attachment_id": item.get("attachment_id"),
+    review_by_id: dict[str, dict[str, Any]] = {}
+    for item in records:
+        attachment_id = item.get("attachment_id")
+        if not attachment_id:
+            continue
+        key = str(attachment_id)
+        current = review_by_id.get(key)
+        if current is None:
+            current = {
+                "attachment_id": attachment_id,
                 "message_id": item.get("message_id"),
-                "source_id": item.get("source_id"),
+                "source_ids": [],
+                "occurrence_count": 0,
                 "filename": item.get("filename"),
                 "mime_type": item.get("mime_type"),
-                "status": item.get("status"),
+                "statuses": [],
                 "review_category": item.get("review_category"),
                 "review_priority": item.get("review_priority"),
                 "sensitivity_hint": item.get("sensitivity_hint"),
@@ -540,9 +576,27 @@ def analyze_recovered(
                 "privacy_findings": item.get("privacy_findings", []),
                 "promotion_eligible": False,
             }
-            for item in records
-            if item.get("attachment_id")
-        ),
+            review_by_id[key] = current
+        current["occurrence_count"] += 1
+        source_id = item.get("source_id")
+        if source_id and source_id not in current["source_ids"]:
+            current["source_ids"].append(source_id)
+        status = str(item.get("status") or "")
+        if status and status not in current["statuses"]:
+            current["statuses"].append(status)
+        current["privacy_findings"] = sorted(set(current["privacy_findings"]) | set(item.get("privacy_findings", [])))
+        destinations = list(current["candidate_destinations"])
+        for destination in item.get("candidate_destinations", []):
+            if destination not in destinations:
+                destinations.append(destination)
+        current["candidate_destinations"] = destinations
+        if review_rank.get(str(item.get("review_priority")), 9) < review_rank.get(str(current.get("review_priority")), 9):
+            current["review_priority"] = item.get("review_priority")
+            current["review_category"] = item.get("review_category")
+            current["sensitivity_hint"] = item.get("sensitivity_hint")
+
+    review_items = sorted(
+        review_by_id.values(),
         key=lambda item: (review_rank.get(str(item.get("review_priority")), 9), str(item.get("filename") or "")),
     )
     review_path = out / "review-queue.jsonl"
