@@ -7,6 +7,7 @@ third-party evidence belong here.
 from __future__ import annotations
 
 import hashlib
+import json
 import sqlite3
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,7 @@ from .source_attribution import validate_source_actor
 from .timestamps import utc_now_iso
 
 DEFAULT_DB = ROOT / ".agent-local" / "people" / "people.sqlite3"
+SANITIZED_CONTEXT = ROOT / "profile" / "relationship-context.json"
 PRIVACY_CLASSES = {"personal_summary", "restricted_detail", "work_context", "public_creator"}
 STATUSES = {"candidate", "active", "historical", "archived", "rejected"}
 
@@ -151,6 +153,25 @@ class PeopleStore:
         self.conn.commit()
         return eid
 
+    def relationships_for(self, person_id: str) -> list[dict[str, Any]]:
+        rows = self.conn.execute(
+            "SELECT * FROM relationships WHERE subject_id=? OR object_id=? "
+            "ORDER BY COALESCE(valid_from,''),edge_id",
+            (person_id, person_id),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+    def stats(self) -> dict[str, Any]:
+        return {
+            "path": str(self.path),
+            "people": self.conn.execute("SELECT COUNT(*) FROM people").fetchone()[0],
+            "aliases": self.conn.execute("SELECT COUNT(*) FROM aliases").fetchone()[0],
+            "relationships": self.conn.execute("SELECT COUNT(*) FROM relationships").fetchone()[0],
+            "evidence": self.conn.execute("SELECT COUNT(*) FROM evidence").fetchone()[0],
+            "identity_candidates": self.conn.execute("SELECT COUNT(*) FROM identity_candidates WHERE status='candidate'").fetchone()[0],
+            "local_private": True,
+        }
+
     def stage_identity_candidate(self, label: str, *, domain: str, rationale: str) -> str:
         cid = _id("candidate", domain, label.casefold(), rationale)
         stamp = utc_now_iso()
@@ -160,3 +181,124 @@ class PeopleStore:
         )
         self.conn.commit()
         return cid
+
+
+
+def bootstrap_from_sanitized_context(
+    context_path: Path | None = None,
+    *,
+    db_path: Path | None = None,
+) -> dict[str, Any]:
+    """Seed the local graph from Git-safe relationship context.
+
+    This is idempotent. It copies only the already-sanitized relationship
+    projection; it does not import raw mail, contact identifiers, or private
+    third-party details.
+    """
+    path = Path(context_path or SANITIZED_CONTEXT)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    durable = data.get("durable_relationship_context") or {}
+    unresolved = data.get("unresolved_identity_candidates") or []
+    created: dict[str, Any] = {"people": [], "relationships": [], "candidates": []}
+
+    with PeopleStore(db_path) as store:
+        user_id = store.upsert_person(
+            "User",
+            person_id="person:user",
+            domain="personal",
+            status="active",
+            privacy_class="personal_summary",
+            identity_confidence=1.0,
+        )
+        created["people"].append(user_id)
+
+        partner = durable.get("partner")
+        if isinstance(partner, dict) and partner.get("display_name"):
+            partner_id = store.upsert_person(
+                str(partner["display_name"]),
+                person_id=str(partner.get("person_id") or _id("person", "personal", str(partner["display_name"]).casefold())),
+                domain="personal",
+                status="active",
+                privacy_class="personal_summary",
+                identity_confidence=1.0 if partner.get("identity_confidence") == "stated" else None,
+            )
+            store.add_alias(
+                partner_id,
+                str(partner["display_name"]),
+                source_ref=f"{path.name}#durable_relationship_context.partner",
+                identity_confidence=1.0 if partner.get("identity_confidence") == "stated" else None,
+            )
+            edge = store.add_relationship(
+                user_id,
+                str(partner.get("relationship_type") or "romantic_partner"),
+                object_id=partner_id,
+                domain="personal",
+                status="active",
+                identity_confidence=1.0,
+                relationship_confidence=1.0 if partner.get("relationship_confidence") == "stated" else None,
+                privacy_class="personal_summary",
+            )
+            store.add_evidence(
+                "relationship",
+                edge,
+                source_type="sanitized_profile",
+                source_ref=f"{path.name}#durable_relationship_context.partner",
+                source_actor="user_confirmed",
+                observed_at=str(data.get("updated_at") or ""),
+                confidence=1.0,
+                note="Sanitized projection only; raw relationship evidence remains outside Git.",
+            )
+            created["people"].append(partner_id)
+            created["relationships"].append(edge)
+
+        family = durable.get("family")
+        if isinstance(family, dict) and family.get("sibling_structure"):
+            edge = store.add_relationship(
+                user_id,
+                "family_structure",
+                object_label=str(family["sibling_structure"]),
+                domain="personal",
+                status="active",
+                identity_confidence=1.0,
+                relationship_confidence=1.0,
+                privacy_class="restricted_detail",
+            )
+            store.add_evidence(
+                "relationship",
+                edge,
+                source_type="sanitized_profile",
+                source_ref=f"{path.name}#durable_relationship_context.family",
+                source_actor="user_confirmed",
+                observed_at=str(data.get("updated_at") or ""),
+                confidence=1.0,
+                note="Sanitized family-structure statement; no sibling identities imported.",
+            )
+            created["relationships"].append(edge)
+
+        for candidate in unresolved:
+            if not isinstance(candidate, dict) or not candidate.get("label"):
+                continue
+            cid = store.stage_identity_candidate(
+                str(candidate["label"]),
+                domain=str(candidate.get("domain") or "personal"),
+                rationale=str(candidate.get("reason") or "unresolved identity candidate from sanitized context"),
+            )
+            created["candidates"].append(cid)
+
+        created["stats"] = store.stats()
+    return created
+
+
+def people_status(db_path: Path | None = None) -> dict[str, Any]:
+    with PeopleStore(db_path) as store:
+        return store.stats()
+
+
+def alias_lookup(alias: str, db_path: Path | None = None) -> dict[str, Any]:
+    with PeopleStore(db_path) as store:
+        return {"query": alias, "matches": store.alias_candidates(alias), "local_private": True}
+
+
+def relationship_lookup(person_id: str, db_path: Path | None = None) -> dict[str, Any]:
+    with PeopleStore(db_path) as store:
+        return {"person_id": person_id, "relationships": store.relationships_for(person_id), "local_private": True}
