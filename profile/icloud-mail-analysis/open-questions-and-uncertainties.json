@@ -68,10 +68,10 @@
     {
       "id": "relationships.unresolved_person_candidates",
       "question": "Which recurring social/work identities across imported sources refer to the same real people?",
-      "current_evidence": "Several names or recurring person signals appear across sources without enough evidence for safe merges, including Mark Allison, an unidentified recurring male friend, an Olivia in workplace context, Brian Ingle across work contexts, and multiple Regina references.",
+      "current_evidence": "Several recurring social/work identity signals appear across imported sources without enough evidence for safe merges: a named social-contact candidate, an unidentified recurring friend, a workplace same-name collision with a durable personal contact, a cross-context work contact, and a historical/current work first-name collision.",
       "priority": "medium",
       "status": "candidate_identity_links_only",
-      "rule": "Do not merge by first name/name equality or interaction frequency. Require contextual/stable-identifier evidence or user confirmation."
+      "rule": "Do not merge by name equality or interaction frequency. Keep unresolved third-party identities and raw identifiers local; require contextual/stable-identifier evidence or user confirmation."
     }
   ],
   "contradictions_and_version_rules": [
