@@ -156,7 +156,8 @@ class PeopleStore:
             raise ValueError(f"unsupported relationship status: {status}")
         if privacy_class not in PRIVACY_CLASSES:
             raise ValueError(f"unsupported privacy class: {privacy_class}")
-        edge = _id("rel", subject_id, predicate, object_id or object_label, valid_from or "", valid_to or "")
+        object_key = object_id if not object_label else f"{object_id or ''}\x1e{object_label}"
+        edge = _id("rel", subject_id, predicate, object_key, valid_from or "", valid_to or "")
         stamp = utc_now_iso()
         self.conn.execute(
             "INSERT OR REPLACE INTO relationships VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
