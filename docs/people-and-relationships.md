@@ -32,9 +32,7 @@ The local store returns every matching alias candidate. Stable identifiers,
 organization/time context, multiple independent observations, or user
 confirmation are needed to link profiles.
 
-This protects cases such as a personal Olivia versus an Olivia in a work
-archive, and current coworkers whose names also occur in older organizational
-mail.
+This protects cases such as a durable personal identity versus a same-name work identity, and current coworkers whose names also occur in older organizational mail. Unresolved third-party names remain local rather than being copied into the Git-safe profile projection.
 
 ## Source actors
 
