@@ -18,8 +18,10 @@ from typing import Any
 
 from . import config
 from ..privacy import privacy_findings
+from ..timestamps import utc_now_iso
 
 SCHEMA = "agent-os/mail-attachment-analysis/v1"
+ANALYZER_VERSION = "mail-attachment-analysis@1"
 MAX_TEXT = 2_000_000
 MAX_SHEET_CELLS = 50_000
 TEXTISH_BYTES = set(range(32, 127)) | {9, 10, 13}
@@ -390,6 +392,7 @@ def analyze_recovered(
 
     records: list[dict[str, Any]] = []
     counts: Counter[str] = Counter()
+    analyzed_at = utc_now_iso()
     with sqlite3.connect(manifest) as mconn, sqlite3.connect(db_path) as conn:
         mconn.row_factory = sqlite3.Row
         conn.row_factory = sqlite3.Row
@@ -431,6 +434,8 @@ def analyze_recovered(
                 review = classify_for_review(attachment["filename"] if attachment else path.name, str(attachment["mime_type"] or "") if attachment else mime, text)
                 record = {
                     "schema": SCHEMA,
+                    "analyzer_version": ANALYZER_VERSION,
+                    "analyzed_at": analyzed_at,
                     "scope": scope,
                     "source_id": row["source_id"],
                     "message_id": source["message_id"],
@@ -446,6 +451,8 @@ def analyze_recovered(
                     "account_id": source["account_id"],
                     "mailbox": source["mailbox"],
                     "privacy": "local_private",
+                    "source_actor": "unknown",
+                    "subject_relation": "unknown",
                     **review,
                     **result,
                     "text_chars": len(text),
@@ -477,6 +484,8 @@ def analyze_recovered(
             review = classify_for_review(filename, mime, "")
             records.append({
                 "schema": SCHEMA,
+                "analyzer_version": ANALYZER_VERSION,
+                "analyzed_at": analyzed_at,
                 "scope": scope,
                 "source_id": None,
                 "message_id": attachment["message_id"],
@@ -489,6 +498,8 @@ def analyze_recovered(
                 "message_sender": attachment["sender"],
                 "message_date": attachment["date_utc"],
                 "privacy": "local_private",
+                "source_actor": "unknown",
+                "subject_relation": "unknown",
                 **review,
                 "status": status,
                 "method": method,
@@ -542,6 +553,8 @@ def analyze_recovered(
 
     summary = {
         "schema": SCHEMA,
+        "analyzer_version": ANALYZER_VERSION,
+        "analyzed_at": analyzed_at,
         "scope": scope,
         "attachment_records_accounted_for": len(attachment_ids),
         "attachment_records_recovered": len(recovered_ids),
@@ -581,6 +594,8 @@ def analyze_recovered(
                 "sensitivity_hint": item.get("sensitivity_hint"),
                 "candidate_destinations": item.get("candidate_destinations", []),
                 "privacy_findings": item.get("privacy_findings", []),
+                "source_actor": item.get("source_actor", "unknown"),
+                "subject_relation": item.get("subject_relation", "unknown"),
                 "promotion_eligible": False,
             }
             review_by_id[key] = current
