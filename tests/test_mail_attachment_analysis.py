@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sqlite3
 import tempfile
 import unittest
@@ -86,6 +87,54 @@ class AttachmentAnalysisTests(unittest.TestCase):
         self.assertIn("email", review["privacy_findings"])
         self.assertIn("ssn", review["privacy_findings"])
         self.assertFalse(review["promotion_eligible"])
+
+
+    def test_multiple_source_occurrences_do_not_inflate_attachment_count(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db = root / "mail.sqlite3"
+            manifest_dir = root / "scope"
+            manifest_dir.mkdir()
+            manifest = manifest_dir / "attachments.sqlite3"
+            output = root / "analysis"
+            downloads = root / "Downloads"
+
+            msg = EmailMessage()
+            msg["From"] = "Me <me@icloud.test>"
+            msg["To"] = "Other <other@example.test>"
+            msg["Date"] = "Fri, 25 Sep 2026 12:00:00 -0400"
+            msg["Subject"] = "Same logical message in two folders"
+            msg["Message-ID"] = "<same@example.test>"
+            msg.set_content("Attached.")
+            msg.add_attachment(b"one attachment\n", maintype="text", subtype="plain", filename="one.txt")
+            raw = msg.as_bytes()
+            parsed = parse(raw)
+
+            with Store(db) as store:
+                first = store.record(parsed, {
+                    "id": "src_inbox", "source_kind": "live_imap", "provider": "icloud",
+                    "account_id": "personal-icloud", "mailbox": "INBOX", "uidvalidity": "1", "uid": "1",
+                })
+                second = store.record(parsed, {
+                    "id": "src_archive", "source_kind": "live_imap", "provider": "icloud",
+                    "account_id": "personal-icloud", "mailbox": "Archive", "uidvalidity": "2", "uid": "9",
+                })
+                store.conn.commit()
+                self.assertEqual(first["message_id"], second["message_id"])
+
+            with mock.patch.object(config, "scope_dir", return_value=manifest_dir):
+                with Exporter("personal", downloads) as exporter:
+                    exporter.export(raw, "src_inbox")
+                    exporter.export(raw, "src_archive")
+
+            result = analyze_recovered("personal", manifest_path=manifest, mail_db=db, output_dir=output)
+            self.assertEqual(result["attachment_records_accounted_for"], 1)
+            self.assertEqual(result["attachment_records_recovered"], 1)
+            self.assertEqual(result["occurrence_records_written"], 2)
+            queue = [json.loads(line) for line in (output / "review-queue.jsonl").read_text(encoding="utf-8").splitlines()]
+            self.assertEqual(len(queue), 1)
+            self.assertEqual(queue[0]["occurrence_count"], 2)
+            self.assertEqual(set(queue[0]["source_ids"]), {"src_inbox", "src_archive"})
 
 
 if __name__ == "__main__":
