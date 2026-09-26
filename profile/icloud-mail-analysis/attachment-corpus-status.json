@@ -61,26 +61,42 @@
     "E-books should be treated as reading/library artifacts rather than profile facts unless usage context makes them relevant."
   ],
   "extraction_policy": [
-    "Recover attachment binaries from the original archive/provider or export pipeline.",
-    "Hash and deduplicate before extraction.",
-    "Use format-native parsers for PDF/DOCX/XLSX/EPUB before OCR.",
-    "Use OCR only where necessary for image/scanned documents.",
-    "Keep raw binaries, extracted text, and sensitive source details local/private.",
-    "Link every extraction to message_id and attachment_id for provenance.",
-    "Run sensitivity detection before any model or Git promotion.",
-    "Promote only sanitized durable conclusions, never raw private documents."
+    "Recover attachment binaries from the original provider/export pipeline over read-only access.",
+    "Hash and deduplicate physical files while preserving every source/message occurrence for provenance.",
+    "Account for unique logical attachment IDs separately from duplicate mailbox/source observations.",
+    "Use format-native parsers for text/HTML/PDF/DOCX/XLSX/EPUB/calendar data before OCR.",
+    "Sniff common extensionless document formats instead of relying only on filenames.",
+    "Use OCR only where necessary for images and image-only PDFs; leave OCR failures or visually ambiguous files explicitly pending.",
+    "Treat audio/video extraction as metadata-only unless a later media-understanding layer actually analyzes the content.",
+    "Keep raw binaries, extracted text, local paths, and sensitive source details local/private.",
+    "Run privacy/sensitivity detection before any profile or relationship candidate is considered.",
+    "Require actor and subject attribution plus normal Candidate -> Validated -> Canonical review before durable profile promotion.",
+    "Promote only sanitized durable conclusions, never raw private documents or third-party case data."
   ],
-  "current_boundary": "Indexed message text is exhausted. Attachment recovery/analysis is implemented but the 231 metadata-only attachment bodies remain pending until the local machine re-fetches them from the configured iCloud account.",
+  "current_boundary": "Indexed message text is exhausted. The 231 originally metadata-only attachment bodies are still unavailable in this remote/chat environment; no separate personal copies were found in the available Library. Agent OS now has a local read-only provider recovery + exhaustive coverage analyzer ready for the machine with the configured iCloud account.",
   "recovery_pipeline": {
     "status": "implemented_pending_local_execution",
+    "install": "python -m pip install -e \".[attachments]\"",
     "command": "agent-os mail analyze-attachments --scope personal --recover",
+    "ocr_command": "agent-os mail analyze-attachments --scope personal --recover --ocr",
     "behavior": [
-      "Re-fetches attachment-bearing indexed iCloud messages over read-only IMAP.",
-      "Preserves duplicate occurrence provenance.",
-      "Extracts text from text/PDF/DOCX/XLSX/EPUB with format-native parsers.",
-      "Uses OCR only when explicitly requested and locally available.",
-      "Links each local result through source_id, message_id, and attachment_id.",
-      "Updates only the local mail index; no attachment body is automatically promoted to Git-backed profile state."
-    ]
+      "Re-fetches every indexed attachment-bearing live iCloud source over EXAMINE/BODY.PEEK read-only IMAP when recovery reconciliation is requested.",
+      "Preserves source_id -> message_id -> attachment_id provenance and reconstructs duplicate attachment occurrences without rewriting duplicate files.",
+      "Extracts supported text/HTML/PDF/DOCX/XLSX/EPUB/calendar content, common extensionless document types, and basic supported media metadata.",
+      "Uses OCR only on request for images/image-only PDFs and reports OCR-needed/unavailable/visual-review states explicitly.",
+      "Writes local records.jsonl, extracted text, summary.json, and a privacy-aware review-queue.jsonl.",
+      "Reports unique attachment coverage separately from occurrence records and distinguishes not-recovered, intentionally skipped, and pending-analysis states.",
+      "Prioritizes likely resume/CV, education, employment, housing, vehicle, spreadsheet, calendar, image/scan and related evidence for human/agent reconciliation without treating classification as fact.",
+      "Updates only the local mail index/search layer; attachment contents are never automatically promoted into Git-backed profile state."
+    ],
+    "completion_contract": {
+      "coverage_complete": "True only when every indexed attachment ID is either physically recovered or intentionally excluded (for example a cryptographic signature blob).",
+      "analysis_complete": "True only when coverage is complete and no attachment remains OCR-needed, visual-review-needed, dependency-missing, unsupported, media-metadata-only, or errored."
+    },
+    "current_execution_status": "not_run_against_the_real_231_bodies_in_this_chat"
+  },
+  "library_recovery_check": {
+    "checked_at": "2026-09-25",
+    "result": "No separately uploaded personal copies were found by broad and filename-focused searches for likely resume/CV, lease, transcript/diploma, insurance/registration, Berea/UK/Galway, calendar and related attachment names. Broad matches were dominated by unrelated or RTEC organizational material and were not treated as personal evidence."
   }
 }
