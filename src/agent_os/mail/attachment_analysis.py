@@ -30,7 +30,8 @@ def _sniff_kind(path: Path, mime_type: str) -> str:
     if ext:
         return ext
     try:
-        head = path.read_bytes()[:8192]
+        with path.open("rb") as handle:
+            head = handle.read(8192)
     except OSError:
         return ""
     if head.startswith(b"%PDF-"):
@@ -345,7 +346,7 @@ def classify_for_review(filename: str, mime_type: str, text: str = "") -> dict[s
         sensitivity = "personal_private"
         destinations = ["media_or_routine"]
 
-    findings = privacy_findings((text or "")[:50000])
+    findings = privacy_findings(f"{filename}\n{(text or '')[:50000]}")
     if any_term("social security", "ssn", "passport", "driver's license", "medical", "diagnosis", "bank account", "routing number") or findings:
         sensitivity = "restricted_high"
         priority = "high"
@@ -455,7 +456,7 @@ def analyze_recovered(
                 counts[result["status"]] += 1
                 if attachment:
                     processed_attachment_ids.add(str(attachment["id"]))
-                if attachment and result["status"] in {"parsed", "empty_text", "needs_ocr", "ocr_unavailable", "visual_review_needed", "dependency_missing", "metadata_only", "error"}:
+                if attachment and result["status"] in {"parsed", "empty_text", "needs_ocr", "ocr_unavailable", "visual_review_needed", "dependency_missing", "metadata_only", "unsupported", "error"}:
                     conn.execute("UPDATE mail_attachments SET text=?, extraction=? WHERE id=?", (text or None, result["method"], attachment["id"]))
                     touched_messages.add(str(source["message_id"]))
 
@@ -551,6 +552,7 @@ def analyze_recovered(
         "analysis_complete": bool(attachment_ids) and not gap_ids and not pending_ids,
         "occurrence_records_written": len(records),
         "counts": dict(sorted(counts.items())),
+        "occurrence_status_counts": dict(sorted(counts.items())),
         "ocr_requested": bool(ocr),
         "records": str(records_path),
         "text_dir": str(text_dir),
@@ -569,6 +571,7 @@ def analyze_recovered(
                 "attachment_id": attachment_id,
                 "message_id": item.get("message_id"),
                 "source_ids": [],
+                "record_count": 0,
                 "occurrence_count": 0,
                 "filename": item.get("filename"),
                 "mime_type": item.get("mime_type"),
@@ -581,10 +584,12 @@ def analyze_recovered(
                 "promotion_eligible": False,
             }
             review_by_id[key] = current
-        current["occurrence_count"] += 1
+        current["record_count"] += 1
         source_id = item.get("source_id")
-        if source_id and source_id not in current["source_ids"]:
-            current["source_ids"].append(source_id)
+        if source_id:
+            current["occurrence_count"] += 1
+            if source_id not in current["source_ids"]:
+                current["source_ids"].append(source_id)
         status = str(item.get("status") or "")
         if status and status not in current["statuses"]:
             current["statuses"].append(status)
