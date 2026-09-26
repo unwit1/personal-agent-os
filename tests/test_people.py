@@ -50,6 +50,26 @@ class PeopleStoreTests(unittest.TestCase):
                         source_actor="owner_means_user",
                     )
 
+    def test_evidence_keeps_actor_and_subject_separate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            with PeopleStore(Path(tmp) / "people.sqlite3") as store:
+                person = store.upsert_person("Applicant", person_id="person:applicant", domain="work")
+                evidence = store.add_evidence(
+                    "person",
+                    person,
+                    source_type="mail",
+                    source_ref="msg:test",
+                    source_actor="user",
+                    subject_relation="third_party",
+                    confidence=0.9,
+                )
+                row = store.conn.execute(
+                    "SELECT source_actor,subject_relation FROM evidence WHERE evidence_id=?",
+                    (evidence,),
+                ).fetchone()
+                self.assertEqual(row["source_actor"], "user")
+                self.assertEqual(row["subject_relation"], "third_party")
+
 
     def test_bootstrap_from_sanitized_context_is_idempotent(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
