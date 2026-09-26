@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from .paths import ROOT
-from .source_attribution import validate_source_actor
+from .source_attribution import validate_source_actor, validate_subject_relation
 from .timestamps import utc_now_iso
 
 DEFAULT_DB = ROOT / ".agent-local" / "people" / "people.sqlite3"
@@ -56,7 +56,7 @@ class PeopleStore:
             CREATE TABLE IF NOT EXISTS evidence (
               evidence_id TEXT PRIMARY KEY, target_type TEXT NOT NULL, target_id TEXT NOT NULL,
               source_type TEXT NOT NULL, source_ref TEXT NOT NULL, source_actor TEXT NOT NULL,
-              observed_at TEXT, confidence REAL, note TEXT, created_at TEXT NOT NULL
+              subject_relation TEXT NOT NULL, observed_at TEXT, confidence REAL, note TEXT, created_at TEXT NOT NULL
             );
             CREATE TABLE IF NOT EXISTS identity_candidates (
               candidate_id TEXT PRIMARY KEY, label TEXT NOT NULL, domain TEXT NOT NULL,
@@ -79,6 +79,7 @@ class PeopleStore:
         )
         self._ensure_column("people", "first_seen", "TEXT")
         self._ensure_column("people", "last_seen", "TEXT")
+        self._ensure_column("evidence", "subject_relation", "TEXT")
         self.conn.commit()
 
     def _ensure_column(self, table: str, column: str, declaration: str) -> None:
@@ -168,15 +169,19 @@ class PeopleStore:
 
     def add_evidence(
         self, target_type: str, target_id: str, *, source_type: str, source_ref: str,
-        source_actor: str, observed_at: str | None = None, confidence: float | None = None,
+        source_actor: str, subject_relation: str = "unknown",
+        observed_at: str | None = None, confidence: float | None = None,
         note: str | None = None,
     ) -> str:
         actor = validate_source_actor(source_actor)
-        assert actor is not None
+        subject = validate_subject_relation(subject_relation)
+        assert actor is not None and subject is not None
         eid = _id("evidence", target_type, target_id, source_type, source_ref, observed_at or "")
         self.conn.execute(
-            "INSERT OR REPLACE INTO evidence VALUES (?,?,?,?,?,?,?,?,?,?)",
-            (eid, target_type, target_id, source_type, source_ref, actor, observed_at, confidence, note, utc_now_iso()),
+            "INSERT OR REPLACE INTO evidence "
+            "(evidence_id,target_type,target_id,source_type,source_ref,source_actor,subject_relation,observed_at,confidence,note,created_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+            (eid, target_type, target_id, source_type, source_ref, actor, subject, observed_at, confidence, note, utc_now_iso()),
         )
         self.conn.commit()
         return eid
@@ -336,6 +341,7 @@ def bootstrap_from_sanitized_context(
                 source_type="sanitized_profile",
                 source_ref=f"{path.name}#durable_relationship_context.partner",
                 source_actor="user_confirmed",
+                subject_relation="user_confirmed",
                 observed_at=str(data.get("updated_at") or ""),
                 confidence=1.0,
                 note="Sanitized projection only; raw relationship evidence remains outside Git.",
