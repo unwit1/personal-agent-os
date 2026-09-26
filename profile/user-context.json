@@ -251,6 +251,7 @@
     "quarantine_examples": [
       "The historical Regent University / IT-adjacent narrative is not canonical user history unless independently re-confirmed as the user's.",
       "The historical Audio Engineering master's claim is not a current credential and remains quarantined pending actor/source confirmation."
-    ]
+    ],
+    "user_authored_not_equal_user_subject": "Even when the user authored a message, facts about applicants, coworkers, relatives, vendors, organizations, or other third parties must not be promoted into the user's biography without explicit subject attribution."
   }
 }
