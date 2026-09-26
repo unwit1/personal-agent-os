@@ -289,6 +289,7 @@ def bootstrap_from_sanitized_context(
     created: dict[str, Any] = {"people": [], "relationships": [], "candidates": []}
 
     with PeopleStore(db_path) as store:
+        observed = str(data.get("updated_at") or "") or None
         user_id = store.upsert_person(
             "User",
             person_id="person:user",
@@ -296,6 +297,8 @@ def bootstrap_from_sanitized_context(
             status="active",
             privacy_class="personal_summary",
             identity_confidence=1.0,
+            first_seen=observed,
+            last_seen=observed,
         )
         created["people"].append(user_id)
 
@@ -308,6 +311,8 @@ def bootstrap_from_sanitized_context(
                 status="active",
                 privacy_class="personal_summary",
                 identity_confidence=1.0 if partner.get("identity_confidence") == "stated" else None,
+                first_seen=str(partner.get("first_seen") or observed or "") or None,
+                last_seen=str(partner.get("last_seen") or observed or "") or None,
             )
             store.add_alias(
                 partner_id,
