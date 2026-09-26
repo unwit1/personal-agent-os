@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from agent_os.people import PeopleStore
+from agent_os.people import PeopleStore, bootstrap_from_sanitized_context
 
 
 class PeopleStoreTests(unittest.TestCase):
@@ -49,6 +49,40 @@ class PeopleStoreTests(unittest.TestCase):
                         source_ref="x",
                         source_actor="owner_means_user",
                     )
+
+
+    def test_bootstrap_from_sanitized_context_is_idempotent(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            context = root / "relationship-context.json"
+            context.write_text(
+                """{
+                  "updated_at": "2026-09-25",
+                  "durable_relationship_context": {
+                    "partner": {
+                      "person_id": "person:olivia",
+                      "display_name": "Olivia",
+                      "identity_confidence": "stated",
+                      "relationship_type": "romantic_partner",
+                      "relationship_confidence": "stated"
+                    },
+                    "family": {
+                      "sibling_structure": "User is the oldest of five siblings."
+                    }
+                  },
+                  "unresolved_identity_candidates": [
+                    {"label": "Olivia (workplace context)", "domain": "work", "reason": "same-name collision"}
+                  ]
+                }""",
+                encoding="utf-8",
+            )
+            db = root / "people.sqlite3"
+            first = bootstrap_from_sanitized_context(context, db_path=db)
+            second = bootstrap_from_sanitized_context(context, db_path=db)
+            self.assertEqual(first["stats"]["people"], 2)
+            self.assertEqual(second["stats"]["people"], 2)
+            self.assertEqual(second["stats"]["relationships"], 2)
+            self.assertEqual(second["stats"]["identity_candidates"], 1)
 
 
 if __name__ == "__main__":
