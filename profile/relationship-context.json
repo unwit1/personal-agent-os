@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "updated_at": "2026-09-25",
-  "purpose": "Sanitized relationship reconciliation and source-attribution policy. Detailed third-party identifiers, raw messages, contact data, and uncertain identity evidence remain local/private.",
+  "purpose": "Sanitized relationship reconciliation and source-attribution policy. Only durable user-approved relationship names belong here; unresolved third-party identities, raw messages, contact data, and uncertain identity evidence remain local/private.",
   "durable_relationship_context": {
     "partner": {
       "person_id": "person:olivia",
@@ -69,39 +69,39 @@
   ],
   "unresolved_identity_candidates": [
     {
-      "id": "candidate:mark-allison",
-      "label": "Mark Allison",
+      "id": "candidate:social-contact-01",
+      "label": "Named social-contact candidate",
       "domain": "personal",
       "status": "candidate",
-      "reason": "Recurring imported social context does not establish closeness/current relationship."
+      "reason": "A recurring imported social identity exists, but closeness/current relationship and safe canonical relevance are unresolved. Keep the actual identity local."
     },
     {
-      "id": "candidate:recurring-male-friend",
-      "label": "Unidentified recurring male friend",
+      "id": "candidate:recurring-friend-01",
+      "label": "Unidentified recurring friend candidate",
       "domain": "personal",
       "status": "candidate",
-      "reason": "Recurring friend/photo context exists without reliable identity."
+      "reason": "Recurring friend/photo context exists without a reliable identity. Keep any source-level identifying details local."
     },
     {
-      "id": "candidate:workplace-olivia",
-      "label": "Olivia (workplace context)",
+      "id": "candidate:work-same-name-collision-01",
+      "label": "Workplace same-name collision candidate",
       "domain": "work",
       "status": "candidate",
-      "reason": "Do not merge with partner Olivia by first name alone."
+      "reason": "A workplace identity shares a name with a durable personal relationship. Do not merge by name; keep the work identity local until independently resolved."
     },
     {
-      "id": "candidate:brian-ingle",
-      "label": "Brian Ingle",
+      "id": "candidate:work-contact-cross-context-01",
+      "label": "Cross-context work-contact candidate",
       "domain": "work",
       "status": "candidate_same_person_link",
-      "reason": "Name appears across work contexts; organization/time evidence must establish continuity."
+      "reason": "A named work contact appears across multiple work contexts; organization/time evidence must establish continuity. Keep the name and raw evidence local."
     },
     {
-      "id": "candidate:regina",
-      "label": "Regina",
+      "id": "candidate:work-first-name-collision-01",
+      "label": "Historical/current work-name collision candidate",
       "domain": "work",
       "status": "candidate_collision",
-      "reason": "Current work and historical archive references may refer to different people."
+      "reason": "Current work and historical organizational-archive references may refer to different people. Keep source identities local and require temporal/organization evidence."
     }
   ],
   "provenance": [
