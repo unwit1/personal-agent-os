@@ -142,6 +142,15 @@ imported. Damaged messages or attachments are counted and skipped.
 
 ### Attachments saved to Downloads
 
+For full PDF/Office/image/media analysis, install the optional local parser bundle once:
+
+```powershell
+python -m pip install -e ".[attachments]"
+```
+
+OCR additionally requires a local Tesseract executable; without it, OCR-needed
+items remain explicitly queued rather than being treated as analyzed.
+
 ```powershell
 agent-os mail attachments --enable      # from now on, sync and PST import save attachments
 agent-os mail attachments --scope personal   # re-fetch old iCloud attachment-bearing messages
