@@ -20,6 +20,7 @@ DEFAULT_DB = ROOT / ".agent-local" / "people" / "people.sqlite3"
 SANITIZED_CONTEXT = ROOT / "profile" / "relationship-context.json"
 PRIVACY_CLASSES = {"personal_summary", "restricted_detail", "work_context", "public_creator"}
 STATUSES = {"candidate", "active", "historical", "archived", "rejected"}
+PEOPLE_SCHEMA_VERSION = 1
 
 
 def _id(prefix: str, *parts: Any) -> str:
@@ -33,6 +34,10 @@ class PeopleStore:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(self.path)
         self.conn.row_factory = sqlite3.Row
+        existing_version = int(self.conn.execute("PRAGMA user_version").fetchone()[0])
+        if existing_version > PEOPLE_SCHEMA_VERSION:
+            self.conn.close()
+            raise ValueError(f"people database schema {existing_version} is newer than supported {PEOPLE_SCHEMA_VERSION}")
         self.conn.executescript(
             """
             CREATE TABLE IF NOT EXISTS people (
@@ -80,6 +85,7 @@ class PeopleStore:
         self._ensure_column("people", "first_seen", "TEXT")
         self._ensure_column("people", "last_seen", "TEXT")
         self._ensure_column("evidence", "subject_relation", "TEXT")
+        self.conn.execute(f"PRAGMA user_version={PEOPLE_SCHEMA_VERSION}")
         self.conn.commit()
 
     def _ensure_column(self, table: str, column: str, declaration: str) -> None:
@@ -255,6 +261,7 @@ class PeopleStore:
     def stats(self) -> dict[str, Any]:
         return {
             "path": str(self.path),
+            "schema_version": int(self.conn.execute("PRAGMA user_version").fetchone()[0]),
             "people": self.conn.execute("SELECT COUNT(*) FROM people").fetchone()[0],
             "aliases": self.conn.execute("SELECT COUNT(*) FROM aliases").fetchone()[0],
             "relationships": self.conn.execute("SELECT COUNT(*) FROM relationships").fetchone()[0],
