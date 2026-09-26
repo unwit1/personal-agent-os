@@ -92,8 +92,9 @@ agent-os people-bootstrap
 agent-os people-status
 agent-os people-alias "Olivia"
 agent-os people-relationships person:user
+agent-os people-org-roles person:user
 ```
 
 `people-bootstrap` is idempotent and copies only the sanitized Git-backed
-projection into the private local SQLite graph. It does not import raw email,
+projection into the private local SQLite graph. Person records retain temporal first/last-seen bounds, and professional relationships can be modeled separately as person↔organization role/process edges. It does not import raw email,
 contact identifiers, or private third-party records.
