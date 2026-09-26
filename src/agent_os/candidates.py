@@ -235,7 +235,7 @@ def curate_candidates(project_id: str, candidate_ids: Iterable[str] | None = Non
             explicitly_confirmed=bool(record.get("user_confirmed")),
             require_subject=profile_kind,
         )
-        review["source_actor_gate"] = {"allowed": actor_allowed, "reason": actor_reason}
+        review["source_attribution_gate"] = {"allowed": actor_allowed, "reason": actor_reason}
         if action == "review":
             results.append({"id": record["id"], "outcome": "review_required", "review": review})
             continue
