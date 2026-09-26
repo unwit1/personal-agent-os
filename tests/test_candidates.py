@@ -112,6 +112,34 @@ class ProfileCandidateAttributionTests(unittest.TestCase):
         self.assertFalse(allowed)
         self.assertIn("requires_reconciliation", reason)
 
+    def test_profile_candidates_require_subject_attribution(self) -> None:
+        with self.assertRaises(ValueError):
+            _require_candidate({
+                "kind": "profile_fact_candidate",
+                "statement": "A personal fact.",
+                "evidence": ["message:x"],
+                "confidence": 0.9,
+                "source_actor": "user",
+            })
+
+    def test_user_authored_third_party_fact_is_not_autobiographical(self) -> None:
+        allowed, reason = profile_promotion_allowed(
+            "user",
+            subject_relation="third_party",
+            require_subject=True,
+        )
+        self.assertFalse(allowed)
+        self.assertEqual(reason, "subject_requires_reconciliation:third_party")
+
+    def test_user_authored_user_subject_can_pass_gate(self) -> None:
+        allowed, reason = profile_promotion_allowed(
+            "user",
+            subject_relation="user",
+            require_subject=True,
+        )
+        self.assertTrue(allowed)
+        self.assertEqual(reason, "direct_user_actor_and_subject")
+
     def test_user_confirmation_can_override_ambiguous_actor(self) -> None:
         allowed, reason = profile_promotion_allowed("unknown", explicitly_confirmed=True)
         self.assertTrue(allowed)
