@@ -280,6 +280,79 @@ def _safe_name(value: str) -> str:
     return re.sub(r"[^a-zA-Z0-9._-]+", "_", value)[:120] or "attachment"
 
 
+def classify_for_review(filename: str, mime_type: str, text: str = "") -> dict[str, Any]:
+    """Local-only triage for profile/relationship review.
+
+    This deliberately classifies *what deserves review*, not what is true
+    about the user. The returned category never implies promotion.
+    """
+    name = (filename or "").casefold()
+    sample = (text or "")[:50000].casefold()
+    haystack = f"{name}\n{sample}"
+    ext = Path(filename or "").suffix.casefold()
+
+    def any_term(*terms: str) -> bool:
+        return any(term in haystack for term in terms)
+
+    category = "general_document"
+    priority = "low"
+    sensitivity = "personal_private"
+    destinations: list[str] = []
+
+    if any_term("resume", "curriculum vitae") or ext in {".doc", ".docx"} and any_term("education", "employment", "experience", "skills"):
+        category, priority = "resume_or_cv", "high"
+        sensitivity = "restricted_personal"
+        destinations = ["education", "work_history", "skills"]
+    elif any_term("lease", "landlord", "tenant", "rental application"):
+        category, priority = "housing_or_lease", "high"
+        sensitivity = "restricted_personal"
+        destinations = ["housing_timeline", "household"]
+    elif any_term("offer letter", "employment application", "employment verification", "w-2", "w2", "w-4", "w4", "payroll", "benefits enrollment"):
+        category, priority = "employment_or_hr", "high"
+        sensitivity = "restricted_personal"
+        destinations = ["work_history", "benefits_or_finance"]
+    elif any_term("transcript", "diploma", "degree", "university", "college", "student"):
+        category, priority = "education", "high"
+        sensitivity = "restricted_personal"
+        destinations = ["education"]
+    elif any_term("vehicle", "vin", "auto insurance", "insurance card", "registration"):
+        category, priority = "vehicle_or_insurance", "medium"
+        sensitivity = "restricted_personal"
+        destinations = ["vehicle", "finance"]
+    elif ext in {".xlsx", ".xls", ".csv"} or "spreadsheet" in mime_type.casefold():
+        category, priority = "spreadsheet", "medium"
+        sensitivity = "personal_private"
+        destinations = ["planning", "finance_or_projects"]
+    elif ext == ".epub" or mime_type == "application/epub+zip":
+        category, priority = "ebook", "low"
+        sensitivity = "personal_private"
+        destinations = ["reading_interests"]
+    elif ext in {".ics", ".vcs"} or mime_type in {"text/calendar", "application/ics"}:
+        category, priority = "calendar", "medium"
+        sensitivity = "personal_private"
+        destinations = ["timeline", "commitments"]
+    elif mime_type.startswith("image/") or ext in {".png", ".jpg", ".jpeg", ".heic", ".webp"}:
+        category, priority = "image_or_scan", "medium"
+        sensitivity = "personal_private"
+        destinations = ["visual_evidence"]
+    elif mime_type.startswith(("audio/", "video/")) or ext in {".m4r", ".m4a", ".mp4", ".mov"}:
+        category, priority = "media", "low"
+        sensitivity = "personal_private"
+        destinations = ["media_or_routine"]
+
+    if any_term("social security", "ssn", "passport", "driver's license", "medical", "diagnosis", "bank account", "routing number"):
+        sensitivity = "restricted_high"
+        priority = "high"
+
+    return {
+        "review_category": category,
+        "review_priority": priority,
+        "sensitivity_hint": sensitivity,
+        "candidate_destinations": destinations,
+        "promotion_eligible": False,
+    }
+
+
 def analyze_recovered(
     scope: str,
     *,
@@ -347,6 +420,7 @@ def analyze_recovered(
                 text_path.write_text(text, encoding="utf-8")
             targets = attachments or [None]
             for attachment in targets:
+                review = classify_for_review(attachment["filename"] if attachment else path.name, str(attachment["mime_type"] or "") if attachment else mime, text)
                 record = {
                     "schema": SCHEMA,
                     "scope": scope,
@@ -364,7 +438,7 @@ def analyze_recovered(
                     "account_id": source["account_id"],
                     "mailbox": source["mailbox"],
                     "privacy": "local_private",
-                    "promotion_eligible": False,
+                    **review,
                     **result,
                     "text_chars": len(text),
                 }
@@ -392,6 +466,7 @@ def analyze_recovered(
             intentional = mime in {"application/pkcs7-signature", "application/x-pkcs7-signature"} or ext == ".p7s"
             status = "intentionally_skipped" if intentional else "not_recovered"
             method = "signature_metadata_only" if intentional else "indexed_metadata_only"
+            review = classify_for_review(filename, mime, "")
             records.append({
                 "schema": SCHEMA,
                 "scope": scope,
@@ -406,7 +481,7 @@ def analyze_recovered(
                 "message_sender": attachment["sender"],
                 "message_date": attachment["date_utc"],
                 "privacy": "local_private",
-                "promotion_eligible": False,
+                **review,
                 "status": status,
                 "method": method,
                 "text_chars": 0,
@@ -427,16 +502,16 @@ def analyze_recovered(
     records_path = out / "records.jsonl"
     records_path.write_text("".join(json.dumps(item, ensure_ascii=False) + "\n" for item in records), encoding="utf-8")
     indexed_total = sum(1 for item in records if item.get("attachment_id"))
-    recovered_total = sum(1 for item in records if item.get("attachment_id") and item.get("status") != "not_recovered")
+    recovered_total = sum(1 for item in records if item.get("attachment_id") and item.get("status") not in {"not_recovered", "missing_file"})
     summary = {
         "schema": SCHEMA,
         "scope": scope,
         "attachment_records_accounted_for": indexed_total,
         "attachment_records_recovered": recovered_total,
         "attachment_records_not_recovered": counts.get("not_recovered", 0),
-        "coverage_complete": indexed_total > 0 and counts.get("not_recovered", 0) == 0,
-        "analysis_complete": indexed_total > 0 and counts.get("not_recovered", 0) == 0 and not any(
-            counts.get(key, 0) for key in ("needs_ocr", "ocr_unavailable", "dependency_missing", "error")
+        "coverage_complete": indexed_total > 0 and not any(counts.get(key, 0) for key in ("not_recovered", "missing_file")),
+        "analysis_complete": indexed_total > 0 and not any(
+            counts.get(key, 0) for key in ("not_recovered", "missing_file", "needs_ocr", "ocr_unavailable", "dependency_missing", "unsupported", "error")
         ),
         "records_written": len(records),
         "counts": dict(sorted(counts.items())),
@@ -445,5 +520,31 @@ def analyze_recovered(
         "text_dir": str(text_dir),
         "privacy": "All binaries and extracted text remain local/private; no automatic profile promotion.",
     }
+    review_rank = {"high": 0, "medium": 1, "low": 2}
+    review_items = sorted(
+        (
+            {
+                "attachment_id": item.get("attachment_id"),
+                "message_id": item.get("message_id"),
+                "source_id": item.get("source_id"),
+                "filename": item.get("filename"),
+                "mime_type": item.get("mime_type"),
+                "status": item.get("status"),
+                "review_category": item.get("review_category"),
+                "review_priority": item.get("review_priority"),
+                "sensitivity_hint": item.get("sensitivity_hint"),
+                "candidate_destinations": item.get("candidate_destinations", []),
+                "promotion_eligible": False,
+            }
+            for item in records
+            if item.get("attachment_id")
+        ),
+        key=lambda item: (review_rank.get(str(item.get("review_priority")), 9), str(item.get("filename") or "")),
+    )
+    review_path = out / "review-queue.jsonl"
+    review_path.write_text("".join(json.dumps(item, ensure_ascii=False) + "\n" for item in review_items), encoding="utf-8")
+    summary["review_queue"] = str(review_path)
+    summary["review_priority_counts"] = dict(Counter(str(item.get("review_priority")) for item in review_items))
+    summary["review_category_counts"] = dict(Counter(str(item.get("review_category")) for item in review_items))
     (out / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary
