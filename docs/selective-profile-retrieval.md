@@ -85,7 +85,9 @@ whole section is dropped — an empty diagnostics shell is pure overhead.
 
 ## Measured behaviour
 
-The table below is the original P0.2 baseline; counts should be re-benchmarked after the 2026-09-25 relationship-context expansion.\n\nProfile on disk: 105 facts indexed, 93 retrievable, 12 restricted.
+The table below is the original P0.2 baseline; counts should be re-benchmarked after the 2026-09-25 relationship-context expansion.
+
+Profile on disk: 105 facts indexed, 93 retrievable, 12 restricted.
 
 | task | facts | tokens | domains |
 |---|---|---|---|
@@ -103,6 +105,6 @@ reduction** on personal tasks and complete absence on impersonal ones.
   synonyms the domain vocabulary does not know will retrieve nothing. That
   fails closed, which is the right direction, but it does mean
   `DOMAIN_TERMS` needs curation as the profile grows.
-- Profile/relationship/identity candidates now have a source-actor promotion gate. Richer cross-evidence contradiction and supersession reconciliation is still incomplete.
+- Profile/relationship/identity candidates now have an actor+subject attribution gate. Richer cross-evidence contradiction and supersession reconciliation is still incomplete.
 - Facts inherit their source file's `updated_at` and provenance. Per-fact
   confirmation dates are not tracked, so "last confirmed" is file-level.
