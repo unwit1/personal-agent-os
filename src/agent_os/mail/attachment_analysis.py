@@ -266,8 +266,12 @@ def extract_text(path: Path, *, mime_type: str = "", ocr: bool = False) -> dict[
     unavailable_ocr = method in {"image:ocr_unavailable", "pdf-ocr:unavailable"}
     failed = method in {"image:ocr_failed", "pdf-ocr:failed", "media:parse_failed"}
     dep_missing = method == "media:dependency_missing"
+    media_metadata_only = method in {"mutagen", "media:unsupported"}
+    visual_review_needed = method in {"pytesseract", "pymupdf+pytesseract"} and not text.strip()
     status = (
-        "parsed" if text.strip()
+        "metadata_only" if media_metadata_only
+        else "parsed" if text.strip()
+        else "visual_review_needed" if visual_review_needed
         else "needs_ocr" if needs_ocr
         else "ocr_unavailable" if unavailable_ocr
         else "dependency_missing" if dep_missing
@@ -451,7 +455,7 @@ def analyze_recovered(
                 counts[result["status"]] += 1
                 if attachment:
                     processed_attachment_ids.add(str(attachment["id"]))
-                if attachment and result["status"] in {"parsed", "empty_text", "needs_ocr", "ocr_unavailable", "dependency_missing", "error"}:
+                if attachment and result["status"] in {"parsed", "empty_text", "needs_ocr", "ocr_unavailable", "visual_review_needed", "dependency_missing", "metadata_only", "error"}:
                     conn.execute("UPDATE mail_attachments SET text=?, extraction=? WHERE id=?", (text or None, result["method"], attachment["id"]))
                     touched_messages.add(str(source["message_id"]))
 
@@ -512,7 +516,7 @@ def analyze_recovered(
             status_by_attachment.setdefault(str(attachment_id), set()).add(str(item.get("status") or ""))
 
     gap_statuses = {"not_recovered", "missing_file"}
-    pending_analysis_statuses = {"needs_ocr", "ocr_unavailable", "dependency_missing", "unsupported", "metadata_only", "error"}
+    pending_analysis_statuses = {"needs_ocr", "ocr_unavailable", "visual_review_needed", "dependency_missing", "unsupported", "metadata_only", "error"}
     recovered_ids = {
         attachment_id
         for attachment_id, statuses in status_by_attachment.items()
