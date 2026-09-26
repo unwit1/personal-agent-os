@@ -84,7 +84,14 @@ class PeopleStoreTests(unittest.TestCase):
                       "display_name": "Olivia",
                       "identity_confidence": "stated",
                       "relationship_type": "romantic_partner",
-                      "relationship_confidence": "stated"
+                      "relationship_confidence": "stated",
+                      "current_label": "girlfriend",
+                      "household_planning": true,
+                      "first_seen": "2023",
+                      "last_seen": "2026-09-25",
+                      "historical_labels": [
+                        {"label": "fiancée", "observed": "2025-09", "status": "historical_only"}
+                      ]
                     },
                     "family": {
                       "sibling_structure": "User is the oldest of five siblings."
@@ -101,8 +108,18 @@ class PeopleStoreTests(unittest.TestCase):
             second = bootstrap_from_sanitized_context(context, db_path=db)
             self.assertEqual(first["stats"]["people"], 2)
             self.assertEqual(second["stats"]["people"], 2)
-            self.assertEqual(second["stats"]["relationships"], 2)
+            self.assertEqual(second["stats"]["relationships"], 5)
             self.assertEqual(second["stats"]["identity_candidates"], 1)
+            with PeopleStore(db) as store:
+                labels = store.conn.execute(
+                    "SELECT object_label,status,valid_from,valid_to FROM relationships "
+                    "WHERE predicate='relationship_label' ORDER BY valid_from"
+                ).fetchall()
+                self.assertEqual([(row["object_label"], row["status"]) for row in labels], [("fiancée", "historical"), ("girlfriend", "active")])
+                household = store.conn.execute(
+                    "SELECT COUNT(*) FROM relationships WHERE predicate='shared_household_planning'"
+                ).fetchone()[0]
+                self.assertEqual(household, 1)
 
 
     def test_person_temporal_bounds_expand_without_resetting(self) -> None:
