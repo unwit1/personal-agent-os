@@ -1,0 +1,1177 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "decoding_structured_rag_prompt_optimization",
+  "techniques": [
+    {
+      "id": "AIT-0211",
+      "name": "Temperature tuning",
+      "aliases": [],
+      "category": "decoding",
+      "layer": [
+        "inference",
+        "decoding"
+      ],
+      "goal": "Control randomness/concentration in compatible sampling models",
+      "mechanism": "Scale logits before sampling; lower values concentrate probability, higher values diversify.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0326.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Store per-model/task optimum; do not tune temperature and top-p together by default.",
+      "use_when": [
+        "Creative/diverse generation",
+        "Non-reasoning models supporting temperature"
+      ],
+      "avoid_when": [
+        "Models that disallow temperature",
+        "Structured deterministic agent actions"
+      ],
+      "required_evals": [
+        "task quality sweep",
+        "variance",
+        "reproducibility"
+      ],
+      "risks": [
+        "High temperature increases factual/format drift",
+        "Low temperature can entrench top error"
+      ],
+      "cost_profile": "no extra calls unless tuning",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326"
+      ],
+      "keywords": [
+        "temperature"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0212",
+      "name": "Top-p tuning",
+      "aliases": [],
+      "category": "decoding",
+      "layer": [
+        "inference",
+        "decoding"
+      ],
+      "goal": "Adapt candidate-token set to probability mass",
+      "mechanism": "Sample only from smallest token set covering chosen cumulative probability mass.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0326, SRC-AI-0164.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Treat as alternative to temperature, not simultaneous arbitrary knob.",
+      "use_when": [
+        "Open-ended generation on compatible models"
+      ],
+      "avoid_when": [
+        "Reasoning models that disallow it",
+        "Strict structured output"
+      ],
+      "required_evals": [
+        "quality/diversity sweep"
+      ],
+      "risks": [
+        "Too low causes brittle output; too high admits tail errors"
+      ],
+      "cost_profile": "no extra calls",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326",
+        "SRC-AI-0164"
+      ],
+      "keywords": [
+        "top_p"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0213",
+      "name": "Deterministic/low-randomness decoding for machine steps",
+      "aliases": [],
+      "category": "decoding",
+      "layer": [
+        "inference",
+        "agents"
+      ],
+      "goal": "Reduce run-to-run variance for extraction, routing and tool planning",
+      "mechanism": "Use lowest supported stochasticity or constrained/greedy-like generation for machine-facing stages.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0326.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Pair with verifier/escalation so consistency is not mistaken for correctness.",
+      "use_when": [
+        "Classification",
+        "Extraction",
+        "Tool args",
+        "Reproducible evals"
+      ],
+      "avoid_when": [
+        "Creative ideation where diversity is desired"
+      ],
+      "required_evals": [
+        "variance",
+        "task accuracy",
+        "retry rate"
+      ],
+      "risks": [
+        "Deterministic wrong answer repeats exactly"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326"
+      ],
+      "keywords": [
+        "determinism",
+        "reproducibility"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0214",
+      "name": "Log-probability diagnostics",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "inference",
+        "evaluation"
+      ],
+      "goal": "Expose token-level distribution information for diagnostics/routing on models that support it",
+      "mechanism": "Capture chosen-token and alternate-token log probabilities; derive margins/entropy features and calibrate them empirically.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0326.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use only as one feature in calibrated uncertainty model.",
+      "use_when": [
+        "Classification/extraction calibration research",
+        "Compatible non-reasoning models"
+      ],
+      "avoid_when": [
+        "Current models without logprobs",
+        "Treating raw logprob as semantic confidence"
+      ],
+      "required_evals": [
+        "calibration error",
+        "OOD behavior"
+      ],
+      "risks": [
+        "Token probability is not factual confidence",
+        "model support changes"
+      ],
+      "cost_profile": "small response overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326"
+      ],
+      "keywords": [
+        "logprobs",
+        "entropy"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0215",
+      "name": "Hard output-token budget",
+      "aliases": [],
+      "category": "runtime_control",
+      "layer": [
+        "inference",
+        "runtime"
+      ],
+      "goal": "Bound cost/latency and runaway output",
+      "mechanism": "Set max generated-token budget including invisible reasoning/formatting where provider defines it that way.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0326, SRC-AI-0327.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Learn budget distribution per task/model and reserve safety headroom.",
+      "use_when": [
+        "Every automated stage"
+      ],
+      "avoid_when": [
+        "Budget too tight to leave required reasoning/output headroom"
+      ],
+      "required_evals": [
+        "incomplete rate",
+        "cost",
+        "visible-output sufficiency"
+      ],
+      "risks": [
+        "Can spend reasoning tokens and return no visible result if too low"
+      ],
+      "cost_profile": "caps worst-case cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326",
+        "SRC-AI-0327"
+      ],
+      "keywords": [
+        "max_output_tokens"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0216",
+      "name": "Hard tool-call budget",
+      "aliases": [],
+      "category": "runtime_control",
+      "layer": [
+        "agents",
+        "tools"
+      ],
+      "goal": "Bound exploration and accidental tool loops",
+      "mechanism": "Set provider or orchestrator maximum tool calls and escalate/stop when exhausted.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0326.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use task-class budgets and loop-guard event on exhaustion.",
+      "use_when": [
+        "Research/browser/computer agents"
+      ],
+      "avoid_when": [
+        "Known workflow legitimately requires more calls than bound"
+      ],
+      "required_evals": [
+        "tool calls/success",
+        "budget exhaustion"
+      ],
+      "risks": [
+        "Premature termination"
+      ],
+      "cost_profile": "caps tail cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326"
+      ],
+      "keywords": [
+        "max_tool_calls",
+        "tool_budget"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0217",
+      "name": "Output verbosity control",
+      "aliases": [],
+      "category": "runtime_control",
+      "layer": [
+        "inference",
+        "ux"
+      ],
+      "goal": "Reduce generation latency/tokens without altering the underlying task objective",
+      "mechanism": "Select low/medium/high response verbosity where provider/model supports it or prompt an equivalent concise machine output.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0326.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Default low for internal stages; render human detail separately.",
+      "use_when": [
+        "Machine stages",
+        "Simple answers",
+        "UI summaries"
+      ],
+      "avoid_when": [
+        "Detailed report/document explicitly required"
+      ],
+      "required_evals": [
+        "output tokens",
+        "quality",
+        "correction rate"
+      ],
+      "risks": [
+        "Too terse can omit needed caveats/evidence"
+      ],
+      "cost_profile": "potential recurring savings",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326"
+      ],
+      "keywords": [
+        "verbosity"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0218",
+      "name": "Fail-on-overflow instead of automatic truncation",
+      "aliases": [],
+      "category": "context_control",
+      "layer": [
+        "context",
+        "runtime"
+      ],
+      "goal": "Prevent silent loss of early conversation/context",
+      "mechanism": "Disable automatic truncation so oversized requests fail visibly and trigger explicit compaction/retrieval.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0326.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agent OS should own compaction instead of provider silently dropping context.",
+      "use_when": [
+        "Binding long-running state",
+        "High-impact workflows"
+      ],
+      "avoid_when": [
+        "Disposable casual chat where best-effort truncation is acceptable"
+      ],
+      "required_evals": [
+        "overflow handling",
+        "constraint-retention"
+      ],
+      "risks": [
+        "Requires robust compaction/fallback"
+      ],
+      "cost_profile": "small operational complexity",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0326"
+      ],
+      "keywords": [
+        "truncation",
+        "fail_closed"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0219",
+      "name": "Grammar-constrained decoding",
+      "aliases": [],
+      "category": "structured_generation",
+      "layer": [
+        "inference",
+        "structured_output"
+      ],
+      "goal": "Guarantee syntactic adherence to a grammar",
+      "mechanism": "Compile JSON Schema/regex/CFG/EBNF into valid-token masks during decoding so illegal continuations cannot be sampled.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0252, SRC-AI-0253.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "For local models benchmark engine/version using real Agent OS schemas.",
+      "use_when": [
+        "Local model tool calls",
+        "Strict JSON",
+        "DSL generation"
+      ],
+      "avoid_when": [
+        "Free-form creative text",
+        "Provider already supplies reliable structured output"
+      ],
+      "required_evals": [
+        "schema compliance",
+        "semantic accuracy",
+        "latency"
+      ],
+      "risks": [
+        "Grammar-engine bugs",
+        "schema coverage gaps",
+        "semantic errors remain"
+      ],
+      "cost_profile": "small-to-moderate decode overhead",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0251",
+        "SRC-AI-0252",
+        "SRC-AI-0253"
+      ],
+      "keywords": [
+        "constrained_decoding",
+        "grammar"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0220",
+      "name": "Schema-constrained JSON generation",
+      "aliases": [],
+      "category": "structured_generation",
+      "layer": [
+        "inference",
+        "structured_output"
+      ],
+      "goal": "Guarantee required fields/types/enums at generation time",
+      "mechanism": "Specialize constrained decoding to JSON Schema rather than post-hoc parsing/retries.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0252, SRC-AI-0069.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Always follow with semantic/business-rule validation.",
+      "use_when": [
+        "Tool arguments",
+        "Machine-readable registries",
+        "Eval outputs"
+      ],
+      "avoid_when": [
+        "Schema cannot express semantic invariant"
+      ],
+      "required_evals": [
+        "JSONSchemaBench-style compliance",
+        "semantic validation"
+      ],
+      "risks": [
+        "Syntactically valid nonsense still possible"
+      ],
+      "cost_profile": "often lowers retry cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0251",
+        "SRC-AI-0252",
+        "SRC-AI-0069"
+      ],
+      "keywords": [
+        "json_schema",
+        "strict"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0221",
+      "name": "Regex/literal-choice constrained generation",
+      "aliases": [],
+      "category": "structured_generation",
+      "layer": [
+        "inference",
+        "structured_output"
+      ],
+      "goal": "Make small classifications exact and cheap",
+      "mechanism": "Constrain output to a small set of literals or regex language.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0252.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Include explicit unknown/abstain where uncertainty is real.",
+      "use_when": [
+        "Statuses",
+        "Yes/no/abstain",
+        "IDs",
+        "simple dates"
+      ],
+      "avoid_when": [
+        "Rich explanation needed in same field"
+      ],
+      "required_evals": [
+        "exact-match accuracy",
+        "latency"
+      ],
+      "risks": [
+        "Constraint hides uncertainty unless abstain option exists"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0251",
+        "SRC-AI-0252"
+      ],
+      "keywords": [
+        "regex",
+        "choice"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0222",
+      "name": "Interleaved deterministic control + generation",
+      "aliases": [],
+      "category": "prompt_programming",
+      "layer": [
+        "agents",
+        "structured_output"
+      ],
+      "goal": "Move loops/branches/schema enforcement from prose into program control",
+      "mechanism": "Use a prompt-program framework or ordinary code to alternate fixed control, constrained fields and free generation in one logical operation.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0328.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Prefer plain Agent OS workflow code unless framework clearly reduces calls/complexity.",
+      "use_when": [
+        "Complex local model pipelines",
+        "Repeated structured generation"
+      ],
+      "avoid_when": [
+        "Simple API call where framework adds more abstraction than value"
+      ],
+      "required_evals": [
+        "latency",
+        "token count",
+        "maintainability"
+      ],
+      "risks": [
+        "Framework lock-in",
+        "debugging abstraction"
+      ],
+      "cost_profile": "can lower round trips",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0328"
+      ],
+      "keywords": [
+        "Guidance",
+        "prompt_programming"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0223",
+      "name": "MIPRO-style joint instruction+demonstration optimization",
+      "aliases": [],
+      "category": "prompt_optimization",
+      "layer": [
+        "prompt",
+        "evaluation"
+      ],
+      "goal": "Optimize multiple prompt variables across a multi-stage LM program",
+      "mechanism": "Generate candidate instructions/examples and search combinations using program-level metric/Bayesian optimization.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0329.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Run optimizer only after eval registry and immutable holdout exist.",
+      "use_when": [
+        "Stable workflow with representative training/dev evals"
+      ],
+      "avoid_when": [
+        "No reliable metric/holdout",
+        "Rapidly changing task"
+      ],
+      "required_evals": [
+        "dev + protected holdout",
+        "optimizer cost",
+        "schema stability"
+      ],
+      "risks": [
+        "Overfit",
+        "prompt bloat",
+        "metric gaming"
+      ],
+      "cost_profile": "offline optimization cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0329"
+      ],
+      "keywords": [
+        "MIPRO",
+        "DSPy"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0224",
+      "name": "GEPA reflective evolutionary prompt optimization",
+      "aliases": [],
+      "category": "prompt_optimization",
+      "layer": [
+        "prompt",
+        "agents",
+        "evaluation"
+      ],
+      "goal": "Use rich trajectory feedback to evolve prompts more sample-efficiently than scalar-only optimization",
+      "mechanism": "Reflect on execution traces to propose natural-language rules/changes; retain Pareto-diverse candidates and recombine lessons.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0330.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Optimizer cannot alter immutable policy; structural constraints/regressions are hard gates.",
+      "use_when": [
+        "Agent workflows with interpretable traces and strong eval"
+      ],
+      "avoid_when": [
+        "Security/authorization prompt",
+        "No representative holdout"
+      ],
+      "required_evals": [
+        "holdout quality",
+        "rollouts",
+        "prompt stability",
+        "schema compliance"
+      ],
+      "risks": [
+        "Reflection can rewrite crucial constraints",
+        "optimizer overfits traces"
+      ],
+      "cost_profile": "offline model calls, potentially fewer than RL",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0330"
+      ],
+      "keywords": [
+        "GEPA",
+        "prompt_evolution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0225",
+      "name": "Heuristic/evolutionary prompt search",
+      "aliases": [],
+      "category": "prompt_optimization",
+      "layer": [
+        "prompt",
+        "evaluation"
+      ],
+      "goal": "Search prompt space beyond manual edits",
+      "mechanism": "Use mutation, paraphrase, crossover, beam/evolution/bandit/Bayesian search over candidate instructions or exemplars.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0062, SRC-AI-0063.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Catalog optimizer provenance and every evaluated candidate hash.",
+      "use_when": [
+        "Objective task metric",
+        "Prompt has material impact"
+      ],
+      "avoid_when": [
+        "Tiny task or metric too noisy"
+      ],
+      "required_evals": [
+        "quality-cost frontier",
+        "held-out generalization"
+      ],
+      "risks": [
+        "Large search cost",
+        "benchmark overfit"
+      ],
+      "cost_profile": "offline variable",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0062",
+        "SRC-AI-0063"
+      ],
+      "keywords": [
+        "automatic_prompt_optimization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0226",
+      "name": "Prompt optimizer stability constraints",
+      "aliases": [],
+      "category": "prompt_optimization",
+      "layer": [
+        "prompt",
+        "security",
+        "evaluation"
+      ],
+      "goal": "Prevent optimizer from breaking schemas, safety requirements or downstream contracts while improving score",
+      "mechanism": "Freeze immutable prompt regions/contracts; validate candidate structure before expensive eval; include stability/regression metrics in objective.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0069, SRC-AI-0099, SRC-AI-0251.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Authorization and security instructions are not optimizer-editable.",
+      "use_when": [
+        "Any automated prompt optimization"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "schema validity",
+        "security gates",
+        "holdout quality"
+      ],
+      "risks": [
+        "Over-constraint can block useful improvements"
+      ],
+      "cost_profile": "small validation overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0069",
+        "SRC-AI-0099",
+        "SRC-AI-0251"
+      ],
+      "keywords": [
+        "prompt_stability",
+        "optimizer_guardrails"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0227",
+      "name": "RAG-Fusion / reciprocal-rank fusion of query variants",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval"
+      ],
+      "goal": "Increase retrieval breadth and robustness to one poor query",
+      "mechanism": "Generate several semantically diverse queries, retrieve each, combine ranked lists using reciprocal rank fusion.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0331.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Cap query count and require original-query relevance in reranker.",
+      "use_when": [
+        "Broad research query",
+        "Ambiguous wording"
+      ],
+      "avoid_when": [
+        "Exact-key lookup",
+        "Generated query drift is high-risk"
+      ],
+      "required_evals": [
+        "recall",
+        "precision",
+        "query drift",
+        "cost"
+      ],
+      "risks": [
+        "Off-topic variants can introduce noise",
+        "more retrieval calls"
+      ],
+      "cost_profile": "several retrieval calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0331"
+      ],
+      "keywords": [
+        "RAG_Fusion",
+        "RRF"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0228",
+      "name": "Corrective RAG (retrieval quality gate)",
+      "aliases": [],
+      "category": "adaptive_rag",
+      "layer": [
+        "retrieval",
+        "evaluation"
+      ],
+      "goal": "Detect poor retrieval before generation and trigger corrective retrieval",
+      "mechanism": "Evaluate retrieved evidence quality; if low, refine query/search another corpus/web and filter/decompose evidence.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0332.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS policy chooses allowed corrective sources by domain.",
+      "use_when": [
+        "Knowledge research with variable corpus coverage"
+      ],
+      "avoid_when": [
+        "High-authority closed corpus where web fallback is disallowed"
+      ],
+      "required_evals": [
+        "retrieval evaluator precision",
+        "answer quality",
+        "extra cost"
+      ],
+      "risks": [
+        "Evaluator can wrongly reject good evidence",
+        "web expands injection surface"
+      ],
+      "cost_profile": "adaptive extra retrieval",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0332"
+      ],
+      "keywords": [
+        "CRAG",
+        "retrieval_evaluator"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0229",
+      "name": "Complexity-routed Adaptive RAG",
+      "aliases": [],
+      "category": "adaptive_rag",
+      "layer": [
+        "retrieval",
+        "routing"
+      ],
+      "goal": "Avoid expensive iterative retrieval for easy questions while retaining it for hard questions",
+      "mechanism": "Classify query complexity and choose no retrieval, one-shot retrieval, or iterative/multi-hop retrieval.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0333.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Combine task policy + evidence need, not complexity alone.",
+      "use_when": [
+        "Mixed Agent OS knowledge queries"
+      ],
+      "avoid_when": [
+        "Freshness/policy mandates retrieval regardless of complexity"
+      ],
+      "required_evals": [
+        "cost/success",
+        "routing mistakes"
+      ],
+      "risks": [
+        "Complexity estimate may not equal evidence need"
+      ],
+      "cost_profile": "expected savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0333"
+      ],
+      "keywords": [
+        "Adaptive_RAG",
+        "complexity_router"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0230",
+      "name": "Query2doc pseudo-document expansion",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "generation"
+      ],
+      "goal": "Add terms/concepts likely to appear in relevant documents",
+      "mechanism": "Generate a hypothetical/pseudo relevant document and concatenate/use it to expand sparse or dense retrieval query.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0334.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Tag expansion as synthetic and never cite it as evidence.",
+      "use_when": [
+        "Vocabulary mismatch",
+        "Technical retrieval"
+      ],
+      "avoid_when": [
+        "High-stakes retrieval where invented specifics may dominate"
+      ],
+      "required_evals": [
+        "retrieval recall/precision",
+        "hallucinated-term harm"
+      ],
+      "risks": [
+        "Fabricated facts steer retrieval"
+      ],
+      "cost_profile": "one generation + retrieval",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0334"
+      ],
+      "keywords": [
+        "Query2doc",
+        "pseudo_document"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0231",
+      "name": "LLM permutation reranking (RankGPT-style)",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "llm_judge"
+      ],
+      "goal": "Use a strong generative model to rerank passages when relevance is nuanced",
+      "mechanism": "Ask model to rank passage identifiers, often in windows/sliding permutations, then use ordering downstream.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0335, SRC-AI-0100.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use only as challenger; distill/rewrite deterministic reranker if pattern is stable.",
+      "use_when": [
+        "Small top-k candidate set",
+        "Complex relevance criteria"
+      ],
+      "avoid_when": [
+        "High-volume retrieval where cross-encoder/smaller reranker suffices"
+      ],
+      "required_evals": [
+        "NDCG",
+        "order robustness",
+        "cost"
+      ],
+      "risks": [
+        "Position/order bias",
+        "expensive"
+      ],
+      "cost_profile": "high per query",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0335",
+        "SRC-AI-0100"
+      ],
+      "keywords": [
+        "RankGPT",
+        "reranking"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0232",
+      "name": "Reranker distillation",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "distillation"
+      ],
+      "goal": "Keep strong LLM ranking quality at lower serving cost",
+      "mechanism": "Generate ranking/permutation supervision from strong model and train smaller specialized reranker.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0335.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential Knowledge Engine optimization after enough private-safe ranking data accumulates.",
+      "use_when": [
+        "High-volume stable retrieval domain"
+      ],
+      "avoid_when": [
+        "Corpus/query distribution changes rapidly"
+      ],
+      "required_evals": [
+        "teacher/student NDCG",
+        "latency",
+        "drift"
+      ],
+      "risks": [
+        "Distills teacher bias",
+        "training maintenance"
+      ],
+      "cost_profile": "high offline, low online",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0335"
+      ],
+      "keywords": [
+        "reranker_distillation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0233",
+      "name": "Visual document retrieval (ColPali-style)",
+      "aliases": [],
+      "category": "document_retrieval",
+      "layer": [
+        "retrieval",
+        "multimodal"
+      ],
+      "goal": "Retrieve visually rich pages without losing layout/table/figure cues in OCR-only text",
+      "mechanism": "Embed document page images with VLM multi-vector representations and late-interaction query matching.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0336.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential local-first document-intelligence challenger to OCR-text retrieval.",
+      "use_when": [
+        "Scanned forms",
+        "Tables/layout-heavy manuals",
+        "Visual PDFs"
+      ],
+      "avoid_when": [
+        "Plain text corpora",
+        "Private docs cannot be processed by chosen model boundary"
+      ],
+      "required_evals": [
+        "ViDoRe/local retrieval",
+        "storage",
+        "latency",
+        "privacy"
+      ],
+      "risks": [
+        "Large visual index",
+        "does not replace extraction/OCR for field values"
+      ],
+      "cost_profile": "index GPU/storage cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0336"
+      ],
+      "keywords": [
+        "ColPali",
+        "visual_retrieval"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0234",
+      "name": "Matryoshka/truncated embeddings",
+      "aliases": [],
+      "category": "embedding_optimization",
+      "layer": [
+        "retrieval",
+        "embeddings"
+      ],
+      "goal": "Trade embedding storage/search speed for quality dynamically",
+      "mechanism": "Use embeddings trained so prefixes of the vector retain coarse-to-fine information; truncate dimensions for cheap stages and use fuller vectors where needed.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0255.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Capability registry should benchmark 128/256/512/full dims if supported.",
+      "use_when": [
+        "Provider/local embedding model supports MRL",
+        "Very large vector index"
+      ],
+      "avoid_when": [
+        "Arbitrary embedding model not trained for truncation"
+      ],
+      "required_evals": [
+        "retrieval metric by dimension",
+        "storage",
+        "latency"
+      ],
+      "risks": [
+        "Quality cliff at small dimension",
+        "model-specific"
+      ],
+      "cost_profile": "lower storage/compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255"
+      ],
+      "keywords": [
+        "Matryoshka",
+        "embedding_dimension"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0235",
+      "name": "Two-stage embedding retrieval",
+      "aliases": [],
+      "category": "embedding_optimization",
+      "layer": [
+        "retrieval",
+        "embeddings"
+      ],
+      "goal": "Use cheap coarse embedding stage then expensive precise rerank",
+      "mechanism": "Retrieve broad candidates using lower-dimensional/quantized vectors, then rerank with full vectors/late interaction/cross encoder.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0255, SRC-AI-0077.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Set stage1 recall target conservatively and monitor misses.",
+      "use_when": [
+        "Large indexes",
+        "Latency/cost pressure"
+      ],
+      "avoid_when": [
+        "Small corpus"
+      ],
+      "required_evals": [
+        "recall at stage1",
+        "final NDCG",
+        "latency"
+      ],
+      "risks": [
+        "Coarse stage can irreversibly drop relevant item"
+      ],
+      "cost_profile": "lower average retrieval compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255",
+        "SRC-AI-0077"
+      ],
+      "keywords": [
+        "coarse_to_fine",
+        "retrieval_cascade"
+      ],
+      "notes": ""
+    }
+  ]
+}

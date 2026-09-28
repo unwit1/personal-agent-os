@@ -1,0 +1,1171 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "distributed_state_lineage_local_first",
+  "techniques": [
+    {
+      "id": "AIT-0366",
+      "name": "Selective event sourcing",
+      "aliases": [],
+      "category": "state_architecture",
+      "layer": [
+        "runtime",
+        "provenance",
+        "state"
+      ],
+      "goal": "Preserve reconstructable history for audit-critical state without event-sourcing everything",
+      "mechanism": "Store immutable domain events as source of truth only for states whose history/replay matters; derive current projections/snapshots for reads.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0265.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use current-state records for ordinary data; event-source only where historical causality is valuable.",
+      "use_when": [
+        "Improvement decisions",
+        "Authorization changes",
+        "Consequential action audit",
+        "Experiment lifecycle"
+      ],
+      "avoid_when": [
+        "Disposable caches",
+        "Large raw telemetry already append-only but not canonical"
+      ],
+      "required_evals": [
+        "replay equivalence",
+        "history/storage cost"
+      ],
+      "risks": [
+        "Schema evolution/replay complexity",
+        "over-engineering"
+      ],
+      "cost_profile": "medium-high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0265"
+      ],
+      "keywords": [
+        "event_sourcing",
+        "audit"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0367",
+      "name": "Append-only event log + materialized view",
+      "aliases": [],
+      "category": "state_architecture",
+      "layer": [
+        "runtime",
+        "observability"
+      ],
+      "goal": "Combine forensic history with fast current-state queries",
+      "mechanism": "Append immutable events, then reduce them into compact projections optimized for UI/search/status.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0265, SRC-AI-0270.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Existing Agent OS telemetry should increasingly expose deterministic reducers/rebuild checks.",
+      "use_when": [
+        "Orchestrator telemetry",
+        "Audit",
+        "Failure registry"
+      ],
+      "avoid_when": [
+        "Simple state with no history value"
+      ],
+      "required_evals": [
+        "projection consistency",
+        "read latency",
+        "rebuild"
+      ],
+      "risks": [
+        "Reducer bug/projection drift"
+      ],
+      "cost_profile": "storage + low read cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0265",
+        "SRC-AI-0270"
+      ],
+      "keywords": [
+        "event_log",
+        "projection"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0368",
+      "name": "Snapshot + replay",
+      "aliases": [],
+      "category": "state_architecture",
+      "layer": [
+        "runtime",
+        "durability"
+      ],
+      "goal": "Bound replay time while retaining event history",
+      "mechanism": "Periodically persist verified state snapshot plus event offset; recover snapshot then replay only later events.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0265.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Snapshot is derived/rebuildable, not an independent source of truth.",
+      "use_when": [
+        "Long histories",
+        "Durable workflows"
+      ],
+      "avoid_when": [
+        "Small logs cheap to replay"
+      ],
+      "required_evals": [
+        "recovery time",
+        "snapshot consistency"
+      ],
+      "risks": [
+        "Snapshot/event mismatch",
+        "migration"
+      ],
+      "cost_profile": "storage; faster recovery",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0265"
+      ],
+      "keywords": [
+        "snapshot",
+        "replay"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0369",
+      "name": "Transactional outbox",
+      "aliases": [],
+      "category": "distributed_reliability",
+      "layer": [
+        "runtime",
+        "integrations"
+      ],
+      "goal": "Prevent local state change and outbound event/action request from diverging after crash",
+      "mechanism": "Commit business state and pending outbound message/action descriptor in same local transaction; relay separately.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0266.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use stable event/action IDs and idempotent consumer.",
+      "use_when": [
+        "Knowledge ingestion events",
+        "Notifications",
+        "Cross-process Agent OS services"
+      ],
+      "avoid_when": [
+        "Direct single-transaction local operation"
+      ],
+      "required_evals": [
+        "lost-message rate",
+        "duplicate rate",
+        "recovery"
+      ],
+      "risks": [
+        "Relay duplicates",
+        "outbox accumulation"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0266"
+      ],
+      "keywords": [
+        "transactional_outbox"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0370",
+      "name": "Idempotent consumer",
+      "aliases": [],
+      "category": "distributed_reliability",
+      "layer": [
+        "runtime",
+        "integrations"
+      ],
+      "goal": "Make at-least-once event delivery safe",
+      "mechanism": "Record processed event IDs/version and ensure replayed duplicate produces same final state without duplicate side effect.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0267.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every inbound provider event adapter declares stable source identity/revision semantics.",
+      "use_when": [
+        "Browser bridge",
+        "Conversation ingestion",
+        "Webhook/event adapters"
+      ],
+      "avoid_when": [
+        "Events represent intentionally repeatable additive action with unique identity per occurrence"
+      ],
+      "required_evals": [
+        "duplicate-delivery tests",
+        "state equivalence"
+      ],
+      "risks": [
+        "Bad identity scope suppresses valid update"
+      ],
+      "cost_profile": "small persistent metadata",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0267"
+      ],
+      "keywords": [
+        "idempotent_consumer"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0371",
+      "name": "At-least-once delivery + idempotency instead of pretending exactly-once",
+      "aliases": [],
+      "category": "distributed_reliability",
+      "layer": [
+        "runtime",
+        "integrations"
+      ],
+      "goal": "Use realistic retry semantics and handle duplicates explicitly",
+      "mechanism": "Design queues/adapters assuming an acknowledged message/action can be retried after uncertain failure and make processing idempotent.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0266, SRC-AI-0267.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Do not label workflow 'exactly once' unless exact scope and proof are defined.",
+      "use_when": [
+        "External event ingestion"
+      ],
+      "avoid_when": [
+        "Underlying transaction truly provides atomic exactly-once within one database"
+      ],
+      "required_evals": [
+        "crash/retry tests",
+        "duplicate effects"
+      ],
+      "risks": [
+        "More dedupe state"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0266",
+        "SRC-AI-0267"
+      ],
+      "keywords": [
+        "at_least_once",
+        "exactly_once"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0372",
+      "name": "Saga / compensating workflow",
+      "aliases": [],
+      "category": "distributed_reliability",
+      "layer": [
+        "runtime",
+        "workflows",
+        "integrations"
+      ],
+      "goal": "Coordinate multi-service side effects without global transaction",
+      "mechanism": "Execute ordered local actions and define compensating action/mitigation for each reversible step if later step fails.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0268.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Preview/approval before first irreversible step; explicit residual-state handling.",
+      "use_when": [
+        "Calendar+email+ATS workflow",
+        "Multi-service user-approved action"
+      ],
+      "avoid_when": [
+        "Operation can be made one atomic service call",
+        "Compensation cannot meaningfully undo irreversible harm"
+      ],
+      "required_evals": [
+        "partial-failure scenarios",
+        "compensation success"
+      ],
+      "risks": [
+        "Compensation not true rollback",
+        "concurrency anomalies"
+      ],
+      "cost_profile": "high design/test cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0268"
+      ],
+      "keywords": [
+        "saga",
+        "compensation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0373",
+      "name": "Circuit breaker around failing dependency",
+      "aliases": [],
+      "category": "fault_tolerance",
+      "layer": [
+        "runtime",
+        "integrations"
+      ],
+      "goal": "Prevent repeated failures from consuming resources and cascading",
+      "mechanism": "Track recent failures; open breaker and fail/route quickly; probe for recovery before closing.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0269.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Breaker state should be visible to router/UI and not count as model-quality failure.",
+      "use_when": [
+        "Provider APIs",
+        "Local daemons",
+        "Browser bridge endpoints"
+      ],
+      "avoid_when": [
+        "Failure should be retried per-operation and cannot cascade"
+      ],
+      "required_evals": [
+        "fail-fast latency",
+        "recovery time",
+        "false opens"
+      ],
+      "risks": [
+        "Bad thresholds",
+        "fallback overload"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0269"
+      ],
+      "keywords": [
+        "circuit_breaker"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0374",
+      "name": "Bulkhead isolation",
+      "aliases": [],
+      "category": "fault_tolerance",
+      "layer": [
+        "runtime",
+        "integrations"
+      ],
+      "goal": "Stop one workload/provider from exhausting resources needed by others",
+      "mechanism": "Use separate concurrency pools/queues/processes/budgets for independent dependency/workload classes.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0269.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Protect interactive/control-plane capacity from background Agent OS work.",
+      "use_when": [
+        "Multiple providers",
+        "OCR vs interactive tasks",
+        "Background research"
+      ],
+      "avoid_when": [
+        "Very small single-threaded local utility"
+      ],
+      "required_evals": [
+        "queue latency",
+        "cross-workload starvation"
+      ],
+      "risks": [
+        "Unused reserved capacity"
+      ],
+      "cost_profile": "moderate scheduler complexity",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0269"
+      ],
+      "keywords": [
+        "bulkhead",
+        "isolation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0375",
+      "name": "Backpressure",
+      "aliases": [],
+      "category": "fault_tolerance",
+      "layer": [
+        "runtime",
+        "ingestion"
+      ],
+      "goal": "Keep producers from overwhelming downstream processing",
+      "mechanism": "Bound queues and signal/throttle/pause producers or compact low-value events when consumers fall behind.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0269.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Never silently drop; use priority/retention/compaction policy with audit counts.",
+      "use_when": [
+        "Browser/voice/message ingestion",
+        "Research radar"
+      ],
+      "avoid_when": [
+        "Lossless source cannot be paused and queue can scale safely"
+      ],
+      "required_evals": [
+        "queue age/depth",
+        "drop/compaction rate"
+      ],
+      "risks": [
+        "Poor policy can lose valuable events"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0269"
+      ],
+      "keywords": [
+        "backpressure",
+        "queue"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0376",
+      "name": "Dead-letter / quarantine queue",
+      "aliases": [],
+      "category": "fault_tolerance",
+      "layer": [
+        "runtime",
+        "ingestion"
+      ],
+      "goal": "Prevent one poison event from blocking an entire ingestion stream",
+      "mechanism": "After bounded retries/classification, isolate problematic item with error/provenance for later repair while continuing independent work.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0267.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Outstanding failure queue must have review/expiry/retry policy.",
+      "use_when": [
+        "Imports",
+        "Provider events",
+        "Schema migration"
+      ],
+      "avoid_when": [
+        "Failure indicates systemic corruption requiring full stop"
+      ],
+      "required_evals": [
+        "queue throughput",
+        "quarantined recovery"
+      ],
+      "risks": [
+        "Quarantine becomes forgotten graveyard"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0267"
+      ],
+      "keywords": [
+        "dead_letter",
+        "quarantine"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0377",
+      "name": "Lease + heartbeat for claimed work",
+      "aliases": [],
+      "category": "distributed_coordination",
+      "layer": [
+        "runtime",
+        "orchestration"
+      ],
+      "goal": "Recover jobs abandoned by crashed workers without duplicate active ownership",
+      "mechanism": "Worker acquires expiring lease, periodically renews; expired lease makes work reclaimable while operation IDs maintain idempotency.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0144.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Existing Agent OS work claims/ingestion ledgers already approximate this pattern.",
+      "use_when": [
+        "Multi-agent workers",
+        "Ingestion claims"
+      ],
+      "avoid_when": [
+        "Single synchronous process"
+      ],
+      "required_evals": [
+        "orphan recovery",
+        "duplicate concurrent claims"
+      ],
+      "risks": [
+        "Clock/lease tuning",
+        "long uninterruptible action"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "keywords": [
+        "lease",
+        "heartbeat"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0378",
+      "name": "Monotonic revision numbers / optimistic concurrency",
+      "aliases": [],
+      "category": "state_consistency",
+      "layer": [
+        "runtime",
+        "state"
+      ],
+      "goal": "Prevent silent lost updates while allowing independent readers",
+      "mechanism": "Read object with version, write only if expected version matches; on conflict refetch/reconcile.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0271.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every shared mutable record should have clear version/conflict semantics.",
+      "use_when": [
+        "Candidate records",
+        "Preferences",
+        "Project metadata",
+        "Library files"
+      ],
+      "avoid_when": [
+        "Single writer under exclusive transaction"
+      ],
+      "required_evals": [
+        "conflict detection",
+        "lost updates"
+      ],
+      "risks": [
+        "Conflict resolution burden"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0271"
+      ],
+      "keywords": [
+        "optimistic_concurrency",
+        "version"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0379",
+      "name": "Compare-and-swap / conditional mutation",
+      "aliases": [],
+      "category": "state_consistency",
+      "layer": [
+        "runtime",
+        "state",
+        "authorization"
+      ],
+      "goal": "Make state transitions atomic and invariant-preserving",
+      "mechanism": "Apply mutation only if current state/version/status satisfies precondition.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0271.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "State machine transition validator + version check.",
+      "use_when": [
+        "Improvement lifecycle",
+        "Approval tokens",
+        "Queue states"
+      ],
+      "avoid_when": [
+        "Append-only event"
+      ],
+      "required_evals": [
+        "invalid transition rate",
+        "race tests"
+      ],
+      "risks": [
+        "Precondition can be incomplete"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0271"
+      ],
+      "keywords": [
+        "CAS",
+        "conditional_write"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0380",
+      "name": "Schema versioning + reader/writer compatibility",
+      "aliases": [],
+      "category": "schema_evolution",
+      "layer": [
+        "data",
+        "state",
+        "future_handoff"
+      ],
+      "goal": "Let old durable records survive newer code/models",
+      "mechanism": "Persist schema version/writer representation; readers explicitly migrate/resolve supported older forms rather than assuming current shape.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0271.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Future model must be able to identify exact record schema and migration chain.",
+      "use_when": [
+        "All canonical JSON schemas",
+        "Local databases"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "old-fixture read tests",
+        "forward/backward compatibility"
+      ],
+      "risks": [
+        "Migration complexity",
+        "silent default semantics"
+      ],
+      "cost_profile": "ongoing engineering",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0271"
+      ],
+      "keywords": [
+        "schema_evolution",
+        "compatibility"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0381",
+      "name": "Additive schema evolution first",
+      "aliases": [],
+      "category": "schema_evolution",
+      "layer": [
+        "data",
+        "state"
+      ],
+      "goal": "Reduce breaking migrations",
+      "mechanism": "Prefer optional/defaulted new fields and new variants before removing/renaming/retyping existing fields; deprecate then migrate.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0271.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every deprecated field has removal criteria/date, not indefinite compatibility.",
+      "use_when": [
+        "Machine-readable research/eval records"
+      ],
+      "avoid_when": [
+        "Field is dangerous/incorrect and must be removed immediately"
+      ],
+      "required_evals": [
+        "old/new client compatibility"
+      ],
+      "risks": [
+        "Permanent cruft without deprecation cleanup"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0271"
+      ],
+      "keywords": [
+        "additive_schema",
+        "migration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0382",
+      "name": "Canonical schema hashing",
+      "aliases": [],
+      "category": "schema_evolution",
+      "layer": [
+        "data",
+        "cache",
+        "provenance"
+      ],
+      "goal": "Identify semantically identical schema versions independent of irrelevant serialization details",
+      "mechanism": "Normalize schema representation to canonical form and hash it for cache/provenance/compatibility checks.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0271.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use schema content hash in eval/run provenance.",
+      "use_when": [
+        "Tool schemas",
+        "Prompt structured outputs",
+        "Dataset records"
+      ],
+      "avoid_when": [
+        "Canonicalization loses semantically relevant extension metadata"
+      ],
+      "required_evals": [
+        "hash stability",
+        "compatibility"
+      ],
+      "risks": [
+        "Bad canonicalizer masks differences"
+      ],
+      "cost_profile": "very low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0271"
+      ],
+      "keywords": [
+        "schema_hash",
+        "canonical_form"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0383",
+      "name": "Run/job/dataset lineage model",
+      "aliases": [],
+      "category": "data_lineage",
+      "layer": [
+        "provenance",
+        "observability",
+        "knowledge"
+      ],
+      "goal": "Make transformations auditable from exact inputs through executable activity to outputs",
+      "mechanism": "Represent reusable job definition separately from run instance and input/output data/artifact versions, adding facets for code/model/schema/test metadata.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0270.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Adapt OpenLineage concepts to model/tool/prompt transformations rather than copy spec wholesale.",
+      "use_when": [
+        "Knowledge Engine ingestion",
+        "Research/evals",
+        "Generated artifacts"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "lineage completeness",
+        "source-to-output trace"
+      ],
+      "risks": [
+        "Metadata volume",
+        "false inferred edges"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0270"
+      ],
+      "keywords": [
+        "OpenLineage",
+        "run_job_dataset"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0384",
+      "name": "Field/claim-level lineage for derived knowledge",
+      "aliases": [],
+      "category": "data_lineage",
+      "layer": [
+        "provenance",
+        "knowledge"
+      ],
+      "goal": "Avoid attributing an entire output to every input when only some fields/claims depend on each source",
+      "mechanism": "Record exact source claims/fields/chunks used to derive each promoted fact or output field where material.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0270.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Supports correction propagation: changed source can identify affected claims.",
+      "use_when": [
+        "Knowledge claims",
+        "Profile facts",
+        "Reports"
+      ],
+      "avoid_when": [
+        "Low-risk aggregate where coarse lineage is sufficient"
+      ],
+      "required_evals": [
+        "lineage precision",
+        "trace size"
+      ],
+      "risks": [
+        "Fine-grained tracking can be expensive"
+      ],
+      "cost_profile": "metadata cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0270"
+      ],
+      "keywords": [
+        "fine_grained_lineage",
+        "claims"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0385",
+      "name": "Lineage-based invalidation",
+      "aliases": [],
+      "category": "data_lineage",
+      "layer": [
+        "provenance",
+        "cache",
+        "knowledge"
+      ],
+      "goal": "Recompute only outputs actually dependent on changed source/version",
+      "mechanism": "Traverse source→job→artifact/claim edges and mark affected derived state stale/requeue it.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0270.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Promotion requires dependency refs sufficient for future targeted reconciliation.",
+      "use_when": [
+        "Knowledge Engine",
+        "Indexes",
+        "Research findings"
+      ],
+      "avoid_when": [
+        "Dependency graph incomplete"
+      ],
+      "required_evals": [
+        "recompute avoided",
+        "stale output escapes"
+      ],
+      "risks": [
+        "Missed lineage edge leaves invalid output"
+      ],
+      "cost_profile": "potential major savings",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0270"
+      ],
+      "keywords": [
+        "invalidation",
+        "lineage"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0386",
+      "name": "Local-first authoritative working state",
+      "aliases": [],
+      "category": "local_first",
+      "layer": [
+        "state",
+        "privacy",
+        "human_system"
+      ],
+      "goal": "Keep core user work available/offline and under user control while optionally syncing",
+      "mechanism": "Write locally first, provide immediate response, then replicate/sync to remote/canonical stores under explicit semantics.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0273.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Git remains canonical for reviewed durable artifacts; high-frequency/private state can be local-first DB.",
+      "use_when": [
+        "Personal Agent OS local DB/caches",
+        "Desktop/mobile capture"
+      ],
+      "avoid_when": [
+        "Shared authoritative enterprise system must remain server-owned"
+      ],
+      "required_evals": [
+        "offline success",
+        "sync conflicts",
+        "data ownership"
+      ],
+      "risks": [
+        "Multi-device merge complexity",
+        "security of local copies"
+      ],
+      "cost_profile": "local storage + sync logic",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0273"
+      ],
+      "keywords": [
+        "local_first",
+        "offline"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0387",
+      "name": "CRDT-based merge for truly concurrent multi-device state",
+      "aliases": [],
+      "category": "local_first",
+      "layer": [
+        "state",
+        "sync"
+      ],
+      "goal": "Allow offline concurrent edits to converge without central locking",
+      "mechanism": "Choose a CRDT whose merge semantics match domain (set/map/counter/text/etc.) and exchange operations/state until replicas converge.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274, SRC-AI-0273.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Only use after specifying human-meaningful concurrent edit semantics.",
+      "use_when": [
+        "Multi-device notes/capture/tags where merge semantics are valid"
+      ],
+      "avoid_when": [
+        "Authorization decisions",
+        "Financial balances",
+        "Workflow transitions requiring invariant coordination"
+      ],
+      "required_evals": [
+        "convergence",
+        "semantic conflict rate",
+        "storage"
+      ],
+      "risks": [
+        "CRDT converges syntactically but may violate domain intent"
+      ],
+      "cost_profile": "high design complexity",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274",
+        "SRC-AI-0273"
+      ],
+      "keywords": [
+        "CRDT",
+        "eventual_consistency"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0388",
+      "name": "Explicit semantic conflict instead of automatic merge",
+      "aliases": [],
+      "category": "state_consistency",
+      "layer": [
+        "state",
+        "human_system"
+      ],
+      "goal": "Avoid silently inventing intent when concurrent changes are incompatible",
+      "mechanism": "When two changes cannot be safely merged by domain rule, preserve both versions/evidence and create conflict requiring deterministic rule or human resolution.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Convergence is not correctness; conflicting decisions stay explicit.",
+      "use_when": [
+        "Project decisions",
+        "Preferences",
+        "Knowledge contradictions"
+      ],
+      "avoid_when": [
+        "Commutative merge is unambiguous"
+      ],
+      "required_evals": [
+        "silent-conflict rate",
+        "resolution burden"
+      ],
+      "risks": [
+        "Conflicts can accumulate"
+      ],
+      "cost_profile": "review cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "keywords": [
+        "conflict",
+        "merge"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0389",
+      "name": "SQLite WAL for high-frequency single-machine state",
+      "aliases": [],
+      "category": "local_storage",
+      "layer": [
+        "runtime",
+        "state"
+      ],
+      "goal": "Support durable local queues/indexes with concurrent readers/writer and low operational overhead",
+      "mechanism": "Use SQLite WAL for appropriate workstation-local DBs, keep canonical/rebuildable distinction clear.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0272.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Matches current Agent OS local staging philosophy.",
+      "use_when": [
+        "Browser bridge",
+        "Telemetry",
+        "Local indexes",
+        "Conversation archive"
+      ],
+      "avoid_when": [
+        "Network filesystem/multi-host shared DB"
+      ],
+      "required_evals": [
+        "throughput",
+        "crash recovery",
+        "lock errors"
+      ],
+      "risks": [
+        "WAL checkpoint growth",
+        "same-host limitation"
+      ],
+      "cost_profile": "very low ops overhead",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0272"
+      ],
+      "keywords": [
+        "SQLite",
+        "WAL"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0390",
+      "name": "Single-writer canonical promotion boundary",
+      "aliases": [],
+      "category": "state_consistency",
+      "layer": [
+        "knowledge",
+        "state",
+        "governance"
+      ],
+      "goal": "Reduce canonical merge conflicts and accidental concurrent promotion",
+      "mechanism": "Allow many observers/workers to create local/candidate evidence, but serialize validated promotions through one deterministic transition/merge policy.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0265, SRC-AI-0273.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Parallel research is fine; canonical truth transition is controlled.",
+      "use_when": [
+        "Git-backed knowledge/profile/roadmap"
+      ],
+      "avoid_when": [
+        "CRDT-safe high-frequency state"
+      ],
+      "required_evals": [
+        "promotion conflicts",
+        "lost updates"
+      ],
+      "risks": [
+        "Promotion throughput bottleneck"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0265",
+        "SRC-AI-0273"
+      ],
+      "keywords": [
+        "single_writer",
+        "canonical"
+      ],
+      "notes": ""
+    }
+  ]
+}

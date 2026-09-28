@@ -1,0 +1,1143 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "personalization_recommendation_discovery",
+  "techniques": [
+    {
+      "id": "AIT-0341",
+      "name": "Explicit preference elicitation",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "human_system",
+        "recommendation"
+      ],
+      "goal": "Learn important user preferences without inferring them from noisy behavior",
+      "mechanism": "Ask a small targeted question when preference uncertainty materially changes a decision, then store the answer with context/scope.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0259.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Expected-future-utility gate decides which unknown is worth asking.",
+      "use_when": [
+        "High-impact purchases",
+        "Writing/style preferences",
+        "Recurring workflow choices"
+      ],
+      "avoid_when": [
+        "Preference can be inferred cheaply from strong repeated evidence",
+        "Question interruption cost exceeds decision impact"
+      ],
+      "required_evals": [
+        "question usefulness",
+        "future correction reduction"
+      ],
+      "risks": [
+        "Question fatigue",
+        "preference can change"
+      ],
+      "cost_profile": "human attention cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259"
+      ],
+      "keywords": [
+        "explicit_feedback",
+        "preference"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0342",
+      "name": "Implicit feedback learning",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "learning"
+      ],
+      "goal": "Learn preferences from choices/interactions when explicit ratings are sparse",
+      "mechanism": "Use views, saves, purchases, dismissals, retries, corrections and accepted suggestions as evidence with action-specific weight.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Preserve event type/context; never collapse 'viewed' into 'liked'.",
+      "use_when": [
+        "Shopping/media/tools",
+        "Proactive suggestions"
+      ],
+      "avoid_when": [
+        "Action has ambiguous motive or exposure bias is severe"
+      ],
+      "required_evals": [
+        "future recommendation utility",
+        "correction rate"
+      ],
+      "risks": [
+        "Observed behavior is not pure preference",
+        "feedback loops"
+      ],
+      "cost_profile": "low once telemetry exists",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "implicit_feedback"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0343",
+      "name": "Heterogeneous implicit-feedback weighting",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "learning"
+      ],
+      "goal": "Avoid treating different user actions as equivalent evidence",
+      "mechanism": "Model signals such as view/save/buy/dismiss/repeat separately or learn their relation to target outcome.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS event ontology should retain semantics rather than one generic engagement score.",
+      "use_when": [
+        "Shopping wants",
+        "Research saves",
+        "Tool usage"
+      ],
+      "avoid_when": [
+        "Very sparse data"
+      ],
+      "required_evals": [
+        "predictive utility by action type",
+        "ablation"
+      ],
+      "risks": [
+        "Learned weights can reflect UI exposure rather than value"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "heterogeneous_feedback"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0344",
+      "name": "Pairwise preference learning",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "ranking"
+      ],
+      "goal": "Learn relative choices more naturally than absolute ratings",
+      "mechanism": "Train/fit ranking so selected/preferred item outranks observed alternatives or explicitly compared items.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use only when exposure set is known or negatives are carefully sampled.",
+      "use_when": [
+        "Repeated item/tool/model choices",
+        "A/B preferences"
+      ],
+      "avoid_when": [
+        "Non-choice doesn't imply rejection because item may not have been seen"
+      ],
+      "required_evals": [
+        "ranking metrics",
+        "counterfactual exposure"
+      ],
+      "risks": [
+        "Implicit-negative assumption"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "BPR",
+        "pairwise"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0345",
+      "name": "Contextual preference model",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "memory"
+      ],
+      "goal": "Represent that preference changes by task/domain/time/role",
+      "mechanism": "Condition recommendation on context such as work vs personal, budget, project, device, company, current goal, urgency and recent intent.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0224.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Matches existing separate style profiles and domain boundaries.",
+      "use_when": [
+        "Personal Agent OS"
+      ],
+      "avoid_when": [
+        "Context unavailable/unreliable"
+      ],
+      "required_evals": [
+        "context-specific acceptance",
+        "cross-context error"
+      ],
+      "risks": [
+        "Overfitting tiny contexts",
+        "privacy"
+      ],
+      "cost_profile": "metadata/model cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0224"
+      ],
+      "keywords": [
+        "contextual_personalization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0346",
+      "name": "Time-decayed preference evidence",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "memory"
+      ],
+      "goal": "Adapt to changing tastes without erasing history",
+      "mechanism": "Reduce default influence of old preference observations while retaining them as historical evidence; reinforce if repeated.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0259.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Separate recency from confidence/explicitness; never simply delete historical evidence.",
+      "use_when": [
+        "Shopping/media/style/tool preference"
+      ],
+      "avoid_when": [
+        "Stable explicit rule/policy"
+      ],
+      "required_evals": [
+        "future acceptance by decay function",
+        "stale-preference errors"
+      ],
+      "risks": [
+        "Recent anomaly can outweigh long-term preference"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259"
+      ],
+      "keywords": [
+        "preference_decay"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0347",
+      "name": "Preference-change / concept-drift detection",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "monitoring"
+      ],
+      "goal": "Recognize when old personalization no longer predicts current choices",
+      "mechanism": "Monitor correction/dismissal/choice distributions by context and create candidate preference update when regime shifts.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0238.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Staged candidate/supersession rather than silent profile rewrite.",
+      "use_when": [
+        "Long-lived profile"
+      ],
+      "avoid_when": [
+        "Too few observations"
+      ],
+      "required_evals": [
+        "change-point precision",
+        "post-change usefulness"
+      ],
+      "risks": [
+        "Temporary mood mistaken for durable change"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0238"
+      ],
+      "keywords": [
+        "preference_drift"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0348",
+      "name": "Content-based recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "retrieval",
+        "personalization"
+      ],
+      "goal": "Recommend items similar in meaningful attributes to things the user values",
+      "mechanism": "Represent item attributes/text/embeddings and user preference vector/profile; rank by feature compatibility.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0259.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use explainable attributes/provenance where possible.",
+      "use_when": [
+        "Mods",
+        "Products",
+        "Research sources",
+        "Tools"
+      ],
+      "avoid_when": [
+        "Need surprising discovery outside known taste"
+      ],
+      "required_evals": [
+        "acceptance",
+        "novelty",
+        "coverage"
+      ],
+      "risks": [
+        "Over-specialization/filter bubble"
+      ],
+      "cost_profile": "index + ranking",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259"
+      ],
+      "keywords": [
+        "content_based"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0349",
+      "name": "Collaborative filtering",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "learning"
+      ],
+      "goal": "Discover preferences from patterns among similar users/items beyond explicit metadata",
+      "mechanism": "Learn latent interaction patterns from a population's ratings/implicit feedback.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Usually less applicable to purely personal local data unless using public community signals.",
+      "use_when": [
+        "External recommendation datasets/services",
+        "Enough users/items"
+      ],
+      "avoid_when": [
+        "Single-user local Agent OS without a privacy-safe population dataset"
+      ],
+      "required_evals": [
+        "ranking",
+        "cold-start",
+        "privacy"
+      ],
+      "risks": [
+        "Popularity bias",
+        "privacy",
+        "feedback loops"
+      ],
+      "cost_profile": "data + model training",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "collaborative_filtering"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0350",
+      "name": "Hybrid content+collaborative recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation"
+      ],
+      "goal": "Combine personal attribute fit with population discovery",
+      "mechanism": "Fuse content, interaction and contextual signals so one method compensates for another's cold-start/overspecialization.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0263.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Keep user-specific evidence distinct from community popularity.",
+      "use_when": [
+        "Shopping/mod discovery with public/community evidence"
+      ],
+      "avoid_when": [
+        "No trustworthy collaborative signal"
+      ],
+      "required_evals": [
+        "accuracy",
+        "novelty",
+        "coverage"
+      ],
+      "risks": [
+        "Complex attribution",
+        "population bias"
+      ],
+      "cost_profile": "medium-high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0263"
+      ],
+      "keywords": [
+        "hybrid_recommender"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0351",
+      "name": "Cold-start use of side information",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "multimodal"
+      ],
+      "goal": "Rank new/unseen items before interaction history exists",
+      "mechanism": "Use metadata, text, image/audio features, creator/category/price/specs and relationships to infer fit.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0263.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Knowledge Engine can supply structured item/entity features.",
+      "use_when": [
+        "New products/mods/tools",
+        "New project"
+      ],
+      "avoid_when": [
+        "Side information itself unreliable"
+      ],
+      "required_evals": [
+        "cold-start acceptance",
+        "coverage"
+      ],
+      "risks": [
+        "Feature biases",
+        "missing metadata"
+      ],
+      "cost_profile": "feature extraction",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0263"
+      ],
+      "keywords": [
+        "cold_start",
+        "side_information"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0352",
+      "name": "Diversity-aware reranking",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "ranking"
+      ],
+      "goal": "Avoid a top list containing near-duplicates of the same idea",
+      "mechanism": "After relevance scoring, rerank selected set to trade relevance for pairwise/category/creator/approach diversity.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0260, SRC-AI-0262.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Useful for 'what haven't I considered?' and research-radar outputs.",
+      "use_when": [
+        "Research suggestions",
+        "Shopping alternatives",
+        "Improvement ideas"
+      ],
+      "avoid_when": [
+        "User asks for one exact best match"
+      ],
+      "required_evals": [
+        "relevance",
+        "intra-list diversity",
+        "acceptance"
+      ],
+      "risks": [
+        "Artificial diversity can lower usefulness"
+      ],
+      "cost_profile": "small rerank cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0260",
+        "SRC-AI-0262"
+      ],
+      "keywords": [
+        "diversity",
+        "rerank"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0353",
+      "name": "Novelty-aware recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation"
+      ],
+      "goal": "Surface relevant things the user likely has not already encountered",
+      "mechanism": "Penalize known/seen items and measure exposure/familiarity separately from relevance.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0259, SRC-AI-0260.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agent OS browser/message history can prevent recommending already-seen items when privacy permits.",
+      "use_when": [
+        "Discovery",
+        "Research radar",
+        "Mod/product suggestions"
+      ],
+      "avoid_when": [
+        "Repetition is valuable reminder/reinforcement"
+      ],
+      "required_evals": [
+        "novelty",
+        "relevance",
+        "action rate"
+      ],
+      "risks": [
+        "Novel can mean obscure/bad"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259",
+        "SRC-AI-0260"
+      ],
+      "keywords": [
+        "novelty"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0354",
+      "name": "Serendipity-aware recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "challenge"
+      ],
+      "goal": "Surface useful unexpected options outside obvious preference neighborhood",
+      "mechanism": "Optimize for relevance/usefulness plus unexpectedness relative to user's normal recommendations/history.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0261, SRC-AI-0264.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Challenge engine can deliberately reserve a small slot for high-value non-obvious alternatives.",
+      "use_when": [
+        "Constructive challenge",
+        "New tools/projects",
+        "Discovery"
+      ],
+      "avoid_when": [
+        "Task demands exact familiar workflow"
+      ],
+      "required_evals": [
+        "serendipity",
+        "utility",
+        "rejection"
+      ],
+      "risks": [
+        "Unexpectedness is subjective and hard to measure"
+      ],
+      "cost_profile": "rerank/model cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0261",
+        "SRC-AI-0264"
+      ],
+      "keywords": [
+        "serendipity",
+        "discovery"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0355",
+      "name": "Coverage-aware recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "evaluation"
+      ],
+      "goal": "Avoid systematically ignoring long-tail parts of the candidate space",
+      "mechanism": "Measure which categories/items/sources ever receive exposure and correct unjustified blind spots.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0259, SRC-AI-0260.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Coverage is a diagnostic/guardrail, not a mandate to show everything.",
+      "use_when": [
+        "Research radar",
+        "Tool/model registry",
+        "Shopping"
+      ],
+      "avoid_when": [
+        "Candidate space includes lots of known junk"
+      ],
+      "required_evals": [
+        "catalog/category coverage",
+        "utility"
+      ],
+      "risks": [
+        "Forcing coverage can waste attention"
+      ],
+      "cost_profile": "low analytics",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259",
+        "SRC-AI-0260"
+      ],
+      "keywords": [
+        "coverage",
+        "long_tail"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0356",
+      "name": "Fairness-aware recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "governance"
+      ],
+      "goal": "Detect/limit systematic recommendation disadvantage that is not justified by task goals",
+      "mechanism": "Measure outcome/exposure differences for relevant groups/providers and incorporate fairness constraints appropriate to domain.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0262.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Do not infer sensitive attributes just to optimize a fairness metric; domain policy controls applicability.",
+      "use_when": [
+        "Domains where fairness is materially relevant and lawful/appropriate"
+      ],
+      "avoid_when": [
+        "Personal preferences where protected-trait inference is unnecessary or disallowed"
+      ],
+      "required_evals": [
+        "fairness metric plus utility",
+        "subgroup evaluation"
+      ],
+      "risks": [
+        "Competing fairness definitions",
+        "sensitive data risks"
+      ],
+      "cost_profile": "analysis/governance cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0262"
+      ],
+      "keywords": [
+        "fairness",
+        "recommendation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0357",
+      "name": "Explore/exploit recommendation mix",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "online_learning"
+      ],
+      "goal": "Learn new preferences without making the whole experience experimental",
+      "mechanism": "Reserve bounded safe fraction for novel/uncertain candidates while most recommendations exploit high-confidence preferences.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0223.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Explicit exploration budget; user can request 'safe/familiar' vs 'surprise me'.",
+      "use_when": [
+        "Low-risk discovery",
+        "Music/mod/product browsing"
+      ],
+      "avoid_when": [
+        "High-consequence recommendation"
+      ],
+      "required_evals": [
+        "long-term utility",
+        "exploration rejection",
+        "preference information gain"
+      ],
+      "risks": [
+        "User pays exploration cost",
+        "feedback loop"
+      ],
+      "cost_profile": "bounded",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0223"
+      ],
+      "keywords": [
+        "exploration",
+        "exploitation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0358",
+      "name": "Multi-objective recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "optimization"
+      ],
+      "goal": "Optimize user value across relevance, price, risk, diversity, novelty, effort, time and constraints rather than one score",
+      "mechanism": "Use constrained/weighted/Pareto ranking where hard constraints filter first and soft objectives trade off afterward.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0259, SRC-AI-0262.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Hard policy/budget constraints never become tradeable score terms.",
+      "use_when": [
+        "Shopping",
+        "Model/tool selection",
+        "Project prioritization"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "per-objective metrics",
+        "Pareto outcomes",
+        "user corrections"
+      ],
+      "risks": [
+        "Weights can encode hidden assumptions",
+        "Goodhart"
+      ],
+      "cost_profile": "medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259",
+        "SRC-AI-0262"
+      ],
+      "keywords": [
+        "multi_objective",
+        "Pareto"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0359",
+      "name": "Pareto-front recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "decision_support"
+      ],
+      "goal": "Show meaningful tradeoff alternatives instead of hiding values in one arbitrary weighted score",
+      "mechanism": "Identify non-dominated options across important objectives, then explain the tradeoffs/user can choose.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0259.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Keep set small by removing practically indistinguishable options.",
+      "use_when": [
+        "Purchases",
+        "Architecture/model choices"
+      ],
+      "avoid_when": [
+        "One option dominates all meaningful objectives"
+      ],
+      "required_evals": [
+        "decision quality",
+        "choice effort"
+      ],
+      "risks": [
+        "Too many Pareto options overwhelm user"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259"
+      ],
+      "keywords": [
+        "Pareto",
+        "tradeoffs"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0360",
+      "name": "Constraint-first recommendation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "security"
+      ],
+      "goal": "Never let an attractive score violate hard requirements",
+      "mechanism": "Filter candidates against must-have compatibility, privacy, budget, legality, authorization, deadline or technical constraints before personalization/ranking.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0135.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Same principle as model routing: eligibility before optimization.",
+      "use_when": [
+        "All consequential recommendation/routing"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "constraint violation rate",
+        "false exclusions"
+      ],
+      "risks": [
+        "Misencoded constraints"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0135"
+      ],
+      "keywords": [
+        "constraints",
+        "eligibility"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0361",
+      "name": "Explanation from actual recommendation evidence",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "human_system"
+      ],
+      "goal": "Help user understand why an item surfaced without fabricating post-hoc reasons",
+      "mechanism": "Generate explanation from recorded features/evidence/rules that contributed to retrieval/rank and explicitly label exploratory/serendipitous choices.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0259.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Explain observable factors, not hidden chain-of-thought.",
+      "use_when": [
+        "Shopping",
+        "Research radar",
+        "Model/tool routing"
+      ],
+      "avoid_when": [
+        "Ranker is opaque and no reliable attribution exists"
+      ],
+      "required_evals": [
+        "explanation fidelity",
+        "user corrections"
+      ],
+      "risks": [
+        "Plausible-but-false explanation"
+      ],
+      "cost_profile": "small",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259"
+      ],
+      "keywords": [
+        "recommendation_explanation",
+        "provenance"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0362",
+      "name": "Negative-feedback suppression with changed-evidence escape hatch",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "proactivity"
+      ],
+      "goal": "Stop repeating rejected suggestions while allowing meaningful reconsideration",
+      "mechanism": "Store dismiss/reject reason and suppress close duplicates until item/context/evidence materially changes or explicit recurrence requires resurfacing.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0259.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Re-surface message must explain what changed.",
+      "use_when": [
+        "Proactivity",
+        "Research radar",
+        "Shopping"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "repeat annoyance",
+        "useful resurfacing"
+      ],
+      "risks": [
+        "Permanent suppression after mistaken dismissal"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259"
+      ],
+      "keywords": [
+        "negative_feedback",
+        "suppression"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0363",
+      "name": "Exposure-aware learning",
+      "aliases": [],
+      "category": "personalization",
+      "layer": [
+        "recommendation",
+        "evaluation"
+      ],
+      "goal": "Avoid treating unseen items as disliked",
+      "mechanism": "Track what the user was actually shown/able to choose among before learning positive/negative preferences.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0258.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "No click on an unseen item is no evidence; no click on shown item is still weak/contextual evidence.",
+      "use_when": [
+        "Implicit feedback personalization"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "bias-corrected prediction",
+        "coverage"
+      ],
+      "risks": [
+        "Exposure tracking incomplete"
+      ],
+      "cost_profile": "telemetry cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0258"
+      ],
+      "keywords": [
+        "exposure_bias",
+        "implicit_feedback"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0364",
+      "name": "Debias popularity feedback loops",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "evaluation"
+      ],
+      "goal": "Prevent early popularity/exposure from permanently crowding out equally useful alternatives",
+      "mechanism": "Measure popularity/exposure as a confounder, apply diversity/long-tail exploration or propensity-aware evaluation.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0260, SRC-AI-0262.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Research Radar should not equate GitHub stars/mentions with expected Agent OS value.",
+      "use_when": [
+        "Community-derived recommendations",
+        "Tool/ecosystem radar"
+      ],
+      "avoid_when": [
+        "Pure personal catalog with no population exposure loop"
+      ],
+      "required_evals": [
+        "long-tail utility",
+        "coverage",
+        "overall relevance"
+      ],
+      "risks": [
+        "Can overpromote niche low-quality items"
+      ],
+      "cost_profile": "medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0260",
+        "SRC-AI-0262"
+      ],
+      "keywords": [
+        "popularity_bias",
+        "feedback_loop"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0365",
+      "name": "Offline+online recommendation evaluation",
+      "aliases": [],
+      "category": "recommendation",
+      "layer": [
+        "recommendation",
+        "evaluation"
+      ],
+      "goal": "Avoid trusting offline ranking metrics as final user-value evidence",
+      "mechanism": "Use offline replay for candidate screening, then shadow/low-risk live feedback or explicit human evaluation to confirm value.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0259, SRC-AI-0260.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use protected exploration budget and domain-specific guardrails.",
+      "use_when": [
+        "Any adaptive personalization"
+      ],
+      "avoid_when": [
+        "No live interaction is ethically/practically acceptable"
+      ],
+      "required_evals": [
+        "offline-online correlation",
+        "actual acceptance/effort"
+      ],
+      "risks": [
+        "Online feedback is itself biased by presentation/exposure"
+      ],
+      "cost_profile": "multi-stage evaluation",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0259",
+        "SRC-AI-0260"
+      ],
+      "keywords": [
+        "offline_online",
+        "recommendation_eval"
+      ],
+      "notes": ""
+    }
+  ]
+}

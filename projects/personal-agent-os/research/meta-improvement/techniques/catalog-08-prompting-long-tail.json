@@ -1,0 +1,924 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "prompting_long_tail",
+  "techniques": [
+    {
+      "id": "AIT-0211",
+      "name": "Self-Ask",
+      "aliases": [],
+      "category": "decomposition",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve compositional multi-hop reasoning",
+      "mechanism": "Model explicitly generates follow-up questions, answers each, then composes final answer.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0193.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS can route follow-up questions to retrieval/tools rather than self-answering.",
+      "use_when": [
+        "Multi-hop factual questions",
+        "Search-backed research"
+      ],
+      "avoid_when": [
+        "Simple one-hop lookup"
+      ],
+      "required_evals": [
+        "multi-hop accuracy",
+        "question quality",
+        "calls/tokens"
+      ],
+      "risks": [
+        "Bad subquestion decomposition",
+        "self-answer hallucination"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0193"
+      ],
+      "keywords": [
+        "self_ask",
+        "subquestions"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0212",
+      "name": "Self-Ask with external search",
+      "aliases": [],
+      "category": "decomposition",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Ground decomposed subquestions in evidence",
+      "mechanism": "Self-Ask structure determines follow-up queries, but search/tool answers them before composition.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0193.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Prefer authoritative domain-specific retrieval for each subquestion.",
+      "use_when": [
+        "Fresh/public research",
+        "Multi-hop entity relations"
+      ],
+      "avoid_when": [
+        "Private task with no external source need"
+      ],
+      "required_evals": [
+        "answer accuracy",
+        "source quality",
+        "query count"
+      ],
+      "risks": [
+        "Search errors",
+        "prompt injection"
+      ],
+      "cost_profile": "medium-high",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0193"
+      ],
+      "keywords": [
+        "self_ask",
+        "search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0213",
+      "name": "Step-Back Prompting",
+      "aliases": [],
+      "category": "abstraction",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve reasoning by deriving principles before solving specifics",
+      "mechanism": "Ask model for higher-level concepts/first principles, then solve target instance using them.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0194.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Can become explicit architecture-review question: what underlying goal/constraint matters?",
+      "use_when": [
+        "STEM/conceptual problems",
+        "Complex cases where abstraction is genuinely useful"
+      ],
+      "avoid_when": [
+        "Simple execution",
+        "Current reasoning model already plans internally"
+      ],
+      "required_evals": [
+        "task A/B",
+        "token cost",
+        "principle correctness"
+      ],
+      "risks": [
+        "Incorrect abstraction anchors final answer"
+      ],
+      "cost_profile": "small-medium",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0194"
+      ],
+      "keywords": [
+        "step_back",
+        "abstraction"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0214",
+      "name": "Generated Knowledge Prompting",
+      "aliases": [],
+      "category": "knowledge_elicitation",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Prime reasoning with model-generated relevant knowledge",
+      "mechanism": "Generate potentially useful facts/concepts first, then condition final answer on that generated knowledge.",
+      "maturity": "historical",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0195.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Agent OS should generally replace this with evidence retrieval; retain as historical technique.",
+      "use_when": [
+        "Closed-book commonsense benchmarks"
+      ],
+      "avoid_when": [
+        "Fresh/high-stakes facts",
+        "Knowledge already retrievable"
+      ],
+      "required_evals": [
+        "accuracy",
+        "generated-fact error rate"
+      ],
+      "risks": [
+        "Hallucinated knowledge becomes self-evidence"
+      ],
+      "cost_profile": "one extra generation",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0195"
+      ],
+      "keywords": [
+        "generated_knowledge"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0215",
+      "name": "Analogical Prompting",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Generate task-tailored examples without a manual few-shot library",
+      "mechanism": "Ask model to recall/generate analogous solved problems or lessons, then solve target.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0196.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Safer Agent OS variant retrieves validated past successes before allowing generated analogies.",
+      "use_when": [
+        "Reasoning/coding problems where analogous cases help"
+      ],
+      "avoid_when": [
+        "Safety-critical task where generated examples cannot be trusted"
+      ],
+      "required_evals": [
+        "task success",
+        "analogy correctness",
+        "cost"
+      ],
+      "risks": [
+        "False analogy",
+        "self-generated errors"
+      ],
+      "cost_profile": "extra generation/context",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0196"
+      ],
+      "keywords": [
+        "analogical",
+        "self_generated_examples"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0216",
+      "name": "Validated analogical retrieval",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Use prior solved Agent OS cases as reliable analogies",
+      "mechanism": "Retrieve historically validated similar tasks/skills and expose compact lessons before execution.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0196.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer real successful episodes over invented analogies.",
+      "use_when": [
+        "Repeated workflows",
+        "Debugging",
+        "Architecture decisions"
+      ],
+      "avoid_when": [
+        "No similar validated case"
+      ],
+      "required_evals": [
+        "reuse success",
+        "negative transfer"
+      ],
+      "risks": [
+        "Surface similarity can select wrong analogy"
+      ],
+      "cost_profile": "retrieval overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0196"
+      ],
+      "keywords": [
+        "analogy",
+        "episodic_memory"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0217",
+      "name": "Chain-of-Verification",
+      "aliases": [],
+      "category": "verification_prompting",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce factual hallucination by separating drafting from checking",
+      "mechanism": "Draft answer, formulate verification questions, answer checks independently, then create corrected final answer.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0197.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS variant should answer verification questions with independent tools/sources wherever possible.",
+      "use_when": [
+        "Long factual summaries",
+        "Lists",
+        "Research synthesis"
+      ],
+      "avoid_when": [
+        "Deterministic/authoritative verifier is directly available"
+      ],
+      "required_evals": [
+        "hallucination rate",
+        "cost",
+        "correction precision"
+      ],
+      "risks": [
+        "Same-model blind spots",
+        "closed-book verification"
+      ],
+      "cost_profile": "multiple calls/turns",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0197"
+      ],
+      "keywords": [
+        "CoVe",
+        "verification"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0218",
+      "name": "Factorized independent verification",
+      "aliases": [],
+      "category": "verification_prompting",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce confirmation bias during self-check",
+      "mechanism": "Verify atomic claims separately without exposing previous answers/justifications when possible.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0197.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Claim registry makes this directly implementable.",
+      "use_when": [
+        "Research claims",
+        "Generated records"
+      ],
+      "avoid_when": [
+        "Claims strongly depend on full context"
+      ],
+      "required_evals": [
+        "verification disagreement",
+        "error catch rate"
+      ],
+      "risks": [
+        "Loses necessary context"
+      ],
+      "cost_profile": "multiple small checks",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0197"
+      ],
+      "keywords": [
+        "factorized_verification"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0219",
+      "name": "Self-Discover reasoning structure",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Choose task-specific reasoning structure rather than one universal CoT prompt",
+      "mechanism": "Select useful reasoning modules and compose a structure before solving.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0198.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Could inform future workflow synthesis, but validated skills outrank improvised structures.",
+      "use_when": [
+        "Novel hard reasoning tasks"
+      ],
+      "avoid_when": [
+        "Known workflow with validated procedure"
+      ],
+      "required_evals": [
+        "success vs fixed scaffold",
+        "compute"
+      ],
+      "risks": [
+        "Meta-reasoning overhead",
+        "self-selected bad structure"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0198"
+      ],
+      "keywords": [
+        "Self_Discover"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0220",
+      "name": "Re2 / question re-reading",
+      "aliases": [],
+      "category": "input_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve understanding of query before generation",
+      "mechanism": "Repeat the input question in the prompt so a decoder-only model encounters it after having seen global question context once.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0199.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Perfect example of a cheap technique that must be model-regression-tested rather than assumed.",
+      "use_when": [
+        "Legacy/model-specific reasoning experiments"
+      ],
+      "avoid_when": [
+        "Long user requests",
+        "Models where duplicate text wastes context"
+      ],
+      "required_evals": [
+        "A/B by model/task",
+        "input cost"
+      ],
+      "risks": [
+        "Duplication",
+        "prompt-cache/context waste"
+      ],
+      "cost_profile": "small extra input",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0199"
+      ],
+      "keywords": [
+        "Re2",
+        "reread"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0221",
+      "name": "EmotionPrompt / stakes language",
+      "aliases": [],
+      "category": "behavioral_prompting",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Alter model effort/style using emotional or social-value cues",
+      "mechanism": "Append emotionally salient/stakes-oriented text intended to change model response behavior.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "low_medium",
+        "summary": "Evidence basis: SRC-AI-0200.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Preserve as evidence of prompt sensitivity, not a recommended Agent OS trick.",
+      "use_when": [
+        "Controlled historical prompt research"
+      ],
+      "avoid_when": [
+        "Production reliability",
+        "Manipulative user-facing systems"
+      ],
+      "required_evals": [
+        "blind A/B across current models",
+        "factuality",
+        "tone"
+      ],
+      "risks": [
+        "Model-era artifact",
+        "unprofessional/manipulative wording",
+        "unpredictable behavior"
+      ],
+      "cost_profile": "negligible",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0200"
+      ],
+      "keywords": [
+        "EmotionPrompt",
+        "stakes"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0222",
+      "name": "Thread-of-Thought",
+      "aliases": [],
+      "category": "context_reasoning",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Extract relevant evidence from chaotic/distractor-heavy context",
+      "mechanism": "Iteratively segment/analyze context and maintain a thread of relevant information before answering.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0201.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Prefer retrieval/filtering; fallback when source cannot be pre-indexed.",
+      "use_when": [
+        "Unstructured long text with distractors"
+      ],
+      "avoid_when": [
+        "Knowledge Engine can retrieve/filter deterministically"
+      ],
+      "required_evals": [
+        "answer quality",
+        "tokens",
+        "distractor robustness"
+      ],
+      "risks": [
+        "Verbose intermediate context",
+        "error accumulation"
+      ],
+      "cost_profile": "medium-high",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0201"
+      ],
+      "keywords": [
+        "Thread_of_Thought"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0223",
+      "name": "Chain-of-Table",
+      "aliases": [],
+      "category": "structured_reasoning",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reason over tables by transforming explicit intermediate table state",
+      "mechanism": "Generate table operations, update intermediate table, choose next operation from transformed state.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0202.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Agent OS default should execute structured table operations deterministically.",
+      "use_when": [
+        "Table QA/fact verification without direct dataframe tool"
+      ],
+      "avoid_when": [
+        "Agent OS can use deterministic SQL/Pandas"
+      ],
+      "required_evals": [
+        "table QA",
+        "operation correctness",
+        "token cost"
+      ],
+      "risks": [
+        "Model-generated operations can corrupt table state"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0202"
+      ],
+      "keywords": [
+        "Chain_of_Table"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0224",
+      "name": "Self-Notes",
+      "aliases": [],
+      "category": "context_memory",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Let model create intermediate memory while reading long context",
+      "mechanism": "Interleave generated notes inside/alongside context and later use those notes for reasoning.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0203.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Use external typed scratch state instead of freeform notes for Agent OS.",
+      "use_when": [
+        "Research on local long-context models"
+      ],
+      "avoid_when": [
+        "Canonical personal memory",
+        "Tool-based scratch state is available"
+      ],
+      "required_evals": [
+        "long-context task success",
+        "note fidelity"
+      ],
+      "risks": [
+        "Notes persist early mistakes",
+        "context growth"
+      ],
+      "cost_profile": "medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0203"
+      ],
+      "keywords": [
+        "Self_Notes"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0225",
+      "name": "Chain-of-Knowledge with heterogeneous sources",
+      "aliases": [],
+      "category": "grounded_reasoning",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Correct reasoning by dynamically consulting structured and unstructured evidence",
+      "mechanism": "Generate preliminary rationales, detect disagreement, identify source domains, query SQL/SPARQL/text, progressively correct and consolidate.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0204.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Strong conceptual match for Knowledge Engine, but use claims/evidence rather than preserving freeform rationales.",
+      "use_when": [
+        "Deep research",
+        "Mixed structured/unstructured knowledge"
+      ],
+      "avoid_when": [
+        "Simple lookup"
+      ],
+      "required_evals": [
+        "factuality",
+        "source coverage",
+        "cost"
+      ],
+      "risks": [
+        "Complex pipeline",
+        "propagated rationale errors"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0204"
+      ],
+      "keywords": [
+        "Chain_of_Knowledge",
+        "heterogeneous"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0226",
+      "name": "Knowledge-triple prompting",
+      "aliases": [],
+      "category": "structured_reasoning",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Make factual premises explicit before reasoning",
+      "mechanism": "Generate subject-relation-object knowledge triples and reason/verify over them.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0205.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Agent OS should retrieve stored claims/triples rather than invent them when available.",
+      "use_when": [
+        "Entity/relation-heavy knowledge tasks"
+      ],
+      "avoid_when": [
+        "Freeform creative tasks"
+      ],
+      "required_evals": [
+        "triple accuracy",
+        "answer accuracy",
+        "factuality"
+      ],
+      "risks": [
+        "Wrong triples become misleading pseudo-structure"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0205"
+      ],
+      "keywords": [
+        "knowledge_triples"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0227",
+      "name": "Directional Stimulus Prompting",
+      "aliases": [],
+      "category": "prompt_policy",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Optimize small instance-specific hints for a black-box model",
+      "mechanism": "Train a smaller policy model to emit keywords/hints that steer a larger model toward target outputs.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0206.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Potential specialized optimizer only after static prompt/routing options plateau.",
+      "use_when": [
+        "Stable narrow task with many examples and black-box frontier model"
+      ],
+      "avoid_when": [
+        "General Agent OS workflow",
+        "Requirements change frequently"
+      ],
+      "required_evals": [
+        "task metric",
+        "hint stability",
+        "transfer"
+      ],
+      "risks": [
+        "Second-model complexity",
+        "metric gaming"
+      ],
+      "cost_profile": "training + extra inference",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0206"
+      ],
+      "keywords": [
+        "DSP",
+        "stimulus"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0228",
+      "name": "Chain-of-Symbol",
+      "aliases": [],
+      "category": "symbolic_prompting",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce verbose reasoning and improve planning using compact symbolic state",
+      "mechanism": "Translate planning entities/relations/actions into compact symbols and reason over symbolic sequences.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0207.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Generalizable lesson: structured compact state often beats prose state.",
+      "use_when": [
+        "Constrained planning/world-state tasks"
+      ],
+      "avoid_when": [
+        "Semantic tasks where symbol mapping loses meaning"
+      ],
+      "required_evals": [
+        "planning success",
+        "token reduction",
+        "mapping errors"
+      ],
+      "risks": [
+        "Handcrafted representation",
+        "opaque symbols"
+      ],
+      "cost_profile": "lower tokens after encoding",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0207"
+      ],
+      "keywords": [
+        "Chain_of_Symbol"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0229",
+      "name": "RECITE / recitation-augmented generation",
+      "aliases": [],
+      "category": "knowledge_elicitation",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve closed-book QA by eliciting latent memorized passages before answering",
+      "mechanism": "Sample internally recalled passages, then answer conditioned on recitations.",
+      "maturity": "historical",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0208.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Agent OS should prefer real retrieval; keep as evidence about latent-knowledge elicitation.",
+      "use_when": [
+        "Offline closed-book benchmark experiments"
+      ],
+      "avoid_when": [
+        "Current facts",
+        "Authoritative research",
+        "Safety-critical factual output"
+      ],
+      "required_evals": [
+        "QA accuracy",
+        "recitation factuality"
+      ],
+      "risks": [
+        "Hallucinated/stale recitation"
+      ],
+      "cost_profile": "extra generated tokens",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0208"
+      ],
+      "keywords": [
+        "RECITE",
+        "recitation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0230",
+      "name": "Meta-Prompting / conductor-of-experts",
+      "aliases": [],
+      "category": "prompt_orchestration",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Use a single model as a task-agnostic orchestrator of multiple specialized calls",
+      "mechanism": "Conductor decomposes task, instantiates expert prompts/calls, integrates and verifies results.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0209.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use as workflow-discovery experiment, then distill stable successful structures into explicit workflows.",
+      "use_when": [
+        "Novel complex tasks without known workflow"
+      ],
+      "avoid_when": [
+        "Stable task already represented by Orchestrator OS workflow"
+      ],
+      "required_evals": [
+        "quality",
+        "calls",
+        "latency",
+        "coordination failures"
+      ],
+      "risks": [
+        "Token multiplier",
+        "self-assigned experts duplicate work"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0209"
+      ],
+      "keywords": [
+        "meta_prompting",
+        "experts"
+      ],
+      "notes": ""
+    }
+  ]
+}

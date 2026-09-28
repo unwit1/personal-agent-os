@@ -1,0 +1,4033 @@
+{
+  "schema": "personal-agent-os/meta-improvement-source-registry/v1",
+  "as_of": "2026-09-24",
+  "research_id": "MIR-2026-09-24-FOUNDATION-01",
+  "sources": [
+    {
+      "id": "SRC-AI-0047",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2201.11903",
+      "topics": [
+        "prompting",
+        "reasoning"
+      ],
+      "evidence_notes": "Introduced few-shot chain-of-thought prompting and showed large gains on arithmetic/symbolic/common-sense reasoning for sufficiently capable models.",
+      "limits": "Older model regime; current reasoning models may not benefit from explicit CoT prompts.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0048",
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2203.11171",
+      "topics": [
+        "reasoning",
+        "test_time_compute"
+      ],
+      "evidence_notes": "Samples multiple reasoning paths and aggregates answers; strong original gains on reasoning benchmarks.",
+      "limits": "Multiplies inference cost; depends on answer aggregation and diversity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0049",
+      "title": "Tree of Thoughts",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.10601",
+      "topics": [
+        "reasoning",
+        "search"
+      ],
+      "evidence_notes": "Searches over intermediate thought states rather than committing to one chain.",
+      "limits": "Expensive; evaluator/search quality can dominate.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0050",
+      "title": "Least-to-Most Prompting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2205.10625",
+      "topics": [
+        "prompting",
+        "decomposition"
+      ],
+      "evidence_notes": "Decomposes a hard problem into easier subproblems solved sequentially.",
+      "limits": "Can propagate early decomposition errors.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0051",
+      "title": "Plan-and-Solve Prompting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.04091",
+      "topics": [
+        "prompting",
+        "planning"
+      ],
+      "evidence_notes": "Separates plan generation from execution to reduce missing-step errors.",
+      "limits": "Task/model dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0052",
+      "title": "PAL: Program-Aided Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2211.10435",
+      "topics": [
+        "reasoning",
+        "tools",
+        "deterministic_computation"
+      ],
+      "evidence_notes": "Delegates symbolic/arithmetic execution to a program interpreter.",
+      "limits": "Requires safe execution and correct program generation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0053",
+      "title": "Program of Thoughts Prompting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2211.12588",
+      "topics": [
+        "reasoning",
+        "tools"
+      ],
+      "evidence_notes": "Separates reasoning from computation using generated programs.",
+      "limits": "Sandboxing and verifier needed.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0054",
+      "title": "ReAct",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "topics": [
+        "agents",
+        "reasoning",
+        "tools"
+      ],
+      "evidence_notes": "Interleaves reasoning, actions, and observations for grounded interactive tasks.",
+      "limits": "Long loops can be costly and error-prone.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0055",
+      "title": "Reflexion",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "topics": [
+        "agents",
+        "reflection",
+        "memory"
+      ],
+      "evidence_notes": "Uses feedback and episodic verbal reflection to improve later attempts.",
+      "limits": "Benefits depend on useful external/task feedback; reflection alone is not proof.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0056",
+      "title": "Self-Refine",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2303.17651",
+      "topics": [
+        "reflection",
+        "iteration"
+      ],
+      "evidence_notes": "Same model generates, critiques, and revises outputs iteratively.",
+      "limits": "Critical literature shows intrinsic self-correction can also worsen outputs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0057",
+      "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "topics": [
+        "reflection",
+        "negative_result"
+      ],
+      "evidence_notes": "Shows prompted self-correction without reliable external feedback can degrade reasoning.",
+      "limits": "Result is task/model specific but important counterevidence.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0058",
+      "title": "When Can LLMs Actually Correct Their Own Mistakes?",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.tacl-1.78/",
+      "topics": [
+        "reflection",
+        "survey",
+        "negative_result"
+      ],
+      "evidence_notes": "Critical survey distinguishing intrinsic self-correction from correction with reliable external feedback.",
+      "limits": "Broad literature synthesis rather than a single universal bound.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0059",
+      "title": "DSPy",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.03714",
+      "topics": [
+        "prompt_optimization",
+        "programming"
+      ],
+      "evidence_notes": "Treats LM pipelines declaratively and compiles prompts/demonstrations against metrics.",
+      "limits": "Optimization can overfit weak metrics.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0060",
+      "title": "Optimization by PROmpting (OPRO)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.03409",
+      "topics": [
+        "prompt_optimization"
+      ],
+      "evidence_notes": "Uses an LLM to generate candidate solutions/prompts and objective feedback to iteratively optimize.",
+      "limits": "Needs trustworthy objective and holdout.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0061",
+      "title": "Automatic Prompt Engineer",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2211.01910",
+      "topics": [
+        "prompt_optimization"
+      ],
+      "evidence_notes": "Generates and selects candidate instructions automatically.",
+      "limits": "Search cost and benchmark overfit risk.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0062",
+      "title": "PromptBreeder",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.16797",
+      "topics": [
+        "prompt_optimization",
+        "evolution"
+      ],
+      "evidence_notes": "Evolves task prompts and prompt-mutation prompts.",
+      "limits": "Can be computationally expensive and overfit task sets.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0063",
+      "title": "ProTeGi",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.03495",
+      "topics": [
+        "prompt_optimization",
+        "textual_gradients"
+      ],
+      "evidence_notes": "Uses natural-language critiques as textual gradients with beam/bandit search.",
+      "limits": "Requires representative dev set and reliable evaluator.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0064",
+      "title": "TextGrad",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2406.07496",
+      "topics": [
+        "prompt_optimization",
+        "textual_gradients"
+      ],
+      "evidence_notes": "Backpropagation-like textual feedback across LM pipelines.",
+      "limits": "Early research; evaluator dependence.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0065",
+      "title": "OpenAI Reasoning Best Practices",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/reasoning-best-practices",
+      "topics": [
+        "prompting",
+        "reasoning"
+      ],
+      "evidence_notes": "Current guidance says reasoning models generally benefit from simple/direct goals, constraints, and success criteria; explicit think-step-by-step prompts may hinder.",
+      "limits": "Provider/model-specific and subject to change.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0066",
+      "title": "OpenAI Prompting Guide",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/prompting",
+      "topics": [
+        "prompting",
+        "versioning"
+      ],
+      "evidence_notes": "Treat prompts as application code: version, test, review, and roll back.",
+      "limits": "Provider-specific examples.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0067",
+      "title": "OpenAI Prompt Caching",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/prompt-caching",
+      "topics": [
+        "caching",
+        "latency",
+        "cost"
+      ],
+      "evidence_notes": "Shared stable prefixes can reuse KV work and reduce latency/input cost.",
+      "limits": "Cache behavior/provider pricing change over time.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0068",
+      "title": "OpenAI Latency Optimization",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/latency-optimization",
+      "topics": [
+        "latency",
+        "runtime"
+      ],
+      "evidence_notes": "Seven principles include fewer tokens, fewer requests, parallelism, streaming, and not defaulting to an LLM.",
+      "limits": "Production guidance, not task-quality evidence.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0069",
+      "title": "OpenAI Structured Outputs",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/structured-outputs",
+      "topics": [
+        "structured_output",
+        "reliability"
+      ],
+      "evidence_notes": "Schema-constrained outputs improve type/shape reliability and reduce formatting retries.",
+      "limits": "Supported JSON Schema subset and provider-specific availability.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0070",
+      "title": "Anthropic Context Engineering",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "topics": [
+        "context",
+        "agents"
+      ],
+      "evidence_notes": "Treat context as finite and optimize utility; use just-in-time context and lightweight references.",
+      "limits": "Vendor engineering guidance.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0071",
+      "title": "Anthropic Writing Effective Tools for Agents",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+      "topics": [
+        "tools",
+        "agents"
+      ],
+      "evidence_notes": "Tool naming, narrow boundaries, high-signal responses, pagination/filtering, and eval-driven tool descriptions materially affect tool use.",
+      "limits": "Effects can vary by model.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0072",
+      "title": "Anthropic Contextual Retrieval",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/news/contextual-retrieval",
+      "topics": [
+        "retrieval",
+        "rag"
+      ],
+      "evidence_notes": "Combines contextualized chunks, BM25, embeddings, and reranking; reported substantial retrieval-failure reductions.",
+      "limits": "Vendor experiments and corpus-dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0073",
+      "title": "Lost in the Middle",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.tacl-1.9/",
+      "topics": [
+        "context",
+        "long_context"
+      ],
+      "evidence_notes": "Long-context models can show U-shaped positional sensitivity; relevant information in the middle may be used less effectively.",
+      "limits": "Performance evolves with newer models; must re-test.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0074",
+      "title": "LLMLingua",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.05736",
+      "topics": [
+        "context",
+        "compression"
+      ],
+      "evidence_notes": "Learned prompt compression reported large token reductions while preserving task performance in original settings.",
+      "limits": "Compression can discard hidden constraints; requires task eval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0075",
+      "title": "HyDE",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2212.10496",
+      "topics": [
+        "retrieval",
+        "query_expansion"
+      ],
+      "evidence_notes": "Generates a hypothetical relevant document and embeds it for zero-shot dense retrieval.",
+      "limits": "Generated assumptions can bias retrieval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0076",
+      "title": "Self-RAG",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.11511",
+      "topics": [
+        "retrieval",
+        "adaptive_rag"
+      ],
+      "evidence_notes": "Trains model to decide when to retrieve and critique relevance/support/utility.",
+      "limits": "Training-dependent; not a simple runtime prompt.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0077",
+      "title": "ColBERTv2",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2112.01488",
+      "topics": [
+        "retrieval",
+        "late_interaction"
+      ],
+      "evidence_notes": "Token-level late interaction improves fine-grained neural retrieval while retaining precomputable document embeddings.",
+      "limits": "Index/storage and serving complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0078",
+      "title": "Microsoft GraphRAG",
+      "type": "engineering_report",
+      "url": "https://www.microsoft.com/en-us/research/project/graphrag/",
+      "topics": [
+        "retrieval",
+        "knowledge_graph"
+      ],
+      "evidence_notes": "Graph/community summaries target global corpus sensemaking and relationship-heavy queries.",
+      "limits": "Expensive indexing and maintenance; often unnecessary for local lookup.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0079",
+      "title": "RAGAS",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.15217",
+      "topics": [
+        "evaluation",
+        "rag"
+      ],
+      "evidence_notes": "Reference-free RAG metrics for retrieval and faithfulness diagnostics.",
+      "limits": "Metric/model-judge validity must be calibrated.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0080",
+      "title": "RAGChecker",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2408.08067",
+      "topics": [
+        "evaluation",
+        "rag"
+      ],
+      "evidence_notes": "Fine-grained diagnostic framework separating retrieval and generation failure modes.",
+      "limits": "Evaluation metrics remain proxies for user success.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0081",
+      "title": "MemGPT",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.08560",
+      "topics": [
+        "memory",
+        "context_management"
+      ],
+      "evidence_notes": "Virtual-memory metaphor: page information between limited context and external memory tiers.",
+      "limits": "Architecture is a conceptual reference, not necessarily optimal today.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0082",
+      "title": "LongMemEval",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.10813",
+      "topics": [
+        "memory",
+        "evaluation"
+      ],
+      "evidence_notes": "Evaluates extraction, cross-session/temporal reasoning, updates, and abstention for long-term assistant memory.",
+      "limits": "Benchmark distribution differs from personal Agent OS.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0083",
+      "title": "MemBench",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2506.21605",
+      "topics": [
+        "memory",
+        "evaluation"
+      ],
+      "evidence_notes": "Evaluates memory effectiveness, efficiency and capacity across multiple memory scenarios.",
+      "limits": "Recent benchmark; needs local replication.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0084",
+      "title": "Human-Inspired Memory Architecture for LLM Agents",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/human-inspired-memory-architecture-for-llm-agents/",
+      "topics": [
+        "memory",
+        "consolidation",
+        "forgetting"
+      ],
+      "evidence_notes": "Explores consolidation, interference-based forgetting, maturation, reconsolidation, entity graphs and hybrid retrieval; reports strong compression/retention results.",
+      "limits": "2026 research; reproduction/generalization needed.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0085",
+      "title": "PlugMem",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/plugmem-teaching-large-language-models-to-navigate-knowledge-graphs/",
+      "topics": [
+        "memory",
+        "skills"
+      ],
+      "evidence_notes": "Transforms histories into facts and reusable skills in structured memory.",
+      "limits": "Recent research; architecture complexity must be justified.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0086",
+      "title": "MemoryBank",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.10250",
+      "topics": [
+        "memory",
+        "forgetting"
+      ],
+      "evidence_notes": "Uses forgetting-curve-inspired memory decay/reinforcement for long-term conversation.",
+      "limits": "Biological analogy does not itself validate personal-memory policy.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0087",
+      "title": "A-MEM",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2502.12110",
+      "topics": [
+        "memory",
+        "linking"
+      ],
+      "evidence_notes": "Zettelkasten-inspired dynamically linked/evolving agent memories.",
+      "limits": "Recent research; risk of memory graph growth and inference errors.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0088",
+      "title": "LightMem",
+      "type": "research",
+      "url": "https://aclanthology.org/2026.acl-long.588/",
+      "topics": [
+        "memory",
+        "efficiency"
+      ],
+      "evidence_notes": "LightMem separates STM/MTM/LTM, online retrieval from offline consolidation, and reports efficiency plus LoCoMo gains.",
+      "limits": "Recent 2026 paper; benchmark/model dependence still needs Agent OS replication.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0089",
+      "title": "Generative Agents",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2304.03442",
+      "topics": [
+        "memory",
+        "agents",
+        "reflection"
+      ],
+      "evidence_notes": "Observation-memory, reflection and planning architecture for believable long-horizon simulated agents.",
+      "limits": "Simulation/social-agent result, not proof for productivity agents.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0090",
+      "title": "Toolformer",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2302.04761",
+      "topics": [
+        "tools",
+        "training"
+      ],
+      "evidence_notes": "Self-supervised training to decide which APIs to call, when, and with what arguments.",
+      "limits": "Requires training; APIs/tasks limited in original work.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0091",
+      "title": "ART: Automatic Multi-step Reasoning and Tool-use",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2303.09014",
+      "topics": [
+        "agents",
+        "tools",
+        "programs"
+      ],
+      "evidence_notes": "Automatically constructs task programs from demonstrations and tool libraries.",
+      "limits": "Library quality and execution safety matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0092",
+      "title": "MRKL Systems",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2205.00445",
+      "topics": [
+        "tools",
+        "modularity"
+      ],
+      "evidence_notes": "Routes natural-language problems to modular symbolic/neural experts.",
+      "limits": "Router errors and module interface design are key.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0093",
+      "title": "ReWOO",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.18323",
+      "topics": [
+        "agents",
+        "planning",
+        "cost"
+      ],
+      "evidence_notes": "Separates planning from observations to reduce repeated token use compared with ReAct-style loops.",
+      "limits": "Less adaptive when observations should change the plan.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0094",
+      "title": "Berkeley Function Calling Leaderboard",
+      "type": "benchmark",
+      "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+      "topics": [
+        "tools",
+        "evaluation"
+      ],
+      "evidence_notes": "Benchmarks function/tool calling including parallel, multiple, and stateful cases.",
+      "limits": "Leaderboard task mix may not match Agent OS.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0095",
+      "title": "SWE-bench",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2310.06770",
+      "topics": [
+        "coding",
+        "agents",
+        "evaluation"
+      ],
+      "evidence_notes": "Real GitHub issue resolution benchmark with execution-based verification.",
+      "limits": "Benchmark contamination and repository subset limitations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0096",
+      "title": "SWE-agent Agent-Computer Interfaces",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2405.15793",
+      "topics": [
+        "coding",
+        "tools",
+        "interface_design"
+      ],
+      "evidence_notes": "Shows that the agent-computer interface itself materially affects coding-agent performance.",
+      "limits": "Specific to software engineering, but broadly relevant to tool UX.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0097",
+      "title": "BrowseComp",
+      "type": "benchmark",
+      "url": "https://openai.com/index/browsecomp/",
+      "topics": [
+        "research_agents",
+        "evaluation"
+      ],
+      "evidence_notes": "Hard web-browsing benchmark with short verifiable answers; test-time sampling can improve coverage.",
+      "limits": "Designed benchmark, not user workload.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0098",
+      "title": "Anthropic Demystifying Evals for AI Agents",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "topics": [
+        "agents",
+        "evaluation"
+      ],
+      "evidence_notes": "Advocates multi-turn/state/environment evaluation and combining grading techniques.",
+      "limits": "Vendor guidance.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0099",
+      "title": "OpenAI Evaluation Best Practices",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "topics": [
+        "evaluation"
+      ],
+      "evidence_notes": "Continuous evals, representative data, pairwise/pass-fail grading, human calibration and explicit rubrics.",
+      "limits": "OpenAI-hosted Evals platform itself is being deprecated.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0100",
+      "title": "Judging the Judges: Position Bias",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.ijcnlp-long.18/",
+      "topics": [
+        "evaluation",
+        "llm_judge",
+        "bias"
+      ],
+      "evidence_notes": "150k+ evaluations show systematic position bias varying by judge/task.",
+      "limits": "Focuses one bias class; other evaluator biases also matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0101",
+      "title": "Multi-Agent Judge Bias Amplification",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.findings-emnlp.941/",
+      "topics": [
+        "evaluation",
+        "multi_agent",
+        "bias"
+      ],
+      "evidence_notes": "Finds some multi-agent debate judge setups can amplify biases rather than cancel them.",
+      "limits": "Specific frameworks/tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0102",
+      "title": "OpenTelemetry GenAI Semantic Conventions",
+      "type": "standard",
+      "url": "https://github.com/open-telemetry/semantic-conventions-genai",
+      "topics": [
+        "observability",
+        "agents"
+      ],
+      "evidence_notes": "Defines evolving spans/metrics/events for inference, retrieval, memory, tools, plans and agents.",
+      "limits": "Some agent conventions are still development status.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0103",
+      "title": "Google SRE Canarying Releases",
+      "type": "engineering_guidance",
+      "url": "https://sre.google/workbook/canarying-releases/",
+      "topics": [
+        "reliability",
+        "deployment"
+      ],
+      "evidence_notes": "Limit blast radius and consume only a bounded fraction of error budget while measuring candidate behavior.",
+      "limits": "General systems practice; needs adaptation to agent behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0104",
+      "title": "DPO",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.18290",
+      "topics": [
+        "alignment",
+        "preference_optimization"
+      ],
+      "evidence_notes": "Simplifies preference alignment to classification-like objective without PPO/reward-model loop.",
+      "limits": "Later work identifies tradeoffs and no universally best preference loss.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0105",
+      "title": "KTO",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.01306",
+      "topics": [
+        "alignment",
+        "preference_optimization"
+      ],
+      "evidence_notes": "Uses desirable/undesirable binary feedback and prospect-theoretic utility; reports competitive preference alignment.",
+      "limits": "Best inductive bias depends on setting.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0106",
+      "title": "SimPO",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2405.14734",
+      "topics": [
+        "alignment",
+        "preference_optimization"
+      ],
+      "evidence_notes": "Reference-free preference optimization using average sequence log-probability reward.",
+      "limits": "Preference optimization remains dataset/eval sensitive.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0107",
+      "title": "Constitutional AI",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2212.08073",
+      "topics": [
+        "alignment",
+        "rlaif"
+      ],
+      "evidence_notes": "Principles guide critique/revision and AI-generated preference feedback.",
+      "limits": "Constitution choice and evaluator failure remain governance issues.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0108",
+      "title": "RLAIF vs RLHF",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v235/lee24t.html",
+      "topics": [
+        "alignment",
+        "rlaif"
+      ],
+      "evidence_notes": "Reports AI-feedback alignment comparable to RLHF on studied tasks, with human evaluation of final policies.",
+      "limits": "Reward-model validation alone was imperfect; final policy must be evaluated.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0109",
+      "title": "InstructGPT / RLHF",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2203.02155",
+      "topics": [
+        "alignment",
+        "rlhf"
+      ],
+      "evidence_notes": "SFT + human preference reward model + PPO improved instruction following and human preference.",
+      "limits": "Expensive/complex pipeline and reward misspecification risks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0110",
+      "title": "LoRA",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "topics": [
+        "finetuning",
+        "peft"
+      ],
+      "evidence_notes": "Low-rank trainable adapters reduce trainable parameters/memory while maintaining quality in original experiments.",
+      "limits": "Rank/target-module/task choices need eval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0111",
+      "title": "QLoRA",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.14314",
+      "topics": [
+        "finetuning",
+        "quantization"
+      ],
+      "evidence_notes": "4-bit frozen base + LoRA greatly reduces fine-tuning memory in original work.",
+      "limits": "Quantization/training-stack complexity; eval judge limitations noted by authors.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0112",
+      "title": "LIMA",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper_files/paper/2023/hash/ac662d74829e4407ce1d126477f4a03a-Abstract-Conference.html",
+      "topics": [
+        "instruction_tuning",
+        "data_quality"
+      ],
+      "evidence_notes": "Shows strong alignment behavior from only 1k curated examples on a strong pretrained model.",
+      "limits": "Does not imply small data always wins; capability largely inherited from pretraining.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0113",
+      "title": "AlpaGasus",
+      "type": "research",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/9543942c237ded1b39b1fd37259ff88e-Abstract-Conference.html",
+      "topics": [
+        "instruction_tuning",
+        "data_selection"
+      ],
+      "evidence_notes": "LLM-filtered 9k subset outperformed training on noisy 52k Alpaca set in reported evals.",
+      "limits": "Strong-model filtering can import judge bias.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0114",
+      "title": "LESS",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v235/xia24c.html",
+      "topics": [
+        "instruction_tuning",
+        "data_selection"
+      ],
+      "evidence_notes": "Gradient-similarity selection using 5% of instruction data often outperformed full data for targeted capabilities.",
+      "limits": "Higher selection complexity; targeted not universal.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0115",
+      "title": "DoReMi",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.10429",
+      "topics": [
+        "pretraining",
+        "data_mixture"
+      ],
+      "evidence_notes": "Proxy model learns domain mixture weights; reported faster convergence and downstream gains.",
+      "limits": "Pretraining-scale technique; limited direct Agent OS applicability.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0116",
+      "title": "Deduplicating Training Data Makes Language Models Better",
+      "type": "research",
+      "url": "https://aclanthology.org/2022.acl-long.577/",
+      "topics": [
+        "data",
+        "deduplication"
+      ],
+      "evidence_notes": "Dedup reduced memorization and train-test overlap and achieved equal/better accuracy with fewer steps.",
+      "limits": "Training-specific, but general dedupe principle transfers to memory/context.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0117",
+      "title": "The Curse of Recursion / Model Collapse",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.17493",
+      "topics": [
+        "synthetic_data",
+        "negative_result"
+      ],
+      "evidence_notes": "Repeated training on generated data can lose distribution tails/model quality.",
+      "limits": "Does not imply all synthetic data is harmful; provenance/mixing/quality matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0118",
+      "title": "Textbooks Are All You Need",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.11644",
+      "topics": [
+        "synthetic_data",
+        "data_quality"
+      ],
+      "evidence_notes": "Curated and synthetic textbook-like data enabled a small coding model to perform strongly in original experiments.",
+      "limits": "Narrow domain and contamination concerns require care.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0119",
+      "title": "Distilling Step-by-Step",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.02301",
+      "topics": [
+        "distillation",
+        "reasoning"
+      ],
+      "evidence_notes": "Uses teacher rationales as auxiliary supervision for smaller models.",
+      "limits": "Rationale quality and privacy/provenance matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0120",
+      "title": "Chinchilla Compute-Optimal Training",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2203.15556",
+      "topics": [
+        "scaling",
+        "training"
+      ],
+      "evidence_notes": "Shows compute allocation between parameters and training tokens strongly affects performance.",
+      "limits": "Specific scaling law estimates evolve with data/model architecture.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0121",
+      "title": "Scaling Laws for Neural Language Models",
+      "type": "research",
+      "url": "https://openai.com/index/scaling-laws-for-neural-language-models/",
+      "topics": [
+        "scaling",
+        "training"
+      ],
+      "evidence_notes": "Empirical power-law scaling with model/data/compute established systematic optimization framing.",
+      "limits": "Superseded/refined in some compute-optimal conclusions by later work.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0122",
+      "title": "FlashAttention",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2205.14135",
+      "topics": [
+        "inference",
+        "attention",
+        "systems"
+      ],
+      "evidence_notes": "IO-aware exact attention reduces memory traffic and accelerates transformer workloads.",
+      "limits": "Hardware/kernel-specific applicability.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0123",
+      "title": "vLLM / PagedAttention",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "topics": [
+        "inference",
+        "serving",
+        "kv_cache"
+      ],
+      "evidence_notes": "PagedAttention and serving scheduler improve KV-cache utilization and throughput.",
+      "limits": "Self-hosted serving concern; version/hardware dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0124",
+      "title": "Speculative Decoding",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v202/leviathan23a.html",
+      "topics": [
+        "inference",
+        "decoding"
+      ],
+      "evidence_notes": "Draft-model proposals verified by target can accelerate exact-distribution decoding.",
+      "limits": "Speedup depends on draft acceptance/hardware/batch regime.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0125",
+      "title": "Medusa",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v235/cai24b.html",
+      "topics": [
+        "inference",
+        "decoding"
+      ],
+      "evidence_notes": "Multiple decoding heads propose future tokens and tree verification reduces serial decoding steps.",
+      "limits": "Requires model augmentation/fine-tuning.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0126",
+      "title": "GPTQ",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.17323",
+      "topics": [
+        "inference",
+        "quantization"
+      ],
+      "evidence_notes": "One-shot low-bit weight quantization reduces memory and can speed local inference.",
+      "limits": "Accuracy/speed depend on model, kernel and hardware.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0127",
+      "title": "SmoothQuant",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v202/xiao23c.html",
+      "topics": [
+        "inference",
+        "quantization"
+      ],
+      "evidence_notes": "Training-free W8A8 post-training quantization with reported speed/memory benefits.",
+      "limits": "Primarily data-center GPU inference.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0128",
+      "title": "OpenAI Rate Limit Guidance",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/rate-limits",
+      "topics": [
+        "runtime",
+        "retries"
+      ],
+      "evidence_notes": "Honor Retry-After; bounded exponential backoff with jitter; avoid nested retries and retrying non-transient errors.",
+      "limits": "Provider-specific error semantics.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0129",
+      "title": "Google Gemini Context Caching",
+      "type": "official",
+      "url": "https://ai.google.dev/gemini-api/docs/caching",
+      "topics": [
+        "runtime",
+        "caching"
+      ],
+      "evidence_notes": "Large common prompt prefixes increase implicit cache-hit probability; cache tokens are observable.",
+      "limits": "Provider-specific thresholds and behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0130",
+      "title": "Microsoft Attention-Sensitive Alerting",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/attention-sensitive-alerting/",
+      "topics": [
+        "hci",
+        "proactivity"
+      ],
+      "evidence_notes": "Frames alert value against interruption cost.",
+      "limits": "Historical work; modern assistant context differs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0131",
+      "title": "Need Help? Designing Proactive AI Assistants for Programming",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/?p=1134954",
+      "topics": [
+        "hci",
+        "proactivity"
+      ],
+      "evidence_notes": "Modern experimental study of proactive assistant interventions and design tradeoffs.",
+      "limits": "Programming domain.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0132",
+      "title": "Magentic-UI",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/blog/magentic-ui-an-experimental-human-centered-web-agent/",
+      "topics": [
+        "hci",
+        "agents",
+        "control"
+      ],
+      "evidence_notes": "Co-planning, interruption, sandboxing, allowlists and approval patterns for human-centered web agents.",
+      "limits": "Experimental system.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0133",
+      "title": "W3C PROV",
+      "type": "standard",
+      "url": "https://www.w3.org/TR/prov-overview/",
+      "topics": [
+        "provenance"
+      ],
+      "evidence_notes": "Standard conceptual model of entities, activities, agents and derivation.",
+      "limits": "May be heavier than Agent OS needs if adopted literally.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0134",
+      "title": "SLSA Provenance v1.2",
+      "type": "standard",
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "topics": [
+        "supply_chain",
+        "provenance"
+      ],
+      "evidence_notes": "Verifiable build/source provenance model.",
+      "limits": "Software-artifact scope.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0135",
+      "title": "Cedar Policy Language",
+      "type": "official",
+      "url": "https://docs.cedarpolicy.com/",
+      "topics": [
+        "authorization",
+        "security"
+      ],
+      "evidence_notes": "Deterministic principal/action/resource/context authorization with default-deny-compatible patterns.",
+      "limits": "Adoption vs simpler custom policy must be benchmarked.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0136",
+      "title": "Open Policy Agent",
+      "type": "official",
+      "url": "https://www.openpolicyagent.org/docs/",
+      "topics": [
+        "authorization",
+        "security"
+      ],
+      "evidence_notes": "General policy-as-code engine for decoupled authorization decisions.",
+      "limits": "Operational dependency/complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0137",
+      "title": "AgentDojo",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2406.13352",
+      "topics": [
+        "security",
+        "prompt_injection",
+        "agents"
+      ],
+      "evidence_notes": "Benchmark for prompt injection attacks on tool-using agents.",
+      "limits": "Attack set evolves with systems.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0138",
+      "title": "CaMeL: Defeating Prompt Injections by Design",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2503.18813",
+      "topics": [
+        "security",
+        "prompt_injection",
+        "capabilities"
+      ],
+      "evidence_notes": "Separates trusted control flow from untrusted data and uses capability-oriented enforcement.",
+      "limits": "Research architecture; integration complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0139",
+      "title": "OWASP Top 10 for Agentic Applications 2026",
+      "type": "security_guidance",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "topics": [
+        "security",
+        "agents"
+      ],
+      "evidence_notes": "Current agent-specific threat taxonomy.",
+      "limits": "Industry consensus document, not empirical benchmark.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0140",
+      "title": "NIST AI RMF",
+      "type": "standard_guidance",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "topics": [
+        "risk",
+        "governance"
+      ],
+      "evidence_notes": "Risk-management framework for AI systems.",
+      "limits": "Broad governance, not implementation prescription.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0141",
+      "title": "NIST SSDF",
+      "type": "standard_guidance",
+      "url": "https://csrc.nist.gov/projects/ssdf/publications",
+      "topics": [
+        "security",
+        "software"
+      ],
+      "evidence_notes": "Secure software-development practices including provenance, secure environments, and root-cause learning.",
+      "limits": "General software security.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0142",
+      "title": "Google SRE Error Budget Policy",
+      "type": "engineering_guidance",
+      "url": "https://sre.google/workbook/error-budget-policy/",
+      "topics": [
+        "reliability",
+        "control"
+      ],
+      "evidence_notes": "Uses reliability budget to decide when feature velocity must yield to reliability work.",
+      "limits": "Must adapt service SLO concepts to agent quality/safety.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0143",
+      "title": "Google SRE Eliminating Toil",
+      "type": "engineering_guidance",
+      "url": "https://sre.google/sre-book/eliminating-toil/",
+      "topics": [
+        "automation",
+        "simplification"
+      ],
+      "evidence_notes": "Defines repetitive/manual/automatable low-enduring-value work as toil.",
+      "limits": "Human ops framing.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0144",
+      "title": "Temporal Durable Execution for AI Agents",
+      "type": "engineering_report",
+      "url": "https://temporal.io/blog/building-ai-agents-that-overcome-the-complexity-cliff",
+      "topics": [
+        "durability",
+        "agents"
+      ],
+      "evidence_notes": "Durable event history/replay and workflow branching address long-running agent failure/replay cost.",
+      "limits": "Vendor engineering report; adoption should be benchmarked.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0145",
+      "title": "Microsoft Agent Framework Workflows",
+      "type": "official",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/journey/workflows",
+      "topics": [
+        "agents",
+        "workflows"
+      ],
+      "evidence_notes": "Explicit workflows/checkpoints for ordering and recovery; recommends simpler composition first.",
+      "limits": "Framework-specific.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0146",
+      "title": "A2A Protocol",
+      "type": "standard",
+      "url": "https://a2a-protocol.org/dev/specification/",
+      "topics": [
+        "agents",
+        "protocols"
+      ],
+      "evidence_notes": "Cross-framework task/capability exchange without sharing internal memory/tools.",
+      "limits": "Interoperability still evolving.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0147",
+      "title": "MCP 2026-07-28 Update",
+      "type": "standard",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "topics": [
+        "tools",
+        "protocols"
+      ],
+      "evidence_notes": "Stateless/cacheable core direction and extension framework including tasks.",
+      "limits": "Protocol evolves rapidly.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0148",
+      "title": "Self-Instruct: Aligning Language Models with Self-Generated Instructions",
+      "type": "research",
+      "url": "https://aclanthology.org/2023.acl-long.754/",
+      "topics": [
+        "synthetic_data",
+        "instruction_tuning"
+      ],
+      "evidence_notes": "Generates, filters, and fine-tunes on synthetic instructions; original work reported substantial novel-task instruction-following gains.",
+      "limits": "Synthetic errors and self-distribution bias require filtering and real/held-out evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0149",
+      "title": "STaR: Self-Taught Reasoner",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2203.14465",
+      "topics": [
+        "reasoning",
+        "self_training"
+      ],
+      "evidence_notes": "Iteratively generates rationales, filters by correct answers, and fine-tunes to bootstrap reasoning.",
+      "limits": "Requires trustworthy answer oracle; generated rationales may be spurious.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0150",
+      "title": "Quiet-STaR",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.09629",
+      "topics": [
+        "reasoning",
+        "training"
+      ],
+      "evidence_notes": "Trains internal rationales across arbitrary text and reports improvements on difficult-token prediction and reasoning benchmarks.",
+      "limits": "Foundation-model training research; high compute and limited direct Agent OS applicability.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0151",
+      "title": "Switch Transformers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2101.03961",
+      "topics": [
+        "mixture_of_experts",
+        "scaling"
+      ],
+      "evidence_notes": "Sparse top-1 expert routing increased parameter capacity with lower active compute and reported training speedups.",
+      "limits": "Model architecture research with communication/training complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0152",
+      "title": "Sequence-Level Knowledge Distillation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1606.07947",
+      "topics": [
+        "distillation",
+        "model_compression"
+      ],
+      "evidence_notes": "Sequence-level teacher outputs train smaller/faster student models; foundational distillation reference for generative models.",
+      "limits": "Original domain was NMT; modern LLM transfer needs task-specific evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0153",
+      "title": "Self-Play Fine-Tuning (SPIN)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.01335",
+      "topics": [
+        "self_training",
+        "alignment"
+      ],
+      "evidence_notes": "Iterative self-play contrasts model-generated outputs with human demonstrations to improve the policy without additional human labels.",
+      "limits": "Self-generated training loops can amplify bias or narrow distributions without external anchors.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0154",
+      "title": "Let's Verify Step by Step",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.20050",
+      "topics": [
+        "process_supervision",
+        "reasoning",
+        "reward_models"
+      ],
+      "evidence_notes": "Process supervision outperformed outcome supervision on a MATH subset; released PRM800K with step-level labels and reported active-learning gains.",
+      "limits": "Math/reasoning setting; human step-label cost and transfer to open-ended agent tasks are unresolved.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0155",
+      "title": "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03300",
+      "topics": [
+        "GRPO",
+        "reasoning",
+        "RL"
+      ],
+      "evidence_notes": "Introduced GRPO and combined targeted math pretraining with RL; self-consistency and training improved mathematical reasoning.",
+      "limits": "Math-specialized setting; later RL methods may supersede parts of GRPO.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0156",
+      "title": "Group Sequence Policy Optimization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2507.18071",
+      "topics": [
+        "GSPO",
+        "RL",
+        "alignment"
+      ],
+      "evidence_notes": "Sequence-level policy optimization reported more stable/efficient training than GRPO, especially for MoE RL.",
+      "limits": "Recent 2025 research and model-family dependence.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0157",
+      "title": "ORPO: Monolithic Preference Optimization without Reference Model",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.07691",
+      "topics": [
+        "preference_optimization",
+        "alignment"
+      ],
+      "evidence_notes": "Combines favored-style SFT with odds-ratio penalty for disfavored generations without a separate reference model/alignment phase.",
+      "limits": "Results depend on preference dataset and evaluation methodology.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0158",
+      "title": "SLiC-HF: Sequence Likelihood Calibration with Human Feedback",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.10425",
+      "topics": [
+        "preference_optimization",
+        "alignment"
+      ],
+      "evidence_notes": "Simpler likelihood-calibration approach using preference data, reported competitive TL;DR results versus PPO-based RLHF.",
+      "limits": "Task/domain limited and preference-loss landscape continues evolving.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0159",
+      "title": "RRHF: Rank Responses to Align Language Models with Human Feedback without tears",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2304.05302",
+      "topics": [
+        "preference_optimization",
+        "ranking"
+      ],
+      "evidence_notes": "Ranks sampled responses and aligns model likelihood ordering; simpler than PPO and highly dependent on candidate sampling quality.",
+      "limits": "Sampling quality is a major dependency; reward/human evaluation limitations remain.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0160",
+      "title": "Making Large Language Models Better Reasoners with Step-Aware Verifier",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2206.02336",
+      "topics": [
+        "verifier",
+        "reasoning",
+        "process_evaluation"
+      ],
+      "evidence_notes": "DIVERSE uses diverse reasoning paths plus step-aware verification and weighted voting; reported gains across reasoning benchmarks.",
+      "limits": "Older model regime and expensive multi-path inference.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0161",
+      "title": "Monte Carlo Tree Search Boosts Reasoning via Iterative Preference Learning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2405.00451",
+      "topics": [
+        "MCTS",
+        "reasoning",
+        "preference_learning"
+      ],
+      "evidence_notes": "Uses MCTS to derive step-level preference signals and DPO for iterative reasoning improvement.",
+      "limits": "High search/training cost; arithmetic/commonsense focus.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0162",
+      "title": "Contrastive Decoding: Open-ended Text Generation as Optimization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.15097",
+      "topics": [
+        "decoding",
+        "generation"
+      ],
+      "evidence_notes": "Contrasts expert and amateur model likelihoods under plausibility constraint; reported higher human/automatic open-ended generation quality.",
+      "limits": "Requires compatible amateur model; newer instruction/reasoning models need re-evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0163",
+      "title": "DoLa: Decoding by Contrasting Layers Improves Factuality",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.03883",
+      "topics": [
+        "decoding",
+        "factuality"
+      ],
+      "evidence_notes": "Contrasts later vs earlier layer logits at decoding time and reported truthfulness/factuality gains without retrieval or fine-tuning.",
+      "limits": "Requires internal logits/layer access and results are model/task dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0164",
+      "title": "The Curious Case of Neural Text Degeneration",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1904.09751",
+      "topics": [
+        "decoding",
+        "nucleus_sampling"
+      ],
+      "evidence_notes": "Demonstrated degeneration from likelihood-maximizing decoding and introduced nucleus/top-p sampling for open-ended text.",
+      "limits": "Predates instruction-tuned frontier models; task-dependent decoding behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0165",
+      "title": "Locally Typical Sampling",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2202.00666",
+      "topics": [
+        "decoding",
+        "sampling"
+      ],
+      "evidence_notes": "Information-theoretic typicality filter reported competitive quality and reduced repetition versus top-k/nucleus on studied tasks.",
+      "limits": "Open-ended generation focus; not necessarily appropriate for deterministic agent outputs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0166",
+      "title": "Contrastive Search Is What You Need For Neural Text Generation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.14140",
+      "topics": [
+        "decoding",
+        "contrastive_search"
+      ],
+      "evidence_notes": "Evaluated contrastive search across languages/tasks and reported strong open-ended generation without extra training for many models.",
+      "limits": "Open-ended generation focus; representation assumptions vary by model.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0167",
+      "title": "Representation Engineering: A Top-Down Approach to AI Transparency",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.01405",
+      "topics": [
+        "interpretability",
+        "activation_steering"
+      ],
+      "evidence_notes": "Frames population-level representation monitoring/manipulation for high-level behaviors and safety-relevant concepts.",
+      "limits": "Interpretability/steering evidence does not establish robust production control.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0168",
+      "title": "Steering Llama 2 via Contrastive Activation Addition",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.acl-long.828/",
+      "topics": [
+        "activation_steering",
+        "behavior"
+      ],
+      "evidence_notes": "CAA derives behavior steering vectors from contrastive activations and reported strong behavioral shifts with limited capability loss on studied Llama 2 settings.",
+      "limits": "Requires weight/activation access; steering may have unintended off-target effects.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0169",
+      "title": "Locating and Editing Factual Associations in GPT (ROME)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2202.05262",
+      "topics": [
+        "knowledge_editing",
+        "mechanistic_interpretability"
+      ],
+      "evidence_notes": "Causal tracing identified factual association computations and ROME directly edited selected facts while testing specificity/generalization.",
+      "limits": "Editing many facts can degrade models; architecture-specific assumptions.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0170",
+      "title": "Mass Editing Memory in a Transformer (MEMIT)",
+      "type": "research",
+      "url": "https://memit.baulab.info/",
+      "topics": [
+        "knowledge_editing"
+      ],
+      "evidence_notes": "Extends direct model editing to many factual associations.",
+      "limits": "Sequential/mass editing can cause forgetting and editing degradation; precomputation cost exists.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0171",
+      "title": "Model Editing at Scale leads to Gradual and Catastrophic Forgetting",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.findings-acl.902/",
+      "topics": [
+        "knowledge_editing",
+        "negative_result"
+      ],
+      "evidence_notes": "Large numbers of sequential ROME/MEMIT edits caused reduced editability, forgotten prior edits, and downstream performance degradation.",
+      "limits": "Specific methods/models; newer editors may differ.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0172",
+      "title": "Extending Context Window via Position Interpolation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.15595",
+      "topics": [
+        "long_context",
+        "RoPE"
+      ],
+      "evidence_notes": "Position interpolation extends RoPE context by rescaling positions into trained range with limited fine-tuning and reported long-context gains.",
+      "limits": "Model architecture/fine-tuning specific; nominal context length does not guarantee useful retrieval/reasoning.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0173",
+      "title": "YaRN: Efficient Context Window Extension of Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.00071",
+      "topics": [
+        "long_context",
+        "RoPE"
+      ],
+      "evidence_notes": "RoPE scaling/fine-tuning method for efficient context extension with reduced training tokens/steps in original results.",
+      "limits": "Self-hosted model modification; useful context still requires behavioral evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0174",
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2312.00752",
+      "topics": [
+        "model_architecture",
+        "state_space"
+      ],
+      "evidence_notes": "Selective state-space architecture reported linear sequence scaling and strong throughput/performance at studied scales.",
+      "limits": "Architecture research; Transformer ecosystem and later hybrids may dominate specific tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0175",
+      "title": "Improving language models by retrieving from trillions of tokens (RETRO)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2112.04426",
+      "topics": [
+        "retrieval_augmented_model",
+        "pretraining"
+      ],
+      "evidence_notes": "Retrieval-enhanced transformer used massive external datastore and matched much larger dense models on studied language-modeling settings.",
+      "limits": "Model-training architecture; large retrieval infrastructure.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0176",
+      "title": "Generalization through Memorization: Nearest Neighbor Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1911.00172",
+      "topics": [
+        "retrieval_augmented_model",
+        "kNN"
+      ],
+      "evidence_notes": "Interpolating LM predictions with nearest-neighbor datastore improved perplexity and enabled domain adaptation without retraining.",
+      "limits": "Older LM setting; datastore latency/memory.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0177",
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "topics": [
+        "RAG",
+        "retrieval"
+      ],
+      "evidence_notes": "Foundational neural retriever + generator architecture for knowledge-intensive tasks.",
+      "limits": "Early RAG architecture; modern application RAG differs substantially.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0178",
+      "title": "AWQ: Activation-aware Weight Quantization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.00978",
+      "topics": [
+        "quantization",
+        "local_inference"
+      ],
+      "evidence_notes": "Activation-aware low-bit weight quantization protects salient channels and reported strong quality plus >3x TinyChat speedups on studied hardware.",
+      "limits": "Hardware/kernel/model dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0179",
+      "title": "SpecInfer",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.09781",
+      "topics": [
+        "speculative_inference",
+        "serving"
+      ],
+      "evidence_notes": "Tree-based speculative inference and parallel verification reported 1.5–3.5x serving speedups while preserving target-model distribution/performance.",
+      "limits": "Serving-stack complexity and acceptance depend on model/hardware.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0180",
+      "title": "Weak-to-Strong Generalization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2312.09390",
+      "topics": [
+        "scalable_oversight",
+        "alignment"
+      ],
+      "evidence_notes": "Studied strong models trained from weak-model supervision; strong models exceeded weak supervisors but did not recover full capability; auxiliary losses helped.",
+      "limits": "Analogy to superhuman oversight is imperfect and results are early.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0181",
+      "title": "Scalable AI Safety via Doubly-Efficient Debate",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2311.14125",
+      "topics": [
+        "debate",
+        "scalable_oversight"
+      ],
+      "evidence_notes": "Theoretical debate protocols aimed at verifying harder computations with weaker verifiers and efficient honest strategies.",
+      "limits": "Primarily theoretical; production LLM debate can amplify biases.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0182",
+      "title": "Efficient Knowledge Editing via Minimal Precomputation",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.acl-short.65/",
+      "topics": [
+        "knowledge_editing",
+        "efficiency"
+      ],
+      "evidence_notes": "Shows MEMIT/related editing precomputation can be reduced substantially from original large hidden-vector precomputation.",
+      "limits": "Still inherits core knowledge-editing reliability concerns.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0183",
+      "title": "OpenAI PRM800K",
+      "type": "dataset",
+      "url": "https://github.com/openai/prm800k",
+      "topics": [
+        "process_supervision",
+        "dataset"
+      ],
+      "evidence_notes": "800k human step-level correctness labels accompanying Let's Verify Step by Step; repository archived May 29, 2026 but remains a useful historical dataset.",
+      "limits": "Math-only labels and archived project.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0184",
+      "title": "OpenAI Function Calling",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/function-calling",
+      "topics": [
+        "tools",
+        "schemas",
+        "function_calling"
+      ],
+      "evidence_notes": "Current API guidance for schema-based tools; recommends tool search/deferred loading for large catalogs.",
+      "limits": "Provider/model-specific behavior evolves.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0185",
+      "title": "OpenAI Tool Search",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/tools-tool-search",
+      "topics": [
+        "tools",
+        "context",
+        "caching"
+      ],
+      "evidence_notes": "Deferred tool loading can reduce upfront schema tokens and preserve cache; namespaces/MCP recommended, with fewer than ~10 functions per namespace as a best-practice target.",
+      "limits": "Only supported by selected newer models; discovery adds a step.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0186",
+      "title": "OpenAI Compaction",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/compaction",
+      "topics": [
+        "context",
+        "long_running_agents"
+      ],
+      "evidence_notes": "Server-side or explicit compaction reduces long-running context while carrying forward needed state; supports threshold-based compaction.",
+      "limits": "Opaque provider compaction must be treated as provider-specific derived state, not canonical memory.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0187",
+      "title": "OpenAI Background Mode",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/background",
+      "topics": [
+        "runtime",
+        "long_running_agents"
+      ],
+      "evidence_notes": "Asynchronous long-running responses can be polled and streaming can resume from sequence cursors.",
+      "limits": "Provider-specific retention and latency behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0188",
+      "title": "OpenAI Model Selection",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/model-selection",
+      "topics": [
+        "routing",
+        "cost",
+        "latency"
+      ],
+      "evidence_notes": "Current guidance explicitly treats model and reasoning effort as cost/latency/quality choices by task.",
+      "limits": "Provider claims are priors; Agent OS needs local workload evals.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0189",
+      "title": "OpenAI Reasoning Models",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/reasoning",
+      "topics": [
+        "reasoning_effort",
+        "cost"
+      ],
+      "evidence_notes": "Current models expose model-dependent reasoning effort/mode controls; higher effort trades latency/tokens for more reasoning.",
+      "limits": "Values/defaults/model support change over time.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0190",
+      "title": "OpenAI Deployment Checklist",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/deployment-checklist",
+      "topics": [
+        "production",
+        "tools",
+        "agents"
+      ],
+      "evidence_notes": "Current production checklist includes deferred tool search and preservation of progress/final-response phase metadata in supported models.",
+      "limits": "Provider-specific.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0191",
+      "title": "OpenAI Using Tools",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/tools",
+      "topics": [
+        "tools",
+        "agents"
+      ],
+      "evidence_notes": "Current overview for built-in tools, functions, tool search, MCP and programmatic tool calling.",
+      "limits": "Provider-specific.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0192",
+      "title": "OpenAI Model Guidance",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/latest-model",
+      "topics": [
+        "models",
+        "routing",
+        "migration"
+      ],
+      "evidence_notes": "Current model-family guidance and migration considerations; emphasizes task requirements, cost and latency rather than one universal model.",
+      "limits": "Vendor guidance and rapid product churn.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0193",
+      "title": "Measuring and Narrowing the Compositionality Gap in Language Models (Self-Ask)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.03350",
+      "topics": [
+        "prompting",
+        "self_ask",
+        "tool_use"
+      ],
+      "evidence_notes": "Self-Ask explicitly decomposes multi-hop questions into follow-up questions and can route them to search; reported narrower compositionality gaps.",
+      "limits": "Older GPT-3-era evidence; current tool-using models may internalize parts of the behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0194",
+      "title": "Take a Step Back: Evoking Reasoning via Abstraction",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.06117",
+      "topics": [
+        "prompting",
+        "abstraction"
+      ],
+      "evidence_notes": "Step-Back Prompting derives higher-level concepts/principles before solving specific problems; reported gains on STEM, QA and multi-hop reasoning.",
+      "limits": "Prompt-era/model dependent and may add redundant reasoning on current reasoning models.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0195",
+      "title": "Generated Knowledge Prompting for Commonsense Reasoning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2110.08387",
+      "topics": [
+        "prompting",
+        "generated_knowledge"
+      ],
+      "evidence_notes": "Generate candidate knowledge first, then condition answer on it; reported gains on commonsense benchmarks.",
+      "limits": "Self-generated knowledge can hallucinate; authoritative retrieval is preferable for current facts.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0196",
+      "title": "Large Language Models as Analogical Reasoners",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.01714",
+      "topics": [
+        "prompting",
+        "analogical_reasoning"
+      ],
+      "evidence_notes": "Model self-generates relevant examples/knowledge before solving; reported gains over zero-shot/manual few-shot CoT on reasoning and coding tasks.",
+      "limits": "Generated analogies can be wrong and add inference cost.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0197",
+      "title": "Chain-of-Verification Reduces Hallucination in Large Language Models",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.findings-acl.212/",
+      "topics": [
+        "prompting",
+        "verification",
+        "hallucination"
+      ],
+      "evidence_notes": "Draft, generate verification questions, answer them independently, then revise; reported lower hallucination across studied tasks.",
+      "limits": "Closed-book self-verification still lacks authoritative external truth and can share model blind spots.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0198",
+      "title": "Self-Discover: Large Language Models Self-Compose Reasoning Structures",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03620",
+      "topics": [
+        "prompting",
+        "reasoning_scaffold"
+      ],
+      "evidence_notes": "Selects and composes atomic reasoning modules into task-specific reasoning structure; reported strong benchmark gains at lower inference compute than self-consistency.",
+      "limits": "Results on 2024-era models; structure-generation overhead and transfer need local eval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0199",
+      "title": "Re-Reading Improves Reasoning in Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.06275",
+      "topics": [
+        "prompting",
+        "input_processing"
+      ],
+      "evidence_notes": "Re2 repeats/re-reads the question in the input and reported broad reasoning gains across 14 datasets in original experiments.",
+      "limits": "Very simple intervention with likely strong model-version sensitivity; adds duplicated input tokens.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0200",
+      "title": "Large Language Models Understand and Can be Enhanced by Emotional Stimuli",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.11760",
+      "topics": [
+        "prompting",
+        "emotion_prompt"
+      ],
+      "evidence_notes": "EmotionPrompt added emotional/stakes stimuli and reported gains on several 2023 models/tasks plus a human study.",
+      "limits": "Mechanism is unclear, susceptible to benchmark/model-era effects, and inappropriate as a production reliability assumption.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0201",
+      "title": "Thread of Thought Unraveling Chaotic Contexts",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2311.08734",
+      "topics": [
+        "prompting",
+        "long_context"
+      ],
+      "evidence_notes": "Segments and analyzes chaotic context while selecting relevant information; reported gains on QA and multi-turn response tasks.",
+      "limits": "May duplicate modern retrieval/context-selection behavior and increase output tokens.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0202",
+      "title": "Chain-of-Table: Evolving Tables in the Reasoning Chain",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.04398",
+      "topics": [
+        "prompting",
+        "tables",
+        "structured_reasoning"
+      ],
+      "evidence_notes": "Uses iterative table operations as structured intermediate state; reported strong table QA/fact verification results.",
+      "limits": "Table-specific and current models/tools may perform better with deterministic dataframe/SQL operations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0203",
+      "title": "Learning to Reason and Memorize with Self-Notes",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.00833",
+      "topics": [
+        "prompting",
+        "memory",
+        "reasoning"
+      ],
+      "evidence_notes": "Allows interleaved self-notes while reading context and reported improvements over CoT/scratchpad on studied tasks.",
+      "limits": "Requires compatible training/prompting; freeform notes can expand context and preserve errors.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0204",
+      "title": "Chain-of-Knowledge: Grounding LLMs via Dynamic Knowledge Adapting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.13269",
+      "topics": [
+        "prompting",
+        "retrieval",
+        "grounding"
+      ],
+      "evidence_notes": "Prepares rationales, detects disagreement, queries heterogeneous structured/unstructured sources, progressively corrects and consolidates answers.",
+      "limits": "Complex multi-stage pipeline; retrieval and rationale quality can interact badly.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0205",
+      "title": "Boosting Language Models Reasoning with Chain-of-Knowledge Prompting",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.acl-long.271/",
+      "topics": [
+        "prompting",
+        "knowledge_triples",
+        "verification"
+      ],
+      "evidence_notes": "Generates explicit knowledge triples as reasoning evidence and adds factuality/faithfulness verification.",
+      "limits": "Structured triple representation may not suit all reasoning tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0206",
+      "title": "Guiding Large Language Models via Directional Stimulus Prompting",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/guiding-large-language-models-via-directional-stimulus-prompting/",
+      "topics": [
+        "prompting",
+        "policy_model",
+        "hints"
+      ],
+      "evidence_notes": "Small tunable model generates instance-specific hints/stimuli for a black-box LLM; reported task gains with supervised/RL optimization.",
+      "limits": "Adds a second learned policy and task-specific training complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0207",
+      "title": "Chain-of-Symbol Prompting Elicits Planning in Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.10276",
+      "topics": [
+        "prompting",
+        "symbolic_representation",
+        "planning"
+      ],
+      "evidence_notes": "Represents planning state with compact symbols rather than verbose natural-language CoT and reported large gains/token reductions on benchmark planning tasks.",
+      "limits": "Synthetic planning benchmarks and handcrafted symbolic representation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0208",
+      "title": "Recitation-Augmented Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.01296",
+      "topics": [
+        "prompting",
+        "closed_book_qa",
+        "recitation"
+      ],
+      "evidence_notes": "Samples one or more internally recalled passages before answering and reported closed-book QA gains.",
+      "limits": "Recitation can confidently reproduce stale/hallucinated memory; retrieval is safer for authoritative facts.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0209",
+      "title": "Meta-Prompting: Enhancing Language Models with Task-Agnostic Scaffolding",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.12954",
+      "topics": [
+        "prompting",
+        "orchestration",
+        "experts"
+      ],
+      "evidence_notes": "One model orchestrates specialized expert instances/subqueries and aggregates results; reported gains on reasoning/puzzle tasks with tools.",
+      "limits": "High call/coordination cost and overlaps with normal orchestrator-worker systems.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0210",
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.16291",
+      "topics": [
+        "lifelong_agent",
+        "curriculum",
+        "skill_library"
+      ],
+      "evidence_notes": "Automatic curriculum, executable skill library, environment feedback and self-verification produced cumulative in-context lifelong learning in Minecraft without fine-tuning.",
+      "limits": "Embodied sandbox domain; performance claims do not establish general personal-assistant transfer.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0211",
+      "title": "Eureka: Human-Level Reward Design via Coding Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.12931",
+      "topics": [
+        "reward_design",
+        "evolutionary_search",
+        "RL"
+      ],
+      "evidence_notes": "LLM evolves executable reward code and uses simulator/RL feedback; reported outperforming human-engineered rewards on 83% of 29 environments.",
+      "limits": "Requires cheaply executable objective feedback; simulator/reward misspecification remains central risk.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0212",
+      "title": "Mathematical discoveries from program search with large language models (FunSearch)",
+      "type": "research",
+      "url": "https://www.nature.com/articles/s41586-023-06924-6",
+      "topics": [
+        "program_search",
+        "evolutionary_search",
+        "algorithm_discovery"
+      ],
+      "evidence_notes": "Frozen LLM plus systematic evaluator, best-shot prompting, skeletonized code search and island diversity discovered new mathematical constructions and algorithms.",
+      "limits": "Works best where candidate programs are cheaply and objectively evaluable; used very large sampling budgets.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0213",
+      "title": "AlphaEvolve: A Gemini-powered coding agent for designing advanced algorithms",
+      "type": "engineering_report",
+      "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
+      "topics": [
+        "algorithm_discovery",
+        "evolutionary_search",
+        "automated_evaluation"
+      ],
+      "evidence_notes": "Uses fast/strong model ensemble, automated evaluators and evolutionary program database; reported deployed improvements to data-center scheduling, AI training kernels, hardware and math.",
+      "limits": "Primary builder report rather than peer-reviewed end-to-end system paper; domains have executable evaluators.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0214",
+      "title": "AlphaEvolve: How our Gemini-powered coding agent is scaling impact across fields",
+      "type": "engineering_report",
+      "url": "https://deepmind.google/blog/alphaevolve-impact/",
+      "topics": [
+        "algorithm_discovery",
+        "production_optimization"
+      ],
+      "evidence_notes": "2026 follow-up reports AlphaEvolve as a regular infrastructure optimization tool and additional production/scientific impacts.",
+      "limits": "Vendor report; detailed independent reproduction is limited.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0215",
+      "title": "Gödel Agent: A Self-Referential Agent Framework for Recursive Self-Improvement",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.04444",
+      "topics": [
+        "self_modification",
+        "agent_design"
+      ],
+      "evidence_notes": "Agent modifies its own logic/behavior under high-level objectives and reports iterative performance gains on math/agent tasks.",
+      "limits": "Benchmark success does not establish safe unconstrained self-modification; high governance risk.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0216",
+      "title": "Automated Design of Agentic Systems",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2408.08435",
+      "topics": [
+        "ADAS",
+        "agent_architecture_search",
+        "code_search"
+      ],
+      "evidence_notes": "Meta Agent Search programs new agent systems in code, maintains an archive of discoveries, and reports transfer across domains/models.",
+      "limits": "Generated agent code is an untrusted artifact; search can overfit benchmark/evaluator.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0217",
+      "title": "Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2505.22954",
+      "topics": [
+        "self_modification",
+        "open_ended_search",
+        "coding_agents"
+      ],
+      "evidence_notes": "Maintains an archive/tree of self-modified coding agents and empirically validates variants, reporting SWE-bench 20→50 and Polyglot 14.2→30.7 with sandboxing/human oversight.",
+      "limits": "Benchmark improvements do not prove real-life utility or safety; self-modification search is costly and evaluator-bound.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0218",
+      "title": "Polaris: A Gödel Agent Framework for Small Language Models through Experience-Abstracted Policy Repair",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2603.23129",
+      "topics": [
+        "policy_repair",
+        "self_improvement",
+        "experience_abstraction"
+      ],
+      "evidence_notes": "2026 framework distills failures into compact reusable strategies and applies conservative persistent policy/code patches for smaller models.",
+      "limits": "Recent preprint; benchmark setting and self-reported policy repair need broader replication.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0219",
+      "title": "AgentSquare: Automatic LLM Agent Search in Modular Design Space",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.06153",
+      "topics": [
+        "agent_search",
+        "modular_agents",
+        "surrogate_model"
+      ],
+      "evidence_notes": "Searches Planning/Reasoning/Tool/Memory modules via evolution/recombination and uses an in-context performance predictor to skip poor designs; reported 17.2% average gain over best known human designs on six benchmarks.",
+      "limits": "Benchmark-defined module space can bias discoveries; predictor can discard unconventional good designs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0220",
+      "title": "An Architecture Search Framework for Inference-Time Techniques (Archon)",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v267/saad-falcon25a.html",
+      "topics": [
+        "inference_architecture_search",
+        "test_time_compute",
+        "model_ensembles"
+      ],
+      "evidence_notes": "Automates selection/composition of inference-time techniques and models under compute budget; reported 15.1 percentage-point average improvement over frontier baselines on studied benchmarks.",
+      "limits": "Search may overfit target benchmarks and can be inference-expensive.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0221",
+      "title": "Language Agent Tree Search",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.04406",
+      "topics": [
+        "agent_search",
+        "MCTS",
+        "reasoning_acting"
+      ],
+      "evidence_notes": "Combines reasoning, acting, planning, LM value functions, reflection and environmental feedback through Monte Carlo tree search.",
+      "limits": "High test-time compute and value-model quality sensitivity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0222",
+      "title": "Agent-Pro: Learning to Evolve via Policy-Level Reflection and Optimization",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.acl-long.292/",
+      "topics": [
+        "policy_reflection",
+        "agent_learning"
+      ],
+      "evidence_notes": "Reflects over trajectories/beliefs and uses depth-first search to refine persistent behavioral policy in interactive games.",
+      "limits": "Game domains; policy beliefs can overfit or encode incorrect causal stories.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0223",
+      "title": "AgentPro: Enhancing LLM Agents with Automated Process Supervision",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.emnlp-main.506/",
+      "topics": [
+        "process_supervision",
+        "MCTS",
+        "agents"
+      ],
+      "evidence_notes": "Uses MCTS-generated step annotations, process reward model and rejection sampling to avoid erroneous reasoning paths; reported gains on four datasets.",
+      "limits": "Process supervision inherits reward-model biases and adds substantial training/inference complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0224",
+      "title": "Mixture-of-Agents Enhances Large Language Model Capabilities",
+      "type": "research",
+      "url": "https://openreview.net/pdf?id=h0ZfDIrj7T",
+      "topics": [
+        "multi_agent",
+        "ensemble",
+        "layered_aggregation"
+      ],
+      "evidence_notes": "Layered architecture feeds outputs from multiple agents into subsequent agents and reported gains on several language-model benchmarks.",
+      "limits": "Large inference multiplier, correlated errors, and benchmark-specific aggregator behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0225",
+      "title": "Teaching Language Models To Gather Information Proactively",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.findings-emnlp.843/",
+      "topics": [
+        "proactivity",
+        "clarification",
+        "reinforcement_finetuning"
+      ],
+      "evidence_notes": "Trains proactive information gathering by rewarding questions that reveal genuinely new hidden user context; reported automatic/human-evaluation gains.",
+      "limits": "Clarification-heavy benchmark; proactive questioning can impose user effort and should be utility-gated.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0226",
+      "title": "Tunable LLM-based Proactive Recommendation Agent",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.acl-long.944/",
+      "topics": [
+        "proactivity",
+        "recommendation",
+        "tunable_behavior"
+      ],
+      "evidence_notes": "Studies tunable proactive recommendation agents and the tradeoff between proactive behavior and user preference.",
+      "limits": "Recommendation setting; transfer to general personal assistant needs local HCI evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0227",
+      "title": "Detecting hallucinations in large language models using semantic entropy",
+      "type": "research",
+      "url": "https://www.nature.com/articles/s41586-024-07421-0",
+      "topics": [
+        "uncertainty",
+        "semantic_entropy",
+        "hallucination"
+      ],
+      "evidence_notes": "Clusters sampled generations by meaning and measures entropy over semantic classes; predicts confabulations and improves selective QA via abstention.",
+      "limits": "Detects an important subset of hallucinations, not all factual/logical failure; multi-sample cost and entailment clustering required.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0228",
+      "title": "Language Models (Mostly) Know What They Know",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2207.05221",
+      "topics": [
+        "self_evaluation",
+        "calibration",
+        "P_True"
+      ],
+      "evidence_notes": "Studies P(True)/P(IK) self-evaluation and reports useful calibration/scaling under studied formats.",
+      "limits": "Calibration is prompt/task/model dependent and P(IK) generalization degrades on new tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0229",
+      "title": "On Calibration of Modern Neural Networks",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v70/guo17a",
+      "topics": [
+        "calibration",
+        "temperature_scaling"
+      ],
+      "evidence_notes": "Found modern neural classifiers overconfident and showed post-hoc temperature scaling as a strong simple calibration baseline.",
+      "limits": "Classification-era result; free-form LLM uncertainty needs additional methods.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0230",
+      "title": "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html",
+      "topics": [
+        "uncertainty",
+        "ensembles"
+      ],
+      "evidence_notes": "Independent ensembles provide strong predictive uncertainty and OOD signals in supervised settings.",
+      "limits": "Multiple full models are costly; LLM-agent errors can be strongly correlated.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0231",
+      "title": "The engineering challenges of scaling interpretability",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/research/engineering-challenges-interpretability",
+      "topics": [
+        "interpretability",
+        "sparse_autoencoders"
+      ],
+      "evidence_notes": "Anthropic reports scaling sparse-autoencoder feature dictionaries to much larger models and highlights engineering/infrastructure constraints.",
+      "limits": "Features/probes are partial representations and not guaranteed causal or complete.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0232",
+      "title": "Open-sourcing circuit-tracing tools",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/research/open-source-circuit-tracing",
+      "topics": [
+        "interpretability",
+        "attribution_graphs"
+      ],
+      "evidence_notes": "Open-sources attribution-graph/circuit-tracing method for selected open-weight models to inspect internal computation pathways.",
+      "limits": "Partial reconstruction; interpretability does not by itself guarantee control or correctness.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0233",
+      "title": "SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2301.00774",
+      "topics": [
+        "pruning",
+        "compression"
+      ],
+      "evidence_notes": "One-shot second-order-inspired pruning reached high sparsity on large models with minimal perplexity loss in reported settings.",
+      "limits": "Actual speedup requires sparse kernel/hardware support; downstream task quality must be checked.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0234",
+      "title": "A Simple and Effective Pruning Approach for Large Language Models (Wanda)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.11695",
+      "topics": [
+        "pruning",
+        "compression"
+      ],
+      "evidence_notes": "Activation-aware weight pruning without retraining performed competitively on LLaMA-family models.",
+      "limits": "Sparsity does not automatically translate into wall-clock speedup.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0235",
+      "title": "Movement Pruning: Adaptive Sparsity by Fine-Tuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2005.07683",
+      "topics": [
+        "pruning",
+        "finetuning"
+      ],
+      "evidence_notes": "First-order movement-based pruning adapts sparsity during fine-tuning and reported good high-sparsity transfer performance.",
+      "limits": "Older BERT-era transfer setting; requires training.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0236",
+      "title": "The Lottery Ticket Hypothesis",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1803.03635",
+      "topics": [
+        "pruning",
+        "sparse_networks"
+      ],
+      "evidence_notes": "Shows dense networks can contain sparse subnetworks that train effectively in studied vision architectures.",
+      "limits": "Foundational sparsity concept; direct large-language-model application is not guaranteed.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0237",
+      "title": "Parameter-Efficient Transfer Learning for NLP (Adapters)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1902.00751",
+      "topics": [
+        "PEFT",
+        "adapters"
+      ],
+      "evidence_notes": "Task-specific adapter modules approach full fine-tuning quality while adding a small parameter fraction.",
+      "limits": "Older encoder setting; adapter placement/serving overhead varies in modern LLMs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0238",
+      "title": "Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2101.00190",
+      "topics": [
+        "PEFT",
+        "prefix_tuning"
+      ],
+      "evidence_notes": "Learns small continuous prefixes while freezing model weights; reported competitive low-data generation performance.",
+      "limits": "Requires model/training access and prefix support; not comparable to ordinary text prompt editing.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0239",
+      "title": "The Power of Scale for Parameter-Efficient Prompt Tuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2104.08691",
+      "topics": [
+        "PEFT",
+        "prompt_tuning"
+      ],
+      "evidence_notes": "Learns soft prompts for frozen models and found competitiveness improves with model scale.",
+      "limits": "Model-family/training-specific; hosted APIs rarely expose this.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0240",
+      "title": "Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning (IA3/T-Few)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2205.05638",
+      "topics": [
+        "PEFT",
+        "IA3"
+      ],
+      "evidence_notes": "Introduces IA3 activation scaling and reports strong few-shot PEFT with lower repeated inference cost than ICL.",
+      "limits": "Training access required; tasks/data distribution matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0241",
+      "title": "BitFit: Simple Parameter-efficient Fine-tuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2106.10199",
+      "topics": [
+        "PEFT",
+        "bias_tuning"
+      ],
+      "evidence_notes": "Fine-tunes only bias terms and reports competitive performance for small/medium data on BERT-family tasks.",
+      "limits": "Older encoder models; may underfit modern generative tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0242",
+      "title": "Model soups",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v162/wortsman22a.html",
+      "topics": [
+        "model_merging",
+        "robustness"
+      ],
+      "evidence_notes": "Averaging compatible fine-tuned model weights improved accuracy/robustness without inference-time ensemble cost in studied settings.",
+      "limits": "Only works when weight solutions are compatible/in same basin; careless merging can destroy capability.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0243",
+      "title": "TIES-Merging: Resolving Interference When Merging Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.01708",
+      "topics": [
+        "model_merging",
+        "interference"
+      ],
+      "evidence_notes": "Trims small changes, resolves sign conflicts and merges aligned parameter updates to reduce task interference.",
+      "limits": "Merged-model behavior still needs comprehensive downstream/safety evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0244",
+      "title": "Training Deep Nets with Sublinear Memory Cost",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1604.06174",
+      "topics": [
+        "training_systems",
+        "activation_checkpointing"
+      ],
+      "evidence_notes": "Activation/gradient checkpointing trades recomputation for much lower training memory.",
+      "limits": "Extra compute and communication; modern frameworks implement variants with different tradeoffs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0245",
+      "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/zero-memory-optimization-towards-training-a-trillion-parameter-models/",
+      "topics": [
+        "training_systems",
+        "sharding"
+      ],
+      "evidence_notes": "Partitions optimizer state, gradients and parameters across data-parallel workers to reduce per-device memory while preserving scaling.",
+      "limits": "Distributed training engineering complexity and communication constraints.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0246",
+      "title": "PyTorch Fully Sharded Data Parallel (FSDP2)",
+      "type": "official",
+      "url": "https://docs.pytorch.org/docs/main/distributed.fsdp.fully_shard.html",
+      "topics": [
+        "training_systems",
+        "sharding"
+      ],
+      "evidence_notes": "Current PyTorch fully_shard uses per-parameter DTensor sharding and all-gather/free hooks to reduce replicated model state.",
+      "limits": "Training infrastructure concern, not application-layer Agent OS.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0247",
+      "title": "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1909.08053",
+      "topics": [
+        "training_systems",
+        "tensor_parallel"
+      ],
+      "evidence_notes": "Intra-layer tensor/model parallelism enabled multi-billion-parameter training with good scaling in original experiments.",
+      "limits": "Communication/hardware topology sensitive; newer Megatron implementations extend it substantially.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0248",
+      "title": "DeepSpeed Ulysses",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.14509",
+      "topics": [
+        "training_systems",
+        "sequence_parallel"
+      ],
+      "evidence_notes": "Partitions sequence dimension with all-to-all attention communication for efficient very-long-sequence training.",
+      "limits": "Large distributed training only.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0249",
+      "title": "FlashAttention-2",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.08691",
+      "topics": [
+        "training_systems",
+        "attention_kernels"
+      ],
+      "evidence_notes": "Improves FlashAttention work partitioning and reports near-GEMM efficiency plus end-to-end training speedups.",
+      "limits": "GPU/kernel-specific and continually superseded by newer implementations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0250",
+      "title": "Mirostat: A Neural Text Decoding Algorithm that Directly Controls Perplexity",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2007.14966",
+      "topics": [
+        "decoding",
+        "adaptive_sampling"
+      ],
+      "evidence_notes": "Feedback-based decoder adapts sampling to target perplexity and avoid repetition/incoherence traps in open-ended generation.",
+      "limits": "Older open-ended generation setting; not appropriate for tool/structured outputs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0251",
+      "title": "Efficient Guided Generation for Large Language Models (Outlines)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.09702",
+      "topics": [
+        "structured_generation",
+        "constrained_decoding"
+      ],
+      "evidence_notes": "Finite-state-machine indexing enables regex/CFG-constrained generation with low overhead and structural guarantees.",
+      "limits": "Structural correctness does not guarantee semantic correctness.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0252",
+      "title": "XGrammar: Flexible and Efficient Structured Generation Engine for Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2411.15100",
+      "topics": [
+        "structured_generation",
+        "constrained_decoding"
+      ],
+      "evidence_notes": "Optimized CFG execution and co-designed inference integration reported near-zero-overhead structured generation in studied systems.",
+      "limits": "Self-hosted inference concern; grammar complexity and semantic validation remain.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0253",
+      "title": "XGrammar 2",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2601.04426",
+      "topics": [
+        "structured_generation",
+        "agentic_tools"
+      ],
+      "evidence_notes": "2026 engine adds dynamic dispatch, JIT compilation, cross-grammar caching and richer parsing for agentic structured outputs.",
+      "limits": "Recent system paper; integration-specific performance.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0254",
+      "title": "Sentence-BERT",
+      "type": "research",
+      "url": "https://aclanthology.org/D19-1410/",
+      "topics": [
+        "embeddings",
+        "semantic_search"
+      ],
+      "evidence_notes": "Siamese/triplet sentence representations made semantic similarity search practical compared with pairwise cross-encoding.",
+      "limits": "Modern embedding models substantially supersede BERT-era quality; concept remains foundational.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0255",
+      "title": "Matryoshka Representation Learning",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper_files/paper/2022/hash/c32319f4868da7613d78af9993100e42-Abstract-Conference.html",
+      "topics": [
+        "embeddings",
+        "efficiency"
+      ],
+      "evidence_notes": "Trains embeddings whose prefixes retain useful coarse-to-fine information, enabling adaptive dimension/storage/retrieval tradeoffs.",
+      "limits": "Embedding model must be trained for Matryoshka structure; arbitrary truncation is unsafe.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0256",
+      "title": "Distilling the Knowledge in a Neural Network",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1503.02531",
+      "topics": [
+        "distillation",
+        "ensembles"
+      ],
+      "evidence_notes": "Foundational teacher/student distillation and specialist-model concepts for compressing ensemble knowledge.",
+      "limits": "Modern generative distillation has additional sequence/alignment concerns.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0257",
+      "title": "Specifying and Verifying Systems With TLA+",
+      "type": "research",
+      "url": "https://lamport.azurewebsites.net/pubs/spec-and-verifying.pdf",
+      "topics": [
+        "formal_methods",
+        "model_checking"
+      ],
+      "evidence_notes": "Formal state-machine specifications and model checking expose concurrency/protocol design errors before implementation.",
+      "limits": "Specification is an additional artifact that can itself be wrong; best for critical state machines/protocols, not every function.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0258",
+      "title": "QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs",
+      "type": "research",
+      "url": "https://research.chalmers.se/en/publication/237427",
+      "topics": [
+        "property_testing",
+        "testing"
+      ],
+      "evidence_notes": "Properties plus generated random inputs find edge cases beyond hand-authored examples; shrinking patterns inspired modern property-based testing.",
+      "limits": "Quality depends on useful invariants and generators; random testing is not proof.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0259",
+      "title": "Z3: An Efficient SMT Solver",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/project/z3-3/publications/",
+      "topics": [
+        "formal_methods",
+        "SMT",
+        "constraints"
+      ],
+      "evidence_notes": "SMT solving supports exact reasoning over arithmetic, bitvectors, arrays and uninterpreted functions and is widely used in program verification.",
+      "limits": "Requires formalizable constraints; solver complexity can explode.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0260",
+      "title": "Practical Bayesian Optimization of Machine Learning Algorithms",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper/2012/hash/05311655a15b75fab86956663e1819cd-Abstract.html",
+      "topics": [
+        "optimization",
+        "bayesian_optimization"
+      ],
+      "evidence_notes": "Models expensive black-box objective and selects new trials by acquisition function, including variable experiment cost and parallelism.",
+      "limits": "Surrogate assumptions and dimensionality matter; less useful for cheap/discrete irregular search spaces.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0261",
+      "title": "Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization",
+      "type": "research",
+      "url": "https://www.jmlr.org/papers/v18/16-558.html",
+      "topics": [
+        "optimization",
+        "early_stopping",
+        "bandits"
+      ],
+      "evidence_notes": "Allocates progressively more resource to promising random configurations and aggressively stops poor ones; reported large speedups over competitors.",
+      "limits": "Requires a meaningful partial-resource performance signal.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0262",
+      "title": "Population Based Training of Neural Networks",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1711.09846",
+      "topics": [
+        "optimization",
+        "population_search",
+        "training"
+      ],
+      "evidence_notes": "Asynchronously exploits strong runs and explores hyperparameter mutations during training, discovering schedules rather than fixed values.",
+      "limits": "Training-specific and compute-intensive; can collapse diversity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0263",
+      "title": "Optuna: A Next-generation Hyperparameter Optimization Framework",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1907.10902",
+      "topics": [
+        "optimization",
+        "HPO",
+        "pruning"
+      ],
+      "evidence_notes": "Define-by-run search spaces and pluggable sampling/pruning provide practical distributed hyperparameter optimization.",
+      "limits": "Framework is implementation tooling; optimization validity depends on objective/splits.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0264",
+      "title": "Overcoming catastrophic forgetting in neural networks",
+      "type": "research",
+      "url": "https://www.pnas.org/doi/10.1073/pnas.1611835114",
+      "topics": [
+        "continual_learning",
+        "EWC"
+      ],
+      "evidence_notes": "Elastic Weight Consolidation penalizes changes to parameters estimated important for previous tasks to reduce forgetting.",
+      "limits": "Importance approximation/task boundaries can fail; large task sequences still accumulate constraints.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0265",
+      "title": "Gradient Episodic Memory for Continual Learning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1706.08840",
+      "topics": [
+        "continual_learning",
+        "replay"
+      ],
+      "evidence_notes": "Stores episodic exemplars and constrains updates so new learning does not increase loss on prior memories, while measuring backward/forward transfer.",
+      "limits": "Memory scales with exemplars; original benchmarks are small vision tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0266",
+      "title": "Learning without Forgetting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1606.09282",
+      "topics": [
+        "continual_learning",
+        "distillation"
+      ],
+      "evidence_notes": "Uses predictions on new-task data as distillation targets to preserve old capabilities when old data is unavailable.",
+      "limits": "Old-task data distribution is not directly replayed; vision-era evidence.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0267",
+      "title": "Deep Learning with Differential Privacy",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1607.00133",
+      "topics": [
+        "privacy",
+        "DP_SGD",
+        "training"
+      ],
+      "evidence_notes": "DP-SGD clips per-example gradients and adds calibrated noise with privacy accounting to bound training-data leakage.",
+      "limits": "Privacy-utility-compute tradeoff can be severe; privacy parameters require careful interpretation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0268",
+      "title": "The Algorithmic Foundations of Differential Privacy",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/algorithmic-foundations-differential-privacy/",
+      "topics": [
+        "privacy",
+        "differential_privacy"
+      ],
+      "evidence_notes": "Foundational framework for formally bounded privacy loss under arbitrary auxiliary information and composed analyses.",
+      "limits": "Aggregate statistical privacy does not solve authorization, raw-data access or all memorization risks by itself.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0269",
+      "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v54/mcmahan17a.html",
+      "topics": [
+        "privacy",
+        "federated_learning"
+      ],
+      "evidence_notes": "FedAvg trains shared models from local client updates without centralizing raw data and reduces communication rounds relative to synchronized SGD.",
+      "limits": "Model updates can still leak information; non-IID clients and trust/aggregation remain issues.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0270",
+      "title": "Practical Secure Aggregation for Privacy-Preserving Machine Learning",
+      "type": "research",
+      "url": "https://research.google/pubs/practical-secure-aggregation-for-privacy-preserving-machine-learning/",
+      "topics": [
+        "privacy",
+        "secure_aggregation",
+        "federated_learning"
+      ],
+      "evidence_notes": "Cryptographic protocol lets server recover aggregate updates without learning individual user contributions, robust to client dropout.",
+      "limits": "Protects aggregation contents, not malicious model behavior or all metadata.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0271",
+      "title": "A Comprehensive Study of Convergent and Commutative Replicated Data Types",
+      "type": "research",
+      "url": "https://hal.science/inria-00555588",
+      "topics": [
+        "distributed_systems",
+        "CRDT",
+        "local_first"
+      ],
+      "evidence_notes": "CRDT mathematical conditions support convergence of replicated state without synchronous coordination, useful for disconnected/multi-device systems.",
+      "limits": "Business invariants may require stronger consistency than convergence alone.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0272",
+      "title": "A Contextual-Bandit Approach to Personalized News Article Recommendation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1003.0146",
+      "topics": [
+        "bandits",
+        "personalization",
+        "online_learning"
+      ],
+      "evidence_notes": "Contextual bandit learns action policy from contextual feedback while balancing exploration/exploitation and introduced offline replay evaluation on logged randomized traffic.",
+      "limits": "Naive online exploration can annoy or harm users; logged-policy evaluation requires propensities/coverage.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0273",
+      "title": "Generalization in Adaptive Data Analysis and Holdout Reuse",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1506.02629",
+      "topics": [
+        "evaluation",
+        "adaptive_overfitting",
+        "holdout"
+      ],
+      "evidence_notes": "Shows repeatedly adapting hypotheses to the same holdout can overfit it and develops mechanisms for reusable validation under adaptive analysis.",
+      "limits": "Formal guarantees rely on specific statistical assumptions/mechanisms; practical private holdouts remain important.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0274",
+      "title": "Hidden Technical Debt in Machine Learning Systems",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html",
+      "topics": [
+        "ML_systems",
+        "technical_debt",
+        "maintenance"
+      ],
+      "evidence_notes": "Identifies entanglement, hidden feedback loops, undeclared consumers, data dependencies, configuration debt and changing external world as systemic ML risks.",
+      "limits": "Qualitative engineering analysis, but highly relevant to long-lived adaptive systems.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0275",
+      "title": "Rules of Machine Learning: Best Practices for ML Engineering",
+      "type": "engineering_guidance",
+      "url": "https://developers.google.com/machine-learning/guides/rules-of-ml",
+      "topics": [
+        "ML_systems",
+        "simplicity",
+        "production"
+      ],
+      "evidence_notes": "Advocates simple baselines, trustworthy pipelines, measurable product goals, training-serving consistency and adding complexity only after simple gains are exhausted.",
+      "limits": "Heuristic engineering guidance, not a controlled experiment.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0276",
+      "title": "Machine Learning: The High Interest Credit Card of Technical Debt",
+      "type": "engineering_report",
+      "url": "https://research.google/pubs/machine-learning-the-high-interest-credit-card-of-technical-debt/",
+      "topics": [
+        "ML_systems",
+        "technical_debt"
+      ],
+      "evidence_notes": "Earlier production-systems warning that ML's quick wins create hidden system maintenance burdens and feedback dependencies.",
+      "limits": "Broad qualitative patterns; architecture specifics have evolved.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0282",
+      "title": "Should We Respect LLMs? Prompt Politeness Study",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.sicon-1.2/",
+      "topics": [
+        "politeness",
+        "prompt_behavior",
+        "cross_lingual"
+      ],
+      "evidence_notes": "Cross-lingual study found rude prompts often hurt performance, but maximal politeness was not universally optimal and effects differed by language.",
+      "limits": "Specific tasks/models/languages; politeness is not a reliable optimization primitive.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0283",
+      "title": "LLM Politeness Study on frontier models",
+      "type": "community_experiment",
+      "url": "https://github.com/tab-huang/LLM-Politeness-Study",
+      "topics": [
+        "politeness",
+        "prompt_behavior",
+        "negative_result"
+      ],
+      "evidence_notes": "More recent empirical project across GPT-5.2, Claude Sonnet 4.5 and Gemini-3 Flash Preview reports minimal/no statistically significant accuracy effect from politeness on sampled MMLU-Pro questions.",
+      "limits": "Community study, modest benchmark sample and only one task family.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0284",
+      "title": "Efficient and robust approximate nearest neighbor search using HNSW",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1603.09320",
+      "topics": [
+        "ANN",
+        "HNSW",
+        "vector_search"
+      ],
+      "evidence_notes": "Hierarchical navigable small-world graph index provides high-recall approximate nearest-neighbor search with tunable construction/search effort.",
+      "limits": "Worst-case behavior can be poor; optimal parameters depend strongly on data distribution.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0285",
+      "title": "Worst-case Performance of Popular Approximate Nearest Neighbor Search Implementations",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.19126",
+      "topics": [
+        "ANN",
+        "HNSW",
+        "limitations"
+      ],
+      "evidence_notes": "Shows popular graph ANN methods including HNSW can have linear-time behavior on constructed hard instances, reinforcing need for local recall/latency benchmarking.",
+      "limits": "Worst-case constructions do not imply typical practical failure.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0286",
+      "title": "Detecting near-duplicates for web crawling",
+      "type": "research",
+      "url": "https://doi.org/10.1145/1242572.1242592",
+      "topics": [
+        "near_duplicate",
+        "SimHash",
+        "web"
+      ],
+      "evidence_notes": "Large-scale near-duplicate detection using fingerprinting/SimHash-style technique for web crawling.",
+      "limits": "Near-duplicate page detection differs from semantically complementary documents.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0287",
+      "title": "On the Resemblance and Containment of Documents",
+      "type": "research",
+      "url": "https://doi.org/10.1109/SEQUEN.1997.666900",
+      "topics": [
+        "MinHash",
+        "document_similarity",
+        "deduplication"
+      ],
+      "evidence_notes": "Defines document resemblance/containment using shingles and random-sampling fingerprints, foundational for MinHash/LSH duplicate detection.",
+      "limits": "Lexical resemblance is not semantic identity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0288",
+      "title": "Splink Fellegi-Sunter model guide",
+      "type": "open_source_docs",
+      "url": "https://github.com/moj-analytical-services/splink/blob/master/docs/topic_guides/theory/fellegi_sunter.md",
+      "topics": [
+        "entity_resolution",
+        "record_linkage",
+        "probabilistic_matching"
+      ],
+      "evidence_notes": "Explains probabilistic record linkage using prior match probability and m/u evidence weights; supports interpretable match probabilities and field-level evidence.",
+      "limits": "Conditional-independence assumptions can be violated by correlated fields.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0289",
+      "title": "Dedupe blocking and smart comparisons",
+      "type": "open_source_docs",
+      "url": "https://docs.dedupe.io/en/latest/how-it-works/Making-smart-comparisons.html",
+      "topics": [
+        "entity_resolution",
+        "blocking",
+        "active_learning"
+      ],
+      "evidence_notes": "Blocking/index predicates drastically reduce pair comparisons while trying to preserve coverage of true duplicate pairs; learned blocking can select a compact rule set.",
+      "limits": "Poor blocking causes unrecoverable false negatives.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0290",
+      "title": "Comprehensive insights into bitemporal databases",
+      "type": "research_review",
+      "url": "https://link.springer.com/article/10.1007/s42488-026-00162-x",
+      "topics": [
+        "bitemporal",
+        "valid_time",
+        "transaction_time"
+      ],
+      "evidence_notes": "2026 review distinguishes valid time (when fact is true in modeled reality) from transaction time (when stored/known by system), useful for evolving personal/organizational knowledge.",
+      "limits": "Database literature is broader than lightweight file/SQLite implementations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0291",
+      "title": "Semantics of time-varying information",
+      "type": "research",
+      "url": "https://www.sciencedirect.com/science/article/pii/0306437996000178",
+      "topics": [
+        "temporal_database",
+        "bitemporal",
+        "validity"
+      ],
+      "evidence_notes": "Formal treatment of valid time and transaction time semantics for changing facts.",
+      "limits": "Older relational-database framing; core temporal semantics remain useful.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0292",
+      "title": "Faithful Chain-of-Thought Reasoning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2301.13379",
+      "topics": [
+        "symbolic_reasoning",
+        "faithfulness"
+      ],
+      "evidence_notes": "Translates natural language into a symbolic reasoning program and executes it deterministically; reported gains across math, planning, multi-hop QA and relational inference.",
+      "limits": "Solver correctness is only with respect to the parsed specification; semantic translation can still be wrong.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0293",
+      "title": "Logic-LM: Empowering Large Language Models with Symbolic Solvers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.12295",
+      "topics": [
+        "symbolic_reasoning",
+        "solvers"
+      ],
+      "evidence_notes": "LLM formalizes logic problem, solver derives answer, and solver errors guide re-formalization; reported substantial gains over direct/CoT baselines.",
+      "limits": "Formalization errors remain central; self-refinement should be solver-grounded.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0294",
+      "title": "SatLM: Satisfiability-Aided Language Models Using Declarative Prompting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.09656",
+      "topics": [
+        "SAT",
+        "SMT",
+        "declarative_reasoning"
+      ],
+      "evidence_notes": "LLM emits declarative constraints while an automated theorem/SAT solver performs search; outperformed program-aided imperative approaches on studied tasks.",
+      "limits": "Guarantee applies to generated specification, not original intent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0295",
+      "title": "Large Language Models for Supply Chain Optimization / OptiGuide",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.03875",
+      "topics": [
+        "operations_research",
+        "optimization",
+        "decision_support"
+      ],
+      "evidence_notes": "LLM interfaces with an existing optimization model for natural-language what-if analysis while keeping proprietary model data out of the LLM context.",
+      "limits": "Requires a validated optimization model and safe code/solver interface.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0296",
+      "title": "LLMOPT: Learning to Define and Solve General Optimization Problems from Scratch",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.13213",
+      "topics": [
+        "optimization",
+        "formalization",
+        "solver_code"
+      ],
+      "evidence_notes": "Five-element formulation, multi-instruction tuning and solver-code generation improved optimization generalization across varied problem types.",
+      "limits": "Specialized training and exact solver verification remain necessary.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0297",
+      "title": "ORLM: Training Large Models for Automated Optimization Modeling",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2405.17743",
+      "topics": [
+        "operations_research",
+        "synthetic_data",
+        "solver_code"
+      ],
+      "evidence_notes": "OR-Instruct synthetic data and 7B specialist models improved natural-language optimization modeling and solver code on multiple benchmarks.",
+      "limits": "Domain-specialist approach; benchmark and generated-code validation matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0298",
+      "title": "NL4Opt Competition",
+      "type": "benchmark",
+      "url": "https://proceedings.mlr.press/v220/ramamonjison23a.html",
+      "topics": [
+        "optimization",
+        "semantic_parsing",
+        "benchmark"
+      ],
+      "evidence_notes": "Benchmarks extraction of optimization entities and generation of a logical representation convertible to solver form.",
+      "limits": "Primarily LP modeling rather than all optimization classes.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0299",
+      "title": "Preble: Efficient Distributed Prompt Scheduling for LLM Serving",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.00023",
+      "topics": [
+        "serving",
+        "prefix_cache",
+        "scheduling"
+      ],
+      "evidence_notes": "Routes requests across distributed replicas to exploit shared prompt-prefix KV cache while balancing load; reported substantial average/tail-latency gains.",
+      "limits": "Requires self-hosted distributed inference and workload prefix locality.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0300",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.15334",
+      "topics": [
+        "tool_use",
+        "API_retrieval"
+      ],
+      "evidence_notes": "Fine-tuned API calling plus retriever over API docs reduced hallucinated calls and adapted to changing documentation in original APIBench evaluation.",
+      "limits": "Older benchmark/model generation; current tool schemas may make training unnecessary for many cases.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0301",
+      "title": "LLM+P: Empowering Large Language Models with Optimal Planning Proficiency",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2304.11477",
+      "topics": [
+        "planning",
+        "PDDL",
+        "classical_planning"
+      ],
+      "evidence_notes": "LLM translates language into PDDL, deterministic planner finds feasible/optimal plan, LLM translates back; dramatically stronger than direct LLM planning on studied domains.",
+      "limits": "Translation to PDDL can misrepresent intent/state/action semantics.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0302",
+      "title": "ConU: Conformal Uncertainty in Large Language Models with Correctness Coverage Guarantees",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.00499",
+      "topics": [
+        "uncertainty",
+        "conformal_prediction",
+        "coverage"
+      ],
+      "evidence_notes": "Applies conformal prediction to black-box LLM free-form generation and reports calibrated prediction sets with target correctness coverage across multiple models/datasets.",
+      "limits": "Guarantees rely on exchangeability/calibration assumptions and the chosen nonconformity/correctness definition; not universal semantic truth guarantees.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0303",
+      "title": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1901.09192",
+      "topics": [
+        "selective_prediction",
+        "abstention"
+      ],
+      "evidence_notes": "Jointly trains prediction and reject/coverage behavior to improve risk-coverage tradeoff.",
+      "limits": "Classical supervised setting; LLM application needs adapted uncertainty features and calibration.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0304",
+      "title": "DeepXplore: Automated Whitebox Testing of Deep Learning Systems",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1705.06640",
+      "topics": [
+        "differential_testing",
+        "coverage",
+        "neural_testing"
+      ],
+      "evidence_notes": "Uses neuron coverage plus differential behavior across models to discover corner-case failures without manual labels.",
+      "limits": "Neuron coverage is an imperfect adequacy proxy and modern LLM behavior differs from image/classification DNNs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0305",
+      "title": "DeepTest: Automated Testing of Deep-Neural-Network-driven Autonomous Cars",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1708.08559",
+      "topics": [
+        "metamorphic_testing",
+        "robustness"
+      ],
+      "evidence_notes": "Applies realistic semantics-preserving transformations such as weather/lighting changes to uncover model failures without a full test oracle.",
+      "limits": "Autonomous-driving domain; metamorphic relation validity is domain-specific.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0306",
+      "title": "Bidirectional Empowerment of Metamorphic Testing and Large Language Models: A Systematic Survey",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2605.13898",
+      "topics": [
+        "metamorphic_testing",
+        "LLM_testing",
+        "survey"
+      ],
+      "evidence_notes": "2026 survey of 93 primary studies covering metamorphic testing for hallucination, fairness, robustness, RAG, dialogue, code and agents, plus LLM-assisted metamorphic-test generation.",
+      "limits": "Survey synthesizes heterogeneous methods; relation quality remains the key oracle.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0307",
+      "title": "Validating LLM-Generated Programs with Metamorphic Prompt Testing",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2406.06864",
+      "topics": [
+        "metamorphic_testing",
+        "code_generation",
+        "prompt_robustness"
+      ],
+      "evidence_notes": "Paraphrases programming prompts and cross-validates generated implementations; reported detection of 75% of erroneous GPT-4 programs at 8.6% false positive on HumanEval.",
+      "limits": "HumanEval and paraphrase relations do not cover all program semantics.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0308",
+      "title": "DiffSpec: Differential Testing with LLMs using Natural Language Specifications and Code Artifacts",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.04249",
+      "topics": [
+        "differential_testing",
+        "LLM_testing",
+        "software"
+      ],
+      "evidence_notes": "LLM-guided test generation compares multiple conforming implementations and found confirmed eBPF/Wasm bugs.",
+      "limits": "Needs multiple independent implementations/spec artifacts and careful adjudication of intended differences.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0309",
+      "title": "Atheris: Coverage-Guided Python Fuzzing",
+      "type": "open_source",
+      "url": "https://github.com/google/atheris",
+      "topics": [
+        "fuzzing",
+        "python",
+        "coverage"
+      ],
+      "evidence_notes": "Coverage-guided mutation fuzzer for Python/native extensions, with instrumentation, structure-aware custom mutators and regression-corpus workflows.",
+      "limits": "Coverage-guided byte mutation is inefficient for highly structured inputs without structure-aware mutators.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0310",
+      "title": "LLVM libFuzzer",
+      "type": "official",
+      "url": "https://llvm.org/docs/LibFuzzer.html",
+      "topics": [
+        "fuzzing",
+        "coverage",
+        "software_testing"
+      ],
+      "evidence_notes": "In-process coverage-guided evolutionary fuzzing with corpus minimization, sanitizer integration, dictionaries and custom mutators.",
+      "limits": "Original authors no longer add major features; narrow deterministic fast targets are important for efficiency.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0312",
+      "title": "Uncertainty Quantification and Confidence Calibration in Large Language Models: A Survey",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2503.15850",
+      "topics": [
+        "uncertainty",
+        "calibration",
+        "survey"
+      ],
+      "evidence_notes": "Surveys LLM uncertainty across input, reasoning, parameter and prediction dimensions and discusses efficiency/applicability tradeoffs.",
+      "limits": "Survey results span heterogeneous tasks/models and do not imply one universal metric.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0313",
+      "title": "Uncertainty of Thoughts: Uncertainty-Aware Planning Enhances Information Seeking in Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03271",
+      "topics": [
+        "uncertainty",
+        "active_information_gathering",
+        "planning"
+      ],
+      "evidence_notes": "Uses scenario simulation and information-gain-style uncertainty rewards to choose follow-up questions; reported higher task success and question efficiency across multiple interactive tasks/models.",
+      "limits": "Simulation quality and uncertainty estimate can be wrong; medical examples do not justify clinical use.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0314",
+      "title": "KLEE: Unassisted and Automatic Generation of High-Coverage Tests for Complex Systems Programs",
+      "type": "research",
+      "url": "https://www.usenix.org/conference/osdi-08/klee-unassisted-and-automatic-generation-high-coverage-tests-complex-systems",
+      "topics": [
+        "symbolic_execution",
+        "test_generation"
+      ],
+      "evidence_notes": "Symbolically executes program paths and uses constraint solving to generate high-coverage tests; found longstanding real bugs in mature utilities.",
+      "limits": "Path explosion and environment modeling constrain scale.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0315",
+      "title": "AddressSanitizer: A Fast Address Sanity Checker",
+      "type": "research",
+      "url": "https://www.usenix.org/conference/atc12/technical-sessions/presentation/serebryany",
+      "topics": [
+        "sanitizers",
+        "memory_safety",
+        "testing"
+      ],
+      "evidence_notes": "Compiler instrumentation detects out-of-bounds/use-after-free errors at runtime with practical overhead and has found many production bugs.",
+      "limits": "Primarily native-memory bugs; not directly relevant to pure Python unless native extensions are involved.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0316",
+      "title": "CodeQL Documentation",
+      "type": "official",
+      "url": "https://codeql.github.com/docs/",
+      "topics": [
+        "static_analysis",
+        "security",
+        "code_query"
+      ],
+      "evidence_notes": "Queries code as data to identify vulnerability patterns across supported languages; current documentation includes security/quality query suites.",
+      "limits": "Static analysis has false positives/coverage limits and only supports specific languages/frameworks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0317",
+      "title": "Software testing with QuickCheck",
+      "type": "research",
+      "url": "https://research.chalmers.se/en/publication/154999",
+      "topics": [
+        "property_testing",
+        "state_machine_testing"
+      ],
+      "evidence_notes": "Property-based generators and state-machine models test broad input/state spaces rather than fixed examples.",
+      "limits": "Quality depends on properties/generators and generated cases may miss semantically important regions.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0318",
+      "title": "Semantic Entropy for Hallucination Detection",
+      "type": "research",
+      "url": "https://www.nature.com/articles/s41586-024-07421-0",
+      "topics": [
+        "uncertainty",
+        "semantic_entropy",
+        "hallucination"
+      ],
+      "evidence_notes": "Clusters sampled answers by semantic meaning and estimates entropy over meanings; reported stronger detection of confabulations than several baselines across tasks/models.",
+      "limits": "Requires multiple samples/semantic clustering and only targets uncertainty-driven confabulation, not systematic confidently wrong answers.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0320",
+      "title": "A Tutorial on Thompson Sampling",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1707.02038",
+      "topics": [
+        "bandits",
+        "online_learning",
+        "exploration"
+      ],
+      "evidence_notes": "Broad treatment of posterior-sampling approaches to sequential exploration/exploitation across recommendation, active learning, shortest paths and RL.",
+      "limits": "Online exploration can be inappropriate when interventions have meaningful user/safety cost.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0321",
+      "title": "Learning from Time-Changing Data with Adaptive Windowing (ADWIN)",
+      "type": "research",
+      "url": "https://doi.org/10.1137/1.9781611972771.42",
+      "topics": [
+        "concept_drift",
+        "streaming",
+        "monitoring"
+      ],
+      "evidence_notes": "Adaptive window size responds to detected change with statistical false-positive/negative guarantees under assumptions.",
+      "limits": "Scalar/stream statistics and assumptions may not capture high-dimensional semantic drift directly.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0322",
+      "title": "NIST SP 800-226: Guidelines for Evaluating Differential Privacy Guarantees",
+      "type": "standard_guidance",
+      "url": "https://csrc.nist.gov/pubs/sp/800/226/final",
+      "topics": [
+        "differential_privacy",
+        "privacy"
+      ],
+      "evidence_notes": "2025 final NIST guidance for evaluating DP claims, utility/bias tradeoffs and implementation hazards, including ML applications.",
+      "limits": "DP protects participation/privacy under a specified mechanism; it does not make raw sensitive processing or outputs inherently safe.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0323",
+      "title": "Thompson Sampling for Contextual Bandit Problems with Auxiliary Safety Constraints",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1911.00638",
+      "topics": [
+        "bandits",
+        "safe_exploration",
+        "constraints"
+      ],
+      "evidence_notes": "Contextual Thompson sampling variant incorporates multiple outcome/safety constraints relative to policy objectives.",
+      "limits": "Empirical/theoretical setting does not automatically translate to human-notification or personal-assistant harms.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0326",
+      "title": "OpenAI Responses API create reference",
+      "type": "official",
+      "url": "https://developers.openai.com/api/reference/cli/resources/responses/methods/create",
+      "topics": [
+        "decoding",
+        "tool_budget",
+        "truncation",
+        "logprobs"
+      ],
+      "evidence_notes": "Current Responses API reference exposes model-dependent temperature/top_p/logprobs and operational controls including max_output_tokens, max_tool_calls and truncation behavior.",
+      "limits": "Capabilities/parameters are model dependent and evolve.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0327",
+      "title": "OpenAI Token Counting",
+      "type": "official",
+      "url": "https://developers.openai.com/api/docs/guides/token-counting",
+      "topics": [
+        "tokens",
+        "cost",
+        "reasoning"
+      ],
+      "evidence_notes": "Current token-counting docs explain exact input counting and that output budgets include non-visible reasoning/formatting tokens, requiring headroom.",
+      "limits": "Provider-specific accounting.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0328",
+      "title": "Guidance: A Language for Controlling Large Language Models",
+      "type": "open_source",
+      "url": "https://github.com/guidance-ai/guidance",
+      "topics": [
+        "prompt_programming",
+        "constrained_generation"
+      ],
+      "evidence_notes": "Interleaves deterministic Python control with model generation and supports regex/CFG/JSON-schema constrained generation plus token fast-forwarding.",
+      "limits": "Framework abstraction and backend integration add maintenance; semantic correctness still requires validators.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0329",
+      "title": "MIPRO: Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2406.11695",
+      "topics": [
+        "prompt_optimization",
+        "DSPy"
+      ],
+      "evidence_notes": "Jointly optimizes instructions and demonstrations across multi-stage LM programs using downstream metrics/surrogate search; reported gains on most studied programs.",
+      "limits": "Optimizer can overfit development metric and costs many evaluations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0330",
+      "title": "GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2507.19457",
+      "topics": [
+        "prompt_optimization",
+        "evolution",
+        "reflection"
+      ],
+      "evidence_notes": "Uses trajectory reflection and Pareto/genetic search to evolve prompts; reported large gains with fewer rollouts than GRPO on studied tasks.",
+      "limits": "Recent method; reflection can mutate crucial constraints and holdout governance is essential.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0331",
+      "title": "RAG-Fusion",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03367",
+      "topics": [
+        "retrieval",
+        "query_expansion",
+        "RRF"
+      ],
+      "evidence_notes": "Generates multiple query perspectives and fuses ranked lists via reciprocal rank fusion for broader retrieval.",
+      "limits": "Small/manual evaluation and query drift risk.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0332",
+      "title": "Corrective Retrieval Augmented Generation (CRAG)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.15884",
+      "topics": [
+        "retrieval",
+        "adaptive_rag"
+      ],
+      "evidence_notes": "Retrieval evaluator triggers corrective retrieval actions, web extension, and selective document decomposition/recomposition.",
+      "limits": "Quality depends on evaluator; web expansion increases trust/injection surface.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0333",
+      "title": "Adaptive-RAG",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.14403",
+      "topics": [
+        "retrieval",
+        "routing"
+      ],
+      "evidence_notes": "Routes queries among no-retrieval, single-step and iterative retrieval based on predicted complexity.",
+      "limits": "Complexity is only a proxy for evidence need; classifier may not transfer.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0334",
+      "title": "Query2doc: Query Expansion with Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2303.07678",
+      "topics": [
+        "retrieval",
+        "query_expansion"
+      ],
+      "evidence_notes": "LLM-generated pseudo-documents expand queries and improved sparse/dense retrieval in original experiments.",
+      "limits": "Fabricated pseudo-document details can bias retrieval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0335",
+      "title": "RankGPT / Is ChatGPT Good at Search?",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2304.09542",
+      "topics": [
+        "retrieval",
+        "reranking",
+        "distillation"
+      ],
+      "evidence_notes": "Permutation-style LLM passage reranking was competitive with strong supervised rankers; ranking behavior was also distilled into a smaller model.",
+      "limits": "High inference cost and positional/order biases require controls.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0336",
+      "title": "ColPali: Efficient Document Retrieval with Vision Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.01449",
+      "topics": [
+        "document_retrieval",
+        "vision",
+        "late_interaction"
+      ],
+      "evidence_notes": "Retrieves visually rich document pages directly with vision-language multi-vector embeddings and late interaction.",
+      "limits": "Visual retrieval does not replace extraction/OCR where exact field values are needed; index is expensive.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0337",
+      "title": "Compacter: Efficient Low-Rank Hypercomplex Adapter Layers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2106.04647",
+      "topics": [
+        "PEFT",
+        "adapters"
+      ],
+      "evidence_notes": "Highly parameter-efficient hypercomplex adapter architecture reported competitive or better results with very small trainable fraction.",
+      "limits": "Older model regime and higher implementation complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0338",
+      "title": "DoRA: Weight-Decomposed Low-Rank Adaptation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.09353",
+      "topics": [
+        "PEFT",
+        "LoRA"
+      ],
+      "evidence_notes": "Separates weight magnitude and direction, applying low-rank updates to direction; reported stronger quality/stability than LoRA across several tasks.",
+      "limits": "Requires local training and exact-task revalidation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0339",
+      "title": "VeRA: Vector-based Random Matrix Adaptation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.11454",
+      "topics": [
+        "PEFT",
+        "LoRA"
+      ],
+      "evidence_notes": "Shares frozen random low-rank matrices and learns only scaling vectors, greatly reducing per-task trainable/storage parameters.",
+      "limits": "Quality depends on task/model/random basis.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0340",
+      "title": "NEFTune: Noisy Embeddings Improve Instruction Finetuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.05914",
+      "topics": [
+        "finetuning",
+        "regularization"
+      ],
+      "evidence_notes": "Embedding noise during fine-tuning produced large gains in original instruction-tuning experiments without extra data.",
+      "limits": "Authors note judge bias, limited large-model validation, fixed hyperparameters and unclear mechanism.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0341",
+      "title": "Editing Models with Task Arithmetic",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2212.04089",
+      "topics": [
+        "model_merging",
+        "task_vectors"
+      ],
+      "evidence_notes": "Fine-tune weight deltas can be added/subtracted to compose/suppress capabilities across compatible models.",
+      "limits": "Nonlinear interference and scale sensitivity require broad evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0342",
+      "title": "Language Models are Super Mario / DARE",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2311.03099",
+      "topics": [
+        "model_merging",
+        "DARE"
+      ],
+      "evidence_notes": "Randomly drops/rescales fine-tuning deltas and merges homologous models; reported strong capability composition without retraining.",
+      "limits": "Aggressive delta sparsification can cause hidden regressions and results depend on compatible models.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0343",
+      "title": "ShortGPT: Layers in Large Language Models are More Redundant Than You Expect",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.03853",
+      "topics": [
+        "pruning",
+        "layer_pruning"
+      ],
+      "evidence_notes": "Block-influence metric identifies low-impact transformer blocks for structured layer removal with reported strong compression.",
+      "limits": "Low average influence does not imply low importance on rare capabilities.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0344",
+      "title": "Compact Language Models via Pruning and Knowledge Distillation (Minitron)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.14679",
+      "topics": [
+        "pruning",
+        "distillation"
+      ],
+      "evidence_notes": "Systematic structured width/depth/attention/MLP pruning plus distillation produced smaller models with large training-token savings.",
+      "limits": "Requires significant retraining and exact model/task replication.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0345",
+      "title": "Mixture-of-Depths",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2404.02258",
+      "topics": [
+        "dynamic_compute",
+        "model_architecture"
+      ],
+      "evidence_notes": "Learns token-wise routing through transformer blocks under fixed compute budget and reported faster sampling at matched performance/FLOPs.",
+      "limits": "Training architecture and serving changes required.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0346",
+      "title": "H2O: Heavy-Hitter Oracle for Efficient Generative Inference",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.14048",
+      "topics": [
+        "KV_cache",
+        "inference"
+      ],
+      "evidence_notes": "Retains recent and high-attention heavy-hitter tokens while evicting others; reported substantial KV-memory/throughput gains.",
+      "limits": "Attention-importance policy can discard details needed later; workload/model dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0347",
+      "title": "Scissorhands: KV Cache Compression at Test Time",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.17118",
+      "topics": [
+        "KV_cache",
+        "inference"
+      ],
+      "evidence_notes": "Uses persistence-of-importance to retain pivotal KV entries and reported strong KV compression.",
+      "limits": "Heuristic may fail when previously low-attention tokens become important.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0348",
+      "title": "StreamingLLM: Efficient Streaming Language Models with Attention Sinks",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.17453",
+      "topics": [
+        "KV_cache",
+        "streaming",
+        "long_context"
+      ],
+      "evidence_notes": "Keeps initial attention-sink tokens plus recent rolling window to enable stable streaming with bounded cache.",
+      "limits": "Not equivalent to random-access long context; old content is discarded from KV.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0349",
+      "title": "LongLoRA",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.12307",
+      "topics": [
+        "long_context",
+        "PEFT"
+      ],
+      "evidence_notes": "Shifted short attention during fine-tuning with LoRA reduces long-context adaptation cost while using dense attention at inference.",
+      "limits": "Model-specific training/inference tradeoffs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0350",
+      "title": "Ring Attention with Blockwise Transformers for Near-Infinite Context",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.01889",
+      "topics": [
+        "long_context",
+        "distributed_attention"
+      ],
+      "evidence_notes": "Distributes sequence blocks across devices in a ring and overlaps attention computation with KV communication.",
+      "limits": "Multi-device complexity and total attention computation remain substantial.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0351",
+      "title": "Landmark Attention: Random-Access Infinite Context Length for Transformers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.16300",
+      "topics": [
+        "long_context",
+        "attention_retrieval"
+      ],
+      "evidence_notes": "Landmark tokens learn to route attention to relevant context blocks for long-range random access.",
+      "limits": "Requires training/model modification and is less auditable than external retrieval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0352",
+      "title": "WebArena",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2307.13854",
+      "topics": [
+        "web_agents",
+        "evaluation"
+      ],
+      "evidence_notes": "Reproducible realistic web environments with execution-based functional evaluation for long-horizon agents.",
+      "limits": "Rehosted websites do not fully reproduce live-web drift/security.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0353",
+      "title": "OSWorld",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2404.07972",
+      "topics": [
+        "computer_use",
+        "evaluation"
+      ],
+      "evidence_notes": "Real desktop applications/OS with execution-based evaluators for multimodal computer-use agents.",
+      "limits": "Benchmark task/app distribution differs from a user's real desktop.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0354",
+      "title": "AssistantBench",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2407.15711",
+      "topics": [
+        "web_agents",
+        "research_agents"
+      ],
+      "evidence_notes": "Realistic time-consuming web assistant tasks exposed low precision/hallucination and weak open-web agent performance in early systems.",
+      "limits": "Small/rapidly aging benchmark relative to agent progress.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0355",
+      "title": "AgentBench",
+      "type": "benchmark",
+      "url": "https://arxiv.org/abs/2308.03688",
+      "topics": [
+        "agents",
+        "evaluation"
+      ],
+      "evidence_notes": "Multi-environment benchmark exposes long-horizon reasoning/decision/instruction-following weaknesses across interactive environments.",
+      "limits": "Older model/scaffold generation and abstract task mix.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0356",
+      "title": "ProgPrompt: Generating Situated Robot Task Plans using Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2209.11302",
+      "topics": [
+        "planning",
+        "programmatic_prompting"
+      ],
+      "evidence_notes": "Program-like action/object specifications and examples constrain plans to executable action space.",
+      "limits": "Embodied domain and older model regime.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0357",
+      "title": "Inner Monologue: Embodied Reasoning through Planning with Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2207.05608",
+      "topics": [
+        "planning",
+        "environment_feedback"
+      ],
+      "evidence_notes": "Structured environment feedback, perception and success detection improve closed-loop embodied planning.",
+      "limits": "Robot-specific evidence; feedback quality remains the limiting oracle.",
+      "status": "verified_or_primary_lead"
+    }
+  ]
+}

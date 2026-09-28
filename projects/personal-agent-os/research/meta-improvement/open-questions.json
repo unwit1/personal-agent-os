@@ -1,0 +1,159 @@
+{
+  "schema": "personal-agent-os/meta-improvement-open-questions/v1",
+  "research_id": "MIR-2026-09-24-FOUNDATION-01",
+  "as_of": "2026-09-24",
+  "questions": [
+    {
+      "id": "MIQ-001",
+      "priority": "critical",
+      "question": "What are the minimum deterministic authorization invariants that every Agent OS tool/action must satisfy regardless of model/provider?",
+      "why": "This is the safety boundary for all future autonomy.",
+      "next_research": "Threat-model current tools; compare minimal custom policy vs Cedar/OPA embedding."
+    },
+    {
+      "id": "MIQ-002",
+      "priority": "critical",
+      "question": "Which current Agent OS workflows have external side effects that are not exactly-once or idempotent across interruption/resume?",
+      "why": "Durable execution is unsafe if resumed work repeats side effects.",
+      "next_research": "Audit orchestrator, browser bridge, future email/calendar/finance actions."
+    },
+    {
+      "id": "MIQ-003",
+      "priority": "high",
+      "question": "What real task corpus best represents the user's actual workload without exposing sensitive work/personal data to canonical Git or external providers?",
+      "why": "All routing and optimization quality depends on representative evaluation.",
+      "next_research": "Design local-private/synthetic/canonical split and sanitization policy."
+    },
+    {
+      "id": "MIQ-004",
+      "priority": "high",
+      "question": "How should Agent OS estimate user effort and cognitive load, not merely task success/token cost?",
+      "why": "The end goal is reducing the user's burden, which current telemetry undermeasures.",
+      "next_research": "HCI metrics, interaction counts, correction burden, task resumption, interruption cost."
+    },
+    {
+      "id": "MIQ-005",
+      "priority": "high",
+      "question": "What evidence threshold is sufficient to promote a candidate observation into a durable rule, skill, preference, or roadmap item?",
+      "why": "Too low causes memory/roadmap pollution; too high makes the system inert.",
+      "next_research": "Calibrate by object type and reversibility."
+    },
+    {
+      "id": "MIQ-006",
+      "priority": "high",
+      "question": "How should contradictory memories/claims evolve over time without destructive overwrite?",
+      "why": "Personal/work reality changes and sources can disagree.",
+      "next_research": "Temporal bitemporal model, supersession, source reliability, conflict views."
+    },
+    {
+      "id": "MIQ-007",
+      "priority": "high",
+      "question": "When does GraphRAG/knowledge-graph retrieval beat the existing hybrid/lexical approach enough to justify graph-maintenance cost?",
+      "why": "Graph systems are tempting but can duplicate indexes and create maintenance burden.",
+      "next_research": "Benchmark global synthesis vs entity/temporal queries on actual knowledge libraries."
+    },
+    {
+      "id": "MIQ-008",
+      "priority": "high",
+      "question": "What is the smallest set of quality SLOs and budgets that actually predicts whether Agent OS is getting better for the user?",
+      "why": "Metric sprawl creates Goodhart pressure and operational overhead.",
+      "next_research": "Select 3-5 top-level outcome metrics plus diagnostic metrics."
+    },
+    {
+      "id": "MIQ-009",
+      "priority": "high",
+      "question": "How can a proactive intervention's counterfactual value be estimated when the user never sees a suppressed suggestion?",
+      "why": "Precision is observable; missed opportunities are harder to measure.",
+      "next_research": "Sampled shadow review and retrospective opportunity audits."
+    },
+    {
+      "id": "MIQ-010",
+      "priority": "medium_high",
+      "question": "When should constructive challenge happen inline versus quietly as a candidate/digest item?",
+      "why": "Challenge is valuable but interruption has real cost.",
+      "next_research": "Task-boundary detection, urgency/reversibility thresholds, user feedback calibration."
+    },
+    {
+      "id": "MIQ-011",
+      "priority": "medium_high",
+      "question": "What threshold should trigger adoption of Temporal/Dapr rather than extending the existing lightweight workflow engine?",
+      "why": "Premature platform adoption may increase complexity; late adoption may waste work and reliability.",
+      "next_research": "Measure workflow duration, side effects, resume failures, event volume, experiment replay cost."
+    },
+    {
+      "id": "MIQ-012",
+      "priority": "medium_high",
+      "question": "How should model capability uncertainty be represented when eval samples are small or rapidly stale?",
+      "why": "Point estimates encourage brittle routing.",
+      "next_research": "Confidence intervals/Bayesian updates, minimum sample sizes, stale-evidence decay."
+    },
+    {
+      "id": "MIQ-013",
+      "priority": "medium_high",
+      "question": "How should judge disagreement be aggregated without turning multiple correlated model graders into fake certainty?",
+      "why": "LLM judges share training and bias; majority vote is not independent evidence.",
+      "next_research": "Deterministic rubrics, human calibration, judge diversity, position randomization, abstention."
+    },
+    {
+      "id": "MIQ-014",
+      "priority": "medium",
+      "question": "Which Agent OS state should be event-sourced versus stored only as current materialized state?",
+      "why": "Full event sourcing everywhere is likely unnecessary complexity.",
+      "next_research": "Classify audit-critical irreversible state, derived caches, and replaceable projections."
+    },
+    {
+      "id": "MIQ-015",
+      "priority": "medium",
+      "question": "How should research-radar cadence differ by ecosystem volatility and failure impact?",
+      "why": "Daily checks everywhere waste resources; slow checks may miss breaking deprecations.",
+      "next_research": "Risk-based cadence tiers and event-driven sources."
+    },
+    {
+      "id": "MIQ-016",
+      "priority": "medium",
+      "question": "Can component usage + capability overlap reliably identify safe deletions, or is human architectural review still required?",
+      "why": "A simplification engine could accidentally remove low-frequency but critical fallback paths.",
+      "next_research": "Shadow-disable experiments and fallback-criticality labels."
+    },
+    {
+      "id": "MIQ-017",
+      "priority": "medium",
+      "question": "How should future fine-tuning/distillation be isolated from personal/private evidence while still benefiting from repeated workflows?",
+      "why": "Training data can create irreversible leakage and hard-to-audit behavior.",
+      "next_research": "Synthetic/distilled sanitized traces, opt-in policy, local models, evaluation gates."
+    },
+    {
+      "id": "MIQ-018",
+      "priority": "medium",
+      "question": "How should Agent OS distinguish a genuinely new project from a recurring cross-project capability or a temporary task cluster?",
+      "why": "Over-projectization creates taxonomy churn.",
+      "next_research": "Evaluate project-candidate criteria against historical cases."
+    },
+    {
+      "id": "MIQ-019",
+      "priority": "medium",
+      "question": "What is the appropriate retention horizon for raw telemetry, traces, browser events, voice transcripts, and local learning evidence?",
+      "why": "More history helps learning but raises privacy/storage/security cost.",
+      "next_research": "Per-data-class value decay and retention policy."
+    },
+    {
+      "id": "MIQ-020",
+      "priority": "medium",
+      "question": "What would falsify the Meta-Improvement Engine itself—when should it be reduced, paused, or deleted?",
+      "why": "The optimizer must not become self-justifying bureaucracy.",
+      "next_research": "Define engine ROI metrics: accepted improvements, measured gains, research-to-change conversion, overhead, false-positive backlog."
+    }
+  ],
+  "unknown_unknown_domains": [
+    "Causal inference for workflow changes when many variables change together",
+    "Safe online learning / contextual bandits for proactivity and routing",
+    "Formal methods/model checking for authorization and workflow invariants",
+    "Data contracts/schema evolution and automated migration correctness",
+    "Economics of information: deciding when additional research is worth its cost",
+    "Human memory/task-resumption research for personal executive support",
+    "Reversible computing/change-management patterns for agent-created artifacts",
+    "Adversarial ML against memory poisoning and long-horizon preference manipulation",
+    "Local-first synchronization/CRDT approaches for multi-device Agent OS state",
+    "Personal-data governance and lifecycle policy for ambient/lifelogging systems"
+  ]
+}

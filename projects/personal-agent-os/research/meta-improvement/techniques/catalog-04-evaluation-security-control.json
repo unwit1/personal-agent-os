@@ -1,0 +1,1334 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "evaluation_security_control",
+  "techniques": [
+    {
+      "id": "AIT-0091",
+      "name": "Golden task corpus",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Create stable representative regression evidence",
+      "mechanism": "Maintain versioned tasks/fixtures with expected outcomes/rubrics drawn from real sanitized failures and expert-designed cases.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0098, SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Separate development cases from protected holdout.",
+      "use_when": [
+        "Every material Agent OS subsystem"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "suite coverage",
+        "production failure capture rate"
+      ],
+      "risks": [
+        "Staleness",
+        "overfitting"
+      ],
+      "cost_profile": "offline recurring",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098",
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "golden_set",
+        "task_corpus"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0092",
+      "name": "Historical task replay",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "runtime"
+      ],
+      "goal": "Test changes on actual prior workflows",
+      "mechanism": "Replay captured/sanitized task inputs and environment fixtures against candidate system version.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Private real cases local; canonical suite metadata remains sanitized.",
+      "use_when": [
+        "Routing",
+        "prompts",
+        "retrieval",
+        "agents"
+      ],
+      "avoid_when": [
+        "Private data cannot be safely reproduced outside local boundary"
+      ],
+      "required_evals": [
+        "success delta",
+        "cost",
+        "latency",
+        "correction"
+      ],
+      "risks": [
+        "Environment drift",
+        "privacy"
+      ],
+      "cost_profile": "offline potentially high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "replay",
+        "historical"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0093",
+      "name": "Synthetic regression cases",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Cover edge cases without storing sensitive source data",
+      "mechanism": "Construct minimal artificial fixture reproducing failure mechanism/invariant.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "When real work failure occurs, derive sanitized minimal test.",
+      "use_when": [
+        "Privacy-sensitive bugs",
+        "Boundary cases"
+      ],
+      "avoid_when": [
+        "Synthetic case fails to represent real mechanism"
+      ],
+      "required_evals": [
+        "bug reproduction",
+        "real-case correlation"
+      ],
+      "risks": [
+        "False confidence from oversimplified fixture"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "synthetic_fixture",
+        "regression"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0094",
+      "name": "Deterministic grader first",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "verification"
+      ],
+      "goal": "Use objective evidence before model judgment",
+      "mechanism": "Grade with unit tests, schemas, parsers, state diff, exact invariants, executable tests or reference calculations whenever possible.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0098, SRC-AI-0095.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "LLM grader supplements, never replaces an available hard oracle.",
+      "use_when": [
+        "Code",
+        "structured outputs",
+        "state transitions",
+        "calculations"
+      ],
+      "avoid_when": [
+        "Subjective quality"
+      ],
+      "required_evals": [
+        "grader coverage",
+        "false pass/fail"
+      ],
+      "risks": [
+        "Test incompleteness"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098",
+        "SRC-AI-0095"
+      ],
+      "keywords": [
+        "deterministic_grader"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0095",
+      "name": "Pairwise evaluation",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "llm_judge"
+      ],
+      "goal": "Make subjective comparison easier than absolute scoring",
+      "mechanism": "Present two outputs against a rubric and ask judge/human which better satisfies criteria.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0099, SRC-AI-0100.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Randomize order and aggregate swapped-order consistency.",
+      "use_when": [
+        "Prompt/model A/B",
+        "Writing quality"
+      ],
+      "avoid_when": [
+        "Need absolute threshold only"
+      ],
+      "required_evals": [
+        "human agreement",
+        "order consistency"
+      ],
+      "risks": [
+        "Position bias",
+        "verbosity bias"
+      ],
+      "cost_profile": "one judge call/pair",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099",
+        "SRC-AI-0100"
+      ],
+      "keywords": [
+        "pairwise"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0096",
+      "name": "Pass/fail rubric grading",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "llm_judge"
+      ],
+      "goal": "Tie evaluation to explicit acceptance threshold",
+      "mechanism": "Judge each criterion as met/not met with evidence instead of vague 1–10 scores.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use schema with criterion, verdict, evidence, confidence/abstain.",
+      "use_when": [
+        "Requirements",
+        "Policy adherence"
+      ],
+      "avoid_when": [
+        "Continuous quality measurement where magnitude matters"
+      ],
+      "required_evals": [
+        "human agreement",
+        "criterion error"
+      ],
+      "risks": [
+        "Rubric gaps",
+        "judge bias"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "pass_fail",
+        "rubric"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0097",
+      "name": "Reference-guided grading",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Anchor grader to known target evidence",
+      "mechanism": "Provide canonical reference answer/artifact/state and compare candidate against it.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Version references and allow multiple acceptable solutions.",
+      "use_when": [
+        "Extraction",
+        "Known solutions",
+        "Transformation"
+      ],
+      "avoid_when": [
+        "Open-ended task with many valid answers"
+      ],
+      "required_evals": [
+        "grader-human agreement"
+      ],
+      "risks": [
+        "Reference itself may be incomplete/stale"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "reference_grading"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0098",
+      "name": "LLM-as-judge with human calibration",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "llm_judge"
+      ],
+      "goal": "Scale subjective evaluation after validating judge behavior",
+      "mechanism": "Tune rubric/examples against expert labels, measure agreement and only then use judge broadly.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099, SRC-AI-0100.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Recalibrate whenever judge/model/rubric changes materially.",
+      "use_when": [
+        "Large subjective eval sets"
+      ],
+      "avoid_when": [
+        "No human ground truth at all for high-impact metric"
+      ],
+      "required_evals": [
+        "agreement",
+        "bias",
+        "consistency"
+      ],
+      "risks": [
+        "Judge drift",
+        "shared model blind spots"
+      ],
+      "cost_profile": "model cost + calibration",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099",
+        "SRC-AI-0100"
+      ],
+      "keywords": [
+        "judge_calibration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0099",
+      "name": "Swap-order judge test",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "llm_judge"
+      ],
+      "goal": "Detect position bias",
+      "mechanism": "Evaluate pair A/B in both orders; disagreement means uncertain/bias-sensitive result.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0100.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Mandatory for high-value automated pairwise judge comparisons.",
+      "use_when": [
+        "Pairwise LLM grading"
+      ],
+      "avoid_when": [
+        "Deterministic grader"
+      ],
+      "required_evals": [
+        "position consistency"
+      ],
+      "risks": [
+        "Doubles judge calls"
+      ],
+      "cost_profile": "2x pairwise grading",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0100"
+      ],
+      "keywords": [
+        "position_bias"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0100",
+      "name": "Length/verbosity bias control",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "llm_judge"
+      ],
+      "goal": "Prevent longer answers from winning merely for length",
+      "mechanism": "Include concise rubric, compare equalized/controlled outputs or measure length correlation and adjust review.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0099, SRC-AI-0108.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Store output length as diagnostic covariate.",
+      "use_when": [
+        "Writing/summary judges"
+      ],
+      "avoid_when": [
+        "Length itself is desired criterion"
+      ],
+      "required_evals": [
+        "preference vs length correlation"
+      ],
+      "risks": [
+        "Over-normalization can punish legitimately detailed answers"
+      ],
+      "cost_profile": "offline analysis",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099",
+        "SRC-AI-0108"
+      ],
+      "keywords": [
+        "verbosity_bias"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0101",
+      "name": "Judge disagreement preservation",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Represent epistemic uncertainty instead of forcing consensus",
+      "mechanism": "Store individual grader outputs and disagreement; escalate unresolved material disagreement.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0100, SRC-AI-0101.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Do not turn majority count into fake calibrated probability.",
+      "use_when": [
+        "Multiple graders",
+        "Human/model mixed review"
+      ],
+      "avoid_when": [
+        "Single deterministic oracle"
+      ],
+      "required_evals": [
+        "disagreement rate",
+        "resolution outcomes"
+      ],
+      "risks": [
+        "Review overhead"
+      ],
+      "cost_profile": "variable",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0100",
+        "SRC-AI-0101"
+      ],
+      "keywords": [
+        "disagreement"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0102",
+      "name": "Protected holdout eval set",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Measure generalization after prompt/workflow optimization",
+      "mechanism": "Keep cases invisible to optimizers/developers until promotion decision.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Access policy separates dev optimizer from holdout runner.",
+      "use_when": [
+        "Automated optimization",
+        "Prompt search",
+        "Fine-tuning"
+      ],
+      "avoid_when": [
+        "One-off debugging only"
+      ],
+      "required_evals": [
+        "holdout gap",
+        "leak checks"
+      ],
+      "risks": [
+        "Leakage/contamination"
+      ],
+      "cost_profile": "offline",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "holdout",
+        "overfitting"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0103",
+      "name": "Dynamic benchmark refresh",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Reduce overfitting and stale benchmark assumptions",
+      "mechanism": "Periodically add new cases from recent failures, new tasks and generated-but-validated variants while preserving version lineage.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Keep frozen anchor suite plus rolling frontier suite.",
+      "use_when": [
+        "Rapidly changing models/workflows"
+      ],
+      "avoid_when": [
+        "Safety-critical baselines also require stable sentinel cases"
+      ],
+      "required_evals": [
+        "old/new suite performance",
+        "drift"
+      ],
+      "risks": [
+        "Moving target complicates longitudinal comparison"
+      ],
+      "cost_profile": "ongoing curation",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "dynamic_benchmark"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0104",
+      "name": "Contamination tracking",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "provenance"
+      ],
+      "goal": "Know whether an eval case may have influenced model/prompt optimization",
+      "mechanism": "Record public/private status, first seen date, optimizer exposure, training/dev/holdout membership.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer private recent task suites for route decisions.",
+      "use_when": [
+        "Model comparisons",
+        "Automated prompt optimization"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "split-integrity checks"
+      ],
+      "risks": [
+        "Unknown provider training data remains unknowable"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "contamination"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0105",
+      "name": "Fault injection / chaos testing",
+      "aliases": [],
+      "category": "reliability",
+      "layer": [
+        "evaluation",
+        "runtime"
+      ],
+      "goal": "Verify agent/workflow recovery from realistic failures",
+      "mechanism": "Intentionally inject tool timeouts, 429/503, process kills, malformed results, disk errors, provider outages and stale state.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0144, SRC-AI-0128.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Run in fixtures/sandboxes; include mid-side-effect crashes.",
+      "use_when": [
+        "Long-running workflows",
+        "External integrations"
+      ],
+      "avoid_when": [
+        "Production without safe test environment"
+      ],
+      "required_evals": [
+        "recovery rate",
+        "duplicate side effects",
+        "MTTR"
+      ],
+      "risks": [
+        "Can damage data if isolation fails"
+      ],
+      "cost_profile": "test infra",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0144",
+        "SRC-AI-0128"
+      ],
+      "keywords": [
+        "fault_injection",
+        "chaos"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0106",
+      "name": "Interruption/resume evals",
+      "aliases": [],
+      "category": "reliability",
+      "layer": [
+        "evaluation",
+        "runtime"
+      ],
+      "goal": "Prove resumability rather than assume it",
+      "mechanism": "Terminate workflow at each checkpoint/critical boundary and verify restart reaches same valid final state without duplicate effects.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0144.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Automatic property-style test across stage boundaries.",
+      "use_when": [
+        "Any claimed resumable workflow"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "state equivalence",
+        "duplicate effects",
+        "work repeated"
+      ],
+      "risks": [
+        "Test matrix grows with stages"
+      ],
+      "cost_profile": "offline",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "keywords": [
+        "resume_test"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0107",
+      "name": "Shadow deployment",
+      "aliases": [],
+      "category": "deployment",
+      "layer": [
+        "evaluation",
+        "release"
+      ],
+      "goal": "Evaluate candidate on real inputs without controlling live actions/output",
+      "mechanism": "Run candidate in parallel, suppress side effects, compare decisions/results offline.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0103.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Authorization/privacy identical to production even when side effects disabled.",
+      "use_when": [
+        "Routing",
+        "prompts",
+        "retrieval",
+        "proactivity"
+      ],
+      "avoid_when": [
+        "Candidate requires irreversible interaction to learn"
+      ],
+      "required_evals": [
+        "candidate-vs-live deltas",
+        "cost"
+      ],
+      "risks": [
+        "Shadow can leak data if policy differs"
+      ],
+      "cost_profile": "duplicate inference cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0103"
+      ],
+      "keywords": [
+        "shadow"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0108",
+      "name": "Canary rollout",
+      "aliases": [],
+      "category": "deployment",
+      "layer": [
+        "evaluation",
+        "release"
+      ],
+      "goal": "Limit blast radius of a promoted behavior",
+      "mechanism": "Expose small bounded workload share, monitor target + guardrail metrics, expand or rollback.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0103.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Risk class determines sample/window/approval.",
+      "use_when": [
+        "Material behavior/config/model changes"
+      ],
+      "avoid_when": [
+        "Offline-only local utility"
+      ],
+      "required_evals": [
+        "SLO/error budget",
+        "quality",
+        "rollback latency"
+      ],
+      "risks": [
+        "Small canary may miss rare defects"
+      ],
+      "cost_profile": "small production risk",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0103"
+      ],
+      "keywords": [
+        "canary"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0109",
+      "name": "Feature flags / reversible configuration",
+      "aliases": [],
+      "category": "deployment",
+      "layer": [
+        "release",
+        "control"
+      ],
+      "goal": "Separate deployment from activation and enable rapid rollback",
+      "mechanism": "Gate behavior changes via versioned config/feature flags rather than irreversible code path switch.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0103.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Flags require owner, expiry/review date and default.",
+      "use_when": [
+        "Prompt/router/proactivity/retrieval changes"
+      ],
+      "avoid_when": [
+        "Security policy where disabled state would be unsafe"
+      ],
+      "required_evals": [
+        "rollback drill",
+        "flag drift"
+      ],
+      "risks": [
+        "Permanent stale flags"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0103"
+      ],
+      "keywords": [
+        "feature_flag",
+        "rollback"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0110",
+      "name": "SLOs and error budgets for agent quality",
+      "aliases": [],
+      "category": "control_system",
+      "layer": [
+        "evaluation",
+        "governance"
+      ],
+      "goal": "Prevent rapid change from degrading reliability",
+      "mechanism": "Define small set of quality/reliability SLOs; when budget is exhausted, pause risky feature change and prioritize reliability.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0142.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use few user-value SLOs plus diagnostics, not metric explosion.",
+      "use_when": [
+        "Mature Agent OS subsystems"
+      ],
+      "avoid_when": [
+        "Early prototype before metrics exist"
+      ],
+      "required_evals": [
+        "SLO attainment",
+        "budget policy actions"
+      ],
+      "risks": [
+        "Bad SLO becomes Goodhart target"
+      ],
+      "cost_profile": "measurement overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0142"
+      ],
+      "keywords": [
+        "SLO",
+        "error_budget"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0111",
+      "name": "Independent security regression suite",
+      "aliases": [],
+      "category": "security_evaluation",
+      "layer": [
+        "security",
+        "evaluation"
+      ],
+      "goal": "Prevent optimizations from silently weakening safety boundaries",
+      "mechanism": "Keep authorization/injection/exfiltration/secret/privacy tests outside optimizer control and mandatory for promotion.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0137, SRC-AI-0139.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Optimizer cannot edit its mandatory gates in same change.",
+      "use_when": [
+        "All Meta-Improvement promotions"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "security test pass",
+        "policy coverage"
+      ],
+      "risks": [
+        "Incomplete adversarial corpus"
+      ],
+      "cost_profile": "offline",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0137",
+        "SRC-AI-0139"
+      ],
+      "keywords": [
+        "security_gate"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0112",
+      "name": "Default-deny authorization",
+      "aliases": [],
+      "category": "authorization",
+      "layer": [
+        "security",
+        "control"
+      ],
+      "goal": "Ensure unspecified actions are not implicitly allowed",
+      "mechanism": "Deterministic policy allows only explicitly permitted principal-action-resource-context combinations.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0135, SRC-AI-0136.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Model never determines permission.",
+      "use_when": [
+        "Consequential tools",
+        "Cross-domain data"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "deny/allow property tests",
+        "false denials"
+      ],
+      "risks": [
+        "Policy complexity",
+        "availability impact"
+      ],
+      "cost_profile": "milliseconds local",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0135",
+        "SRC-AI-0136"
+      ],
+      "keywords": [
+        "default_deny"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0113",
+      "name": "Least privilege / capability separation",
+      "aliases": [],
+      "category": "authorization",
+      "layer": [
+        "security",
+        "tools"
+      ],
+      "goal": "Reduce blast radius of compromised/mistaken agent",
+      "mechanism": "Grant narrowly scoped read/propose/write/send/delete/spend capabilities per agent/action/resource.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0135, SRC-AI-0138.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Distinct permission classes replace broad 'tool access'.",
+      "use_when": [
+        "Every autonomous worker"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "privilege-escalation tests",
+        "capability usage"
+      ],
+      "risks": [
+        "Operational friction if overly narrow"
+      ],
+      "cost_profile": "low runtime",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0135",
+        "SRC-AI-0138"
+      ],
+      "keywords": [
+        "least_privilege",
+        "capability"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0114",
+      "name": "On-behalf-of delegation identity",
+      "aliases": [],
+      "category": "authorization",
+      "layer": [
+        "security",
+        "identity"
+      ],
+      "goal": "Distinguish agent identity from user authority",
+      "mechanism": "Policy request represents agent principal and delegated user/approval separately; delegation never implies unrestricted user permissions.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0135.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every external action audit records both actor and on-behalf-of user.",
+      "use_when": [
+        "Email/calendar/finance/work systems"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "confused-deputy tests",
+        "audit completeness"
+      ],
+      "risks": [
+        "Identity propagation bugs"
+      ],
+      "cost_profile": "low",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0135"
+      ],
+      "keywords": [
+        "delegation",
+        "principal"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0115",
+      "name": "Trusted control / untrusted data separation",
+      "aliases": [],
+      "category": "prompt_injection_defense",
+      "layer": [
+        "security",
+        "agents"
+      ],
+      "goal": "Stop retrieved text from becoming authority",
+      "mechanism": "Keep plans/policies/capabilities in trusted structures; label external content as data and enforce its permitted flows at action boundaries.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0137, SRC-AI-0138.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Core MIE-0007 target.",
+      "use_when": [
+        "Web/email/doc/browser/tool content"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "AgentDojo-style attacks",
+        "benign utility"
+      ],
+      "risks": [
+        "Complex information-flow tracking",
+        "false blocks"
+      ],
+      "cost_profile": "moderate engineering",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0137",
+        "SRC-AI-0138"
+      ],
+      "keywords": [
+        "taint",
+        "control_flow"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0116",
+      "name": "Provenance/taint labels",
+      "aliases": [],
+      "category": "prompt_injection_defense",
+      "layer": [
+        "security",
+        "provenance"
+      ],
+      "goal": "Carry source trust and sensitivity through transformations",
+      "mechanism": "Attach metadata to values/claims and propagate it through retrieval, summaries and tool arguments.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0138, SRC-AI-0133.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Structured outputs preserve source IDs at claim/value granularity.",
+      "use_when": [
+        "Multi-source Agent OS"
+      ],
+      "avoid_when": [
+        "Tiny isolated app"
+      ],
+      "required_evals": [
+        "taint propagation tests",
+        "false negative paths"
+      ],
+      "risks": [
+        "Label explosion",
+        "loss through freeform text"
+      ],
+      "cost_profile": "metadata overhead",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0138",
+        "SRC-AI-0133"
+      ],
+      "keywords": [
+        "taint_tracking"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0117",
+      "name": "Secret isolation",
+      "aliases": [],
+      "category": "security",
+      "layer": [
+        "security",
+        "runtime"
+      ],
+      "goal": "Prevent models/prompts/logs from seeing credentials unnecessarily",
+      "mechanism": "Resolve credentials inside trusted tool adapter; model receives opaque capability/result, not secret value.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Secrets never enter prompt, canonical Git or ordinary traces.",
+      "use_when": [
+        "All external integrations"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "secret scanning",
+        "exfiltration tests"
+      ],
+      "risks": [
+        "Adapter bugs/logging leakage"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "secrets"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0118",
+      "name": "Sandbox generated code/actions",
+      "aliases": [],
+      "category": "security",
+      "layer": [
+        "security",
+        "tools"
+      ],
+      "goal": "Contain errors or malicious generated code",
+      "mechanism": "Run code in constrained filesystem/network/process environment with explicit mounts/time/resources.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0139, SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Default no network/secrets; grant only declared resources.",
+      "use_when": [
+        "Coding agents",
+        "Document converters",
+        "Browser/computer tasks"
+      ],
+      "avoid_when": [
+        "Pure declarative safe operation"
+      ],
+      "required_evals": [
+        "escape tests",
+        "resource limits"
+      ],
+      "risks": [
+        "Sandbox gaps",
+        "platform complexity"
+      ],
+      "cost_profile": "runtime overhead",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0139",
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "sandbox"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0119",
+      "name": "Immutable/tamper-evident audit trail",
+      "aliases": [],
+      "category": "security",
+      "layer": [
+        "security",
+        "observability"
+      ],
+      "goal": "Keep evidence of consequential actions/failures independent of agent self-report",
+      "mechanism": "Append action/policy decision/result metadata to protected audit log with hashes/version identity.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0133, SRC-AI-0134.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agents cannot delete required audit evidence.",
+      "use_when": [
+        "Consequential automation",
+        "Self-improvement"
+      ],
+      "avoid_when": [
+        "High-volume benign telemetry may use cheaper retention"
+      ],
+      "required_evals": [
+        "audit completeness",
+        "tamper tests"
+      ],
+      "risks": [
+        "Sensitive data in logs",
+        "storage"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0133",
+        "SRC-AI-0134"
+      ],
+      "keywords": [
+        "audit",
+        "tamper_evident"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0120",
+      "name": "Supply-chain provenance and pinned dependencies",
+      "aliases": [],
+      "category": "security",
+      "layer": [
+        "security",
+        "software_supply_chain"
+      ],
+      "goal": "Reduce dependency/update compromise and improve reproducibility",
+      "mechanism": "Record source/build provenance, lock versions/hashes, verify signatures/attestations where available, scan upgrades before promotion.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0134, SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Research Radar opens upgrade candidate; eval/security gates decide promotion.",
+      "use_when": [
+        "Agent OS code/tools/models"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "rebuild reproducibility",
+        "dependency audit"
+      ],
+      "risks": [
+        "Pinning can delay security fixes"
+      ],
+      "cost_profile": "maintenance overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0134",
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "SLSA",
+        "dependencies"
+      ],
+      "notes": ""
+    }
+  ]
+}

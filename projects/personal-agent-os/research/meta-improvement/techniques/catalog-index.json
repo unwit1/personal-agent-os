@@ -1,0 +1,174 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-index/v1",
+  "as_of": "2026-09-25",
+  "branch": "research/meta-improvement-foundation-20260924",
+  "total_techniques": 385,
+  "first_id": "AIT-0001",
+  "last_id": "AIT-0385",
+  "contiguous_ids": true,
+  "unresolved_source_refs": [],
+  "catalogs": [
+    {
+      "file": "catalog-01-prompting-reasoning.json",
+      "domain": "prompting_reasoning",
+      "count": 30,
+      "id_range": [
+        "AIT-0001",
+        "AIT-0030"
+      ]
+    },
+    {
+      "file": "catalog-02-context-retrieval-memory.json",
+      "domain": "context_retrieval_memory",
+      "count": 30,
+      "id_range": [
+        "AIT-0031",
+        "AIT-0060"
+      ]
+    },
+    {
+      "file": "catalog-03-tools-agents-runtime.json",
+      "domain": "tools_agents_runtime",
+      "count": 30,
+      "id_range": [
+        "AIT-0061",
+        "AIT-0090"
+      ]
+    },
+    {
+      "file": "catalog-04-evaluation-security-control.json",
+      "domain": "evaluation_security_control",
+      "count": 30,
+      "id_range": [
+        "AIT-0091",
+        "AIT-0120"
+      ]
+    },
+    {
+      "file": "catalog-05-data-training-model-inference.json",
+      "domain": "data_training_model_inference",
+      "count": 35,
+      "id_range": [
+        "AIT-0121",
+        "AIT-0155"
+      ]
+    },
+    {
+      "file": "catalog-06-human-proactivity-ux.json",
+      "domain": "human_proactivity_ux",
+      "count": 20,
+      "id_range": [
+        "AIT-0156",
+        "AIT-0175"
+      ]
+    },
+    {
+      "file": "catalog-07-frontier-model-control-and-oversight.json",
+      "domain": "frontier_model_control_and_oversight",
+      "count": 35,
+      "id_range": [
+        "AIT-0176",
+        "AIT-0210"
+      ]
+    },
+    {
+      "file": "catalog-08-decoding-structured-rag-prompt-optimization.json",
+      "domain": "decoding_structured_rag_prompt_optimization",
+      "count": 25,
+      "id_range": [
+        "AIT-0211",
+        "AIT-0235"
+      ]
+    },
+    {
+      "file": "catalog-09-peft-compression-long-context-computer-use.json",
+      "domain": "peft_compression_long_context_computer_use",
+      "count": 30,
+      "id_range": [
+        "AIT-0236",
+        "AIT-0265"
+      ]
+    },
+    {
+      "file": "catalog-10-symbolic-solvers-optimization-formal-control.json",
+      "domain": "symbolic_solvers_optimization_formal_control",
+      "count": 30,
+      "id_range": [
+        "AIT-0266",
+        "AIT-0295"
+      ]
+    },
+    {
+      "file": "catalog-11-uncertainty-fuzzing-testing-static-analysis.json",
+      "domain": "uncertainty_fuzzing_testing_static_analysis",
+      "count": 30,
+      "id_range": [
+        "AIT-0296",
+        "AIT-0325"
+      ]
+    },
+    {
+      "file": "catalog-12-continual-learning-online-adaptation-privacy-system-debt.json",
+      "domain": "continual_learning_online_adaptation_privacy_system_debt",
+      "count": 30,
+      "id_range": [
+        "AIT-0326",
+        "AIT-0355"
+      ]
+    },
+    {
+      "file": "catalog-13-specialized-prompting-behavioral-scaffolds.json",
+      "domain": "specialized_prompting_behavioral_scaffolds",
+      "count": 30,
+      "id_range": [
+        "AIT-0356",
+        "AIT-0385"
+      ]
+    }
+  ],
+  "validation": {
+    "duplicate_technique_ids": 0,
+    "missing_numeric_ids": 0,
+    "unresolved_source_refs": 0,
+    "duplicate_source_ids": 0,
+    "duplicate_source_titles": 0,
+    "last_validated_at": "2026-09-25"
+  },
+  "headline_counts": {
+    "agent_os_fit": {
+      "core": 161,
+      "high": 57,
+      "conditional": 59,
+      "research_only": 74,
+      "unlikely": 4
+    },
+    "maturity": {
+      "production_pattern": 86,
+      "promising_research": 74,
+      "foundational": 73,
+      "replicated_research": 73,
+      "engineering_pattern": 35,
+      "mixed_evidence": 5,
+      "early_research": 5,
+      "historical": 4
+    },
+    "evidence_strength": {
+      "high": 205,
+      "medium_high": 101,
+      "medium": 43,
+      "low_medium": 6
+    }
+  },
+  "retrieval_hints": {
+    "core_first": "Filter agent_os_fit=core, then category/layer, then evidence strength and required_evals.",
+    "historical_search": "Do not exclude research_only/unlikely for literature review, future-model research, or alternative-mechanism discovery.",
+    "adoption_rule": "An AIT entry is evidence, not an adoption decision. Link it to IMP/HYP/EXP/EVR records before promotion.",
+    "negative_evidence": "Consult negative-results/anti-pattern-registry.json before treating any technique as a default.",
+    "source_rule": "Every source ID in the current index resolves in sources/source-registry-pass2.json."
+  },
+  "source_registry": {
+    "path": "../sources/source-registry-pass2.json",
+    "source_count": 302,
+    "max_source_id": "SRC-AI-0357"
+  }
+}

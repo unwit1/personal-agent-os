@@ -1,0 +1,1062 @@
+{
+  "schema": "personal-agent-os/ai-improvement-antipattern-registry/v1",
+  "as_of": "2026-09-25",
+  "count": 70,
+  "items": [
+    {
+      "id": "NEG-0001",
+      "title": "Same-model self-critique is proof of correctness",
+      "why_it_fails": "The generator can share the exact blind spot it is asked to detect; intrinsic self-correction has mixed/negative evidence.",
+      "preferred_alternative": "Use reflection to generate hypotheses, then verify with tests, tools, retrieval, independent evidence, or calibrated external graders.",
+      "related_techniques": [
+        "AIT-0026",
+        "AIT-0027",
+        "AIT-0028"
+      ],
+      "sources": [
+        "SRC-AI-0057",
+        "SRC-AI-0058"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0002",
+      "title": "Majority vote means truth",
+      "why_it_fails": "Multiple samples/models can share correlated training errors; agreement measures consistency, not correctness.",
+      "preferred_alternative": "Use deterministic/reference evidence where possible; calibrate disagreement and preserve abstention.",
+      "related_techniques": [
+        "AIT-0013",
+        "AIT-0101"
+      ],
+      "sources": [
+        "SRC-AI-0048",
+        "SRC-AI-0101"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0003",
+      "title": "More agents are automatically better",
+      "why_it_fails": "Agent fan-out adds coordination, duplicated exploration, context transfer and large token multipliers; tightly coupled work often suffers.",
+      "preferred_alternative": "Fan out only independent work with measurable breadth/latency benefit and enforce budgets/dedupe.",
+      "related_techniques": [
+        "AIT-0082",
+        "AIT-0085"
+      ],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0004",
+      "title": "A specialist agent is just a different persona prompt",
+      "why_it_fails": "Role labels without distinct tools, context, policy, capability or evals create maintenance without real specialization.",
+      "preferred_alternative": "Represent specialists as capability profiles with measurable differences.",
+      "related_techniques": [
+        "AIT-0083"
+      ],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "severity": "medium_high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0005",
+      "title": "Bigger context window eliminates retrieval/memory design",
+      "why_it_fails": "Nominal capacity does not guarantee useful attention, and long inputs still increase cost, latency, stale context and positional failures.",
+      "preferred_alternative": "Use selective retrieval, progressive disclosure, compaction and long-context behavioral evals.",
+      "related_techniques": [
+        "AIT-0053",
+        "AIT-0055",
+        "AIT-0197"
+      ],
+      "sources": [
+        "SRC-AI-0073",
+        "SRC-AI-0070"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0006",
+      "title": "Dump the entire conversation/project into every prompt",
+      "why_it_fails": "Most context becomes repeated overhead and can obscure relevant constraints.",
+      "preferred_alternative": "Retrieve task-specific slices and measure context utility/ablation.",
+      "related_techniques": [
+        "AIT-0054"
+      ],
+      "sources": [
+        "SRC-AI-0070"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0007",
+      "title": "Retrieve more documents to improve RAG",
+      "why_it_fails": "Additional low-relevance evidence can decrease precision and confuse generation.",
+      "preferred_alternative": "Optimize recall at candidate stage, then filter/rerank and cap context by measured utility.",
+      "related_techniques": [
+        "AIT-0033",
+        "AIT-0034",
+        "AIT-0046"
+      ],
+      "sources": [
+        "SRC-AI-0079",
+        "SRC-AI-0080"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0008",
+      "title": "Embeddings replace lexical search",
+      "why_it_fails": "Dense retrieval can miss exact IDs, error strings, names and rare terminology.",
+      "preferred_alternative": "Use lexical + dense hybrid routes and task-specific ablations.",
+      "related_techniques": [
+        "AIT-0031",
+        "AIT-0032",
+        "AIT-0033"
+      ],
+      "sources": [
+        "SRC-AI-0072"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0009",
+      "title": "GraphRAG/knowledge graph should index everything",
+      "why_it_fails": "Graph construction, entity resolution, summaries and refresh can cost more than the query benefit for local lookup.",
+      "preferred_alternative": "Benchmark graph-specific global/relational queries against hybrid text + typed edges first.",
+      "related_techniques": [
+        "AIT-0048",
+        "AIT-0049"
+      ],
+      "sources": [
+        "SRC-AI-0078"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0010",
+      "title": "A summary can replace its source",
+      "why_it_fails": "Summaries are lossy derived state and can preserve/compound an earlier error.",
+      "preferred_alternative": "Keep canonical evidence addressable; summaries point back to exact sources and can be rebuilt.",
+      "related_techniques": [
+        "AIT-0052",
+        "AIT-0057"
+      ],
+      "sources": [
+        "SRC-AI-0133"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0011",
+      "title": "Memory should remember everything forever",
+      "why_it_fails": "Unbounded retention increases retrieval noise, privacy exposure and stale/conflicting facts.",
+      "preferred_alternative": "Separate evidence from active memory; archive/demote/supersede using retention policy.",
+      "related_techniques": [
+        "AIT-0058",
+        "AIT-0059",
+        "AIT-0060"
+      ],
+      "sources": [
+        "SRC-AI-0084"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0012",
+      "title": "One user action is a durable global preference",
+      "why_it_fails": "Preferences are often context-, domain- and time-dependent.",
+      "preferred_alternative": "Stage candidates, track recurrence/context, and promote only with explicit or repeated evidence.",
+      "related_techniques": [
+        "AIT-0171",
+        "AIT-0057"
+      ],
+      "sources": [
+        "SRC-AI-0082"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0013",
+      "title": "Overwrite old memory when a fact changes",
+      "why_it_fails": "Destructive overwrite loses historical truth and why a decision was made.",
+      "preferred_alternative": "Use supersession/validity intervals and provenance-preserving reconsolidation.",
+      "related_techniques": [
+        "AIT-0060"
+      ],
+      "sources": [
+        "SRC-AI-0133"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0014",
+      "title": "A generic intelligence score should decide model routing",
+      "why_it_fails": "Aggregate benchmarks hide task family, reliability, latency, tools, privacy and version-specific behavior.",
+      "preferred_alternative": "Route on Agent-OS task-specific measured distributions with generic scores only as priors.",
+      "related_techniques": [
+        "AIT-0146",
+        "AIT-0147"
+      ],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0015",
+      "title": "Public leaderboard winner is the production winner",
+      "why_it_fails": "Benchmark contamination, task mismatch and scaffolding differences can reverse rankings on real workloads.",
+      "preferred_alternative": "Use private task corpus and champion/challenger shadow evaluation.",
+      "related_techniques": [
+        "AIT-0102",
+        "AIT-0103",
+        "AIT-0147"
+      ],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0016",
+      "title": "Model aliases are reproducible evidence",
+      "why_it_fails": "Aliases can silently point to a new model/revision.",
+      "preferred_alternative": "Record resolved concrete model/version and revalidate when it changes.",
+      "related_techniques": [
+        "AIT-0355"
+      ],
+      "sources": [
+        "SRC-AI-0192"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0017",
+      "title": "Use the strongest model for every call",
+      "why_it_fails": "Many tasks are deterministic/simple and do not benefit enough to justify frontier cost/latency.",
+      "preferred_alternative": "Use validators and constrained routing to choose the cheapest eligible path.",
+      "related_techniques": [
+        "AIT-0081",
+        "AIT-0146"
+      ],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0018",
+      "title": "Fine-tune before fixing data/context/tools/evals",
+      "why_it_fails": "Training adds data governance, rollback and behavioral opacity and may solve a problem caused by poor scaffolding.",
+      "preferred_alternative": "Prefer deterministic code, retrieval, prompts, tools and routing first; fine-tune after measured plateau.",
+      "related_techniques": [
+        "AIT-0131",
+        "AIT-0354"
+      ],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0019",
+      "title": "More training examples are always better",
+      "why_it_fails": "Noisy/duplicate data can waste compute and reduce quality; selection/curation can outperform full sets.",
+      "preferred_alternative": "Deduplicate, filter and evaluate data quality/coverage.",
+      "related_techniques": [
+        "AIT-0121",
+        "AIT-0122",
+        "AIT-0123"
+      ],
+      "sources": [
+        "SRC-AI-0116",
+        "SRC-AI-0114"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0020",
+      "title": "Recursive synthetic data can replace real data indefinitely",
+      "why_it_fails": "Repeated training on generated distributions can lose tails and amplify model errors.",
+      "preferred_alternative": "Preserve real/verified anchors, provenance, diversity and external holdouts.",
+      "related_techniques": [
+        "AIT-0126",
+        "AIT-0128"
+      ],
+      "sources": [
+        "SRC-AI-0117"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0021",
+      "title": "Model-edit personal/current facts into weights",
+      "why_it_fails": "Parametric editing is less auditable/reversible and mass/sequential edits can degrade capabilities.",
+      "preferred_alternative": "Keep mutable knowledge external and retrieved with provenance.",
+      "related_techniques": [
+        "AIT-0194",
+        "AIT-0195",
+        "AIT-0210"
+      ],
+      "sources": [
+        "SRC-AI-0171"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0022",
+      "title": "Continual fine-tuning can learn forever without regressions",
+      "why_it_fails": "Sequential updates can catastrophically forget earlier capabilities and preferences.",
+      "preferred_alternative": "Use regression replay/adapters and external memory; test old tasks after every adaptation.",
+      "related_techniques": [
+        "AIT-0326",
+        "AIT-0327",
+        "AIT-0329"
+      ],
+      "sources": [
+        "SRC-AI-0264",
+        "SRC-AI-0265"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0023",
+      "title": "Ask an LLM to calculate/query what deterministic software can compute",
+      "why_it_fails": "Generative reasoning adds cost and error where code/SQL/solver provides an exact result.",
+      "preferred_alternative": "Compile interpretation into deterministic query/program/solver and validate semantics.",
+      "related_techniques": [
+        "AIT-0021",
+        "AIT-0290"
+      ],
+      "sources": [
+        "SRC-AI-0052",
+        "SRC-AI-0292"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0024",
+      "title": "A solver returning a valid solution proves the user request was understood",
+      "why_it_fails": "Solvers prove properties of the formal specification, not semantic fidelity of model-generated formalization.",
+      "preferred_alternative": "Validate source→spec coverage, assumptions, units and high-risk spec diffs.",
+      "related_techniques": [
+        "AIT-0266",
+        "AIT-0284"
+      ],
+      "sources": [
+        "SRC-AI-0294"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0025",
+      "title": "Model output should decide authorization",
+      "why_it_fails": "A compromised/mistaken model can simply reason itself into broader authority.",
+      "preferred_alternative": "Keep default-deny authorization deterministic and external to the model.",
+      "related_techniques": [
+        "AIT-0112",
+        "AIT-0113"
+      ],
+      "sources": [
+        "SRC-AI-0135"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0026",
+      "title": "Prompt instructions are a sufficient prompt-injection defense",
+      "why_it_fails": "Untrusted content can still influence the same model that chooses actions.",
+      "preferred_alternative": "Separate trusted control from untrusted data and enforce data/capability flow at tool boundaries.",
+      "related_techniques": [
+        "AIT-0115",
+        "AIT-0116"
+      ],
+      "sources": [
+        "SRC-AI-0137",
+        "SRC-AI-0138"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0027",
+      "title": "Put secrets in model context because the model needs the tool",
+      "why_it_fails": "The tool adapter can authenticate without exposing credential bytes to the model/log.",
+      "preferred_alternative": "Keep secrets in trusted adapters and expose opaque capabilities.",
+      "related_techniques": [
+        "AIT-0117"
+      ],
+      "sources": [
+        "SRC-AI-0141"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0028",
+      "title": "Retry every failure",
+      "why_it_fails": "Auth/schema/policy errors are deterministic and repeated retries waste time/cost or duplicate effects.",
+      "preferred_alternative": "Classify errors; retry only transient failures with bounded backoff.",
+      "related_techniques": [
+        "AIT-0068"
+      ],
+      "sources": [
+        "SRC-AI-0128"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0029",
+      "title": "Layered libraries should each retry independently",
+      "why_it_fails": "Nested retries multiply attempts and can create retry storms.",
+      "preferred_alternative": "Have one owner for retry policy per operation path.",
+      "related_techniques": [
+        "AIT-0080"
+      ],
+      "sources": [
+        "SRC-AI-0128"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0030",
+      "title": "Retry a write without idempotency",
+      "why_it_fails": "A timeout after server commit can cause duplicate message/payment/record on retry.",
+      "preferred_alternative": "Persist operation identity and use idempotency/readback.",
+      "related_techniques": [
+        "AIT-0068",
+        "AIT-0069"
+      ],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0031",
+      "title": "Silently truncate context when over limit",
+      "why_it_fails": "The dropped portion may contain binding goals, approvals or constraints.",
+      "preferred_alternative": "Fail closed or explicitly compact with protected state and tests.",
+      "related_techniques": [
+        "AIT-0218"
+      ],
+      "sources": [
+        "SRC-AI-0186",
+        "SRC-AI-0193"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0032",
+      "title": "Provider compaction becomes canonical memory",
+      "why_it_fails": "Provider summaries are derived/model-specific and may be lossy or unavailable later.",
+      "preferred_alternative": "Keep canonical state external; compaction is ephemeral execution optimization.",
+      "related_techniques": [
+        "AIT-0052"
+      ],
+      "sources": [
+        "SRC-AI-0186"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0033",
+      "title": "Confident wording is calibrated confidence",
+      "why_it_fails": "Fluency/tone is not a probability of correctness.",
+      "preferred_alternative": "Use outcome-calibrated uncertainty, evidence and validators.",
+      "related_techniques": [
+        "AIT-0300",
+        "AIT-0304"
+      ],
+      "sources": [
+        "SRC-AI-0229",
+        "SRC-AI-0312"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0034",
+      "title": "Raw self-reported probability is safe to show users",
+      "why_it_fails": "P(True)/verbal confidence can drift OOD and shares model blind spots.",
+      "preferred_alternative": "Calibrate on task outcomes and use it mainly for internal routing/abstention.",
+      "related_techniques": [
+        "AIT-0297",
+        "AIT-0300"
+      ],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0035",
+      "title": "LLM judge scores are objective ground truth",
+      "why_it_fails": "Judges show position/style/verbosity/model biases and may share generator errors.",
+      "preferred_alternative": "Calibrate against humans/deterministic checks, randomize order and preserve disagreement.",
+      "related_techniques": [
+        "AIT-0098",
+        "AIT-0099",
+        "AIT-0100"
+      ],
+      "sources": [
+        "SRC-AI-0100"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0036",
+      "title": "Several LLM judges create independent evidence",
+      "why_it_fails": "Correlated models/data can amplify the same bias; debate can amplify rather than cancel it.",
+      "preferred_alternative": "Measure judge correlation/disagreement and anchor with different evidence types.",
+      "related_techniques": [
+        "AIT-0101",
+        "AIT-0085"
+      ],
+      "sources": [
+        "SRC-AI-0101"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0037",
+      "title": "Let the optimizer repeatedly inspect the protected holdout",
+      "why_it_fails": "Adaptive reuse overfits evaluation even without gradient training.",
+      "preferred_alternative": "Keep holdout behind promotion service, limit adaptive access, refresh cases.",
+      "related_techniques": [
+        "AIT-0102",
+        "AIT-0343"
+      ],
+      "sources": [
+        "SRC-AI-0273"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0038",
+      "title": "A benchmark remains valid forever",
+      "why_it_fails": "Tasks, providers, dependencies and user workloads drift.",
+      "preferred_alternative": "Version suites, maintain frozen anchors + rolling frontier cases, and revalidate on external change.",
+      "related_techniques": [
+        "AIT-0103",
+        "AIT-0355"
+      ],
+      "sources": [
+        "SRC-AI-0321"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0039",
+      "title": "One aggregate score describes system quality",
+      "why_it_fails": "Averages can hide catastrophic security/reliability/subgroup failures.",
+      "preferred_alternative": "Use a small set of primary outcomes plus hard guardrails and diagnostic breakdowns.",
+      "related_techniques": [
+        "AIT-0110"
+      ],
+      "sources": [
+        "SRC-AI-0142"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0040",
+      "title": "Optimize clicks, accepts, or notification engagement as user value",
+      "why_it_fails": "The agent can learn to be interruptive/persuasive rather than useful.",
+      "preferred_alternative": "Optimize durable goal completion/user effort and treat engagement as diagnostic.",
+      "related_techniques": [
+        "AIT-0353"
+      ],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0041",
+      "title": "Surface every potentially useful proactive idea",
+      "why_it_fails": "High recall creates alert fatigue and teaches the user to ignore the system.",
+      "preferred_alternative": "Use expected utility, interruption cost, batching, novelty suppression and do-nothing action.",
+      "related_techniques": [
+        "AIT-0157",
+        "AIT-0158",
+        "AIT-0172"
+      ],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0042",
+      "title": "Always run a critic/challenger",
+      "why_it_fails": "Permanent critique wastes tokens and becomes contrarian/noisy.",
+      "preferred_alternative": "Trigger challenge at high-impact assumptions and suppress repeats unless evidence changes.",
+      "related_techniques": [
+        "AIT-0012"
+      ],
+      "sources": [
+        "SRC-AI-0130"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0043",
+      "title": "One user correction should silently rewrite production behavior",
+      "why_it_fails": "Corrections can be situational or mistaken.",
+      "preferred_alternative": "Capture as learning evidence; create candidate/regression and promote after validation.",
+      "related_techniques": [
+        "AIT-0162"
+      ],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0044",
+      "title": "Commit high-frequency telemetry/raw events to Git",
+      "why_it_fails": "Noisy mutable data bloats history, leaks sensitive content and creates merge debt.",
+      "preferred_alternative": "Keep high-frequency/private telemetry local; commit reviewed schemas/aggregates/decisions.",
+      "related_techniques": [
+        "AIT-0119"
+      ],
+      "sources": [
+        "SRC-AI-0133"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0045",
+      "title": "Log full prompts/tool outputs by default for observability",
+      "why_it_fails": "Sensitive content and secrets can enter traces; more logs are not automatically better.",
+      "preferred_alternative": "Record structured redacted metadata by default; content capture is explicit/local/policy-controlled.",
+      "related_techniques": [
+        "AIT-0119"
+      ],
+      "sources": [
+        "SRC-AI-0102"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0046",
+      "title": "Event-source every piece of state",
+      "why_it_fails": "Full histories add schema-migration, storage and privacy cost where a materialized current value is sufficient.",
+      "preferred_alternative": "Reserve event history for audit-critical/replayable workflows; caches remain derived.",
+      "related_techniques": [
+        "AIT-0079"
+      ],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "severity": "medium_high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0047",
+      "title": "Adopt a workflow engine/vector DB/graph DB because the category is fashionable",
+      "why_it_fails": "Infrastructure has permanent operational cost and can duplicate solved capabilities.",
+      "preferred_alternative": "Define adoption threshold and benchmark existing simpler primitives first.",
+      "related_techniques": [
+        "AIT-0011",
+        "AIT-0016"
+      ],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0048",
+      "title": "Build a new subsystem instead of extending an existing primitive",
+      "why_it_fails": "Parallel candidate/memory/telemetry/routing systems create multiple sources of truth.",
+      "preferred_alternative": "Map capabilities/dependencies and extend/consolidate unless requirements truly differ.",
+      "related_techniques": [
+        "AIT-0011"
+      ],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0049",
+      "title": "Preserve a component because much work has already gone into it",
+      "why_it_fails": "Sunk cost is not future value.",
+      "preferred_alternative": "Shadow-disable, regression-test and delete/replace if current evidence no longer justifies it.",
+      "related_techniques": [
+        "AIT-0011"
+      ],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0050",
+      "title": "Code coverage proves correctness",
+      "why_it_fails": "Coverage measures exercised paths, not whether assertions/specification are adequate.",
+      "preferred_alternative": "Combine coverage with properties, differential/metamorphic oracles, sanitizers and mutation tests.",
+      "related_techniques": [
+        "AIT-0305",
+        "AIT-0319"
+      ],
+      "sources": [
+        "SRC-AI-0310",
+        "SRC-AI-0304"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0051",
+      "title": "Fuzz a slow nondeterministic model call like a byte parser",
+      "why_it_fails": "Coverage-guided fuzzing depends on fast deterministic targets and meaningful feedback.",
+      "preferred_alternative": "Fuzz parsers/schemas/policies; use metamorphic/adversarial suites for model behavior.",
+      "related_techniques": [
+        "AIT-0305",
+        "AIT-0308"
+      ],
+      "sources": [
+        "SRC-AI-0310"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0052",
+      "title": "A metamorphic relation is automatically a valid oracle",
+      "why_it_fails": "A supposedly meaning-preserving transformation may actually change the task.",
+      "preferred_alternative": "Validate relations/domain assumptions and track false positives.",
+      "related_techniques": [
+        "AIT-0308",
+        "AIT-0309"
+      ],
+      "sources": [
+        "SRC-AI-0306"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0053",
+      "title": "Federated learning means private learning",
+      "why_it_fails": "Model updates can leak information and federated training only reduces raw-data centralization.",
+      "preferred_alternative": "Threat-model updates; add secure aggregation/DP when those guarantees are actually needed.",
+      "related_techniques": [
+        "AIT-0346",
+        "AIT-0347"
+      ],
+      "sources": [
+        "SRC-AI-0269",
+        "SRC-AI-0270"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0054",
+      "title": "Differential privacy means anonymous/safe data",
+      "why_it_fails": "DP gives a quantified participation/privacy guarantee under a precise mechanism; implementation and utility hazards remain.",
+      "preferred_alternative": "Specify mechanism/accountant/budget and follow formal guidance; do not use 'DP' as vague privacy label.",
+      "related_techniques": [
+        "AIT-0344",
+        "AIT-0345"
+      ],
+      "sources": [
+        "SRC-AI-0322"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0055",
+      "title": "Use CRDTs for every synchronized object",
+      "why_it_fails": "CRDT convergence does not guarantee domain-semantic correctness; some conflicts require explicit review.",
+      "preferred_alternative": "Use CRDTs only where merge semantics are mathematically appropriate.",
+      "related_techniques": [
+        "AIT-0348"
+      ],
+      "sources": [
+        "SRC-AI-0271"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0056",
+      "title": "Explore online on consequential user actions to learn faster",
+      "why_it_fails": "Bandit exploration can intentionally choose suboptimal actions; unacceptable for spending/security/communications.",
+      "preferred_alternative": "Restrict exploration to reversible low-risk presentation/routing choices with hard policy constraints.",
+      "related_techniques": [
+        "AIT-0338",
+        "AIT-0340"
+      ],
+      "sources": [
+        "SRC-AI-0323"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0057",
+      "title": "Implicit feedback directly reveals user preference",
+      "why_it_fails": "Observed behavior is confounded by what the current policy chose to show and by delay/context.",
+      "preferred_alternative": "Log propensities/context, preserve controls and distinguish explicit from inferred preference.",
+      "related_techniques": [
+        "AIT-0339",
+        "AIT-0341",
+        "AIT-0342"
+      ],
+      "sources": [
+        "SRC-AI-0272"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0058",
+      "title": "Distribution drift always requires retraining",
+      "why_it_fails": "Input distribution can change without hurting task performance; retraining can add risk.",
+      "preferred_alternative": "Monitor direct quality first and use drift as diagnostic/trigger for re-evaluation.",
+      "related_techniques": [
+        "AIT-0331",
+        "AIT-0333"
+      ],
+      "sources": [
+        "SRC-AI-0321"
+      ],
+      "severity": "medium_high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0059",
+      "title": "Quantization/pruning percentage equals real speedup",
+      "why_it_fails": "Hardware kernels, batch size and memory bandwidth determine wall-clock gains; quality can degrade on harder tasks.",
+      "preferred_alternative": "Benchmark exact deployment hardware/task suite and cost per successful task.",
+      "related_techniques": [
+        "AIT-0149",
+        "AIT-0247",
+        "AIT-0249"
+      ],
+      "sources": [
+        "SRC-AI-0220",
+        "SRC-AI-0178"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0060",
+      "title": "Nominal two-million-token context equals two-million-token useful memory",
+      "why_it_fails": "Context-extension methods can preserve perplexity/passkey tests while real multi-hop/positional reasoning remains weaker.",
+      "preferred_alternative": "Run task-specific usable-context/position/latency tests and retain external memory.",
+      "related_techniques": [
+        "AIT-0197",
+        "AIT-0198"
+      ],
+      "sources": [
+        "SRC-AI-0172",
+        "SRC-AI-0173"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0061",
+      "title": "Cache results without exact dependency/version lineage",
+      "why_it_fails": "A fast stale answer can be worse than recomputation.",
+      "preferred_alternative": "Content-address plus relevant processor/model/index/source versions and invalidate downstream selectively.",
+      "related_techniques": [
+        "AIT-0072",
+        "AIT-0073"
+      ],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0062",
+      "title": "Treat a cache as source of truth",
+      "why_it_fails": "Caches are optimizations and may be deleted, stale or partially built.",
+      "preferred_alternative": "Canonical state must survive cold-cache rebuild.",
+      "related_techniques": [
+        "AIT-0071"
+      ],
+      "sources": [
+        "SRC-AI-0144"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0063",
+      "title": "Expose every tool schema eagerly",
+      "why_it_fails": "Large rare tool catalogs consume context/cache and can degrade selection.",
+      "preferred_alternative": "Eager-load common tools; defer/search rare namespaces where supported.",
+      "related_techniques": [
+        "AIT-0061"
+      ],
+      "sources": [
+        "SRC-AI-0185"
+      ],
+      "severity": "medium_high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0064",
+      "title": "One mega-tool with dozens of loosely related modes is simpler",
+      "why_it_fails": "Broad tools create ambiguous selection, argument combinations and authorization surfaces.",
+      "preferred_alternative": "Expose task-oriented operations with shared adapter internals.",
+      "related_techniques": [
+        "AIT-0061",
+        "AIT-0065"
+      ],
+      "sources": [
+        "SRC-AI-0071"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0065",
+      "title": "Return full API/search payloads to the model",
+      "why_it_fails": "Verbose results consume context and make important fields harder to identify.",
+      "preferred_alternative": "Return compact typed high-signal data + stable handle for details.",
+      "related_techniques": [
+        "AIT-0063",
+        "AIT-0064"
+      ],
+      "sources": [
+        "SRC-AI-0071"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0066",
+      "title": "Generate free-form JSON and repair it with regex",
+      "why_it_fails": "Post-hoc parsing retries are fragile when schema-constrained generation is available.",
+      "preferred_alternative": "Use strict structured/grammar output plus semantic validation.",
+      "related_techniques": [
+        "AIT-0219",
+        "AIT-0220"
+      ],
+      "sources": [
+        "SRC-AI-0205"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0067",
+      "title": "Force a prediction when evidence is insufficient",
+      "why_it_fails": "No abstain path converts uncertainty into confident errors or unsafe actions.",
+      "preferred_alternative": "Explicitly support unknown/retrieve/escalate/ask states and tune risk-coverage.",
+      "related_techniques": [
+        "AIT-0301",
+        "AIT-0030"
+      ],
+      "sources": [
+        "SRC-AI-0303"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0068",
+      "title": "Research until every possible source is read",
+      "why_it_fails": "Marginal evidence can stop changing the decision while cost/noise keeps growing.",
+      "preferred_alternative": "Use value-of-information stopping while recording unresolved frontier/questions.",
+      "related_techniques": [
+        "AIT-0174"
+      ],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "severity": "medium_high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0069",
+      "title": "Research radar should promote every new model/paper",
+      "why_it_fails": "Novelty chasing creates roadmap churn and architectural debt.",
+      "preferred_alternative": "Promote only when it addresses measured weakness, replaces complexity, or enables high-value missing capability.",
+      "related_techniques": [
+        "AIT-0014"
+      ],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    },
+    {
+      "id": "NEG-0070",
+      "title": "The self-improvement engine can modify its own safety/eval gates in the same experiment",
+      "why_it_fails": "Optimizer can game its objective by weakening the measurement or constraint.",
+      "preferred_alternative": "Separate suggestion/change rights from independent immutable gates and holdouts.",
+      "related_techniques": [
+        "AIT-0111",
+        "AIT-0112"
+      ],
+      "sources": [
+        "SRC-AI-0135",
+        "SRC-AI-0142"
+      ],
+      "severity": "high",
+      "status": "active_warning"
+    }
+  ]
+}

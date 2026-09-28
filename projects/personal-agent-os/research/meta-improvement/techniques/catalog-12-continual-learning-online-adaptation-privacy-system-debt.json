@@ -1,0 +1,1374 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-25",
+  "domain": "continual_learning_online_adaptation_privacy_system_debt",
+  "techniques": [
+    {
+      "id": "AIT-0326",
+      "name": "Elastic Weight Consolidation (EWC)",
+      "aliases": [],
+      "category": "continual_learning",
+      "layer": [
+        "training"
+      ],
+      "goal": "Learn new tasks while reducing catastrophic forgetting",
+      "mechanism": "Penalize changes to parameters estimated important for prior tasks using Fisher-information-weighted quadratic regularization.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0264.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "External skills/memory remain preferred before continual weight updates.",
+      "use_when": [
+        "Future continually adapted local model"
+      ],
+      "avoid_when": [
+        "Application-level memory/skills can handle adaptation more transparently"
+      ],
+      "required_evals": [
+        "new-task quality",
+        "old-task retention",
+        "task-order sensitivity"
+      ],
+      "risks": [
+        "Importance estimates imperfect",
+        "growing task complexity"
+      ],
+      "cost_profile": "training overhead",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0264"
+      ],
+      "keywords": [
+        "EWC",
+        "catastrophic_forgetting"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0327",
+      "name": "Gradient Episodic Memory (GEM)",
+      "aliases": [],
+      "category": "continual_learning",
+      "layer": [
+        "training",
+        "memory"
+      ],
+      "goal": "Prevent new updates from increasing loss on remembered prior examples",
+      "mechanism": "Maintain episodic exemplars and project gradient so it does not interfere with previous-task constraints.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0265.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Agent OS analogue is regression replay before promotion.",
+      "use_when": [
+        "Local continual learner with bounded exemplar storage"
+      ],
+      "avoid_when": [
+        "Sensitive historical samples cannot be retained",
+        "Hosted models"
+      ],
+      "required_evals": [
+        "backward transfer",
+        "memory size",
+        "privacy"
+      ],
+      "risks": [
+        "Replay memory retention/privacy",
+        "optimization cost"
+      ],
+      "cost_profile": "training + exemplar memory",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0265"
+      ],
+      "keywords": [
+        "GEM",
+        "continual_learning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0328",
+      "name": "Learning without Forgetting (LwF)",
+      "aliases": [],
+      "category": "continual_learning",
+      "layer": [
+        "training",
+        "distillation"
+      ],
+      "goal": "Retain old behavior without old training data",
+      "mechanism": "Use old model predictions as distillation targets while training new task examples.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0266.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Versioned model behavior can become a regression teacher only when explicitly desired.",
+      "use_when": [
+        "Old raw training data unavailable"
+      ],
+      "avoid_when": [
+        "Old model already contains undesirable behavior"
+      ],
+      "required_evals": [
+        "old/new task suite",
+        "calibration"
+      ],
+      "risks": [
+        "Distills old mistakes",
+        "domain shift"
+      ],
+      "cost_profile": "extra teacher inference",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0266"
+      ],
+      "keywords": [
+        "LwF",
+        "distillation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0329",
+      "name": "Replay/rehearsal continual learning",
+      "aliases": [],
+      "category": "continual_learning",
+      "layer": [
+        "training",
+        "memory"
+      ],
+      "goal": "Reduce forgetting by interleaving representative prior examples during new learning",
+      "mechanism": "Maintain or regenerate replay buffer from prior tasks and mix it into updates.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0265.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "At Agent OS level, historical task replay is safer and more auditable.",
+      "use_when": [
+        "Local model retraining"
+      ],
+      "avoid_when": [
+        "Private examples cannot be retained/generated safely"
+      ],
+      "required_evals": [
+        "retention",
+        "buffer coverage",
+        "privacy"
+      ],
+      "risks": [
+        "Replay bias",
+        "storage",
+        "sensitive data leakage"
+      ],
+      "cost_profile": "training + storage",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0265"
+      ],
+      "keywords": [
+        "replay",
+        "rehearsal"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0330",
+      "name": "Adapter-per-domain continual adaptation",
+      "aliases": [],
+      "category": "continual_learning",
+      "layer": [
+        "training",
+        "PEFT"
+      ],
+      "goal": "Avoid destructive interference by separating domain adaptations",
+      "mechanism": "Keep shared base frozen and maintain independently versioned LoRA/adapter modules per domain/task, route at inference.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0110, SRC-AI-0211.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Matches Agent OS domain-boundary philosophy better than one continually mutating personal model.",
+      "use_when": [
+        "Local models with clearly separated work/personal/specialist domains"
+      ],
+      "avoid_when": [
+        "Thousands of tiny overlapping domains",
+        "Routing unreliable"
+      ],
+      "required_evals": [
+        "per-domain quality",
+        "router accuracy",
+        "adapter count"
+      ],
+      "risks": [
+        "Adapter sprawl",
+        "cross-domain interactions absent"
+      ],
+      "cost_profile": "small per-domain storage",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0110",
+        "SRC-AI-0211"
+      ],
+      "keywords": [
+        "adapter_routing",
+        "continual_learning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0331",
+      "name": "Concept-drift detection",
+      "aliases": [],
+      "category": "monitoring",
+      "layer": [
+        "evaluation",
+        "online_learning"
+      ],
+      "goal": "Detect when historical performance assumptions no longer hold",
+      "mechanism": "Monitor input/features/errors/outcomes over time and trigger review when statistically relevant change occurs.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0321.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Trigger re-eval, not automatic retraining.",
+      "use_when": [
+        "Model/tool routing",
+        "Proactivity",
+        "Retrieval",
+        "Personal preferences"
+      ],
+      "avoid_when": [
+        "No stable metric/data stream"
+      ],
+      "required_evals": [
+        "detection delay",
+        "false alerts",
+        "post-drift performance"
+      ],
+      "risks": [
+        "Data drift need not imply performance drift"
+      ],
+      "cost_profile": "low ongoing telemetry",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0321"
+      ],
+      "keywords": [
+        "concept_drift",
+        "monitoring"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0332",
+      "name": "Adaptive-window drift monitoring (ADWIN-style)",
+      "aliases": [],
+      "category": "monitoring",
+      "layer": [
+        "evaluation",
+        "online_learning"
+      ],
+      "goal": "Adapt monitoring time horizon automatically to change rate",
+      "mechanism": "Compare subwindows and shrink historical window when statistically significant mean change is detected.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0321.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Candidate for acceptance/dismissal/proactive precision trends.",
+      "use_when": [
+        "Streaming error/acceptance/latency metrics"
+      ],
+      "avoid_when": [
+        "High-dimensional distribution needs richer detector"
+      ],
+      "required_evals": [
+        "false positive/negative",
+        "detection delay"
+      ],
+      "risks": [
+        "Autocorrelation/nonstationarity can violate assumptions"
+      ],
+      "cost_profile": "very low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0321"
+      ],
+      "keywords": [
+        "ADWIN",
+        "adaptive_window"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0333",
+      "name": "Performance-drift before data-drift prioritization",
+      "aliases": [],
+      "category": "monitoring",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Avoid costly retraining just because inputs changed",
+      "mechanism": "Prioritize direct task/quality metrics; use distribution changes as diagnostic unless they are known leading indicators.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0275, SRC-AI-0274.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Research Radar/re-eval cadence responds to meaningful outcome change.",
+      "use_when": [
+        "Production Agent OS models/routes"
+      ],
+      "avoid_when": [
+        "Labels/outcomes unavailable for too long"
+      ],
+      "required_evals": [
+        "alerts that led to meaningful degradation",
+        "false alarms"
+      ],
+      "risks": [
+        "Delayed outcome can miss early harm"
+      ],
+      "cost_profile": "reduces alert noise",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0275",
+        "SRC-AI-0274"
+      ],
+      "keywords": [
+        "performance_drift",
+        "data_drift"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0334",
+      "name": "Training-serving skew checks",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "evaluation",
+        "runtime"
+      ],
+      "goal": "Ensure model/evaluator sees equivalent features and preprocessing offline and online",
+      "mechanism": "Share feature/preprocessing code or continuously compare training/eval and production feature distributions/semantics.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0275.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Capability evidence is invalid if eval pipeline differs from production.",
+      "use_when": [
+        "Any learned router/classifier/reranker"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "feature parity",
+        "online/offline discrepancy"
+      ],
+      "risks": [
+        "Hidden external differences"
+      ],
+      "cost_profile": "small infrastructure cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "keywords": [
+        "training_serving_skew"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0335",
+      "name": "Simple heuristic baseline",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "evaluation",
+        "optimization"
+      ],
+      "goal": "Prove a learned/agentic method beats a cheap understandable alternative",
+      "mechanism": "Implement recency/rules/BM25/threshold/simple classifier baseline before complex ML where feasible.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0275.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every Meta-Improvement experiment names simplest credible alternative.",
+      "use_when": [
+        "New classifier/recommender/router"
+      ],
+      "avoid_when": [
+        "No meaningful simple baseline exists"
+      ],
+      "required_evals": [
+        "incremental value",
+        "latency",
+        "maintenance"
+      ],
+      "risks": [
+        "Baseline can become entrenched complex heuristic"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "keywords": [
+        "baseline",
+        "heuristic"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0336",
+      "name": "Contextual bandit personalization",
+      "aliases": [],
+      "category": "online_learning",
+      "layer": [
+        "proactivity",
+        "recommendation",
+        "learning"
+      ],
+      "goal": "Adapt choices to context from partial user feedback while balancing exploration/exploitation",
+      "mechanism": "Treat intervention/content/action choice as bandit arm conditioned on context; update from observed reward.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0272.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Only optimize reversible presentation choices first.",
+      "use_when": [
+        "Low-risk proactive-channel/timing choices",
+        "Recommendation ordering"
+      ],
+      "avoid_when": [
+        "Consequential actions",
+        "Reward is sparse/manipulable",
+        "Exploration annoys user"
+      ],
+      "required_evals": [
+        "cumulative reward",
+        "regret",
+        "user fatigue",
+        "safety"
+      ],
+      "risks": [
+        "Feedback loops",
+        "exploration harms",
+        "proxy gaming"
+      ],
+      "cost_profile": "online learning",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0272"
+      ],
+      "keywords": [
+        "contextual_bandit",
+        "LinUCB"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0337",
+      "name": "Thompson sampling",
+      "aliases": [],
+      "category": "online_learning",
+      "layer": [
+        "proactivity",
+        "routing",
+        "learning"
+      ],
+      "goal": "Explore uncertain alternatives in proportion to posterior plausibility",
+      "mechanism": "Maintain posterior beliefs over action rewards and sample a plausible parameter/model to choose each action.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0320.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use conservative priors and explicit risk constraints.",
+      "use_when": [
+        "Low-risk routing/notification experiments"
+      ],
+      "avoid_when": [
+        "Security/privacy decisions",
+        "High-cost irreversible choices"
+      ],
+      "required_evals": [
+        "regret",
+        "exploration burden",
+        "stability"
+      ],
+      "risks": [
+        "Prior misspecification",
+        "bad exploration"
+      ],
+      "cost_profile": "low online compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0320"
+      ],
+      "keywords": [
+        "Thompson_sampling"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0338",
+      "name": "Constrained/safe contextual bandits",
+      "aliases": [],
+      "category": "online_learning",
+      "layer": [
+        "learning",
+        "control"
+      ],
+      "goal": "Allow online adaptation without violating safety/quality floors",
+      "mechanism": "Optimize reward subject to auxiliary constraints relative to baseline/policy.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0323.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Deterministic policy remains hard boundary outside learned optimization.",
+      "use_when": [
+        "Notification/proactivity optimization",
+        "Model routing after offline validation"
+      ],
+      "avoid_when": [
+        "Constraint metric cannot capture harm"
+      ],
+      "required_evals": [
+        "constraint violations",
+        "reward",
+        "regret"
+      ],
+      "risks": [
+        "Statistical constraints are not authorization rules"
+      ],
+      "cost_profile": "online learning",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0323"
+      ],
+      "keywords": [
+        "safe_bandit",
+        "constraints"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0339",
+      "name": "Offline policy evaluation from logged randomized traffic",
+      "aliases": [],
+      "category": "online_learning",
+      "layer": [
+        "evaluation",
+        "recommendation"
+      ],
+      "goal": "Evaluate candidate bandit/recommender policy without exposing all users to it",
+      "mechanism": "Use known propensity of logged actions to estimate counterfactual policy performance.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0272.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "If online exploration is ever used, log propensity by design.",
+      "use_when": [
+        "Future proactivity experiments with randomized eligible choices"
+      ],
+      "avoid_when": [
+        "Historical policy had zero support for candidate actions",
+        "Logs lack propensities"
+      ],
+      "required_evals": [
+        "bias/variance",
+        "effective sample size"
+      ],
+      "risks": [
+        "High variance",
+        "support mismatch"
+      ],
+      "cost_profile": "offline analysis",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0272"
+      ],
+      "keywords": [
+        "off_policy_evaluation",
+        "IPS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0340",
+      "name": "Exploration budget / do-not-explore classes",
+      "aliases": [],
+      "category": "online_learning",
+      "layer": [
+        "control",
+        "learning"
+      ],
+      "goal": "Prevent personalization experiments from sacrificing user welfare for information",
+      "mechanism": "Classify actions by reversibility/risk; exploration allowed only in low-impact choices and capped by rate/time/context.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0323.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Never explore purchases, messages, security permissions, or other consequential actions.",
+      "use_when": [
+        "Proactivity/channel/timing tests"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "exploration count",
+        "negative feedback",
+        "constraint violations"
+      ],
+      "risks": [
+        "Can slow learning"
+      ],
+      "cost_profile": "small",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0323"
+      ],
+      "keywords": [
+        "exploration_budget"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0341",
+      "name": "Delayed-reward attribution",
+      "aliases": [],
+      "category": "online_learning",
+      "layer": [
+        "evaluation",
+        "learning"
+      ],
+      "goal": "Avoid learning wrong lessons from outcomes arriving later than action",
+      "mechanism": "Link interventions to later user action/outcome using windows/causal identifiers and distinguish immediate feedback from delayed success.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0272.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Preserve intervention IDs through downstream task state.",
+      "use_when": [
+        "Reminders",
+        "Research suggestions",
+        "Workflow automation"
+      ],
+      "avoid_when": [
+        "No reliable attribution path"
+      ],
+      "required_evals": [
+        "attribution precision",
+        "lag distribution"
+      ],
+      "risks": [
+        "Confounding/multiple interventions"
+      ],
+      "cost_profile": "telemetry + analysis",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0272"
+      ],
+      "keywords": [
+        "delayed_reward",
+        "attribution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0342",
+      "name": "Feedback-loop isolation",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "learning",
+        "evaluation"
+      ],
+      "goal": "Prevent model's own choices from corrupting the data used to judge future choices",
+      "mechanism": "Keep randomized/control/shadow samples or other independent data sources so model exposure is not confused with underlying preference/demand.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Meta Engine must know which evidence was influenced by current policy.",
+      "use_when": [
+        "Recommendations",
+        "Proactivity",
+        "Research radar"
+      ],
+      "avoid_when": [
+        "System has no behavioral feedback loop"
+      ],
+      "required_evals": [
+        "counterfactual stability",
+        "distribution changes"
+      ],
+      "risks": [
+        "Control traffic has opportunity cost"
+      ],
+      "cost_profile": "small experimental cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "keywords": [
+        "feedback_loop",
+        "selection_bias"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0343",
+      "name": "Adaptive holdout protection",
+      "aliases": [],
+      "category": "evaluation",
+      "layer": [
+        "evaluation",
+        "research"
+      ],
+      "goal": "Reuse validation resources without silently overfitting through repeated adaptive queries",
+      "mechanism": "Limit/restrict access to protected holdout and use statistically principled mechanisms or fresh data after many adaptive decisions.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0273.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Optimizers see dev suite; promotion service owns holdout.",
+      "use_when": [
+        "Long-lived optimizer/eval program"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "holdout gap",
+        "number adaptive accesses"
+      ],
+      "risks": [
+        "Operational complexity",
+        "fresh-data scarcity"
+      ],
+      "cost_profile": "governance cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0273"
+      ],
+      "keywords": [
+        "adaptive_holdout",
+        "overfitting"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0344",
+      "name": "Differentially private training",
+      "aliases": [],
+      "category": "privacy_preserving_learning",
+      "layer": [
+        "training",
+        "privacy"
+      ],
+      "goal": "Bound influence of any individual's training record",
+      "mechanism": "Clip per-example/user gradients and add calibrated noise while accounting privacy loss across training.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0267, SRC-AI-0322.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Personal single-user context should usually stay local rather than be 'anonymized' into shared training.",
+      "use_when": [
+        "Future aggregate personalization model trained on many people's sensitive data"
+      ],
+      "avoid_when": [
+        "Single-user local Agent OS where data never leaves device",
+        "Utility budget too small"
+      ],
+      "required_evals": [
+        "privacy epsilon/delta",
+        "utility",
+        "bias/subgroups"
+      ],
+      "risks": [
+        "Privacy budget misuse",
+        "utility loss",
+        "implementation mistakes"
+      ],
+      "cost_profile": "higher training complexity/compute",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0267",
+        "SRC-AI-0322"
+      ],
+      "keywords": [
+        "DP_SGD",
+        "differential_privacy"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0345",
+      "name": "Privacy-budget accounting and composition",
+      "aliases": [],
+      "category": "privacy_preserving_learning",
+      "layer": [
+        "privacy",
+        "governance"
+      ],
+      "goal": "Prevent many individually private analyses from accumulating unacceptable leakage",
+      "mechanism": "Track epsilon/delta and composition across releases/training/queries; stop/adjust when budget exhausted.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0268, SRC-AI-0322.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "DP claims require exact mechanism/accountant provenance.",
+      "use_when": [
+        "Any actual DP deployment"
+      ],
+      "avoid_when": [
+        "No DP mechanism"
+      ],
+      "required_evals": [
+        "privacy accountant correctness",
+        "utility"
+      ],
+      "risks": [
+        "Misinterpreting epsilon",
+        "accounting implementation error"
+      ],
+      "cost_profile": "governance",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0268",
+        "SRC-AI-0322"
+      ],
+      "keywords": [
+        "privacy_budget",
+        "composition"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0346",
+      "name": "Federated learning / FedAvg",
+      "aliases": [],
+      "category": "privacy_preserving_learning",
+      "layer": [
+        "training",
+        "distributed_systems"
+      ],
+      "goal": "Train shared model while leaving raw training examples on client devices",
+      "mechanism": "Clients perform local SGD and server aggregates model updates, reducing raw-data centralization.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0269.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Do not equate federated with private; combine with secure aggregation/DP as needed.",
+      "use_when": [
+        "Future multi-device/multi-user learning product"
+      ],
+      "avoid_when": [
+        "Single user's synchronized knowledge",
+        "Need strong privacy guarantee—federated alone is insufficient"
+      ],
+      "required_evals": [
+        "quality",
+        "communication",
+        "non-IID robustness",
+        "privacy attack tests"
+      ],
+      "risks": [
+        "Updates can leak data",
+        "client drift",
+        "poisoning"
+      ],
+      "cost_profile": "distributed training/communication",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0269"
+      ],
+      "keywords": [
+        "FedAvg",
+        "federated_learning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0347",
+      "name": "Secure aggregation",
+      "aliases": [],
+      "category": "privacy_preserving_learning",
+      "layer": [
+        "privacy",
+        "distributed_systems"
+      ],
+      "goal": "Hide individual client model updates from aggregation server",
+      "mechanism": "Cryptographically compute aggregate of client updates while server cannot inspect individual contributions.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0270.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Only relevant if Agent OS becomes multi-user platform.",
+      "use_when": [
+        "Federated multi-user learning"
+      ],
+      "avoid_when": [
+        "Single-user local sync",
+        "Small participant count unsuitable for anonymity assumptions"
+      ],
+      "required_evals": [
+        "protocol completion",
+        "dropout tolerance",
+        "attack model"
+      ],
+      "risks": [
+        "Does not protect final aggregate/model from all leakage"
+      ],
+      "cost_profile": "communication/crypto overhead",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0270"
+      ],
+      "keywords": [
+        "secure_aggregation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0348",
+      "name": "Local-first state with CRDT merge",
+      "aliases": [],
+      "category": "distributed_systems",
+      "layer": [
+        "memory",
+        "sync",
+        "distributed_systems"
+      ],
+      "goal": "Keep device-local autonomy/offline writes while merging concurrent replicated state predictably",
+      "mechanism": "Represent selected state with convergent/commutative replicated data types and causal metadata.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0271.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use for queues/counters/sets where merge semantics are mathematically clear, not all knowledge.",
+      "use_when": [
+        "Future desktop/phone/watch/browser capture state"
+      ],
+      "avoid_when": [
+        "Canonical reviewed Git artifacts where human merge is desired",
+        "Sensitive data not meant to replicate"
+      ],
+      "required_evals": [
+        "convergence",
+        "conflict semantics",
+        "offline recovery"
+      ],
+      "risks": [
+        "CRDT semantics may be wrong for business meaning",
+        "metadata growth"
+      ],
+      "cost_profile": "moderate implementation",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0271"
+      ],
+      "keywords": [
+        "CRDT",
+        "local_first"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0349",
+      "name": "Explicit data dependency ownership",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "data",
+        "maintenance"
+      ],
+      "goal": "Prevent invisible upstream changes from breaking learned behavior",
+      "mechanism": "Each feature/source/index declares owner, schema/version, freshness SLA, consumers and invalidation semantics.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Generated component graph should expose undeclared dependencies.",
+      "use_when": [
+        "Knowledge/retrieval/evals/model features"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "unowned dependencies",
+        "stale incidents"
+      ],
+      "risks": [
+        "Documentation drift unless automated"
+      ],
+      "cost_profile": "metadata/validation",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "keywords": [
+        "data_dependency",
+        "ownership"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0350",
+      "name": "Undeclared-consumer detection",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "observability",
+        "maintenance"
+      ],
+      "goal": "Know who depends on a model/tool/schema before changing or deleting it",
+      "mechanism": "Instrument reads/calls and compare observed consumers against declared component graph.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Deletion candidate requires declared + observed consumer audit.",
+      "use_when": [
+        "Simplification/deprecation engine"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "unknown consumer count",
+        "safe deletion rate"
+      ],
+      "risks": [
+        "Rare offline consumer may not appear in sample window"
+      ],
+      "cost_profile": "telemetry",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "keywords": [
+        "consumer",
+        "dependency"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0351",
+      "name": "Configuration-as-code with validation",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "maintenance",
+        "verification"
+      ],
+      "goal": "Reduce configuration debt and irreproducible behavior",
+      "mechanism": "Version configuration, define schemas/invariants, generate diffs and test configs in CI/evals before activation.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every behavioral knob has owner/default/rationale/expiry or review date.",
+      "use_when": [
+        "Models",
+        "Routers",
+        "Prompts",
+        "Thresholds",
+        "Policies"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "invalid config",
+        "rollback",
+        "drift"
+      ],
+      "risks": [
+        "Configuration surface can still grow excessively"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "keywords": [
+        "config_debt",
+        "configuration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0352",
+      "name": "Anti-entanglement feature/component boundaries",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "architecture",
+        "simplification"
+      ],
+      "goal": "Limit CACE-style ripple effects where one input/component changes everything",
+      "mechanism": "Prefer narrow contracts, modular features, explicit dependencies, and avoid unnecessary coupling/shared mutable state.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Meta simplifier tracks fan-in/fan-out and change blast radius.",
+      "use_when": [
+        "Whole Agent OS architecture"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "blast radius",
+        "regression fanout",
+        "dependency degree"
+      ],
+      "risks": [
+        "Excess modularity can add latency/boilerplate"
+      ],
+      "cost_profile": "architectural",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274"
+      ],
+      "keywords": [
+        "entanglement",
+        "CACE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0353",
+      "name": "Long-term user objective over immediate engagement proxy",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "evaluation",
+        "human_system"
+      ],
+      "goal": "Prevent optimizer from gaming clicks/acceptance while harming real usefulness",
+      "mechanism": "Choose primary metrics tied to sustained task success/user burden and use short-term interaction metrics only as diagnostics.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0275.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Never optimize notification click/acceptance alone.",
+      "use_when": [
+        "Proactivity",
+        "Recommendations",
+        "Meta Engine"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "long-term satisfaction proxies",
+        "repeat corrections",
+        "goal completion"
+      ],
+      "risks": [
+        "Long-term outcomes are hard to attribute"
+      ],
+      "cost_profile": "measurement burden",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "keywords": [
+        "Goodhart",
+        "long_term_value"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0354",
+      "name": "Complexity tax in objective",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "optimization",
+        "simplification"
+      ],
+      "goal": "Make marginal accuracy improvements compete against maintenance/system cost",
+      "mechanism": "Evaluate candidate change on quality plus code/config/state/dependency/latency/cost surface rather than metric gain alone.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0274, SRC-AI-0275.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "A tiny quality gain can be rejected if it creates permanent architecture debt.",
+      "use_when": [
+        "Meta-Improvement prioritization"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "quality gained per complexity",
+        "maintenance incidents"
+      ],
+      "risks": [
+        "Complexity is hard to quantify"
+      ],
+      "cost_profile": "analysis",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0274",
+        "SRC-AI-0275"
+      ],
+      "keywords": [
+        "technical_debt",
+        "complexity_tax"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0355",
+      "name": "Revalidate after external-world change",
+      "aliases": [],
+      "category": "ml_systems",
+      "layer": [
+        "evaluation",
+        "research_radar"
+      ],
+      "goal": "Keep old benchmark conclusions from becoming permanent defaults",
+      "mechanism": "Tie models/tools/dependencies/policies to freshness and automatically reopen relevant evals after version/API/data-distribution changes.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0275, SRC-AI-0321.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Research Radar emits invalidation events against CAP/EVR records.",
+      "use_when": [
+        "Model routing",
+        "Integrations",
+        "Policies",
+        "Retrieval"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "stale-evidence age",
+        "revalidation success"
+      ],
+      "risks": [
+        "Too many revalidations if dependency graph broad"
+      ],
+      "cost_profile": "periodic eval cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0275",
+        "SRC-AI-0321"
+      ],
+      "keywords": [
+        "revalidation",
+        "staleness"
+      ],
+      "notes": ""
+    }
+  ]
+}

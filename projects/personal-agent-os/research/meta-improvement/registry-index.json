@@ -1,0 +1,138 @@
+{
+  "schema": "personal-agent-os/meta-improvement-registry-index/v1",
+  "as_of": "2026-09-24",
+  "status": "design",
+  "principle": "Use small typed registries linked by stable IDs. Do not force unrelated lifecycle states into one universal record.",
+  "registries": [
+    {
+      "prefix": "SRC",
+      "name": "sources",
+      "purpose": "Research or runtime evidence sources and provenance.",
+      "state": "source index exists; machine-readable schema pending"
+    },
+    {
+      "prefix": "CLM",
+      "name": "claims",
+      "purpose": "Atomic factual/empirical/inferred claims with epistemic class, scope, freshness and conflicting evidence.",
+      "state": "planned"
+    },
+    {
+      "prefix": "FND",
+      "name": "findings",
+      "purpose": "Synthesized conclusions derived from one or more claims.",
+      "state": "planned"
+    },
+    {
+      "prefix": "OBS",
+      "name": "observations",
+      "purpose": "Runtime/user/research observations not yet diagnosed.",
+      "state": "planned"
+    },
+    {
+      "prefix": "FAIL",
+      "name": "failures",
+      "purpose": "Normalized failures, signatures, recurrence, causes, regressions and repairs.",
+      "state": "planned"
+    },
+    {
+      "prefix": "SUC",
+      "name": "success_patterns",
+      "purpose": "Exceptional successes and reusable patterns.",
+      "state": "planned"
+    },
+    {
+      "prefix": "IMP",
+      "name": "improvements",
+      "purpose": "Actionable improvement candidates; existing IMP records remain the human/action projection.",
+      "state": "existing v1; v2 extension proposed"
+    },
+    {
+      "prefix": "HYP",
+      "name": "hypotheses",
+      "purpose": "Falsifiable proposed explanations or expected improvements.",
+      "state": "planned"
+    },
+    {
+      "prefix": "EXP",
+      "name": "experiments",
+      "purpose": "Baseline/treatment/isolation/budget/rollback experimental plans and outcomes.",
+      "state": "planned"
+    },
+    {
+      "prefix": "EVC",
+      "name": "eval_cases",
+      "purpose": "Atomic evaluation cases/fixtures.",
+      "state": "planned"
+    },
+    {
+      "prefix": "EVS",
+      "name": "eval_suites",
+      "purpose": "Versioned collections of eval cases and governance metadata.",
+      "state": "planned"
+    },
+    {
+      "prefix": "EVR",
+      "name": "eval_runs",
+      "purpose": "Immutable results linking exact system/model/tool/config versions to eval outcomes.",
+      "state": "planned"
+    },
+    {
+      "prefix": "DEC",
+      "name": "decisions",
+      "purpose": "Architectural/product/policy decisions and rejected alternatives; ADR compatible.",
+      "state": "partially existing as docs/handoffs"
+    },
+    {
+      "prefix": "REL",
+      "name": "rollouts",
+      "purpose": "Shadow/canary/release/rollback records and post-deployment monitoring.",
+      "state": "planned"
+    },
+    {
+      "prefix": "CAP",
+      "name": "capabilities",
+      "purpose": "Provider-neutral model/tool/component capability definitions and measured evidence.",
+      "state": "partially existing in provider/model routing"
+    },
+    {
+      "prefix": "RAD",
+      "name": "research_radar",
+      "purpose": "External ecosystem developments screened for material Agent OS impact.",
+      "state": "planned"
+    },
+    {
+      "prefix": "Q",
+      "name": "questions",
+      "purpose": "Unresolved questions, uncertainty, evidence gaps and research queues.",
+      "state": "open-questions.json exists"
+    }
+  ],
+  "core_edges": [
+    "derived_from",
+    "supports",
+    "contradicts",
+    "supersedes",
+    "qualifies",
+    "observed_in",
+    "caused_by",
+    "tests",
+    "evaluates",
+    "implements",
+    "depends_on",
+    "replaces",
+    "rolled_back_by"
+  ],
+  "common_requirements": [
+    "stable ID",
+    "schema version",
+    "created/updated timestamps",
+    "scope/domain/project",
+    "provenance",
+    "epistemic class",
+    "confidence/uncertainty",
+    "status",
+    "sensitivity/canonical eligibility",
+    "typed relationships",
+    "review/freshness metadata"
+  ]
+}

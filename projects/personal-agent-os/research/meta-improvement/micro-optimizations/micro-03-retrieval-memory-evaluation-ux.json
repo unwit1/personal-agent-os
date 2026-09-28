@@ -1,0 +1,638 @@
+{
+  "schema": "personal-agent-os/ai-micro-optimizations/v1",
+  "as_of": "2026-09-24",
+  "domain": "retrieval_memory_evaluation_ux",
+  "items": [
+    {
+      "id": "MIC-0091",
+      "layer": "retrieval",
+      "optimization": "Try exact key/ID lookup before semantic retrieval",
+      "mechanism": "Use deterministic lookup when query contains a stable identifier",
+      "expected_effect": "lower latency; fewer false positives",
+      "test": "Exact-vs-hybrid route benchmark",
+      "failure_mode": "User may provide partial/incorrect ID",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0092",
+      "layer": "retrieval",
+      "optimization": "Try lexical search before embeddings for rare exact terminology",
+      "mechanism": "BM25 excels on distinctive strings/error messages/names",
+      "expected_effect": "lower cost; higher precision on exact terms",
+      "test": "Query-class evaluation",
+      "failure_mode": "Paraphrases may miss entirely",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0093",
+      "layer": "retrieval",
+      "optimization": "Run lexical+dense in parallel only when query class benefits",
+      "mechanism": "Avoid always paying both routes",
+      "expected_effect": "lower average retrieval work",
+      "test": "Per-query-family ablation",
+      "failure_mode": "Router can misclassify query",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0094",
+      "layer": "retrieval",
+      "optimization": "Apply hard domain/security filters before ranking",
+      "mechanism": "Do not retrieve unauthorized or cross-domain candidates merely to discard later",
+      "expected_effect": "privacy; lower candidate set",
+      "test": "Cross-domain leakage test",
+      "failure_mode": "Bad metadata can falsely exclude relevant record",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0135"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0095",
+      "layer": "retrieval",
+      "optimization": "Apply cheap metadata filters before expensive reranker",
+      "mechanism": "Spend neural ranking only on eligible candidates",
+      "expected_effect": "lower latency/cost",
+      "test": "Candidate-count and recall benchmark",
+      "failure_mode": "Over-filtering harms recall",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0096",
+      "layer": "retrieval",
+      "optimization": "Rerank a bounded top-N, not the whole corpus",
+      "mechanism": "Use expensive relevance scoring only after candidate generation",
+      "expected_effect": "lower latency",
+      "test": "Sweep rerank N vs quality",
+      "failure_mode": "N too small misses relevant item",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0097",
+      "layer": "retrieval",
+      "optimization": "Tune top-k by task family instead of one global constant",
+      "mechanism": "Different tasks require different breadth",
+      "expected_effect": "better quality/context cost",
+      "test": "Top-k sweep per suite",
+      "failure_mode": "Overfitting task taxonomy",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0079",
+        "SRC-AI-0080"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0098",
+      "layer": "retrieval",
+      "optimization": "Stop retrieval when evidence sufficiency criteria are met",
+      "mechanism": "Avoid extra search after enough independent/authoritative support",
+      "expected_effect": "lower latency/tokens",
+      "test": "Deep-research replay with/without stopping rule",
+      "failure_mode": "Premature sufficiency judgment",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0143"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0099",
+      "layer": "retrieval",
+      "optimization": "Expand query only after weak/no initial results",
+      "mechanism": "Avoid model-generated query drift when direct search works",
+      "expected_effect": "lower calls; less drift",
+      "test": "Search success by route",
+      "failure_mode": "Initial result can look adequate but be incomplete",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0075"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0100",
+      "layer": "retrieval",
+      "optimization": "Deduplicate near-identical retrieved chunks before prompt packing",
+      "mechanism": "Prevent duplicate evidence from crowding context and faking corroboration",
+      "expected_effect": "lower tokens; better evidence diversity",
+      "test": "Duplicate-rate/answer eval",
+      "failure_mode": "Near-duplicates may contain material version differences",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0116"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0101",
+      "layer": "retrieval",
+      "optimization": "Collapse multiple chunks from same source into one source record when possible",
+      "mechanism": "Avoid source-count inflation and redundant citations",
+      "expected_effect": "lower context",
+      "test": "Source diversity audit",
+      "failure_mode": "Separate chunks may carry distinct needed facts",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0102",
+      "layer": "retrieval",
+      "optimization": "Prefer primary/canonical source when equivalent evidence exists",
+      "mechanism": "Reduce contradictory derivative noise",
+      "expected_effect": "higher grounding",
+      "test": "Authority-selection test",
+      "failure_mode": "Primary source can be outdated or incomplete",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0103",
+      "layer": "retrieval",
+      "optimization": "Retrieve credible contradictory claims alongside selected claim",
+      "mechanism": "Expose disagreement rather than hiding it",
+      "expected_effect": "better uncertainty",
+      "test": "Conflict benchmark",
+      "failure_mode": "Can add irrelevant controversy/noise",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0104",
+      "layer": "retrieval",
+      "optimization": "Include source date/version in ranking for volatile domains",
+      "mechanism": "Prefer evidence applicable to current software/model/policy state",
+      "expected_effect": "freshness",
+      "test": "Stale-fact eval",
+      "failure_mode": "Newest is not automatically most authoritative",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0082"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0105",
+      "layer": "retrieval",
+      "optimization": "Use parent expansion only after a child chunk matches",
+      "mechanism": "Avoid loading whole parent sections for every candidate",
+      "expected_effect": "lower context",
+      "test": "Answer quality/context ratio",
+      "failure_mode": "Qualifier in parent may be needed even when child weakly matched",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0070"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0106",
+      "layer": "retrieval",
+      "optimization": "Fetch neighboring chunk/window for quoted rule or evidence",
+      "mechanism": "Recover local qualifiers without whole-document load",
+      "expected_effect": "better contextual accuracy",
+      "test": "Qualifier-loss test",
+      "failure_mode": "Neighbor may still not include distant definitions",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0070"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0107",
+      "layer": "retrieval",
+      "optimization": "Index headings/paths as metadata, not repeated text in every chunk",
+      "mechanism": "Preserve hierarchy with lower index/prompt duplication",
+      "expected_effect": "lower storage/context",
+      "test": "Retrieval accuracy",
+      "failure_mode": "Heading semantics may improve embeddings if included",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0108",
+      "layer": "retrieval",
+      "optimization": "Version embedding model and normalize index rebuilds",
+      "mechanism": "Prevent mixing incomparable vector spaces",
+      "expected_effect": "correct retrieval",
+      "test": "Embedding-upgrade migration test",
+      "failure_mode": "Rebuild cost",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0109",
+      "layer": "retrieval",
+      "optimization": "Keep old index available until new index passes retrieval eval",
+      "mechanism": "Make embedding/reranker upgrades reversible",
+      "expected_effect": "reliability",
+      "test": "Champion/challenger index comparison",
+      "failure_mode": "Extra disk usage",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0103"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0110",
+      "layer": "retrieval",
+      "optimization": "Cache query embeddings separately from retrieval results",
+      "mechanism": "Reuse representation while allowing index/ranking to evolve",
+      "expected_effect": "lower embedding cost",
+      "test": "Index update with same query test",
+      "failure_mode": "Embedding version must match",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0111",
+      "layer": "memory",
+      "optimization": "Debounce repeated memory writes from same short interaction window",
+      "mechanism": "Avoid creating multiple candidates for one evolving thought",
+      "expected_effect": "lower memory noise",
+      "test": "Conversation simulation",
+      "failure_mode": "Can merge genuinely distinct facts",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0084"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0112",
+      "layer": "memory",
+      "optimization": "Attach first_seen and last_seen rather than duplicating recurring observation",
+      "mechanism": "Represent recurrence compactly",
+      "expected_effect": "lower duplication; stronger evidence",
+      "test": "Repeated-evidence ingestion test",
+      "failure_mode": "Separate episodes may matter independently",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0084"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0113",
+      "layer": "memory",
+      "optimization": "Increase recurrence/evidence count on duplicate candidate instead of creating new record",
+      "mechanism": "Turn repetition into priority/evidence",
+      "expected_effect": "clean backlog",
+      "test": "Duplicate clustering eval",
+      "failure_mode": "Bad dedupe merges related but distinct problems",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0143"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0114",
+      "layer": "memory",
+      "optimization": "Never promote model inference with the same status as direct user/source evidence",
+      "mechanism": "Preserve epistemic distinction",
+      "expected_effect": "lower memory pollution",
+      "test": "Provenance audit",
+      "failure_mode": "Inference may still be highly useful",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0115",
+      "layer": "memory",
+      "optimization": "Preserve raw evidence reference when promoting a summary/fact",
+      "mechanism": "Allow future model to re-check interpretation",
+      "expected_effect": "auditability",
+      "test": "Source-resolution test",
+      "failure_mode": "Source may later be deleted by retention policy",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0116",
+      "layer": "memory",
+      "optimization": "Supersede old facts rather than overwriting history",
+      "mechanism": "Keep temporal truth recoverable",
+      "expected_effect": "better historical reasoning",
+      "test": "Change-of-address/policy fixture",
+      "failure_mode": "More complex retrieval logic",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0082"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0117",
+      "layer": "memory",
+      "optimization": "Demote stale derived memories before deleting them",
+      "mechanism": "Make forgetting reversible",
+      "expected_effect": "lower risk",
+      "test": "Need-old-memory retrospective tests",
+      "failure_mode": "Storage remains occupied",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0084"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0118",
+      "layer": "memory",
+      "optimization": "Keep high-volume raw telemetry/transcripts local and summarize only validated durable learning into Git",
+      "mechanism": "Reduce privacy/repository noise",
+      "expected_effect": "privacy; maintainability",
+      "test": "Data-boundary audit",
+      "failure_mode": "Cross-device retrieval of raw evidence is harder",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0119",
+      "layer": "memory",
+      "optimization": "Run consolidation offline/in batches",
+      "mechanism": "Avoid inserting model work into every interaction",
+      "expected_effect": "lower interactive latency",
+      "test": "Online-vs-batch memory quality",
+      "failure_mode": "Useful memory may arrive later",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0084"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0120",
+      "layer": "memory",
+      "optimization": "Cap consolidation batch size and checkpoint it",
+      "mechanism": "Make high-volume memory processing resumable",
+      "expected_effect": "reliability",
+      "test": "Crash/restart ingestion test",
+      "failure_mode": "Batch boundaries can affect clustering",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0121",
+      "layer": "evaluation",
+      "optimization": "Turn every verified production failure into at least one regression candidate",
+      "mechanism": "Prevent repeated failure mode",
+      "expected_effect": "higher reliability over time",
+      "test": "Failure→test conversion rate",
+      "failure_mode": "Not every failure is reproducible/testable",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0141"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0122",
+      "layer": "evaluation",
+      "optimization": "Turn exceptional success into a reusable-skill candidate",
+      "mechanism": "Learn from positive outliers too",
+      "expected_effect": "higher automation reuse",
+      "test": "Success-pattern replay",
+      "failure_mode": "One-off success may not generalize",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0123",
+      "layer": "evaluation",
+      "optimization": "Store exact model/tool/prompt/config versions on every eval run",
+      "mechanism": "Make comparisons reproducible",
+      "expected_effect": "better attribution",
+      "test": "Fresh clone replay",
+      "failure_mode": "Some providers hide backend revisions",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0102"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0124",
+      "layer": "evaluation",
+      "optimization": "Randomize pairwise judge order and run both orders for high-value comparisons",
+      "mechanism": "Detect position bias",
+      "expected_effect": "more reliable judge results",
+      "test": "Order consistency",
+      "failure_mode": "2x judge cost",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0100"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0125",
+      "layer": "evaluation",
+      "optimization": "Record output length as a judge covariate",
+      "mechanism": "Detect verbosity preference masquerading as quality",
+      "expected_effect": "better grader diagnosis",
+      "test": "Length-preference correlation",
+      "failure_mode": "Correlation does not prove bias",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0126",
+      "layer": "evaluation",
+      "optimization": "Blind model/provider identity during subjective grading",
+      "mechanism": "Reduce brand/model expectation bias",
+      "expected_effect": "better comparison validity",
+      "test": "Blinded-vs-unblinded judge/human test",
+      "failure_mode": "Output style can still reveal identity",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0127",
+      "layer": "evaluation",
+      "optimization": "Use deterministic checks before invoking judge model",
+      "mechanism": "Reserve subjective model grading for unresolved criteria",
+      "expected_effect": "lower eval cost; higher reliability",
+      "test": "Judge calls avoided without missed defects",
+      "failure_mode": "Hard checks may cover only shallow correctness",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0128",
+      "layer": "evaluation",
+      "optimization": "Allow evaluator to abstain/mark insufficient evidence",
+      "mechanism": "Avoid forced false precision",
+      "expected_effect": "better uncertainty handling",
+      "test": "Human agreement on abstentions",
+      "failure_mode": "Excess abstention increases review burden",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0100"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0129",
+      "layer": "evaluation",
+      "optimization": "Keep optimizer from seeing protected holdout cases",
+      "mechanism": "Reduce prompt/workflow overfit",
+      "expected_effect": "trustworthy promotion",
+      "test": "Access-policy test",
+      "failure_mode": "Developers/models may infer holdout distribution indirectly",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0130",
+      "layer": "evaluation",
+      "optimization": "Keep frozen anchor suite plus rolling recent suite",
+      "mechanism": "Preserve longitudinal comparison while adapting to new failures",
+      "expected_effect": "better drift detection",
+      "test": "Compare trends across both",
+      "failure_mode": "More suites increase maintenance",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0131",
+      "layer": "UX",
+      "optimization": "Show one recommended next action before advanced choices",
+      "mechanism": "Reduce decision burden",
+      "expected_effect": "faster user action",
+      "test": "Time-to-next-action and override rate",
+      "failure_mode": "Can over-steer user",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0130"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0132",
+      "layer": "UX",
+      "optimization": "Display why a recommendation was surfaced using observable evidence, not hidden reasoning",
+      "mechanism": "Support correction and trust calibration",
+      "expected_effect": "better user control",
+      "test": "Correction/acceptance rate",
+      "failure_mode": "Too much explanation adds clutter",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0130"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0133",
+      "layer": "UX",
+      "optimization": "Make dismiss/ignore/wrong-project feedback one action",
+      "mechanism": "Increase correction data without friction",
+      "expected_effect": "more useful feedback",
+      "test": "Feedback completion rate",
+      "failure_mode": "Accidental dismissal",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0130"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0134",
+      "layer": "UX",
+      "optimization": "Batch repeated low-urgency proactive findings into digest",
+      "mechanism": "Reduce interruption count",
+      "expected_effect": "lower alert fatigue",
+      "test": "Interruption/day vs acted-on rate",
+      "failure_mode": "Urgent item can be buried",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0130"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0135",
+      "layer": "UX",
+      "optimization": "Suppress previously rejected suggestion until material evidence changes",
+      "mechanism": "Avoid nagging",
+      "expected_effect": "higher proactive precision",
+      "test": "Repeat-dismissal rate",
+      "failure_mode": "Legitimate recurrence can be hidden",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0130"
+      ],
+      "adoption_tier": "default_candidate"
+    }
+  ]
+}

@@ -1,0 +1,1386 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "uncertainty_interpretability_compression_training_systems",
+  "techniques": [
+    {
+      "id": "AIT-0256",
+      "name": "Semantic-entropy uncertainty",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "inference"
+      ],
+      "goal": "Detect confabulation-prone questions/claims via variation in meaning across samples",
+      "mechanism": "Sample multiple outputs, cluster semantically equivalent meanings, compute entropy over meaning clusters and abstain/escalate when high.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0227.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential uncertainty signal, never sole correctness oracle.",
+      "use_when": [
+        "High-value factual claims without easy oracle",
+        "Uncertainty-triggered retrieval"
+      ],
+      "avoid_when": [
+        "Simple task with deterministic verifier",
+        "Latency-sensitive low-risk calls"
+      ],
+      "required_evals": [
+        "AUROC/AURAC",
+        "cost",
+        "abstention utility"
+      ],
+      "risks": [
+        "Multi-sample cost",
+        "semantic clustering errors",
+        "does not detect all hallucinations"
+      ],
+      "cost_profile": "multiple generations + entailment",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0227"
+      ],
+      "keywords": [
+        "semantic_entropy",
+        "confabulation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0257",
+      "name": "P(True) self-evaluation",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation",
+        "inference"
+      ],
+      "goal": "Estimate probability a proposed answer is correct",
+      "mechanism": "Ask model to evaluate truth of its answer, optionally after considering alternate samples.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Feed capability registry as one feature; calibrate per model/task.",
+      "use_when": [
+        "Low-cost supplementary uncertainty feature"
+      ],
+      "avoid_when": [
+        "High-stakes decisions without calibration",
+        "New task distribution"
+      ],
+      "required_evals": [
+        "calibration error",
+        "AUROC",
+        "selective accuracy"
+      ],
+      "risks": [
+        "Self-evaluation shares blind spots",
+        "prompt dependence"
+      ],
+      "cost_profile": "one extra evaluation call",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "P_True",
+        "self_eval"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0258",
+      "name": "P(IK) knowability prediction",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Predict before answering whether model knows enough",
+      "mechanism": "Train/prompt model to estimate probability it can answer correctly independent of a particular answer.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Could inform retrieval/escalation but external evidence gaps are more reliable.",
+      "use_when": [
+        "Routing/retrieval research"
+      ],
+      "avoid_when": [
+        "Unseen tasks without calibration"
+      ],
+      "required_evals": [
+        "calibration transfer",
+        "route utility"
+      ],
+      "risks": [
+        "Poor cross-task calibration"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "P_IK",
+        "knowability"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0259",
+      "name": "Post-hoc temperature scaling",
+      "aliases": [],
+      "category": "calibration",
+      "layer": [
+        "evaluation",
+        "model"
+      ],
+      "goal": "Calibrate probabilistic classifier confidence without retraining base model",
+      "mechanism": "Fit one scalar temperature on validation logits to align confidence with empirical correctness.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0229.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Useful for local route/classification models, not as generic LLM truth score.",
+      "use_when": [
+        "Local classifiers/rerankers/router probability models"
+      ],
+      "avoid_when": [
+        "Free-form LLM confidence without logits/class labels"
+      ],
+      "required_evals": [
+        "ECE",
+        "NLL",
+        "Brier",
+        "OOD"
+      ],
+      "risks": [
+        "Calibration drifts under domain shift"
+      ],
+      "cost_profile": "tiny",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0229"
+      ],
+      "keywords": [
+        "temperature_scaling",
+        "calibration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0260",
+      "name": "Deep ensembles for uncertainty",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "model",
+        "evaluation"
+      ],
+      "goal": "Estimate predictive uncertainty and improve robustness via diverse independently trained models",
+      "mechanism": "Train multiple predictors with different initialization/data order and aggregate mean/variance/disagreement.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0230.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "For Agent OS, multi-model routing disagreement is a cheaper analogue.",
+      "use_when": [
+        "Small local classifiers",
+        "Critical prediction with cheap models"
+      ],
+      "avoid_when": [
+        "Frontier LLM agents where ensemble cost huge"
+      ],
+      "required_evals": [
+        "calibration",
+        "OOD",
+        "cost"
+      ],
+      "risks": [
+        "Correlated errors",
+        "training/inference multiplier"
+      ],
+      "cost_profile": "N× model cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0230"
+      ],
+      "keywords": [
+        "deep_ensemble"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0261",
+      "name": "Sparse autoencoder feature dictionaries",
+      "aliases": [],
+      "category": "interpretability",
+      "layer": [
+        "model",
+        "interpretability"
+      ],
+      "goal": "Decompose dense activations into sparse learned feature directions",
+      "mechanism": "Train dictionary-learning autoencoders over model activations and inspect/label recurring sparse features.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0231.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Potential future diagnostic signal; never direct permission/control mechanism.",
+      "use_when": [
+        "Open-weight local model interpretability/safety research"
+      ],
+      "avoid_when": [
+        "Hosted models without activations"
+      ],
+      "required_evals": [
+        "reconstruction",
+        "feature stability",
+        "causal interventions"
+      ],
+      "risks": [
+        "Feature interpretation can be subjective",
+        "incomplete basis",
+        "large infra"
+      ],
+      "cost_profile": "high offline",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0231"
+      ],
+      "keywords": [
+        "SAE",
+        "monosemanticity"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0262",
+      "name": "Attribution-graph / circuit tracing",
+      "aliases": [],
+      "category": "interpretability",
+      "layer": [
+        "model",
+        "interpretability"
+      ],
+      "goal": "Inspect pathways/features contributing to a particular output",
+      "mechanism": "Construct approximate computational attribution graphs over internal model features and trace candidate causal chains.",
+      "maturity": "early_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0232.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Research tool for unexplained local-model failures, not ordinary telemetry.",
+      "use_when": [
+        "Forensic analysis of local/open models"
+      ],
+      "avoid_when": [
+        "Routine Agent OS execution"
+      ],
+      "required_evals": [
+        "faithfulness tests",
+        "counterfactual interventions"
+      ],
+      "risks": [
+        "Partial/inexact reconstruction",
+        "analyst confirmation bias"
+      ],
+      "cost_profile": "high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0232"
+      ],
+      "keywords": [
+        "circuit_tracing",
+        "attribution_graph"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0263",
+      "name": "SparseGPT one-shot pruning",
+      "aliases": [],
+      "category": "model_compression",
+      "layer": [
+        "model",
+        "inference"
+      ],
+      "goal": "Reduce local model parameter count/compute with little retraining",
+      "mechanism": "Use approximate second-order reconstruction to choose/remove weights layer-by-layer.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0233.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Register pruned checkpoint as separate model deployment.",
+      "use_when": [
+        "Local models where sparse kernels/hardware benefit"
+      ],
+      "avoid_when": [
+        "Hosted APIs",
+        "Hardware cannot exploit unstructured sparsity"
+      ],
+      "required_evals": [
+        "task quality",
+        "memory",
+        "tokens/sec",
+        "power"
+      ],
+      "risks": [
+        "Perplexity can hide downstream regression",
+        "sparse runtime support"
+      ],
+      "cost_profile": "offline compression",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233"
+      ],
+      "keywords": [
+        "SparseGPT",
+        "pruning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0264",
+      "name": "Wanda activation-aware pruning",
+      "aliases": [],
+      "category": "model_compression",
+      "layer": [
+        "model",
+        "inference"
+      ],
+      "goal": "Create sparse local models without retraining or expensive reconstruction",
+      "mechanism": "Prune weights using magnitude × input-activation importance per output.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0234.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Benchmark against quantization; simpler compression route may win.",
+      "use_when": [
+        "Fast local pruning experiments"
+      ],
+      "avoid_when": [
+        "No sparse acceleration",
+        "Critical model where quality loss unacceptable"
+      ],
+      "required_evals": [
+        "quality",
+        "speed",
+        "memory"
+      ],
+      "risks": [
+        "Calibration-set dependence",
+        "sparsity may not speed hardware"
+      ],
+      "cost_profile": "low-medium offline",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0234"
+      ],
+      "keywords": [
+        "Wanda",
+        "pruning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0265",
+      "name": "Movement pruning",
+      "aliases": [],
+      "category": "model_compression",
+      "layer": [
+        "training",
+        "pruning"
+      ],
+      "goal": "Learn task-adaptive sparsity during fine-tuning",
+      "mechanism": "Use gradient/movement signal to remove weights moving toward zero rather than magnitude alone.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0235.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Lower priority than PEFT + quantization for likely Agent OS uses.",
+      "use_when": [
+        "Local task-specific model compression"
+      ],
+      "avoid_when": [
+        "No fine-tuning budget"
+      ],
+      "required_evals": [
+        "task quality vs sparsity",
+        "training cost"
+      ],
+      "risks": [
+        "Task overfit",
+        "older architecture evidence"
+      ],
+      "cost_profile": "training required",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0235"
+      ],
+      "keywords": [
+        "movement_pruning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0266",
+      "name": "Adapter modules",
+      "aliases": [],
+      "category": "PEFT",
+      "layer": [
+        "training",
+        "model"
+      ],
+      "goal": "Maintain many task adaptations without separate full models",
+      "mechanism": "Insert small bottleneck modules into frozen base layers and train only adapters.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0237.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Could become local specialist layer if many workloads share same base.",
+      "use_when": [
+        "Self-hosted shared base with many stable specialist tasks"
+      ],
+      "avoid_when": [
+        "Hosted models",
+        "Task changes frequently"
+      ],
+      "required_evals": [
+        "task quality",
+        "adapter swap latency",
+        "storage"
+      ],
+      "risks": [
+        "Adapter proliferation",
+        "runtime overhead"
+      ],
+      "cost_profile": "low trainable params",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0237"
+      ],
+      "keywords": [
+        "adapters",
+        "PEFT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0267",
+      "name": "Prefix tuning",
+      "aliases": [],
+      "category": "PEFT",
+      "layer": [
+        "training",
+        "model"
+      ],
+      "goal": "Adapt frozen generative model with learned continuous prefix",
+      "mechanism": "Optimize virtual prefix activations/keys/values while base weights stay frozen.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0238.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Less auditable than text prompt/skills; require strong advantage.",
+      "use_when": [
+        "Local model with stable generation task"
+      ],
+      "avoid_when": [
+        "Hosted API",
+        "Need transparent text prompt editing"
+      ],
+      "required_evals": [
+        "quality",
+        "domain transfer",
+        "prefix storage"
+      ],
+      "risks": [
+        "Opaque soft prompts",
+        "model-version coupling"
+      ],
+      "cost_profile": "low trainable params",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0238"
+      ],
+      "keywords": [
+        "prefix_tuning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0268",
+      "name": "Soft prompt tuning",
+      "aliases": [],
+      "category": "PEFT",
+      "layer": [
+        "training",
+        "model"
+      ],
+      "goal": "Learn compact continuous prompt embeddings for frozen model",
+      "mechanism": "Optimize a short learned embedding sequence prepended to input.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0239.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Use only if measurable benefit exceeds loss of inspectability.",
+      "use_when": [
+        "Local shared base at scale"
+      ],
+      "avoid_when": [
+        "Need human-readable prompt policy"
+      ],
+      "required_evals": [
+        "task quality",
+        "robustness",
+        "parameter count"
+      ],
+      "risks": [
+        "Opaque behavior",
+        "base-version coupling"
+      ],
+      "cost_profile": "very low trainable params",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0239"
+      ],
+      "keywords": [
+        "prompt_tuning",
+        "soft_prompt"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0269",
+      "name": "IA3 activation scaling",
+      "aliases": [],
+      "category": "PEFT",
+      "layer": [
+        "training",
+        "model"
+      ],
+      "goal": "Adapt a model with extremely small trainable vectors",
+      "mechanism": "Learn multiplicative scaling vectors for selected attention/FFN activations.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0240.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Compare LoRA/adapter/IA3 on exact task; no universal PEFT winner.",
+      "use_when": [
+        "Memory-constrained local specialization"
+      ],
+      "avoid_when": [
+        "Hosted model"
+      ],
+      "required_evals": [
+        "quality",
+        "trainable params",
+        "inference overhead"
+      ],
+      "risks": [
+        "Capacity may be insufficient for broad changes"
+      ],
+      "cost_profile": "very low trainable params",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0240"
+      ],
+      "keywords": [
+        "IA3",
+        "PEFT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0270",
+      "name": "BitFit bias-only tuning",
+      "aliases": [],
+      "category": "PEFT",
+      "layer": [
+        "training",
+        "model"
+      ],
+      "goal": "Adapt model with tiny parameter subset",
+      "mechanism": "Train only selected bias parameters.",
+      "maturity": "historical",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0241.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Preserve as minimal PEFT baseline.",
+      "use_when": [
+        "Very small local experiments"
+      ],
+      "avoid_when": [
+        "Modern complex generation requiring larger adaptation"
+      ],
+      "required_evals": [
+        "quality",
+        "parameter count"
+      ],
+      "risks": [
+        "Underfitting",
+        "older encoder evidence"
+      ],
+      "cost_profile": "tiny",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0241"
+      ],
+      "keywords": [
+        "BitFit"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0271",
+      "name": "Model soups",
+      "aliases": [],
+      "category": "model_merging",
+      "layer": [
+        "model",
+        "training"
+      ],
+      "goal": "Combine multiple compatible fine-tuned solutions without inference ensemble cost",
+      "mechanism": "Average weights from fine-tuned models/hyperparameter runs that lie in compatible basin.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0242.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Potential way to consolidate adapters/fine-tunes only with broad holdout.",
+      "use_when": [
+        "Local models with several compatible fine-tunes"
+      ],
+      "avoid_when": [
+        "Unrelated architectures/base checkpoints"
+      ],
+      "required_evals": [
+        "merged quality",
+        "OOD robustness",
+        "per-task regression"
+      ],
+      "risks": [
+        "Weight interference",
+        "safety behavior changes"
+      ],
+      "cost_profile": "offline merge; one model inference",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0242"
+      ],
+      "keywords": [
+        "model_soup",
+        "weight_averaging"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0272",
+      "name": "TIES model merging",
+      "aliases": [],
+      "category": "model_merging",
+      "layer": [
+        "model",
+        "training"
+      ],
+      "goal": "Merge task-specific models while reducing parameter interference",
+      "mechanism": "Trim small updates, elect sign direction, merge only aligned deltas.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0243.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Treat merged checkpoint as a new model requiring full capability registry.",
+      "use_when": [
+        "Compatible fine-tunes sharing base"
+      ],
+      "avoid_when": [
+        "Different base models"
+      ],
+      "required_evals": [
+        "multitask quality",
+        "interference",
+        "safety"
+      ],
+      "risks": [
+        "Unexpected cross-task interactions"
+      ],
+      "cost_profile": "offline",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0243"
+      ],
+      "keywords": [
+        "TIES",
+        "model_merging"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0273",
+      "name": "Activation checkpointing",
+      "aliases": [],
+      "category": "training_systems",
+      "layer": [
+        "training",
+        "systems"
+      ],
+      "goal": "Fit larger/deeper training jobs in memory by trading compute for activation storage",
+      "mechanism": "Store subset of forward activations and recompute others during backward pass.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0244.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Only relevant if Agent OS begins serious local training.",
+      "use_when": [
+        "Local model training limited by GPU memory"
+      ],
+      "avoid_when": [
+        "Training compute/time is scarcer than memory"
+      ],
+      "required_evals": [
+        "peak memory",
+        "throughput",
+        "cost"
+      ],
+      "risks": [
+        "Longer training",
+        "checkpoint placement complexity"
+      ],
+      "cost_profile": "more compute, less memory",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0244"
+      ],
+      "keywords": [
+        "activation_checkpointing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0274",
+      "name": "ZeRO optimizer/state sharding",
+      "aliases": [],
+      "category": "training_systems",
+      "layer": [
+        "training",
+        "distributed_systems"
+      ],
+      "goal": "Scale model training across GPUs by removing replicated states",
+      "mechanism": "Shard optimizer state, gradients and/or parameters across data-parallel ranks.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0245.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Future infrastructure knowledge only.",
+      "use_when": [
+        "Multi-GPU local/cluster training"
+      ],
+      "avoid_when": [
+        "Single-GPU small fine-tune"
+      ],
+      "required_evals": [
+        "memory/GPU",
+        "throughput",
+        "communication"
+      ],
+      "risks": [
+        "Distributed complexity",
+        "network bottlenecks"
+      ],
+      "cost_profile": "cluster infrastructure",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0245"
+      ],
+      "keywords": [
+        "ZeRO",
+        "sharding"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0275",
+      "name": "FSDP fully sharded data parallelism",
+      "aliases": [],
+      "category": "training_systems",
+      "layer": [
+        "training",
+        "distributed_systems"
+      ],
+      "goal": "Train models that exceed individual-device memory while retaining data-parallel interface",
+      "mechanism": "Shard parameters/gradients/optimizer states and all-gather around forward/backward.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0246.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Track current PyTorch implementation rather than old assumptions.",
+      "use_when": [
+        "PyTorch multi-device training"
+      ],
+      "avoid_when": [
+        "Hosted APIs"
+      ],
+      "required_evals": [
+        "memory",
+        "throughput",
+        "checkpoint/restart"
+      ],
+      "risks": [
+        "Communication overhead",
+        "state-dict complexity"
+      ],
+      "cost_profile": "cluster infrastructure",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0246"
+      ],
+      "keywords": [
+        "FSDP",
+        "DTensor"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0276",
+      "name": "Tensor parallelism",
+      "aliases": [],
+      "category": "training_systems",
+      "layer": [
+        "training",
+        "inference",
+        "distributed_systems"
+      ],
+      "goal": "Split individual layer matrix operations across devices",
+      "mechanism": "Partition large weight matrices/attention heads and communicate partial results within layer.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0247.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Hardware-topology-specific.",
+      "use_when": [
+        "Very large local model training/inference"
+      ],
+      "avoid_when": [
+        "Model fits one device",
+        "Slow interconnect"
+      ],
+      "required_evals": [
+        "throughput",
+        "communication",
+        "scaling"
+      ],
+      "risks": [
+        "Communication dominates across nodes"
+      ],
+      "cost_profile": "cluster/high-speed interconnect",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0247"
+      ],
+      "keywords": [
+        "tensor_parallel",
+        "Megatron"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0277",
+      "name": "Sequence parallelism",
+      "aliases": [],
+      "category": "training_systems",
+      "layer": [
+        "training",
+        "long_context"
+      ],
+      "goal": "Scale very long-sequence training across devices",
+      "mechanism": "Partition sequence dimension and exchange attention components via collective communication.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0248.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Long context engineering is not Agent OS's first answer to retrieval.",
+      "use_when": [
+        "Long-context foundation model training"
+      ],
+      "avoid_when": [
+        "Application RAG/context issue"
+      ],
+      "required_evals": [
+        "max sequence",
+        "throughput",
+        "comm volume"
+      ],
+      "risks": [
+        "Massive infrastructure and long-context quality still uncertain"
+      ],
+      "cost_profile": "cluster",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0248"
+      ],
+      "keywords": [
+        "sequence_parallel",
+        "Ulysses"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0278",
+      "name": "FlashAttention-2",
+      "aliases": [],
+      "category": "training_systems",
+      "layer": [
+        "training",
+        "inference"
+      ],
+      "goal": "Reduce exact attention IO and improve GPU occupancy",
+      "mechanism": "Tile attention and repartition work to minimize non-matmul FLOPs/shared-memory communication.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0249.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Provider/runtime detail; keep capability registry aware of backend.",
+      "use_when": [
+        "Self-hosted model stack supporting kernel"
+      ],
+      "avoid_when": [
+        "Hosted APIs"
+      ],
+      "required_evals": [
+        "throughput",
+        "memory",
+        "numerical equivalence"
+      ],
+      "risks": [
+        "Hardware/kernel compatibility"
+      ],
+      "cost_profile": "systems engineering",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0249"
+      ],
+      "keywords": [
+        "FlashAttention2"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0279",
+      "name": "Mirostat adaptive perplexity decoding",
+      "aliases": [],
+      "category": "decoding",
+      "layer": [
+        "inference"
+      ],
+      "goal": "Maintain open-ended generation in a target surprise/perplexity regime",
+      "mechanism": "Feedback controller adapts effective truncation to stabilize estimated surprise and avoid repetition/incoherence extremes.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0250.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Potential Dream Eater/local creative route experiment only.",
+      "use_when": [
+        "Local creative-writing model"
+      ],
+      "avoid_when": [
+        "Tool calls",
+        "Structured factual tasks"
+      ],
+      "required_evals": [
+        "human quality",
+        "repetition",
+        "coherence"
+      ],
+      "risks": [
+        "Older model-era assumptions",
+        "parameter sensitivity"
+      ],
+      "cost_profile": "low inference overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0250"
+      ],
+      "keywords": [
+        "Mirostat"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0280",
+      "name": "Finite-state/grammar constrained decoding",
+      "aliases": [],
+      "category": "structured_generation",
+      "layer": [
+        "inference",
+        "tools"
+      ],
+      "goal": "Guarantee syntactic membership in JSON/regex/CFG languages",
+      "mechanism": "Mask invalid next tokens according to finite-state machine/parser grammar during generation.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0252, SRC-AI-0253.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "For local Agent OS models, pair grammar with semantic validators/authorization.",
+      "use_when": [
+        "Self-hosted/local structured outputs",
+        "Code DSLs",
+        "Tool arguments"
+      ],
+      "avoid_when": [
+        "Hosted provider already guarantees schema",
+        "Semantic correctness is the problem"
+      ],
+      "required_evals": [
+        "validity rate",
+        "latency overhead",
+        "semantic errors"
+      ],
+      "risks": [
+        "Valid syntax can still be wrong action"
+      ],
+      "cost_profile": "small runtime overhead",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0251",
+        "SRC-AI-0252",
+        "SRC-AI-0253"
+      ],
+      "keywords": [
+        "constrained_decoding",
+        "grammar"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0281",
+      "name": "Cross-grammar/JIT structured-generation caching",
+      "aliases": [],
+      "category": "structured_generation",
+      "layer": [
+        "inference",
+        "cache"
+      ],
+      "goal": "Reduce overhead for dynamic tool/JSON grammars",
+      "mechanism": "Compile/cache repeated grammar substructures and dispatch dynamically for agentic structured generation.",
+      "maturity": "early_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0253.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Relevant only after local structured generation is a measured bottleneck.",
+      "use_when": [
+        "High-throughput local tool-calling server"
+      ],
+      "avoid_when": [
+        "Hosted API",
+        "Small volume"
+      ],
+      "required_evals": [
+        "compile time",
+        "mask latency",
+        "cache reuse"
+      ],
+      "risks": [
+        "Runtime complexity"
+      ],
+      "cost_profile": "serving optimization",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0253"
+      ],
+      "keywords": [
+        "XGrammar2",
+        "grammar_cache"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0282",
+      "name": "Sentence embedding bi-encoder retrieval",
+      "aliases": [],
+      "category": "embedding_models",
+      "layer": [
+        "retrieval",
+        "model"
+      ],
+      "goal": "Make semantic retrieval scalable through independently encoded query/doc vectors",
+      "mechanism": "Train Siamese/triplet encoders so embeddings compare cheaply via dot/cosine similarity.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0254.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Modern embedding model replaces original SBERT, but architecture remains.",
+      "use_when": [
+        "Knowledge Engine semantic search"
+      ],
+      "avoid_when": [
+        "Need maximal precision over tiny candidate set"
+      ],
+      "required_evals": [
+        "recall/latency/index size"
+      ],
+      "risks": [
+        "Embedding domain mismatch",
+        "loss of cross-attention nuance"
+      ],
+      "cost_profile": "low query latency",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0254"
+      ],
+      "keywords": [
+        "SBERT",
+        "bi_encoder"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0283",
+      "name": "Matryoshka/nested embeddings",
+      "aliases": [],
+      "category": "embedding_models",
+      "layer": [
+        "retrieval",
+        "efficiency"
+      ],
+      "goal": "Adapt embedding dimension to storage/latency needs without retraining separate models",
+      "mechanism": "Train representation so shorter prefixes remain useful coarse embeddings and longer dimensions refine quality.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0255.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Future embedding benchmark can test dimension tiers per Agent OS corpus.",
+      "use_when": [
+        "Large local vector index",
+        "Device/latency tiers"
+      ],
+      "avoid_when": [
+        "Embedding model not explicitly trained for nested property"
+      ],
+      "required_evals": [
+        "recall vs dimension",
+        "storage",
+        "latency"
+      ],
+      "risks": [
+        "Unsafe arbitrary truncation"
+      ],
+      "cost_profile": "potential large storage savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255"
+      ],
+      "keywords": [
+        "Matryoshka",
+        "nested_embeddings"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0284",
+      "name": "Specialist-teacher distillation",
+      "aliases": [],
+      "category": "distillation",
+      "layer": [
+        "training",
+        "model"
+      ],
+      "goal": "Compress expensive ensemble/specialists into one cheaper model",
+      "mechanism": "Train student on soft/sequence outputs from general + specialist teachers/confusion classes.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0256.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Potential endpoint when repeated routed tasks justify a dedicated local model.",
+      "use_when": [
+        "Stable local high-volume classifier/generator"
+      ],
+      "avoid_when": [
+        "Sparse changing personal tasks"
+      ],
+      "required_evals": [
+        "student parity",
+        "latency",
+        "rare-case regression"
+      ],
+      "risks": [
+        "Teacher bias inheritance",
+        "forgetting tail behavior"
+      ],
+      "cost_profile": "high offline, low online",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0256"
+      ],
+      "keywords": [
+        "knowledge_distillation",
+        "specialists"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0285",
+      "name": "Pruning + quantization combination",
+      "aliases": [],
+      "category": "model_compression",
+      "layer": [
+        "model",
+        "inference"
+      ],
+      "goal": "Stack complementary compression methods for local serving",
+      "mechanism": "First induce sparsity, then quantize remaining weights/activations, benchmarking kernels that exploit both.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0233, SRC-AI-0178.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Complexity must beat one-method baseline on exact hardware.",
+      "use_when": [
+        "Severe local resource constraints"
+      ],
+      "avoid_when": [
+        "One simpler compression already meets requirement"
+      ],
+      "required_evals": [
+        "quality",
+        "tokens/sec",
+        "memory",
+        "energy"
+      ],
+      "risks": [
+        "Compounded degradation",
+        "kernel support"
+      ],
+      "cost_profile": "complex offline tuning",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0233",
+        "SRC-AI-0178"
+      ],
+      "keywords": [
+        "pruning",
+        "quantization"
+      ],
+      "notes": ""
+    }
+  ]
+}

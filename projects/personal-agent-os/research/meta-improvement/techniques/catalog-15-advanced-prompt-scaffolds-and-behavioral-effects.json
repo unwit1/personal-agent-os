@@ -1,0 +1,977 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "advanced_prompt_scaffolds_behavioral_effects",
+  "techniques": [
+    {
+      "id": "AIT-0391",
+      "name": "Self-Ask decomposition",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning",
+        "retrieval"
+      ],
+      "goal": "Reduce compositional errors by turning multi-hop problem into explicit subquestions",
+      "mechanism": "Model decides whether follow-up questions are needed, asks/answers them sequentially, then composes final answer; subquestions can be delegated to search/tools.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0275.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Agent OS version should route subquestions to authoritative retrieval rather than self-answer when freshness matters.",
+      "use_when": [
+        "Multi-hop factual/research questions",
+        "Subproblems can be independently verified"
+      ],
+      "avoid_when": [
+        "Simple task",
+        "Modern reasoning model already decomposes reliably",
+        "Subquestions strongly interact"
+      ],
+      "required_evals": [
+        "end-to-end accuracy",
+        "subquestion accuracy",
+        "tool calls",
+        "cost"
+      ],
+      "risks": [
+        "Wrong decomposition",
+        "error propagation",
+        "more tokens"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0275"
+      ],
+      "keywords": [
+        "self_ask",
+        "decomposition"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0392",
+      "name": "Step-Back Prompting",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Prevent local details from obscuring governing principle",
+      "mechanism": "Ask for relevant high-level concept/first principle before solving concrete problem, then condition solution on that abstraction.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0276.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential constructive-challenge tactic: first restate underlying outcome/principle, then assess proposed solution.",
+      "use_when": [
+        "STEM",
+        "Architecture reasoning",
+        "Rule-heavy cases"
+      ],
+      "avoid_when": [
+        "Direct lookup",
+        "Wrong abstraction would be dangerous"
+      ],
+      "required_evals": [
+        "accuracy",
+        "abstraction correctness",
+        "token overhead"
+      ],
+      "risks": [
+        "Confident wrong generalization",
+        "extra pass"
+      ],
+      "cost_profile": "medium",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0276"
+      ],
+      "keywords": [
+        "step_back",
+        "abstraction"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0393",
+      "name": "Chain-of-Verification",
+      "aliases": [],
+      "category": "verification_prompt",
+      "layer": [
+        "prompt",
+        "evaluation"
+      ],
+      "goal": "Reduce factual hallucinations by separating draft and verification",
+      "mechanism": "Draft response, generate targeted fact-check questions, answer checks independently, then revise based on verification.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0277.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Prefer external-source verification; use CoVe to generate what needs checking.",
+      "use_when": [
+        "Closed-book factual lists",
+        "Long-form claims where external evidence unavailable"
+      ],
+      "avoid_when": [
+        "Web/files/tool evidence is available and more authoritative",
+        "Simple answer"
+      ],
+      "required_evals": [
+        "claim error rate",
+        "verification precision",
+        "cost"
+      ],
+      "risks": [
+        "Self-verification shares same knowledge errors",
+        "confirmation bias"
+      ],
+      "cost_profile": "multiple passes",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0277"
+      ],
+      "keywords": [
+        "CoVe",
+        "verification"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0394",
+      "name": "Independent verification-question answering",
+      "aliases": [],
+      "category": "verification_prompt",
+      "layer": [
+        "prompt",
+        "evaluation"
+      ],
+      "goal": "Reduce anchoring of fact checks on the draft answer",
+      "mechanism": "Answer each generated verification question without showing the original draft/other verification answers, then reconcile.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0277.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS can route verification questions to independent source/tool/model packets.",
+      "use_when": [
+        "CoVe-like factual checks"
+      ],
+      "avoid_when": [
+        "Verification depends on broader answer context"
+      ],
+      "required_evals": [
+        "verification accuracy",
+        "anchoring delta"
+      ],
+      "risks": [
+        "Still same-model epistemic limits"
+      ],
+      "cost_profile": "extra isolated calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0277"
+      ],
+      "keywords": [
+        "independent_checks",
+        "anchoring"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0395",
+      "name": "Generated Knowledge Prompting",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Surface latent relevant knowledge before answering",
+      "mechanism": "Generate multiple relevant facts/knowledge statements, then condition answer generation/selection on them.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0278.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Treat generated knowledge as hypothesis, never source/provenance evidence.",
+      "use_when": [
+        "Commonsense/static-domain reasoning when retrieval unavailable"
+      ],
+      "avoid_when": [
+        "Current/high-stakes facts",
+        "External authoritative source exists"
+      ],
+      "required_evals": [
+        "accuracy",
+        "false-premise rate",
+        "token cost"
+      ],
+      "risks": [
+        "Generated premises can hallucinate and poison answer"
+      ],
+      "cost_profile": "multiple generations",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0278"
+      ],
+      "keywords": [
+        "GKP",
+        "generated_knowledge"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0396",
+      "name": "Knowledge-generation ensemble",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce dependence on one generated premise",
+      "mechanism": "Sample multiple knowledge statements/answer paths and select/aggregate predictions.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0278.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "If external evidence exists, spend the compute retrieving/verifying instead.",
+      "use_when": [
+        "Commonsense benchmark experiments"
+      ],
+      "avoid_when": [
+        "High-stakes Agent OS decisions"
+      ],
+      "required_evals": [
+        "accuracy vs sample count",
+        "premise diversity"
+      ],
+      "risks": [
+        "Multiplies cost and correlated errors"
+      ],
+      "cost_profile": "high",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0278"
+      ],
+      "keywords": [
+        "knowledge_ensemble"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0397",
+      "name": "Analogical Prompting / self-generated exemplars",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Create task-tailored demonstrations without curated examples",
+      "mechanism": "Ask model to recall/generate analogous solved problems/lessons before solving target.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0279.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Verifier should check analogy/result; retrieve real past Agent OS examples when available.",
+      "use_when": [
+        "Math/code/reasoning where analogies are checkable"
+      ],
+      "avoid_when": [
+        "Generated examples may introduce false domain facts",
+        "Simple direct task"
+      ],
+      "required_evals": [
+        "target accuracy",
+        "analogy validity",
+        "cost"
+      ],
+      "risks": [
+        "False analogy",
+        "self-generated errors"
+      ],
+      "cost_profile": "medium",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0279"
+      ],
+      "keywords": [
+        "analogical_prompting",
+        "self_examples"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0398",
+      "name": "Retrieve-real-analogy before self-generating one",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "retrieval",
+        "prompt",
+        "memory"
+      ],
+      "goal": "Use actual prior successes/failures instead of invented exemplars when the system has them",
+      "mechanism": "Search historical task/eval/skill corpus for similar solved cases; only self-generate analogy if no strong real match.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0279.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Combines analogical reasoning with provenance-preserving episodic memory.",
+      "use_when": [
+        "Agent OS mature task corpus"
+      ],
+      "avoid_when": [
+        "No historical comparable cases"
+      ],
+      "required_evals": [
+        "reuse rate",
+        "accuracy vs self-generated analogy"
+      ],
+      "risks": [
+        "Surface similarity can retrieve misleading case"
+      ],
+      "cost_profile": "retrieval cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0279"
+      ],
+      "keywords": [
+        "case_based_reasoning",
+        "analogies"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0399",
+      "name": "Self-Discover reasoning structure",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Choose task-specific reasoning scaffold instead of one universal CoT recipe",
+      "mechanism": "Select from atomic reasoning modules and compose a structure suited to the task, then solve using it.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0280.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Meta Engine can test discovered scaffolds offline and promote reusable structures as skills only if holdout gains persist.",
+      "use_when": [
+        "Diverse hard reasoning tasks",
+        "Repeated task class lacks known best scaffold"
+      ],
+      "avoid_when": [
+        "Modern reasoning model works better with minimal direct prompt",
+        "Simple tasks"
+      ],
+      "required_evals": [
+        "accuracy",
+        "compute",
+        "structure reuse"
+      ],
+      "risks": [
+        "Scaffold selection overhead",
+        "model/version dependence"
+      ],
+      "cost_profile": "medium upfront, potentially reused",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0280"
+      ],
+      "keywords": [
+        "SELF_DISCOVER",
+        "reasoning_structure"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0400",
+      "name": "Reusable discovered reasoning template",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "skills",
+        "prompt"
+      ],
+      "goal": "Amortize expensive scaffold discovery across repeated task family",
+      "mechanism": "Once a discovered structure passes evals across cases/models, save it as versioned task skill and skip rediscovery each call.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0280.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Exactly the kind of success pattern Skill Miner should identify.",
+      "use_when": [
+        "Stable recurring reasoning task family"
+      ],
+      "avoid_when": [
+        "One-off task",
+        "Template becomes stale across model upgrades"
+      ],
+      "required_evals": [
+        "reuse quality",
+        "tokens avoided",
+        "cross-model transfer"
+      ],
+      "risks": [
+        "Template overfit"
+      ],
+      "cost_profile": "low online",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0280"
+      ],
+      "keywords": [
+        "reasoning_skill",
+        "amortization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0401",
+      "name": "Emotional-stimulus prompt suffix",
+      "aliases": [],
+      "category": "behavioral_prompt",
+      "layer": [
+        "prompt"
+      ],
+      "goal": "Potentially nudge performance/style through affective language",
+      "mechanism": "Append emotional/social stakes language such as importance/encouragement before task response.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "low_medium",
+        "summary": "Evidence basis: SRC-AI-0281.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Catalog it so future models know it was tried; do not bake theatrical urgency into Agent OS prompts.",
+      "use_when": [
+        "Prompt-behavior research only unless local A/B proves robust gain"
+      ],
+      "avoid_when": [
+        "Production defaults",
+        "High-stakes context",
+        "User-facing manipulative tone"
+      ],
+      "required_evals": [
+        "task A/B across models",
+        "stability over model versions"
+      ],
+      "risks": [
+        "No clear mechanism",
+        "can be manipulative",
+        "may stop working after model update"
+      ],
+      "cost_profile": "very low per prompt",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0281"
+      ],
+      "keywords": [
+        "EmotionPrompt",
+        "prompt_hack"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0402",
+      "name": "Politeness-level tuning",
+      "aliases": [],
+      "category": "behavioral_prompt",
+      "layer": [
+        "prompt"
+      ],
+      "goal": "Test whether tone materially affects a model/language task",
+      "mechanism": "Vary rude/neutral/polite language while holding semantics constant and measure task behavior.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "low_medium",
+        "summary": "Evidence basis: SRC-AI-0282, SRC-AI-0283.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Agent OS should choose tone for human communication quality, not rely on it for model intelligence.",
+      "use_when": [
+        "Cross-lingual prompt robustness research"
+      ],
+      "avoid_when": [
+        "Assuming 'please' is an optimization"
+      ],
+      "required_evals": [
+        "accuracy by tone/language/model"
+      ],
+      "risks": [
+        "Cultural/model confounds",
+        "unstable effects"
+      ],
+      "cost_profile": "tiny",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0282",
+        "SRC-AI-0283"
+      ],
+      "keywords": [
+        "politeness",
+        "tone"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0403",
+      "name": "Prompt-threat/tip/reward wording",
+      "aliases": [],
+      "category": "behavioral_prompt",
+      "layer": [
+        "prompt"
+      ],
+      "goal": "Explore folklore that simulated rewards/threats change effort/output",
+      "mechanism": "Add fictitious tip, stakes, reward or threat language and A/B against neutral instruction.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "low",
+        "summary": "Evidence basis: SRC-AI-0281.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Preserve as folklore/experiment class; neutral direct prompts remain default.",
+      "use_when": [
+        "Only controlled prompt-behavior experiments"
+      ],
+      "avoid_when": [
+        "Production",
+        "Ethical user-facing systems"
+      ],
+      "required_evals": [
+        "replicated multi-model gain",
+        "regression"
+      ],
+      "risks": [
+        "Manipulative framing",
+        "spurious benchmark-specific effect"
+      ],
+      "cost_profile": "tiny",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0281"
+      ],
+      "keywords": [
+        "tip",
+        "threat",
+        "prompt_folklore"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0404",
+      "name": "Prompt repetition / emphasis",
+      "aliases": [],
+      "category": "behavioral_prompt",
+      "layer": [
+        "prompt"
+      ],
+      "goal": "Increase salience of a critical constraint by repeating/reformatting it",
+      "mechanism": "Repeat or emphasize one rule in multiple locations or capitalization/format when model reliably misses it.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "low_medium",
+        "summary": "Evidence basis: SRC-AI-0066.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Try deterministic guard first; use repetition only after a targeted failure/eval.",
+      "use_when": [
+        "A specific constraint repeatedly fails and deterministic enforcement is impossible"
+      ],
+      "avoid_when": [
+        "General prompt style",
+        "Constraint can be enforced in code/schema"
+      ],
+      "required_evals": [
+        "constraint adherence vs added tokens",
+        "other-task regressions"
+      ],
+      "risks": [
+        "Consumes context",
+        "can distort attention",
+        "looks like prompt cargo cult"
+      ],
+      "cost_profile": "low",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0066"
+      ],
+      "keywords": [
+        "repetition",
+        "emphasis"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0405",
+      "name": "Instruction sandwiching around long context",
+      "aliases": [],
+      "category": "behavioral_prompt",
+      "layer": [
+        "prompt",
+        "context"
+      ],
+      "goal": "Keep task requirements salient when evidence block is long",
+      "mechanism": "Place concise objective/critical constraint before and optionally after large context body.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0073.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Test against a single end-position action summary already used by Agent OS.",
+      "use_when": [
+        "Long-context models with measured positional sensitivity"
+      ],
+      "avoid_when": [
+        "Stable-prefix caching where repeated suffix duplicates tokens without benefit"
+      ],
+      "required_evals": [
+        "position ablation",
+        "constraint adherence"
+      ],
+      "risks": [
+        "Duplication/cache cost",
+        "model dependent"
+      ],
+      "cost_profile": "small token increase",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0073"
+      ],
+      "keywords": [
+        "instruction_sandwich",
+        "position"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0406",
+      "name": "Critical-information edge placement",
+      "aliases": [],
+      "category": "context_layout",
+      "layer": [
+        "prompt",
+        "context"
+      ],
+      "goal": "Mitigate measured lost-in-the-middle behavior",
+      "mechanism": "Place most critical task instruction/evidence at positions empirically favored by the target model while leaving less critical context in middle.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0073.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Capability registry should hold layout sensitivity; don't hard-code universal 'best position'.",
+      "use_when": [
+        "Long contexts with proven position sensitivity"
+      ],
+      "avoid_when": [
+        "Model/task shows no such effect",
+        "Ordering has semantic meaning"
+      ],
+      "required_evals": [
+        "position sweep",
+        "quality"
+      ],
+      "risks": [
+        "Optimizing one model's quirks harms portability"
+      ],
+      "cost_profile": "no extra calls after tuning",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0073"
+      ],
+      "keywords": [
+        "lost_in_middle",
+        "layout"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0407",
+      "name": "Claim-first verification plan",
+      "aliases": [],
+      "category": "verification_prompt",
+      "layer": [
+        "prompt",
+        "research"
+      ],
+      "goal": "Turn a long answer into explicit checkable factual units before final synthesis",
+      "mechanism": "Extract/materialize claims, classify which need external support, independently verify them, then generate prose from verified claim set.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0277.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Fits proposed CLM/FND registries and evidence-first writing.",
+      "use_when": [
+        "Deep research",
+        "Reports",
+        "Knowledge ingestion"
+      ],
+      "avoid_when": [
+        "Pure creative writing"
+      ],
+      "required_evals": [
+        "unsupported-claim rate",
+        "verification coverage",
+        "cost"
+      ],
+      "risks": [
+        "Claim extractor can miss implied claims"
+      ],
+      "cost_profile": "multiple retrieval/check steps",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0277"
+      ],
+      "keywords": [
+        "claims",
+        "fact_check"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0408",
+      "name": "Answer-after-evidence ordering",
+      "aliases": [],
+      "category": "verification_prompt",
+      "layer": [
+        "prompt",
+        "research"
+      ],
+      "goal": "Reduce conclusion anchoring during research",
+      "mechanism": "Retrieve/assess evidence and alternatives before writing final conclusion instead of drafting verdict then searching for support.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0277.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Draft hypotheses separately; do not treat early prose as target answer.",
+      "use_when": [
+        "Architecture research",
+        "Product comparison",
+        "Troubleshooting"
+      ],
+      "avoid_when": [
+        "Need initial hypothesis only as explicitly labeled search seed"
+      ],
+      "required_evals": [
+        "confirmation-bias indicators",
+        "coverage",
+        "answer quality"
+      ],
+      "risks": [
+        "Research can wander without hypothesis"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0277"
+      ],
+      "keywords": [
+        "evidence_first",
+        "anti_confirmation_bias"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0409",
+      "name": "Disconfirming-evidence prompt",
+      "aliases": [],
+      "category": "constructive_challenge",
+      "layer": [
+        "prompt",
+        "research"
+      ],
+      "goal": "Actively search for reasons a favored hypothesis could be wrong",
+      "mechanism": "Ask for strongest counterevidence, failure cases, boundary conditions and competing explanations before promotion.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0277.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Only for material hypotheses; evidence must be sourced, not invented objections.",
+      "use_when": [
+        "Improvement proposals",
+        "Architecture decisions",
+        "Research findings"
+      ],
+      "avoid_when": [
+        "Trivial factual lookup"
+      ],
+      "required_evals": [
+        "rejected bad hypotheses",
+        "new evidence found",
+        "cost"
+      ],
+      "risks": [
+        "Can become contrarian/noisy"
+      ],
+      "cost_profile": "one targeted pass",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0277"
+      ],
+      "keywords": [
+        "falsification",
+        "counterevidence"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0410",
+      "name": "Uncertainty-triggered scaffold escalation",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "routing"
+      ],
+      "goal": "Use explicit reasoning scaffold only when simple direct prompt underperforms or validator detects ambiguity",
+      "mechanism": "Start direct; escalate to decomposition/step-back/self-ask/verification based on task family and failure signal.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0065, SRC-AI-0275, SRC-AI-0276.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Treat prompt technique itself as a routed capability, not a global system prompt.",
+      "use_when": [
+        "Mixed everyday Agent OS tasks"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "scaffold escalation precision",
+        "cost/success"
+      ],
+      "risks": [
+        "Bad uncertainty signal either overthinks or underthinks"
+      ],
+      "cost_profile": "adaptive",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0065",
+        "SRC-AI-0275",
+        "SRC-AI-0276"
+      ],
+      "keywords": [
+        "scaffold_router",
+        "adaptive_reasoning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0411",
+      "name": "Prompt-hack quarantine",
+      "aliases": [],
+      "category": "prompt_governance",
+      "layer": [
+        "prompt",
+        "evaluation"
+      ],
+      "goal": "Keep unexplained benchmark tricks from becoming permanent architecture",
+      "mechanism": "Techniques with unclear mechanism/model dependence live in experimental catalog; promotion requires multi-model/task holdout and periodic re-test.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0281, SRC-AI-0282, SRC-AI-0283.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Separates 'someone tried this' from 'Agent OS should do this'.",
+      "use_when": [
+        "Emotion/politeness/repetition/threat/tip folklore"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "promoted hack survival across upgrades",
+        "catalog false positives"
+      ],
+      "risks": [
+        "May delay a cheap useful trick"
+      ],
+      "cost_profile": "low governance",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0281",
+        "SRC-AI-0282",
+        "SRC-AI-0283"
+      ],
+      "keywords": [
+        "prompt_hacks",
+        "quarantine"
+      ],
+      "notes": ""
+    }
+  ]
+}

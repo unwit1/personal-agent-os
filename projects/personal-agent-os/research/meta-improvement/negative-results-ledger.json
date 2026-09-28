@@ -1,0 +1,643 @@
+{
+  "schema": "personal-agent-os/ai-negative-results-ledger/v1",
+  "as_of": "2026-09-24",
+  "items": [
+    {
+      "id": "NEG-0001",
+      "claim": "Explicit 'think step by step' is not a universal improvement",
+      "evidence": "Current reasoning-model guidance says simple/direct prompting often works better and explicit CoT can hinder some reasoning models.",
+      "source_refs": [
+        "SRC-AI-0065",
+        "SRC-AI-0047"
+      ],
+      "implication": "Treat CoT as model/task-specific historical technique; A/B instead of global prompt rule.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0002",
+      "claim": "Intrinsic self-correction can worsen answers",
+      "evidence": "Critical self-correction literature finds same-model correction without reliable external feedback can degrade reasoning, though other papers find prompt-conditional gains.",
+      "source_refs": [
+        "SRC-AI-0057",
+        "SRC-AI-0058"
+      ],
+      "implication": "Store the disagreement; reflection proposes revisions but independent evidence decides replacement.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0003",
+      "claim": "More context is not automatically better",
+      "evidence": "Long-context models can underuse information depending on position and distractors; irrelevant context consumes attention/tokens.",
+      "source_refs": [
+        "SRC-AI-0073",
+        "SRC-AI-0070"
+      ],
+      "implication": "Optimize context utility and position; use retrieval/progressive disclosure.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0004",
+      "claim": "Nominal context length is not usable-context quality",
+      "evidence": "Context-extension methods increase addressable tokens but do not prove reliable reasoning/retrieval throughout the window.",
+      "source_refs": [
+        "SRC-AI-0172",
+        "SRC-AI-0173",
+        "SRC-AI-0073"
+      ],
+      "implication": "Benchmark passkey, multi-hop, position sensitivity, and real Agent OS tasks before relying on long window.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0005",
+      "claim": "More retrieval can reduce answer quality",
+      "evidence": "Low-relevance or contradictory chunks can distract generation and increase hallucination surface.",
+      "source_refs": [
+        "SRC-AI-0079",
+        "SRC-AI-0080"
+      ],
+      "implication": "Tune top-k/reranking and support abstention; do not optimize recall alone.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0006",
+      "claim": "GraphRAG/knowledge graphs are not automatically superior to hybrid search",
+      "evidence": "Graph indexing is expensive and most local lookup tasks do not need global community synthesis.",
+      "source_refs": [
+        "SRC-AI-0078"
+      ],
+      "implication": "Benchmark graph-specific query classes before adding graph infrastructure.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0007",
+      "claim": "More memory can create memory pollution",
+      "evidence": "Long-term memory requires update, abstention, temporal reasoning, and relevance—not maximum retention.",
+      "source_refs": [
+        "SRC-AI-0082",
+        "SRC-AI-0083"
+      ],
+      "implication": "Measure retrieval quality and forgotten-needed rate; stage promotion and archive stale derived state.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0008",
+      "claim": "Generated summaries can fossilize interpretation errors",
+      "evidence": "Hierarchical memory/context compression may amplify an early wrong summary across later retrieval.",
+      "source_refs": [
+        "SRC-AI-0081",
+        "SRC-AI-0074"
+      ],
+      "implication": "Keep canonical source/evidence addressable; summaries are derived and re-buildable.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0009",
+      "claim": "Synthetic training data is not free improvement",
+      "evidence": "Recursive reliance on generated data can lose distribution tails/model quality.",
+      "source_refs": [
+        "SRC-AI-0117"
+      ],
+      "implication": "Maintain real/reference anchors, provenance, dedupe, filtering and protected holdout.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0010",
+      "claim": "More training data can be worse than better-selected data",
+      "evidence": "LIMA, AlpaGasus, LESS and dedup studies show noisy/redundant volume can underperform smaller targeted/high-quality data.",
+      "source_refs": [
+        "SRC-AI-0112",
+        "SRC-AI-0113",
+        "SRC-AI-0114",
+        "SRC-AI-0116"
+      ],
+      "implication": "Optimize information quality/coverage before corpus size.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0011",
+      "claim": "A larger model is not always better value",
+      "evidence": "Task difficulty, validator strength, latency and price determine cost per successful task.",
+      "source_refs": [
+        "SRC-AI-0188"
+      ],
+      "implication": "Route by task-specific measured threshold, not model prestige.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0012",
+      "claim": "Higher reasoning effort is not always better",
+      "evidence": "Reasoning effort trades tokens/latency for quality and should be task-dependent.",
+      "source_refs": [
+        "SRC-AI-0189"
+      ],
+      "implication": "Benchmark effort sweep by task family and escalate on evidence.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0013",
+      "claim": "More agents are not automatically better",
+      "evidence": "Multi-agent architectures introduce coordination/token overhead and are poor fits for tightly coupled tasks.",
+      "source_refs": [
+        "SRC-AI-0001",
+        "SRC-AI-0101"
+      ],
+      "implication": "Fan out only separable work; compare against strong single-agent baseline.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0014",
+      "claim": "Multi-agent debate does not automatically cancel evaluator bias",
+      "evidence": "Research finds some debate/judge setups amplify biases.",
+      "source_refs": [
+        "SRC-AI-0101",
+        "SRC-AI-0181"
+      ],
+      "implication": "Preserve disagreement and calibrate against human/deterministic evidence.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0015",
+      "claim": "Majority vote can confidently preserve correlated errors",
+      "evidence": "Self-consistency only helps if samples have useful diversity and aggregation correlates with truth.",
+      "source_refs": [
+        "SRC-AI-0048"
+      ],
+      "implication": "Measure marginal accuracy vs N and error correlation; use verifier when possible.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0016",
+      "claim": "LLM-as-judge is not an objective oracle",
+      "evidence": "Judges show position and other biases and can share the generator's blind spots.",
+      "source_refs": [
+        "SRC-AI-0100",
+        "SRC-AI-0101"
+      ],
+      "implication": "Randomize order, calibrate with humans, add deterministic anchors, allow abstention.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0017",
+      "claim": "A single composite benchmark score invites Goodhart effects",
+      "evidence": "Aggregate score can hide critical safety, reliability or cost regressions.",
+      "source_refs": [
+        "SRC-AI-0099",
+        "SRC-AI-0142"
+      ],
+      "implication": "Maintain primary user outcomes plus explicit guardrail metrics and failure breakdown.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0018",
+      "claim": "Public benchmark leadership may not predict Agent OS workload quality",
+      "evidence": "Benchmark distributions differ from real tasks and contamination can invalidate comparisons.",
+      "source_refs": [
+        "SRC-AI-0099"
+      ],
+      "implication": "Use private/dynamic workload suites and champion/challenger shadow tests.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0019",
+      "claim": "Prompt optimization can overfit the evaluator",
+      "evidence": "Automated search methods optimize whichever metric/judge they see, including its biases.",
+      "source_refs": [
+        "SRC-AI-0059",
+        "SRC-AI-0060"
+      ],
+      "implication": "Separate train/dev/holdout and security gates; never optimize on protected holdout.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0020",
+      "claim": "Emotional/stakes prompting is not a production reliability mechanism",
+      "evidence": "EmotionPrompt reported gains in a historical model set, but mechanism/generalization are unclear.",
+      "source_refs": [
+        "SRC-AI-0200"
+      ],
+      "implication": "Preserve as prompt-sensitivity evidence; do not use manipulative stakes language as a quality guarantee.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0021",
+      "claim": "Re-reading the question is not a universal free win",
+      "evidence": "Re2 duplicates input and likely depends strongly on model architecture/version.",
+      "source_refs": [
+        "SRC-AI-0199"
+      ],
+      "implication": "Cheap A/B only; remove if no measured gain.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0022",
+      "claim": "Generated-knowledge/recitation can turn hallucination into pseudo-evidence",
+      "evidence": "Closed-book knowledge elicitation may improve benchmark recall but has no authoritative grounding.",
+      "source_refs": [
+        "SRC-AI-0195",
+        "SRC-AI-0208"
+      ],
+      "implication": "Use retrieval for current/high-stakes facts; tag generated knowledge as synthetic.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0023",
+      "claim": "Chain-of-Verification is not equivalent to external fact checking",
+      "evidence": "Same-model verification can share the original model's factual blind spots.",
+      "source_refs": [
+        "SRC-AI-0197",
+        "SRC-AI-0058"
+      ],
+      "implication": "Answer verification questions through independent sources/tools where possible.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0024",
+      "claim": "Tool availability can reduce performance if schemas overload context",
+      "evidence": "Large tool catalogs consume context and create tool-selection confusion.",
+      "source_refs": [
+        "SRC-AI-0185",
+        "SRC-AI-0071"
+      ],
+      "implication": "Eager-load common tools, defer/search rare ones, evaluate tool catalog size.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0025",
+      "claim": "Deferred tool discovery has overhead and failure modes",
+      "evidence": "Tool search saves schema context but adds a discovery step and relies on namespace descriptions.",
+      "source_refs": [
+        "SRC-AI-0185"
+      ],
+      "implication": "Use only when catalog size/usage distribution justify it.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0026",
+      "claim": "Caching without complete dependency keys is a correctness bug",
+      "evidence": "A high cache hit rate is harmful if stale outputs are reused after semantic changes.",
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "implication": "Version processors/dependencies and test invalidation before optimizing hit rate.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0027",
+      "claim": "Retries can amplify failures and side effects",
+      "evidence": "Nested/unbounded retries multiply cost and can repeat writes.",
+      "source_refs": [
+        "SRC-AI-0128",
+        "SRC-AI-0144"
+      ],
+      "implication": "Bound retries, classify transient errors, use idempotency and operation identity.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0028",
+      "claim": "Streaming/background execution can make partial/provisional state look final",
+      "evidence": "Long-running UX can expose incomplete output before validation.",
+      "source_refs": [
+        "SRC-AI-0187"
+      ],
+      "implication": "Label provisional vs validated and gate actions on final state.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0029",
+      "claim": "Compaction is lossy state transformation unless proven otherwise",
+      "evidence": "Provider or model summaries can omit constraints or decisions.",
+      "source_refs": [
+        "SRC-AI-0186"
+      ],
+      "implication": "Preserve objective, decisions, IDs and canonical external state independently; regression-test compaction.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0030",
+      "claim": "Model editing scales poorly without strong safeguards",
+      "evidence": "ROME/MEMIT-style repeated edits can cause forgetting and downstream degradation.",
+      "source_refs": [
+        "SRC-AI-0171"
+      ],
+      "implication": "Prefer external Agent OS memory for mutable facts; require reversibility/holdouts for any weight edits.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0031",
+      "claim": "Activation steering is behavior manipulation, not a deterministic policy boundary",
+      "evidence": "CAA/RepE can shift behavior but does not guarantee every output/action complies.",
+      "source_refs": [
+        "SRC-AI-0167",
+        "SRC-AI-0168"
+      ],
+      "implication": "Use only as research/defense-in-depth; authorization remains deterministic.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0032",
+      "claim": "Quantization speed/quality claims are deployment-specific",
+      "evidence": "AWQ/GPTQ/SmoothQuant gains depend on model, kernel, hardware and workload.",
+      "source_refs": [
+        "SRC-AI-0178",
+        "SRC-AI-0126",
+        "SRC-AI-0127"
+      ],
+      "implication": "Benchmark exact device/model/task; register quantized deployment separately.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0033",
+      "claim": "Speculative decoding is not universally faster",
+      "evidence": "Speedup depends on draft acceptance, batch size, memory and hardware; complexity may outweigh benefit.",
+      "source_refs": [
+        "SRC-AI-0124",
+        "SRC-AI-0179"
+      ],
+      "implication": "Profile real serving regime before adoption.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0034",
+      "claim": "Fine-tuning can be inferior to retrieval, tools or prompt changes for changing requirements",
+      "evidence": "Training adds data governance, regression and migration costs.",
+      "source_refs": [
+        "SRC-AI-0110",
+        "SRC-AI-0177"
+      ],
+      "implication": "Escalate to training only after cheaper application-layer mechanisms plateau.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0035",
+      "claim": "Preference optimization has no universal best loss",
+      "evidence": "DPO, KTO, SimPO, ORPO, SLiC-HF, RRHF and newer RL methods make different assumptions/tradeoffs.",
+      "source_refs": [
+        "SRC-AI-0104",
+        "SRC-AI-0105",
+        "SRC-AI-0106",
+        "SRC-AI-0157",
+        "SRC-AI-0158",
+        "SRC-AI-0159"
+      ],
+      "implication": "Benchmark on target behavior and retain base-capability/safety guardrails.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0036",
+      "claim": "Process supervision success on math does not prove general process transparency",
+      "evidence": "Step labels can improve reasoning performance without proving model explanations are faithful internal reasoning.",
+      "source_refs": [
+        "SRC-AI-0154"
+      ],
+      "implication": "Treat process supervision as task optimization/evaluation evidence, not interpretability proof.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0037",
+      "claim": "Weak-to-strong supervision only partially recovers stronger capability",
+      "evidence": "Naive weak labels can improve strong models but do not recover full latent capability.",
+      "source_refs": [
+        "SRC-AI-0180"
+      ],
+      "implication": "Do not trust weak automated graders alone for tasks beyond their competence.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0038",
+      "claim": "More explanations can increase over-reliance",
+      "evidence": "Human-facing explanations/confidence can make users trust automation even when it is wrong.",
+      "source_refs": [
+        "SRC-AI-0130"
+      ],
+      "implication": "Show evidence, verification status and failure modes; evaluate appropriate reliance, not perceived confidence.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0039",
+      "claim": "Proactivity can become negative value through interruption",
+      "evidence": "Useful content delivered at the wrong time/channel creates cognitive cost and alert fatigue.",
+      "source_refs": [
+        "SRC-AI-0130"
+      ],
+      "implication": "Optimize intervention utility net of interruption; candidate/digest/do-nothing are valid outcomes.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0040",
+      "claim": "The improvement engine can itself become toil",
+      "evidence": "Repeated audits/research/backlog generation without measured accepted changes consumes tokens and attention.",
+      "source_refs": [
+        "SRC-AI-0142",
+        "SRC-AI-0143"
+      ],
+      "implication": "Track meta-overhead and research-to-verified-value conversion; simplify or pause when ROI falls.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0041",
+      "claim": "Self-modification benchmark gains do not establish general self-improvement",
+      "evidence": "DGM/Gödel Agent show empirical benchmark improvement, but the evaluator and benchmark define what counts as improvement; transfer to real user value/security is not automatic.",
+      "source_refs": [
+        "SRC-AI-0215",
+        "SRC-AI-0217"
+      ],
+      "implication": "Treat self-modifying agents as candidate generators inside immutable evaluation/security boundaries, never as self-authorizing production control.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0042",
+      "claim": "Generated agent code is untrusted code",
+      "evidence": "ADAS, DGM, FunSearch and AlphaEvolve deliberately generate executable programs; successful search depends on sandboxed execution and external evaluation.",
+      "source_refs": [
+        "SRC-AI-0212",
+        "SRC-AI-0213",
+        "SRC-AI-0216",
+        "SRC-AI-0217"
+      ],
+      "implication": "All automatically generated code executes with least privilege in disposable/isolate environments before review/promotion.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0043",
+      "claim": "The evaluator becomes the true objective of automated self-improvement",
+      "evidence": "Evolutionary/search systems optimize what can be scored, not necessarily what the user intended.",
+      "source_refs": [
+        "SRC-AI-0211",
+        "SRC-AI-0212",
+        "SRC-AI-0213",
+        "SRC-AI-0220"
+      ],
+      "implication": "Use target plus guardrail metrics, hidden holdouts, adversarial evaluator tests and post-deployment monitoring; never allow candidate to edit evaluator.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0044",
+      "claim": "Automated agent architecture search can overfit one benchmark/model family",
+      "evidence": "ADAS, AgentSquare and Archon search large configuration spaces against finite task sets; gains can reflect benchmark-specific composition.",
+      "source_refs": [
+        "SRC-AI-0216",
+        "SRC-AI-0219",
+        "SRC-AI-0220"
+      ],
+      "implication": "Require cross-domain/model transfer checks and private Agent OS holdouts before promotion.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0045",
+      "claim": "Quality-diversity archives trade local-optimum protection for storage/evaluation complexity",
+      "evidence": "Island/archive search preserves stepping stones but can grow indefinitely and make selection/reproduction expensive.",
+      "source_refs": [
+        "SRC-AI-0212",
+        "SRC-AI-0217"
+      ],
+      "implication": "Use capped archives, novelty only when predictive of transfer, terminal compaction, and explicit archive-retention policy.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0046",
+      "claim": "Automatic curriculum can optimize exploration rather than user value",
+      "evidence": "Voyager's curriculum is valuable in an open sandbox, but a personal assistant can waste time inventing tasks that are novel but irrelevant.",
+      "source_refs": [
+        "SRC-AI-0210"
+      ],
+      "implication": "Constrain curriculum by user/project priorities, improvement backlog and explicit exploration budget.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0047",
+      "claim": "Executable skill libraries can institutionalize a lucky or brittle trajectory",
+      "evidence": "A skill that worked once may encode hidden environment assumptions, obsolete APIs or unsafe workarounds.",
+      "source_refs": [
+        "SRC-AI-0210"
+      ],
+      "implication": "Require replay across variants, dependency/version metadata, failure conditions and deprecation review before promotion.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0048",
+      "claim": "Surrogate predictors can suppress breakthrough candidates",
+      "evidence": "AgentSquare-style performance prediction saves evaluation compute but can bias search toward known regions.",
+      "source_refs": [
+        "SRC-AI-0219"
+      ],
+      "implication": "Reserve randomized exploration and audit false-negative discarded candidates on samples.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0049",
+      "claim": "Inference-time architecture search can buy benchmark quality with unsustainable production cost",
+      "evidence": "Archon-style systems can compose repeated sampling, critique, fusion and multiple models; quality must be evaluated against real latency/cost budgets.",
+      "source_refs": [
+        "SRC-AI-0220"
+      ],
+      "implication": "Optimize Pareto frontier and cost per successful task, not accuracy alone.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0050",
+      "claim": "Layered Mixture-of-Agents magnifies inference and context costs",
+      "evidence": "MoA can improve language benchmarks, but every layer consumes all previous outputs, causing large token multipliers and correlated evidence repetition.",
+      "source_refs": [
+        "SRC-AI-0224"
+      ],
+      "implication": "Compare against best-of-N, one independent reviewer, and stronger single model before adoption.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0051",
+      "claim": "MCTS agent search can be unsafe with real side effects",
+      "evidence": "Tree search assumes branches can be explored/evaluated; external actions such as sends/purchases/deletes cannot be casually expanded as search nodes.",
+      "source_refs": [
+        "SRC-AI-0221"
+      ],
+      "implication": "Search only simulated/reversible states; execute one authorized selected branch outside search.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0052",
+      "claim": "Policy-level reflection can create plausible but false causal lessons",
+      "evidence": "Trajectory reflection may assign an incorrect cause to success/failure and then make it persistent.",
+      "source_refs": [
+        "SRC-AI-0222",
+        "SRC-AI-0218"
+      ],
+      "implication": "Treat reflection as HYP evidence; validate policy patch on unseen cases before retention.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0053",
+      "claim": "Proactive clarification can become avoidable user labor",
+      "evidence": "Question-asking models can improve underspecified tasks, but asking instead of retrieving known context or making a safe reversible assumption can increase cognitive burden.",
+      "source_refs": [
+        "SRC-AI-0225"
+      ],
+      "implication": "Retrieve current conversation/project/profile first; ask only when missing information is material and not otherwise obtainable.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "NEG-0054",
+      "claim": "Self-improvement must not control its own promotion gates",
+      "evidence": "Any optimizer that can change its authorization, holdout, scoring, audit or rollback conditions can improve its measured score by weakening oversight rather than improving capability.",
+      "source_refs": [
+        "SRC-AI-0216",
+        "SRC-AI-0217"
+      ],
+      "implication": "Mount promotion/eval/security controls outside optimizer write scope and require explicit human approval for changes to those controls.",
+      "status": "active_caution",
+      "last_reviewed": "2026-09-24"
+    }
+  ]
+}

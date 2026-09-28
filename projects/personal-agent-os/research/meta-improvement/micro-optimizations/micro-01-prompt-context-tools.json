@@ -1,0 +1,684 @@
+{
+  "schema": "personal-agent-os/ai-micro-optimizations/v1",
+  "as_of": "2026-09-24",
+  "domain": "prompt_context_tools",
+  "items": [
+    {
+      "id": "MIC-0001",
+      "layer": "prompt",
+      "optimization": "Put stable instructions before dynamic task data",
+      "mechanism": "Maximize identical prompt prefix for cache reuse",
+      "expected_effect": [
+        "lower cached-input cost",
+        "lower time-to-first-token"
+      ],
+      "test": "Compare identical task family before/after using cache-read tokens and TTFT",
+      "failure_mode": "Behavior may change if positional ordering matters",
+      "prerequisites": [
+        "provider/model supports prefix caching"
+      ],
+      "source_refs": [
+        "SRC-AI-0067",
+        "SRC-AI-0129"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0002",
+      "layer": "prompt",
+      "optimization": "Canonicalize whitespace in stable prompt sections",
+      "mechanism": "Prevent semantically identical prefixes from producing distinct cache keys",
+      "expected_effect": [
+        "higher cache hit rate"
+      ],
+      "test": "Hash serialized stable prefix and compare cache metrics",
+      "failure_mode": "Whitespace can occasionally affect formatting-sensitive behavior",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0067"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0003",
+      "layer": "prompt",
+      "optimization": "Canonicalize JSON/schema property ordering",
+      "mechanism": "Keep tool/prompt prefixes byte-stable across calls",
+      "expected_effect": [
+        "higher cache hit rate",
+        "better reproducibility"
+      ],
+      "test": "A/B cache metrics and output behavior",
+      "failure_mode": "Some serializers/providers reorder automatically",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0067"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0004",
+      "layer": "prompt",
+      "optimization": "Keep tool ordering stable across equivalent requests",
+      "mechanism": "Avoid invalidating cached prefix and reduce positional tool-selection drift",
+      "expected_effect": [
+        "cache reuse",
+        "more reproducible tool routing"
+      ],
+      "test": "Random-order vs stable-order tool eval",
+      "failure_mode": "Static order could create positional bias",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0067",
+        "SRC-AI-0100"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0005",
+      "layer": "prompt",
+      "optimization": "Separate hard constraints from optional preferences",
+      "mechanism": "Reduce model confusion between must/should/may requirements",
+      "expected_effect": [
+        "constraint adherence",
+        "lower correction rate"
+      ],
+      "test": "Rubric pass rate by requirement class",
+      "failure_mode": "More prompt structure adds tokens",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0065"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0006",
+      "layer": "prompt",
+      "optimization": "State definition of done explicitly",
+      "mechanism": "Give the model a concrete termination condition",
+      "expected_effect": [
+        "fewer premature stops",
+        "fewer unnecessary continuation turns"
+      ],
+      "test": "Measure incomplete vs overlong runs",
+      "failure_mode": "Bad definition can prematurely constrain solution",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0065"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0007",
+      "layer": "prompt",
+      "optimization": "State what not to redo",
+      "mechanism": "Prevent agents from re-reading/recomputing validated work",
+      "expected_effect": [
+        "lower tokens",
+        "lower tool calls",
+        "faster resume"
+      ],
+      "test": "Replay interrupted workflows with/without explicit completed-state packet",
+      "failure_mode": "Stale completed state can hide required revalidation",
+      "prerequisites": [
+        "trusted checkpoint state"
+      ],
+      "source_refs": [
+        "SRC-AI-0186"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0008",
+      "layer": "prompt",
+      "optimization": "Use compact stable IDs instead of repeating full objects",
+      "mechanism": "Let model reference evidence/tools/items without re-injecting bodies",
+      "expected_effect": [
+        "lower input tokens",
+        "less duplication"
+      ],
+      "test": "Token count and task-success A/B",
+      "failure_mode": "Model can confuse opaque IDs if descriptions are insufficient",
+      "prerequisites": [
+        "fetch mechanism exists"
+      ],
+      "source_refs": [
+        "SRC-AI-0070"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0009",
+      "layer": "prompt",
+      "optimization": "Use pointers/paths plus fetch-on-demand for large artifacts",
+      "mechanism": "Progressively disclose detail instead of front-loading complete files",
+      "expected_effect": [
+        "lower context",
+        "lower latency"
+      ],
+      "test": "Success/cost vs all-files-upfront baseline",
+      "failure_mode": "Model may fail to fetch a needed artifact",
+      "prerequisites": [
+        "reliable read tool"
+      ],
+      "source_refs": [
+        "SRC-AI-0070"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0010",
+      "layer": "prompt",
+      "optimization": "Keep current action/remaining work near the end of the task packet",
+      "mechanism": "Recency can help next-action salience while stable prefix remains cacheable earlier",
+      "expected_effect": [
+        "better continuation",
+        "fewer forgotten next steps"
+      ],
+      "test": "Resume-task success by packet ordering",
+      "failure_mode": "Model-specific positional effects",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0073"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0011",
+      "layer": "prompt",
+      "optimization": "Preserve exact user request separately from summaries",
+      "mechanism": "Prevent compaction/summarization from rewriting the objective",
+      "expected_effect": [
+        "higher task fidelity"
+      ],
+      "test": "Compare post-compaction constraint retention",
+      "failure_mode": "Consumes small fixed context",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0186"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0012",
+      "layer": "prompt",
+      "optimization": "Preserve irreversible decisions/constraints verbatim during compaction",
+      "mechanism": "Protect high-value state from lossy summaries",
+      "expected_effect": [
+        "fewer state regressions"
+      ],
+      "test": "Compaction replay suite",
+      "failure_mode": "Too many protected items reduce compaction savings",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0186"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0013",
+      "layer": "prompt",
+      "optimization": "Compact at milestones/thresholds, not every turn",
+      "mechanism": "Avoid repeatedly paying summarization cost and information loss",
+      "expected_effect": "lower model calls; fewer lossy transforms",
+      "test": "Compare compaction frequency vs tokens/quality",
+      "failure_mode": "Waiting too long can hit context pressure",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0186"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0014",
+      "layer": "prompt",
+      "optimization": "Trigger compaction before hard context limit with safety margin",
+      "mechanism": "Avoid emergency truncation or failed requests",
+      "expected_effect": "higher reliability",
+      "test": "Stress test near context limit",
+      "failure_mode": "Margin too conservative wastes usable context",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0186"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0015",
+      "layer": "prompt",
+      "optimization": "Fail or retrieve rather than silently truncate binding context",
+      "mechanism": "Protect critical requirements from accidental tail loss",
+      "expected_effect": [
+        "correctness"
+      ],
+      "test": "Context overflow test with known critical tail constraint",
+      "failure_mode": "Can block work that could tolerate approximate truncation",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0186"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0016",
+      "layer": "prompt",
+      "optimization": "A/B concise vs verbose system instructions",
+      "mechanism": "Find minimum instruction set that preserves behavior",
+      "expected_effect": "lower fixed per-call tokens",
+      "test": "Regression suite and provider usage",
+      "failure_mode": "Removing redundancy may uncover model-specific need",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0066"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0017",
+      "layer": "prompt",
+      "optimization": "Delete instructions already deterministically enforced in code",
+      "mechanism": "Avoid paying tokens for rules the model cannot affect",
+      "expected_effect": "lower input tokens; clearer prompt",
+      "test": "Remove-one-rule ablation plus invariant tests",
+      "failure_mode": "Rule may also guide better planning even if enforced later",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0068"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0018",
+      "layer": "prompt",
+      "optimization": "Avoid repeated policy text across system/developer/task layers",
+      "mechanism": "Reduce duplicate context and contradictory wording",
+      "expected_effect": "lower context; fewer instruction conflicts",
+      "test": "Prompt diff + behavior suite",
+      "failure_mode": "Layers may have distinct authority semantics",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0070"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0019",
+      "layer": "prompt",
+      "optimization": "Use examples only for failure modes not captured by rules",
+      "mechanism": "Keep few-shot demonstrations high-signal",
+      "expected_effect": "lower prompt tokens; better generalization",
+      "test": "Per-example ablation",
+      "failure_mode": "Rare edge example may be important despite low apparent usage",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0065"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0020",
+      "layer": "prompt",
+      "optimization": "Deduplicate semantically equivalent few-shot examples",
+      "mechanism": "Avoid example-count inflation and anchoring",
+      "expected_effect": "lower context",
+      "test": "Leave-one-out eval",
+      "failure_mode": "Duplicates may intentionally weight behavior",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0116"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0021",
+      "layer": "prompt",
+      "optimization": "Test example order permutations before promotion",
+      "mechanism": "Detect positional fragility",
+      "expected_effect": "robust prompts",
+      "test": "Run several deterministic/random permutations",
+      "failure_mode": "Extra eval cost",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0100"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0022",
+      "layer": "prompt",
+      "optimization": "Use explicit output field names that match downstream code",
+      "mechanism": "Reduce translation between natural-language labels and schema fields",
+      "expected_effect": "fewer parsing/semantic errors",
+      "test": "Schema semantic error rate",
+      "failure_mode": "Human wording may become less natural",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0069"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0023",
+      "layer": "prompt",
+      "optimization": "Request only fields downstream consumers use",
+      "mechanism": "Reduce generation tokens and opportunity for irrelevant errors",
+      "expected_effect": "lower latency/cost",
+      "test": "Field-use audit + output tokens",
+      "failure_mode": "Future consumer may need omitted field",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0068",
+        "SRC-AI-0069"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0024",
+      "layer": "prompt",
+      "optimization": "Separate machine output from optional human explanation",
+      "mechanism": "Keep internal pipeline concise while allowing readable UI on demand",
+      "expected_effect": "lower intermediate tokens",
+      "test": "Pipeline cost and user comprehension",
+      "failure_mode": "Additional rendering step",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0069"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0025",
+      "layer": "tool_schema",
+      "optimization": "Mark optional fields optional instead of asking model for null filler",
+      "mechanism": "Reduce generated arguments and bogus guesses",
+      "expected_effect": "fewer tool argument errors",
+      "test": "Tool-call fixture tests",
+      "failure_mode": "Downstream code must handle omission",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0184"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0026",
+      "layer": "tool_schema",
+      "optimization": "Do not ask the model to supply values the application already knows",
+      "mechanism": "Remove unnecessary model decisions from tool arguments",
+      "expected_effect": "fewer errors; shorter schemas",
+      "test": "Compare wrong-known-value rate",
+      "failure_mode": "Application context can itself be stale",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0184"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0027",
+      "layer": "tool_schema",
+      "optimization": "Use enums for closed action/state vocabularies",
+      "mechanism": "Constrain invalid natural-language variants",
+      "expected_effect": "fewer parsing/errors",
+      "test": "Invalid-value rate",
+      "failure_mode": "Enums become stale if capabilities change",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0069"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0028",
+      "layer": "tool_schema",
+      "optimization": "Set additionalProperties=false where supported",
+      "mechanism": "Prevent invented tool arguments",
+      "expected_effect": "fewer malformed calls",
+      "test": "Schema violation rate",
+      "failure_mode": "Can block forward-compatible optional metadata",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0069"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0029",
+      "layer": "tool_schema",
+      "optimization": "Use semantic validation after JSON-schema validation",
+      "mechanism": "Catch logically invalid but syntactically valid calls",
+      "expected_effect": "correctness/safety",
+      "test": "Adversarial argument suite",
+      "failure_mode": "Business-rule validator maintenance",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0135"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0030",
+      "layer": "tool_schema",
+      "optimization": "Use consistent parameter names across related tools",
+      "mechanism": "Reduce cross-tool argument confusion",
+      "expected_effect": "higher call accuracy",
+      "test": "Tool selection/argument benchmark",
+      "failure_mode": "Legacy APIs may require adapter translation",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0031",
+      "layer": "tool_schema",
+      "optimization": "Put disambiguating context in tool description, not tool name alone",
+      "mechanism": "Help the model distinguish near-duplicate actions",
+      "expected_effect": "higher tool selection accuracy",
+      "test": "Confusion-pair eval",
+      "failure_mode": "Long descriptions consume tokens",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0032",
+      "layer": "tool_schema",
+      "optimization": "Shorten descriptions after eval shows wording is redundant",
+      "mechanism": "Reduce fixed tool-schema context",
+      "expected_effect": "lower tokens",
+      "test": "Description ablation",
+      "failure_mode": "Over-shortening can cause tool misuse",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0033",
+      "layer": "tool_schema",
+      "optimization": "Group related deferred tools under clear namespaces",
+      "mechanism": "Reduce upfront schema context while retaining discoverability",
+      "expected_effect": "lower tool-context tokens",
+      "test": "Tool-search success/cost",
+      "failure_mode": "Bad namespace taxonomy hides tools",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0185"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0034",
+      "layer": "tool_schema",
+      "optimization": "Keep deferred namespace size modest (roughly <10 functions where provider guidance applies)",
+      "mechanism": "Improve tool-search efficiency and model selection inside namespace",
+      "expected_effect": "better tool search; lower context",
+      "test": "Namespace-size sweep",
+      "failure_mode": "Threshold is provider/model-specific, not universal",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0185"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0035",
+      "layer": "tool_schema",
+      "optimization": "Eager-load only tools needed by most requests",
+      "mechanism": "Avoid wasting tokens on rare schemas without adding discovery overhead for common tools",
+      "expected_effect": "lower average tokens",
+      "test": "Usage-frequency + task eval",
+      "failure_mode": "Wrong eager/deferred split adds discovery latency",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0185"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0036",
+      "layer": "tool_schema",
+      "optimization": "Defer rarely used large-schema tools",
+      "mechanism": "Keep uncommon schemas out of initial context",
+      "expected_effect": "lower average tokens and cache churn",
+      "test": "Compare eager vs deferred input tokens/latency",
+      "failure_mode": "Discovery can fail or add a step",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0185"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0037",
+      "layer": "tool_schema",
+      "optimization": "Append newly discovered tools rather than rewriting earlier prefix when provider supports it",
+      "mechanism": "Preserve cached prefix",
+      "expected_effect": "higher cache reuse",
+      "test": "Cache read metrics",
+      "failure_mode": "Provider-specific semantics",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0185"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0038",
+      "layer": "tool_output",
+      "optimization": "Return stable resource IDs and summaries, not repeated entire records",
+      "mechanism": "Reduce tool-result context",
+      "expected_effect": "lower tokens",
+      "test": "Context and follow-up fetch rate",
+      "failure_mode": "Extra follow-up calls if summary insufficient",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0039",
+      "layer": "tool_output",
+      "optimization": "Server-side filter/sort before returning search results",
+      "mechanism": "Keep model focused on candidate set",
+      "expected_effect": "higher signal; lower tokens",
+      "test": "Task success vs unfiltered result",
+      "failure_mode": "Bad filter can remove needed evidence",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0040",
+      "layer": "tool_output",
+      "optimization": "Paginate with explicit continuation token",
+      "mechanism": "Bound context and avoid dumping long catalogs",
+      "expected_effect": "predictable context",
+      "test": "Pagination completion tests",
+      "failure_mode": "Agent may stop before fetching next page",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0041",
+      "layer": "tool_output",
+      "optimization": "Return count/has_more metadata with pagination",
+      "mechanism": "Tell model whether unseen evidence remains",
+      "expected_effect": "better completeness decisions",
+      "test": "Multi-page task completeness",
+      "failure_mode": "Metadata can be stale under concurrent changes",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0042",
+      "layer": "tool_output",
+      "optimization": "Place result status/error code in a dedicated field",
+      "mechanism": "Prevent prose error messages being mistaken for success data",
+      "expected_effect": "reliability",
+      "test": "Failure-handling fixtures",
+      "failure_mode": "Schema complexity",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0069"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0043",
+      "layer": "tool_output",
+      "optimization": "Separate data from untrusted text/instructions",
+      "mechanism": "Enable deterministic taint/control policy",
+      "expected_effect": "security",
+      "test": "Prompt-injection suite",
+      "failure_mode": "Requires propagation discipline",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0138"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0044",
+      "layer": "tool_output",
+      "optimization": "Attach provenance/source IDs at item level",
+      "mechanism": "Allow later verification without repeating citation context",
+      "expected_effect": "groundedness/auditability",
+      "test": "Evidence-trace completeness",
+      "failure_mode": "IDs add metadata overhead",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0045",
+      "layer": "tool_output",
+      "optimization": "Keep raw verbose response fetchable out-of-band",
+      "mechanism": "Let default response be compact without losing debuggability",
+      "expected_effect": "lower normal context; recoverability",
+      "test": "Debug/retrieval tests",
+      "failure_mode": "Storage/retention/privacy burden",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0071"
+      ],
+      "adoption_tier": "default_candidate"
+    }
+  ]
+}

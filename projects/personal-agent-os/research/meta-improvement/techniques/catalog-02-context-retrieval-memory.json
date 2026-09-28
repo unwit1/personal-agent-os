@@ -1,0 +1,1380 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "context_retrieval_memory",
+  "techniques": [
+    {
+      "id": "AIT-0031",
+      "name": "Lexical/BM25 retrieval",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval"
+      ],
+      "goal": "Retrieve exact terminology, identifiers and rare strings efficiently",
+      "mechanism": "Use sparse term-frequency/inverse-document-frequency ranking such as BM25.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0072.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Keep as first-class route; not everything needs embeddings.",
+      "use_when": [
+        "Exact names",
+        "Error messages",
+        "IDs",
+        "Policy phrases"
+      ],
+      "avoid_when": [
+        "Pure semantic paraphrase with little lexical overlap"
+      ],
+      "required_evals": [
+        "recall@k",
+        "MRR",
+        "latency"
+      ],
+      "risks": [
+        "Vocabulary mismatch"
+      ],
+      "cost_profile": "very low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0072"
+      ],
+      "keywords": [
+        "BM25",
+        "sparse_search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0032",
+      "name": "Dense embedding retrieval",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval"
+      ],
+      "goal": "Find semantically related content despite wording differences",
+      "mechanism": "Embed query/documents into vector space and nearest-neighbor search.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0072.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Version embedding model/index and rebuild derived index safely.",
+      "use_when": [
+        "Paraphrased concepts",
+        "Large semantic corpora"
+      ],
+      "avoid_when": [
+        "Exact identifier lookup where lexical is superior"
+      ],
+      "required_evals": [
+        "recall@k",
+        "precision@k",
+        "latency"
+      ],
+      "risks": [
+        "Embedding drift",
+        "semantic false positives"
+      ],
+      "cost_profile": "embedding/index compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0072"
+      ],
+      "keywords": [
+        "dense",
+        "embeddings"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0033",
+      "name": "Hybrid sparse+dense retrieval",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval"
+      ],
+      "goal": "Combine lexical precision with semantic recall",
+      "mechanism": "Fuse BM25 and dense scores/candidate sets before reranking.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0072.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Default candidate-generation strategy for mature knowledge libraries.",
+      "use_when": [
+        "Mixed technical/personal knowledge",
+        "Queries with both identifiers and concepts"
+      ],
+      "avoid_when": [
+        "Tiny corpus where exhaustive search is cheap"
+      ],
+      "required_evals": [
+        "hybrid vs sparse/dense ablation",
+        "recall",
+        "cost"
+      ],
+      "risks": [
+        "Score calibration complexity"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0072"
+      ],
+      "keywords": [
+        "hybrid_retrieval"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0034",
+      "name": "Cross-encoder / LLM reranking",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval"
+      ],
+      "goal": "Improve precision after broad candidate retrieval",
+      "mechanism": "Use a stronger pairwise/context-aware model to score query-document relevance.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0072.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Only rerank top candidate pool; cache repeated query results.",
+      "use_when": [
+        "Candidate set is moderately sized",
+        "High precision matters"
+      ],
+      "avoid_when": [
+        "Huge candidate set without cheap prefilter",
+        "Latency-sensitive simple lookup"
+      ],
+      "required_evals": [
+        "NDCG",
+        "precision@k",
+        "latency",
+        "cost"
+      ],
+      "risks": [
+        "Reranker bias",
+        "added model cost"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0072"
+      ],
+      "keywords": [
+        "reranker",
+        "cross_encoder"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0035",
+      "name": "Contextualized chunks",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "context"
+      ],
+      "goal": "Prevent chunks from losing document-level meaning",
+      "mechanism": "Prepend/generate compact document/chunk context before embedding/indexing.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0072.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Preserve generated contextualization provenance and source text.",
+      "use_when": [
+        "Long documents with ambiguous local chunks"
+      ],
+      "avoid_when": [
+        "Already self-contained records"
+      ],
+      "required_evals": [
+        "retrieval failure rate",
+        "index growth"
+      ],
+      "risks": [
+        "Generated context can inject errors",
+        "larger index"
+      ],
+      "cost_profile": "index-time model cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0072"
+      ],
+      "keywords": [
+        "contextual_retrieval",
+        "chunking"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0036",
+      "name": "Late chunking",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "embeddings"
+      ],
+      "goal": "Retain document context in chunk vectors",
+      "mechanism": "Encode longer document context first, then pool token representations into chunk embeddings.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0072.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Benchmark against contextualized chunks before adopting.",
+      "use_when": [
+        "Embedding stack supports token-level pooling",
+        "Long context-dependent docs"
+      ],
+      "avoid_when": [
+        "Hosted embedding API without required internals"
+      ],
+      "required_evals": [
+        "retrieval recall",
+        "index build time"
+      ],
+      "risks": [
+        "Implementation complexity",
+        "model-specific"
+      ],
+      "cost_profile": "index-time compute",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0072"
+      ],
+      "keywords": [
+        "late_chunking"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0037",
+      "name": "Chunk-size/overlap tuning",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval"
+      ],
+      "goal": "Balance semantic coherence and retrieval granularity",
+      "mechanism": "Experiment with chunk boundaries, sizes, overlap, headings and structural segmentation.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0079, SRC-AI-0080.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Tune by document type, not one global chunk size.",
+      "use_when": [
+        "Any document RAG corpus"
+      ],
+      "avoid_when": [
+        "Structured atomic records that should not be chunked"
+      ],
+      "required_evals": [
+        "retrieval/answer eval by chunk configuration"
+      ],
+      "risks": [
+        "Duplicate context",
+        "boundary loss",
+        "index bloat"
+      ],
+      "cost_profile": "offline indexing",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0079",
+        "SRC-AI-0080"
+      ],
+      "keywords": [
+        "chunking",
+        "overlap"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0038",
+      "name": "Structure-aware chunking",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "documents"
+      ],
+      "goal": "Preserve semantic document hierarchy",
+      "mechanism": "Split on headings, sections, records, code symbols, table boundaries or domain structure rather than fixed length alone.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0080.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Knowledge Engine parser should emit semantic units + parent links.",
+      "use_when": [
+        "Policies",
+        "code",
+        "manuals",
+        "knowledge libraries"
+      ],
+      "avoid_when": [
+        "Unstructured short text"
+      ],
+      "required_evals": [
+        "retrieval success",
+        "boundary errors"
+      ],
+      "risks": [
+        "Parser errors",
+        "oversized sections"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0080"
+      ],
+      "keywords": [
+        "structural_chunking"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0039",
+      "name": "Parent-child retrieval",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "context"
+      ],
+      "goal": "Search granular chunks but answer with sufficient surrounding context",
+      "mechanism": "Index children for precision, retrieve parent/neighbor sections for synthesis.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0070.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Progressive disclosure: child first, parent lazily.",
+      "use_when": [
+        "Long docs with local matches needing broader explanation"
+      ],
+      "avoid_when": [
+        "Atomic records"
+      ],
+      "required_evals": [
+        "answer quality",
+        "context tokens"
+      ],
+      "risks": [
+        "Over-expansion"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0070"
+      ],
+      "keywords": [
+        "parent_child",
+        "hierarchical"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0040",
+      "name": "Query rewriting / multi-query retrieval",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "reasoning"
+      ],
+      "goal": "Increase recall when original wording is poor",
+      "mechanism": "Generate alternate queries, subqueries, synonyms or structured facets and merge results.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0075.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use deterministic entity expansion first; model rewrite only when needed.",
+      "use_when": [
+        "Ambiguous research",
+        "Complex multi-part questions"
+      ],
+      "avoid_when": [
+        "Exact known-key lookup"
+      ],
+      "required_evals": [
+        "recall gain",
+        "duplicate rate",
+        "model cost"
+      ],
+      "risks": [
+        "Query drift",
+        "extra calls"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0075"
+      ],
+      "keywords": [
+        "query_rewrite",
+        "multi_query"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0041",
+      "name": "HyDE",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "generation"
+      ],
+      "goal": "Improve zero-shot dense retrieval without relevance labels",
+      "mechanism": "Generate a hypothetical answer/document, embed it, retrieve real documents near that representation.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0075.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Keep generated document ephemeral and tagged as synthetic.",
+      "use_when": [
+        "Domain queries where dense query is underspecified"
+      ],
+      "avoid_when": [
+        "High-stakes query where invented specifics could strongly bias retrieval"
+      ],
+      "required_evals": [
+        "recall@k",
+        "query-drift cases"
+      ],
+      "risks": [
+        "Hallucinated hypothetical content can skew search"
+      ],
+      "cost_profile": "one generation + embedding",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0075"
+      ],
+      "keywords": [
+        "HyDE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0042",
+      "name": "Metadata/field filtering before semantic search",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "knowledge"
+      ],
+      "goal": "Reduce false positives and search cost",
+      "mechanism": "Restrict by domain, project, entity, date, document type, sensitivity, status, continuity or version before ranking.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0070.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Authorization/domain scope is a hard filter; soft facets can relax on no-results.",
+      "use_when": [
+        "Agent OS multi-domain knowledge"
+      ],
+      "avoid_when": [
+        "Metadata incomplete/unreliable"
+      ],
+      "required_evals": [
+        "precision",
+        "false exclusion rate"
+      ],
+      "risks": [
+        "Over-filtering hides relevant evidence"
+      ],
+      "cost_profile": "very low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0070"
+      ],
+      "keywords": [
+        "metadata_filter",
+        "scope"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0043",
+      "name": "Temporal retrieval and validity filtering",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "memory"
+      ],
+      "goal": "Prefer facts valid for the requested time",
+      "mechanism": "Store observation/validity/supersession dates and filter/rank accordingly.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0082.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use bitemporal-style recorded_at + valid interval where useful.",
+      "use_when": [
+        "Personal state",
+        "Policies",
+        "model/tool versions",
+        "prices"
+      ],
+      "avoid_when": [
+        "Timeless facts"
+      ],
+      "required_evals": [
+        "temporal QA",
+        "stale-fact rate"
+      ],
+      "risks": [
+        "Bad timestamps",
+        "incorrect supersession"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0082"
+      ],
+      "keywords": [
+        "temporal",
+        "staleness"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0044",
+      "name": "Authority/provenance-aware ranking",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "provenance"
+      ],
+      "goal": "Prefer stronger sources without discarding disagreement",
+      "mechanism": "Include source class, directness, version and provenance in ranking/answer synthesis.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0133.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Preserve conflicting sources; ranking is not deletion.",
+      "use_when": [
+        "Research",
+        "Policies",
+        "Knowledge Engine claims"
+      ],
+      "avoid_when": [
+        "Pure creative tasks"
+      ],
+      "required_evals": [
+        "groundedness",
+        "source-quality selection"
+      ],
+      "risks": [
+        "Authority heuristic can suppress valuable minority evidence"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0133"
+      ],
+      "keywords": [
+        "provenance",
+        "authority"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0045",
+      "name": "Contradiction-aware retrieval",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "knowledge"
+      ],
+      "goal": "Surface credible disagreement instead of silently selecting one fact",
+      "mechanism": "Retrieve supporting, contradicting, qualifying and superseding claims together when query touches contested entity/proposition.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0133.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Typed claim edges are already part of proposed registry.",
+      "use_when": [
+        "Policies",
+        "lore continuities",
+        "personal-state changes",
+        "research"
+      ],
+      "avoid_when": [
+        "Simple uncontested lookup"
+      ],
+      "required_evals": [
+        "contradiction recall",
+        "false conflict rate"
+      ],
+      "risks": [
+        "Excess context",
+        "spurious contradiction"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0133"
+      ],
+      "keywords": [
+        "contradiction",
+        "claims"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0046",
+      "name": "Adaptive retrieval / retrieve only when needed",
+      "aliases": [],
+      "category": "adaptive_rag",
+      "layer": [
+        "retrieval",
+        "reasoning"
+      ],
+      "goal": "Avoid retrieval cost and distraction on tasks answerable from current state",
+      "mechanism": "Use task type, uncertainty, missing evidence or learned gate to decide whether/where to retrieve.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0076.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Hard policy overrides learned gate for freshness/high-risk requirements.",
+      "use_when": [
+        "Repeated Agent OS tasks",
+        "Mixed factual/nonfactual work"
+      ],
+      "avoid_when": [
+        "High-risk fact task where authoritative lookup is mandatory"
+      ],
+      "required_evals": [
+        "retrieval precision",
+        "missed-needed-retrieval rate",
+        "cost"
+      ],
+      "risks": [
+        "False negative gate causes hallucination"
+      ],
+      "cost_profile": "expected savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0076"
+      ],
+      "keywords": [
+        "adaptive_rag",
+        "retrieval_gate"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0047",
+      "name": "Iterative retrieval",
+      "aliases": [],
+      "category": "adaptive_rag",
+      "layer": [
+        "retrieval",
+        "reasoning"
+      ],
+      "goal": "Fill evidence gaps discovered during synthesis",
+      "mechanism": "Retrieve initial evidence, identify unresolved claims, issue targeted follow-up retrieval.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0070.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Bound rounds by evidence sufficiency and value-of-information.",
+      "use_when": [
+        "Research/deep analysis",
+        "Multi-hop questions"
+      ],
+      "avoid_when": [
+        "Simple lookup"
+      ],
+      "required_evals": [
+        "answer completeness",
+        "retrieval rounds",
+        "cost"
+      ],
+      "risks": [
+        "Research loops",
+        "confirmation bias"
+      ],
+      "cost_profile": "variable",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0070"
+      ],
+      "keywords": [
+        "iterative_retrieval"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0048",
+      "name": "Multi-hop retrieval via entity/relationship traversal",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "knowledge_graph"
+      ],
+      "goal": "Answer relationship-heavy questions requiring linked facts",
+      "mechanism": "Resolve entities then traverse explicit relationships/claims, optionally combining text retrieval.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0078.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Start with typed edges in SQLite/files before graph database.",
+      "use_when": [
+        "Knowledge libraries with stable entities",
+        "Cross-source relationship queries"
+      ],
+      "avoid_when": [
+        "Corpus too small or entity extraction unreliable"
+      ],
+      "required_evals": [
+        "multi-hop accuracy",
+        "entity resolution errors"
+      ],
+      "risks": [
+        "Graph maintenance",
+        "wrong entity merges"
+      ],
+      "cost_profile": "medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0078"
+      ],
+      "keywords": [
+        "multi_hop",
+        "graph"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0049",
+      "name": "GraphRAG community/global summaries",
+      "aliases": [],
+      "category": "retrieval",
+      "layer": [
+        "retrieval",
+        "knowledge_graph"
+      ],
+      "goal": "Answer corpus-wide thematic/global sensemaking queries",
+      "mechanism": "Build entity graph, detect communities, create hierarchical summaries, aggregate relevant communities.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0078.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Benchmark against hierarchical summaries + hybrid search first.",
+      "use_when": [
+        "Large corpus global questions"
+      ],
+      "avoid_when": [
+        "Local fact lookup",
+        "Rapidly changing corpus without rebuild budget"
+      ],
+      "required_evals": [
+        "global QA quality",
+        "index cost",
+        "freshness"
+      ],
+      "risks": [
+        "High preprocessing/model cost",
+        "summary error propagation"
+      ],
+      "cost_profile": "high indexing",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0078"
+      ],
+      "keywords": [
+        "GraphRAG",
+        "community"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0050",
+      "name": "Context compression",
+      "aliases": [],
+      "category": "context_optimization",
+      "layer": [
+        "context",
+        "retrieval"
+      ],
+      "goal": "Reduce prompt size while retaining task-relevant evidence",
+      "mechanism": "Compress retrieved passages/history with extractive or learned compression before final model.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0074.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Prefer deterministic extraction for structured data; keep original addressable.",
+      "use_when": [
+        "Long retrieved context",
+        "Expensive model input"
+      ],
+      "avoid_when": [
+        "Every token may encode binding legal/technical requirement unless verified"
+      ],
+      "required_evals": [
+        "task success",
+        "compression ratio",
+        "constraint loss"
+      ],
+      "risks": [
+        "Silent omission",
+        "distortion"
+      ],
+      "cost_profile": "extra compression step but lower downstream tokens",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0074"
+      ],
+      "keywords": [
+        "compression",
+        "LLMLingua"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0051",
+      "name": "Extractive context selection",
+      "aliases": [],
+      "category": "context_optimization",
+      "layer": [
+        "context"
+      ],
+      "goal": "Reduce context with lower hallucination risk than freeform summarization",
+      "mechanism": "Select exact sentences/records/spans matching needed facts instead of rewriting them.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0070.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Include source pointer + local surrounding window.",
+      "use_when": [
+        "Policies",
+        "technical references",
+        "evidence packets"
+      ],
+      "avoid_when": [
+        "Synthesis needs broad implicit context"
+      ],
+      "required_evals": [
+        "coverage",
+        "tokens",
+        "missed constraint rate"
+      ],
+      "risks": [
+        "Fragment loses surrounding qualifier"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0070"
+      ],
+      "keywords": [
+        "extractive",
+        "context_pruning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0052",
+      "name": "Hierarchical summaries",
+      "aliases": [],
+      "category": "context_optimization",
+      "layer": [
+        "context",
+        "memory"
+      ],
+      "goal": "Support scalable progressive disclosure",
+      "mechanism": "Maintain document/project/session summaries at multiple granularity levels, fetch detail on demand.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0081, SRC-AI-0070.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Canonical facts remain underlying source; summaries are derived/indexed.",
+      "use_when": [
+        "Long projects/corpora"
+      ],
+      "avoid_when": [
+        "Small data where direct retrieval is enough"
+      ],
+      "required_evals": [
+        "summary fidelity",
+        "detail recovery",
+        "token savings"
+      ],
+      "risks": [
+        "Error compounding/stale summaries"
+      ],
+      "cost_profile": "offline/periodic",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0081",
+        "SRC-AI-0070"
+      ],
+      "keywords": [
+        "hierarchical_memory",
+        "summary"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0053",
+      "name": "Just-in-time context references",
+      "aliases": [],
+      "category": "context_optimization",
+      "layer": [
+        "context",
+        "tools"
+      ],
+      "goal": "Avoid stuffing full context up front",
+      "mechanism": "Give model lightweight manifests/IDs/paths, let it fetch exact detail when needed.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0070.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agent OS context packet should advertise available evidence with compact handles.",
+      "use_when": [
+        "Tool-using agents",
+        "Large repositories"
+      ],
+      "avoid_when": [
+        "Tool latency impossible",
+        "Model lacks retrieval access"
+      ],
+      "required_evals": [
+        "context tokens",
+        "fetch count",
+        "task success"
+      ],
+      "risks": [
+        "Model may fail to fetch needed detail"
+      ],
+      "cost_profile": "usually saves input tokens",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0070"
+      ],
+      "keywords": [
+        "JIT_context",
+        "progressive_disclosure"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0054",
+      "name": "Context-usage telemetry / ablation",
+      "aliases": [],
+      "category": "context_evaluation",
+      "layer": [
+        "context",
+        "evaluation"
+      ],
+      "goal": "Identify retrieved context that adds no value or causes harm",
+      "mechanism": "Record candidate/selected/referenced context IDs; sample counterfactual runs with slices removed.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0098.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Feeds MIE-0009.",
+      "use_when": [
+        "Prompt/context optimizer"
+      ],
+      "avoid_when": [
+        "Privacy prevents retaining needed identifiers unless local"
+      ],
+      "required_evals": [
+        "success delta per context source",
+        "tokens saved"
+      ],
+      "risks": [
+        "Counterfactual eval cost",
+        "causal confounding"
+      ],
+      "cost_profile": "offline sample cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098"
+      ],
+      "keywords": [
+        "context_utility",
+        "ablation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0055",
+      "name": "Lost-in-the-middle positional testing",
+      "aliases": [],
+      "category": "context_evaluation",
+      "layer": [
+        "context",
+        "evaluation"
+      ],
+      "goal": "Detect whether critical facts are harmed by prompt position",
+      "mechanism": "Move equivalent evidence through beginning/middle/end positions during eval.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0073.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Capability registry stores positional robustness by model/task.",
+      "use_when": [
+        "Long context workflows",
+        "Few-shot ordering"
+      ],
+      "avoid_when": [
+        "Short prompts"
+      ],
+      "required_evals": [
+        "position sensitivity curve"
+      ],
+      "risks": [
+        "May overfit one model version"
+      ],
+      "cost_profile": "offline",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0073"
+      ],
+      "keywords": [
+        "position",
+        "long_context"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0056",
+      "name": "Working/episodic/semantic/procedural memory separation",
+      "aliases": [],
+      "category": "memory_architecture",
+      "layer": [
+        "memory"
+      ],
+      "goal": "Prevent unrelated memory lifecycles from polluting each other",
+      "mechanism": "Separate execution state, event history, durable facts, skills/procedures, decisions and preferences conceptually even if storage is shared.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0081, SRC-AI-0084.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Make memory class explicit on every write/read.",
+      "use_when": [
+        "Personal Agent OS"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "wrong-store write rate",
+        "retrieval precision",
+        "retention correctness"
+      ],
+      "risks": [
+        "Schema complexity if over-modeled"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0081",
+        "SRC-AI-0084"
+      ],
+      "keywords": [
+        "memory_types"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0057",
+      "name": "Candidate→validated→canonical memory promotion",
+      "aliases": [],
+      "category": "memory_governance",
+      "layer": [
+        "memory",
+        "evaluation"
+      ],
+      "goal": "Prevent one observation/model inference from becoming permanent truth",
+      "mechanism": "Stage memory candidates, accumulate evidence, validate/conflict-check, explicitly promote.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0133.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Already aligned with Agent OS current architecture.",
+      "use_when": [
+        "Personal/work knowledge",
+        "Behavior learning"
+      ],
+      "avoid_when": [
+        "Ephemeral working state does not need promotion"
+      ],
+      "required_evals": [
+        "false promotion rate",
+        "missed useful memory",
+        "review burden"
+      ],
+      "risks": [
+        "System can become too conservative"
+      ],
+      "cost_profile": "moderate curation",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0133"
+      ],
+      "keywords": [
+        "memory_promotion",
+        "provenance"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0058",
+      "name": "Memory consolidation",
+      "aliases": [],
+      "category": "memory_architecture",
+      "layer": [
+        "memory"
+      ],
+      "goal": "Compress repeated episodes into stable higher-level knowledge",
+      "mechanism": "Periodically cluster/reconcile observations and derive facts/skills while preserving source links.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0084, SRC-AI-0085.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use staged candidates; raw private evidence stays local.",
+      "use_when": [
+        "High-volume transcripts/browser/events"
+      ],
+      "avoid_when": [
+        "Sparse evidence"
+      ],
+      "required_evals": [
+        "compression",
+        "fact accuracy",
+        "source recoverability"
+      ],
+      "risks": [
+        "Overgeneralization",
+        "loss of exceptions"
+      ],
+      "cost_profile": "offline batch",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0084",
+        "SRC-AI-0085"
+      ],
+      "keywords": [
+        "consolidation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0059",
+      "name": "Interference-aware forgetting / retention decay",
+      "aliases": [],
+      "category": "memory_architecture",
+      "layer": [
+        "memory"
+      ],
+      "goal": "Limit growth and stale/noisy memory",
+      "mechanism": "Reduce retrieval priority or expire low-value conflicting/redundant memories based on recency, reinforcement, utility and supersession.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0084, SRC-AI-0086.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Prefer reversible archival/demotion before deletion.",
+      "use_when": [
+        "High-volume ephemeral memory"
+      ],
+      "avoid_when": [
+        "Audit-required evidence",
+        "Canonical decisions"
+      ],
+      "required_evals": [
+        "retrieval quality over time",
+        "forgotten-needed rate"
+      ],
+      "risks": [
+        "Irrecoverable forgetting if destructive",
+        "bias toward frequent topics"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0084",
+        "SRC-AI-0086"
+      ],
+      "keywords": [
+        "forgetting",
+        "decay"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0060",
+      "name": "Memory reconsolidation with provenance",
+      "aliases": [],
+      "category": "memory_architecture",
+      "layer": [
+        "memory",
+        "provenance"
+      ],
+      "goal": "Update beliefs while preserving historical evidence",
+      "mechanism": "When new evidence arrives, derive a new version/supersession relationship instead of overwriting old memory.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0084, SRC-AI-0133.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Canonical design rule: facts evolve, evidence history remains.",
+      "use_when": [
+        "Changing personal facts",
+        "Policies",
+        "software/model versions"
+      ],
+      "avoid_when": [
+        "Immutable raw events"
+      ],
+      "required_evals": [
+        "temporal correctness",
+        "history recoverability"
+      ],
+      "risks": [
+        "Complex queries if validity model is unclear"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0084",
+        "SRC-AI-0133"
+      ],
+      "keywords": [
+        "reconsolidation",
+        "supersession"
+      ],
+      "notes": ""
+    }
+  ]
+}
