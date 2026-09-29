@@ -1,0 +1,133 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0005",
+  "previous": "ORCH-0004",
+  "created_at": "2026-09-29T02:29:59.773813+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "1a5232e7",
+    "dirty": true
+  },
+  "phase": "P1 foundations: measured wins landing in the runtime; prior-art intelligence next",
+  "completed": [
+    "Eval harness layout, 6 EVS suites, adjudicated development cases, external corpus registry (14 candidates, none imported)",
+    "Meta-improvement research merged and reconciled (implementation-status.json); IMP-0003..0005 captured",
+    "Dogfood: Haiku/Sonnet delegations measured (EVR-0001, EVR-0002); Luna callable but quota-blocked (FAIL-0001)",
+    "Cold-start check: fresh Haiku worker found entrypoint, policy, status, next IMP and worker class (EVR-0003, 5/5)",
+    "IMP-0003 implemented: `orchestrate eval` (fa15466e); EVR-0004 EVS-CONTROL-PLANE noninferior; EVR-0005 three-route classification (DEC-0005)",
+    "Q-0001 resolved: gpt-6-luna 0.60 vs Sonnet 0.75 vs Haiku 0.65 at pinned base; no route qualifies (floor 0.9); opposite error biases (FND-0004)",
+    "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)",
+    "EXP-0001 rejected HYP-0001: evidence verifier had no effect; offline replay predicted it before spend (e6d1f35a, EVR-0006, 9 calls, $1.02 measured)",
+    "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
+    "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism",
+    "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)",
+    "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)"
+  ],
+  "active_objective": "Make open-source prior art a required, automatically consulted input to significant Orchestrator design decisions (operator request 2026-09-29), then continue the roadmap.",
+  "latest_evidence": [
+    {
+      "id": "DEC-0007",
+      "type": "DEC",
+      "title": "Affected-tests-first validation: selector as runtime code, retries-only default, full suite still gates",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0007.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0008",
+      "type": "EVR",
+      "title": "EVS-CONTROL-PLANE: f725bc35 vs e7ad1ddc",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0008.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0009",
+      "type": "EVR",
+      "title": "EVS-ROUTING: f725bc35 vs e7ad1ddc",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0009.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0010",
+      "type": "EVR",
+      "title": "EVS-ROUTING: f725bc35 vs HEAD",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0010.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0011",
+      "type": "EVR",
+      "title": "Affected-tests-first: time share of the selected subset on real-commit cases",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0011.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "HYP-0003",
+      "type": "HYP",
+      "title": "Affected-tests-first pays on first attempts when the first-attempt failure rate exceeds ~36%",
+      "path": "projects/personal-agent-os/orchestrator-os/records/hypotheses/HYP-0003.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "DEC-0006",
+      "type": "DEC",
+      "title": "Labels for affected_test_selection come from per-module call tracing; protected-path changes under grant",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0006.json",
+      "updated_at": "2026-09-29T02:55:00+00:00"
+    },
+    {
+      "id": "EVR-0007",
+      "type": "EVR",
+      "title": "EVS-TEST-SELECTION: deterministic:import-graph vs deterministic:all-tests, codex@fast, claude-code@fast, claude-code@bal",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0007.json",
+      "updated_at": "2026-09-29T02:55:00+00:00"
+    }
+  ],
+  "open_blockers": [
+    "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
+  ],
+  "active_experiments": [
+    "HYP-0003 (monitoring): switch affected_tests_first to always if first-attempt failure rate > 36%"
+  ],
+  "recent_decisions": [
+    "DEC-0005",
+    "DEC-0006",
+    "DEC-0007"
+  ],
+  "next_action": {
+    "summary": "Open-source prior-art intelligence (operator request 2026-09-29): extend the existing research/evidence primitives with a prior-art registry (schema + entries with ADOPT/WRAP/BORROW/REJECT/DEFER/INVESTIGATE decisions and separate evidence dimensions), wire a proportional prior-art check into docs/orchestrator-os/ENTRYPOINT.md, the constitution, CANONICAL_AGENT_POLICY/AGENTS and the continuation generator, add a task-specific discovery workflow with event-driven refresh, and seed evaluations (RouteLLM, Inspect AI, DSPy, Hypothesis, OpenHands, PydanticAI, Optuna, Promptfoo, LangGraph, AutoGen, CrewAI, Letta, Mem0, Graphiti, smolagents, AFlow, ADAS, Darwin Godel Machine, HyperAgents, plus newly discovered alternatives) against current Agent OS code. Commit in at least two steps.",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Structured research with primary-source verification; frontier only for final adoption judgments.",
+    "context_refs": [
+      "docs/orchestrator-os/ENTRYPOINT.md",
+      "docs/orchestrator-os/CONSTITUTION.md",
+      "projects/personal-agent-os/research/meta-improvement/registry-index.json",
+      "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json",
+      "schemas/evidence-record-v1.schema.json",
+      "src/agent_os/orchestrator/continuation.py"
+    ],
+    "stop_conditions": [
+      "registry + workflow integration committed; seeded evaluations committed with evidence and confidence per entry",
+      "no third-party dependency added without benchmark evidence",
+      "stop and report if a protected path beyond the standing grants must change or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "docs/orchestrator-os/ENTRYPOINT.md",
+    "docs/orchestrator-os/CONSTITUTION.md",
+    "projects/personal-agent-os/research/meta-improvement/registry-index.json",
+    "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json",
+    "schemas/evidence-record-v1.schema.json",
+    "src/agent_os/orchestrator/continuation.py"
+  ],
+  "stopping_conditions": [
+    "registry + workflow integration committed; seeded evaluations committed with evidence and confidence per entry",
+    "no third-party dependency added without benchmark evidence",
+    "stop and report if a protected path beyond the standing grants must change or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0005 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0005.json).\n\nCurrent objective: Make open-source prior art a required, automatically consulted input to significant Orchestrator design decisions (operator request 2026-09-29), then continue the roadmap.\n\nNext action: Open-source prior-art intelligence (operator request 2026-09-29): extend the existing research/evidence primitives with a prior-art registry (schema + entries with ADOPT/WRAP/BORROW/REJECT/DEFER/INVESTIGATE decisions and separate evidence dimensions), wire a proportional prior-art check into docs/orchestrator-os/ENTRYPOINT.md, the constitution, CANONICAL_AGENT_POLICY/AGENTS and the continuation generator, add a task-specific discovery workflow with event-driven refresh, and seed evaluations (RouteLLM, Inspect AI, DSPy, Hypothesis, OpenHands, PydanticAI, Optuna, Promptfoo, LangGraph, AutoGen, CrewAI, Letta, Mem0, Graphiti, smolagents, AFlow, ADAS, Darwin Godel Machine, HyperAgents, plus newly discovered alternatives) against current Agent OS code. Commit in at least two steps.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: registry + workflow integration committed; seeded evaluations committed with evidence and confidence per entry; no third-party dependency added without benchmark evidence; stop and report if a protected path beyond the standing grants must change or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
