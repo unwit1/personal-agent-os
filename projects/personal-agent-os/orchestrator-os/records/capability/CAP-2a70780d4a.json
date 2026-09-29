@@ -1,0 +1,59 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-2a70780d4a",
+  "type": "CAP",
+  "title": "affected_test_selection via codex/gpt-6-luna (low)",
+  "status": "active",
+  "key": {
+    "task_family": "affected_test_selection",
+    "role": "analyst",
+    "provider": "codex",
+    "model_resolved": "gpt-6-luna",
+    "effort": "low",
+    "toolset": "read_only"
+  },
+  "metrics": {
+    "sample_count": 3,
+    "final_success": 0,
+    "validator_pass_rate": 0.0,
+    "pass_rate_wilson95": [
+      0.0,
+      0.562
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.19,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 115.04,
+    "mean_input_tokens": 483571.33,
+    "mean_output_tokens": 3344.0,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "accuracy_below_floor": 3
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-b8dc73e9fb0b"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-63a23a69b79c"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-37036f72b57e"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-29T01:54:32.971688+00:00",
+    "observed_to": "2026-09-29T01:54:32.976192+00:00"
+  },
+  "updated_at": "2026-09-29T01:56:48.293059+00:00"
+}

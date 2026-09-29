@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0006",
+  "project": "personal-agent-os",
+  "title": "Affected-test-first validation using the deterministic import graph",
+  "category": "performance",
+  "subsystem": "orchestrator/validation",
+  "status": "candidate",
+  "priority": "high",
+  "observation": "EXP-0002 (EVR-0007): the import-graph selector finds 98% of affected test modules at zero model cost and selects ~14 of 46 modules. The full suite takes ~11 minutes and runs on every orchestrated node that uses the project validation command.",
+  "evidence": [
+    "projects/personal-agent-os/orchestrator-os/records/findings/FND-0007.json",
+    "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0002.json"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "For intermediate nodes, run the import-graph-selected test modules first and fail fast on them; always run the full declared validators before integration/completion, so no gate is weakened. Measure validation wall time and missed-failure rate on real runs; consider a trace-map cache with import-graph fallback.",
+  "acceptance": [
+    "Selected-tests step runs before the full validators and is reported separately",
+    "Completion/integration still requires the full declared validators",
+    "Offline benchmark shows lower per-node validation time with no missed failures on the EVS-TEST-SELECTION cases"
+  ],
+  "risks": [],
+  "dedupe_key": "bbdaaa76cb3cdee718b709cd2ba4236249e78d972d5e8179cda301a43de4b183",
+  "source": {
+    "type": "claude",
+    "reference": "ORCH-0004 EXP-0002"
+  },
+  "github": null,
+  "created_at": "2026-09-29T01:56:46.943968+00:00",
+  "updated_at": "2026-09-29T01:56:46.943968+00:00",
+  "notes": null
+}

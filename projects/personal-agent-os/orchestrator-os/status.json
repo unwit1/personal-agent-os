@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T02:45:00+00:00",
-  "phase": "P1 foundations: eval runner live; route qualification needs objectively labeled task families",
-  "active_objective": "Qualify (or rule out) a cheap route on a recurring task family with deterministic ground truth, so measured capability can drive routing (IMP-0004).",
+  "updated_at": "2026-09-29T03:00:00+00:00",
+  "phase": "P1 foundations: deterministic routes win where labels are objective; turning that into runtime savings",
+  "active_objective": "Convert measured wins into Orchestrator runtime savings: affected-test-first validation from the deterministic import graph (IMP-0006), with the full suite kept as the integration gate.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -18,41 +18,40 @@
     "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)",
     "EXP-0001 rejected HYP-0001: evidence verifier had no effect; offline replay predicted it before spend (e6d1f35a, EVR-0006, 9 calls, $1.02 measured)",
     "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
-    "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism"
+    "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism",
+    "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)"
   ],
   "blockers": [
-    "Branch orchestrator-os/bootstrap-20260928 is not merged to main (operator decision)"
+    "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
   ],
   "active_experiments": [],
   "recent_decisions": [
-    "DEC-0003",
     "DEC-0004",
-    "DEC-0005"
+    "DEC-0005",
+    "DEC-0006"
   ],
   "approval_conditions": [
-    "Operator grant requested: add src/agent_os/orchestrator/eval.py to control_plane.protected_paths (DEC-0005 known gap)",
-    "Operator grant needed for the next action: create one new suite file projects/personal-agent-os/orchestrator-os/evals/suites/EVS-TEST-SELECTION.json (suites/ is protected)",
-    "Operator decision requested: Q-0002 (may qualification use pooled item-level intervals?)",
-    "Merge/push to main only when the operator asks"
+    "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "EXP-0002: move route qualification to a recurring task family with deterministic labels. Candidate family: affected_test_selection (given a commit's changed src files, name the test modules that exercise them). Build a deterministic case generator from this repository's git history (>= 30 development cases, labels computed without model calls, label-generation wall clock <= 30 min, e.g. test modules that fail when the commit's src change is reverted in a worktree, or another objective rule you justify in a DEC). Add a deterministic baseline route (import-graph selector) and a prompt builder in eval.py; create EVS-TEST-SELECTION (needs my grant); run eval with 3 samples for the deterministic selector, gpt-6-luna, Haiku and Sonnet (<= 9 model calls). If deterministic matches or beats models, record that (hierarchy rung 1) and stop; if a cheap route qualifies, start IMP-0004.",
+    "summary": "Implement IMP-0006: move ImportGraphSelector from eval.py into a runtime module src/agent_os/orchestrator/test_selection.py (eval.py imports it, so the evaluator stays protected and the selector is the candidate). In the engine's validation step for intermediate nodes whose validators include the project unittest command, first run only the selected test modules (fail fast, reported as a separate 'affected-tests' evidence item), then the full declared validators as today; completion/integration still require the full validators, so no gate is weakened. Add an offline benchmark (no model calls) that replays EVS-TEST-SELECTION cases and reports selected-module share and missed affected modules, plus unit tests. Evaluate with `orchestrate eval --suite EVS-CONTROL-PLANE` and EVS-ROUTING (incumbent vs candidate commits).",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Deterministic generator + eval wiring; judgment limited to choosing the labeling rule (record as DEC).",
+    "why_this_class": "Bounded engine change with deterministic evaluation; no model workers needed (claude-code is quota-blocked until Oct 3).",
     "context_refs": [
-      "FND-0005",
-      "EXP-0001",
-      "Q-0002",
+      "projects/personal-agent-os/improvements/IMP-0006.json",
+      "FND-0007",
+      "EXP-0002",
+      "DEC-0006",
       "src/agent_os/orchestrator/eval.py",
-      "projects/personal-agent-os/orchestrator-os/evals/README.md",
-      "projects/personal-agent-os/improvements/IMP-0004.json",
-      "policy/orchestrator-os.policy.json"
+      "src/agent_os/orchestrator/validators.py",
+      "src/agent_os/orchestrator/engine.py"
     ],
     "stop_conditions": [
-      "EXP-0002 record written (improved | noninferior | rejected | inconclusive) with linked EVR",
-      "budget: <= 9 model calls, <= 30 min deterministic label generation",
-      "stop and report if the EVS-TEST-SELECTION grant is missing, another protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+      "IMP-0006 acceptance passes with unit tests, `agent-os validate`, and noninferior EVRs for EVS-CONTROL-PLANE and EVS-ROUTING",
+      "0 model calls expected; at most 9 if a delegate is genuinely useful",
+      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -95,6 +94,16 @@
       "luna_cost": "not reported",
       "frontier_tasks": "verifier design, analysis, pivot decision",
       "lesson": "replay stored outputs before paying for new samples"
+    },
+    "session_ORCH-0004": {
+      "deterministic_operations": "~40 incl. 171 s label generation and two free deterministic previews",
+      "model_calls": {
+        "gpt-6-luna": 3,
+        "claude-haiku-4-5-20251001": 3,
+        "claude-sonnet-5-5": 3
+      },
+      "measured_cost_usd": 1.19,
+      "downstream_value": "IMP-0006: ~70% fewer test modules per intermediate validation (to be measured)"
     }
   },
   "known_baseline": {
@@ -103,5 +112,6 @@
       "python -m unittest tests.test_orchestrator_control_plane",
       "python agent.py validate"
     ]
-  }
+  },
+  "last_pass_summary": "ORCH-0004 pass (EXP-0002): built a deterministic case generator for affected_test_selection (40 cases from git history, labels by per-module call tracing, 171 s, no model call), added deterministic routes and a recall/precision scorer to orchestrate eval, and created EVS-TEST-SELECTION under the operator's grant (eval.py is now protected). EVR-0007: the import-graph selector (recall 0.98, $0) matches Sonnet (0.383 vs 0.375 case pass, $0.20/run) and beats gpt-6-luna (0.19) and Haiku (0.15), which under-select. No cheap route qualifies, so IMP-0004 stays blocked; the deterministic rung wins this family (FND-0007) and IMP-0006 captures the runtime saving. The Claude weekly limit (resets Oct 3, 6pm ET) blocked one Haiku sample (FAIL-0001 recurrence 3). 9 model calls, $1.19 measured."
 }

@@ -4,9 +4,9 @@
   "type": "FAIL",
   "title": "Provider quota exhaustion blocked cheap-model delegation",
   "status": "open",
-  "summary": "During the bootstrap the Claude subscription session limit stopped three Claude subagents (HTTP 429, reset 7:10pm ET) and the ChatGPT/Codex usage limit blocked gpt-6-luna (reset 9:12pm ET). Adapters classify it as `quota` and the engine fails over, but reset times are not captured, there is no quota-aware scheduling or deferral queue, so cheap routes silently disappear and work shifts to pricier routes.",
+  "summary": "During the bootstrap the Claude subscription session limit stopped three Claude subagents (HTTP 429, reset 7:10pm ET) and the ChatGPT/Codex usage limit blocked gpt-6-luna (reset 9:12pm ET). Adapters classify it as `quota` and the engine fails over, but reset times are not captured, there is no quota-aware scheduling or deferral queue, so cheap routes silently disappear and work shifts to pricier routes. Recurrence 2026-09-29: the Claude weekly limit (resets Oct 3, 6pm ET) stopped a Haiku sample mid-experiment (EXP-0002); claude-code routes are unavailable until then.",
   "signature": "provider_quota_exhausted",
-  "recurrence": 2,
+  "recurrence": 3,
   "task_family": "any",
   "links": [
     {
@@ -16,6 +16,10 @@
     {
       "rel": "relates_to",
       "ref": "src/agent_os/orchestrator/engine.py"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "EVR-0007"
     }
   ],
   "provenance": {
@@ -23,5 +27,5 @@
     "author_tier": "frontier (Opus 5.5) unless stated"
   },
   "created_at": "2026-09-28T23:55:00+00:00",
-  "updated_at": "2026-09-28T23:55:00+00:00"
+  "updated_at": "2026-09-29T02:55:00+00:00"
 }

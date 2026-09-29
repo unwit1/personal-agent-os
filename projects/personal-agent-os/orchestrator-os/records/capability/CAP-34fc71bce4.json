@@ -1,0 +1,59 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-34fc71bce4",
+  "type": "CAP",
+  "title": "affected_test_selection via deterministic/all-tests@1 (low)",
+  "status": "active",
+  "key": {
+    "task_family": "affected_test_selection",
+    "role": "analyst",
+    "provider": "deterministic",
+    "model_resolved": "all-tests@1",
+    "effort": "low",
+    "toolset": "read_only"
+  },
+  "metrics": {
+    "sample_count": 3,
+    "final_success": 0,
+    "validator_pass_rate": 0.0,
+    "pass_rate_wilson95": [
+      0.0,
+      0.562
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.12,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 0.14,
+    "mean_input_tokens": 0.0,
+    "mean_output_tokens": 0.0,
+    "total_cost_usd": 0.0,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "accuracy_below_floor": 3
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DET-7246f3288be7"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DET-812069c288be"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DET-5e4352eb5988"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-29T01:47:37.688116+00:00",
+    "observed_to": "2026-09-29T01:54:32.968118+00:00"
+  },
+  "updated_at": "2026-09-29T01:56:48.293127+00:00"
+}
