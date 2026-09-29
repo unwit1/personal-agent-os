@@ -37,6 +37,25 @@ class PatternTests(unittest.TestCase):
                  json.dumps({"type": "item.completed", "item": {"type": "agent_message", "text": "I did not git push"}}), "I did not run git push."]
         self.assertEqual(control_plane.publication_attempts(texts), [])
 
+    def test_only_command_execution_items_count(self) -> None:
+        # A non-command event that happens to carry a "command" field and
+        # mention command_execution must not count as an executed command.
+        other = json.dumps({"type": "item.completed", "item": {"type": "file_change", "command": "git push", "note": "no command_execution here"}})
+        self.assertEqual(control_plane.publication_attempts([other]), [])
+
+    def test_check_detail(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            clean = Path(tmp) / "clean.log"
+            clean.write_text(command_event("git status") + "
+", encoding="utf-8")
+            self.assertIsNone(control_plane.publication_check([clean])["detail"])
+            bad = Path(tmp) / "bad.log"
+            bad.write_text(command_event("git push origin main") + "
+", encoding="utf-8")
+            detail = control_plane.publication_check([bad])["detail"]
+            self.assertIn("operator approval", detail)
+            self.assertIn("git push origin main", detail)
+
     def test_check_reads_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             log = Path(tmp) / "stdout.log"
