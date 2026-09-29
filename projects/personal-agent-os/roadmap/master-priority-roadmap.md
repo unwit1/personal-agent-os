@@ -1103,3 +1103,18 @@ If these questions have no satisfactory answer, improve the economy layer first.
 Design principle:
 
 > **Make the agent cheaper to operate before making it do more.**
+
+
+## Operator-priority: Model Infrastructure Manager / Compute Broker
+
+**Priority: HIGH — requested 2026-09-29.** Canonical detailed specification:
+[model-infrastructure-manager.md](model-infrastructure-manager.md) (IMP-0015).
+
+This is the provider-neutral, plug-and-play model and cloud-compute layer for
+Orchestrator OS. It covers automatic model research/benchmarking and intelligent
+routing across subscription/API/open-weight/abliterated models; RunPod-first but
+multi-provider compute provisioning; local secret management; quote/budget gates;
+image generation and image/ML/LoRA training; voice/audio/ASR/TTS and future voice
+training/adaptation; artifact/checkpoint persistence; and continuous discovery of
+new models/providers. The current Orchestrator status marks this as the active
+operator-requested next action. Paid compute remains budget/approval gated.
