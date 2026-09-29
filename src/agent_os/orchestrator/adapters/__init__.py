@@ -25,6 +25,9 @@ from .claude_code import suggested_provider as _claude_code_suggestion
 from .codex_cli import CodexCliAdapter
 from .codex_cli import discover_models as _codex_cli_models
 from .codex_cli import suggested_provider as _codex_cli_suggestion
+from .http_api import AnthropicApiAdapter, OpenAiCompatibleAdapter
+from .http_api import suggested_anthropic as _anthropic_api_suggestion
+from .http_api import suggested_openai as _openai_api_suggestion
 from .synthetic import SyntheticAdapter
 
 
@@ -32,11 +35,16 @@ ADAPTERS: dict[str, Callable[[dict[str, Any]], CodingAgentAdapter]] = {
     ClaudeCodeAdapter.adapter_id: ClaudeCodeAdapter,
     CodexCliAdapter.adapter_id: CodexCliAdapter,
     SyntheticAdapter.adapter_id: SyntheticAdapter,
+    # Direct API workers (DEC-0009): enabled only when a key or local base_url exists.
+    AnthropicApiAdapter.adapter_id: AnthropicApiAdapter,
+    OpenAiCompatibleAdapter.adapter_id: OpenAiCompatibleAdapter,
 }
 
 SUGGESTIONS: dict[str, Callable[[str | None], dict[str, Any]]] = {
     ClaudeCodeAdapter.adapter_id: _claude_code_suggestion,
     CodexCliAdapter.adapter_id: _codex_cli_suggestion,
+    AnthropicApiAdapter.adapter_id: _anthropic_api_suggestion,
+    OpenAiCompatibleAdapter.adapter_id: _openai_api_suggestion,
 }
 
 

@@ -137,6 +137,11 @@ def register(commands: argparse._SubParsersAction) -> None:
     dlg.add_argument("--repo", default=".")
     dlg.add_argument("--timeout", type=int, default=900)
     dlg.add_argument("--out", help="write the validated result JSON here")
+    dlg.add_argument("--role", default="analyst", choices=["analyst", "inline"], help="inline: the prompt carries all needed context (direct API workers may serve it)")
+
+    key = actions.add_parser("api-key", help="store or check a provider API key in the OS keyring (never in files)")
+    key.add_argument("action", choices=["set", "status", "delete"])
+    key.add_argument("provider", choices=["anthropic", "openai"])
 
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
@@ -354,7 +359,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from .delegate import delegate
 
         contract = json.loads(Path(args.contract).read_text(encoding="utf-8")) if args.contract else None
-        outcome = delegate(Path(args.prompt_file).read_text(encoding="utf-8"), task_family=args.task_family, capability_class=args.capability_class, effort=args.effort, contract=contract, provider=args.provider, model=args.model, cwd=args.repo, timeout_seconds=args.timeout)
+        outcome = delegate(Path(args.prompt_file).read_text(encoding="utf-8"), task_family=args.task_family, capability_class=args.capability_class, effort=args.effort, contract=contract, provider=args.provider, model=args.model, cwd=args.repo, timeout_seconds=args.timeout, role=args.role)
         if args.out and outcome.get("result") is not None:
             Path(args.out).write_text(json.dumps(outcome["result"], indent=2), encoding="utf-8")
         emit({key: value for key, value in outcome.items() if key != "result"})
@@ -393,6 +398,30 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         result = control_plane.check(paths, args.allow)
         emit({**result, "checked": len(paths)})
         return 0 if result["passed"] else 7
+    if action == "api-key":
+        import getpass
+        import os
+
+        from .adapters import http_api
+
+        adapter = {"anthropic": http_api.AnthropicApiAdapter, "openai": http_api.OpenAiCompatibleAdapter}[args.provider]
+        if args.action == "set":
+            secret = getpass.getpass(f"{args.provider} API key (input hidden): ").strip()
+            if not secret:
+                emit({"ok": False, "error": "empty key"})
+                return 2
+            http_api.store_key(adapter.keyring_user, secret)
+        elif args.action == "delete":
+            import keyring
+
+            try:
+                keyring.delete_password(http_api.KEYRING_SERVICE, adapter.keyring_user)
+            except Exception:
+                pass
+        present = bool(http_api.read_key(adapter.env_var, adapter.keyring_user))
+        emit({"provider": args.provider, "key_present": present, "source": "env" if os.environ.get(adapter.env_var) else ("keyring" if present else None),
+              "note": "run `agent-os orchestrate providers` to see the API worker (role inline)"})
+        return 0
     if action == "prior-art":
         from . import prior_art
 

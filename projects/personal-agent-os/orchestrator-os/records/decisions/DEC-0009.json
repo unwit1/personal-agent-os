@@ -1,0 +1,42 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0009",
+  "type": "DEC",
+  "title": "Subsume retry/backoff, circuit breaker and a key-optional direct API adapter",
+  "status": "accepted",
+  "summary": "Justified low-risk integrations from the prior-art pass, all subsumed (no new dependencies). (1) src/agent_os/orchestrator/retry.py: full-jitter exponential backoff, Retry-After (seconds or HTTP date), retry only on retryable statuses/network errors, deadline, and a closed/open/half-open circuit breaker (fills RT-05/RT-06 for API calls; breaker ready for IMP-0005). (2) src/agent_os/orchestrator/adapters/http_api.py: Anthropic Messages and OpenAI-compatible Chat Completions over urllib, keys from environment or the existing keyring dependency (`agent-os orchestrate api-key set <provider>`), disabled until a key or local base_url exists, registered with roles ['inline'] so engine coding roles never select a tool-less worker; `orchestrate delegate --role inline` uses it for self-contained prompts; exact usage mapping incl. cache reads; Anthropic system-prefix prompt caching; OpenAI-compatible base_url enables local servers. Expected benefit: avoids the measured 14k-19k-token CLI overhead per one-shot call (docs/simple-mode.md); to be measured with an EVR once a key is configured.",
+  "prior_art": {
+    "checked": "PA-litellm, PA-tenacity, PA-pybreaker, PA-pydantic-ai, PA-mini-swe-agent",
+    "found": "LiteLLM covers gateways/fallbacks but had a 2026-03 PyPI compromise and is very heavy; Tenacity and pybreaker hold small standard algorithms",
+    "reused": "full-jitter backoff (Tenacity), breaker state machine (pybreaker), OpenAI-compatible request shape; attribution in retry.py and http_api.py",
+    "why_custom": "operator prefers subsuming; the needed subset is ~350 lines of stdlib code versus heavy dependencies with supply-chain risk"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/retry.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/adapters/http_api.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_orchestrator_api_retry.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FAIL-0001"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0005"
+    }
+  ],
+  "provenance": {
+    "session": "prior-art pass 2026-09-29",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T05:10:00+00:00",
+  "updated_at": "2026-09-29T05:10:00+00:00"
+}

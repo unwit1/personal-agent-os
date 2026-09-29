@@ -101,16 +101,18 @@ def delegate(
     registry: ProviderRegistry | None = None,
     record: bool = True,
     home: Path | None = None,
+    role: str = ROLE,
 ) -> dict[str, Any]:
-    """Route, run, validate and record one read-only task. Never raises for a
+    """Route, run, validate and record one read-only task. ``role='inline'``
+    marks a self-contained prompt, which direct API workers may serve. Never raises for a
     worker failure; the outcome is in the returned record."""
     registry = registry or ProviderRegistry()
     override = {"provider": provider, "model": model} if (provider or model) else None
-    choice = select(registry, capability_class=capability_class, effort=effort, role=ROLE, availability=_availability(registry), override=override)
+    choice = select(registry, capability_class=capability_class, effort=effort, role=role, availability=_availability(registry), override=override)
     call_id = f"DLG-{uuid.uuid4().hex[:12]}"
     root = Path(home or orchestrator_home()) / "delegations" / call_id
     root.mkdir(parents=True, exist_ok=True)
-    outcome: dict[str, Any] = {"id": call_id, "task_family": task_family, "role": ROLE, "requested_class": capability_class, "effort": effort, "selection": choice, "started_at": utc_now_iso()}
+    outcome: dict[str, Any] = {"id": call_id, "task_family": task_family, "role": role, "requested_class": capability_class, "effort": effort, "selection": choice, "started_at": utc_now_iso()}
     if not choice.get("resolved"):
         outcome.update(status="unroutable", errors=[choice.get("reason") or "no provider"], result=None)
         return _finish(outcome, root, record, home)
