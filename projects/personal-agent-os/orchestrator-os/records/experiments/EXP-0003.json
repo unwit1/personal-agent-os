@@ -1,0 +1,82 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0003",
+  "type": "EXP",
+  "title": "State-machine testing driver: subsumed random-sequence runner vs Hypothesis RuleBasedStateMachine",
+  "status": "accepted",
+  "summary": "Both drivers share one harness (real engine, synthetic workers, operations: worker outcomes, review outcomes, step, pause, resume, stop, gate approve/reject, retry, crash-restart that kills in-flight workers) and check the constitution section 10 invariants after every operation. Unpatched engine: 0 violations over 40 seeds x 50 ops (~2,000 checked states, hostile profile reaching review-exhaustion gates, APPROVAL_REQUIRED, BLOCKED and failed repairers). Planted mutation (engine ignores material review findings): the subsumed runner detected it at seed 3 after 18.8 s and shrank 41 ops to a 5-op sequence (resume, step, review:reject, step, step) in 78 s total; Hypothesis (60 examples x 40 steps, uniform rule weights) did not detect it in 186 s. First run of both drivers missed the mutation entirely, which exposed a vacuous invariant (FND-0008). Caveats: one mutation; Hypothesis not tuned (rule weights, example count).",
+  "outcome": "improved",
+  "task_family": "orchestrator_state_machine_testing",
+  "metrics": {
+    "unpatched": {
+      "seeds": 40,
+      "ops_per_seed": 50,
+      "violations": 0,
+      "run_states_seen": [
+        "READY",
+        "RUNNING",
+        "REVIEWING",
+        "PAUSED",
+        "COMPLETE",
+        "APPROVAL_REQUIRED",
+        "INTEGRATING",
+        "BLOCKED"
+      ],
+      "gates_seen": [
+        "unresolved_review_findings"
+      ]
+    },
+    "planted_mutation": "engine.material -> [] (review findings ignored)",
+    "subsumed_random": {
+      "detected": true,
+      "seed": 3,
+      "seconds_to_detect": 18.8,
+      "original_len": 41,
+      "minimal_len": 5,
+      "minimal": [
+        "resume",
+        "step",
+        "review:reject",
+        "step",
+        "step"
+      ],
+      "total_seconds": 78.1
+    },
+    "hypothesis": {
+      "detected": false,
+      "total_seconds": 185.7,
+      "version": "6.168.3",
+      "max_examples": 60,
+      "stateful_step_count": 40
+    },
+    "model_calls": 0
+  },
+  "links": [
+    {
+      "rel": "tests",
+      "ref": "IMP-0007"
+    },
+    {
+      "rel": "implements",
+      "ref": "tests/test_orchestrator_state_machine.py"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0008"
+    },
+    {
+      "rel": "decides",
+      "ref": "DEC-0010"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "projects/personal-agent-os/research/prior-art/registry.json"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0006 -> ORCH-0007 (IMP-0007)",
+    "author_tier": "frontier (Opus 5.5) design; measurements deterministic"
+  },
+  "created_at": "2026-09-29T04:40:00+00:00",
+  "updated_at": "2026-09-29T04:40:00+00:00"
+}

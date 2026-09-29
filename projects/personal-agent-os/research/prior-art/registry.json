@@ -412,18 +412,18 @@
         "maintenance": "stable API"
       },
       "evidence": {
-        "development_savings": "large for state-machine testing (shrinking and strategies are hard to rebuild)",
+        "development_savings": "small in practice: the subsumed runner + shrinker is ~120 lines and covered the need (EXP-0003)",
         "runtime_savings": "none (test-time only)",
-        "quality": "high",
+        "quality": "not detected the planted mutation at 60 examples (untuned); strong shrinking remains its advantage",
         "reliability": "finds interleaving bugs example tests miss",
         "security": "neutral",
         "complexity": "dev-only dependency",
         "maintenance": "very active",
         "portability": "pure Python"
       },
-      "decision": "INVESTIGATE",
-      "rationale": "Best-in-class stateful testing (RuleBasedStateMachine with rules, invariants, preconditions, and automatic shrinking to a minimal failing sequence). This is exactly the orchestrator-lifecycle testing the constitution asks for (create/dispatch/fail/retry/pause/resume/cancel/review/integrate with invariants). MPL-2.0, test-only. Operator prefers subsuming: a small in-repo random-sequence tester gets generation + invariants but not good shrinking; shrinking is Hypothesis's hard, valuable part. Spike both on engine invariants and compare bugs found and failure readability; a dev-only extra does not touch the runtime.",
-      "confidence": "high",
+      "decision": "DEFER",
+      "rationale": "Spiked in EXP-0003: at equal budget a subsumed seeded random-sequence runner with delta-debugging shrinking found a planted engine bug (5-op minimal sequence) that Hypothesis (60 examples, untuned rule weights) missed; Hypothesis stays an optional driver that runs when installed. Revisit if the subsumed shrinker produces unreadable counterexamples or misses bugs Hypothesis finds with tuned settings.",
+      "confidence": "medium",
       "provenance": [
         "GitHub REST api.github.com/repos/HypothesisWorks/hypothesis (2026-09-29)"
       ],
@@ -431,11 +431,20 @@
         {
           "rel": "relates_to",
           "ref": "projects/personal-agent-os/orchestrator-os/implementation-status.json"
+        },
+        {
+          "rel": "evidence_against",
+          "ref": "EXP-0003"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "DEC-0010"
         }
       ],
       "revisit_when": [
-        "spike result recorded",
-        "RT-27 work starts"
+        "subsumed shrinker yields unreadable counterexamples",
+        "a bug escapes the random runner",
+        "state space grows (more node roles/ops)"
       ],
       "revisit_by": null
     },
@@ -1968,12 +1977,17 @@
         "portability": "Python"
       },
       "decision": "INVESTIGATE",
-      "rationale": "Run as an external developer tool (not imported, so no runtime dependency) against control-plane modules (control_plane.py, validators.py) to measure whether the tests actually catch changes to protection logic. Spike on control_plane.py.",
+      "rationale": "Run as an external developer tool (not imported, so no runtime dependency) against control-plane modules (control_plane.py, validators.py) to measure whether the tests actually catch changes to protection logic. Spike on control_plane.py. FND-0008: a vacuous invariant survived until a planted mutation exposed it, which strengthens the case for systematic mutation testing of control-plane tests.",
       "confidence": "medium",
       "provenance": [
         "GitHub REST api.github.com/repos/boxed/mutmut (2026-09-29)"
       ],
-      "links": [],
+      "links": [
+        {
+          "rel": "evidence_for",
+          "ref": "FND-0008"
+        }
+      ],
       "revisit_when": [
         "spike result recorded"
       ],

@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-29T04:40:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -122,18 +122,24 @@
     {
       "id": "RT-05",
       "feature": "Retry-After handling",
-      "status": "missing",
-      "evidence": [],
-      "note": "No Retry-After parsing or HTTP header handling found",
-      "verified_by": "haiku audit (EVR-0002), spot-checked"
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/retry.py",
+        "src/agent_os/orchestrator/adapters/http_api.py"
+      ],
+      "note": "API workers retry with full jitter and Retry-After (DEC-0009); CLI workers not yet",
+      "verified_by": "tests/test_orchestrator_api_retry.py"
     },
     {
       "id": "RT-06",
       "feature": "bounded exponential backoff with jitter",
-      "status": "missing",
-      "evidence": [],
-      "note": "Retries exist but no backoff/jitter strategy visible",
-      "verified_by": "haiku audit (EVR-0002), spot-checked"
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/retry.py",
+        "src/agent_os/orchestrator/adapters/http_api.py"
+      ],
+      "note": "API workers retry with full jitter and Retry-After (DEC-0009); CLI workers not yet",
+      "verified_by": "tests/test_orchestrator_api_retry.py"
     },
     {
       "id": "RT-07",
@@ -165,9 +171,10 @@
       "evidence": [
         "src/agent_os/orchestrator/model.py:93",
         "src/agent_os/orchestrator/engine.py:367,1065-1068",
-        "src/agent_os/orchestrator/router.py:256-258"
+        "src/agent_os/orchestrator/router.py:256-258",
+        "src/agent_os/orchestrator/retry.py:CircuitBreaker"
       ],
-      "note": "Per-node provider exclusion + failover exist; no cross-run open/half-open breaker state (frontier spot-check).",
+      "note": "Per-node provider exclusion + failover exist; no cross-run open/half-open breaker state (frontier spot-check). Breaker implemented (DEC-0009), not yet wired into routing (IMP-0005).",
       "verified_by": "haiku audit + frontier correction"
     },
     {
@@ -354,18 +361,22 @@
     {
       "id": "RT-27",
       "feature": "state-machine/property tests",
-      "status": "missing",
-      "evidence": [],
-      "note": "No explicit state machine or property-based tests found",
-      "verified_by": "haiku audit (EVR-0002), spot-checked"
+      "status": "implemented",
+      "evidence": [
+        "tests/test_orchestrator_state_machine.py"
+      ],
+      "note": "seeded random operation sequences + invariants + shrinking (EXP-0003, DEC-0010)",
+      "verified_by": "EXP-0003"
     },
     {
       "id": "RT-28",
       "feature": "chaos/kill-point tests",
-      "status": "missing",
-      "evidence": [],
-      "note": "No chaos engineering or process-kill simulation tests found",
-      "verified_by": "haiku audit (EVR-0002), spot-checked"
+      "status": "partial",
+      "evidence": [
+        "tests/test_orchestrator_state_machine.py:Harness.apply(restart)"
+      ],
+      "note": "restart op drops in-flight workers (kill-point); no OS-process kills yet",
+      "verified_by": "EXP-0003"
     },
     {
       "id": "RT-29",
