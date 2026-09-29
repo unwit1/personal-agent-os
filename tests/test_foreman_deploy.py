@@ -230,6 +230,56 @@ class LifecycleTests(Base):
         self.assertIn("crash loop", status["detail"])
         self.assertEqual(self.cloud.deleted, ["pod1"])
 
+    def test_network_blip_is_retried_not_fatal(self) -> None:
+        # live 2026-09-29: getaddrinfo failed mid-deploy -> the deployment died and the delete failed too
+        budget.set_budget(10, 10, home=self.budget_home)
+        cloud = self.cloud
+        calls = {"hf": 0, "models": 0}
+
+        def flaky(request, timeout=None):
+            url = request.full_url
+            if url.startswith(fd.HF_API):
+                calls["hf"] += 1
+                if calls["hf"] == 1:
+                    raise urllib.error.URLError(OSError(11001, "getaddrinfo failed"))
+            if url.endswith("/v1/models"):
+                calls["models"] += 1
+                if calls["models"] == 1:
+                    raise urllib.error.URLError(OSError(11001, "getaddrinfo failed"))
+            return cloud(request, timeout)
+
+        status = self.manager(opener=flaky).deploy("org/coder-7b", job_cap_usd=0.5, background=False)
+        self.assertEqual(len(self.registered), 1)  # it became ready despite the blips
+        self.assertEqual(len(self.cloud.created), 1)  # and never rented twice
+        self.assertEqual(status["status"], "stopped")
+        self.assertEqual(self.cloud.deleted, ["pod1"])
+
+    def test_failed_delete_is_kept_pending_and_retried_until_confirmed(self) -> None:
+        budget.set_budget(10, 10, home=self.budget_home)
+        fd._save_state({"id": "FMN-7", "kind": "huggingface", "status": "ready", "pod_id": "podP", "provider_id": "foreman-x", "registered": True,
+                        "hourly_usd": 1.0, "cap_usd": 5.0, "spent_usd": 0.0, "billed_until_epoch": self.clock.now, "deadline_epoch": self.clock.now + 3600,
+                        "runs": [], "model": {"repo": "org/coder-7b"}}, self.foreman_home)
+        self.cloud.pods["podP"] = {"id": "podP"}
+        down = {"on": True}
+
+        def opener(request, timeout=None):
+            if down["on"] and request.get_method() == "DELETE":
+                raise urllib.error.URLError("getaddrinfo failed")
+            return self.cloud(request, timeout)
+
+        manager = self.manager(opener=opener)
+        manager.stop("operator")
+        state = fd.load_state(self.foreman_home)
+        self.assertEqual(state["status"], fd.PENDING)
+        self.assertIn("POD STILL RUNNING", state["detail"])
+        self.assertGreater(state["spent_usd"], 0)  # billed while the delete kept failing
+        down["on"] = False
+        manager.resume()  # e.g. the GUI starting later
+        state = fd.load_state(self.foreman_home)
+        self.assertEqual(state["status"], "stopped")
+        self.assertEqual(self.cloud.deleted, ["podP"])
+        self.assertAlmostEqual(budget.spent(self.budget_home), state["spent_usd"], places=3)
+
     def test_refuses_without_an_approved_budget(self) -> None:
         with self.assertRaisesRegex(ValueError, "approved compute budget"):
             self.manager().deploy("org/coder-7b", background=False)

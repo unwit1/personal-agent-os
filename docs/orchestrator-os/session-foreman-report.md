@@ -55,8 +55,23 @@ chooses each task's capability class, and that class sets which model runs it.
 | ChatGPT gpt-6-astra (strong) | 71.4% / 100% | 85.7% / 100% | 24 → 20 | 17.2k / 0.9k | 29 s |
 | Qwen2.5-14B on 1× RTX PRO 6000 (weak) | 28.6% / 71% | 100% / 100% | 16 → 18 | 1.7k / 0.7k | 18 s, $0.06 of GPU for all 7 |
 
-The held-out split (`--split holdout`, 6 cases never tuned on) is the check
-against overfitting. Its results are below once they are in.
+### Held-out split (6 cases written before tuning, never tuned on)
+
+| Foreman | Raw judgement | With its strategy | Valid plans (after strategy) | Median time | Tokens in |
+|---|---|---|---|---|---|
+| Claude Opus 5.5 | 83.3% | 83.3% | 100% | 18.8 s | 9.2k |
+| ChatGPT gpt-6-astra | 83.3% | 83.3% | 100% | 23.5 s | 17.3k |
+| Qwen2.5-14B on GPU | 50% | **83.3%** | 100% | 9.2 s | 1.7k |
+
+The deterministic strategy generalizes. On unseen cases the cheap GPU model
+plans as well as Opus and gpt-6-astra, using 1/5 to 1/10 of the input tokens.
+The whole held-out run, including loading the pod, cost $0.17. Neither strong
+foreman was hurt by the guard.
+
+The one miss every foreman shares is splitting a tiny two-file change
+(version bump + changelog) into two tasks. I have not added a rule for it:
+a rule tuned on the held-out set would stop it from measuring overfitting. It
+needs new held-out cases first.
 
 RunPod spend so far: see `agent-os orchestrate budget show` (about $1.25 of $10
 at the time of writing, across 4 deployments, including one crash-looping pod

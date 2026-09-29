@@ -82,6 +82,9 @@ LOAD_TIMEOUT_MINUTES = 45
 DEFAULT_IDLE_MINUTES = 15
 MAX_CONTEXT = 32768
 PRICE_FACTOR = 1.5
+NETWORK_RETRY_TICKS = 20  # ~10 minutes of network trouble before giving up on a live pod
+DELETE_ATTEMPTS = 6  # then teardown_pending: resume / stop / GUI start keep retrying
+PENDING = "teardown_pending"
 # vLLM tool-call parser per model family: needed for a coding agent (tool use).
 TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qwen3_moe": "hermes", "llama": "llama3_json",
                 "mistral": "mistral", "mixtral": "mistral"}
@@ -727,8 +730,8 @@ class ForemanManager:
         self._stop.set()
         with self._lock:
             state = load_state(self.base)
-            if state.get("status") in ACTIVE:
-                self._teardown(state, "stopped", reason)
+            if state.get("status") in ACTIVE or state.get("status") == PENDING:
+                self._teardown(state, "stopped", reason if state.get("status") != PENDING else state.get("detail", reason))
         return self.status()
 
     def attach(self, run_id: str) -> dict[str, Any] | None:
@@ -746,6 +749,9 @@ class ForemanManager:
     def resume(self) -> dict[str, Any]:
         """On GUI start: enforce a passed deadline at once, else keep watching."""
         state = load_state(self.base)
+        if state.get("status") == PENDING:
+            self._teardown(state, state.get("pending_status") or "stopped", "pod delete retried after a restart")
+            return self.status()
         if state.get("status") not in ACTIVE or state.get("kind") in ("claude", "chatgpt", "local"):
             return self.status()  # nothing rented: nothing to meter or enforce
         if not state.get("pod_id"):
@@ -779,16 +785,35 @@ class ForemanManager:
         state = load_state(self.base)
         if state.get("id") != deployment_id:
             return
-        try:
-            if not state.get("pod_id"):
-                state = self._provision(state)
-            if state["status"] == "loading":
-                state = self._await_ready(state)
-            self._watch(state)
-        except _Superseded:
-            return
-        except Exception as exc:  # every failure ends with the pod deleted
-            self._teardown(load_state(self.base), "failed", f"{type(exc).__name__}: {str(exc)[:300]}")
+        network_failures = 0
+        while True:
+            try:
+                if not state.get("pod_id"):
+                    state = self._provision(state)
+                if state["status"] == "loading":
+                    state = self._await_ready(state)
+                self._watch(state)
+                return
+            except _Superseded:
+                return
+            except OSError as exc:  # DNS / connection / timeout: this machine's network, not the pod
+                network_failures += 1
+                state = load_state(self.base)
+                if state.get("id") != deployment_id or state.get("status") not in ACTIVE:
+                    return
+                if network_failures > NETWORK_RETRY_TICKS:
+                    self._teardown(state, "failed", f"network unreachable for {network_failures} ticks: {str(exc)[:200]}")
+                    return
+                try:
+                    if state.get("pod_id"):
+                        state = self._meter(state)  # spend keeps counting while the network is down
+                    state = self._update(state, detail=f"network problem, retrying ({network_failures}/{NETWORK_RETRY_TICKS}): {str(exc)[:160]}")
+                except _Superseded:
+                    return
+                self.sleep(TICK_SECONDS)
+            except Exception as exc:  # every other failure ends with the pod deleted
+                self._teardown(load_state(self.base), "failed", f"{type(exc).__name__}: {str(exc)[:300]}")
+                return
 
     def _provision(self, state: dict[str, Any]) -> dict[str, Any]:
         plan = self.preview(state["link"], state["cap_usd"])
@@ -800,6 +825,8 @@ class ForemanManager:
         endpoint_key = token_lib.token_urlsafe(32)
         self.store_secret(ENDPOINT_SECRET, endpoint_key)
         client = RunPod(self.resolve(RUNPOD_SECRET) or "", self.opener)
+        for leftover in client.find(_pod_name(state)):  # a create whose response was lost: never run two
+            client.delete(leftover)
         last_error = None
         tried = []
         for group in attempt_groups([choice, *plan.get("alternatives", [])]):
@@ -915,28 +942,46 @@ class ForemanManager:
 
     def _teardown(self, state: dict[str, Any], status: str, detail: str) -> None:
         with self._lock:
-            if not state or state.get("status") not in ACTIVE:
+            if not state or (state.get("status") not in ACTIVE and state.get("status") != PENDING):
                 return
             problems = []
             if state.get("pod_id"):
-                now = self.clock()
-                tail = state["hourly_usd"] * max(now - state.get("billed_until_epoch", now), 0) / 3600
-                if tail > 0:
-                    budget.record_spend(tail, job_id=state["id"], provider="runpod", note=f"pod {state['pod_id']} final", home=self.budget_home)
-                    state["spent_usd"] = round(state.get("spent_usd", 0) + tail, 4)
-                    state["billed_until_epoch"] = now
-                try:
-                    RunPod(self.resolve(RUNPOD_SECRET) or "", self.opener).delete(state["pod_id"])
-                except Exception as exc:
-                    problems.append(f"POD STILL RUNNING, delete it in the RunPod console: {exc}")
+                deleted, error = False, None
+                for attempt in range(DELETE_ATTEMPTS):
+                    self._bill_tail(state)
+                    try:
+                        RunPod(self.resolve(RUNPOD_SECRET) or "", self.opener).delete(state["pod_id"])
+                        deleted = True
+                        break
+                    except Exception as exc:
+                        error = exc
+                        if attempt + 1 < DELETE_ATTEMPTS:
+                            self.sleep(TICK_SECONDS)
+                if not deleted:
+                    # Keep the pod on record so resume / stop / GUI start retry until RunPod confirms.
+                    state.update(status=PENDING, pending_status=status, detail=f"{detail}; POD STILL RUNNING, delete not confirmed yet "
+                                 f"(will retry; or delete pod {state['pod_id']} in the RunPod console): {str(error)[:160]}")
+                    _save_state(state, self.base)
+                    return
+                self._bill_tail(state)
             if state.get("provider_id") and state.get("registered", bool(state.get("pod_id"))):
                 try:
                     self.unregister(state)
                 except Exception as exc:
                     problems.append(f"provider entry not removed: {exc}")
+            status = state.pop("pending_status", None) or status
             state.update(status="failed" if problems and status != "failed" else status, ended_at=utc_now_iso(),
                          detail="; ".join([detail, *problems]))
             _save_state(state, self.base)
+
+    def _bill_tail(self, state: dict[str, Any]) -> None:
+        """Record spend from the last metered tick to now (the pod bills until deleted)."""
+        now = self.clock()
+        tail = state["hourly_usd"] * max(now - state.get("billed_until_epoch", now), 0) / 3600
+        if tail > 0:
+            budget.record_spend(tail, job_id=state["id"], provider="runpod", note=f"pod {state['pod_id']} final", home=self.budget_home)
+            state["spent_usd"] = round(state.get("spent_usd", 0) + tail, 4)
+            state["billed_until_epoch"] = now
 
 
 class _Superseded(Exception):
