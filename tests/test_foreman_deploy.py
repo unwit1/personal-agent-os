@@ -606,6 +606,26 @@ class EvalScoringTests(unittest.TestCase):
         self.assertEqual(summary["gpu_usd_for_calls"], 0.0004)
 
 
+class UtilizationTests(unittest.TestCase):
+    SAMPLE = """# HELP vllm:num_requests_running Number of requests running.
+vllm:num_requests_running{model_name="m"} 3.0
+vllm:num_requests_waiting{model_name="m"} 0.0
+vllm:prompt_tokens_total{model_name="m"} 120000.0
+vllm:generation_tokens_total{model_name="m"} 30000.0
+vllm:request_success_total{finished_reason="stop",model_name="m"} 40.0
+vllm:request_success_total{finished_reason="length",model_name="m"} 2.0
+"""
+
+    def test_parse_metrics_sums_labelled_series(self) -> None:
+        parsed = fd.parse_metrics(self.SAMPLE)
+        self.assertEqual(parsed, {"running": 3.0, "waiting": 0.0, "prompt_tokens": 120000.0, "generation_tokens": 30000.0, "requests": 42.0})
+
+    def test_cost_per_unit(self) -> None:
+        view = fd.utilization_view({"spent_usd": 0.6, "usage": {"ticks": 10, "busy_ticks": 4, "generation_tokens": 30000.0, "requests": 42.0}})
+        self.assertEqual((view["busy_pct"], view["usd_per_request"], view["usd_per_mtok_generated"], view["idle_usd"]), (40.0, 0.0143, 20.0, 0.36))
+        self.assertIsNone(fd.utilization_view({"spent_usd": 1.0}))
+
+
 class LearnedAvailabilityTests(unittest.TestCase):
     """An invalid_model failure is remembered machine-wide (and expires)."""
 
@@ -654,6 +674,16 @@ class StrategyTests(unittest.TestCase):
         merged, notes = fs.merge_same_scope({"tasks": tasks})
         self.assertEqual([task["id"] for task in merged["tasks"]], ["A", "B", "C"])
         self.assertIn("cycle", notes[0])
+
+    def test_invented_roles_are_mapped_not_rejected(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        plan = {"tasks": [{"id": "a", "role": "investigator", "goal": "find it", "scope": ["src/w.py"]},
+                          {"id": "b", "role": "qa", "goal": "cover it", "scope": ["tests/test_w.py"]},
+                          {"id": "c", "role": "implementer", "goal": "x", "scope": ["src/x.py"]}]}
+        fixed, notes = fs.normalize_roles(plan)
+        self.assertEqual([task["role"] for task in fixed["tasks"]], ["implementer", "test_author", "implementer"])
+        self.assertEqual(len(notes), 2)
 
     def test_merge_keeps_the_strongest_class(self) -> None:
         from agent_os.orchestrator import foreman_strategy as fs

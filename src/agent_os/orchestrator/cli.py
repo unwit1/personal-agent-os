@@ -235,7 +235,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     fsh.add_argument("--prefer", action="append", metavar="KEY=VALUE")
 
     fmn = actions.add_parser("foreman", help="session foreman: deploy a Hugging Face model on a RunPod GPU within the job budget and use it as the planner for new runs")
-    fmn.add_argument("action", choices=["use", "preview", "deploy", "status", "stop", "eval"],
+    fmn.add_argument("action", choices=["use", "preview", "deploy", "status", "stop", "eval", "strategy"],
                      help="eval: score the live foreman's per-task model choices and efficiency on labeled planning cases (real calls)")
     fmn.add_argument("link", nargs="?", help="preview/deploy: Hugging Face model link or org/name; use: claude, chatgpt or local")
     fmn.add_argument("--model", help="use: pin one model (e.g. opus, gpt-6.1-sol, or a local model id)")
@@ -245,6 +245,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     fmn.add_argument("--idle-minutes", type=int, default=15)
     fmn.add_argument("--provider", help="eval: provider id to evaluate (default: the ready session foreman)")
     fmn.add_argument("--case", action="append", help="eval: only these case ids")
+    fmn.add_argument("--split", choices=["dev", "holdout", "all"], default="dev", help="eval: dev cases (used for tuning), holdout (never tuned on) or all")
 
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
@@ -606,10 +607,14 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             emit(manager().deploy(args.link, job_cap_usd=args.job_usd, idle_minutes=args.idle_minutes, background=False))
         elif args.action == "stop":
             emit(manager().stop("stopped from the CLI"))
+        elif args.action == "strategy":
+            from . import foreman_strategy
+
+            emit({"host": foreman_strategy.host_models(), "models": foreman_strategy.strategy_table()})
         elif args.action == "eval":
             from . import foreman_eval
 
-            emit(foreman_eval.run(args.provider, cases=args.case))
+            emit(foreman_eval.run(args.provider, cases=args.case, split=args.split))
         else:
             emit(manager().status())
         return 0

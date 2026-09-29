@@ -394,6 +394,8 @@
       $("fm-source").value = FOREMAN_ACTIVE.includes(view.status) && view.kind ? view.kind : storageGet("agent-os-foreman-source", "claude");
     }
     showSource();
+    $("fm-host").textContent = view.recommendation || "";
+    $("fm-host").classList.toggle("hidden", !view.recommendation);
     const b = view.budget || {};
     if (document.activeElement !== $("fm-project") && $("fm-project").value === "" && b.project_usd != null) $("fm-project").value = b.project_usd;
     if (document.activeElement !== $("fm-job") && $("fm-job").value === "" && b.job_hard_cap_usd != null) $("fm-job").value = b.job_hard_cap_usd;
@@ -411,6 +413,12 @@
       ["Model", model.repo ? `${model.repo}${model.sha ? ` @ ${model.sha.slice(0, 10)}` : ""}${model.params ? ` · ${(model.params / 1e9).toFixed(1)}B params` : ""}` : view.id],
       ["GPU", gpu.name ? `${gpu.gpu_count}× ${gpu.name} (${gpu.tier}) · ${money(view.hourly_usd || gpu.hourly_usd)}/hour` : null],
       ["Spent", view.kind === "huggingface" ? `${money(view.spent_usd)} of ${money(view.cap_usd)} job budget${view.minutes_left != null ? ` · shuts down in ≤ ${view.minutes_left} min` : ""}` : null],
+      ["GPU use", view.utilization ? `${view.utilization.busy_pct}% busy over ${view.utilization.sampled_minutes} min · ${view.utilization.requests} requests · ${view.utilization.generation_tokens.toLocaleString()} tokens generated`
+        + (view.utilization.usd_per_request != null ? ` · ${money(view.utilization.usd_per_request)}/request` : "")
+        + (view.utilization.usd_per_mtok_generated != null ? ` · ${money(view.utilization.usd_per_mtok_generated)}/M tokens` : "")
+        + ` · ${money(view.utilization.idle_usd)} spent idle` : null],
+      ["Strategy", view.strategy ? `${view.strategy.band} planner (${view.strategy.source}) — ${view.strategy.summary}` : null],
+      ["Backups", (view.backups || []).length ? view.backups.map((b) => SOURCE_LABEL[b.kind] || b.provider).join(" → ") + " (take over if the foreman hits its usage limit)" : null],
       ["Planner for", view.provider_id ? `${(view.runs || []).length} run(s) · provider ${view.provider_id}` : `${(view.runs || []).length} run(s) waiting`],
     ].filter(([, value]) => value);
     $("fm-status").replaceChildren(...facts.flatMap(([key, value]) => [el("dt", {}, key), el("dd", {}, value)]));

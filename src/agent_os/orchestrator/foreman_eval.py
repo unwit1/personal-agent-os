@@ -63,6 +63,24 @@ CASES: list[dict[str, Any]] = [
      "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 6]},
 ]
 
+# Held out: written before any guard or playbook was tuned, and never used to
+# tune them. Improvements must show here too, or they are overfitting the
+# dev cases above. Run with ``--split holdout``.
+HOLDOUT: list[dict[str, Any]] = [
+    {"id": "ho-version-bump", "split": "holdout", "goal": "Change the version in pyproject.toml from 0.3.0 to 0.4.0 and add a matching 0.4.0 heading to CHANGELOG.md. Nothing else changes.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+    {"id": "ho-list-limit", "split": "holdout", "goal": "Add a --limit N option to `agent-os orchestrate list` in src/agent_os/orchestrator/cli.py that shows at most N runs (newest first), with a unit test.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 2]},
+    {"id": "ho-blocked-badge", "split": "holdout", "goal": "In the GUI run panel (gui/simple.js, gui/simple-core.js) show a warning badge with the wait reason when a run is BLOCKED, and cover the badge text with a test in tests/gui/simple_core.test.js.",
+     "ceiling": "balanced", "floor_any": None, "tasks": [1, 3]},
+    {"id": "ho-double-release", "split": "holdout", "goal": "budget.spent() can go wrong when a reservation is released twice. Find out exactly how in src/agent_os/orchestrator/budget.py and fix it so spend is never under-counted, with a regression test.",
+     "ceiling": "reasoning", "floor_any": "balanced", "tasks": [1, 2]},
+    {"id": "ho-rate-limit", "split": "holdout", "goal": "Design and implement request rate limiting for the control GUI API in src/agent_os/orchestrator/server.py so a runaway browser tab cannot flood the orchestrator, including how the token bucket is shared safely across the server's threads.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+    {"id": "ho-secret-retention", "split": "holdout", "goal": "Harden src/agent_os/orchestrator/secret_refs.py so resolved secret values are never kept in module state or caches, document the threat model, and add tests that fail if a value is retained.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+]
+
 NO_TOOLS_NOTE = ("\n\nYou have no file or shell tools in this call: plan from the goal and the repository map above, "
                  "and name only files the map lists. Answer with the fenced result block only.\n")
 
@@ -185,7 +203,8 @@ def adapter_runner(provider_id: str, *, timeout: int = 900) -> Callable[[str, Pa
 
 
 def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list[str] | None = None, runner=None,
-        hourly_usd: float | None = None, out_dir: Path | None = None, strategy_override: dict[str, Any] | None = None) -> dict[str, Any]:
+        hourly_usd: float | None = None, out_dir: Path | None = None, strategy_override: dict[str, Any] | None = None,
+        split: str = "dev") -> dict[str, Any]:
     """Evaluate the foreman (default: the live session foreman) on every case."""
     from ..paths import ROOT
     from .store import orchestrator_home
@@ -203,15 +222,20 @@ def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list
     root = Path(out_dir or orchestrator_home() / "foreman-eval") / f"{stamp}-{uuid.uuid4().hex[:4]}"
     from .foreman_strategy import apply as apply_strategy
 
+    from .foreman_strategy import strategy_for
+
     rows = []
-    strategy = strategy_override if strategy_override is not None else {}
+    strategy = strategy_override  # None: the evaluated model's own strategy, once its model is known
     model_used = None
-    for case in CASES:
+    pool = {"dev": CASES, "holdout": HOLDOUT, "all": CASES + HOLDOUT}[split]
+    for case in pool:
         if cases and case["id"] not in cases:
             continue
         prompt, record, policy = build_prompt(case["goal"], repo)
         answer = runner(prompt, root / case["id"])
-        model_used = model_used or answer.get("model")
+        model_used = model_used or answer.get("model") or (answer.get("usage") or {}).get("model_resolved")
+        if strategy is None and model_used:
+            strategy = strategy_for(model_used)
         if answer.get("failure_kind") in {"invalid_model", "quota", "auth"}:
             # every later case would fail the same way: stop and say why
             rows.append({"case": case["id"], "valid": False, "passed": False, "error": f"{answer['failure_kind']}: {str(answer.get('detail'))[:200]}"})
@@ -226,8 +250,9 @@ def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list
         row.update(seconds=answer.get("seconds"), usage={key: answer.get("usage", {}).get(key) for key in ("input_tokens", "output_tokens", "model_resolved")},
                    prompt_chars=len(prompt))
         rows.append(row)
-    aborted = len(rows) < len([case for case in CASES if not cases or case["id"] in cases])
-    report = {"created_at": stamp, "provider": provider_id, "model": model_used, "aborted": rows[-1]["error"] if aborted and rows else None, "repository": str(repo), "summary": summarize(rows, hourly_usd), "cases": rows}
+    aborted = len(rows) < len([case for case in pool if not cases or case["id"] in cases])
+    report = {"created_at": stamp, "provider": provider_id, "model": model_used, "split": split,
+              "strategy": {key: (strategy or {}).get(key) for key in ("band", "source", "guard")}, "aborted": rows[-1]["error"] if aborted and rows else None, "repository": str(repo), "summary": summarize(rows, hourly_usd), "cases": rows}
     root.mkdir(parents=True, exist_ok=True)
     (root / "report.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
     report["file"] = str(root / "report.json")

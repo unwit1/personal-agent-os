@@ -159,7 +159,10 @@ def _measured(model: str, reports: list[dict[str, Any]]) -> dict[str, Any] | Non
 
 
 def _tier_of(model: str, provider: dict[str, Any] | None) -> str | None:
-    for tier, name in ((provider or {}).get("models") or {}).items():
+    models = (provider or {}).get("models") or {}
+    if len(set(models.values())) <= 1:
+        return None  # one model behind every tier (a served endpoint): the tier says nothing
+    for tier, name in models.items():
         if name == model:
             return tier
     return None
@@ -212,6 +215,47 @@ def strategy_for(model: str, **kwargs: Any) -> dict[str, Any]:
     book = playbooks()[rated["band"]]
     return {**rated, "summary": book["summary"], "prioritize": book["prioritize"], "planner_addendum": book["planner_addendum"],
             "guard": bool(book["guard"]), "consult": bool(book["consult"])}
+
+
+def strategy_table(registry=None, evidence: dict[str, Any] | None = None, reports: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
+    """Every registered model: planner strength, band and what to prioritize when it is the foreman."""
+    if registry is None:
+        from .router import ProviderRegistry
+
+        registry = ProviderRegistry()
+    if evidence is None:
+        from . import model_value
+
+        evidence = model_value.load_evidence()
+    reports = _eval_reports(None) if reports is None else reports
+    rows = []
+    for provider in registry.providers:
+        for tier, model in (provider.get("models") or {}).items():
+            strategy = strategy_for(model, provider=provider, evidence=evidence, reports=reports)
+            rows.append({"provider": provider["id"], "tier": tier, **{key: strategy[key] for key in ("model", "score", "band", "source", "summary", "prioritize")}})
+    rows.sort(key=lambda row: -row["score"])
+    return rows
+
+
+def recommend(host: dict[str, Any], foreman_kind: str | None, foreman_model: str | None, registry=None) -> str | None:
+    """One line: is the operator's own model a better foreman than the current one?"""
+    active = host.get("active")
+    info = (host.get("hosts") or {}).get(active or "")
+    if not info:
+        return None
+    if registry is None:
+        from .router import ProviderRegistry
+
+        registry = ProviderRegistry()
+    provider = registry.get(info["provider_hint"])
+    mine = strength(info["model"], provider=provider, reports=_eval_reports(None))
+    label = {"claude": "Claude", "chatgpt": "ChatGPT"}.get(active, active)
+    if foreman_kind == active:
+        return f"You are using {info['model']} ({mine['band']} planner) and it is the foreman: its planning is the best use of those tokens."
+    if mine["band"] == "strong":
+        return (f"You are using {info['model']} in {label}: a strong planner. Making {label} the foreman spends it on planning "
+                f"(its best value per token) and sends the implementation to cheaper tiers.")
+    return f"You are using {info['model']} in {label} ({mine['band']} planner): keep a stronger foreman for planning."
 
 
 # ---------------------------------------------------------------------------
@@ -307,9 +351,33 @@ def merge_same_scope(structured: dict[str, Any] | None) -> tuple[dict[str, Any] 
     return {**(structured or {}), "tasks": current}, notes
 
 
+_TEST_PATH = re.compile(r"(^|/)(tests?/|test_[^/]*$|[^/]*_test\.[a-z]+$)")
+
+
+def normalize_roles(structured: dict[str, Any] | None) -> tuple[dict[str, Any] | None, list[str]]:
+    """Map roles the planner invented ("investigator", "designer") to the two
+    the engine accepts, instead of rejecting the whole plan. Measured: a 14B
+    foreman lost 2 of 7 plans to invented roles."""
+    tasks = (structured or {}).get("tasks")
+    if not isinstance(tasks, list):
+        return structured, []
+    notes, out = [], []
+    for task in tasks:
+        if isinstance(task, dict) and task.get("role") not in (None, "implementer", "test_author"):
+            scope = [str(path) for path in task.get("scope") or []]
+            role = "test_author" if scope and all(_TEST_PATH.search(path) for path in scope) else "implementer"
+            notes.append(f"role: {task.get('id')} {task.get('role')!r} -> {role}")
+            task = {**task, "role": role}
+        out.append(task)
+    return ({**(structured or {}), "tasks": out}, notes) if notes else (structured, [])
+
+
 def apply(goal: str, structured: dict[str, Any] | None, strategy: dict[str, Any] | None) -> tuple[dict[str, Any] | None, list[str]]:
-    """Every session-foreman plan gets the same-scope merge; weak planners also get the class guard."""
-    structured, notes = merge_same_scope(structured)
+    """Every session-foreman plan gets role normalization and the same-scope
+    merge; weak planners also get the class guard."""
+    structured, notes = normalize_roles(structured)
+    structured, merged = merge_same_scope(structured)
+    notes += merged
     if (strategy or {}).get("guard"):
         structured, more = guard(goal, structured)
         notes += more

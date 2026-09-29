@@ -360,6 +360,56 @@ class RunPod:
         return True
 
 
+METRICS = {"vllm:num_requests_running": "running", "vllm:num_requests_waiting": "waiting", "vllm:prompt_tokens_total": "prompt_tokens",
+           "vllm:generation_tokens_total": "generation_tokens", "vllm:request_success_total": "requests"}
+
+
+def parse_metrics(text: str) -> dict[str, float]:
+    """Sum the vLLM Prometheus series we use (labels ignored)."""
+    out: dict[str, float] = {}
+    for line in (text or "").splitlines():
+        if not line or line.startswith("#"):
+            continue
+        name = line.split("{", 1)[0].split(" ", 1)[0]
+        key = METRICS.get(name)
+        if key:
+            try:
+                out[key] = out.get(key, 0.0) + float(line.rsplit(" ", 1)[1])
+            except (IndexError, ValueError):
+                continue
+    return out
+
+
+def vllm_metrics(base_url: str, opener=None) -> dict[str, float] | None:
+    try:
+        status, payload = _http(opener, "GET", f"{base_url}/metrics", timeout=10)
+    except Exception:
+        return None
+    return parse_metrics(payload) if status == 200 and isinstance(payload, str) else None
+
+
+def utilization_view(state: dict[str, Any]) -> dict[str, Any] | None:
+    """Cost per unit of a rented foreman: busy share, $/request, $/Mtok, idle $."""
+    usage = state.get("usage") or {}
+    ticks = usage.get("ticks") or 0
+    if not ticks:
+        return None
+    spent = float(state.get("spent_usd") or 0)
+    busy = usage.get("busy_ticks", 0) / ticks
+    generated = usage.get("generation_tokens", 0.0)
+    requests = usage.get("requests", 0.0)
+    return {
+        "busy_pct": round(100 * busy, 1),
+        "requests": int(requests),
+        "prompt_tokens": int(usage.get("prompt_tokens", 0.0)),
+        "generation_tokens": int(generated),
+        "usd_per_request": round(spent / requests, 4) if requests else None,
+        "usd_per_mtok_generated": round(spent / generated * 1e6, 2) if generated else None,
+        "idle_usd": round(spent * (1 - busy), 4),
+        "sampled_minutes": round(ticks * TICK_SECONDS / 60, 1),
+    }
+
+
 def crash_report(base_url: str, opener=None) -> str | None:
     """The wrapper's crash log when vLLM has exited, else None."""
     try:
@@ -526,6 +576,20 @@ class ForemanManager:
             view["choices"] = {}
         view["model"] = state.get("model")
         view["gpu"] = state.get("gpu")
+        view["utilization"] = utilization_view(state)
+        try:
+            from . import foreman_strategy
+
+            host = foreman_strategy.host_models()
+            view["host"] = host
+            live = view["status"] in ACTIVE
+            view["recommendation"] = foreman_strategy.recommend(host, view["kind"] if live else None,
+                                                                (state.get("model") or {}).get("repo") if live else None, self.registry)
+            if live and state.get("model"):
+                model = state.get("override_model") or state["model"]["repo"]
+                view["strategy"] = {key: value for key, value in foreman_strategy.strategy_for(model).items() if key != "planner_addendum"}
+        except Exception:
+            view["host"], view["recommendation"] = None, None
         if state.get("deadline_epoch") and state.get("status") in ACTIVE:
             view["minutes_left"] = max(0, round((state["deadline_epoch"] - self.clock()) / 60))
         view["budget"] = budget.show(self.budget_home)
@@ -783,11 +847,25 @@ class ForemanManager:
             self.sleep(TICK_SECONDS)
         raise _Superseded()
 
+    def _sample(self, state: dict[str, Any]) -> dict[str, Any]:
+        """One utilization sample from the pod's vLLM /metrics (counters are cumulative)."""
+        metrics = vllm_metrics(state["base_url"], self.opener)
+        if metrics is None:
+            return state
+        usage = dict(state.get("usage") or {})
+        usage["ticks"] = usage.get("ticks", 0) + 1
+        if metrics.get("running", 0) + metrics.get("waiting", 0) > 0:
+            usage["busy_ticks"] = usage.get("busy_ticks", 0) + 1
+        for key in ("prompt_tokens", "generation_tokens", "requests"):
+            usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
+        return self._update(state, usage=usage)
+
     def _watch(self, state: dict[str, Any]) -> None:
         while not self._stop.is_set():
             state = self._meter(state)
             if state["status"] not in ACTIVE:
                 return
+            state = self._sample(state)
             if self._idle(state):
                 self._teardown(state, "stopped", f"every attached run has planned and the foreman was idle for {state['idle_minutes']} min")
                 return
