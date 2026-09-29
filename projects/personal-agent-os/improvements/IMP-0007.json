@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0007",
+  "project": "personal-agent-os",
+  "title": "Orchestrator state-machine tests: Hypothesis spike vs subsumed random-sequence tester",
+  "category": "missing_test",
+  "subsystem": "orchestrator/tests",
+  "status": "candidate",
+  "priority": "high",
+  "observation": "No property/state-machine tests exist (implementation-status RT-27). The constitution lists lifecycle operations and invariants to test. Prior art PA-hypothesis (RuleBasedStateMachine with shrinking) is best-in-class; the operator prefers subsuming over dependencies.",
+  "evidence": [
+    "projects/personal-agent-os/research/prior-art/registry.json#PA-hypothesis"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Write engine invariants once (unvalidated code never integrates, failed never becomes integrated, read-only never writes, COMPLETE requires completion validation). Drive them with (a) a small in-repo seeded random operation-sequence runner and (b) Hypothesis as a dev-only extra; compare bugs found, runtime and failure readability; record EXP + DEC.",
+  "acceptance": [
+    "Invariant set covers the constitution section 10 list",
+    "Both drivers run against synthetic adapters in < 60 s",
+    "EXP/DEC records the choice with evidence"
+  ],
+  "risks": [],
+  "dedupe_key": "91397a2e2c939a1e9c52356432accabe12f2cfbe532313273aefaad9b7e9d608",
+  "source": {
+    "type": "claude",
+    "reference": "prior-art initial pass 2026-09-29"
+  },
+  "github": null,
+  "created_at": "2026-09-29T03:13:32.003006+00:00",
+  "updated_at": "2026-09-29T03:13:32.003006+00:00",
+  "notes": null
+}

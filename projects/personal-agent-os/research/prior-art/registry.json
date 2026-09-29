@@ -4,5 +4,2552 @@
   "as_of": "2026-09-29",
   "workflow": "projects/personal-agent-os/research/prior-art/README.md",
   "permission_note": "Operator states full academic reuse permission for projects found (2026-09-29); licenses and attribution are still recorded for provenance.",
-  "entries": []
+  "entries": [
+    {
+      "id": "PA-routellm",
+      "name": "RouteLLM",
+      "repository": "https://github.com/lm-sys/RouteLLM",
+      "organization": "lm-sys",
+      "description": "A framework for serving and evaluating LLM routers - save LLM costs without compromising quality",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2024-08-10",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 5554,
+        "pushed_at": "2024-08-10",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "model routing",
+        "strong/weak routing",
+        "threshold calibration",
+        "cost-quality tradeoff"
+      ],
+      "agent_os_overlap": "orchestrator/router.py routes by capability class and relative cost; capability.py records task-family CAP evidence; orchestrate eval measures routes. No learned router.",
+      "useful_parts": {
+        "algorithms": [
+          "threshold calibration to target strong-call fraction",
+          "matrix-factorization and BERT-classifier routers"
+        ],
+        "tests_benchmarks": [
+          "router evaluation harness producing cost-quality curves"
+        ]
+      },
+      "integration": "none; borrow calibration when IMP-0004 has qualified CAP data",
+      "risks": {
+        "maintenance": "unmaintained since 2024-08",
+        "provider_lock_in": "OpenAI-compatible APIs assumed",
+        "dependency_weight": "heavy (ML stack)"
+      },
+      "evidence": {
+        "development_savings": "small: the threshold-calibration idea is ~30 lines once CAP data exists",
+        "runtime_savings": "unknown until Agent OS has enough per-family observations",
+        "quality": "its benchmarks are chat (MT-Bench/MMLU/GSM8K), not coding-agent tasks",
+        "reliability": "n/a",
+        "security": "neutral",
+        "complexity": "dependency would add torch/transformers-class weight",
+        "maintenance": "stale upstream",
+        "portability": "assumes API models"
+      },
+      "decision": "BORROW",
+      "rationale": "Last push 2024-08 (stale). Routers are trained on chat preference data for single-prompt strong-vs-weak routing between two API models, while Agent OS routes CLI coding workers across task families from measured outcomes. Worth borrowing: calibrating the routing threshold to a target share of strong-model calls on a development set, and the cost-vs-quality curve used in its evaluation. Not worth depending on.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/lm-sys/RouteLLM (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0004"
+        }
+      ],
+      "revisit_when": [
+        "new release",
+        "Agent OS gains API-key single-prompt routing with >= 500 labeled observations"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-llmrouter",
+      "name": "LLMRouter",
+      "repository": "https://github.com/ulab-uiuc/LLMRouter",
+      "organization": "ulab-uiuc",
+      "description": "LLMRouter: An Open-Source Library for LLM Routing",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2026-09-09",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 2979,
+        "pushed_at": "2026-09-09",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "model routing",
+        "router benchmarking",
+        "agentic routing",
+        "multi-round routing"
+      ],
+      "agent_os_overlap": "Same as PA-routellm: Agent OS has capability-class routing plus CAP evidence, no learned router.",
+      "useful_parts": {
+        "algorithms": [
+          "kNN/MLP/graph routers",
+          "agentic routers"
+        ],
+        "tests_benchmarks": [
+          "unified router evaluation"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown (not inspected at code level)",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "neutral",
+        "complexity": "likely ML dependencies",
+        "maintenance": "active (2026-09)",
+        "portability": "unknown"
+      },
+      "decision": "DEFER",
+      "rationale": "Found by task-specific discovery (2026-08 release, 16+ router families including agentic and multi-round routers). A learned router needs hundreds of labeled routing observations per family; Agent OS has ~40 CAP observations in total, so any trained router would overfit. Revisit when CAP data volume is large enough.",
+      "confidence": "low",
+      "provenance": [
+        "https://github.com/ulab-uiuc/LLMRouter",
+        "WebSearch 'open source LLM router cost quality routing github 2026' (2026-09-29)",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0004"
+        }
+      ],
+      "revisit_when": [
+        "Agent OS has >= 500 CAP observations across >= 5 task families",
+        "major release"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-inspect-ai",
+      "name": "Inspect AI",
+      "repository": "https://github.com/UKGovernmentBEIS/inspect_ai",
+      "organization": "UKGovernmentBEIS",
+      "description": "Inspect: A framework for large language model evaluations",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2026-09-29",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 2876,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "agent evaluation",
+        "eval sets",
+        "sandboxing",
+        "model comparison",
+        "coding-agent evaluation",
+        "benchmark ports"
+      ],
+      "agent_os_overlap": "orchestrator/eval.py (~900 lines): incumbent-vs-candidate EVRs for test-runner suites and delegate-case suites, trusted-suite reading, holdout refusal, multi-sample paired routes. Workers are CLI subscriptions (Claude Code, Codex CLI), not API models.",
+      "useful_parts": {
+        "modules": [
+          "eval_set with resume and sample reuse",
+          "sandbox extension API",
+          "custom ModelAPI"
+        ],
+        "tests_benchmarks": [
+          "inspect_evals benchmark ports"
+        ],
+        "schemas_interfaces": [
+          "EvalLog format"
+        ]
+      },
+      "integration": "optional extra `agent-os[inspect]`; adapter in orchestrator/ translating an EVS suite to an Inspect task and Inspect results back to EVR; Agent OS keeps suite definitions and promotion authority",
+      "risks": {
+        "dependency_weight": "heavy",
+        "provider_lock_in": "low",
+        "maintenance": "fast-moving API",
+        "security": "runs agent code; use its sandboxes"
+      },
+      "evidence": {
+        "development_savings": "potentially large for external benchmarks (SWE-bench, GAIA, AgentDojo ports) and sandboxing; small for Agent OS-specific suites, which eval.py already runs",
+        "runtime_savings": "unknown",
+        "quality": "mature eval semantics (scorers, epochs, limits)",
+        "reliability": "resumable eval sets verified in docs",
+        "security": "sandbox backends reduce risk of running agent code",
+        "complexity": "large dependency tree; needs a bridge ModelAPI",
+        "maintenance": "very active (daily pushes)",
+        "portability": "cross-provider by design"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "Strongest WRAP candidate for evaluation breadth: verified from the docs to have pluggable sandboxes (Docker, Kubernetes, others via extensions), eval sets that resume interrupted runs and reuse completed samples, retries with backoff, 20+ providers and a custom ModelAPI extension point, and a log viewer; inspect_evals ports many public benchmarks. Blockers: it is API-provider-centric (Agent OS would need a ModelAPI bridging to `orchestrate delegate` or the new API adapter) and it is a heavy dependency, so it belongs in an optional extra behind eval.py, never as the protected evaluator. Spike before deciding.",
+      "confidence": "medium",
+      "provenance": [
+        "https://inspect.aisi.org.uk/ (fetched 2026-09-29)",
+        "https://inspect.aisi.org.uk/eval-sets.html (fetched 2026-09-29)",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0002"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json"
+        }
+      ],
+      "revisit_when": [
+        "spike result recorded",
+        "Agent OS imports an external benchmark (external-corpora.json)",
+        "major release"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-dspy",
+      "name": "DSPy",
+      "repository": "https://github.com/stanfordnlp/dspy",
+      "organization": "stanfordnlp",
+      "description": "DSPy: The framework for programming—not prompting—language models",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "3.4.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 38406,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "3.4.0",
+        "released_at": "2026-09-25",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "prompt optimization",
+        "workflow optimization",
+        "evaluator-driven optimization",
+        "typed signatures"
+      ],
+      "agent_os_overlap": "No prompt/workflow optimizer yet (MIE-0020 missing). Prompts live in orchestrator/prompts.py; evaluation in eval.py.",
+      "useful_parts": {
+        "algorithms": [
+          "MIPROv2",
+          "GEPA (also standalone)"
+        ],
+        "schemas_interfaces": [
+          "metric returning score + feedback"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "low for Agent OS (different programming model)",
+        "runtime_savings": "unknown",
+        "quality": "strong optimizers (MIPROv2, GEPA)",
+        "reliability": "n/a",
+        "security": "optimizers must never see protected holdouts",
+        "complexity": "framework-level coupling",
+        "maintenance": "very active",
+        "portability": "API providers"
+      },
+      "decision": "DEFER",
+      "rationale": "DSPy is a full programming model (signatures, modules, compiled programs) aimed at API LLM calls; adopting it would pull Agent OS prompts into its abstraction. The valuable piece for Agent OS, the GEPA optimizer, is available standalone (PA-gepa). Borrow the metric-with-feedback convention (score + textual explanation). Revisit when MIE-0020 starts.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/stanfordnlp/dspy (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0020"
+        }
+      ],
+      "revisit_when": [
+        "MIE-0020 starts",
+        "Agent OS adds API-key workers with enough call volume"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-gepa",
+      "name": "GEPA",
+      "repository": "https://github.com/gepa-ai/gepa",
+      "organization": "gepa-ai",
+      "description": "Optimize prompts, code, and more with AI-powered Reflective Optimization",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.1.4",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 6784,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "v0.1.4",
+        "released_at": "2026-07-15",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Jupyter Notebook",
+      "capability_areas": [
+        "prompt optimization",
+        "reflective optimization",
+        "Pareto candidate search",
+        "workflow optimization"
+      ],
+      "agent_os_overlap": "No optimizer (MIE-0020 missing). orchestrate eval provides the metric; delegate provides candidate execution.",
+      "useful_parts": {
+        "algorithms": [
+          "reflective mutation from traces",
+          "Pareto frontier candidate selection"
+        ],
+        "schemas_interfaces": [
+          "adapter: evaluate(candidate, batch) -> scores + traces"
+        ]
+      },
+      "integration": "subsume the Pareto selection and reflection loop (small) or vendor the package behind an optimizer adapter; metric = orchestrate eval --no-write on development cases",
+      "risks": {
+        "security": "optimizer never reads holdout cases (eval.py refuses them)",
+        "dependency_weight": "light"
+      },
+      "evidence": {
+        "development_savings": "medium: avoids writing a reflective search loop",
+        "runtime_savings": "could cut model cost by improving cheap-route accuracy (unmeasured)",
+        "quality": "strong published results",
+        "reliability": "unknown",
+        "security": "must be fed development cases only; holdouts stay invisible",
+        "complexity": "small library",
+        "maintenance": "active (2026-09)",
+        "portability": "provider-agnostic via callables"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "Found by discovery: standalone reflective Pareto optimizer (ICLR 2026) that reads full execution traces to propose prompt edits; reported to beat MIPROv2 with far fewer rollouts. It optimizes any text artifact through an adapter, which fits Agent OS: candidate = a prompt in prompts.py or a delegate prompt builder, metric = orchestrate eval accuracy on the development split only. Small, MIT. Spike on one delegate prompt family once a family has an objective metric worth optimizing.",
+      "confidence": "medium",
+      "provenance": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2507.19457",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0020"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "FND-0005"
+        }
+      ],
+      "revisit_when": [
+        "a task family with an objective metric and cheap-route accuracy < floor exists",
+        "MIE-0020 starts"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-hypothesis",
+      "name": "Hypothesis",
+      "repository": "https://github.com/HypothesisWorks/hypothesis",
+      "organization": "HypothesisWorks",
+      "description": "The property-based testing library for Python",
+      "license": "NOASSERTION",
+      "license_spdx": "NOASSERTION",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v6.168.3",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 9034,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "v6.168.3",
+        "released_at": "2026-09-28",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "property-based testing",
+        "stateful testing",
+        "state-machine testing",
+        "failure shrinking"
+      ],
+      "agent_os_overlap": "No property or state-machine tests (implementation-status RT-27 missing); orchestrator tests are example-based (tests/test_orchestrator.py, synthetic adapters).",
+      "useful_parts": {
+        "modules": [
+          "hypothesis.stateful.RuleBasedStateMachine",
+          "invariant",
+          "precondition",
+          "Bundle"
+        ],
+        "tests_benchmarks": [
+          "shrinking of operation sequences"
+        ]
+      },
+      "integration": "optional dev extra `agent-os[dev]`; tests/test_orchestrator_state_machine.py driving the engine with synthetic adapters",
+      "risks": {
+        "dependency_weight": "moderate, test-only",
+        "maintenance": "stable API"
+      },
+      "evidence": {
+        "development_savings": "large for state-machine testing (shrinking and strategies are hard to rebuild)",
+        "runtime_savings": "none (test-time only)",
+        "quality": "high",
+        "reliability": "finds interleaving bugs example tests miss",
+        "security": "neutral",
+        "complexity": "dev-only dependency",
+        "maintenance": "very active",
+        "portability": "pure Python"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "Best-in-class stateful testing (RuleBasedStateMachine with rules, invariants, preconditions, and automatic shrinking to a minimal failing sequence). This is exactly the orchestrator-lifecycle testing the constitution asks for (create/dispatch/fail/retry/pause/resume/cancel/review/integrate with invariants). MPL-2.0, test-only. Operator prefers subsuming: a small in-repo random-sequence tester gets generation + invariants but not good shrinking; shrinking is Hypothesis's hard, valuable part. Spike both on engine invariants and compare bugs found and failure readability; a dev-only extra does not touch the runtime.",
+      "confidence": "high",
+      "provenance": [
+        "GitHub REST api.github.com/repos/HypothesisWorks/hypothesis (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "projects/personal-agent-os/orchestrator-os/implementation-status.json"
+        }
+      ],
+      "revisit_when": [
+        "spike result recorded",
+        "RT-27 work starts"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-openhands",
+      "name": "OpenHands",
+      "repository": "https://github.com/OpenHands/OpenHands",
+      "organization": "OpenHands",
+      "description": "",
+      "license": "see repository",
+      "license_spdx": null,
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": null,
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "note": "not fetched"
+      },
+      "language": null,
+      "capability_areas": [
+        "coding-agent runtime",
+        "sandbox architecture",
+        "tool loop",
+        "context condensation",
+        "stuck detection"
+      ],
+      "agent_os_overlap": "Agent OS does not run its own tool loop: it delegates to Claude Code / Codex CLI workers in git worktrees (orchestrator/adapters, worktrees.py) and adds validation, review, integration and loop guards (engine.py loop_guard).",
+      "useful_parts": {
+        "algorithms": [
+          "stuck detector",
+          "context condenser"
+        ],
+        "schemas_interfaces": [
+          "event stream actions/observations"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small-medium for specific heuristics",
+        "runtime_savings": "unknown",
+        "quality": "large production user base",
+        "reliability": "unknown",
+        "security": "docker sandbox model",
+        "complexity": "very large if adopted",
+        "maintenance": "very active",
+        "portability": "many providers"
+      },
+      "decision": "BORROW",
+      "rationale": "Replacing the CLI workers with the OpenHands runtime would surrender orchestration and add a large TypeScript/Python/Docker stack. Worth mining: stuck-detection heuristics (repeated action/observation loops), conversation condensers for long runs, and the event-stream action/observation model for trace projection. Confidence low: not inspected at code level in this pass.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/OpenHands/OpenHands (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS adds its own tool loop (API-key workers)",
+        "loop-guard failures recur"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-pydantic-ai",
+      "name": "PydanticAI",
+      "repository": "https://github.com/pydantic/pydantic-ai",
+      "organization": "pydantic",
+      "description": "How Python does AI. Agents, realtime voice, image generation, embeddings. Every model, every interface, typed end to end.",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v2.51.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 20246,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "v2.51.0",
+        "released_at": "2026-09-25",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "typed agent outputs",
+        "structured output validation",
+        "tool schemas",
+        "provider abstraction"
+      ],
+      "agent_os_overlap": "delegate.py check_contract (dependency-free output contract), adapters/ provider abstraction, evidence-record schemas; stdlib-only runtime (one dependency: keyring).",
+      "useful_parts": {
+        "algorithms": [
+          "validation-error repair retry"
+        ],
+        "schemas_interfaces": [
+          "typed deps + output_type"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small: one repair turn in delegate",
+        "runtime_savings": "avoids re-running whole calls on shape errors",
+        "quality": "n/a",
+        "reliability": "higher contract pass rate expected (unmeasured)",
+        "security": "neutral",
+        "complexity": "pydantic dependency if adopted",
+        "maintenance": "very active",
+        "portability": "many providers"
+      },
+      "decision": "BORROW",
+      "rationale": "Its provider abstraction duplicates Agent OS adapters and it would bring pydantic into a stdlib runtime. Borrow the validation-repair loop: when output fails validation, send the validation errors back to the model for one bounded retry (ModelRetry). Agent OS delegate currently fails the call outright on contract errors, wasting the call.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/pydantic/pydantic-ai (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "contract_failed rate in CAP records exceeds 5%",
+        "Agent OS adopts pydantic for other reasons"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-optuna",
+      "name": "Optuna",
+      "repository": "https://github.com/optuna/optuna",
+      "organization": "optuna",
+      "description": "A hyperparameter optimization framework",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v5.0.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 14859,
+        "pushed_at": "2026-09-25",
+        "archived": false,
+        "latest_release": "v5.0.0",
+        "released_at": "2026-09-07",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "hyperparameter search",
+        "parameter tuning",
+        "TPE",
+        "pruning"
+      ],
+      "agent_os_overlap": "No parameter search; policy constants (max_parallel_editors, planner_effort, retries, context budgets) were set by hand from measurements.",
+      "useful_parts": {
+        "algorithms": [
+          "TPE sampler",
+          "median pruning"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "medium when many parameters are tuned",
+        "runtime_savings": "depends on objective",
+        "quality": "mature",
+        "reliability": "n/a",
+        "security": "must tune on development/validation only",
+        "complexity": "moderate dependency",
+        "maintenance": "active (v5.0)",
+        "portability": "pure Python"
+      },
+      "decision": "DEFER",
+      "rationale": "Useful once there is a cheap, objective, development-only objective to tune (for example selector thresholds or concurrency with deterministic benchmarks). Most Agent OS objectives currently cost model calls per trial, which makes search expensive; subsuming a small TPE/grid over deterministic objectives is enough at first.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/optuna/optuna (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "a deterministic tuning objective exists (e.g. affected-test selection precision)",
+        "HYP needing parameter search is accepted"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-promptfoo",
+      "name": "Promptfoo",
+      "repository": "https://github.com/promptfoo/promptfoo",
+      "organization": "promptfoo",
+      "description": "Test your prompts, agents, and RAGs. Red teaming/pentesting/vulnerability scanning for AI. Compare performance of GPT, Claude, Gemini, DeepSeek, and more. Simpl",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "0.123.1",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 25540,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "0.123.1",
+        "released_at": "2026-09-18",
+        "checked_at": "2026-09-29"
+      },
+      "language": "TypeScript",
+      "capability_areas": [
+        "red teaming",
+        "prompt injection testing",
+        "LLM evaluation",
+        "security testing"
+      ],
+      "agent_os_overlap": "No adversarial/security eval suite yet (EVS-SECURITY planned); privacy.py scans for secrets; control_plane.py enforces protected paths.",
+      "useful_parts": {
+        "tests_benchmarks": [
+          "red-team plugins and strategies catalog"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "medium: ready attack taxonomy and generators",
+        "runtime_savings": "none",
+        "quality": "widely used",
+        "reliability": "n/a",
+        "security": "improves coverage of injection/leak cases",
+        "complexity": "none if borrowed",
+        "maintenance": "very active",
+        "portability": "n/a (cases are data)"
+      },
+      "decision": "BORROW",
+      "rationale": "TypeScript/Node runtime, so not a dependency for a Python stdlib runtime. Borrow its red-team taxonomy and attack cases (direct/indirect prompt injection, tool misuse, PII/secret leakage, excessive agency) as sources for EVS-SECURITY cases, with provenance; adversarial cases likely belong in the protected holdout split.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/promptfoo/promptfoo (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "EVS-SECURITY work starts",
+        "a prompt-injection FAIL occurs"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-langgraph",
+      "name": "LangGraph",
+      "repository": "https://github.com/langchain-ai/langgraph",
+      "organization": "langchain-ai",
+      "description": "Build resilient agents.",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "cli==0.4.32.dev0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 42430,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "cli==0.4.32.dev0",
+        "released_at": "2026-09-23",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "durable execution",
+        "checkpoint/replay",
+        "human-in-the-loop interrupts",
+        "graph workflows"
+      ],
+      "agent_os_overlap": "Run store with per-tick persistence, worktree checkpoints, approval gates, pause/resume (engine.py, store.py, worktrees.py), staged workflows (workflows.py), ORCH checkpoints.",
+      "useful_parts": {
+        "schemas_interfaces": [
+          "checkpointer interface",
+          "interrupt/resume"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small (design reference)",
+        "runtime_savings": "none",
+        "quality": "mature",
+        "reliability": "n/a",
+        "security": "neutral",
+        "complexity": "large ecosystem coupling if adopted",
+        "maintenance": "very active",
+        "portability": "Python/JS"
+      },
+      "decision": "BORROW",
+      "rationale": "Agent OS already covers durable runs, gates and resume for its domain. LangGraph's checkpointer interface (per-step snapshots keyed by thread, time travel/replay, interrupt/resume) is a useful reference for MIE-0016 replay/branching; adopting it would couple to the LangChain ecosystem.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/langchain-ai/langgraph (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0016"
+        }
+      ],
+      "revisit_when": [
+        "MIE-0016 replay/branching work starts"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-autogen",
+      "name": "AutoGen",
+      "repository": "https://github.com/microsoft/autogen",
+      "organization": "microsoft",
+      "description": "A programming framework for agentic AI",
+      "license": "CC-BY-4.0",
+      "license_spdx": "CC-BY-4.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "python-v0.7.5",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 61211,
+        "pushed_at": "2026-04-15",
+        "archived": false,
+        "latest_release": "python-v0.7.5",
+        "released_at": "2025-09-30",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "multi-agent coordination",
+        "agent conversation patterns"
+      ],
+      "agent_os_overlap": "Orchestrator engine with planner, workers, reviewers, repair loops; coordination.py work claims.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none",
+        "quality": "n/a",
+        "reliability": "n/a",
+        "security": "neutral",
+        "complexity": "n/a",
+        "maintenance": "maintenance mode",
+        "portability": "n/a"
+      },
+      "decision": "REJECT",
+      "rationale": "In maintenance mode since October 2025 (no new features, community managed); Microsoft Agent Framework is the successor. No capability Agent OS lacks justifies adopting a sunset framework.",
+      "confidence": "high",
+      "provenance": [
+        "WebSearch 'AutoGen maintenance mode Microsoft Agent Framework successor' (2026-09-29)",
+        "https://github.com/microsoft/autogen",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "never, unless revived"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-crewai",
+      "name": "CrewAI",
+      "repository": "https://github.com/crewAIInc/crewAI",
+      "organization": "crewAIInc",
+      "description": "Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tac",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "1.15.23",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 59152,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "1.15.23",
+        "released_at": "2026-09-28",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "multi-agent roles",
+        "task delegation"
+      ],
+      "agent_os_overlap": "Planner decomposes goals into typed tasks with roles, scopes, capability classes and validators (orchestrator/planner.py, model.py).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none",
+        "quality": "n/a",
+        "reliability": "n/a",
+        "security": "neutral",
+        "complexity": "framework coupling",
+        "maintenance": "active",
+        "portability": "API providers"
+      },
+      "decision": "REJECT",
+      "rationale": "Role-play crew abstraction overlaps the orchestrator's planner/worker/reviewer model without adding verification, worktree isolation or evidence-driven routing, which are Agent OS's differentiators.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/crewAIInc/crewAI (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS needs non-coding multi-agent crews"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-letta",
+      "name": "Letta",
+      "repository": "https://github.com/letta-ai/letta",
+      "organization": "letta-ai",
+      "description": "Platform for stateful agents: AI with advanced memory that can learn and self-improve over time.",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "0.16.8",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 24962,
+        "pushed_at": "2026-09-10",
+        "archived": false,
+        "latest_release": "0.16.8",
+        "released_at": "2026-05-14",
+        "checked_at": "2026-09-29"
+      },
+      "language": null,
+      "capability_areas": [
+        "agent memory",
+        "context paging",
+        "memory hierarchy",
+        "sleep-time compute"
+      ],
+      "agent_os_overlap": "Git-backed canonical memory and profile (profile.py, memory.schema.json), selective retrieval and context packets (compiler.py), candidates with curation.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small (ideas)",
+        "runtime_savings": "context size reduction possible (unmeasured)",
+        "quality": "n/a",
+        "reliability": "n/a",
+        "security": "server holds memory; conflicts with Git canon",
+        "complexity": "server stack if adopted",
+        "maintenance": "active",
+        "portability": "n/a"
+      },
+      "decision": "BORROW",
+      "rationale": "Must not replace Git-backed canonical memory. Borrowable ideas: core vs archival memory tiers with explicit paging into a bounded context, and background (sleep-time) consolidation. Not inspected at code level in this pass.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/letta-ai/letta (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0009"
+        }
+      ],
+      "revisit_when": [
+        "context-utility telemetry (MIE-0009) shows paging would help"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-mem0",
+      "name": "Mem0",
+      "repository": "https://github.com/mem0ai/mem0",
+      "organization": "mem0ai",
+      "description": "The Memory Layer for AI Agents - Drop-in memory infrastructure for AI agents and apps. Context that persists. Built for production.",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "ts-v3.3.1",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 66248,
+        "pushed_at": "2026-09-25",
+        "archived": false,
+        "latest_release": "ts-v3.3.1",
+        "released_at": "2026-09-25",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "memory extraction",
+        "memory deduplication",
+        "memory update decisions"
+      ],
+      "agent_os_overlap": "candidates.py capture + curate-candidates dedupe; profile retrieval; memory.schema.json statuses.",
+      "useful_parts": {
+        "algorithms": [
+          "ADD/UPDATE/DELETE/NOOP memory reconciliation"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "fewer duplicate candidates (unmeasured)",
+        "quality": "n/a",
+        "reliability": "n/a",
+        "security": "external stores would hold private data",
+        "complexity": "vector DB dependencies if adopted",
+        "maintenance": "active",
+        "portability": "n/a"
+      },
+      "decision": "BORROW",
+      "rationale": "Its memory update step (compare a new fact with similar existing memories and choose ADD / UPDATE / DELETE / NOOP) is a crisp pattern for Agent OS candidate curation. The package assumes vector stores and would become a second memory authority, so no dependency.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/mem0ai/mem0 (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "duplicate-candidate rate becomes a FAIL"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-graphiti",
+      "name": "Graphiti",
+      "repository": "https://github.com/getzep/graphiti",
+      "organization": "getzep",
+      "description": "Build Real-Time Knowledge Graphs for AI Agents",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.30.2",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 31284,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "v0.30.2",
+        "released_at": "2026-09-08",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "temporal knowledge graph",
+        "bi-temporal facts",
+        "entity resolution"
+      ],
+      "agent_os_overlap": "Knowledge library and profile facts are Git JSON records with provenance; no temporal validity model.",
+      "useful_parts": {
+        "schemas_interfaces": [
+          "bi-temporal edge fields"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small (schema idea)",
+        "runtime_savings": "none",
+        "quality": "n/a",
+        "reliability": "n/a",
+        "security": "graph DB would hold private data",
+        "complexity": "graph DB if adopted",
+        "maintenance": "active",
+        "portability": "n/a"
+      },
+      "decision": "BORROW",
+      "rationale": "Borrow the bi-temporal fact model (valid_at / invalid_at plus ingestion time, facts invalidated rather than deleted) for durable facts that change over time. The implementation needs a graph database (Neo4j/FalkorDB), too heavy and not canonical.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/getzep/graphiti (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "profile/knowledge facts need time-scoped truth"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-smolagents",
+      "name": "smolagents",
+      "repository": "https://github.com/huggingface/smolagents",
+      "organization": "huggingface",
+      "description": "🤗 smolagents: a barebones library for agents that think in code.",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v1.26.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 29568,
+        "pushed_at": "2026-09-23",
+        "archived": false,
+        "latest_release": "v1.26.0",
+        "released_at": "2026-05-29",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "code agents",
+        "minimal agent loop"
+      ],
+      "agent_os_overlap": "Agent OS delegates loops to CLI workers; mini-swe-agent (PA-mini-swe-agent) is the closer minimal-loop reference.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none",
+        "quality": "n/a",
+        "reliability": "n/a",
+        "security": "executes model-written Python",
+        "complexity": "moderate",
+        "maintenance": "active",
+        "portability": "many providers"
+      },
+      "decision": "REJECT",
+      "rationale": "Code-as-action agents with a Python executor add an execution-sandbox concern without a capability Agent OS needs now.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/huggingface/smolagents (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS builds its own tool loop"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-aflow",
+      "name": "AFlow (MetaGPT ext)",
+      "repository": "https://github.com/FoundationAgents/MetaGPT",
+      "organization": "FoundationAgents",
+      "description": "🌟 The Multi-Agent Framework: First AI Software Company, Towards Natural Language Programming",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.8.1",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 70673,
+        "pushed_at": "2026-01-21",
+        "archived": false,
+        "latest_release": "v0.8.1",
+        "released_at": "2024-04-22",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "workflow optimization",
+        "MCTS over workflows"
+      ],
+      "agent_os_overlap": "No workflow optimizer; eval runner could supply the metric.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "research results",
+        "reliability": "unknown",
+        "security": "executes generated workflows",
+        "complexity": "MetaGPT framework coupling",
+        "maintenance": "MetaGPT last push 2026-01",
+        "portability": "n/a"
+      },
+      "decision": "DEFER",
+      "rationale": "Monte Carlo tree search over agent workflow graphs needs many evaluated rollouts per task family, far beyond Agent OS's per-pass budget (<= 9 model calls). Revisit with API-key workers and cheap objective metrics.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/FoundationAgents/MetaGPT (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0020"
+        }
+      ],
+      "revisit_when": [
+        "API-key workers make hundreds of rollouts affordable"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-adas",
+      "name": "ADAS / Meta Agent Search",
+      "repository": "https://github.com/ShengranHu/ADAS",
+      "organization": "ShengranHu",
+      "description": "[ICLR 2025] Automated Design of Agentic Systems",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2025-01-28",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 1637,
+        "pushed_at": "2025-01-28",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "automated agent design",
+        "meta agent search"
+      ],
+      "agent_os_overlap": "Evidence chain + eval runner already gate self-modification; no automated agent design.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "none now",
+        "runtime_savings": "unknown",
+        "quality": "research",
+        "reliability": "unknown",
+        "security": "executes generated agent code",
+        "complexity": "n/a",
+        "maintenance": "stale",
+        "portability": "API models"
+      },
+      "decision": "DEFER",
+      "rationale": "Research code, last push 2025-01. The archive-of-discovered-agents idea is already reflected in Agent OS's evidence records; running generated agents requires sandboxing and budgets Agent OS does not yet allocate.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/ShengranHu/ADAS (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "an EXP explicitly needs automated agent design"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-dgm",
+      "name": "Darwin Godel Machine",
+      "repository": "https://github.com/jennyzzt/dgm",
+      "organization": "jennyzzt",
+      "description": "Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2025-08-13",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 2379,
+        "pushed_at": "2025-08-13",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "self-modifying coding agents",
+        "open-ended archive search"
+      ],
+      "agent_os_overlap": "Control-plane boundary forbids candidates approving themselves; improvements pass eval gates.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "none now",
+        "runtime_savings": "unknown",
+        "quality": "research",
+        "reliability": "unknown",
+        "security": "high risk: self-modifying code",
+        "complexity": "n/a",
+        "maintenance": "last push 2025-08",
+        "portability": "API models"
+      },
+      "decision": "DEFER",
+      "rationale": "Open-ended self-modification of a coding agent validated on SWE-bench-style tasks; executes untrusted self-written code and needs large evaluation budgets. Compatible with Agent OS only inside sandboxed worktrees with protected evaluators, which exist now, but the budget does not.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/jennyzzt/dgm (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "sandboxed eval budget for self-modification is approved"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-hyperagents",
+      "name": "HyperAgents (DGM-H)",
+      "repository": "https://github.com/facebookresearch/HyperAgents",
+      "organization": "facebookresearch",
+      "description": "",
+      "license": "see repository",
+      "license_spdx": null,
+      "license_status": "CC BY-NC-SA 4.0 (non-commercial); operator granted academic reuse permission 2026-09-29",
+      "evaluated_revision": null,
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "note": "not fetched"
+      },
+      "language": null,
+      "capability_areas": [
+        "self-referential self-improvement",
+        "meta-level improvement transfer"
+      ],
+      "agent_os_overlap": "Same as PA-dgm.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "none now",
+        "runtime_savings": "unknown",
+        "quality": "research",
+        "reliability": "unknown",
+        "security": "high risk",
+        "complexity": "n/a",
+        "maintenance": "last push 2026-07",
+        "portability": "API models"
+      },
+      "decision": "DEFER",
+      "rationale": "Meta's 2026 extension of DGM where the meta-agent also improves its own improvement process. License CC BY-NC-SA 4.0 (non-commercial; acceptable for the operator's academic use). README warns it executes untrusted model-generated code. Borrowable idea: track performance of the improvement process itself, which Agent OS already does via meta_economics.",
+      "confidence": "low",
+      "provenance": [
+        "https://github.com/facebookresearch/HyperAgents (README/license fetched 2026-09-29)",
+        "https://huggingface.co/papers/2603.19461",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "sandboxed eval budget for self-modification is approved"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-openevolve",
+      "name": "OpenEvolve",
+      "repository": "https://github.com/algorithmicsuperintelligence/openevolve",
+      "organization": "algorithmicsuperintelligence",
+      "description": "",
+      "license": "see repository",
+      "license_spdx": null,
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": null,
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "note": "not fetched"
+      },
+      "language": null,
+      "capability_areas": [
+        "evolutionary code optimization",
+        "AlphaEvolve-style search"
+      ],
+      "agent_os_overlap": "Deterministic evals now exist (e.g. EVS-TEST-SELECTION) that could serve as fitness functions.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "research/community",
+        "reliability": "unknown",
+        "security": "executes generated code",
+        "complexity": "moderate",
+        "maintenance": "active",
+        "portability": "API models"
+      },
+      "decision": "DEFER",
+      "rationale": "Could evolve small deterministic algorithms (for example improving the import-graph selector's precision) against a deterministic fitness, which is safe and objective. Costs model calls per generation; defer until a deterministic target is worth the spend.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/algorithmicsuperintelligence/openevolve (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "a deterministic fitness target with clear value is identified (e.g. selector precision)"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-textgrad",
+      "name": "TextGrad",
+      "repository": "https://github.com/zou-group/textgrad",
+      "organization": "zou-group",
+      "description": "TextGrad: Automatic ''Differentiation'' via Text -- using large language models to backpropagate textual gradients. Published in Nature.",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.1.6",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 3748,
+        "pushed_at": "2025-07-25",
+        "archived": false,
+        "latest_release": "v0.1.6",
+        "released_at": "2024-12-15",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "prompt optimization",
+        "textual gradients"
+      ],
+      "agent_os_overlap": "No optimizer.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "superseded for Agent OS needs by GEPA",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "unknown",
+        "maintenance": "slowing",
+        "portability": "unknown"
+      },
+      "decision": "REJECT",
+      "rationale": "Less active (last push 2025-07); GEPA covers the same need with stronger reported results.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/zou-group/textgrad (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "GEPA spike fails"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-litellm",
+      "name": "LiteLLM",
+      "repository": "https://github.com/BerriAI/litellm",
+      "organization": "BerriAI",
+      "description": "The fastest, litest AI Gateway. Rust core with Python SDK. Call 100+ LLM APIs in OpenAI (or native) format with cost tracking, guardrails, load balancing, and l",
+      "license": "NOASSERTION",
+      "license_spdx": "NOASSERTION",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v1.103.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 59812,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "v1.103.0",
+        "released_at": "2026-09-28",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "model gateway",
+        "provider failover",
+        "cost tracking",
+        "API key management"
+      ],
+      "agent_os_overlap": "No API-key path yet; adapters call CLIs. model_prices.py scrapes vendor price pages; usage.py normalizes usage.",
+      "useful_parts": {
+        "schemas_interfaces": [
+          "OpenAI-compatible chat format"
+        ],
+        "algorithms": [
+          "fallback chains",
+          "cost map"
+        ]
+      },
+      "integration": "",
+      "risks": {
+        "security": "2026-03 PyPI compromise",
+        "dependency_weight": "very heavy"
+      },
+      "evidence": {
+        "development_savings": "large if adopted, but the needed subset (2 providers, one-shot calls) is ~200 lines",
+        "runtime_savings": "API calls avoid CLI per-call overhead",
+        "quality": "broad coverage",
+        "reliability": "mature fallbacks",
+        "security": "HIGH RISK: 2026 supply-chain compromise; large attack surface",
+        "complexity": "very heavy",
+        "maintenance": "very active",
+        "portability": "100+ providers"
+      },
+      "decision": "BORROW",
+      "rationale": "Highest-risk dependency found: malicious versions 1.82.7/1.82.8 were published to PyPI on 2026-03-24 (credential stealer via a .pth file running at every Python start). It is also a heavy transitive dependency. Borrow the ideas (OpenAI-compatible request shapes, per-model price map, retry/fallback semantics) and subsume a minimal stdlib API adapter instead (see DEC-0009).",
+      "confidence": "high",
+      "provenance": [
+        "https://docs.litellm.ai/blog/security-update-march-2026",
+        "https://securitylabs.datadoghq.com/articles/litellm-compromised-pypi-teampcp-supply-chain-campaign/",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "DEC-0009"
+        }
+      ],
+      "revisit_when": [
+        "Agent OS needs more than a handful of API providers"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-tenacity",
+      "name": "Tenacity",
+      "repository": "https://github.com/jd/tenacity",
+      "organization": "jd",
+      "description": "Retrying library for Python",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "9.2.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 8801,
+        "pushed_at": "2026-09-01",
+        "archived": false,
+        "latest_release": "9.2.0",
+        "released_at": "2026-08-05",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "retry orchestration",
+        "exponential backoff",
+        "jitter",
+        "stop conditions"
+      ],
+      "agent_os_overlap": "Missing: no Retry-After handling or backoff/jitter (implementation-status RT-05, RT-06); FAIL-0001 quota failures.",
+      "useful_parts": {
+        "algorithms": [
+          "wait_random_exponential (full jitter)",
+          "stop_after_attempt/stop_after_delay",
+          "retry_if_exception_type"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small: ~60 lines subsumed",
+        "runtime_savings": "fewer wasted calls under rate limits",
+        "quality": "standard algorithm",
+        "reliability": "higher",
+        "security": "neutral",
+        "complexity": "none",
+        "maintenance": "none (in-repo)",
+        "portability": "stdlib"
+      },
+      "decision": "BORROW",
+      "rationale": "The needed part is small and well understood: exponential backoff with full jitter, a stop-after-attempts/delay rule, retry only on retryable errors, honoring Retry-After. Subsumed into src/agent_os/orchestrator/retry.py (DEC-0009) instead of a dependency.",
+      "confidence": "high",
+      "provenance": [
+        "GitHub REST api.github.com/repos/jd/tenacity (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "DEC-0009"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "FAIL-0001"
+        }
+      ],
+      "revisit_when": [
+        "retry needs become complex (async, callbacks)"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-pybreaker",
+      "name": "pybreaker",
+      "repository": "https://github.com/danielfm/pybreaker",
+      "organization": "danielfm",
+      "description": "Python implementation of the Circuit Breaker pattern.",
+      "license": "BSD-3-Clause",
+      "license_spdx": "BSD-3-Clause",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v1.4.1",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 693,
+        "pushed_at": "2026-09-25",
+        "archived": false,
+        "latest_release": "v1.4.1",
+        "released_at": "2025-09-21",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "circuit breaking",
+        "provider failover"
+      ],
+      "agent_os_overlap": "Partial: per-node provider exclusion and failover in engine.py; no cross-run open/half-open state (RT-09).",
+      "useful_parts": {
+        "algorithms": [
+          "closed/open/half-open breaker"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small: ~50 lines subsumed",
+        "runtime_savings": "stops hammering blocked providers",
+        "quality": "standard pattern",
+        "reliability": "higher",
+        "security": "neutral",
+        "complexity": "none",
+        "maintenance": "none",
+        "portability": "stdlib"
+      },
+      "decision": "BORROW",
+      "rationale": "Circuit breaker state machine (closed -> open after fail_max failures -> half-open after reset_timeout -> closed on success) is small; subsumed into retry.py (DEC-0009) and intended for quota-aware scheduling (IMP-0005).",
+      "confidence": "high",
+      "provenance": [
+        "GitHub REST api.github.com/repos/danielfm/pybreaker (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0005"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "DEC-0009"
+        }
+      ],
+      "revisit_when": [
+        "major release",
+        "Agent OS capability in this area changes"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-mini-swe-agent",
+      "name": "mini-swe-agent",
+      "repository": "https://github.com/SWE-agent/mini-swe-agent",
+      "organization": "SWE-agent",
+      "description": "The 100 line AI agent that solves GitHub issues or helps you in your command line. Radically simple, no huge configs, no giant monorepo—but scores >74% on SWE-b",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v2.4.6",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 8057,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "v2.4.6",
+        "released_at": "2026-07-23",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "minimal coding-agent loop",
+        "bash-only tool use",
+        "API-model agents"
+      ],
+      "agent_os_overlap": "No in-house tool loop; API-key workers (DEC-0009) are one-shot without repository tools.",
+      "useful_parts": {
+        "modules": [
+          "agent loop",
+          "environment abstraction"
+        ]
+      },
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "medium when API workers need tools",
+        "runtime_savings": "avoids CLI overhead per call",
+        "quality": "strong for its size",
+        "reliability": "unknown",
+        "security": "bash tool must run read-only/sandboxed",
+        "complexity": "tiny",
+        "maintenance": "active",
+        "portability": "provider-agnostic"
+      },
+      "decision": "BORROW",
+      "rationale": "About a hundred lines of agent loop with bash as the only tool, reported competitive on SWE-bench. If API-key workers need repository access, a subsumed read-only bash loop of this shape is far lighter than any framework and avoids CLI per-call overhead.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/SWE-agent/mini-swe-agent (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "DEC-0009"
+        }
+      ],
+      "revisit_when": [
+        "API-key workers need repository inspection"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-aider",
+      "name": "Aider",
+      "repository": "https://github.com/Aider-AI/aider",
+      "organization": "Aider-AI",
+      "description": "aider is AI pair programming in your terminal",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.86.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 49250,
+        "pushed_at": "2026-05-22",
+        "archived": false,
+        "latest_release": "v0.86.0",
+        "released_at": "2025-08-09",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "repository map",
+        "context selection",
+        "symbol ranking"
+      ],
+      "agent_os_overlap": "orchestrator/repomap.py builds a local repository map for planners (docs/simple-mode.md measured halved planner tokens).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "possible planner token savings (unmeasured)",
+        "quality": "n/a",
+        "reliability": "n/a",
+        "security": "neutral",
+        "complexity": "tree-sitter dependency if adopted",
+        "maintenance": "last push 2026-05",
+        "portability": "n/a"
+      },
+      "decision": "BORROW",
+      "rationale": "Aider ranks symbols with a reference graph (PageRank over tree-sitter tags) to fit a token budget. Agent OS's repomap exists and was measured; borrow the ranking idea only if planner context quality becomes a bottleneck.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/Aider-AI/aider (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "planner context misses cause repeated FAILs"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-otel-genai",
+      "name": "OpenTelemetry GenAI semantic conventions",
+      "repository": "https://github.com/open-telemetry/semantic-conventions-genai",
+      "organization": "open-telemetry",
+      "description": "",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2026-09-28",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 396,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "distributed tracing",
+        "agent observability",
+        "trace schema"
+      ],
+      "agent_os_overlap": "Append-only telemetry (telemetry.py, ledger.py) with Agent OS event types; no OTel projection (MIE-0017).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small: attribute mapping",
+        "runtime_savings": "none",
+        "quality": "standard",
+        "reliability": "n/a",
+        "security": "avoid exporting prompt content",
+        "complexity": "none (spec)",
+        "maintenance": "standards body",
+        "portability": "vendor-neutral"
+      },
+      "decision": "BORROW",
+      "rationale": "A specification, not a dependency: map Agent OS events to gen_ai.* span attributes (gen_ai.operation.name, provider, request/response model, usage tokens; agent/workflow spans are still provisional). Borrow the attribute names for the MIE-0017 projection so any OTel backend can read Agent OS traces.",
+      "confidence": "high",
+      "provenance": [
+        "https://github.com/open-telemetry/semantic-conventions-genai",
+        "https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0017"
+        }
+      ],
+      "revisit_when": [
+        "major release",
+        "Agent OS capability in this area changes"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-langfuse",
+      "name": "Langfuse",
+      "repository": "https://github.com/langfuse/langfuse",
+      "organization": "langfuse",
+      "description": "🪢 Open source agent evals & observability: Trace, evaluate, and improve LLM applications with one open platform.",
+      "license": "NOASSERTION",
+      "license_spdx": "NOASSERTION",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v4.46.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 35158,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "v4.46.0",
+        "released_at": "2026-09-25",
+        "checked_at": "2026-09-29"
+      },
+      "language": "TypeScript",
+      "capability_areas": [
+        "LLM observability",
+        "tracing UI",
+        "eval dashboards"
+      ],
+      "agent_os_overlap": "Local JSONL telemetry and usage reports (usage_report.py); GUI for runs.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "traces leave the repository boundary",
+        "complexity": "heavy server stack",
+        "maintenance": "very active",
+        "portability": "OTel ingestion"
+      },
+      "decision": "REJECT",
+      "rationale": "Self-hosting needs Postgres, ClickHouse, Redis and object storage; license is MIT with separately licensed enterprise directories. Emitting OTel GenAI spans (PA-otel-genai) keeps any backend optional instead.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/langfuse/langfuse (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "operator wants a hosted trace UI"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-phoenix",
+      "name": "Arize Phoenix",
+      "repository": "https://github.com/Arize-ai/phoenix",
+      "organization": "Arize-ai",
+      "description": "AI Observability & Evaluation",
+      "license": "NOASSERTION",
+      "license_spdx": "NOASSERTION",
+      "license_status": "Elastic License 2.0; operator granted academic reuse permission 2026-09-29",
+      "evaluated_revision": "arize-phoenix-otel-v0.17.2",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 11644,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "arize-phoenix-otel-v0.17.2",
+        "released_at": "2026-09-28",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "LLM observability",
+        "OTel tracing UI",
+        "evals"
+      ],
+      "agent_os_overlap": "Same as PA-langfuse.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "optional local tool",
+        "maintenance": "very active",
+        "portability": "OTel"
+      },
+      "decision": "DEFER",
+      "rationale": "OTel-native and runs locally, so it could view Agent OS traces once the OTel projection exists. Elastic License 2.0 (no offering as a hosted service; fine for local academic use).",
+      "confidence": "medium",
+      "provenance": [
+        "https://github.com/Arize-ai/phoenix/blob/main/LICENSE (fetched 2026-09-29)",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "MIE-0017 OTel projection exists"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-temporal",
+      "name": "Temporal",
+      "repository": "https://github.com/temporalio/sdk-python",
+      "organization": "temporalio",
+      "description": "Temporal Python SDK",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "1.33.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 1202,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "1.33.0",
+        "released_at": "2026-09-15",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "durable execution",
+        "workflow replay"
+      ],
+      "agent_os_overlap": "Run store + checkpoints + ingestion ledger (recovery.py, ingestion.py).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "server cluster",
+        "maintenance": "unknown",
+        "portability": "server required"
+      },
+      "decision": "REJECT",
+      "rationale": "Requires a Temporal server cluster; Agent OS's local, Git-backed durability is sufficient for its scale.",
+      "confidence": "high",
+      "provenance": [
+        "GitHub REST api.github.com/repos/temporalio/sdk-python (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "multi-machine execution is required"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-dbos",
+      "name": "DBOS Transact",
+      "repository": "https://github.com/dbos-inc/dbos-transact-py",
+      "organization": "dbos-inc",
+      "description": "Database-Backed Durable Python Workflows",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "3.1.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 1593,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "3.1.0",
+        "released_at": "2026-09-24",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "durable execution",
+        "idempotent steps",
+        "workflow recovery"
+      ],
+      "agent_os_overlap": "Missing: idempotency keys and persisted write identities (RT-10, RT-11 partial).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small (pattern)",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "idempotent resume",
+        "security": "unknown",
+        "complexity": "database dependency if adopted",
+        "maintenance": "very active",
+        "portability": "Postgres/SQLite (check)"
+      },
+      "decision": "BORROW",
+      "rationale": "Library-level durable workflows (no separate server) with workflow IDs making steps idempotent. Borrow the pattern (deterministic step IDs recorded before consequential effects) for MIE-0016; adopting it would introduce a database dependency.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/dbos-inc/dbos-transact-py (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0016"
+        }
+      ],
+      "revisit_when": [
+        "consequential-write duplication occurs on resume"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-mutmut",
+      "name": "mutmut",
+      "repository": "https://github.com/boxed/mutmut",
+      "organization": "boxed",
+      "description": "Mutation testing system",
+      "license": "BSD-3-Clause",
+      "license_spdx": "BSD-3-Clause",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "3.8.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 1455,
+        "pushed_at": "2026-09-12",
+        "archived": false,
+        "latest_release": "3.8.0",
+        "released_at": "2026-09-12",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "mutation testing"
+      ],
+      "agent_os_overlap": "Missing (RT-29).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "large vs building mutation testing",
+        "runtime_savings": "none",
+        "quality": "measures test strength",
+        "reliability": "n/a",
+        "security": "strengthens control-plane tests",
+        "complexity": "dev tool only",
+        "maintenance": "active",
+        "portability": "Python"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "Run as an external developer tool (not imported, so no runtime dependency) against control-plane modules (control_plane.py, validators.py) to measure whether the tests actually catch changes to protection logic. Spike on control_plane.py.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/boxed/mutmut (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "spike result recorded"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-cedar",
+      "name": "Cedar",
+      "repository": "https://github.com/cedar-policy/cedar",
+      "organization": "cedar-policy",
+      "description": "Implementation of the Cedar Policy Language",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "cedar-policy-cli-v4.13.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 1753,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "cedar-policy-cli-v4.13.0",
+        "released_at": "2026-09-15",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Rust",
+      "capability_areas": [
+        "policy/authorization",
+        "policy language",
+        "schema validation"
+      ],
+      "agent_os_overlap": "control_plane.py protected paths + policy JSON; planner approved_commands; no general authorization engine (MIE-0006).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small (model)",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "clearer authorization semantics",
+        "complexity": "none if borrowed",
+        "maintenance": "unknown",
+        "portability": "n/a"
+      },
+      "decision": "BORROW",
+      "rationale": "Borrow the principal-action-resource model with schema-validated policies and default deny for MIE-0006; a Rust binary/bindings dependency is unnecessary at Agent OS's policy size.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/cedar-policy/cedar (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0006"
+        }
+      ],
+      "revisit_when": [
+        "MIE-0006 work starts"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-opa",
+      "name": "Open Policy Agent",
+      "repository": "https://github.com/open-policy-agent/opa",
+      "organization": "open-policy-agent",
+      "description": "Open Policy Agent (OPA) is an open source, general-purpose policy engine.",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v1.21.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 12282,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": "v1.21.0",
+        "released_at": "2026-09-24",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Go",
+      "capability_areas": [
+        "policy/authorization"
+      ],
+      "agent_os_overlap": "Same as PA-cedar.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "external binary + new language",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "decision": "REJECT",
+      "rationale": "Go binary plus Rego language: too heavy for a handful of JSON policies; Cedar's model is the better reference.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/open-policy-agent/opa (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "policies grow beyond ~50 rules"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-camel",
+      "name": "CaMeL",
+      "repository": "https://github.com/google-research/camel-prompt-injection",
+      "organization": "google-research",
+      "description": "Code for the paper \"Defeating Prompt Injections by Design\"",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2025-06-20",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 396,
+        "pushed_at": "2025-06-20",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Jupyter Notebook",
+      "capability_areas": [
+        "prompt-injection defense",
+        "control/data-flow separation",
+        "capability tracking"
+      ],
+      "agent_os_overlap": "Principle 'untrusted content is data, not authority' encoded; no taint tracking (MIE-0007 missing).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "design savings",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "structural defense",
+        "complexity": "architecture change",
+        "maintenance": "research artifact",
+        "portability": "n/a"
+      },
+      "decision": "BORROW",
+      "rationale": "Design reference for MIE-0007: a privileged planner that sees only trusted input, a quarantined model that reads untrusted data but cannot call tools, and capability tags on values that flow into tool calls. The released interpreter is explicitly a research artifact (may contain bugs, not fully secure), so borrow the architecture only.",
+      "confidence": "medium",
+      "provenance": [
+        "https://github.com/google-research/camel-prompt-injection",
+        "WebSearch 'prompt injection defense CaMeL implementation github' (2026-09-29)",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0007"
+        }
+      ],
+      "revisit_when": [
+        "major release",
+        "Agent OS capability in this area changes"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-agentdojo",
+      "name": "AgentDojo",
+      "repository": "https://github.com/ethz-spylab/agentdojo",
+      "organization": "ethz-spylab",
+      "description": "A Dynamic Environment to Evaluate Attacks and Defenses for LLM Agents.",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.1.35",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 876,
+        "pushed_at": "2026-06-02",
+        "archived": false,
+        "latest_release": "v0.1.35",
+        "released_at": "2025-10-27",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "prompt-injection benchmark",
+        "tool-use security"
+      ],
+      "agent_os_overlap": "No security suite; listed as XC-agentdojo candidate corpus.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "medium",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "measurable injection resistance",
+        "complexity": "none if cases are borrowed",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "decision": "BORROW",
+      "rationale": "Borrow its injection tasks and attack generators as EVS-SECURITY cases (with provenance, protected split).",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/ethz-spylab/agentdojo (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json"
+        }
+      ],
+      "revisit_when": [
+        "EVS-SECURITY work starts"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-garak",
+      "name": "garak",
+      "repository": "https://github.com/NVIDIA/garak",
+      "organization": "NVIDIA",
+      "description": "the LLM vulnerability scanner",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.17.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 9378,
+        "pushed_at": "2026-09-16",
+        "archived": false,
+        "latest_release": "v0.17.0",
+        "released_at": "2026-09-09",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "LLM vulnerability scanning",
+        "red teaming"
+      ],
+      "agent_os_overlap": "No security suite.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "broader probe coverage",
+        "complexity": "heavy if adopted",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "decision": "BORROW",
+      "rationale": "Probe catalog (jailbreaks, leakage, encoding attacks) is a second source for security cases; the scanner itself targets model endpoints rather than agent systems.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/NVIDIA/garak (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "EVS-SECURITY work starts"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-agentrx",
+      "name": "AgentRx",
+      "repository": "https://github.com/microsoft/AgentRx",
+      "organization": "microsoft",
+      "description": "",
+      "license": "see repository",
+      "license_spdx": null,
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": null,
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "note": "not fetched"
+      },
+      "language": null,
+      "capability_areas": [
+        "failure localization",
+        "failure taxonomy",
+        "trajectory diagnosis"
+      ],
+      "agent_os_overlap": "FAIL records with hand-written signatures; no automatic clustering (MIE-0004).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small (taxonomy)",
+        "runtime_savings": "unknown",
+        "quality": "published taxonomy",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "unknown",
+        "maintenance": "new",
+        "portability": "unknown"
+      },
+      "decision": "BORROW",
+      "rationale": "Synthesizes invariants, checks them step by step, and classifies failures into a grounded 10-category taxonomy. Borrow the taxonomy as the starting set of FAIL signature classes. Small, new project (150 stars).",
+      "confidence": "low",
+      "provenance": [
+        "https://github.com/microsoft/agentrx",
+        "WebSearch 'agent trajectory failure clustering taxonomy' (2026-09-29)",
+        "GitHub REST (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0004"
+        }
+      ],
+      "revisit_when": [
+        "major release",
+        "Agent OS capability in this area changes"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-ragas",
+      "name": "Ragas",
+      "repository": "https://github.com/vibrantlabsai/ragas",
+      "organization": "vibrantlabsai",
+      "description": "",
+      "license": "see repository",
+      "license_spdx": null,
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": null,
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "note": "not fetched"
+      },
+      "language": null,
+      "capability_areas": [
+        "retrieval evaluation",
+        "RAG metrics"
+      ],
+      "agent_os_overlap": "No retrieval eval suite (MIE-0010).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "LLM-wrapper dependencies if adopted",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "decision": "BORROW",
+      "rationale": "Borrow metric definitions (context precision/recall, faithfulness) when retrieval evaluation starts; model-graded metrics would need Agent OS routing rather than the package's LLM wrappers.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/vibrantlabsai/ragas (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "MIE-0010"
+        }
+      ],
+      "revisit_when": [
+        "MIE-0010 work starts"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-gptcache",
+      "name": "GPTCache",
+      "repository": "https://github.com/zilliztech/GPTCache",
+      "organization": "zilliztech",
+      "description": "Semantic cache for LLMs. Fully integrated with LangChain and llama_index. ",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "0.1.44",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 8205,
+        "pushed_at": "2026-09-22",
+        "archived": false,
+        "latest_release": "0.1.44",
+        "released_at": "2024-08-01",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "semantic caching"
+      ],
+      "agent_os_overlap": "Exact caches keyed by tree hash (engine validation cache); document cache.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "false cache hits risk",
+        "security": "unknown",
+        "complexity": "vector store",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "decision": "REJECT",
+      "rationale": "Semantic (similarity) caching of model answers is unsafe for coding correctness, where near-identical prompts need different answers; exact, version-keyed caching fits Agent OS.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/zilliztech/GPTCache (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "a read-only Q&A family with repeated near-identical queries appears"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-llmlingua",
+      "name": "LLMLingua",
+      "repository": "https://github.com/microsoft/LLMLingua",
+      "organization": "microsoft",
+      "description": "[EMNLP'23, ACL'24] To speed up LLMs' inference and enhance LLM's perceive of key information, compress the prompt and KV-Cache, which achieves up to 20x compres",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v0.2.2",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 6715,
+        "pushed_at": "2026-09-10",
+        "archived": false,
+        "latest_release": "v0.2.2",
+        "released_at": "2024-04-09",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "context compression",
+        "prompt compression"
+      ],
+      "agent_os_overlap": "Context compiler selects rather than compresses (compiler.py).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "possible context savings",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "torch dependency",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "decision": "DEFER",
+      "rationale": "Token-level compression needs a local small language model (torch); revisit if local models are added or context cost dominates.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/microsoft/LLMLingua (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "local models are added",
+        "context tokens dominate measured cost"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-outlines",
+      "name": "Outlines",
+      "repository": "https://github.com/dottxt-ai/outlines",
+      "organization": "dottxt-ai",
+      "description": "Structured Outputs",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "1.3.3",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 15891,
+        "pushed_at": "2026-09-21",
+        "archived": false,
+        "latest_release": "1.3.3",
+        "released_at": "2026-08-06",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "structured outputs",
+        "constrained decoding"
+      ],
+      "agent_os_overlap": "Output contracts checked after generation (delegate.check_contract).",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "unknown",
+        "maintenance": "unknown",
+        "portability": "local models only"
+      },
+      "decision": "REJECT",
+      "rationale": "Constrained decoding needs logit access (local models); CLI and hosted API workers do not expose it. Revisit with local models.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/dottxt-ai/outlines (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "local models are added"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-routerbench",
+      "name": "RouterBench",
+      "repository": "https://github.com/withmartian/routerbench",
+      "organization": "withmartian",
+      "description": "The code for the paper ROUTERBENCH: A Benchmark for Multi-LLM Routing System",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2024-06-13",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 183,
+        "pushed_at": "2024-06-13",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "router benchmarking"
+      ],
+      "agent_os_overlap": "orchestrate eval compares routes on Agent OS cases.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "unknown",
+        "maintenance": "stale",
+        "portability": "unknown"
+      },
+      "decision": "REJECT",
+      "rationale": "Stale since 2024-06 and built on chat benchmarks; Agent OS's own objective cases (EVS-TEST-SELECTION) are more relevant.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/withmartian/routerbench (2026-09-29)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "never unless revived"
+      ],
+      "revisit_by": null
+    }
+  ]
 }

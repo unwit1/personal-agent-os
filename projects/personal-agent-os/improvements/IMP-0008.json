@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0008",
+  "project": "personal-agent-os",
+  "title": "Inspect AI WRAP spike: run one EVS suite through an Inspect bridge",
+  "category": "architecture",
+  "subsystem": "orchestrator/eval",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "PA-inspect-ai is the strongest WRAP candidate for evaluation breadth (sandboxes, resumable eval sets, benchmark ports), but it is API-provider-centric and heavy.",
+  "evidence": [
+    "projects/personal-agent-os/research/prior-art/registry.json#PA-inspect-ai"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "In a throwaway venv, implement an Inspect custom ModelAPI that calls Agent OS routes (delegate or the API adapter) and run EVS-TEST-SELECTION as an Inspect task; measure lines of glue, dependency count and whether results map back to an EVR. Decide WRAP/REJECT in a DEC.",
+  "acceptance": [
+    "Spike results recorded (glue size, dependencies, fidelity)",
+    "Decision recorded in the prior-art registry"
+  ],
+  "risks": [],
+  "dedupe_key": "8f2f6a7294b4af8e920531da2a959eb90bc35c14309d25c317d1bbeeecd1c542",
+  "source": {
+    "type": "claude",
+    "reference": "prior-art initial pass 2026-09-29"
+  },
+  "github": null,
+  "created_at": "2026-09-29T03:13:32.077343+00:00",
+  "updated_at": "2026-09-29T03:13:32.077343+00:00",
+  "notes": null
+}

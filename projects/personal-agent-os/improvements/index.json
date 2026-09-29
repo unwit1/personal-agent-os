@@ -67,6 +67,28 @@
       "dedupe_key": "bbdaaa76cb3cdee718b709cd2ba4236249e78d972d5e8179cda301a43de4b183",
       "updated_at": "2026-09-29T02:29:28.531052+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0007",
+      "title": "Orchestrator state-machine tests: Hypothesis spike vs subsumed random-sequence tester",
+      "category": "missing_test",
+      "subsystem": "orchestrator/tests",
+      "status": "candidate",
+      "priority": "high",
+      "dedupe_key": "91397a2e2c939a1e9c52356432accabe12f2cfbe532313273aefaad9b7e9d608",
+      "updated_at": "2026-09-29T03:13:32.003006+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0008",
+      "title": "Inspect AI WRAP spike: run one EVS suite through an Inspect bridge",
+      "category": "architecture",
+      "subsystem": "orchestrator/eval",
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "8f2f6a7294b4af8e920531da2a959eb90bc35c14309d25c317d1bbeeecd1c542",
+      "updated_at": "2026-09-29T03:13:32.077343+00:00",
+      "github_issue_number": null
     }
   ]
 }
