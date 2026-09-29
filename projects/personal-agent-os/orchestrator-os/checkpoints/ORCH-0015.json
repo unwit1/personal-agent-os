@@ -1,0 +1,130 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0015",
+  "previous": "ORCH-0014",
+  "created_at": "2026-09-29T06:09:11.770772+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "b8d2e47e",
+    "dirty": true
+  },
+  "phase": "P1 foundations: delegated calls cheaper; resume safety next",
+  "completed": [
+    "45 prior-art evaluations + discovery (bf11d932)",
+    "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)",
+    "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)",
+    "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)",
+    "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)",
+    "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)",
+    "MIE-0011 first slice: orchestrate simplify + report (EXP-0006, DEC-0014); 5 prior-art entries added",
+    "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)",
+    "MIE-0017: OTLP trace projection (DEC-0016)",
+    "ORCH-0013 pushed after gate rerun",
+    "MIE-0007 first slice: EVS-SECURITY suite + fixtures; EXP-0007 (DEC-0017, FND-0011, FND-0012)",
+    "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)"
+  ],
+  "active_objective": "Prove (or enforce) that resuming or restarting a run never duplicates consequential effects (constitution section 10; RT-10/RT-11).",
+  "latest_evidence": [
+    {
+      "id": "DEC-0018",
+      "type": "DEC",
+      "title": "Attach known inputs instead of paying for worker exploration",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0018.json",
+      "updated_at": "2026-09-29T06:35:00+00:00"
+    },
+    {
+      "id": "DEC-0017",
+      "type": "DEC",
+      "title": "EVS-SECURITY suite added; delegate defaults unchanged on security grounds",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0017.json",
+      "updated_at": "2026-09-29T06:20:00+00:00"
+    },
+    {
+      "id": "EXP-0007",
+      "type": "EXP",
+      "title": "Indirect prompt injection vs delegated read-only workers: incumbent vs instruction defense vs spotlighting",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0007.json",
+      "updated_at": "2026-09-29T06:20:00+00:00"
+    },
+    {
+      "id": "FND-0011",
+      "type": "FND",
+      "title": "Inlining a known small file set is far cheaper than letting a worker explore",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0011.json",
+      "updated_at": "2026-09-29T06:20:00+00:00"
+    },
+    {
+      "id": "FND-0012",
+      "type": "FND",
+      "title": "Cross-dimension contradictions expose scorer bugs",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0012.json",
+      "updated_at": "2026-09-29T06:20:00+00:00"
+    },
+    {
+      "id": "CAP-0439615756",
+      "type": "CAP",
+      "title": "runtime_feature_audit via codex/gpt-6-luna (low) -- no capability samples",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-0439615756.json",
+      "updated_at": "2026-09-29T06:08:56.211964+00:00"
+    },
+    {
+      "id": "CAP-ed2b8df74c",
+      "type": "CAP",
+      "title": "runtime_feature_audit via claude-code/claude-haiku-4-5-20251001 (low)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-ed2b8df74c.json",
+      "updated_at": "2026-09-29T06:08:56.211949+00:00"
+    },
+    {
+      "id": "CAP-9cff39607a",
+      "type": "CAP",
+      "title": "research_implementation_classification via codex/gpt-6-luna (low)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-9cff39607a.json",
+      "updated_at": "2026-09-29T06:08:56.211914+00:00"
+    }
+  ],
+  "open_blockers": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0016",
+    "DEC-0017",
+    "DEC-0018"
+  ],
+  "next_action": {
+    "summary": "Resume safety: add to tests/test_orchestrator_state_machine.py an invariant that no consequential effect is duplicated across restarts/retries/resumes -- each integrated node is merged into the integration branch exactly once (count merge/integration commits per node on the run's integration branch via git log), no duplicate commit_created events for the same node and tree, and the base branch never moves. Hunt with the hostile profile including restart kill-points (at least 40 seeds x 50 ops). If a violation appears, shrink it, fix the engine with an idempotency key recorded before the effect (DBOS pattern, PA-dbos), and add the minimal sequence as a regression test; if none, record the evidence and mark RT-10/RT-11 accordingly.",
+    "prior_art": "idempotency keys durable execution resume duplicate effects",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Invariant design + deterministic hunting; no model workers.",
+    "context_refs": [
+      "tests/test_orchestrator_state_machine.py",
+      "src/agent_os/orchestrator/engine.py",
+      "src/agent_os/orchestrator/worktrees.py",
+      "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+      "DEC-0010"
+    ],
+    "stop_conditions": [
+      "invariant committed; hunt evidence recorded (and any bug fixed with a regression test)",
+      "0 model calls",
+      "stop and report if a fix would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "tests/test_orchestrator_state_machine.py",
+    "src/agent_os/orchestrator/engine.py",
+    "src/agent_os/orchestrator/worktrees.py",
+    "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+    "DEC-0010"
+  ],
+  "stopping_conditions": [
+    "invariant committed; hunt evidence recorded (and any bug fixed with a regression test)",
+    "0 model calls",
+    "stop and report if a fix would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)",
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0015 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0015.json).\n\nCurrent objective: Prove (or enforce) that resuming or restarting a run never duplicates consequential effects (constitution section 10; RT-10/RT-11).\n\nNext action: Resume safety: add to tests/test_orchestrator_state_machine.py an invariant that no consequential effect is duplicated across restarts/retries/resumes -- each integrated node is merged into the integration branch exactly once (count merge/integration commits per node on the run's integration branch via git log), no duplicate commit_created events for the same node and tree, and the base branch never moves. Hunt with the hostile profile including restart kill-points (at least 40 seeds x 50 ops). If a violation appears, shrink it, fix the engine with an idempotency key recorded before the effect (DBOS pattern, PA-dbos), and add the minimal sequence as a regression test; if none, record the evidence and mark RT-10/RT-11 accordingly.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"idempotency keys durable execution resume duplicate effects\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: invariant committed; hunt evidence recorded (and any bug fixed with a regression test); 0 model calls; stop and report if a fix would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
