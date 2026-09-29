@@ -1,0 +1,26 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0032",
+  "type": "DEC",
+  "title": "Workload contract, no-spend quote/budget engine and artifact manifests (IMP-0015 slice 3)",
+  "status": "accepted",
+  "summary": "Roadmap Phase 0 contracts plus the deterministic part of the quote engine. workload.py normalizes every request (type incl. training/adapter_training, modalities text..audio, capabilities incl. asr/tts/diarization/image_editing/lora, sizes incl. images/audio_seconds/dataset_tokens/epochs, resources, sensitivity, budget, reliability) so image/audio/training need no schema change (acceptance 2, 9). Sensitivity sets a deployment floor (secret -> local; private -> local/gpu_pod/serverless) that explicit requirements can only narrow; to_requirements feeds router.select. quote.py prices options from explicit inputs (API USD/Mtok; GPU USD/hour + throughput + startup/idle/storage) as the expected cost of a verified success (geometric retry factor), with low/expected/high bands, API-vs-GPU saving, and a budget gate: a paid option is allowed only with budget.approved === true AND the high estimate within job_hard_cap_usd (and project_usd); otherwise requires_approval with the reason (acceptance 5, 7). artifacts.py builds content-addressed manifests (base model+revision required for adapters/checkpoints, training-config digest), verifies local checkpoints by sha256/size, and picks the latest resumable checkpoint of a job (acceptance 8, bookkeeping part). `orchestrate quote` exposes it. No network, no provisioning, no model calls. Throughput/price inputs are the operator's or a later live-pricing adapter's; the engine does not invent prices.",
+  "prior_art": {
+    "checked": "prior-art registry (no cloud-GPU broker or quote-engine entries); PA-litellm cost maps (BORROW idea: per-model price map, already model_value.py)",
+    "found": "nothing to reuse for GPU economics in the registry; SkyPilot-style cost optimizers are the reference to evaluate before Phase 2 provisioning",
+    "reused": "model_profile requirements, model_value price evidence shape (USD per million tokens)",
+    "why_custom": "~250 lines of arithmetic and validation; a dependency would add more surface than logic"
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/workload.py"},
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/quote.py"},
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/artifacts.py"},
+    {"rel": "tests", "ref": "tests/test_workload_quote.py"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "DEC-0030"}
+  ],
+  "metrics": {"model_calls": 0, "paid_compute": 0, "new_tests": 10},
+  "provenance": {"session": "ORCH-0027 -> ORCH-0028", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T20:20:00+00:00",
+  "updated_at": "2026-09-29T20:20:00+00:00"
+}

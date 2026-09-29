@@ -139,6 +139,43 @@ It also lists DAG edge differences, task coverage and any foreman refusal.
 The foreman gets no routing authority from this; promotion needs eval and
 shadow evidence (roadmap Phase 3).
 
+## 8. Describe workloads and quote them before spending
+
+A workload (`workload.py`, schema `personal-agent/workload/v1`) states type
+(inference, batch, embedding, training, fine_tune, adapter_training,
+evaluation, conversion, serving), modalities (text, code, vision, image,
+audio, ...), capabilities (e.g. `asr`, `diarization`, `image_editing`,
+`lora`), sizes (tokens, items, images, audio seconds, dataset tokens,
+epochs), resources, sensitivity, budget and reliability. New modalities need
+no schema change.
+
+Sensitivity sets a deployment floor, and explicit requirements can only
+narrow it:
+- `secret`: local only;
+- `private`: local, GPU pod or serverless (self-hosted weights);
+- `internal` and `public`: no constraint.
+
+```powershell
+agent-os orchestrate quote --workload job.json --options options.json
+```
+
+`options.json` lists priced candidates:
+- `{"kind": "api", "price_in_per_mtok": .., "price_out_per_mtok": ..}`;
+- `{"kind": "gpu_pod" | "serverless", "gpu_hourly_usd": .., "gen_tokens_per_second": .., "train_tokens_per_second": .., "startup_minutes": ..}`.
+
+The quote ranks options by the expected cost of a verified success, with
+low/expected/high bands. The estimate includes startup, idle tail, storage
+and expected retries, plus the API-vs-GPU saving. Each option carries a
+**budget gate**. A paid option is `allowed` only when the workload budget is
+`approved: true` *and* the high estimate fits `job_hard_cap_usd` (and
+`project_usd`). Otherwise the gate says `requires_approval` and why. A quote
+never provisions or spends anything.
+
+Artifact manifests (`artifacts.py`) record models, adapters, checkpoints and
+outputs by URI, sha256, base model and revision, and a training-config
+digest. `verify` checks a local checkpoint before resume, and
+`latest_resumable` picks the newest checkpoint of a job.
+
 ## What stays gated
 
 The model you pick never becomes the authorization boundary. Consequential

@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T19:45:00+00:00",
+  "updated_at": "2026-09-29T20:25:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
   "active_objective": "Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.",
   "completed": [
@@ -46,16 +46,18 @@
     "Command reference + drift guard; foundation assessed complete (DEC-0027)",
     "IMP-0016: transient provider failures (529/5xx/network) classified as unavailable, not quota; RT-06 implemented (6a666a6e, EVR-0016, DEC-0029)",
     "IMP-0015 slice 1: model profiles + workload requirements in routing, secrets:// refs, Task Context Contract, refusal telemetry, orchestrate model-add/secrets/refusals (DEC-0030, docs/model-infrastructure.md)",
-    "IMP-0015 slice 2: shadow foreman (orchestrate foreman-shadow propose/compare/report); proposals from any profile scored vs incumbent runs, no routing authority (DEC-0031)"
+    "IMP-0015 slice 2: shadow foreman (orchestrate foreman-shadow propose/compare/report); proposals from any profile scored vs incumbent runs, no routing authority (DEC-0031)",
+    "FAIL-0005: storage.write_json retries transient Windows sharing violations (f23c4252)",
+    "IMP-0015 slice 3: workload contract (all modalities incl. image/audio/training), no-spend quote + budget gate, artifact manifests, orchestrate quote (DEC-0032)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0029",
     "DEC-0030",
-    "DEC-0031"
+    "DEC-0031",
+    "DEC-0032"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
@@ -64,7 +66,7 @@
     "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed."
   ],
   "next_action": {
-    "summary": "Continue IMP-0015, next unpaid slices in order: (1) generic workload contract + compute-quote and artifact schemas covering text/code/image/audio/training (schemas/ + validation in agent-os validate, synthetic fixtures for each modality). (2) Evaluate model-catalog / GPU-broker prior art (SkyPilot, vLLM, Hugging Face model metadata, RunPod API) into the prior-art registry. (3) RunPod read-only inventory/pricing adapter behind secrets://runpod/default producing a no-spend API-vs-pod quote (compute.quote). (4) Once an operator-configured foreman exists, run foreman-shadow propose on recent runs and record an EVR. Paid provisioning/training stays gated on an approved budget.",
+    "summary": "Continue IMP-0015, next unpaid slices in order: (1) Evaluate model-catalog / GPU-broker prior art (SkyPilot, vLLM, Hugging Face model metadata, RunPod API, Modal/Vast) into the prior-art registry with ADOPT/WRAP/BORROW/REJECT/DEFER. (2) RunPod read-only inventory/pricing adapter behind secrets://runpod/default (compute.providers.list / compute.inventory.refresh) that turns live GPU prices into quote.py options for a no-spend API-vs-pod quote (acceptance 3); skip cleanly with no key. (3) Model catalog entries with modality/capability fields for image and audio models (registry + research radar hook). (4) With an operator-configured foreman, run foreman-shadow propose on recent runs and record an EVR. Paid provisioning/training stays gated on an approved budget.",
     "prior_art": "shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
     "worker_class": "reasoning",
     "effort": "medium",
@@ -72,8 +74,8 @@
     "context_refs": [
       "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
       "docs/model-infrastructure.md",
-      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0031.json",
-      "src/agent_os/orchestrator/model_profile.py"
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0032.json",
+      "src/agent_os/orchestrator/quote.py"
     ],
     "stop_conditions": [
       "a slice is implemented, tested, recorded and merged",
@@ -264,7 +266,7 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0026 pass: landed IMP-0016 (transient provider failures no longer open one-hour quota cooldowns; corpus 14/26 -> 26/26) and IMP-0015 slice 1: provider-neutral model profiles (deployment/modalities/open_weights/license/refusal_profile) with hard/soft workload requirements in router.select, nodes and delegate; secrets:// references; a neutral Task Context Contract that cannot drop safety-relevant facts; refusal taxonomy + telemetry; `orchestrate model-add` to plug in any OpenAI-compatible (e.g. abliterated) endpoint. 0 model calls, 0 paid compute. Then slice 2: shadow foreman propose/compare/report (DEC-0031).",
+  "last_pass_summary": "ORCH-0026 pass: landed IMP-0016 (transient provider failures no longer open one-hour quota cooldowns; corpus 14/26 -> 26/26) and IMP-0015 slice 1: provider-neutral model profiles (deployment/modalities/open_weights/license/refusal_profile) with hard/soft workload requirements in router.select, nodes and delegate; secrets:// references; a neutral Task Context Contract that cannot drop safety-relevant facts; refusal taxonomy + telemetry; `orchestrate model-add` to plug in any OpenAI-compatible (e.g. abliterated) endpoint. 0 model calls, 0 paid compute. Then slice 2: shadow foreman propose/compare/report (DEC-0031). Then slice 3: workload contract, no-spend quote/budget engine, artifact manifests (DEC-0032).",
   "remaining_backlog": {
     "blocked_on_model_volume": [
       "IMP-0004 route qualification by measured CAP evidence (needs >= policy min_samples per family with a passing lower bound; none reached)"

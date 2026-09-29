@@ -171,6 +171,10 @@ def register(commands: argparse._SubParsersAction) -> None:
 
     actions.add_parser("refusals", help="refusal/non-answer telemetry by provider/model/refusal profile (no model call)")
 
+    qte = actions.add_parser("quote", help="no-spend quote: API vs GPU pod vs serverless, low/expected/high, with the budget gate (no model call, no provisioning)")
+    qte.add_argument("--workload", required=True, help="JSON file: workload (workload.py)")
+    qte.add_argument("--options", required=True, help="JSON file: list of priced options (kind api|gpu_pod|serverless; see quote.py)")
+
     fsh = actions.add_parser("foreman-shadow", help="shadow foreman: a candidate model proposes a DAG + classes for a run; compare/report are deterministic, propose is one real call")
     fsh.add_argument("action", choices=["propose", "compare", "report"])
     fsh.add_argument("run", nargs="?", help="run id (propose/compare)")
@@ -504,6 +508,15 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         record = RunStore().load(args.run)
         emit([foreman.compare(record, item) for item in foreman.load_proposals(args.run)])
+        return 0
+    if action == "quote":
+        from . import quote as quote_lib
+        from .workload import normalize_workload, to_requirements
+
+        workload = normalize_workload(json.loads(Path(args.workload).read_text(encoding="utf-8")))
+        result = quote_lib.quote(workload, json.loads(Path(args.options).read_text(encoding="utf-8")))
+        result["routing_requirements"] = to_requirements(workload)
+        emit(result)
         return 0
     if action == "refusals":
         from pathlib import Path as _Path

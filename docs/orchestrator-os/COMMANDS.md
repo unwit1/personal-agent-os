@@ -45,6 +45,7 @@ checkpoint) are described here and in [ENTRYPOINT.md](ENTRYPOINT.md).
 | `orchestrate secrets` | provider-neutral secret references `secrets://<provider>/<profile>` (keyring or env; values never printed) |
 | `orchestrate model-add` | register an OpenAI-compatible endpoint (open-weight or abliterated model) in the machine-local registry; preview unless `--write` (see [model-infrastructure.md](../model-infrastructure.md)) |
 | `orchestrate refusals` | refusal/non-answer telemetry by provider, model and refusal profile (no model call) |
+| `orchestrate quote` | no-spend quote for a workload: API vs GPU pod vs serverless, low/expected/high, budget gate and routing requirements (no model call, no provisioning) |
 | `orchestrate foreman-shadow` † | shadow foreman: a candidate model proposes a DAG + classes for a run (`propose`, one real call); `compare`/`report` score proposals against actual outcomes deterministically |
 | `orchestrate capability` | aggregate capability observations into CAP records (no model call) |
 | `orchestrate checkpoint` | Orchestrator OS continuation checkpoint + next prompt (no model call) |
