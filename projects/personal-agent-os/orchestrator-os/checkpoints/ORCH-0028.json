@@ -1,0 +1,130 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0028",
+  "previous": "ORCH-0027",
+  "created_at": "2026-09-29T17:35:39.618239+00:00",
+  "git": {
+    "branch": "orchestrator-os/model-infra-p0",
+    "commit": "b3fbba64",
+    "dirty": false
+  },
+  "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
+  "completed": [
+    "IMP-0014: worker publication guard + adapter deny defaults (2ff6a550, c07304c3, DEC-0022)",
+    "MIE-0004 first slice: orchestrate mining (DEC-0023)",
+    "EXP-0008 deferred for safety (FND-0013)",
+    "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)",
+    "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)",
+    "MIE-0009 first slice: context-utility telemetry + report (DEC-0026)",
+    "Command reference + drift guard; foundation assessed complete (DEC-0027)",
+    "IMP-0016: transient provider failures (529/5xx/network) classified as unavailable, not quota; RT-06 implemented (6a666a6e, EVR-0016, DEC-0029)",
+    "IMP-0015 slice 1: model profiles + workload requirements in routing, secrets:// refs, Task Context Contract, refusal telemetry, orchestrate model-add/secrets/refusals (DEC-0030, docs/model-infrastructure.md)",
+    "IMP-0015 slice 2: shadow foreman (orchestrate foreman-shadow propose/compare/report); proposals from any profile scored vs incumbent runs, no routing authority (DEC-0031)",
+    "FAIL-0005: storage.write_json retries transient Windows sharing violations (f23c4252)",
+    "IMP-0015 slice 3: workload contract (all modalities incl. image/audio/training), no-spend quote + budget gate, artifact manifests, orchestrate quote (DEC-0032)"
+  ],
+  "active_objective": "Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.",
+  "latest_evidence": [
+    {
+      "id": "DEC-0032",
+      "type": "DEC",
+      "title": "Workload contract, no-spend quote/budget engine and artifact manifests (IMP-0015 slice 3)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0032.json",
+      "updated_at": "2026-09-29T20:20:00+00:00"
+    },
+    {
+      "id": "FAIL-0005",
+      "type": "FAIL",
+      "title": "Atomic JSON write failed on a Windows sharing violation during the full-suite gate",
+      "path": "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0005.json",
+      "updated_at": "2026-09-29T19:55:00+00:00"
+    },
+    {
+      "id": "DEC-0031",
+      "type": "DEC",
+      "title": "Shadow foreman: proposals from any profile (incl. abliterated) scored against incumbent runs, no routing authority",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0031.json",
+      "updated_at": "2026-09-29T19:40:00+00:00"
+    },
+    {
+      "id": "DEC-0030",
+      "type": "DEC",
+      "title": "IMP-0015 first slice: provider-neutral model profiles, workload requirements, secret refs, Task Context Contract, refusa",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0030.json",
+      "updated_at": "2026-09-29T19:00:00+00:00"
+    },
+    {
+      "id": "DEC-0028",
+      "type": "DEC",
+      "title": "Prioritize provider-neutral Model Infrastructure Manager across text, image, voice and ML",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0028.json",
+      "updated_at": "2026-09-29T16:30:00+00:00"
+    },
+    {
+      "id": "DEC-0029",
+      "type": "DEC",
+      "title": "Transient provider failures from CLI workers map to 'unavailable' (breaker), not 'quota' (IMP-0016)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0029.json",
+      "updated_at": "2026-09-29T16:30:00+00:00"
+    },
+    {
+      "id": "EVR-0016",
+      "type": "EVR",
+      "title": "Provider failure classification: origin/main vs IMP-0016 on a 26-case labeled corpus",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0016.json",
+      "updated_at": "2026-09-29T16:30:00+00:00"
+    },
+    {
+      "id": "DEC-0027",
+      "type": "DEC",
+      "title": "Command reference + drift guard; foundational build assessed as substantially complete",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0027.json",
+      "updated_at": "2026-09-29T08:55:00+00:00"
+    }
+  ],
+  "open_blockers": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0030",
+    "DEC-0031",
+    "DEC-0032"
+  ],
+  "next_action": {
+    "summary": "Continue IMP-0015, next unpaid slices in order: (1) Evaluate model-catalog / GPU-broker prior art (SkyPilot, vLLM, Hugging Face model metadata, RunPod API, Modal/Vast) into the prior-art registry with ADOPT/WRAP/BORROW/REJECT/DEFER. (2) RunPod read-only inventory/pricing adapter behind secrets://runpod/default (compute.providers.list / compute.inventory.refresh) that turns live GPU prices into quote.py options for a no-spend API-vs-pod quote (acceptance 3); skip cleanly with no key. (3) Model catalog entries with modality/capability fields for image and audio models (registry + research radar hook). (4) With an operator-configured foreman, run foreman-shadow propose on recent runs and record an EVR. Paid provisioning/training stays gated on an approved budget.",
+    "prior_art": "shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
+    "worker_class": "reasoning",
+    "effort": "medium",
+    "why_this_class": "cross-cutting contracts and evaluation design; implementation is deterministic stdlib code",
+    "context_refs": [
+      "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+      "docs/model-infrastructure.md",
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0032.json",
+      "src/agent_os/orchestrator/quote.py"
+    ],
+    "stop_conditions": [
+      "a slice is implemented, tested, recorded and merged",
+      "0 paid compute; model calls only when the operator has configured a foreman provider",
+      "any paid provisioning/training reaches the budget/approval gate"
+    ]
+  },
+  "context_refs": [
+    "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+    "docs/model-infrastructure.md",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0032.json",
+    "src/agent_os/orchestrator/quote.py"
+  ],
+  "stopping_conditions": [
+    "a slice is implemented, tested, recorded and merged",
+    "0 paid compute; model calls only when the operator has configured a foreman provider",
+    "any paid provisioning/training reaches the budget/approval gate"
+  ],
+  "approval_conditions": [
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
+    "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
+    "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout",
+    "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed."
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0028 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0028.json).\n\nCurrent objective: Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.\n\nNext action: Continue IMP-0015, next unpaid slices in order: (1) Evaluate model-catalog / GPU-broker prior art (SkyPilot, vLLM, Hugging Face model metadata, RunPod API, Modal/Vast) into the prior-art registry with ADOPT/WRAP/BORROW/REJECT/DEFER. (2) RunPod read-only inventory/pricing adapter behind secrets://runpod/default (compute.providers.list / compute.inventory.refresh) that turns live GPU prices into quote.py options for a no-spend API-vs-pod quote (acceptance 3); skip cleanly with no key. (3) Model catalog entries with modality/capability fields for image and audio models (registry + research radar hook). (4) With an operator-configured foreman, run foreman-shadow propose on recent runs and record an EVR. Paid provisioning/training stays gated on an approved budget.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: reasoning / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: a slice is implemented, tested, recorded and merged; 0 paid compute; model calls only when the operator has configured a foreman provider; any paid provisioning/training reaches the budget/approval gate.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
