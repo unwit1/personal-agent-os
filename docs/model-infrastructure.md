@@ -115,6 +115,30 @@ When a completed answer misses its contract, delegate classifies why
 aggregates the file by provider, model and refusal profile. This is the
 evidence the roadmap's shadow foreman and routing promotion will use.
 
+## 7. Evaluate it as a foreman (shadow mode)
+
+```powershell
+agent-os orchestrate foreman-shadow propose <run> --prefer refusal_profile=abliterated   # one real call
+agent-os orchestrate foreman-shadow compare <run>                                          # deterministic
+agent-os orchestrate foreman-shadow report
+```
+
+`propose` renders the run's goal and planned tasks as a Task Context Contract
+(including the safety-relevant fact that this is a shadow evaluation) and asks
+the foreman model for a DAG with a capability class per task. The proposal is
+stored under `<orchestrator home>/foreman-shadow/<run>/`. `compare` scores each
+task against what actually happened:
+- `agree`: same class as the incumbent;
+- `cheaper_likely_ok`: a cheaper class, and the incumbent passed on the first
+  attempt with no retries or escalation (a potential saving);
+- `cheaper_risky`: a cheaper class, but the incumbent needed retries or
+  escalation;
+- `stronger`: a more expensive class than needed.
+
+It also lists DAG edge differences, task coverage and any foreman refusal.
+The foreman gets no routing authority from this; promotion needs eval and
+shadow evidence (roadmap Phase 3).
+
 ## What stays gated
 
 The model you pick never becomes the authorization boundary. Consequential

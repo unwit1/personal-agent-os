@@ -171,6 +171,13 @@ def register(commands: argparse._SubParsersAction) -> None:
 
     actions.add_parser("refusals", help="refusal/non-answer telemetry by provider/model/refusal profile (no model call)")
 
+    fsh = actions.add_parser("foreman-shadow", help="shadow foreman: a candidate model proposes a DAG + classes for a run; compare/report are deterministic, propose is one real call")
+    fsh.add_argument("action", choices=["propose", "compare", "report"])
+    fsh.add_argument("run", nargs="?", help="run id (propose/compare)")
+    fsh.add_argument("--provider", help="foreman provider id (default: routed by --require/--prefer)")
+    fsh.add_argument("--require", action="append", metavar="KEY=VALUE")
+    fsh.add_argument("--prefer", action="append", metavar="KEY=VALUE")
+
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
     cap.add_argument("--floor", type=float, default=0.9)
@@ -479,6 +486,25 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         result = service.add_model_endpoint(entry, write=args.write, path=args.path, force=args.force)
         emit(result)
         return 1 if result.get("error") else 0
+    if action == "foreman-shadow":
+        from . import foreman
+        from .model_profile import parse_pairs
+
+        if args.action == "report":
+            emit(foreman.report())
+            return 0
+        if not args.run:
+            emit({"error": "run id required"})
+            return 2
+        if args.action == "propose":
+            requirements = parse_pairs([*(args.require or []), *(f"prefer_{item}" for item in (args.prefer or []))])
+            emit(foreman.propose(args.run, provider=args.provider, requirements=requirements))
+            return 0
+        from .store import RunStore
+
+        record = RunStore().load(args.run)
+        emit([foreman.compare(record, item) for item in foreman.load_proposals(args.run)])
+        return 0
     if action == "refusals":
         from pathlib import Path as _Path
 
