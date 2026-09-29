@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0012",
+  "project": "personal-agent-os",
+  "title": "Idempotent integration: never merge a node twice after a crash",
+  "category": "bug",
+  "subsystem": "orchestrator/engine",
+  "status": "implemented",
+  "priority": "high",
+  "observation": "State-machine hunting with a crash kill-point between the integration merge and saving the run record found nodes merged twice with different content (4 violations in 40 seeds).",
+  "evidence": [
+    "tests/test_orchestrator_state_machine.py",
+    "commit:6b3c9eaf",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0019.json"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Use the unique integration commit subject (run + node) as an idempotency key: look it up on the integration branch before merging and adopt the existing commit.",
+  "acceptance": [
+    "No duplicate integrate commits across >= 80 hunted seeds with crash kill-points",
+    "Regression test for the crash window"
+  ],
+  "risks": [],
+  "dedupe_key": "2c286d7b5185056a37a3139b98b3efaf0c74afb8d9480db674f8b6dad5556b46",
+  "source": {
+    "type": "claude",
+    "reference": "ORCH-0016"
+  },
+  "github": null,
+  "created_at": "2026-09-29T07:07:41.660560+00:00",
+  "updated_at": "2026-09-29T07:07:41.935654+00:00",
+  "notes": null
+}

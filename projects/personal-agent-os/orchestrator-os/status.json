@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T06:35:00+00:00",
-  "phase": "P1 foundations: delegated calls cheaper; resume safety next",
-  "active_objective": "Prove (or enforce) that resuming or restarting a run never duplicates consequential effects (constitution section 10; RT-10/RT-11).",
+  "updated_at": "2026-09-29T07:10:00+00:00",
+  "phase": "P1 foundations: resume safety hardened for integration; remaining effects next",
+  "active_objective": "Extend crash kill-points to the remaining consequential effects (landing onto the base branch, worktree checkpoints, branch cleanup) and key them idempotently where needed.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -33,36 +33,37 @@
     "MIE-0017: OTLP trace projection (DEC-0016)",
     "ORCH-0013 pushed after gate rerun",
     "MIE-0007 first slice: EVS-SECURITY suite + fixtures; EXP-0007 (DEC-0017, FND-0011, FND-0012)",
-    "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)"
+    "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)",
+    "IMP-0012: idempotent integration after crash (6b3c9eaf, FAIL-0003, DEC-0019, EVR-0014)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0016",
     "DEC-0017",
-    "DEC-0018"
+    "DEC-0018",
+    "DEC-0019"
   ],
   "approval_conditions": [
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)",
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)"
   ],
   "next_action": {
-    "summary": "Resume safety: add to tests/test_orchestrator_state_machine.py an invariant that no consequential effect is duplicated across restarts/retries/resumes -- each integrated node is merged into the integration branch exactly once (count merge/integration commits per node on the run's integration branch via git log), no duplicate commit_created events for the same node and tree, and the base branch never moves. Hunt with the hostile profile including restart kill-points (at least 40 seeds x 50 ops). If a violation appears, shrink it, fix the engine with an idempotency key recorded before the effect (DBOS pattern, PA-dbos), and add the minimal sequence as a regression test; if none, record the evidence and mark RT-10/RT-11 accordingly.",
+    "summary": "Extend resume-safety coverage: add kill-points for the remaining consequential effects -- landing the integration branch onto the base branch (final_integration=merge_to_base after the consequential_repository_write gate is approved), worktree checkpoint commits, and worktree/branch cleanup -- each crashing after the effect and before the run record is saved. Add invariants: the base branch receives the run's integration at most once and only after the gate was approved; checkpoint commits are not duplicated for the same tree; cleanup never deletes a branch whose work is not integrated. Hunt >= 80 seeds; fix any violation with an idempotency key recorded with the effect (as in DEC-0019) plus a regression test.",
     "prior_art": "idempotency keys durable execution resume duplicate effects",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Invariant design + deterministic hunting; no model workers.",
+    "why_this_class": "Deterministic invariant work on the existing harness.",
     "context_refs": [
+      "DEC-0019",
+      "FAIL-0003",
       "tests/test_orchestrator_state_machine.py",
       "src/agent_os/orchestrator/engine.py",
-      "src/agent_os/orchestrator/worktrees.py",
-      "projects/personal-agent-os/orchestrator-os/implementation-status.json",
-      "DEC-0010"
+      "src/agent_os/orchestrator/worktrees.py"
     ],
     "stop_conditions": [
-      "invariant committed; hunt evidence recorded (and any bug fixed with a regression test)",
+      "kill-points + invariants committed; hunt evidence recorded; any bug fixed with a regression test",
       "0 model calls",
       "stop and report if a fix would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
@@ -186,6 +187,12 @@
       },
       "measured_cost_usd": "not reported by Codex",
       "downstream_value": "-68% tokens/latency for known-input delegated tasks"
+    },
+    "session_ORCH-0016": {
+      "deterministic_operations": "~30 incl. 3 hunts of 40 seeds",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "downstream_value": "fixed a duplicate-consequential-effect bug on resume"
     }
   },
   "known_baseline": {
@@ -195,5 +202,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0015 pass (FND-0011): added delegate attachments (datamark/delimit untrusted-data blocks, character budget that refuses instead of truncating, globs contained to cwd) and an eval '+attach' route suffix. EVR-0013 on EVS-SECURITY with gpt-6-luna: accuracy 1.0 vs 1.0, input tokens 17.6k vs 55.7k (-68%), latency 9.5 s vs 29.2 s (-68%); documented as the preferred mode for known-input tasks (DEC-0018, ENTRYPOINT). 6 model calls."
+  "last_pass_summary": "ORCH-0016 pass (resume safety): added a crash_after_merge kill-point and a no-duplicate-effect invariant to the state-machine suite. Hunting found a real engine bug (FAIL-0003): after a crash between the integration merge and saving the run record, a node could be merged twice with different content. Fixed by using the unique integration commit subject as an idempotency key and adopting a landed merge (DEC-0019, IMP-0012); 0 violations in 80 seeds with 23 kill-points afterwards, regression test added, EVR-0014 routing noninferior. 0 model calls."
 }

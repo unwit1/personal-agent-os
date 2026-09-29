@@ -1,0 +1,58 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0019",
+  "type": "DEC",
+  "title": "Integration commit subjects are idempotency keys",
+  "status": "accepted",
+  "summary": "Before merging a node, the engine looks up its own integration commit (subject 'agent-os <run>: integrate <node>', unique per run and node) on the integration branch via WorktreeManager.find_integration_commit and adopts it (event integration.recovered) instead of merging again. Evidence: before the fix 4 violations in 40 seeds (11 kill-points fired); after, 0 violations in 80 seeds across two independent ranges (8 + 15 kill-points) plus a regression test; EVR-0014 routing noninferior (78/78).",
+  "metrics": {
+    "before": {
+      "seeds": 40,
+      "violations": 4,
+      "kill_points": 11
+    },
+    "after": [
+      {
+        "seeds": 40,
+        "violations": 0,
+        "kill_points": 8
+      },
+      {
+        "seeds": 40,
+        "violations": 0,
+        "kill_points": 15
+      }
+    ],
+    "model_calls": 0
+  },
+  "prior_art": {
+    "checked": "PA-dbos (fresh), PA-langgraph, PA-temporal",
+    "found": "durable-execution systems record a deterministic step identity with each effect and consult it on replay",
+    "reused": "the idempotency-key pattern (DBOS workflow/step ids) using the existing unique commit subject as the key",
+    "why_custom": "the key already exists in Git; no database or dependency needed"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "IMP-0012"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FAIL-0003"
+    },
+    {
+      "rel": "measures",
+      "ref": "EVR-0014"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_orchestrator_state_machine.py"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0015 -> ORCH-0016 (resume safety)",
+    "author_tier": "frontier (Opus 5.5); evidence deterministic"
+  },
+  "created_at": "2026-09-29T07:10:00+00:00",
+  "updated_at": "2026-09-29T07:10:00+00:00"
+}

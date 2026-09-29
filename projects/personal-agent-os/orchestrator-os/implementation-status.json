@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T05:35:00+00:00",
+  "updated_at": "2026-09-29T07:10:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -178,10 +178,13 @@
     {
       "id": "RT-10",
       "feature": "idempotency keys",
-      "status": "missing",
-      "evidence": [],
-      "note": "No idempotency key generation or deduplication found",
-      "verified_by": "haiku audit (EVR-0002), spot-checked"
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/worktrees.py:find_integration_commit",
+        "src/agent_os/orchestrator/engine.py:_integrate"
+      ],
+      "note": "integration merges idempotent via commit-subject key (DEC-0019); other effects not yet keyed",
+      "verified_by": "tests/test_orchestrator_state_machine.py"
     },
     {
       "id": "RT-11",
@@ -371,10 +374,10 @@
       "feature": "chaos/kill-point tests",
       "status": "partial",
       "evidence": [
-        "tests/test_orchestrator_state_machine.py:Harness.apply(restart)"
+        "tests/test_orchestrator_state_machine.py:crash_after_merge"
       ],
-      "note": "restart op drops in-flight workers (kill-point); no OS-process kills yet",
-      "verified_by": "EXP-0003"
+      "note": "kill-points: restart (in-flight workers) and crash after integration merge; landing/checkpoint kill-points pending",
+      "verified_by": "DEC-0019"
     },
     {
       "id": "RT-29",

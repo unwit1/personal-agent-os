@@ -122,6 +122,17 @@
       "dedupe_key": "7ab0b0432c98005c2b36928b32bb15a64438f4c42c938a46c7e786598b0ef5c6",
       "updated_at": "2026-09-29T05:08:23.232708+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0012",
+      "title": "Idempotent integration: never merge a node twice after a crash",
+      "category": "bug",
+      "subsystem": "orchestrator/engine",
+      "status": "implemented",
+      "priority": "high",
+      "dedupe_key": "2c286d7b5185056a37a3139b98b3efaf0c74afb8d9480db674f8b6dad5556b46",
+      "updated_at": "2026-09-29T07:07:41.935654+00:00",
+      "github_issue_number": null
     }
   ]
 }
