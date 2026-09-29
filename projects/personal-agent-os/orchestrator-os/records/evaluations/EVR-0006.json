@@ -1,0 +1,748 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0006",
+  "type": "EVR",
+  "title": "EVS-CAPABILITY-CLASSIFICATION: claude-code@balanced vs claude-code@balanced+verify, codex@fast, codex@fast+verify, claude-code@fast, claude-code@fast+verify",
+  "status": "accepted",
+  "outcome": "noninferior",
+  "summary": "`agent-os orchestrate eval` (cases suite). Quality verdict per candidate uses accuracy; cost and latency are reported separately. Noninferiority margin 0.02.",
+  "task_family": "research_implementation_classification",
+  "metrics": {
+    "kind": "cases",
+    "incumbent": "claude-code@balanced",
+    "noninferiority_margin": 0.02,
+    "results": [
+      {
+        "ref": "claude-code@balanced",
+        "provider": "claude-code",
+        "model_resolved": "claude-sonnet-5-5",
+        "status": "passed",
+        "failure": null,
+        "samples": 3,
+        "scored_samples": 3,
+        "contract_pass": 1.0,
+        "accuracy": 0.6833,
+        "sample_accuracies": [
+          0.8,
+          0.55,
+          0.7
+        ],
+        "cases": 60,
+        "correct": 41,
+        "items_wilson95": [
+          0.558,
+          0.787
+        ],
+        "items_wilson95_low": 0.558,
+        "seconds": 24.15,
+        "input_tokens": 45381.6667,
+        "cost_usd": 0.0672,
+        "verifier_downgrades": null,
+        "wrong": [
+          {
+            "answer": "MIE-0006:missing",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0014:missing",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0003:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0017:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0009:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0010:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0001:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0002:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0013:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0015:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0016:missing",
+            "count": 1
+          }
+        ],
+        "delegations": [
+          "DLG-81300c322cf2",
+          "DLG-b6acee53749f",
+          "DLG-65fd8e16a485"
+        ]
+      },
+      {
+        "ref": "claude-code@balanced+verify",
+        "provider": "claude-code",
+        "model_resolved": "claude-sonnet-5-5",
+        "status": "passed",
+        "failure": null,
+        "samples": 3,
+        "scored_samples": 3,
+        "contract_pass": 1.0,
+        "accuracy": 0.6833,
+        "sample_accuracies": [
+          0.8,
+          0.55,
+          0.7
+        ],
+        "cases": 60,
+        "correct": 41,
+        "items_wilson95": [
+          0.558,
+          0.787
+        ],
+        "items_wilson95_low": 0.558,
+        "seconds": 24.15,
+        "input_tokens": 45381.6667,
+        "cost_usd": 0.0672,
+        "verifier_downgrades": 0,
+        "wrong": [
+          {
+            "answer": "MIE-0006:missing",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0014:missing",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0003:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0017:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0009:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0010:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0001:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0002:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0013:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0015:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0016:missing",
+            "count": 1
+          }
+        ],
+        "delegations": [
+          "DLG-81300c322cf2",
+          "DLG-b6acee53749f",
+          "DLG-65fd8e16a485"
+        ]
+      },
+      {
+        "ref": "codex@fast",
+        "provider": "codex",
+        "model_resolved": "gpt-6-luna",
+        "status": "passed",
+        "failure": null,
+        "samples": 3,
+        "scored_samples": 3,
+        "contract_pass": 1.0,
+        "accuracy": 0.7,
+        "sample_accuracies": [
+          0.75,
+          0.7,
+          0.65
+        ],
+        "cases": 60,
+        "correct": 42,
+        "items_wilson95": [
+          0.575,
+          0.801
+        ],
+        "items_wilson95_low": 0.575,
+        "seconds": 79.1367,
+        "input_tokens": 228241.0,
+        "cost_usd": null,
+        "verifier_downgrades": null,
+        "wrong": [
+          {
+            "answer": "MIE-0004:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0006:missing",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0007:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0003:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0020:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0014:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0017:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0005:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0018:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0019:partial",
+            "count": 1
+          }
+        ],
+        "delegations": [
+          "DLG-5755af4a9c5f",
+          "DLG-154ad7d8259f",
+          "DLG-672506b4de81"
+        ]
+      },
+      {
+        "ref": "codex@fast+verify",
+        "provider": "codex",
+        "model_resolved": "gpt-6-luna",
+        "status": "passed",
+        "failure": null,
+        "samples": 3,
+        "scored_samples": 3,
+        "contract_pass": 1.0,
+        "accuracy": 0.6833,
+        "sample_accuracies": [
+          0.75,
+          0.65,
+          0.65
+        ],
+        "cases": 60,
+        "correct": 41,
+        "items_wilson95": [
+          0.558,
+          0.787
+        ],
+        "items_wilson95_low": 0.558,
+        "seconds": 79.1367,
+        "input_tokens": 228241.0,
+        "cost_usd": null,
+        "verifier_downgrades": 1,
+        "wrong": [
+          {
+            "answer": "MIE-0004:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0006:missing",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0007:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0003:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0020:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0014:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0017:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0005:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0013:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0018:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0019:partial",
+            "count": 1
+          }
+        ],
+        "delegations": [
+          "DLG-5755af4a9c5f",
+          "DLG-154ad7d8259f",
+          "DLG-672506b4de81"
+        ]
+      },
+      {
+        "ref": "claude-code@fast",
+        "provider": "claude-code",
+        "model_resolved": "claude-haiku-4-5-20251001",
+        "status": "passed",
+        "failure": null,
+        "samples": 3,
+        "scored_samples": 3,
+        "contract_pass": 1.0,
+        "accuracy": 0.6667,
+        "sample_accuracies": [
+          0.65,
+          0.65,
+          0.7
+        ],
+        "cases": 60,
+        "correct": 40,
+        "items_wilson95": [
+          0.541,
+          0.773
+        ],
+        "items_wilson95_low": 0.541,
+        "seconds": 151.01,
+        "input_tokens": 997494.0,
+        "cost_usd": 0.2742,
+        "verifier_downgrades": null,
+        "wrong": [
+          {
+            "answer": "MIE-0018:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0020:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0003:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0004:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0017:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0019:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0012:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0005:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0007:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0002:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0010:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0014:missing",
+            "count": 1
+          }
+        ],
+        "delegations": [
+          "DLG-f51c4f1179ba",
+          "DLG-58e1ebffe8c9",
+          "DLG-b2b451817a65"
+        ]
+      },
+      {
+        "ref": "claude-code@fast+verify",
+        "provider": "claude-code",
+        "model_resolved": "claude-haiku-4-5-20251001",
+        "status": "passed",
+        "failure": null,
+        "samples": 3,
+        "scored_samples": 3,
+        "contract_pass": 1.0,
+        "accuracy": 0.6667,
+        "sample_accuracies": [
+          0.65,
+          0.65,
+          0.7
+        ],
+        "cases": 60,
+        "correct": 40,
+        "items_wilson95": [
+          0.541,
+          0.773
+        ],
+        "items_wilson95_low": 0.541,
+        "seconds": 151.01,
+        "input_tokens": 997494.0,
+        "cost_usd": 0.2742,
+        "verifier_downgrades": 0,
+        "wrong": [
+          {
+            "answer": "MIE-0018:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0020:partial",
+            "count": 3
+          },
+          {
+            "answer": "MIE-0003:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0004:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0017:missing",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0019:partial",
+            "count": 2
+          },
+          {
+            "answer": "MIE-0012:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0005:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0007:partial",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0002:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0010:missing",
+            "count": 1
+          },
+          {
+            "answer": "MIE-0014:missing",
+            "count": 1
+          }
+        ],
+        "delegations": [
+          "DLG-f51c4f1179ba",
+          "DLG-58e1ebffe8c9",
+          "DLG-b2b451817a65"
+        ]
+      }
+    ],
+    "comparisons": {
+      "claude-code@balanced+verify": {
+        "verdict": "noninferior",
+        "dimensions": {
+          "accuracy": {
+            "incumbent": 0.6833,
+            "candidate": 0.6833,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "contract_pass": {
+            "incumbent": 1.0,
+            "candidate": 1.0,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "cost_usd": {
+            "incumbent": 0.0672,
+            "candidate": 0.0672,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "seconds": {
+            "incumbent": 24.15,
+            "candidate": 24.15,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "input_tokens": {
+            "incumbent": 45381.6667,
+            "candidate": 45381.6667,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "items_wilson95_low": {
+            "incumbent": 0.558,
+            "candidate": 0.558,
+            "delta": 0.0,
+            "verdict": null
+          }
+        }
+      },
+      "codex@fast": {
+        "verdict": "noninferior",
+        "dimensions": {
+          "accuracy": {
+            "incumbent": 0.6833,
+            "candidate": 0.7,
+            "delta": 0.0167,
+            "verdict": "noninferior"
+          },
+          "contract_pass": {
+            "incumbent": 1.0,
+            "candidate": 1.0,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "cost_usd": {
+            "incumbent": 0.0672,
+            "candidate": null,
+            "delta": null,
+            "verdict": null
+          },
+          "seconds": {
+            "incumbent": 24.15,
+            "candidate": 79.1367,
+            "delta": 54.9867,
+            "verdict": "regressed"
+          },
+          "input_tokens": {
+            "incumbent": 45381.6667,
+            "candidate": 228241.0,
+            "delta": 182859.3333,
+            "verdict": "regressed"
+          },
+          "items_wilson95_low": {
+            "incumbent": 0.558,
+            "candidate": 0.575,
+            "delta": 0.017,
+            "verdict": null
+          }
+        }
+      },
+      "codex@fast+verify": {
+        "verdict": "noninferior",
+        "dimensions": {
+          "accuracy": {
+            "incumbent": 0.6833,
+            "candidate": 0.6833,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "contract_pass": {
+            "incumbent": 1.0,
+            "candidate": 1.0,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "cost_usd": {
+            "incumbent": 0.0672,
+            "candidate": null,
+            "delta": null,
+            "verdict": null
+          },
+          "seconds": {
+            "incumbent": 24.15,
+            "candidate": 79.1367,
+            "delta": 54.9867,
+            "verdict": "regressed"
+          },
+          "input_tokens": {
+            "incumbent": 45381.6667,
+            "candidate": 228241.0,
+            "delta": 182859.3333,
+            "verdict": "regressed"
+          },
+          "items_wilson95_low": {
+            "incumbent": 0.558,
+            "candidate": 0.558,
+            "delta": 0.0,
+            "verdict": null
+          }
+        }
+      },
+      "claude-code@fast": {
+        "verdict": "noninferior",
+        "dimensions": {
+          "accuracy": {
+            "incumbent": 0.6833,
+            "candidate": 0.6667,
+            "delta": -0.0166,
+            "verdict": "noninferior"
+          },
+          "contract_pass": {
+            "incumbent": 1.0,
+            "candidate": 1.0,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "cost_usd": {
+            "incumbent": 0.0672,
+            "candidate": 0.2742,
+            "delta": 0.207,
+            "verdict": "regressed"
+          },
+          "seconds": {
+            "incumbent": 24.15,
+            "candidate": 151.01,
+            "delta": 126.86,
+            "verdict": "regressed"
+          },
+          "input_tokens": {
+            "incumbent": 45381.6667,
+            "candidate": 997494.0,
+            "delta": 952112.3333,
+            "verdict": "regressed"
+          },
+          "items_wilson95_low": {
+            "incumbent": 0.558,
+            "candidate": 0.541,
+            "delta": -0.017,
+            "verdict": null
+          }
+        }
+      },
+      "claude-code@fast+verify": {
+        "verdict": "noninferior",
+        "dimensions": {
+          "accuracy": {
+            "incumbent": 0.6833,
+            "candidate": 0.6667,
+            "delta": -0.0166,
+            "verdict": "noninferior"
+          },
+          "contract_pass": {
+            "incumbent": 1.0,
+            "candidate": 1.0,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "cost_usd": {
+            "incumbent": 0.0672,
+            "candidate": 0.2742,
+            "delta": 0.207,
+            "verdict": "regressed"
+          },
+          "seconds": {
+            "incumbent": 24.15,
+            "candidate": 151.01,
+            "delta": 126.86,
+            "verdict": "regressed"
+          },
+          "input_tokens": {
+            "incumbent": 45381.6667,
+            "candidate": 997494.0,
+            "delta": 952112.3333,
+            "verdict": "regressed"
+          },
+          "items_wilson95_low": {
+            "incumbent": 0.558,
+            "candidate": 0.541,
+            "delta": -0.017,
+            "verdict": null
+          }
+        }
+      }
+    },
+    "notes": [
+      "9 model calls: 3 sample(s) per base route; +verify variants reuse the same calls"
+    ]
+  },
+  "links": [
+    {
+      "rel": "measures",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-CAPABILITY-CLASSIFICATION.json"
+    },
+    {
+      "rel": "baseline",
+      "ref": "local:route/claude-code@balanced"
+    },
+    {
+      "rel": "candidate",
+      "ref": "local:route/claude-code@balanced+verify"
+    },
+    {
+      "rel": "candidate",
+      "ref": "local:route/codex@fast"
+    },
+    {
+      "rel": "candidate",
+      "ref": "local:route/codex@fast+verify"
+    },
+    {
+      "rel": "candidate",
+      "ref": "local:route/claude-code@fast"
+    },
+    {
+      "rel": "candidate",
+      "ref": "local:route/claude-code@fast+verify"
+    },
+    {
+      "rel": "tests",
+      "ref": "EXP-0001"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0005"
+    },
+    {
+      "rel": "evidence_against",
+      "ref": "HYP-0001"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate eval",
+    "suite_read_from": "trusted checkout",
+    "trusted_commit": "e6d1f35a"
+  },
+  "created_at": "2026-09-29T01:34:28.149361+00:00",
+  "updated_at": "2026-09-29T02:40:00+00:00"
+}

@@ -13,26 +13,26 @@
     "toolset": "read_only"
   },
   "metrics": {
-    "sample_count": 1,
+    "sample_count": 4,
     "final_success": 0,
     "validator_pass_rate": 0.0,
     "pass_rate_wilson95": [
       0.0,
-      0.793
+      0.49
     ],
     "qualified_at_floor": null,
-    "mean_accuracy": 0.65,
+    "mean_accuracy": 0.66,
     "contract_pass_rate": 1.0,
     "pass_basis": "accuracy_vs_labels",
     "contract_only_samples": 1,
     "repairs": 0,
-    "mean_seconds": 106.58,
-    "mean_input_tokens": 814258.0,
-    "mean_output_tokens": 10466.0,
-    "total_cost_usd": 0.241767,
+    "mean_seconds": 139.9,
+    "mean_input_tokens": 951685.0,
+    "mean_output_tokens": 12785.0,
+    "total_cost_usd": 1.064352,
     "cost_per_success_usd": null,
     "failure_clusters": {
-      "accuracy_below_floor": 1
+      "accuracy_below_floor": 4
     },
     "availability_failures": 0
   },
@@ -44,12 +44,24 @@
     {
       "rel": "derived_from",
       "ref": "local:capability/observations.jsonl#DLG-4f148cea6e72"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-f51c4f1179ba"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-58e1ebffe8c9"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-b2b451817a65"
     }
   ],
   "provenance": {
     "source": "agent-os orchestrate capability --write",
     "observed_from": "2026-09-29T01:21:35.436047+00:00",
-    "observed_to": "2026-09-29T01:21:35.436047+00:00"
+    "observed_to": "2026-09-29T01:34:27.086193+00:00"
   },
-  "updated_at": "2026-09-29T01:23:23.657667+00:00"
+  "updated_at": "2026-09-29T01:36:15.584015+00:00"
 }

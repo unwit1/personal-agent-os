@@ -3,8 +3,8 @@
   "id": "HYP-0001",
   "type": "HYP",
   "title": "Pinned base + per-item evidence check raises cheap-model classification accuracy to >= 0.9",
-  "status": "proposed",
-  "summary": "If classification runs against the base commit and every implemented/partial claim must cite a symbol that a deterministic grep confirms, cheap-model accuracy on the EVC development set rises from 0.75 to >= 0.9 at <= 1.5x cost.",
+  "status": "rejected",
+  "summary": "If classification runs against the base commit and every implemented/partial claim must cite a symbol that a deterministic grep confirms, cheap-model accuracy on the EVC development set rises from 0.75 to >= 0.9 at <= 1.5x cost. RESULT (EXP-0001): rejected; the verifier changed 1 of 27 answers and no route approached 0.9.",
   "links": [
     {
       "rel": "derived_from",
@@ -17,6 +17,10 @@
     {
       "rel": "tests",
       "ref": "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json"
+    },
+    {
+      "rel": "evidence_against",
+      "ref": "EXP-0001"
     }
   ],
   "provenance": {
@@ -24,5 +28,5 @@
     "author_tier": "frontier (Opus 5.5) unless stated"
   },
   "created_at": "2026-09-28T23:55:00+00:00",
-  "updated_at": "2026-09-28T23:55:00+00:00"
+  "updated_at": "2026-09-29T02:40:00+00:00"
 }

@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T01:50:00+00:00",
-  "phase": "P1 foundations: eval runner live; capability evidence accumulating",
-  "active_objective": "Get a cheap route qualified by evidence: test HYP-0001 with the eval runner (EXP-0001), then let qualified CAP evidence drive routing (IMP-0004).",
+  "updated_at": "2026-09-29T02:45:00+00:00",
+  "phase": "P1 foundations: eval runner live; route qualification needs objectively labeled task families",
+  "active_objective": "Qualify (or rule out) a cheap route on a recurring task family with deterministic ground truth, so measured capability can drive routing (IMP-0004).",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -15,44 +15,44 @@
     "Cold-start check: fresh Haiku worker found entrypoint, policy, status, next IMP and worker class (EVR-0003, 5/5)",
     "IMP-0003 implemented: `orchestrate eval` (fa15466e); EVR-0004 EVS-CONTROL-PLANE noninferior; EVR-0005 three-route classification (DEC-0005)",
     "Q-0001 resolved: gpt-6-luna 0.60 vs Sonnet 0.75 vs Haiku 0.65 at pinned base; no route qualifies (floor 0.9); opposite error biases (FND-0004)",
-    "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)"
+    "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)",
+    "EXP-0001 rejected HYP-0001: evidence verifier had no effect; offline replay predicted it before spend (e6d1f35a, EVR-0006, 9 calls, $1.02 measured)",
+    "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
+    "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism"
   ],
   "blockers": [
     "Branch orchestrator-os/bootstrap-20260928 is not merged to main (operator decision)"
   ],
-  "active_experiments": [
-    "HYP-0001 -> EXP-0001 (next): pinned base (done) + deterministic evidence check raises cheap-route accuracy to >= 0.9"
-  ],
+  "active_experiments": [],
   "recent_decisions": [
-    "DEC-0002",
     "DEC-0003",
     "DEC-0004",
     "DEC-0005"
   ],
   "approval_conditions": [
-    "Operator grant requested: add src/agent_os/orchestrator/eval.py (evaluator code) to control_plane.protected_paths in policy/orchestrator-os.policy.json (DEC-0005 known gap)",
-    "Any other change under control_plane.protected_paths needs an explicit operator grant in the request",
+    "Operator grant requested: add src/agent_os/orchestrator/eval.py to control_plane.protected_paths (DEC-0005 known gap)",
+    "Operator grant needed for the next action: create one new suite file projects/personal-agent-os/orchestrator-os/evals/suites/EVS-TEST-SELECTION.json (suites/ is protected)",
+    "Operator decision requested: Q-0002 (may qualification use pooled item-level intervals?)",
     "Merge/push to main only when the operator asks"
   ],
   "next_action": {
-    "summary": "Run EXP-0001 for HYP-0001: add an optional deterministic evidence verifier to delegate-case evals (for each implemented/partial answer, confirm every cited path exists at the pinned base and each ':symbol' is found by grep; unverifiable claims become 'missing'), recorded as a separate route variant (e.g. `codex@fast+verify`). Run EVS-CAPABILITY-CLASSIFICATION with 3 samples per route for gpt-6-luna, Haiku and Sonnet, with and without the verifier; write the EXP record (baseline EVR-0005) and EVRs; update CAPs. If a route's Wilson lower bound clears 0.9, start IMP-0004; otherwise record the result as rejected/inconclusive and propose the next hypothesis (for example Luna/Haiku disagreement-triggered escalation, FND-0004).",
+    "summary": "EXP-0002: move route qualification to a recurring task family with deterministic labels. Candidate family: affected_test_selection (given a commit's changed src files, name the test modules that exercise them). Build a deterministic case generator from this repository's git history (>= 30 development cases, labels computed without model calls, label-generation wall clock <= 30 min, e.g. test modules that fail when the commit's src change is reverted in a worktree, or another objective rule you justify in a DEC). Add a deterministic baseline route (import-graph selector) and a prompt builder in eval.py; create EVS-TEST-SELECTION (needs my grant); run eval with 3 samples for the deterministic selector, gpt-6-luna, Haiku and Sonnet (<= 9 model calls). If deterministic matches or beats models, record that (hierarchy rung 1) and stop; if a cheap route qualifies, start IMP-0004.",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Small deterministic post-processor plus eval runs; the judgment is in reading results, which the checkpoint's stop rules bound.",
+    "why_this_class": "Deterministic generator + eval wiring; judgment limited to choosing the labeling rule (record as DEC).",
     "context_refs": [
-      "HYP-0001",
-      "EVR-0005",
-      "FND-0004",
-      "DEC-0005",
+      "FND-0005",
+      "EXP-0001",
+      "Q-0002",
       "src/agent_os/orchestrator/eval.py",
-      "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json",
-      "projects/personal-agent-os/research/meta-improvement/experiments/technique-experiment.schema.json",
-      "projects/personal-agent-os/improvements/IMP-0004.json"
+      "projects/personal-agent-os/orchestrator-os/evals/README.md",
+      "projects/personal-agent-os/improvements/IMP-0004.json",
+      "policy/orchestrator-os.policy.json"
     ],
     "stop_conditions": [
-      "EXP-0001 record written with outcome improved | noninferior | rejected | inconclusive and linked EVRs",
-      "experiment budget: at most 18 delegate calls (3 routes x 2 variants x 3 samples)",
-      "stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+      "EXP-0002 record written (improved | noninferior | rejected | inconclusive) with linked EVR",
+      "budget: <= 9 model calls, <= 30 min deterministic label generation",
+      "stop and report if the EVS-TEST-SELECTION grant is missing, another protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -83,6 +83,18 @@
       "frontier_tasks": "eval runner design + code, result interpretation (Opus 5.5 main session)",
       "measured_delegate_cost_usd": "0.305 (Luna cost not reported by Codex)",
       "measured_delegate_input_tokens": 1388112
+    },
+    "session_ORCH-0003": {
+      "deterministic_operations": "~30 incl. 2 offline replays that predicted the result before spend",
+      "model_calls": {
+        "claude-sonnet-5-5": 3,
+        "gpt-6-luna": 3,
+        "claude-haiku-4-5-20251001": 3
+      },
+      "measured_cost_usd": 1.02,
+      "luna_cost": "not reported",
+      "frontier_tasks": "verifier design, analysis, pivot decision",
+      "lesson": "replay stored outputs before paying for new samples"
     }
   },
   "known_baseline": {

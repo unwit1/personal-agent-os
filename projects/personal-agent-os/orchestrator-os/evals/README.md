@@ -31,7 +31,11 @@ Each run writes one append-only EVR (`records/evaluations/`) with per-dimension
 deltas and verdicts; the candidate verdict uses only the quality dimension, so
 cost never rescues a regression (DEC-0005). Case-suite runs also record
 accuracy-scored capability observations; follow with `orchestrate capability --write`.
-Exit code 8 means a candidate regressed. EVS-COST still runs through
+Case suites also take `--samples N` (each base route is called N times; a
+`+verify` variant such as `codex@fast+verify` is scored from the same calls),
+and `--max-calls` refuses runs over budget. Before paying for new samples,
+replay stored outputs under `.agent-local/orchestrator/delegations/` (EXP-0001
+predicted its own result that way). Exit code 8 means a candidate regressed. EVS-COST still runs through
 `agent-os orchestrate benchmark` (its runner type is not supported by `eval`).
 
 ## Rules

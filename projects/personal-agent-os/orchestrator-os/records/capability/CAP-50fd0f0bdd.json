@@ -1,0 +1,59 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-50fd0f0bdd",
+  "type": "CAP",
+  "title": "research_implementation_classification via claude-code/claude-sonnet-5-5 (low)",
+  "status": "active",
+  "key": {
+    "task_family": "research_implementation_classification",
+    "role": "analyst",
+    "provider": "claude-code",
+    "model_resolved": "claude-sonnet-5-5",
+    "effort": "low",
+    "toolset": "read_only+verify"
+  },
+  "metrics": {
+    "sample_count": 3,
+    "final_success": 0,
+    "validator_pass_rate": 0.0,
+    "pass_rate_wilson95": [
+      0.0,
+      0.562
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.68,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 24.15,
+    "mean_input_tokens": 45381.67,
+    "mean_output_tokens": 2674.67,
+    "total_cost_usd": 0.201661,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "accuracy_below_floor": 3
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-81300c322cf2"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-b6acee53749f"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-65fd8e16a485"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-29T01:34:25.307168+00:00",
+    "observed_to": "2026-09-29T01:34:25.450973+00:00"
+  },
+  "updated_at": "2026-09-29T01:36:15.584344+00:00"
+}

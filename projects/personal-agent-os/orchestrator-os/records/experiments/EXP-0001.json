@@ -1,0 +1,137 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0001",
+  "type": "EXP",
+  "title": "Deterministic evidence verifier for cheap-model implementation classification (HYP-0001)",
+  "status": "rejected",
+  "summary": "Paired design: 3 samples per base route (claude-sonnet-5-5 @balanced, gpt-6-luna @fast, claude-haiku-4-5-20251001 @fast), each output scored with and without the deterministic EvidenceVerifier; 9 model calls (budget 18), worktree pinned to f8f4453f. Treatment effect: none (1 downgrade in 27 answers, which lowered Luna by one item). Offline replay on EVR-0005 outputs had predicted this before any spend (Luna 0.60 -> 0.55; others unchanged). HYP-0001 rejected: over-claims cite real but irrelevant code, which an existence check cannot catch. Secondary result: all routes plateau at 0.67-0.70 mean accuracy; majority voting reaches only 0.70-0.75; only 2/20 items are unanimous across 9 samples. The task definition (partial vs missing) is too ambiguous to qualify any route against, so the experiment is closed rather than extended.",
+  "outcome": "rejected",
+  "task_family": "research_implementation_classification",
+  "metrics": {
+    "design": "paired within-sample; treatment = post-hoc verifier; 9 calls",
+    "mean_accuracy": {
+      "claude-sonnet-5-5": {
+        "plain": 0.683,
+        "verify": 0.683
+      },
+      "gpt-6-luna": {
+        "plain": 0.7,
+        "verify": 0.683
+      },
+      "claude-haiku-4-5-20251001": {
+        "plain": 0.667,
+        "verify": 0.667
+      }
+    },
+    "sample_accuracies": {
+      "claude-sonnet-5-5": [
+        0.8,
+        0.55,
+        0.7
+      ],
+      "gpt-6-luna": [
+        0.75,
+        0.7,
+        0.65
+      ],
+      "claude-haiku-4-5-20251001": [
+        0.65,
+        0.65,
+        0.7
+      ]
+    },
+    "items_wilson95_plain": {
+      "claude-sonnet-5-5": [
+        0.558,
+        0.787
+      ],
+      "gpt-6-luna": [
+        0.575,
+        0.801
+      ],
+      "claude-haiku-4-5-20251001": [
+        0.541,
+        0.773
+      ]
+    },
+    "verifier_downgrades": {
+      "claude-sonnet-5-5": 0,
+      "gpt-6-luna": 1,
+      "claude-haiku-4-5-20251001": 0
+    },
+    "mean_seconds": {
+      "claude-sonnet-5-5": 24.2,
+      "gpt-6-luna": 79.1,
+      "claude-haiku-4-5-20251001": 151.0
+    },
+    "mean_input_tokens": {
+      "claude-sonnet-5-5": 45382,
+      "gpt-6-luna": 228241,
+      "claude-haiku-4-5-20251001": 997494
+    },
+    "mean_cost_usd": {
+      "claude-sonnet-5-5": 0.067,
+      "gpt-6-luna": null,
+      "claude-haiku-4-5-20251001": 0.274
+    },
+    "offline_replays": {
+      "verifier_on_EVR-0005": {
+        "gpt-6-luna": [
+          0.6,
+          0.55
+        ],
+        "others": "unchanged"
+      },
+      "majority_vote": {
+        "self_vote_x3": {
+          "claude-sonnet-5-5": 0.7,
+          "gpt-6-luna": 0.75,
+          "claude-haiku-4-5-20251001": 0.7
+        },
+        "vote_all_9": 0.7,
+        "vote_3_models": 0.75
+      },
+      "unanimous_items": 2
+    },
+    "success_criterion": "any route mean accuracy >= 0.9 at <= 1.5x cost",
+    "met": false,
+    "experiment_cost_usd_measured": 1.02,
+    "luna_cost": "not reported by the Codex subscription"
+  },
+  "links": [
+    {
+      "rel": "tests",
+      "ref": "HYP-0001"
+    },
+    {
+      "rel": "baseline",
+      "ref": "EVR-0005"
+    },
+    {
+      "rel": "measures",
+      "ref": "EVR-0006"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/eval.py"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0005"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0006"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "HYP-0002"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0002 -> ORCH-0003 (EXP-0001)",
+    "author_tier": "frontier (Opus 5.5) analysis of deterministic eval output"
+  },
+  "created_at": "2026-09-29T02:40:00+00:00",
+  "updated_at": "2026-09-29T02:40:00+00:00"
+}

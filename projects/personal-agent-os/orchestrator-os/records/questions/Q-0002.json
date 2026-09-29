@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "Q-0002",
+  "type": "Q",
+  "title": "How should small-sample route qualification be computed for multi-item cases?",
+  "status": "open",
+  "summary": "policy routing.qualification_rule uses the Wilson lower bound of the per-call validator pass rate with min_samples_for_qualification = 10. For a 20-item case set that needs >= 10 calls per route before anything can qualify; pooled item-level intervals (items_wilson95, now reported by orchestrate eval) qualify faster but treat repeated items as independent. The policy is a protected path, so the operator decides whether qualification may use pooled item-level intervals, and with what correction.",
+  "links": [
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0006"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "policy/orchestrator-os.policy.json"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0002 -> ORCH-0003 (EXP-0001)",
+    "author_tier": "frontier (Opus 5.5) analysis of deterministic eval output"
+  },
+  "created_at": "2026-09-29T02:40:00+00:00",
+  "updated_at": "2026-09-29T02:40:00+00:00"
+}
