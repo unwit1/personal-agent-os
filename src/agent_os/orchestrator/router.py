@@ -435,5 +435,5 @@ def _selection(
         "overridden": overridden,
         "reason": reason,
         "notes": notes,
-        "profile": {key: (provider.get("profile") or {}).get(key) for key in ("deployment", "refusal_profile", "open_weights")},
+        "profile": {key: (provider.get("profile") or {}).get(key) for key in ("deployment", "refusal_profile", "open_weights", "revision")},
     }

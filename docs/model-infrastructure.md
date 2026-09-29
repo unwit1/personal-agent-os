@@ -231,10 +231,14 @@ To try a catalog model:
 ## 10. Evaluate a served catalog model
 
 ```powershell
-agent-os orchestrate model-add --id local-x --base-url http://<pod>:8000 --model <catalog model_id> --roles inline,analyst --write
+agent-os orchestrate model-add --id local-x --base-url http://<pod>:8000 --model <catalog model_id> --revision <catalog sha> --roles inline,analyst --write
 agent-os orchestrate eval-queue plan --model <catalog model_id>        # readiness, candidate and incumbent routes
 agent-os orchestrate eval-queue run  --model <catalog model_id> --max-calls 6
 ```
+
+Add `--revision <catalog sha>` to `model-add` so capability evidence is
+keyed by the exact revision served (`model@<sha12>`). A re-quantized or
+updated checkpoint then starts with its own evidence.
 
 `run` compares the served model against an established incumbent on each
 suggested suite through `orchestrate eval`. That writes an EVR and records

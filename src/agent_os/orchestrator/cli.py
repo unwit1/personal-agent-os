@@ -161,6 +161,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     madd.add_argument("--deployment", choices=["subscription", "api", "serverless", "gpu_pod", "local"], help="default: local for a loopback URL, else api")
     madd.add_argument("--open-weights", action=argparse.BooleanOptionalAction, default=None)
     madd.add_argument("--license")
+    madd.add_argument("--revision", help="exact model revision served (e.g. the catalog's commit sha); keys capability evidence by revision")
     madd.add_argument("--context-window", type=int)
     madd.add_argument("--secret-ref", help="secrets://<provider>/<profile> holding the endpoint's API key, if it needs one")
     madd.add_argument("--cost", type=float, default=0.25, help="relative cost per call vs the registry's other providers (default 0.25)")
@@ -530,7 +531,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         entry = endpoint_entry(args.id, base_url=args.base_url, model=args.model, classes=[item.strip() for item in args.classes.split(",") if item.strip()],
                                refusal_profile=args.refusal_profile, deployment=args.deployment, open_weights=args.open_weights, license=args.license,
                                context_window=args.context_window, secret_ref=args.secret_ref, cost=args.cost, max_concurrency=args.max_concurrency,
-                               roles=[item.strip() for item in args.roles.split(",") if item.strip()])
+                               roles=[item.strip() for item in args.roles.split(",") if item.strip()], revision=args.revision)
         result = service.add_model_endpoint(entry, write=args.write, path=args.path, force=args.force)
         emit(result)
         return 1 if result.get("error") else 0

@@ -266,7 +266,8 @@ def _finish(outcome: dict[str, Any], root: Path, record: bool, home: Path | None
         capability.record_observation({
             "call_id": outcome["id"], "task_family": outcome["task_family"], "role": outcome["role"],
             "provider": selection.get("provider"), "model": selection.get("model"),
-            "model_resolved": outcome.get("model_resolved"), "capability_class": selection.get("capability_class"),
+            "model_resolved": outcome.get("model_resolved"), "model_revision": (selection.get("profile") or {}).get("revision"),
+            "capability_class": selection.get("capability_class"),
             "effort": outcome["effort"], "toolset": "read_only", "status": outcome["status"],
             "validator_passed": outcome["status"] == "passed", "repairs": 0,
             "failure_type": None if outcome["status"] == "passed" else (outcome.get("errors") or ["unknown"])[0][:120],

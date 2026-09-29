@@ -38,11 +38,39 @@ def observations_path(home: Path | None = None) -> Path:
     return Path(home or orchestrator_home()) / "capability" / "observations.jsonl"
 
 
-def record_observation(observation: dict[str, Any], *, home: Path | None = None) -> None:
+def record_observation(observation: dict[str, Any], *, home: Path | None = None, registry: Any = None) -> None:
+    """Append one observation. A missing ``model_revision`` is filled from
+    the provider's registry profile (``profile.revision``, e.g. a catalog
+    model's commit sha), so every caller -- delegate, the eval harness --
+    keys evidence by exact revision without passing it explicitly."""
+    if not observation.get("model_revision") and observation.get("provider"):
+        revision = _registry_revision(observation["provider"], registry)
+        if revision:
+            observation = {**observation, "model_revision": revision}
     path = observations_path(home)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(observation, sort_keys=True) + "\n")
+
+
+def _registry_revision(provider_id: str, registry: Any = None) -> str | None:
+    try:
+        if registry is None:
+            from .router import ProviderRegistry
+
+            registry = ProviderRegistry(discover=False)
+        provider = registry.get(provider_id)
+    except Exception:
+        return None
+    return ((provider or {}).get("profile") or {}).get("revision")
+
+
+def model_key(item: dict[str, Any]) -> Any:
+    """Concrete model identity for aggregation: ``model@<revision[:12]>`` when
+    a revision is known, else the model name (existing CAP ids unchanged)."""
+    model = item.get("model_resolved") or item.get("model")
+    revision = item.get("model_revision")
+    return f"{model}@{str(revision)[:12]}" if model and revision else model
 
 
 def read_observations(home: Path | None = None) -> list[dict[str, Any]]:
@@ -86,7 +114,7 @@ def summarize(observations: list[dict[str, Any]], floor: float = 0.9) -> list[di
     for item in observations:
         if item.get("status") == "unroutable":
             continue
-        key = tuple(item.get(field) or item.get("model") if field == "model_resolved" else item.get(field) for field in KEY_FIELDS)
+        key = tuple(model_key(item) if field == "model_resolved" else item.get(field) for field in KEY_FIELDS)
         groups.setdefault(key, []).append(item)
     records = []
     for key, items in sorted(groups.items(), key=lambda pair: [str(part) for part in pair[0]]):

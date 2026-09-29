@@ -160,6 +160,7 @@ def endpoint_entry(
     max_concurrency: int = 2,
     modalities: list[str] | None = None,
     roles: list[str] | None = None,
+    revision: str | None = None,
 ) -> dict[str, Any]:
     """Registry entry for an OpenAI-compatible endpoint (vLLM, Ollama, LM
     Studio, llama.cpp server, TGI, a RunPod/serverless proxy): the plug-in path
@@ -181,7 +182,7 @@ def endpoint_entry(
 
         parse(secret_ref)
     profile_raw: dict[str, Any] = {"refusal_profile": refusal_profile, "modalities": modalities or ["text", "code"]}
-    for key, value in (("deployment", deployment), ("open_weights", open_weights), ("license", license), ("context_window", context_window)):
+    for key, value in (("deployment", deployment), ("open_weights", open_weights), ("license", license), ("context_window", context_window), ("revision", revision)):
         if value is not None:
             profile_raw[key] = value
     profile = normalize_profile(profile_raw, "openai_api", {"base_url": base_url})
