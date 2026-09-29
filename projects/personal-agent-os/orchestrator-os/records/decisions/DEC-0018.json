@@ -1,0 +1,53 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0018",
+  "type": "DEC",
+  "title": "Attach known inputs instead of paying for worker exploration",
+  "status": "accepted",
+  "summary": "When a delegated task's inputs are known and small, attach them (orchestrate delegate --attach, eval route suffix +attach) as untrusted-data documents. EVR-0013 (EVS-SECURITY, gpt-6-luna, 3 samples each): accuracy 1.0 vs 1.0 (noninferior), input tokens 17.6k vs 55.7k (-68%), latency 9.5 s vs 29.2 s (-68%), matching EXP-0007. Attached tasks are self-contained, so API workers (role inline) can serve them once a key exists. Not applied to engine coding workers, which must explore and edit the repository.",
+  "prior_art": {
+    "checked": "PA-camel (data/control separation), spotlighting (Hines et al. 2024), PA-mini-swe-agent",
+    "found": "datamarking and delimiting as marking defenses; tool-free inline context as the cheap path",
+    "reused": "datamarking technique; delimiting with a random boundary",
+    "why_custom": "a ~60-line helper inside delegate; no dependency"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/delegate.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_delegate_attachments.py"
+    },
+    {
+      "rel": "measures",
+      "ref": "EVR-0013"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0011"
+    }
+  ],
+  "metrics": {
+    "accuracy": [
+      1.0,
+      1.0
+    ],
+    "input_tokens": [
+      55663,
+      17612
+    ],
+    "seconds": [
+      29.2,
+      9.5
+    ],
+    "model_calls": 6
+  },
+  "provenance": {
+    "session": "ORCH-0014 -> ORCH-0015",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T06:35:00+00:00",
+  "updated_at": "2026-09-29T06:35:00+00:00"
+}

@@ -60,7 +60,9 @@ instructions (constitution §9).
 3. **Route cheaply** (policy `execution_hierarchy`). Deterministic tools
    first. Send read-only inventory, classification and cross-referencing to
    `agent-os orchestrate delegate --task-family <family> --prompt-file p.md
-   --contract c.json [--capability-class fast]`. Coding changes go through
+   --contract c.json [--capability-class fast]`. When the task's inputs are known and
+   small, add `--attach <glob>`: it inlines them as untrusted data and was
+   ~68% cheaper and faster at equal accuracy (DEC-0018). Coding changes go through
    `agent-os orchestrate create/start-recommended --project personal-agent-os`
    when practical. Use the frontier tier only for the uses the policy allows.
 4. **Baseline before changing behavior.** `agent-os orchestrate eval --suite
