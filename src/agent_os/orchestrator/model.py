@@ -145,9 +145,13 @@ DEFAULT_POLICY: dict[str, Any] = {
     # Operator-only grant of protected control/evaluation-plane paths
     # (orchestrator/control_plane.py). Planners cannot set run policy.
     "protected_paths_allowed": [],
-    # IMP-0006: on editing nodes, run import-graph-selected test modules first
-    # and fail fast on new failures; the full validators still run and gate.
-    "affected_tests_first": True,
+    # IMP-0006: run import-graph-selected test modules before the full
+    # validators and fail fast on new failures; the full validators still run
+    # and gate. "retries" (default) applies it only after a failed attempt and
+    # on repairers: it saves ~64% of time-to-failure on failing attempts but
+    # adds ~36% on passing ones (DEC-0007), so "always" pays only when more
+    # than ~36% of validations fail. "off" disables it.
+    "affected_tests_first": "retries",
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -192,7 +196,6 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "cleanup_worktrees",
         "reuse_validation",
         "planner_repo_map",
-        "affected_tests_first",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")
@@ -227,6 +230,11 @@ def _check_policy(policy: dict[str, Any]) -> None:
         raise PolicyError("planner_capability_class must be a model capability class")
     if policy["planner_effort"] not in EFFORTS:
         raise PolicyError(f"planner_effort must be one of {EFFORTS}")
+    mode = policy.get("affected_tests_first", "retries")
+    if isinstance(mode, bool):
+        policy["affected_tests_first"] = mode = "always" if mode else "off"
+    if mode not in {"off", "retries", "always"}:
+        raise PolicyError("affected_tests_first must be off, retries or always")
     granted = policy.get("protected_paths_allowed", [])
     if not isinstance(granted, list) or any(not isinstance(item, str) for item in granted):
         raise PolicyError("protected_paths_allowed must be a list of path globs")

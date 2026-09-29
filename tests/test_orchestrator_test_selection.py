@@ -81,7 +81,7 @@ class EngineAffectedFirstTests(OrchestratorFixture):
         return self.node(run_id, "calc")
 
     def test_new_failure_in_affected_tests_fails_fast(self) -> None:
-        node = self.run_one(BROKEN)
+        node = self.run_one(BROKEN, affected_tests_first="always")
         validation = node["validation"]
         self.assertTrue(validation.get("fail_fast"))
         affected = [item for item in validation["evidence"] if item.get("name") == "affected-tests"][0]
@@ -91,11 +91,24 @@ class EngineAffectedFirstTests(OrchestratorFixture):
         self.assertNotIn("project-validation-1", [item.get("name") for item in validation["evidence"]])
 
     def test_passing_change_still_runs_the_full_validators(self) -> None:
-        node = self.run_one("def add(a, b):\n    return b + a\n")
+        node = self.run_one("def add(a, b):\n    return b + a\n", affected_tests_first="always")
         names = [item.get("name") for item in node["validation"]["evidence"]]
         self.assertIn("affected-tests", names)
         self.assertIn("project-validation-1", names)
         self.assertTrue(node["validation"]["passed"])
+
+    def test_default_skips_first_attempts(self) -> None:
+        node = self.run_one(BROKEN)
+        names = [item.get("name") for item in node["validation"]["evidence"]]
+        self.assertNotIn("affected-tests", names)
+
+    def test_policy_values(self) -> None:
+        from agent_os.orchestrator.model import PolicyError, merge_policy
+
+        self.assertEqual(merge_policy()["affected_tests_first"], "retries")
+        self.assertEqual(merge_policy({"affected_tests_first": True})["affected_tests_first"], "always")
+        with self.assertRaises(PolicyError):
+            merge_policy({"affected_tests_first": "sometimes"})
 
     def test_policy_can_disable_the_step(self) -> None:
         node = self.run_one(BROKEN, affected_tests_first=False)

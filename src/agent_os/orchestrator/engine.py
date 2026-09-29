@@ -772,7 +772,10 @@ class Orchestrator:
         from .validators import run_validator
 
         project = [item for item in validators if str(item.get("name", "")).startswith("project-validation")]
-        if not record["policy"].get("affected_tests_first", True) or not changed or not project or not runs_unit_tests(project):
+        mode = record["policy"].get("affected_tests_first", "retries")
+        mode = {True: "always", False: "off"}.get(mode, mode) if isinstance(mode, bool) else mode
+        retrying = int(node.get("attempts") or 1) > 1 or node["role"] == "repairer"
+        if mode == "off" or (mode == "retries" and not retrying) or not changed or not project or not runs_unit_tests(project):
             return None
         step = affected_first_validator(changed, cwd, sys.executable)
         if step is None:
