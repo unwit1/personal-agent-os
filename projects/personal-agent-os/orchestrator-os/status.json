@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T05:05:00+00:00",
-  "phase": "P1 foundations: control plane tested, provider health shared; test strength next",
-  "active_objective": "Prove the control-plane tests actually catch changes to protection logic (mutation testing, PA-mutmut), then return to route qualification and evaluation breadth.",
+  "updated_at": "2026-09-29T05:45:00+00:00",
+  "phase": "P1 foundations: control plane mutation-tested; evaluation breadth next",
+  "active_objective": "Decide whether Inspect AI should be wrapped for evaluation breadth (sandboxes, external benchmarks) without surrendering Agent OS evaluator authority (IMP-0008).",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -25,38 +25,38 @@
     "45 prior-art evaluations + discovery (bf11d932)",
     "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)",
     "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)",
-    "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)"
+    "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)",
+    "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0009",
     "DEC-0010",
-    "DEC-0011"
+    "DEC-0011",
+    "DEC-0012"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "Mutation-testing spike (PA-mutmut, INVESTIGATE; motivated by FND-0008): measure how many mutations of src/agent_os/orchestrator/control_plane.py (then validators.py and the review gate in engine.py) the current tests kill. Prefer running mutmut as an external dev tool in .agent-local/venv-dev (no runtime dependency); if it does not run on Windows, subsume a small AST mutator (flip comparisons/booleans, drop returns, negate conditions) scoped to those modules. Report the mutation score, add tests that kill surviving meaningful mutants, and record EXP + DEC with a prior_art note and update PA-mutmut. Protected-path note: control_plane.py and validators.py are protected; mutations must happen only in throwaway copies/worktrees, never committed.",
-    "prior_art": "mutation testing python control plane tests",
+    "summary": "IMP-0008 Inspect AI WRAP spike: in .agent-local/venv-dev install inspect-ai; write a throwaway bridge that runs EVS-TEST-SELECTION as an Inspect task (dataset = case file, solver = an Agent OS route through a custom ModelAPI or a solver that calls the deterministic import-graph route, scorer = the Agent OS recall/precision rule) and compare its results with `orchestrate eval` on the same cases. Measure: glue lines, installed dependency count and size, fidelity of results, what Inspect adds (sandboxes, eval-set resume, log viewer, inspect_evals ports) and whether suite definitions and promotion stay in Agent OS. Use deterministic routes only (0 model calls). Record EXP + DEC (prior_art note) and set PA-inspect-ai to WRAP or REJECT. Do not add inspect-ai to pyproject unless the DEC says WRAP, and then only as an optional extra.",
+    "prior_art": "provider-neutral agent evaluation sandbox eval sets",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Deterministic tooling and test writing; no model workers needed.",
+    "why_this_class": "Integration spike with deterministic comparison; no model workers needed.",
     "context_refs": [
-      "FND-0008",
+      "projects/personal-agent-os/improvements/IMP-0008.json",
       "projects/personal-agent-os/research/prior-art/registry.json",
-      "src/agent_os/orchestrator/control_plane.py",
-      "tests/test_orchestrator_control_plane.py",
-      "src/agent_os/orchestrator/validators.py"
+      "src/agent_os/orchestrator/eval.py",
+      "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-TEST-SELECTION.json"
     ],
     "stop_conditions": [
-      "EXP record with mutation scores before/after and new killing tests committed",
-      "0 model calls expected",
-      "stop and report if a protected path would have to change in committed code beyond tests, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+      "EXP + DEC recorded; PA-inspect-ai decision updated with evidence",
+      "0 model calls",
+      "stop and report if inspect-ai cannot install in the isolated venv, a protected path must change, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -132,6 +132,12 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "lesson": "check our own code before assuming a gap (FND-0009)"
+    },
+    "session_ORCH-0009": {
+      "deterministic_operations": "~15 incl. 181 mutant runs",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "downstream_value": "found and fixed a fail-open control-plane defect"
     }
   },
   "known_baseline": {
@@ -141,5 +147,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0008 pass (IMP-0005): checking existing capability first showed the engine already cooled quota-blocked providers (FND-0009 corrects FAIL-0001). Moved that into shared provider_health.py and closed the real gaps: parsing for every limit message seen this session plus Retry-After, a failure-window breaker for repeated unavailable failures, and delegate/eval honouring cooldowns (reporting 'deferred until' instead of wasting calls). EVR-0012 routing noninferior; state-machine hunt with unavailable bursts, 0 violations. 0 model calls."
+  "last_pass_summary": "ORCH-0009 pass (mutation testing): mutmut refuses native Windows, so a stdlib AST mutator was subsumed (orchestrate mutate). control_plane.py scored 30/36; survivors exposed applies_to() failing open on OSError (guard disabled) plus three test gaps; fixed to fail closed and tests added -> 36/36. Baselines: provider_health 0.759, test_selection 0.741 (IMP-0009, low priority). EXP-0004, DEC-0012; PA-mutmut -> BORROW. 0 model calls."
 }

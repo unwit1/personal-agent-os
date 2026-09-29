@@ -89,6 +89,17 @@
       "dedupe_key": "8f2f6a7294b4af8e920531da2a959eb90bc35c14309d25c317d1bbeeecd1c542",
       "updated_at": "2026-09-29T03:13:32.077343+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0009",
+      "title": "Raise mutation scores of runtime modules to >= 0.9 (provider_health, test_selection, validators)",
+      "category": "missing_test",
+      "subsystem": "orchestrator/tests",
+      "status": "candidate",
+      "priority": "low",
+      "dedupe_key": "e9a7c7a2601d9446c5ab55b6a2f63d7ac1b8cc3e509e3890acf4085495b002a7",
+      "updated_at": "2026-09-29T04:30:08.558310+00:00",
+      "github_issue_number": null
     }
   ]
 }

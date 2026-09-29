@@ -1967,29 +1967,39 @@
       "integration": "",
       "risks": {},
       "evidence": {
-        "development_savings": "large vs building mutation testing",
+        "development_savings": "operators borrowed; tool itself ~200 lines",
         "runtime_savings": "none",
-        "quality": "measures test strength",
+        "quality": "found a real fail-open defect (EXP-0004)",
         "reliability": "n/a",
         "security": "strengthens control-plane tests",
         "complexity": "dev tool only",
         "maintenance": "active",
-        "portability": "Python"
+        "portability": "native Windows unsupported (WSL required); verified 2026-09-29"
       },
-      "decision": "INVESTIGATE",
-      "rationale": "Run as an external developer tool (not imported, so no runtime dependency) against control-plane modules (control_plane.py, validators.py) to measure whether the tests actually catch changes to protection logic. Spike on control_plane.py. FND-0008: a vacuous invariant survived until a planted mutation exposed it, which strengthens the case for systematic mutation testing of control-plane tests.",
-      "confidence": "medium",
+      "decision": "BORROW",
+      "rationale": "mutmut 3 refuses to run on native Windows ('please use the WSL', issue #397), so its operators and killed/survived model were subsumed into src/agent_os/orchestrator/mutation.py (EXP-0004). The subsumed tool found a fail-open defect in control_plane.applies_to() and raised the control-plane mutation score from 0.833 to 1.0.",
+      "confidence": "high",
       "provenance": [
-        "GitHub REST api.github.com/repos/boxed/mutmut (2026-09-29)"
+        "GitHub REST api.github.com/repos/boxed/mutmut (2026-09-29)",
+        "mutmut 3 CLI output on Windows: 'To run mutmut on Windows, please use the WSL' (2026-09-29)"
       ],
       "links": [
         {
           "rel": "evidence_for",
           "ref": "FND-0008"
+        },
+        {
+          "rel": "evidence_for",
+          "ref": "EXP-0004"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "DEC-0012"
         }
       ],
       "revisit_when": [
-        "spike result recorded"
+        "mutmut gains native Windows support",
+        "subsumed tool becomes a maintenance burden"
       ],
       "revisit_by": null
     },

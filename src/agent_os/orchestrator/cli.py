@@ -169,6 +169,14 @@ def register(commands: argparse._SubParsersAction) -> None:
     ev.add_argument("--samples", type=int, default=1, help="case suites: calls per base route (+verify variants reuse them)")
     ev.add_argument("--max-calls", type=int, help="refuse the run if it needs more model calls than this")
 
+    mut = actions.add_parser("mutate", help="mutation testing: mutate a module in throwaway worktrees and run the named tests (no model call)")
+    mut.add_argument("module", help="repo-relative path, e.g. src/agent_os/orchestrator/control_plane.py")
+    mut.add_argument("--tests", action="append", required=True, help="test module, e.g. tests.test_orchestrator_control_plane (repeatable)")
+    mut.add_argument("--ref", default="HEAD")
+    mut.add_argument("--function", action="append", help="limit mutants to these functions")
+    mut.add_argument("--workers", type=int, default=4)
+    mut.add_argument("--limit", type=int)
+
     pa = actions.add_parser("prior-art", help="open-source prior-art registry: lookup, discovery queries, staleness, metadata refresh (no model call)")
     pa.add_argument("action", choices=["lookup", "queries", "stale", "refresh", "validate"])
     pa.add_argument("terms", nargs="*", help="problem description (lookup/queries) or entry ids (refresh)")
@@ -422,6 +430,12 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit({"provider": args.provider, "key_present": present, "source": "env" if os.environ.get(adapter.env_var) else ("keyring" if present else None),
               "note": "run `agent-os orchestrate providers` to see the API worker (role inline)"})
         return 0
+    if action == "mutate":
+        from . import mutation
+
+        result = mutation.run(args.module, args.tests, ref=args.ref, only_functions=set(args.function) if args.function else None, workers=args.workers, limit=args.limit)
+        emit(result)
+        return 0 if result.get("score") == 1.0 else 10
     if action == "prior-art":
         from . import prior_art
 

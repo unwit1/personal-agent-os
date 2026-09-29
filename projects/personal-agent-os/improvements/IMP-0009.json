@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0009",
+  "project": "personal-agent-os",
+  "title": "Raise mutation scores of runtime modules to >= 0.9 (provider_health, test_selection, validators)",
+  "category": "missing_test",
+  "subsystem": "orchestrator/tests",
+  "status": "candidate",
+  "priority": "low",
+  "observation": "EXP-0004 baselines: provider_health.py 0.759 (unpinned boundary constants), test_selection.py 0.741 (selector edge cases); validators.py not yet measured because its tests live in the slow tests/test_orchestrator.py.",
+  "evidence": [
+    "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0004.json"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Run orchestrate mutate per module, add tests for meaningful survivors (boundary constants, fallbacks), and add a fast targeted test module for validators.py so its mutation run stays under ~5 minutes.",
+  "acceptance": [
+    "Each module >= 0.9 or survivors documented as equivalent",
+    "validators.py measured"
+  ],
+  "risks": [],
+  "dedupe_key": "e9a7c7a2601d9446c5ab55b6a2f63d7ac1b8cc3e509e3890acf4085495b002a7",
+  "source": {
+    "type": "claude",
+    "reference": "EXP-0004"
+  },
+  "github": null,
+  "created_at": "2026-09-29T04:30:08.558310+00:00",
+  "updated_at": "2026-09-29T04:30:08.558310+00:00",
+  "notes": null
+}

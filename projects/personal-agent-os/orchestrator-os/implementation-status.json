@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T05:00:00+00:00",
+  "updated_at": "2026-09-29T05:40:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -379,10 +379,12 @@
     {
       "id": "RT-29",
       "feature": "mutation testing",
-      "status": "missing",
-      "evidence": [],
-      "note": "No mutation testing framework or coverage found",
-      "verified_by": "haiku audit (EVR-0002), spot-checked"
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/mutation.py"
+      ],
+      "note": "subsumed AST mutation tester; control_plane.py 1.0, provider_health 0.759, test_selection 0.741 (EXP-0004)",
+      "verified_by": "EXP-0004"
     }
   ],
   "meta_improvement": [
