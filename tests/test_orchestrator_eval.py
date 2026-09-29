@@ -86,6 +86,45 @@ class VerifierTests(unittest.TestCase):
         self.assertEqual(stats, {"claims_checked": 3, "downgraded": 2})
 
 
+class TestSelectionFamilyTests(unittest.TestCase):
+    CASES = [
+        {"id": "C1", "changed_files": ["src/agent_os/timestamps.py"], "expected_tests": ["tests.test_a", "tests.test_b"]},
+        {"id": "C2", "changed_files": ["src/agent_os/x.py"], "expected_tests": []},
+    ]
+
+    def test_scoring_requires_full_recall_and_half_precision(self) -> None:
+        exact = evaluation.score_test_selection({"items": [{"id": "C1", "tests": ["tests/test_a.py", "tests.test_b"]}, {"id": "C2", "tests": []}]}, self.CASES)
+        self.assertEqual((exact["correct"], exact["mean_recall"], exact["mean_precision"]), (2, 1.0, 1.0))
+        missed = evaluation.score_test_selection({"items": [{"id": "C1", "tests": ["tests.test_a"]}, {"id": "C2", "tests": ["tests.test_z"]}]}, self.CASES)
+        self.assertEqual(missed["correct"], 0)
+        flooded = evaluation.score_test_selection({"items": [{"id": "C1", "tests": ["tests.test_a", "tests.test_b", "tests.test_c", "tests.test_d", "tests.test_e"]}, {"id": "C2", "tests": []}]}, self.CASES)
+        self.assertEqual(flooded["correct"], 1)  # recall 1.0 but precision 0.4 fails
+
+    def test_normalize_test_module(self) -> None:
+        for raw in ("tests/test_x.py", "tests.test_x", "test_x", "`tests\\test_x.py`"):
+            self.assertEqual(evaluation.normalize_test_module(raw), "tests.test_x")
+
+    def test_module_imports_resolve_relative_imports(self) -> None:
+        source = "from ..timestamps import utc_now_iso\nfrom . import capability\nimport agent_os.paths\nimport json\n"
+        found = evaluation._module_imports(source, "agent_os.orchestrator.eval")
+        self.assertIn("agent_os.timestamps", found)
+        self.assertIn("agent_os.orchestrator.capability", found)
+        self.assertIn("agent_os.paths", found)
+        self.assertNotIn("json", found)
+
+    def test_import_graph_selector_is_transitive(self) -> None:
+        selector = evaluation.ImportGraphSelector(evaluation.resolve_commit("HEAD"))
+        chosen = selector.select(["src/agent_os/timestamps.py"])
+        self.assertIn("tests.test_timestamps", chosen)
+        self.assertIn("tests.test_orchestrator_eval", chosen)  # via agent_os.orchestrator.eval -> timestamps
+
+    def test_deterministic_route_needs_no_model_and_counts_no_calls(self) -> None:
+        case_file = {"task_family": "affected_test_selection", "base_commit": "HEAD", "cases": self.CASES}
+        outcome = evaluation.call_route(evaluation.parse_route("deterministic:all-tests"), case_file, Path("."))
+        self.assertEqual((outcome["status"], outcome["usage"]["cost_usd"], outcome["selection"]["provider"]), ("passed", 0.0, "deterministic"))
+        self.assertGreater(len(outcome["result"]["items"][0]["tests"]), 10)
+
+
 class CapabilityBasisTests(unittest.TestCase):
     def test_accuracy_scored_samples_supersede_contract_only(self) -> None:
         base = {"task_family": "f", "role": "analyst", "provider": "p", "model_resolved": "m", "effort": "low", "toolset": "read_only"}

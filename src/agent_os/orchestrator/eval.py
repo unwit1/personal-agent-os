@@ -24,7 +24,10 @@ the operator passes ``--operator-holdout``.
 
 from __future__ import annotations
 
+import ast
+import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -201,6 +204,15 @@ def _mie_prompt(case_file: dict[str, Any]) -> tuple[str, dict[str, Any]]:
 PROMPT_BUILDERS = {"research_implementation_classification": _mie_prompt}
 
 
+def _builders() -> dict[str, Any]:
+    return {**PROMPT_BUILDERS, ATS_FAMILY: _ats_prompt}
+
+
+def _scorer(task_family: str):
+    return score_test_selection if task_family == ATS_FAMILY else score_cases
+
+
+
 def score_cases(result: dict[str, Any] | None, cases: list[dict[str, Any]]) -> dict[str, Any]:
     answers = {str(item.get("id")): item.get("status") for item in ((result or {}).get("items") or []) if isinstance(item, dict)}
     wrong = [{"id": case["input_ref"], "expected": case["expected_status"], "got": answers.get(case["input_ref"])} for case in cases if answers.get(case["input_ref"]) != case["expected_status"]]
@@ -270,8 +282,11 @@ class EvidenceVerifier:
 
 
 def call_route(route: dict[str, Any], case_file: dict[str, Any], tree: Path, *, timeout: int = 900, registry: Any = None) -> dict[str, Any]:
-    """One model call for a base route (no verifier, no scoring)."""
-    builder = PROMPT_BUILDERS.get(case_file["task_family"])
+    """One model call for a base route (no verifier, no scoring); a
+    ``deterministic:<solver>`` route runs locally with no model."""
+    if route.get("provider") == "deterministic":
+        return _deterministic_answer(route, case_file)
+    builder = _builders().get(case_file["task_family"])
     if builder is None:
         raise EvalError(f"no prompt builder for task family {case_file['task_family']}")
     prompt, contract = builder(case_file)
@@ -284,7 +299,7 @@ def score_sample(route: dict[str, Any], outcome: dict[str, Any], case_file: dict
     answer, stats = outcome.get("result"), {"claims_checked": 0, "downgraded": 0}
     if route.get("verify") and outcome["status"] == "passed":
         answer, stats = (verifier or EvidenceVerifier(resolve_commit(case_file["base_commit"]))).apply(answer)
-    score = score_cases(answer, case_file["cases"]) if outcome["status"] == "passed" else {"cases": len(case_file["cases"]), "correct": 0, "accuracy": None, "wrong": []}
+    score = _scorer(case_file["task_family"])(answer, case_file["cases"]) if outcome["status"] == "passed" else {"cases": len(case_file["cases"]), "correct": 0, "accuracy": None, "wrong": []}
     selection = outcome.get("selection") or {}
     failure = None if outcome["status"] == "passed" else (outcome.get("errors") or ["unknown"])[0][:160]
     # FND-0001: the observation passes only when accuracy clears the floor, not
@@ -295,6 +310,7 @@ def score_sample(route: dict[str, Any], outcome: dict[str, Any], case_file: dict
         "effort": "low", "toolset": "read_only+verify" if route.get("verify") else "read_only", "status": outcome["status"],
         "validator_passed": bool(score["accuracy"] is not None and score["accuracy"] >= floor), "contract_passed": outcome["status"] == "passed",
         "accuracy": score["accuracy"], "items_correct": score["correct"], "items_total": score["cases"], "repairs": 0, "verifier": stats if route.get("verify") else None,
+        "mean_recall": score.get("mean_recall"), "mean_precision": score.get("mean_precision"),
         "failure_type": failure or (None if score["accuracy"] is not None and score["accuracy"] >= floor else f"accuracy_below_floor: {score['accuracy']}"),
         "seconds": outcome.get("seconds"), "input_tokens": usage.get("input_tokens"), "output_tokens": usage.get("output_tokens"),
         "cost_usd": usage.get("cost_usd"), "usage_accuracy": usage.get("accuracy"), "eval_case_file": case_file.get("suite"), "base_commit": case_file.get("base_commit"), "at": utc_now_iso(),
@@ -335,6 +351,8 @@ def aggregate(route: dict[str, Any], samples: list[dict[str, Any]]) -> dict[str,
         "seconds": _avg([item["seconds"] for item in samples]), "input_tokens": _avg([item["input_tokens"] for item in samples]),
         "cost_usd": _avg([item["cost_usd"] for item in samples]),
         "verifier_downgrades": sum(item["verifier"]["downgraded"] for item in samples) if route.get("verify") else None,
+        "mean_recall": _avg([item.get("mean_recall") for item in scored]), "mean_precision": _avg([item.get("mean_precision") for item in scored]),
+        "mean_selected": _avg([item.get("mean_selected") for item in scored]),
         "wrong": [{"answer": key, "count": count} for key, count in sorted(wrong_counts.items(), key=lambda pair: -pair[1])],
         "delegations": [item["delegation"] for item in samples],
     }
@@ -353,7 +371,8 @@ def run_cases(parsed: list[dict[str, Any]], case_file: dict[str, Any], tree: Pat
     bases: dict[str, dict[str, Any]] = {}
     for route in parsed:
         bases.setdefault(route["base_spec"], route)
-    jobs = [(base, index) for base in bases for index in range(samples)]
+    # Deterministic solvers are exact; one run stands for every sample.
+    jobs = [(base, index) for base in bases for index in range(1 if bases[base].get("provider") == "deterministic" else samples)]
     # Bounded: provider CLIs have their own concurrency and rate limits.
     with ThreadPoolExecutor(max_workers=min(len(jobs), 4) if parallel else 1) as pool:
         outcomes = list(pool.map(lambda job: call_route(bases[job[0]], case_file, tree, timeout=timeout, registry=registry), jobs))
@@ -365,13 +384,261 @@ def run_cases(parsed: list[dict[str, Any]], case_file: dict[str, Any], tree: Pat
 
 
 # ---------------------------------------------------------------------------
+# Task family: affected_test_selection (EXP-0002)
+# ---------------------------------------------------------------------------
+
+# Records which src files have a *function* executed (not just imported) while
+# one test module runs. Returning None from the trace function disables line
+# tracing, so only call events are paid for.
+TRACE_RUNNER = r"""
+import json, os, sys, threading, unittest
+module, out = sys.argv[1], sys.argv[2]
+seen = set()
+def tracer(frame, event, arg):
+    if event == "call" and frame.f_code.co_name != "<module>":
+        seen.add(frame.f_code.co_filename)
+    return None
+threading.settrace(tracer)
+sys.settrace(tracer)
+try:
+    suite = unittest.defaultTestLoader.loadTestsFromName(module)
+    with open(os.devnull, "w") as sink:
+        unittest.TextTestRunner(stream=sink, verbosity=0).run(suite)
+finally:
+    sys.settrace(None)
+    threading.settrace(None)
+    with open(out, "w", encoding="utf-8") as handle:
+        json.dump(sorted(seen), handle)
+"""
+ATS_FAMILY = "affected_test_selection"
+ATS_CASES = ROOT / "projects" / "personal-agent-os" / "orchestrator-os" / "evals" / "cases" / "development" / "affected-test-selection.json"
+
+
+def _src_relative(filename: str) -> str | None:
+    normalized = filename.replace("\\", "/")
+    index = normalized.rfind("/src/agent_os/")
+    return normalized[index + 1:] if index >= 0 and normalized.endswith(".py") else None
+
+
+def normalize_test_module(value: Any) -> str:
+    text = str(value).strip().strip("`").replace("\\", "/")
+    text = text[:-3] if text.endswith(".py") else text
+    text = text.replace("/", ".").lstrip(".")
+    return text if text.startswith("tests.") else f"tests.{text.split('.')[-1]}"
+
+
+def trace_test_modules(tree: Path, *, workers: int = 4, timeout: int = 900) -> dict[str, list[str]]:
+    """test module -> src files whose functions ran during that module."""
+    modules = sorted(f"tests.{path.stem}" for path in (tree / "tests").glob("test_*.py"))
+    out_dir = tree / ".agent-local" / "ats-trace"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    env = {**os.environ, "PYTHONPATH": str(tree / "src")}
+
+    def one(module: str) -> tuple[str, list[str]]:
+        out = out_dir / f"{module}.json"
+        try:
+            subprocess.run([sys.executable, "-c", TRACE_RUNNER, module, str(out)], cwd=tree, env=env, capture_output=True, text=True, timeout=timeout, stdin=subprocess.DEVNULL)
+            files = json.loads(out.read_text(encoding="utf-8"))
+        except (subprocess.TimeoutExpired, OSError, json.JSONDecodeError):
+            files = []
+        return module, sorted({rel for rel in (_src_relative(item) for item in files) if rel})
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        return dict(pool.map(one, modules))
+
+
+def candidate_commits(base: str, *, limit: int = 40, max_files: int = 6, scan: int = 1500) -> list[dict[str, Any]]:
+    """Recent non-merge commits (ancestors of ``base``) that change 1..max_files
+    src/agent_os/*.py files which still exist at ``base``; distinct file sets."""
+    existing = set(_git(["ls-tree", "-r", "--name-only", base, "src/agent_os"]).splitlines())
+    log = _git(["log", "--no-merges", f"-n{scan}", "--format=@%H", "--name-only", base, "--", "src/agent_os"])
+    commits, seen_sets = [], set()
+    sha, files = None, []
+    for line in log.splitlines() + ["@"]:
+        if line.startswith("@"):
+            if sha:
+                changed = sorted({item for item in files if item.endswith(".py") and item in existing})
+                key = tuple(changed)
+                if 0 < len(changed) <= max_files and key not in seen_sets:
+                    seen_sets.add(key)
+                    commits.append({"commit": sha, "changed_files": changed})
+            sha, files = line[1:] or None, []
+        elif line.strip():
+            files.append(line.strip())
+        if len(commits) >= limit:
+            break
+    return commits
+
+
+def generate_test_selection_cases(base_ref: str = "HEAD", *, limit: int = 40, workers: int = 4, write: bool = True, out: Path | None = None) -> dict[str, Any]:
+    """Deterministic labels, no model call (DEC-0006): for each case, the test
+    modules that execute a function in any changed file, traced at ``base``."""
+    base = resolve_commit(base_ref)
+    started = time.monotonic()
+    with Worktree(base) as tree:
+        trace = trace_test_modules(tree, workers=workers)
+    commits = candidate_commits(base, limit=limit)
+    cases = []
+    for item in commits:
+        expected = sorted(module for module, files in trace.items() if set(files) & set(item["changed_files"]))
+        cases.append({"id": f"EVC-ATS-{item['commit'][:10]}", "input_ref": item["commit"][:12], "changed_files": item["changed_files"], "expected_tests": expected})
+    digest = hashlib.sha256(json.dumps(trace, sort_keys=True).encode()).hexdigest()[:16]
+    case_file = {
+        "schema": "personal-agent/eval-cases/v1", "suite": "EVS-TEST-SELECTION", "split": "development", "task_family": ATS_FAMILY,
+        "base_commit": base[:12],
+        "label_rule": "expected_tests = test modules (tests/test_*.py) that call at least one function or method defined in any changed file, traced per module at base_commit (module-level import execution does not count; subprocess-launched code is not traced). See DEC-0006.",
+        "pass_rule": "case passes when recall == 1.0 and precision >= 0.5; an empty label passes only on an empty selection",
+        "trace_digest": digest, "test_modules": len(trace), "label_seconds": round(time.monotonic() - started, 1),
+        "cases": cases,
+    }
+    if write:
+        target = Path(out or ATS_CASES)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(case_file, indent=2) + "\n", encoding="utf-8", newline="\n")
+    return case_file
+
+
+def _module_imports(source: str, module_name: str) -> set[str]:
+    """agent_os modules imported by a module's source (absolute and relative)."""
+    import warnings
+
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", SyntaxWarning)
+            tree = ast.parse(source)
+    except SyntaxError:
+        return set()
+    package = module_name.rsplit(".", 1)[0] if not module_name.endswith("__init__") else module_name.rsplit(".", 1)[0]
+    found = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            found |= {alias.name for alias in node.names if alias.name.startswith("agent_os")}
+        elif isinstance(node, ast.ImportFrom):
+            if node.level:
+                parts = package.split(".")
+                base = ".".join(parts[: len(parts) - node.level + 1])
+                target = f"{base}.{node.module}" if node.module else base
+            else:
+                target = node.module or ""
+            if target.startswith("agent_os"):
+                found.add(target)
+                found |= {f"{target}.{alias.name}" for alias in node.names}
+    return found
+
+
+class ImportGraphSelector:
+    """Deterministic baseline: select test modules whose transitive agent_os
+    import closure contains a changed module. Reads sources at ``commit``."""
+
+    def __init__(self, commit: str) -> None:
+        self.commit = commit
+        names = _git(["ls-tree", "-r", "--name-only", commit, "src/agent_os", "tests"]).splitlines()
+        self.src = {name: self._module(name) for name in names if name.startswith("src/agent_os/") and name.endswith(".py")}
+        self.tests = [name for name in names if name.startswith("tests/test_") and name.endswith(".py")]
+        known = set(self.src.values())
+        self.graph = {module: {item for item in _module_imports(self._show(path), module) if item in known} for path, module in self.src.items()}
+        self.test_imports = {f"tests.{Path(path).stem}": {item for item in _module_imports(self._show(path), "tests.x") if item in known} for path in self.tests}
+        self.closure_cache: dict[str, set[str]] = {}
+
+    @staticmethod
+    def _module(path: str) -> str:
+        module = path[len("src/"):-3].replace("/", ".")
+        return module[: -len(".__init__")] if module.endswith(".__init__") else module
+
+    def _show(self, path: str) -> str:
+        return _git(["show", f"{self.commit}:{path}"], check=False)
+
+    def _closure(self, module: str) -> set[str]:
+        if module not in self.closure_cache:
+            seen, stack = set(), [module]
+            while stack:
+                current = stack.pop()
+                if current in seen:
+                    continue
+                seen.add(current)
+                # Importing a.b.c also runs a and a.b.
+                parts = current.split(".")
+                stack += [".".join(parts[:index]) for index in range(1, len(parts))]
+                stack += list(self.graph.get(current, ()))
+            self.closure_cache[module] = seen
+        return self.closure_cache[module]
+
+    def select(self, changed_files: list[str]) -> list[str]:
+        changed = {self._module(path) for path in changed_files if path in self.src}
+        chosen = []
+        for test, imports in self.test_imports.items():
+            reach = set().union(*(self._closure(item) for item in imports)) if imports else set()
+            if reach & changed:
+                chosen.append(test)
+        return sorted(chosen)
+
+
+def _ats_prompt(case_file: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+    lines = "\n".join(f"- {case['id']}: {', '.join(case['changed_files'])}" for case in case_file["cases"])
+    prompt = (
+        "Repository: the current working directory (Personal Agent OS; package src/agent_os, unit tests tests/test_*.py).\n"
+        "Task: for each hypothetical change below (the listed src files were modified), name the test modules that must be run "
+        "because they execute code in those files. Inspect imports and test code with grep/rg; read only what you need. "
+        "Select every affected module, but do not select unrelated ones (precision matters too).\n\n"
+        f"Changes:\n{lines}\n\n"
+        'Use dotted module names like "tests.test_orchestrator". An empty list is allowed.\n'
+        'Result object: {"items":[{"id":"EVC-ATS-...","tests":["tests.test_x"]}]}\n'
+    )
+    ids = [case["id"] for case in case_file["cases"]]
+    contract = {"required": {"items": "array"}, "items": {"min_items": len(ids), "expected_ids": ids, "required": {"id": "string", "tests": "array"}}}
+    return prompt, contract
+
+
+def score_test_selection(result: dict[str, Any] | None, cases: list[dict[str, Any]]) -> dict[str, Any]:
+    answers = {str(item.get("id")): {normalize_test_module(test) for test in item.get("tests") or []} for item in ((result or {}).get("items") or []) if isinstance(item, dict)}
+    wrong, recalls, precisions, sizes = [], [], [], []
+    for case in cases:
+        expected = set(case["expected_tests"])
+        got = answers.get(case["id"], set())
+        hit = len(expected & got)
+        # Nothing to find means nothing was missed; extra picks cost precision.
+        recall = hit / len(expected) if expected else 1.0
+        precision = hit / len(got) if got else (1.0 if not expected else 0.0)
+        recalls.append(recall)
+        precisions.append(precision)
+        sizes.append(len(got))
+        passed = (not expected and not got) or (bool(expected) and recall == 1.0 and precision >= 0.5)
+        if not passed:
+            wrong.append({"id": case["id"], "got": f"r={recall:.2f},p={precision:.2f}", "missed": sorted(expected - got)[:5], "extra": len(got - expected)})
+    n = len(cases)
+    return {"cases": n, "correct": n - len(wrong), "accuracy": round((n - len(wrong)) / n, 4) if n else 0.0, "wrong": wrong,
+            "mean_recall": round(sum(recalls) / n, 4) if n else None, "mean_precision": round(sum(precisions) / n, 4) if n else None,
+            "mean_selected": round(sum(sizes) / n, 2) if n else None}
+
+
+def _deterministic_answer(route: dict[str, Any], case_file: dict[str, Any]) -> dict[str, Any]:
+    """Deterministic solvers are routes like ``deterministic:import-graph``;
+    they return the same outcome shape as a delegation, at zero model cost."""
+    name = route.get("model") or ""
+    started = time.monotonic()
+    if case_file["task_family"] != ATS_FAMILY or name not in {"import-graph", "all-tests"}:
+        raise EvalError(f"no deterministic solver {name!r} for {case_file['task_family']}")
+    commit = resolve_commit(case_file["base_commit"])
+    if name == "import-graph":
+        selector = ImportGraphSelector(commit)
+        items = [{"id": case["id"], "tests": selector.select(case["changed_files"])} for case in case_file["cases"]]
+    else:
+        every = sorted(f"tests.{Path(path).stem}" for path in _git(["ls-tree", "-r", "--name-only", commit, "tests"]).splitlines() if Path(path).name.startswith("test_") and path.endswith(".py"))
+        items = [{"id": case["id"], "tests": every} for case in case_file["cases"]]
+    model = f"{name}@1"
+    return {"id": f"DET-{uuid.uuid4().hex[:12]}", "status": "passed", "errors": [], "result": {"items": items}, "seconds": round(time.monotonic() - started, 2),
+            "usage": {"input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "accuracy": "exact"}, "model_resolved": model,
+            "selection": {"provider": "deterministic", "model": model, "capability_class": "deterministic"}}
+
+
+# ---------------------------------------------------------------------------
 # Comparison
 # ---------------------------------------------------------------------------
 
 # direction: +1 higher is better, -1 lower is better, 0 informational.
 DIMENSIONS = {
     "tests": {"pass_rate": 1, "failures": -1, "errors": -1, "tests_run": 0, "seconds": -1},
-    "cases": {"accuracy": 1, "contract_pass": 1, "cost_usd": -1, "seconds": -1, "input_tokens": -1, "items_wilson95_low": 0},
+    "cases": {"accuracy": 1, "contract_pass": 1, "cost_usd": -1, "seconds": -1, "input_tokens": -1, "items_wilson95_low": 0, "mean_recall": 1, "mean_precision": 1},
 }
 
 
@@ -494,7 +761,7 @@ def run(suite_id: str, *, incumbent: str | None = None, candidates: list[str] | 
             raise EvalError("case suites need at least two routes (--route provider[:model][@class]); the first or --incumbent is the baseline")
         parsed = [parse_route(item) for item in specs]
         incumbent_ref = parse_route(incumbent)["spec"] if incumbent else parsed[0]["spec"]
-        calls = len({route["base_spec"] for route in parsed}) * max(samples, 1) * len(case_files)
+        calls = len({route["base_spec"] for route in parsed if route.get("provider") != "deterministic"}) * max(samples, 1) * len(case_files)
         if max_calls is not None and calls > max_calls:
             raise EvalError(f"run needs {calls} model calls, over the budget of {max_calls}")
         notes.append(f"{calls} model calls: {max(samples, 1)} sample(s) per base route; +verify variants reuse the same calls")

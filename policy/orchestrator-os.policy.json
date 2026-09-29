@@ -101,6 +101,7 @@
       "src/agent_os/orchestrator/control_plane.py",
       "src/agent_os/orchestrator/validators.py",
       "src/agent_os/orchestrator/review.py",
+      "src/agent_os/orchestrator/eval.py",
       "src/agent_os/privacy.py",
       "schemas/evidence-record-v1.schema.json",
       "schemas/orchestrator-checkpoint-v1.schema.json",

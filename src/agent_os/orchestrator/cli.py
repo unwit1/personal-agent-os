@@ -164,6 +164,13 @@ def register(commands: argparse._SubParsersAction) -> None:
     ev.add_argument("--samples", type=int, default=1, help="case suites: calls per base route (+verify variants reuse them)")
     ev.add_argument("--max-calls", type=int, help="refuse the run if it needs more model calls than this")
 
+    evc = actions.add_parser("eval-cases", help="generate deterministic development cases for a task family (no model call)")
+    evc.add_argument("--family", required=True, choices=["affected_test_selection"])
+    evc.add_argument("--base", default="HEAD", help="commit the labels are traced at")
+    evc.add_argument("--limit", type=int, default=40)
+    evc.add_argument("--workers", type=int, default=4)
+    evc.add_argument("--no-write", action="store_true")
+
     gui = actions.add_parser("gui", help="serve the local control GUI and API")
     gui.add_argument("--host", default="127.0.0.1")
     gui.add_argument("--port", type=int, default=8765)
@@ -381,6 +388,12 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         result = control_plane.check(paths, args.allow)
         emit({**result, "checked": len(paths)})
         return 0 if result["passed"] else 7
+    if action == "eval-cases":
+        from . import eval as evaluation
+
+        case_file = evaluation.generate_test_selection_cases(args.base, limit=args.limit, workers=args.workers, write=not args.no_write)
+        emit({key: value for key, value in case_file.items() if key != "cases"} | {"case_count": len(case_file["cases"]), "empty_labels": sum(1 for case in case_file["cases"] if not case["expected_tests"])})
+        return 0
     if action == "eval":
         from . import eval as evaluation
 

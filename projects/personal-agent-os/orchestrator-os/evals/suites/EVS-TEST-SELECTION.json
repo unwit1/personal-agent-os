@@ -1,0 +1,32 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVS-TEST-SELECTION",
+  "type": "EVS",
+  "title": "Affected test selection with deterministic labels",
+  "status": "active",
+  "summary": "Given the src files a real commit changed, select the test modules that execute code in them. Labels come from per-module call tracing at the case file's base commit, with no model involved (DEC-0006). A case passes on recall 1.0 with precision >= 0.5. Deterministic routes (deterministic:import-graph, deterministic:all-tests) compete with model routes.",
+  "metrics": {
+    "runners": [
+      "projects/personal-agent-os/orchestrator-os/evals/cases/development/affected-test-selection.json"
+    ],
+    "dimensions": [
+      "accuracy",
+      "mean_recall",
+      "mean_precision",
+      "cost_per_success",
+      "latency"
+    ],
+    "task_families": [
+      "affected_test_selection"
+    ],
+    "splits": [
+      "development"
+    ],
+    "regression_for": []
+  },
+  "links": [
+    {"rel": "relates_to", "ref": "FND-0005"}
+  ],
+  "created_at": "2026-09-29T02:10:00+00:00",
+  "updated_at": "2026-09-29T02:10:00+00:00"
+}
