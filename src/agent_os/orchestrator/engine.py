@@ -1086,6 +1086,11 @@ class Orchestrator:
             _write_cooldown(self.store.home, provider, until, redact(detail, 200))
             self._availability = None
             self.store.append_event(record["run_id"], "provider.cooldown", node["id"], f"{provider} skipped until {until}")
+        elif provider and kind == "unavailable":
+            opened = _health.record_unavailable(self.store.home, provider, redact(detail, 200))
+            if opened:
+                self._availability = None
+                self.store.append_event(record["run_id"], "provider.cooldown", node["id"], f"{provider} breaker open until {opened} (repeated unavailable)")
         if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
             try:
                 self._checkpoint(record, node, f"partial after {kind}")
@@ -2040,52 +2045,15 @@ def _repair_class(subject: dict[str, Any], findings: list[dict[str, Any]]) -> tu
     return capability, effort
 
 
-def _cooldown_path(home: Path) -> Path:
-    return Path(home) / "provider-cooldowns.json"
+# Provider health lives in provider_health.py so delegate/eval share it
+# (IMP-0005); these aliases keep the engine's existing names.
+from . import provider_health as _health  # noqa: E402
 
-
-def _quota_reset(detail: str, current: datetime | None = None) -> str:
-    """When a quota message says it resets ("try again at 1:50 PM"), that local
-    time (tomorrow if already past); otherwise one hour from now. UTC ISO."""
-    import re
-
-    local_now = (current or datetime.now(timezone.utc)).astimezone()
-    match = re.search(r"try again at (\d{1,2}):(\d{2})\s*([AP]M)", detail or "", re.IGNORECASE)
-    if match:
-        hour = int(match[1]) % 12 + (12 if match[3].upper() == "PM" else 0)
-        reset = local_now.replace(hour=hour, minute=int(match[2]), second=0, microsecond=0)
-        if reset <= local_now:
-            reset += timedelta(days=1)
-    else:
-        reset = local_now + timedelta(hours=1)
-    return reset.astimezone(timezone.utc).isoformat(timespec="seconds")
-
-
-def _read_cooldowns(home: Path) -> dict[str, Any]:
-    try:
-        return json.loads(_cooldown_path(home).read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return {}
-
-
-def _write_cooldown(home: Path, provider: str, until: str, reason: str) -> None:
-    data = _read_cooldowns(home)
-    data[provider] = {"until": until, "reason": reason}
-    path = _cooldown_path(home)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=1), encoding="utf-8")
-
-
-def _cooling_providers(home: Path, current: datetime | None = None) -> set[str]:
-    moment = current or datetime.now(timezone.utc)
-    cooling = set()
-    for provider, entry in _read_cooldowns(home).items():
-        try:
-            if datetime.fromisoformat(entry["until"]) > moment:
-                cooling.add(provider)
-        except (KeyError, TypeError, ValueError):
-            continue
-    return cooling
+_cooldown_path = _health.cooldown_path
+_quota_reset = _health.quota_reset
+_read_cooldowns = _health.read
+_write_cooldown = _health.write_cooldown
+_cooling_providers = _health.cooling
 
 
 _HOST_ACTION_PATTERN = (

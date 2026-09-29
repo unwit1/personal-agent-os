@@ -79,11 +79,16 @@ def check_contract(value: Any, contract: dict[str, Any] | None) -> list[str]:
     return errors[:25]
 
 
-def _availability(registry: ProviderRegistry) -> dict[str, bool]:
+def _availability(registry: ProviderRegistry, home: Path | None = None) -> dict[str, bool]:
+    """Probe results minus providers in a quota cooldown or open breaker
+    (shared with engine runs through provider_health, IMP-0005)."""
+    from . import provider_health
+
+    cooling = provider_health.cooling(Path(home or orchestrator_home()))
     result = {}
     for provider in registry.providers:
         factory = ADAPTERS.get(provider.get("adapter") or "")
-        result[provider["id"]] = bool(factory and factory(provider).probe().available)
+        result[provider["id"]] = provider["id"] not in cooling and bool(factory and factory(provider).probe().available)
     return result
 
 
@@ -108,13 +113,17 @@ def delegate(
     worker failure; the outcome is in the returned record."""
     registry = registry or ProviderRegistry()
     override = {"provider": provider, "model": model} if (provider or model) else None
-    choice = select(registry, capability_class=capability_class, effort=effort, role=role, availability=_availability(registry), override=override)
+    choice = select(registry, capability_class=capability_class, effort=effort, role=role, availability=_availability(registry, home), override=override)
     call_id = f"DLG-{uuid.uuid4().hex[:12]}"
     root = Path(home or orchestrator_home()) / "delegations" / call_id
     root.mkdir(parents=True, exist_ok=True)
     outcome: dict[str, Any] = {"id": call_id, "task_family": task_family, "role": role, "requested_class": capability_class, "effort": effort, "selection": choice, "started_at": utc_now_iso()}
     if not choice.get("resolved"):
-        outcome.update(status="unroutable", errors=[choice.get("reason") or "no provider"], result=None)
+        from . import provider_health
+
+        cooling = {name: entry.get("until") for name, entry in provider_health.read(Path(home or orchestrator_home())).items() if name in provider_health.cooling(Path(home or orchestrator_home()))}
+        reason = choice.get("reason") or "no provider"
+        outcome.update(status="unroutable", errors=[reason + (f"; deferred by provider cooldown until {cooling}" if cooling else "")], deferred_until=cooling or None, result=None)
         return _finish(outcome, root, record, home)
     prompt_path = root / "prompt.md"
     prompt_path.write_text(prompt + RESULT_INSTRUCTIONS.format(contract=json.dumps(contract or {"<any>": "object"})), encoding="utf-8")
@@ -145,6 +154,13 @@ def delegate(
     status = "failed" if result.outcome != "completed" else ("passed" if not errors else "contract_failed")
     if result.outcome != "completed":
         errors = [f"{result.failure_kind}: {result.detail or ''}".strip()]
+        from . import provider_health
+
+        health_home = Path(home or orchestrator_home())
+        if result.failure_kind == "quota":
+            outcome["cooldown_until"] = provider_health.record_quota(health_home, choice["provider"], result.detail or "")
+        elif result.failure_kind == "unavailable":
+            outcome["cooldown_until"] = provider_health.record_unavailable(health_home, choice["provider"], result.detail or "")
     (root / "result.json").write_text(json.dumps(structured, indent=1) if structured is not None else "null", encoding="utf-8")
     outcome.update(
         status=status, errors=errors, seconds=seconds, usage=result.usage,

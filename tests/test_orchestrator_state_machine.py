@@ -92,6 +92,8 @@ class Harness:
             return {"failure": "failed", "detail": "worker crashed"}
         if outcome == "quota":
             return {"failure": "quota", "detail": "usage limit"}
+        if outcome == "unavailable":
+            return {"failure": "unavailable", "detail": "provider unreachable"}
         if outcome == "no_change":
             return {"structured": {"status": "done", "summary": "nothing"}}
         target = f"{base}/{request.node_id}-{call}.txt" if outcome == "ok" else f"outside-{call}.txt"
@@ -174,7 +176,7 @@ def random_ops(rng: random.Random, count: int) -> list[str]:
     failures) so review-exhaustion gates, failure states and gate decisions
     are reached, not just the happy path."""
     hostile = rng.random() < 0.5
-    workers = ("ok", "out_of_scope", "crash", "quota", "no_change") if hostile else WORKER_OUTCOMES
+    workers = ("ok", "out_of_scope", "crash", "quota", "unavailable", "no_change") if hostile else WORKER_OUTCOMES
     reviews = ("approve", "reject", "reject") if hostile else REVIEW_OUTCOMES
     ops = ["start"]
     menu = ["step"] * 10 + ["worker"] * 3 + ["review"] * (5 if hostile else 2) + ["pause", "resume", "resume", "approve", "approve", "reject", "retry", "restart"]
