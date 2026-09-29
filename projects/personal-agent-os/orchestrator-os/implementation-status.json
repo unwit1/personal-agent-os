@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T08:10:00+00:00",
+  "updated_at": "2026-09-29T08:35:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -556,7 +556,7 @@
   ],
   "policy_enforcement": {
     "source": "policy/orchestrator-os.policy.json approval_required_for",
-    "updated_at": "2026-09-29T08:10:00+00:00",
+    "updated_at": "2026-09-29T08:35:00+00:00",
     "items": [
       {
         "rule": "protected_path_change",
@@ -598,9 +598,13 @@
       },
       {
         "rule": "external_publication",
-        "status": "text-only",
-        "where": [],
-        "gap": "no deterministic block on worker-initiated publishing; tracked as IMP-0014"
+        "status": "enforced",
+        "where": [
+          "src/agent_os/orchestrator/control_plane.py:publication_check (engine, every editing node)",
+          "claude_code adapter --disallowedTools publishing patterns",
+          "codex_cli adapter network_access=false for workspace-write"
+        ],
+        "gap": "deny-list patterns; Claude Code exposes no command transcript (tool deny rule is the enforcement there)"
       },
       {
         "rule": "deleting_negative_evidence",

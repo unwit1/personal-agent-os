@@ -150,10 +150,10 @@
       "title": "Enforce 'external publication requires approval' for orchestrated workers",
       "category": "security",
       "subsystem": "orchestrator/engine",
-      "status": "candidate",
+      "status": "implemented",
       "priority": "medium",
       "dedupe_key": "8633743876ba3c4678e412424dff7917caba3ab17abdd99097f7cb4cd06dba7e",
-      "updated_at": "2026-09-29T08:02:29.004931+00:00",
+      "updated_at": "2026-09-29T08:19:55.526742+00:00",
       "github_issue_number": null
     }
   ]
