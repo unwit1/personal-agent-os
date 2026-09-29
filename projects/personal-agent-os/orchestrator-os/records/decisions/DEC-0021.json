@@ -1,0 +1,47 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0021",
+  "type": "DEC",
+  "title": "Negative evidence is append-only, enforced; approval rules mapped to enforcement points",
+  "status": "accepted",
+  "summary": "control_plane.negative_evidence_check enforces the constitution's 'never erase negative evidence': FAIL records and EXP/EVR records with a negative outcome at the base commit cannot be deleted, lose fields or list items, or have text rewritten; appending, status/updated_at changes and growing recurrence counters are allowed. It runs in the validator step (node base commit) and in orchestrate control-check. Mutation score of control_plane.py with its tests: 0.954 (103/108; the 5 survivors are equivalent or message-only). A dogfood test caught that FAIL-0001's legitimate recurrence increase would have been rejected, so recurrence is monotonic. Enforcement map for policy approval_required_for recorded in implementation-status.json: 4 enforced, 1 partial (permission_increase), 1 text-only (external_publication, IMP-0014).",
+  "prior_art": {
+    "checked": "PA-cedar, PA-opa (fresh)",
+    "found": "policy engines model principal/action/resource; not needed for a file-level append-only rule",
+    "reused": "default-deny with explicit operator grants (Cedar-style) via protected_paths_allowed",
+    "why_custom": "the rule is a small diff check over Agent OS's own records"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/control_plane.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_negative_evidence.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0006"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0014"
+    }
+  ],
+  "metrics": {
+    "mutation_score": 0.954,
+    "mutants": 108,
+    "killed": 103,
+    "enforced_rules": 4,
+    "partial": 1,
+    "text_only": 1,
+    "model_calls": 0
+  },
+  "provenance": {
+    "session": "ORCH-0017 -> ORCH-0018 (MIE-0006 first slice)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T08:10:00+00:00",
+  "updated_at": "2026-09-29T08:10:00+00:00"
+}

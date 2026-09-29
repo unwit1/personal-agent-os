@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0014",
+  "project": "personal-agent-os",
+  "title": "Enforce 'external publication requires approval' for orchestrated workers",
+  "category": "security",
+  "subsystem": "orchestrator/engine",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "policy approval_required_for lists external_publication, but it is text-only: implementer workers run in workspace-write sandboxes and nothing deterministic blocks a worker command that publishes (git push, package upload, HTTP POST) during a run.",
+  "evidence": [
+    "projects/personal-agent-os/orchestrator-os/implementation-status.json#policy_enforcement"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Deny-list consequential publishing commands in worker sandboxes where the adapter supports it (Codex sandbox network policy; Claude Code disallowed tools), and add a validator that fails a node whose telemetry shows a publishing command; route legitimate publication through an operator gate.",
+  "acceptance": [
+    "A synthetic worker that attempts git push is blocked or its node fails validation",
+    "The enforcement map marks external_publication as enforced"
+  ],
+  "risks": [],
+  "dedupe_key": "8633743876ba3c4678e412424dff7917caba3ab17abdd99097f7cb4cd06dba7e",
+  "source": {
+    "type": "claude",
+    "reference": "ORCH-0018 enforcement map"
+  },
+  "github": null,
+  "created_at": "2026-09-29T08:02:29.004931+00:00",
+  "updated_at": "2026-09-29T08:02:29.004931+00:00",
+  "notes": null
+}

@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T07:45:00+00:00",
+  "updated_at": "2026-09-29T08:10:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -438,7 +438,7 @@
       "title": "Deterministic authorization policy engine",
       "status_at_base_f8f4453f": "partial",
       "status_after_bootstrap": "partial",
-      "note": "Control-plane protected-path validator (control_plane.py) + planner approved_commands; general authorization engine missing.",
+      "note": "protected paths + append-only negative evidence enforced; enforcement map recorded; external publication text-only (IMP-0014)",
       "tracked_as": null
     },
     {
@@ -553,5 +553,64 @@
       "note": "Blocked on MIE-0002 runner.",
       "tracked_as": null
     }
-  ]
+  ],
+  "policy_enforcement": {
+    "source": "policy/orchestrator-os.policy.json approval_required_for",
+    "updated_at": "2026-09-29T08:10:00+00:00",
+    "items": [
+      {
+        "rule": "protected_path_change",
+        "status": "enforced",
+        "where": [
+          "src/agent_os/orchestrator/control_plane.py:check (validator step, orchestrated runs on this repo)",
+          "agent-os orchestrate control-check (manual diffs)"
+        ],
+        "gap": "direct human-driven edits outside Orchestrator rely on control-check and review"
+      },
+      {
+        "rule": "spending_limit_change",
+        "status": "enforced",
+        "where": [
+          "budgets live in policy/orchestrator-os.policy.json (protected path)",
+          "run policy keys validated by model.merge_policy; planners cannot set policy"
+        ],
+        "gap": "none known"
+      },
+      {
+        "rule": "permission_increase",
+        "status": "partial",
+        "where": [
+          "protected_paths_allowed is operator-only run policy",
+          "delegate workers are read_only; API workers restricted to role inline",
+          "control-check on policy/**"
+        ],
+        "gap": "no deterministic check on adapter sandbox settings in the machine-local provider registry (~/.agent-os/providers.json)"
+      },
+      {
+        "rule": "push_or_merge_to_default_branch",
+        "status": "enforced",
+        "where": [
+          "engine never pushes",
+          "landing onto the base branch requires an approved consequential_repository_write gate (write-ahead + idempotent completion, DEC-0020)",
+          "state-machine invariants: base moves only after approval and only by fast-forward"
+        ],
+        "gap": "the operator's own /loop push gate is outside the engine by design"
+      },
+      {
+        "rule": "external_publication",
+        "status": "text-only",
+        "where": [],
+        "gap": "no deterministic block on worker-initiated publishing; tracked as IMP-0014"
+      },
+      {
+        "rule": "deleting_negative_evidence",
+        "status": "enforced",
+        "where": [
+          "src/agent_os/orchestrator/control_plane.py:negative_evidence_check (validator step with node base commit)",
+          "agent-os orchestrate control-check"
+        ],
+        "gap": "direct edits outside Orchestrator rely on control-check"
+      }
+    ]
+  }
 }
