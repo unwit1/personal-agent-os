@@ -145,6 +145,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     # Operator-only grant of protected control/evaluation-plane paths
     # (orchestrator/control_plane.py). Planners cannot set run policy.
     "protected_paths_allowed": [],
+    # IMP-0006: on editing nodes, run import-graph-selected test modules first
+    # and fail fast on new failures; the full validators still run and gate.
+    "affected_tests_first": True,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -189,6 +192,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "cleanup_worktrees",
         "reuse_validation",
         "planner_repo_map",
+        "affected_tests_first",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")

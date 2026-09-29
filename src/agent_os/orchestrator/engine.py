@@ -704,7 +704,16 @@ class Orchestrator:
         manager = self._manager(record)
         changed = manager.changed_files(worktree["path"], worktree["base_commit"])
         validators = node["validators"] or record["policy"]["default_validators"]
-        validation = self._validate(record, node, validators, worktree["path"], changed=changed, scope=node["scope"])
+        affected = self._affected_tests_first(record, node, validators, worktree["path"], changed)
+        if affected is not None and not affected["passed"]:
+            # Fail fast: a new failure in the affected modules already decides
+            # this attempt; the full suite would only repeat it more slowly.
+            scoped = run_all([], worktree["path"], changed=changed, scope=node["scope"], control_plane=_control_plane(record))
+            validation = {"passed": False, "declared_validators": len(validators), "evidence": [*scoped["evidence"], affected], "fail_fast": True, "at": now()}
+        else:
+            validation = self._validate(record, node, validators, worktree["path"], changed=changed, scope=node["scope"])
+            if affected is not None:
+                validation["evidence"] = [affected, *validation["evidence"]]
         validation["changed_files"] = changed[:50]
         node["validation"] = validation
         self.store.append_event(record["run_id"], "validation." + ("passed" if validation["passed"] else "failed"), node["id"], _evidence_line(validation))
@@ -751,6 +760,35 @@ class Orchestrator:
             return
         node["state"] = "PASSED"
         node["completed_at"] = now()
+
+    def _affected_tests_first(self, record: dict[str, Any], node: dict[str, Any], validators: list[dict[str, Any]], cwd: str | Path, changed: list[str]) -> dict[str, Any] | None:
+        """IMP-0006: run the import-graph-selected test modules before the
+        full validators. Returns the evidence item, or None when the step does
+        not apply. Failures that already fail on the base commit (per the
+        project validator's baseline) are excused, like the full suite's."""
+        import sys
+
+        from .test_selection import affected_first_validator, runs_unit_tests
+        from .validators import run_validator
+
+        project = [item for item in validators if str(item.get("name", "")).startswith("project-validation")]
+        if not record["policy"].get("affected_tests_first", True) or not changed or not project or not runs_unit_tests(project):
+            return None
+        step = affected_first_validator(changed, cwd, sys.executable)
+        if step is None:
+            return None
+        started = time.monotonic()
+        result = run_validator({key: step[key] for key in ("kind", "name", "command")}, cwd, int(record["policy"]["worker_timeout_seconds"]))
+        result.update(kind="affected", selected=len(step["selected"]), of=step["of"], seconds=round(time.monotonic() - started, 2))
+        if not result["passed"] and result.get("failed_tests"):
+            known = self._baseline_failures(record, project[0])
+            if known is not None and set(result["failed_tests"]) <= set(known):
+                result.update(passed=True, baseline_failures=len(result["failed_tests"]), detail=redact(f"only failures already present on the base commit ({len(result['failed_tests'])})", 400))
+            elif known is not None:
+                new = sorted(set(result["failed_tests"]) - set(known))
+                result.update(new_failures=new[:20], detail=redact(f"broken by this change (affected tests): {', '.join(new[:5])}", 400))
+        self.ledger.emit(record["run_id"], "tests_completed", node["id"], selection="affected", selected=result["selected"], of=result["of"], passed=result["passed"], duration_s=result["seconds"], **_test_totals([result]))
+        return result
 
     def _validate(
         self,

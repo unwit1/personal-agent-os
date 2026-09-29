@@ -45,6 +45,7 @@ from . import capability
 from .control_plane import load_policy
 from .delegate import delegate
 from .store import orchestrator_home
+from .test_selection import ImportGraphSelector, module_imports
 
 SUITES = ROOT / "projects" / "personal-agent-os" / "orchestrator-os" / "evals" / "suites"
 EVALUATIONS = ROOT / "projects" / "personal-agent-os" / "orchestrator-os" / "records" / "evaluations"
@@ -498,79 +499,9 @@ def generate_test_selection_cases(base_ref: str = "HEAD", *, limit: int = 40, wo
     return case_file
 
 
-def _module_imports(source: str, module_name: str) -> set[str]:
-    """agent_os modules imported by a module's source (absolute and relative)."""
-    import warnings
-
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", SyntaxWarning)
-            tree = ast.parse(source)
-    except SyntaxError:
-        return set()
-    package = module_name.rsplit(".", 1)[0] if not module_name.endswith("__init__") else module_name.rsplit(".", 1)[0]
-    found = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            found |= {alias.name for alias in node.names if alias.name.startswith("agent_os")}
-        elif isinstance(node, ast.ImportFrom):
-            if node.level:
-                parts = package.split(".")
-                base = ".".join(parts[: len(parts) - node.level + 1])
-                target = f"{base}.{node.module}" if node.module else base
-            else:
-                target = node.module or ""
-            if target.startswith("agent_os"):
-                found.add(target)
-                found |= {f"{target}.{alias.name}" for alias in node.names}
-    return found
-
-
-class ImportGraphSelector:
-    """Deterministic baseline: select test modules whose transitive agent_os
-    import closure contains a changed module. Reads sources at ``commit``."""
-
-    def __init__(self, commit: str) -> None:
-        self.commit = commit
-        names = _git(["ls-tree", "-r", "--name-only", commit, "src/agent_os", "tests"]).splitlines()
-        self.src = {name: self._module(name) for name in names if name.startswith("src/agent_os/") and name.endswith(".py")}
-        self.tests = [name for name in names if name.startswith("tests/test_") and name.endswith(".py")]
-        known = set(self.src.values())
-        self.graph = {module: {item for item in _module_imports(self._show(path), module) if item in known} for path, module in self.src.items()}
-        self.test_imports = {f"tests.{Path(path).stem}": {item for item in _module_imports(self._show(path), "tests.x") if item in known} for path in self.tests}
-        self.closure_cache: dict[str, set[str]] = {}
-
-    @staticmethod
-    def _module(path: str) -> str:
-        module = path[len("src/"):-3].replace("/", ".")
-        return module[: -len(".__init__")] if module.endswith(".__init__") else module
-
-    def _show(self, path: str) -> str:
-        return _git(["show", f"{self.commit}:{path}"], check=False)
-
-    def _closure(self, module: str) -> set[str]:
-        if module not in self.closure_cache:
-            seen, stack = set(), [module]
-            while stack:
-                current = stack.pop()
-                if current in seen:
-                    continue
-                seen.add(current)
-                # Importing a.b.c also runs a and a.b.
-                parts = current.split(".")
-                stack += [".".join(parts[:index]) for index in range(1, len(parts))]
-                stack += list(self.graph.get(current, ()))
-            self.closure_cache[module] = seen
-        return self.closure_cache[module]
-
-    def select(self, changed_files: list[str]) -> list[str]:
-        changed = {self._module(path) for path in changed_files if path in self.src}
-        chosen = []
-        for test, imports in self.test_imports.items():
-            reach = set().union(*(self._closure(item) for item in imports)) if imports else set()
-            if reach & changed:
-                chosen.append(test)
-        return sorted(chosen)
+# The selector is runtime code (the candidate under evaluation); this module
+# is the protected evaluator and only imports it.
+_module_imports = module_imports
 
 
 def _ats_prompt(case_file: dict[str, Any]) -> tuple[str, dict[str, Any]]:
