@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T03:00:00+00:00",
-  "phase": "P1 foundations: deterministic routes win where labels are objective; turning that into runtime savings",
-  "active_objective": "Convert measured wins into Orchestrator runtime savings: affected-test-first validation from the deterministic import graph (IMP-0006), with the full suite kept as the integration gate.",
+  "updated_at": "2026-09-29T03:45:00+00:00",
+  "phase": "P1 foundations: measured wins landing in the runtime; prior-art intelligence next",
+  "active_objective": "Make open-source prior art a required, automatically consulted input to significant Orchestrator design decisions (operator request 2026-09-29), then continue the roadmap.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -19,39 +19,41 @@
     "EXP-0001 rejected HYP-0001: evidence verifier had no effect; offline replay predicted it before spend (e6d1f35a, EVR-0006, 9 calls, $1.02 measured)",
     "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
     "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism",
-    "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)"
+    "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)",
+    "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)"
   ],
   "blockers": [
     "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
   ],
-  "active_experiments": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): switch affected_tests_first to always if first-attempt failure rate > 36%"
+  ],
   "recent_decisions": [
-    "DEC-0004",
     "DEC-0005",
-    "DEC-0006"
+    "DEC-0006",
+    "DEC-0007"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "Implement IMP-0006: move ImportGraphSelector from eval.py into a runtime module src/agent_os/orchestrator/test_selection.py (eval.py imports it, so the evaluator stays protected and the selector is the candidate). In the engine's validation step for intermediate nodes whose validators include the project unittest command, first run only the selected test modules (fail fast, reported as a separate 'affected-tests' evidence item), then the full declared validators as today; completion/integration still require the full validators, so no gate is weakened. Add an offline benchmark (no model calls) that replays EVS-TEST-SELECTION cases and reports selected-module share and missed affected modules, plus unit tests. Evaluate with `orchestrate eval --suite EVS-CONTROL-PLANE` and EVS-ROUTING (incumbent vs candidate commits).",
+    "summary": "Open-source prior-art intelligence (operator request 2026-09-29): extend the existing research/evidence primitives with a prior-art registry (schema + entries with ADOPT/WRAP/BORROW/REJECT/DEFER/INVESTIGATE decisions and separate evidence dimensions), wire a proportional prior-art check into docs/orchestrator-os/ENTRYPOINT.md, the constitution, CANONICAL_AGENT_POLICY/AGENTS and the continuation generator, add a task-specific discovery workflow with event-driven refresh, and seed evaluations (RouteLLM, Inspect AI, DSPy, Hypothesis, OpenHands, PydanticAI, Optuna, Promptfoo, LangGraph, AutoGen, CrewAI, Letta, Mem0, Graphiti, smolagents, AFlow, ADAS, Darwin Godel Machine, HyperAgents, plus newly discovered alternatives) against current Agent OS code. Commit in at least two steps.",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Bounded engine change with deterministic evaluation; no model workers needed (claude-code is quota-blocked until Oct 3).",
+    "why_this_class": "Structured research with primary-source verification; frontier only for final adoption judgments.",
     "context_refs": [
-      "projects/personal-agent-os/improvements/IMP-0006.json",
-      "FND-0007",
-      "EXP-0002",
-      "DEC-0006",
-      "src/agent_os/orchestrator/eval.py",
-      "src/agent_os/orchestrator/validators.py",
-      "src/agent_os/orchestrator/engine.py"
+      "docs/orchestrator-os/ENTRYPOINT.md",
+      "docs/orchestrator-os/CONSTITUTION.md",
+      "projects/personal-agent-os/research/meta-improvement/registry-index.json",
+      "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json",
+      "schemas/evidence-record-v1.schema.json",
+      "src/agent_os/orchestrator/continuation.py"
     ],
     "stop_conditions": [
-      "IMP-0006 acceptance passes with unit tests, `agent-os validate`, and noninferior EVRs for EVS-CONTROL-PLANE and EVS-ROUTING",
-      "0 model calls expected; at most 9 if a delegate is genuinely useful",
-      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+      "registry + workflow integration committed; seeded evaluations committed with evidence and confidence per entry",
+      "no third-party dependency added without benchmark evidence",
+      "stop and report if a protected path beyond the standing grants must change or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -104,6 +106,11 @@
       },
       "measured_cost_usd": 1.19,
       "downstream_value": "IMP-0006: ~70% fewer test modules per intermediate validation (to be measured)"
+    },
+    "session_ORCH-0005": {
+      "deterministic_operations": "~25 incl. 47-module timing run and 3 test-runner evals",
+      "model_calls": 0,
+      "measured_cost_usd": 0
     }
   },
   "known_baseline": {
@@ -113,5 +120,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0004 pass (EXP-0002): built a deterministic case generator for affected_test_selection (40 cases from git history, labels by per-module call tracing, 171 s, no model call), added deterministic routes and a recall/precision scorer to orchestrate eval, and created EVS-TEST-SELECTION under the operator's grant (eval.py is now protected). EVR-0007: the import-graph selector (recall 0.98, $0) matches Sonnet (0.383 vs 0.375 case pass, $0.20/run) and beats gpt-6-luna (0.19) and Haiku (0.15), which under-select. No cheap route qualifies, so IMP-0004 stays blocked; the deterministic rung wins this family (FND-0007) and IMP-0006 captures the runtime saving. The Claude weekly limit (resets Oct 3, 6pm ET) blocked one Haiku sample (FAIL-0001 recurrence 3). 9 model calls, $1.19 measured."
+  "last_pass_summary": "ORCH-0005 pass (IMP-0006): moved the import-graph selector into runtime module test_selection.py (eval.py only imports it, under the standing grant) and added an affected-tests-first step to the engine: selected test modules run before the unchanged full validators, new failures fail fast, base-commit failures are excused through the project baseline. Measurement (EVR-0011) showed the subset takes 36% of full-suite time on average, so the step saves time only when >36% of validations fail; with no run telemetry yet, the default is 'retries' (after a failed attempt and on repairers), HYP-0003 tracks switching to 'always'. Control-plane and routing evals noninferior (EVR-0008..0010). 0 model calls."
 }
