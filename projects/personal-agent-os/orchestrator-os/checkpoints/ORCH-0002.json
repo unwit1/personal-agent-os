@@ -1,0 +1,139 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0002",
+  "previous": "ORCH-0001",
+  "created_at": "2026-09-29T01:25:38.103333+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "9d769828",
+    "dirty": true
+  },
+  "phase": "P1 foundations: eval runner live; capability evidence accumulating",
+  "completed": [
+    "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
+    "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
+    "Read-only `orchestrate delegate` + CAP capability evidence with Wilson intervals (DEC-0004)",
+    "Typed evidence-record v1 + validation in `agent-os validate` (DEC-0002)",
+    "Continuation checkpoint + generated next prompt (`orchestrate checkpoint`)",
+    "Eval harness layout, 6 EVS suites, adjudicated development cases, external corpus registry (14 candidates, none imported)",
+    "Meta-improvement research merged and reconciled (implementation-status.json); IMP-0003..0005 captured",
+    "Dogfood: Haiku/Sonnet delegations measured (EVR-0001, EVR-0002); Luna callable but quota-blocked (FAIL-0001)",
+    "Cold-start check: fresh Haiku worker found entrypoint, policy, status, next IMP and worker class (EVR-0003, 5/5)",
+    "IMP-0003 implemented: `orchestrate eval` (fa15466e); EVR-0004 EVS-CONTROL-PLANE noninferior; EVR-0005 three-route classification (DEC-0005)",
+    "Q-0001 resolved: gpt-6-luna 0.60 vs Sonnet 0.75 vs Haiku 0.65 at pinned base; no route qualifies (floor 0.9); opposite error biases (FND-0004)",
+    "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)"
+  ],
+  "active_objective": "Get a cheap route qualified by evidence: test HYP-0001 with the eval runner (EXP-0001), then let qualified CAP evidence drive routing (IMP-0004).",
+  "latest_evidence": [
+    {
+      "id": "DEC-0005",
+      "type": "DEC",
+      "title": "Eval runner design: trusted judge, pinned base, quality verdict separate from cost",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0005.json",
+      "updated_at": "2026-09-29T01:45:00+00:00"
+    },
+    {
+      "id": "FND-0004",
+      "type": "FND",
+      "title": "Cheap routes err in opposite directions on partial-vs-missing judgments",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0004.json",
+      "updated_at": "2026-09-29T01:45:00+00:00"
+    },
+    {
+      "id": "Q-0001",
+      "type": "Q",
+      "title": "Is gpt-6-luna reliable enough for classification and inventory task families?",
+      "path": "projects/personal-agent-os/orchestrator-os/records/questions/Q-0001.json",
+      "updated_at": "2026-09-29T01:45:00+00:00"
+    },
+    {
+      "id": "CAP-0439615756",
+      "type": "CAP",
+      "title": "runtime_feature_audit via codex/gpt-6-luna (low) -- no capability samples",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-0439615756.json",
+      "updated_at": "2026-09-29T01:23:23.657818+00:00"
+    },
+    {
+      "id": "CAP-ed2b8df74c",
+      "type": "CAP",
+      "title": "runtime_feature_audit via claude-code/claude-haiku-4-5-20251001 (low)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-ed2b8df74c.json",
+      "updated_at": "2026-09-29T01:23:23.657802+00:00"
+    },
+    {
+      "id": "CAP-1512ae6ebf",
+      "type": "CAP",
+      "title": "research_implementation_classification via codex/gpt-6-luna (low)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-1512ae6ebf.json",
+      "updated_at": "2026-09-29T01:23:23.657769+00:00"
+    },
+    {
+      "id": "CAP-793f8cdfde",
+      "type": "CAP",
+      "title": "research_implementation_classification via claude-code/claude-sonnet-5-5 (low)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-793f8cdfde.json",
+      "updated_at": "2026-09-29T01:23:23.657728+00:00"
+    },
+    {
+      "id": "CAP-be9d7454fc",
+      "type": "CAP",
+      "title": "research_implementation_classification via claude-code/claude-haiku-4-5-20251001 (low)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-be9d7454fc.json",
+      "updated_at": "2026-09-29T01:23:23.657667+00:00"
+    }
+  ],
+  "open_blockers": [
+    "Branch orchestrator-os/bootstrap-20260928 is not merged to main (operator decision)"
+  ],
+  "active_experiments": [
+    "HYP-0001 -> EXP-0001 (next): pinned base (done) + deterministic evidence check raises cheap-route accuracy to >= 0.9"
+  ],
+  "recent_decisions": [
+    "DEC-0002",
+    "DEC-0003",
+    "DEC-0004",
+    "DEC-0005"
+  ],
+  "next_action": {
+    "summary": "Run EXP-0001 for HYP-0001: add an optional deterministic evidence verifier to delegate-case evals (for each implemented/partial answer, confirm every cited path exists at the pinned base and each ':symbol' is found by grep; unverifiable claims become 'missing'), recorded as a separate route variant (e.g. `codex@fast+verify`). Run EVS-CAPABILITY-CLASSIFICATION with 3 samples per route for gpt-6-luna, Haiku and Sonnet, with and without the verifier; write the EXP record (baseline EVR-0005) and EVRs; update CAPs. If a route's Wilson lower bound clears 0.9, start IMP-0004; otherwise record the result as rejected/inconclusive and propose the next hypothesis (for example Luna/Haiku disagreement-triggered escalation, FND-0004).",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Small deterministic post-processor plus eval runs; the judgment is in reading results, which the checkpoint's stop rules bound.",
+    "context_refs": [
+      "HYP-0001",
+      "EVR-0005",
+      "FND-0004",
+      "DEC-0005",
+      "src/agent_os/orchestrator/eval.py",
+      "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json",
+      "projects/personal-agent-os/research/meta-improvement/experiments/technique-experiment.schema.json",
+      "projects/personal-agent-os/improvements/IMP-0004.json"
+    ],
+    "stop_conditions": [
+      "EXP-0001 record written with outcome improved | noninferior | rejected | inconclusive and linked EVRs",
+      "experiment budget: at most 18 delegate calls (3 routes x 2 variants x 3 samples)",
+      "stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "HYP-0001",
+    "EVR-0005",
+    "FND-0004",
+    "DEC-0005",
+    "src/agent_os/orchestrator/eval.py",
+    "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json",
+    "projects/personal-agent-os/research/meta-improvement/experiments/technique-experiment.schema.json",
+    "projects/personal-agent-os/improvements/IMP-0004.json"
+  ],
+  "stopping_conditions": [
+    "EXP-0001 record written with outcome improved | noninferior | rejected | inconclusive and linked EVRs",
+    "experiment budget: at most 18 delegate calls (3 routes x 2 variants x 3 samples)",
+    "stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Operator grant requested: add src/agent_os/orchestrator/eval.py (evaluator code) to control_plane.protected_paths in policy/orchestrator-os.policy.json (DEC-0005 known gap)",
+    "Any other change under control_plane.protected_paths needs an explicit operator grant in the request",
+    "Merge/push to main only when the operator asks"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0002 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0002.json).\n\nCurrent objective: Get a cheap route qualified by evidence: test HYP-0001 with the eval runner (EXP-0001), then let qualified CAP evidence drive routing (IMP-0004).\n\nNext action: Run EXP-0001 for HYP-0001: add an optional deterministic evidence verifier to delegate-case evals (for each implemented/partial answer, confirm every cited path exists at the pinned base and each ':symbol' is found by grep; unverifiable claims become 'missing'), recorded as a separate route variant (e.g. `codex@fast+verify`). Run EVS-CAPABILITY-CLASSIFICATION with 3 samples per route for gpt-6-luna, Haiku and Sonnet, with and without the verifier; write the EXP record (baseline EVR-0005) and EVRs; update CAPs. If a route's Wilson lower bound clears 0.9, start IMP-0004; otherwise record the result as rejected/inconclusive and propose the next hypothesis (for example Luna/Haiku disagreement-triggered escalation, FND-0004).\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: EXP-0001 record written with outcome improved | noninferior | rejected | inconclusive and linked EVRs; experiment budget: at most 18 delegate calls (3 routes x 2 variants x 3 samples); stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
