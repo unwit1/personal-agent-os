@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0019",
+  "project": "personal-agent-os",
+  "title": "Test episodic agent rotation and learn the context break-even point",
+  "category": "performance",
+  "subsystem": "orchestrator/episode-scheduler",
+  "status": "ready",
+  "priority": "high",
+  "observation": "Operator proposed replacing context-heavy long-running workers with fresh task-scoped workers that receive only required context and structured prior-stage state. This may avoid repeated history processing, but worker bootstrap, handoff, coordination, and rediscovery create a competing cost that must be measured.",
+  "evidence": [
+    "projects/personal-agent-os/roadmap/episodic-agent-rotation.md",
+    "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
+    "projects/personal-agent-os/improvements/IMP-0018.json",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0013.json",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0018.json"
+  ],
+  "suspected_root_cause": "Long-lived workers can repeatedly reprocess stale context; current orchestration does not yet estimate when continuity costs more than starting a fresh episode with targeted retrieval and a structured handoff.",
+  "suggested_direction": "Benchmark persistent workers against semantic-boundary rotation, model continuation and rotation cost explicitly, add an observable context-pressure score and shadow rotation advisor, and promote automatic rotation only after it lowers total cost per validated completion.",
+  "acceptance": [
+    "A deterministic or replayable benchmark compares persistent-worker and fresh-worker strategies on identical objectives and validators",
+    "Measurements include worker bootstrap, handoff, targeted retrieval, rediscovery, retries, reviews, total tokens, latency, and validated result",
+    "Rotation-frequency experiments identify a diminishing-return or break-even region for at least one task family",
+    "A shadow rotation advisor can explain continue/compact/rotate/split recommendations without changing execution",
+    "Structured handoffs preserve artifacts, decisions, state, evidence, and source pointers",
+    "Recursive delegation depth/fan-out is bounded and measured",
+    "Automatic rotation is enabled only after noninferior validation and improved total cost per successful task"
+  ],
+  "risks": [
+    "Over-rotation can make bootstrap and coordination cost exceed context savings",
+    "Over-compressed handoffs can create rediscovery, errors, and repair loops",
+    "Excessive recursive delegation can replace temporal context amplification with branch/fan-out amplification"
+  ],
+  "dedupe_key": null,
+  "source": {
+    "type": "operator",
+    "reference": "2026-09-29 request to test fresh subagent rotation for context/token efficiency"
+  },
+  "github": null,
+  "created_at": "2026-09-29T20:55:00+00:00",
+  "updated_at": "2026-09-29T20:55:00+00:00",
+  "notes": "High priority, shadow/measurement first. Integrate with IMP-0018 telemetry rather than creating a parallel measurement stack."
+}
