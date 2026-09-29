@@ -8,9 +8,17 @@ from pathlib import Path
 from typing import Any
 
 
-def load_json(path: Path) -> Any:
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+def load_json(path: Path, attempts: int = 5, delay: float = 0.05) -> Any:
+    """Read JSON, retrying briefly when Windows denies the open because a
+    concurrent atomic replace holds the file (FAIL-0006)."""
+    for attempt in range(attempts):
+        try:
+            with path.open("r", encoding="utf-8") as handle:
+                return json.load(handle)
+        except PermissionError:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(delay * (2 ** attempt))
 
 
 def write_json(path: Path, value: Any) -> None:

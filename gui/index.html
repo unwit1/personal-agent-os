@@ -130,6 +130,25 @@
       </details>
     </section>
 
+    <section class="panel">
+      <details id="compute-panel" class="efficiency">
+        <summary>Models &amp; compute <span id="compute-badge" class="badge hidden"></span></summary>
+        <p class="muted" id="compute-note"></p>
+        <h3>Registered models</h3>
+        <table><thead><tr><th>Provider</th><th>Models</th><th>Deployment</th><th>Refusal profile</th><th>Roles</th></tr></thead><tbody id="compute-providers"></tbody></table>
+        <h3>Discovered models <span class="muted" id="compute-catalog-size"></span></h3>
+        <table><thead><tr><th>Model</th><th>Pipeline</th><th>License</th><th>Refusal hint</th><th>Downloads</th></tr></thead><tbody id="compute-catalog"></tbody></table>
+        <h3>GPU prices <span class="muted" id="compute-inventory-at"></span></h3>
+        <table><thead><tr><th>GPU</th><th>VRAM</th><th>Tier</th><th>$/hour</th></tr></thead><tbody id="compute-inventory"></tbody></table>
+        <h3>Measured throughput</h3>
+        <table><thead><tr><th>Model</th><th>GPU</th><th>Engine</th><th>Tokens/s</th><th>Source</th></tr></thead><tbody id="compute-throughput"></tbody></table>
+        <h3>Eval queue <span class="muted" id="compute-queue-summary"></span></h3>
+        <table><thead><tr><th>Model</th><th>Status</th><th>Detail</th></tr></thead><tbody id="compute-queue"></tbody></table>
+        <h3>Refusals and shadow foreman</h3>
+        <table><thead><tr><th>Route</th><th>Kind</th><th>Summary</th></tr></thead><tbody id="compute-signals"></tbody></table>
+      </details>
+    </section>
+
     <dialog id="repo-dialog" aria-labelledby="repo-title">
       <div class="row"><h2 id="repo-title">Choose a repository</h2><span class="spacer"></span>
         <button id="repo-new-button" class="primary">+ New repository</button></div>

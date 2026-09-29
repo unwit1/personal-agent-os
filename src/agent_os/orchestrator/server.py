@@ -254,6 +254,10 @@ class Api:
             return self.simple(parts[1])
         if len(parts) == 3 and parts[0] == "runs" and parts[2] == "efficiency":
             return service.engine().efficiency(parts[1])
+        if parts == ["model-compute"]:
+            from . import model_view
+
+            return model_view.build(service.engine().store.home)
         if parts == ["providers"]:
             return service.providers()
         if parts == ["runs"]:

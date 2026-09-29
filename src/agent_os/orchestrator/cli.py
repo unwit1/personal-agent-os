@@ -148,8 +148,10 @@ def register(commands: argparse._SubParsersAction) -> None:
     key.add_argument("provider", choices=["anthropic", "openai"])
 
     sec = actions.add_parser("secrets", help="provider-neutral secret references secrets://<provider>/<profile> (keyring or env; values never printed)")
-    sec.add_argument("action", choices=["set", "status", "delete"])
-    sec.add_argument("ref", help="e.g. secrets://runpod/default or secrets://local-llm/default")
+    sec.add_argument("action", choices=["set", "status", "delete", "setup"])
+    sec.add_argument("ref", nargs="?", help="e.g. secrets://runpod/default (setup: optional; default walks every known credential)")
+    sec.add_argument("--gui", action="store_true", help="set: masked pop-up dialog instead of a terminal prompt")
+    sec.add_argument("--reprompt", action="store_true", help="setup: also prompt for credentials that are already configured")
     sec.add_argument("--from-env", metavar="VAR", help="with set: read the value from this environment variable instead of a hidden prompt")
 
     madd = actions.add_parser("model-add", help="register an OpenAI-compatible endpoint (vLLM/Ollama/LM Studio/llama.cpp/TGI; open-weight or abliterated) in the machine-local registry; preview unless --write")
@@ -517,12 +519,27 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         from . import secret_refs
 
+        if args.action == "setup":
+            from .secret_prompt import setup
+
+            emit(setup([args.ref] if args.ref else None, skip_configured=not args.reprompt))
+            return 0
+        if not args.ref:
+            from .secret_prompt import CREDENTIALS
+
+            emit([secret_refs.status(item["ref"]) for item in CREDENTIALS] if args.action == "status" else {"error": "ref required"})
+            return 0 if args.action == "status" else 2
         if args.action == "status":
             emit(secret_refs.status(args.ref))
         elif args.action == "delete":
             emit(secret_refs.delete(args.ref))
         else:
-            value = os.environ.get(args.from_env, "") if args.from_env else getpass.getpass(f"value for {args.ref} (input hidden): ")
+            if args.gui:
+                from .secret_prompt import tk_prompt
+
+                value = tk_prompt(f"Agent OS - {args.ref}", f"Value for {args.ref} (stored in the OS keyring; never printed)") or ""
+            else:
+                value = os.environ.get(args.from_env, "") if args.from_env else getpass.getpass(f"value for {args.ref} (input hidden): ")
             emit(secret_refs.store(args.ref, value))
         return 0
     if action == "model-add":

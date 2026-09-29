@@ -331,7 +331,36 @@
     }));
   }
 
+  function rows(target, items, cells, empty) {
+    const list = items || [];
+    $(target).replaceChildren(...(list.length ? list.map((item) => el("tr", {}, ...cells(item).map((cell) => el("td", {}, cell == null ? "—" : String(cell)))))
+      : [el("tr", {}, el("td", { class: "muted", colspan: "5" }, empty))]));
+  }
+
+  async function loadCompute() {
+    const view = await api("model-compute");
+    $("compute-note").textContent = view.note;
+    rows("compute-providers", view.providers, (p) => [p.id, (p.models || []).join(", "), p.deployment, p.refusal_profile, (p.roles || ["all"]).join(", ")], "No providers registered.");
+    $("compute-catalog-size").textContent = view.catalog.size ? `(${view.catalog.size} in the local catalog)` : "";
+    rows("compute-catalog", view.catalog.top, (m) => [m.model_id, m.pipeline, m.license, m.refusal_profile_hint, core.formatNumber(m.downloads)], "Nothing scanned yet: agent-os orchestrate radar scan");
+    $("compute-inventory-at").textContent = view.inventory.fetched_at ? `(cached ${view.inventory.fetched_at.slice(0, 16).replace("T", " ")} UTC)` : "";
+    rows("compute-inventory", view.inventory.offers, (o) => [o.name, `${o.vram_gb} GB`, o.tier, o.usd_per_hour.toFixed(2)], view.inventory.note || "No cached prices.");
+    rows("compute-throughput", view.throughput, (t) => [t.model, t.gpu, t.engine, t.tokens_per_second, t.source], "No measurements yet: agent-os orchestrate throughput measure");
+    const statuses = Object.entries(view.eval_queue.by_status || {}).map(([name, count]) => `${count} ${name}`).join(", ");
+    $("compute-queue-summary").textContent = statuses ? `(${statuses})` : "";
+    rows("compute-queue", view.eval_queue.recent, (q) => [q.model_id, q.status, (q.problems || [])[0] || q.reason || ""], "Queue is empty.");
+    const signals = [
+      ...Object.entries((view.refusals || {}).routes || {}).map(([route, r]) => [route, "refusals", `${r.total} (${Object.entries(r.categories).map(([k, v]) => `${k} ${v}`).join(", ")})`]),
+      ...Object.entries(view.foreman || {}).map(([route, f]) => [route, "shadow foreman", `${f.proposals} proposals · agree ${f.agree} · cheaper ok ${f.cheaper_likely_ok} · cheaper risky ${f.cheaper_risky} · stronger ${f.stronger}`]),
+    ];
+    rows("compute-signals", signals, (s) => s, "No refusals or shadow proposals recorded.");
+    const pending = (view.eval_queue.by_status || {}).queued || 0;
+    $("compute-badge").classList.toggle("hidden", !pending);
+    $("compute-badge").textContent = pending ? `${pending} to evaluate` : "";
+  }
+
   function wireSimple() {
+    $("compute-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading models and compute", loadCompute); });
     $("models-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the model list", async () => renderModels(await api("models"))); });
     $("models-refresh").addEventListener("click", (event) => act(event.currentTarget, "refresh", "checking the official model lists", async () => renderModels(await api("models/refresh", {}))));
     $("usage-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "adding up model usage", loadUsage); });

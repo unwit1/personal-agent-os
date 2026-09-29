@@ -1,0 +1,19 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0039",
+  "type": "DEC",
+  "title": "Read-only Models & compute panel in the orchestrator GUI",
+  "status": "accepted",
+  "summary": "Roadmap 'Observability / UI', first slice. model_view.build aggregates local state only: registered providers with their profiles (deployment, refusal profile, roles), the Research Radar catalog (top by downloads plus abliterated hints), the cached RunPod inventory (never a live fetch on page open; `orchestrate compute inventory` refreshes it), recent throughput measurements, eval-queue status counts and recent entries, refusal telemetry and shadow-foreman aggregates. GET /api/model-compute serves it behind the existing session token and loopback Host check; a collapsible 'Models & compute' panel in Simple Mode renders it lazily on open, with empty-state guidance naming the command that fills each table and a badge for models waiting to be evaluated. No POST route, no model call, no network call, no spend, no routing change. Stop/cancel buttons for paid compute and quote forms wait for the provisioning slice.",
+  "prior_art": {"checked": "existing GUI panels (models, usage)", "found": "lazy details panels over token-protected GET routes", "reused": "server Api.get, simple.js act/api/el helpers, core.formatNumber", "why_custom": "n/a"},
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/model_view.py"},
+    {"rel": "implements", "ref": "gui/simple.js"},
+    {"rel": "tests", "ref": "tests/test_model_view.py"},
+    {"rel": "relates_to", "ref": "IMP-0015"}
+  ],
+  "metrics": {"model_calls": 0, "network_calls_on_open": 0, "new_tests": 4},
+  "provenance": {"session": "ORCH-0034 -> ORCH-0035", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-30T00:10:00+00:00",
+  "updated_at": "2026-09-30T00:10:00+00:00"
+}

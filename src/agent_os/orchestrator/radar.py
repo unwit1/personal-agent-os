@@ -33,6 +33,7 @@ from ..timestamps import utc_now_iso
 from .store import orchestrator_home
 
 HUB_API = "https://huggingface.co/api/models"
+HF_SECRET = "secrets://huggingface/default"  # optional: rate limits, gated repos
 EXPAND = ("cardData", "safetensors", "sha", "lastModified", "pipeline_tag", "downloads", "likes", "tags", "createdAt", "library_name")
 # pipeline tag -> (modalities, capabilities)
 PIPELINES: dict[str, tuple[list[str], list[str]]] = {
@@ -111,7 +112,13 @@ def normalize(item: dict[str, Any], scan_name: str, fetched_at: str) -> dict[str
 
 
 def fetch(scan: dict[str, Any], opener: Callable[..., Any] | None = None) -> list[dict[str, Any]]:
-    request = urllib.request.Request(scan_url(scan), headers={"user-agent": "agent-os/1", "accept": "application/json"})
+    headers = {"user-agent": "agent-os/1", "accept": "application/json"}
+    from .secret_refs import resolve
+
+    token = resolve(HF_SECRET)
+    if token:
+        headers["authorization"] = f"Bearer {token}"
+    request = urllib.request.Request(scan_url(scan), headers=headers)
     with (opener or urllib.request.urlopen)(request, timeout=30) as response:
         payload = json.loads(response.read().decode())
     return payload if isinstance(payload, list) else []

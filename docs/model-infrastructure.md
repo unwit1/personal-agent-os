@@ -17,6 +17,22 @@ Any server that speaks the OpenAI Chat Completions API works: vLLM
 Studio, llama.cpp `llama-server`, TGI, or a proxy in front of a RunPod pod or
 serverless endpoint. Agent OS posts to `<base_url>/v1/chat/completions`.
 
+## 0. Credentials (one-time, pop-up dialogs)
+
+```powershell
+agent-os orchestrate secrets setup        # masked pop-ups -> Windows Credential Manager; blank/Cancel skips
+agent-os orchestrate secrets status       # presence and source only, never values
+```
+
+| Reference | What it unlocks | Where to get it | Needed now? |
+|---|---|---|---|
+| `secrets://runpod/default` | authenticated RunPod inventory; pod provisioning later, after budget approval | RunPod console > Settings > API Keys (read-only is enough until provisioning is approved) | optional (public prices work without it) |
+| `secrets://huggingface/default` | Research Radar rate limits and gated-repo metadata | huggingface.co > Settings > Access Tokens, type Read | optional |
+| `secrets://local-abliterated/default` | your model server's key, if it requires one (e.g. vLLM `--api-key`) | the key you set on the server | only if your server needs a key |
+
+No payment details go into Agent OS. Fund RunPod in its own console, with
+its spending controls.
+
 ## 2. Store its key (only if the endpoint needs one)
 
 ```powershell
@@ -247,6 +263,19 @@ Register the endpoint with the `analyst` role: without it the router would
 answer eval cases with a different provider. The runner refuses such
 candidates and marks any run answered by another provider invalid
 (FND-0014).
+
+## 11. See it all in the GUI
+
+`agent-os orchestrate gui` → Simple Mode → **Models & compute** shows the
+following, read-only:
+- registered models with deployment, refusal profile and roles;
+- the discovered catalog, including abliterated hints;
+- cached GPU prices and measured throughput;
+- the eval queue;
+- refusal and shadow-foreman summaries.
+
+Opening it makes no network or model call. Refresh prices with
+`orchestrate compute inventory`.
 
 ## What stays gated
 

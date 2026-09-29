@@ -38,6 +38,26 @@ class ReplaceRetryTests(unittest.TestCase):
             self.assertEqual(sleep.call_count, 4)
             self.assertEqual(list(Path(tmp).iterdir()), [])
 
+    def test_reads_retry_a_transient_permission_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "state.json"
+            storage.write_json(path, {"ok": 1})
+            real_open = Path.open
+            calls = {"n": 0}
+
+            def flaky(self, *args, **kwargs):
+                calls["n"] += 1
+                if calls["n"] < 3:
+                    raise PermissionError(13, "Permission denied")
+                return real_open(self, *args, **kwargs)
+
+            with mock.patch.object(Path, "open", flaky), mock.patch.object(storage.time, "sleep"):
+                self.assertEqual(storage.load_json(path), {"ok": 1})
+            self.assertEqual(calls["n"], 3)
+            with mock.patch.object(Path, "open", side_effect=PermissionError(13, "denied")), mock.patch.object(storage.time, "sleep"):
+                with self.assertRaises(PermissionError):
+                    storage.load_json(path)
+
     def test_other_errors_are_not_retried(self) -> None:
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(storage.os, "replace", side_effect=FileNotFoundError()) as replace:
             with self.assertRaises(FileNotFoundError):
