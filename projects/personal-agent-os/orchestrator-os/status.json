@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T03:45:00+00:00",
-  "phase": "P1 foundations: measured wins landing in the runtime; prior-art intelligence next",
-  "active_objective": "Make open-source prior art a required, automatically consulted input to significant Orchestrator design decisions (operator request 2026-09-29), then continue the roadmap.",
+  "updated_at": "2026-09-29T05:20:00+00:00",
+  "phase": "P1 foundations: prior-art intelligence wired in; reliability testing next",
+  "active_objective": "Harden the orchestrator control plane with state-machine tests (IMP-0007), using prior art where it saves work, then quota-aware scheduling (IMP-0005).",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -20,7 +20,10 @@
     "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
     "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism",
     "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)",
-    "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)"
+    "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)",
+    "Prior-art registry + workflow integration (0d141ef8, DEC-0008)",
+    "45 prior-art evaluations + discovery (bf11d932)",
+    "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)"
   ],
   "blockers": [
     "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
@@ -29,31 +32,32 @@
     "HYP-0003 (monitoring): switch affected_tests_first to always if first-attempt failure rate > 36%"
   ],
   "recent_decisions": [
-    "DEC-0005",
-    "DEC-0006",
-    "DEC-0007"
+    "DEC-0007",
+    "DEC-0008",
+    "DEC-0009"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "Open-source prior-art intelligence (operator request 2026-09-29): extend the existing research/evidence primitives with a prior-art registry (schema + entries with ADOPT/WRAP/BORROW/REJECT/DEFER/INVESTIGATE decisions and separate evidence dimensions), wire a proportional prior-art check into docs/orchestrator-os/ENTRYPOINT.md, the constitution, CANONICAL_AGENT_POLICY/AGENTS and the continuation generator, add a task-specific discovery workflow with event-driven refresh, and seed evaluations (RouteLLM, Inspect AI, DSPy, Hypothesis, OpenHands, PydanticAI, Optuna, Promptfoo, LangGraph, AutoGen, CrewAI, Letta, Mem0, Graphiti, smolagents, AFlow, ADAS, Darwin Godel Machine, HyperAgents, plus newly discovered alternatives) against current Agent OS code. Commit in at least two steps.",
+    "summary": "Implement IMP-0007: orchestrator state-machine tests. Encode the constitution section 10 invariants once (unvalidated code never integrates; unresolved required review findings block integration; read-only workers never write; failed/blocked never becomes integrated; COMPLETE requires completion validation; permissions never silently increase) and drive the engine with synthetic adapters through random operation sequences (create, dispatch, success, failure, quota, timeout, pause, resume, cancel, review, repair, approval, restart). Compare a small subsumed seeded random-sequence runner with Hypothesis RuleBasedStateMachine as a dev-only extra (bugs found, runtime, failure readability); record EXP + DEC with a prior_art note and update PA-hypothesis. Fix any real engine bug found with a regression test.",
+    "prior_art": "orchestrator state machine property testing invariants shrinking",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Structured research with primary-source verification; frontier only for final adoption judgments.",
+    "why_this_class": "Test design with deterministic evaluation; no model workers needed.",
     "context_refs": [
-      "docs/orchestrator-os/ENTRYPOINT.md",
+      "projects/personal-agent-os/improvements/IMP-0007.json",
       "docs/orchestrator-os/CONSTITUTION.md",
-      "projects/personal-agent-os/research/meta-improvement/registry-index.json",
-      "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json",
-      "schemas/evidence-record-v1.schema.json",
-      "src/agent_os/orchestrator/continuation.py"
+      "projects/personal-agent-os/research/prior-art/registry.json",
+      "tests/test_orchestrator.py",
+      "src/agent_os/orchestrator/engine.py",
+      "src/agent_os/orchestrator/adapters/synthetic.py"
     ],
     "stop_conditions": [
-      "registry + workflow integration committed; seeded evaluations committed with evidence and confidence per entry",
-      "no third-party dependency added without benchmark evidence",
-      "stop and report if a protected path beyond the standing grants must change or the retry/repair budget is reached"
+      "EXP record with outcome and linked evidence; invariant suite committed and passing (or engine bugs fixed with regressions)",
+      "0 model calls expected",
+      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -111,6 +115,12 @@
       "deterministic_operations": "~25 incl. 47-module timing run and 3 test-runner evals",
       "model_calls": 0,
       "measured_cost_usd": 0
+    },
+    "session_ORCH-0006": {
+      "deterministic_operations": "~40 incl. GitHub REST metadata for 45 repos",
+      "model_calls": 0,
+      "web_research_calls": "~10 searches/fetches",
+      "measured_cost_usd": 0
     }
   },
   "known_baseline": {
@@ -120,5 +130,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0005 pass (IMP-0006): moved the import-graph selector into runtime module test_selection.py (eval.py only imports it, under the standing grant) and added an affected-tests-first step to the engine: selected test modules run before the unchanged full validators, new failures fail fast, base-commit failures are excused through the project baseline. Measurement (EVR-0011) showed the subset takes 36% of full-suite time on average, so the step saves time only when >36% of validations fail; with no run telemetry yet, the default is 'retries' (after a failed attempt and on repairers), HYP-0003 tracks switching to 'always'. Control-plane and routing evals noninferior (EVR-0008..0010). 0 model calls."
+  "last_pass_summary": "ORCH-0006 pass (operator request: open-source prior art). Commit 1 (0d141ef8): a PA registry in the research registry index with schema, deterministic tool (orchestrate prior-art lookup/queries/stale/refresh/validate), validation (no blended score; ADOPT needs linked evidence; DECs from DEC-0008 must carry a prior_art note), a proportional check in ENTRYPOINT step 2, constitution section 15, canonical policy rule 12, AGENTS/CLAUDE adapters, a policy prior_art block, and a conditional prior-art line in the generated next prompt. Commit 2 (bf11d932): 45 projects evaluated against current Agent OS code (19 seeded + 26 discovered): 21 BORROW, 10 DEFER, 10 REJECT, 4 INVESTIGATE, 0 ADOPT; highest-risk dependency LiteLLM (2026-03 PyPI compromise); spikes IMP-0007 (Hypothesis vs subsumed state-machine tester) and IMP-0008 (Inspect AI WRAP). Commit 3 (36377edc): subsumed retry/backoff with Retry-After and a circuit breaker (Tenacity/pybreaker algorithms) plus key-optional stdlib API workers (Anthropic, OpenAI-compatible incl. local base_url) limited to role inline; `orchestrate api-key set`. 0 model calls; web research ~10 searches/fetches; GitHub REST metadata."
 }
