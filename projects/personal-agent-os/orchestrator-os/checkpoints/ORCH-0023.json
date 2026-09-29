@@ -1,0 +1,127 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0023",
+  "previous": "ORCH-0022",
+  "created_at": "2026-09-29T12:32:31.548585+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "583e3ddf",
+    "dirty": true
+  },
+  "phase": "P1 foundations broad and evidenced; incremental hardening continues",
+  "completed": [
+    "ORCH-0013 pushed after gate rerun",
+    "MIE-0007 first slice: EVS-SECURITY suite + fixtures; EXP-0007 (DEC-0017, FND-0011, FND-0012)",
+    "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)",
+    "IMP-0012: idempotent integration after crash (6b3c9eaf, FAIL-0003, DEC-0019, EVR-0014)",
+    "IMP-0013: write-ahead landing after crash (ee378ff8, FAIL-0004, DEC-0020, EVR-0015)",
+    "Append-only negative evidence enforced; approval-rule enforcement map (1a1e107c, DEC-0021)",
+    "IMP-0014: worker publication guard + adapter deny defaults (2ff6a550, c07304c3, DEC-0022)",
+    "MIE-0004 first slice: orchestrate mining (DEC-0023)",
+    "EXP-0008 deferred for safety (FND-0013)",
+    "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)",
+    "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)",
+    "MIE-0009 first slice: context-utility telemetry + report (DEC-0026)"
+  ],
+  "active_objective": "Continue closing measurable meta-improvement items; consider consolidating the many orchestrate subcommands under one documented surface.",
+  "latest_evidence": [
+    {
+      "id": "DEC-0026",
+      "type": "DEC",
+      "title": "Context-utility telemetry for delegate attachments (MIE-0009 first slice)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0026.json",
+      "updated_at": "2026-09-29T08:45:00+00:00"
+    },
+    {
+      "id": "DEC-0022",
+      "type": "DEC",
+      "title": "Worker publication is operator-gated: deterministic guard plus adapter deny defaults",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0022.json",
+      "updated_at": "2026-09-29T08:35:00+00:00"
+    },
+    {
+      "id": "DEC-0025",
+      "type": "DEC",
+      "title": "Injection-fixture generator (local-only); live adversarial eval is operator-invoked",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0025.json",
+      "updated_at": "2026-09-29T08:35:00+00:00"
+    },
+    {
+      "id": "DEC-0024",
+      "type": "DEC",
+      "title": "Import AgentDojo injection corpus as data (MIT), never committed",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0024.json",
+      "updated_at": "2026-09-29T08:30:00+00:00"
+    },
+    {
+      "id": "DEC-0021",
+      "type": "DEC",
+      "title": "Negative evidence is append-only, enforced; approval rules mapped to enforcement points",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0021.json",
+      "updated_at": "2026-09-29T08:10:00+00:00"
+    },
+    {
+      "id": "DEC-0023",
+      "type": "DEC",
+      "title": "Failure/success mining tool (MIE-0004 first slice)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0023.json",
+      "updated_at": "2026-09-29T08:05:00+00:00"
+    },
+    {
+      "id": "EXP-0008",
+      "type": "EXP",
+      "title": "Real-model injection against editing workers",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0008.json",
+      "updated_at": "2026-09-29T08:05:00+00:00"
+    },
+    {
+      "id": "FND-0013",
+      "type": "FND",
+      "title": "Generating adversarial attack fixtures is environment-limited; import corpora as data instead",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0013.json",
+      "updated_at": "2026-09-29T08:05:00+00:00"
+    }
+  ],
+  "open_blockers": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0024",
+    "DEC-0025",
+    "DEC-0026"
+  ],
+  "next_action": {
+    "summary": "Consolidation and documentation pass (low-risk, high-legibility). The orchestrator now has many subcommands (delegate, eval, eval-cases, capability, checkpoint, next-prompt, control-check, mutate, simplify, trace, mining, corpus, context-report, prior-art, api-key). Add a concise 'Orchestrator OS commands' reference table to docs/orchestrator-os/ENTRYPOINT.md (name, one-line purpose, whether it spends model calls), verify each is listed by `agent-os orchestrate --help`, and add a test that every registered orchestrate subcommand appears in the doc (so the doc cannot silently drift). No model calls. Then reassess remaining MIE items for genuine marginal value versus stopping; if none clears the bar, record that and set the loop to a lighter cadence.",
+    "prior_art": null,
+    "worker_class": "balanced",
+    "effort": "low",
+    "why_this_class": "Documentation + a drift-guard test; deterministic.",
+    "context_refs": [
+      "docs/orchestrator-os/ENTRYPOINT.md",
+      "src/agent_os/orchestrator/cli.py",
+      "docs/multi-agent-orchestrator.md"
+    ],
+    "stop_conditions": [
+      "command reference added and a drift-guard test passes",
+      "0 model calls",
+      "if remaining MIE items lack clear marginal value, record that and propose a lighter loop cadence"
+    ]
+  },
+  "context_refs": [
+    "docs/orchestrator-os/ENTRYPOINT.md",
+    "src/agent_os/orchestrator/cli.py",
+    "docs/multi-agent-orchestrator.md"
+  ],
+  "stopping_conditions": [
+    "command reference added and a drift-guard test passes",
+    "0 model calls",
+    "if remaining MIE items lack clear marginal value, record that and propose a lighter loop cadence"
+  ],
+  "approval_conditions": [
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
+    "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
+    "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0023 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0023.json).\n\nCurrent objective: Continue closing measurable meta-improvement items; consider consolidating the many orchestrate subcommands under one documented surface.\n\nNext action: Consolidation and documentation pass (low-risk, high-legibility). The orchestrator now has many subcommands (delegate, eval, eval-cases, capability, checkpoint, next-prompt, control-check, mutate, simplify, trace, mining, corpus, context-report, prior-art, api-key). Add a concise 'Orchestrator OS commands' reference table to docs/orchestrator-os/ENTRYPOINT.md (name, one-line purpose, whether it spends model calls), verify each is listed by `agent-os orchestrate --help`, and add a test that every registered orchestrate subcommand appears in the doc (so the doc cannot silently drift). No model calls. Then reassess remaining MIE items for genuine marginal value versus stopping; if none clears the bar, record that and set the loop to a lighter cadence.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort low. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: command reference added and a drift-guard test passes; 0 model calls; if remaining MIE items lack clear marginal value, record that and propose a lighter loop cadence.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
