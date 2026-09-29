@@ -183,10 +183,10 @@
       "title": "Eval harness should fail a route whose provider override is not honoured",
       "category": "bug",
       "subsystem": "orchestrator/eval (protected)",
-      "status": "candidate",
+      "status": "implemented",
       "priority": "medium",
       "dedupe_key": "e6e7dd0ea43355675ba0e25bc3fb4e61baa0d9fa994ab13820724ec978ed441b",
-      "updated_at": "2026-09-29T18:00:29.872723+00:00",
+      "updated_at": "2026-09-29T18:07:09.630661+00:00",
       "github_issue_number": null
     }
   ]

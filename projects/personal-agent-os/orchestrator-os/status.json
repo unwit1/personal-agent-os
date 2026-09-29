@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T22:45:00+00:00",
+  "updated_at": "2026-09-29T23:15:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
   "active_objective": "Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.",
   "completed": [
@@ -53,26 +53,26 @@
     "IMP-0015 slice 4: read-only Compute Broker (RunPod inventory, cached), orchestrate compute/quote --gpu-from; first live no-spend API-vs-RunPod quote (DEC-0033, EVR-0017)",
     "IMP-0015 slice 5: Model Research Radar v1 (orchestrate radar scan/catalog): Hub scans into a local catalog with license/revision/size/refusal hints, eval queue (DEC-0034)",
     "IMP-0015 slice 6: serving-throughput evidence (orchestrate throughput measure/record/show); quotes price GPUs from measured tokens/s via quote --model (DEC-0035)",
-    "IMP-0015 slice 7: eval-queue runner (orchestrate eval-queue plan/run) with attribution guard; model-add --roles; FND-0014 + IMP-0017 (protected harness fix awaiting grant) (DEC-0036)"
+    "IMP-0015 slice 7: eval-queue runner (orchestrate eval-queue plan/run) with attribution guard; model-add --roles; FND-0014 + IMP-0017 (protected harness fix awaiting grant) (DEC-0036)",
+    "IMP-0017 (operator-granted protected edit): eval harness fails samples whose provider override was not honoured and records no CAP observation for them (DEC-0037)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0034",
     "DEC-0035",
-    "DEC-0036"
+    "DEC-0036",
+    "DEC-0037"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
     "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
     "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout",
-    "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed.",
-    "IMP-0017: operator grant needed to edit protected eval.py so a route whose provider override is not honoured fails loudly (FND-0014)"
+    "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed."
   ],
   "next_action": {
-    "summary": "Continue IMP-0015. Unpaid next slices: (1) SkyPilot spike (PA-skypilot) in an isolated venv under the scratchpad: provisioning/stop semantics for RunPod, state kept, credential bridging to secrets://; decide WRAP vs in-house lifecycle; launch nothing. (2) Read-only Model & Compute page in the orchestrator GUI (catalog, inventory, quotes, throughput, refusals, shadow comparisons) using existing server/session-token patterns. (3) Revision-level capability keys: CAP observations currently key by model name; add revision to delegate/capability observations for catalog models (non-protected paths only). (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. OPERATOR GATES: budget + job hard cap for any paid pod/training; IMP-0017 grant for eval.py.",
+    "summary": "Continue IMP-0015. Unpaid next slices: (1) SkyPilot spike (PA-skypilot) in an isolated venv under the scratchpad: provisioning/stop semantics for RunPod, state kept, credential bridging to secrets://; decide WRAP vs in-house lifecycle; launch nothing. (2) Read-only Model & Compute page in the orchestrator GUI (catalog, inventory, quotes, throughput, refusals, shadow comparisons) using existing server/session-token patterns. (3) Revision-level capability keys: CAP observations currently key by model name; add revision to delegate/capability observations for catalog models (non-protected paths only). (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. OPERATOR GATES: budget + job hard cap for any paid pod/training;",
     "prior_art": "shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
     "worker_class": "reasoning",
     "effort": "medium",
@@ -272,7 +272,7 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0026 pass: landed IMP-0016 (transient provider failures no longer open one-hour quota cooldowns; corpus 14/26 -> 26/26) and IMP-0015 slice 1: provider-neutral model profiles (deployment/modalities/open_weights/license/refusal_profile) with hard/soft workload requirements in router.select, nodes and delegate; secrets:// references; a neutral Task Context Contract that cannot drop safety-relevant facts; refusal taxonomy + telemetry; `orchestrate model-add` to plug in any OpenAI-compatible (e.g. abliterated) endpoint. 0 model calls, 0 paid compute. Then slice 2: shadow foreman propose/compare/report (DEC-0031). Then slice 3: workload contract, no-spend quote/budget engine, artifact manifests (DEC-0032). Then prior-art for the Compute Broker and slice 4: read-only RunPod inventory + live no-spend quote (DEC-0033, EVR-0017). Then slice 5: Research Radar v1 (DEC-0034). Then slice 6: measured throughput evidence for quotes (DEC-0035). Then slice 7: eval-queue runner with attribution guard (DEC-0036, FND-0014).",
+  "last_pass_summary": "ORCH-0026 pass: landed IMP-0016 (transient provider failures no longer open one-hour quota cooldowns; corpus 14/26 -> 26/26) and IMP-0015 slice 1: provider-neutral model profiles (deployment/modalities/open_weights/license/refusal_profile) with hard/soft workload requirements in router.select, nodes and delegate; secrets:// references; a neutral Task Context Contract that cannot drop safety-relevant facts; refusal taxonomy + telemetry; `orchestrate model-add` to plug in any OpenAI-compatible (e.g. abliterated) endpoint. 0 model calls, 0 paid compute. Then slice 2: shadow foreman propose/compare/report (DEC-0031). Then slice 3: workload contract, no-spend quote/budget engine, artifact manifests (DEC-0032). Then prior-art for the Compute Broker and slice 4: read-only RunPod inventory + live no-spend quote (DEC-0033, EVR-0017). Then slice 5: Research Radar v1 (DEC-0034). Then slice 6: measured throughput evidence for quotes (DEC-0035). Then slice 7: eval-queue runner with attribution guard (DEC-0036, FND-0014). Then IMP-0017 under operator grant: eval fails non-honoured overrides (DEC-0037).",
   "remaining_backlog": {
     "blocked_on_model_volume": [
       "IMP-0004 route qualification by measured CAP evidence (needs >= policy min_samples per family with a passing lower bound; none reached)"

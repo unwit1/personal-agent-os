@@ -1,0 +1,19 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0037",
+  "type": "DEC",
+  "title": "Eval harness fails samples whose provider override was not honoured (IMP-0017, operator-granted protected edit)",
+  "status": "accepted",
+  "summary": "Operator granted the protected-path edit to src/agent_os/orchestrator/eval.py for IMP-0017 on 2026-09-29 (\"I grant the IMP 0017 edit to eval.py\"). eval.call_route now passes every delegate outcome through check_override: when a passed, resolved sample was answered by a provider other than the route's provider, or by a model other than the route's pinned model, the sample becomes status override_not_honoured with its result discarded and an error naming the requested and actual provider:model (FND-0014). score_sample records no capability observation for such samples, because the answering provider did not fail and the requested one was not measured; the sample still counts as unscored in the route aggregate, so the EVR shows the route failed rather than silently borrowing another model's accuracy. Routes without a pinned model accept any model of the requested provider; unresolved or already-failed outcomes are unchanged. Scope limited to the granted file plus a new test module; no other protected path touched.",
+  "prior_art": {"checked": "n/a (bug fix in an existing harness)", "found": "n/a", "reused": "existing route parsing and aggregate", "why_custom": "n/a"},
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/eval.py"},
+    {"rel": "tests", "ref": "tests/test_eval_override.py"},
+    {"rel": "answers", "ref": "FND-0014"},
+    {"rel": "relates_to", "ref": "IMP-0017"}
+  ],
+  "metrics": {"model_calls": 0, "protected_paths_touched": ["src/agent_os/orchestrator/eval.py"], "operator_grant": "2026-09-29 chat instruction", "new_tests": 6},
+  "provenance": {"session": "ORCH-0032 -> ORCH-0033", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T23:10:00+00:00",
+  "updated_at": "2026-09-29T23:10:00+00:00"
+}

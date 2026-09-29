@@ -333,7 +333,30 @@ def call_route(route: dict[str, Any], case_file: dict[str, Any], tree: Path, *, 
         if not case_file.get("fixture_dir"):
             raise EvalError(f"+attach needs fixture_dir in the case file for {case_file['task_family']}")
         attachments = [f"{case_file['fixture_dir']}/{case_file.get('attach_glob', '*')}"]
-    return delegate(prompt, task_family=case_file["task_family"], capability_class=route.get("capability_class") or "fast", effort="low", contract=contract, provider=route.get("provider"), model=route.get("model"), cwd=tree, timeout_seconds=timeout, record=False, registry=registry, attachments=attachments)
+    outcome = delegate(prompt, task_family=case_file["task_family"], capability_class=route.get("capability_class") or "fast", effort="low", contract=contract, provider=route.get("provider"), model=route.get("model"), cwd=tree, timeout_seconds=timeout, record=False, registry=registry, attachments=attachments)
+    return check_override(route, outcome)
+
+
+OVERRIDE_NOT_HONOURED = "override_not_honoured"
+
+
+def check_override(route: dict[str, Any], outcome: dict[str, Any]) -> dict[str, Any]:
+    """Fail a sample answered by a provider/model other than the route named
+    (FND-0014, IMP-0017). The router treats an unusable override as advisory
+    and falls through to another provider -- right for coding runs, wrong for
+    measurement, where it would attribute one model's score to another."""
+    selection = outcome.get("selection") or {}
+    if outcome.get("status") != "passed" or not selection.get("resolved"):
+        return outcome
+    wanted_provider, wanted_model = route.get("provider"), route.get("model")
+    provider_ok = not wanted_provider or selection.get("provider") == wanted_provider
+    model_ok = not wanted_model or selection.get("model") == wanted_model
+    if provider_ok and model_ok:
+        return outcome
+    asked = f"{wanted_provider or '*'}:{wanted_model or '*'}"
+    got = f"{selection.get('provider')}:{selection.get('model')}"
+    return {**outcome, "status": OVERRIDE_NOT_HONOURED, "result": None,
+            "errors": [f"{OVERRIDE_NOT_HONOURED}: route asked for {asked} but {got} answered ({selection.get('reason', '')[:80]}; FND-0014)"]}
 
 
 def score_sample(route: dict[str, Any], outcome: dict[str, Any], case_file: dict[str, Any], *, floor: float, verifier: EvidenceVerifier | None = None) -> dict[str, Any]:
@@ -354,7 +377,17 @@ def score_sample(route: dict[str, Any], outcome: dict[str, Any], case_file: dict
     selection = outcome.get("selection") or {}
     failure = None if outcome["status"] == "passed" else (outcome.get("errors") or ["unknown"])[0][:160]
     # FND-0001: the observation passes only when accuracy clears the floor, not
-    # merely when the output had the right shape.
+    # merely when the output had the right shape. IMP-0017: a sample answered
+    # by the wrong provider says nothing about either route, so it records no
+    # observation (it would charge the answering provider a failure it did not earn).
+    if outcome["status"] != OVERRIDE_NOT_HONOURED:
+        _record_observation(route, outcome, case_file, score, selection, failure, usage, stats, floor)
+    return {"status": outcome["status"], "failure": failure, "model_resolved": outcome.get("model_resolved"), "provider": selection.get("provider"),
+            "seconds": outcome.get("seconds"), "input_tokens": usage.get("input_tokens"), "cost_usd": usage.get("cost_usd"), "delegation": outcome["id"], "verifier": stats, **score}
+
+
+def _record_observation(route: dict[str, Any], outcome: dict[str, Any], case_file: dict[str, Any], score: dict[str, Any], selection: dict[str, Any],
+                        failure: str | None, usage: dict[str, Any], stats: dict[str, Any], floor: float) -> None:
     capability.record_observation({
         "call_id": outcome["id"], "task_family": case_file["task_family"], "role": "analyst", "provider": selection.get("provider"),
         "model": selection.get("model"), "model_resolved": outcome.get("model_resolved"), "capability_class": selection.get("capability_class"),
@@ -366,8 +399,6 @@ def score_sample(route: dict[str, Any], outcome: dict[str, Any], case_file: dict
         "seconds": outcome.get("seconds"), "input_tokens": usage.get("input_tokens"), "output_tokens": usage.get("output_tokens"),
         "cost_usd": usage.get("cost_usd"), "usage_accuracy": usage.get("accuracy"), "eval_case_file": case_file.get("suite"), "base_commit": case_file.get("base_commit"), "at": utc_now_iso(),
     })
-    return {"status": outcome["status"], "failure": failure, "model_resolved": outcome.get("model_resolved"), "provider": selection.get("provider"),
-            "seconds": outcome.get("seconds"), "input_tokens": usage.get("input_tokens"), "cost_usd": usage.get("cost_usd"), "delegation": outcome["id"], "verifier": stats, **score}
 
 
 def _avg(values: list[Any]) -> float | None:

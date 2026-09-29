@@ -5,11 +5,13 @@
   "title": "Eval harness should fail a route whose provider override is not honoured",
   "category": "bug",
   "subsystem": "orchestrator/eval (protected)",
-  "status": "candidate",
+  "status": "implemented",
   "priority": "medium",
   "observation": "FND-0014: eval.call_route delegates with provider=X; when X cannot serve the analyst role the router ignores the override and another provider answers, while the EVR row keeps the requested route as ref. evalqueue guards against this outside the harness, but direct orchestrate eval runs are still exposed.",
   "evidence": [
-    "projects/personal-agent-os/orchestrator-os/records/findings/FND-0014.json"
+    "projects/personal-agent-os/orchestrator-os/records/findings/FND-0014.json",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0037.json",
+    "tests/test_eval_override.py"
   ],
   "suspected_root_cause": null,
   "suggested_direction": "In eval.call_route (or aggregate), mark a sample failed with failure 'override_not_honoured' when outcome.selection.provider differs from the route's provider; alternatively pass role='inline' for routes whose provider only serves inline. Requires an operator grant: eval.py is a protected control-plane path.",
@@ -27,6 +29,6 @@
   },
   "github": null,
   "created_at": "2026-09-29T18:00:29.872723+00:00",
-  "updated_at": "2026-09-29T18:00:29.872723+00:00",
+  "updated_at": "2026-09-29T18:07:09.630661+00:00",
   "notes": null
 }
