@@ -23,6 +23,7 @@ agent-os validate                        # repository + Orchestrator OS state mu
 | Evidence: decisions, findings, failures, evals, capability | `projects/personal-agent-os/orchestrator-os/records/<type>/` |
 | Eval suites, dev cases, external corpora | `projects/personal-agent-os/orchestrator-os/evals/` |
 | Research (techniques, anti-patterns, backlog MIE-*) | `projects/personal-agent-os/research/meta-improvement/registry-index.json` → the one file you need |
+| Every `orchestrate` subcommand | [`docs/orchestrator-os/COMMANDS.md`](COMMANDS.md) |
 | Orchestrator code map | `docs/multi-agent-orchestrator.md` (Architecture table) |
 | Model capability evidence | `agent-os orchestrate capability` (CAP records) |
 | Open-source prior art (evaluated projects, ADOPT/WRAP/BORROW/REJECT/DEFER) | `projects/personal-agent-os/research/prior-art/` — `agent-os orchestrate prior-art lookup "<problem>"` |

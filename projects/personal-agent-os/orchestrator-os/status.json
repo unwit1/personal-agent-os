@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T08:45:00+00:00",
-  "phase": "P1 foundations broad and evidenced; incremental hardening continues",
-  "active_objective": "Continue closing measurable meta-improvement items; consider consolidating the many orchestrate subcommands under one documented surface.",
+  "updated_at": "2026-09-29T08:55:00+00:00",
+  "phase": "P1 foundations substantially complete; remaining items gated or operator-dependent",
+  "active_objective": "Hold: foundational build done. Resume individual items when unblocked (real model volume for routing, operator decisions for holdout/budgets/live security).",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -42,16 +42,17 @@
     "EXP-0008 deferred for safety (FND-0013)",
     "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)",
     "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)",
-    "MIE-0009 first slice: context-utility telemetry + report (DEC-0026)"
+    "MIE-0009 first slice: context-utility telemetry + report (DEC-0026)",
+    "Command reference + drift guard; foundation assessed complete (DEC-0027)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0024",
     "DEC-0025",
-    "DEC-0026"
+    "DEC-0026",
+    "DEC-0027"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
@@ -59,20 +60,20 @@
     "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout"
   ],
   "next_action": {
-    "summary": "Consolidation and documentation pass (low-risk, high-legibility). The orchestrator now has many subcommands (delegate, eval, eval-cases, capability, checkpoint, next-prompt, control-check, mutate, simplify, trace, mining, corpus, context-report, prior-art, api-key). Add a concise 'Orchestrator OS commands' reference table to docs/orchestrator-os/ENTRYPOINT.md (name, one-line purpose, whether it spends model calls), verify each is listed by `agent-os orchestrate --help`, and add a test that every registered orchestrate subcommand appears in the doc (so the doc cannot silently drift). No model calls. Then reassess remaining MIE items for genuine marginal value versus stopping; if none clears the bar, record that and set the loop to a lighter cadence.",
+    "summary": "Operator decision point. The autonomous foundational build is complete and pushed; continuing to spin up a new subsystem each cycle has low marginal value (constitution section 12/13). Options for the operator: (a) pick a specific remaining item from status.remaining_backlog and prompt it directly; (b) approve a gated item (live security eval, holdout placement, budget thresholds); (c) let real orchestrated runs accumulate CAP evidence, then IMP-0004 becomes actionable. If the loop fires again with no new instruction, do one light maintenance check (agent-os validate + targeted tests + orchestrate mining/simplify for new gaps) and, if nothing material surfaces, record a no-op checkpoint rather than building speculative features.",
     "prior_art": null,
     "worker_class": "balanced",
     "effort": "low",
-    "why_this_class": "Documentation + a drift-guard test; deterministic.",
+    "why_this_class": "Assessment/maintenance, not new construction.",
     "context_refs": [
-      "docs/orchestrator-os/ENTRYPOINT.md",
-      "src/agent_os/orchestrator/cli.py",
-      "docs/multi-agent-orchestrator.md"
+      "projects/personal-agent-os/orchestrator-os/status.json",
+      "docs/orchestrator-os/COMMANDS.md",
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0027.json"
     ],
     "stop_conditions": [
-      "command reference added and a drift-guard test passes",
-      "0 model calls",
-      "if remaining MIE items lack clear marginal value, record that and propose a lighter loop cadence"
+      "a light maintenance check is recorded, or a specific unblocked item is completed",
+      "0 model calls unless an operator names a task",
+      "prefer a no-op checkpoint over speculative building when nothing material surfaces"
     ]
   },
   "meta_economics": {
@@ -238,6 +239,12 @@
       "deterministic_operations": "~20 incl. escaping rework",
       "model_calls": 0,
       "measured_cost_usd": 0
+    },
+    "session_ORCH-0024": {
+      "deterministic_operations": "~12",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "assessment": "foundational build complete; recommend lighter cadence"
     }
   },
   "known_baseline": {
@@ -247,5 +254,22 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0023 pass (MIE-0009 first slice): delegate records an approximate context-utility signal per attachment (referenced by stem/distinctive-token match, utilization, attached-token estimate); orchestrate context-report aggregates and flags always-unreferenced attachments as trim candidates. Deterministic, no model call (DEC-0026). Several fumbles with backspace-escaping in shell heredocs were corrected by rewriting the file with the editor and using a BOUNDARY constant. 0 model calls."
+  "last_pass_summary": "ORCH-0024 pass: added COMMANDS.md (all 45 orchestrate subcommands, generated from the CLI) with a drift-guard test, linked from ENTRYPOINT. Assessed the foundation as substantially complete (DEC-0027): 24 checkpoints, 15+ subsystems, 3 real engine/test defects found and fixed, every pass gated and pushed. Recommending a lighter loop cadence or pause, since remaining MIE items need operator decisions or real model volume rather than more autonomous building. 0 model calls.",
+  "remaining_backlog": {
+    "blocked_on_model_volume": [
+      "IMP-0004 route qualification by measured CAP evidence (needs >= policy min_samples per family with a passing lower bound; none reached)"
+    ],
+    "operator_gated": [
+      "Live AgentDojo injection eval (DEC-0025)",
+      "Which EVS-SECURITY cases move to a protected holdout",
+      "MIE-0018 quality/reliability/complexity budgets (thresholds are a policy/operator choice)"
+    ],
+    "lower_value_or_deferred": [
+      "MIE-0012 constructive-challenge policy",
+      "MIE-0013 unified proactivity engine",
+      "MIE-0016 replay/branching threshold",
+      "IMP-0007/0008 remaining spikes if desired"
+    ],
+    "recommendation": "Pause or slow the loop; resume per-item on an unblock. The repository is self-guiding: `agent-os orchestrate checkpoint --show` and next-prompt.md carry state."
+  }
 }
