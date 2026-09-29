@@ -1310,6 +1310,9 @@ class Orchestrator:
             running=running,
             override=self._override_for(record, node),
             require_avoid=node["role"] == "reviewer" and policy["require_distinct_review_provider"],
+            # Reviewers and repairers read the subject's work, so they inherit its
+            # workload requirements (e.g. deployment=local for private code).
+            requirements=node.get("requirements") or (subject or {}).get("requirements"),
         )
         if not selection.get("resolved"):
             if selection.get("waiting"):

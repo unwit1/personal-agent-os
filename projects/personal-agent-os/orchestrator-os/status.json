@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T16:30:00+00:00",
+  "updated_at": "2026-09-29T19:10:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
   "active_objective": "Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.",
   "completed": [
@@ -43,17 +43,18 @@
     "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)",
     "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)",
     "MIE-0009 first slice: context-utility telemetry + report (DEC-0026)",
-    "Command reference + drift guard; foundation assessed complete (DEC-0027)"
+    "Command reference + drift guard; foundation assessed complete (DEC-0027)",
+    "IMP-0016: transient provider failures (529/5xx/network) classified as unavailable, not quota; RT-06 implemented (6a666a6e, EVR-0016, DEC-0029)",
+    "IMP-0015 slice 1: model profiles + workload requirements in routing, secrets:// refs, Task Context Contract, refusal telemetry, orchestrate model-add/secrets/refusals (DEC-0030, docs/model-infrastructure.md)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0025",
-    "DEC-0026",
-    "DEC-0027",
-    "DEC-0028"
+    "DEC-0028",
+    "DEC-0029",
+    "DEC-0030"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
@@ -62,26 +63,22 @@
     "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed."
   ],
   "next_action": {
-    "summary": "Implement the operator-requested IMP-0015. Begin with Phase 0 and the no-cost/read-only parts of Phases 1-2 from projects/personal-agent-os/roadmap/model-infrastructure-manager.md: inspect and extend existing router/provider/CAP/eval/research/secret primitives; run prior-art lookup; define provider-neutral workload, model capability, compute quote, secret reference and artifact contracts with text/code/image/voice/audio/general-ML represented from the start; add synthetic-provider tests, refusal telemetry and abliterated-foreman shadow evaluation; then implement the smallest generic OpenAI-compatible inference/local-credential/RunPod inventory+quote slice that incurs no paid compute. Do not duplicate existing primitives. Paid provisioning or training must stop at the configured approval/budget gate.",
-    "prior_art": "model gateways routers cloud GPU brokers model registries evaluation systems training job managers",
+    "summary": "Continue IMP-0015 per the roadmap, next unpaid slices in order: (1) shadow-foreman contract: given a run's goal/tasks, render a context contract, ask a configured foreman provider (any profile, e.g. an abliterated local model) for a proposed DAG + routes via delegate --role inline, store the proposal next to the incumbent's actual routes/results/costs/refusals, and add a comparison report; no routing authority. (2) Generic workload contract + compute-quote and artifact schemas covering text/code/image/audio/training, validated in agent-os validate. (3) Evaluate model-catalog / GPU-broker prior art (SkyPilot, vLLM, Hugging Face model metadata, RunPod API) into the prior-art registry. (4) RunPod read-only inventory/pricing adapter behind secrets://runpod/default producing a no-spend API-vs-pod quote. Paid provisioning/training stays gated on an approved budget.",
+    "prior_art": "shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
     "worker_class": "reasoning",
     "effort": "medium",
-    "why_this_class": "Cross-cutting provider-neutral architecture spanning routing, capability evidence, credentials, pricing, cloud lifecycle, multimodal inference, training and future extensibility.",
+    "why_this_class": "cross-cutting contracts and evaluation design; implementation is deterministic stdlib code",
     "context_refs": [
       "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
-      "projects/personal-agent-os/improvements/IMP-0015.json",
-      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0028.json",
-      "docs/orchestrator-os/ENTRYPOINT.md",
-      "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
-      "docs/multi-agent-orchestrator.md",
-      "projects/personal-agent-os/orchestrator-os/implementation-status.json",
-      "projects/personal-agent-os/research/meta-improvement/registry-index.json"
+      "docs/model-infrastructure.md",
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0030.json",
+      "src/agent_os/orchestrator/model_profile.py",
+      "src/agent_os/orchestrator/context_contract.py"
     ],
     "stop_conditions": [
-      "a verified Phase 0/first-slice implementation is committed and a new Orchestrator checkpoint is written",
-      "a protected-path or operator policy decision is required",
-      "the next step would incur material cloud/model spend without an approved project/job budget and hard cap",
-      "evidence shows an existing primitive already satisfies the requirement and the roadmap is reconciled accordingly"
+      "a slice is implemented, tested, recorded and merged",
+      "0 paid compute; model calls only when the operator has configured a foreman provider",
+      "any paid provisioning/training reaches the budget/approval gate"
     ]
   },
   "meta_economics": {
@@ -253,6 +250,11 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "assessment": "foundational build complete; recommend lighter cadence"
+    },
+    "session_ORCH-0026": {
+      "deterministic_operations": "~60 incl. 2 full-suite gates and a corpus benchmark",
+      "model_calls": 0,
+      "measured_cost_usd": 0
     }
   },
   "known_baseline": {
@@ -262,7 +264,7 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0024 pass: added COMMANDS.md (all 45 orchestrate subcommands, generated from the CLI) with a drift-guard test, linked from ENTRYPOINT. Assessed the foundation as substantially complete (DEC-0027): 24 checkpoints, 15+ subsystems, 3 real engine/test defects found and fixed, every pass gated and pushed. Recommending a lighter loop cadence or pause, since remaining MIE items need operator decisions or real model volume rather than more autonomous building. 0 model calls.",
+  "last_pass_summary": "ORCH-0026 pass: landed IMP-0016 (transient provider failures no longer open one-hour quota cooldowns; corpus 14/26 -> 26/26) and IMP-0015 slice 1: provider-neutral model profiles (deployment/modalities/open_weights/license/refusal_profile) with hard/soft workload requirements in router.select, nodes and delegate; secrets:// references; a neutral Task Context Contract that cannot drop safety-relevant facts; refusal taxonomy + telemetry; `orchestrate model-add` to plug in any OpenAI-compatible (e.g. abliterated) endpoint. 0 model calls, 0 paid compute.",
   "remaining_backlog": {
     "blocked_on_model_volume": [
       "IMP-0004 route qualification by measured CAP evidence (needs >= policy min_samples per family with a passing lower bound; none reached)"

@@ -42,6 +42,9 @@ checkpoint) are described here and in [ENTRYPOINT.md](ENTRYPOINT.md).
 | `orchestrate overhead` † | measure each coding CLI's fixed per-call context cost (real calls; spends usage) |
 | `orchestrate delegate` † | one read-only task through the router with an output contract; records capability evidence (real call) |
 | `orchestrate api-key` | store or check a provider API key in the OS keyring (never in files) |
+| `orchestrate secrets` | provider-neutral secret references `secrets://<provider>/<profile>` (keyring or env; values never printed) |
+| `orchestrate model-add` | register an OpenAI-compatible endpoint (open-weight or abliterated model) in the machine-local registry; preview unless `--write` (see [model-infrastructure.md](../model-infrastructure.md)) |
+| `orchestrate refusals` | refusal/non-answer telemetry by provider, model and refusal profile (no model call) |
 | `orchestrate capability` | aggregate capability observations into CAP records (no model call) |
 | `orchestrate checkpoint` | Orchestrator OS continuation checkpoint + next prompt (no model call) |
 | `orchestrate next-prompt` | print the current generated next prompt |

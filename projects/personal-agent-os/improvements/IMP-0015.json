@@ -5,13 +5,15 @@
   "title": "Provider-neutral Model Infrastructure Manager for text, image, voice and cloud ML",
   "category": "architecture",
   "subsystem": "orchestrator/model-infrastructure",
-  "status": "ready",
+  "status": "in_progress",
   "priority": "high",
   "observation": "Operator explicitly requested a plug-and-play model/compute layer that automatically researches new models, intelligently routes between subscription, API, open-weight and abliterated models, manages cloud GPU capacity such as RunPod, supports image/voice workloads and ML/LoRA training, and quotes/budgets work before paid execution.",
   "evidence": [
     "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
     "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
-    "projects/personal-agent-os/orchestrator-os/implementation-status.json#meta_improvement"
+    "projects/personal-agent-os/orchestrator-os/implementation-status.json#meta_improvement",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0030.json",
+    "docs/model-infrastructure.md"
   ],
   "suspected_root_cause": "Current routing is provider/model aware but does not yet own cloud compute lifecycle, multimodal/training workloads, live pricing, quote/budget planning, or a continuous plug-and-play model catalog.",
   "suggested_direction": "Implement the phased roadmap in model-infrastructure-manager.md. Extend existing routing/CAP/eval/research primitives; add provider-neutral workload/capability/compute/secret/artifact contracts, a RunPod-first adapter, shadow abliterated foreman evaluation, continuous model research, and image/audio/training support.",
@@ -37,6 +39,6 @@
   },
   "github": null,
   "created_at": "2026-09-29T16:19:15.793144+00:00",
-  "updated_at": "2026-09-29T16:19:15.793144+00:00",
+  "updated_at": "2026-09-29T17:12:02.042373+00:00",
   "notes": "High priority. Begin with no-cost schema/eval/quote infrastructure; paid compute remains approval/budget gated."
 }

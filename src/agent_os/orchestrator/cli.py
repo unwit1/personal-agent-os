@@ -140,10 +140,36 @@ def register(commands: argparse._SubParsersAction) -> None:
     dlg.add_argument("--attach", action="append", help="glob under --repo to inline as untrusted-data documents (repeatable; FND-0011)")
     dlg.add_argument("--attach-mode", default="datamark", choices=["datamark", "delimit"])
     dlg.add_argument("--role", default="analyst", choices=["analyst", "inline"], help="inline: the prompt carries all needed context (direct API workers may serve it)")
+    dlg.add_argument("--require", action="append", metavar="KEY=VALUE", help="workload requirement on provider profiles, e.g. deployment=local,gpu_pod or refusal_profile=low,abliterated (repeatable)")
+    dlg.add_argument("--prefer", action="append", metavar="KEY=VALUE", help="soft preference, e.g. refusal_profile=abliterated (becomes prefer_refusal_profile)")
 
     key = actions.add_parser("api-key", help="store or check a provider API key in the OS keyring (never in files)")
     key.add_argument("action", choices=["set", "status", "delete"])
     key.add_argument("provider", choices=["anthropic", "openai"])
+
+    sec = actions.add_parser("secrets", help="provider-neutral secret references secrets://<provider>/<profile> (keyring or env; values never printed)")
+    sec.add_argument("action", choices=["set", "status", "delete"])
+    sec.add_argument("ref", help="e.g. secrets://runpod/default or secrets://local-llm/default")
+    sec.add_argument("--from-env", metavar="VAR", help="with set: read the value from this environment variable instead of a hidden prompt")
+
+    madd = actions.add_parser("model-add", help="register an OpenAI-compatible endpoint (vLLM/Ollama/LM Studio/llama.cpp/TGI; open-weight or abliterated) in the machine-local registry; preview unless --write")
+    madd.add_argument("--id", required=True, help="provider id, e.g. local-abliterated")
+    madd.add_argument("--base-url", required=True, help="server root, e.g. http://127.0.0.1:8000 (the adapter appends /v1/chat/completions)")
+    madd.add_argument("--model", required=True, help="exact model id the server expects")
+    madd.add_argument("--classes", default="fast,balanced", help="capability classes this model may serve (comma list)")
+    madd.add_argument("--refusal-profile", default="standard", choices=["standard", "low", "abliterated", "unknown"])
+    madd.add_argument("--deployment", choices=["subscription", "api", "serverless", "gpu_pod", "local"], help="default: local for a loopback URL, else api")
+    madd.add_argument("--open-weights", action=argparse.BooleanOptionalAction, default=None)
+    madd.add_argument("--license")
+    madd.add_argument("--context-window", type=int)
+    madd.add_argument("--secret-ref", help="secrets://<provider>/<profile> holding the endpoint's API key, if it needs one")
+    madd.add_argument("--cost", type=float, default=0.25, help="relative cost per call vs the registry's other providers (default 0.25)")
+    madd.add_argument("--max-concurrency", type=int, default=2)
+    madd.add_argument("--write", action="store_true")
+    madd.add_argument("--force", action="store_true", help="replace an existing entry with the same id")
+    madd.add_argument("--path", help="registry file (default: the machine-local registry)")
+
+    actions.add_parser("refusals", help="refusal/non-answer telemetry by provider/model/refusal profile (no model call)")
 
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
@@ -386,9 +412,11 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         return 0
     if action == "delegate":
         from .delegate import delegate
+        from .model_profile import parse_pairs
 
         contract = json.loads(Path(args.contract).read_text(encoding="utf-8")) if args.contract else None
-        outcome = delegate(Path(args.prompt_file).read_text(encoding="utf-8"), task_family=args.task_family, capability_class=args.capability_class, effort=args.effort, contract=contract, provider=args.provider, model=args.model, cwd=args.repo, timeout_seconds=args.timeout, role=args.role, attachments=args.attach, attach_mode=args.attach_mode)
+        outcome = delegate(Path(args.prompt_file).read_text(encoding="utf-8"), task_family=args.task_family, capability_class=args.capability_class, effort=args.effort, contract=contract, provider=args.provider, model=args.model, cwd=args.repo, timeout_seconds=args.timeout, role=args.role, attachments=args.attach, attach_mode=args.attach_mode,
+                           requirements=parse_pairs([*(args.require or []), *(f"prefer_{item}" for item in (args.prefer or []))]))
         if args.out and outcome.get("result") is not None:
             Path(args.out).write_text(json.dumps(outcome["result"], indent=2), encoding="utf-8")
         emit({key: value for key, value in outcome.items() if key != "result"})
@@ -428,6 +456,37 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         evidence = control_plane.negative_evidence_check(Path("."), args.base, paths, args.allow)
         emit({**result, "checked": len(paths), "negative_evidence": evidence})
         return 0 if result["passed"] and evidence["passed"] else 7
+    if action == "secrets":
+        import getpass
+        import os
+
+        from . import secret_refs
+
+        if args.action == "status":
+            emit(secret_refs.status(args.ref))
+        elif args.action == "delete":
+            emit(secret_refs.delete(args.ref))
+        else:
+            value = os.environ.get(args.from_env, "") if args.from_env else getpass.getpass(f"value for {args.ref} (input hidden): ")
+            emit(secret_refs.store(args.ref, value))
+        return 0
+    if action == "model-add":
+        from .model_profile import endpoint_entry
+
+        entry = endpoint_entry(args.id, base_url=args.base_url, model=args.model, classes=[item.strip() for item in args.classes.split(",") if item.strip()],
+                               refusal_profile=args.refusal_profile, deployment=args.deployment, open_weights=args.open_weights, license=args.license,
+                               context_window=args.context_window, secret_ref=args.secret_ref, cost=args.cost, max_concurrency=args.max_concurrency)
+        result = service.add_model_endpoint(entry, write=args.write, path=args.path, force=args.force)
+        emit(result)
+        return 1 if result.get("error") else 0
+    if action == "refusals":
+        from pathlib import Path as _Path
+
+        from . import refusal
+        from .store import orchestrator_home
+
+        emit(refusal.summary(_Path(orchestrator_home())))
+        return 0
     if action == "api-key":
         import getpass
         import os

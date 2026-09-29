@@ -96,9 +96,22 @@ class HttpApiAdapter:
         return str(self.options.get("base_url") or self.default_base_url).rstrip("/")
 
     def key(self) -> str | None:
+        ref = self.options.get("secret_ref")
+        if ref:
+            # Provider-neutral reference (secret_refs.py); no fallback to the
+            # adapter's default key, so a local endpoint never receives a
+            # cloud vendor's credential by accident.
+            from ..secret_refs import resolve
+
+            return resolve(str(ref))
         return read_key(self.options.get("key_env") or self.env_var, self.options.get("keyring_user") or self.keyring_user)
 
     def probe(self) -> ProviderStatus:
+        if self.options.get("secret_ref") and not self.key():
+            from ..secret_refs import env_var
+
+            ref = str(self.options["secret_ref"])
+            return ProviderStatus(self.provider["id"], False, reason=f"secret {ref} not configured (agent-os orchestrate secrets set {ref}, or {env_var(ref)})")
         if self.needs_key and not self.options.get("base_url") and not self.key():
             return ProviderStatus(self.provider["id"], False, reason=f"no API key ({self.env_var} or keyring {KEYRING_SERVICE}/{self.keyring_user})")
         return ProviderStatus(self.provider["id"], True, executable=self.base_url(), version=self.adapter_version)
@@ -221,7 +234,13 @@ class OpenAiCompatibleAdapter(HttpApiAdapter):
     default_base_url = "https://api.openai.com"
 
     def request_body(self, request: AgentLaunchRequest, prompt: str) -> tuple[str, dict[str, Any], dict[str, str]]:
-        body: dict[str, Any] = {"model": request.model, "messages": [{"role": "user", "content": prompt}]}
+        messages = [{"role": "user", "content": prompt}]
+        system = self.options.get("system")
+        if system:
+            # Stable provider-neutral preamble (e.g. a rendered context-contract
+            # header); OpenAI-compatible servers prefix-cache a fixed system turn.
+            messages.insert(0, {"role": "system", "content": str(system)})
+        body: dict[str, Any] = {"model": request.model, "messages": messages}
         if request.provider_effort and self.options.get("send_reasoning_effort", True):
             body["reasoning_effort"] = request.provider_effort
         key = self.key()

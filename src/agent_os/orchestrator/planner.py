@@ -31,6 +31,7 @@ PLANNABLE_ROLES = ("implementer", "test_author")
 TASK_KEYS = {
     "id", "goal", "role", "depends_on", "scope", "capability_class", "effort", "execution_path",
     "fallback_execution_paths", "available_execution_paths", "command", "validators", "approval_gate", "review_required", "expected_outputs", "context_budget", "ladder",
+    "requirements",
 }
 _SHELL_META = re.compile(r"[;&|<>`$\n\r%^]")
 
@@ -75,6 +76,7 @@ def node_from_task(task: dict[str, Any], *, extra_depends: list[str] | None = No
         ladder=task.get("ladder"),
         fallback_execution_paths=fallback_paths,
         available_execution_paths=available_paths,
+        requirements=task.get("requirements"),
     )
 
 

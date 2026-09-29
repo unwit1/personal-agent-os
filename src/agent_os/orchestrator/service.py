@@ -168,6 +168,35 @@ def suggest_providers(write: bool = False, path: str | None = None, force: bool 
     return result
 
 
+def add_model_endpoint(entry: dict[str, Any], write: bool = False, path: str | None = None, force: bool = False) -> dict[str, Any]:
+    """Preview (default) or add one provider entry to the machine-local
+    registry. Never overwrites an existing id without ``force``; the entry
+    holds only a secret *reference*, never a value."""
+    from .adapters import ADAPTERS
+
+    target = Path(path).expanduser() if path else registry_path()
+    factory = ADAPTERS.get(entry.get("adapter") or "")
+    status = factory(entry).probe() if factory else None
+    result: dict[str, Any] = {"path": str(target), "entry": entry, "written": False,
+                              "probe": {"available": bool(status and status.available), "reason": getattr(status, "reason", None)}}
+    if not write:
+        return result
+    try:
+        existing = json.loads(target.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError):
+        existing = {}
+    current = existing.get("providers") if isinstance(existing.get("providers"), list) else []
+    if any(isinstance(item, dict) and item.get("id") == entry["id"] for item in current) and not force:
+        result["error"] = f"provider {entry['id']} already exists in {target}; pass --force to replace it"
+        return result
+    existing["providers"] = [item for item in current if not (isinstance(item, dict) and item.get("id") == entry["id"])] + [entry]
+    existing.setdefault("schema_version", 1)
+    write_json(target, existing)
+    engine().reload_providers()
+    result["written"] = True
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Runs
 # ---------------------------------------------------------------------------

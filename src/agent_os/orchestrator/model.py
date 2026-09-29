@@ -296,8 +296,15 @@ def new_node(
     ladder: list[dict[str, Any]] | None = None,
     fallback_execution_paths: list[str] | None = None,
     available_execution_paths: list[str] | None = None,
+    requirements: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     check_identifier(node_id, "node id")
+    from .model_profile import normalize_requirements
+
+    try:
+        requirements = normalize_requirements(requirements)
+    except ValueError as exc:
+        raise PlanError(f"node {node_id}: {exc}") from exc
     if not str(goal or "").strip():
         raise PlanError(f"node {node_id}: missing goal")
     if role not in ROLES:
@@ -367,6 +374,7 @@ def new_node(
         "available_execution_paths": candidates,
         "execution_route": explain_execution_path(preferred_path, candidates, execution_path),
         "fallback_execution_paths": fallbacks,
+        "requirements": requirements,
         "command": command,
         "validators": list(validators or []),
         "approval_gate": approval_gate,

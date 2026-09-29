@@ -30,6 +30,7 @@ from pathlib import Path
 from typing import Any
 
 from ..capabilities import CAPABILITY_CLASSES, load_providers, rank
+from .model_profile import normalize_profile, normalize_requirements, preference_rank, profile_problem
 
 
 MODEL_CLASSES = tuple(item for item in CAPABILITY_CLASSES if item != "deterministic")
@@ -90,6 +91,7 @@ def normalize_provider(raw: dict[str, Any], order: int, discovered: dict[str, st
         "roles": list(roles) if isinstance(roles, list) else None,
         "env_allowlist": list(raw.get("env_allowlist") or []),
         "options": dict(raw.get("options") or {}),
+        "profile": normalize_profile(raw.get("profile"), raw.get("adapter"), raw.get("options") if isinstance(raw.get("options"), dict) else None),
     }
 
 
@@ -140,6 +142,7 @@ class ProviderRegistry:
                     "max_concurrency": item["max_concurrency"],
                     "tier_concurrency": item["tier_concurrency"],
                     "roles": item["roles"],
+                    "profile": item["profile"],
                 }
                 for item in self.providers
             ],
@@ -230,6 +233,7 @@ def select(
     override: dict[str, Any] | None = None,
     excluded_classes: dict[str, list[str]] | None = None,
     require_avoid: bool = False,
+    requirements: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Choose a provider/model/effort for one node. Pure and deterministic.
 
@@ -238,6 +242,10 @@ def select(
     is configured and available -- waiting for it when it is merely busy -- and
     only used when no other provider exists at all.
     ``running`` counts live workers per provider and per provider+class.
+    ``requirements`` are workload constraints on provider profiles
+    (model_profile.py): hard keys filter, ``prefer_*`` keys order candidates
+    ahead of cost. They also bind overrides, so an override cannot route a
+    local-only workload to a remote provider.
     """
     availability = availability or {}
     excluded_set = set(excluded or [])
@@ -245,6 +253,7 @@ def select(
     running = running or {}
     override = {key: value for key, value in (override or {}).items() if value}
     excluded_classes = excluded_classes or {}
+    requirements = normalize_requirements(requirements)
     target_class = shift_class(capability_class, preference)
     notes: list[str] = []
     if target_class != capability_class:
@@ -259,6 +268,8 @@ def select(
             return "excluded after a provider failure on this node"
         if provider["roles"] is not None and role not in provider["roles"]:
             return f"not configured for role {role}"
+        if requirements:
+            return profile_problem(provider.get("profile") or normalize_profile(None, provider.get("adapter"), provider.get("options")), requirements)
         return None
 
     alternatives = [item for item in registry.providers if item["id"] not in avoid_set and base_problem(item) is None]
@@ -356,6 +367,7 @@ def select(
             candidates,
             key=lambda item: (
                 item["id"] in avoid_set,
+                preference_rank(item.get("profile") or {}, requirements),
                 item["costs"].get(candidate_class, DEFAULT_COSTS.get(candidate_class, 1.0)),
                 running.get(load_key(item["id"]), 0),
                 item["priority"],
@@ -371,6 +383,10 @@ def select(
             reason = "user model override"
         if chosen["id"] in avoid_set:
             notes.append("no distinct provider available; review independence is session-level only")
+        if requirements:
+            profile = chosen.get("profile") or {}
+            notes.append(f"workload requirements met: deployment={profile.get('deployment')}, refusal_profile={profile.get('refusal_profile')}"
+                         + ("" if not preference_rank(profile, requirements) else " (soft preference unmet)"))
         return _selection(
             chosen,
             model=model,
@@ -419,4 +435,5 @@ def _selection(
         "overridden": overridden,
         "reason": reason,
         "notes": notes,
+        "profile": {key: (provider.get("profile") or {}).get(key) for key in ("deployment", "refusal_profile", "open_weights")},
     }
