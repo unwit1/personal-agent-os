@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0015",
+  "project": "personal-agent-os",
+  "title": "Provider-neutral Model Infrastructure Manager for text, image, voice and cloud ML",
+  "category": "architecture",
+  "subsystem": "orchestrator/model-infrastructure",
+  "status": "ready",
+  "priority": "high",
+  "observation": "Operator explicitly requested a plug-and-play model/compute layer that automatically researches new models, intelligently routes between subscription, API, open-weight and abliterated models, manages cloud GPU capacity such as RunPod, supports image/voice workloads and ML/LoRA training, and quotes/budgets work before paid execution.",
+  "evidence": [
+    "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+    "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
+    "projects/personal-agent-os/orchestrator-os/implementation-status.json#meta_improvement"
+  ],
+  "suspected_root_cause": "Current routing is provider/model aware but does not yet own cloud compute lifecycle, multimodal/training workloads, live pricing, quote/budget planning, or a continuous plug-and-play model catalog.",
+  "suggested_direction": "Implement the phased roadmap in model-infrastructure-manager.md. Extend existing routing/CAP/eval/research primitives; add provider-neutral workload/capability/compute/secret/artifact contracts, a RunPod-first adapter, shadow abliterated foreman evaluation, continuous model research, and image/audio/training support.",
+  "acceptance": [
+    "New text/code models can be added without scheduler changes",
+    "Image and voice/audio models are first-class capability types",
+    "RunPod can be quoted and later provisioned through a provider-neutral compute interface",
+    "Paid jobs respect hard project/job budgets and approval gates",
+    "Credentials are configured locally and never committed",
+    "Training/LoRA requests produce intelligent low/expected/high quotes before launch",
+    "Abliterated foreman routing can be evaluated in shadow mode against incumbent routes",
+    "Continuous research can discover and benchmark future model releases"
+  ],
+  "risks": [
+    "Provider APIs and model metadata change quickly; adapters and research records must be versioned",
+    "An experimental/abliterated foreman must not become the authorization or spending boundary",
+    "Cloud idle time, retries and artifact storage can create hidden cost if not included in quotes"
+  ],
+  "dedupe_key": null,
+  "source": {
+    "type": "operator",
+    "reference": "2026-09-29 explicit Orchestrator model/compute/image/voice request"
+  },
+  "github": null,
+  "created_at": "2026-09-29T16:19:15.793144+00:00",
+  "updated_at": "2026-09-29T16:19:15.793144+00:00",
+  "notes": "High priority. Begin with no-cost schema/eval/quote infrastructure; paid compute remains approval/budget gated."
+}
