@@ -51,10 +51,10 @@
       "title": "Quota-aware scheduling: capture reset times and defer instead of silently escalating",
       "category": "performance",
       "subsystem": "orchestrator/adapters",
-      "status": "candidate",
+      "status": "implemented",
       "priority": "medium",
       "dedupe_key": "dde1be5cb6a99ca07efbcc591979f7e299ca57b32f7a0ac2881a5cb49304d69b",
-      "updated_at": "2026-09-28T23:47:26.209540+00:00",
+      "updated_at": "2026-09-29T04:13:55.848929+00:00",
       "github_issue_number": null
     },
     {

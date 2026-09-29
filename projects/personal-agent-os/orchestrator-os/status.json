@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T04:50:00+00:00",
-  "phase": "P1 foundations: control-plane invariants tested; runtime resilience next",
-  "active_objective": "Make routing survive provider quotas (IMP-0005) using the subsumed breaker/backoff, so autonomous loops degrade instead of stalling.",
+  "updated_at": "2026-09-29T05:05:00+00:00",
+  "phase": "P1 foundations: control plane tested, provider health shared; test strength next",
+  "active_objective": "Prove the control-plane tests actually catch changes to protection logic (mutation testing, PA-mutmut), then return to route qualification and evaluation breadth.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -24,42 +24,39 @@
     "Prior-art registry + workflow integration (0d141ef8, DEC-0008)",
     "45 prior-art evaluations + discovery (bf11d932)",
     "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)",
-    "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)"
+    "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)",
+    "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)"
   ],
-  "blockers": [
-    "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
-  ],
+  "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0008",
     "DEC-0009",
-    "DEC-0010"
+    "DEC-0010",
+    "DEC-0011"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "Implement IMP-0005: quota-aware scheduling. Parse reset hints from provider failures (HTTP Retry-After; CLI messages such as 'try again at 9:12 PM' or 'resets Oct 3, 6pm') into a machine-local provider availability record with an expiry; wrap each provider in the subsumed CircuitBreaker (retry.py) so repeated quota/unavailable failures open it; the router treats open/blocked providers as unavailable until expiry, then half-opens with one probe; delegate and runs record 'deferred by quota' instead of silently escalating tier, and the telemetry names quota-driven escalations. Add state-machine operations for quota bursts and an invariant that quota never causes a stronger tier without a recorded reason. Evaluate with EVS-ROUTING and the state-machine suite.",
-    "prior_art": "provider quota rate limit reset scheduling circuit breaker",
+    "summary": "Mutation-testing spike (PA-mutmut, INVESTIGATE; motivated by FND-0008): measure how many mutations of src/agent_os/orchestrator/control_plane.py (then validators.py and the review gate in engine.py) the current tests kill. Prefer running mutmut as an external dev tool in .agent-local/venv-dev (no runtime dependency); if it does not run on Windows, subsume a small AST mutator (flip comparisons/booleans, drop returns, negate conditions) scoped to those modules. Report the mutation score, add tests that kill surviving meaningful mutants, and record EXP + DEC with a prior_art note and update PA-mutmut. Protected-path note: control_plane.py and validators.py are protected; mutations must happen only in throwaway copies/worktrees, never committed.",
+    "prior_art": "mutation testing python control plane tests",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Bounded runtime change with deterministic tests; no model workers needed.",
+    "why_this_class": "Deterministic tooling and test writing; no model workers needed.",
     "context_refs": [
-      "projects/personal-agent-os/improvements/IMP-0005.json",
-      "FAIL-0001",
-      "DEC-0009",
-      "src/agent_os/orchestrator/retry.py",
-      "src/agent_os/orchestrator/router.py",
-      "src/agent_os/orchestrator/engine.py",
-      "tests/test_orchestrator_state_machine.py"
+      "FND-0008",
+      "projects/personal-agent-os/research/prior-art/registry.json",
+      "src/agent_os/orchestrator/control_plane.py",
+      "tests/test_orchestrator_control_plane.py",
+      "src/agent_os/orchestrator/validators.py"
     ],
     "stop_conditions": [
-      "IMP-0005 acceptance passes with unit tests, state-machine suite and a noninferior EVS-ROUTING EVR",
+      "EXP record with mutation scores before/after and new killing tests committed",
       "0 model calls expected",
-      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+      "stop and report if a protected path would have to change in committed code beyond tests, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -129,6 +126,12 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "lesson": "plant a counterexample for every invariant"
+    },
+    "session_ORCH-0008": {
+      "deterministic_operations": "~20",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "lesson": "check our own code before assuming a gap (FND-0009)"
     }
   },
   "known_baseline": {
@@ -138,5 +141,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0007 pass (IMP-0007): prior-art lookup reused the fresh PA-hypothesis entry; built tests/test_orchestrator_state_machine.py, which drives the real engine through random operation sequences (worker/review outcomes, ticks, pause/resume/stop, gate decisions, retry, crash-restart) and checks the constitution invariants after every step, shrinking failures by delta debugging. 0 violations over ~2,000 checked states on the real engine. A planted mutation (engine ignores review findings) exposed that the first review invariant was vacuous (FND-0008); after the fix the subsumed runner found the bug in 19 s with a 5-op counterexample while Hypothesis (60 examples, untuned) missed it (EXP-0003), so DEC-0010 keeps the subsumed runner and PA-hypothesis moved to DEFER. 0 model calls."
+  "last_pass_summary": "ORCH-0008 pass (IMP-0005): checking existing capability first showed the engine already cooled quota-blocked providers (FND-0009 corrects FAIL-0001). Moved that into shared provider_health.py and closed the real gaps: parsing for every limit message seen this session plus Retry-After, a failure-window breaker for repeated unavailable failures, and delegate/eval honouring cooldowns (reporting 'deferred until' instead of wasting calls). EVR-0012 routing noninferior; state-machine hunt with unavailable bursts, 0 violations. 0 model calls."
 }

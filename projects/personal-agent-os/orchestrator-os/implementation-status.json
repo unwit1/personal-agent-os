@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T04:40:00+00:00",
+  "updated_at": "2026-09-29T05:00:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -122,13 +122,13 @@
     {
       "id": "RT-05",
       "feature": "Retry-After handling",
-      "status": "partial",
+      "status": "implemented",
       "evidence": [
-        "src/agent_os/orchestrator/retry.py",
-        "src/agent_os/orchestrator/adapters/http_api.py"
+        "src/agent_os/orchestrator/provider_health.py:quota_reset",
+        "src/agent_os/orchestrator/retry.py:parse_retry_after"
       ],
-      "note": "API workers retry with full jitter and Retry-After (DEC-0009); CLI workers not yet",
-      "verified_by": "tests/test_orchestrator_api_retry.py"
+      "note": "Retry-After and CLI reset messages parsed into cooldowns (DEC-0009, DEC-0011)",
+      "verified_by": "tests/test_provider_health.py"
     },
     {
       "id": "RT-06",
@@ -167,15 +167,13 @@
     {
       "id": "RT-09",
       "feature": "circuit breakers",
-      "status": "partial",
+      "status": "implemented",
       "evidence": [
-        "src/agent_os/orchestrator/model.py:93",
-        "src/agent_os/orchestrator/engine.py:367,1065-1068",
-        "src/agent_os/orchestrator/router.py:256-258",
+        "src/agent_os/orchestrator/provider_health.py:record_unavailable",
         "src/agent_os/orchestrator/retry.py:CircuitBreaker"
       ],
-      "note": "Per-node provider exclusion + failover exist; no cross-run open/half-open breaker state (frontier spot-check). Breaker implemented (DEC-0009), not yet wired into routing (IMP-0005).",
-      "verified_by": "haiku audit + frontier correction"
+      "note": "machine-wide failure-window breaker + quota cooldowns shared by engine/delegate/eval (DEC-0011)",
+      "verified_by": "tests/test_provider_health.py"
     },
     {
       "id": "RT-10",

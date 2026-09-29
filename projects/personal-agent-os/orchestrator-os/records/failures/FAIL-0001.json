@@ -3,8 +3,8 @@
   "id": "FAIL-0001",
   "type": "FAIL",
   "title": "Provider quota exhaustion blocked cheap-model delegation",
-  "status": "open",
-  "summary": "During the bootstrap the Claude subscription session limit stopped three Claude subagents (HTTP 429, reset 7:10pm ET) and the ChatGPT/Codex usage limit blocked gpt-6-luna (reset 9:12pm ET). Adapters classify it as `quota` and the engine fails over, but reset times are not captured, there is no quota-aware scheduling or deferral queue, so cheap routes silently disappear and work shifts to pricier routes. Recurrence 2026-09-29: the Claude weekly limit (resets Oct 3, 6pm ET) stopped a Haiku sample mid-experiment (EXP-0002); claude-code routes are unavailable until then.",
+  "status": "resolved",
+  "summary": "During the bootstrap the Claude subscription session limit stopped three Claude subagents (HTTP 429, reset 7:10pm ET) and the ChatGPT/Codex usage limit blocked gpt-6-luna (reset 9:12pm ET). Adapters classify it as `quota` and the engine fails over, but reset times are not captured, there is no quota-aware scheduling or deferral queue, so cheap routes silently disappear and work shifts to pricier routes. Recurrence 2026-09-29: the Claude weekly limit (resets Oct 3, 6pm ET) stopped a Haiku sample mid-experiment (EXP-0002); claude-code routes are unavailable until then. CORRECTION 2026-09-29 (FND-0009): the engine did capture quota reset times ('try again at H:MM PM') and cooled providers for engine runs; the statement above that reset times were discarded was wrong. Resolved by IMP-0005 (DEC-0011): shared provider_health parses all observed formats, delegate/eval honour and record cooldowns, and repeated unavailable failures open a breaker.",
   "signature": "provider_quota_exhausted",
   "recurrence": 3,
   "task_family": "any",
@@ -20,6 +20,14 @@
     {
       "rel": "evidence_for",
       "ref": "EVR-0007"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0009"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0011"
     }
   ],
   "provenance": {
@@ -27,5 +35,5 @@
     "author_tier": "frontier (Opus 5.5) unless stated"
   },
   "created_at": "2026-09-28T23:55:00+00:00",
-  "updated_at": "2026-09-29T02:55:00+00:00"
+  "updated_at": "2026-09-29T05:00:00+00:00"
 }

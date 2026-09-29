@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0009",
+  "type": "FND",
+  "title": "Quota cooldowns already existed in the engine; the bootstrap audit and FAIL-0001 missed them",
+  "status": "accepted",
+  "summary": "engine.py already wrote machine-wide quota cooldowns (provider-cooldowns.json) with a parsed reset time ('try again at H:MM PM') and removed cooling providers from availability. The Haiku runtime audit (EVR-0002) and FAIL-0001 both stated reset times were not captured. The real gaps were narrower: only one message format parsed, delegate/eval ignored cooldowns (so the bootstrap wasted two Luna calls), and no breaker for repeated unavailable failures. Lesson: 'check the existing capability first' applies to our own code as much as to open-source prior art; audits by cheap models need grep verification of 'missing' claims.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "src/agent_os/orchestrator/engine.py"
+    },
+    {
+      "rel": "evidence_against",
+      "ref": "FAIL-0001"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0002"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0007 -> ORCH-0008 (IMP-0005)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T05:00:00+00:00",
+  "updated_at": "2026-09-29T05:00:00+00:00"
+}

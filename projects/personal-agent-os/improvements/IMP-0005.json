@@ -5,11 +5,14 @@
   "title": "Quota-aware scheduling: capture reset times and defer instead of silently escalating",
   "category": "performance",
   "subsystem": "orchestrator/adapters",
-  "status": "candidate",
+  "status": "implemented",
   "priority": "medium",
   "observation": "FAIL-0001: during the bootstrap both the Claude session limit and the Codex usage limit were hit. Adapters classify `quota` and the engine fails over, but reset times are discarded, so cheap routes disappear and work shifts to pricier ones.",
   "evidence": [
-    "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0001.json"
+    "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0001.json",
+    "commit:aabff0ea",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0011.json",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0012.json"
   ],
   "suspected_root_cause": null,
   "suggested_direction": "Parse reset/Retry-After hints from provider errors into a machine-local provider availability record with an expiry; router treats the provider as unavailable until then; delegate and runs may defer low-priority cheap work instead of escalating tier.",
@@ -26,6 +29,6 @@
   },
   "github": null,
   "created_at": "2026-09-28T23:47:26.209540+00:00",
-  "updated_at": "2026-09-28T23:47:26.209540+00:00",
+  "updated_at": "2026-09-29T04:13:55.848929+00:00",
   "notes": null
 }
