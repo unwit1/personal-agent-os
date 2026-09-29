@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0035",
+  "type": "DEC",
+  "title": "Serving-throughput evidence replaces assumed throughput in GPU quotes",
+  "status": "accepted",
+  "summary": "EVR-0017 showed that GPU-vs-API quotes depend almost entirely on the throughput input, which was assumed. throughput.py stores observations (model, revision, gpu, engine, kind generation|training, tokens/s, concurrency, source measured|benchmark|assumed) in <home>/throughput.jsonl; best() prefers measured over benchmark over assumed evidence, newest first; lookup() matches a GPU offer by display name or id. measure() benchmarks a registered OpenAI-compatible endpoint with N concurrent requests (temperature 0, fixed prompt and max_tokens) and computes aggregate completion tokens per wall-clock second from server-reported usage, plus per-request tokens/s; it is a real call only to the operator's own endpoint. compute.gpu_options accepts a per-offer rate function, prices only GPUs with evidence, and labels each option's throughput_source (explicit/measured). CLI: `orchestrate throughput measure|record|show`, `orchestrate quote --gpu-from runpod --model <id>`. Tested end-to-end against a local stdlib HTTP server implementing the OpenAI chat-completions shape.",
+  "prior_art": {
+    "checked": "PA-vllm (its own benchmark scripts report throughput), PA-skypilot (catalog prices, not throughput)",
+    "found": "serving engines ship offline benchmarks; Agent OS still needs per-endpoint evidence tied to its quotes",
+    "reused": "OpenAiCompatibleAdapter request/POST path; secret_refs for keyed endpoints",
+    "why_custom": "a small concurrent client and a JSONL store; vLLM benchmark numbers can be recorded with source=benchmark"
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/throughput.py"},
+    {"rel": "tests", "ref": "tests/test_throughput.py"},
+    {"rel": "relates_to", "ref": "EVR-0017"},
+    {"rel": "relates_to", "ref": "IMP-0015"}
+  ],
+  "metrics": {"model_calls": 0, "paid_compute": 0, "new_tests": 5},
+  "provenance": {"session": "ORCH-0030 -> ORCH-0031", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T22:10:00+00:00",
+  "updated_at": "2026-09-29T22:10:00+00:00"
+}

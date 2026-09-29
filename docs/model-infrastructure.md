@@ -186,6 +186,18 @@ A100 community pod versus about $379 at an example API price, under
 explicitly assumed throughput. It is blocked by the budget gate until
 approved.
 
+Replace assumed throughput with measurements once a model is served:
+
+```powershell
+agent-os orchestrate throughput measure --provider local-abliterated --gpu "A100 PCIe" --engine vllm-0.30 --concurrency 8 --requests 32
+agent-os orchestrate quote --workload job.json --options api.json --gpu-from runpod --model <model-id>
+```
+
+`measure` sends N concurrent requests to your own endpoint and records the
+aggregate completion tokens/s from the server's reported usage. With
+`--model` and no `--gen-tps`, quotes price only the GPUs that have recorded
+throughput. Measured evidence wins over benchmark or assumed numbers.
+
 Artifact manifests (`artifacts.py`) record models, adapters, checkpoints and
 outputs by URI, sha256, base model and revision, and a training-config
 digest. `verify` checks a local checkpoint before resume, and

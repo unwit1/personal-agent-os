@@ -188,6 +188,22 @@ def register(commands: argparse._SubParsersAction) -> None:
     qte.add_argument("--gen-tps", type=float, help="with --gpu-from: generation tokens/s for this model on one GPU (measured; not invented)")
     qte.add_argument("--train-tps", type=float, help="with --gpu-from: training tokens/s for this job on one GPU")
     qte.add_argument("--limit", type=int, default=5, help="with --gpu-from: cheapest N qualifying offers")
+    qte.add_argument("--model", help="with --gpu-from and no --gen-tps/--train-tps: use recorded throughput for this model per GPU (orchestrate throughput)")
+
+    thr = actions.add_parser("throughput", help="serving-throughput evidence per model x GPU x engine; measure is real calls to your own endpoint")
+    thr.add_argument("action", choices=["measure", "record", "show"])
+    thr.add_argument("--provider", help="measure: registered OpenAI-compatible provider id")
+    thr.add_argument("--model", help="model id (measure: defaults to the provider's first model)")
+    thr.add_argument("--gpu", help="GPU display name as shown by orchestrate compute inventory, e.g. A100 PCIe")
+    thr.add_argument("--engine", help="serving engine, e.g. vllm-0.30")
+    thr.add_argument("--revision")
+    thr.add_argument("--requests", type=int, default=8)
+    thr.add_argument("--concurrency", type=int, default=4)
+    thr.add_argument("--max-tokens", type=int, default=256)
+    thr.add_argument("--tps", type=float, help="record: tokens/s to store")
+    thr.add_argument("--kind", default="generation", choices=["generation", "training"])
+    thr.add_argument("--source", default="measured", choices=["measured", "benchmark", "assumed"])
+    thr.add_argument("--no-record", action="store_true", help="measure: print only")
 
     cmp_ = actions.add_parser("compute", help="read-only GPU inventory and pricing (RunPod first); never provisions or spends")
     cmp_.add_argument("action", choices=["inventory"])
@@ -540,12 +556,18 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             from . import compute
 
             stock = compute.inventory(args.gpu_from)
-            gpu = compute.gpu_options(stock.get("offers") or [], workload, gen_tokens_per_second=args.gen_tps, train_tokens_per_second=args.train_tps, limit=args.limit)
+            rate_for = None
+            if args.model and not (args.gen_tps or args.train_tps):
+                from . import throughput
+
+                rate_for = throughput.lookup(args.model, "training" if workload["type"] in {"training", "fine_tune", "adapter_training"} else "generation")
+            gpu = compute.gpu_options(stock.get("offers") or [], workload, gen_tokens_per_second=args.gen_tps, train_tokens_per_second=args.train_tps,
+                                      limit=args.limit, rate_for=rate_for)
             options += gpu
             if stock.get("error"):
                 notes.append(f"{args.gpu_from} inventory unavailable: {stock['error']}")
             elif not gpu:
-                notes.append("no GPU options priced: pass --gen-tps/--train-tps (throughput is never invented) or lower resources.vram_gb")
+                notes.append("no GPU options priced: pass --gen-tps/--train-tps or --model with recorded throughput (never invented), or lower resources.vram_gb")
         if not options:
             emit({"error": "no options to quote", "notes": notes})
             return 2
@@ -571,6 +593,32 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         if args.search or args.pipeline:
             scans = [{"name": "ad-hoc", "search": args.search, "pipeline_tag": args.pipeline, "sort": args.sort, "limit": args.limit}]
         emit(radar.scan(scans, min_downloads=args.min_downloads))
+        return 0
+    if action == "throughput":
+        from . import throughput
+
+        if args.action == "show":
+            rows = throughput.load()
+            emit([row for row in rows if not args.model or row.get("model") == args.model])
+            return 0
+        if args.action == "record":
+            emit(throughput.record(model=args.model, gpu=args.gpu, tokens_per_second=args.tps, kind=args.kind, engine=args.engine,
+                                   revision=args.revision, source=args.source))
+            return 0
+        from .router import ProviderRegistry
+
+        provider = ProviderRegistry().get(args.provider or "")
+        if not provider or provider.get("adapter") != "openai_api":
+            emit({"error": f"provider {args.provider!r} is not a registered openai_api endpoint (see orchestrate model-add)"})
+            return 2
+        model = args.model or next(iter(provider["models"].values()), None)
+        result = throughput.measure(provider, model, requests=args.requests, concurrency=args.concurrency, max_tokens=args.max_tokens)
+        if result["tokens_per_second"] and args.gpu and not args.no_record:
+            result["recorded"] = throughput.record(model=model, gpu=args.gpu, tokens_per_second=result["tokens_per_second"], engine=args.engine,
+                                                   revision=args.revision, concurrency=args.concurrency, source="measured")
+        elif result["tokens_per_second"] and not args.gpu:
+            result["note"] = "pass --gpu to record this measurement for quotes"
+        emit(result)
         return 0
     if action == "refusals":
         from pathlib import Path as _Path

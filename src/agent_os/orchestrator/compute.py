@@ -95,20 +95,33 @@ def inventory(provider: str = "runpod", **kwargs: Any) -> dict[str, Any]:
 
 def gpu_options(offers: list[dict[str, Any]], workload: dict[str, Any], *, gen_tokens_per_second: float | None = None,
                 train_tokens_per_second: float | None = None, limit: int = 5, tiers: tuple[str, ...] = ("secure", "community"),
-                startup_minutes: float = 8.0, idle_minutes: float = 10.0) -> list[dict[str, Any]]:
+                startup_minutes: float = 8.0, idle_minutes: float = 10.0,
+                rate_for: Callable[[dict[str, Any]], float | None] | None = None) -> list[dict[str, Any]]:
     """Cheapest offers that meet the workload's VRAM floor, as quote options.
 
     Throughput must be supplied by the caller (measured or taken from the
     serving engine's benchmark for this model and GPU); the broker does not
     invent it. Without throughput no priced options are produced.
+    ``rate_for(offer)`` supplies per-GPU measured throughput
+    (throughput.lookup); an explicit rate applies to every offer instead.
     """
     training = workload.get("type") in {"training", "fine_tune", "adapter_training"}
-    rate = train_tokens_per_second if training else gen_tokens_per_second
-    if not rate:
+    fixed = train_tokens_per_second if training else gen_tokens_per_second
+    if not fixed and rate_for is None:
         return []
     floor = float((workload.get("resources") or {}).get("vram_gb") or 0)
     gpus = int((workload.get("resources") or {}).get("gpus") or 1)
-    chosen = [offer for offer in offers if offer["tier"] in tiers and (offer["vram_gb"] or 0) >= floor][:limit]
     key = "train_tokens_per_second" if training else "gen_tokens_per_second"
-    return [{"kind": "gpu_pod", "id": f"{offer['provider']}:{offer['name']}:{offer['tier']}", "gpu_hourly_usd": offer["usd_per_hour"], "gpus": gpus,
-             key: float(rate), "startup_minutes": startup_minutes, "idle_minutes": idle_minutes, "vram_gb": offer["vram_gb"]} for offer in chosen]
+    options = []
+    for offer in offers:
+        if offer["tier"] not in tiers or (offer["vram_gb"] or 0) < floor:
+            continue
+        rate = fixed or (rate_for(offer) if rate_for else None)
+        if not rate:
+            continue
+        options.append({"kind": "gpu_pod", "id": f"{offer['provider']}:{offer['name']}:{offer['tier']}", "gpu_hourly_usd": offer["usd_per_hour"], "gpus": gpus,
+                        key: float(rate), "throughput_source": "explicit" if fixed else "measured", "startup_minutes": startup_minutes,
+                        "idle_minutes": idle_minutes, "vram_gb": offer["vram_gb"]})
+        if len(options) >= limit:
+            break
+    return options
