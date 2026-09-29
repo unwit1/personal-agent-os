@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T08:55:00+00:00",
-  "phase": "P1 foundations substantially complete; remaining items gated or operator-dependent",
-  "active_objective": "Hold: foundational build done. Resume individual items when unblocked (real model volume for routing, operator decisions for holdout/budgets/live security).",
+  "updated_at": "2026-09-29T16:19:15.793144+00:00",
+  "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
+  "active_objective": "Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -57,23 +57,29 @@
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
     "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
-    "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout"
+    "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout",
+    "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed."
   ],
   "next_action": {
-    "summary": "Operator decision point. The autonomous foundational build is complete and pushed; continuing to spin up a new subsystem each cycle has low marginal value (constitution section 12/13). Options for the operator: (a) pick a specific remaining item from status.remaining_backlog and prompt it directly; (b) approve a gated item (live security eval, holdout placement, budget thresholds); (c) let real orchestrated runs accumulate CAP evidence, then IMP-0004 becomes actionable. If the loop fires again with no new instruction, do one light maintenance check (agent-os validate + targeted tests + orchestrate mining/simplify for new gaps) and, if nothing material surfaces, record a no-op checkpoint rather than building speculative features.",
-    "prior_art": null,
-    "worker_class": "balanced",
-    "effort": "low",
-    "why_this_class": "Assessment/maintenance, not new construction.",
+    "summary": "Operator explicitly requested IMP-0015 as the next high-priority Orchestrator expansion. Start with the no-cost Phase 0 foundation in projects/personal-agent-os/roadmap/model-infrastructure-manager.md: inspect existing router/provider/CAP/research/eval/secrets primitives, run the required prior-art lookup, define provider-neutral workload/capability/compute-quote/secret/artifact contracts, add a synthetic provider and shadow-foreman/refusal telemetry tests, then implement the smallest generic inference/credential/RunPod quote slice that does not incur paid compute. Preserve current primitives rather than duplicating them. Image and voice/audio modalities must be represented from the start even if their provider adapters arrive in later phases.",
+    "prior_art": "required: model gateways/routers, cloud GPU brokers, model registries/eval systems, training job managers",
+    "worker_class": "reasoning",
+    "effort": "medium",
+    "why_this_class": "This is a cross-cutting architecture change touching routing, capability evidence, credentials, cloud economics, multimodal workloads, evaluation, and future extensibility; deterministic inventory/prior-art and cheap workers should still be delegated first.",
     "context_refs": [
-      "projects/personal-agent-os/orchestrator-os/status.json",
-      "docs/orchestrator-os/COMMANDS.md",
-      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0027.json"
+      "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+      "projects/personal-agent-os/improvements/IMP-0015.json",
+      "docs/orchestrator-os/ENTRYPOINT.md",
+      "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
+      "docs/multi-agent-orchestrator.md",
+      "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+      "projects/personal-agent-os/research/meta-improvement/registry-index.json"
     ],
     "stop_conditions": [
-      "a light maintenance check is recorded, or a specific unblocked item is completed",
-      "0 model calls unless an operator names a task",
-      "prefer a no-op checkpoint over speculative building when nothing material surfaces"
+      "a verified Phase 0/first-slice implementation is committed and a new Orchestrator checkpoint is written",
+      "a protected-path or operator policy decision is required",
+      "the next step would incur material cloud/model spend without an approved project/job budget and hard cap",
+      "evidence shows an existing primitive already satisfies the requirement and the roadmap is reconciled accordingly"
     ]
   },
   "meta_economics": {
