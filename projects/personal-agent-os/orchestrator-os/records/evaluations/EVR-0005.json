@@ -1,0 +1,274 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0005",
+  "type": "EVR",
+  "title": "EVS-CAPABILITY-CLASSIFICATION: claude-code@balanced vs codex@fast, claude-code@fast",
+  "status": "accepted",
+  "outcome": "regressed",
+  "summary": "`agent-os orchestrate eval` (cases suite). Quality verdict per candidate uses accuracy; cost and latency are reported separately. Noninferiority margin 0.02.",
+  "task_family": "research_implementation_classification",
+  "metrics": {
+    "kind": "cases",
+    "incumbent": "claude-code@balanced",
+    "noninferiority_margin": 0.02,
+    "results": [
+      {
+        "ref": "claude-code@balanced",
+        "provider": "claude-code",
+        "model_resolved": "claude-sonnet-5-5",
+        "status": "passed",
+        "failure": null,
+        "contract_pass": true,
+        "cases": 20,
+        "correct": 15,
+        "accuracy": 0.75,
+        "wrong": [
+          {
+            "id": "MIE-0003",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0006",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0009",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0010",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0014",
+            "expected": "partial",
+            "got": "missing"
+          }
+        ],
+        "seconds": 25.6,
+        "input_tokens": 29775,
+        "cost_usd": 0.063707,
+        "delegation": "DLG-2828d69dd1b5"
+      },
+      {
+        "ref": "codex@fast",
+        "provider": "codex",
+        "model_resolved": "gpt-6-luna",
+        "status": "passed",
+        "failure": null,
+        "contract_pass": true,
+        "cases": 20,
+        "correct": 12,
+        "accuracy": 0.6,
+        "wrong": [
+          {
+            "id": "MIE-0003",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0004",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0005",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0007",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0011",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0012",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0018",
+            "expected": "missing",
+            "got": "partial"
+          },
+          {
+            "id": "MIE-0020",
+            "expected": "missing",
+            "got": "partial"
+          }
+        ],
+        "seconds": 165.71,
+        "input_tokens": 544079,
+        "cost_usd": null,
+        "delegation": "DLG-8a0b35bb116b"
+      },
+      {
+        "ref": "claude-code@fast",
+        "provider": "claude-code",
+        "model_resolved": "claude-haiku-4-5-20251001",
+        "status": "passed",
+        "failure": null,
+        "contract_pass": true,
+        "cases": 20,
+        "correct": 13,
+        "accuracy": 0.65,
+        "wrong": [
+          {
+            "id": "MIE-0002",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0006",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0010",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0013",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0014",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0016",
+            "expected": "partial",
+            "got": "missing"
+          },
+          {
+            "id": "MIE-0017",
+            "expected": "partial",
+            "got": "missing"
+          }
+        ],
+        "seconds": 106.58,
+        "input_tokens": 814258,
+        "cost_usd": 0.241767,
+        "delegation": "DLG-4f148cea6e72"
+      }
+    ],
+    "comparisons": {
+      "codex@fast": {
+        "verdict": "regressed",
+        "dimensions": {
+          "accuracy": {
+            "incumbent": 0.75,
+            "candidate": 0.6,
+            "delta": -0.15,
+            "verdict": "regressed"
+          },
+          "contract_pass": {
+            "incumbent": 1.0,
+            "candidate": 1.0,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "cost_usd": {
+            "incumbent": 0.063707,
+            "candidate": null,
+            "delta": null,
+            "verdict": null
+          },
+          "seconds": {
+            "incumbent": 25.6,
+            "candidate": 165.71,
+            "delta": 140.11,
+            "verdict": "regressed"
+          },
+          "input_tokens": {
+            "incumbent": 29775,
+            "candidate": 544079,
+            "delta": 514304,
+            "verdict": "regressed"
+          }
+        }
+      },
+      "claude-code@fast": {
+        "verdict": "regressed",
+        "dimensions": {
+          "accuracy": {
+            "incumbent": 0.75,
+            "candidate": 0.65,
+            "delta": -0.1,
+            "verdict": "regressed"
+          },
+          "contract_pass": {
+            "incumbent": 1.0,
+            "candidate": 1.0,
+            "delta": 0.0,
+            "verdict": "noninferior"
+          },
+          "cost_usd": {
+            "incumbent": 0.063707,
+            "candidate": 0.241767,
+            "delta": 0.17806,
+            "verdict": "regressed"
+          },
+          "seconds": {
+            "incumbent": 25.6,
+            "candidate": 106.58,
+            "delta": 80.98,
+            "verdict": "regressed"
+          },
+          "input_tokens": {
+            "incumbent": 29775,
+            "candidate": 814258,
+            "delta": 784483,
+            "verdict": "regressed"
+          }
+        }
+      }
+    },
+    "notes": []
+  },
+  "links": [
+    {
+      "rel": "measures",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-CAPABILITY-CLASSIFICATION.json"
+    },
+    {
+      "rel": "baseline",
+      "ref": "local:route/claude-code@balanced"
+    },
+    {
+      "rel": "candidate",
+      "ref": "local:route/codex@fast"
+    },
+    {
+      "rel": "candidate",
+      "ref": "local:route/claude-code@fast"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0004"
+    },
+    {
+      "rel": "answers",
+      "ref": "Q-0001"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate eval",
+    "suite_read_from": "trusted checkout",
+    "trusted_commit": "fa15466e"
+  },
+  "created_at": "2026-09-29T01:22:35.277287+00:00",
+  "updated_at": "2026-09-29T01:22:35.277287+00:00"
+}

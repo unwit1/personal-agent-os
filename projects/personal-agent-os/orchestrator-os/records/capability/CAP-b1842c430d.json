@@ -21,6 +21,10 @@
       1.0
     ],
     "qualified_at_floor": null,
+    "mean_accuracy": null,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "output_contract",
+    "contract_only_samples": 0,
     "repairs": 0,
     "mean_seconds": 28.55,
     "mean_input_tokens": 44981.0,
@@ -41,5 +45,5 @@
     "observed_from": "2026-09-28T23:52:50.205702+00:00",
     "observed_to": "2026-09-28T23:52:50.205702+00:00"
   },
-  "updated_at": "2026-09-28T23:53:01.581312+00:00"
+  "updated_at": "2026-09-29T01:23:23.657597+00:00"
 }

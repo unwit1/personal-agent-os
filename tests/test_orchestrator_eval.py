@@ -57,6 +57,18 @@ class ParseAndCompareTests(unittest.TestCase):
         self.assertEqual(evaluation.parse_route("claude-code")["model"], None)
 
 
+class CapabilityBasisTests(unittest.TestCase):
+    def test_accuracy_scored_samples_supersede_contract_only(self) -> None:
+        base = {"task_family": "f", "role": "analyst", "provider": "p", "model_resolved": "m", "effort": "low", "toolset": "read_only"}
+        records = capability.summarize([
+            {**base, "status": "passed", "validator_passed": True, "call_id": "old"},
+            {**base, "status": "passed", "validator_passed": False, "contract_passed": True, "accuracy": 0.6, "call_id": "new"},
+        ])
+        metrics = records[0]["metrics"]
+        self.assertEqual((metrics["sample_count"], metrics["validator_pass_rate"], metrics["pass_basis"]), (1, 0.0, "accuracy_vs_labels"))
+        self.assertEqual((metrics["contract_pass_rate"], metrics["contract_only_samples"], metrics["mean_accuracy"]), (1.0, 1, 0.6))
+
+
 class GovernanceTests(unittest.TestCase):
     def test_holdout_requires_operator_flag(self) -> None:
         suite = {"id": "EVS-X", "type": "EVS", "metrics": {"splits": ["protected_holdout"], "runners": []}}

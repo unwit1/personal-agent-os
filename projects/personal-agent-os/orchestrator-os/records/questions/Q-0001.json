@@ -3,8 +3,8 @@
   "id": "Q-0001",
   "type": "Q",
   "title": "Is gpt-6-luna reliable enough for classification and inventory task families?",
-  "status": "open",
-  "summary": "Luna is callable through the router (selection and adapter invocation verified; quota-blocked during bootstrap). Answer by running the EVC development set through `orchestrate delegate --provider codex` after the usage reset and comparing accuracy and cost per success with CAP-be9d7454fc and CAP-793f8cdfde.",
+  "status": "resolved",
+  "summary": "Luna is callable through the router (selection and adapter invocation verified; quota-blocked during bootstrap). Answer by running the EVC development set through `orchestrate delegate --provider codex` after the usage reset and comparing accuracy and cost per success with CAP-be9d7454fc and CAP-793f8cdfde. ANSWER (EVR-0005, 2026-09-29, n=1 per route, pinned base f8f4453f): no. gpt-6-luna at effort low scored 0.60 accuracy (12/20) vs Sonnet 0.75 and Haiku 0.65; 166s and 544k input tokens; cost not reported by the Codex subscription. It does not qualify for research_implementation_classification. Inventory-style families remain untested for Luna.",
   "links": [
     {
       "rel": "relates_to",
@@ -13,6 +13,10 @@
     {
       "rel": "relates_to",
       "ref": "EVR-0001"
+    },
+    {
+      "rel": "answers",
+      "ref": "EVR-0005"
     }
   ],
   "provenance": {
@@ -20,5 +24,5 @@
     "author_tier": "frontier (Opus 5.5) unless stated"
   },
   "created_at": "2026-09-28T23:55:00+00:00",
-  "updated_at": "2026-09-28T23:55:00+00:00"
+  "updated_at": "2026-09-29T01:45:00+00:00"
 }

@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0004",
+  "type": "FND",
+  "title": "Cheap routes err in opposite directions on partial-vs-missing judgments",
+  "status": "accepted",
+  "summary": "On the pinned-base classification (EVR-0005) gpt-6-luna over-claimed: 8/8 errors were 'partial' for items labeled missing. Haiku under-claimed: 7/7 errors were 'missing' for items labeled partial. Sonnet's 5 errors were mixed. The errors are systematic, not random, which suggests (a) a stricter evidence rule (HYP-0001) could fix Luna's over-claiming, and (b) Luna/Haiku disagreement is a cheap signal for which items need escalation. Haiku scored 0.65 at the pinned base vs 0.75 on the live tree at bootstrap (FND-0002 effect plus run-to-run variance; n=1 each).",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EVR-0005"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "HYP-0001"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0002"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0001 -> ORCH-0002 (IMP-0003)",
+    "author_tier": "frontier (Opus 5.5) synthesis of eval output"
+  },
+  "created_at": "2026-09-29T01:45:00+00:00",
+  "updated_at": "2026-09-29T01:45:00+00:00"
+}

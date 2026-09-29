@@ -531,4 +531,5 @@ Commands added for it (no vendor names outside `adapters/`):
 | `orchestrate delegate --task-family F --prompt-file P [--contract C]` | one read-only call through the router; output contract checked; capability observation recorded (`delegate.py`) |
 | `orchestrate capability [--write]` | aggregate observations into CAP records keyed by task family x role x provider x resolved model x effort x toolset (`capability.py`) |
 | `orchestrate control-check [paths] [--base main]` | protected control/evaluation-plane check; the same check runs in every node's validator step for runs on this repository (`control_plane.py`; operator grant: run policy `protected_paths_allowed`) |
+| `orchestrate eval --suite EVS-... [--incumbent R] [--candidate R \| --route P[:M][@C]]` | incumbent vs candidate on the same cases; one EVR per run, separate dimensions (`eval.py`) |
 | `orchestrate checkpoint [--write|--show]`, `orchestrate next-prompt` | ORCH-NNNN continuation checkpoint and generated next prompt (`continuation.py`) |

@@ -29,10 +29,10 @@
       "title": "Incumbent-vs-candidate eval runner over EVS suites",
       "category": "architecture",
       "subsystem": "orchestrator-os/evals",
-      "status": "candidate",
+      "status": "implemented",
       "priority": "high",
       "dedupe_key": "c216abfb8d79119a8b1986502da778209a9ae8e80aeedc895aea0a2e397f7dc4",
-      "updated_at": "2026-09-28T23:47:25.890086+00:00",
+      "updated_at": "2026-09-29T01:24:36.795679+00:00",
       "github_issue_number": null
     },
     {

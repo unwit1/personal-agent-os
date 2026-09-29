@@ -2,7 +2,7 @@
   "schema": "personal-agent/evidence-record/v1",
   "id": "CAP-1512ae6ebf",
   "type": "CAP",
-  "title": "research_implementation_classification via codex/gpt-6-luna (low) -- no capability samples",
+  "title": "research_implementation_classification via codex/gpt-6-luna (low)",
   "status": "active",
   "key": {
     "task_family": "research_implementation_classification",
@@ -13,12 +13,39 @@
     "toolset": "read_only"
   },
   "metrics": {
-    "sample_count": 0,
+    "sample_count": 1,
+    "final_success": 0,
+    "validator_pass_rate": 0.0,
+    "pass_rate_wilson95": [
+      0.0,
+      0.793
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.6,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 165.71,
+    "mean_input_tokens": 544079.0,
+    "mean_output_tokens": 4022.0,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "accuracy_below_floor": 1
+    },
     "availability_failures": 1
   },
-  "links": [],
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-8a0b35bb116b"
+    }
+  ],
   "provenance": {
-    "source": "agent-os orchestrate capability --write"
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-29T01:22:34.614524+00:00",
+    "observed_to": "2026-09-29T01:22:34.614524+00:00"
   },
-  "updated_at": "2026-09-28T23:53:01.581521+00:00"
+  "updated_at": "2026-09-29T01:23:23.657769+00:00"
 }

@@ -5,13 +5,17 @@
   "title": "Incumbent-vs-candidate eval runner over EVS suites",
   "category": "architecture",
   "subsystem": "orchestrator-os/evals",
-  "status": "candidate",
+  "status": "implemented",
   "priority": "high",
   "observation": "EVS suite records, development cases and holdout governance exist (bootstrap ORCH-0001), but nothing runs an incumbent and a candidate over the same applicable cases and records a separated-dimension EVR. Promotion rules in policy/orchestrator-os.policy.json cannot be applied without it. Tracks MIE-0002 and MIE-0005.",
   "evidence": [
     "projects/personal-agent-os/orchestrator-os/implementation-status.json#meta_improvement",
     "MIE-0002",
-    "MIE-0005"
+    "MIE-0005",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0004.json",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0005.json",
+    "commit:fa15466e",
+    "Acceptance met 2026-09-29: two-ref EVR for EVS-CONTROL-PLANE (noninferior) and three-route EVR for EVS-CAPABILITY-CLASSIFICATION; separate dimensions; trusted suites; holdout refused without --operator-holdout (tests/test_orchestrator_eval.py)."
   ],
   "suspected_root_cause": null,
   "suggested_direction": "Add `agent-os orchestrate eval --suite EVS-... --incumbent <ref> --candidate <ref>`: resolve runners from suite records, run both refs in isolated worktrees, emit one EVR per suite with per-dimension deltas and noninferiority verdicts; read suites from the trusted checkout; refuse protected_holdout splits unless operator-invoked.",
@@ -29,6 +33,6 @@
   },
   "github": null,
   "created_at": "2026-09-28T23:47:25.890086+00:00",
-  "updated_at": "2026-09-28T23:47:25.890086+00:00",
+  "updated_at": "2026-09-29T01:24:36.795679+00:00",
   "notes": null
 }

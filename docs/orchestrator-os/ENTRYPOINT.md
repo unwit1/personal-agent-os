@@ -54,8 +54,9 @@ instructions (constitution §9).
    --contract c.json [--capability-class fast]`. Coding changes go through
    `agent-os orchestrate create/start-recommended --project personal-agent-os`
    when practical. Use the frontier tier only for the uses the policy allows.
-3. **Baseline before changing behavior.** Run the relevant EVS suites' runners
-   on the incumbent first.
+3. **Baseline before changing behavior.** `agent-os orchestrate eval --suite
+   <EVS-id> --incumbent <ref> --candidate <ref>` compares refs on the same cases
+   and writes an EVR.
 4. **Change in isolation.** Keep scope small. Do not touch protected paths
    (`agent-os orchestrate control-check` before committing) unless the operator
    granted them in this request.

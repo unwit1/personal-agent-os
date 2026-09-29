@@ -14,32 +14,42 @@
   },
   "metrics": {
     "sample_count": 1,
-    "final_success": 1,
-    "validator_pass_rate": 1.0,
+    "final_success": 0,
+    "validator_pass_rate": 0.0,
     "pass_rate_wilson95": [
-      0.207,
-      1.0
+      0.0,
+      0.793
     ],
     "qualified_at_floor": null,
+    "mean_accuracy": 0.75,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 1,
     "repairs": 0,
-    "mean_seconds": 20.4,
-    "mean_input_tokens": 29889.0,
-    "mean_output_tokens": 2800.0,
-    "total_cost_usd": 0.069188,
-    "cost_per_success_usd": 0.069188,
-    "failure_clusters": {},
+    "mean_seconds": 25.6,
+    "mean_input_tokens": 29775.0,
+    "mean_output_tokens": 2413.0,
+    "total_cost_usd": 0.063707,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "accuracy_below_floor": 1
+    },
     "availability_failures": 0
   },
   "links": [
     {
       "rel": "derived_from",
       "ref": "local:capability/observations.jsonl#DLG-905fae12b3ca"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-2828d69dd1b5"
     }
   ],
   "provenance": {
     "source": "agent-os orchestrate capability --write",
-    "observed_from": "2026-09-28T23:40:13.551885+00:00",
-    "observed_to": "2026-09-28T23:40:13.551885+00:00"
+    "observed_from": "2026-09-29T01:20:14.420011+00:00",
+    "observed_to": "2026-09-29T01:20:14.420011+00:00"
   },
-  "updated_at": "2026-09-28T23:53:01.581480+00:00"
+  "updated_at": "2026-09-29T01:23:23.657728+00:00"
 }

@@ -18,18 +18,21 @@ A suite record lists `metrics.runners` (test modules, benchmark entry points or
 case files), `metrics.dimensions`, and `metrics.task_families`. `agent-os
 validate` checks that every runner target exists.
 
-## Running today
+## Running
 
-- Test-backed suites: `python -m unittest <runner modules>` on the incumbent
-  and on the candidate branch.
-- EVS-COST: `agent-os orchestrate benchmark` (offline, deterministic).
-- EVS-CAPABILITY-CLASSIFICATION: `agent-os orchestrate delegate` per route
-  with the development case prompt; score accuracy against
-  `cases/development/*.json`; record the result as an EVR and run
-  `agent-os orchestrate capability --write`.
+```powershell
+# test suites: git refs, each in a detached worktree with the trusted runner copies
+agent-os orchestrate eval --suite EVS-CONTROL-PLANE --incumbent main --candidate <branch-or-commit>
+# case suites: routes provider[:model][@class], worktree pinned to the case file's base_commit
+agent-os orchestrate eval --suite EVS-CAPABILITY-CLASSIFICATION --incumbent claude-code@balanced --route codex@fast --route claude-code@fast
+```
 
-The single command that runs suites for two refs and writes the EVR
-automatically is **IMP-0003** (not built yet).
+Each run writes one append-only EVR (`records/evaluations/`) with per-dimension
+deltas and verdicts; the candidate verdict uses only the quality dimension, so
+cost never rescues a regression (DEC-0005). Case-suite runs also record
+accuracy-scored capability observations; follow with `orchestrate capability --write`.
+Exit code 8 means a candidate regressed. EVS-COST still runs through
+`agent-os orchestrate benchmark` (its runner type is not supported by `eval`).
 
 ## Rules
 

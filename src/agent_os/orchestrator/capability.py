@@ -96,6 +96,11 @@ def summarize(observations: list[dict[str, Any]], floor: float = 0.9) -> list[di
         if not items:
             records.append({"schema": "personal-agent/evidence-record/v1", "id": cap_id(identity), "type": "CAP", "title": f"{identity['task_family']} via {identity['provider']}/{identity['model_resolved']} ({identity['effort']}) -- no capability samples", "status": "active", "key": identity, "metrics": {"sample_count": 0, "availability_failures": len(blocked)}, "links": [], "provenance": {"source": "agent-os orchestrate capability --write"}, "updated_at": utc_now_iso()})
             continue
+        # Accuracy-scored observations (orchestrate eval) supersede contract-only
+        # ones for the pass rate; contract_pass_rate still covers every sample.
+        contract_only = [item for item in items if item.get("accuracy") is None]
+        scored = [item for item in items if item.get("accuracy") is not None]
+        all_items, items = items, scored or items
         n = len(items)
         passed = [item for item in items if item.get("validator_passed")]
         low, high = wilson(len(passed), n)
@@ -121,7 +126,9 @@ def summarize(observations: list[dict[str, Any]], floor: float = 0.9) -> list[di
                 # Item-level accuracy on labeled cases (orchestrate eval); None
                 # when only the output contract was checked (FND-0001).
                 "mean_accuracy": _mean(item.get("accuracy") for item in items),
-                "contract_pass_rate": round(sum(1 for item in items if item.get("contract_passed", item.get("validator_passed"))) / n, 3),
+                "contract_pass_rate": round(sum(1 for item in all_items if item.get("contract_passed", item.get("validator_passed"))) / len(all_items), 3),
+                "pass_basis": "accuracy_vs_labels" if scored else "output_contract",
+                "contract_only_samples": len(contract_only) if scored else 0,
                 "repairs": sum(int(item.get("repairs") or 0) for item in items),
                 "mean_seconds": _mean(item.get("seconds") for item in items),
                 "mean_input_tokens": _mean(item.get("input_tokens") for item in items),
@@ -131,7 +138,7 @@ def summarize(observations: list[dict[str, Any]], floor: float = 0.9) -> list[di
                 "failure_clusters": failures,
                 "availability_failures": len(blocked),
             },
-            "links": [{"rel": "derived_from", "ref": f"local:capability/observations.jsonl#{item.get('call_id')}"} for item in items][-20:],
+            "links": [{"rel": "derived_from", "ref": f"local:capability/observations.jsonl#{item.get('call_id')}"} for item in all_items][-20:],
             "provenance": {"source": "agent-os orchestrate capability --write", "observed_from": min(i.get("at") or "" for i in items), "observed_to": max(i.get("at") or "" for i in items)},
             "updated_at": utc_now_iso(),
         })
