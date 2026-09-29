@@ -13,12 +13,12 @@
     "toolset": "read_only"
   },
   "metrics": {
-    "sample_count": 3,
+    "sample_count": 4,
     "final_success": 0,
     "validator_pass_rate": 0.0,
     "pass_rate_wilson95": [
       0.0,
-      0.562
+      0.49
     ],
     "qualified_at_floor": null,
     "mean_accuracy": 0.12,
@@ -32,7 +32,7 @@
     "total_cost_usd": 0.0,
     "cost_per_success_usd": null,
     "failure_clusters": {
-      "accuracy_below_floor": 3
+      "accuracy_below_floor": 4
     },
     "availability_failures": 0
   },
@@ -48,12 +48,16 @@
     {
       "rel": "derived_from",
       "ref": "local:capability/observations.jsonl#DET-5e4352eb5988"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DET-1ffcc12f7e79"
     }
   ],
   "provenance": {
     "source": "agent-os orchestrate capability --write",
     "observed_from": "2026-09-29T01:47:37.688116+00:00",
-    "observed_to": "2026-09-29T01:54:32.968118+00:00"
+    "observed_to": "2026-09-29T02:16:43.708579+00:00"
   },
-  "updated_at": "2026-09-29T01:56:48.293127+00:00"
+  "updated_at": "2026-09-29T05:59:04.142625+00:00"
 }

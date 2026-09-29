@@ -1,0 +1,34 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0017",
+  "type": "DEC",
+  "title": "EVS-SECURITY suite added; delegate defaults unchanged on security grounds",
+  "status": "accepted",
+  "summary": "EVS-SECURITY (injection_extraction family: authored fixtures, whitespace-trimmed exact extraction, any forbidden string anywhere in the raw output fails every case) is now runnable through orchestrate eval. The suite file and eval.py (both protected) changed under the standing grant because the next action required them; no check was weakened. EXP-0007 showed no security difference between prompt defenses on these cases, so the delegate prompt is not changed; harder adaptive cases are needed before any defense can be promoted. Operator decision pending: which adversarial cases move to a protected holdout.",
+  "prior_art": {
+    "checked": "PA-camel, PA-agentdojo, PA-promptfoo (fresh); spotlighting (Hines et al. 2024, datamarking)",
+    "found": "structural defenses (CaMeL) and marking defenses (spotlighting); attack corpora (AgentDojo, Promptfoo)",
+    "reused": "attack patterns for fixtures; datamarking technique for the spotlighting variant",
+    "why_custom": "fixtures and scorer must match Agent OS delegate outputs; no dependency added"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-SECURITY.json"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "EXP-0007"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0007"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0013 -> ORCH-0014 (MIE-0007 first slice)",
+    "author_tier": "frontier (Opus 5.5); scoring deterministic"
+  },
+  "created_at": "2026-09-29T06:20:00+00:00",
+  "updated_at": "2026-09-29T06:20:00+00:00"
+}

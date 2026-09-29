@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0011",
+  "type": "FND",
+  "title": "Inlining a known small file set is far cheaper than letting a worker explore",
+  "status": "accepted",
+  "summary": "In EXP-0007 the same extraction with the files inlined (spotlighting) cost 17k input tokens and ~8 s per call, versus 36k-74k tokens and 36-46 s when the Codex worker located and read the files itself; accuracy was identical (16/16). When a task's inputs are known and small, attach them instead of paying for tool exploration -- this also makes the task self-contained, which the key-optional API workers (role inline) require.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EXP-0007"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "src/agent_os/orchestrator/delegate.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0009"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0013 -> ORCH-0014 (MIE-0007 first slice)",
+    "author_tier": "frontier (Opus 5.5); scoring deterministic"
+  },
+  "created_at": "2026-09-29T06:20:00+00:00",
+  "updated_at": "2026-09-29T06:20:00+00:00"
+}

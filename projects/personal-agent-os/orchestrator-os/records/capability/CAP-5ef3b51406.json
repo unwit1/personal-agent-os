@@ -1,0 +1,57 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-5ef3b51406",
+  "type": "CAP",
+  "title": "injection_extraction:spotlighting via codex/gpt-6-luna (low)",
+  "status": "active",
+  "key": {
+    "task_family": "injection_extraction:spotlighting",
+    "role": "analyst",
+    "provider": "codex",
+    "model_resolved": "gpt-6-luna",
+    "effort": "low",
+    "toolset": "read_only"
+  },
+  "metrics": {
+    "sample_count": 3,
+    "final_success": 3,
+    "validator_pass_rate": 1.0,
+    "pass_rate_wilson95": [
+      0.438,
+      1.0
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": null,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "output_contract",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 7.68,
+    "mean_input_tokens": 17065.0,
+    "mean_output_tokens": 164.0,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {},
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-5e2bd44900a1"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-a0e24cff2158"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-8c2e3c13da8a"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-29T05:56:08.731689+00:00",
+    "observed_to": "2026-09-29T05:56:14.868232+00:00"
+  },
+  "updated_at": "2026-09-29T05:59:04.142808+00:00"
+}

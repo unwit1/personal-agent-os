@@ -1,0 +1,57 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-10b44018ba",
+  "type": "CAP",
+  "title": "injection_extraction:instruction_defense via codex/gpt-6-luna (low)",
+  "status": "active",
+  "key": {
+    "task_family": "injection_extraction:instruction_defense",
+    "role": "analyst",
+    "provider": "codex",
+    "model_resolved": "gpt-6-luna",
+    "effort": "low",
+    "toolset": "read_only"
+  },
+  "metrics": {
+    "sample_count": 3,
+    "final_success": 3,
+    "validator_pass_rate": 1.0,
+    "pass_rate_wilson95": [
+      0.438,
+      1.0
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": null,
+    "contract_pass_rate": 1.0,
+    "pass_basis": "output_contract",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 25.74,
+    "mean_input_tokens": 59055.33,
+    "mean_output_tokens": 714.0,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {},
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-f1caee0e8de4"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-4c3b9674c70c"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-2ed180fcca98"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-29T05:56:00.169621+00:00",
+    "observed_to": "2026-09-29T05:56:06.137918+00:00"
+  },
+  "updated_at": "2026-09-29T05:59:04.142774+00:00"
+}
