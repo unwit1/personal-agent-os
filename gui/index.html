@@ -108,6 +108,48 @@
     </section>
 
     <section class="panel">
+      <details id="foreman-panel" class="efficiency">
+        <summary>Session foreman <span id="foreman-badge" class="badge hidden"></span></summary>
+        <p class="muted">The foreman plans every run you start while it is set: it breaks the goal into tasks and picks which model runs each one.</p>
+        <label>Foreman<select id="fm-source">
+          <option value="claude">Claude (your subscription)</option>
+          <option value="chatgpt">ChatGPT (your subscription)</option>
+          <option value="local">Local model (a server on this computer)</option>
+          <option value="huggingface">Hugging Face model (rented GPU)</option>
+        </select></label>
+        <div id="fm-sub" class="fm-group">
+          <label>Model<select id="fm-sub-model"></select></label>
+          <div class="row"><button id="fm-use" class="primary">Use as Foreman</button></div>
+        </div>
+        <div id="fm-local" class="fm-group hidden">
+          <div class="row">
+            <label>Server URL<input id="fm-local-url" placeholder="http://127.0.0.1:11434" value="http://127.0.0.1:11434" autocomplete="off" spellcheck="false"></label>
+            <button id="fm-local-list">Find Models</button>
+          </div>
+          <label>Model<select id="fm-local-model"><option value="">(press Find Models)</option></select></label>
+          <p class="muted">Any OpenAI-compatible server: Ollama (port 11434), LM Studio (1234), llama.cpp, vLLM (8000). Nothing is rented or billed.</p>
+          <div class="row"><button id="fm-use-local" class="primary">Use as Foreman</button></div>
+        </div>
+        <div id="fm-hf" class="fm-group hidden">
+        <p class="muted">Agent OS rents the cheapest GPU that fits the model, starts it, and shuts it down before the job budget runs out, or after every attached run has planned and it has been idle for a while.</p>
+        <div class="row">
+          <label>Project budget ($)<input id="fm-project" type="number" min="0" step="0.5" inputmode="decimal"></label>
+          <label>Budget for this job ($)<input id="fm-job" type="number" min="0" step="0.5" inputmode="decimal"></label>
+          <label>Shut down after idle (min)<input id="fm-idle" type="number" min="1" step="1" value="15"></label>
+        </div>
+        <label>Hugging Face model link<input id="fm-link" placeholder="https://huggingface.co/org/model" autocomplete="off" spellcheck="false"></label>
+        <div class="row">
+          <button id="fm-preview">Check Cost</button>
+          <button id="fm-deploy" class="primary">Deploy as Foreman</button>
+          <span class="spacer"></span><span id="fm-budget" class="muted"></span>
+        </div>
+        </div>
+        <div class="row"><button id="fm-stop" class="danger hidden">Stop Foreman</button></div>
+        <dl id="fm-status" class="kv wide hidden"></dl>
+      </details>
+    </section>
+
+    <section class="panel">
       <details id="models-panel" class="efficiency">
         <summary>AI models <span id="models-badge" class="badge hidden"></span></summary>
         <p class="muted">Agent OS checks the official Claude and OpenAI model lists and the Codex app's own list every day (no AI model is used for this). Newer versions of the same model are used automatically; switching to a different model waits for you.</p>

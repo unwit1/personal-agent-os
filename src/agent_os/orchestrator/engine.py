@@ -81,8 +81,14 @@ class Orchestrator:
         telemetry_store: LocalTelemetryStore | None = None,
         claims_path: Path | None = None,
         sleep: Callable[[float], None] = time.sleep,
+        session_foreman: bool | None = None,
+        foreman_home: Path | None = None,
     ) -> None:
         self.store = store or RunStore()
+        # The machine engine (no injected registry) attaches new runs to a live
+        # session foreman (foreman_deploy.py); embedded/test engines do not.
+        self._session_foreman = (registry is None and registry_path is None) if session_foreman is None else session_foreman
+        self._foreman_home = foreman_home
         self._registry = registry
         self._registry_path = registry_path
         self._telemetry = telemetry_store
@@ -228,8 +234,15 @@ class Orchestrator:
             "created_at": now(),
             "updated_at": now(),
         }
+        if self._session_foreman and planning == "auto":
+            from .foreman_deploy import ForemanManager, manager
+
+            attached = (manager() if self._foreman_home is None else ForemanManager(base=self._foreman_home)).attach(identifier)
+            if attached:
+                record["foreman"] = attached
         self.store.save(record)
-        self.store.append_event(identifier, "run.created", detail=f"{planning} plan with {len(nodes)} node(s)")
+        self.store.append_event(identifier, "run.created", detail=f"{planning} plan with {len(nodes)} node(s)"
+                                + (f"; planner: session foreman {record['foreman']['model'] or '(deploying)'}" if record.get("foreman") else ""))
         return self.summary(record)
 
     def _resolve_target(self, repository: str | Path | None, project: str | None) -> tuple[str | None, Path]:
@@ -525,7 +538,7 @@ class Orchestrator:
                     break
                 if max_seconds is not None and time.monotonic() - started >= max_seconds:
                     break
-                if active:
+                if active or (record["state"] == "PLANNING" and str(record.get("state_reason") or "").startswith("waiting for the session foreman")):
                     self._sleep(float(record["policy"]["poll_interval_seconds"]))
             return summary
         finally:
@@ -1120,6 +1133,7 @@ class Orchestrator:
         policy = record["policy"]
         if provider and kind == "invalid_model" and policy["provider_failover"]:
             capability = (node.get("selection") or {}).get("capability_class")
+            self._learn_unavailable_model(provider, (node.get("selection") or {}).get("model"), detail)
             if capability:
                 excluded = node.setdefault("excluded_classes", {}).setdefault(provider, [])
                 if capability not in excluded:
@@ -1276,8 +1290,55 @@ class Orchestrator:
                 blockers.append(other["id"])
         return blockers
 
+    def _learn_unavailable_model(self, provider: str, model: str | None, detail: str) -> None:
+        """Remember machine-wide that this account cannot use ``model`` on
+        ``provider`` so later runs never route to it (file registries only)."""
+        path = self.registry().path
+        if not model or not path or path == "<inline>":
+            return
+        from .provider_health import record_unavailable_model
+
+        try:
+            record_unavailable_model(Path(path).parent, provider, model, detail)
+        except OSError:
+            return
+        self.reload_providers()
+
+    def _foreman_gate(self, record: dict[str, Any], node: dict[str, Any]) -> bool:
+        """Planner of a run attached to the session foreman: wait while it
+        deploys, route to it once it serves, fall back to the normal planner
+        when it is gone. A planner override the user set wins. True = launch."""
+        from .foreman_deploy import planner_hold
+
+        info = record["foreman"]
+        roles = record["overrides"].setdefault("roles", {})
+        if info.get("status") == "fallback" or (roles.get("planner") and not info.get("applied")):
+            return True
+        hold = planner_hold(record, self._foreman_home)
+        if "wait" in hold:
+            node["state"] = "RUNNABLE"
+            node["wait_reason"] = hold["wait"]
+            return False
+        if "provider" in hold:
+            if self.registry().get(hold["provider"]) is None:
+                self.reload_providers()  # registered by the GUI process after this engine loaded
+            if self.registry().get(hold["provider"]) is not None:
+                roles["planner"] = {"provider": hold["provider"], **({"model": hold["override_model"]} if hold.get("override_model") else {})}
+                if not info.get("applied"):
+                    self.store.append_event(record["run_id"], "foreman.applied", node["id"], f"planner -> session foreman {hold['provider']} ({hold['model']})")
+                info.update(applied=True, provider=hold["provider"], model=hold["model"])
+                return True
+            hold = {"fallback": f"session foreman provider {hold['provider']} is not registered"}
+        if info.get("applied"):
+            roles.pop("planner", None)
+        info.update(status="fallback", reason=hold["fallback"])
+        self.store.append_event(record["run_id"], "foreman.fallback", node["id"], f"{hold['fallback']}; using the normal planner")
+        return True
+
     def _launch(self, record: dict[str, Any], node: dict[str, Any], running: dict[str, int]) -> bool:
         policy = record["policy"]
+        if node["role"] == "planner" and record.get("foreman") and not self._foreman_gate(record, node):
+            return False
         editing = node["role"] in {"implementer", "test_author", "repairer"}
         manager = self._manager(record)
         integration = self._ensure_integration(record)
@@ -1356,6 +1417,10 @@ class Orchestrator:
                 self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
         prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
         prompt += _prior_attempts(node)
+        # Workers registered for inline (self-contained) prompts have no repository tools.
+        if node["role"] == "planner" and "inline" in ((self.registry().get(selection["provider"]) or {}).get("roles") or []):
+            prompt += ("\n\nYou have no file or shell tools in this call: plan from the goal and the repository map above, "
+                       "and name only files the map lists. Answer with the fenced result block only.\n")
         if node["role"] == "reviewer" and subject and subject.get("failures"):
             # Without this a reviewer flags the fix for a test the author was
             # told it broke as "unrelated to the assignment".
@@ -1906,7 +1971,10 @@ class Orchestrator:
             waiting = [node for node in nodes if node["state"] in DISPATCHABLE_NODE_STATES]
             # Only a tick that actually tried to dispatch can conclude that
             # nothing is runnable; a freshly started run is merely READY.
-            if after_dispatch and waiting and not any(node["state"] in {"WAITING_FOR_REVIEW", "NEEDS_REPAIR"} for node in nodes):
+            deploying = [node for node in waiting if node["role"] == "planner" and str(node.get("wait_reason") or "").startswith("waiting for the session foreman")]
+            if deploying:  # not blocked: the foreman deployment finishes or falls back on its own
+                state, reason = "PLANNING", deploying[0]["wait_reason"]
+            elif after_dispatch and waiting and not any(node["state"] in {"WAITING_FOR_REVIEW", "NEEDS_REPAIR"} for node in nodes):
                 state, reason = "BLOCKED", "no runnable work: " + "; ".join(f"{node['id']}: {node['wait_reason']}" for node in waiting)[:600]
             elif any(node["state"] == "PASSED" and node["role"] in INTEGRATED_ROLES and not node["integrated"] for node in nodes):
                 state, reason = "INTEGRATING", None

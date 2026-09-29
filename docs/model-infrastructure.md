@@ -288,6 +288,61 @@ following, read-only:
 Opening it makes no network or model call. Refresh prices with
 `orchestrate compute inventory`.
 
+## 12. Deploy a session foreman from a Hugging Face link
+
+GUI → Simple Mode → **Session foreman**: set the project budget and the budget
+for this job, paste a Hugging Face model link, press **Check Cost** (no
+spend), then **Deploy as Foreman**. CLI equivalent:
+
+```powershell
+agent-os orchestrate foreman preview https://huggingface.co/Qwen/Qwen2.5-14B-Instruct --job-usd 1.5
+agent-os orchestrate foreman deploy  https://huggingface.co/Qwen/Qwen2.5-14B-Instruct --job-usd 1.5   # foreground; returns after teardown
+agent-os orchestrate foreman status | stop
+agent-os orchestrate foreman eval                       # judgement + efficiency eval of the live foreman (real calls)
+```
+
+What happens (`foreman_deploy.py`), with no further input:
+
+1. The model's exact revision, size, dtypes, gating and `config.json`
+   (context length, KV-cache shape) are read from Hugging Face. The GPU memory
+   need is estimated from them. GGUF-only repositories are refused, and so are
+   gated repositories your token cannot read.
+2. Every RunPod offer that fits the memory need (1/2/4/8 GPUs; the tensor-parallel
+   count must divide the attention heads) and leaves at least 30 minutes of
+   runtime inside the job budget is grouped by GPU count and cloud tier. One pod
+   request per group lists all of that group's GPU types, cheapest first
+   (`gpuTypePriority: custom`). A sold-out group falls through to the next.
+3. The pod runs `vllm/vllm-openai` pinned to the revision, guarded by a fresh
+   API key in the keyring (`secrets://foreman/endpoint`). The Hugging Face
+   token is sent only for a gated or private repository.
+4. Once `/v1/models` serves the model, it is registered as
+   `foreman-<name>` (`roles: planner, inline`). **Every run created while it is
+   live uses it as its planner.** A run created while the model is still loading
+   shows PLANNING (not BLOCKED) and waits. If the deployment fails or ends, the
+   run falls back to its normal planner. A planner override you set yourself
+   takes precedence.
+5. The foreman decides which model runs each task through the
+   `capability_class`/`effort` it gives each task. Its plans go through the
+   same `planner.expand` checks as any planner. It never runs coding roles.
+6. A watchdog writes the pod's cost to the spend ledger every 30 s. It deletes the
+   pod before the next tick could cross 95% of the job budget, or when the
+   remaining project budget runs out. It also deletes it once every attached run
+   has planned and the foreman has been idle for the chosen number of minutes,
+   and when you press Stop. The provider entry is removed at teardown.
+
+Limitation: the watchdog lives in the GUI (or `foreman deploy`) process. If
+that process is not running, the pod keeps billing until the GUI next starts.
+On startup the GUI deletes it at once if its deadline has passed, and deletes
+any orphan pod left by a crash during creation. Stop it from the RunPod console
+if you will be away.
+
+`foreman eval` sends the foreman the planner prompt the engine uses, for 7
+labelled goals (typo → `fast`, … concurrency and security design → at least one
+`reasoning` task). It scores: plan validity, over-provisioned tasks (wasted spend),
+under-provisioned cases (a needed `reasoning` task missing), task count, the plan's
+routing cost relative to the cheapest plan the labels allow, tokens, latency and
+GPU dollars. Reports go to `<orchestrator home>/foreman-eval/`.
+
 ## What stays gated
 
 The model you pick never becomes the authorization boundary. Consequential

@@ -134,3 +134,47 @@ def _parse(stamp: Any) -> datetime | None:
         return datetime.fromisoformat(str(stamp))
     except ValueError:
         return None
+
+
+# ---------------------------------------------------------------------------
+# Learned model availability: the account cannot use a model the vendor lists
+# ---------------------------------------------------------------------------
+
+UNAVAILABLE_MODEL_TTL = timedelta(days=7)  # re-check later: plans and access change
+
+
+def unavailable_models_path(registry_dir: Path) -> Path:
+    """Next to the provider registry: machine-wide, shared by every checkout."""
+    return Path(registry_dir) / "unavailable-models.json"
+
+
+def record_unavailable_model(registry_dir: Path, provider: str, model: str, detail: str, current: datetime | None = None) -> None:
+    """An ``invalid_model`` failure (e.g. "model is not supported when using
+    Codex with a ChatGPT account"): stop routing that model for this provider
+    until the entry expires. Narrowing only; never adds or swaps a model."""
+    if not provider or not model:
+        return
+    path = unavailable_models_path(registry_dir)
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        data = {}
+    now = current or datetime.now(timezone.utc)
+    data.setdefault(provider, {})[model] = {"at": now.isoformat(), "until": (now + UNAVAILABLE_MODEL_TTL).isoformat(), "detail": str(detail)[:300]}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=1), encoding="utf-8")
+
+
+def learned_unavailable(registry_dir: Path, current: datetime | None = None) -> dict[str, set[str]]:
+    try:
+        data = json.loads(unavailable_models_path(registry_dir).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    now = current or datetime.now(timezone.utc)
+    out: dict[str, set[str]] = {}
+    for provider, models in (data or {}).items():
+        for model, entry in (models or {}).items():
+            until = _parse((entry or {}).get("until"))
+            if until is None or until > now:
+                out.setdefault(str(provider), set()).add(str(model))
+    return out

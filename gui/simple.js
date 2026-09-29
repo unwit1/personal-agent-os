@@ -360,7 +360,128 @@
     $("compute-badge").textContent = pending ? `${pending} to evaluate` : "";
   }
 
+  // ------------------------------------------------------------ session foreman
+
+  const FOREMAN_ACTIVE = ["planning", "provisioning", "loading", "ready"];
+  const FOREMAN_LABEL = { planning: "sizing the model", provisioning: "renting a GPU", loading: "loading the model", ready: "live", stopped: "stopped", failed: "failed" };
+
+  function money(value) { return value == null ? "—" : `$${Number(value).toFixed(2)}`; }
+
+  const SOURCE_LABEL = { claude: "Claude", chatgpt: "ChatGPT", local: "Local model", huggingface: "Hugging Face" };
+
+  function showSource() {
+    const source = $("fm-source").value;
+    $("fm-sub").classList.toggle("hidden", !["claude", "chatgpt"].includes(source));
+    $("fm-local").classList.toggle("hidden", source !== "local");
+    $("fm-hf").classList.toggle("hidden", source !== "huggingface");
+    const choice = (S.foremanChoices || {})[source];
+    if (choice) {
+      const current = $("fm-sub-model").value;
+      $("fm-sub-model").replaceChildren(el("option", { value: "" }, `Default (${choice.default})`), ...choice.models.map((m) => el("option", { value: m }, m)));
+      if (choice.models.includes(current)) $("fm-sub-model").value = current;
+      $("fm-use").disabled = false;
+    } else if (["claude", "chatgpt"].includes(source)) {
+      $("fm-sub-model").replaceChildren(el("option", { value: "" }, "Not set up on this computer"));
+      $("fm-use").disabled = true;
+    }
+    storageSet("agent-os-foreman-source", source);
+  }
+
+  function renderForeman(view) {
+    S.foremanChoices = view.choices || {};
+    if (!S.foremanSourceSet) {
+      S.foremanSourceSet = true;
+      $("fm-source").value = FOREMAN_ACTIVE.includes(view.status) && view.kind ? view.kind : storageGet("agent-os-foreman-source", "claude");
+    }
+    showSource();
+    const b = view.budget || {};
+    if (document.activeElement !== $("fm-project") && $("fm-project").value === "" && b.project_usd != null) $("fm-project").value = b.project_usd;
+    if (document.activeElement !== $("fm-job") && $("fm-job").value === "" && b.job_hard_cap_usd != null) $("fm-job").value = b.job_hard_cap_usd;
+    $("fm-budget").textContent = b.approved ? `Budget left: ${money(b.remaining_usd)} of ${money(b.project_usd)}` : "No budget approved yet";
+    const live = FOREMAN_ACTIVE.includes(view.status);
+    $("fm-stop").classList.toggle("hidden", !live);
+    $("foreman-badge").classList.toggle("hidden", !view.status);
+    $("foreman-badge").textContent = view.status ? `${SOURCE_LABEL[view.kind] || ""} ${FOREMAN_LABEL[view.status] || view.status}`.trim() : "";
+    if (!view.status) { $("fm-status").classList.add("hidden"); return live; }
+    const model = view.model || {};
+    const gpu = view.gpu || {};
+    const facts = [
+      ["Status", `${FOREMAN_LABEL[view.status] || view.status}${view.detail ? ` — ${view.detail}` : ""}`],
+      ["Foreman", SOURCE_LABEL[view.kind] || view.kind],
+      ["Model", model.repo ? `${model.repo}${model.sha ? ` @ ${model.sha.slice(0, 10)}` : ""}${model.params ? ` · ${(model.params / 1e9).toFixed(1)}B params` : ""}` : view.id],
+      ["GPU", gpu.name ? `${gpu.gpu_count}× ${gpu.name} (${gpu.tier}) · ${money(view.hourly_usd || gpu.hourly_usd)}/hour` : null],
+      ["Spent", view.kind === "huggingface" ? `${money(view.spent_usd)} of ${money(view.cap_usd)} job budget${view.minutes_left != null ? ` · shuts down in ≤ ${view.minutes_left} min` : ""}` : null],
+      ["Planner for", view.provider_id ? `${(view.runs || []).length} run(s) · provider ${view.provider_id}` : `${(view.runs || []).length} run(s) waiting`],
+    ].filter(([, value]) => value);
+    $("fm-status").replaceChildren(...facts.flatMap(([key, value]) => [el("dt", {}, key), el("dd", {}, value)]));
+    $("fm-status").classList.remove("hidden");
+    return live;
+  }
+
+  let foremanTimer = null;
+  async function loadForeman() {
+    const view = await api("foreman");
+    const live = renderForeman(view);
+    clearTimeout(foremanTimer);
+    // only a rented GPU changes on its own (loading, spend, shutdown)
+    if (live && view.kind === "huggingface") foremanTimer = setTimeout(() => loadForeman().catch(() => {}), 10000);
+    return live;
+  }
+
+  function foremanInputs() {
+    const link = $("fm-link").value.trim();
+    const job = parseFloat($("fm-job").value);
+    const project = parseFloat($("fm-project").value);
+    if (!link) throw new Error("paste a Hugging Face model link first");
+    if (!(job > 0)) throw new Error("set a budget for this job");
+    if (!(project >= job)) throw new Error("the project budget must be at least the job budget");
+    return { link, job_usd: job, project_usd: project, idle_minutes: parseInt($("fm-idle").value, 10) || 15 };
+  }
+
+  async function previewForeman() {
+    const body = foremanInputs();
+    const plan = await api("foreman/preview", body);
+    const model = plan.model || {};
+    const facts = [["Model", `${model.repo}${model.params ? ` · ${(model.params / 1e9).toFixed(1)}B params` : ""} · ${model.weight_gb} GB weights${model.gated ? " · gated" : ""}`],
+      ["Needs", `${plan.vram_needed_gb ?? "?"} GB GPU memory · context ${plan.context ?? "?"} tokens`]];
+    if (plan.error) facts.push(["Problem", plan.error]);
+    else {
+      const c = plan.choice;
+      facts.push(["Would rent", `${c.gpu_count}× ${c.name} (${c.tier}) at ${money(c.hourly_usd)}/hour`]);
+      facts.push(["Runs up to", `${c.max_hours} hours within ${money(body.job_usd)}, then shuts down`]);
+    }
+    $("fm-status").replaceChildren(...facts.flatMap(([key, value]) => [el("dt", {}, key), el("dd", {}, value)]));
+    $("fm-status").classList.remove("hidden");
+  }
+
+  function useForeman(button, body) {
+    return act(button, "start-task", `switching the foreman to ${SOURCE_LABEL[body.kind]}`, async () => {
+      renderForeman(await api("foreman/use", body));
+    });
+  }
+
+  function wireForeman() {
+    $("fm-source").addEventListener("change", showSource);
+    $("fm-use").addEventListener("click", (event) => useForeman(event.currentTarget, { kind: $("fm-source").value, model: $("fm-sub-model").value || undefined }));
+    $("fm-local-list").addEventListener("click", (event) => act(event.currentTarget, "refresh", "asking your local server for its models", async () => {
+      const { models } = await api("foreman/local-models", { base_url: $("fm-local-url").value.trim() });
+      $("fm-local-model").replaceChildren(...(models.length ? models.map((m) => el("option", { value: m }, m)) : [el("option", { value: "" }, "(no models loaded)")]));
+    }));
+    $("fm-use-local").addEventListener("click", (event) => useForeman(event.currentTarget, { kind: "local", base_url: $("fm-local-url").value.trim(), model: $("fm-local-model").value || undefined }));
+    $("foreman-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the session foreman", loadForeman); });
+    $("fm-preview").addEventListener("click", (event) => act(event.currentTarget, "refresh", "reading the model and GPU prices", previewForeman));
+    $("fm-deploy").addEventListener("click", (event) => act(event.currentTarget, "start-task", "starting the foreman deployment", async () => {
+      renderForeman(await api("foreman/deploy", foremanInputs()));
+      await loadForeman();
+    }));
+    $("fm-stop").addEventListener("click", (event) => act(event.currentTarget, "stop", "shutting the foreman GPU down", async () => {
+      renderForeman(await api("foreman/stop", {}));
+    }));
+    loadForeman().then((live) => { if (live) $("foreman-panel").open = true; }).catch(() => {});
+  }
+
   function wireSimple() {
+    wireForeman();
     $("compute-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading models and compute", loadCompute); });
     $("models-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the model list", async () => renderModels(await api("models"))); });
     $("models-refresh").addEventListener("click", (event) => act(event.currentTarget, "refresh", "checking the official model lists", async () => renderModels(await api("models/refresh", {}))));

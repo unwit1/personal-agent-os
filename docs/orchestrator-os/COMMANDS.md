@@ -52,6 +52,7 @@ checkpoint) are described here and in [ENTRYPOINT.md](ENTRYPOINT.md).
 | `orchestrate budget` | operator compute budget: `show`, or `set --project-usd --job-cap-usd` (operator action; history kept); quotes gate on it |
 | `orchestrate compute` | read-only GPU inventory and pricing (RunPod first; cached 6 h); never provisions or spends |
 | `orchestrate foreman-shadow` † | shadow foreman: a candidate model proposes a DAG + classes for a run (`propose`, one real call); `compare`/`report` score proposals against actual outcomes deterministically |
+| `orchestrate foreman` † | session foreman: `preview`/`deploy` a Hugging Face model on a RunPod GPU within the job budget and use it as the planner for new runs; `status`/`stop`; `eval` scores its per-task model choices and efficiency (real calls) |
 | `orchestrate capability` | aggregate capability observations into CAP records (no model call) |
 | `orchestrate checkpoint` | Orchestrator OS continuation checkpoint + next prompt (no model call) |
 | `orchestrate next-prompt` | print the current generated next prompt |

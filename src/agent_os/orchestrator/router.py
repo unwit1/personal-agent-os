@@ -114,8 +114,15 @@ class ProviderRegistry:
         self.path = raw["path"]
         self.configured = raw["configured"]
         use_discovery = (not inline) if discover is None else discover
+        learned: dict[str, set[str]] = {}
+        if not inline and self.path and self.path != "<inline>":
+            from .provider_health import learned_unavailable
+
+            learned = learned_unavailable(Path(self.path).parent)
         normalized = []
         for index, item in enumerate(raw["providers"]):
+            if isinstance(item, dict) and learned.get(str(item.get("id"))):
+                item = {**item, "unavailable_models": sorted({*(item.get("unavailable_models") or []), *learned[str(item["id"])]})}
             discovered = _discover(item) if use_discovery and isinstance(item, dict) and item.get("discover") else None
             normalized.append(normalize_provider(item, index, discovered))
         self.providers = sorted((item for item in normalized if item), key=lambda item: item["priority"])

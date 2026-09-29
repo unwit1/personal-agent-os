@@ -258,6 +258,10 @@ class Api:
             from . import model_view
 
             return model_view.build(service.engine().store.home)
+        if parts == ["foreman"]:
+            from . import foreman_deploy
+
+            return foreman_deploy.manager().status()
         if parts == ["providers"]:
             return service.providers()
         if parts == ["runs"]:
@@ -289,6 +293,41 @@ class Api:
             service.engine().reload_providers()
             self._providers_cache = None
             return self.models_view()
+        if parts == ["budget"]:
+            from . import budget
+
+            return budget.set_budget(float(body["project_usd"]), float(body["job_usd"]), set_by="operator (GUI)", note=body.get("note") or "set in the control GUI")
+        if parts == ["foreman", "preview"]:
+            from . import foreman_deploy
+
+            return foreman_deploy.manager().preview(str(body.get("link") or ""), float(body.get("job_usd") or 0))
+        if parts == ["foreman", "deploy"]:
+            from . import budget, foreman_deploy
+
+            if body.get("project_usd") is not None and body.get("job_usd") is not None:
+                current = budget.load()
+                wanted = (float(body["project_usd"]), float(body["job_usd"]))
+                if not current.get("approved") or (current.get("project_usd"), current.get("job_hard_cap_usd")) != wanted:
+                    budget.set_budget(*wanted, set_by="operator (GUI)", note="set with a foreman deployment in the control GUI")
+            result = foreman_deploy.manager().deploy(str(body.get("link") or ""), job_cap_usd=float(body["job_usd"]) if body.get("job_usd") else None,
+                                                     idle_minutes=int(body.get("idle_minutes") or foreman_deploy.DEFAULT_IDLE_MINUTES))
+            self._providers_cache = None
+            return result
+        if parts == ["foreman", "use"]:
+            from . import foreman_deploy
+
+            self._providers_cache = None
+            return foreman_deploy.manager().use(str(body.get("kind") or ""), model=body.get("model") or None,
+                                                base_url=body.get("base_url") or None, secret_ref=body.get("secret_ref") or None)
+        if parts == ["foreman", "local-models"]:
+            from . import foreman_deploy
+
+            return {"models": foreman_deploy.local_models(str(body.get("base_url") or ""))}
+        if parts == ["foreman", "stop"]:
+            from . import foreman_deploy
+
+            self._providers_cache = None
+            return foreman_deploy.manager().stop("stopped from the control GUI")
         if parts == ["repos"]:
             from . import repos
 
@@ -535,6 +574,12 @@ def build_server(host: str = "127.0.0.1", port: int = 8765, project: str | None 
 def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True, project: str | None = None, repository: str | None = None) -> int:
     server, token = build_server(host, port, project, repository)
     server.api.start_model_checks()  # type: ignore[attr-defined]
+    try:  # enforce a session foreman's deadline / keep metering it after a restart
+        from . import foreman_deploy
+
+        foreman_deploy.manager().resume()
+    except Exception as exc:
+        print(json.dumps({"foreman_resume_error": f"{type(exc).__name__}: {exc}"[:300]}), flush=True)
     url = f"http://{host}:{server.server_address[1]}/"
     print(json.dumps({"gui": url, "note": "runs are driven only while this process is running; Ctrl+C stops driving (state is kept)"}), flush=True)
     if open_browser:

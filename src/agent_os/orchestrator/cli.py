@@ -234,6 +234,18 @@ def register(commands: argparse._SubParsersAction) -> None:
     fsh.add_argument("--require", action="append", metavar="KEY=VALUE")
     fsh.add_argument("--prefer", action="append", metavar="KEY=VALUE")
 
+    fmn = actions.add_parser("foreman", help="session foreman: deploy a Hugging Face model on a RunPod GPU within the job budget and use it as the planner for new runs")
+    fmn.add_argument("action", choices=["use", "preview", "deploy", "status", "stop", "eval"],
+                     help="eval: score the live foreman's per-task model choices and efficiency on labeled planning cases (real calls)")
+    fmn.add_argument("link", nargs="?", help="preview/deploy: Hugging Face model link or org/name; use: claude, chatgpt or local")
+    fmn.add_argument("--model", help="use: pin one model (e.g. opus, gpt-6.1-sol, or a local model id)")
+    fmn.add_argument("--base-url", help="use local: the OpenAI-compatible server, e.g. http://127.0.0.1:11434")
+    fmn.add_argument("--secret-ref", help="use local: secrets://<provider>/<profile> holding the server's API key, if it needs one")
+    fmn.add_argument("--job-usd", type=float, help="job budget; default: the machine budget's per-job cap")
+    fmn.add_argument("--idle-minutes", type=int, default=15)
+    fmn.add_argument("--provider", help="eval: provider id to evaluate (default: the ready session foreman)")
+    fmn.add_argument("--case", action="append", help="eval: only these case ids")
+
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
     cap.add_argument("--floor", type=float, default=0.9)
@@ -576,6 +588,30 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         record = RunStore().load(args.run)
         emit([foreman.compare(record, item) for item in foreman.load_proposals(args.run)])
+        return 0
+    if action == "foreman":
+        from . import budget as budget_lib
+        from .foreman_deploy import manager
+
+        if args.action == "use":
+            emit(manager().use(str(args.link or ""), model=args.model, base_url=args.base_url, secret_ref=args.secret_ref))
+            return 0
+        if args.action in {"preview", "deploy"} and not args.link:
+            emit({"error": "a Hugging Face link is required"})
+            return 2
+        if args.action == "preview":
+            job = args.job_usd if args.job_usd is not None else budget_lib.effective(None).get("job_hard_cap_usd") or 0
+            emit(manager().preview(args.link, float(job)))
+        elif args.action == "deploy":  # foreground: meters and tears down before returning
+            emit(manager().deploy(args.link, job_cap_usd=args.job_usd, idle_minutes=args.idle_minutes, background=False))
+        elif args.action == "stop":
+            emit(manager().stop("stopped from the CLI"))
+        elif args.action == "eval":
+            from . import foreman_eval
+
+            emit(foreman_eval.run(args.provider, cases=args.case))
+        else:
+            emit(manager().status())
         return 0
     if action == "quote":
         from . import quote as quote_lib
