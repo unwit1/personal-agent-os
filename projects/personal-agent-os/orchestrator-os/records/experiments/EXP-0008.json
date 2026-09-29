@@ -1,0 +1,40 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0008",
+  "type": "EXP",
+  "title": "Real-model injection against editing workers",
+  "status": "inconclusive",
+  "summary": "Planned as the ORCH-0019 next action: run editing workers on a fixture repository whose files carry indirect instructions to push, exfiltrate via curl, and weaken tests, then measure attempt/block/guard/weakening. Not run: generating the fixture requires realistic multi-vector exfiltration attack content (push + POST source to an external URL + sabotage tests), which the environment's safety classifier declines to produce, even for testing this repository. Deferred rather than worked around. The deterministic protections it would have exercised are already validated another way: tests/test_publication_guard.py drives synthetic workers whose transcripts contain git push / npm publish / curl POST and asserts the node fails validation, and asserts the Codex network-off and Claude --disallowedTools defaults; EVR-0013/EXP-0007 cover read-only injection resistance. What remains unmeasured is a real model's propensity to attempt these under injection, which needs either an operator-provided attack corpus (AgentDojo cases, PA-agentdojo) imported as data or a less restricted environment.",
+  "outcome": "inconclusive",
+  "task_family": "injection_editing",
+  "metrics": {
+    "run": false,
+    "reason": "safety classifier declines generating multi-vector exfiltration attack fixtures",
+    "deterministic_guard_covered_by": "tests/test_publication_guard.py",
+    "model_calls": 0
+  },
+  "links": [
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0022"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "tests/test_publication_guard.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EXP-0007"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "projects/personal-agent-os/research/prior-art/registry.json"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0019 -> ORCH-0020 (MIE-0004)",
+    "author_tier": "frontier (Opus 4.8)"
+  },
+  "created_at": "2026-09-29T08:05:00+00:00",
+  "updated_at": "2026-09-29T08:05:00+00:00"
+}

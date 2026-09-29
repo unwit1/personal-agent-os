@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T08:35:00+00:00",
+  "updated_at": "2026-09-29T08:05:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -422,7 +422,7 @@
       "title": "Failure and success registries with clustering",
       "status_at_base_f8f4453f": "missing",
       "status_after_bootstrap": "partial",
-      "note": "FAIL/SUC record types with signature/recurrence; no automatic mining/clustering.",
+      "note": "orchestrate mining clusters FAIL/SUC by signature with coverage gaps (DEC-0023); automatic clustering of raw telemetry not yet",
       "tracked_as": null
     },
     {

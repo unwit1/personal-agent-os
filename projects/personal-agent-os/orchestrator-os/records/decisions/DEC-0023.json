@@ -1,0 +1,34 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0023",
+  "type": "DEC",
+  "title": "Failure/success mining tool (MIE-0004 first slice)",
+  "status": "accepted",
+  "summary": "orchestrate mining clusters FAIL and SUC records by signature and reports occurrences, open count, task families, coverage, and the signatures that need coverage (open, recurred >=2, no regression test or experiment link). Deterministic, no model call. On the current store: 4 failure signatures, all resolved, 0 coverage gaps. It gives the improvement loop a standing check that recurring failures reach a regression case and an experiment (constitution section 8).",
+  "prior_art": {
+    "checked": "PA-agentrx (failure taxonomy, fresh)",
+    "found": "AgentRx-style grounded failure categories",
+    "reused": "signature-cluster idea; taxonomy borrowed earlier for FAIL signatures",
+    "why_custom": "operates on Agent OS's own typed records; no dependency"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/mining.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_mining.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0004"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0019 -> ORCH-0020 (MIE-0004)",
+    "author_tier": "frontier (Opus 4.8)"
+  },
+  "created_at": "2026-09-29T08:05:00+00:00",
+  "updated_at": "2026-09-29T08:05:00+00:00"
+}

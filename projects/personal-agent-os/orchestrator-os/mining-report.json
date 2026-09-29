@@ -1,0 +1,133 @@
+{
+  "schema": "personal-agent/mining-report/v1",
+  "generated_at": "2026-09-29",
+  "totals": {
+    "failure_records": 4,
+    "failure_signatures": 4,
+    "open_failures": 0,
+    "signatures_needing_coverage": 0,
+    "success_records": 0
+  },
+  "needs_coverage": [],
+  "top_failure_signatures": [
+    {
+      "signature": "duplicate_consequential_effect_on_resume",
+      "records": [
+        "FAIL-0003"
+      ],
+      "occurrences": 4,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "orchestrator_resume"
+      ],
+      "covered": false,
+      "needs_coverage": false
+    },
+    {
+      "signature": "effect_before_persisted_approval",
+      "records": [
+        "FAIL-0004"
+      ],
+      "occurrences": 3,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "orchestrator_resume"
+      ],
+      "covered": false,
+      "needs_coverage": false
+    },
+    {
+      "signature": "provider_quota_exhausted",
+      "records": [
+        "FAIL-0001"
+      ],
+      "occurrences": 3,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "any"
+      ],
+      "covered": false,
+      "needs_coverage": false
+    },
+    {
+      "signature": "flaky_test_timeout_under_load",
+      "records": [
+        "FAIL-0002"
+      ],
+      "occurrences": 1,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "push_gate"
+      ],
+      "covered": true,
+      "needs_coverage": false
+    }
+  ],
+  "failure_clusters": [
+    {
+      "signature": "duplicate_consequential_effect_on_resume",
+      "records": [
+        "FAIL-0003"
+      ],
+      "occurrences": 4,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "orchestrator_resume"
+      ],
+      "covered": false,
+      "needs_coverage": false
+    },
+    {
+      "signature": "effect_before_persisted_approval",
+      "records": [
+        "FAIL-0004"
+      ],
+      "occurrences": 3,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "orchestrator_resume"
+      ],
+      "covered": false,
+      "needs_coverage": false
+    },
+    {
+      "signature": "provider_quota_exhausted",
+      "records": [
+        "FAIL-0001"
+      ],
+      "occurrences": 3,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "any"
+      ],
+      "covered": false,
+      "needs_coverage": false
+    },
+    {
+      "signature": "flaky_test_timeout_under_load",
+      "records": [
+        "FAIL-0002"
+      ],
+      "occurrences": 1,
+      "distinct_records": 1,
+      "open": 0,
+      "task_families": [
+        "push_gate"
+      ],
+      "covered": true,
+      "needs_coverage": false
+    }
+  ],
+  "success_patterns": [],
+  "notes": [
+    "A signature 'needs coverage' when it is open, has recurred (>=2), and links to no regression test or experiment.",
+    "Recurrence sums each record's recurrence field; supersede records rather than editing them (negative evidence is append-only)."
+  ]
+}

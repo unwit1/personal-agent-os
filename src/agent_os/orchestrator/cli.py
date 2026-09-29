@@ -171,6 +171,9 @@ def register(commands: argparse._SubParsersAction) -> None:
     ev.add_argument("--samples", type=int, default=1, help="case suites: calls per base route (+verify variants reuse them)")
     ev.add_argument("--max-calls", type=int, help="refuse the run if it needs more model calls than this")
 
+    mine = actions.add_parser("mining", help="failure/success signature clusters and coverage gaps (no model call)")
+    mine.add_argument("--write", action="store_true", help="write projects/personal-agent-os/orchestrator-os/mining-report.json")
+
     tr = actions.add_parser("trace", help="export a run's telemetry as OpenTelemetry OTLP/JSON spans (GenAI conventions; no content exported)")
     tr.add_argument("run_id")
     tr.add_argument("--out", help="write the OTLP/JSON document here (otherwise printed)")
@@ -439,6 +442,12 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         present = bool(http_api.read_key(adapter.env_var, adapter.keyring_user))
         emit({"provider": args.provider, "key_present": present, "source": "env" if os.environ.get(adapter.env_var) else ("keyring" if present else None),
               "note": "run `agent-os orchestrate providers` to see the API worker (role inline)"})
+        return 0
+    if action == "mining":
+        from . import mining
+
+        report = mining.build()
+        emit({key: report[key] for key in ("totals", "needs_coverage", "top_failure_signatures", "success_patterns")} | {"written": mining.write(report) if args.write else None})
         return 0
     if action == "trace":
         from . import trace
