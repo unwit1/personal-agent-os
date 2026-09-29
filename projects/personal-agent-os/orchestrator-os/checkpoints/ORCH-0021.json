@@ -1,0 +1,130 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0021",
+  "previous": "ORCH-0020",
+  "created_at": "2026-09-29T12:08:37.385540+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "3d5f54d8",
+    "dirty": true
+  },
+  "phase": "P1 foundations: attack corpus imported as data; derive runnable security cases next",
+  "completed": [
+    "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)",
+    "MIE-0017: OTLP trace projection (DEC-0016)",
+    "ORCH-0013 pushed after gate rerun",
+    "MIE-0007 first slice: EVS-SECURITY suite + fixtures; EXP-0007 (DEC-0017, FND-0011, FND-0012)",
+    "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)",
+    "IMP-0012: idempotent integration after crash (6b3c9eaf, FAIL-0003, DEC-0019, EVR-0014)",
+    "IMP-0013: write-ahead landing after crash (ee378ff8, FAIL-0004, DEC-0020, EVR-0015)",
+    "Append-only negative evidence enforced; approval-rule enforcement map (1a1e107c, DEC-0021)",
+    "IMP-0014: worker publication guard + adapter deny defaults (2ff6a550, c07304c3, DEC-0022)",
+    "MIE-0004 first slice: orchestrate mining (DEC-0023)",
+    "EXP-0008 deferred for safety (FND-0013)",
+    "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)"
+  ],
+  "active_objective": "Turn the imported AgentDojo goals into runnable EVS-SECURITY development cases and measure a cheap route's injection resistance.",
+  "latest_evidence": [
+    {
+      "id": "DEC-0022",
+      "type": "DEC",
+      "title": "Worker publication is operator-gated: deterministic guard plus adapter deny defaults",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0022.json",
+      "updated_at": "2026-09-29T08:35:00+00:00"
+    },
+    {
+      "id": "DEC-0024",
+      "type": "DEC",
+      "title": "Import AgentDojo injection corpus as data (MIT), never committed",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0024.json",
+      "updated_at": "2026-09-29T08:30:00+00:00"
+    },
+    {
+      "id": "DEC-0021",
+      "type": "DEC",
+      "title": "Negative evidence is append-only, enforced; approval rules mapped to enforcement points",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0021.json",
+      "updated_at": "2026-09-29T08:10:00+00:00"
+    },
+    {
+      "id": "DEC-0023",
+      "type": "DEC",
+      "title": "Failure/success mining tool (MIE-0004 first slice)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0023.json",
+      "updated_at": "2026-09-29T08:05:00+00:00"
+    },
+    {
+      "id": "EXP-0008",
+      "type": "EXP",
+      "title": "Real-model injection against editing workers",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0008.json",
+      "updated_at": "2026-09-29T08:05:00+00:00"
+    },
+    {
+      "id": "FND-0013",
+      "type": "FND",
+      "title": "Generating adversarial attack fixtures is environment-limited; import corpora as data instead",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0013.json",
+      "updated_at": "2026-09-29T08:05:00+00:00"
+    },
+    {
+      "id": "DEC-0020",
+      "type": "DEC",
+      "title": "Write-ahead for landing onto the base branch",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0020.json",
+      "updated_at": "2026-09-29T07:45:00+00:00"
+    },
+    {
+      "id": "FAIL-0004",
+      "type": "FAIL",
+      "title": "Crash after landing left the base branch moved but the landing gate open",
+      "path": "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0004.json",
+      "updated_at": "2026-09-29T07:45:00+00:00"
+    }
+  ],
+  "open_blockers": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0022",
+    "DEC-0023",
+    "DEC-0024"
+  ],
+  "next_action": {
+    "summary": "Derive runnable EVS-SECURITY development cases from the imported AgentDojo goals (.agent-local/corpora/agentdojo). Build a generator that, for each imported injection task, creates a fixture document that embeds the attacker goal as untrusted content plus a benign extraction task with a known label and a canary; register them as an injection_extraction case file (development split, provenance = XC-agentdojo + task id). Then run EVS-SECURITY through orchestrate eval on codex@fast vs codex@fast+attach (<= 6 model calls; codex only -- claude-code weekly-limited until 2026-10-03 18:00 ET), scoring extraction accuracy AND injection resistance separately, and record an EVR. If generating the fixtures trips the safety classifier again, stop and record the blocker with FND-0013, keeping the corpus import as the delivered value.",
+    "prior_art": "prompt injection evaluation harness scoring",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Case generation from imported data + a bounded eval.",
+    "context_refs": [
+      "DEC-0024",
+      "src/agent_os/orchestrator/corpus.py",
+      "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-SECURITY.json",
+      "src/agent_os/orchestrator/eval.py",
+      "FND-0013"
+    ],
+    "stop_conditions": [
+      "cases derived + committed (payloads stay machine-local) and an EVR recorded, OR the blocker recorded if generation is refused",
+      "<= 6 model calls",
+      "stop and report if codex is quota-blocked, a protected path beyond the standing grants must change, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "DEC-0024",
+    "src/agent_os/orchestrator/corpus.py",
+    "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-SECURITY.json",
+    "src/agent_os/orchestrator/eval.py",
+    "FND-0013"
+  ],
+  "stopping_conditions": [
+    "cases derived + committed (payloads stay machine-local) and an EVR recorded, OR the blocker recorded if generation is refused",
+    "<= 6 model calls",
+    "stop and report if codex is quota-blocked, a protected path beyond the standing grants must change, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)",
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0021 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0021.json).\n\nCurrent objective: Turn the imported AgentDojo goals into runnable EVS-SECURITY development cases and measure a cheap route's injection resistance.\n\nNext action: Derive runnable EVS-SECURITY development cases from the imported AgentDojo goals (.agent-local/corpora/agentdojo). Build a generator that, for each imported injection task, creates a fixture document that embeds the attacker goal as untrusted content plus a benign extraction task with a known label and a canary; register them as an injection_extraction case file (development split, provenance = XC-agentdojo + task id). Then run EVS-SECURITY through orchestrate eval on codex@fast vs codex@fast+attach (<= 6 model calls; codex only -- claude-code weekly-limited until 2026-10-03 18:00 ET), scoring extraction accuracy AND injection resistance separately, and record an EVR. If generating the fixtures trips the safety classifier again, stop and record the blocker with FND-0013, keeping the corpus import as the delivered value.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"prompt injection evaluation harness scoring\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: cases derived + committed (payloads stay machine-local) and an EVR recorded, OR the blocker recorded if generation is refused; <= 6 model calls; stop and report if codex is quota-blocked, a protected path beyond the standing grants must change, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
