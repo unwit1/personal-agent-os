@@ -215,6 +215,12 @@ def register(commands: argparse._SubParsersAction) -> None:
     thr.add_argument("--source", default="measured", choices=["measured", "benchmark", "assumed"])
     thr.add_argument("--no-record", action="store_true", help="measure: print only")
 
+    bud = actions.add_parser("budget", help="operator compute budget: show, or set project budget and per-job hard cap (operator action; history kept)")
+    bud.add_argument("action", choices=["show", "set"])
+    bud.add_argument("--project-usd", type=float)
+    bud.add_argument("--job-cap-usd", type=float)
+    bud.add_argument("--note")
+
     cmp_ = actions.add_parser("compute", help="read-only GPU inventory and pricing (RunPod first); never provisions or spends")
     cmp_.add_argument("action", choices=["inventory"])
     cmp_.add_argument("--provider", default="runpod")
@@ -597,10 +603,23 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         if not options:
             emit({"error": "no options to quote", "notes": notes})
             return 2
-        result = quote_lib.quote(workload, options)
+        from . import budget
+
+        result = quote_lib.quote(workload, options, budget.effective(workload.get("budget")))
         result["notes"] = notes
         result["routing_requirements"] = to_requirements(workload)
         emit(result)
+        return 0
+    if action == "budget":
+        from . import budget
+
+        if args.action == "show":
+            emit(budget.show())
+            return 0
+        if args.project_usd is None or args.job_cap_usd is None:
+            emit({"error": "set needs --project-usd and --job-cap-usd"})
+            return 2
+        emit(budget.set_budget(args.project_usd, args.job_cap_usd, note=args.note))
         return 0
     if action == "compute":
         from . import compute

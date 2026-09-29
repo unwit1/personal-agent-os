@@ -339,7 +339,8 @@
 
   async function loadCompute() {
     const view = await api("model-compute");
-    $("compute-note").textContent = view.note;
+    const b = view.budget || {};
+    $("compute-note").textContent = (b.approved ? `Budget: $${b.remaining_usd} of $${b.project_usd} left · per-job cap $${b.job_hard_cap_usd}. ` : "No compute budget approved. ") + view.note;
     rows("compute-providers", view.providers, (p) => [p.id, (p.models || []).join(", "), p.deployment, p.refusal_profile, (p.roles || ["all"]).join(", ")], "No providers registered.");
     $("compute-catalog-size").textContent = view.catalog.size ? `(${view.catalog.size} in the local catalog)` : "";
     rows("compute-catalog", view.catalog.top, (m) => [m.model_id, m.pipeline, m.license, m.refusal_profile_hint, core.formatNumber(m.downloads)], "Nothing scanned yet: agent-os orchestrate radar scan");

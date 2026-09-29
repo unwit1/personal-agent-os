@@ -1,0 +1,19 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0041",
+  "type": "DEC",
+  "title": "Operator-approved compute budget: $10 project, $5 per-job hard cap (adjustable), enforced by the quote gate",
+  "status": "accepted",
+  "summary": "Operator approval in chat on 2026-09-29: \"I would like to approve a budget of 10$ for now and a per job hard cap of 5, with the option to set that to something else later.\" budget.py stores machine-wide operator policy in ~/.agent-os/budget.json (shared by every checkout, outside Git), appends every change to budget-history.jsonl, and keeps an append-only spend ledger (actual / reserved / release). `orchestrate budget show|set` exposes it; set is an operator action (policy approval_required_for spending_limit_change) and autonomous agents never raise it. quote.py gates each paid option on the effective budget (budget.effective): approved only when the machine budget is approved; job cap = min(machine cap, workload cap); project limit = min(remaining machine budget after recorded spend, workload project limit), so workloads can only tighten. The budget was set to project_usd 10, job_hard_cap_usd 5 on this machine. Consequence check: the EVR-0017 example batch (high estimate $7.70 on the cheapest A100) is now correctly blocked by the $5 cap. The approval covers spend within these caps; provisioning code does not exist yet and the stored RunPod key is read-only, and the first real launch will still be confirmed with the operator.",
+  "prior_art": {"checked": "n/a (operator policy)", "found": "n/a", "reused": "quote.budget_gate, storage.write_json", "why_custom": "n/a"},
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/budget.py"},
+    {"rel": "tests", "ref": "tests/test_budget.py"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "DEC-0032"}
+  ],
+  "metrics": {"project_usd": 10, "job_hard_cap_usd": 5, "spent_usd": 0, "model_calls": 0, "new_tests": 5},
+  "provenance": {"session": "ORCH-0035 -> ORCH-0036 (operator approval)", "author_tier": "operator decision; recorded by frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T18:56:00+00:00",
+  "updated_at": "2026-09-29T18:56:00+00:00"
+}

@@ -78,8 +78,10 @@ def gpu_option(option: dict[str, Any], workload: dict[str, Any]) -> dict[str, An
             "billed_hours": hours, "cost_usd": costs, "startup_minutes": startup}
 
 
-def budget_gate(cost_high: float, workload: dict[str, Any]) -> dict[str, Any]:
-    budget = workload.get("budget") or {}
+def budget_gate(cost_high: float, workload: dict[str, Any], budget_state: dict[str, Any] | None = None) -> dict[str, Any]:
+    """``budget_state`` is the effective operator budget (budget.effective);
+    without it the workload's own budget block applies."""
+    budget = budget_state if budget_state is not None else (workload.get("budget") or {})
     if cost_high <= 0:
         return {"allowed": True, "requires_approval": False, "reason": "no paid spend"}
     if not budget.get("approved"):
@@ -95,7 +97,7 @@ def budget_gate(cost_high: float, workload: dict[str, Any]) -> dict[str, Any]:
     return {"allowed": True, "requires_approval": False, "reason": f"within job hard cap ${cap:.2f}"}
 
 
-def quote(workload: dict[str, Any], options: list[dict[str, Any]]) -> dict[str, Any]:
+def quote(workload: dict[str, Any], options: list[dict[str, Any]], budget_state: dict[str, Any] | None = None) -> dict[str, Any]:
     """Price every option, rank by expected cost, attach the budget gate."""
     if not options:
         raise ValueError("at least one option is required")
@@ -103,12 +105,12 @@ def quote(workload: dict[str, Any], options: list[dict[str, Any]]) -> dict[str, 
     for option in options:
         kind = option.get("kind", "api")
         item = api_option(option, workload) if kind == "api" else gpu_option(option, workload)
-        item["gate"] = budget_gate(item["cost_usd"]["high"], workload)
+        item["gate"] = budget_gate(item["cost_usd"]["high"], workload, budget_state)
         priced.append(item)
     priced.sort(key=lambda item: (item["cost_usd"]["expected"], item["cost_usd"]["high"]))
     best = priced[0]
     result = {"schema": SCHEMA, "workload_type": workload.get("type"), "options": priced, "recommended": best["id"],
-              "recommended_gate": best["gate"], "note": "estimate only; nothing was provisioned or spent"}
+              "recommended_gate": best["gate"], "budget": budget_state, "note": "estimate only; nothing was provisioned or spent"}
     apis = [item for item in priced if item["kind"] == "api"]
     gpus = [item for item in priced if item["kind"] != "api"]
     if apis and gpus:

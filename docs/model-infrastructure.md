@@ -187,6 +187,17 @@ and expected retries, plus the API-vs-GPU saving. Each option carries a
 `project_usd`). Otherwise the gate says `requires_approval` and why. A quote
 never provisions or spends anything.
 
+The operator budget is machine-wide (`~/.agent-os/budget.json`, outside Git):
+
+```powershell
+agent-os orchestrate budget show
+agent-os orchestrate budget set --project-usd 10 --job-cap-usd 5 --note "why"   # operator only; every change is kept in budget-history.jsonl
+```
+
+Quotes gate on it: a paid option needs its high estimate at or under the
+per-job cap and the remaining project budget (after recorded spend). A
+workload's own `budget` block can only tighten those limits.
+
 Live GPU prices come from the read-only Compute Broker:
 
 ```powershell

@@ -27,8 +27,8 @@ def _cached_inventory(home: Path) -> dict[str, Any]:
     return {"provider": "runpod", "fetched_at": data.get("fetched_at"), "offers": (data.get("offers") or [])[:12]}
 
 
-def build(home: Path | None = None, registry: Any = None) -> dict[str, Any]:
-    from . import evalqueue, foreman, radar, refusal, throughput
+def build(home: Path | None = None, registry: Any = None, budget_home: Path | None = None) -> dict[str, Any]:
+    from . import budget, evalqueue, foreman, radar, refusal, throughput
     from .router import ProviderRegistry
 
     home = Path(home or orchestrator_home())
@@ -52,5 +52,6 @@ def build(home: Path | None = None, registry: Any = None) -> dict[str, Any]:
                        "recent": sorted(queue, key=lambda entry: entry.get("at") or "", reverse=True)[:8]},
         "refusals": refusal.summary(home),
         "foreman": shadow.get("foremen", {}),
+        "budget": budget.show(budget_home),
         "note": "read-only: nothing here provisions, spends or changes routing; paid compute needs an approved budget with a job hard cap",
     }
