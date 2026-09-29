@@ -171,6 +171,11 @@ def register(commands: argparse._SubParsersAction) -> None:
     ev.add_argument("--samples", type=int, default=1, help="case suites: calls per base route (+verify variants reuse them)")
     ev.add_argument("--max-calls", type=int, help="refuse the run if it needs more model calls than this")
 
+    corp = actions.add_parser("corpus", help="external attack-corpus registry: list, or import a corpus as data into .agent-local (no model call)")
+    corp.add_argument("corpus_action", choices=["list", "import"])
+    corp.add_argument("corpus_id", nargs="?")
+    corp.add_argument("--write", action="store_true", help="import: fetch and store the corpus locally (gitignored) and update the registry")
+
     mine = actions.add_parser("mining", help="failure/success signature clusters and coverage gaps (no model call)")
     mine.add_argument("--write", action="store_true", help="write projects/personal-agent-os/orchestrator-os/mining-report.json")
 
@@ -443,6 +448,20 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit({"provider": args.provider, "key_present": present, "source": "env" if os.environ.get(adapter.env_var) else ("keyring" if present else None),
               "note": "run `agent-os orchestrate providers` to see the API worker (role inline)"})
         return 0
+    if action == "corpus":
+        from . import corpus
+
+        if args.corpus_action == "list":
+            emit({"corpora": [{k: entry.get(k) for k in ("id", "name", "license", "status", "revision", "contamination_risk", "task_families")} for entry in corpus.load_registry().get("corpora", [])]})
+            return 0
+        if args.corpus_id != "XC-agentdojo":
+            emit({"error": "only XC-agentdojo has an importer so far"})
+            return 2
+        summary = corpus.import_agentdojo(write=args.write)
+        if summary.get("ok") and args.write:
+            corpus.apply_import_to_registry(summary)
+        emit(summary)
+        return 0 if summary.get("ok") else 6
     if action == "mining":
         from . import mining
 

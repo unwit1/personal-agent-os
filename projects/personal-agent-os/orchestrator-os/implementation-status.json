@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T08:05:00+00:00",
+  "updated_at": "2026-09-29T08:30:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -542,7 +542,7 @@
       "title": "Dynamic/private benchmark refresh and contamination controls",
       "status_at_base_f8f4453f": "missing",
       "status_after_bootstrap": "partial",
-      "note": "Holdout governance + corpus registry with contamination fields; no refresh.",
+      "note": "external corpus registry + AgentDojo imported as data (DEC-0024); contamination fields tracked; dynamic refresh not yet",
       "tracked_as": null
     },
     {

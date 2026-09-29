@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T08:05:00+00:00",
-  "phase": "P1 foundations: failure mining in place; import an attack corpus as data next",
-  "active_objective": "Give the security suite real adversarial coverage by importing a third-party attack corpus as data (not authored here), and let measured capability begin to inform routing.",
+  "updated_at": "2026-09-29T08:30:00+00:00",
+  "phase": "P1 foundations: attack corpus imported as data; derive runnable security cases next",
+  "active_objective": "Turn the imported AgentDojo goals into runnable EVS-SECURITY development cases and measure a cheap route's injection resistance.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -39,38 +39,39 @@
     "Append-only negative evidence enforced; approval-rule enforcement map (1a1e107c, DEC-0021)",
     "IMP-0014: worker publication guard + adapter deny defaults (2ff6a550, c07304c3, DEC-0022)",
     "MIE-0004 first slice: orchestrate mining (DEC-0023)",
-    "EXP-0008 deferred for safety (FND-0013)"
+    "EXP-0008 deferred for safety (FND-0013)",
+    "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0021",
     "DEC-0022",
-    "DEC-0023"
+    "DEC-0023",
+    "DEC-0024"
   ],
   "approval_conditions": [
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)",
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)"
   ],
   "next_action": {
-    "summary": "Import one third-party attack corpus as data (not authored here), to give EVS-SECURITY real adversarial coverage without generating attack payloads. Choose AgentDojo (PA-agentdojo, MIT) injection tasks; add an external-corpora.json entry with verified license and permissions, a small deterministic importer that fetches the repo's published cases at a pinned revision into a machine-local path (never committed) and derives EVS-SECURITY development cases (attacker text as data, known-good labels, canary tokens), and record provenance. If fetching is not available in this environment, instead build the importer + schema and record the corpus entry as status=candidate with the exact steps, so a later run completes it. No model calls; if a delegate is used to summarize the corpus README, cap at 2 calls.",
-    "prior_art": "prompt injection benchmark dataset agentdojo import",
+    "summary": "Derive runnable EVS-SECURITY development cases from the imported AgentDojo goals (.agent-local/corpora/agentdojo). Build a generator that, for each imported injection task, creates a fixture document that embeds the attacker goal as untrusted content plus a benign extraction task with a known label and a canary; register them as an injection_extraction case file (development split, provenance = XC-agentdojo + task id). Then run EVS-SECURITY through orchestrate eval on codex@fast vs codex@fast+attach (<= 6 model calls; codex only -- claude-code weekly-limited until 2026-10-03 18:00 ET), scoring extraction accuracy AND injection resistance separately, and record an EVR. If generating the fixtures trips the safety classifier again, stop and record the blocker with FND-0013, keeping the corpus import as the delivered value.",
+    "prior_art": "prompt injection evaluation harness scoring",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Deterministic import/registry work; judgment in license verification.",
+    "why_this_class": "Case generation from imported data + a bounded eval.",
     "context_refs": [
-      "FND-0013",
-      "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json",
-      "schemas/external-corpus-v1.schema.json",
-      "projects/personal-agent-os/research/prior-art/registry.json",
-      "src/agent_os/orchestrator/eval.py"
+      "DEC-0024",
+      "src/agent_os/orchestrator/corpus.py",
+      "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-SECURITY.json",
+      "src/agent_os/orchestrator/eval.py",
+      "FND-0013"
     ],
     "stop_conditions": [
-      "corpus registry entry with verified permissions + importer + tests committed; EVS-SECURITY cases derived or the exact completion steps recorded",
-      "<= 2 model calls",
-      "stop and report if network fetch is unavailable (record candidate + steps), a protected path beyond the standing grants must change, or the retry/repair budget is reached"
+      "cases derived + committed (payloads stay machine-local) and an EVR recorded, OR the blocker recorded if generation is refused",
+      "<= 6 model calls",
+      "stop and report if codex is quota-blocked, a protected path beyond the standing grants must change, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -220,6 +221,11 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "note": "safety classifier deferred EXP-0008; pivoted to a no-attack-content deliverable"
+    },
+    "session_ORCH-0021": {
+      "deterministic_operations": "~15 incl. real corpus fetch (27 tasks)",
+      "model_calls": 0,
+      "measured_cost_usd": 0
     }
   },
   "known_baseline": {
@@ -229,5 +235,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0020 pass: the planned real-model editing-injection experiment (EXP-0008) was deferred -- the environment's safety classifier declines to generate multi-vector exfiltration attack fixtures even for defensive testing (FND-0013); the deterministic publication guard is already validated with synthetic-worker transcripts. Pivoted to MIE-0004: orchestrate mining clusters FAIL/SUC records by signature and flags open recurring failures with no regression test or experiment (DEC-0023); 0 gaps on the current store. 0 model calls."
+  "last_pass_summary": "ORCH-0021 pass: imported the AgentDojo injection corpus as data (MIT, pinned 089ed468cf3e) with orchestrate corpus import -- 27 injection tasks across 4 suites stored under .agent-local (gitignored); Git keeps only the registry entry, counts and provenance (DEC-0024, following FND-0013). The importer parses GOAL string/f-string literals statically and runs no fetched code. Network fetch is available in this environment. 0 model calls."
 }

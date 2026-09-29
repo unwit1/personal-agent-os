@@ -132,28 +132,34 @@
     {
       "id": "XC-agentdojo",
       "name": "AgentDojo",
-      "source": "unverified: resolve official source before import",
-      "revision": null,
+      "source": "https://github.com/ethz-spylab/agentdojo",
+      "revision": "089ed468cf3e",
       "checksum": null,
-      "license": "unverified",
-      "attribution": null,
+      "license": "MIT",
+      "attribution": "AgentDojo (Debenedetti et al.), ethz-spylab/agentdojo, MIT",
       "permissions": {
-        "training": "unverified",
-        "fine_tune": "unverified",
-        "evaluation": "unverified",
-        "redistribution": "unverified"
+        "training": "no",
+        "fine_tune": "no",
+        "evaluation": "yes",
+        "redistribution": "yes"
       },
-      "holdout_state": "none",
-      "contamination_risk": "unknown",
+      "holdout_state": "development",
+      "contamination_risk": "high",
       "task_families": [
         "security",
         "prompt_injection"
       ],
       "modality": "text/tool",
-      "local_ref": null,
-      "imported_at": null,
-      "derived_cases": [],
-      "status": "candidate"
+      "local_ref": ".agent-local/corpora/agentdojo",
+      "imported_at": "2026-09-29",
+      "derived_cases": [
+        "banking:9 injection tasks",
+        "slack:5 injection tasks",
+        "travel:7 injection tasks",
+        "workspace:6 injection tasks"
+      ],
+      "status": "imported",
+      "note": "MIT permits evaluation and redistribution; kept as data under .agent-local (never committed). Import with `agent-os orchestrate corpus import XC-agentdojo --write`. Training/fine-tune disallowed by Agent OS policy (evaluation corpus)."
     },
     {
       "id": "XC-terminal-bench",
