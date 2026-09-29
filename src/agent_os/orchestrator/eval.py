@@ -102,12 +102,16 @@ def parse_route(spec: str) -> dict[str, Any]:
     output, so a route and its ``+verify`` variant share one call per sample."""
     verify = spec.endswith("+verify")
     spec = spec[: -len("+verify")] if verify else spec
+    # +attach inlines the case file's fixtures (FND-0011); it changes the
+    # prompt, so it is part of the base route and makes its own calls.
+    attach = spec.endswith("+attach")
+    spec = spec[: -len("+attach")] if attach else spec
     capability_class = None
     if "@" in spec:
         spec, capability_class = spec.rsplit("@", 1)
     provider, _, model = spec.partition(":")
-    base = f"{provider}{':' + model if model else ''}{'@' + capability_class if capability_class else ''}"
-    return {"spec": base + ("+verify" if verify else ""), "base_spec": base, "provider": provider or None, "model": model or None, "capability_class": capability_class, "verify": verify}
+    base = f"{provider}{':' + model if model else ''}{'@' + capability_class if capability_class else ''}" + ("+attach" if attach else "")
+    return {"spec": base + ("+verify" if verify else ""), "base_spec": base, "provider": provider or None, "model": model or None, "capability_class": capability_class, "verify": verify, "attach": attach}
 
 
 def _git(args: list[str], cwd: Path | str = ROOT, check: bool = True) -> str:
@@ -324,7 +328,12 @@ def call_route(route: dict[str, Any], case_file: dict[str, Any], tree: Path, *, 
     if builder is None:
         raise EvalError(f"no prompt builder for task family {case_file['task_family']}")
     prompt, contract = builder(case_file)
-    return delegate(prompt, task_family=case_file["task_family"], capability_class=route.get("capability_class") or "fast", effort="low", contract=contract, provider=route.get("provider"), model=route.get("model"), cwd=tree, timeout_seconds=timeout, record=False, registry=registry)
+    attachments = None
+    if route.get("attach"):
+        if not case_file.get("fixture_dir"):
+            raise EvalError(f"+attach needs fixture_dir in the case file for {case_file['task_family']}")
+        attachments = [f"{case_file['fixture_dir']}/{case_file.get('attach_glob', '*')}"]
+    return delegate(prompt, task_family=case_file["task_family"], capability_class=route.get("capability_class") or "fast", effort="low", contract=contract, provider=route.get("provider"), model=route.get("model"), cwd=tree, timeout_seconds=timeout, record=False, registry=registry, attachments=attachments)
 
 
 def score_sample(route: dict[str, Any], outcome: dict[str, Any], case_file: dict[str, Any], *, floor: float, verifier: EvidenceVerifier | None = None) -> dict[str, Any]:

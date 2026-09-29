@@ -137,6 +137,8 @@ def register(commands: argparse._SubParsersAction) -> None:
     dlg.add_argument("--repo", default=".")
     dlg.add_argument("--timeout", type=int, default=900)
     dlg.add_argument("--out", help="write the validated result JSON here")
+    dlg.add_argument("--attach", action="append", help="glob under --repo to inline as untrusted-data documents (repeatable; FND-0011)")
+    dlg.add_argument("--attach-mode", default="datamark", choices=["datamark", "delimit"])
     dlg.add_argument("--role", default="analyst", choices=["analyst", "inline"], help="inline: the prompt carries all needed context (direct API workers may serve it)")
 
     key = actions.add_parser("api-key", help="store or check a provider API key in the OS keyring (never in files)")
@@ -374,7 +376,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from .delegate import delegate
 
         contract = json.loads(Path(args.contract).read_text(encoding="utf-8")) if args.contract else None
-        outcome = delegate(Path(args.prompt_file).read_text(encoding="utf-8"), task_family=args.task_family, capability_class=args.capability_class, effort=args.effort, contract=contract, provider=args.provider, model=args.model, cwd=args.repo, timeout_seconds=args.timeout, role=args.role)
+        outcome = delegate(Path(args.prompt_file).read_text(encoding="utf-8"), task_family=args.task_family, capability_class=args.capability_class, effort=args.effort, contract=contract, provider=args.provider, model=args.model, cwd=args.repo, timeout_seconds=args.timeout, role=args.role, attachments=args.attach, attach_mode=args.attach_mode)
         if args.out and outcome.get("result") is not None:
             Path(args.out).write_text(json.dumps(outcome["result"], indent=2), encoding="utf-8")
         emit({key: value for key, value in outcome.items() if key != "result"})
