@@ -191,6 +191,31 @@ outputs by URI, sha256, base model and revision, and a training-config
 digest. `verify` checks a local checkpoint before resume, and
 `latest_resumable` picks the newest checkpoint of a job.
 
+## 9. Discover new models (Research Radar)
+
+```powershell
+agent-os orchestrate radar scan                                   # default scans: trending text, abliterated, VLM, image, ASR, TTS
+agent-os orchestrate radar scan --search "coder" --pipeline text-generation --sort downloads
+agent-os orchestrate radar catalog --refusal-profile abliterated
+agent-os orchestrate radar catalog --modality audio
+```
+
+Each scan merges into `<orchestrator home>/model-catalog.json` (local, not
+Git). A catalog entry records the exact repo and revision sha, pipeline,
+modalities and capabilities, license, base model, quantization tags,
+parameter count (when the repo has safetensors), downloads, and a
+*declared* refusal hint (`abliterated`/`uncensored` tags). It reports models
+and revisions it hasn't seen before. Those with a known license and at least
+`--min-downloads` (default 10,000) are appended to `eval-queue.jsonl` with
+suggested suites. Nothing downloads weights. Public benchmark claims are not
+evidence; measured Agent OS evals decide routing.
+
+To try a catalog model:
+1. quote the pod with `orchestrate quote --gpu-from runpod`;
+2. serve the model at the catalog's `revision` (e.g. vLLM on the pod);
+3. register it with `orchestrate model-add`, passing the catalog's
+   `--license` and `--refusal-profile`.
+
 ## What stays gated
 
 The model you pick never becomes the authorization boundary. Consequential

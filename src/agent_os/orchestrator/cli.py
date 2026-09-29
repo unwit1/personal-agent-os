@@ -171,6 +171,16 @@ def register(commands: argparse._SubParsersAction) -> None:
 
     actions.add_parser("refusals", help="refusal/non-answer telemetry by provider/model/refusal profile (no model call)")
 
+    rdr = actions.add_parser("radar", help="Model Research Radar: scan the Hugging Face Hub into a local model catalog and queue eval candidates (no model call, no weight downloads)")
+    rdr.add_argument("action", choices=["scan", "catalog"])
+    rdr.add_argument("--search", help="scan: one ad-hoc search instead of the default scans")
+    rdr.add_argument("--pipeline", help="scan: pipeline tag, e.g. text-generation, text-to-image, automatic-speech-recognition")
+    rdr.add_argument("--sort", default="trendingScore")
+    rdr.add_argument("--limit", type=int, default=20)
+    rdr.add_argument("--min-downloads", type=int, default=10000, help="scan: adoption floor for queueing an eval")
+    rdr.add_argument("--modality", help="catalog: filter, e.g. audio")
+    rdr.add_argument("--refusal-profile", help="catalog: filter by declared refusal hint, e.g. abliterated")
+
     qte = actions.add_parser("quote", help="no-spend quote: API vs GPU pod vs serverless, low/expected/high, with the budget gate (no model call, no provisioning)")
     qte.add_argument("--workload", required=True, help="JSON file: workload (workload.py)")
     qte.add_argument("--options", help="JSON file: list of priced options (kind api|gpu_pod|serverless; see quote.py)")
@@ -550,6 +560,17 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         stock = compute.inventory(args.provider, refresh=args.refresh)
         stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
         emit(stock)
+        return 0
+    if action == "radar":
+        from . import radar
+
+        if args.action == "catalog":
+            emit(radar.catalog_summary(modality=args.modality, refusal_profile=args.refusal_profile, limit=args.limit))
+            return 0
+        scans = None
+        if args.search or args.pipeline:
+            scans = [{"name": "ad-hoc", "search": args.search, "pipeline_tag": args.pipeline, "sort": args.sort, "limit": args.limit}]
+        emit(radar.scan(scans, min_downloads=args.min_downloads))
         return 0
     if action == "refusals":
         from pathlib import Path as _Path
