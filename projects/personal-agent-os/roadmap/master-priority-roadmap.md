@@ -1133,3 +1133,19 @@ worker-scoping changes that reduce total tokens/cost/latency while preserving
 noninferior validation and provenance. Existing EVR-0013 / DEC-0018 results
 (~68% lower token use and latency for focused delegate attachments at equal
 accuracy) make this a high-value area for immediate testing.
+
+
+## Operator-priority: Episodic Agent Rotation
+
+**Priority: HIGH experimental track — requested 2026-09-29.** Canonical
+specification: [episodic-agent-rotation.md](episodic-agent-rotation.md)
+(IMP-0019).
+
+Test whether ending long-lived workers at semantic boundaries and starting
+fresh task-scoped workers can reduce cumulative context processing. Measure the
+full tradeoff: context avoided versus worker bootstrap, structured-handoff,
+retrieval, rediscovery, retries, reviews, and coordination. Begin with a shadow
+rotation advisor and synthetic/replay benchmarks. Promote automatic rotation
+only when total cost per validated completion improves with noninferior quality.
+Explicitly identify the point where additional worker rotation produces
+diminishing returns.
