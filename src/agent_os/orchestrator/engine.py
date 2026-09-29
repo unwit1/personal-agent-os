@@ -723,6 +723,11 @@ class Orchestrator:
             if affected is not None:
                 validation["evidence"] = [affected, *validation["evidence"]]
         validation["changed_files"] = changed[:50]
+        guard = _publication_guard(record, node)
+        if guard is not None:
+            validation["evidence"].append(guard)
+            if not guard["passed"]:
+                validation["passed"] = False
         node["validation"] = validation
         self.store.append_event(record["run_id"], "validation." + ("passed" if validation["passed"] else "failed"), node["id"], _evidence_line(validation))
         if not validation["passed"]:
@@ -2276,3 +2281,16 @@ def _control_plane(record: dict[str, Any], node: dict[str, Any] | None = None) -
         return None
     base = ((node or {}).get("worktree") or {}).get("base_commit")
     return {"allowed": list(record["policy"].get("protected_paths_allowed") or []), "base_commit": base}
+
+
+def _publication_guard(record: dict[str, Any], node: dict[str, Any]) -> dict[str, Any] | None:
+    """IMP-0014: every orchestrated editing node (any repository) fails
+    validation when its worker transcript shows an attempted external
+    publication, unless the operator allowed it in run policy."""
+    from .control_plane import publication_check
+
+    if record["policy"].get("allow_worker_publication"):
+        return None
+    process = node.get("process") or {}
+    paths = [process.get("stdout_path")] if process.get("stdout_path") else []
+    return publication_check(paths) if paths else None

@@ -34,7 +34,7 @@ SUGGESTED_EFFORT_MAP = {"none": "low", "low": "low", "medium": "medium", "high":
 SUGGESTED_COSTS = {"fast": 2, "balanced": 3, "reasoning": 6, "frontier": 10}
 OPTIONAL_FLAGS = (
     "--effort", "--permission-mode", "--permission-prompts", "--no-session-persistence", "--allowedTools",
-    "--strict-mcp-config", "--tools", "--disable-slash-commands", "--exclude-dynamic-system-prompt-sections",
+    "--strict-mcp-config", "--tools", "--disallowedTools", "--disable-slash-commands", "--exclude-dynamic-system-prompt-sections",
     "--setting-sources",
 )
 # Built-in tools a bounded worker needs. Everything else in the default set
@@ -145,6 +145,13 @@ def lean_flags(options: dict[str, Any], features: dict[str, bool], read_only: bo
     sources = options.get("setting_sources", LEAN_DEFAULTS["setting_sources"])
     if sources is not None and features.get("--setting-sources"):
         argv += ["--setting-sources", str(sources)]
+    if not read_only and not options.get("allow_publishing") and features.get("--disallowedTools"):
+        # Publication needs an operator gate (IMP-0014); deny it at the tool
+        # layer where the CLI supports it. The engine's publication guard is
+        # the backstop for every adapter.
+        from ..control_plane import DISALLOWED_PUBLISH_TOOLS
+
+        argv += ["--disallowedTools", ",".join(DISALLOWED_PUBLISH_TOOLS)]
     return argv
 
 

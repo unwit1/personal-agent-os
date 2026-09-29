@@ -95,6 +95,10 @@ class CodexCliAdapter(SubprocessAdapter):
         if features.get("--sandbox"):
             sandbox = options.get("read_only_sandbox", "read-only") if request.read_only else options.get("sandbox", "workspace-write")
             argv += ["-s", sandbox]
+            if sandbox == "workspace-write" and not options.get("allow_publishing"):
+                # No network egress for editing workers unless the operator
+                # allows it (IMP-0014); explicit rather than relying on defaults.
+                argv += ["-c", "sandbox_workspace_write.network_access=false"]
         if features.get("--cd"):
             argv += ["-C", request.cwd]
         if features.get("--json"):

@@ -152,6 +152,8 @@ DEFAULT_POLICY: dict[str, Any] = {
     # adds ~36% on passing ones (DEC-0007), so "always" pays only when more
     # than ~36% of validations fail. "off" disables it.
     "affected_tests_first": "retries",
+    # IMP-0014: operator-only opt-out of the worker publication guard.
+    "allow_worker_publication": False,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -196,6 +198,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "cleanup_worktrees",
         "reuse_validation",
         "planner_repo_map",
+        "allow_worker_publication",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")

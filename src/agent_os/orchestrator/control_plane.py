@@ -179,3 +179,69 @@ def negative_evidence_check(repo: Path | str, base: str, changed: list[str], all
     hits = negative_evidence_changes(repo, base, changed, allowed)
     return {"name": "negative-evidence", "kind": "scope", "passed": not hits,
             "detail": None if not hits else "negative evidence is append-only (supersede, never erase): " + "; ".join(hits[:5])}
+
+
+# -- external publication requires approval (policy approval_required_for) --
+
+PUBLISH_PATTERNS = (
+    r"\bgit\s+push\b",
+    r"\b(?:npm|pnpm|yarn)\s+publish\b",
+    r"\btwine\s+upload\b",
+    r"\bpoetry\s+publish\b",
+    r"\bgh\s+(?:release\s+create|pr\s+create|repo\s+create|gist\s+create)\b",
+    r"\bcurl\b[^\n]*(?:-X\s*(?:POST|PUT|PATCH)|--data\b|\s-d\s|--upload-file|-T\s)",
+    r"\bInvoke-(?:WebRequest|RestMethod)\b[^\n]*-Method\s+(?:Post|Put|Patch)",
+    r"\bdocker\s+push\b",
+)
+# Tool patterns for CLIs that support deny rules (Claude Code --disallowedTools).
+DISALLOWED_PUBLISH_TOOLS = ("Bash(git push:*)", "Bash(npm publish:*)", "Bash(pnpm publish:*)", "Bash(yarn publish:*)", "Bash(twine upload:*)",
+                            "Bash(poetry publish:*)", "Bash(gh release create:*)", "Bash(gh pr create:*)", "Bash(gh repo create:*)", "Bash(docker push:*)")
+
+
+def _commands(text: str) -> list[str]:
+    """Commands a worker actually executed: Codex --json command_execution
+    items, or plain-log lines in shell-prompt form ("$ git push"). Prose in
+    final messages ("I did not run git push") is never treated as a command;
+    for CLIs without a command transcript the tool-level deny rule applies."""
+    found = []
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("{"):
+            if "command_execution" not in line:
+                continue
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            item = event.get("item") if isinstance(event.get("item"), dict) else {}
+            if item.get("type") == "command_execution" and item.get("command"):
+                found.append(str(item["command"]))
+        elif line.startswith(("$ ", "> ", "PS> ")):
+            found.append(line.split(" ", 1)[1])
+    return found
+
+
+def publication_attempts(texts: Iterable[str]) -> list[str]:
+    import re
+
+    hits = []
+    for text in texts:
+        for command in _commands(text or ""):
+            if any(re.search(pattern, command, re.IGNORECASE) for pattern in PUBLISH_PATTERNS):
+                hits.append(command[:160])
+    return hits
+
+
+def publication_check(paths: Iterable[str | Path]) -> dict[str, Any]:
+    """Fails when a worker transcript shows an attempted publishing command
+    (push, package upload, outbound POST). Publication is an operator-gated
+    action; a worker attempting it fails validation whatever its sandbox did."""
+    texts = []
+    for path in paths:
+        try:
+            texts.append(Path(path).read_text(encoding="utf-8", errors="replace"))
+        except OSError:
+            continue
+    hits = publication_attempts(texts)
+    return {"name": "publication-guard", "kind": "scope", "passed": not hits,
+            "detail": None if not hits else "external publication requires operator approval; worker attempted: " + "; ".join(hits[:3])}
