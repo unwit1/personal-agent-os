@@ -133,13 +133,14 @@
     {
       "id": "RT-06",
       "feature": "bounded exponential backoff with jitter",
-      "status": "partial",
+      "status": "implemented",
       "evidence": [
         "src/agent_os/orchestrator/retry.py",
-        "src/agent_os/orchestrator/adapters/http_api.py"
+        "src/agent_os/orchestrator/adapters/http_api.py",
+        "src/agent_os/orchestrator/adapters/base.py"
       ],
-      "note": "API workers retry with full jitter and Retry-After (DEC-0009); CLI workers not yet",
-      "verified_by": "tests/test_orchestrator_api_retry.py"
+      "note": "API workers retry with full jitter and Retry-After (DEC-0009); CLI workers back off inside the CLI, and their surfaced transient failures now map to 'unavailable' so the shared breaker, not a one-hour quota cooldown, governs them (DEC-0029). No engine-side retry layer on purpose (RT-08).",
+      "verified_by": "tests/test_orchestrator_api_retry.py, tests/test_provider_failure_classification.py"
     },
     {
       "id": "RT-07",
@@ -446,7 +447,7 @@
       "title": "Untrusted-data taint and control/data-flow separation",
       "status_at_base_f8f4453f": "missing",
       "status_after_bootstrap": "missing",
-      "note": "Principle encoded (constitution \u00a79); no taint tracking.",
+      "note": "Principle encoded (constitution §9); no taint tracking.",
       "tracked_as": null
     },
     {

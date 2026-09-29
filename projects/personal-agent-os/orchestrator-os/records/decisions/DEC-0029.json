@@ -1,0 +1,30 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0029",
+  "type": "DEC",
+  "title": "Transient provider failures from CLI workers map to 'unavailable' (breaker), not 'quota' (IMP-0016)",
+  "status": "accepted",
+  "summary": "The operator asked to continue autonomous development past the ORCH-0024 hold (DEC-0027), which scoped the pass as a maintenance check. Reading the failure path during that check found a routing defect: QUOTA_PATTERN contained 'overloaded', so a single transient Anthropic 529 surfaced by the Claude CLI opened a one-hour machine-wide cooldown shared by every run, delegate and eval, and 5xx/network errors fell to process_error, which the breaker never counts. The CLIs retry these internally before surfacing them, so they now map to 'unavailable', matching HTTPAPIAdapter (5xx/529 -> unavailable): the node fails over as before (unavailable is a PROVIDER_FAILURE), but the machine-wide effect is the existing breaker (3 in 10 min -> 15 min cooldown) instead of an hour-long cooldown after one blip. Quota and invalid_model keep precedence. Status codes count only next to an HTTP/API/status cue, so bare numbers in prose stay process_error. This also covers RT-06 for CLI workers without engine-side backoff: the CLIs already back off in-process, and adding a second retry layer would create the nested retry loops RT-08 warns about. The ORCH-0019 target (real-model injection, EXP-0008) stays operator-gated per DEC-0025/FND-0013 and was not run.",
+  "prior_art": {
+    "checked": "PA-litellm, PA-tenacity, PA-pybreaker (retry.py, DEC-0009)",
+    "found": "LiteLLM and the provider SDKs separate rate-limit (429) from service-unavailable/overloaded (5xx/529) errors; the breaker is already subsumed in provider_health/retry.py",
+    "reused": "the existing 'unavailable' kind and breaker; no new dependency or engine state",
+    "why_custom": "a two-line classifier branch plus a pattern; the gap was classification, not retry machinery"
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/adapters/base.py"},
+    {"rel": "tests", "ref": "tests/test_provider_failure_classification.py"},
+    {"rel": "evidence_for", "ref": "EVR-0016"},
+    {"rel": "relates_to", "ref": "IMP-0016"},
+    {"rel": "relates_to", "ref": "IMP-0005"},
+    {"rel": "relates_to", "ref": "DEC-0028"},
+    {"rel": "relates_to", "ref": "DEC-0025"}
+  ],
+  "metrics": {"model_calls": 0, "corpus_accuracy_before": 0.538, "corpus_accuracy_after": 1.0, "false_quota_cooldown_minutes_before": 180, "false_quota_cooldown_minutes_after": 0},
+  "provenance": {
+    "session": "ORCH-0024 -> ORCH-0025 (operator-requested continuation)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T16:30:00+00:00",
+  "updated_at": "2026-09-29T16:30:00+00:00"
+}

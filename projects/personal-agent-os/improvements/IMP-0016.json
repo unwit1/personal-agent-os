@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0016",
+  "project": "personal-agent-os",
+  "title": "Classify transient provider failures (529 overloaded, 5xx, network) as unavailable, not quota",
+  "category": "bug",
+  "subsystem": "orchestrator/adapters",
+  "status": "implemented",
+  "priority": "high",
+  "observation": "adapters/base.classify_failure matched 'overloaded' in QUOTA_PATTERN, so one transient Anthropic 529 surfaced by the Claude CLI wrote a one-hour machine-wide cooldown (DEFAULT_QUOTA_COOLDOWN) shared by every run, delegate and eval. 5xx, stream-disconnect and connection errors fell to process_error, which the provider breaker never counts. HTTPAPIAdapter already maps 5xx/529 to unavailable. Baseline on a 26-case labeled corpus: 0/12 transient cases correct, 3 false quota cooldowns (180 min). Root cause: one regex conflated capacity overload with budget exhaustion, and CLI workers had no transient class.",
+  "evidence": [
+    "tests/fixtures/provider-failure-corpus.json",
+    "src/agent_os/orchestrator/adapters/base.py",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0016.json",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0029.json"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Add TRANSIENT_PATTERN -> 'unavailable' after quota and invalid_model checks; drop 'overloaded' from QUOTA_PATTERN; pin with a labeled corpus and adapter-level tests.",
+  "acceptance": [
+    "corpus: every case gets its label",
+    "single overload leaves the provider usable machine-wide; repeated overloads open the breaker",
+    "full suite no new failures vs baseline"
+  ],
+  "risks": [
+    "prose containing 'overloaded' in a Claude is_error result would still classify as a provider failure (now unavailable instead of quota, strictly less costly)"
+  ],
+  "dedupe_key": "29c754df62ca9936cb4716ac93f75ac4c7d758073648df7251be675a4fc62111",
+  "source": {
+    "type": "claude",
+    "reference": "ORCH-0025 maintenance pass (mining + code read)"
+  },
+  "github": null,
+  "created_at": "2026-09-29T17:02:49.894881+00:00",
+  "updated_at": "2026-09-29T17:02:50.821439+00:00",
+  "notes": null
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "personal-agent/provider-failure-corpus/v1",
+  "purpose": "Labeled worker failure texts for adapters.base.classify_failure (IMP-0015). Texts follow documented provider error shapes (Anthropic API errors incl. 529 overloaded_error, OpenAI/Codex rate-limit and 5xx messages, common network errors); they are representative formats, not verbatim captures of a specific incident.",
+  "label_rule": "quota = the account or rate budget is exhausted and waiting for a reset is the remedy; unavailable = a transient server, capacity or network failure surfaced after the CLI's own retries (the HTTP adapter already maps 5xx/529 to unavailable); invalid_model = the requested model does not exist or is not enabled; process_error = anything else (worker/tool failure, bad output, non-provider errors).",
+  "cases": [
+    {"id": "PFC-01", "label": "unavailable", "text": "API Error: 529 {\"type\":\"error\",\"error\":{\"type\":\"overloaded_error\",\"message\":\"Overloaded\"}}"},
+    {"id": "PFC-02", "label": "unavailable", "text": "API Error: Repeated 529 Overloaded errors"},
+    {"id": "PFC-03", "label": "unavailable", "text": "API Error: 500 {\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Internal server error\"}}"},
+    {"id": "PFC-04", "label": "unavailable", "text": "stream error: exceeded retry limit, last status: 503 Service Unavailable"},
+    {"id": "PFC-05", "label": "unavailable", "text": "stream disconnected before completion: error sending request for url (https://api.openai.com/v1/responses)"},
+    {"id": "PFC-06", "label": "unavailable", "text": "Error: 502 Bad Gateway"},
+    {"id": "PFC-07", "label": "unavailable", "text": "Request failed: 504 Gateway Timeout"},
+    {"id": "PFC-08", "label": "unavailable", "text": "API Error: Connection error. (ECONNRESET)"},
+    {"id": "PFC-09", "label": "unavailable", "text": "fetch failed: connect ETIMEDOUT 160.79.104.10:443"},
+    {"id": "PFC-10", "label": "unavailable", "text": "The server had an error while processing your request. Sorry about that! (HTTP 500)"},
+    {"id": "PFC-11", "label": "unavailable", "text": "The engine is currently overloaded, please try again later"},
+    {"id": "PFC-12", "label": "unavailable", "text": "error: connection refused (os error 10061)"},
+    {"id": "PFC-13", "label": "quota", "text": "API Error: 429 {\"type\":\"error\",\"error\":{\"type\":\"rate_limit_error\",\"message\":\"Number of request tokens has exceeded your per-minute rate limit\"}}"},
+    {"id": "PFC-14", "label": "quota", "text": "Claude AI usage limit reached|1790370000"},
+    {"id": "PFC-15", "label": "quota", "text": "You've hit your usage limit. Upgrade to Pro or try again at 9:12 PM."},
+    {"id": "PFC-16", "label": "quota", "text": "stream error: exceeded retry limit, last status: 429 Too Many Requests"},
+    {"id": "PFC-17", "label": "quota", "text": "You exceeded your current quota, please check your plan and billing details. (insufficient_quota)"},
+    {"id": "PFC-18", "label": "quota", "text": "Your credit balance is too low to access the Anthropic API."},
+    {"id": "PFC-19", "label": "quota", "text": "5-hour session limit reached - resets 7:10pm"},
+    {"id": "PFC-20", "label": "invalid_model", "text": "API Error: 404 {\"type\":\"error\",\"error\":{\"type\":\"not_found_error\",\"message\":\"model: claude-nonexistent-9\"}} - model not found"},
+    {"id": "PFC-21", "label": "invalid_model", "text": "The model `gpt-9-imaginary` does not exist or you do not have access to it."},
+    {"id": "PFC-22", "label": "process_error", "text": "exit code 1"},
+    {"id": "PFC-23", "label": "process_error", "text": "Traceback (most recent call last):\n  File \"tool.py\", line 3, in <module>\nKeyError: 'path'"},
+    {"id": "PFC-24", "label": "process_error", "text": "error_max_turns"},
+    {"id": "PFC-25", "label": "process_error", "text": "Execution error: tests failed (3 failures) while serving port 5030"},
+    {"id": "PFC-26", "label": "process_error", "text": "fatal: not a git repository (or any of the parent directories): .git"}
+  ]
+}

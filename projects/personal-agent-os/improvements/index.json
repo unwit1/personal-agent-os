@@ -166,6 +166,17 @@
       "dedupe_key": null,
       "updated_at": "2026-09-29T16:19:15.793144+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0016",
+      "title": "Classify transient provider failures (529 overloaded, 5xx, network) as unavailable, not quota",
+      "category": "bug",
+      "subsystem": "orchestrator/adapters",
+      "status": "implemented",
+      "priority": "high",
+      "dedupe_key": "29c754df62ca9936cb4716ac93f75ac4c7d758073648df7251be675a4fc62111",
+      "updated_at": "2026-09-29T17:02:50.821439+00:00",
+      "github_issue_number": null
     }
   ]
 }

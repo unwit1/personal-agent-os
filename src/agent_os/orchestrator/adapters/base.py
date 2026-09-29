@@ -27,7 +27,20 @@ _JSON_BLOCK = re.compile(r"```json\s*(\{.*?\})\s*```", re.DOTALL)
 
 QUOTA_PATTERN = re.compile(
     r"(rate[ _-]?limit|usage limit|quota|too many requests|\b429\b|credit balance|"
-    r"session limit|limit reached|out of credits|insufficient[_ ]quota|overloaded)",
+    r"session limit|limit reached|out of credits|insufficient[_ ]quota)",
+    re.IGNORECASE,
+)
+# Transient server, capacity and network failures. The CLIs retry these
+# themselves before giving up, so by the time one surfaces it maps to
+# "unavailable" (breaker), as HTTPAPIAdapter already does for 5xx/529 -- not
+# to "quota", whose one-hour machine-wide cooldown fits exhausted budgets only
+# (IMP-0016). Status codes are matched only next to an HTTP/API/status cue so
+# bare numbers in worker prose do not count.
+TRANSIENT_PATTERN = re.compile(
+    r"(overloaded|internal server error|service unavailable|bad gateway|gateway timeout|"
+    r"(?:api error|http|status|last status)[:\s]+5(?:0[0-4]|29)\b|\b5(?:0[0-4]|29)\s+(?:overloaded|internal|service|bad|gateway)|"
+    r"\(http 5\d\d\)|stream disconnected|connection (?:error|reset|refused|aborted|closed)|"
+    r"econnreset|econnrefused|etimedout|temporarily unavailable)",
     re.IGNORECASE,
 )
 INVALID_MODEL_PATTERN = re.compile(
@@ -181,6 +194,8 @@ def classify_failure(text: str, returncode: int | None) -> str:
         return "invalid_model"
     if QUOTA_PATTERN.search(text or ""):
         return "quota"
+    if TRANSIENT_PATTERN.search(text or ""):
+        return "unavailable"
     return "process_error"
 
 
