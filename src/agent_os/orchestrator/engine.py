@@ -1443,7 +1443,20 @@ class Orchestrator:
                 continue
             manager = manager or self._manager(record)
             self._ensure_integration(record)
-            outcome = manager.merge(node["worktree"]["branch"], f"agent-os {record['run_id']}: integrate {node_id}")
+            subject = f"agent-os {record['run_id']}: integrate {node_id}"
+            landed = manager.find_integration_commit(subject)
+            if landed:
+                # Idempotency: the merge already landed (e.g. the process died
+                # after merging but before saving). Adopt it; never merge twice.
+                node["integrated"] = True
+                node["integration"] = {"commit": landed, "at": now(), "recovered": True}
+                record["integration"]["head"] = manager.integration_head()
+                if node_id not in record["integration"]["merged"]:
+                    record["integration"]["merged"].append(node_id)
+                self._release_claim(record, node, "integrated (recovered)")
+                self.store.append_event(record["run_id"], "integration.recovered", node_id, landed[:12])
+                continue
+            outcome = manager.merge(node["worktree"]["branch"], subject)
             if outcome["merged"]:
                 node["integrated"] = True
                 node["integration"] = {"commit": outcome["commit"], "at": now()}

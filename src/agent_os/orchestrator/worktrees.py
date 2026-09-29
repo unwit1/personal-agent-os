@@ -194,6 +194,21 @@ class WorktreeManager:
             return text[:limit] + f"\n... diff truncated at {limit} characters; inspect the branch directly ...\n"
         return text
 
+    def find_integration_commit(self, subject: str) -> str | None:
+        """The integration-branch commit whose subject equals ``subject``, if any.
+
+        Integration commit subjects are unique per run and node, so they act as
+        idempotency keys: a merge that landed before a crash can be found and
+        adopted instead of being repeated (IMP-0012)."""
+        if not self.branch_exists(self.integration_branch):
+            return None
+        log = git(["log", self.integration_branch, "--format=%H %s"], self.repository, check=False).stdout
+        for line in log.splitlines():
+            sha, _, found = line.partition(" ")
+            if found == subject:
+                return sha
+        return None
+
     def merge(self, branch: str, message: str) -> dict[str, Any]:
         """Merge a validated branch into the integration worktree, or report a conflict."""
         before = self.integration_head()

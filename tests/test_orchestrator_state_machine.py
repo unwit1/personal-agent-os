@@ -41,6 +41,10 @@ REVIEW_OUTCOMES = ("approve", "approve", "reject")
 TERMINAL = {"COMPLETE", "FAILED"}
 
 
+class _ProcessDeath(BaseException):
+    """Simulated crash; BaseException so engine error handling cannot absorb it."""
+
+
 class Harness:
     """One throwaway repository + engine; operations and invariants."""
 
@@ -67,8 +71,30 @@ class Harness:
                                              policy={"poll_interval_seconds": 0, "announce_claims": False, "max_launches": 30})["run_id"]
         self.initial_policy = dict(self.engine.load(self.run_id)["policy"])
         self.trace: list[str] = []
+        self.crashes = 0
+
+    def _arm_merge_crash(self) -> None:
+        from agent_os.orchestrator import worktrees
+
+        original = worktrees.WorktreeManager.merge
+        harness = self
+
+        def merge_then_die(manager, branch, message):
+            outcome = original(manager, branch, message)
+            worktrees.WorktreeManager.merge = original  # one crash only
+            if outcome.get("merged"):
+                harness.crashes += 1
+                raise _ProcessDeath("killed after merge, before persist")
+            return outcome
+
+        worktrees.WorktreeManager.merge = merge_then_die
+        self._restore_merge = original
 
     def close(self) -> None:
+        if getattr(self, "_restore_merge", None) is not None:
+            from agent_os.orchestrator import worktrees
+
+            worktrees.WorktreeManager.merge = self._restore_merge
         synthetic.reset()
         shutil.rmtree(self.tmp, ignore_errors=True)
 
@@ -132,8 +158,17 @@ class Harness:
                 # Crash kill-point: in-flight workers die with the process.
                 synthetic._LIVE.clear()
                 self.engine = self._engine()
+            elif kind == "crash_after_merge":
+                # Kill-point between a consequential effect (integration merge
+                # commit) and persisting the run record: the next merge lands,
+                # then the "process" dies before the engine saves, and a fresh
+                # engine resumes from the stale record.
+                self._arm_merge_crash()
         except OrchestratorError:
             pass  # an operation refused in this state is legal; invariants still apply
+        except _ProcessDeath:
+            synthetic._LIVE.clear()
+            self.engine = self._engine()
 
     # ---- invariants (constitution section 10) --------------------------
     def check(self) -> list[str]:
@@ -158,6 +193,19 @@ class Harness:
                     required = bool(policy_now.get("require_independent_review_for_model_edits")) and node.get("execution_path") != "deterministic"
                 if (required or reviewers) and not review.get("accepted_by_user") and (not reviewers or reviewers[-1].get("verdict") != "approved"):
                     problems.append(f"{node_id}: integrated without an approving review")
+        branch = (record.get("integration") or {}).get("branch")
+        if branch:
+            subjects = self._git("log", branch, "--format=%s").splitlines()
+            for node_id in record["nodes"]:
+                count = sum(1 for line in subjects if line == f"agent-os {self.run_id}: integrate {node_id}")
+                if count > 1:
+                    problems.append(f"{node_id}: merged {count} times into the integration branch (duplicated consequential effect)")
+        merged = list((record.get("integration") or {}).get("merged") or [])
+        if len(merged) != len(set(merged)):
+            problems.append(f"integration.merged has duplicates: {merged}")
+        for node_id, node in record["nodes"].items():
+            if node["integrated"] and node_id not in merged:
+                problems.append(f"{node_id}: integrated but missing from integration.merged")
         if record["state"] == "COMPLETE" and not ((record.get("final") or {}).get("validation") or {}).get("passed"):
             problems.append("run COMPLETE without passing completion validation")
         if self._git("rev-parse", "main").strip() != self.main_head:
@@ -179,7 +227,7 @@ def random_ops(rng: random.Random, count: int) -> list[str]:
     workers = ("ok", "out_of_scope", "crash", "quota", "unavailable", "no_change") if hostile else WORKER_OUTCOMES
     reviews = ("approve", "reject", "reject") if hostile else REVIEW_OUTCOMES
     ops = ["start"]
-    menu = ["step"] * 10 + ["worker"] * 3 + ["review"] * (5 if hostile else 2) + ["pause", "resume", "resume", "approve", "approve", "reject", "retry", "restart"]
+    menu = ["step"] * 10 + ["worker"] * 3 + ["review"] * (5 if hostile else 2) + ["pause", "resume", "resume", "approve", "approve", "reject", "retry", "restart", "crash_after_merge"]
     if rng.random() < 0.3:
         menu.append("stop")
     for _ in range(count):
@@ -244,6 +292,46 @@ class RandomSequenceInvariantTests(unittest.TestCase):
             node.update(role="reviewer", integrated=True)
             harness.engine.store.save(record)
             self.assertTrue(any("read-only" in item for item in harness.check()))
+        finally:
+            harness.close()
+
+    def test_harness_detects_a_planted_duplicate_merge(self) -> None:
+        harness = Harness()
+        try:
+            for op in ["start"] + ["step"] * 12:
+                harness.apply(op)
+            record = harness.engine.load(harness.run_id)
+            branch = record["integration"]["branch"]
+            integrated = [node_id for node_id, node in record["nodes"].items() if node["integrated"]]
+            self.assertTrue(branch and integrated, "setup did not integrate anything")
+            # Plant with plumbing: the integration worktree may already be
+            # cleaned up, but the branch remains.
+            tree = harness._git("rev-parse", f"{branch}^{{tree}}").strip()
+            head = harness._git("rev-parse", branch).strip()
+            duplicate = harness._git("commit-tree", tree, "-p", head, "-m", f"agent-os {harness.run_id}: integrate {integrated[0]}").strip()
+            harness._git("update-ref", f"refs/heads/{branch}", duplicate)
+            self.assertTrue(any("merged 2 times" in item for item in harness.check()))
+        finally:
+            harness.close()
+
+    def test_crash_after_merge_is_adopted_not_repeated(self) -> None:
+        """Regression (IMP-0012): a merge that landed before the process died is
+        adopted on resume through its idempotency key, never merged again."""
+        harness = Harness()
+        try:
+            harness.apply("start")
+            harness.apply("crash_after_merge")
+            for _ in range(40):
+                harness.apply("step")
+                self.assertEqual(harness.check(), [])
+            self.assertEqual(harness.crashes, 1, "the kill-point did not fire")
+            events = [event.get("type") or event.get("kind") for event in harness.engine.events(harness.run_id, limit=1000)]
+            self.assertIn("integration.recovered", events)
+            record = harness.engine.load(harness.run_id)
+            subjects = harness._git("log", record["integration"]["branch"], "--format=%s").splitlines()
+            for node_id, node in record["nodes"].items():
+                if node["integrated"]:
+                    self.assertEqual(subjects.count(f"agent-os {harness.run_id}: integrate {node_id}"), 1)
         finally:
             harness.close()
 
