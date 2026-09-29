@@ -1,7 +1,7 @@
 """Task-specific capability evidence (CAP records).
 
 Observations are raw, per-call, machine-local and append-only
-(``~/.agent-os/orchestrator/capability/observations.jsonl``). They carry no
+(``<orchestrator home>/capability/observations.jsonl``, default ``.agent-local/orchestrator``). They carry no
 prompt or output text. ``summarize`` aggregates them by
 
     task family x role x provider x concrete model x effort x toolset
@@ -118,6 +118,10 @@ def summarize(observations: list[dict[str, Any]], floor: float = 0.9) -> list[di
                 "validator_pass_rate": round(len(passed) / n, 3),
                 "pass_rate_wilson95": [low, high],
                 "qualified_at_floor": floor if low is not None and low >= floor else None,
+                # Item-level accuracy on labeled cases (orchestrate eval); None
+                # when only the output contract was checked (FND-0001).
+                "mean_accuracy": _mean(item.get("accuracy") for item in items),
+                "contract_pass_rate": round(sum(1 for item in items if item.get("contract_passed", item.get("validator_passed"))) / n, 3),
                 "repairs": sum(int(item.get("repairs") or 0) for item in items),
                 "mean_seconds": _mean(item.get("seconds") for item in items),
                 "mean_input_tokens": _mean(item.get("input_tokens") for item in items),

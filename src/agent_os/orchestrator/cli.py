@@ -152,6 +152,16 @@ def register(commands: argparse._SubParsersAction) -> None:
     guard.add_argument("--base", default="main", help="with no paths: diff against this ref")
     guard.add_argument("--allow", action="append", default=[])
 
+    ev = actions.add_parser("eval", help="incumbent vs candidate over an EVS suite; writes an EVR (test suites: git refs; case suites: routes)")
+    ev.add_argument("--suite", required=True, help="EVS id, e.g. EVS-CONTROL-PLANE")
+    ev.add_argument("--incumbent", help="baseline git ref (test suites, default main) or route (case suites, default first --route)")
+    ev.add_argument("--candidate", action="append", default=[], help="candidate git ref (test suites), repeatable")
+    ev.add_argument("--route", action="append", default=[], help="provider[:model][@class] (case suites), repeatable")
+    ev.add_argument("--margin", type=float, help="noninferiority margin (default: policy promotion.noninferiority_margin_default)")
+    ev.add_argument("--operator-holdout", action="store_true", help="operator only: allow protected holdout splits")
+    ev.add_argument("--no-write", action="store_true", help="do not write the EVR record")
+    ev.add_argument("--sequential", action="store_true")
+
     gui = actions.add_parser("gui", help="serve the local control GUI and API")
     gui.add_argument("--host", default="127.0.0.1")
     gui.add_argument("--port", type=int, default=8765)
@@ -369,6 +379,12 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         result = control_plane.check(paths, args.allow)
         emit({**result, "checked": len(paths)})
         return 0 if result["passed"] else 7
+    if action == "eval":
+        from . import eval as evaluation
+
+        record = evaluation.run(args.suite, incumbent=args.incumbent, candidates=args.candidate, routes=args.route, operator_holdout=args.operator_holdout, write=not args.no_write, margin=args.margin, parallel=not args.sequential)
+        emit(record)
+        return 0 if record["outcome"] in {"improved", "noninferior"} else 8
     if action == "gui":
         from .server import serve
 
