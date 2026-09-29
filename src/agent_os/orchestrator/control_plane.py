@@ -91,3 +91,91 @@ def check(changed: list[str], allowed: Iterable[str] = (), policy: dict[str, Any
         "passed": not hits,
         "detail": None if not hits else "candidate edits protected control/evaluation plane (operator grant required): " + ", ".join(hits[:10]),
     }
+
+
+# -- negative evidence is append-only (policy control_plane.negative_evidence) --
+
+RECORDS = "projects/personal-agent-os/orchestrator-os/records/"
+FAILURES = RECORDS + "failures/"
+OUTCOME_DIRS = (RECORDS + "experiments/", RECORDS + "evaluations/")
+NEGATIVE_OUTCOMES = {"rejected", "inconclusive", "regressed"}
+MUTABLE_FIELDS = {"status", "updated_at"}
+# Counters that may grow (more occurrences add evidence) but never shrink.
+MONOTONIC_FIELDS = {"recurrence"}
+
+
+def _append_only(old: Any, new: Any, where: str) -> list[str]:
+    """Differences that remove or rewrite existing content. New keys, longer
+    text that keeps the old text as a prefix, and extra list items are fine."""
+    if isinstance(old, dict):
+        if not isinstance(new, dict):
+            return [f"{where or 'record'} changed type"]
+        problems = []
+        for key, value in old.items():
+            if key in MUTABLE_FIELDS and not where:
+                continue
+            if key not in new:
+                problems.append(f"{where}{key} removed")
+            elif key in MONOTONIC_FIELDS and not where and isinstance(value, (int, float)) and isinstance(new[key], (int, float)):
+                if new[key] < value:
+                    problems.append(f"{key} decreased")
+            else:
+                problems += _append_only(value, new[key], f"{where}{key}.")
+        return problems
+    if isinstance(old, list):
+        if not isinstance(new, list):
+            return [f"{where.rstrip('.')} changed type"]
+        missing = [item for item in old if item not in new]
+        return [f"{where.rstrip('.')} lost {len(missing)} item(s)"] if missing else []
+    if isinstance(old, str) and isinstance(new, str):
+        return [] if new.startswith(old) else [f"{where.rstrip('.')} rewritten (only appending is allowed)"]
+    return [] if old == new else [f"{where.rstrip('.')} changed"]
+
+
+def _base_json(repo: Path, base: str, path: str) -> Any:
+    import subprocess
+
+    completed = subprocess.run(["git", "show", f"{base}:{path}"], cwd=repo, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if completed.returncode != 0:
+        return None
+    try:
+        return json.loads(completed.stdout)
+    except json.JSONDecodeError:
+        return None
+
+
+def negative_evidence_changes(repo: Path | str, base: str, changed: Iterable[str], allowed: Iterable[str] = ()) -> list[str]:
+    """Violations of the append-only rule for FAIL records and for EXP/EVR
+    records whose outcome was negative at ``base``."""
+    repo = Path(repo)
+    grants = [str(item) for item in allowed or []]
+    problems = []
+    for path in changed:
+        normalized = path.replace("\\", "/")
+        if not normalized.endswith(".json") or any(_match(normalized, grant) for grant in grants):
+            continue
+        in_failures = normalized.startswith(FAILURES)
+        if not in_failures and not normalized.startswith(OUTCOME_DIRS):
+            continue
+        old = _base_json(repo, base, normalized)
+        if old is None:
+            continue  # new record: adding evidence is always allowed
+        if not in_failures and str((old or {}).get("outcome")) not in NEGATIVE_OUTCOMES:
+            continue
+        current = repo / normalized
+        if not current.exists():
+            problems.append(f"{normalized}: negative evidence deleted")
+            continue
+        try:
+            new = json.loads(current.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            problems.append(f"{normalized}: negative evidence made unreadable")
+            continue
+        problems += [f"{normalized}: {item}" for item in _append_only(old, new, "")]
+    return problems
+
+
+def negative_evidence_check(repo: Path | str, base: str, changed: list[str], allowed: Iterable[str] = ()) -> dict[str, Any]:
+    hits = negative_evidence_changes(repo, base, changed, allowed)
+    return {"name": "negative-evidence", "kind": "scope", "passed": not hits,
+            "detail": None if not hits else "negative evidence is append-only (supersede, never erase): " + "; ".join(hits[:5])}

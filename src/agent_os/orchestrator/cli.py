@@ -413,8 +413,9 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         # Tracked changes against the base plus new, untracked files.
         paths = args.paths or sorted(set(git_lines("diff", "--name-only", args.base)) | set(git_lines("ls-files", "--others", "--exclude-standard")))
         result = control_plane.check(paths, args.allow)
-        emit({**result, "checked": len(paths)})
-        return 0 if result["passed"] else 7
+        evidence = control_plane.negative_evidence_check(Path("."), args.base, paths, args.allow)
+        emit({**result, "checked": len(paths), "negative_evidence": evidence})
+        return 0 if result["passed"] and evidence["passed"] else 7
     if action == "api-key":
         import getpass
         import os
