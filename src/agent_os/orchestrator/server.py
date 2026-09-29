@@ -317,8 +317,10 @@ class Api:
             from . import foreman_deploy
 
             self._providers_cache = None
+            backups = body.get("backups")
             return foreman_deploy.manager().use(str(body.get("kind") or ""), model=body.get("model") or None,
-                                                base_url=body.get("base_url") or None, secret_ref=body.get("secret_ref") or None)
+                                                base_url=body.get("base_url") or None, secret_ref=body.get("secret_ref") or None,
+                                                backups=None if backups in (None, "auto") else list(backups))
         if parts == ["foreman", "local-models"]:
             from . import foreman_deploy
 

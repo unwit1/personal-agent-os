@@ -693,6 +693,13 @@ class Orchestrator:
         self._record_telemetry(record, node, result, validator_passed=(node.get("validation") or {}).get("passed"))
 
     def _finish_planner(self, record: dict[str, Any], node: dict[str, Any], structured: dict[str, Any] | None) -> None:
+        foreman = record.get("foreman") or {}
+        if foreman.get("applied") and foreman.get("status") != "fallback":
+            from .foreman_strategy import apply as apply_strategy
+
+            structured, guarded = apply_strategy(record["goal"], structured, foreman.get("strategy"))
+            for note in guarded:
+                self.store.append_event(record["run_id"], "plan.adjusted", node["id"], note)
         try:
             added, notes = planner.expand(
                 record["nodes"],
@@ -1304,6 +1311,19 @@ class Orchestrator:
             return
         self.reload_providers()
 
+    def _foreman_strategy(self, provider_id: str, model: str) -> dict[str, Any] | None:
+        """How this foreman should plan, from measured/benchmark/tier evidence (foreman_strategy)."""
+        try:
+            from . import foreman_strategy, model_value
+
+            provider = self.registry().get(provider_id) or {}
+            model = (provider.get("models") or {}).get(model, model)
+            strategy = foreman_strategy.strategy_for(model, provider=provider, evidence=model_value.load_evidence(),
+                                                     reports=foreman_strategy._eval_reports(self.store.home / "foreman-eval"))
+            return {key: strategy[key] for key in ("model", "score", "band", "source", "summary", "planner_addendum", "guard")}
+        except Exception:
+            return None
+
     def _foreman_gate(self, record: dict[str, Any], node: dict[str, Any]) -> bool:
         """Planner of a run attached to the session foreman: wait while it
         deploys, route to it once it serves, fall back to the normal planner
@@ -1314,7 +1334,8 @@ class Orchestrator:
         roles = record["overrides"].setdefault("roles", {})
         if info.get("status") == "fallback" or (roles.get("planner") and not info.get("applied")):
             return True
-        hold = planner_hold(record, self._foreman_home)
+        unavailable = {provider for provider, ok in self.availability().items() if not ok}
+        hold = planner_hold(record, self._foreman_home, unavailable)
         if "wait" in hold:
             node["state"] = "RUNNABLE"
             node["wait_reason"] = hold["wait"]
@@ -1324,9 +1345,12 @@ class Orchestrator:
                 self.reload_providers()  # registered by the GUI process after this engine loaded
             if self.registry().get(hold["provider"]) is not None:
                 roles["planner"] = {"provider": hold["provider"], **({"model": hold["override_model"]} if hold.get("override_model") else {})}
-                if not info.get("applied"):
-                    self.store.append_event(record["run_id"], "foreman.applied", node["id"], f"planner -> session foreman {hold['provider']} ({hold['model']})")
-                info.update(applied=True, provider=hold["provider"], model=hold["model"])
+                if info.get("provider") != hold["provider"]:
+                    note = f" (backup for {hold['backup_for']}, which is unavailable)" if hold.get("backup_for") else ""
+                    self.store.append_event(record["run_id"], "foreman.backup" if hold.get("backup_for") else "foreman.applied", node["id"],
+                                            f"planner -> session foreman {hold['provider']} ({hold['model']}){note}")
+                info.update(applied=True, provider=hold["provider"], model=hold["model"], backup_for=hold.get("backup_for"))
+                info["strategy"] = self._foreman_strategy(hold["provider"], hold.get("override_model") or hold["model"])
                 return True
             hold = {"fallback": f"session foreman provider {hold['provider']} is not registered"}
         if info.get("applied"):
@@ -1418,6 +1442,9 @@ class Orchestrator:
         prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
         prompt += _prior_attempts(node)
         # Workers registered for inline (self-contained) prompts have no repository tools.
+        addendum = (((record.get("foreman") or {}).get("strategy") or {}).get("planner_addendum") or "") if node["role"] == "planner" else ""
+        if addendum and (record.get("foreman") or {}).get("provider") == selection["provider"]:
+            prompt += "\n\n" + addendum + "\n"
         if node["role"] == "planner" and "inline" in ((self.registry().get(selection["provider"]) or {}).get("roles") or []):
             prompt += ("\n\nYou have no file or shell tools in this call: plan from the goal and the repository map above, "
                        "and name only files the map lists. Answer with the fenced result block only.\n")

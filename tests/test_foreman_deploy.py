@@ -494,6 +494,56 @@ class EngineRoutingTests(OrchestratorFixture):
         self.assertEqual(record["state"], "COMPLETE", record.get("state_reason"))
         self.assertEqual((record["nodes"]["plan"]["selection"]["provider"], record["nodes"]["plan"]["selection"]["model"]), ("foreman-coder", "foreman-coder-frontier"))
 
+    def cool(self, provider_id: str) -> None:
+        from datetime import datetime, timedelta, timezone
+
+        from agent_os.orchestrator import provider_health
+
+        until = (datetime.now(timezone.utc) + timedelta(hours=2)).isoformat(timespec="seconds")
+        provider_health.write_cooldown(self.engine.store.home, provider_id, until, "quota: usage limit reached")
+
+    def test_backup_foreman_plans_while_the_foreman_is_at_its_usage_limit(self) -> None:
+        fd._save_state({"id": "FMN-3", "kind": "claude", "status": "ready", "provider_id": "foreman-coder", "model": {"repo": "opus"}, "runs": [],
+                        "backups": [{"kind": "chatgpt", "provider": "alpha", "model": None}]}, self.foreman_home)
+        self.cool("foreman-coder")
+        run_id = self.create()
+        self.engine.start(run_id)
+        record = self.drive(run_id)
+        self.assertEqual(record["state"], "COMPLETE", record.get("state_reason"))
+        self.assertEqual(record["nodes"]["plan"]["selection"]["provider"], "alpha")
+        self.assertEqual(record["foreman"]["backup_for"], "foreman-coder")
+        self.assertEqual(self.planner_prompts, [])  # the limited foreman was never called
+
+    def test_every_foreman_limited_means_the_planner_waits_instead_of_failing(self) -> None:
+        fd._save_state({"id": "FMN-4", "kind": "claude", "status": "ready", "provider_id": "foreman-coder", "model": {"repo": "opus"}, "runs": [],
+                        "backups": [{"kind": "chatgpt", "provider": "alpha", "model": None}]}, self.foreman_home)
+        self.cool("foreman-coder")
+        self.cool("alpha")
+        run_id = self.create()
+        self.engine.start(run_id)
+        for _ in range(3):
+            self.engine.step(run_id)
+        record = self.engine.load(run_id)
+        self.assertEqual(record["state"], "PLANNING")
+        self.assertIn("usage limits", record["state_reason"])
+
+    def test_default_backups_are_the_other_subscriptions(self) -> None:
+        self.assertEqual([item["provider"] for item in fd.default_backups("claude-code", SUBSCRIPTIONS)], ["codex"])
+        self.assertEqual([item["provider"] for item in fd.default_backups("foreman-qwen", SUBSCRIPTIONS)], ["claude-code", "codex"])
+
+    def test_foreman_plan_is_merged_and_the_strategy_recorded(self) -> None:
+        self.PLAN = [{"id": "a", "goal": "part one", "scope": ["a"], "capability_class": "fast"},
+                     {"id": "a2", "goal": "part two", "scope": ["a"], "capability_class": "fast"},
+                     {"id": "b", "goal": "other", "scope": ["b"], "capability_class": "fast", "depends_on": ["a2"]}]
+        self.foreman("ready")
+        run_id = self.create()
+        self.engine.start(run_id)
+        record = self.drive(run_id)
+        self.assertEqual(record["state"], "COMPLETE", record.get("state_reason"))
+        self.assertNotIn("a2", record["nodes"])
+        self.assertIn("a", record["nodes"]["b"]["depends_on"])
+        self.assertIn(record["foreman"]["strategy"]["band"], ("weak", "medium", "strong"))
+
     def test_no_foreman_means_no_attachment(self) -> None:
         run_id = self.create()
         self.assertNotIn("foreman", self.engine.load(run_id))
@@ -526,7 +576,7 @@ class EvalScoringTests(unittest.TestCase):
         row = self.verdict("docs-typo", [{"id": "t", "goal": "fix", "scope": ["docs/simple-mode.md"], "capability_class": "reasoning", "effort": "high"}])
         self.assertFalse(row["passed"])
         self.assertEqual(row["over"], ["t"])
-        self.assertEqual(row["cost_ratio"], 6.5)
+        self.assertEqual(row["cost_ratio"], 4.67)  # (reasoning 6.5 + overhead 0.5) / (fast 1 + overhead 0.5)
 
     def test_under_provisioning_a_design_task_is_risky(self) -> None:
         tasks = [{"id": "a", "goal": "x", "scope": ["src/a.py"], "capability_class": "fast"}, {"id": "b", "goal": "y", "scope": ["src/b.py"], "capability_class": "fast"}]
@@ -574,6 +624,85 @@ class LearnedAvailabilityTests(unittest.TestCase):
             self.assertEqual(models["balanced"], "gpt-x")
             later = datetime.now(timezone.utc) + timedelta(days=8)
             self.assertEqual(provider_health.learned_unavailable(Path(tmp), later), {})
+
+
+class StrategyTests(unittest.TestCase):
+    """Foreman strategy: merge, guard, strength and host detection (no model calls)."""
+
+    SAME_FILE = [{"id": f"t{n}", "goal": f"test case {n}", "scope": ["tests/test_x.py"], "capability_class": "fast", "effort": "low",
+                  "validators": ["python -m unittest tests.test_x"]} for n in range(4)]
+
+    def test_same_scope_tasks_merge_into_one(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        tasks = self.SAME_FILE + [{"id": "after", "goal": "use it", "scope": ["src/y.py"], "capability_class": "balanced", "depends_on": ["t2"]}]
+        merged, notes = fs.merge_same_scope({"status": "done", "tasks": tasks})
+        ids = [task["id"] for task in merged["tasks"]]
+        self.assertEqual(ids, ["t0", "after"])
+        self.assertEqual(merged["tasks"][1]["depends_on"], ["t0"])  # rewired from the folded t2
+        self.assertIn("Then: test case 3", merged["tasks"][0]["goal"])
+        self.assertEqual(merged["tasks"][0]["validators"], ["python -m unittest tests.test_x"])
+        self.assertEqual(len(notes), 1)
+
+    def test_merge_that_would_create_a_cycle_is_skipped(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        # found live: A (lock.py) -> B (engine.py) -> C (lock.py); folding A and C would loop through B
+        tasks = [{"id": "A", "goal": "contract", "scope": ["lock.py"], "capability_class": "reasoning"},
+                 {"id": "B", "goal": "use it", "scope": ["engine.py"], "capability_class": "fast", "depends_on": ["A"]},
+                 {"id": "C", "goal": "finish", "scope": ["lock.py"], "capability_class": "fast", "depends_on": ["B"]}]
+        merged, notes = fs.merge_same_scope({"tasks": tasks})
+        self.assertEqual([task["id"] for task in merged["tasks"]], ["A", "B", "C"])
+        self.assertIn("cycle", notes[0])
+
+    def test_merge_keeps_the_strongest_class(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        tasks = [dict(self.SAME_FILE[0]), {**self.SAME_FILE[1], "capability_class": "reasoning", "effort": "high"}]
+        merged, _ = fs.merge_same_scope({"tasks": tasks})
+        self.assertEqual((merged["tasks"][0]["capability_class"], merged["tasks"][0]["effort"]), ("reasoning", "high"))
+
+    def test_guard_fixes_both_directions(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        plan = {"tasks": [{"id": "a", "goal": "implement the lock file", "scope": ["src/a.py"], "capability_class": "fast"},
+                          {"id": "b", "goal": "fix typo in README", "scope": ["README.md"], "capability_class": "reasoning"}]}
+        fixed, notes = fs.guard("design cross-process locking for drivers", plan)
+        classes = {task["id"]: task["capability_class"] for task in fixed["tasks"]}
+        self.assertEqual(classes, {"a": "reasoning", "b": "fast"})
+        self.assertEqual(len(notes), 2)
+        untouched, none = fs.guard("fix a typo", {"tasks": [{"id": "x", "goal": "typo", "scope": ["a.md"], "capability_class": "fast"}]})
+        self.assertEqual(none, [])
+
+    def test_strength_prefers_measurement_then_benchmark_then_tier(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        provider = {"models": {"reasoning": "big", "fast": "small"}}
+        self.assertEqual(fs.strength("small", provider=provider)["band"], "weak")
+        self.assertEqual(fs.strength("big", provider=provider)["band"], "strong")
+        evidence = {"models": {"small": {"benchmarks": {"intelligence_index": 55}}, "big": {"benchmarks": {"intelligence_index": 60}}}}
+        self.assertEqual(fs.strength("small", provider=provider, evidence=evidence)["band"], "strong")  # benchmark beats tier
+        reports = [{"model": "small", "summary": {"cases": 7, "judgement_accuracy": 0.3, "valid_plans": 0.6}, "cases": []}]
+        rated = fs.strength("small", provider=provider, evidence=evidence, reports=reports)
+        self.assertEqual(rated["band"], "weak")  # measured judgement beats benchmarks
+        self.assertIn("measured", rated["source"])
+        self.assertEqual(fs.strength("Qwen2.5-14B-Instruct")["band"], "weak")  # size hint for an unmeasured open model
+        self.assertTrue(fs.strategy_for("small", provider=provider)["guard"])
+
+    def test_host_models_read_only_the_model_fields(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            (home / ".claude" / "projects" / "p").mkdir(parents=True)
+            (home / ".claude" / "projects" / "p" / "s.jsonl").write_text('{"message":{"model":"claude-opus-5-5","content":"secret"}}\n', encoding="utf-8")
+            (home / ".codex").mkdir()
+            (home / ".codex" / "config.toml").write_text('model = "gpt-6-luna"\nmodel_reasoning_effort = "high"\n', encoding="utf-8")
+            found = fs.host_models(home, {"CLAUDECODE": "1", "CLAUDE_EFFORT": "medium"})
+        self.assertEqual(found["active"], "claude")
+        self.assertEqual((found["hosts"]["claude"]["model"], found["hosts"]["claude"]["effort"]), ("claude-opus-5-5", "medium"))
+        self.assertEqual((found["hosts"]["chatgpt"]["model"], found["hosts"]["chatgpt"]["effort"]), ("gpt-6-luna", "high"))
+        self.assertNotIn("secret", json.dumps(found))
 
 
 if __name__ == "__main__":

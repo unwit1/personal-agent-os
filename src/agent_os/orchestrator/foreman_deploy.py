@@ -415,20 +415,33 @@ def active(base: Path | None = None) -> dict[str, Any] | None:
     return state if state.get("status") in ACTIVE else None
 
 
-def planner_hold(record: dict[str, Any], base: Path | None = None) -> dict[str, Any]:
+def planner_hold(record: dict[str, Any], base: Path | None = None, unavailable: set[str] | None = None) -> dict[str, Any]:
     """Engine hook before a planner launches in a run that has a foreman.
 
     ``{"wait": reason}`` while the model is still deploying; ``{"provider":
     id}`` when it is ready (the caller applies it as the planner override);
     ``{"fallback": reason}`` when the deployment ended or failed -- the run
-    then plans with its normal planner instead of waiting forever."""
+    then plans with its normal planner instead of waiting forever.
+
+    Backup foreman: when the foreman's provider is ``unavailable`` (usage
+    limit cooldown, breaker open, not installed), the first backup that is
+    available plans instead (``backup_for`` says whom it replaces). When every
+    foreman is unavailable the planner waits for the earliest reset rather
+    than falling back to a planner that is limited too."""
     wanted = record.get("foreman") or {}
     state = load_state(base)
     if not wanted or state.get("id") != wanted.get("deployment_id"):
         return {"fallback": "the session foreman this run was waiting for is gone"}
     status = state.get("status")
     if status == "ready":
-        return {"provider": state["provider_id"], "model": state["model"]["repo"], "override_model": state.get("override_model")}
+        unavailable = unavailable or set()
+        if state["provider_id"] not in unavailable:
+            return {"provider": state["provider_id"], "model": state["model"]["repo"], "override_model": state.get("override_model")}
+        for backup in state.get("backups") or []:
+            if backup.get("provider") and backup["provider"] not in unavailable:
+                return {"provider": backup["provider"], "model": backup.get("model") or backup["provider"], "override_model": backup.get("model"),
+                        "backup_for": state["provider_id"]}
+        return {"wait": f"waiting for the session foreman: {state['provider_id']} and its backups are at their usage limits or unavailable"}
     if status in ("planning", "provisioning", "loading"):
         return {"wait": f"waiting for the session foreman {state['model'].get('repo') if state.get('model') else ''} to finish deploying ({status})"}
     return {"fallback": f"the session foreman {status}: {state.get('detail') or ''}".strip()}
@@ -448,6 +461,13 @@ def subscription_choices(registry=None) -> dict[str, dict[str, Any]]:
             out[kind] = {"provider": entry["id"], "default": models.get("reasoning") or next(iter(models.values()), None),
                          "models": list(dict.fromkeys(models.get(tier) for tier in ("reasoning", "frontier", "balanced", "fast") if models.get(tier)))}
     return out
+
+
+def default_backups(primary_provider: str, registry=None) -> list[dict[str, Any]]:
+    """Every other subscription foreman, Claude first then ChatGPT; each at its
+    default planner model."""
+    return [{"kind": kind, "provider": choice["provider"], "model": None}
+            for kind, choice in subscription_choices(registry).items() if choice["provider"] != primary_provider]
 
 
 def local_models(base_url: str, key: str | None = None, opener=None) -> list[str]:
@@ -496,7 +516,7 @@ class ForemanManager:
 
     def status(self) -> dict[str, Any]:
         state = load_state(self.base)
-        view = {key: state.get(key) for key in ("id", "kind", "status", "detail", "provider_id", "override_model", "pod_id", "base_url", "hourly_usd", "cap_usd",
+        view = {key: state.get(key) for key in ("id", "kind", "status", "detail", "provider_id", "override_model", "backups", "pod_id", "base_url", "hourly_usd", "cap_usd",
                                                "spent_usd", "deadline_epoch", "started_at", "ready_at", "ended_at", "runs", "idle_minutes")}
         if view["status"] and not view["kind"]:
             view["kind"] = "huggingface"
@@ -552,7 +572,17 @@ class ForemanManager:
                     self._thread.join(5)
             self._stop.clear()
 
-    def use(self, kind: str, *, model: str | None = None, base_url: str | None = None, secret_ref: str | None = None) -> dict[str, Any]:
+    def _backups(self, primary_provider: str, backups: list[str] | None) -> list[dict[str, Any]]:
+        """``None`` = automatic (every other subscription); ``[]`` = no backup;
+        or explicit kinds in order, e.g. ["chatgpt"]."""
+        if backups is None:
+            return default_backups(primary_provider, self.registry)
+        choices = subscription_choices(self.registry)
+        return [{"kind": kind, "provider": choices[kind]["provider"], "model": None}
+                for kind in backups if kind in choices and choices[kind]["provider"] != primary_provider]
+
+    def use(self, kind: str, *, model: str | None = None, base_url: str | None = None, secret_ref: str | None = None,
+            backups: list[str] | None = None) -> dict[str, Any]:
         """Make a subscription model (claude / chatgpt) or a locally served model
         the session foreman. No rental, so it is ready at once."""
         if kind not in ("claude", "chatgpt", "local"):
@@ -580,14 +610,15 @@ class ForemanManager:
         self._replace_current(f"replaced by the {kind} foreman")
         with self._lock:
             state = {"id": f"FMN-{uuid.uuid4().hex[:8]}", "kind": kind, "status": "ready", "runs": [], "started_at": utc_now_iso(),
-                     "ready_at": utc_now_iso(), "last_needed_epoch": self.clock(), "spent_usd": 0.0, **fields}
+                     "ready_at": utc_now_iso(), "last_needed_epoch": self.clock(), "spent_usd": 0.0, **fields,
+                     "backups": self._backups(fields["provider_id"], backups)}
             if state["registered"]:
                 self.register(state)
             _save_state(state, self.base)
         return self.status()
 
     def deploy(self, link: str, *, job_cap_usd: float | None = None, idle_minutes: int = DEFAULT_IDLE_MINUTES,
-               background: bool = True) -> dict[str, Any]:
+               background: bool = True, backups: list[str] | None = None) -> dict[str, Any]:
         """Start an autonomous deployment. Refuses when one is active, the budget
         is not approved, or the RunPod key is missing."""
         parse_hf_link(link)  # fail fast on a bad link, before anything is replaced
@@ -609,6 +640,7 @@ class ForemanManager:
             parse_hf_link(link)  # fail fast on a bad link, before any thread starts
             state = {"id": f"FMN-{uuid.uuid4().hex[:8]}", "kind": "huggingface", "status": "planning", "detail": "reading the model from Hugging Face",
                      "link": link, "cap_usd": round(cap, 4), "spent_usd": 0.0, "idle_minutes": int(idle_minutes), "runs": [],
+                     "backups": self._backups("", backups),
                      "started_at": utc_now_iso(), "model": None}
             _save_state(state, self.base)
             self._stop.clear()

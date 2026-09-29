@@ -42,6 +42,9 @@ from .model import PlanError, merge_policy
 
 # Relative routing cost per class (the registry's codex ratios; only ratios matter).
 CLASS_COST = {"deterministic": 0.0, "fast": 1.0, "balanced": 2.9, "reasoning": 6.5, "frontier": 10.0}
+# Every model task also pays the agent's fixed context overhead (~15k input
+# tokens per coding-CLI call, docs/simple-mode.md): about half a fast task.
+TASK_OVERHEAD = 0.5
 
 CASES: list[dict[str, Any]] = [
     {"id": "docs-typo", "goal": "Fix the misspelling 'recieve' -> 'receive' everywhere it appears in docs/simple-mode.md. Nothing else changes.",
@@ -78,10 +81,10 @@ def build_prompt(goal: str, repo: Path, *, project: str | None = None, run_id: s
 
 def _ideal_cost(case: dict[str, Any], count: int) -> float:
     """Cheapest routing for ``count`` tasks that still satisfies the labels."""
-    if count <= 0:
-        return 0.0
+    count = max(min(count, case["tasks"][1]), case["tasks"][0])  # splitting beyond the labelled range is not "ideal"
     floor = case.get("floor_any")
-    return CLASS_COST[floor] + CLASS_COST["fast"] * (count - 1) if floor else CLASS_COST["fast"] * count
+    classes = CLASS_COST[floor] + CLASS_COST["fast"] * (count - 1) if floor else CLASS_COST["fast"] * count
+    return classes + TASK_OVERHEAD * count
 
 
 def score(case: dict[str, Any], structured: dict[str, Any] | None, record: dict[str, Any], policy: dict[str, Any]) -> dict[str, Any]:
@@ -100,7 +103,7 @@ def score(case: dict[str, Any], structured: dict[str, Any] | None, record: dict[
     over = [task["id"] for task in tasks if task["capability_class"] != "deterministic" and rank(task["capability_class"]) > rank(ceiling)]
     under = bool(floor) and not any(cls != "deterministic" and rank(cls) >= rank(floor) for cls in classes)
     low, high = case["tasks"]
-    cost = sum(CLASS_COST.get(cls, 0.0) for cls in classes)
+    cost = sum(CLASS_COST.get(cls, 0.0) + (TASK_OVERHEAD if cls != "deterministic" else 0.0) for cls in classes)
     ideal = _ideal_cost(case, len(tasks))
     row.update(
         valid=True, notes=notes, tasks=len(tasks), classes=classes, efforts=[task["effort"] for task in tasks],
@@ -114,6 +117,7 @@ def score(case: dict[str, Any], structured: dict[str, Any] | None, record: dict[
 
 def summarize(rows: list[dict[str, Any]], hourly_usd: float | None = None) -> dict[str, Any]:
     n = len(rows) or 1
+    guarded = [row.get("guarded") for row in rows if row.get("guarded")]
     seconds = [row["seconds"] for row in rows if row.get("seconds") is not None]
     tokens_in = [row["usage"].get("input_tokens") or 0 for row in rows if row.get("usage")]
     tokens_out = [row["usage"].get("output_tokens") or 0 for row in rows if row.get("usage")]
@@ -122,6 +126,8 @@ def summarize(rows: list[dict[str, Any]], hourly_usd: float | None = None) -> di
     return {
         "cases": len(rows),
         "judgement_accuracy": round(sum(1 for row in rows if row.get("passed")) / n, 3),
+        "guarded_accuracy": round(sum(1 for row in guarded if row.get("passed")) / n, 3) if guarded else None,
+        "guarded_median_cost_ratio": round(statistics.median([row["cost_ratio"] for row in guarded if row.get("cost_ratio")]), 2) if guarded else None,
         "valid_plans": round(sum(1 for row in rows if row.get("valid")) / n, 3),
         "over_provisioned_tasks": sum(len(row.get("over") or []) for row in rows),
         "under_provisioned_cases": sum(1 for row in rows if row.get("under")),
@@ -179,7 +185,7 @@ def adapter_runner(provider_id: str, *, timeout: int = 900) -> Callable[[str, Pa
 
 
 def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list[str] | None = None, runner=None,
-        hourly_usd: float | None = None, out_dir: Path | None = None) -> dict[str, Any]:
+        hourly_usd: float | None = None, out_dir: Path | None = None, strategy_override: dict[str, Any] | None = None) -> dict[str, Any]:
     """Evaluate the foreman (default: the live session foreman) on every case."""
     from ..paths import ROOT
     from .store import orchestrator_home
@@ -195,23 +201,33 @@ def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list
     runner = runner or adapter_runner(str(provider_id))
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     root = Path(out_dir or orchestrator_home() / "foreman-eval") / f"{stamp}-{uuid.uuid4().hex[:4]}"
+    from .foreman_strategy import apply as apply_strategy
+
     rows = []
+    strategy = strategy_override if strategy_override is not None else {}
+    model_used = None
     for case in CASES:
         if cases and case["id"] not in cases:
             continue
         prompt, record, policy = build_prompt(case["goal"], repo)
         answer = runner(prompt, root / case["id"])
+        model_used = model_used or answer.get("model")
         if answer.get("failure_kind") in {"invalid_model", "quota", "auth"}:
             # every later case would fail the same way: stop and say why
             rows.append({"case": case["id"], "valid": False, "passed": False, "error": f"{answer['failure_kind']}: {str(answer.get('detail'))[:200]}"})
             break
-        row = score(case, answer.get("structured"), record, policy) if answer.get("outcome") == "completed" else \
-            {"case": case["id"], "valid": False, "passed": False, "error": answer.get("detail") or "call failed"}
+        if answer.get("outcome") == "completed":
+            row = score(case, answer.get("structured"), record, policy)
+            fixed, notes = apply_strategy(case["goal"], answer.get("structured"), strategy)
+            if notes:  # what the engine would actually run after the deterministic guard
+                row["guarded"] = {**{key: value for key, value in score(case, fixed, record, policy).items() if key != "plan"}, "notes": notes}
+        else:
+            row = {"case": case["id"], "valid": False, "passed": False, "error": answer.get("detail") or "call failed"}
         row.update(seconds=answer.get("seconds"), usage={key: answer.get("usage", {}).get(key) for key in ("input_tokens", "output_tokens", "model_resolved")},
                    prompt_chars=len(prompt))
         rows.append(row)
     aborted = len(rows) < len([case for case in CASES if not cases or case["id"] in cases])
-    report = {"created_at": stamp, "provider": provider_id, "aborted": rows[-1]["error"] if aborted and rows else None, "repository": str(repo), "summary": summarize(rows, hourly_usd), "cases": rows}
+    report = {"created_at": stamp, "provider": provider_id, "model": model_used, "aborted": rows[-1]["error"] if aborted and rows else None, "repository": str(repo), "summary": summarize(rows, hourly_usd), "cases": rows}
     root.mkdir(parents=True, exist_ok=True)
     (root / "report.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
     report["file"] = str(root / "report.json")
