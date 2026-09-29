@@ -7,6 +7,7 @@ import json
 import sys
 import tempfile
 import unittest
+import unittest.mock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +27,36 @@ class ControlPlaneTests(unittest.TestCase):
         changed = ["policy/orchestrator-os.policy.json", "projects/personal-agent-os/orchestrator-os/evals/holdout/case.json", "src/agent_os/cli.py"]
         self.assertEqual(control_plane.protected_changes(changed), changed[:2])
         self.assertFalse(control_plane.check(changed)["passed"])
+
+    # Tests below kill mutants that survived the first mutation run (DEC-0012).
+    def test_missing_or_corrupt_policy_file_falls_back_to_floor(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            missing = Path(tmp) / "absent.json"
+            corrupt = Path(tmp) / "corrupt.json"
+            corrupt.write_text("{not json", encoding="utf-8")
+            listed = Path(tmp) / "list.json"
+            listed.write_text("[1, 2]", encoding="utf-8")
+            for path in (missing, corrupt, listed):
+                self.assertEqual(control_plane.load_policy(path), {})
+            with unittest.mock.patch.object(control_plane, "POLICY_PATH", missing):
+                self.assertEqual(set(control_plane.protected_globs()), set(control_plane.FLOOR))
+                self.assertFalse(control_plane.check(["policy/anything.json"])["passed"])
+
+    def test_directory_glob_matches_the_directory_itself(self) -> None:
+        self.assertTrue(control_plane._match("policy", "policy/**"))
+        self.assertFalse(control_plane._match("policyx", "policy/**"))
+
+    def test_unresolvable_repository_fails_closed(self) -> None:
+        with unittest.mock.patch.object(control_plane.Path, "resolve", side_effect=OSError("boom")):
+            self.assertTrue(control_plane.applies_to("/some/where", None))
+
+    def test_check_detail_names_hits_and_truncates(self) -> None:
+        self.assertIsNone(control_plane.check(["src/agent_os/cli.py"])["detail"])
+        many = [f"policy/p{index}.json" for index in range(12)]
+        detail = control_plane.check(many)["detail"]
+        self.assertIn("policy/p0.json", detail)
+        self.assertIn("policy/p9.json", detail)
+        self.assertNotIn("policy/p10.json", detail)
 
     def test_path_normalization(self) -> None:
         self.assertEqual(control_plane.protected_changes(["./policy/a.json", "policy\\b.json"]), ["./policy/a.json", "policy\\b.json"])

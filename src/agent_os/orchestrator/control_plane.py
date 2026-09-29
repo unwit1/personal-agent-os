@@ -76,7 +76,9 @@ def applies_to(repository: str | Path | None, project: str | None) -> bool:
     try:
         return repository is not None and Path(repository).resolve() == ROOT.resolve()
     except OSError:
-        return False
+        # Fail closed: when the target cannot be resolved, apply the guard
+        # (mutation testing showed the old False here disabled it; DEC-0012).
+        return True
 
 
 def check(changed: list[str], allowed: Iterable[str] = (), policy: dict[str, Any] | None = None) -> dict[str, Any]:
