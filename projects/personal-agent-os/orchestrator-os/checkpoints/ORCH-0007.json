@@ -1,0 +1,136 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0007",
+  "previous": "ORCH-0006",
+  "created_at": "2026-09-29T04:00:49.055117+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "5bf7fb47",
+    "dirty": true
+  },
+  "phase": "P1 foundations: control-plane invariants tested; runtime resilience next",
+  "completed": [
+    "IMP-0003 implemented: `orchestrate eval` (fa15466e); EVR-0004 EVS-CONTROL-PLANE noninferior; EVR-0005 three-route classification (DEC-0005)",
+    "Q-0001 resolved: gpt-6-luna 0.60 vs Sonnet 0.75 vs Haiku 0.65 at pinned base; no route qualifies (floor 0.9); opposite error biases (FND-0004)",
+    "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)",
+    "EXP-0001 rejected HYP-0001: evidence verifier had no effect; offline replay predicted it before spend (e6d1f35a, EVR-0006, 9 calls, $1.02 measured)",
+    "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
+    "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism",
+    "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)",
+    "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)",
+    "Prior-art registry + workflow integration (0d141ef8, DEC-0008)",
+    "45 prior-art evaluations + discovery (bf11d932)",
+    "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)",
+    "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)"
+  ],
+  "active_objective": "Make routing survive provider quotas (IMP-0005) using the subsumed breaker/backoff, so autonomous loops degrade instead of stalling.",
+  "latest_evidence": [
+    {
+      "id": "DEC-0009",
+      "type": "DEC",
+      "title": "Subsume retry/backoff, circuit breaker and a key-optional direct API adapter",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0009.json",
+      "updated_at": "2026-09-29T05:10:00+00:00"
+    },
+    {
+      "id": "DEC-0010",
+      "type": "DEC",
+      "title": "Orchestrator state-machine tests use the subsumed random-sequence runner; Hypothesis stays optional",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0010.json",
+      "updated_at": "2026-09-29T04:40:00+00:00"
+    },
+    {
+      "id": "EXP-0003",
+      "type": "EXP",
+      "title": "State-machine testing driver: subsumed random-sequence runner vs Hypothesis RuleBasedStateMachine",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0003.json",
+      "updated_at": "2026-09-29T04:40:00+00:00"
+    },
+    {
+      "id": "FND-0008",
+      "type": "FND",
+      "title": "A green invariant suite can be vacuous; planted mutations are what prove it checks anything",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0008.json",
+      "updated_at": "2026-09-29T04:40:00+00:00"
+    },
+    {
+      "id": "DEC-0008",
+      "type": "DEC",
+      "title": "Open-source prior art becomes a required, registry-backed input to significant design decisions",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0008.json",
+      "updated_at": "2026-09-29T04:20:00+00:00"
+    },
+    {
+      "id": "DEC-0007",
+      "type": "DEC",
+      "title": "Affected-tests-first validation: selector as runtime code, retries-only default, full suite still gates",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0007.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0008",
+      "type": "EVR",
+      "title": "EVS-CONTROL-PLANE: f725bc35 vs e7ad1ddc",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0008.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0009",
+      "type": "EVR",
+      "title": "EVS-ROUTING: f725bc35 vs e7ad1ddc",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0009.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    }
+  ],
+  "open_blockers": [
+    "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
+  ],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0008",
+    "DEC-0009",
+    "DEC-0010"
+  ],
+  "next_action": {
+    "summary": "Implement IMP-0005: quota-aware scheduling. Parse reset hints from provider failures (HTTP Retry-After; CLI messages such as 'try again at 9:12 PM' or 'resets Oct 3, 6pm') into a machine-local provider availability record with an expiry; wrap each provider in the subsumed CircuitBreaker (retry.py) so repeated quota/unavailable failures open it; the router treats open/blocked providers as unavailable until expiry, then half-opens with one probe; delegate and runs record 'deferred by quota' instead of silently escalating tier, and the telemetry names quota-driven escalations. Add state-machine operations for quota bursts and an invariant that quota never causes a stronger tier without a recorded reason. Evaluate with EVS-ROUTING and the state-machine suite.",
+    "prior_art": "provider quota rate limit reset scheduling circuit breaker",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Bounded runtime change with deterministic tests; no model workers needed.",
+    "context_refs": [
+      "projects/personal-agent-os/improvements/IMP-0005.json",
+      "FAIL-0001",
+      "DEC-0009",
+      "src/agent_os/orchestrator/retry.py",
+      "src/agent_os/orchestrator/router.py",
+      "src/agent_os/orchestrator/engine.py",
+      "tests/test_orchestrator_state_machine.py"
+    ],
+    "stop_conditions": [
+      "IMP-0005 acceptance passes with unit tests, state-machine suite and a noninferior EVS-ROUTING EVR",
+      "0 model calls expected",
+      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "projects/personal-agent-os/improvements/IMP-0005.json",
+    "FAIL-0001",
+    "DEC-0009",
+    "src/agent_os/orchestrator/retry.py",
+    "src/agent_os/orchestrator/router.py",
+    "src/agent_os/orchestrator/engine.py",
+    "tests/test_orchestrator_state_machine.py"
+  ],
+  "stopping_conditions": [
+    "IMP-0005 acceptance passes with unit tests, state-machine suite and a noninferior EVS-ROUTING EVR",
+    "0 model calls expected",
+    "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0007 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0007.json).\n\nCurrent objective: Make routing survive provider quotas (IMP-0005) using the subsumed breaker/backoff, so autonomous loops degrade instead of stalling.\n\nNext action: Implement IMP-0005: quota-aware scheduling. Parse reset hints from provider failures (HTTP Retry-After; CLI messages such as 'try again at 9:12 PM' or 'resets Oct 3, 6pm') into a machine-local provider availability record with an expiry; wrap each provider in the subsumed CircuitBreaker (retry.py) so repeated quota/unavailable failures open it; the router treats open/blocked providers as unavailable until expiry, then half-opens with one probe; delegate and runs record 'deferred by quota' instead of silently escalating tier, and the telemetry names quota-driven escalations. Add state-machine operations for quota bursts and an invariant that quota never causes a stronger tier without a recorded reason. Evaluate with EVS-ROUTING and the state-machine suite.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"provider quota rate limit reset scheduling circuit breaker\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: IMP-0005 acceptance passes with unit tests, state-machine suite and a noninferior EVS-ROUTING EVR; 0 model calls expected; stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
