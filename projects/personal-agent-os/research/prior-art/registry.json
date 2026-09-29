@@ -1719,7 +1719,7 @@
         "portability": "vendor-neutral"
       },
       "decision": "BORROW",
-      "rationale": "A specification, not a dependency: map Agent OS events to gen_ai.* span attributes (gen_ai.operation.name, provider, request/response model, usage tokens; agent/workflow spans are still provisional). Borrow the attribute names for the MIE-0017 projection so any OTel backend can read Agent OS traces.",
+      "rationale": "A specification, not a dependency: map Agent OS events to gen_ai.* span attributes (gen_ai.operation.name, provider, request/response model, usage tokens; agent/workflow spans are still provisional). Borrow the attribute names for the MIE-0017 projection so any OTel backend can read Agent OS traces. Borrowed in DEC-0016: orchestrate trace emits OTLP/JSON with gen_ai.* attributes, validated against the official opentelemetry-proto schema.",
       "confidence": "high",
       "provenance": [
         "https://github.com/open-telemetry/semantic-conventions-genai",
@@ -1730,6 +1730,10 @@
         {
           "rel": "relates_to",
           "ref": "MIE-0017"
+        },
+        {
+          "rel": "implements",
+          "ref": "DEC-0016"
         }
       ],
       "revisit_when": [

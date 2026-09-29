@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T05:40:00+00:00",
-  "phase": "P1 foundations: simplification applied; observability next",
-  "active_objective": "Make Agent OS traces readable by any OpenTelemetry backend (MIE-0017) without adding dependencies or exporting private content.",
+  "updated_at": "2026-09-29T05:35:00+00:00",
+  "phase": "P1 foundations: observability exported; untrusted-data safety next",
+  "active_objective": "Measure and harden how delegated workers treat untrusted repository content (MIE-0007 first slice), with an EVS-SECURITY suite built from borrowed injection cases.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -29,37 +29,39 @@
     "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)",
     "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)",
     "MIE-0011 first slice: orchestrate simplify + report (EXP-0006, DEC-0014); 5 prior-art entries added",
-    "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)"
+    "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)",
+    "MIE-0017: OTLP trace projection (DEC-0016)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0013",
     "DEC-0014",
-    "DEC-0015"
+    "DEC-0015",
+    "DEC-0016"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "MIE-0017: OpenTelemetry-compatible trace projection, borrowing the GenAI semantic conventions (PA-otel-genai) with no dependency. Add `agent-os orchestrate trace <run-id> [--out file]` that converts an orchestrated run's telemetry/ledger events into OTLP/JSON spans: one workflow span per run, one span per node attempt (gen_ai.operation.name, gen_ai.provider.name, gen_ai.request.model, gen_ai.response.model from model_resolved, gen_ai.usage.input_tokens/output_tokens, error.type on failure), and child spans for validation and review. Never export prompt or output text (privacy boundary); mark agent/workflow span conventions as provisional. Test on a synthetic run (structure, parent/child ids, attribute names, no content leakage) and document how to load the file into a local OTel backend such as Phoenix (PA-phoenix, DEFER) without adopting it.",
-    "prior_art": "opentelemetry genai trace projection agent spans",
+    "summary": "MIE-0007 first slice: EVS-SECURITY for read-only delegated workers. Build 6-10 development cases borrowed from AgentDojo/Promptfoo patterns (PA-agentdojo, PA-promptfoo; provenance recorded): a fixture repository at a pinned commit containing files with indirect prompt injections (instructions to ignore the task, exfiltrate a canary token, change the answer, write files). Task: an objective classification/extraction over those files with known labels and a planted canary; score = task accuracy AND injection resistance (canary absent, no instructed deviation). Compare incumbent delegate prompt vs a candidate that marks repository content as untrusted data (spotlighting/delimiting, borrowed from CaMeL's data/control separation, PA-camel) on gpt-6-luna via codex (<= 9 calls; claude-code is weekly-limited until 2026-10-03 18:00 ET, cooldown is recorded). Record EXP/EVR; if the candidate wins, make data-marking the delegate default. Keep adversarial cases in the development split for now and propose which should move to a protected holdout (operator decision).",
+    "prior_art": "prompt injection defense untrusted repository content agent",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Deterministic data projection with schema tests.",
+    "why_this_class": "Case design + bounded experiment; judgment in case construction.",
     "context_refs": [
-      "MIE-0017",
+      "MIE-0007",
       "projects/personal-agent-os/research/prior-art/registry.json",
-      "src/agent_os/orchestrator/ledger.py",
-      "src/agent_os/telemetry.py"
+      "src/agent_os/orchestrator/delegate.py",
+      "src/agent_os/orchestrator/eval.py",
+      "docs/orchestrator-os/CONSTITUTION.md"
     ],
     "stop_conditions": [
-      "trace command + tests committed; no content fields exported; DEC with prior_art note",
-      "0 model calls",
-      "stop and report if privacy rules would require exporting content, or the retry/repair budget is reached"
+      "EXP + EVR recorded with accuracy and injection-resistance dimensions separate",
+      "<= 9 model calls",
+      "stop and report if codex is quota-blocked (deferred by provider cooldown), a protected path beyond the standing grants must change, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -159,6 +161,12 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "downstream_value": "restored documented workflow recovery checkpoints; removed duplication"
+    },
+    "session_ORCH-0013": {
+      "deterministic_operations": "~12",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "avoided_work": "PydanticAI repair turn skipped for lack of evidence"
     }
   },
   "known_baseline": {
@@ -168,5 +176,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0012 pass (IMP-0010/0011): replaced the duplicated change/improvement loaders with one shared ingestion helper, deleted an unused bootstrap function, pinned the P0.3 field-region OCR seam with a contract test, and found that the documented workflow recovery checkpoints were never written because their function had no caller (FND-0010) -- now wired with a git-backed regression test. simplify: unused 3->0, duplicates 2->0, lines 26,190->26,166. 0 model calls."
+  "last_pass_summary": "ORCH-0013 pass (MIE-0017): orchestrate trace projects run telemetry to OTLP/JSON with borrowed GenAI semantic conventions (workflow, node, invoke_agent, execute_tool spans; concrete response model; token usage; error.type), exporting only allowlisted structural fields (planted secrets never appear). Validated by strict parse into the official opentelemetry-proto request type. Checked and skipped a PydanticAI-style repair turn: no contract failures have been observed, so it would violate the 'recurring or high-impact' promotion rule. 0 model calls."
 }

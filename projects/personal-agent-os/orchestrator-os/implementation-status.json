@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T05:40:00+00:00",
+  "updated_at": "2026-09-29T05:35:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -401,7 +401,7 @@
       "title": "Provider-neutral evaluation registry and task corpus",
       "status_at_base_f8f4453f": "partial",
       "status_after_bootstrap": "partial",
-      "note": "EVS suite records + dev-case split + external corpus registry + holdout governance; no incumbent-vs-candidate runner yet.",
+      "note": "orchestrate eval runner live (IMP-0003); Inspect deferred (DEC-0013)",
       "tracked_as": "IMP-0003"
     },
     {
@@ -449,7 +449,7 @@
       "title": "Task-specific model and tool capability registry",
       "status_at_base_f8f4453f": "partial",
       "status_after_bootstrap": "partial",
-      "note": "CAP records keyed by task family x role x provider x resolved model x effort x toolset with Wilson intervals; router does not consume them yet.",
+      "note": "CAP evidence with accuracy basis; router consumption blocked by lack of qualified routes (IMP-0004)",
       "tracked_as": "IMP-0004"
     },
     {
@@ -472,8 +472,8 @@
       "id": "MIE-0011",
       "title": "Simplification and deletion engine",
       "status_at_base_f8f4453f": "missing",
-      "status_after_bootstrap": "missing",
-      "note": "Simplification questions encoded in constitution \u00a711; no component/dependency view.",
+      "status_after_bootstrap": "partial",
+      "note": "orchestrate simplify first slice + first candidates applied (DEC-0014, DEC-0015)",
       "tracked_as": null
     },
     {
@@ -520,8 +520,8 @@
       "id": "MIE-0017",
       "title": "OpenTelemetry-compatible trace schema",
       "status_at_base_f8f4453f": "partial",
-      "status_after_bootstrap": "partial",
-      "note": "Append-only telemetry events; no OpenTelemetry projection.",
+      "status_after_bootstrap": "implemented",
+      "note": "orchestrate trace: OTLP/JSON with GenAI conventions, content allowlist (DEC-0016)",
       "tracked_as": null
     },
     {

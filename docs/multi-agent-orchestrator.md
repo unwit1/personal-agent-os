@@ -534,4 +534,7 @@ Commands added for it (no vendor names outside `adapters/`):
 | `orchestrate eval --suite EVS-... [--incumbent R] [--candidate R \| --route P[:M][@C]]` | incumbent vs candidate on the same cases; one EVR per run, separate dimensions (`eval.py`) |
 | `orchestrate api-key set|status|delete anthropic|openai` | store a provider key in the OS keyring; direct API workers (`anthropic-api`, `openai-api`, role `inline`) appear once a key exists; `delegate --role inline` uses them for self-contained prompts (`adapters/http_api.py`, `retry.py`) |
 | `orchestrate prior-art lookup|queries|stale|refresh|validate` | open-source prior-art registry (`prior_art.py`, `projects/personal-agent-os/research/prior-art/`) |
+| `orchestrate trace <run-id> [--out f.json]` | OTLP/JSON spans with GenAI conventions for any OpenTelemetry backend; structural fields only (`trace.py`) |
+| `orchestrate simplify [--write]` | simplification engine report (`simplify.py`) |
+| `orchestrate mutate <module> --tests <mod>` | mutation testing in throwaway worktrees (`mutation.py`) |
 | `orchestrate checkpoint [--write|--show]`, `orchestrate next-prompt` | ORCH-NNNN continuation checkpoint and generated next prompt (`continuation.py`) |
