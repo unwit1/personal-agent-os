@@ -1,0 +1,106 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0025",
+  "previous": "ORCH-0024",
+  "created_at": "2026-09-29T16:30:00+00:00",
+  "git": {
+    "branch": "main",
+    "commit": "77f43910",
+    "dirty": false
+  },
+  "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
+  "completed": [
+    "MIE-0007 first slice: EVS-SECURITY suite + fixtures; EXP-0007 (DEC-0017, FND-0011, FND-0012)",
+    "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)",
+    "IMP-0012: idempotent integration after crash (6b3c9eaf, FAIL-0003, DEC-0019, EVR-0014)",
+    "IMP-0013: write-ahead landing after crash (ee378ff8, FAIL-0004, DEC-0020, EVR-0015)",
+    "Append-only negative evidence enforced; approval-rule enforcement map (1a1e107c, DEC-0021)",
+    "IMP-0014: worker publication guard + adapter deny defaults (2ff6a550, c07304c3, DEC-0022)",
+    "MIE-0004 first slice: orchestrate mining (DEC-0023)",
+    "EXP-0008 deferred for safety (FND-0013)",
+    "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)",
+    "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)",
+    "MIE-0009 first slice: context-utility telemetry + report (DEC-0026)",
+    "Command reference + drift guard; foundation assessed complete (DEC-0027)"
+  ],
+  "active_objective": "Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.",
+  "latest_evidence": [
+    {
+      "id": "DEC-0028",
+      "type": "DEC",
+      "title": "Prioritize provider-neutral Model Infrastructure Manager across text, image, voice and ML",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0028.json",
+      "updated_at": "2026-09-29T16:30:00+00:00"
+    },
+    {
+      "id": "DEC-0027",
+      "type": "DEC",
+      "title": "Command reference + drift guard; foundational build assessed as substantially complete",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0027.json",
+      "updated_at": "2026-09-29T08:55:00+00:00"
+    },
+    {
+      "id": "DEC-0026",
+      "type": "DEC",
+      "title": "Context-utility telemetry for delegate attachments (MIE-0009 first slice)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0026.json",
+      "updated_at": "2026-09-29T08:45:00+00:00"
+    }
+  ],
+  "open_blockers": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0025",
+    "DEC-0026",
+    "DEC-0027",
+    "DEC-0028"
+  ],
+  "next_action": {
+    "summary": "Implement the operator-requested IMP-0015. Begin with Phase 0 and the no-cost/read-only parts of Phases 1-2 from projects/personal-agent-os/roadmap/model-infrastructure-manager.md: inspect and extend existing router/provider/CAP/eval/research/secret primitives; run prior-art lookup; define provider-neutral workload, model capability, compute quote, secret reference and artifact contracts with text/code/image/voice/audio/general-ML represented from the start; add synthetic-provider tests, refusal telemetry and abliterated-foreman shadow evaluation; then implement the smallest generic OpenAI-compatible inference/local-credential/RunPod inventory+quote slice that incurs no paid compute. Do not duplicate existing primitives. Paid provisioning or training must stop at the configured approval/budget gate.",
+    "prior_art": "model gateways routers cloud GPU brokers model registries evaluation systems training job managers",
+    "worker_class": "reasoning",
+    "effort": "medium",
+    "why_this_class": "Cross-cutting provider-neutral architecture spanning routing, capability evidence, credentials, pricing, cloud lifecycle, multimodal inference, training and future extensibility.",
+    "context_refs": [
+      "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+      "projects/personal-agent-os/improvements/IMP-0015.json",
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0028.json",
+      "docs/orchestrator-os/ENTRYPOINT.md",
+      "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
+      "docs/multi-agent-orchestrator.md",
+      "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+      "projects/personal-agent-os/research/meta-improvement/registry-index.json"
+    ],
+    "stop_conditions": [
+      "a verified Phase 0/first-slice implementation is committed and a new Orchestrator checkpoint is written",
+      "a protected-path or operator policy decision is required",
+      "the next step would incur material cloud/model spend without an approved project/job budget and hard cap",
+      "evidence shows an existing primitive already satisfies the requirement and the roadmap is reconciled accordingly"
+    ]
+  },
+  "context_refs": [
+    "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+    "projects/personal-agent-os/improvements/IMP-0015.json",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0028.json",
+    "docs/orchestrator-os/ENTRYPOINT.md",
+    "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
+    "docs/multi-agent-orchestrator.md",
+    "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+    "projects/personal-agent-os/research/meta-improvement/registry-index.json"
+  ],
+  "stopping_conditions": [
+    "a verified Phase 0/first-slice implementation is committed and a new Orchestrator checkpoint is written",
+    "a protected-path or operator policy decision is required",
+    "the next step would incur material cloud/model spend without an approved project/job budget and hard cap",
+    "evidence shows an existing primitive already satisfies the requirement and the roadmap is reconciled accordingly"
+  ],
+  "approval_conditions": [
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
+    "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
+    "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout",
+    "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed."
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0025 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0025.json).\n\nCurrent objective: Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.\n\nNext action: Implement the operator-requested IMP-0015. Begin with Phase 0 and the no-cost/read-only parts of Phases 1-2 from projects/personal-agent-os/roadmap/model-infrastructure-manager.md: inspect and extend existing router/provider/CAP/eval/research/secret primitives; run prior-art lookup; define provider-neutral workload, model capability, compute quote, secret reference and artifact contracts with text/code/image/voice/audio/general-ML represented from the start; add synthetic-provider tests, refusal telemetry and abliterated-foreman shadow evaluation; then implement the smallest generic OpenAI-compatible inference/local-credential/RunPod inventory+quote slice that incurs no paid compute. Do not duplicate existing primitives. Paid provisioning or training must stop at the configured approval/budget gate.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"model gateways routers cloud GPU brokers model registries evaluation systems training job managers\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: reasoning / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: a verified Phase 0/first-slice implementation is committed and a new Orchestrator checkpoint is written; a protected-path or operator policy decision is required; the next step would incur material cloud/model spend without an approved project/job budget and hard cap; evidence shows an existing primitive already satisfies the requirement and the roadmap is reconciled accordingly.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
