@@ -1,0 +1,23 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FAIL-0002",
+  "type": "FAIL",
+  "title": "Load-sensitive GUI test timed out in the full-suite push gate",
+  "status": "resolved",
+  "summary": "The ORCH-0013 push gate (full suite) failed on tests/test_orchestrator_surfaces.py::test_gui_controls_pause_and_gate_decision: the run was still READY when the test's 30 s deadline for APPROVAL_REQUIRED expired. The same test passed 3/3 in isolation and in all 12 earlier gates, and the pass changed no GUI/engine code (trace.py, CLI entry, records), so it is a load-sensitive timeout, not a regression. Per the operator's gate rule the loop stopped without pushing. The deadline was raised to 90 s (the sibling test uses 60 s); the next pass reruns the gate.",
+  "signature": "flaky_test_timeout_under_load",
+  "recurrence": 1,
+  "task_family": "push_gate",
+  "links": [
+    {
+      "rel": "relates_to",
+      "ref": "tests/test_orchestrator_surfaces.py"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0013 gate",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T05:55:00+00:00",
+  "updated_at": "2026-09-29T05:55:00+00:00"
+}

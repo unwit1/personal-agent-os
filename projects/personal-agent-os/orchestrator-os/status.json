@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T05:35:00+00:00",
+  "updated_at": "2026-09-29T05:55:00+00:00",
   "phase": "P1 foundations: observability exported; untrusted-data safety next",
   "active_objective": "Measure and harden how delegated workers treat untrusted repository content (MIE-0007 first slice), with an EVS-SECURITY suite built from borrowed injection cases.",
   "completed": [
@@ -32,7 +32,9 @@
     "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)",
     "MIE-0017: OTLP trace projection (DEC-0016)"
   ],
-  "blockers": [],
+  "blockers": [
+    "Push gate for ORCH-0013 failed on a load-sensitive GUI test (FAIL-0002); main stays at ORCH-0012 (b162ddc1). Deadline raised to 90 s on the branch; the next pass must rerun the full-suite gate before pushing."
+  ],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],

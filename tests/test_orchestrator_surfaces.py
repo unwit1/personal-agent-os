@@ -177,7 +177,9 @@ class HttpApiTests(SurfaceFixture):
             "policy": {"poll_interval_seconds": 0, "announce_claims": False}, "start_recommended": True,
         })
         run_id = json.loads(created)["run_id"]
-        deadline = time.time() + 30
+        # 90 s, not 30: under full-suite load the background driver can take
+        # longer to reach the gate (FAIL-0002, gate for ORCH-0013).
+        deadline = time.time() + 90
         run = {}
         while time.time() < deadline:
             run = json.loads(self.request("GET", f"/api/runs/{run_id}")[1])
