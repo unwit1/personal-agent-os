@@ -268,6 +268,7 @@ def start(workflow_id: str, run_id: str | None = None, resume: bool = True) -> d
             raise ValueError(f"run already exists: {identifier}")
         return load_json(path)
     record = _new_run(manifest, identifier)
+    _recovery_checkpoint(record)
     write_json(path, record)
     return record
 
@@ -279,11 +280,30 @@ def load_run(project_id: str, run_id: str) -> dict[str, Any]:
     return load_json(path)
 
 
+def _recovery_checkpoint(record: dict[str, Any]) -> None:
+    """Write the local P0.4 recovery checkpoint that docs/restart-recovery.md
+    promises on every run save. It was implemented in recovery.py but never
+    called (found by `orchestrate simplify`, IMP-0011). Non-repositories (test
+    fixtures) are skipped by the callee; a checkpoint failure is recorded and
+    never loses the run itself."""
+    from .recovery import checkpoint_workflow_record
+
+    try:
+        checkpoint = checkpoint_workflow_record(record, repo=ROOT)
+    except Exception as exc:  # checkpointing is best effort around the canonical run file
+        record["recovery_checkpoint_error"] = f"{type(exc).__name__}: {exc}"[:200]
+        return
+    record.pop("recovery_checkpoint_error", None)
+    if checkpoint:
+        record["recovery_checkpoint"] = checkpoint.get("checkpoint_id")
+
+
 def _save(record: dict[str, Any]) -> dict[str, Any]:
     record["updated_at"] = _now()
     unexpected = FORBIDDEN_RUN_KEYS.intersection(record)
     if unexpected:
         raise ValueError("run state must not carry conversation context: " + ", ".join(sorted(unexpected)))
+    _recovery_checkpoint(record)
     write_json(run_path(record["project"], record["run_id"]), record)
     return record
 

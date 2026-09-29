@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -83,6 +84,25 @@ class WorkflowFixture(unittest.TestCase):
         path = workflows.WORKFLOW_DIR / f"{manifest['workflow_id']}.json"
         path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
         return manifest
+
+
+class RecoveryCheckpointWiringTests(WorkflowFixture):
+    """docs/restart-recovery.md: a workflow run save writes a recovery
+    checkpoint (IMP-0011 found the call missing)."""
+
+    def test_run_save_writes_recovery_checkpoint_in_a_git_repository(self) -> None:
+        git = ["git", "-c", "user.name=f", "-c", "user.email=f@x"]
+        subprocess.run([*git, "init", "-q"], cwd=self.temporary, check=True)
+        subprocess.run([*git, "commit", "-q", "--allow-empty", "-m", "init"], cwd=self.temporary, check=True)
+        record = workflows.start(MANIFEST["workflow_id"], run_id="ckpt")
+        checkpoint = self.temporary / ".agent-local" / "recovery" / "checkpoints" / record["project"] / "ckpt.json"
+        self.assertTrue(checkpoint.exists(), record.get("recovery_checkpoint_error"))
+        self.assertTrue(record.get("recovery_checkpoint"))
+
+    def test_fixture_without_git_writes_no_checkpoint(self) -> None:
+        record = workflows.start(MANIFEST["workflow_id"], run_id="plain")
+        self.assertIsNone(record.get("recovery_checkpoint"))
+        self.assertFalse((self.temporary / ".agent-local").exists())
 
 
 class ManifestValidationTests(WorkflowFixture):

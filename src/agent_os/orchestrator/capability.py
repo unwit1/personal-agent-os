@@ -154,14 +154,3 @@ def write_records(records: list[dict[str, Any]], directory: Path | None = None) 
         path.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8", newline="\n")
         written.append(str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path))
     return written
-
-
-def load_records(directory: Path | None = None) -> list[dict[str, Any]]:
-    target = Path(directory or RECORDS_DIR)
-    records = []
-    for path in sorted(target.glob("CAP-*.json")):
-        try:
-            records.append(json.loads(path.read_text(encoding="utf-8")))
-        except (OSError, json.JSONDecodeError):
-            continue
-    return records

@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T05:20:00+00:00",
-  "phase": "P1 foundations: simplification engine live; applying its first candidates",
-  "active_objective": "Turn simplification evidence into smaller code: apply IMP-0010 (shared record loader) and IMP-0011 (unused public functions) with tests, measured by orchestrate simplify before and after.",
+  "updated_at": "2026-09-29T05:40:00+00:00",
+  "phase": "P1 foundations: simplification applied; observability next",
+  "active_objective": "Make Agent OS traces readable by any OpenTelemetry backend (MIE-0017) without adding dependencies or exporting private content.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -28,37 +28,38 @@
     "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)",
     "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)",
     "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)",
-    "MIE-0011 first slice: orchestrate simplify + report (EXP-0006, DEC-0014); 5 prior-art entries added"
+    "MIE-0011 first slice: orchestrate simplify + report (EXP-0006, DEC-0014); 5 prior-art entries added",
+    "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0012",
     "DEC-0013",
-    "DEC-0014"
+    "DEC-0014",
+    "DEC-0015"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "Apply simplification candidates. IMP-0010: extract one shared helper for incremental record loading and get-by-id used by changes.py and improvements.py (keep the public functions as thin wrappers; test_changes_import and test_improvements_import must pass unchanged). IMP-0011: for documents.extract_field_region, capability.load_records and recovery.checkpoint_workflow_record, check git history and string dispatch (CLI/MCP); delete the truly unused ones or add a justified caller/test. Measure with `orchestrate simplify` before and after (duplicate groups, unused functions, lines) and record an EVR-style note in the DEC; run the affected-test selector plus the full-suite gate.",
+    "summary": "MIE-0017: OpenTelemetry-compatible trace projection, borrowing the GenAI semantic conventions (PA-otel-genai) with no dependency. Add `agent-os orchestrate trace <run-id> [--out file]` that converts an orchestrated run's telemetry/ledger events into OTLP/JSON spans: one workflow span per run, one span per node attempt (gen_ai.operation.name, gen_ai.provider.name, gen_ai.request.model, gen_ai.response.model from model_resolved, gen_ai.usage.input_tokens/output_tokens, error.type on failure), and child spans for validation and review. Never export prompt or output text (privacy boundary); mark agent/workflow span conventions as provisional. Test on a synthetic run (structure, parent/child ids, attribute names, no content leakage) and document how to load the file into a local OTel backend such as Phoenix (PA-phoenix, DEFER) without adopting it.",
+    "prior_art": "opentelemetry genai trace projection agent spans",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Small mechanical refactor with deterministic verification.",
+    "why_this_class": "Deterministic data projection with schema tests.",
     "context_refs": [
-      "projects/personal-agent-os/improvements/IMP-0010.json",
-      "projects/personal-agent-os/improvements/IMP-0011.json",
-      "projects/personal-agent-os/orchestrator-os/simplification-report.json",
-      "src/agent_os/changes.py",
-      "src/agent_os/improvements.py"
+      "MIE-0017",
+      "projects/personal-agent-os/research/prior-art/registry.json",
+      "src/agent_os/orchestrator/ledger.py",
+      "src/agent_os/telemetry.py"
     ],
     "stop_conditions": [
-      "both IMPs implemented or justified; simplify shows 0 duplicate groups and 0 unexplained unused functions",
+      "trace command + tests committed; no content fields exported; DEC with prior_art note",
       "0 model calls",
-      "stop and report if behavior changes in agent-os validate, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+      "stop and report if privacy rules would require exporting content, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -152,6 +153,12 @@
       "model_calls": 0,
       "web_research_calls": 2,
       "measured_cost_usd": 0
+    },
+    "session_ORCH-0012": {
+      "deterministic_operations": "~25",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "downstream_value": "restored documented workflow recovery checkpoints; removed duplication"
     }
   },
   "known_baseline": {
@@ -161,5 +168,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0011 pass (MIE-0011 first slice): the prior-art lookup found no dead-code tooling, so discovery ran and added vulture, deadcode, dead, Skylos and PyChase to the registry (50 entries). Built `orchestrate simplify` over the existing import graph + Git history: 103 modules, ~26.2k lines; 3 unused public functions (3/3 agreement with vulture over the same scope, EXP-0006), 2 duplicate-body groups (changes vs improvements loaders), keyring used (keep), 2 relevant prior-art matches. Tests caught over-normalization in clone detection; discovery and prior-art matching now require capability-area overlap. Candidates captured as IMP-0010/IMP-0011; nothing deleted. 0 model calls."
+  "last_pass_summary": "ORCH-0012 pass (IMP-0010/0011): replaced the duplicated change/improvement loaders with one shared ingestion helper, deleted an unused bootstrap function, pinned the P0.3 field-region OCR seam with a contract test, and found that the documented workflow recovery checkpoints were never written because their function had no caller (FND-0010) -- now wired with a git-backed regression test. simplify: unused 3->0, duplicates 2->0, lines 26,190->26,166. 0 model calls."
 }

@@ -1,0 +1,52 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0015",
+  "type": "DEC",
+  "title": "Apply first simplification candidates: shared record loader, one deletion, one reconnection, one pinned seam",
+  "status": "accepted",
+  "summary": "IMP-0010: ingestion.load_json_records_incremental and read_json_record replace identical bodies in changes.py and improvements.py (public functions kept as wrappers; messages and ledger keys unchanged; 20 import tests pass). IMP-0011: capability.load_records deleted (added in the bootstrap, never used; its consumer IMP-0004 is blocked); recovery.checkpoint_workflow_record reconnected (FND-0010); documents.extract_field_region kept as the P0.3 field-zone OCR seam and pinned by a contract test. orchestrate simplify before -> after: unused public functions 3 -> 0, duplicate groups 2 -> 0, non-blank lines 26,190 -> 26,166.",
+  "metrics": {
+    "unused_public_functions": [
+      3,
+      0
+    ],
+    "duplicate_groups": [
+      2,
+      0
+    ],
+    "non_blank_lines": [
+      26190,
+      26166
+    ]
+  },
+  "prior_art": {
+    "checked": "registry entries from the simplify pass (PA-vulture etc.)",
+    "found": "no external tool needed for the refactor",
+    "reused": "existing IngestionLedger primitives",
+    "why_custom": "in-repo refactor of Agent OS's own code"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "IMP-0010"
+    },
+    {
+      "rel": "implements",
+      "ref": "IMP-0011"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0010"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0014"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0011 -> ORCH-0012 (simplification apply)",
+    "author_tier": "frontier (Opus 5.5); measurements deterministic"
+  },
+  "created_at": "2026-09-29T05:40:00+00:00",
+  "updated_at": "2026-09-29T05:40:00+00:00"
+}

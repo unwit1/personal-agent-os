@@ -373,6 +373,39 @@ class TelemetryTests(CacheFixture):
         self.assertEqual(second.telemetry.as_dict()["cache_hit_rate"], 1.0)
 
 
+class FieldRegionTests(CacheFixture):
+    """extract_field_region is the P0.3 field-zone OCR seam (handoff
+    2026-09-24); pinned here after `orchestrate simplify` found it untested
+    (IMP-0011)."""
+
+    def test_warm_hit_skips_render_and_ocr_and_region_changes_miss(self) -> None:
+        from agent_os.documents import FieldRegion, extract_field_region
+
+        calls = {"render": 0, "ocr": 0}
+
+        def render(dpi, rotation):
+            calls["render"] += 1
+            return f"page@{dpi}/{rotation}"
+
+        def crop(image, region):
+            return f"{image}:{region.left},{region.top}"
+
+        def ocr(image):
+            calls["ocr"] += 1
+            return f"text of {image}"
+
+        region = FieldRegion(0.1, 0.1, 0.5, 0.2)
+        first = extract_field_region(self.key(), region, render_page=render, crop_region=crop, ocr=ocr, cache=self.cache)
+        second = extract_field_region(self.key(), region, render_page=render, crop_region=crop, ocr=ocr, cache=self.cache)
+        self.assertEqual(first["extraction_kind"], "field_region")
+        self.assertEqual((calls["render"], calls["ocr"]), (1, 1))  # warm hit skipped both
+        self.assertTrue(second.get("cached"))
+        extract_field_region(self.key(), FieldRegion(0.1, 0.3, 0.5, 0.4), render_page=render, crop_region=crop, ocr=ocr, cache=self.cache)
+        self.assertEqual(calls["ocr"], 2)  # a different taught zone never reuses stale text
+        with self.assertRaises(ValueError):
+            extract_field_region(self.key(), region, render_page=render, crop_region=crop, ocr=ocr, dpi=0, cache=self.cache)
+
+
 class BatchExtractionTests(CacheFixture):
     def page(self, source_key: str, content: bytes, page_index: int = 0, embedded_text=None, ocr=None) -> PageInput:
         return PageInput(

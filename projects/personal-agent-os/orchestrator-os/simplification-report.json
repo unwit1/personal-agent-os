@@ -3,10 +3,10 @@
   "generated_at": "2026-09-29",
   "totals": {
     "modules": 103,
-    "lines": 26190,
+    "lines": 26166,
     "dead_module_candidates": 0,
-    "unused_public_functions": 3,
-    "duplicate_groups": 2,
+    "unused_public_functions": 0,
+    "duplicate_groups": 0,
     "prior_art_matches": 2
   },
   "largest": [
@@ -33,7 +33,7 @@
     },
     {
       "module": "agent_os.workflows",
-      "lines": 729,
+      "lines": 746,
       "importer_count": 3,
       "test_count": 2,
       "churn_90d": 9
@@ -82,42 +82,8 @@
     }
   ],
   "dead_module_candidates": [],
-  "unused_public_functions": [
-    {
-      "module": "agent_os.documents",
-      "name": "extract_field_region",
-      "line": 547,
-      "confidence": "medium (name appears only at its definition)"
-    },
-    {
-      "module": "agent_os.orchestrator.capability",
-      "name": "load_records",
-      "line": 159,
-      "confidence": "medium (name appears only at its definition)"
-    },
-    {
-      "module": "agent_os.recovery",
-      "name": "checkpoint_workflow_record",
-      "line": 371,
-      "confidence": "medium (name appears only at its definition)"
-    }
-  ],
-  "duplicates": [
-    {
-      "fingerprint": "4ce6c92e85e8e5c6",
-      "functions": [
-        "agent_os.changes:load_changes_incremental",
-        "agent_os.improvements:load_improvements_incremental"
-      ]
-    },
-    {
-      "fingerprint": "6187f148c5d9e3f8",
-      "functions": [
-        "agent_os.changes:get_change",
-        "agent_os.improvements:get_improvement"
-      ]
-    }
-  ],
+  "unused_public_functions": [],
+  "duplicates": [],
   "dependencies": [
     {
       "requirement": "keyring>=25,<26",
@@ -149,7 +115,7 @@
     },
     {
       "module": "agent_os.workflows",
-      "lines": 729,
+      "lines": 746,
       "consider": [
         {
           "id": "PA-aflow",
@@ -324,7 +290,7 @@
     {
       "module": "agent_os.changes",
       "path": "src/agent_os/changes.py",
-      "lines": 294,
+      "lines": 240,
       "importers": [
         "agent_os.cli",
         "agent_os.compiler",
@@ -565,7 +531,7 @@
     {
       "module": "agent_os.improvements",
       "path": "src/agent_os/improvements.py",
-      "lines": 260,
+      "lines": 203,
       "importers": [
         "agent_os.cli",
         "agent_os.compiler",
@@ -609,7 +575,7 @@
     {
       "module": "agent_os.ingestion",
       "path": "src/agent_os/ingestion.py",
-      "lines": 294,
+      "lines": 373,
       "importers": [
         "agent_os.candidates",
         "agent_os.changes",
@@ -1207,7 +1173,7 @@
     {
       "module": "agent_os.orchestrator.capability",
       "path": "src/agent_os/orchestrator/capability.py",
-      "lines": 142,
+      "lines": 133,
       "importers": [
         "agent_os.orchestrator.cli",
         "agent_os.orchestrator.delegate",
@@ -1234,7 +1200,7 @@
       "tests": [],
       "test_count": 0,
       "last_changed": "2026-09-29",
-      "churn_90d": 14,
+      "churn_90d": 15,
       "purpose": "`agent-os orchestrate ...` -- headless control of orchestrated runs."
     },
     {
@@ -1507,8 +1473,8 @@
         "tests.test_prior_art"
       ],
       "test_count": 1,
-      "last_changed": "2026-09-28",
-      "churn_90d": 1,
+      "last_changed": "2026-09-29",
+      "churn_90d": 2,
       "purpose": "Open-source prior-art registry: lookup, staleness, task-specific discovery"
     },
     {
@@ -1723,8 +1689,8 @@
         "tests.test_simplify"
       ],
       "test_count": 1,
-      "last_changed": null,
-      "churn_90d": 0,
+      "last_changed": "2026-09-29",
+      "churn_90d": 1,
       "purpose": "Simplification engine, first deterministic slice (MIE-0011):"
     },
     {
@@ -1937,9 +1903,10 @@
       "lines": 398,
       "importers": [
         "agent_os.cli",
-        "agent_os.mcp_server"
+        "agent_os.mcp_server",
+        "agent_os.workflows"
       ],
-      "importer_count": 2,
+      "importer_count": 3,
       "tests": [
         "tests.test_recovery"
       ],
@@ -2184,7 +2151,7 @@
     {
       "module": "agent_os.workflows",
       "path": "src/agent_os/workflows.py",
-      "lines": 729,
+      "lines": 746,
       "importers": [
         "agent_os.cli",
         "agent_os.mcp_server",

@@ -9,12 +9,14 @@ an interrupted worker.
 
 from __future__ import annotations
 
+import re
+
 import hashlib
 import json
 from collections import Counter
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Iterable, Iterator
+from typing import Any, Callable, Iterable, Iterator
 
 from .storage import load_json, write_json
 from .timestamps import utc_now_iso as _now
@@ -338,3 +340,91 @@ class IngestionLedger:
             return self._state["items"][item_id]
         except KeyError as exc:
             raise KeyError(f"unknown ingestion item: {item_id}") from exc
+
+
+def load_json_records_incremental(
+    directory: Path,
+    *,
+    kind: str,
+    collection: str,
+    scope: str,
+    pattern: str,
+    ledger_path: Path,
+    processor_version: str,
+    before_parse: Callable[[Path], None] | None = None,
+) -> dict[str, Any]:
+    """Read canonical ``<prefix>-*.json`` records through a restart-safe
+    ingestion ledger (shared by change and improvement records, IMP-0010).
+
+    ``kind`` names the record in messages and output refs ("change"),
+    ``collection`` the ledger source ("change-records"). Canonical JSON stays
+    on disk; the ledger stores only source names, fingerprints, processing
+    state, output references and checkpoints.
+    """
+    from .storage import load_json
+
+    work_id = stable_work_id(collection, scope)
+    ledger = IngestionLedger(
+        Path(ledger_path),
+        source=f"{kind}-record",
+        work_id=work_id,
+        stage_id=stable_stage_id(work_id, "read"),
+        processor_version=processor_version,
+    )
+    records: list[dict[str, Any]] = []
+    stats = empty_record_import_stats()
+    directory = Path(directory)
+    paths = sorted(directory.glob(pattern)) if directory.exists() else []
+    for path in paths:
+        stats["checked"] += 1
+        raw = path.read_bytes()
+        source_key = path.name
+        queued = ledger.enqueue(source_key, content=raw, processor_version=processor_version)
+        if queued["action"] == "queued":
+            stats["queued"] += 1
+        elif queued["action"] == "requeued":
+            stats["reprocessed"] += 1
+
+        item_id = str(queued["item_id"])
+        claimed = ledger.claim(1) if queued["status"] != "processed" else []
+        if claimed:
+            if claimed[0]["item_id"] != item_id:
+                raise RuntimeError(f"{kind} ledger claimed an unexpected item: {claimed[0]['item_id']}")
+            if int(claimed[0].get("attempts", 0)) > 1:
+                stats["resumed"] += 1
+        elif queued["action"] == "duplicate":
+            stats["skipped"] += 1
+        else:
+            continue
+
+        try:
+            if before_parse is not None:
+                before_parse(path)
+            record = load_json(path)
+            if not isinstance(record, dict):
+                raise ValueError(f"{kind} record must contain a JSON object")
+            records.append(record)
+            if claimed:
+                ledger.complete(item_id, output_refs=(f"{kind}-record:{source_key}",))
+            ledger.checkpoint(source_key, **stats)
+        except (OSError, ValueError, UnicodeError) as exc:
+            stats["errors"] += 1
+            if claimed:
+                ledger.fail(item_id, str(exc), retryable=True)
+            ledger.checkpoint(source_key, **stats)
+            raise
+
+    stats["records"] = len(records)
+    return {"records": records, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
+
+
+def read_json_record(directory: Path, record_id: str, *, id_pattern: str, kind: str) -> dict[str, Any]:
+    """One canonical record by id, with the id validated before any path use."""
+    from .storage import load_json
+
+    if not re.fullmatch(id_pattern, record_id):
+        raise ValueError(f"invalid {kind} id")
+    path = Path(directory) / f"{record_id}.json"
+    if not path.exists():
+        raise KeyError(f"unknown {kind}: {record_id}")
+    return load_json(path)

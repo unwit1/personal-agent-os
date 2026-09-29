@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from .candidates import stage_candidates
-from .ingestion import IngestionLedger, empty_record_import_stats, stable_stage_id, stable_work_id
+from .ingestion import load_json_records_incremental, read_json_record
 from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .privacy import privacy_findings, require_private_safe
@@ -48,65 +48,13 @@ def load_changes_incremental(
     processor_version: str = CHANGE_PROCESSOR_VERSION,
     before_parse: Callable[[Path], None] | None = None,
 ) -> dict[str, Any]:
-    """Read local change records through a restart-safe ingestion ledger.
-
-    Canonical change JSON remains on disk. The ledger stores only source names,
-    fingerprints, processing state, output references, and checkpoints.
-    """
-    directory = Path(source_dir) if source_dir is not None else _directory(project_id)
-    target_ledger = Path(ledger_path or (ROOT / ".agent-local" / "changes" / f"{project_id}.json"))
-    work_id = stable_work_id("change-records", project_id)
-    ledger = IngestionLedger(
-        target_ledger,
-        source="change-record",
-        work_id=work_id,
-        stage_id=stable_stage_id(work_id, "read"),
-        processor_version=processor_version,
+    """Read local change records through a restart-safe ingestion ledger."""
+    return load_json_records_incremental(
+        Path(source_dir) if source_dir is not None else _directory(project_id),
+        kind="change", collection="change-records", scope=project_id, pattern="CR-*.json",
+        ledger_path=Path(ledger_path or (ROOT / ".agent-local" / "changes" / f"{project_id}.json")),
+        processor_version=processor_version, before_parse=before_parse,
     )
-    records: list[dict[str, Any]] = []
-    stats = empty_record_import_stats()
-    paths = sorted(directory.glob("CR-*.json")) if directory.exists() else []
-    for path in paths:
-        stats["checked"] += 1
-        raw = path.read_bytes()
-        source_key = path.name
-        queued = ledger.enqueue(source_key, content=raw, processor_version=processor_version)
-        if queued["action"] == "queued":
-            stats["queued"] += 1
-        elif queued["action"] == "requeued":
-            stats["reprocessed"] += 1
-
-        item_id = str(queued["item_id"])
-        claimed = ledger.claim(1) if queued["status"] != "processed" else []
-        if claimed:
-            if claimed[0]["item_id"] != item_id:
-                raise RuntimeError(f"change ledger claimed an unexpected item: {claimed[0]['item_id']}")
-            if int(claimed[0].get("attempts", 0)) > 1:
-                stats["resumed"] += 1
-        elif queued["action"] == "duplicate":
-            stats["skipped"] += 1
-        else:
-            continue
-
-        try:
-            if before_parse is not None:
-                before_parse(path)
-            record = load_json(path)
-            if not isinstance(record, dict):
-                raise ValueError("change record must contain a JSON object")
-            records.append(record)
-            if claimed:
-                ledger.complete(item_id, output_refs=(f"change-record:{source_key}",))
-            ledger.checkpoint(source_key, **stats)
-        except (OSError, ValueError, UnicodeError) as exc:
-            stats["errors"] += 1
-            if claimed:
-                ledger.fail(item_id, str(exc), retryable=True)
-            ledger.checkpoint(source_key, **stats)
-            raise
-
-    stats["records"] = len(records)
-    return {"records": records, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
 
 
 def _fingerprint(project_id: str, change_type: str, title: str, request_summary: str, components: Iterable[str], files: Iterable[str]) -> str:
@@ -199,13 +147,7 @@ def capture_change(
 
 
 def get_change(project: str, change_id: str) -> dict[str, Any]:
-    canonical = get_project(project)["id"]
-    if not re.fullmatch(r"CR-[A-Za-z0-9._-]+", change_id):
-        raise ValueError("invalid change id")
-    path = _directory(canonical) / f"{change_id}.json"
-    if not path.exists():
-        raise KeyError(f"unknown change: {change_id}")
-    return load_json(path)
+    return read_json_record(_directory(get_project(project)["id"]), change_id, id_pattern=r"CR-[A-Za-z0-9._-]+", kind="change")
 
 
 def list_changes(project: str, status: str | None = None) -> list[dict[str, Any]]:

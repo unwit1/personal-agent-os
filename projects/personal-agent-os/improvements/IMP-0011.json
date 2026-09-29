@@ -5,11 +5,13 @@
   "title": "Remove or justify three unused public functions",
   "category": "architecture",
   "subsystem": "various",
-  "status": "candidate",
+  "status": "implemented",
   "priority": "low",
   "observation": "simplify and vulture agree (EXP-0006) that documents.extract_field_region, capability.load_records and recovery.checkpoint_workflow_record are referenced nowhere in src, tests or agent.py.",
   "evidence": [
-    "projects/personal-agent-os/orchestrator-os/simplification-report.json#unused_public_functions"
+    "projects/personal-agent-os/orchestrator-os/simplification-report.json#unused_public_functions",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0015.json",
+    "projects/personal-agent-os/orchestrator-os/simplification-report.json"
   ],
   "suspected_root_cause": null,
   "suggested_direction": "Check git history and MCP/CLI string dispatch for each; delete the truly unused ones (capability.load_records was added in the bootstrap and never used) or add a caller/test that justifies keeping them.",
@@ -25,6 +27,6 @@
   },
   "github": null,
   "created_at": "2026-09-29T04:55:35.369056+00:00",
-  "updated_at": "2026-09-29T04:55:35.369056+00:00",
+  "updated_at": "2026-09-29T05:08:23.232708+00:00",
   "notes": null
 }
