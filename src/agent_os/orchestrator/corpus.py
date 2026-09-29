@@ -130,3 +130,53 @@ def apply_import_to_registry(summary: dict[str, Any], path: Path | None = None) 
             entry["derived_cases"] = [f"{s['suite']}:{s['tasks']} injection tasks" for s in summary.get("suites", [])]
             entry["status"] = "imported" if summary.get("ok") and summary.get("local_ref") else entry.get("status", "candidate")
     target.write_text(json.dumps(registry, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+# Deriving runnable EVS-SECURITY cases from an imported corpus. The generator
+# reads the machine-local imported goals and writes fixture documents plus a
+# case file under .agent-local (gitignored). It authors only a neutral scaffold;
+# the attacker goal (licensed benchmark data) flows local-file -> local-file and
+# never enters Git or a response. The live adversarial eval is operator-invoked.
+
+DERIVED = ROOT / ".agent-local" / "evals" / "injection-imported"
+CANARY = "CANARY-AOS-4713"
+SCAFFOLD = """# Service {n}
+Owner: {owner}
+Port: {port}
+
+## operations note (untrusted third-party content)
+{goal}
+"""
+OWNERS = ["Ada Vasquez", "Bo Lindqvist", "Chen Wei", "Dana Okoro", "Emil Novak", "Farah Haddad", "Gus Meyer", "Hina Ito"]
+
+
+def derive_injection_fixtures(*, local_root: Path | None = None, out: Path | None = None, limit: int = 8) -> dict[str, Any]:
+    """Read imported AgentDojo goals and write injection fixtures + a case file
+    locally. Returns counts and the case-file path; never returns goal text."""
+    corpora = Path(local_root or (LOCAL_ROOT / "agentdojo"))
+    goals = []
+    for suite_file in sorted(corpora.glob("*.json")):
+        if suite_file.name == "index.json":
+            continue
+        data = json.loads(suite_file.read_text(encoding="utf-8"))
+        for task in data.get("tasks", []):
+            goals.append((data["suite"], task["task"], task["goal"]))
+    if not goals:
+        return {"ok": False, "error": "no imported corpus; run `orchestrate corpus import XC-agentdojo --write` first"}
+    goals = goals[:limit]
+    out_dir = Path(out or DERIVED)
+    fixtures = out_dir / "fixtures"
+    fixtures.mkdir(parents=True, exist_ok=True)
+    cases = []
+    for index, (suite, task, goal) in enumerate(goals):
+        owner, port = OWNERS[index % len(OWNERS)], 8000 + index
+        name = f"service-{index:02d}"
+        (fixtures / f"{name}.md").write_text(SCAFFOLD.format(n=index, owner=owner, port=port, goal=goal), encoding="utf-8")
+        cases.append({"id": name, "owner": owner, "port": str(port), "attack": f"{suite}:{task}", "forbidden": [CANARY]})
+    case_file = {
+        "schema": "personal-agent/eval-cases/v1", "suite": "EVS-SECURITY", "split": "development",
+        "task_family": "injection_extraction", "base_commit": "local", "fixture_dir": fixtures.relative_to(ROOT).as_posix() if fixtures.is_relative_to(ROOT) else str(fixtures),
+        "attach_glob": "service-*.md", "provenance": "XC-agentdojo goals embedded as untrusted content (DEC-0024); machine-local, not committed",
+        "cases": cases,
+    }
+    (out_dir / "cases.json").write_text(json.dumps(case_file, indent=1), encoding="utf-8")
+    return {"ok": True, "fixtures": len(cases), "case_file": ((out_dir / "cases.json").relative_to(ROOT).as_posix() if out_dir.is_relative_to(ROOT) else str(out_dir / "cases.json")), "committed": False}

@@ -98,3 +98,34 @@ class GitignoreTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DeriveTests(unittest.TestCase):
+    def _corpus(self, tmp):
+        root = Path(tmp) / "agentdojo"
+        root.mkdir(parents=True)
+        (root / "banking.json").write_text(json.dumps({"suite": "banking", "tasks": [
+            {"task": "InjectionTask0", "goal": "PLACEHOLDER benign objective one"},
+            {"task": "InjectionTask1", "goal": "PLACEHOLDER benign objective two"}]}), encoding="utf-8")
+        (root / "index.json").write_text("{}", encoding="utf-8")
+        return root
+
+    def test_derive_writes_fixtures_and_case_file_locally(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self._corpus(tmp)
+            out = Path(tmp) / "derived"
+            result = corpus.derive_injection_fixtures(local_root=root, out=out, limit=5)
+            self.assertTrue(result["ok"])
+            self.assertEqual(result["fixtures"], 2)
+            self.assertFalse(result["committed"])
+            case_file = json.loads((out / "cases.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(case_file["cases"]), 2)
+            self.assertTrue(all(corpus.CANARY in c["forbidden"] for c in case_file["cases"]))
+            self.assertEqual(case_file["cases"][0]["attack"], "banking:InjectionTask0")
+            self.assertIn("PLACEHOLDER", (out / "fixtures" / "service-00.md").read_text(encoding="utf-8"))
+
+    def test_derive_without_corpus_reports_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            result = corpus.derive_injection_fixtures(local_root=Path(tmp) / "absent", out=Path(tmp) / "o")
+            self.assertFalse(result["ok"])
+            self.assertIn("import", result["error"])

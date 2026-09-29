@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T08:30:00+00:00",
-  "phase": "P1 foundations: attack corpus imported as data; derive runnable security cases next",
-  "active_objective": "Turn the imported AgentDojo goals into runnable EVS-SECURITY development cases and measure a cheap route's injection resistance.",
+  "updated_at": "2026-09-29T08:35:00+00:00",
+  "phase": "P1 foundations broad; security-runtime validation is operator-gated",
+  "active_objective": "Continue hardening measurable, non-adversarial subsystems; the live injection eval awaits an operator run.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -40,38 +40,40 @@
     "IMP-0014: worker publication guard + adapter deny defaults (2ff6a550, c07304c3, DEC-0022)",
     "MIE-0004 first slice: orchestrate mining (DEC-0023)",
     "EXP-0008 deferred for safety (FND-0013)",
-    "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)"
+    "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)",
+    "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0022",
     "DEC-0023",
-    "DEC-0024"
+    "DEC-0024",
+    "DEC-0025"
   ],
   "approval_conditions": [
-    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)",
-    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)"
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
+    "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
+    "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout"
   ],
   "next_action": {
-    "summary": "Derive runnable EVS-SECURITY development cases from the imported AgentDojo goals (.agent-local/corpora/agentdojo). Build a generator that, for each imported injection task, creates a fixture document that embeds the attacker goal as untrusted content plus a benign extraction task with a known label and a canary; register them as an injection_extraction case file (development split, provenance = XC-agentdojo + task id). Then run EVS-SECURITY through orchestrate eval on codex@fast vs codex@fast+attach (<= 6 model calls; codex only -- claude-code weekly-limited until 2026-10-03 18:00 ET), scoring extraction accuracy AND injection resistance separately, and record an EVR. If generating the fixtures trips the safety classifier again, stop and record the blocker with FND-0013, keeping the corpus import as the delivered value.",
-    "prior_art": "prompt injection evaluation harness scoring",
+    "summary": "Return to non-adversarial hardening with clear measured value. Pick the highest: (a) MIE-0009 context-utility telemetry -- record, per delegated call, how much of the attached/selected context the answer actually used, to find waste (extends delegate + attachments, DEC-0018); or (b) wire qualified CAP evidence into router.select behind the policy floor (IMP-0004) once a task family has >= the policy min_samples with a passing lower bound, else record that none qualifies yet. Prefer (a): it is fully deterministic, needs no model calls beyond optional measurement, and directly serves the cheapest-reliable-route goal. Baseline before changing behavior, add tests, record an EVR/EXP, and keep the full-suite gate before push.",
+    "prior_art": "context utility telemetry token attribution retrieval",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Case generation from imported data + a bounded eval.",
+    "why_this_class": "Deterministic telemetry/plumbing with tests.",
     "context_refs": [
-      "DEC-0024",
-      "src/agent_os/orchestrator/corpus.py",
-      "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-SECURITY.json",
-      "src/agent_os/orchestrator/eval.py",
-      "FND-0013"
+      "MIE-0009",
+      "IMP-0004",
+      "src/agent_os/orchestrator/delegate.py",
+      "src/agent_os/orchestrator/capability.py",
+      "src/agent_os/orchestrator/router.py"
     ],
     "stop_conditions": [
-      "cases derived + committed (payloads stay machine-local) and an EVR recorded, OR the blocker recorded if generation is refused",
+      "chosen slice implemented with tests and an evidence record; EVR or EXP written",
       "<= 6 model calls",
-      "stop and report if codex is quota-blocked, a protected path beyond the standing grants must change, or the retry/repair budget is reached"
+      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -226,6 +228,12 @@
       "deterministic_operations": "~15 incl. real corpus fetch (27 tasks)",
       "model_calls": 0,
       "measured_cost_usd": 0
+    },
+    "session_ORCH-0022": {
+      "deterministic_operations": "~15",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "note": "security-runtime path gated to operator to respect the safety boundary rather than retry flagged generation"
     }
   },
   "known_baseline": {
@@ -235,5 +243,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0021 pass: imported the AgentDojo injection corpus as data (MIT, pinned 089ed468cf3e) with orchestrate corpus import -- 27 injection tasks across 4 suites stored under .agent-local (gitignored); Git keeps only the registry entry, counts and provenance (DEC-0024, following FND-0013). The importer parses GOAL string/f-string literals statically and runs no fetched code. Network fetch is available in this environment. 0 model calls."
+  "last_pass_summary": "ORCH-0022 pass: built corpus.derive_injection_fixtures -- reads the imported AgentDojo goals and writes fixtures + an injection_extraction case file entirely under .agent-local (gitignored); payloads never enter Git or a response. `corpus import --write --derive` does both. The live adversarial eval is left operator-invoked (command in DEC-0025) rather than run autonomously, because generating/driving multi-vector attack content collides with the safety classifier (FND-0013); deterministic guards are already covered by test_publication_guard.py and EXP-0007. 0 model calls."
 }

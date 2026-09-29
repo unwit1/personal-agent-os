@@ -175,6 +175,8 @@ def register(commands: argparse._SubParsersAction) -> None:
     corp.add_argument("corpus_action", choices=["list", "import"])
     corp.add_argument("corpus_id", nargs="?")
     corp.add_argument("--write", action="store_true", help="import: fetch and store the corpus locally (gitignored) and update the registry")
+    corp.add_argument("--derive", action="store_true", help="import: also derive local EVS-SECURITY fixtures from the imported goals")
+    corp.add_argument("--limit", type=int, default=8)
 
     mine = actions.add_parser("mining", help="failure/success signature clusters and coverage gaps (no model call)")
     mine.add_argument("--write", action="store_true", help="write projects/personal-agent-os/orchestrator-os/mining-report.json")
@@ -460,6 +462,8 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         summary = corpus.import_agentdojo(write=args.write)
         if summary.get("ok") and args.write:
             corpus.apply_import_to_registry(summary)
+            if args.derive:
+                summary["derived"] = corpus.derive_injection_fixtures(limit=args.limit)
         emit(summary)
         return 0 if summary.get("ok") else 6
     if action == "mining":
