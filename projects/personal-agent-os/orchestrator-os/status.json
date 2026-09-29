@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T16:19:15.793144+00:00",
+  "updated_at": "2026-09-29T16:30:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
   "active_objective": "Implement IMP-0015: provider-neutral Model Infrastructure Manager / Compute Broker for text/code, open and abliterated models, cloud GPU lifecycle, image/ML training, and voice/audio workloads.",
   "completed": [
@@ -52,7 +52,8 @@
   "recent_decisions": [
     "DEC-0025",
     "DEC-0026",
-    "DEC-0027"
+    "DEC-0027",
+    "DEC-0028"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
@@ -61,14 +62,15 @@
     "IMP-0015: first material paid cloud provisioning/training spend remains gated until a project/job budget and hard cap are approved; quote-only and read-only inventory work may proceed."
   ],
   "next_action": {
-    "summary": "Operator explicitly requested IMP-0015 as the next high-priority Orchestrator expansion. Start with the no-cost Phase 0 foundation in projects/personal-agent-os/roadmap/model-infrastructure-manager.md: inspect existing router/provider/CAP/research/eval/secrets primitives, run the required prior-art lookup, define provider-neutral workload/capability/compute-quote/secret/artifact contracts, add a synthetic provider and shadow-foreman/refusal telemetry tests, then implement the smallest generic inference/credential/RunPod quote slice that does not incur paid compute. Preserve current primitives rather than duplicating them. Image and voice/audio modalities must be represented from the start even if their provider adapters arrive in later phases.",
-    "prior_art": "required: model gateways/routers, cloud GPU brokers, model registries/eval systems, training job managers",
+    "summary": "Implement the operator-requested IMP-0015. Begin with Phase 0 and the no-cost/read-only parts of Phases 1-2 from projects/personal-agent-os/roadmap/model-infrastructure-manager.md: inspect and extend existing router/provider/CAP/eval/research/secret primitives; run prior-art lookup; define provider-neutral workload, model capability, compute quote, secret reference and artifact contracts with text/code/image/voice/audio/general-ML represented from the start; add synthetic-provider tests, refusal telemetry and abliterated-foreman shadow evaluation; then implement the smallest generic OpenAI-compatible inference/local-credential/RunPod inventory+quote slice that incurs no paid compute. Do not duplicate existing primitives. Paid provisioning or training must stop at the configured approval/budget gate.",
+    "prior_art": "model gateways routers cloud GPU brokers model registries evaluation systems training job managers",
     "worker_class": "reasoning",
     "effort": "medium",
-    "why_this_class": "This is a cross-cutting architecture change touching routing, capability evidence, credentials, cloud economics, multimodal workloads, evaluation, and future extensibility; deterministic inventory/prior-art and cheap workers should still be delegated first.",
+    "why_this_class": "Cross-cutting provider-neutral architecture spanning routing, capability evidence, credentials, pricing, cloud lifecycle, multimodal inference, training and future extensibility.",
     "context_refs": [
       "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
       "projects/personal-agent-os/improvements/IMP-0015.json",
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0028.json",
       "docs/orchestrator-os/ENTRYPOINT.md",
       "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
       "docs/multi-agent-orchestrator.md",
