@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T05:20:00+00:00",
-  "phase": "P1 foundations: prior-art intelligence wired in; reliability testing next",
-  "active_objective": "Harden the orchestrator control plane with state-machine tests (IMP-0007), using prior art where it saves work, then quota-aware scheduling (IMP-0005).",
+  "updated_at": "2026-09-29T04:50:00+00:00",
+  "phase": "P1 foundations: control-plane invariants tested; runtime resilience next",
+  "active_objective": "Make routing survive provider quotas (IMP-0005) using the subsumed breaker/backoff, so autonomous loops degrade instead of stalling.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -23,39 +23,41 @@
     "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)",
     "Prior-art registry + workflow integration (0d141ef8, DEC-0008)",
     "45 prior-art evaluations + discovery (bf11d932)",
-    "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)"
+    "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)",
+    "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)"
   ],
   "blockers": [
     "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
   ],
   "active_experiments": [
-    "HYP-0003 (monitoring): switch affected_tests_first to always if first-attempt failure rate > 36%"
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0007",
     "DEC-0008",
-    "DEC-0009"
+    "DEC-0009",
+    "DEC-0010"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "Implement IMP-0007: orchestrator state-machine tests. Encode the constitution section 10 invariants once (unvalidated code never integrates; unresolved required review findings block integration; read-only workers never write; failed/blocked never becomes integrated; COMPLETE requires completion validation; permissions never silently increase) and drive the engine with synthetic adapters through random operation sequences (create, dispatch, success, failure, quota, timeout, pause, resume, cancel, review, repair, approval, restart). Compare a small subsumed seeded random-sequence runner with Hypothesis RuleBasedStateMachine as a dev-only extra (bugs found, runtime, failure readability); record EXP + DEC with a prior_art note and update PA-hypothesis. Fix any real engine bug found with a regression test.",
-    "prior_art": "orchestrator state machine property testing invariants shrinking",
+    "summary": "Implement IMP-0005: quota-aware scheduling. Parse reset hints from provider failures (HTTP Retry-After; CLI messages such as 'try again at 9:12 PM' or 'resets Oct 3, 6pm') into a machine-local provider availability record with an expiry; wrap each provider in the subsumed CircuitBreaker (retry.py) so repeated quota/unavailable failures open it; the router treats open/blocked providers as unavailable until expiry, then half-opens with one probe; delegate and runs record 'deferred by quota' instead of silently escalating tier, and the telemetry names quota-driven escalations. Add state-machine operations for quota bursts and an invariant that quota never causes a stronger tier without a recorded reason. Evaluate with EVS-ROUTING and the state-machine suite.",
+    "prior_art": "provider quota rate limit reset scheduling circuit breaker",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Test design with deterministic evaluation; no model workers needed.",
+    "why_this_class": "Bounded runtime change with deterministic tests; no model workers needed.",
     "context_refs": [
-      "projects/personal-agent-os/improvements/IMP-0007.json",
-      "docs/orchestrator-os/CONSTITUTION.md",
-      "projects/personal-agent-os/research/prior-art/registry.json",
-      "tests/test_orchestrator.py",
+      "projects/personal-agent-os/improvements/IMP-0005.json",
+      "FAIL-0001",
+      "DEC-0009",
+      "src/agent_os/orchestrator/retry.py",
+      "src/agent_os/orchestrator/router.py",
       "src/agent_os/orchestrator/engine.py",
-      "src/agent_os/orchestrator/adapters/synthetic.py"
+      "tests/test_orchestrator_state_machine.py"
     ],
     "stop_conditions": [
-      "EXP record with outcome and linked evidence; invariant suite committed and passing (or engine bugs fixed with regressions)",
+      "IMP-0005 acceptance passes with unit tests, state-machine suite and a noninferior EVS-ROUTING EVR",
       "0 model calls expected",
       "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
@@ -121,6 +123,12 @@
       "model_calls": 0,
       "web_research_calls": "~10 searches/fetches",
       "measured_cost_usd": 0
+    },
+    "session_ORCH-0007": {
+      "deterministic_operations": "~20 incl. ~2,000 invariant-checked states and a planted-mutation comparison",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "lesson": "plant a counterexample for every invariant"
     }
   },
   "known_baseline": {
@@ -130,5 +138,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0006 pass (operator request: open-source prior art). Commit 1 (0d141ef8): a PA registry in the research registry index with schema, deterministic tool (orchestrate prior-art lookup/queries/stale/refresh/validate), validation (no blended score; ADOPT needs linked evidence; DECs from DEC-0008 must carry a prior_art note), a proportional check in ENTRYPOINT step 2, constitution section 15, canonical policy rule 12, AGENTS/CLAUDE adapters, a policy prior_art block, and a conditional prior-art line in the generated next prompt. Commit 2 (bf11d932): 45 projects evaluated against current Agent OS code (19 seeded + 26 discovered): 21 BORROW, 10 DEFER, 10 REJECT, 4 INVESTIGATE, 0 ADOPT; highest-risk dependency LiteLLM (2026-03 PyPI compromise); spikes IMP-0007 (Hypothesis vs subsumed state-machine tester) and IMP-0008 (Inspect AI WRAP). Commit 3 (36377edc): subsumed retry/backoff with Retry-After and a circuit breaker (Tenacity/pybreaker algorithms) plus key-optional stdlib API workers (Anthropic, OpenAI-compatible incl. local base_url) limited to role inline; `orchestrate api-key set`. 0 model calls; web research ~10 searches/fetches; GitHub REST metadata."
+  "last_pass_summary": "ORCH-0007 pass (IMP-0007): prior-art lookup reused the fresh PA-hypothesis entry; built tests/test_orchestrator_state_machine.py, which drives the real engine through random operation sequences (worker/review outcomes, ticks, pause/resume/stop, gate decisions, retry, crash-restart) and checks the constitution invariants after every step, shrinking failures by delta debugging. 0 violations over ~2,000 checked states on the real engine. A planted mutation (engine ignores review findings) exposed that the first review invariant was vacuous (FND-0008); after the fix the subsumed runner found the bug in 19 s with a 5-op counterexample while Hypothesis (60 examples, untuned) missed it (EXP-0003), so DEC-0010 keeps the subsumed runner and PA-hypothesis moved to DEFER. 0 model calls."
 }
