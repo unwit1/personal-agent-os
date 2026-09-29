@@ -164,6 +164,11 @@ def register(commands: argparse._SubParsersAction) -> None:
     ev.add_argument("--samples", type=int, default=1, help="case suites: calls per base route (+verify variants reuse them)")
     ev.add_argument("--max-calls", type=int, help="refuse the run if it needs more model calls than this")
 
+    pa = actions.add_parser("prior-art", help="open-source prior-art registry: lookup, discovery queries, staleness, metadata refresh (no model call)")
+    pa.add_argument("action", choices=["lookup", "queries", "stale", "refresh", "validate"])
+    pa.add_argument("terms", nargs="*", help="problem description (lookup/queries) or entry ids (refresh)")
+    pa.add_argument("--write", action="store_true", help="refresh: write updated activity facts")
+
     evc = actions.add_parser("eval-cases", help="generate deterministic development cases for a task family (no model call)")
     evc.add_argument("--family", required=True, choices=["affected_test_selection"])
     evc.add_argument("--base", default="HEAD", help="commit the labels are traced at")
@@ -388,6 +393,23 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         result = control_plane.check(paths, args.allow)
         emit({**result, "checked": len(paths)})
         return 0 if result["passed"] else 7
+    if action == "prior-art":
+        from . import prior_art
+
+        text = " ".join(args.terms)
+        if args.action == "lookup":
+            emit({"problem": text, "matches": prior_art.lookup(text)})
+        elif args.action == "queries":
+            emit({"problem": text, "queries": prior_art.queries(text)})
+        elif args.action == "stale":
+            emit({"stale": prior_art.stale()})
+        elif args.action == "refresh":
+            emit({"changes": prior_art.refresh(list(args.terms), write=args.write)})
+        else:
+            problems = prior_art.validate()
+            emit({"ok": not problems, "problems": problems})
+            return 0 if not problems else 9
+        return 0
     if action == "eval-cases":
         from . import eval as evaluation
 

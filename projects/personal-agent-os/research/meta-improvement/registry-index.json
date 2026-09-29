@@ -105,6 +105,12 @@
       "name": "questions",
       "purpose": "Unresolved questions, uncertainty, evidence gaps and research queues.",
       "state": "open-questions.json exists"
+    },
+    {
+      "prefix": "PA",
+      "name": "prior_art",
+      "purpose": "Evaluated open-source projects with ADOPT/WRAP/BORROW/REJECT/DEFER/INVESTIGATE decisions and separate evidence dimensions; consulted before significant design decisions.",
+      "state": "implemented 2026-09-29: projects/personal-agent-os/research/prior-art/registry.json, schemas/prior-art-entry-v1.schema.json, agent-os orchestrate prior-art"
     }
   ],
   "core_edges": [

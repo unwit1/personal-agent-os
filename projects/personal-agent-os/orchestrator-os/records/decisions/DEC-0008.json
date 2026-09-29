@@ -1,0 +1,42 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0008",
+  "type": "DEC",
+  "title": "Open-source prior art becomes a required, registry-backed input to significant design decisions",
+  "status": "accepted",
+  "summary": "Operator directive 2026-09-29. Implemented by extending existing primitives: a PA registry added to the meta-improvement registry index (projects/personal-agent-os/research/prior-art/, schema prior-art-entry-v1), a deterministic tool (orchestrate prior-art lookup/queries/stale/refresh/validate), validation in agent-os validate (entries, no blended score, ADOPT needs linked evidence; warning when a DEC from DEC-0008 on lacks prior_art), a proportional check in ENTRYPOINT step 2, constitution section 15, canonical policy rule 12 and the generated AGENTS/CLAUDE adapters, a prior_art block in policy/orchestrator-os.policy.json, and an optional prior-art line in the generated next prompt (only when the next action names a problem). Protected paths changed under the operator's standing grant because this next action required them: policy/orchestrator-os.policy.json, policy/CANONICAL_AGENT_POLICY.md, AGENTS.md, CLAUDE.md. No check was weakened.",
+  "prior_art": {
+    "checked": "existing Agent OS registries (research registry-index, external-corpora registry, improvement records)",
+    "found": "no existing technology-evaluation registry; external-corpora.json covers datasets only",
+    "reused": "registry-index prefix convention, evidence-record links, validate pipeline, continuation generator",
+    "why_custom": "the registry is Agent OS state; no external tool should own it"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "projects/personal-agent-os/research/prior-art/README.md"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/prior_art.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "schemas/prior-art-entry-v1.schema.json"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0011"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0014"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0005 -> ORCH-0006 (prior art)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T04:20:00+00:00",
+  "updated_at": "2026-09-29T04:20:00+00:00"
+}

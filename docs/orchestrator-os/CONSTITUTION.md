@@ -254,3 +254,27 @@ class, context references, stop and approval conditions) and regenerates
 `next-prompt.md`. The operator pastes that prompt into the next session. The
 prompt references the entrypoint and the checkpoint and never restates this
 document. Agent OS can call the same command automatically.
+
+## 15. Open-source prior art
+
+Open-source prior art is a required input to significant Orchestrator design
+decisions (operator directive 2026-09-29). Before building or substantially
+expanding a subsystem, ask: has this been solved well already? Can we adopt
+it, wrap it behind an Agent OS interface, or borrow its algorithm, tests,
+schemas, architecture or operational patterns? Is our implementation already
+better or sufficiently different? Would adopting it cost more in maintenance,
+security or complexity than it saves? Are there newer projects to evaluate?
+
+The check is proportional to the change (no research project for a small
+utility). Its evidence lives in the prior-art registry
+(`projects/personal-agent-os/research/prior-art/`, entries `PA-*`, decisions
+ADOPT / WRAP / BORROW / REJECT / DEFER / INVESTIGATE with separate evidence
+dimensions and no blended score). Discovery is task-specific and
+event-driven, not a generic periodic crawl. The operator prefers subsuming
+(borrowing or vendoring with attribution) over new dependencies. External
+projects never become canonical memory, state, authorization, promotion
+authority, a protected evaluator, or a provider-specific source of truth.
+Research alone never promotes a dependency: code depends on a project only
+through IMP → HYP → EXP → EVR → DEC. The simplification engine uses the
+registry both to replace custom code and to remove dependencies Agent OS has
+outgrown.

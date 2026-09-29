@@ -25,6 +25,7 @@ agent-os validate                        # repository + Orchestrator OS state mu
 | Research (techniques, anti-patterns, backlog MIE-*) | `projects/personal-agent-os/research/meta-improvement/registry-index.json` → the one file you need |
 | Orchestrator code map | `docs/multi-agent-orchestrator.md` (Architecture table) |
 | Model capability evidence | `agent-os orchestrate capability` (CAP records) |
+| Open-source prior art (evaluated projects, ADOPT/WRAP/BORROW/REJECT/DEFER) | `projects/personal-agent-os/research/prior-art/` — `agent-os orchestrate prior-art lookup "<problem>"` |
 
 ## 2. Compile context (context compiler rules) {#context}
 
@@ -48,26 +49,34 @@ instructions (constitution §9).
 
 1. **Pick the action.** Take the checkpoint's next action unless evidence says
    otherwise. If you deviate, record why (DEC or FND record).
-2. **Route cheaply** (policy `execution_hierarchy`). Deterministic tools
+2. **Check prior art before designing.** Open-source prior art is a required
+   input to significant design decisions. Before a new module, subsystem,
+   dependency or simplification, run `agent-os orchestrate prior-art lookup
+   "<problem>"` (the depth is proportional to the change, see
+   `projects/personal-agent-os/research/prior-art/README.md`). Reuse fresh entries;
+   run `prior-art queries` and update the registry when none fit or they are
+   stale. Prefer subsuming (borrow/vendor with attribution) over adding
+   dependencies. State `prior_art` (checked, found, reused, why custom) in the DEC.
+3. **Route cheaply** (policy `execution_hierarchy`). Deterministic tools
    first. Send read-only inventory, classification and cross-referencing to
    `agent-os orchestrate delegate --task-family <family> --prompt-file p.md
    --contract c.json [--capability-class fast]`. Coding changes go through
    `agent-os orchestrate create/start-recommended --project personal-agent-os`
    when practical. Use the frontier tier only for the uses the policy allows.
-3. **Baseline before changing behavior.** `agent-os orchestrate eval --suite
+4. **Baseline before changing behavior.** `agent-os orchestrate eval --suite
    <EVS-id> --incumbent <ref> --candidate <ref>` compares refs on the same cases
    and writes an EVR.
-4. **Change in isolation.** Keep scope small. Do not touch protected paths
+5. **Change in isolation.** Keep scope small. Do not touch protected paths
    (`agent-os orchestrate control-check` before committing) unless the operator
    granted them in this request.
-5. **Verify.** Run `python -m unittest discover -s tests`, `agent-os validate`,
+6. **Verify.** Run `python -m unittest discover -s tests`, `agent-os validate`,
    and the relevant suites; compare the candidate with the incumbent on
    separate dimensions.
-6. **Record evidence.** Add typed records (schema `evidence-record-v1`) for
+7. **Record evidence.** Add typed records (schema `evidence-record-v1`) for
    decisions, findings, failures, successes and eval results, and link them to
    IMP or MIE ids. Run `agent-os orchestrate capability --write` after
    delegations. Update IMP status with `agent-os improvement-update`.
-7. **Checkpoint.** Update `status.json` (phase, completed, active objective,
+8. **Checkpoint.** Update `status.json` (phase, completed, active objective,
    next action with worker class, context refs and stop conditions), then run
    `agent-os orchestrate checkpoint --write`. Report the new
    `next-prompt.md` to the operator.

@@ -162,6 +162,17 @@
     "external_publication",
     "deleting_negative_evidence"
   ],
+  "prior_art": {
+    "registry": "projects/personal-agent-os/research/prior-art/registry.json",
+    "workflow": "projects/personal-agent-os/research/prior-art/README.md",
+    "required_for": ["new_subsystem", "new_dependency", "subsystem_over_150_lines", "repeatedly_failing_subsystem", "simplification_candidate"],
+    "not_required_for": ["small_fix", "utility_under_150_lines", "change_inside_existing_module"],
+    "decisions": ["ADOPT", "WRAP", "BORROW", "REJECT", "DEFER", "INVESTIGATE"],
+    "preference": "subsume (borrow or vendor with attribution) over adding a dependency",
+    "dependency_challenge": ["dependency_weight", "transitive_dependencies", "maintenance_activity", "license", "security_history", "api_stability", "provider_assumptions", "storage_assumptions", "cloud_requirements", "runtime_overhead", "observability", "portability", "ease_of_removal"],
+    "promotion": "research never promotes a dependency; ADOPT/WRAP/BORROW enter code only via IMP -> HYP -> EXP -> EVR -> DEC",
+    "decision_record_field": "prior_art {checked, found, reused, why_custom}"
+  },
   "holdout": {
     "splits": ["development", "validation", "protected_holdout", "rolling_private"],
     "optimizer_may_read": ["development", "validation"],

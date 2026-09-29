@@ -1,0 +1,8 @@
+{
+  "schema": "personal-agent/prior-art-registry/v1",
+  "entry_schema": "schemas/prior-art-entry-v1.schema.json",
+  "as_of": "2026-09-29",
+  "workflow": "projects/personal-agent-os/research/prior-art/README.md",
+  "permission_note": "Operator states full academic reuse permission for projects found (2026-09-29); licenses and attribution are still recorded for provenance.",
+  "entries": []
+}

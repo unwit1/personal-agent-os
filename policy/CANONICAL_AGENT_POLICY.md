@@ -20,6 +20,10 @@ all available history.
     `policy/orchestrator-os.policy.json`; the protected control/evaluation plane is
     enforced by `src/agent_os/orchestrator/control_plane.py`. Agent OS owns durable
     state; models provide temporary cognition.
+12. Open-source prior art is a required input to significant Orchestrator design
+    decisions: consult `projects/personal-agent-os/research/prior-art/` (proportional
+    to the change) before new subsystems or dependencies, prefer subsuming over
+    depending, and record what was checked in the decision.
 
 Raw transcripts and broad history are archival sources, not default prompt input.
 Derived indexes must remain disposable and rebuildable from canonical Git state.

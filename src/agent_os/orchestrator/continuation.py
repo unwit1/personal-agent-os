@@ -37,7 +37,7 @@ TEMPLATE = """Use the Personal Agent OS repository's canonical Orchestrator deve
 Current objective: {objective}
 
 Next action: {next_action}
-
+{prior_art}
 Retrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: {worker_class}. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: {stop}.
 
 Finish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.
@@ -93,6 +93,7 @@ def render_prompt(checkpoint: dict[str, Any]) -> str:
         checkpoint_path=f"projects/personal-agent-os/orchestrator-os/checkpoints/{checkpoint['id']}.json",
         objective=checkpoint["active_objective"],
         next_action=action["summary"],
+        prior_art=(f"\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"{action['prior_art']}\"`) and refresh task-specific candidates if the matching entries are stale.\n" if action.get("prior_art") else ""),
         worker_class=f"{action.get('worker_class', 'balanced')} / effort {action.get('effort', 'medium')}",
         stop="; ".join(checkpoint.get("stopping_conditions") or ["objective validator passes"]),
     )

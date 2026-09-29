@@ -30,7 +30,8 @@
     "docs/orchestrator-os/ENTRYPOINT.md",
     "docs/orchestrator-os/CONSTITUTION.md",
     "policy/orchestrator-os.policy.json",
-    "projects/personal-agent-os/orchestrator-os/status.json"
+    "projects/personal-agent-os/orchestrator-os/status.json",
+    "projects/personal-agent-os/research/prior-art/README.md"
   ],
   "context_files": [
     "README.md",

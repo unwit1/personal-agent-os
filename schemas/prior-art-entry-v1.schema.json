@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "personal-agent/prior-art-entry/v1",
+  "title": "Open-source prior-art registry entry",
+  "description": "One evaluated third-party project (projects/personal-agent-os/research/prior-art/registry.json). Evidence dimensions stay separate; there is no single score. A decision never promotes a dependency by itself: ADOPT/WRAP/BORROW require linked evidence (EXP/EVR/DEC) before code depends on the project.",
+  "type": "object",
+  "required": ["id", "name", "repository", "license", "evaluated_at", "capability_areas", "agent_os_overlap", "decision", "rationale", "confidence", "evidence", "revisit_when"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^PA-[a-z0-9-]+$"},
+    "name": {"type": "string"},
+    "repository": {"type": "string"},
+    "organization": {"type": "string"},
+    "description": {"type": "string"},
+    "license": {"type": "string"},
+    "license_status": {"type": "string", "description": "compatibility note; the operator has granted academic reuse permission (2026-09-29), attribution is still recorded"},
+    "evaluated_revision": {"type": ["string", "null"]},
+    "evaluated_at": {"type": "string"},
+    "activity": {"type": "object", "description": "stars, pushed_at, latest_release, archived, maintenance note (from the GitHub API)"},
+    "language": {"type": ["string", "null"]},
+    "capability_areas": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "agent_os_overlap": {"type": "string", "description": "the current Agent OS implementation this is compared against, with paths"},
+    "useful_parts": {
+      "type": "object",
+      "properties": {
+        "algorithms": {"type": "array", "items": {"type": "string"}},
+        "modules": {"type": "array", "items": {"type": "string"}},
+        "tests_benchmarks": {"type": "array", "items": {"type": "string"}},
+        "schemas_interfaces": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "integration": {"type": "string"},
+    "risks": {
+      "type": "object",
+      "properties": {
+        "security": {"type": "string"},
+        "privacy": {"type": "string"},
+        "provider_lock_in": {"type": "string"},
+        "maintenance": {"type": "string"},
+        "dependency_weight": {"type": "string"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "description": "separate dimensions; each value is a short evidence-backed statement or 'unknown'",
+      "properties": {
+        "development_savings": {"type": "string"},
+        "runtime_savings": {"type": "string"},
+        "quality": {"type": "string"},
+        "reliability": {"type": "string"},
+        "security": {"type": "string"},
+        "complexity": {"type": "string"},
+        "maintenance": {"type": "string"},
+        "portability": {"type": "string"}
+      }
+    },
+    "decision": {"enum": ["ADOPT", "WRAP", "BORROW", "REJECT", "DEFER", "INVESTIGATE"]},
+    "rationale": {"type": "string"},
+    "confidence": {"enum": ["low", "medium", "high"]},
+    "provenance": {"type": "array", "items": {"type": "string"}, "description": "URLs / API calls / files inspected"},
+    "links": {"type": "array", "items": {"type": "object", "required": ["rel", "ref"]}},
+    "revisit_when": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "revisit_by": {"type": ["string", "null"], "description": "optional date after which the entry counts as stale"}
+  }
+}

@@ -162,6 +162,16 @@ def validate_tree() -> dict[str, Any]:
             if entry["holdout_state"] == "protected_holdout" and entry["permissions"].get("training") == "yes" and entry.get("used_for_training"):
                 errors.append(f"{label}: protected holdout also used for training")
 
+    from .prior_art import REGISTRY as PRIOR_ART, validate as prior_art_problems
+
+    if PRIOR_ART.exists():
+        checked += 1
+        errors.extend(f"prior-art: {item}" for item in prior_art_problems())
+    for path, data in all_records:
+        # From DEC-0008 on, decisions state what prior art was checked.
+        if isinstance(data, dict) and data.get("type") == "DEC" and re.match(r"^DEC-(\d+)$", str(data.get("id"))) and int(str(data["id"])[4:]) >= 8 and "prior_art" not in data:
+            warnings.append(f"{data['id']}: no prior_art note (see projects/personal-agent-os/research/prior-art/README.md)")
+
     status_path = OS_DIR / "status.json"
     status = _load(status_path, errors) if status_path.exists() else None
     if status is None:
