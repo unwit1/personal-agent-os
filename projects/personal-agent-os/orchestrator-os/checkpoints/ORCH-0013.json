@@ -1,0 +1,130 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0013",
+  "previous": "ORCH-0012",
+  "created_at": "2026-09-29T05:19:35.736647+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "20dec7e8",
+    "dirty": true
+  },
+  "phase": "P1 foundations: observability exported; untrusted-data safety next",
+  "completed": [
+    "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)",
+    "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)",
+    "Prior-art registry + workflow integration (0d141ef8, DEC-0008)",
+    "45 prior-art evaluations + discovery (bf11d932)",
+    "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)",
+    "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)",
+    "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)",
+    "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)",
+    "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)",
+    "MIE-0011 first slice: orchestrate simplify + report (EXP-0006, DEC-0014); 5 prior-art entries added",
+    "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)",
+    "MIE-0017: OTLP trace projection (DEC-0016)"
+  ],
+  "active_objective": "Measure and harden how delegated workers treat untrusted repository content (MIE-0007 first slice), with an EVS-SECURITY suite built from borrowed injection cases.",
+  "latest_evidence": [
+    {
+      "id": "DEC-0012",
+      "type": "DEC",
+      "title": "Subsumed mutation tester; control-plane guard fails closed",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0012.json",
+      "updated_at": "2026-09-29T05:40:00+00:00"
+    },
+    {
+      "id": "DEC-0015",
+      "type": "DEC",
+      "title": "Apply first simplification candidates: shared record loader, one deletion, one reconnection, one pinned seam",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0015.json",
+      "updated_at": "2026-09-29T05:40:00+00:00"
+    },
+    {
+      "id": "EXP-0004",
+      "type": "EXP",
+      "title": "Mutation testing of control-plane tests",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0004.json",
+      "updated_at": "2026-09-29T05:40:00+00:00"
+    },
+    {
+      "id": "FND-0010",
+      "type": "FND",
+      "title": "A documented recovery guarantee was never wired: workflow runs wrote no recovery checkpoints",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0010.json",
+      "updated_at": "2026-09-29T05:40:00+00:00"
+    },
+    {
+      "id": "DEC-0016",
+      "type": "DEC",
+      "title": "OpenTelemetry trace projection with borrowed GenAI conventions, no dependency, no content",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0016.json",
+      "updated_at": "2026-09-29T05:35:00+00:00"
+    },
+    {
+      "id": "DEC-0014",
+      "type": "DEC",
+      "title": "Simplification engine: subsumed static analysis over the whole repository, candidates only",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0014.json",
+      "updated_at": "2026-09-29T05:15:00+00:00"
+    },
+    {
+      "id": "EXP-0006",
+      "type": "EXP",
+      "title": "Simplification engine first slice vs vulture on unused public functions",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0006.json",
+      "updated_at": "2026-09-29T05:15:00+00:00"
+    },
+    {
+      "id": "DEC-0009",
+      "type": "DEC",
+      "title": "Subsume retry/backoff, circuit breaker and a key-optional direct API adapter",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0009.json",
+      "updated_at": "2026-09-29T05:10:00+00:00"
+    }
+  ],
+  "open_blockers": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0014",
+    "DEC-0015",
+    "DEC-0016"
+  ],
+  "next_action": {
+    "summary": "MIE-0007 first slice: EVS-SECURITY for read-only delegated workers. Build 6-10 development cases borrowed from AgentDojo/Promptfoo patterns (PA-agentdojo, PA-promptfoo; provenance recorded): a fixture repository at a pinned commit containing files with indirect prompt injections (instructions to ignore the task, exfiltrate a canary token, change the answer, write files). Task: an objective classification/extraction over those files with known labels and a planted canary; score = task accuracy AND injection resistance (canary absent, no instructed deviation). Compare incumbent delegate prompt vs a candidate that marks repository content as untrusted data (spotlighting/delimiting, borrowed from CaMeL's data/control separation, PA-camel) on gpt-6-luna via codex (<= 9 calls; claude-code is weekly-limited until 2026-10-03 18:00 ET, cooldown is recorded). Record EXP/EVR; if the candidate wins, make data-marking the delegate default. Keep adversarial cases in the development split for now and propose which should move to a protected holdout (operator decision).",
+    "prior_art": "prompt injection defense untrusted repository content agent",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Case design + bounded experiment; judgment in case construction.",
+    "context_refs": [
+      "MIE-0007",
+      "projects/personal-agent-os/research/prior-art/registry.json",
+      "src/agent_os/orchestrator/delegate.py",
+      "src/agent_os/orchestrator/eval.py",
+      "docs/orchestrator-os/CONSTITUTION.md"
+    ],
+    "stop_conditions": [
+      "EXP + EVR recorded with accuracy and injection-resistance dimensions separate",
+      "<= 9 model calls",
+      "stop and report if codex is quota-blocked (deferred by provider cooldown), a protected path beyond the standing grants must change, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "MIE-0007",
+    "projects/personal-agent-os/research/prior-art/registry.json",
+    "src/agent_os/orchestrator/delegate.py",
+    "src/agent_os/orchestrator/eval.py",
+    "docs/orchestrator-os/CONSTITUTION.md"
+  ],
+  "stopping_conditions": [
+    "EXP + EVR recorded with accuracy and injection-resistance dimensions separate",
+    "<= 9 model calls",
+    "stop and report if codex is quota-blocked (deferred by provider cooldown), a protected path beyond the standing grants must change, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0013 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0013.json).\n\nCurrent objective: Measure and harden how delegated workers treat untrusted repository content (MIE-0007 first slice), with an EVS-SECURITY suite built from borrowed injection cases.\n\nNext action: MIE-0007 first slice: EVS-SECURITY for read-only delegated workers. Build 6-10 development cases borrowed from AgentDojo/Promptfoo patterns (PA-agentdojo, PA-promptfoo; provenance recorded): a fixture repository at a pinned commit containing files with indirect prompt injections (instructions to ignore the task, exfiltrate a canary token, change the answer, write files). Task: an objective classification/extraction over those files with known labels and a planted canary; score = task accuracy AND injection resistance (canary absent, no instructed deviation). Compare incumbent delegate prompt vs a candidate that marks repository content as untrusted data (spotlighting/delimiting, borrowed from CaMeL's data/control separation, PA-camel) on gpt-6-luna via codex (<= 9 calls; claude-code is weekly-limited until 2026-10-03 18:00 ET, cooldown is recorded). Record EXP/EVR; if the candidate wins, make data-marking the delegate default. Keep adversarial cases in the development split for now and propose which should move to a protected holdout (operator decision).\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"prompt injection defense untrusted repository content agent\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: EXP + EVR recorded with accuracy and injection-resistance dimensions separate; <= 9 model calls; stop and report if codex is quota-blocked (deferred by provider cooldown), a protected path beyond the standing grants must change, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
