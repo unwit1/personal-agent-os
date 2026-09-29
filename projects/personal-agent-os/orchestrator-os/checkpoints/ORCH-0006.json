@@ -1,0 +1,134 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0006",
+  "previous": "ORCH-0005",
+  "created_at": "2026-09-29T03:19:21.694761+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "51433d89",
+    "dirty": true
+  },
+  "phase": "P1 foundations: prior-art intelligence wired in; reliability testing next",
+  "completed": [
+    "Cold-start check: fresh Haiku worker found entrypoint, policy, status, next IMP and worker class (EVR-0003, 5/5)",
+    "IMP-0003 implemented: `orchestrate eval` (fa15466e); EVR-0004 EVS-CONTROL-PLANE noninferior; EVR-0005 three-route classification (DEC-0005)",
+    "Q-0001 resolved: gpt-6-luna 0.60 vs Sonnet 0.75 vs Haiku 0.65 at pinned base; no route qualifies (floor 0.9); opposite error biases (FND-0004)",
+    "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)",
+    "EXP-0001 rejected HYP-0001: evidence verifier had no effect; offline replay predicted it before spend (e6d1f35a, EVR-0006, 9 calls, $1.02 measured)",
+    "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
+    "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism",
+    "EXP-0002: affected_test_selection family with deterministic labels; EVR-0007; deterministic import graph wins (DEC-0006, FND-0007, IMP-0006) (5587fbf5)",
+    "IMP-0006 implemented: affected-tests-first validation, retries-only default (e7ad1ddc, 42ff2e4f; DEC-0007, EVR-0008..0011, HYP-0003)",
+    "Prior-art registry + workflow integration (0d141ef8, DEC-0008)",
+    "45 prior-art evaluations + discovery (bf11d932)",
+    "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)"
+  ],
+  "active_objective": "Harden the orchestrator control plane with state-machine tests (IMP-0007), using prior art where it saves work, then quota-aware scheduling (IMP-0005).",
+  "latest_evidence": [
+    {
+      "id": "DEC-0009",
+      "type": "DEC",
+      "title": "Subsume retry/backoff, circuit breaker and a key-optional direct API adapter",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0009.json",
+      "updated_at": "2026-09-29T05:10:00+00:00"
+    },
+    {
+      "id": "DEC-0008",
+      "type": "DEC",
+      "title": "Open-source prior art becomes a required, registry-backed input to significant design decisions",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0008.json",
+      "updated_at": "2026-09-29T04:20:00+00:00"
+    },
+    {
+      "id": "DEC-0007",
+      "type": "DEC",
+      "title": "Affected-tests-first validation: selector as runtime code, retries-only default, full suite still gates",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0007.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0008",
+      "type": "EVR",
+      "title": "EVS-CONTROL-PLANE: f725bc35 vs e7ad1ddc",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0008.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0009",
+      "type": "EVR",
+      "title": "EVS-ROUTING: f725bc35 vs e7ad1ddc",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0009.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0010",
+      "type": "EVR",
+      "title": "EVS-ROUTING: f725bc35 vs HEAD",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0010.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "EVR-0011",
+      "type": "EVR",
+      "title": "Affected-tests-first: time share of the selected subset on real-commit cases",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0011.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    },
+    {
+      "id": "HYP-0003",
+      "type": "HYP",
+      "title": "Affected-tests-first pays on first attempts when the first-attempt failure rate exceeds ~36%",
+      "path": "projects/personal-agent-os/orchestrator-os/records/hypotheses/HYP-0003.json",
+      "updated_at": "2026-09-29T03:40:00+00:00"
+    }
+  ],
+  "open_blockers": [
+    "claude-code provider (Haiku/Sonnet workers) blocked by the Claude weekly limit until 2026-10-03 18:00 ET (FAIL-0001); codex (gpt-6-luna) available"
+  ],
+  "active_experiments": [
+    "HYP-0003 (monitoring): switch affected_tests_first to always if first-attempt failure rate > 36%"
+  ],
+  "recent_decisions": [
+    "DEC-0007",
+    "DEC-0008",
+    "DEC-0009"
+  ],
+  "next_action": {
+    "summary": "Implement IMP-0007: orchestrator state-machine tests. Encode the constitution section 10 invariants once (unvalidated code never integrates; unresolved required review findings block integration; read-only workers never write; failed/blocked never becomes integrated; COMPLETE requires completion validation; permissions never silently increase) and drive the engine with synthetic adapters through random operation sequences (create, dispatch, success, failure, quota, timeout, pause, resume, cancel, review, repair, approval, restart). Compare a small subsumed seeded random-sequence runner with Hypothesis RuleBasedStateMachine as a dev-only extra (bugs found, runtime, failure readability); record EXP + DEC with a prior_art note and update PA-hypothesis. Fix any real engine bug found with a regression test.",
+    "prior_art": "orchestrator state machine property testing invariants shrinking",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Test design with deterministic evaluation; no model workers needed.",
+    "context_refs": [
+      "projects/personal-agent-os/improvements/IMP-0007.json",
+      "docs/orchestrator-os/CONSTITUTION.md",
+      "projects/personal-agent-os/research/prior-art/registry.json",
+      "tests/test_orchestrator.py",
+      "src/agent_os/orchestrator/engine.py",
+      "src/agent_os/orchestrator/adapters/synthetic.py"
+    ],
+    "stop_conditions": [
+      "EXP record with outcome and linked evidence; invariant suite committed and passing (or engine bugs fixed with regressions)",
+      "0 model calls expected",
+      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "projects/personal-agent-os/improvements/IMP-0007.json",
+    "docs/orchestrator-os/CONSTITUTION.md",
+    "projects/personal-agent-os/research/prior-art/registry.json",
+    "tests/test_orchestrator.py",
+    "src/agent_os/orchestrator/engine.py",
+    "src/agent_os/orchestrator/adapters/synthetic.py"
+  ],
+  "stopping_conditions": [
+    "EXP record with outcome and linked evidence; invariant suite committed and passing (or engine bugs fixed with regressions)",
+    "0 model calls expected",
+    "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0006 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0006.json).\n\nCurrent objective: Harden the orchestrator control plane with state-machine tests (IMP-0007), using prior art where it saves work, then quota-aware scheduling (IMP-0005).\n\nNext action: Implement IMP-0007: orchestrator state-machine tests. Encode the constitution section 10 invariants once (unvalidated code never integrates; unresolved required review findings block integration; read-only workers never write; failed/blocked never becomes integrated; COMPLETE requires completion validation; permissions never silently increase) and drive the engine with synthetic adapters through random operation sequences (create, dispatch, success, failure, quota, timeout, pause, resume, cancel, review, repair, approval, restart). Compare a small subsumed seeded random-sequence runner with Hypothesis RuleBasedStateMachine as a dev-only extra (bugs found, runtime, failure readability); record EXP + DEC with a prior_art note and update PA-hypothesis. Fix any real engine bug found with a regression test.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"orchestrator state machine property testing invariants shrinking\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: EXP record with outcome and linked evidence; invariant suite committed and passing (or engine bugs fixed with regressions); 0 model calls expected; stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
