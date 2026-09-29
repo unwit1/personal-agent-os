@@ -1118,3 +1118,18 @@ image generation and image/ML/LoRA training; voice/audio/ASR/TTS and future voic
 training/adaptation; artifact/checkpoint persistence; and continuous discovery of
 new models/providers. The current Orchestrator status marks this as the active
 operator-requested next action. Paid compute remains budget/approval gated.
+
+
+## Operator-priority: Context Efficiency & Token Amplification
+
+**Priority: HIGH — requested 2026-09-29.** Canonical specification:
+[context-efficiency-token-amplification.md](context-efficiency-token-amplification.md) (IMP-0018).
+
+Measure cumulative context growth across long-running and multi-agent workflows,
+including repeated history, tool-output retention, worker fan-out, retries,
+reviews, cache behavior, and checkpoint/resume. Establish deterministic baselines
+first. Promote only context-retrieval, deduplication, compaction, caching, or
+worker-scoping changes that reduce total tokens/cost/latency while preserving
+noninferior validation and provenance. Existing EVR-0013 / DEC-0018 results
+(~68% lower token use and latency for focused delegate attachments at equal
+accuracy) make this a high-value area for immediate testing.
