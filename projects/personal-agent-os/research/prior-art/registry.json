@@ -2869,6 +2869,353 @@
         "simplify misses dead code that this tool finds"
       ],
       "revisit_by": null
+    },
+    {
+      "id": "PA-skypilot",
+      "name": "SkyPilot",
+      "repository": "https://github.com/skypilot-org/skypilot",
+      "organization": "skypilot-org",
+      "description": "The AI Compute Platform: runs AI workloads across clouds and GPU providers, with a cost optimizer, managed jobs and auto-stop.",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "open source; no code copied (ideas and API shapes only)",
+      "evaluated_revision": "release v0.14.0rc1",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 10665,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "v0.14.0rc1",
+        "released_at": "2026-09-22",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "cloud GPU broker",
+        "multi-cloud provisioning",
+        "GPU price catalog",
+        "cost optimizer",
+        "spot/preemption recovery",
+        "auto-stop"
+      ],
+      "agent_os_overlap": "quote.py prices options from explicit inputs; no provisioning or live GPU catalog yet (IMP-0015 Phase 2).",
+      "useful_parts": {
+        "algorithms": [
+          "cheapest feasible cloud/region/accelerator selection",
+          "managed-job preemption recovery",
+          "idle auto-stop"
+        ],
+        "data": [
+          "per-cloud accelerator price catalogs"
+        ]
+      },
+      "integration": "none now; borrow catalog shape and optimizer/auto-stop semantics for the RunPod adapter; spike SkyPilot as an optional provisioning backend before Phase 2 lifecycle work",
+      "risks": {
+        "dependency_weight": "heavy (many cloud SDKs, its own state/API server)",
+        "provider_lock_in": "low; multi-cloud by design",
+        "maintenance": "very active"
+      },
+      "evidence": {
+        "development_savings": "large if adopted for provisioning; small now",
+        "runtime_savings": "its optimizer targets the same API-vs-GPU choice",
+        "quality": "not assessed (no spike yet)",
+        "reliability": "not assessed (no spike yet)",
+        "security": "credentials live in its own config; would need secret_refs bridging",
+        "complexity": "high as a dependency",
+        "maintenance": "not assessed (no spike yet)",
+        "portability": "not assessed (no spike yet)"
+      },
+      "decision": "BORROW",
+      "rationale": "The closest prior art for the Compute Broker: price catalogs, cheapest-feasible placement, auto-stop and preemption recovery. Too heavy to embed in the stdlib runtime for the read-only quote slice. Borrow its catalog and optimizer semantics now, and spike it as an optional provisioning backend (WRAP candidate) before implementing pod lifecycle in-house.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/skypilot-org/skypilot (2026-09-29)",
+        "documented project scope; no code spike yet"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0015"
+        }
+      ],
+      "revisit_when": [
+        "Phase 2 pod lifecycle design",
+        "RunPod support changes in SkyPilot"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-vllm",
+      "name": "vLLM",
+      "repository": "https://github.com/vllm-project/vllm",
+      "organization": "vllm-project",
+      "description": "A high-throughput and memory-efficient inference and serving engine for LLMs.",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "open source; no code copied (ideas and API shapes only)",
+      "evaluated_revision": "release v0.30.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 92943,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "v0.30.0",
+        "released_at": "2026-09-22",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "LLM serving",
+        "OpenAI-compatible server",
+        "quantization",
+        "LoRA adapter serving",
+        "high-throughput batching"
+      ],
+      "agent_os_overlap": "adapters/http_api.OpenAiCompatibleAdapter already targets OpenAI-compatible servers by base_url; orchestrate model-add registers them.",
+      "useful_parts": {
+        "interfaces": [
+          "OpenAI-compatible /v1/chat/completions server",
+          "multi-LoRA serving"
+        ]
+      },
+      "integration": "external process only: the recommended serving engine for self-hosted or abliterated weights on a pod or local GPU; Agent OS talks to it over HTTP with no Python dependency",
+      "risks": {
+        "dependency_weight": "none for Agent OS (separate process/container)",
+        "provider_lock_in": "none",
+        "maintenance": "very active"
+      },
+      "evidence": {
+        "development_savings": "large: no custom serving",
+        "runtime_savings": "throughput per GPU-hour feeds quote.py inputs",
+        "quality": "not assessed (no spike yet)",
+        "reliability": "not assessed (no spike yet)",
+        "security": "not assessed (no spike yet)",
+        "complexity": "none in-repo",
+        "maintenance": "not assessed (no spike yet)",
+        "portability": "not assessed (no spike yet)"
+      },
+      "decision": "WRAP",
+      "rationale": "The default serving engine to recommend for open-weight and abliterated models: an OpenAI-compatible server the existing adapter already speaks. Wrap it as an external process (local or on a RunPod pod) rather than importing it.",
+      "confidence": "high",
+      "provenance": [
+        "GitHub REST api.github.com/repos/vllm-project/vllm (2026-09-29)",
+        "documented project scope; no code spike yet"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0015"
+        }
+      ],
+      "revisit_when": [
+        "new major release",
+        "pod serving template design"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-hf-hub",
+      "name": "huggingface_hub",
+      "repository": "https://github.com/huggingface/huggingface_hub",
+      "organization": "huggingface",
+      "description": "The official CLI and Python client for the Hugging Face Hub.",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "open source; no code copied (ideas and API shapes only)",
+      "evaluated_revision": "release v2.0.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 3943,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "v2.0.0",
+        "released_at": "2026-09-24",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "model catalog",
+        "model card metadata",
+        "licenses",
+        "revisions",
+        "downloads"
+      ],
+      "agent_os_overlap": "orchestrate models discovers tier models for the coding CLIs; there is no open-weight catalog with license/revision/hardware metadata yet (Research Radar, roadmap Phase 3).",
+      "useful_parts": {
+        "interfaces": [
+          "Hub REST model listing and model-info endpoints (tags, license, pipeline, revision sha, parameter counts)"
+        ]
+      },
+      "integration": "borrow the Hub REST API shape through a small stdlib client for the Research Radar; no dependency",
+      "risks": {
+        "dependency_weight": "moderate",
+        "provider_lock_in": "Hub-specific metadata",
+        "maintenance": "very active"
+      },
+      "evidence": {
+        "development_savings": "medium: metadata normalization is the work",
+        "runtime_savings": "not assessed (no spike yet)",
+        "quality": "license/revision/parameter data needed by the capability registry",
+        "reliability": "not assessed (no spike yet)",
+        "security": "not assessed (no spike yet)",
+        "complexity": "not assessed (no spike yet)",
+        "maintenance": "not assessed (no spike yet)",
+        "portability": "not assessed (no spike yet)"
+      },
+      "decision": "BORROW",
+      "rationale": "The Research Radar needs provenance, license, revision and size for open-weight candidates (roadmap acceptance 11). The Hub API provides them; a stdlib client keeps the runtime dependency-free.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/huggingface/huggingface_hub (2026-09-29)",
+        "documented project scope; no code spike yet"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0015"
+        }
+      ],
+      "revisit_when": [
+        "Research Radar implementation"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-runpod-python",
+      "name": "runpod-python",
+      "repository": "https://github.com/runpod/runpod-python",
+      "organization": "runpod",
+      "description": "Python library for Runpod API and serverless worker SDK.",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "open source; no code copied (ideas and API shapes only)",
+      "evaluated_revision": "release v1.12.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 312,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "v1.12.0",
+        "released_at": "2026-08-10",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "RunPod API",
+        "pod lifecycle",
+        "serverless endpoints",
+        "GPU types and pricing"
+      ],
+      "agent_os_overlap": "none; RunPod is the first compute adapter in the roadmap.",
+      "useful_parts": {
+        "interfaces": [
+          "GPU type and price listing",
+          "pod create/stop/terminate",
+          "serverless endpoint invocation"
+        ]
+      },
+      "integration": "borrow API shapes into a minimal stdlib client behind secrets://runpod/default; read-only inventory and pricing first",
+      "risks": {
+        "dependency_weight": "moderate (async HTTP stack)",
+        "provider_lock_in": "RunPod-specific by design, kept behind the compute interface",
+        "maintenance": "active"
+      },
+      "evidence": {
+        "development_savings": "medium",
+        "runtime_savings": "not assessed (no spike yet)",
+        "quality": "not assessed (no spike yet)",
+        "reliability": "not assessed (no spike yet)",
+        "security": "key via secret_refs only",
+        "complexity": "small client needed for read-only inventory",
+        "maintenance": "not assessed (no spike yet)",
+        "portability": "not assessed (no spike yet)"
+      },
+      "decision": "BORROW",
+      "rationale": "Reference for the RunPod adapter endpoints and payloads. A small stdlib client matches DEC-0009 (no heavy provider SDKs) and keeps RunPod behind the provider-neutral compute interface.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/runpod/runpod-python (2026-09-29)",
+        "documented project scope; no code spike yet"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0015"
+        }
+      ],
+      "revisit_when": [
+        "RunPod adapter implementation",
+        "RunPod API version change"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-dstack",
+      "name": "dstack",
+      "repository": "https://github.com/dstackai/dstack",
+      "organization": "dstackai",
+      "description": "A unified orchestration layer for heterogeneous AI compute: training and inference on GPU clouds.",
+      "license": "MPL-2.0",
+      "license_spdx": "MPL-2.0",
+      "license_status": "open source; no code copied (ideas and API shapes only)",
+      "evaluated_revision": "release 0.22.1",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 2263,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "0.22.1",
+        "released_at": "2026-09-17",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "GPU orchestration",
+        "dev environments",
+        "training tasks",
+        "services",
+        "fleets across GPU clouds"
+      ],
+      "agent_os_overlap": "overlaps both the orchestrator (task running) and the planned Compute Broker.",
+      "useful_parts": {
+        "ideas": [
+          "fleet/idle-duration policies",
+          "unified run spec for training and services"
+        ]
+      },
+      "integration": "none; revisit if SkyPilot does not fit",
+      "risks": {
+        "dependency_weight": "heavy (server component)",
+        "license": "MPL-2.0 file-level copyleft",
+        "maintenance": "active"
+      },
+      "evidence": {
+        "development_savings": "unclear; overlaps Agent OS orchestration",
+        "runtime_savings": "not assessed (no spike yet)",
+        "quality": "not assessed (no spike yet)",
+        "reliability": "not assessed (no spike yet)",
+        "security": "not assessed (no spike yet)",
+        "complexity": "high",
+        "maintenance": "not assessed (no spike yet)",
+        "portability": "not assessed (no spike yet)"
+      },
+      "decision": "DEFER",
+      "rationale": "A capable alternative to SkyPilot, but it brings its own server and orchestration model, which overlap Agent OS. Defer unless the SkyPilot spike fails.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/dstackai/dstack (2026-09-29)",
+        "documented project scope; no code spike yet"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0015"
+        }
+      ],
+      "revisit_when": [
+        "SkyPilot spike rejected"
+      ],
+      "revisit_by": null
     }
   ]
 }

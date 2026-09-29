@@ -88,7 +88,7 @@ def lookup(problem: str, registry: dict[str, Any] | None = None, limit: int = 8)
     ranked = []
     for entry in registry.get("entries") or []:
         areas = " ".join(entry.get("capability_areas") or [])
-        text = " ".join([areas, areas, entry.get("name", ""), entry.get("description", ""), entry.get("agent_os_overlap", ""), json.dumps(entry.get("useful_parts") or {}), entry.get("rationale", "")])
+        text = " ".join([areas, areas, entry.get("name") or "", entry.get("description") or "", entry.get("agent_os_overlap") or "", json.dumps(entry.get("useful_parts") or {}), entry.get("rationale") or ""])
         hits = wanted & _terms(text)
         if hits:
             ranked.append((len(hits), entry["id"], {key: entry.get(key) for key in ("id", "name", "decision", "confidence", "capability_areas", "rationale", "evaluated_at")} | {"matched": sorted(hits)}))
