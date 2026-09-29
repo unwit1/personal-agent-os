@@ -1,0 +1,138 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0001",
+  "previous": null,
+  "created_at": "2026-09-29T00:32:22.396463+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "a0fd2cf6",
+    "dirty": true
+  },
+  "phase": "P1 foundations: bootstrap complete; evaluation runner next",
+  "completed": [
+    "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
+    "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
+    "Read-only `orchestrate delegate` + CAP capability evidence with Wilson intervals (DEC-0004)",
+    "Typed evidence-record v1 + validation in `agent-os validate` (DEC-0002)",
+    "Continuation checkpoint + generated next prompt (`orchestrate checkpoint`)",
+    "Eval harness layout, 6 EVS suites, adjudicated development cases, external corpus registry (14 candidates, none imported)",
+    "Meta-improvement research merged and reconciled (implementation-status.json); IMP-0003..0005 captured",
+    "Dogfood: Haiku/Sonnet delegations measured (EVR-0001, EVR-0002); Luna callable but quota-blocked (FAIL-0001)",
+    "Cold-start check: fresh Haiku worker found entrypoint, policy, status, next IMP and worker class (EVR-0003, 5/5)"
+  ],
+  "active_objective": "Make promotion decisions evidence-driven: run incumbent vs candidate over EVS suites and record EVRs (IMP-0003), then let measured capability drive routing (IMP-0004).",
+  "latest_evidence": [
+    {
+      "id": "EVR-0003",
+      "type": "EVR",
+      "title": "Cold-start orientation: a fresh cheap worker finds the entrypoint and next action",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0003.json",
+      "updated_at": "2026-09-29T00:20:00+00:00"
+    },
+    {
+      "id": "DEC-0001",
+      "type": "DEC",
+      "title": "Install Orchestrator OS by extending existing primitives",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0001.json",
+      "updated_at": "2026-09-28T23:55:00+00:00"
+    },
+    {
+      "id": "DEC-0002",
+      "type": "DEC",
+      "title": "One typed evidence-record schema instead of fifteen",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0002.json",
+      "updated_at": "2026-09-28T23:55:00+00:00"
+    },
+    {
+      "id": "DEC-0003",
+      "type": "DEC",
+      "title": "Enforce the control-plane boundary at the validator step",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0003.json",
+      "updated_at": "2026-09-28T23:55:00+00:00"
+    },
+    {
+      "id": "DEC-0004",
+      "type": "DEC",
+      "title": "Read-only delegate primitive rather than a new engine role",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0004.json",
+      "updated_at": "2026-09-28T23:55:00+00:00"
+    },
+    {
+      "id": "EVR-0001",
+      "type": "EVR",
+      "title": "Bootstrap: cheap vs workhorse model on research-implementation classification",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0001.json",
+      "updated_at": "2026-09-28T23:55:00+00:00"
+    },
+    {
+      "id": "EVR-0002",
+      "type": "EVR",
+      "title": "Bootstrap: cheap model on orchestrator runtime feature audit",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0002.json",
+      "updated_at": "2026-09-28T23:55:00+00:00"
+    },
+    {
+      "id": "FAIL-0001",
+      "type": "FAIL",
+      "title": "Provider quota exhaustion blocked cheap-model delegation",
+      "path": "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0001.json",
+      "updated_at": "2026-09-28T23:55:00+00:00"
+    }
+  ],
+  "open_blockers": [
+    "gpt-6-luna measurements need the ChatGPT/Codex usage limit to reset (FAIL-0001, Q-0001)",
+    "Branch orchestrator-os/bootstrap-20260928 is not merged to main (operator decision)"
+  ],
+  "active_experiments": [
+    "HYP-0001: pinned base + deterministic evidence check -> cheap-model classification accuracy >= 0.9"
+  ],
+  "recent_decisions": [
+    "DEC-0001",
+    "DEC-0002",
+    "DEC-0003",
+    "DEC-0004"
+  ],
+  "next_action": {
+    "summary": "Implement IMP-0003: `agent-os orchestrate eval --suite <EVS-id> [--incumbent <ref>] [--candidate <ref>]` that resolves suite runners from the trusted checkout, runs them for both refs in isolated worktrees (test runners) or through `orchestrate delegate` per route (capability-classification cases, scored against development labels at the pinned base), and writes one EVR per suite with separate per-dimension deltas and a noninferiority verdict. First dogfood: EVS-CAPABILITY-CLASSIFICATION across gpt-6-luna, Haiku and Sonnet to answer Q-0001, then record CAPs.",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Bounded design plus implementation that extends delegate.py and benchmark.py patterns; frontier is not needed unless the runner/holdout isolation design hits conflicting constraints.",
+    "context_refs": [
+      "projects/personal-agent-os/improvements/IMP-0003.json",
+      "projects/personal-agent-os/orchestrator-os/evals/README.md",
+      "projects/personal-agent-os/orchestrator-os/evals/suites",
+      "src/agent_os/orchestrator/delegate.py",
+      "src/agent_os/orchestrator/capability.py",
+      "src/agent_os/orchestrator/worktrees.py",
+      "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0001.json",
+      "Q-0001",
+      "HYP-0001"
+    ],
+    "stop_conditions": [
+      "IMP-0003 acceptance criteria pass with unit tests and `agent-os validate`",
+      "one EVR written for EVS-CONTROL-PLANE and one for EVS-CAPABILITY-CLASSIFICATION",
+      "stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "projects/personal-agent-os/improvements/IMP-0003.json",
+    "projects/personal-agent-os/orchestrator-os/evals/README.md",
+    "projects/personal-agent-os/orchestrator-os/evals/suites",
+    "src/agent_os/orchestrator/delegate.py",
+    "src/agent_os/orchestrator/capability.py",
+    "src/agent_os/orchestrator/worktrees.py",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0001.json",
+    "Q-0001",
+    "HYP-0001"
+  ],
+  "stopping_conditions": [
+    "IMP-0003 acceptance criteria pass with unit tests and `agent-os validate`",
+    "one EVR written for EVS-CONTROL-PLANE and one for EVS-CAPABILITY-CLASSIFICATION",
+    "stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Any change under policy/orchestrator-os.policy.json control_plane.protected_paths needs an explicit operator grant in the request",
+    "Merge/push to main only when the operator asks"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0001 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0001.json).\n\nCurrent objective: Make promotion decisions evidence-driven: run incumbent vs candidate over EVS suites and record EVRs (IMP-0003), then let measured capability drive routing (IMP-0004).\n\nNext action: Implement IMP-0003: `agent-os orchestrate eval --suite <EVS-id> [--incumbent <ref>] [--candidate <ref>]` that resolves suite runners from the trusted checkout, runs them for both refs in isolated worktrees (test runners) or through `orchestrate delegate` per route (capability-classification cases, scored against development labels at the pinned base), and writes one EVR per suite with separate per-dimension deltas and a noninferiority verdict. First dogfood: EVS-CAPABILITY-CLASSIFICATION across gpt-6-luna, Haiku and Sonnet to answer Q-0001, then record CAPs.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: IMP-0003 acceptance criteria pass with unit tests and `agent-os validate`; one EVR written for EVS-CONTROL-PLANE and one for EVS-CAPABILITY-CLASSIFICATION; stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
