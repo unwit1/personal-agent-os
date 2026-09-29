@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T07:10:00+00:00",
+  "updated_at": "2026-09-29T07:45:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -178,12 +178,12 @@
     {
       "id": "RT-10",
       "feature": "idempotency keys",
-      "status": "partial",
+      "status": "implemented",
       "evidence": [
         "src/agent_os/orchestrator/worktrees.py:find_integration_commit",
         "src/agent_os/orchestrator/engine.py:_integrate"
       ],
-      "note": "integration merges idempotent via commit-subject key (DEC-0019); other effects not yet keyed",
+      "note": "integration merges keyed by commit subject (DEC-0019); landing write-ahead with idempotent completion (DEC-0020); checkpoint/cleanup reviewed as naturally idempotent/safe",
       "verified_by": "tests/test_orchestrator_state_machine.py"
     },
     {
@@ -210,12 +210,14 @@
     {
       "id": "RT-13",
       "feature": "prepare/commit behavior",
-      "status": "partial",
+      "status": "implemented",
       "evidence": [
         "src/agent_os/orchestrator/worktrees.py:179-185,197-200",
-        "src/agent_os/orchestrator/engine.py:1384-1400"
+        "src/agent_os/orchestrator/engine.py:1384-1400",
+        "src/agent_os/orchestrator/engine.py:decide (write-ahead)",
+        "src/agent_os/orchestrator/engine.py:_recover_landing"
       ],
-      "note": "checkpoint()/merge() exists; integration is structured",
+      "note": "landing: persist intent, act, finish idempotently on resume (DEC-0020)",
       "verified_by": "haiku audit (EVR-0002), spot-checked"
     },
     {
@@ -376,7 +378,7 @@
       "evidence": [
         "tests/test_orchestrator_state_machine.py:crash_after_merge"
       ],
-      "note": "kill-points: restart (in-flight workers) and crash after integration merge; landing/checkpoint kill-points pending",
+      "note": "kill-points: restart, crash after integration merge, crash after landing (DEC-0019, DEC-0020); no OS-process kills",
       "verified_by": "DEC-0019"
     },
     {

@@ -1,0 +1,27 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FAIL-0004",
+  "type": "FAIL",
+  "title": "Crash after landing left the base branch moved but the landing gate open",
+  "status": "resolved",
+  "summary": "Found by the crash_after_land kill-point and landing invariants in tests/test_orchestrator_state_machine.py (3 violations in 40 seeds, seeds 3009/3018/3035): decide() marked the gate approved and _land fast-forwarded main in memory, but the record was saved only afterwards, so after a crash the gate reappeared as open while main had already moved. Fixed in ee378ff8 (DEC-0020).",
+  "signature": "effect_before_persisted_approval",
+  "recurrence": 3,
+  "task_family": "orchestrator_resume",
+  "links": [
+    {
+      "rel": "relates_to",
+      "ref": "src/agent_os/orchestrator/engine.py"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "DEC-0020"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0016 -> ORCH-0017 (landing resume safety)",
+    "author_tier": "frontier (Opus 5.5); evidence deterministic"
+  },
+  "created_at": "2026-09-29T07:45:00+00:00",
+  "updated_at": "2026-09-29T07:45:00+00:00"
+}

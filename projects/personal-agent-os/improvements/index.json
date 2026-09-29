@@ -133,6 +133,17 @@
       "dedupe_key": "2c286d7b5185056a37a3139b98b3efaf0c74afb8d9480db674f8b6dad5556b46",
       "updated_at": "2026-09-29T07:07:41.935654+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0013",
+      "title": "Write-ahead landing so a crash cannot reopen an approved gate after the base branch moved",
+      "category": "bug",
+      "subsystem": "orchestrator/engine",
+      "status": "implemented",
+      "priority": "high",
+      "dedupe_key": "b6c1722af0008d317ddab36ce59921d477982a326ef050ffd88a39f22b1fc883",
+      "updated_at": "2026-09-29T07:43:22.624621+00:00",
+      "github_issue_number": null
     }
   ]
 }

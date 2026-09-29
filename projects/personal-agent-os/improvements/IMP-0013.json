@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0013",
+  "project": "personal-agent-os",
+  "title": "Write-ahead landing so a crash cannot reopen an approved gate after the base branch moved",
+  "category": "bug",
+  "subsystem": "orchestrator/engine",
+  "status": "implemented",
+  "priority": "high",
+  "observation": "A crash_after_land kill-point found runs where main had been fast-forwarded but the reloaded record still showed the consequential_repository_write gate open (3 violations in 40 seeds); a later rejection would contradict an effect that already happened.",
+  "evidence": [
+    "tests/test_orchestrator_state_machine.py",
+    "commit:ee378ff8",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0020.json"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Persist the approval and a landing 'intended' marker before landing; on the next tick, finish an intended landing idempotently.",
+  "acceptance": [
+    "0 landing-invariant violations over >= 80 hunted seeds with landing kill-points",
+    "Regression test for the crash window"
+  ],
+  "risks": [],
+  "dedupe_key": "b6c1722af0008d317ddab36ce59921d477982a326ef050ffd88a39f22b1fc883",
+  "source": {
+    "type": "claude",
+    "reference": "ORCH-0017"
+  },
+  "github": null,
+  "created_at": "2026-09-29T07:43:22.411567+00:00",
+  "updated_at": "2026-09-29T07:43:22.624621+00:00",
+  "notes": null
+}

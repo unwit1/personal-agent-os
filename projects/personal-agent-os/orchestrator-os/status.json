@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T07:10:00+00:00",
-  "phase": "P1 foundations: resume safety hardened for integration; remaining effects next",
-  "active_objective": "Extend crash kill-points to the remaining consequential effects (landing onto the base branch, worktree checkpoints, branch cleanup) and key them idempotently where needed.",
+  "updated_at": "2026-09-29T07:45:00+00:00",
+  "phase": "P1 foundations: consequential effects crash-safe; negative-evidence protection next",
+  "active_objective": "Enforce, not just state, the constitution's approval and evidence rules: make negative evidence append-only and map each policy approval_required_for item to an enforcement point.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -34,38 +34,39 @@
     "ORCH-0013 pushed after gate rerun",
     "MIE-0007 first slice: EVS-SECURITY suite + fixtures; EXP-0007 (DEC-0017, FND-0011, FND-0012)",
     "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)",
-    "IMP-0012: idempotent integration after crash (6b3c9eaf, FAIL-0003, DEC-0019, EVR-0014)"
+    "IMP-0012: idempotent integration after crash (6b3c9eaf, FAIL-0003, DEC-0019, EVR-0014)",
+    "IMP-0013: write-ahead landing after crash (ee378ff8, FAIL-0004, DEC-0020, EVR-0015)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0017",
     "DEC-0018",
-    "DEC-0019"
+    "DEC-0019",
+    "DEC-0020"
   ],
   "approval_conditions": [
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)",
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)"
   ],
   "next_action": {
-    "summary": "Extend resume-safety coverage: add kill-points for the remaining consequential effects -- landing the integration branch onto the base branch (final_integration=merge_to_base after the consequential_repository_write gate is approved), worktree checkpoint commits, and worktree/branch cleanup -- each crashing after the effect and before the run record is saved. Add invariants: the base branch receives the run's integration at most once and only after the gate was approved; checkpoint commits are not duplicated for the same tree; cleanup never deletes a branch whose work is not integrated. Hunt >= 80 seeds; fix any violation with an idempotency key recorded with the effect (as in DEC-0019) plus a regression test.",
-    "prior_art": "idempotency keys durable execution resume duplicate effects",
+    "summary": "MIE-0006 first slice: enforce what the policy only states. (1) Negative evidence is append-only: extend the control-plane check so a candidate diff that deletes or rewrites records under projects/personal-agent-os/orchestrator-os/records/failures/ (and EXP/EVR records whose outcome is rejected or inconclusive) fails unless the operator granted it; corrections must supersede (add fields), never remove. (2) Produce an enforcement map for policy approval_required_for (protected_path_change, spending_limit_change, permission_increase, push_or_merge_to_default_branch, external_publication, deleting_negative_evidence): for each, the code path that enforces it or 'text-only', written into implementation-status.json, with IMP records for the text-only items worth enforcing. Mutation-test the new check (orchestrate mutate) to >= 0.9.",
+    "prior_art": "deterministic authorization policy engine append-only evidence",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Deterministic invariant work on the existing harness.",
+    "why_this_class": "Deterministic policy enforcement with tests and mutation evidence.",
     "context_refs": [
-      "DEC-0019",
-      "FAIL-0003",
-      "tests/test_orchestrator_state_machine.py",
-      "src/agent_os/orchestrator/engine.py",
-      "src/agent_os/orchestrator/worktrees.py"
+      "MIE-0006",
+      "policy/orchestrator-os.policy.json",
+      "src/agent_os/orchestrator/control_plane.py",
+      "tests/test_orchestrator_control_plane.py",
+      "projects/personal-agent-os/research/prior-art/registry.json"
     ],
     "stop_conditions": [
-      "kill-points + invariants committed; hunt evidence recorded; any bug fixed with a regression test",
+      "append-only check + tests committed with mutation score >= 0.9; enforcement map recorded",
       "0 model calls",
-      "stop and report if a fix would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -193,6 +194,12 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "downstream_value": "fixed a duplicate-consequential-effect bug on resume"
+    },
+    "session_ORCH-0017": {
+      "deterministic_operations": "~30 incl. 3 hunts",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "downstream_value": "landing crash-safe; approvals never contradicted by effects"
     }
   },
   "known_baseline": {
@@ -202,5 +209,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0016 pass (resume safety): added a crash_after_merge kill-point and a no-duplicate-effect invariant to the state-machine suite. Hunting found a real engine bug (FAIL-0003): after a crash between the integration merge and saving the run record, a node could be merged twice with different content. Fixed by using the unique integration commit subject as an idempotency key and adopting a landed merge (DEC-0019, IMP-0012); 0 violations in 80 seeds with 23 kill-points afterwards, regression test added, EVR-0014 routing noninferior. 0 model calls."
+  "last_pass_summary": "ORCH-0017 pass (resume safety, landing): added a crash_after_land kill-point and landing invariants (base moves only after an approved gate, only by fast-forward to the integration branch). Found FAIL-0004: after a crash the base branch had moved while the gate reappeared open. Fixed with write-ahead approval + idempotent landing recovery (DEC-0020, IMP-0013); 0 violations in 80 seeds after (32 kill-points, 7 landings, 3 rejections), regression test, EVR-0015 noninferior. Checkpoint/cleanup reviewed as naturally idempotent/safe. A kill-point wrapper leak in the test harness was fixed. 0 model calls."
 }

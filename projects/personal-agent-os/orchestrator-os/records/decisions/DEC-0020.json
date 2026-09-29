@@ -1,0 +1,60 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0020",
+  "type": "DEC",
+  "title": "Write-ahead for landing onto the base branch",
+  "status": "accepted",
+  "summary": "decide() persists the approved consequential_repository_write gate and a final.landing 'intended' marker before calling _land; step() calls _recover_landing, which finishes an intended landing whose outcome was not saved by re-running _land (an expected-value fast-forward, a no-op if already landed), then finishes the run and records landing.recovered. Evidence: before 3 violations in 40 seeds; after 0 in 80 seeds across two ranges (32 kill-points, 7 landings, 3 rejected landings with main unchanged) plus a regression test; EVR-0015 routing noninferior (78/78). Checkpoint commits (commit only when dirty) and cleanup (git branch -d refuses unmerged branches) were reviewed and are naturally idempotent/safe, so no change there.",
+  "metrics": {
+    "before": {
+      "seeds": 40,
+      "violations": 3
+    },
+    "after": [
+      {
+        "seeds": 40,
+        "violations": 0,
+        "kill_points": 15,
+        "landed": 3
+      },
+      {
+        "seeds": 40,
+        "violations": 0,
+        "kill_points": 17,
+        "landed": 4,
+        "rejected_landings": 3
+      }
+    ],
+    "model_calls": 0
+  },
+  "prior_art": {
+    "checked": "PA-dbos, PA-temporal, PA-langgraph (fresh)",
+    "found": "write-ahead intent logging before external effects; idempotent effect completion on replay",
+    "reused": "record-intent-then-act with idempotent completion",
+    "why_custom": "fits the existing run record and git fast-forward semantics; no dependency"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "IMP-0013"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FAIL-0004"
+    },
+    {
+      "rel": "measures",
+      "ref": "EVR-0015"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0019"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0016 -> ORCH-0017 (landing resume safety)",
+    "author_tier": "frontier (Opus 5.5); evidence deterministic"
+  },
+  "created_at": "2026-09-29T07:45:00+00:00",
+  "updated_at": "2026-09-29T07:45:00+00:00"
+}
