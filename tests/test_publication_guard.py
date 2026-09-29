@@ -46,12 +46,10 @@ class PatternTests(unittest.TestCase):
     def test_check_detail(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             clean = Path(tmp) / "clean.log"
-            clean.write_text(command_event("git status") + "
-", encoding="utf-8")
+            clean.write_text(command_event("git status") + "\n", encoding="utf-8")
             self.assertIsNone(control_plane.publication_check([clean])["detail"])
             bad = Path(tmp) / "bad.log"
-            bad.write_text(command_event("git push origin main") + "
-", encoding="utf-8")
+            bad.write_text(command_event("git push origin main") + "\n", encoding="utf-8")
             detail = control_plane.publication_check([bad])["detail"]
             self.assertIn("operator approval", detail)
             self.assertIn("git push origin main", detail)
