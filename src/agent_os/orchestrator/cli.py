@@ -171,6 +171,8 @@ def register(commands: argparse._SubParsersAction) -> None:
     ev.add_argument("--samples", type=int, default=1, help="case suites: calls per base route (+verify variants reuse them)")
     ev.add_argument("--max-calls", type=int, help="refuse the run if it needs more model calls than this")
 
+    actions.add_parser("context-report", help="context-utility: attachment reference rates and always-unreferenced attachments (no model call)")
+
     corp = actions.add_parser("corpus", help="external attack-corpus registry: list, or import a corpus as data into .agent-local (no model call)")
     corp.add_argument("corpus_action", choices=["list", "import"])
     corp.add_argument("corpus_id", nargs="?")
@@ -449,6 +451,11 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         present = bool(http_api.read_key(adapter.env_var, adapter.keyring_user))
         emit({"provider": args.provider, "key_present": present, "source": "env" if os.environ.get(adapter.env_var) else ("keyring" if present else None),
               "note": "run `agent-os orchestrate providers` to see the API worker (role inline)"})
+        return 0
+    if action == "context-report":
+        from . import context_utility
+
+        emit(context_utility.report())
         return 0
     if action == "corpus":
         from . import corpus

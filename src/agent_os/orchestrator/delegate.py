@@ -221,6 +221,11 @@ def delegate(
             outcome["cooldown_until"] = provider_health.record_quota(health_home, choice["provider"], result.detail or "")
         elif result.failure_kind == "unavailable":
             outcome["cooldown_until"] = provider_health.record_unavailable(health_home, choice["provider"], result.detail or "")
+    if outcome.get("attachments") and result.outcome == "completed":
+        from .context_utility import attachment_utility
+
+        answer_text = (result.summary or "") + json.dumps(structured or {})
+        outcome["context_utility"] = attachment_utility(answer_text, outcome["attachments"], cwd)
     (root / "result.json").write_text(json.dumps(structured, indent=1) if structured is not None else "null", encoding="utf-8")
     outcome.update(
         status=status, errors=errors, seconds=seconds, usage=result.usage,

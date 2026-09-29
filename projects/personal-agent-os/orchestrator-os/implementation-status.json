@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-implementation-status/v1",
-  "updated_at": "2026-09-29T08:30:00+00:00",
+  "updated_at": "2026-09-29T08:45:00+00:00",
   "base_commit": "f8f4453f",
   "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
   "bootstrap_deliverables": [
@@ -462,7 +462,7 @@
       "title": "Context utility and retrieval telemetry",
       "status_at_base_f8f4453f": "partial",
       "status_after_bootstrap": "partial",
-      "note": "Benchmark measures candidate vs selected context; no per-item utility telemetry.",
+      "note": "attachment context-utility telemetry + report (DEC-0026); per-token selected-context utility not yet",
       "tracked_as": null
     },
     {

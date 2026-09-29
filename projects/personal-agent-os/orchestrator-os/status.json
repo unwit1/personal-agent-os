@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T08:35:00+00:00",
-  "phase": "P1 foundations broad; security-runtime validation is operator-gated",
-  "active_objective": "Continue hardening measurable, non-adversarial subsystems; the live injection eval awaits an operator run.",
+  "updated_at": "2026-09-29T08:45:00+00:00",
+  "phase": "P1 foundations broad and evidenced; incremental hardening continues",
+  "active_objective": "Continue closing measurable meta-improvement items; consider consolidating the many orchestrate subcommands under one documented surface.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -41,16 +41,17 @@
     "MIE-0004 first slice: orchestrate mining (DEC-0023)",
     "EXP-0008 deferred for safety (FND-0013)",
     "MIE-0019: AgentDojo imported as data, 27 tasks (DEC-0024)",
-    "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)"
+    "EVS-SECURITY fixture generator (local-only); live eval operator-gated (DEC-0025)",
+    "MIE-0009 first slice: context-utility telemetry + report (DEC-0026)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0023",
     "DEC-0024",
-    "DEC-0025"
+    "DEC-0025",
+    "DEC-0026"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
@@ -58,22 +59,20 @@
     "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout"
   ],
   "next_action": {
-    "summary": "Return to non-adversarial hardening with clear measured value. Pick the highest: (a) MIE-0009 context-utility telemetry -- record, per delegated call, how much of the attached/selected context the answer actually used, to find waste (extends delegate + attachments, DEC-0018); or (b) wire qualified CAP evidence into router.select behind the policy floor (IMP-0004) once a task family has >= the policy min_samples with a passing lower bound, else record that none qualifies yet. Prefer (a): it is fully deterministic, needs no model calls beyond optional measurement, and directly serves the cheapest-reliable-route goal. Baseline before changing behavior, add tests, record an EVR/EXP, and keep the full-suite gate before push.",
-    "prior_art": "context utility telemetry token attribution retrieval",
+    "summary": "Consolidation and documentation pass (low-risk, high-legibility). The orchestrator now has many subcommands (delegate, eval, eval-cases, capability, checkpoint, next-prompt, control-check, mutate, simplify, trace, mining, corpus, context-report, prior-art, api-key). Add a concise 'Orchestrator OS commands' reference table to docs/orchestrator-os/ENTRYPOINT.md (name, one-line purpose, whether it spends model calls), verify each is listed by `agent-os orchestrate --help`, and add a test that every registered orchestrate subcommand appears in the doc (so the doc cannot silently drift). No model calls. Then reassess remaining MIE items for genuine marginal value versus stopping; if none clears the bar, record that and set the loop to a lighter cadence.",
+    "prior_art": null,
     "worker_class": "balanced",
-    "effort": "medium",
-    "why_this_class": "Deterministic telemetry/plumbing with tests.",
+    "effort": "low",
+    "why_this_class": "Documentation + a drift-guard test; deterministic.",
     "context_refs": [
-      "MIE-0009",
-      "IMP-0004",
-      "src/agent_os/orchestrator/delegate.py",
-      "src/agent_os/orchestrator/capability.py",
-      "src/agent_os/orchestrator/router.py"
+      "docs/orchestrator-os/ENTRYPOINT.md",
+      "src/agent_os/orchestrator/cli.py",
+      "docs/multi-agent-orchestrator.md"
     ],
     "stop_conditions": [
-      "chosen slice implemented with tests and an evidence record; EVR or EXP written",
-      "<= 6 model calls",
-      "stop and report if a protected path beyond the standing grants must change, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+      "command reference added and a drift-guard test passes",
+      "0 model calls",
+      "if remaining MIE items lack clear marginal value, record that and propose a lighter loop cadence"
     ]
   },
   "meta_economics": {
@@ -234,6 +233,11 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "note": "security-runtime path gated to operator to respect the safety boundary rather than retry flagged generation"
+    },
+    "session_ORCH-0023": {
+      "deterministic_operations": "~20 incl. escaping rework",
+      "model_calls": 0,
+      "measured_cost_usd": 0
     }
   },
   "known_baseline": {
@@ -243,5 +247,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0022 pass: built corpus.derive_injection_fixtures -- reads the imported AgentDojo goals and writes fixtures + an injection_extraction case file entirely under .agent-local (gitignored); payloads never enter Git or a response. `corpus import --write --derive` does both. The live adversarial eval is left operator-invoked (command in DEC-0025) rather than run autonomously, because generating/driving multi-vector attack content collides with the safety classifier (FND-0013); deterministic guards are already covered by test_publication_guard.py and EXP-0007. 0 model calls."
+  "last_pass_summary": "ORCH-0023 pass (MIE-0009 first slice): delegate records an approximate context-utility signal per attachment (referenced by stem/distinctive-token match, utilization, attached-token estimate); orchestrate context-report aggregates and flags always-unreferenced attachments as trim candidates. Deterministic, no model call (DEC-0026). Several fumbles with backspace-escaping in shell heredocs were corrected by rewriting the file with the editor and using a BOUNDARY constant. 0 model calls."
 }
