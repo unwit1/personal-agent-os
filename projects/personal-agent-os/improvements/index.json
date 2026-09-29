@@ -84,10 +84,10 @@
       "title": "Inspect AI WRAP spike: run one EVS suite through an Inspect bridge",
       "category": "architecture",
       "subsystem": "orchestrator/eval",
-      "status": "candidate",
+      "status": "implemented",
       "priority": "medium",
       "dedupe_key": "8f2f6a7294b4af8e920531da2a959eb90bc35c14309d25c317d1bbeeecd1c542",
-      "updated_at": "2026-09-29T03:13:32.077343+00:00",
+      "updated_at": "2026-09-29T04:43:05.126558+00:00",
       "github_issue_number": null
     },
     {

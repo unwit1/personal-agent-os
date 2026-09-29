@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T05:45:00+00:00",
-  "phase": "P1 foundations: control plane mutation-tested; evaluation breadth next",
-  "active_objective": "Decide whether Inspect AI should be wrapped for evaluation breadth (sandboxes, external benchmarks) without surrendering Agent OS evaluator authority (IMP-0008).",
+  "updated_at": "2026-09-29T04:55:00+00:00",
+  "phase": "P1 foundations: evaluation infrastructure decided; simplification engine next",
+  "active_objective": "Start the simplification engine (MIE-0011): a deterministic component view that finds removable or replaceable code and consults the prior-art registry in both directions.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -26,37 +26,38 @@
     "Subsumed retry/breaker + key-optional API workers (36377edc, DEC-0009)",
     "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)",
     "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)",
-    "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)"
+    "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)",
+    "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0010",
     "DEC-0011",
-    "DEC-0012"
+    "DEC-0012",
+    "DEC-0013"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "IMP-0008 Inspect AI WRAP spike: in .agent-local/venv-dev install inspect-ai; write a throwaway bridge that runs EVS-TEST-SELECTION as an Inspect task (dataset = case file, solver = an Agent OS route through a custom ModelAPI or a solver that calls the deterministic import-graph route, scorer = the Agent OS recall/precision rule) and compare its results with `orchestrate eval` on the same cases. Measure: glue lines, installed dependency count and size, fidelity of results, what Inspect adds (sandboxes, eval-set resume, log viewer, inspect_evals ports) and whether suite definitions and promotion stay in Agent OS. Use deterministic routes only (0 model calls). Record EXP + DEC (prior_art note) and set PA-inspect-ai to WRAP or REJECT. Do not add inspect-ai to pyproject unless the DEC says WRAP, and then only as an optional extra.",
-    "prior_art": "provider-neutral agent evaluation sandbox eval sets",
+    "summary": "MIE-0011 simplification engine, first deterministic slice: add `agent-os orchestrate simplify` producing a component view of src/agent_os (per module: lines, importers from the import graph in test_selection.py, test modules that import it, last-changed date and 90-day churn from git, public functions never referenced elsewhere) and candidates: modules with no importers and no tests (dead-code candidates), near-duplicate function bodies (normalized AST hash), and large custom modules whose capability areas match a prior-art entry (replace/borrow candidates), plus runtime dependencies Agent OS no longer uses (removal candidates). Run the prior-art discovery workflow for dead-code/duplication tooling (e.g. vulture, pylint duplicate-code) first and record entries. Write the report to projects/personal-agent-os/orchestrator-os/simplification-report.json, capture the top 3 evidenced candidates as IMP records, delete nothing in this pass.",
+    "prior_art": "dead code detection duplicate code python simplification",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Integration spike with deterministic comparison; no model workers needed.",
+    "why_this_class": "Deterministic static analysis; judgment only in ranking candidates.",
     "context_refs": [
-      "projects/personal-agent-os/improvements/IMP-0008.json",
-      "projects/personal-agent-os/research/prior-art/registry.json",
-      "src/agent_os/orchestrator/eval.py",
-      "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-TEST-SELECTION.json"
+      "MIE-0011",
+      "projects/personal-agent-os/research/prior-art/README.md",
+      "src/agent_os/orchestrator/test_selection.py",
+      "docs/orchestrator-os/CONSTITUTION.md"
     ],
     "stop_conditions": [
-      "EXP + DEC recorded; PA-inspect-ai decision updated with evidence",
-      "0 model calls",
-      "stop and report if inspect-ai cannot install in the isolated venv, a protected path must change, or the retry/repair budget is reached"
+      "simplify command + report committed; top candidates captured as IMP with evidence; prior-art entries for any evaluated tooling",
+      "0 model calls expected",
+      "no code deleted in this pass; stop and report if a protected path must change or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -138,6 +139,12 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "downstream_value": "found and fixed a fail-open control-plane defect"
+    },
+    "session_ORCH-0010": {
+      "deterministic_operations": "~10",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "downstream_value": "avoided a 69-package dependency that adds nothing usable on this machine"
     }
   },
   "known_baseline": {
@@ -147,5 +154,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0009 pass (mutation testing): mutmut refuses native Windows, so a stdlib AST mutator was subsumed (orchestrate mutate). control_plane.py scored 30/36; survivors exposed applies_to() failing open on OSError (guard disabled) plus three test gaps; fixed to fail closed and tests added -> 36/36. Baselines: provider_health 0.759, test_selection 0.741 (IMP-0009, low priority). EXP-0004, DEC-0012; PA-mutmut -> BORROW. 0 model calls."
+  "last_pass_summary": "ORCH-0010 pass (IMP-0008): Inspect AI installed in the isolated dev venv (69 packages). A 33-line bridge ran EVS-TEST-SELECTION through Inspect with exact fidelity (0.375, same as orchestrate eval), so wrapping is cheap; but its distinctive sandboxes/benchmark ports need Docker or WSL, absent here. DEC-0013: DEFER with the wrap pattern kept at projects/personal-agent-os/research/prior-art/spikes/inspect_bridge.py; revisit on the first external benchmark import or when Docker/WSL appears. 0 model calls."
 }

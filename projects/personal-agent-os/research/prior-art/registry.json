@@ -193,18 +193,18 @@
         "security": "runs agent code; use its sandboxes"
       },
       "evidence": {
-        "development_savings": "potentially large for external benchmarks (SWE-bench, GAIA, AgentDojo ports) and sandboxing; small for Agent OS-specific suites, which eval.py already runs",
+        "development_savings": "bridge proven at 33 lines; savings appear only with external benchmarks",
         "runtime_savings": "unknown",
         "quality": "mature eval semantics (scorers, epochs, limits)",
         "reliability": "resumable eval sets verified in docs",
         "security": "sandbox backends reduce risk of running agent code",
-        "complexity": "large dependency tree; needs a bridge ModelAPI",
+        "complexity": "69 added packages (measured)",
         "maintenance": "very active (daily pushes)",
-        "portability": "cross-provider by design"
+        "portability": "sandboxes need Docker/WSL (not installed here)"
       },
-      "decision": "INVESTIGATE",
-      "rationale": "Strongest WRAP candidate for evaluation breadth: verified from the docs to have pluggable sandboxes (Docker, Kubernetes, others via extensions), eval sets that resume interrupted runs and reuse completed samples, retries with backoff, 20+ providers and a custom ModelAPI extension point, and a log viewer; inspect_evals ports many public benchmarks. Blockers: it is API-provider-centric (Agent OS would need a ModelAPI bridging to `orchestrate delegate` or the new API adapter) and it is a heavy dependency, so it belongs in an optional extra behind eval.py, never as the protected evaluator. Spike before deciding.",
-      "confidence": "medium",
+      "decision": "DEFER",
+      "rationale": "Spiked in EXP-0005: a 33-line bridge ran EVS-TEST-SELECTION through Inspect with exact fidelity (0.375 = orchestrate eval), so wrapping is cheap. But its distinctive value (Docker/Kubernetes sandboxes, inspect_evals ports) needs Docker or WSL, absent on this machine, and it adds 69 packages. Deferred with the wrap pattern ready (DEC-0013).",
+      "confidence": "high",
       "provenance": [
         "https://inspect.aisi.org.uk/ (fetched 2026-09-29)",
         "https://inspect.aisi.org.uk/eval-sets.html (fetched 2026-09-29)",
@@ -218,12 +218,20 @@
         {
           "rel": "relates_to",
           "ref": "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json"
+        },
+        {
+          "rel": "evidence_for",
+          "ref": "EXP-0005"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "DEC-0013"
         }
       ],
       "revisit_when": [
-        "spike result recorded",
-        "Agent OS imports an external benchmark (external-corpora.json)",
-        "major release"
+        "first external benchmark import (external-corpora.json)",
+        "Docker or WSL installed",
+        "API-key workers make benchmark-scale runs affordable"
       ],
       "revisit_by": null
     },
