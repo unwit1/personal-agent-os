@@ -199,6 +199,17 @@
       "dedupe_key": null,
       "updated_at": "2026-09-29T20:42:00+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0019",
+      "title": "Test episodic agent rotation and learn the context break-even point",
+      "category": "performance",
+      "subsystem": "orchestrator/episode-scheduler",
+      "status": "ready",
+      "priority": "high",
+      "dedupe_key": null,
+      "updated_at": "2026-09-29T20:55:00+00:00",
+      "github_issue_number": null
     }
   ]
 }
