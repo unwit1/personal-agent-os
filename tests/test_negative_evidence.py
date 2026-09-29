@@ -74,6 +74,28 @@ class NegativeEvidenceTests(unittest.TestCase):
         self.assertTrue(any("EVR-9001" in item for item in found))
         self.assertFalse(any("EVR-9002" in item for item in found))
 
+    def test_type_changes_are_rewrites(self) -> None:
+        self.write(FAIL, [BASE_FAIL])  # whole record replaced by another type
+        self.assertTrue(any("changed type" in item for item in self.problems([FAIL])))
+        self.write(FAIL, {**BASE_FAIL, "links": "none"})
+        self.assertTrue(any("links changed type" in item for item in self.problems([FAIL])))
+
+    def test_unrelated_json_is_ignored(self) -> None:
+        other = "projects/personal-agent-os/orchestrator-os/status.json"
+        self.write(other, {"a": "old"})
+        self.git("add", "-A")
+        self.git("commit", "-q", "-m", "status")
+        self.base = self.git("rev-parse", "HEAD").strip()
+        self.write(other, {"a": "rewritten"})
+        self.assertEqual(self.problems([other]), [])
+
+    def test_check_detail(self) -> None:
+        self.assertIsNone(control_plane.negative_evidence_check(self.repo, self.base, [FAIL])["detail"])
+        (self.repo / FAIL).unlink()
+        detail = control_plane.negative_evidence_check(self.repo, self.base, [FAIL])["detail"]
+        self.assertIn("FAIL-9001.json", detail)
+        self.assertIn("append-only", detail)
+
     def test_recurrence_may_grow(self) -> None:
         self.write(FAIL, {**BASE_FAIL, "recurrence": 3})
         self.assertEqual(self.problems([FAIL]), [])
