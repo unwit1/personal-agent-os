@@ -155,6 +155,17 @@
       "dedupe_key": "8633743876ba3c4678e412424dff7917caba3ab17abdd99097f7cb4cd06dba7e",
       "updated_at": "2026-09-29T08:19:55.526742+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0015",
+      "title": "Provider-neutral Model Infrastructure Manager for text, image, voice and cloud ML",
+      "category": "architecture",
+      "subsystem": "orchestrator/model-infrastructure",
+      "status": "ready",
+      "priority": "high",
+      "dedupe_key": null,
+      "updated_at": "2026-09-29T16:19:15.793144+00:00",
+      "github_issue_number": null
     }
   ]
 }
