@@ -53,8 +53,37 @@ class ParseAndCompareTests(unittest.TestCase):
         self.assertEqual(score["wrong"], [{"id": "B", "expected": "missing", "got": "partial"}])
 
     def test_route_parsing(self) -> None:
-        self.assertEqual(evaluation.parse_route("codex:gpt-6-luna@fast"), {"spec": "codex:gpt-6-luna@fast", "provider": "codex", "model": "gpt-6-luna", "capability_class": "fast"})
+        route = evaluation.parse_route("codex:gpt-6-luna@fast")
+        self.assertEqual((route["spec"], route["provider"], route["model"], route["capability_class"], route["verify"]), ("codex:gpt-6-luna@fast", "codex", "gpt-6-luna", "fast", False))
         self.assertEqual(evaluation.parse_route("claude-code")["model"], None)
+        verified = evaluation.parse_route("codex@fast+verify")
+        self.assertEqual((verified["spec"], verified["base_spec"], verified["verify"]), ("codex@fast+verify", "codex@fast", True))
+
+
+class VerifierTests(unittest.TestCase):
+    BASE = "f8f4453f"  # pre-bootstrap commit: capability.py did not exist yet
+
+    def test_evidence_entries(self) -> None:
+        verifier = evaluation.EvidenceVerifier(evaluation.resolve_commit(self.BASE))
+        self.assertTrue(verifier.entry_ok("src/agent_os/improvements.py:capture_improvement"))
+        self.assertTrue(verifier.entry_ok("src/agent_os/improvements.py"))
+        self.assertTrue(verifier.entry_ok("src/agent_os/orchestrator/"))
+        self.assertTrue(verifier.entry_ok("src/agent_os/improvements.py:10"))
+        self.assertFalse(verifier.entry_ok("src/agent_os/improvements.py:99999"))
+        self.assertFalse(verifier.entry_ok("src/agent_os/improvements.py:no_such_symbol_xyz"))
+        self.assertFalse(verifier.entry_ok("src/agent_os/orchestrator/capability.py:summarize"))
+
+    def test_apply_downgrades_only_unverifiable_claims(self) -> None:
+        verifier = evaluation.EvidenceVerifier(evaluation.resolve_commit(self.BASE))
+        answer = {"items": [
+            {"id": "A", "status": "partial", "evidence": ["src/agent_os/improvements.py:capture_improvement"]},
+            {"id": "B", "status": "partial", "evidence": []},
+            {"id": "C", "status": "implemented", "evidence": ["src/agent_os/improvements.py", "src/agent_os/orchestrator/capability.py"]},
+            {"id": "D", "status": "missing", "evidence": []},
+        ]}
+        result, stats = verifier.apply(answer)
+        self.assertEqual([item["status"] for item in result["items"]], ["partial", "missing", "missing", "missing"])
+        self.assertEqual(stats, {"claims_checked": 3, "downgraded": 2})
 
 
 class CapabilityBasisTests(unittest.TestCase):
@@ -107,6 +136,35 @@ class GovernanceTests(unittest.TestCase):
 
 
 class RunnerTests(unittest.TestCase):
+    def _case_file(self):
+        return json.loads((ROOT / "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json").read_text(encoding="utf-8"))
+
+    def test_variants_share_calls_and_samples_aggregate(self) -> None:
+        case_file = self._case_file()
+        labels = {case["input_ref"]: case["expected_status"] for case in case_file["cases"]}
+        calls = []
+
+        def script(request, call):
+            calls.append(call)
+            # Unverifiable 'partial' claim for every item labeled missing: plain variant is wrong there, +verify fixes it.
+            return {"structured": {"items": [{"id": key, "status": "partial" if value == "missing" else value, "evidence": [] if value == "missing" else ["src/agent_os/improvements.py"]} for key, value in labels.items()]}}
+
+        synthetic.SCRIPTS["eval-test"] = script
+        registry = ProviderRegistry(providers=[{"id": "syn", "adapter": "synthetic", "options": {"script": "eval-test"}, "models": {"fast": "syn-fast"}}])
+        parsed = [evaluation.parse_route("syn"), evaluation.parse_route("syn+verify")]
+        plain, verified = evaluation.run_cases(parsed, case_file, Path(self.tmp.name), floor=0.9, samples=2, registry=registry)
+        self.assertEqual(len(calls), 2)  # 2 samples x 1 base route, shared by both variants
+        missing = sum(1 for value in labels.values() if value == "missing")
+        self.assertEqual(plain["correct"], 2 * (len(labels) - missing))
+        self.assertEqual((verified["correct"], verified["accuracy"], verified["samples"]), (2 * len(labels), 1.0, 2))
+        self.assertEqual(verified["verifier_downgrades"], 2 * missing)
+        toolsets = {item["toolset"] for item in capability.read_observations()}
+        self.assertEqual(toolsets, {"read_only", "read_only+verify"})
+
+    def test_call_budget_is_enforced(self) -> None:
+        with self.assertRaises(evaluation.EvalError):
+            evaluation.run("EVS-CAPABILITY-CLASSIFICATION", routes=["a@fast", "b@fast", "c@fast"], samples=3, max_calls=8, write=False)
+
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
         self.previous = os.environ.get(HOME_ENV)

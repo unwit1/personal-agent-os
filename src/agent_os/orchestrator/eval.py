@@ -92,13 +92,18 @@ def check_holdout(suite: dict[str, Any], cases: list[dict[str, Any]], operator_h
         raise EvalError("suite uses a protected holdout split; only the operator may run it (--operator-holdout)")
 
 
-def parse_route(spec: str) -> dict[str, str | None]:
-    """``provider[:model][@class]`` -> route dict."""
+def parse_route(spec: str) -> dict[str, Any]:
+    """``provider[:model][@class][+verify]`` -> route dict. ``+verify`` adds the
+    deterministic evidence verifier (``EvidenceVerifier``) to the same model
+    output, so a route and its ``+verify`` variant share one call per sample."""
+    verify = spec.endswith("+verify")
+    spec = spec[: -len("+verify")] if verify else spec
     capability_class = None
     if "@" in spec:
         spec, capability_class = spec.rsplit("@", 1)
     provider, _, model = spec.partition(":")
-    return {"spec": f"{provider}{':' + model if model else ''}{'@' + capability_class if capability_class else ''}", "provider": provider or None, "model": model or None, "capability_class": capability_class}
+    base = f"{provider}{':' + model if model else ''}{'@' + capability_class if capability_class else ''}"
+    return {"spec": base + ("+verify" if verify else ""), "base_spec": base, "provider": provider or None, "model": model or None, "capability_class": capability_class, "verify": verify}
 
 
 def _git(args: list[str], cwd: Path | str = ROOT, check: bool = True) -> str:
@@ -202,14 +207,84 @@ def score_cases(result: dict[str, Any] | None, cases: list[dict[str, Any]]) -> d
     return {"cases": len(cases), "correct": len(cases) - len(wrong), "accuracy": round((len(cases) - len(wrong)) / len(cases), 4) if cases else 0.0, "wrong": wrong}
 
 
-def run_cases_for_route(route: dict[str, Any], case_file: dict[str, Any], tree: Path, *, floor: float, timeout: int = 900, registry: Any = None) -> dict[str, Any]:
+_NUMERIC = re.compile(r"^\s*L?\d+(?:\s*[-,]\s*L?\d+)*\s*$")
+_IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+
+
+class EvidenceVerifier:
+    """Deterministic check of cited evidence at a pinned commit (HYP-0001).
+
+    An ``implemented``/``partial`` answer survives only if it cites at least
+    one entry and every entry verifies: the path exists at ``commit``; a
+    ``:symbol`` suffix is a whole-word match of its last identifier in that
+    file (``Class.method`` -> ``method``); a numeric suffix is a line number
+    within the file. Anything else becomes ``missing``. No model call."""
+
+    def __init__(self, commit: str) -> None:
+        self.commit = commit
+        self._cache: dict[str, str | None] = {}
+
+    def _content(self, path: str) -> str | None:
+        path = path.strip().strip("`").replace("\\", "/").lstrip("/")
+        while path.startswith("./"):
+            path = path[2:]
+        path = path.rstrip("/")
+        if not path:
+            return None
+        if path not in self._cache:
+            kind = subprocess.run(["git", "cat-file", "-t", f"{self.commit}:{path}"], cwd=ROOT, capture_output=True, text=True, stdin=subprocess.DEVNULL).stdout.strip()
+            if kind == "blob":
+                self._cache[path] = subprocess.run(["git", "show", f"{self.commit}:{path}"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", stdin=subprocess.DEVNULL).stdout
+            else:
+                self._cache[path] = "" if kind == "tree" else None
+        return self._cache[path]
+
+    def entry_ok(self, entry: Any) -> bool:
+        path, _, symbol = str(entry).partition(":")
+        content = self._content(path)
+        if content is None:
+            return False
+        symbol = symbol.strip()
+        if not symbol:
+            return True
+        if _NUMERIC.match(symbol):
+            lines = content.count("\n") + 1
+            return all(int(number) <= lines for number in re.findall(r"\d+", symbol))
+        names = _IDENT.findall(symbol)
+        return bool(names) and re.search(rf"\b{re.escape(names[-1])}\b", content) is not None
+
+    def apply(self, result: dict[str, Any] | None) -> tuple[dict[str, Any] | None, dict[str, int]]:
+        stats = {"claims_checked": 0, "downgraded": 0}
+        if not isinstance(result, dict):
+            return result, stats
+        items = []
+        for item in result.get("items") or []:
+            if isinstance(item, dict) and item.get("status") in {"implemented", "partial"}:
+                stats["claims_checked"] += 1
+                evidence = item.get("evidence") or []
+                if not evidence or not all(self.entry_ok(entry) for entry in evidence):
+                    stats["downgraded"] += 1
+                    item = {**item, "status": "missing", "verifier": "downgraded: unverifiable evidence"}
+            items.append(item)
+        return {**result, "items": items}, stats
+
+
+def call_route(route: dict[str, Any], case_file: dict[str, Any], tree: Path, *, timeout: int = 900, registry: Any = None) -> dict[str, Any]:
+    """One model call for a base route (no verifier, no scoring)."""
     builder = PROMPT_BUILDERS.get(case_file["task_family"])
     if builder is None:
         raise EvalError(f"no prompt builder for task family {case_file['task_family']}")
     prompt, contract = builder(case_file)
-    outcome = delegate(prompt, task_family=case_file["task_family"], capability_class=route.get("capability_class") or "fast", effort="low", contract=contract, provider=route.get("provider"), model=route.get("model"), cwd=tree, timeout_seconds=timeout, record=False, registry=registry)
+    return delegate(prompt, task_family=case_file["task_family"], capability_class=route.get("capability_class") or "fast", effort="low", contract=contract, provider=route.get("provider"), model=route.get("model"), cwd=tree, timeout_seconds=timeout, record=False, registry=registry)
+
+
+def score_sample(route: dict[str, Any], outcome: dict[str, Any], case_file: dict[str, Any], *, floor: float, verifier: EvidenceVerifier | None = None) -> dict[str, Any]:
+    """Score one call for one route variant and record its capability observation."""
     usage = outcome.get("usage") or {}
-    score = score_cases(outcome.get("result"), case_file["cases"]) if outcome["status"] == "passed" else {"cases": len(case_file["cases"]), "correct": 0, "accuracy": None, "wrong": []}
+    answer, stats = outcome.get("result"), {"claims_checked": 0, "downgraded": 0}
+    if route.get("verify") and outcome["status"] == "passed":
+        answer, stats = (verifier or EvidenceVerifier(resolve_commit(case_file["base_commit"]))).apply(answer)
+    score = score_cases(answer, case_file["cases"]) if outcome["status"] == "passed" else {"cases": len(case_file["cases"]), "correct": 0, "accuracy": None, "wrong": []}
     selection = outcome.get("selection") or {}
     failure = None if outcome["status"] == "passed" else (outcome.get("errors") or ["unknown"])[0][:160]
     # FND-0001: the observation passes only when accuracy clears the floor, not
@@ -217,18 +292,76 @@ def run_cases_for_route(route: dict[str, Any], case_file: dict[str, Any], tree: 
     capability.record_observation({
         "call_id": outcome["id"], "task_family": case_file["task_family"], "role": "analyst", "provider": selection.get("provider"),
         "model": selection.get("model"), "model_resolved": outcome.get("model_resolved"), "capability_class": selection.get("capability_class"),
-        "effort": "low", "toolset": "read_only", "status": outcome["status"],
+        "effort": "low", "toolset": "read_only+verify" if route.get("verify") else "read_only", "status": outcome["status"],
         "validator_passed": bool(score["accuracy"] is not None and score["accuracy"] >= floor), "contract_passed": outcome["status"] == "passed",
-        "accuracy": score["accuracy"], "repairs": 0,
+        "accuracy": score["accuracy"], "items_correct": score["correct"], "items_total": score["cases"], "repairs": 0, "verifier": stats if route.get("verify") else None,
         "failure_type": failure or (None if score["accuracy"] is not None and score["accuracy"] >= floor else f"accuracy_below_floor: {score['accuracy']}"),
         "seconds": outcome.get("seconds"), "input_tokens": usage.get("input_tokens"), "output_tokens": usage.get("output_tokens"),
         "cost_usd": usage.get("cost_usd"), "usage_accuracy": usage.get("accuracy"), "eval_case_file": case_file.get("suite"), "base_commit": case_file.get("base_commit"), "at": utc_now_iso(),
     })
+    return {"status": outcome["status"], "failure": failure, "model_resolved": outcome.get("model_resolved"), "provider": selection.get("provider"),
+            "seconds": outcome.get("seconds"), "input_tokens": usage.get("input_tokens"), "cost_usd": usage.get("cost_usd"), "delegation": outcome["id"], "verifier": stats, **score}
+
+
+def _avg(values: list[Any]) -> float | None:
+    numbers = [float(value) for value in values if isinstance(value, (int, float)) and not isinstance(value, bool)]
+    return round(sum(numbers) / len(numbers), 4) if numbers else None
+
+
+def aggregate(route: dict[str, Any], samples: list[dict[str, Any]]) -> dict[str, Any]:
+    """Route result across samples. ``accuracy`` is the mean per-call accuracy;
+    ``items_wilson95`` pools item judgments (samples repeat the same items, so
+    the interval is optimistic about independence: read it as a bound for this
+    case set, not for the task family)."""
+    scored = [item for item in samples if item["accuracy"] is not None]
+    pooled_correct = sum(item["correct"] for item in scored)
+    pooled_total = sum(item["cases"] for item in scored)
+    low, high = capability.wilson(pooled_correct, pooled_total)
+    wrong_counts: dict[str, int] = {}
+    for item in scored:
+        for miss in item["wrong"]:
+            key = f"{miss['id']}:{miss['got']}"
+            wrong_counts[key] = wrong_counts.get(key, 0) + 1
+    first = samples[0]
     return {
-        "ref": route["spec"], "provider": selection.get("provider"), "model_resolved": outcome.get("model_resolved"), "status": outcome["status"],
-        "failure": failure, "contract_pass": outcome["status"] == "passed", **score, "seconds": outcome.get("seconds"),
-        "input_tokens": usage.get("input_tokens"), "cost_usd": usage.get("cost_usd"), "delegation": outcome["id"],
+        "ref": route["spec"], "provider": first.get("provider"), "model_resolved": first.get("model_resolved"),
+        "status": "passed" if len(scored) == len(samples) else ("partial" if scored else "failed"),
+        "failure": next((item["failure"] for item in samples if item["failure"]), None),
+        "samples": len(samples), "scored_samples": len(scored),
+        "contract_pass": round(len(scored) / len(samples), 4),
+        "accuracy": _avg([item["accuracy"] for item in scored]),
+        "sample_accuracies": [item["accuracy"] for item in samples],
+        "cases": pooled_total, "correct": pooled_correct, "items_wilson95": [low, high], "items_wilson95_low": low,
+        "seconds": _avg([item["seconds"] for item in samples]), "input_tokens": _avg([item["input_tokens"] for item in samples]),
+        "cost_usd": _avg([item["cost_usd"] for item in samples]),
+        "verifier_downgrades": sum(item["verifier"]["downgraded"] for item in samples) if route.get("verify") else None,
+        "wrong": [{"answer": key, "count": count} for key, count in sorted(wrong_counts.items(), key=lambda pair: -pair[1])],
+        "delegations": [item["delegation"] for item in samples],
     }
+
+
+def run_cases_for_route(route: dict[str, Any], case_file: dict[str, Any], tree: Path, *, floor: float, timeout: int = 900, registry: Any = None) -> dict[str, Any]:
+    """Single call, single variant."""
+    outcome = call_route(route, case_file, tree, timeout=timeout, registry=registry)
+    return aggregate(route, [score_sample(route, outcome, case_file, floor=floor)])
+
+
+def run_cases(parsed: list[dict[str, Any]], case_file: dict[str, Any], tree: Path, *, floor: float, samples: int = 1,
+              parallel: bool = True, registry: Any = None, timeout: int = 900) -> list[dict[str, Any]]:
+    """Each distinct base route is called ``samples`` times; every variant
+    (plain / ``+verify``) is scored from the same calls (paired design)."""
+    bases: dict[str, dict[str, Any]] = {}
+    for route in parsed:
+        bases.setdefault(route["base_spec"], route)
+    jobs = [(base, index) for base in bases for index in range(samples)]
+    # Bounded: provider CLIs have their own concurrency and rate limits.
+    with ThreadPoolExecutor(max_workers=min(len(jobs), 4) if parallel else 1) as pool:
+        outcomes = list(pool.map(lambda job: call_route(bases[job[0]], case_file, tree, timeout=timeout, registry=registry), jobs))
+    by_base: dict[str, list[dict[str, Any]]] = {}
+    for (base, _), outcome in zip(jobs, outcomes):
+        by_base.setdefault(base, []).append(outcome)
+    verifier = EvidenceVerifier(resolve_commit(case_file["base_commit"]))
+    return [aggregate(route, [score_sample(route, outcome, case_file, floor=floor, verifier=verifier) for outcome in by_base[route["base_spec"]]]) for route in parsed]
 
 
 # ---------------------------------------------------------------------------
@@ -238,7 +371,7 @@ def run_cases_for_route(route: dict[str, Any], case_file: dict[str, Any], tree: 
 # direction: +1 higher is better, -1 lower is better, 0 informational.
 DIMENSIONS = {
     "tests": {"pass_rate": 1, "failures": -1, "errors": -1, "tests_run": 0, "seconds": -1},
-    "cases": {"accuracy": 1, "contract_pass": 1, "cost_usd": -1, "seconds": -1, "input_tokens": -1},
+    "cases": {"accuracy": 1, "contract_pass": 1, "cost_usd": -1, "seconds": -1, "input_tokens": -1, "items_wilson95_low": 0},
 }
 
 
@@ -340,7 +473,8 @@ def _ref_link(kind: str, result: dict[str, Any]) -> str:
 
 
 def run(suite_id: str, *, incumbent: str | None = None, candidates: list[str] | None = None, routes: list[str] | None = None,
-        operator_holdout: bool = False, write: bool = True, margin: float | None = None, parallel: bool = True) -> dict[str, Any]:
+        operator_holdout: bool = False, write: bool = True, margin: float | None = None, parallel: bool = True, samples: int = 1,
+        max_calls: int | None = None) -> dict[str, Any]:
     suite = load_suite(suite_id)
     runners = [str(item) for item in (suite.get("metrics") or {}).get("runners") or []]
     kinds = {classify_runner(item) for item in runners}
@@ -360,12 +494,15 @@ def run(suite_id: str, *, incumbent: str | None = None, candidates: list[str] | 
             raise EvalError("case suites need at least two routes (--route provider[:model][@class]); the first or --incumbent is the baseline")
         parsed = [parse_route(item) for item in specs]
         incumbent_ref = parse_route(incumbent)["spec"] if incumbent else parsed[0]["spec"]
+        calls = len({route["base_spec"] for route in parsed}) * max(samples, 1) * len(case_files)
+        if max_calls is not None and calls > max_calls:
+            raise EvalError(f"run needs {calls} model calls, over the budget of {max_calls}")
+        notes.append(f"{calls} model calls: {max(samples, 1)} sample(s) per base route; +verify variants reuse the same calls")
         results: list[dict[str, Any]] = []
         for case_file in case_files:
             floor = float(floor_map.get(case_file["task_family"], floor_map.get("classification", floor_map.get("default", 0.9))))
             with Worktree(resolve_commit(case_file["base_commit"])) as tree:
-                with ThreadPoolExecutor(max_workers=len(parsed) if parallel else 1) as pool:
-                    results = list(pool.map(lambda route: run_cases_for_route(route, case_file, tree, floor=floor), parsed))
+                results = run_cases(parsed, case_file, tree, floor=floor, samples=max(samples, 1), parallel=parallel)
         kind = "cases"
     elif "tests" in kinds:
         check_holdout(suite, [], operator_holdout)

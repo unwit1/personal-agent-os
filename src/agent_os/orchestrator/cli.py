@@ -161,6 +161,8 @@ def register(commands: argparse._SubParsersAction) -> None:
     ev.add_argument("--operator-holdout", action="store_true", help="operator only: allow protected holdout splits")
     ev.add_argument("--no-write", action="store_true", help="do not write the EVR record")
     ev.add_argument("--sequential", action="store_true")
+    ev.add_argument("--samples", type=int, default=1, help="case suites: calls per base route (+verify variants reuse them)")
+    ev.add_argument("--max-calls", type=int, help="refuse the run if it needs more model calls than this")
 
     gui = actions.add_parser("gui", help="serve the local control GUI and API")
     gui.add_argument("--host", default="127.0.0.1")
@@ -382,7 +384,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
     if action == "eval":
         from . import eval as evaluation
 
-        record = evaluation.run(args.suite, incumbent=args.incumbent, candidates=args.candidate, routes=args.route, operator_holdout=args.operator_holdout, write=not args.no_write, margin=args.margin, parallel=not args.sequential)
+        record = evaluation.run(args.suite, incumbent=args.incumbent, candidates=args.candidate, routes=args.route, operator_holdout=args.operator_holdout, write=not args.no_write, margin=args.margin, parallel=not args.sequential, samples=args.samples, max_calls=args.max_calls)
         emit(record)
         return 0 if record["outcome"] in {"improved", "noninferior"} else 8
     if action == "gui":
