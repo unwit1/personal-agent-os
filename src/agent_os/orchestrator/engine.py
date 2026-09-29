@@ -339,6 +339,12 @@ class Orchestrator:
             gate["status"] = "approved" if approve else "rejected"
             gate["decided_at"] = now()
             gate["note"] = redact(note or "", 500) or None
+            if approve and gate["kind"] == "consequential_repository_write":
+                # Write-ahead: persist the approval and the intent before the
+                # base branch moves, so a crash after landing cannot leave the
+                # record claiming the gate is still open (IMP-0013).
+                record["final"]["landing"] = {"state": "intended", "gate": gate["id"], "at": now()}
+                self.store.save(record)
             self._apply_decision(record, gate, approve, gate["note"])
             self._derive_state(record)
             self.store.save(record)
@@ -455,6 +461,8 @@ class Orchestrator:
         """One tick. ``dispatch=False`` only collects running workers."""
         with self._lock:
             record = self.store.load(run_id)
+            if self._recover_landing(record):
+                self.store.save(record)
             if record["state"] == "COMPLETE":
                 return self.summary(record)
             if record["control"].get("stop_requested"):
@@ -1583,6 +1591,23 @@ class Orchestrator:
             self._manager(record).remove(integration["path"], None)
         self.store.append_event(record["run_id"], "run.complete", None, record["final"]["summary"]["how_to_land"])
         self.ledger.emit(record["run_id"], "run_completed", integrated=len(merged), branch=integration["branch"])
+
+    def _recover_landing(self, record: dict[str, Any]) -> bool:
+        """Finish a landing whose approval was persisted but whose outcome was
+        not (crash after the base branch moved). _land is an expected-value
+        fast-forward, so running it again is a no-op when it already landed."""
+        landing = (record.get("final") or {}).get("landing") or {}
+        if landing.get("state") != "intended" or (record.get("final") or {}).get("landed"):
+            return False
+        try:
+            self._land(record)
+        except GitError as exc:
+            record["final"]["landed"] = {"ok": False, "reason": redact(exc, 300)}
+        landing["state"] = "recovered"
+        self.store.append_event(record["run_id"], "landing.recovered", None, str((record["final"].get("landed") or {}).get("ok")))
+        self._finish(record)
+        self._derive_state(record)
+        return True
 
     def _land(self, record: dict[str, Any]) -> None:
         """Fast-forward the base branch to the validated integration branch."""

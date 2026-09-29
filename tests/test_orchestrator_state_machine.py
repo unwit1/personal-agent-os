@@ -36,6 +36,13 @@ from agent_os.telemetry import LocalTelemetryStore  # noqa: E402
 
 from test_orchestrator import PASS, provider  # noqa: E402
 
+from agent_os.orchestrator import worktrees as _worktrees  # noqa: E402
+
+# Pristine methods, captured once: kill-point wrappers always restore these,
+# so re-arming can never leave a wrapper installed for later tests.
+PRISTINE_MERGE = _worktrees.WorktreeManager.merge
+PRISTINE_LAND = Orchestrator._land
+
 WORKER_OUTCOMES = ("ok", "ok", "ok", "out_of_scope", "crash", "quota", "no_change")
 REVIEW_OUTCOMES = ("approve", "approve", "reject")
 TERMINAL = {"COMPLETE", "FAILED"}
@@ -48,7 +55,7 @@ class _ProcessDeath(BaseException):
 class Harness:
     """One throwaway repository + engine; operations and invariants."""
 
-    def __init__(self) -> None:
+    def __init__(self, land: bool = False) -> None:
         synthetic.reset()
         self.tmp = Path(tempfile.mkdtemp(prefix="agent-os-sm-"))
         self.repo = self.tmp / "repo"
@@ -68,33 +75,40 @@ class Harness:
         tasks = [{"id": "a", "goal": "work on a", "scope": ["a"], "validators": [PASS]},
                  {"id": "b", "goal": "work on b", "scope": ["b"], "validators": [PASS], "depends_on": ["a"]}]
         self.run_id = self.engine.create_run("state machine", repository=self.repo, tasks=tasks,
-                                             policy={"poll_interval_seconds": 0, "announce_claims": False, "max_launches": 30})["run_id"]
+                                             policy={"poll_interval_seconds": 0, "announce_claims": False, "max_launches": 30,
+                                                     **({"final_integration": "merge_to_base"} if land else {})})["run_id"]
         self.initial_policy = dict(self.engine.load(self.run_id)["policy"])
         self.trace: list[str] = []
         self.crashes = 0
 
     def _arm_merge_crash(self) -> None:
-        from agent_os.orchestrator import worktrees
-
-        original = worktrees.WorktreeManager.merge
         harness = self
 
         def merge_then_die(manager, branch, message):
-            outcome = original(manager, branch, message)
-            worktrees.WorktreeManager.merge = original  # one crash only
+            outcome = PRISTINE_MERGE(manager, branch, message)
+            _worktrees.WorktreeManager.merge = PRISTINE_MERGE  # one crash only
             if outcome.get("merged"):
                 harness.crashes += 1
                 raise _ProcessDeath("killed after merge, before persist")
             return outcome
 
-        worktrees.WorktreeManager.merge = merge_then_die
-        self._restore_merge = original
+        _worktrees.WorktreeManager.merge = merge_then_die
+
+    def _arm_land_crash(self) -> None:
+        harness = self
+
+        def land_then_die(engine, record):
+            PRISTINE_LAND(engine, record)
+            Orchestrator._land = PRISTINE_LAND  # one crash only
+            if (record.get("final") or {}).get("landed", {}).get("ok"):
+                harness.crashes += 1
+                raise _ProcessDeath("killed after landing, before persist")
+
+        Orchestrator._land = land_then_die
 
     def close(self) -> None:
-        if getattr(self, "_restore_merge", None) is not None:
-            from agent_os.orchestrator import worktrees
-
-            worktrees.WorktreeManager.merge = self._restore_merge
+        _worktrees.WorktreeManager.merge = PRISTINE_MERGE
+        Orchestrator._land = PRISTINE_LAND
         synthetic.reset()
         shutil.rmtree(self.tmp, ignore_errors=True)
 
@@ -131,7 +145,9 @@ class Harness:
         kind, _, arg = op.partition(":")
         run = self.run_id
         try:
-            if kind == "worker":
+            if kind == "land":
+                pass  # marker: this sequence runs with final_integration=merge_to_base
+            elif kind == "worker":
                 self.queue.append(arg)
             elif kind == "review":
                 self.reviews.append(arg)
@@ -158,6 +174,8 @@ class Harness:
                 # Crash kill-point: in-flight workers die with the process.
                 synthetic._LIVE.clear()
                 self.engine = self._engine()
+            elif kind == "crash_after_land":
+                self._arm_land_crash()
             elif kind == "crash_after_merge":
                 # Kill-point between a consequential effect (integration merge
                 # commit) and persisting the run record: the next merge lands,
@@ -208,8 +226,22 @@ class Harness:
                 problems.append(f"{node_id}: integrated but missing from integration.merged")
         if record["state"] == "COMPLETE" and not ((record.get("final") or {}).get("validation") or {}).get("passed"):
             problems.append("run COMPLETE without passing completion validation")
-        if self._git("rev-parse", "main").strip() != self.main_head:
-            problems.append("base branch main changed (final_integration=branch must never touch it)")
+        main_now = self._git("rev-parse", "main").strip()
+        if main_now != self.main_head:
+            if record["policy"]["final_integration"] != "merge_to_base":
+                problems.append("base branch main changed (final_integration=branch must never touch it)")
+            else:
+                approved = any(gate["kind"] == "consequential_repository_write" and gate["status"] == "approved" for gate in record["gates"])
+                if not approved:
+                    problems.append("base branch main moved without an approved consequential_repository_write gate")
+                branch = (record.get("integration") or {}).get("branch")
+                on_branch = branch and subprocess.run(["git", "merge-base", "--is-ancestor", main_now, branch], cwd=self.repo).returncode == 0
+                if not on_branch:
+                    problems.append("base branch main moved to a commit that is not on the run's integration branch")
+                if self._git("merge-base", "--is-ancestor", self.main_head, main_now) is None:
+                    pass
+                if subprocess.run(["git", "merge-base", "--is-ancestor", self.main_head, main_now], cwd=self.repo).returncode != 0:
+                    problems.append("base branch main was rewritten (not a fast-forward of the original head)")
         policy = record["policy"]
         for key in ("validation_required_before_integration", "require_independent_review_for_model_edits", "protected_paths_allowed", "final_integration"):
             if policy.get(key) != self.initial_policy.get(key):
@@ -226,8 +258,8 @@ def random_ops(rng: random.Random, count: int) -> list[str]:
     hostile = rng.random() < 0.5
     workers = ("ok", "out_of_scope", "crash", "quota", "unavailable", "no_change") if hostile else WORKER_OUTCOMES
     reviews = ("approve", "reject", "reject") if hostile else REVIEW_OUTCOMES
-    ops = ["start"]
-    menu = ["step"] * 10 + ["worker"] * 3 + ["review"] * (5 if hostile else 2) + ["pause", "resume", "resume", "approve", "approve", "reject", "retry", "restart", "crash_after_merge"]
+    ops = ["land", "start"] if rng.random() < 0.5 else ["start"]
+    menu = ["step"] * 10 + ["worker"] * 3 + ["review"] * (5 if hostile else 2) + ["pause", "resume", "resume", "approve", "approve", "reject", "retry", "restart", "crash_after_merge", "crash_after_land"]
     if rng.random() < 0.3:
         menu.append("stop")
     for _ in range(count):
@@ -242,7 +274,7 @@ def random_ops(rng: random.Random, count: int) -> list[str]:
 
 
 def violations(ops: list[str]) -> list[str]:
-    harness = Harness()
+    harness = Harness(land="land" in ops)
     try:
         for op in ops:
             harness.apply(op)
@@ -332,6 +364,34 @@ class RandomSequenceInvariantTests(unittest.TestCase):
             for node_id, node in record["nodes"].items():
                 if node["integrated"]:
                     self.assertEqual(subjects.count(f"agent-os {harness.run_id}: integrate {node_id}"), 1)
+        finally:
+            harness.close()
+
+    def test_crash_after_landing_is_recovered_not_reopened(self) -> None:
+        """Regression (IMP-0013): approval is persisted before the base branch
+        moves; after a crash the landing is finished idempotently and the gate
+        is never shown as open again."""
+        harness = Harness(land=True)
+        try:
+            harness.apply("start")
+            for _ in range(60):
+                harness.apply("step")
+                record = harness.engine.load(harness.run_id)
+                if any(gate["kind"] == "consequential_repository_write" and gate["status"] == "open" for gate in record["gates"]):
+                    break
+            else:
+                self.fail("run never reached the landing gate")
+            harness.apply("crash_after_land")
+            harness.apply("approve")
+            self.assertEqual(harness.crashes, 1, "the landing kill-point did not fire")
+            for _ in range(3):
+                harness.apply("step")
+            self.assertEqual(harness.check(), [])
+            record = harness.engine.load(harness.run_id)
+            gate = next(gate for gate in record["gates"] if gate["kind"] == "consequential_repository_write")
+            self.assertEqual(gate["status"], "approved")
+            self.assertTrue(record["final"]["landed"]["ok"])
+            self.assertEqual(harness._git("rev-parse", "main").strip(), harness._git("rev-parse", record["integration"]["branch"]).strip())
         finally:
             harness.close()
 
