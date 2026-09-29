@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T20:42:00+00:00",
+  "updated_at": "2026-09-29T20:55:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
-  "active_objective": "Continue the active model-infrastructure work while treating IMP-0018 Context Efficiency & Token Amplification as a parallel high-priority measurement track; implement context reductions only where controlled evaluation shows better total cost/latency with noninferior validation.",
+  "active_objective": "Continue model-infrastructure work while running IMP-0018 context-economy and IMP-0019 episodic-agent-rotation as parallel high-priority, measurement-first optimization tracks.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -64,7 +64,8 @@
   ],
   "blockers": [],
   "active_experiments": [
-    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+    "HYP-0003 (monitoring): affected_tests_first always vs retries",
+    "IMP-0019: episodic agent rotation / context-pressure break-even benchmark (shadow first)"
   ],
   "recent_decisions": [
     "DEC-0039",
@@ -78,12 +79,14 @@
     "IMP-0015: budget approved ($10 project, $10 per-job cap after operator raise; DEC-0041). Operator provided a RunPod key and asked to try the abliterated foreman on a pod (2026-09-29). RunPod account balance was $2.77 at that time, the practical ceiling."
   ],
   "next_action": {
-    "summary": "High-priority parallel track: run IMP-0018 Phase 0 context-economy measurement before or alongside the next implementation slice. Instrument cumulative input/context amplification and benchmark long-session growth, worker fan-out, tool-output retention, checkpoint resume, and task-specific context packets. If controlled results show material savings with noninferior validation, implement the lowest-risk winners and record EXP/EVR/DEC evidence. Continue IMP-0015. Unpaid next slices: (1) SkyPilot spike (PA-skypilot) in an isolated venv under the scratchpad: RunPod pod lifecycle semantics, state kept, credential bridging to secrets://; record EXP + DEC (WRAP vs in-house lifecycle); launch nothing. (2) Gated provisioning interface (compute.provision/status/stop/destroy/reconcile) against a fake provider: preconditions = budget.effective allows the high estimate, a spend reservation is written first (write-ahead, like IMP-0013), mandatory max-runtime auto-stop derived from the cap, reconcile actual vs estimate and release the reservation. (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs.",
+    "summary": "High-priority parallel experiment IMP-0019: after/with IMP-0018 measurement, benchmark continuing a context-heavy worker versus rotating at semantic boundaries to a fresh task-scoped worker. Include bootstrap, handoff, retrieval, rediscovery, retries/reviews and validator outcomes; start with a shadow rotation advisor, not automatic spawning, and identify the diminishing-return/break-even region. High-priority parallel track: run IMP-0018 Phase 0 context-economy measurement before or alongside the next implementation slice. Instrument cumulative input/context amplification and benchmark long-session growth, worker fan-out, tool-output retention, checkpoint resume, and task-specific context packets. If controlled results show material savings with noninferior validation, implement the lowest-risk winners and record EXP/EVR/DEC evidence. Continue IMP-0015. Unpaid next slices: (1) SkyPilot spike (PA-skypilot) in an isolated venv under the scratchpad: RunPod pod lifecycle semantics, state kept, credential bridging to secrets://; record EXP + DEC (WRAP vs in-house lifecycle); launch nothing. (2) Gated provisioning interface (compute.provision/status/stop/destroy/reconcile) against a fake provider: preconditions = budget.effective allows the high estimate, a spend reservation is written first (write-ahead, like IMP-0013), mandatory max-runtime auto-stop derived from the cap, reconcile actual vs estimate and release the reservation. (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs.",
     "prior_art": "shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
     "worker_class": "reasoning",
     "effort": "medium",
     "why_this_class": "cross-cutting contracts and evaluation design; implementation is deterministic stdlib code",
     "context_refs": [
+      "projects/personal-agent-os/improvements/IMP-0019.json",
+      "projects/personal-agent-os/roadmap/episodic-agent-rotation.md",
       "projects/personal-agent-os/improvements/IMP-0018.json",
       "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
       "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
@@ -299,6 +302,7 @@
     ],
     "recommendation": "Pause or slow the loop; resume per-item on an unblock. The repository is self-guiding: `agent-os orchestrate checkpoint --show` and next-prompt.md carry state.",
     "high_priority_operator_requested": [
+      "IMP-0019 Episodic Agent Rotation: benchmark fresh-worker rotation vs continuation, learn break-even/diminishing-return policy, shadow before automation.",
       "IMP-0018 Context Efficiency & Token Amplification: measurement-first benchmarks, then implement only demonstrated improvements."
     ]
   }
