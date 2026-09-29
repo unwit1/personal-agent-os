@@ -64,6 +64,20 @@ class CodexCliAdapter(SubprocessAdapter):
         _, help_text = self._run_quick([executable, "exec", "--help"])
         return {flag: flag in help_text for flag in OPTIONAL_FLAGS}
 
+    def _env(self, request: AgentLaunchRequest, options: dict[str, Any]) -> dict[str, str]:
+        """Worker env; ``secret_env`` maps an env var to a secrets:// reference
+        resolved at launch (never written to the registry or invocation.json)."""
+        env = build_env(self.provider.get("env_allowlist", []), request.env_allowlist, self.env_prefixes)
+        secret_env = options.get("secret_env") or {}
+        if secret_env:
+            from ..secret_refs import resolve
+
+            for name, ref in secret_env.items():
+                value = resolve(str(ref))
+                if value:
+                    env[str(name)] = value
+        return env
+
     def resolve_invocation(self, request: AgentLaunchRequest) -> InvocationPlan:
         status = self.probe()
         if not status.available or not status.executable:
@@ -90,6 +104,10 @@ class CodexCliAdapter(SubprocessAdapter):
             for name in configured_mcp_servers():
                 if not isinstance(keep, list) or name not in keep:
                     argv += ["-c", f"mcp_servers.{name}.enabled=false"]
+        for key, value in sorted((options.get("extra_config") or {}).items()):
+            # e.g. a custom model provider: an OpenAI-compatible endpoint (a
+            # rented vLLM pod) driven through Codex's own coding tools.
+            argv += ["-c", f"{key}={json.dumps(value)}"]
         if request.provider_effort:
             argv += ["-c", f'model_reasoning_effort="{request.provider_effort}"']
         if features.get("--sandbox"):
@@ -113,7 +131,7 @@ class CodexCliAdapter(SubprocessAdapter):
             executable=status.executable,
             argv=argv,
             cwd=request.cwd,
-            env=build_env(self.provider.get("env_allowlist", []), request.env_allowlist, self.env_prefixes),
+            env=self._env(request, options),
             stdin_path=request.prompt_path,
             provider=self.provider["id"],
             model=request.model,

@@ -606,6 +606,55 @@ class EvalScoringTests(unittest.TestCase):
         self.assertEqual(summary["gpu_usd_for_calls"], 0.0004)
 
 
+class GpuAgentTests(unittest.TestCase):
+    """The rented model as a coding agent through a Codex CLI custom provider."""
+
+    STATE = {"id": "FMN-9", "kind": "huggingface", "provider_id": "foreman-coder-7b", "base_url": "https://pod1-8000.proxy.runpod.net",
+             "model": {"repo": "org/coder-7b", "model_type": "qwen2"}}
+
+    def test_pod_enables_tool_calling_for_known_families(self) -> None:
+        model = fd.summarize_info(HF_INFO, HF_CONFIG)
+        args = fd.pod_request(model, {**OFFERS[1], "gpu_count": 1}, "k", None, "n")["dockerStartCmd"]
+        self.assertEqual(args[args.index("--tool-call-parser") + 1], "hermes")
+        unknown = fd.pod_request({**model, "model_type": "exotic"}, {**OFFERS[1], "gpu_count": 1}, "k", None, "n")["dockerStartCmd"]
+        self.assertNotIn("--tool-call-parser", unknown)
+
+    def test_agent_entry_routes_codex_to_the_pod_without_the_key_in_config(self) -> None:
+        entry = fd.agent_entry(self.STATE)
+        self.assertEqual((entry["id"], entry["adapter"], entry["roles"]), ("foreman-coder-7b-agent", "codex_cli", ["implementer", "test_author", "repairer"]))
+        self.assertEqual(entry["options"]["extra_config"]["model_providers.agentosgpu.base_url"], "https://pod1-8000.proxy.runpod.net/v1")
+        self.assertEqual(entry["options"]["extra_config"]["model_providers.agentosgpu.wire_api"], "responses")
+        self.assertEqual(entry["options"]["secret_env"], {fd.GPU_KEY_ENV: fd.ENDPOINT_SECRET})
+        self.assertLess(entry["costs"]["fast"], 1.0)
+        self.assertIsNone(fd.agent_entry({**self.STATE, "model": {"repo": "x/y", "model_type": "exotic"}}))
+        self.assertIsNone(fd.agent_entry({**self.STATE, "kind": "claude"}))
+
+    def test_codex_adapter_passes_extra_config_and_secret_env(self) -> None:
+        from agent_os.orchestrator.adapters.base import AgentLaunchRequest
+        from agent_os.orchestrator.adapters.codex_cli import CodexCliAdapter
+
+        adapter = CodexCliAdapter(fd.agent_entry(self.STATE))
+        with tempfile.TemporaryDirectory() as tmp:
+            request = AgentLaunchRequest(run_id="r", node_id="n", role="implementer", cwd=tmp, prompt_path=str(Path(tmp) / "p.md"), output_dir=tmp,
+                                         capability_class="fast", effort="low", model="org/coder-7b", provider_effort=None, read_only=False, timeout_seconds=60)
+            import agent_os.orchestrator.secret_refs as refs
+
+            saved = refs.resolve
+            refs.resolve = lambda ref: "gpu-secret" if ref == fd.ENDPOINT_SECRET else None
+            try:
+                env = adapter._env(request, adapter.provider["options"])
+                try:
+                    plan = adapter.resolve_invocation(request)
+                except RuntimeError:
+                    plan = None  # codex not installed on this machine
+            finally:
+                refs.resolve = saved
+        self.assertEqual(env[fd.GPU_KEY_ENV], "gpu-secret")
+        if plan is not None:
+            self.assertIn('model_providers.agentosgpu.wire_api="responses"', plan.argv)
+            self.assertNotIn("gpu-secret", " ".join(plan.argv) + plan.display)
+
+
 class UtilizationTests(unittest.TestCase):
     SAMPLE = """# HELP vllm:num_requests_running Number of requests running.
 vllm:num_requests_running{model_name="m"} 3.0

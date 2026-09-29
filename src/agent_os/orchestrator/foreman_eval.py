@@ -135,7 +135,8 @@ def score(case: dict[str, Any], structured: dict[str, Any] | None, record: dict[
 
 def summarize(rows: list[dict[str, Any]], hourly_usd: float | None = None) -> dict[str, Any]:
     n = len(rows) or 1
-    guarded = [row.get("guarded") for row in rows if row.get("guarded")]
+    # after the deterministic strategy; a case the guard left alone keeps its raw result
+    guarded = [row.get("guarded") or row for row in rows]
     seconds = [row["seconds"] for row in rows if row.get("seconds") is not None]
     tokens_in = [row["usage"].get("input_tokens") or 0 for row in rows if row.get("usage")]
     tokens_out = [row["usage"].get("output_tokens") or 0 for row in rows if row.get("usage")]
@@ -144,7 +145,7 @@ def summarize(rows: list[dict[str, Any]], hourly_usd: float | None = None) -> di
     return {
         "cases": len(rows),
         "judgement_accuracy": round(sum(1 for row in rows if row.get("passed")) / n, 3),
-        "guarded_accuracy": round(sum(1 for row in guarded if row.get("passed")) / n, 3) if guarded else None,
+        "guarded_accuracy": round(sum(1 for row in guarded if row.get("passed")) / n, 3) if rows else None,
         "guarded_median_cost_ratio": round(statistics.median([row["cost_ratio"] for row in guarded if row.get("cost_ratio")]), 2) if guarded else None,
         "valid_plans": round(sum(1 for row in rows if row.get("valid")) / n, 3),
         "over_provisioned_tasks": sum(len(row.get("over") or []) for row in rows),
@@ -235,7 +236,9 @@ def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list
         answer = runner(prompt, root / case["id"])
         model_used = model_used or answer.get("model") or (answer.get("usage") or {}).get("model_resolved")
         if strategy is None and model_used:
-            strategy = strategy_for(model_used)
+            from .router import ProviderRegistry
+
+            strategy = strategy_for(model_used, provider=ProviderRegistry().get(str(provider_id)) if provider_id else None)
         if answer.get("failure_kind") in {"invalid_model", "quota", "auth"}:
             # every later case would fail the same way: stop and say why
             rows.append({"case": case["id"], "valid": False, "passed": False, "error": f"{answer['failure_kind']}: {str(answer.get('detail'))[:200]}"})

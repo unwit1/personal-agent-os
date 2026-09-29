@@ -82,6 +82,11 @@ LOAD_TIMEOUT_MINUTES = 45
 DEFAULT_IDLE_MINUTES = 15
 MAX_CONTEXT = 32768
 PRICE_FACTOR = 1.5
+# vLLM tool-call parser per model family: needed for a coding agent (tool use).
+TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qwen3_moe": "hermes", "llama": "llama3_json",
+                "mistral": "mistral", "mixtral": "mistral"}
+AGENT_SUFFIX = "-agent"
+GPU_KEY_ENV = "AGENT_OS_GPU_KEY"
 CRASH_LOG = "agent-os-crash.log"
 # Runs vLLM; if it exits, serves the redacted tail of its log on the same port
 # so the manager can report the real error instead of waiting on a crash loop.
@@ -246,6 +251,9 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
             "--tensor-parallel-size", str(choice["gpu_count"])]
     if model.get("sha"):
         args += ["--revision", model["sha"]]
+    parser = TOOL_PARSERS.get(str(model.get("model_type") or ""))
+    if parser:  # lets a coding CLI drive the model with tools (Responses API)
+        args += ["--enable-auto-tool-choice", "--tool-call-parser", parser]
     env = {"VLLM_API_KEY": endpoint_key}  # env, not argv: vLLM logs its arguments
     if hf_token and (model.get("gated") or model.get("private")):
         env["HF_TOKEN"] = hf_token  # only sent when the repo needs it
@@ -960,6 +968,38 @@ def _register_provider(state: dict[str, Any]) -> None:
     result = add_model_endpoint(entry, write=True, force=True)
     if result.get("error"):
         raise RuntimeError(result["error"])
+    agent = agent_entry(state)
+    if agent:
+        add_model_endpoint(agent, write=True, force=True)
+
+
+def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:
+    """A Codex CLI worker driving the rented model with Codex's own repository
+    tools, through a custom Responses-API provider. Priced far below the
+    subscriptions so fast implementation tasks try the GPU first and escalate
+    on failure. None when the model family has no known tool-call parser."""
+    model = state.get("model") or {}
+    if str(model.get("model_type") or "") not in TOOL_PARSERS or state.get("kind") not in (None, "huggingface"):
+        return None
+    name = "agentosgpu"
+    return {
+        "id": state["provider_id"] + AGENT_SUFFIX,
+        "adapter": "codex_cli",
+        "enabled": True,
+        "models": {"fast": model["repo"], "balanced": model["repo"]},
+        "costs": {"fast": 0.1, "balanced": 0.3},
+        "roles": ["implementer", "test_author", "repairer"],
+        "max_concurrency": 4,
+        "options": {
+            "use_user_config": False,
+            "extra_config": {"model_provider": name, f"model_providers.{name}.name": "Agent OS GPU",
+                             f"model_providers.{name}.base_url": f"{state['base_url']}/v1", f"model_providers.{name}.env_key": GPU_KEY_ENV,
+                             f"model_providers.{name}.wire_api": "responses"},
+            "secret_env": {GPU_KEY_ENV: ENDPOINT_SECRET},
+        },
+        "profile": {"deployment": "gpu_pod", "open_weights": True, "refusal_profile": model.get("refusal_hint") or "unknown"},
+        "session_foreman": state.get("id"),
+    }
 
 
 def _unregister_provider(state: dict[str, Any]) -> None:
@@ -971,7 +1011,8 @@ def _unregister_provider(state: dict[str, Any]) -> None:
         data = json.loads(path.read_text(encoding="utf-8-sig"))
     except (OSError, ValueError):
         return
-    providers = [item for item in data.get("providers") or [] if not (isinstance(item, dict) and item.get("id") == state["provider_id"])]
+    ours = {state["provider_id"], state["provider_id"] + AGENT_SUFFIX}
+    providers = [item for item in data.get("providers") or [] if not (isinstance(item, dict) and item.get("id") in ours)]
     if len(providers) != len(data.get("providers") or []):
         data["providers"] = providers
         write_json(path, data)
