@@ -1,0 +1,25 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0033",
+  "type": "DEC",
+  "title": "Read-only Compute Broker: RunPod GPU inventory feeds no-spend quotes; throughput is an explicit input",
+  "status": "accepted",
+  "summary": "compute.py adds a provider-neutral inventory interface (normalized offers: provider, gpu_id, name, vram_gb, tier, usd_per_hour) with RunPod as the first source (public GraphQL gpuTypes; secure/community tiers; price 0 or tier flag false = not offered). A key is sent only when secrets://runpod/default is configured; results are cached 6 h under the orchestrator home; network/GraphQL failures return an empty inventory with the error instead of raising. gpu_options turns the cheapest offers meeting the workload VRAM floor into quote.py gpu_pod options. Throughput (generation or training tokens/s) must be supplied: the broker never invents it, and without it no GPU option is priced. `orchestrate compute inventory` and `orchestrate quote --gpu-from runpod --gen-tps/--train-tps` expose it. EVR-0017 is the first live no-spend API-vs-RunPod quote (acceptance 3, with assumed throughput and API price). No provisioning code exists; lifecycle (provision/stop/destroy/auto-stop/reconcile) is the next gated slice, to be designed after the SkyPilot spike (PA-skypilot).",
+  "prior_art": {
+    "checked": "PA-runpod-python (BORROW API shapes), PA-skypilot (BORROW catalog/optimizer semantics), PA-dstack (DEFER)",
+    "found": "RunPod exposes GPU types and prices through GraphQL; SkyPilot keeps per-cloud price catalogs",
+    "reused": "the gpuTypes query shape; a stdlib urllib client like adapters/http_api.py",
+    "why_custom": "one read-only query and a normalizer (~100 lines); no SDK dependency (DEC-0009)"
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/compute.py"},
+    {"rel": "tests", "ref": "tests/test_compute_inventory.py"},
+    {"rel": "evidence_for", "ref": "EVR-0017"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "DEC-0032"}
+  ],
+  "metrics": {"model_calls": 0, "paid_compute": 0, "new_tests": 5},
+  "provenance": {"session": "ORCH-0028 -> ORCH-0029", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T21:00:00+00:00",
+  "updated_at": "2026-09-29T21:00:00+00:00"
+}

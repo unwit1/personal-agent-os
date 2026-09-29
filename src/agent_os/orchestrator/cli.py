@@ -173,7 +173,17 @@ def register(commands: argparse._SubParsersAction) -> None:
 
     qte = actions.add_parser("quote", help="no-spend quote: API vs GPU pod vs serverless, low/expected/high, with the budget gate (no model call, no provisioning)")
     qte.add_argument("--workload", required=True, help="JSON file: workload (workload.py)")
-    qte.add_argument("--options", required=True, help="JSON file: list of priced options (kind api|gpu_pod|serverless; see quote.py)")
+    qte.add_argument("--options", help="JSON file: list of priced options (kind api|gpu_pod|serverless; see quote.py)")
+    qte.add_argument("--gpu-from", choices=["runpod"], help="add live GPU offers from this provider's read-only inventory (no spend)")
+    qte.add_argument("--gen-tps", type=float, help="with --gpu-from: generation tokens/s for this model on one GPU (measured; not invented)")
+    qte.add_argument("--train-tps", type=float, help="with --gpu-from: training tokens/s for this job on one GPU")
+    qte.add_argument("--limit", type=int, default=5, help="with --gpu-from: cheapest N qualifying offers")
+
+    cmp_ = actions.add_parser("compute", help="read-only GPU inventory and pricing (RunPod first); never provisions or spends")
+    cmp_.add_argument("action", choices=["inventory"])
+    cmp_.add_argument("--provider", default="runpod")
+    cmp_.add_argument("--refresh", action="store_true", help="ignore the 6 h cache")
+    cmp_.add_argument("--min-vram", type=float, default=0.0)
 
     fsh = actions.add_parser("foreman-shadow", help="shadow foreman: a candidate model proposes a DAG + classes for a run; compare/report are deterministic, propose is one real call")
     fsh.add_argument("action", choices=["propose", "compare", "report"])
@@ -514,9 +524,32 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from .workload import normalize_workload, to_requirements
 
         workload = normalize_workload(json.loads(Path(args.workload).read_text(encoding="utf-8")))
-        result = quote_lib.quote(workload, json.loads(Path(args.options).read_text(encoding="utf-8")))
+        options = json.loads(Path(args.options).read_text(encoding="utf-8")) if args.options else []
+        notes = []
+        if args.gpu_from:
+            from . import compute
+
+            stock = compute.inventory(args.gpu_from)
+            gpu = compute.gpu_options(stock.get("offers") or [], workload, gen_tokens_per_second=args.gen_tps, train_tokens_per_second=args.train_tps, limit=args.limit)
+            options += gpu
+            if stock.get("error"):
+                notes.append(f"{args.gpu_from} inventory unavailable: {stock['error']}")
+            elif not gpu:
+                notes.append("no GPU options priced: pass --gen-tps/--train-tps (throughput is never invented) or lower resources.vram_gb")
+        if not options:
+            emit({"error": "no options to quote", "notes": notes})
+            return 2
+        result = quote_lib.quote(workload, options)
+        result["notes"] = notes
         result["routing_requirements"] = to_requirements(workload)
         emit(result)
+        return 0
+    if action == "compute":
+        from . import compute
+
+        stock = compute.inventory(args.provider, refresh=args.refresh)
+        stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
+        emit(stock)
         return 0
     if action == "refusals":
         from pathlib import Path as _Path

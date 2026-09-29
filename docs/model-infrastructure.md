@@ -171,6 +171,21 @@ and expected retries, plus the API-vs-GPU saving. Each option carries a
 `project_usd`). Otherwise the gate says `requires_approval` and why. A quote
 never provisions or spends anything.
 
+Live GPU prices come from the read-only Compute Broker:
+
+```powershell
+agent-os orchestrate compute inventory --min-vram 80          # RunPod gpuTypes, secure + community tiers
+agent-os orchestrate quote --workload job.json --options api.json --gpu-from runpod --gen-tps 1500
+```
+
+A RunPod key is optional (`secrets://runpod/default`) and sent only when
+configured. Throughput must be given, measured for the model and serving
+engine (e.g. a vLLM benchmark); the broker never invents it. EVR-0017 is the
+first live example: a private batch of 20k items came out at about $5 on an
+A100 community pod versus about $379 at an example API price, under
+explicitly assumed throughput. It is blocked by the budget gate until
+approved.
+
 Artifact manifests (`artifacts.py`) record models, adapters, checkpoints and
 outputs by URI, sha256, base model and revision, and a training-config
 digest. `verify` checks a local checkpoint before resume, and
