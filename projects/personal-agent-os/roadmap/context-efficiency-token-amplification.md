@@ -349,3 +349,14 @@ validated success, reject or defer it rather than adding complexity.
 
 Keep the work resumable and leave a checkpoint/status update after a material
 slice.
+
+
+## Related high-priority experiment: episodic agent rotation
+
+See [episodic-agent-rotation.md](episodic-agent-rotation.md) (IMP-0019). That
+track tests whether Orchestrator should terminate context-heavy workers at
+semantic boundaries and start fresh task-scoped workers with structured
+handoffs and targeted retrieval. It must measure bootstrap, handoff,
+rediscovery, retry, and coordination costs as well as tokens avoided, and must
+identify the diminishing-return/break-even region before automatic rotation is
+promoted.
