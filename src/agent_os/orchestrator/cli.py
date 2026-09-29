@@ -165,11 +165,18 @@ def register(commands: argparse._SubParsersAction) -> None:
     madd.add_argument("--secret-ref", help="secrets://<provider>/<profile> holding the endpoint's API key, if it needs one")
     madd.add_argument("--cost", type=float, default=0.25, help="relative cost per call vs the registry's other providers (default 0.25)")
     madd.add_argument("--max-concurrency", type=int, default=2)
+    madd.add_argument("--roles", default="inline", help="comma list; add analyst so orchestrate eval / eval-queue can score it (prompts stay self-contained)")
     madd.add_argument("--write", action="store_true")
     madd.add_argument("--force", action="store_true", help="replace an existing entry with the same id")
     madd.add_argument("--path", help="registry file (default: the machine-local registry)")
 
     actions.add_parser("refusals", help="refusal/non-answer telemetry by provider/model/refusal profile (no model call)")
+
+    evq = actions.add_parser("eval-queue", help="evaluate queued catalog models once served: plan is deterministic; run calls orchestrate eval (real calls, bounded)")
+    evq.add_argument("action", choices=["plan", "run"])
+    evq.add_argument("--model", help="only this catalog model id")
+    evq.add_argument("--incumbent", help="baseline route provider[:model][@class] (default: cheapest other provider for the class)")
+    evq.add_argument("--max-calls", type=int, default=6, help="run: per-suite model-call budget")
 
     rdr = actions.add_parser("radar", help="Model Research Radar: scan the Hugging Face Hub into a local model catalog and queue eval candidates (no model call, no weight downloads)")
     rdr.add_argument("action", choices=["scan", "catalog"])
@@ -522,7 +529,8 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         entry = endpoint_entry(args.id, base_url=args.base_url, model=args.model, classes=[item.strip() for item in args.classes.split(",") if item.strip()],
                                refusal_profile=args.refusal_profile, deployment=args.deployment, open_weights=args.open_weights, license=args.license,
-                               context_window=args.context_window, secret_ref=args.secret_ref, cost=args.cost, max_concurrency=args.max_concurrency)
+                               context_window=args.context_window, secret_ref=args.secret_ref, cost=args.cost, max_concurrency=args.max_concurrency,
+                               roles=[item.strip() for item in args.roles.split(",") if item.strip()])
         result = service.add_model_endpoint(entry, write=args.write, path=args.path, force=args.force)
         emit(result)
         return 1 if result.get("error") else 0
@@ -619,6 +627,14 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         elif result["tokens_per_second"] and not args.gpu:
             result["note"] = "pass --gpu to record this measurement for quotes"
         emit(result)
+        return 0
+    if action == "eval-queue":
+        from . import evalqueue
+
+        if args.action == "plan":
+            emit(evalqueue.plan(args.model, incumbent=args.incumbent))
+        else:
+            emit(evalqueue.run(args.model, incumbent=args.incumbent, max_calls=args.max_calls))
         return 0
     if action == "refusals":
         from pathlib import Path as _Path

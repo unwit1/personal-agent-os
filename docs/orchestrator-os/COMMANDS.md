@@ -47,6 +47,7 @@ checkpoint) are described here and in [ENTRYPOINT.md](ENTRYPOINT.md).
 | `orchestrate refusals` | refusal/non-answer telemetry by provider, model and refusal profile (no model call) |
 | `orchestrate quote` | no-spend quote for a workload: API vs GPU pod vs serverless, low/expected/high, budget gate and routing requirements (no model call, no provisioning) |
 | `orchestrate radar` | Model Research Radar: scan the Hugging Face Hub (text, vision, image, ASR, TTS, ...) into a local catalog with license/revision/size and queue eval candidates (no model call, no weight downloads) |
+| `orchestrate eval-queue` † | evaluate queued catalog models once served: `plan` (deterministic) explains readiness; `run` calls `orchestrate eval` per suggested suite (bounded real calls) and records the outcome with an attribution check |
 | `orchestrate throughput` † | serving-throughput evidence per model x GPU x engine: `measure` benchmarks your own OpenAI-compatible endpoint (real calls), `record`/`show` store and list; quotes use it via `quote --model` |
 | `orchestrate compute` | read-only GPU inventory and pricing (RunPod first; cached 6 h); never provisions or spends |
 | `orchestrate foreman-shadow` † | shadow foreman: a candidate model proposes a DAG + classes for a run (`propose`, one real call); `compare`/`report` score proposals against actual outcomes deterministically |

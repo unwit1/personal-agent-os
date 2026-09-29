@@ -228,6 +228,22 @@ To try a catalog model:
 3. register it with `orchestrate model-add`, passing the catalog's
    `--license` and `--refusal-profile`.
 
+## 10. Evaluate a served catalog model
+
+```powershell
+agent-os orchestrate model-add --id local-x --base-url http://<pod>:8000 --model <catalog model_id> --roles inline,analyst --write
+agent-os orchestrate eval-queue plan --model <catalog model_id>        # readiness, candidate and incumbent routes
+agent-os orchestrate eval-queue run  --model <catalog model_id> --max-calls 6
+```
+
+`run` compares the served model against an established incumbent on each
+suggested suite through `orchestrate eval`. That writes an EVR and records
+CAP evidence, and the queue records `evaluated`, `invalid` or `error`.
+Register the endpoint with the `analyst` role: without it the router would
+answer eval cases with a different provider. The runner refuses such
+candidates and marks any run answered by another provider invalid
+(FND-0014).
+
 ## What stays gated
 
 The model you pick never becomes the authorization boundary. Consequential

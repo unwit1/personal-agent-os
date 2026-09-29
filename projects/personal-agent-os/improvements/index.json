@@ -177,6 +177,17 @@
       "dedupe_key": "29c754df62ca9936cb4716ac93f75ac4c7d758073648df7251be675a4fc62111",
       "updated_at": "2026-09-29T17:02:50.821439+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0017",
+      "title": "Eval harness should fail a route whose provider override is not honoured",
+      "category": "bug",
+      "subsystem": "orchestrator/eval (protected)",
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "e6e7dd0ea43355675ba0e25bc3fb4e61baa0d9fa994ab13820724ec978ed441b",
+      "updated_at": "2026-09-29T18:00:29.872723+00:00",
+      "github_issue_number": null
     }
   ]
 }

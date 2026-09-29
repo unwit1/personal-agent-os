@@ -1,0 +1,25 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0036",
+  "type": "DEC",
+  "title": "Eval-queue runner closes the radar -> served model -> measured evidence loop, with an attribution guard",
+  "status": "accepted",
+  "summary": "evalqueue.py reads the append-only eval queue (radar.py), collapses it to the latest state per (model_id, revision), and plans each queued or errored model: ready only when a registered provider serves exactly that model id, allows the analyst role (model-add --roles inline,analyst), and the model has suggested suites. The default incumbent is the cheapest usable provider for the class excluding the candidate and every provider serving a still-unproven queued model (so one experiment is never the baseline for another); --incumbent overrides. run() calls the protected harness (eval.run: incumbent vs candidate route, samples 1, max_calls per suite, EVR written, CAP observations recorded) and appends evaluated / invalid / error with EVR ids, accuracy and model_resolved. A run whose candidate row was answered by a different provider is invalid (FND-0014). `orchestrate eval-queue plan|run`. The catalog revision is recorded in the queue entry; the protected harness keys CAP evidence by model name, so revision-level CAP keys remain a follow-up.",
+  "prior_art": {
+    "checked": "PA-inspect-ai (DEFER, EXP-0005), existing orchestrate eval harness",
+    "found": "the harness already compares routes and writes EVRs/CAP observations",
+    "reused": "eval.run unchanged (protected); router.select for the default incumbent",
+    "why_custom": "a thin planner/recorder over existing primitives"
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/evalqueue.py"},
+    {"rel": "tests", "ref": "tests/test_evalqueue.py"},
+    {"rel": "relates_to", "ref": "FND-0014"},
+    {"rel": "relates_to", "ref": "DEC-0034"},
+    {"rel": "relates_to", "ref": "IMP-0015"}
+  ],
+  "metrics": {"model_calls": 0, "paid_compute": 0, "new_tests": 4},
+  "provenance": {"session": "ORCH-0031 -> ORCH-0032", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T22:40:00+00:00",
+  "updated_at": "2026-09-29T22:40:00+00:00"
+}

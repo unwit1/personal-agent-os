@@ -159,6 +159,7 @@ def endpoint_entry(
     cost: float = 0.25,
     max_concurrency: int = 2,
     modalities: list[str] | None = None,
+    roles: list[str] | None = None,
 ) -> dict[str, Any]:
     """Registry entry for an OpenAI-compatible endpoint (vLLM, Ollama, LM
     Studio, llama.cpp server, TGI, a RunPod/serverless proxy): the plug-in path
@@ -194,7 +195,7 @@ def endpoint_entry(
         "adapter": "openai_api",
         "enabled": True,
         "models": {item: model for item in classes},
-        "roles": ["inline"],
+        "roles": list(roles or ["inline"]),
         "costs": {item: float(cost) for item in classes},
         "max_concurrency": int(max_concurrency),
         "options": options,
