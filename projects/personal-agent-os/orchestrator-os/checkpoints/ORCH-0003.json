@@ -1,0 +1,135 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0003",
+  "previous": "ORCH-0002",
+  "created_at": "2026-09-29T01:37:30.108636+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "275a2337",
+    "dirty": true
+  },
+  "phase": "P1 foundations: eval runner live; route qualification needs objectively labeled task families",
+  "completed": [
+    "Typed evidence-record v1 + validation in `agent-os validate` (DEC-0002)",
+    "Continuation checkpoint + generated next prompt (`orchestrate checkpoint`)",
+    "Eval harness layout, 6 EVS suites, adjudicated development cases, external corpus registry (14 candidates, none imported)",
+    "Meta-improvement research merged and reconciled (implementation-status.json); IMP-0003..0005 captured",
+    "Dogfood: Haiku/Sonnet delegations measured (EVR-0001, EVR-0002); Luna callable but quota-blocked (FAIL-0001)",
+    "Cold-start check: fresh Haiku worker found entrypoint, policy, status, next IMP and worker class (EVR-0003, 5/5)",
+    "IMP-0003 implemented: `orchestrate eval` (fa15466e); EVR-0004 EVS-CONTROL-PLANE noninferior; EVR-0005 three-route classification (DEC-0005)",
+    "Q-0001 resolved: gpt-6-luna 0.60 vs Sonnet 0.75 vs Haiku 0.65 at pinned base; no route qualifies (floor 0.9); opposite error biases (FND-0004)",
+    "CAP records now distinguish accuracy-scored from contract-only evidence (pass_basis, mean_accuracy)",
+    "EXP-0001 rejected HYP-0001: evidence verifier had no effect; offline replay predicted it before spend (e6d1f35a, EVR-0006, 9 calls, $1.02 measured)",
+    "Run-to-run variance measured: Sonnet 0.55-0.80 on identical calls; all routes 0.67-0.70; voting <= 0.75; only 2/20 items stable (FND-0005, FND-0006)",
+    "orchestrate eval gained +verify variants, --samples (paired), --max-calls budget, pooled item-level intervals, bounded parallelism"
+  ],
+  "active_objective": "Qualify (or rule out) a cheap route on a recurring task family with deterministic ground truth, so measured capability can drive routing (IMP-0004).",
+  "latest_evidence": [
+    {
+      "id": "EVR-0006",
+      "type": "EVR",
+      "title": "EVS-CAPABILITY-CLASSIFICATION: claude-code@balanced vs claude-code@balanced+verify, codex@fast, codex@fast+verify, claud",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0006.json",
+      "updated_at": "2026-09-29T02:40:00+00:00"
+    },
+    {
+      "id": "EXP-0001",
+      "type": "EXP",
+      "title": "Deterministic evidence verifier for cheap-model implementation classification (HYP-0001)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0001.json",
+      "updated_at": "2026-09-29T02:40:00+00:00"
+    },
+    {
+      "id": "FND-0005",
+      "type": "FND",
+      "title": "Single-sample capability numbers are unreliable; this task family is too ambiguous to qualify routes",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0005.json",
+      "updated_at": "2026-09-29T02:40:00+00:00"
+    },
+    {
+      "id": "FND-0006",
+      "type": "FND",
+      "title": "Existence checks cannot catch relevance errors",
+      "path": "projects/personal-agent-os/orchestrator-os/records/findings/FND-0006.json",
+      "updated_at": "2026-09-29T02:40:00+00:00"
+    },
+    {
+      "id": "HYP-0001",
+      "type": "HYP",
+      "title": "Pinned base + per-item evidence check raises cheap-model classification accuracy to >= 0.9",
+      "path": "projects/personal-agent-os/orchestrator-os/records/hypotheses/HYP-0001.json",
+      "updated_at": "2026-09-29T02:40:00+00:00"
+    },
+    {
+      "id": "HYP-0002",
+      "type": "HYP",
+      "title": "A written rubric plus independent double labeling raises agreement enough to measure capability on implementation classi",
+      "path": "projects/personal-agent-os/orchestrator-os/records/hypotheses/HYP-0002.json",
+      "updated_at": "2026-09-29T02:40:00+00:00"
+    },
+    {
+      "id": "Q-0002",
+      "type": "Q",
+      "title": "How should small-sample route qualification be computed for multi-item cases?",
+      "path": "projects/personal-agent-os/orchestrator-os/records/questions/Q-0002.json",
+      "updated_at": "2026-09-29T02:40:00+00:00"
+    },
+    {
+      "id": "DEC-0005",
+      "type": "DEC",
+      "title": "Eval runner design: trusted judge, pinned base, quality verdict separate from cost",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0005.json",
+      "updated_at": "2026-09-29T01:45:00+00:00"
+    }
+  ],
+  "open_blockers": [
+    "Branch orchestrator-os/bootstrap-20260928 is not merged to main (operator decision)"
+  ],
+  "active_experiments": [],
+  "recent_decisions": [
+    "DEC-0003",
+    "DEC-0004",
+    "DEC-0005"
+  ],
+  "next_action": {
+    "summary": "EXP-0002: move route qualification to a recurring task family with deterministic labels. Candidate family: affected_test_selection (given a commit's changed src files, name the test modules that exercise them). Build a deterministic case generator from this repository's git history (>= 30 development cases, labels computed without model calls, label-generation wall clock <= 30 min, e.g. test modules that fail when the commit's src change is reverted in a worktree, or another objective rule you justify in a DEC). Add a deterministic baseline route (import-graph selector) and a prompt builder in eval.py; create EVS-TEST-SELECTION (needs my grant); run eval with 3 samples for the deterministic selector, gpt-6-luna, Haiku and Sonnet (<= 9 model calls). If deterministic matches or beats models, record that (hierarchy rung 1) and stop; if a cheap route qualifies, start IMP-0004.",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Deterministic generator + eval wiring; judgment limited to choosing the labeling rule (record as DEC).",
+    "context_refs": [
+      "FND-0005",
+      "EXP-0001",
+      "Q-0002",
+      "src/agent_os/orchestrator/eval.py",
+      "projects/personal-agent-os/orchestrator-os/evals/README.md",
+      "projects/personal-agent-os/improvements/IMP-0004.json",
+      "policy/orchestrator-os.policy.json"
+    ],
+    "stop_conditions": [
+      "EXP-0002 record written (improved | noninferior | rejected | inconclusive) with linked EVR",
+      "budget: <= 9 model calls, <= 30 min deterministic label generation",
+      "stop and report if the EVS-TEST-SELECTION grant is missing, another protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "FND-0005",
+    "EXP-0001",
+    "Q-0002",
+    "src/agent_os/orchestrator/eval.py",
+    "projects/personal-agent-os/orchestrator-os/evals/README.md",
+    "projects/personal-agent-os/improvements/IMP-0004.json",
+    "policy/orchestrator-os.policy.json"
+  ],
+  "stopping_conditions": [
+    "EXP-0002 record written (improved | noninferior | rejected | inconclusive) with linked EVR",
+    "budget: <= 9 model calls, <= 30 min deterministic label generation",
+    "stop and report if the EVS-TEST-SELECTION grant is missing, another protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Operator grant requested: add src/agent_os/orchestrator/eval.py to control_plane.protected_paths (DEC-0005 known gap)",
+    "Operator grant needed for the next action: create one new suite file projects/personal-agent-os/orchestrator-os/evals/suites/EVS-TEST-SELECTION.json (suites/ is protected)",
+    "Operator decision requested: Q-0002 (may qualification use pooled item-level intervals?)",
+    "Merge/push to main only when the operator asks"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0003 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0003.json).\n\nCurrent objective: Qualify (or rule out) a cheap route on a recurring task family with deterministic ground truth, so measured capability can drive routing (IMP-0004).\n\nNext action: EXP-0002: move route qualification to a recurring task family with deterministic labels. Candidate family: affected_test_selection (given a commit's changed src files, name the test modules that exercise them). Build a deterministic case generator from this repository's git history (>= 30 development cases, labels computed without model calls, label-generation wall clock <= 30 min, e.g. test modules that fail when the commit's src change is reverted in a worktree, or another objective rule you justify in a DEC). Add a deterministic baseline route (import-graph selector) and a prompt builder in eval.py; create EVS-TEST-SELECTION (needs my grant); run eval with 3 samples for the deterministic selector, gpt-6-luna, Haiku and Sonnet (<= 9 model calls). If deterministic matches or beats models, record that (hierarchy rung 1) and stop; if a cheap route qualifies, start IMP-0004.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: EXP-0002 record written (improved | noninferior | rejected | inconclusive) with linked EVR; budget: <= 9 model calls, <= 30 min deterministic label generation; stop and report if the EVS-TEST-SELECTION grant is missing, another protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
