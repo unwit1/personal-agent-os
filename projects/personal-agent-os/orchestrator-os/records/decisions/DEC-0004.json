@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0004",
+  "type": "DEC",
+  "title": "Read-only delegate primitive rather than a new engine role",
+  "status": "accepted",
+  "summary": "Meta-work (inventory, classification, cross-referencing) needs one read-only call with a checkable output, not worktrees/review/integration. `agent-os orchestrate delegate` reuses router.select and the provider adapters, validates an output contract, and records a capability observation. Adding an analyst role to engine.py was rejected as higher-risk for no extra benefit.",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/delegate.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0008"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

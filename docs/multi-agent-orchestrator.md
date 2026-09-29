@@ -520,3 +520,15 @@ orchestration code.
   not semantically.
 - Run records are local. Durable outcomes reach Git through handoffs, not by
   committing run state.
+
+## Orchestrator OS commands
+
+Self-improvement of the Orchestrator follows `docs/orchestrator-os/ENTRYPOINT.md`.
+Commands added for it (no vendor names outside `adapters/`):
+
+| Command | Purpose |
+|---|---|
+| `orchestrate delegate --task-family F --prompt-file P [--contract C]` | one read-only call through the router; output contract checked; capability observation recorded (`delegate.py`) |
+| `orchestrate capability [--write]` | aggregate observations into CAP records keyed by task family x role x provider x resolved model x effort x toolset (`capability.py`) |
+| `orchestrate control-check [paths] [--base main]` | protected control/evaluation-plane check; the same check runs in every node's validator step for runs on this repository (`control_plane.py`; operator grant: run policy `protected_paths_allowed`) |
+| `orchestrate checkpoint [--write|--show]`, `orchestrate next-prompt` | ORCH-NNNN continuation checkpoint and generated next prompt (`continuation.py`) |

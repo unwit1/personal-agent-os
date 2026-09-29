@@ -1,0 +1,45 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-b1842c430d",
+  "type": "CAP",
+  "title": "cold_start_orientation via claude-code/claude-haiku-4-5-20251001 (low)",
+  "status": "active",
+  "key": {
+    "task_family": "cold_start_orientation",
+    "role": "analyst",
+    "provider": "claude-code",
+    "model_resolved": "claude-haiku-4-5-20251001",
+    "effort": "low",
+    "toolset": "read_only"
+  },
+  "metrics": {
+    "sample_count": 1,
+    "final_success": 1,
+    "validator_pass_rate": 1.0,
+    "pass_rate_wilson95": [
+      0.207,
+      1.0
+    ],
+    "qualified_at_floor": null,
+    "repairs": 0,
+    "mean_seconds": 28.55,
+    "mean_input_tokens": 44981.0,
+    "mean_output_tokens": 2074.0,
+    "total_cost_usd": 0.035933,
+    "cost_per_success_usd": 0.035933,
+    "failure_clusters": {},
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-5f7457c61daf"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-28T23:52:50.205702+00:00",
+    "observed_to": "2026-09-28T23:52:50.205702+00:00"
+  },
+  "updated_at": "2026-09-28T23:53:01.581312+00:00"
+}

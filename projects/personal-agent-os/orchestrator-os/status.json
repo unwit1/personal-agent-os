@@ -1,0 +1,80 @@
+{
+  "schema": "personal-agent/orchestrator-os-status/v1",
+  "updated_at": "2026-09-29T00:10:00+00:00",
+  "phase": "P1 foundations: bootstrap complete; evaluation runner next",
+  "active_objective": "Make promotion decisions evidence-driven: run incumbent vs candidate over EVS suites and record EVRs (IMP-0003), then let measured capability drive routing (IMP-0004).",
+  "completed": [
+    "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
+    "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
+    "Read-only `orchestrate delegate` + CAP capability evidence with Wilson intervals (DEC-0004)",
+    "Typed evidence-record v1 + validation in `agent-os validate` (DEC-0002)",
+    "Continuation checkpoint + generated next prompt (`orchestrate checkpoint`)",
+    "Eval harness layout, 6 EVS suites, adjudicated development cases, external corpus registry (14 candidates, none imported)",
+    "Meta-improvement research merged and reconciled (implementation-status.json); IMP-0003..0005 captured",
+    "Dogfood: Haiku/Sonnet delegations measured (EVR-0001, EVR-0002); Luna callable but quota-blocked (FAIL-0001)",
+    "Cold-start check: fresh Haiku worker found entrypoint, policy, status, next IMP and worker class (EVR-0003, 5/5)"
+  ],
+  "blockers": [
+    "gpt-6-luna measurements need the ChatGPT/Codex usage limit to reset (FAIL-0001, Q-0001)",
+    "Branch orchestrator-os/bootstrap-20260928 is not merged to main (operator decision)"
+  ],
+  "active_experiments": [
+    "HYP-0001: pinned base + deterministic evidence check -> cheap-model classification accuracy >= 0.9"
+  ],
+  "recent_decisions": [
+    "DEC-0001",
+    "DEC-0002",
+    "DEC-0003",
+    "DEC-0004"
+  ],
+  "approval_conditions": [
+    "Any change under policy/orchestrator-os.policy.json control_plane.protected_paths needs an explicit operator grant in the request",
+    "Merge/push to main only when the operator asks"
+  ],
+  "next_action": {
+    "summary": "Implement IMP-0003: `agent-os orchestrate eval --suite <EVS-id> [--incumbent <ref>] [--candidate <ref>]` that resolves suite runners from the trusted checkout, runs them for both refs in isolated worktrees (test runners) or through `orchestrate delegate` per route (capability-classification cases, scored against development labels at the pinned base), and writes one EVR per suite with separate per-dimension deltas and a noninferiority verdict. First dogfood: EVS-CAPABILITY-CLASSIFICATION across gpt-6-luna, Haiku and Sonnet to answer Q-0001, then record CAPs.",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Bounded design plus implementation that extends delegate.py and benchmark.py patterns; frontier is not needed unless the runner/holdout isolation design hits conflicting constraints.",
+    "context_refs": [
+      "projects/personal-agent-os/improvements/IMP-0003.json",
+      "projects/personal-agent-os/orchestrator-os/evals/README.md",
+      "projects/personal-agent-os/orchestrator-os/evals/suites",
+      "src/agent_os/orchestrator/delegate.py",
+      "src/agent_os/orchestrator/capability.py",
+      "src/agent_os/orchestrator/worktrees.py",
+      "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0001.json",
+      "Q-0001",
+      "HYP-0001"
+    ],
+    "stop_conditions": [
+      "IMP-0003 acceptance criteria pass with unit tests and `agent-os validate`",
+      "one EVR written for EVS-CONTROL-PLANE and one for EVS-CAPABILITY-CLASSIFICATION",
+      "stop and report if a protected path must change, a provider stays quota-blocked, or the retry/repair budget is reached"
+    ]
+  },
+  "meta_economics": {
+    "bootstrap_ORCH-0001": {
+      "deterministic_operations": "~60 (grep/git/validation/test/generator runs)",
+      "cheap_model_tasks": {
+        "claude-haiku-4-5-20251001": 3,
+        "gpt-6-luna": "2 attempted, quota-blocked"
+      },
+      "workhorse_model_tasks": {
+        "claude-sonnet-5-5": 1
+      },
+      "claude_subagents": "3 launched (haiku x2, sonnet x1); 1 returned a report, 2 stopped by the Claude session limit",
+      "frontier_tasks": "architecture synthesis, code for 5 modules, adjudication of 8 conflicting classifications, spot-check of runtime audit (Opus 5.5 main session)",
+      "measured_delegate_cost_usd": 0.61,
+      "measured_delegate_input_tokens": 1696562,
+      "frontier_session_cost": "not measured by Agent OS (host session)"
+    }
+  },
+  "known_baseline": {
+    "full_suite": "656 tests; 9 failures + 3 errors on main f8f4453f and identically on this branch (environment: unregistered local checkouts, no Claude MCP registration, RTEC local data). Compare against this set; do not chase them in Orchestrator OS work.",
+    "fast_checks": [
+      "python -m unittest tests.test_orchestrator_control_plane",
+      "python agent.py validate"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-0439615756",
+  "type": "CAP",
+  "title": "runtime_feature_audit via codex/gpt-6-luna (low) -- no capability samples",
+  "status": "active",
+  "key": {
+    "task_family": "runtime_feature_audit",
+    "role": "analyst",
+    "provider": "codex",
+    "model_resolved": "gpt-6-luna",
+    "effort": "low",
+    "toolset": "read_only"
+  },
+  "metrics": {
+    "sample_count": 0,
+    "availability_failures": 1
+  },
+  "links": [],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write"
+  },
+  "updated_at": "2026-09-28T23:53:01.581633+00:00"
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0001",
+  "type": "FND",
+  "title": "An output contract proves shape, not correctness",
+  "status": "accepted",
+  "summary": "Every delegated result passed its contract while item-level accuracy was 0.75. Capability evidence must separate contract_pass from accuracy on labeled development cases, and routes for judgment tasks must qualify on accuracy.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EVR-0001"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

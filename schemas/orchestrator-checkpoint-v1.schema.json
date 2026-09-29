@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "personal-agent/orchestrator-checkpoint/v1",
+  "title": "Orchestrator OS continuation checkpoint",
+  "description": "Immutable ORCH-NNNN checkpoint written by `agent-os orchestrate checkpoint --write` (src/agent_os/orchestrator/continuation.py). Distinct from schemas/checkpoint-v1.schema.json, which records workflow-run recovery state.",
+  "type": "object",
+  "required": ["schema", "id", "created_at", "git", "phase", "active_objective", "next_action", "next_prompt"],
+  "properties": {
+    "schema": {"const": "personal-agent/orchestrator-checkpoint/v1"},
+    "id": {"type": "string", "pattern": "^ORCH-[0-9]{4,}$"},
+    "previous": {"type": ["string", "null"]},
+    "created_at": {"type": "string"},
+    "git": {"type": "object", "required": ["branch", "commit"]},
+    "phase": {"type": "string"},
+    "completed": {"type": "array"},
+    "active_objective": {"type": "string"},
+    "latest_evidence": {"type": "array"},
+    "open_blockers": {"type": "array"},
+    "active_experiments": {"type": "array"},
+    "recent_decisions": {"type": "array"},
+    "next_action": {"type": "object", "required": ["summary", "worker_class"]},
+    "context_refs": {"type": "array", "items": {"type": "string"}},
+    "stopping_conditions": {"type": "array"},
+    "approval_conditions": {"type": "array"},
+    "next_prompt": {"type": "string"}
+  }
+}

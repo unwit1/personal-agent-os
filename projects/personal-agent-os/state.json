@@ -2,11 +2,12 @@
   "schema_version": 1,
   "project": "personal-agent-os",
   "status": "supporting",
-  "updated_at": "2026-09-19",
+  "updated_at": "2026-09-28",
   "summary": "Git-backed routing, context compilation, durable memory, skill discovery, and handoff infrastructure for coding agents.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "default_branch": "main",
   "current_priorities": [
+    "Orchestrator OS (self-optimizing development of the Orchestrator): start at docs/orchestrator-os/ENTRYPOINT.md; current state and next action in projects/personal-agent-os/orchestrator-os/status.json; continue from the latest ORCH checkpoint.",
     "P0.0: Make Agent OS the default preflight/context/routing layer for every supported ChatGPT chat, Work project, coding-agent task, and connected agent surface. Supported clients should automatically consult Agent OS; partially supported clients should use the thinnest possible capture/handoff bridge.",
     "P0.1: Implement the Staged Workflow Orchestrator. Break complex jobs into bounded stages, use the cheapest appropriate capability per stage, validate/checkpoint each stage, stop cleanly, and emit the exact next prompt plus recommended capability/model/reasoning effort.",
     "P0.2: Implement selective profile/context retrieval with compact context packets, relevance filtering, deduplication, privacy enforcement, provenance, and measurable context-size diagnostics.",
@@ -25,7 +26,11 @@
     "projects/personal-agent-os/roadmap/master-priority-roadmap.md",
     "projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md",
     "tests/",
-    "projects/personal-agent-os/roadmap/personal-executive.md"
+    "projects/personal-agent-os/roadmap/personal-executive.md",
+    "docs/orchestrator-os/ENTRYPOINT.md",
+    "docs/orchestrator-os/CONSTITUTION.md",
+    "policy/orchestrator-os.policy.json",
+    "projects/personal-agent-os/orchestrator-os/status.json"
   ],
   "context_files": [
     "README.md",
@@ -33,7 +38,8 @@
     "migrations/2026-09-18-initial-inventory.md",
     "projects/personal-agent-os/roadmap/master-priority-roadmap.md",
     "projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md",
-    "projects/personal-agent-os/roadmap/personal-executive.md"
+    "projects/personal-agent-os/roadmap/personal-executive.md",
+    "docs/orchestrator-os/ENTRYPOINT.md"
   ],
   "skill_roots": [
     ".agents/skills",

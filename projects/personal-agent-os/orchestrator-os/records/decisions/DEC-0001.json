@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0001",
+  "type": "DEC",
+  "title": "Install Orchestrator OS by extending existing primitives",
+  "status": "accepted",
+  "summary": "Orchestrator OS is encoded as a constitution, a machine-readable policy, typed evidence records, a control-plane validator, a read-only delegate primitive, capability evidence and a continuation generator, all inside the existing orchestrator package, project state directory and validate command. No new memory database, project registry, telemetry system, orchestrator or research engine was created (research anti-patterns).",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "docs/orchestrator-os/CONSTITUTION.md"
+    },
+    {
+      "rel": "implements",
+      "ref": "policy/orchestrator-os.policy.json"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0001"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

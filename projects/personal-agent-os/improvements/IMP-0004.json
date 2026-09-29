@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0004",
+  "project": "personal-agent-os",
+  "title": "Router consumes CAP evidence and cost per success",
+  "category": "performance",
+  "subsystem": "orchestrator/router",
+  "status": "candidate",
+  "priority": "high",
+  "observation": "Capability records (task family x role x provider x resolved model x effort x toolset, Wilson intervals, cost per success) are written by `orchestrate capability`, but router.select still ranks by static relative cost per tier. Bootstrap evidence (FND-0003) showed the cheapest tier was 2.6x more expensive per success than the workhorse on one task. Tracks MIE-0008.",
+  "evidence": [
+    "projects/personal-agent-os/orchestrator-os/records/findings/FND-0003.json",
+    "MIE-0008"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Give select() an optional task_family; when qualified CAP records exist (Wilson lower bound >= policy floor, >= min samples), prefer the lowest measured cost per success among qualified routes; otherwise keep today's ordering. Record the evidence id in the selection explanation.",
+  "acceptance": [
+    "Without CAP records routing is unchanged (existing router tests pass)",
+    "With qualified records the cheapest qualified route wins and the explanation cites the CAP id",
+    "Unqualified (tiny-sample) records never override the default"
+  ],
+  "risks": [],
+  "dedupe_key": "c75994bc223d554712a9d9d5bbf7cf5b98a1b7f433af09829d889a7e4652440e",
+  "source": {
+    "type": "claude",
+    "reference": "orchestrator-os bootstrap ORCH-0001"
+  },
+  "github": null,
+  "created_at": "2026-09-28T23:47:26.044094+00:00",
+  "updated_at": "2026-09-28T23:47:26.044094+00:00",
+  "notes": null
+}

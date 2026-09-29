@@ -784,7 +784,7 @@ class Orchestrator:
             # compared with the base commit; run it again.
             cached = None
         if cached is not None:
-            scoped = run_all([], cwd, changed=changed, scope=scope) if changed is not None else {"evidence": []}
+            scoped = run_all([], cwd, changed=changed, scope=scope, control_plane=_control_plane(record)) if changed is not None else {"evidence": []}
             evidence = [*scoped["evidence"], *(dict(item) for item in cached["evidence"])]
             validation = {
                 "passed": all(item["passed"] for item in evidence),
@@ -802,7 +802,7 @@ class Orchestrator:
             return validation
         self.ledger.emit(run_id, "tests_started", node_id, validators=len(validators))
         started = time.monotonic()
-        validation = run_all(validators, cwd, changed=changed, scope=scope, timeout=int(record["policy"]["worker_timeout_seconds"]))
+        validation = run_all(validators, cwd, changed=changed, scope=scope, timeout=int(record["policy"]["worker_timeout_seconds"]), control_plane=_control_plane(record))
         self._excuse_baseline_failures(record, node_id, validators, validation)
         duration = round(time.monotonic() - started, 2)
         validation["at"] = now()
@@ -2217,3 +2217,13 @@ def _node_view(node: dict[str, Any]) -> dict[str, Any]:
         "checkpoint": node.get("checkpoint"),
         "result": node.get("result"),
     }
+
+
+def _control_plane(record: dict[str, Any]) -> dict[str, Any] | None:
+    """Protected control/evaluation plane settings for this run, or None when
+    the run targets another repository (control_plane.applies_to)."""
+    from .control_plane import applies_to
+
+    if not applies_to(record.get("repository"), record.get("project")):
+        return None
+    return {"allowed": list(record["policy"].get("protected_paths_allowed") or [])}

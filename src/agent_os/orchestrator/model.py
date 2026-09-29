@@ -142,6 +142,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     "reuse_validation": True,
     "planner_repo_map": True,
     "planner_read_budget": 8,
+    # Operator-only grant of protected control/evaluation-plane paths
+    # (orchestrator/control_plane.py). Planners cannot set run policy.
+    "protected_paths_allowed": [],
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -220,6 +223,9 @@ def _check_policy(policy: dict[str, Any]) -> None:
         raise PolicyError("planner_capability_class must be a model capability class")
     if policy["planner_effort"] not in EFFORTS:
         raise PolicyError(f"planner_effort must be one of {EFFORTS}")
+    granted = policy.get("protected_paths_allowed", [])
+    if not isinstance(granted, list) or any(not isinstance(item, str) for item in granted):
+        raise PolicyError("protected_paths_allowed must be a list of path globs")
     approved = policy["approved_commands"]
     if not isinstance(approved, list) or any(not isinstance(item, str) for item in approved):
         raise PolicyError("approved_commands must be a list of regular expressions")

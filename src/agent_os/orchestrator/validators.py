@@ -111,10 +111,17 @@ def run_all(
     changed: list[str] | None = None,
     scope: list[str] | None = None,
     timeout: int = 900,
+    control_plane: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """``control_plane`` (``{"allowed": [...]}``) enables the protected-path
+    check of ``control_plane.py`` for runs that target this repository."""
     evidence: list[dict[str, Any]] = []
     if changed is not None:
         evidence.append(scope_check(changed, scope or []))
+        if control_plane is not None:
+            from .control_plane import check
+
+            evidence.append(check(changed, control_plane.get("allowed") or []))
     for validator in validators:
         evidence.append(run_validator(validator, cwd, timeout))
     declared = [item for item in evidence if item["kind"] not in {"none", "scope"}]

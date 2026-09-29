@@ -15,6 +15,11 @@ all available history.
    deduplicated candidates with evidence references; they remain hypotheses until tested.
 10. Form intake may retain sanitized template fingerprints only. Never store source
     documents, completed values, raw OCR, or personal data; Google is not its fallback.
+11. Orchestrator development and Agent OS self-improvement follow Orchestrator OS:
+    start at `docs/orchestrator-os/ENTRYPOINT.md`; rules are in
+    `policy/orchestrator-os.policy.json`; the protected control/evaluation plane is
+    enforced by `src/agent_os/orchestrator/control_plane.py`. Agent OS owns durable
+    state; models provide temporary cognition.
 
 Raw transcripts and broad history are archival sources, not default prompt input.
 Derived indexes must remain disposable and rebuildable from canonical Git state.

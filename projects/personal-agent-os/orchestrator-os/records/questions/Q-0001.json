@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "Q-0001",
+  "type": "Q",
+  "title": "Is gpt-6-luna reliable enough for classification and inventory task families?",
+  "status": "open",
+  "summary": "Luna is callable through the router (selection and adapter invocation verified; quota-blocked during bootstrap). Answer by running the EVC development set through `orchestrate delegate --provider codex` after the usage reset and comparing accuracy and cost per success with CAP-be9d7454fc and CAP-793f8cdfde.",
+  "links": [
+    {
+      "rel": "relates_to",
+      "ref": "FAIL-0001"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0001"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

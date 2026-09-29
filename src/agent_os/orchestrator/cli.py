@@ -126,6 +126,32 @@ def register(commands: argparse._SubParsersAction) -> None:
     over.add_argument("--repo", default=".")
     over.add_argument("--capability-class", default="fast")
 
+    dlg = actions.add_parser("delegate", help="one read-only task through the router with an output contract; records capability evidence (real call)")
+    dlg.add_argument("--task-family", required=True, help="capability-evidence task family, e.g. implementation_status_classification")
+    dlg.add_argument("--prompt-file", required=True)
+    dlg.add_argument("--contract", help="JSON file: output contract (see delegate.check_contract)")
+    dlg.add_argument("--capability-class", default="fast")
+    dlg.add_argument("--effort", default="low")
+    dlg.add_argument("--provider")
+    dlg.add_argument("--model")
+    dlg.add_argument("--repo", default=".")
+    dlg.add_argument("--timeout", type=int, default=900)
+    dlg.add_argument("--out", help="write the validated result JSON here")
+
+    cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
+    cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
+    cap.add_argument("--floor", type=float, default=0.9)
+
+    ckpt = actions.add_parser("checkpoint", help="Orchestrator OS continuation checkpoint + next prompt (no model call)")
+    ckpt.add_argument("--write", action="store_true", help="persist ORCH-NNNN and next-prompt.md")
+    ckpt.add_argument("--show", action="store_true", help="show the latest persisted checkpoint")
+    actions.add_parser("next-prompt", help="print the current generated next prompt")
+
+    guard = actions.add_parser("control-check", help="check paths (or the working-tree diff) against the protected control plane")
+    guard.add_argument("paths", nargs="*")
+    guard.add_argument("--base", default="main", help="with no paths: diff against this ref")
+    guard.add_argument("--allow", action="append", default=[])
+
     gui = actions.add_parser("gui", help="serve the local control GUI and API")
     gui.add_argument("--host", default="127.0.0.1")
     gui.add_argument("--port", type=int, default=8765)
@@ -300,6 +326,49 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         emit(measure(args.provider, repository=args.repo, capability_class=args.capability_class, variants=args.variant))
         return 0
+    if action == "delegate":
+        from .delegate import delegate
+
+        contract = json.loads(Path(args.contract).read_text(encoding="utf-8")) if args.contract else None
+        outcome = delegate(Path(args.prompt_file).read_text(encoding="utf-8"), task_family=args.task_family, capability_class=args.capability_class, effort=args.effort, contract=contract, provider=args.provider, model=args.model, cwd=args.repo, timeout_seconds=args.timeout)
+        if args.out and outcome.get("result") is not None:
+            Path(args.out).write_text(json.dumps(outcome["result"], indent=2), encoding="utf-8")
+        emit({key: value for key, value in outcome.items() if key != "result"})
+        return 0 if outcome["status"] == "passed" else 6
+    if action == "capability":
+        from . import capability
+
+        records = capability.summarize(capability.read_observations(), floor=args.floor)
+        emit({"records": records, "written": capability.write_records(records) if args.write else []})
+        return 0
+    if action == "checkpoint":
+        from . import continuation
+
+        if args.show:
+            emit(continuation.latest() or {"error": "no checkpoint yet"})
+            return 0
+        checkpoint = continuation.build()
+        emit({**checkpoint, "written": continuation.write(checkpoint) if args.write else None})
+        return 0
+    if action == "next-prompt":
+        from . import continuation
+
+        latest = continuation.latest()
+        print(latest["next_prompt"] if latest else "No checkpoint yet: run `agent-os orchestrate checkpoint --write`.")
+        return 0
+    if action == "control-check":
+        import subprocess
+
+        from . import control_plane
+
+        def git_lines(*argv: str) -> list[str]:
+            return subprocess.run(["git", *argv], capture_output=True, text=True, check=False).stdout.splitlines()
+
+        # Tracked changes against the base plus new, untracked files.
+        paths = args.paths or sorted(set(git_lines("diff", "--name-only", args.base)) | set(git_lines("ls-files", "--others", "--exclude-standard")))
+        result = control_plane.check(paths, args.allow)
+        emit({**result, "checked": len(paths)})
+        return 0 if result["passed"] else 7
     if action == "gui":
         from .server import serve
 

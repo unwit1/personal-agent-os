@@ -1,0 +1,30 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVS-ROUTING",
+  "type": "EVS",
+  "title": "Routing and orchestration regression",
+  "status": "active",
+  "summary": "Router selection, failover, escalation, review independence and integration gates.",
+  "metrics": {
+    "runners": [
+      "tests/test_orchestrator.py",
+      "tests/test_orchestrator_models.py",
+      "tests/test_model_value.py"
+    ],
+    "dimensions": [
+      "completion_success",
+      "reliability",
+      "cost_per_success"
+    ],
+    "task_families": [
+      "routing"
+    ],
+    "splits": [
+      "development"
+    ],
+    "regression_for": []
+  },
+  "links": [],
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

@@ -1,0 +1,541 @@
+{
+  "schema": "personal-agent/orchestrator-os-implementation-status/v1",
+  "updated_at": "2026-09-28T23:55:00+00:00",
+  "base_commit": "f8f4453f",
+  "method": "Runtime: Haiku via `orchestrate delegate` (EVR-0002) + frontier corrections. Meta-improvement: Haiku and Sonnet via delegate, adjudicated by frontier (EVR-0001).",
+  "bootstrap_deliverables": [
+    {
+      "deliverable": "Canonical constitution",
+      "ref": "docs/orchestrator-os/CONSTITUTION.md",
+      "status": "done"
+    },
+    {
+      "deliverable": "Machine-readable policy",
+      "ref": "policy/orchestrator-os.policy.json",
+      "status": "done"
+    },
+    {
+      "deliverable": "Protected control-plane enforcement",
+      "ref": "src/agent_os/orchestrator/control_plane.py",
+      "status": "done"
+    },
+    {
+      "deliverable": "Canonical entrypoint + lean bootstrap",
+      "ref": "docs/orchestrator-os/ENTRYPOINT.md",
+      "status": "done"
+    },
+    {
+      "deliverable": "Context/retrieval rules",
+      "ref": "docs/orchestrator-os/ENTRYPOINT.md#context",
+      "status": "done"
+    },
+    {
+      "deliverable": "Implementation-status matrix",
+      "ref": "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+      "status": "done"
+    },
+    {
+      "deliverable": "Meta-improvement reconciliation",
+      "ref": "projects/personal-agent-os/orchestrator-os/implementation-status.json#meta_improvement",
+      "status": "done"
+    },
+    {
+      "deliverable": "Evaluation/benchmark architecture",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/README.md",
+      "status": "done"
+    },
+    {
+      "deliverable": "Routing/capability evidence",
+      "ref": "src/agent_os/orchestrator/capability.py",
+      "status": "done"
+    },
+    {
+      "deliverable": "Typed improvement/experiment linkage",
+      "ref": "schemas/evidence-record-v1.schema.json",
+      "status": "done"
+    },
+    {
+      "deliverable": "Continuation/checkpoint schema",
+      "ref": "schemas/orchestrator-checkpoint-v1.schema.json",
+      "status": "done"
+    },
+    {
+      "deliverable": "Project state",
+      "ref": "projects/personal-agent-os/orchestrator-os/status.json",
+      "status": "done"
+    },
+    {
+      "deliverable": "Next action + generated prompt",
+      "ref": "projects/personal-agent-os/orchestrator-os/next-prompt.md",
+      "status": "done"
+    }
+  ],
+  "runtime": [
+    {
+      "id": "RT-01",
+      "feature": "dependency-aware parallelism",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/engine.py:1180",
+        "src/agent_os/orchestrator/model.py:268",
+        "tests/test_orchestrator.py:503"
+      ],
+      "note": "depends_on in node model; _dependency_met checks PASSED+integrated",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-02",
+      "feature": "concurrency bounds",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/model.py:111,202,223",
+        "src/agent_os/orchestrator/engine.py:1174",
+        "tests/test_orchestrator.py:548"
+      ],
+      "note": "max_parallel_editors, max_launches, worker_timeout_seconds policies",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-03",
+      "feature": "provider-specific pools/concurrency",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/router.py:214,276-278",
+        "src/agent_os/orchestrator/engine.py:1968-1972",
+        "tests/test_orchestrator.py:316"
+      ],
+      "note": "load_key(provider, class); tier_concurrency limits per capability",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-04",
+      "feature": "unified deadlines/timeouts",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/model.py:136,203",
+        "src/agent_os/orchestrator/engine.py:552,805",
+        "src/agent_os/orchestrator/validators.py:34"
+      ],
+      "note": "worker_timeout_seconds; elapsed time checked in _poll; validator timeout",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-05",
+      "feature": "Retry-After handling",
+      "status": "missing",
+      "evidence": [],
+      "note": "No Retry-After parsing or HTTP header handling found",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-06",
+      "feature": "bounded exponential backoff with jitter",
+      "status": "missing",
+      "evidence": [],
+      "note": "Retries exist but no backoff/jitter strategy visible",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-07",
+      "feature": "no retry for validation/auth failures",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/model.py:93",
+        "src/agent_os/orchestrator/engine.py:1062-1070",
+        "tests/test_orchestrator.py:410"
+      ],
+      "note": "PROVIDER_FAILURES triggers failover, not retry; invalid_model/quota handled",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-08",
+      "feature": "avoidance of nested retry loops",
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/engine.py:916-920",
+        "src/agent_os/orchestrator/model.py:385-398"
+      ],
+      "note": "max_stage_retries + escalation ladder separate; no explicit nested-loop prevention",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-09",
+      "feature": "circuit breakers",
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/model.py:93",
+        "src/agent_os/orchestrator/engine.py:367,1065-1068",
+        "src/agent_os/orchestrator/router.py:256-258"
+      ],
+      "note": "Per-node provider exclusion + failover exist; no cross-run open/half-open breaker state (frontier spot-check).",
+      "verified_by": "haiku audit + frontier correction"
+    },
+    {
+      "id": "RT-10",
+      "feature": "idempotency keys",
+      "status": "missing",
+      "evidence": [],
+      "note": "No idempotency key generation or deduplication found",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-11",
+      "feature": "persisted write identities",
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/worktrees.py:21,43,183"
+      ],
+      "note": "Git commits use Agent OS identity; no explicit write_id tracking",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-12",
+      "feature": "consequential write readback",
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/worktrees.py:173-174",
+        "src/agent_os/orchestrator/engine.py:1459"
+      ],
+      "note": "integration_head() called; no explicit consequential-write readback pattern",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-13",
+      "feature": "prepare/commit behavior",
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/worktrees.py:179-185,197-200",
+        "src/agent_os/orchestrator/engine.py:1384-1400"
+      ],
+      "note": "checkpoint()/merge() exists; integration is structured",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-14",
+      "feature": "cooperative cancellation",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/engine.py:318,323,384,1680-1698",
+        "tests/test_orchestrator.py:560,546"
+      ],
+      "note": "stop(), pause(), resume(); _cancel_active/_cancel_node via adapter",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-15",
+      "feature": "deterministic caches",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/engine.py:755-815",
+        "src/agent_os/orchestrator/model.py:142"
+      ],
+      "note": "validation_cache per run; reuses identical code test results",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-16",
+      "feature": "cache-version keys",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/engine.py:2150-2154"
+      ],
+      "note": "cache key = sha256([tree_hash, validators_list]); tree from git rev-parse",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-17",
+      "feature": "in-flight deduplication",
+      "status": "missing",
+      "evidence": [],
+      "note": "No explicit in-flight request deduplication found",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-18",
+      "feature": "immutable append-only telemetry events",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/telemetry.py:126-150",
+        "src/agent_os/orchestrator/store.py:186-192"
+      ],
+      "note": "TelemetryEvent frozen dataclass; append_event appends to jsonl",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-19",
+      "feature": "materialized state",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/store.py:113-161",
+        "src/agent_os/orchestrator/engine.py:269,457,485"
+      ],
+      "note": "RunStore loads/saves run records as JSON; every tick persists",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-20",
+      "feature": "validated checkpoints",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/worktrees.py:179-185",
+        "src/agent_os/orchestrator/engine.py:703,1152-1160",
+        "src/agent_os/orchestrator/validators.py:107-132"
+      ],
+      "note": "checkpoint() commits work; validators run before integration",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-21",
+      "feature": "version/input hashes",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/engine.py:2139-2154"
+      ],
+      "note": "_tree_hash(git tree); _validation_key(sha256 of tree+validators)",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-22",
+      "feature": "selective invalidation",
+      "status": "partial",
+      "evidence": [
+        "src/agent_os/orchestrator/engine.py:812"
+      ],
+      "note": "Validation cache keyed by tree hash and trimmed LRU-style; no dependency-graph invalidation (frontier spot-check).",
+      "verified_by": "haiku audit + frontier correction"
+    },
+    {
+      "id": "RT-23",
+      "feature": "objective early stopping",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/model.py:117-120",
+        "src/agent_os/orchestrator/engine.py:902-928",
+        "tests/test_orchestrator.py:473-485"
+      ],
+      "note": "max_escalations/max_stage_retries; escalation ladder cheapest-first",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-24",
+      "feature": "bounded reviewer/repair loops",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/model.py:119-120",
+        "src/agent_os/orchestrator/engine.py:967-987",
+        "tests/test_orchestrator.py:694-703"
+      ],
+      "note": "max_review_rounds; max_final_repairs; escalated reviewer before approval",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-25",
+      "feature": "deterministic vs model stage separation",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/model.py:62,293-318",
+        "src/agent_os/orchestrator/router.py:219-242"
+      ],
+      "note": "execution_path (deterministic/model); select() is pure deterministic",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-26",
+      "feature": "concrete model-version tracking",
+      "status": "implemented",
+      "evidence": [
+        "src/agent_os/orchestrator/router.py:401-422",
+        "src/agent_os/orchestrator/engine.py:1354-1360",
+        "src/agent_os/orchestrator/model.py:369"
+      ],
+      "note": "usage.model_resolved captured from Claude results; models.resolved_versions aggregates; delegate records it in CAP keys.",
+      "verified_by": "haiku audit + frontier correction"
+    },
+    {
+      "id": "RT-27",
+      "feature": "state-machine/property tests",
+      "status": "missing",
+      "evidence": [],
+      "note": "No explicit state machine or property-based tests found",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-28",
+      "feature": "chaos/kill-point tests",
+      "status": "missing",
+      "evidence": [],
+      "note": "No chaos engineering or process-kill simulation tests found",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    },
+    {
+      "id": "RT-29",
+      "feature": "mutation testing",
+      "status": "missing",
+      "evidence": [],
+      "note": "No mutation testing framework or coverage found",
+      "verified_by": "haiku audit (EVR-0002), spot-checked"
+    }
+  ],
+  "meta_improvement": [
+    {
+      "id": "MIE-0001",
+      "title": "Unify improvement evidence chain",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "Typed evidence records with resolvable links (evidence.py, evidence-record-v1); IMP linkage by id; no automatic trace->finding extraction yet.",
+      "tracked_as": "IMP-0003"
+    },
+    {
+      "id": "MIE-0002",
+      "title": "Provider-neutral evaluation registry and task corpus",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "EVS suite records + dev-case split + external corpus registry + holdout governance; no incumbent-vs-candidate runner yet.",
+      "tracked_as": "IMP-0003"
+    },
+    {
+      "id": "MIE-0003",
+      "title": "Improvement schema v2",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "partial",
+      "note": "Decision DEC-0002: IMP v1 stays, evidence-record v1 carries typed edges; IMP v2 fields (hypothesis/experiment refs) deferred.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0004",
+      "title": "Failure and success registries with clustering",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "partial",
+      "note": "FAIL/SUC record types with signature/recurrence; no automatic mining/clustering.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0005",
+      "title": "Experiment, rollout, and rollback registry",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "partial",
+      "note": "HYP/EXP/REL record types; no experiment runner, rollout or rollback registry.",
+      "tracked_as": "IMP-0003"
+    },
+    {
+      "id": "MIE-0006",
+      "title": "Deterministic authorization policy engine",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "Control-plane protected-path validator (control_plane.py) + planner approved_commands; general authorization engine missing.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0007",
+      "title": "Untrusted-data taint and control/data-flow separation",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "missing",
+      "note": "Principle encoded (constitution \u00a79); no taint tracking.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0008",
+      "title": "Task-specific model and tool capability registry",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "CAP records keyed by task family x role x provider x resolved model x effort x toolset with Wilson intervals; router does not consume them yet.",
+      "tracked_as": "IMP-0004"
+    },
+    {
+      "id": "MIE-0009",
+      "title": "Context utility and retrieval telemetry",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "Benchmark measures candidate vs selected context; no per-item utility telemetry.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0010",
+      "title": "Retrieval and memory eval suite",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "benchmark scenario_context_retrieval only.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0011",
+      "title": "Simplification and deletion engine",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "missing",
+      "note": "Simplification questions encoded in constitution \u00a711; no component/dependency view.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0012",
+      "title": "Constructive challenge trigger policy",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "missing",
+      "note": "",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0013",
+      "title": "Unified proactivity decision engine",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "watching.py proactive watch graph; no unified decision engine.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0014",
+      "title": "Research Radar with impact filter",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "models.refresh detects new/outdated models; no general research radar.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0015",
+      "title": "Future-model handoff bundle",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "Continuation checkpoint + generated next prompt (continuation.py) + handoffs.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0016",
+      "title": "Durability abstraction with replay/branching threshold",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "IngestionLedger, recovery checkpoints, run store; no replay/branching threshold.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0017",
+      "title": "OpenTelemetry-compatible trace schema",
+      "status_at_base_f8f4453f": "partial",
+      "status_after_bootstrap": "partial",
+      "note": "Append-only telemetry events; no OpenTelemetry projection.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0018",
+      "title": "Quality/reliability and complexity budgets",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "missing",
+      "note": "Budgets exist for retries/launches; no quality/complexity budgets.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0019",
+      "title": "Dynamic/private benchmark refresh and contamination controls",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "partial",
+      "note": "Holdout governance + corpus registry with contamination fields; no refresh.",
+      "tracked_as": null
+    },
+    {
+      "id": "MIE-0020",
+      "title": "Eval-gated prompt and workflow optimizer",
+      "status_at_base_f8f4453f": "missing",
+      "status_after_bootstrap": "missing",
+      "note": "Blocked on MIE-0002 runner.",
+      "tracked_as": null
+    }
+  ]
+}

@@ -1,0 +1,361 @@
+{
+  "schema": "personal-agent/external-corpus-registry/v1",
+  "entry_schema": "schemas/external-corpus-v1.schema.json",
+  "policy": "Nothing is downloaded by default. Before import: verify license and permissions from the source (never from memory), record revision + checksum, assign a holdout state, and store the corpus machine-locally (local_ref), never in Git.",
+  "corpora": [
+    {
+      "id": "XC-swe-smith",
+      "name": "SWE-smith",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "high",
+      "task_families": [
+        "coding"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-swe-gym",
+      "name": "SWE-Gym",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "coding"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-bfcl",
+      "name": "BFCL",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "tool_use"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-toolsandbox",
+      "name": "ToolSandbox",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "tool_use"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-tau3-bench",
+      "name": "tau3-bench",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "tool_use",
+        "policy_following"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-agentdojo",
+      "name": "AgentDojo",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "security",
+        "prompt_injection"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-terminal-bench",
+      "name": "Terminal-Bench",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "terminal",
+        "coding"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-tua-bench",
+      "name": "TUA-Bench",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "computer_use"
+      ],
+      "modality": "gui/web",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-webarena-verified",
+      "name": "WebArena-Verified",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "high",
+      "task_families": [
+        "web"
+      ],
+      "modality": "gui/web",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-workarena",
+      "name": "WorkArena",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "web",
+        "enterprise"
+      ],
+      "modality": "gui/web",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-osworld",
+      "name": "OSWorld",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "unknown",
+      "task_families": [
+        "computer_use"
+      ],
+      "modality": "gui/web",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-mind2web",
+      "name": "Mind2Web",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "high",
+      "task_families": [
+        "web"
+      ],
+      "modality": "gui/web",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-agentbench",
+      "name": "AgentBench",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "high",
+      "task_families": [
+        "general_agent"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    },
+    {
+      "id": "XC-gaia",
+      "name": "GAIA",
+      "source": "unverified: resolve official source before import",
+      "revision": null,
+      "checksum": null,
+      "license": "unverified",
+      "attribution": null,
+      "permissions": {
+        "training": "unverified",
+        "fine_tune": "unverified",
+        "evaluation": "unverified",
+        "redistribution": "unverified"
+      },
+      "holdout_state": "none",
+      "contamination_risk": "high",
+      "task_families": [
+        "general_assistant"
+      ],
+      "modality": "text/tool",
+      "local_ref": null,
+      "imported_at": null,
+      "derived_cases": [],
+      "status": "candidate"
+    }
+  ]
+}

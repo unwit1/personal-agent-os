@@ -1,0 +1,67 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0001",
+  "type": "EVR",
+  "title": "Bootstrap: cheap vs workhorse model on research-implementation classification",
+  "status": "accepted",
+  "summary": "Same 20-item task (MIE backlog vs repository) through `orchestrate delegate`, read-only, effort low. Both routes passed the output contract and cited only existing paths, but agreed on 12/20 items; against adjudicated labels (EVC set, base f8f4453f) both scored 15/20. Neither clears the 0.9 floor; n=1 run each, so this is a prior, not a routing decision. Sonnet was 6x faster and 2.6x cheaper than Haiku because Haiku read 14x more input tokens.",
+  "task_family": "research_implementation_classification",
+  "outcome": "inconclusive",
+  "metrics": {
+    "cases": 20,
+    "contract_pass": {
+      "claude-haiku-4-5-20251001": 1.0,
+      "claude-sonnet-5-5": 1.0
+    },
+    "accuracy_vs_adjudicated": {
+      "claude-haiku-4-5-20251001": 0.75,
+      "claude-sonnet-5-5": 0.75
+    },
+    "inter_model_agreement": 0.6,
+    "evidence_path_validity": {
+      "claude-haiku-4-5-20251001": "18/18",
+      "claude-sonnet-5-5": "14/14"
+    },
+    "seconds": {
+      "claude-haiku-4-5-20251001": 128.5,
+      "claude-sonnet-5-5": 20.4
+    },
+    "input_tokens": {
+      "claude-haiku-4-5-20251001": 419098,
+      "claude-sonnet-5-5": 29889
+    },
+    "cost_usd": {
+      "claude-haiku-4-5-20251001": 0.182,
+      "claude-sonnet-5-5": 0.069
+    },
+    "gpt-6-luna": "not measured: codex usage limit reached (FAIL-0001)"
+  },
+  "links": [
+    {
+      "rel": "measures",
+      "ref": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-be9d7454fc.json"
+    },
+    {
+      "rel": "measures",
+      "ref": "projects/personal-agent-os/orchestrator-os/records/capability/CAP-793f8cdfde.json"
+    },
+    {
+      "rel": "tests",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0001"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0003"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

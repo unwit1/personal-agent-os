@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVS-RESUME",
+  "type": "EVS",
+  "title": "Resume and recovery safety",
+  "status": "active",
+  "summary": "Checkpoints, recovery resume and restart safety do not duplicate consequential effects.",
+  "metrics": {
+    "runners": [
+      "tests/test_recovery.py",
+      "tests/test_ingestion.py"
+    ],
+    "dimensions": [
+      "resume_safety",
+      "reliability"
+    ],
+    "task_families": [
+      "resume"
+    ],
+    "splits": [
+      "development"
+    ],
+    "regression_for": []
+  },
+  "links": [],
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "personal-agent/external-corpus/v1",
+  "title": "External benchmark corpus registry entry",
+  "type": "object",
+  "required": ["id", "name", "source", "license", "permissions", "holdout_state", "contamination_risk", "task_families", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^XC-[a-z0-9-]+$"},
+    "name": {"type": "string"},
+    "source": {"type": "string"},
+    "revision": {"type": ["string", "null"]},
+    "checksum": {"type": ["string", "null"]},
+    "license": {"type": "string", "description": "'unverified' until checked against the source."},
+    "attribution": {"type": ["string", "null"]},
+    "permissions": {
+      "type": "object",
+      "required": ["training", "fine_tune", "evaluation", "redistribution"],
+      "properties": {
+        "training": {"enum": ["yes", "no", "unverified"]},
+        "fine_tune": {"enum": ["yes", "no", "unverified"]},
+        "evaluation": {"enum": ["yes", "no", "unverified"]},
+        "redistribution": {"enum": ["yes", "no", "unverified"]}
+      }
+    },
+    "holdout_state": {"enum": ["none", "development", "validation", "protected_holdout"]},
+    "contamination_risk": {"enum": ["low", "medium", "high", "unknown"]},
+    "task_families": {"type": "array", "items": {"type": "string"}},
+    "modality": {"type": "string"},
+    "local_ref": {"type": ["string", "null"], "description": "Machine-local path; corpora are never committed."},
+    "imported_at": {"type": ["string", "null"]},
+    "derived_cases": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["candidate", "approved", "imported", "rejected"]}
+  }
+}

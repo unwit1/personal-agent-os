@@ -1,0 +1,45 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-ed2b8df74c",
+  "type": "CAP",
+  "title": "runtime_feature_audit via claude-code/claude-haiku-4-5-20251001 (low)",
+  "status": "active",
+  "key": {
+    "task_family": "runtime_feature_audit",
+    "role": "analyst",
+    "provider": "claude-code",
+    "model_resolved": "claude-haiku-4-5-20251001",
+    "effort": "low",
+    "toolset": "read_only"
+  },
+  "metrics": {
+    "sample_count": 1,
+    "final_success": 1,
+    "validator_pass_rate": 1.0,
+    "pass_rate_wilson95": [
+      0.207,
+      1.0
+    ],
+    "qualified_at_floor": null,
+    "repairs": 0,
+    "mean_seconds": 149.46,
+    "mean_input_tokens": 1202594.0,
+    "mean_output_tokens": 12885.0,
+    "total_cost_usd": 0.32226,
+    "cost_per_success_usd": 0.32226,
+    "failure_clusters": {},
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#DLG-e6269494632a"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "2026-09-28T23:42:22.605073+00:00",
+    "observed_to": "2026-09-28T23:42:22.605073+00:00"
+  },
+  "updated_at": "2026-09-28T23:53:01.581603+00:00"
+}

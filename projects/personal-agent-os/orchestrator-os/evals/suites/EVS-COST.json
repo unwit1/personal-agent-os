@@ -1,0 +1,30 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVS-COST",
+  "type": "EVS",
+  "title": "Token/cost efficiency benchmark",
+  "status": "active",
+  "summary": "`agent-os orchestrate benchmark` offline scenarios: model calls by tier, avoided work, prompt and context size.",
+  "metrics": {
+    "runners": [
+      "src/agent_os/orchestrator/benchmark.py",
+      "tests/test_orchestrator_benchmark.py"
+    ],
+    "dimensions": [
+      "cost_per_success",
+      "latency",
+      "model_calls"
+    ],
+    "task_families": [
+      "coding",
+      "context"
+    ],
+    "splits": [
+      "development"
+    ],
+    "regression_for": []
+  },
+  "links": [],
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

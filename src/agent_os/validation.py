@@ -337,4 +337,11 @@ def validate() -> dict[str, Any]:
         elif not item["matches"]:
             warnings.append(f"routing adapter differs from canonical source: {item['destination']}")
 
+    from .orchestrator.evidence import validate_tree as _orchestrator_os_state
+
+    orchestrator_os = _orchestrator_os_state()
+    errors.extend(orchestrator_os["errors"])
+    warnings.extend(orchestrator_os["warnings"])
+    checked += orchestrator_os["checked"]
+
     return {"ok": not errors, "errors": errors, "warnings": warnings, "checked": checked}

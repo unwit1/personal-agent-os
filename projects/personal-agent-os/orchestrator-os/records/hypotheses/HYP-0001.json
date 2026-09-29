@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "HYP-0001",
+  "type": "HYP",
+  "title": "Pinned base + per-item evidence check raises cheap-model classification accuracy to >= 0.9",
+  "status": "proposed",
+  "summary": "If classification runs against the base commit and every implemented/partial claim must cite a symbol that a deterministic grep confirms, cheap-model accuracy on the EVC development set rises from 0.75 to >= 0.9 at <= 1.5x cost.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "FND-0001"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "FND-0002"
+    },
+    {
+      "rel": "tests",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}
