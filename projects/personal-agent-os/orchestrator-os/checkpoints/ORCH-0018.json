@@ -1,0 +1,130 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0018",
+  "previous": "ORCH-0017",
+  "created_at": "2026-09-29T08:02:43.329763+00:00",
+  "git": {
+    "branch": "orchestrator-os/bootstrap-20260928",
+    "commit": "aa9782b8",
+    "dirty": true
+  },
+  "phase": "P1 foundations: governance rules enforced in code; worker publication control next",
+  "completed": [
+    "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)",
+    "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)",
+    "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)",
+    "MIE-0011 first slice: orchestrate simplify + report (EXP-0006, DEC-0014); 5 prior-art entries added",
+    "Simplification applied: shared record loader, workflow recovery checkpoints reconnected (DEC-0015, FND-0010)",
+    "MIE-0017: OTLP trace projection (DEC-0016)",
+    "ORCH-0013 pushed after gate rerun",
+    "MIE-0007 first slice: EVS-SECURITY suite + fixtures; EXP-0007 (DEC-0017, FND-0011, FND-0012)",
+    "Delegate attachments: -68% tokens and latency at equal accuracy (56e60a02, EVR-0013, DEC-0018)",
+    "IMP-0012: idempotent integration after crash (6b3c9eaf, FAIL-0003, DEC-0019, EVR-0014)",
+    "IMP-0013: write-ahead landing after crash (ee378ff8, FAIL-0004, DEC-0020, EVR-0015)",
+    "Append-only negative evidence enforced; approval-rule enforcement map (1a1e107c, DEC-0021)"
+  ],
+  "active_objective": "Close the remaining text-only approval rule: external publication by workers (IMP-0014).",
+  "latest_evidence": [
+    {
+      "id": "DEC-0021",
+      "type": "DEC",
+      "title": "Negative evidence is append-only, enforced; approval rules mapped to enforcement points",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0021.json",
+      "updated_at": "2026-09-29T08:10:00+00:00"
+    },
+    {
+      "id": "DEC-0020",
+      "type": "DEC",
+      "title": "Write-ahead for landing onto the base branch",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0020.json",
+      "updated_at": "2026-09-29T07:45:00+00:00"
+    },
+    {
+      "id": "FAIL-0004",
+      "type": "FAIL",
+      "title": "Crash after landing left the base branch moved but the landing gate open",
+      "path": "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0004.json",
+      "updated_at": "2026-09-29T07:45:00+00:00"
+    },
+    {
+      "id": "EVR-0015",
+      "type": "EVR",
+      "title": "EVS-ROUTING: e15c57c1 vs HEAD",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0015.json",
+      "updated_at": "2026-09-29T07:42:39.567209+00:00"
+    },
+    {
+      "id": "DEC-0019",
+      "type": "DEC",
+      "title": "Integration commit subjects are idempotency keys",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0019.json",
+      "updated_at": "2026-09-29T07:10:00+00:00"
+    },
+    {
+      "id": "FAIL-0003",
+      "type": "FAIL",
+      "title": "Crash between integration merge and record save duplicated a consequential effect",
+      "path": "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0003.json",
+      "updated_at": "2026-09-29T07:10:00+00:00"
+    },
+    {
+      "id": "EVR-0014",
+      "type": "EVR",
+      "title": "EVS-ROUTING: fb6d84e1 vs HEAD",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0014.json",
+      "updated_at": "2026-09-29T07:06:31.634522+00:00"
+    },
+    {
+      "id": "DEC-0018",
+      "type": "DEC",
+      "title": "Attach known inputs instead of paying for worker exploration",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0018.json",
+      "updated_at": "2026-09-29T06:35:00+00:00"
+    }
+  ],
+  "open_blockers": [],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries"
+  ],
+  "recent_decisions": [
+    "DEC-0019",
+    "DEC-0020",
+    "DEC-0021"
+  ],
+  "next_action": {
+    "summary": "IMP-0014: enforce 'external publication requires approval' for orchestrated workers. Inspect what each adapter can restrict (Codex CLI sandbox/network flags from `codex exec --help`; Claude Code --disallowedTools / permission modes) and configure implementer workers to deny publishing commands (git push, package publish, curl/HTTP POST to external hosts) where supported; add a deterministic validator that fails a node whose worker transcript/telemetry shows an attempted publishing command, independent of adapter support. Test with synthetic workers (a worker that reports running git push must fail validation); update the enforcement map. No live model calls needed.",
+    "prior_art": "sandbox network egress deny agent commands",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "Adapter capability inspection + deterministic validator.",
+    "context_refs": [
+      "projects/personal-agent-os/improvements/IMP-0014.json",
+      "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+      "src/agent_os/orchestrator/adapters/codex_cli.py",
+      "src/agent_os/orchestrator/adapters/claude_code.py",
+      "src/agent_os/orchestrator/validators.py"
+    ],
+    "stop_conditions": [
+      "validator + adapter restrictions committed with tests; enforcement map updated",
+      "0 model calls",
+      "stop and report if enforcement would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+    ]
+  },
+  "context_refs": [
+    "projects/personal-agent-os/improvements/IMP-0014.json",
+    "projects/personal-agent-os/orchestrator-os/implementation-status.json",
+    "src/agent_os/orchestrator/adapters/codex_cli.py",
+    "src/agent_os/orchestrator/adapters/claude_code.py",
+    "src/agent_os/orchestrator/validators.py"
+  ],
+  "stopping_conditions": [
+    "validator + adapter restrictions committed with tests; enforcement map updated",
+    "0 model calls",
+    "stop and report if enforcement would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached"
+  ],
+  "approval_conditions": [
+    "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)",
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)"
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0018 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0018.json).\n\nCurrent objective: Close the remaining text-only approval rule: external publication by workers (IMP-0014).\n\nNext action: IMP-0014: enforce 'external publication requires approval' for orchestrated workers. Inspect what each adapter can restrict (Codex CLI sandbox/network flags from `codex exec --help`; Claude Code --disallowedTools / permission modes) and configure implementer workers to deny publishing commands (git push, package publish, curl/HTTP POST to external hosts) where supported; add a deterministic validator that fails a node whose worker transcript/telemetry shows an attempted publishing command, independent of adapter support. Test with synthetic workers (a worker that reports running git push must fail validation); update the enforcement map. No live model calls needed.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"sandbox network egress deny agent commands\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: balanced / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: validator + adapter restrictions committed with tests; enforcement map updated; 0 model calls; stop and report if enforcement would need a protected path beyond the standing grants, the full suite regresses against known_baseline, or the retry/repair budget is reached.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
