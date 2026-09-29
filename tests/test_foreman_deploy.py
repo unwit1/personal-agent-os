@@ -280,6 +280,27 @@ class LifecycleTests(Base):
         self.assertEqual(self.cloud.deleted, ["podP"])
         self.assertAlmostEqual(budget.spent(self.budget_home), state["spent_usd"], places=3)
 
+    def test_reaper_deletes_a_pod_whose_watchdog_died(self) -> None:
+        # live 2026-09-29: the deploy process was killed under memory pressure; the pod kept billing
+        budget.set_budget(10, 10, home=self.budget_home)
+        base = {"id": "FMN-8", "kind": "huggingface", "status": "ready", "pod_id": "podR", "provider_id": "foreman-x", "registered": True,
+                "hourly_usd": 1.0, "cap_usd": 5.0, "spent_usd": 0.0, "billed_until_epoch": self.clock.now, "deadline_epoch": self.clock.now + 7200,
+                "runs": [], "model": {"repo": "org/coder-7b"}}
+        self.cloud.pods["podR"] = {"id": "podR"}
+        fd._save_state({**base, "watchdog_epoch": self.clock.now - 30}, self.foreman_home)
+        self.assertFalse(self.manager().reap()["reaped"])  # alive: leave it
+        self.clock.now += fd.REAP_AFTER_SECONDS + 60
+        result = self.manager().reap()
+        self.assertTrue(result["reaped"])
+        self.assertEqual(self.cloud.deleted, ["podR"])
+        self.assertIn("reaper", fd.load_state(self.foreman_home)["detail"])
+        self.assertAlmostEqual(budget.spent(self.budget_home), (fd.REAP_AFTER_SECONDS + 60) / 3600, places=3)  # the unwatched minutes are billed
+
+    def test_reaper_ignores_subscription_foremen(self) -> None:
+        self.manager(registry=SUBSCRIPTIONS).use("claude")
+        self.clock.now += 10**6
+        self.assertFalse(self.manager(registry=SUBSCRIPTIONS).reap()["reaped"])
+
     def test_refuses_without_an_approved_budget(self) -> None:
         with self.assertRaisesRegex(ValueError, "approved compute budget"):
             self.manager().deploy("org/coder-7b", background=False)

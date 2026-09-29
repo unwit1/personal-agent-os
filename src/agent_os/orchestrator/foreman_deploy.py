@@ -85,6 +85,7 @@ PRICE_FACTOR = 1.5
 NETWORK_RETRY_TICKS = 20  # ~10 minutes of network trouble before giving up on a live pod
 DELETE_ATTEMPTS = 6  # then teardown_pending: resume / stop / GUI start keep retrying
 PENDING = "teardown_pending"
+REAP_AFTER_SECONDS = 6 * TICK_SECONDS  # watchdog silent this long -> it died with its process
 # vLLM tool-call parser per model family: needed for a coding agent (tool use).
 TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qwen3_moe": "hermes", "llama": "llama3_json",
                 "mistral": "mistral", "mixtral": "mistral"}
@@ -746,6 +747,24 @@ class ForemanManager:
             _save_state(state, self.base)
             return {"deployment_id": state["id"], "model": (state.get("model") or {}).get("repo"), "attached_at": utc_now_iso()}
 
+    def reap(self) -> dict[str, Any]:
+        """Run from outside the watchdog's process (Task Scheduler, a later
+        session): a rented pod whose watchdog has been silent for
+        REAP_AFTER_SECONDS lost its process (closed window, reboot, memory
+        pressure) -- delete it. Never touches a subscription/local foreman."""
+        state = load_state(self.base)
+        if state.get("status") == PENDING:
+            self._teardown(state, state.get("pending_status") or "stopped", "pod delete retried by the reaper")
+            return {**self.status(), "reaped": True}
+        if state.get("status") not in ACTIVE or not state.get("pod_id") or state.get("kind") in ("claude", "chatgpt", "local"):
+            return {**self.status(), "reaped": False}
+        beat = float(state.get("watchdog_epoch") or state.get("pod_created_epoch") or 0)
+        silent = self.clock() - beat
+        if silent <= REAP_AFTER_SECONDS:
+            return {**self.status(), "reaped": False, "watchdog_seconds_ago": round(silent)}
+        self._teardown(state, "stopped", f"watchdog silent for {round(silent / 60, 1)} min (its process ended); pod deleted by the reaper")
+        return {**self.status(), "reaped": True}
+
     def resume(self) -> dict[str, Any]:
         """On GUI start: enforce a passed deadline at once, else keep watching."""
         state = load_state(self.base)
@@ -909,6 +928,7 @@ class ForemanManager:
     def _meter(self, state: dict[str, Any]) -> dict[str, Any]:
         """Record spend since the last tick; tear down before the cap is crossed."""
         now = self.clock()
+        state = self._update(state, watchdog_epoch=now)  # heartbeat for the reaper
         amount = state["hourly_usd"] * max(now - state["billed_until_epoch"], 0) / 3600
         if amount > 0:
             budget.record_spend(amount, job_id=state["id"], provider="runpod", note=f"pod {state['pod_id']}", home=self.budget_home)
