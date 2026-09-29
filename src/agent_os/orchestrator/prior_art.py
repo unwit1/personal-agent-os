@@ -124,7 +124,11 @@ def queries(problem: str, registry: dict[str, Any] | None = None) -> list[str]:
     capability areas of related entries, and 'alternative to <known project>'."""
     registry = registry or load()
     core = " ".join(sorted(_terms(problem), key=problem.lower().find)[:6])
-    related = lookup(problem, registry, limit=3)
+    wanted = _terms(problem)
+    # Suggest "alternative to X" only when X's capability areas genuinely
+    # overlap the gap (>= 2 area terms); a single generic word ("detection")
+    # produced irrelevant suggestions in the first discovery run.
+    related = [entry for entry in lookup(problem, registry, limit=6) if len(wanted & _terms(" ".join(entry.get("capability_areas") or []))) >= 2][:3]
     out = [f"open source {core} github", f"{core} python library", f"{core} benchmark repository", f"{core} paper code"]
     for entry in related:
         out.append(f"alternative to {entry['name']} {' '.join((entry.get('capability_areas') or [])[:2])}")

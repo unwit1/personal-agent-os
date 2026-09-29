@@ -2582,6 +2582,289 @@
         "never unless revived"
       ],
       "revisit_by": null
+    },
+    {
+      "id": "PA-vulture",
+      "name": "vulture",
+      "repository": "https://github.com/jendrikseipp/vulture",
+      "organization": "jendrikseipp",
+      "description": "Find dead Python code",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v2.16",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 4827,
+        "pushed_at": "2026-09-25",
+        "archived": false,
+        "latest_release": "v2.16",
+        "released_at": "2026-03-25",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "dead code detection",
+        "unused code",
+        "simplification"
+      ],
+      "agent_os_overlap": "orchestrator/simplify.py (MIE-0011 first slice)",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "heuristic borrowed; cross-check available",
+        "runtime_savings": "unknown",
+        "quality": "3/3 agreement (EXP-0006)",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "none (external check only)",
+        "maintenance": "unknown",
+        "portability": "pure Python"
+      },
+      "decision": "BORROW",
+      "rationale": "Reference dead-code finder (MIT, active, v2.16). Its name-usage heuristic is subsumed in simplify.py and agreed 3/3 with vulture on public functions (EXP-0006); vulture stays an optional external cross-check (not a dependency). Its confidence scoring and whitelist concept are worth borrowing next.",
+      "confidence": "high",
+      "provenance": [
+        "GitHub REST api.github.com/repos/jendrikseipp/vulture (2026-09-29)",
+        "WebSearch 'open source dead code detection python unused functions tool github 2026' (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "evidence_for",
+          "ref": "EXP-0006"
+        }
+      ],
+      "revisit_when": [
+        "simplify misses dead code that this tool finds"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-deadcode",
+      "name": "deadcode",
+      "repository": "https://github.com/albertas/deadcode",
+      "organization": "albertas",
+      "description": "Find and fix unused Python code using command line.",
+      "license": "AGPL-3.0",
+      "license_spdx": "AGPL-3.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2026-06-21",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 176,
+        "pushed_at": "2026-06-21",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "dead code detection",
+        "unused code"
+      ],
+      "agent_os_overlap": "orchestrator/simplify.py (MIE-0011 first slice)",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "duplicate of vulture's role",
+        "maintenance": "small project",
+        "portability": "unknown"
+      },
+      "decision": "REJECT",
+      "rationale": "Adds DCxxx checks and auto-fix, but it is small (176 stars), AGPL-3.0, and vulture already covers the need.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/albertas/deadcode (2026-09-29)",
+        "WebSearch 'open source dead code detection python unused functions tool github 2026' (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "EXP-0006"
+        }
+      ],
+      "revisit_when": [
+        "simplify misses dead code that this tool finds"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-asottile-dead",
+      "name": "dead",
+      "repository": "https://github.com/asottile/dead",
+      "organization": "asottile",
+      "description": "dead simple python dead code detection",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "default branch @ 2026-09-28",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 401,
+        "pushed_at": "2026-09-28",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "dead code detection",
+        "unused code"
+      ],
+      "agent_os_overlap": "orchestrator/simplify.py (MIE-0011 first slice)",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "redundant with vulture",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "decision": "REJECT",
+      "rationale": "Simple git-root dead-code finder (MIT); vulture plus simplify's repository-wide scope already cover it.",
+      "confidence": "medium",
+      "provenance": [
+        "GitHub REST api.github.com/repos/asottile/dead (2026-09-29)",
+        "WebSearch 'open source dead code detection python unused functions tool github 2026' (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "EXP-0006"
+        }
+      ],
+      "revisit_when": [
+        "simplify misses dead code that this tool finds"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-skylos",
+      "name": "Skylos",
+      "repository": "https://github.com/duriantaco/skylos",
+      "organization": "duriantaco",
+      "description": "Open source local-first PR scanner that finds dead code, security bugs, secrets, quality regressions, and AI-code mistakes before merge. For first timers refer ",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "v4.41.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 839,
+        "pushed_at": "2026-09-29",
+        "archived": false,
+        "latest_release": "v4.41.0",
+        "released_at": "2026-09-28",
+        "checked_at": "2026-09-29"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "dead code detection",
+        "framework-aware analysis",
+        "unused code"
+      ],
+      "agent_os_overlap": "orchestrator/simplify.py (MIE-0011 first slice)",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unknown",
+        "quality": "claims fewer false positives (unverified)",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "unknown",
+        "maintenance": "very active",
+        "portability": "unknown"
+      },
+      "decision": "DEFER",
+      "rationale": "Framework-aware dead-code detection aimed at fewer false positives than vulture (Apache-2.0, active). Agent OS has no web-framework indirection where that matters; revisit if simplify's candidates show many false positives from dynamic dispatch.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/duriantaco/skylos (2026-09-29)",
+        "WebSearch 'open source dead code detection python unused functions tool github 2026' (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "EXP-0006"
+        }
+      ],
+      "revisit_when": [
+        "simplify candidates show frequent false positives from dynamic dispatch"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-pychase",
+      "name": "PyChase",
+      "repository": "https://github.com/Mayne-X/PyChase",
+      "organization": "Mayne-X",
+      "description": "PyChase - Python duplicate code detector using AST normalization + MinHash LSH. Catches Type-1/2/3 clones in functions, methods, and classes with zero dependenc",
+      "license": "none declared",
+      "license_spdx": null,
+      "license_status": "no license declared; operator granted academic reuse permission 2026-09-29; idea borrowed, no code copied",
+      "evaluated_revision": "v0.1.0",
+      "evaluated_at": "2026-09-29",
+      "activity": {
+        "stars": 3,
+        "pushed_at": "2026-06-18",
+        "archived": false,
+        "latest_release": "v0.1.0",
+        "released_at": "2026-06-18",
+        "checked_at": "2026-09-29"
+      },
+      "language": "HTML",
+      "capability_areas": [
+        "duplicate code detection",
+        "clone detection",
+        "AST normalization"
+      ],
+      "agent_os_overlap": "orchestrator/simplify.py (MIE-0011 first slice)",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {},
+      "evidence": {
+        "development_savings": "idea only",
+        "runtime_savings": "unknown",
+        "quality": "unverified claims",
+        "reliability": "unknown",
+        "security": "unknown",
+        "complexity": "unknown",
+        "maintenance": "3 stars, single author",
+        "portability": "unknown"
+      },
+      "decision": "BORROW",
+      "rationale": "AST normalization + MinHash LSH for Type-1/2/3 clones with zero dependencies; tiny project with no declared license. Borrowed the normalization idea for exact normalized-body hashing in simplify.py; MinHash near-duplicate detection is a possible next step.",
+      "confidence": "low",
+      "provenance": [
+        "GitHub REST api.github.com/repos/Mayne-X/PyChase (2026-09-29)",
+        "WebSearch 'open source dead code detection python unused functions tool github 2026' (2026-09-29)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "EXP-0006"
+        }
+      ],
+      "revisit_when": [
+        "simplify misses dead code that this tool finds"
+      ],
+      "revisit_by": null
     }
   ]
 }

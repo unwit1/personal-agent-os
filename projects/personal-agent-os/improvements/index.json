@@ -100,6 +100,28 @@
       "dedupe_key": "e9a7c7a2601d9446c5ab55b6a2f63d7ac1b8cc3e509e3890acf4085495b002a7",
       "updated_at": "2026-09-29T04:30:08.558310+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0010",
+      "title": "Extract one shared incremental record loader for changes and improvements",
+      "category": "architecture",
+      "subsystem": "records",
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "a8880b8a8ad8917fc1a7ff5a985d1180e673aa00b82e701a97a4fff896d98067",
+      "updated_at": "2026-09-29T04:55:35.273837+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0011",
+      "title": "Remove or justify three unused public functions",
+      "category": "architecture",
+      "subsystem": "various",
+      "status": "candidate",
+      "priority": "low",
+      "dedupe_key": "7ab0b0432c98005c2b36928b32bb15a64438f4c42c938a46c7e786598b0ef5c6",
+      "updated_at": "2026-09-29T04:55:35.369056+00:00",
+      "github_issue_number": null
     }
   ]
 }

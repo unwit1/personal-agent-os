@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-09-29T04:55:00+00:00",
-  "phase": "P1 foundations: evaluation infrastructure decided; simplification engine next",
-  "active_objective": "Start the simplification engine (MIE-0011): a deterministic component view that finds removable or replaceable code and consults the prior-art registry in both directions.",
+  "updated_at": "2026-09-29T05:20:00+00:00",
+  "phase": "P1 foundations: simplification engine live; applying its first candidates",
+  "active_objective": "Turn simplification evidence into smaller code: apply IMP-0010 (shared record loader) and IMP-0011 (unused public functions) with tests, measured by orchestrate simplify before and after.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -27,37 +27,38 @@
     "IMP-0007 implemented: state-machine invariant tests with shrinking (EXP-0003, FND-0008, DEC-0010)",
     "IMP-0005 implemented: shared provider health, breaker, delegate deferral (aabff0ea, DEC-0011, FND-0009, EVR-0012)",
     "Mutation testing subsumed; control_plane.py 1.0 and fail-closed fix (10425545, EXP-0004, DEC-0012)",
-    "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)"
+    "IMP-0008 spike: Inspect AI deferred with proven 33-line bridge (EXP-0005, DEC-0013)",
+    "MIE-0011 first slice: orchestrate simplify + report (EXP-0006, DEC-0014); 5 prior-art entries added"
   ],
   "blockers": [],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries"
   ],
   "recent_decisions": [
-    "DEC-0011",
     "DEC-0012",
-    "DEC-0013"
+    "DEC-0013",
+    "DEC-0014"
   ],
   "approval_conditions": [
     "Standing authorization (operator, 2026-09-29): commit validated steps to orchestrator-os/bootstrap-20260928; after a gated pass, fast-forward main and push; protected paths only as already granted (validators.py, eval suites, evaluators, eval.py, control_plane.py, review.py, policy/**, AGENTS.md/CLAUDE.md when the next action needs them, each recorded in a DEC); <= 9 model calls per pass, <= $10 measured per night",
     "Operator decision still open: Q-0002 (qualification on pooled item-level intervals)"
   ],
   "next_action": {
-    "summary": "MIE-0011 simplification engine, first deterministic slice: add `agent-os orchestrate simplify` producing a component view of src/agent_os (per module: lines, importers from the import graph in test_selection.py, test modules that import it, last-changed date and 90-day churn from git, public functions never referenced elsewhere) and candidates: modules with no importers and no tests (dead-code candidates), near-duplicate function bodies (normalized AST hash), and large custom modules whose capability areas match a prior-art entry (replace/borrow candidates), plus runtime dependencies Agent OS no longer uses (removal candidates). Run the prior-art discovery workflow for dead-code/duplication tooling (e.g. vulture, pylint duplicate-code) first and record entries. Write the report to projects/personal-agent-os/orchestrator-os/simplification-report.json, capture the top 3 evidenced candidates as IMP records, delete nothing in this pass.",
-    "prior_art": "dead code detection duplicate code python simplification",
+    "summary": "Apply simplification candidates. IMP-0010: extract one shared helper for incremental record loading and get-by-id used by changes.py and improvements.py (keep the public functions as thin wrappers; test_changes_import and test_improvements_import must pass unchanged). IMP-0011: for documents.extract_field_region, capability.load_records and recovery.checkpoint_workflow_record, check git history and string dispatch (CLI/MCP); delete the truly unused ones or add a justified caller/test. Measure with `orchestrate simplify` before and after (duplicate groups, unused functions, lines) and record an EVR-style note in the DEC; run the affected-test selector plus the full-suite gate.",
     "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "Deterministic static analysis; judgment only in ranking candidates.",
+    "why_this_class": "Small mechanical refactor with deterministic verification.",
     "context_refs": [
-      "MIE-0011",
-      "projects/personal-agent-os/research/prior-art/README.md",
-      "src/agent_os/orchestrator/test_selection.py",
-      "docs/orchestrator-os/CONSTITUTION.md"
+      "projects/personal-agent-os/improvements/IMP-0010.json",
+      "projects/personal-agent-os/improvements/IMP-0011.json",
+      "projects/personal-agent-os/orchestrator-os/simplification-report.json",
+      "src/agent_os/changes.py",
+      "src/agent_os/improvements.py"
     ],
     "stop_conditions": [
-      "simplify command + report committed; top candidates captured as IMP with evidence; prior-art entries for any evaluated tooling",
-      "0 model calls expected",
-      "no code deleted in this pass; stop and report if a protected path must change or the retry/repair budget is reached"
+      "both IMPs implemented or justified; simplify shows 0 duplicate groups and 0 unexplained unused functions",
+      "0 model calls",
+      "stop and report if behavior changes in agent-os validate, the full suite regresses against known_baseline, or the retry/repair budget is reached"
     ]
   },
   "meta_economics": {
@@ -145,6 +146,12 @@
       "model_calls": 0,
       "measured_cost_usd": 0,
       "downstream_value": "avoided a 69-package dependency that adds nothing usable on this machine"
+    },
+    "session_ORCH-0011": {
+      "deterministic_operations": "~20 incl. vulture cross-check",
+      "model_calls": 0,
+      "web_research_calls": 2,
+      "measured_cost_usd": 0
     }
   },
   "known_baseline": {
@@ -154,5 +161,5 @@
       "python agent.py validate"
     ]
   },
-  "last_pass_summary": "ORCH-0010 pass (IMP-0008): Inspect AI installed in the isolated dev venv (69 packages). A 33-line bridge ran EVS-TEST-SELECTION through Inspect with exact fidelity (0.375, same as orchestrate eval), so wrapping is cheap; but its distinctive sandboxes/benchmark ports need Docker or WSL, absent here. DEC-0013: DEFER with the wrap pattern kept at projects/personal-agent-os/research/prior-art/spikes/inspect_bridge.py; revisit on the first external benchmark import or when Docker/WSL appears. 0 model calls."
+  "last_pass_summary": "ORCH-0011 pass (MIE-0011 first slice): the prior-art lookup found no dead-code tooling, so discovery ran and added vulture, deadcode, dead, Skylos and PyChase to the registry (50 entries). Built `orchestrate simplify` over the existing import graph + Git history: 103 modules, ~26.2k lines; 3 unused public functions (3/3 agreement with vulture over the same scope, EXP-0006), 2 duplicate-body groups (changes vs improvements loaders), keyring used (keep), 2 relevant prior-art matches. Tests caught over-normalization in clone detection; discovery and prior-art matching now require capability-area overlap. Candidates captured as IMP-0010/IMP-0011; nothing deleted. 0 model calls."
 }

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0010",
+  "project": "personal-agent-os",
+  "title": "Extract one shared incremental record loader for changes and improvements",
+  "category": "architecture",
+  "subsystem": "records",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "simplify (EXP-0006) found identical normalized bodies: changes.load_changes_incremental vs improvements.load_improvements_incremental, and changes.get_change vs improvements.get_improvement.",
+  "evidence": [
+    "projects/personal-agent-os/orchestrator-os/simplification-report.json#duplicates"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Move the shared ingestion-ledger loading and get-by-id logic into one helper parameterized by collection name and id pattern; keep both public functions as thin wrappers; run test_changes_import and test_improvements_import.",
+  "acceptance": [
+    "Duplicate groups drop to 0 in orchestrate simplify",
+    "test_changes_import and test_improvements_import pass unchanged",
+    "No behavior change in agent-os validate"
+  ],
+  "risks": [],
+  "dedupe_key": "a8880b8a8ad8917fc1a7ff5a985d1180e673aa00b82e701a97a4fff896d98067",
+  "source": {
+    "type": "claude",
+    "reference": "EXP-0006"
+  },
+  "github": null,
+  "created_at": "2026-09-29T04:55:35.273837+00:00",
+  "updated_at": "2026-09-29T04:55:35.273837+00:00",
+  "notes": null
+}

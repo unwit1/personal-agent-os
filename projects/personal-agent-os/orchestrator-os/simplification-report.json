@@ -1,0 +1,2208 @@
+{
+  "schema": "personal-agent/simplification-report/v1",
+  "generated_at": "2026-09-29",
+  "totals": {
+    "modules": 103,
+    "lines": 26190,
+    "dead_module_candidates": 0,
+    "unused_public_functions": 3,
+    "duplicate_groups": 2,
+    "prior_art_matches": 2
+  },
+  "largest": [
+    {
+      "module": "agent_os.orchestrator.engine",
+      "lines": 2064,
+      "importer_count": 4,
+      "test_count": 4,
+      "churn_90d": 15
+    },
+    {
+      "module": "agent_os.rtec_applicants",
+      "lines": 995,
+      "importer_count": 1,
+      "test_count": 1,
+      "churn_90d": 14
+    },
+    {
+      "module": "agent_os.mcp_server",
+      "lines": 871,
+      "importer_count": 2,
+      "test_count": 8,
+      "churn_90d": 32
+    },
+    {
+      "module": "agent_os.workflows",
+      "lines": 729,
+      "importer_count": 3,
+      "test_count": 2,
+      "churn_90d": 9
+    },
+    {
+      "module": "agent_os.coordination",
+      "lines": 692,
+      "importer_count": 4,
+      "test_count": 1,
+      "churn_90d": 23
+    },
+    {
+      "module": "agent_os.cli",
+      "lines": 668,
+      "importer_count": 2,
+      "test_count": 5,
+      "churn_90d": 29
+    },
+    {
+      "module": "agent_os.orchestrator.roadmap",
+      "lines": 625,
+      "importer_count": 4,
+      "test_count": 2,
+      "churn_90d": 3
+    },
+    {
+      "module": "agent_os.documents",
+      "lines": 615,
+      "importer_count": 4,
+      "test_count": 2,
+      "churn_90d": 5
+    },
+    {
+      "module": "agent_os.orchestrator.eval",
+      "lines": 605,
+      "importer_count": 2,
+      "test_count": 1,
+      "churn_90d": 4
+    },
+    {
+      "module": "agent_os.browser_bridge",
+      "lines": 576,
+      "importer_count": 3,
+      "test_count": 1,
+      "churn_90d": 5
+    }
+  ],
+  "dead_module_candidates": [],
+  "unused_public_functions": [
+    {
+      "module": "agent_os.documents",
+      "name": "extract_field_region",
+      "line": 547,
+      "confidence": "medium (name appears only at its definition)"
+    },
+    {
+      "module": "agent_os.orchestrator.capability",
+      "name": "load_records",
+      "line": 159,
+      "confidence": "medium (name appears only at its definition)"
+    },
+    {
+      "module": "agent_os.recovery",
+      "name": "checkpoint_workflow_record",
+      "line": 371,
+      "confidence": "medium (name appears only at its definition)"
+    }
+  ],
+  "duplicates": [
+    {
+      "fingerprint": "4ce6c92e85e8e5c6",
+      "functions": [
+        "agent_os.changes:load_changes_incremental",
+        "agent_os.improvements:load_improvements_incremental"
+      ]
+    },
+    {
+      "fingerprint": "6187f148c5d9e3f8",
+      "functions": [
+        "agent_os.changes:get_change",
+        "agent_os.improvements:get_improvement"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "requirement": "keyring>=25,<26",
+      "imported_by": [
+        "src/agent_os/mail/accounts.py",
+        "src/agent_os/orchestrator/adapters/http_api.py",
+        "src/agent_os/orchestrator/cli.py"
+      ],
+      "candidate": "keep"
+    }
+  ],
+  "prior_art_matches": [
+    {
+      "module": "agent_os.orchestrator.eval",
+      "lines": 605,
+      "consider": [
+        {
+          "id": "PA-inspect-ai",
+          "decision": "DEFER",
+          "matched": [
+            "candidate",
+            "eval",
+            "evaluation",
+            "incumbent",
+            "orchestrate"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "agent_os.workflows",
+      "lines": 729,
+      "consider": [
+        {
+          "id": "PA-aflow",
+          "decision": "DEFER",
+          "matched": [
+            "workflow",
+            "workflows"
+          ]
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "module": "agent_os",
+      "path": "src/agent_os/__init__.py",
+      "lines": 2,
+      "importers": [
+        "agent_os.adapters",
+        "agent_os.browser_bridge",
+        "agent_os.browser_bridge_server",
+        "agent_os.browser_control",
+        "agent_os.candidates",
+        "agent_os.capabilities",
+        "agent_os.changes",
+        "agent_os.chat",
+        "agent_os.cli",
+        "agent_os.compiler",
+        "agent_os.connectors",
+        "agent_os.coordination"
+      ],
+      "importer_count": 101,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_coordination",
+        "tests.test_documents",
+        "tests.test_google_drive",
+        "tests.test_mail",
+        "tests.test_mail_accounts",
+        "tests.test_model_value_wiring",
+        "tests.test_normalization",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_portability",
+        "tests.test_profile"
+      ],
+      "test_count": 16,
+      "last_changed": "2026-09-18",
+      "churn_90d": 1,
+      "purpose": "Personal Agent OS core package."
+    },
+    {
+      "module": "agent_os.__main__",
+      "path": "src/agent_os/__main__.py",
+      "lines": 2,
+      "importers": [],
+      "importer_count": 0,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-18",
+      "churn_90d": 1,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.adapters",
+      "path": "src/agent_os/adapters.py",
+      "lines": 18,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.validation"
+      ],
+      "importer_count": 2,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-28",
+      "churn_90d": 3,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.browser_bridge",
+      "path": "src/agent_os/browser_bridge.py",
+      "lines": 576,
+      "importers": [
+        "agent_os.browser_bridge_server",
+        "agent_os.browser_control",
+        "agent_os.cli"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_browser_bridge"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-25",
+      "churn_90d": 5,
+      "purpose": "Local browser bridge for Personal Agent OS."
+    },
+    {
+      "module": "agent_os.browser_bridge_server",
+      "path": "src/agent_os/browser_bridge_server.py",
+      "lines": 251,
+      "importers": [
+        "agent_os.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_browser_bridge"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-25",
+      "churn_90d": 7,
+      "purpose": "Loopback HTTP service for the Agent OS browser bridge."
+    },
+    {
+      "module": "agent_os.browser_control",
+      "path": "src/agent_os/browser_control.py",
+      "lines": 96,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 2,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-25",
+      "churn_90d": 2,
+      "purpose": "Provider-neutral browser control facade for Agent OS."
+    },
+    {
+      "module": "agent_os.candidates",
+      "path": "src/agent_os/candidates.py",
+      "lines": 215,
+      "importers": [
+        "agent_os.changes",
+        "agent_os.cli",
+        "agent_os.maintenance",
+        "agent_os.mcp_server",
+        "agent_os.validation"
+      ],
+      "importer_count": 5,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_candidates",
+        "tests.test_normalization"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-22",
+      "churn_90d": 5,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.capabilities",
+      "path": "src/agent_os/capabilities.py",
+      "lines": 129,
+      "importers": [
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.model",
+        "agent_os.orchestrator.models",
+        "agent_os.orchestrator.router",
+        "agent_os.orchestrator.service",
+        "agent_os.workflows"
+      ],
+      "importer_count": 6,
+      "tests": [
+        "tests.test_model_value_wiring",
+        "tests.test_workflows"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-22",
+      "churn_90d": 3,
+      "purpose": "Provider-neutral capability classes and run-time provider resolution."
+    },
+    {
+      "module": "agent_os.changes",
+      "path": "src/agent_os/changes.py",
+      "lines": 294,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.compiler",
+        "agent_os.mcp_server",
+        "agent_os.validation"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_capture_systems",
+        "tests.test_changes_import",
+        "tests.test_normalization",
+        "tests.test_timestamps"
+      ],
+      "test_count": 4,
+      "last_changed": "2026-09-22",
+      "churn_90d": 6,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.chat",
+      "path": "src/agent_os/chat.py",
+      "lines": 182,
+      "importers": [
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_coordination",
+        "tests.test_portability"
+      ],
+      "test_count": 4,
+      "last_changed": "2026-09-22",
+      "churn_90d": 5,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.cli",
+      "path": "src/agent_os/cli.py",
+      "lines": 668,
+      "importers": [
+        "agent_os.__main__",
+        "agent_os.surfaces"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ],
+      "test_count": 5,
+      "last_changed": "2026-09-25",
+      "churn_90d": 29,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.compiler",
+      "path": "src/agent_os/compiler.py",
+      "lines": 297,
+      "importers": [
+        "agent_os.chat",
+        "agent_os.cli",
+        "agent_os.economy",
+        "agent_os.mcp_server",
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.prompts",
+        "agent_os.orchestrator.roadmap",
+        "agent_os.workflows"
+      ],
+      "importer_count": 8,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_handoffs_import",
+        "tests.test_portability",
+        "tests.test_profile",
+        "tests.test_workflows"
+      ],
+      "test_count": 6,
+      "last_changed": "2026-09-24",
+      "churn_90d": 11,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.connectors",
+      "path": "src/agent_os/connectors.py",
+      "lines": 372,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.mcp_server",
+        "agent_os.surfaces",
+        "agent_os.validation"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_connectors"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 9,
+      "purpose": "Provider-neutral, secret-safe connector registry contract (v1)."
+    },
+    {
+      "module": "agent_os.coordination",
+      "path": "src/agent_os/coordination.py",
+      "lines": 692,
+      "importers": [
+        "agent_os.chat",
+        "agent_os.cli",
+        "agent_os.mcp_server",
+        "agent_os.orchestrator.engine"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_coordination"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-22",
+      "churn_90d": 23,
+      "purpose": "Work claims, so several agents on one repository do not collide."
+    },
+    {
+      "module": "agent_os.creator_profiles",
+      "path": "src/agent_os/creator_profiles.py",
+      "lines": 537,
+      "importers": [
+        "agent_os.browser_bridge_server",
+        "agent_os.cli",
+        "agent_os.maintenance"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_browser_bridge"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-25",
+      "churn_90d": 4,
+      "purpose": "Creator identity profiles for Agent OS."
+    },
+    {
+      "module": "agent_os.documents",
+      "path": "src/agent_os/documents.py",
+      "lines": 615,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.execution",
+        "agent_os.mcp_server",
+        "agent_os.validation"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_documents",
+        "tests.test_workflows"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 5,
+      "purpose": "Shared document intelligence: content-addressed extraction with a local cache."
+    },
+    {
+      "module": "agent_os.economy",
+      "path": "src/agent_os/economy.py",
+      "lines": 76,
+      "importers": [],
+      "importer_count": 0,
+      "tests": [
+        "tests.test_economy"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-21",
+      "churn_90d": 2,
+      "purpose": "Deterministic, privacy-safe economy measurements for regression tests."
+    },
+    {
+      "module": "agent_os.execution",
+      "path": "src/agent_os/execution.py",
+      "lines": 52,
+      "importers": [
+        "agent_os.workflows"
+      ],
+      "importer_count": 1,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-22",
+      "churn_90d": 3,
+      "purpose": "Provider-neutral execution adapters for approved local execution paths."
+    },
+    {
+      "module": "agent_os.forms",
+      "path": "src/agent_os/forms.py",
+      "lines": 207,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_capture_systems",
+        "tests.test_forms_import"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 3,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.google_drive",
+      "path": "src/agent_os/google_drive.py",
+      "lines": 129,
+      "importers": [],
+      "importer_count": 0,
+      "tests": [
+        "tests.test_google_drive"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-22",
+      "churn_90d": 1,
+      "purpose": "Thin Google Drive record adapter backed by the provider-neutral ledger."
+    },
+    {
+      "module": "agent_os.handoffs",
+      "path": "src/agent_os/handoffs.py",
+      "lines": 31,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 2,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-18",
+      "churn_90d": 1,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.improvements",
+      "path": "src/agent_os/improvements.py",
+      "lines": 260,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.compiler",
+        "agent_os.mcp_server",
+        "agent_os.validation"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_capture_systems",
+        "tests.test_improvements_import",
+        "tests.test_normalization",
+        "tests.test_portability",
+        "tests.test_timestamps"
+      ],
+      "test_count": 5,
+      "last_changed": "2026-09-22",
+      "churn_90d": 6,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.index",
+      "path": "src/agent_os/index.py",
+      "lines": 224,
+      "importers": [
+        "agent_os.chat",
+        "agent_os.cli",
+        "agent_os.compiler",
+        "agent_os.maintenance",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 5,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_index"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-22",
+      "churn_90d": 3,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.ingestion",
+      "path": "src/agent_os/ingestion.py",
+      "lines": 294,
+      "importers": [
+        "agent_os.candidates",
+        "agent_os.changes",
+        "agent_os.compiler",
+        "agent_os.documents",
+        "agent_os.forms",
+        "agent_os.google_drive",
+        "agent_os.improvements",
+        "agent_os.index",
+        "agent_os.mail.engine",
+        "agent_os.profile"
+      ],
+      "importer_count": 10,
+      "tests": [
+        "tests.test_google_drive",
+        "tests.test_ingestion",
+        "tests.test_timestamps"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-23",
+      "churn_90d": 4,
+      "purpose": "Small, provider-neutral primitives for restart-safe ingestion."
+    },
+    {
+      "module": "agent_os.inventory",
+      "path": "src/agent_os/inventory.py",
+      "lines": 107,
+      "importers": [
+        "agent_os.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_portability"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-21",
+      "churn_90d": 2,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.launcher",
+      "path": "src/agent_os/launcher.py",
+      "lines": 235,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.surfaces"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_portability",
+        "tests.test_surfaces"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-21",
+      "churn_90d": 2,
+      "purpose": "Stable, machine-local launcher for the Agent OS MCP server."
+    },
+    {
+      "module": "agent_os.local_paths",
+      "path": "src/agent_os/local_paths.py",
+      "lines": 23,
+      "importers": [
+        "agent_os.documents",
+        "agent_os.orchestrator.store",
+        "agent_os.telemetry"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_local_paths"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-22",
+      "churn_90d": 1,
+      "purpose": "Deterministic privacy checks for workstation-local runtime paths."
+    },
+    {
+      "module": "agent_os.machine",
+      "path": "src/agent_os/machine.py",
+      "lines": 145,
+      "importers": [
+        "agent_os.capabilities",
+        "agent_os.cli",
+        "agent_os.connectors",
+        "agent_os.coordination",
+        "agent_os.orchestrator.engine",
+        "agent_os.registry",
+        "agent_os.surfaces"
+      ],
+      "importer_count": 7,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_portability",
+        "tests.test_surfaces"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-24",
+      "churn_90d": 3,
+      "purpose": "Machine-local resolution of project checkout locations."
+    },
+    {
+      "module": "agent_os.mail",
+      "path": "src/agent_os/mail/__init__.py",
+      "lines": 376,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.mail.accounts",
+        "agent_os.mail.attachments",
+        "agent_os.mail.benchmark",
+        "agent_os.mail.cli",
+        "agent_os.mail.config",
+        "agent_os.mail.engine",
+        "agent_os.mail.imap",
+        "agent_os.mail.message",
+        "agent_os.mail.pst",
+        "agent_os.mail.scopes",
+        "agent_os.mail.setup_window"
+      ],
+      "importer_count": 14,
+      "tests": [
+        "tests.test_mail",
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-23",
+      "churn_90d": 3,
+      "purpose": "Provider-neutral, read-only mail: accounts, sync, search, threads."
+    },
+    {
+      "module": "agent_os.mail.accounts",
+      "path": "src/agent_os/mail/accounts.py",
+      "lines": 305,
+      "importers": [
+        "agent_os.mail.attachments",
+        "agent_os.mail.benchmark",
+        "agent_os.mail.cli",
+        "agent_os.mail.engine",
+        "agent_os.mail.scopes",
+        "agent_os.mail.setup_window",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 7,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 3,
+      "purpose": "Mail accounts, provider defaults, and local secrets."
+    },
+    {
+      "module": "agent_os.mail.attachments",
+      "path": "src/agent_os/mail/attachments.py",
+      "lines": 200,
+      "importers": [
+        "agent_os.mail.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 1,
+      "purpose": "Save email attachments as files, named and dated."
+    },
+    {
+      "module": "agent_os.mail.benchmark",
+      "path": "src/agent_os/mail/benchmark.py",
+      "lines": 118,
+      "importers": [
+        "agent_os.mail.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 1,
+      "purpose": "`agent-os mail benchmark`: timing for the real sync engine, ledger and"
+    },
+    {
+      "module": "agent_os.mail.cli",
+      "path": "src/agent_os/mail/cli.py",
+      "lines": 186,
+      "importers": [
+        "agent_os.cli"
+      ],
+      "importer_count": 1,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-23",
+      "churn_90d": 5,
+      "purpose": "`agent-os mail ...` commands."
+    },
+    {
+      "module": "agent_os.mail.config",
+      "path": "src/agent_os/mail/config.py",
+      "lines": 23,
+      "importers": [
+        "agent_os.mail.accounts",
+        "agent_os.mail.attachments",
+        "agent_os.mail.benchmark",
+        "agent_os.mail.cli",
+        "agent_os.mail.engine",
+        "agent_os.mail.pst",
+        "agent_os.mail.scopes"
+      ],
+      "importer_count": 7,
+      "tests": [
+        "tests.test_mail",
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "Local paths for the mail subsystem (all under the gitignored .agent-local)."
+    },
+    {
+      "module": "agent_os.mail.engine",
+      "path": "src/agent_os/mail/engine.py",
+      "lines": 328,
+      "importers": [
+        "agent_os.mail.benchmark",
+        "agent_os.mail.setup_window"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 3,
+      "purpose": "Restart-safe, incremental, read-only sync of IMAP accounts into the index."
+    },
+    {
+      "module": "agent_os.mail.imap",
+      "path": "src/agent_os/mail/imap.py",
+      "lines": 226,
+      "importers": [
+        "agent_os.mail.attachments",
+        "agent_os.mail.engine"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "Read-only IMAP access for any provider."
+    },
+    {
+      "module": "agent_os.mail.message",
+      "path": "src/agent_os/mail/message.py",
+      "lines": 148,
+      "importers": [
+        "agent_os.mail.attachments",
+        "agent_os.mail.engine",
+        "agent_os.mail.pst",
+        "agent_os.mail.store"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 1,
+      "purpose": "Parse RFC822 messages into normalized fields, fingerprints and attachment"
+    },
+    {
+      "module": "agent_os.mail.pst",
+      "path": "src/agent_os/mail/pst.py",
+      "lines": 267,
+      "importers": [
+        "agent_os.mail.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 3,
+      "purpose": "Import Outlook PST/OST backups into the **work** mail index."
+    },
+    {
+      "module": "agent_os.mail.scopes",
+      "path": "src/agent_os/mail/scopes.py",
+      "lines": 92,
+      "importers": [
+        "agent_os.mail.attachments",
+        "agent_os.mail.cli",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 1,
+      "purpose": "Work/personal separation for mail."
+    },
+    {
+      "module": "agent_os.mail.setup_window",
+      "path": "src/agent_os/mail/setup_window.py",
+      "lines": 198,
+      "importers": [
+        "agent_os.mail.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "A small window for adding a mail account and its password."
+    },
+    {
+      "module": "agent_os.mail.store",
+      "path": "src/agent_os/mail/store.py",
+      "lines": 470,
+      "importers": [
+        "agent_os.mail.attachments",
+        "agent_os.mail.benchmark",
+        "agent_os.mail.engine",
+        "agent_os.mail.pst"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_mail_accounts"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 1,
+      "purpose": "Local mail index (SQLite, gitignored): logical messages, source"
+    },
+    {
+      "module": "agent_os.maintenance",
+      "path": "src/agent_os/maintenance.py",
+      "lines": 35,
+      "importers": [
+        "agent_os.cli"
+      ],
+      "importer_count": 1,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-25",
+      "churn_90d": 2,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.mcp_server",
+      "path": "src/agent_os/mcp_server.py",
+      "lines": 871,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.surfaces"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants"
+      ],
+      "test_count": 8,
+      "last_changed": "2026-09-25",
+      "churn_90d": 32,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.normalization",
+      "path": "src/agent_os/normalization.py",
+      "lines": 6,
+      "importers": [
+        "agent_os.candidates",
+        "agent_os.changes",
+        "agent_os.improvements"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_normalization"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-22",
+      "churn_90d": 1,
+      "purpose": "Small deterministic text normalization primitives."
+    },
+    {
+      "module": "agent_os.orchestrator",
+      "path": "src/agent_os/orchestrator/__init__.py",
+      "lines": 12,
+      "importers": [
+        "agent_os.orchestrator.adapters",
+        "agent_os.orchestrator.adapters.base",
+        "agent_os.orchestrator.adapters.claude_code",
+        "agent_os.orchestrator.adapters.codex_cli",
+        "agent_os.orchestrator.adapters.http_api",
+        "agent_os.orchestrator.adapters.synthetic",
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.capability",
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.continuation",
+        "agent_os.orchestrator.control_plane",
+        "agent_os.orchestrator.delegate"
+      ],
+      "importer_count": 42,
+      "tests": [
+        "tests.test_model_value",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator_api_retry",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap"
+      ],
+      "test_count": 17,
+      "last_changed": "2026-09-22",
+      "churn_90d": 1,
+      "purpose": "Multi-agent coding orchestrator (P1.2A)."
+    },
+    {
+      "module": "agent_os.orchestrator.adapters",
+      "path": "src/agent_os/orchestrator/adapters/__init__.py",
+      "lines": 89,
+      "importers": [
+        "agent_os.orchestrator.adapters.base",
+        "agent_os.orchestrator.adapters.claude_code",
+        "agent_os.orchestrator.adapters.codex_cli",
+        "agent_os.orchestrator.adapters.http_api",
+        "agent_os.orchestrator.adapters.synthetic",
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.delegate",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.overhead",
+        "agent_os.orchestrator.router",
+        "agent_os.orchestrator.service"
+      ],
+      "importer_count": 12,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_api_retry",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_state_machine",
+        "tests.test_orchestrator_telemetry"
+      ],
+      "test_count": 14,
+      "last_changed": "2026-09-28",
+      "churn_90d": 3,
+      "purpose": "Provider adapters. The only place provider-specific CLI syntax may live."
+    },
+    {
+      "module": "agent_os.orchestrator.adapters.base",
+      "path": "src/agent_os/orchestrator/adapters/base.py",
+      "lines": 318,
+      "importers": [
+        "agent_os.orchestrator.adapters.claude_code",
+        "agent_os.orchestrator.adapters.codex_cli",
+        "agent_os.orchestrator.adapters.http_api",
+        "agent_os.orchestrator.adapters.synthetic",
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.delegate",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.prompts"
+      ],
+      "importer_count": 8,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_api_retry",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead"
+      ],
+      "test_count": 5,
+      "last_changed": "2026-09-23",
+      "churn_90d": 4,
+      "purpose": "The narrow contract every coding-agent adapter implements."
+    },
+    {
+      "module": "agent_os.orchestrator.adapters.claude_code",
+      "path": "src/agent_os/orchestrator/adapters/claude_code.py",
+      "lines": 182,
+      "importers": [],
+      "importer_count": 0,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_telemetry"
+      ],
+      "test_count": 5,
+      "last_changed": "2026-09-23",
+      "churn_90d": 5,
+      "purpose": "Claude Code CLI adapter."
+    },
+    {
+      "module": "agent_os.orchestrator.adapters.codex_cli",
+      "path": "src/agent_os/orchestrator/adapters/codex_cli.py",
+      "lines": 230,
+      "importers": [],
+      "importer_count": 0,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_telemetry"
+      ],
+      "test_count": 5,
+      "last_changed": "2026-09-23",
+      "churn_90d": 4,
+      "purpose": "Codex CLI adapter."
+    },
+    {
+      "module": "agent_os.orchestrator.adapters.http_api",
+      "path": "src/agent_os/orchestrator/adapters/http_api.py",
+      "lines": 214,
+      "importers": [
+        "agent_os.orchestrator.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_api_retry"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-28",
+      "churn_90d": 1,
+      "purpose": "Direct HTTP API adapters (Anthropic Messages, OpenAI-compatible Chat"
+    },
+    {
+      "module": "agent_os.orchestrator.adapters.synthetic",
+      "path": "src/agent_os/orchestrator/adapters/synthetic.py",
+      "lines": 129,
+      "importers": [
+        "agent_os.orchestrator.benchmark"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_state_machine",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_orchestrator_test_selection",
+        "tests.test_provider_health"
+      ],
+      "test_count": 10,
+      "last_changed": "2026-09-22",
+      "churn_90d": 2,
+      "purpose": "In-process synthetic coding agent for tests, demos, and dry runs."
+    },
+    {
+      "module": "agent_os.orchestrator.benchmark",
+      "path": "src/agent_os/orchestrator/benchmark.py",
+      "lines": 394,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.models"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_orchestrator_benchmark"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "Repeatable token-efficiency benchmark: ``agent-os orchestrate benchmark``."
+    },
+    {
+      "module": "agent_os.orchestrator.capability",
+      "path": "src/agent_os/orchestrator/capability.py",
+      "lines": 142,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.delegate",
+        "agent_os.orchestrator.eval"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_eval"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-28",
+      "churn_90d": 3,
+      "purpose": "Task-specific capability evidence (CAP records)."
+    },
+    {
+      "module": "agent_os.orchestrator.cli",
+      "path": "src/agent_os/orchestrator/cli.py",
+      "lines": 411,
+      "importers": [
+        "agent_os.cli"
+      ],
+      "importer_count": 1,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-29",
+      "churn_90d": 14,
+      "purpose": "`agent-os orchestrate ...` -- headless control of orchestrated runs."
+    },
+    {
+      "module": "agent_os.orchestrator.continuation",
+      "path": "src/agent_os/orchestrator/continuation.py",
+      "lines": 108,
+      "importers": [
+        "agent_os.orchestrator.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_control_plane",
+        "tests.test_prior_art"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-28",
+      "churn_90d": 2,
+      "purpose": "Orchestrator OS continuation: checkpoint + exact next prompt, no model call."
+    },
+    {
+      "module": "agent_os.orchestrator.control_plane",
+      "path": "src/agent_os/orchestrator/control_plane.py",
+      "lines": 75,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.eval",
+        "agent_os.orchestrator.validators"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_orchestrator_control_plane"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-29",
+      "churn_90d": 2,
+      "purpose": "Trusted control/evaluation plane boundary (docs/orchestrator-os/CONSTITUTION.md \u00a74)."
+    },
+    {
+      "module": "agent_os.orchestrator.delegate",
+      "path": "src/agent_os/orchestrator/delegate.py",
+      "lines": 173,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.eval"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_orchestrator_control_plane",
+        "tests.test_provider_health"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-29",
+      "churn_90d": 3,
+      "purpose": "One-shot, read-only delegation: ``agent-os orchestrate delegate``."
+    },
+    {
+      "module": "agent_os.orchestrator.engine",
+      "path": "src/agent_os/orchestrator/engine.py",
+      "lines": 2064,
+      "importers": [
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.overhead",
+        "agent_os.orchestrator.roadmap",
+        "agent_os.orchestrator.service"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_state_machine"
+      ],
+      "test_count": 4,
+      "last_changed": "2026-09-29",
+      "churn_90d": 15,
+      "purpose": "The orchestration engine: scheduler, auto-continue controller, gates."
+    },
+    {
+      "module": "agent_os.orchestrator.eval",
+      "path": "src/agent_os/orchestrator/eval.py",
+      "lines": 605,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.mutation"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_orchestrator_eval"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-28",
+      "churn_90d": 4,
+      "purpose": "Incumbent-vs-candidate evaluation: ``agent-os orchestrate eval`` (IMP-0003)."
+    },
+    {
+      "module": "agent_os.orchestrator.evidence",
+      "path": "src/agent_os/orchestrator/evidence.py",
+      "lines": 172,
+      "importers": [
+        "agent_os.validation"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_eval"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-28",
+      "churn_90d": 2,
+      "purpose": "Orchestrator OS durable state: typed evidence records, eval suites, the"
+    },
+    {
+      "module": "agent_os.orchestrator.ledger",
+      "path": "src/agent_os/orchestrator/ledger.py",
+      "lines": 384,
+      "importers": [
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.models",
+        "agent_os.orchestrator.simple",
+        "agent_os.orchestrator.usage_report"
+      ],
+      "importer_count": 5,
+      "tests": [
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_telemetry"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "Per-run efficiency telemetry: structured events, a readable transcript, and"
+    },
+    {
+      "module": "agent_os.orchestrator.model",
+      "path": "src/agent_os/orchestrator/model.py",
+      "lines": 429,
+      "importers": [
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.planner",
+        "agent_os.orchestrator.review",
+        "agent_os.orchestrator.store",
+        "agent_os.orchestrator.validators"
+      ],
+      "importer_count": 5,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_test_selection"
+      ],
+      "test_count": 5,
+      "last_changed": "2026-09-28",
+      "churn_90d": 11,
+      "purpose": "Run, node, and policy vocabulary for orchestrated multi-agent runs."
+    },
+    {
+      "module": "agent_os.orchestrator.model_prices",
+      "path": "src/agent_os/orchestrator/model_prices.py",
+      "lines": 91,
+      "importers": [
+        "agent_os.orchestrator.models"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_model_prices",
+        "tests.test_model_value_wiring"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 1,
+      "purpose": "Fetch and parse standard model pricing from vendor documentation."
+    },
+    {
+      "module": "agent_os.orchestrator.model_value",
+      "path": "src/agent_os/orchestrator/model_value.py",
+      "lines": 108,
+      "importers": [
+        "agent_os.orchestrator.adapters.http_api",
+        "agent_os.orchestrator.models"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_model_value",
+        "tests.test_model_value_wiring"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 1,
+      "purpose": "Price and benchmark evidence used to compare configured model tiers."
+    },
+    {
+      "module": "agent_os.orchestrator.models",
+      "path": "src/agent_os/orchestrator/models.py",
+      "lines": 418,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.model_value",
+        "agent_os.orchestrator.server",
+        "agent_os.orchestrator.service"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator_models"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 2,
+      "purpose": "Model catalog: which models exist, which are new, which are outdated, and"
+    },
+    {
+      "module": "agent_os.orchestrator.mutation",
+      "path": "src/agent_os/orchestrator/mutation.py",
+      "lines": 188,
+      "importers": [
+        "agent_os.orchestrator.cli"
+      ],
+      "importer_count": 1,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-29",
+      "churn_90d": 1,
+      "purpose": "Mutation testing for control-plane modules: ``agent-os orchestrate mutate``."
+    },
+    {
+      "module": "agent_os.orchestrator.overhead",
+      "path": "src/agent_os/orchestrator/overhead.py",
+      "lines": 233,
+      "importers": [
+        "agent_os.orchestrator.cli"
+      ],
+      "importer_count": 1,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "Measure the fixed per-call context cost of each coding-agent CLI."
+    },
+    {
+      "module": "agent_os.orchestrator.planner",
+      "path": "src/agent_os/orchestrator/planner.py",
+      "lines": 225,
+      "importers": [
+        "agent_os.orchestrator.engine"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_host_actions"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 5,
+      "purpose": "Dependency-aware task graphs."
+    },
+    {
+      "module": "agent_os.orchestrator.prior_art",
+      "path": "src/agent_os/orchestrator/prior_art.py",
+      "lines": 164,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.evidence",
+        "agent_os.orchestrator.simplify"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_prior_art"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-28",
+      "churn_90d": 1,
+      "purpose": "Open-source prior-art registry: lookup, staleness, task-specific discovery"
+    },
+    {
+      "module": "agent_os.orchestrator.prompts",
+      "path": "src/agent_os/orchestrator/prompts.py",
+      "lines": 237,
+      "importers": [
+        "agent_os.orchestrator.engine"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_planner_context"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-24",
+      "churn_90d": 9,
+      "purpose": "Bounded worker prompts."
+    },
+    {
+      "module": "agent_os.orchestrator.provider_health",
+      "path": "src/agent_os/orchestrator/provider_health.py",
+      "lines": 110,
+      "importers": [
+        "agent_os.orchestrator.delegate",
+        "agent_os.orchestrator.engine"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_provider_health"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-29",
+      "churn_90d": 1,
+      "purpose": "Machine-wide provider health: quota cooldowns and a failure-window breaker."
+    },
+    {
+      "module": "agent_os.orchestrator.repomap",
+      "path": "src/agent_os/orchestrator/repomap.py",
+      "lines": 122,
+      "importers": [
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.roadmap"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_orchestrator_planner_context"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 1,
+      "purpose": "A compact, goal-focused map of a repository for planner prompts."
+    },
+    {
+      "module": "agent_os.orchestrator.repos",
+      "path": "src/agent_os/orchestrator/repos.py",
+      "lines": 126,
+      "importers": [
+        "agent_os.orchestrator.server"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_repos"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 1,
+      "purpose": "Repository chooser for the GUI: find the user's Git repositories, and"
+    },
+    {
+      "module": "agent_os.orchestrator.retry",
+      "path": "src/agent_os/orchestrator/retry.py",
+      "lines": 107,
+      "importers": [
+        "agent_os.orchestrator.adapters.http_api"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_api_retry"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-28",
+      "churn_90d": 1,
+      "purpose": "Bounded retry with full-jitter backoff, Retry-After, and a circuit breaker."
+    },
+    {
+      "module": "agent_os.orchestrator.review",
+      "path": "src/agent_os/orchestrator/review.py",
+      "lines": 70,
+      "importers": [
+        "agent_os.orchestrator.engine"
+      ],
+      "importer_count": 1,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-22",
+      "churn_90d": 1,
+      "purpose": "Structured cross-review findings."
+    },
+    {
+      "module": "agent_os.orchestrator.roadmap",
+      "path": "src/agent_os/orchestrator/roadmap.py",
+      "lines": 625,
+      "importers": [
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.overhead",
+        "agent_os.orchestrator.server"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_roadmap"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 3,
+      "purpose": "Continue Roadmap: find the next unfinished roadmap stage and work on it."
+    },
+    {
+      "module": "agent_os.orchestrator.router",
+      "path": "src/agent_os/orchestrator/router.py",
+      "lines": 374,
+      "importers": [
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.delegate",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.models",
+        "agent_os.orchestrator.overhead"
+      ],
+      "importer_count": 5,
+      "tests": [
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_api_retry",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_state_machine",
+        "tests.test_provider_health"
+      ],
+      "test_count": 10,
+      "last_changed": "2026-09-24",
+      "churn_90d": 5,
+      "purpose": "Deterministic model routing: capability class + effort -> provider/model/effort."
+    },
+    {
+      "module": "agent_os.orchestrator.server",
+      "path": "src/agent_os/orchestrator/server.py",
+      "lines": 475,
+      "importers": [
+        "agent_os.orchestrator.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-23",
+      "churn_90d": 6,
+      "purpose": "Local HTTP API + event stream for the control GUI."
+    },
+    {
+      "module": "agent_os.orchestrator.service",
+      "path": "src/agent_os/orchestrator/service.py",
+      "lines": 319,
+      "importers": [
+        "agent_os.mcp_server",
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.server"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-24",
+      "churn_90d": 6,
+      "purpose": "One facade over the engine for every surface: CLI, MCP, and the local API."
+    },
+    {
+      "module": "agent_os.orchestrator.simple",
+      "path": "src/agent_os/orchestrator/simple.py",
+      "lines": 459,
+      "importers": [
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.server"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_orchestrator_roadmap"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 3,
+      "purpose": "Simple Mode: the orchestrator's state in plain English."
+    },
+    {
+      "module": "agent_os.orchestrator.simplify",
+      "path": "src/agent_os/orchestrator/simplify.py",
+      "lines": 163,
+      "importers": [
+        "agent_os.orchestrator.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_simplify"
+      ],
+      "test_count": 1,
+      "last_changed": null,
+      "churn_90d": 0,
+      "purpose": "Simplification engine, first deterministic slice (MIE-0011):"
+    },
+    {
+      "module": "agent_os.orchestrator.store",
+      "path": "src/agent_os/orchestrator/store.py",
+      "lines": 199,
+      "importers": [
+        "agent_os.orchestrator.adapters.base",
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.capability",
+        "agent_os.orchestrator.delegate",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.eval",
+        "agent_os.orchestrator.ledger",
+        "agent_os.orchestrator.model_value",
+        "agent_os.orchestrator.models",
+        "agent_os.orchestrator.overhead",
+        "agent_os.orchestrator.review",
+        "agent_os.orchestrator.usage_report"
+      ],
+      "importer_count": 13,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_state_machine"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-22",
+      "churn_90d": 2,
+      "purpose": "Local persistence for orchestrated runs."
+    },
+    {
+      "module": "agent_os.orchestrator.test_selection",
+      "path": "src/agent_os/orchestrator/test_selection.py",
+      "lines": 108,
+      "importers": [
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.eval",
+        "agent_os.orchestrator.simplify"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_orchestrator_test_selection"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-28",
+      "churn_90d": 1,
+      "purpose": "Deterministic affected-test selection from the static import graph (IMP-0006)."
+    },
+    {
+      "module": "agent_os.orchestrator.usage",
+      "path": "src/agent_os/orchestrator/usage.py",
+      "lines": 173,
+      "importers": [
+        "agent_os.orchestrator.adapters.claude_code",
+        "agent_os.orchestrator.adapters.codex_cli",
+        "agent_os.orchestrator.adapters.http_api",
+        "agent_os.orchestrator.adapters.synthetic",
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.prompts",
+        "agent_os.orchestrator.roadmap",
+        "agent_os.orchestrator.usage_report"
+      ],
+      "importer_count": 9,
+      "tests": [
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_telemetry"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "Provider token usage, normalized and honestly labelled."
+    },
+    {
+      "module": "agent_os.orchestrator.usage_report",
+      "path": "src/agent_os/orchestrator/usage_report.py",
+      "lines": 165,
+      "importers": [
+        "agent_os.orchestrator.cli",
+        "agent_os.orchestrator.server"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_orchestrator_overhead"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 2,
+      "purpose": "Cross-run usage report: ``agent-os orchestrate usage-report``."
+    },
+    {
+      "module": "agent_os.orchestrator.validators",
+      "path": "src/agent_os/orchestrator/validators.py",
+      "lines": 113,
+      "importers": [
+        "agent_os.orchestrator.engine"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_telemetry"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-28",
+      "churn_90d": 5,
+      "purpose": "Deterministic validator runner."
+    },
+    {
+      "module": "agent_os.orchestrator.worktrees",
+      "path": "src/agent_os/orchestrator/worktrees.py",
+      "lines": 188,
+      "importers": [
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.overhead",
+        "agent_os.orchestrator.repomap",
+        "agent_os.orchestrator.roadmap"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_economy"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-22",
+      "churn_90d": 2,
+      "purpose": "Per-worker Git branches and worktrees."
+    },
+    {
+      "module": "agent_os.paths",
+      "path": "src/agent_os/paths.py",
+      "lines": 14,
+      "importers": [
+        "agent_os.adapters",
+        "agent_os.browser_bridge",
+        "agent_os.browser_bridge_server",
+        "agent_os.candidates",
+        "agent_os.changes",
+        "agent_os.compiler",
+        "agent_os.connectors",
+        "agent_os.creator_profiles",
+        "agent_os.documents",
+        "agent_os.forms",
+        "agent_os.handoffs",
+        "agent_os.improvements"
+      ],
+      "importer_count": 39,
+      "tests": [
+        "tests.test_connectors",
+        "tests.test_coordination",
+        "tests.test_documents",
+        "tests.test_local_paths",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_paths",
+        "tests.test_portability",
+        "tests.test_profile",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ],
+      "test_count": 13,
+      "last_changed": "2026-09-22",
+      "churn_90d": 2,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.privacy",
+      "path": "src/agent_os/privacy.py",
+      "lines": 48,
+      "importers": [
+        "agent_os.changes",
+        "agent_os.connectors",
+        "agent_os.documents",
+        "agent_os.forms",
+        "agent_os.improvements",
+        "agent_os.profile",
+        "agent_os.validation"
+      ],
+      "importer_count": 7,
+      "tests": [],
+      "test_count": 0,
+      "last_changed": "2026-09-18",
+      "churn_90d": 1,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.profile",
+      "path": "src/agent_os/profile.py",
+      "lines": 412,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.compiler",
+        "agent_os.mcp_server",
+        "agent_os.validation"
+      ],
+      "importer_count": 4,
+      "tests": [
+        "tests.test_profile"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-22",
+      "churn_90d": 2,
+      "purpose": "Selective retrieval of durable personal profile context."
+    },
+    {
+      "module": "agent_os.recovery",
+      "path": "src/agent_os/recovery.py",
+      "lines": 398,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_recovery"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 5,
+      "purpose": "Provider-neutral restart recovery and incremental work primitives."
+    },
+    {
+      "module": "agent_os.registry",
+      "path": "src/agent_os/registry.py",
+      "lines": 58,
+      "importers": [
+        "agent_os.candidates",
+        "agent_os.changes",
+        "agent_os.chat",
+        "agent_os.cli",
+        "agent_os.compiler",
+        "agent_os.handoffs",
+        "agent_os.improvements",
+        "agent_os.index",
+        "agent_os.inventory",
+        "agent_os.mail.scopes",
+        "agent_os.maintenance",
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 22,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_portability"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-21",
+      "churn_90d": 3,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.review",
+      "path": "src/agent_os/review.py",
+      "lines": 32,
+      "importers": [
+        "agent_os.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_agent_os"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-18",
+      "churn_90d": 1,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.routing",
+      "path": "src/agent_os/routing.py",
+      "lines": 68,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.validation"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_portability"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-21",
+      "churn_90d": 2,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.rtec_applicants",
+      "path": "src/agent_os/rtec_applicants.py",
+      "lines": 995,
+      "importers": [
+        "agent_os.mcp_server"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_rtec_applicants"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-24",
+      "churn_90d": 14,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.skills",
+      "path": "src/agent_os/skills.py",
+      "lines": 118,
+      "importers": [
+        "agent_os.chat",
+        "agent_os.compiler",
+        "agent_os.economy",
+        "agent_os.index",
+        "agent_os.mcp_server",
+        "agent_os.validation"
+      ],
+      "importer_count": 6,
+      "tests": [
+        "tests.test_agent_os",
+        "tests.test_economy",
+        "tests.test_portability"
+      ],
+      "test_count": 3,
+      "last_changed": "2026-09-22",
+      "churn_90d": 4,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.storage",
+      "path": "src/agent_os/storage.py",
+      "lines": 23,
+      "importers": [
+        "agent_os.candidates",
+        "agent_os.changes",
+        "agent_os.compiler",
+        "agent_os.connectors",
+        "agent_os.forms",
+        "agent_os.handoffs",
+        "agent_os.improvements",
+        "agent_os.ingestion",
+        "agent_os.orchestrator.roadmap",
+        "agent_os.orchestrator.service",
+        "agent_os.orchestrator.store",
+        "agent_os.profile"
+      ],
+      "importer_count": 17,
+      "tests": [
+        "tests.test_capture_systems",
+        "tests.test_portability"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-18",
+      "churn_90d": 1,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.surfaces",
+      "path": "src/agent_os/surfaces.py",
+      "lines": 362,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.connectors",
+        "agent_os.validation"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_surfaces"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-23",
+      "churn_90d": 4,
+      "purpose": "Integration health for the client surfaces that reach Agent OS."
+    },
+    {
+      "module": "agent_os.telemetry",
+      "path": "src/agent_os/telemetry.py",
+      "lines": 238,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.orchestrator.benchmark",
+        "agent_os.orchestrator.engine",
+        "agent_os.orchestrator.overhead",
+        "agent_os.workflows"
+      ],
+      "importer_count": 5,
+      "tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_state_machine",
+        "tests.test_telemetry",
+        "tests.test_timestamps",
+        "tests.test_workflows"
+      ],
+      "test_count": 5,
+      "last_changed": "2026-09-22",
+      "churn_90d": 4,
+      "purpose": "Privacy-safe local telemetry for Agent-OS-controlled work."
+    },
+    {
+      "module": "agent_os.timestamps",
+      "path": "src/agent_os/timestamps.py",
+      "lines": 6,
+      "importers": [
+        "agent_os.changes",
+        "agent_os.coordination",
+        "agent_os.improvements",
+        "agent_os.ingestion",
+        "agent_os.mail.accounts",
+        "agent_os.mail.engine",
+        "agent_os.mail.store",
+        "agent_os.orchestrator.adapters.base",
+        "agent_os.orchestrator.adapters.http_api",
+        "agent_os.orchestrator.adapters.synthetic",
+        "agent_os.orchestrator.capability",
+        "agent_os.orchestrator.continuation"
+      ],
+      "importer_count": 23,
+      "tests": [
+        "tests.test_timestamps"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-22",
+      "churn_90d": 1,
+      "purpose": "Deterministic timestamp formatting shared by local state writers."
+    },
+    {
+      "module": "agent_os.validation",
+      "path": "src/agent_os/validation.py",
+      "lines": 318,
+      "importers": [
+        "agent_os.cli"
+      ],
+      "importer_count": 1,
+      "tests": [
+        "tests.test_agent_os"
+      ],
+      "test_count": 1,
+      "last_changed": "2026-09-28",
+      "churn_90d": 11,
+      "purpose": ""
+    },
+    {
+      "module": "agent_os.watching",
+      "path": "src/agent_os/watching.py",
+      "lines": 102,
+      "importers": [
+        "agent_os.browser_bridge_server",
+        "agent_os.cli"
+      ],
+      "importer_count": 2,
+      "tests": [
+        "tests.test_browser_bridge",
+        "tests.test_watching"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-25",
+      "churn_90d": 1,
+      "purpose": "Persistent proactive watch graph for Agent OS."
+    },
+    {
+      "module": "agent_os.workflows",
+      "path": "src/agent_os/workflows.py",
+      "lines": 729,
+      "importers": [
+        "agent_os.cli",
+        "agent_os.mcp_server",
+        "agent_os.validation"
+      ],
+      "importer_count": 3,
+      "tests": [
+        "tests.test_timestamps",
+        "tests.test_workflows"
+      ],
+      "test_count": 2,
+      "last_changed": "2026-09-24",
+      "churn_90d": 9,
+      "purpose": "Staged workflow orchestration."
+    }
+  ],
+  "notes": [
+    "Candidates, not verdicts: dynamic imports, CLI dispatch strings, MCP tool names and plugin registries can hide real uses.",
+    "Nothing is deleted by this command."
+  ]
+}
