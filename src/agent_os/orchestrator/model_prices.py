@@ -10,6 +10,9 @@ from typing import Any
 PRICE_PAGES = [
     {"provider": "claude-code", "url": "https://platform.claude.com/docs/en/about-claude/pricing.md", "parser": "anthropic"},
     {"provider": "codex", "url": "https://developers.openai.com/api/docs/pricing.md", "parser": "openai"},
+    # Every open model sold per token (Qwen, DeepSeek, Llama, gpt-oss...), as
+    # "vendor/model" ids; listed last so vendor pages win for their own models.
+    {"provider": "openrouter", "url": "https://openrouter.ai/api/v1/models", "parser": "openrouter"},
 ]
 FETCH_TIMEOUT = 20
 _GPT_ID = re.compile(r"^gpt-[\w.\-]+$")
@@ -80,6 +83,30 @@ def parse_anthropic(markdown: str) -> dict[str, dict]:
         values = [_number(cells[index]) for index in (1, 4, 5)]
         if all(value is not None for value in values):
             result[model] = dict(zip(("input", "cached_input", "output"), values))
+    return result
+
+
+def parse_openrouter(text: str) -> dict[str, dict]:
+    """OpenRouter's public model list (JSON): USD per token -> USD per million."""
+    import json
+
+    result: dict[str, dict] = {}
+    try:
+        data = json.loads(text).get("data") or []
+    except (ValueError, AttributeError):
+        return result
+    for item in data:
+        model, pricing = str(item.get("id") or ""), item.get("pricing") or {}
+        if not model or ":" in model:  # skip :free / :batch variants; the base id carries the list price
+            continue
+        try:
+            price_in, price_out = float(pricing["prompt"]) * 1e6, float(pricing["completion"]) * 1e6
+            cached = float(pricing.get("input_cache_read") or pricing["prompt"]) * 1e6
+        except (KeyError, TypeError, ValueError):
+            continue
+        if price_in < 0 or price_out < 0:  # negative = "varies" (routers)
+            continue
+        result[model] = {"input": round(price_in, 6), "cached_input": round(cached, 6), "output": round(price_out, 6)}
     return result
 
 

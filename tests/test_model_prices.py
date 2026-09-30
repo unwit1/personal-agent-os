@@ -1,3 +1,4 @@
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -32,9 +33,29 @@ class ModelPricesTests(unittest.TestCase):
                 raise OSError("offline")
 
         result = fetch_prices(BrokenOpener().open)
-        self.assertEqual(len(result["checks"]), 2)
+        from agent_os.orchestrator.model_prices import PRICE_PAGES
+
+        self.assertEqual(len(result["checks"]), len(PRICE_PAGES))
         self.assertTrue(all(check["ok"] is False for check in result["checks"]))
         self.assertEqual(result["prices"], {})
+
+
+class OpenRouterPriceTests(unittest.TestCase):
+    def test_parses_per_token_prices_and_skips_variants_and_routers(self) -> None:
+        from agent_os.orchestrator import model_prices
+
+        payload = json.dumps({"data": [
+            {"id": "qwen/qwen3-32b", "pricing": {"prompt": "0.00000008", "completion": "0.00000028"}},
+            {"id": "deepseek/v4", "pricing": {"prompt": "0.0000002", "completion": "0.0000008", "input_cache_read": "0.00000002"}},
+            {"id": "qwen/qwen3-32b:free", "pricing": {"prompt": "0", "completion": "0"}},
+            {"id": "openrouter/auto", "pricing": {"prompt": "-1", "completion": "-1"}},
+            {"id": "broken/model", "pricing": {}},
+        ]})
+        parsed = model_prices.parse_openrouter(payload)
+        self.assertEqual(parsed["qwen/qwen3-32b"], {"input": 0.08, "cached_input": 0.08, "output": 0.28})
+        self.assertEqual(parsed["deepseek/v4"]["cached_input"], 0.02)
+        self.assertEqual(sorted(parsed), ["deepseek/v4", "qwen/qwen3-32b"])
+        self.assertEqual(model_prices.parse_openrouter("not json"), {})
 
 
 if __name__ == "__main__":
