@@ -782,6 +782,25 @@ vllm:request_success_total{finished_reason="length",model_name="m"} 2.0
         parsed = fd.parse_metrics(self.SAMPLE)
         self.assertEqual(parsed, {"running": 3.0, "waiting": 0.0, "prompt_tokens": 120000.0, "generation_tokens": 30000.0, "requests": 42.0})
 
+    def test_teardown_takes_a_final_metrics_sample(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            fd._save_state({"id": "FMN-M", "kind": "huggingface", "status": "ready", "pod_id": "p1", "base_url": "https://p1-8000.proxy.runpod.net",
+                            "provider_id": "foreman-x", "registered": False, "hourly_usd": 1.0, "cap_usd": 5.0, "spent_usd": 0.1,
+                            "billed_until_epoch": 0, "runs": [], "model": {"repo": "m"}, "usage": {"ticks": 1, "requests": 0.0}}, base / "f")
+            sample = self.SAMPLE
+
+            def opener(request, timeout=None):
+                if request.full_url.endswith("/metrics"):
+                    return _TextResponse(sample)
+                return _Response(200, None)
+
+            manager = fd.ForemanManager(base=base / "f", budget_home=base / "b", opener=opener, resolve=lambda ref: "k", clock=lambda: 0.0,
+                                        sleep=lambda s: None, unregister=lambda state: None)
+            manager.stop("done")
+            usage = fd.load_state(base / "f")["usage"]
+        self.assertEqual((usage["requests"], usage["generation_tokens"]), (42.0, 30000.0))
+
     def test_cost_per_unit(self) -> None:
         view = fd.utilization_view({"spent_usd": 0.6, "usage": {"ticks": 10, "busy_ticks": 4, "generation_tokens": 30000.0, "requests": 42.0}})
         self.assertEqual((view["busy_pct"], view["usd_per_request"], view["usd_per_mtok_generated"], view["idle_usd"]), (40.0, 0.0143, 20.0, 0.36))

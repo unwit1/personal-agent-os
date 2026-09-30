@@ -1033,6 +1033,14 @@ class ForemanManager:
             if not state or (state.get("status") not in ACTIVE and state.get("status") != PENDING):
                 return
             problems = []
+            if state.get("base_url") and state.get("status") == "ready":
+                metrics = vllm_metrics(state["base_url"], self.opener)  # final totals: work since the last tick counts too
+                if metrics:
+                    usage = dict(state.get("usage") or {})
+                    for key in ("prompt_tokens", "generation_tokens", "requests"):
+                        usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
+                    usage.setdefault("ticks", 1)
+                    state["usage"] = usage
             if state.get("pod_id"):
                 deleted, error = False, None
                 for attempt in range(DELETE_ATTEMPTS):
