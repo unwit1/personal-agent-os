@@ -40,6 +40,10 @@ def _clock(hour: str, minute: str | None, meridiem: str) -> tuple[int, int]:
     return int(hour) % 12 + (12 if meridiem.lower() == "p" else 0), int(minute or 0)
 
 
+JUST_PASSED = timedelta(minutes=30)
+JUST_PASSED_RETRY = timedelta(minutes=5)
+
+
 def quota_reset(detail: str, current: datetime | None = None, retry_after: float | None = None) -> str:
     """Reset time (UTC ISO) from a provider's quota message; one hour if none."""
     local_now = (current or datetime.now(timezone.utc)).astimezone()
@@ -65,7 +69,12 @@ def quota_reset(detail: str, current: datetime | None = None, retry_after: float
         if match:
             hour, minute = _clock(match[1], match[2], match[3])
             reset = local_now.replace(hour=hour, minute=minute, second=0, microsecond=0)
-            if reset <= local_now:
+            if local_now - JUST_PASSED <= reset <= local_now:
+                # The stated reset is minutes old: the window is flipping over
+                # (the message was minted a moment before it). Retry shortly
+                # rather than waiting a whole day.
+                reset = local_now + JUST_PASSED_RETRY
+            elif reset <= local_now:
                 reset += timedelta(days=1)
     if reset is None:
         reset = local_now + DEFAULT_QUOTA_COOLDOWN

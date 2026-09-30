@@ -242,12 +242,41 @@ class RunStore:
         return {**data, "active": alive}
 
     def acquire_driver(self, run_id: str, owner: str) -> bool:
-        """Record that this process drives the run. A live driver elsewhere wins."""
-        current = self.driver(run_id)
-        if current.get("active") and current.get("pid") != os.getpid():
-            return False
-        write_json(self.driver_path(run_id), {"pid": os.getpid(), "owner": owner, "since": now()})
-        return True
+        """Record that this process drives the run. A live driver elsewhere wins.
+
+        The check and the write happen under an exclusive lock file, so two
+        processes started at once (e.g. several retries each spawning a
+        driver) cannot both see "no driver" and both drive the run."""
+        import time as _time
+
+        lock = self.run_dir(run_id) / "driver.lock"
+        deadline = _time.monotonic() + 5.0
+        while True:
+            try:
+                handle = os.open(str(lock), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+                break
+            except FileExistsError:
+                try:
+                    if _time.time() - lock.stat().st_mtime > 30:  # left by a killed process
+                        lock.unlink()
+                        continue
+                except FileNotFoundError:
+                    continue
+                if _time.monotonic() > deadline:
+                    return False
+                _time.sleep(0.05)
+        try:
+            current = self.driver(run_id)
+            if current.get("active") and current.get("pid") != os.getpid():
+                return False
+            write_json(self.driver_path(run_id), {"pid": os.getpid(), "owner": owner, "since": now()})
+            return True
+        finally:
+            os.close(handle)
+            try:
+                lock.unlink()
+            except FileNotFoundError:
+                pass
 
     def release_driver(self, run_id: str) -> None:
         current = self.driver(run_id)

@@ -66,11 +66,32 @@ class RetryContextTests(unittest.TestCase):
 
 
 class RunHistoryTests(unittest.TestCase):
-    def test_note_names_the_store_and_is_read_only(self) -> None:
-        text = engine_mod._run_history_note(Path("/x/home"))
-        self.assertIn(str(Path("/x/home") / "runs"), text)
-        self.assertIn("AGENT_OS_ORCHESTRATOR_HOME", text)
-        self.assertIn("never write there", text)
+    def test_snapshot_copies_history_without_raw_logs_into_the_worktree(self) -> None:
+        home = Path(tempfile.mkdtemp())
+        worker = home / "runs" / "run-a" / "workers" / "n-1"
+        worker.mkdir(parents=True)
+        (home / "runs" / "run-a" / "state.json").write_text("{}", encoding="utf-8")
+        (home / "runs" / "run-a" / "driver.json").write_text("{}", encoding="utf-8")
+        (worker / "prompt.md").write_text("p", encoding="utf-8")
+        (worker / "stdout.log").write_text("huge", encoding="utf-8")
+        worktree = Path(tempfile.mkdtemp())
+        snapshot = engine_mod._snapshot_run_history(home, worktree)
+        self.assertEqual(snapshot, worktree / ".agent-local" / "orchestrator")
+        self.assertTrue((snapshot / "runs" / "run-a" / "state.json").is_file())
+        self.assertTrue((snapshot / "runs" / "run-a" / "workers" / "n-1" / "prompt.md").is_file())
+        self.assertFalse((snapshot / "runs" / "run-a" / "workers" / "n-1" / "stdout.log").exists())
+        self.assertFalse((snapshot / "runs" / "run-a" / "driver.json").exists(), "a copied driver.json would look like a live driver")
+        engine_mod._snapshot_run_history(home, worktree)  # a second launch refreshes in place
+        text = engine_mod._run_history_note(snapshot)
+        self.assertIn(".agent-local/orchestrator/runs", text)
+        self.assertIn(f"AGENT_OS_ORCHESTRATOR_HOME={snapshot}", text)
+
+    def test_the_snapshot_is_git_ignored(self) -> None:
+        import subprocess
+
+        root = Path(__file__).resolve().parents[1]
+        probe = subprocess.run(["git", "check-ignore", "-q", ".agent-local/orchestrator/runs/x/state.json"], cwd=root)
+        self.assertEqual(probe.returncode, 0)
 
     def test_policy_is_off_by_default_and_boolean(self) -> None:
         from agent_os.orchestrator.model import PolicyError, merge_policy
@@ -92,6 +113,23 @@ class ReadOnlyUsageReportTests(unittest.TestCase):
             result = usage_report.report(home=Path(tmp))
         self.assertIsNone(result["file"])
         self.assertIn("PermissionError", result["file_error"])
+
+
+
+class DriverAcquireTests(unittest.TestCase):
+    def test_concurrent_processes_get_exactly_one_driver(self) -> None:
+        import subprocess
+        import sys
+
+        tmp = Path(tempfile.mkdtemp())
+        store = RunStore(tmp / "home")
+        store.run_dir("run-x").mkdir(parents=True, exist_ok=True)
+        code = ("import sys,time;from pathlib import Path;from agent_os.orchestrator.store import RunStore;"
+                "s=RunStore(Path(sys.argv[1]));ok=s.acquire_driver('run-x','t');print(ok,flush=True);time.sleep(3 if ok else 0)")
+        procs = [subprocess.Popen([sys.executable, "-c", code, str(tmp / "home")], stdout=subprocess.PIPE, text=True) for _ in range(6)]
+        results = [proc.communicate(timeout=60)[0].strip() for proc in procs]
+        self.assertEqual(results.count("True"), 1, results)
+        self.assertFalse((store.run_dir("run-x") / "driver.lock").exists())
 
 
 if __name__ == "__main__":

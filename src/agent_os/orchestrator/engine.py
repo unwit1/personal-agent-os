@@ -1550,7 +1550,10 @@ class Orchestrator:
         prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
         prompt += _prior_attempts(node, policy["material_severities"])
         if policy.get("share_run_history") and node["role"] in {"planner", "implementer", "test_author", "reviewer"}:
-            prompt += _run_history_note(self.store.home)
+            try:
+                prompt += _run_history_note(_snapshot_run_history(self.store.home, cwd))
+            except OSError as exc:  # the worker still runs, without the history
+                self.ledger.emit(record["run_id"], "note", node["id"], text=f"run history snapshot failed: {type(exc).__name__}")
         # Workers registered for inline (self-contained) prompts have no repository tools.
         addendum = (((record.get("foreman") or {}).get("strategy") or {}).get("planner_addendum") or "") if node["role"] == "planner" else ""
         if addendum and (record.get("foreman") or {}).get("provider") == selection["provider"]:
@@ -2444,15 +2447,33 @@ def _test_totals(evidence: list[dict[str, Any]]) -> dict[str, int | None]:
     return {key: sum(int(item.get(key) or 0) for item in counted) for key in ("tests_run", "tests_passed", "tests_failed")}
 
 
-def _run_history_note(home: Path | str) -> str:
-    """Where this machine's orchestrator run history is, read-only (policy share_run_history)."""
+_SNAPSHOT_SKIP = ("stdout.log", "stderr.log", "driver.json", "driver.log", "driver.lock")
+
+
+def _snapshot_run_history(home: Path | str, cwd: Path | str) -> Path:
+    """Copy this machine's run history (without raw worker logs) into the
+    worker's git-ignored ``.agent-local`` (policy share_run_history).
+
+    Every worker can read its own worktree whatever its sandbox (some agent
+    CLIs refuse paths outside it), and a copy cannot disturb the live runs."""
+    import shutil
+
+    source = Path(home) / "runs"
+    target_home = Path(cwd) / ".agent-local" / "orchestrator"
+    if source.is_dir():
+        shutil.copytree(source, target_home / "runs", ignore=shutil.ignore_patterns(*_SNAPSHOT_SKIP), dirs_exist_ok=True)
+    return target_home
+
+
+def _run_history_note(snapshot_home: Path | str) -> str:
+    """Tell the worker where its snapshot of the run history is."""
     from .store import HOME_ENV
 
-    runs = Path(home) / "runs"
     return (
-        "\n\nRun history on this machine (read-only evidence; never write there, never start or control runs):\n"
-        f"- files: {runs} (one folder per run: state.json, events.jsonl, workers/<node>-<attempt>/)\n"
-        f"- read-only CLI: set {HOME_ENV}={home} for `python -m agent_os orchestrate list|status|events|report|usage-report|context-anatomy`\n"
+        "\n\nRun history of this machine (a snapshot copied for you; evidence only, do not start or control runs):\n"
+        "- files: .agent-local/orchestrator/runs/<run-id>/ in your working directory (state.json, events.jsonl,\n"
+        "  telemetry.jsonl, workers/<node>-<attempt>/prompt.md and last-message.md)\n"
+        f"- CLI: set {HOME_ENV}={snapshot_home} for `python -m agent_os orchestrate list|status|events|report|usage-report|context-anatomy`\n"
     )
 
 

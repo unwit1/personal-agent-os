@@ -133,6 +133,11 @@ class QuotaCooldownTests(unittest.TestCase):
         self.assertEqual(reset - now, timedelta(hours=1, minutes=50))
         later = datetime.fromisoformat(_quota_reset("try again at 11:00 AM", now))
         self.assertEqual(later - now, timedelta(hours=23))
+        # Seen live: at 18:50:24 Codex still said "try again at 6:50 PM"; that
+        # is the window flipping over, not a reset 24 hours away.
+        flipping = now.replace(hour=18, minute=50, second=24)
+        soon = datetime.fromisoformat(_quota_reset("try again at 6:50 PM.", flipping))
+        self.assertEqual(soon - flipping, timedelta(minutes=5))
         self.assertEqual(datetime.fromisoformat(_quota_reset("limit reached", now)) - now, timedelta(hours=1))
 
     def test_cooling_provider_is_unavailable_until_reset(self) -> None:
