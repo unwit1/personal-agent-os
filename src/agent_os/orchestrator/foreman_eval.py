@@ -263,10 +263,66 @@ def adapter_runner(provider_id: str, *, timeout: int = 900) -> Callable[[str, Pa
     return run
 
 
+TASK_FAMILY = "foreman_planning"
+
+
+def observations(report: dict[str, Any]) -> list[dict[str, Any]]:
+    """CAP observations (capability.py) for a report: one per scored plan.
+    Pass/fail is judged on what the engine would run (after the strategy);
+    availability failures (quota, auth, network) are labelled so capability
+    summaries do not count them against the model."""
+    out = []
+    for row in report.get("cases") or []:
+        judged = row.get("guarded") or row
+        error = str(row.get("error") or "")
+        availability = error.split(":")[0] in {"quota", "auth", "unavailable", "invalid_model"} or error.startswith("HTTP ")
+        usage = row.get("usage") or {}
+        failure = None
+        if not judged.get("passed"):
+            failure = ("unavailable: " + error[:100]) if availability else (
+                f"invalid plan: {error[:100]}" if error else "over-provisioned" if judged.get("over") else
+                "under-provisioned" if judged.get("under") else "task count out of range")
+        out.append({
+            "call_id": f"{report.get('created_at')}:{row['case']}", "task_family": TASK_FAMILY, "role": "planner",
+            "provider": report.get("provider"), "model": report.get("model"), "model_resolved": usage.get("model_resolved") or report.get("model"),
+            "effort": "medium", "toolset": "none", "status": "passed" if judged.get("passed") else "failed",
+            "validator_passed": bool(judged.get("passed")), "accuracy": 1.0 if judged.get("passed") else 0.0, "repairs": 0,
+            "failure_type": failure, "seconds": row.get("seconds"), "input_tokens": usage.get("input_tokens"),
+            "output_tokens": usage.get("output_tokens"), "cost_usd": usage.get("cost_usd"), "case": row["case"],
+            "split": report.get("split"), "at": report.get("created_at"),
+        })
+    return out
+
+
+def backfill(eval_dir: Path | None = None, home: Path | None = None) -> dict[str, Any]:
+    """Record CAP observations for saved real eval reports not yet recorded
+    (idempotent by call_id). Skips scripted/optimizer rollouts and aborted runs."""
+    from . import capability
+    from .store import orchestrator_home
+
+    seen = {item.get("call_id") for item in capability.read_observations(home)}
+    added, reports = 0, 0
+    for path in sorted(Path(eval_dir or orchestrator_home() / "foreman-eval").glob("*/report.json")):
+        try:
+            report = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if report.get("provider") in (None, "optimize", "scripted") or report.get("aborted"):
+            continue
+        reports += 1
+        for observation in observations(report):
+            if observation["call_id"] not in seen:
+                capability.record_observation(observation, home=home)
+                seen.add(observation["call_id"])
+                added += 1
+    return {"reports": reports, "observations_added": added}
+
+
 def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list[str] | None = None, runner=None,
         hourly_usd: float | None = None, out_dir: Path | None = None, strategy_override: dict[str, Any] | None = None,
-        split: str = "dev") -> dict[str, Any]:
-    """Evaluate the foreman (default: the live session foreman) on every case."""
+        split: str = "dev", record_evidence: bool | None = None) -> dict[str, Any]:
+    """Evaluate the foreman (default: the live session foreman) on every case.
+    Real evals (no injected runner) also append CAP observations."""
     from ..paths import ROOT
     from .store import orchestrator_home
 
@@ -278,6 +334,7 @@ def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list
             raise ValueError("no session foreman is ready; deploy one or pass a provider id")
         provider_id, hourly_usd = state["provider_id"], hourly_usd or state.get("hourly_usd")
     repo = Path(repo or ROOT)
+    runner_is_real = runner is None
     runner = runner or adapter_runner(str(provider_id))
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     root = Path(out_dir or orchestrator_home() / "foreman-eval") / f"{stamp}-{uuid.uuid4().hex[:4]}"
@@ -320,4 +377,9 @@ def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list
     root.mkdir(parents=True, exist_ok=True)
     (root / "report.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
     report["file"] = str(root / "report.json")
+    if record_evidence if record_evidence is not None else runner_is_real:
+        from . import capability
+
+        for observation in observations(report):
+            capability.record_observation(observation)
     return report

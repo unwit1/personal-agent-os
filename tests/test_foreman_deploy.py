@@ -976,6 +976,37 @@ class StrategyTests(unittest.TestCase):
         self.assertNotIn("secret", json.dumps(found))
 
 
+class CapabilityEvidenceTests(unittest.TestCase):
+    def test_eval_report_becomes_cap_observations_and_records(self) -> None:
+        from agent_os.orchestrator import capability
+
+        report = {"created_at": "20260930T000000Z", "provider": "foreman-openrouter", "model": "org/m", "split": "dev", "cases": [
+            {"case": "docs-typo", "passed": True, "usage": {"input_tokens": 1500, "output_tokens": 300, "model_resolved": "org/m-0731"}, "seconds": 2.0},
+            {"case": "cli-flag", "passed": False, "tasks": 4, "count_ok": False, "guarded": {"passed": True, "tasks": 1}, "usage": {}, "seconds": 3.0},
+            {"case": "security-audit", "passed": False, "under": True, "usage": {}},
+            {"case": "tests-existing", "passed": False, "error": "quota: usage limit reached", "usage": {}},
+        ]}
+        rows = fe.observations(report)
+        self.assertEqual([row["validator_passed"] for row in rows], [True, True, False, False])  # judged after the strategy
+        self.assertEqual(rows[2]["failure_type"], "under-provisioned")
+        self.assertTrue(rows[3]["failure_type"].startswith("unavailable"))
+        self.assertEqual({row["task_family"] for row in rows}, {"foreman_planning"})
+        with tempfile.TemporaryDirectory() as tmp:
+            for row in rows:
+                capability.record_observation(row, home=Path(tmp), registry=ProviderRegistry(providers=[], discover=False))
+            records = capability.summarize(capability.read_observations(Path(tmp)))
+        self.assertTrue(any(record["metrics"].get("sample_count") for record in records))
+
+    def test_scripted_runs_do_not_write_evidence(self) -> None:
+        from agent_os.orchestrator import capability
+
+        with tempfile.TemporaryDirectory() as tmp:
+            before = len(capability.read_observations())
+            fe.run("scripted", runner=lambda prompt, workdir: {"outcome": "completed", "structured": {"status": "done", "tasks": []}, "usage": {}},
+                   cases=["docs-typo"], out_dir=Path(tmp))
+            self.assertEqual(len(capability.read_observations()), before)
+
+
 class OptimizeTests(unittest.TestCase):
     """GEPA-style reflective loop: accept only strict dev improvements; holdout judged once, never shown."""
 

@@ -235,7 +235,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     fsh.add_argument("--prefer", action="append", metavar="KEY=VALUE")
 
     fmn = actions.add_parser("foreman", help="session foreman: deploy a Hugging Face model on a RunPod GPU within the job budget and use it as the planner for new runs")
-    fmn.add_argument("action", choices=["use", "preview", "deploy", "status", "stop", "eval", "strategy", "reap"],
+    fmn.add_argument("action", choices=["use", "preview", "deploy", "status", "stop", "eval", "strategy", "reap", "evidence"],
                      help="eval: score the live foreman's per-task model choices and efficiency on labeled planning cases (real calls)")
     fmn.add_argument("link", nargs="?", help="preview/deploy: Hugging Face model link or org/name; use: claude, chatgpt, openrouter or local")
     fmn.add_argument("--model", help="use: pin one model (e.g. opus, gpt-6.1-sol, or a local model id)")
@@ -608,6 +608,10 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             emit(manager().deploy(args.link, job_cap_usd=args.job_usd, idle_minutes=args.idle_minutes, background=False, coding_agent=args.coding_agent))
         elif args.action == "stop":
             emit(manager().stop("stopped from the CLI"))
+        elif args.action == "evidence":  # saved foreman evals -> CAP observations (idempotent)
+            from . import foreman_eval
+
+            emit(foreman_eval.backfill())
         elif args.action == "reap":  # safe to schedule every few minutes
             emit(manager().reap())
         elif args.action == "strategy":
