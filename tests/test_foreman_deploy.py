@@ -707,14 +707,29 @@ class GpuAgentTests(unittest.TestCase):
     """The rented model as a coding agent through a Codex CLI custom provider."""
 
     STATE = {"id": "FMN-9", "kind": "huggingface", "provider_id": "foreman-coder-7b", "base_url": "https://pod1-8000.proxy.runpod.net",
-             "model": {"repo": "org/coder-7b", "model_type": "qwen2"}}
+             "model": {"repo": "org/coder-7b", "model_type": "qwen2", "agent": True}}
 
     def test_pod_enables_tool_calling_for_known_families(self) -> None:
-        model = fd.summarize_info(HF_INFO, HF_CONFIG)
+        model = {**fd.summarize_info(HF_INFO, HF_CONFIG), "agent": True}
         args = fd.pod_request(model, {**OFFERS[1], "gpu_count": 1}, "k", None, "n")["dockerStartCmd"]
         self.assertEqual(args[args.index("--tool-call-parser") + 1], "hermes")
+        self.assertNotIn("--tool-call-parser", fd.pod_request(fd.summarize_info(HF_INFO, HF_CONFIG), {**OFFERS[1], "gpu_count": 1}, "k", None, "n")["dockerStartCmd"])
         unknown = fd.pod_request({**model, "model_type": "exotic"}, {**OFFERS[1], "gpu_count": 1}, "k", None, "n")["dockerStartCmd"]
         self.assertNotIn("--tool-call-parser", unknown)
+
+    def test_agent_pods_serve_64k_with_yarn_when_the_native_window_is_shorter(self) -> None:
+        # live 2026-09-30: Codex's own prompt + tools exceeded a 32k window
+        model = {**fd.summarize_info(HF_INFO, HF_CONFIG), "agent": True}  # qwen2, native 32768, deploy --coding-agent
+        self.assertEqual(fd.context_for(fd.summarize_info(HF_INFO, HF_CONFIG)), 32768)  # planner-only default stays small
+        self.assertEqual(fd.context_for(model), 65536)
+        args = fd.pod_request(model, {**OFFERS[1], "gpu_count": 1}, "k", None, "n")["dockerStartCmd"]
+        self.assertEqual(args[args.index("--max-model-len") + 1], "65536")
+        rope = json.loads(args[args.index("--hf-overrides") + 1])
+        self.assertEqual(rope["rope_scaling"], {"rope_type": "yarn", "factor": 2.0, "original_max_position_embeddings": 32768})
+        planner_only = {**model, "model_type": "exotic"}
+        self.assertEqual(fd.context_for(planner_only), 32768)
+        self.assertIsNone(fd.rope_override(planner_only))
+        self.assertGreater(fd.vram_needed_gb(model), fd.vram_needed_gb(planner_only))  # sized for the longer KV cache
 
     def test_agent_entry_routes_codex_to_the_pod_without_the_key_in_config(self) -> None:
         entry = fd.agent_entry(self.STATE)
@@ -723,7 +738,8 @@ class GpuAgentTests(unittest.TestCase):
         self.assertEqual(entry["options"]["extra_config"]["model_providers.agentosgpu.wire_api"], "responses")
         self.assertEqual(entry["options"]["secret_env"], {fd.GPU_KEY_ENV: fd.ENDPOINT_SECRET})
         self.assertLess(entry["costs"]["fast"], 1.0)
-        self.assertIsNone(fd.agent_entry({**self.STATE, "model": {"repo": "x/y", "model_type": "exotic"}}))
+        self.assertIsNone(fd.agent_entry({**self.STATE, "model": {"repo": "x/y", "model_type": "exotic", "agent": True}}))
+        self.assertIsNone(fd.agent_entry({**self.STATE, "model": {"repo": "x/y", "model_type": "qwen2"}}))  # not opted in
         self.assertIsNone(fd.agent_entry({**self.STATE, "kind": "claude"}))
 
     def test_codex_adapter_passes_extra_config_and_secret_env(self) -> None:

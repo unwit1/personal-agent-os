@@ -189,8 +189,32 @@ def deployable_problem(model: dict[str, Any]) -> str | None:
     return None
 
 
+AGENT_CONTEXT = 65536  # Codex CLI's own instructions + tools exceed 32k tokens (measured live)
+YARN_FAMILIES = {"qwen2", "qwen2_moe", "qwen3", "qwen3_moe"}
+
+
+def agent_capable(model: dict[str, Any]) -> bool:
+    """Opted in (deploy --coding-agent) and a family with a known tool-call parser."""
+    return bool(model.get("agent")) and str(model.get("model_type") or "") in TOOL_PARSERS
+
+
 def context_for(model: dict[str, Any]) -> int:
-    return min(model.get("max_position_embeddings") or MAX_CONTEXT, MAX_CONTEXT)
+    """Served context: 32k for planning; 64k when the pod also hosts a coding
+    agent (native window, or YaRN-extended for families that support it)."""
+    native = model.get("max_position_embeddings") or MAX_CONTEXT
+    if agent_capable(model) and (native >= AGENT_CONTEXT or str(model.get("model_type")) in YARN_FAMILIES):
+        return AGENT_CONTEXT
+    return min(native, MAX_CONTEXT)
+
+
+def rope_override(model: dict[str, Any]) -> dict[str, Any] | None:
+    """YaRN scaling when the served context exceeds the native window."""
+    native = model.get("max_position_embeddings") or MAX_CONTEXT
+    target = context_for(model)
+    if target <= native:
+        return None
+    return {"rope_scaling": {"rope_type": "yarn", "factor": round(target / native, 3), "original_max_position_embeddings": native},
+            "max_position_embeddings": target}
 
 
 def vram_needed_gb(model: dict[str, Any]) -> float:
@@ -258,9 +282,11 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
             "--tensor-parallel-size", str(choice["gpu_count"])]
     if model.get("sha"):
         args += ["--revision", model["sha"]]
-    parser = TOOL_PARSERS.get(str(model.get("model_type") or ""))
-    if parser:  # lets a coding CLI drive the model with tools (Responses API)
-        args += ["--enable-auto-tool-choice", "--tool-call-parser", parser]
+    if agent_capable(model):  # lets a coding CLI drive the model with tools (Responses API)
+        args += ["--enable-auto-tool-choice", "--tool-call-parser", TOOL_PARSERS[str(model["model_type"])]]
+    rope = rope_override(model)
+    if rope:
+        args += ["--hf-overrides", json.dumps(rope, separators=(",", ":"))]
     env = {"VLLM_API_KEY": endpoint_key}  # env, not argv: vLLM logs its arguments
     if hf_token and (model.get("gated") or model.get("private")):
         env["HF_TOKEN"] = hf_token  # only sent when the repo needs it
@@ -633,13 +659,17 @@ class ForemanManager:
         view["watching"] = bool(self._thread and self._thread.is_alive())
         return view
 
-    def preview(self, link: str, cap_usd: float) -> dict[str, Any]:
+    def preview(self, link: str, cap_usd: float, coding_agent: bool = False) -> dict[str, Any]:
         """Plan only: model facts, VRAM need and the GPU that would be rented. No spend."""
         parsed = parse_hf_link(link)
         token = self.resolve(HF_SECRET)
         info = hf_model(parsed["repo"], parsed["revision"], token=token, opener=self.opener)
         config = hf_config(info.get("id") or parsed["repo"], info.get("sha") or parsed["revision"] or "main", token=token, opener=self.opener)
         model = summarize_info(info, config)
+        if coding_agent:
+            model["agent"] = True
+            if str(model.get("model_type") or "") not in TOOL_PARSERS:
+                return {"model": model, "error": f"no known tool-call parser for model family {model.get('model_type')!r}; deploy it as a planner only"}
         problem = deployable_problem(model)
         if not problem and (model["gated"] or model["private"]) and not config:
             problem = (f"{model['repo']} is gated and your Hugging Face token cannot read it: accept its licence on huggingface.co "
@@ -732,7 +762,7 @@ class ForemanManager:
         return self.status()
 
     def deploy(self, link: str, *, job_cap_usd: float | None = None, idle_minutes: int = DEFAULT_IDLE_MINUTES,
-               background: bool = True, backups: list[str] | None = None) -> dict[str, Any]:
+               background: bool = True, backups: list[str] | None = None, coding_agent: bool = False) -> dict[str, Any]:
         """Start an autonomous deployment. Refuses when one is active, the budget
         is not approved, or the RunPod key is missing."""
         parse_hf_link(link)  # fail fast on a bad link, before anything is replaced
@@ -754,7 +784,7 @@ class ForemanManager:
             parse_hf_link(link)  # fail fast on a bad link, before any thread starts
             state = {"id": f"FMN-{uuid.uuid4().hex[:8]}", "kind": "huggingface", "status": "planning", "detail": "reading the model from Hugging Face",
                      "link": link, "cap_usd": round(cap, 4), "spent_usd": 0.0, "idle_minutes": int(idle_minutes), "runs": [],
-                     "backups": self._backups("", backups),
+                     "backups": self._backups("", backups), "coding_agent": bool(coding_agent),
                      "started_at": utc_now_iso(), "model": None}
             _save_state(state, self.base)
             self._stop.clear()
@@ -873,7 +903,7 @@ class ForemanManager:
                 return
 
     def _provision(self, state: dict[str, Any]) -> dict[str, Any]:
-        plan = self.preview(state["link"], state["cap_usd"])
+        plan = self.preview(state["link"], state["cap_usd"], coding_agent=bool(state.get("coding_agent")))
         if plan.get("error"):
             raise RuntimeError(plan["error"])
         model, choice = plan["model"], plan["choice"]
@@ -1086,7 +1116,7 @@ def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:
     subscriptions so fast implementation tasks try the GPU first and escalate
     on failure. None when the model family has no known tool-call parser."""
     model = state.get("model") or {}
-    if str(model.get("model_type") or "") not in TOOL_PARSERS or state.get("kind") not in (None, "huggingface"):
+    if not agent_capable(model) or state.get("kind") not in (None, "huggingface"):
         return None
     name = "agentosgpu"
     return {

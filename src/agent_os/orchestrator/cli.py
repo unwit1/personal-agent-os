@@ -243,6 +243,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     fmn.add_argument("--secret-ref", help="use local: secrets://<provider>/<profile> holding the server's API key, if it needs one")
     fmn.add_argument("--job-usd", type=float, help="job budget; default: the machine budget's per-job cap")
     fmn.add_argument("--idle-minutes", type=int, default=15)
+    fmn.add_argument("--coding-agent", action="store_true", help="deploy/preview: also serve the model as a Codex CLI coding agent (64k context, tool calling; bigger GPU)")
     fmn.add_argument("--provider", help="eval: provider id to evaluate (default: the ready session foreman)")
     fmn.add_argument("--case", action="append", help="eval: only these case ids")
     fmn.add_argument("--split", choices=["dev", "holdout", "all"], default="dev", help="eval: dev cases (used for tuning), holdout (never tuned on) or all")
@@ -602,9 +603,9 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             return 2
         if args.action == "preview":
             job = args.job_usd if args.job_usd is not None else budget_lib.effective(None).get("job_hard_cap_usd") or 0
-            emit(manager().preview(args.link, float(job)))
+            emit(manager().preview(args.link, float(job), coding_agent=args.coding_agent))
         elif args.action == "deploy":  # foreground: meters and tears down before returning
-            emit(manager().deploy(args.link, job_cap_usd=args.job_usd, idle_minutes=args.idle_minutes, background=False))
+            emit(manager().deploy(args.link, job_cap_usd=args.job_usd, idle_minutes=args.idle_minutes, background=False, coding_agent=args.coding_agent))
         elif args.action == "stop":
             emit(manager().stop("stopped from the CLI"))
         elif args.action == "reap":  # safe to schedule every few minutes
