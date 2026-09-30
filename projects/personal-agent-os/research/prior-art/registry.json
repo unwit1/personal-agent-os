@@ -372,7 +372,8 @@
       ],
       "revisit_when": [
         "a task family with an objective metric and cheap-route accuracy < floor exists",
-        "MIE-0020 starts"
+        "MIE-0020 starts",
+        "spike result recorded (foreman planner prompt, 2026-09-30)"
       ],
       "revisit_by": null
     },
@@ -2954,7 +2955,7 @@
       "license_spdx": "Apache-2.0",
       "license_status": "open source; no code copied (ideas and API shapes only)",
       "evaluated_revision": "release v0.30.0",
-      "evaluated_at": "2026-09-29",
+      "evaluated_at": "2026-09-30",
       "activity": {
         "stars": 92943,
         "pushed_at": "2026-09-29",
@@ -2987,15 +2988,15 @@
       "evidence": {
         "development_savings": "large: no custom serving",
         "runtime_savings": "throughput per GPU-hour feeds quote.py inputs",
-        "quality": "not assessed (no spike yet)",
-        "reliability": "not assessed (no spike yet)",
-        "security": "not assessed (no spike yet)",
+        "quality": "live 2026-09-29/30: served Qwen2.5-14B-Instruct as foreman (planner) and, with --enable-auto-tool-choice --tool-call-parser hermes, as a Codex CLI coding agent via /v1/responses (task PASSED first attempt)",
+        "reliability": "vllm/vllm-openai:latest crash-looped once silently on a community pod (restarts, no API to logs) -> Agent OS wraps it with a crash-log reporter + uptime crash-loop detection; later pods ready in ~3 min",
+        "security": "endpoint guarded by VLLM_API_KEY (env, not argv: vLLM logs its args); /metrics is unauthenticated (counts only)",
         "complexity": "none in-repo",
-        "maintenance": "not assessed (no spike yet)",
-        "portability": "not assessed (no spike yet)"
+        "maintenance": "very active; wrapped as an external image, no in-repo dependency",
+        "portability": "OpenAI-compatible chat + Responses APIs; YaRN context extension via --hf-overrides works (64k on a 32k-native Qwen2.5)"
       },
       "decision": "WRAP",
-      "rationale": "The default serving engine to recommend for open-weight and abliterated models: an OpenAI-compatible server the existing adapter already speaks. Wrap it as an external process (local or on a RunPod pod) rather than importing it.",
+      "rationale": "The default serving engine to recommend for open-weight and abliterated models: an OpenAI-compatible server the existing adapter already speaks. Wrap it as an external process (local or on a RunPod pod) rather than importing it. Spike done 2026-09-30 (foreman_deploy.py): wrapped as an external process on RunPod pods, pinned revision, crash reporter, metrics sampling; stays WRAP.",
       "confidence": "high",
       "provenance": [
         "GitHub REST api.github.com/repos/vllm-project/vllm (2026-09-29)",
@@ -3009,7 +3010,7 @@
       ],
       "revisit_when": [
         "new major release",
-        "pod serving template design"
+        "a served model family needs a tool-call parser not yet mapped"
       ],
       "revisit_by": null
     },

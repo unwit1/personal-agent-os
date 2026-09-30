@@ -946,5 +946,34 @@ class StrategyTests(unittest.TestCase):
         self.assertNotIn("secret", json.dumps(found))
 
 
+class OptimizeTests(unittest.TestCase):
+    """GEPA-style reflective loop: accept only strict dev improvements; holdout judged once, never shown."""
+
+    def test_reflection_improves_dev_and_is_checked_on_holdout(self) -> None:
+        from agent_os.orchestrator import foreman_optimize as fo
+
+        def plan(prompt: str) -> dict:
+            one_task = "ONE TASK PER FILE GROUP" in prompt
+            count = 1 if one_task else 5
+            tasks = [{"id": f"t{n}", "goal": "do part", "scope": [f"src/p{n}.py"], "capability_class": "fast", "effort": "low"} for n in range(count)]
+            return {"outcome": "completed", "structured": {"status": "done", "tasks": tasks}, "seconds": 1.0, "usage": {"input_tokens": 100, "output_tokens": 50}}
+
+        prompts_seen = []
+
+        def ask(prompt: str) -> str:
+            prompts_seen.append(prompt)
+            return "Plan ONE TASK PER FILE GROUP. Keep plans small."
+
+        with tempfile.TemporaryDirectory() as tmp:
+            result = fo.optimize(planner_call=plan, ask=ask, baseline="", iterations=2, out_dir=Path(tmp))
+        self.assertTrue(result["improved_on_dev"])
+        self.assertEqual(result["winner"], "Plan ONE TASK PER FILE GROUP. Keep plans small.")
+        self.assertTrue(result["history"][1]["accepted"])
+        self.assertIsNotNone(result["holdout"]["winner"])
+        holdout_goals = [case["goal"][:60] for case in __import__("agent_os.orchestrator.foreman_eval", fromlist=["x"]).HOLDOUT]
+        self.assertFalse(any(goal in prompt for goal in holdout_goals for prompt in prompts_seen))  # holdout never shown
+        self.assertLessEqual(len(result["winner"].split()), fo.MAX_ADDENDUM_WORDS)
+
+
 if __name__ == "__main__":
     unittest.main()
