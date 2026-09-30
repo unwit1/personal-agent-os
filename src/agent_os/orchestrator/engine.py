@@ -288,6 +288,7 @@ class Orchestrator:
             if auto_continue is not None:
                 record["policy"]["auto_continue"] = bool(auto_continue)
             first_start = not record["control"]["started"]
+            _operator_changed(record)
             record["control"]["started"] = True
             record["control"]["paused"] = False
             self._derive_state(record)
@@ -306,6 +307,7 @@ class Orchestrator:
         with self._lock:
             record = self.store.load(run_id)
             record.setdefault("operator_messages", []).append({"at": now(), "text": text[:2000]})
+            _operator_changed(record)
             self.store.save(record)
             self.store.append_event(run_id, "operator.message", None, text[:300])
             return self.summary(record)
@@ -322,6 +324,7 @@ class Orchestrator:
         with self._lock:
             record = self.store.load(run_id)
             record["control"]["paused"] = True
+            _operator_changed(record)
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "run.paused", detail="no new work will be dispatched")
@@ -334,6 +337,7 @@ class Orchestrator:
             record["control"]["paused"] = False
             record["control"]["stop_requested"] = False
             record["control"]["started"] = True
+            _operator_changed(record)
             if auto_continue is not None:
                 record["policy"]["auto_continue"] = bool(auto_continue)
             self._derive_state(record)
@@ -349,6 +353,7 @@ class Orchestrator:
             record["control"]["paused"] = True
             cancelled = self._cancel_active(record, reason="stopped by user")
             record["control"]["stop_requested"] = bool(cancelled["remote"])
+            _operator_changed(record)
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "run.stopped", detail=f"cancelled {cancelled['count']} worker(s)")
@@ -501,6 +506,7 @@ class Orchestrator:
                 # Without Auto Continue a stage boundary is a stopping point: the
                 # tick that sees a stage pass integrates it but launches nothing.
                 boundary = not record["policy"]["auto_continue"] and _count_passed(record) > passed_before
+                self.store.refresh_control(record)  # a pause sent during _poll applies before anything launches
                 dispatching = dispatch and record["control"]["started"] and not record["control"]["paused"]
                 if dispatching and not self._blocked(record):
                     self._integrate(record)
@@ -1057,6 +1063,11 @@ class Orchestrator:
             }
         )
         this_round = [item for item in subject["review"]["findings"] if item["round"] == round_number]
+        for item in subject["review"]["findings"]:
+            if item["round"] != round_number and item["disposition"] == "open":
+                # This round's reviewer was shown them and re-reported the
+                # ones that still apply; the older entries are superseded.
+                item["disposition"] = "superseded"
         blocking = material(this_round, record["policy"]["material_severities"])
         self.store.append_event(record["run_id"], "review.completed", subject["id"], f"{parsed['verdict']}; {len(blocking)} material finding(s)")
         self.ledger.emit(
@@ -1481,6 +1492,9 @@ class Orchestrator:
         findings = None
         if node["role"] == "reviewer":
             diff = manager.diff(cwd, subject["worktree"]["base_commit"])
+            # Findings earlier rounds left open: the new reviewer checks them
+            # instead of judging the change from scratch and missing them.
+            findings = material(subject["review"]["findings"], policy["material_severities"]) or None
         if node["role"] == "repairer" and subject:
             wanted = set(node.get("finding_ids") or [])
             findings = [item for item in subject["review"]["findings"] if item["id"] in wanted]
@@ -1499,7 +1513,7 @@ class Orchestrator:
             except Exception as exc:  # the planner still works without a map
                 self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
         prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
-        prompt += _prior_attempts(node)
+        prompt += _prior_attempts(node, policy["material_severities"])
         # Workers registered for inline (self-contained) prompts have no repository tools.
         addendum = (((record.get("foreman") or {}).get("strategy") or {}).get("planner_addendum") or "") if node["role"] == "planner" else ""
         if addendum and (record.get("foreman") or {}).get("provider") == selection["provider"]:
@@ -2389,12 +2403,25 @@ def _test_totals(evidence: list[dict[str, Any]]) -> dict[str, int | None]:
     return {key: sum(int(item.get(key) or 0) for item in counted) for key in ("tests_run", "tests_passed", "tests_failed")}
 
 
-def _prior_attempts(node: dict[str, Any]) -> str:
+def _operator_changed(record: dict[str, Any]) -> None:
+    """Mark an operator control change so a driver process that loaded the
+    run earlier adopts it instead of saving over it (RunStore.refresh_control)."""
+    record["control"]["rev"] = int(record["control"].get("rev") or 0) + 1
+
+
+def _prior_attempts(node: dict[str, Any], severities: list[str] | None = None) -> str:
     lines = []
+    unresolved = material((node.get("review") or {}).get("findings") or [], severities or ["critical", "high", "medium"]) if node.get("role", "implementer") in {"implementer", "test_author"} else []
     for failure in node["failures"][-3:]:
         lines.append(f"- previous attempt: {failure['kind']}: {failure['detail']}")
     for decision in node.get("decisions", [])[-3:]:
         lines.append(f"- operator decision: {decision}")
+    for item in unresolved[-8:]:
+        lines.append(f"- unresolved review finding [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
+    if unresolved:
+        # A retry after a rejected review gate otherwise sees the reviewed
+        # work in its worktree and reports it already_done unchanged.
+        lines.append("- a review rejected the work in your worktree for the findings above. Do not report already_done: fix each one, then report done.")
     if not lines:
         return ""
     if node["failures"] and node["failures"][-1]["kind"] == "validator_failed":

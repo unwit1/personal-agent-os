@@ -152,7 +152,27 @@ class RunStore:
             raise StoreError(f"unsupported orchestrated run schema in {path}")
         return record
 
+    def refresh_control(self, record: dict[str, Any]) -> bool:
+        """Adopt operator changes another process saved meanwhile.
+
+        A driver holds its record for a whole tick (validators, merges) and
+        then saves it; without this a pause, stop or message sent from the
+        GUI or CLI during that tick would be overwritten. Operator actions
+        bump ``control.rev``; the higher revision on disk wins."""
+        try:
+            disk = load_json(self.state_path(record["run_id"]))
+        except (OSError, json.JSONDecodeError, KeyError):
+            return False
+        mine = int((record.get("control") or {}).get("rev") or 0)
+        theirs = int((disk.get("control") or {}).get("rev") or 0)
+        if theirs <= mine:
+            return False
+        record["control"] = disk["control"]
+        record["operator_messages"] = disk.get("operator_messages") or []
+        return True
+
     def save(self, record: dict[str, Any]) -> dict[str, Any]:
+        self.refresh_control(record)
         record["updated_at"] = now()
         clean = _scrub(record)
         write_json(self.state_path(record["run_id"]), clean)

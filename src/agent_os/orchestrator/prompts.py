@@ -197,6 +197,12 @@ def build_measured(
             "```",
             "",
         ]
+    if role == "reviewer" and findings:
+        lines += ["Earlier review rounds left these findings unresolved. Check each against the current change: report it again",
+                  "(same id and summary) if it still applies, and do not approve while one does.", ""]
+        for item in findings[-10:]:
+            lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
+        lines.append("")
     if role == "repairer" and findings:
         lines += ["Address these review findings (fix them, or reject one with a concrete reason):", ""]
         for item in findings:
