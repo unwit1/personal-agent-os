@@ -1297,6 +1297,22 @@ class Orchestrator:
                 blockers.append(other["id"])
         return blockers
 
+    def _context_misfit(self, provider_id: str, prompt: str) -> str | None:
+        """A reason when prompt + harness overhead + an output reserve exceeds
+        85% of the provider's declared context window; None when it fits or
+        no window is declared."""
+        window = ((self.registry().get(provider_id) or {}).get("profile") or {}).get("context_window")
+        if not window:
+            return None
+        try:
+            overhead = int(getattr(self._adapter(provider_id), "context_overhead_tokens", 0) or 0)
+        except Exception:
+            overhead = 0
+        needed = int(len(prompt) / 3.5) + overhead + min(8192, window // 10)
+        if needed <= window * 0.85:
+            return None
+        return f"request ~{needed:,} tokens (prompt + harness + output reserve) does not fit {provider_id}'s {window:,}-token context window"
+
     def _learn_unavailable_model(self, provider: str, model: str | None, detail: str) -> None:
         """Remember machine-wide that this account cannot use ``model`` on
         ``provider`` so later runs never route to it (file registries only)."""
@@ -1454,6 +1470,15 @@ class Orchestrator:
             prompt += "\n\nWhy the author made changes beyond the assignment text (validator failures it had to fix):\n" + "\n".join(
                 f"- {failure['kind']}: {failure['detail']}" for failure in subject["failures"][-3:]
             ) + "\nChanges that fix these failures are in scope.\n"
+        misfit = self._context_misfit(selection["provider"], prompt)
+        if misfit:
+            # Would be rejected by the model (live: a 64k window got a ~110k-token request
+            # three times). Route elsewhere now instead of spending attempts.
+            node.setdefault("excluded_providers", []).append(selection["provider"])
+            node["state"] = "RUNNABLE"
+            node["wait_reason"] = misfit
+            self.store.append_event(record["run_id"], "context.misfit", node["id"], misfit)
+            return False
         prompt_path = worker_dir / "prompt.md"
         prompt_path.write_text(prompt, encoding="utf-8")
         node["prompt_chars"] = len(prompt)

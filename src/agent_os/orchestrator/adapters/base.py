@@ -244,6 +244,9 @@ class SubprocessAdapter:
     """Shared process lifecycle for CLI adapters; subclasses supply syntax."""
 
     adapter_id = "subprocess"
+    # Fixed tokens the harness adds to every request (its own instructions and
+    # tool schemas), measured per adapter; used for context-window fit.
+    context_overhead_tokens = 0
     adapter_version = "1"
     env_prefixes: tuple[str, ...] = ()
     default_executable = ""

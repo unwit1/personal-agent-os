@@ -65,6 +65,7 @@ WORKER_CONFIG = {"web_search": "disabled"}
 
 class CodexCliAdapter(SubprocessAdapter):
     adapter_id = "codex_cli"
+    context_overhead_tokens = 9000  # measured 2026-09-30: 31.7 KB request with lean tools
     adapter_version = "codex_cli/1"
     default_executable = "codex"
     env_prefixes = ("OPENAI_", "CODEX_", "AZURE_OPENAI_")

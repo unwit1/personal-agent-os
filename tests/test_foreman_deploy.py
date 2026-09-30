@@ -661,6 +661,32 @@ class EngineRoutingTests(OrchestratorFixture):
         self.assertNotIn("foreman", self.engine.load(run_id))
 
 
+class ContextFitTests(OrchestratorFixture):
+    """A request that cannot fit a model's declared window is routed elsewhere, not attempted."""
+
+    def test_oversized_prompt_skips_the_small_window_provider(self) -> None:
+        tiny = provider("tiny", costs={"fast": 0.1, "balanced": 0.1, "reasoning": 0.1, "frontier": 0.1},
+                        profile={"context_window": 1000})
+        registry = ProviderRegistry(providers=[tiny, provider("alpha")])
+        synthetic.SCRIPTS["tiny"] = synthetic.SCRIPTS["alpha"] = __import__("test_orchestrator").edit_script()
+        self.engine = Orchestrator(RunStore(self.tmp / "home"), registry=registry, telemetry_store=LocalTelemetryStore(self.telemetry_path),
+                                   claims_path=self.claims, sleep=lambda seconds: None)
+        small = self.create([self.task("a", review_required=False)])
+        self.engine.start(small)
+        for _ in range(20):
+            self.engine.step(small)
+        self.assertEqual(self.engine.load(small)["nodes"]["a"]["selection"]["provider"], "tiny")  # fits: cheapest wins
+        big = self.create([self.task("b", goal="work on b. " + "Details that must be read carefully. " * 250, review_required=False)])
+        self.engine.start(big)
+        for _ in range(20):
+            self.engine.step(big)
+        record = self.engine.load(big)
+        self.assertEqual(record["nodes"]["b"]["selection"]["provider"], "alpha")
+        self.assertIn("tiny", record["nodes"]["b"]["excluded_providers"])
+        events = (self.engine.store.run_dir(big) / "events.jsonl").read_text(encoding="utf-8")
+        self.assertIn("context window", events)
+
+
 class EvalScoringTests(unittest.TestCase):
     """The eval's verdicts on canned foreman answers (the live run uses the same scorer)."""
 

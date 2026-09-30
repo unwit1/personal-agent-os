@@ -45,6 +45,7 @@ LEAN_TOOLS = {"edit": ("Bash", "Read", "Edit", "Write", "Glob", "Grep"), "read_o
 
 class ClaudeCodeAdapter(SubprocessAdapter):
     adapter_id = "claude_code"
+    context_overhead_tokens = 6000  # measured 2026-09-30: 21.9 KB request (lean tools, strict MCP)
     adapter_version = "claude_code/1"
     default_executable = "claude"
     env_prefixes = ("ANTHROPIC_", "CLAUDE_", "AWS_", "GOOGLE_", "CLOUD_ML_", "VERTEX_")
