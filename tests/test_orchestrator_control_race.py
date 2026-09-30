@@ -65,5 +65,21 @@ class RetryContextTests(unittest.TestCase):
         self.assertIn("[R3-1]", text)
 
 
+class RunHistoryTests(unittest.TestCase):
+    def test_note_names_the_store_and_is_read_only(self) -> None:
+        text = engine_mod._run_history_note(Path("/x/home"))
+        self.assertIn(str(Path("/x/home") / "runs"), text)
+        self.assertIn("AGENT_OS_ORCHESTRATOR_HOME", text)
+        self.assertIn("never write there", text)
+
+    def test_policy_is_off_by_default_and_boolean(self) -> None:
+        from agent_os.orchestrator.model import PolicyError, merge_policy
+
+        self.assertFalse(merge_policy({})["share_run_history"])
+        self.assertTrue(merge_policy({"share_run_history": True})["share_run_history"])
+        with self.assertRaises(PolicyError):
+            merge_policy({"share_run_history": "yes"})
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1514,6 +1514,8 @@ class Orchestrator:
                 self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
         prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
         prompt += _prior_attempts(node, policy["material_severities"])
+        if policy.get("share_run_history") and node["role"] in {"planner", "implementer", "test_author", "reviewer"}:
+            prompt += _run_history_note(self.store.home)
         # Workers registered for inline (self-contained) prompts have no repository tools.
         addendum = (((record.get("foreman") or {}).get("strategy") or {}).get("planner_addendum") or "") if node["role"] == "planner" else ""
         if addendum and (record.get("foreman") or {}).get("provider") == selection["provider"]:
@@ -2401,6 +2403,18 @@ def _test_totals(evidence: list[dict[str, Any]]) -> dict[str, int | None]:
     if not counted:
         return {"tests_run": None, "tests_passed": None, "tests_failed": None}
     return {key: sum(int(item.get(key) or 0) for item in counted) for key in ("tests_run", "tests_passed", "tests_failed")}
+
+
+def _run_history_note(home: Path | str) -> str:
+    """Where this machine's orchestrator run history is, read-only (policy share_run_history)."""
+    from .store import HOME_ENV
+
+    runs = Path(home) / "runs"
+    return (
+        "\n\nRun history on this machine (read-only evidence; never write there, never start or control runs):\n"
+        f"- files: {runs} (one folder per run: state.json, events.jsonl, workers/<node>-<attempt>/)\n"
+        f"- read-only CLI: set {HOME_ENV}={home} for `python -m agent_os orchestrate list|status|events|report|usage-report|context-anatomy`\n"
+    )
 
 
 def _operator_changed(record: dict[str, Any]) -> None:

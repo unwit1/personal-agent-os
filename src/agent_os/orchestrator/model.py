@@ -158,6 +158,10 @@ DEFAULT_POLICY: dict[str, Any] = {
     # Operator switch: may this run spend outside credits (per-token APIs such
     # as OpenRouter, rented GPUs)? Off: only subscriptions and local models.
     "allow_paid_spend": False,
+    # Workers of a run that studies the orchestrator itself (audits, usage,
+    # event analysis) may read this machine's run history, read-only. Off:
+    # a worktree only sees its own (empty) run store.
+    "share_run_history": False,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -204,6 +208,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "planner_repo_map",
         "allow_worker_publication",
         "allow_paid_spend",
+        "share_run_history",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")
