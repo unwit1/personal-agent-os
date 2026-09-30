@@ -51,7 +51,16 @@ OPTIONAL_FLAGS = ("--json", "--output-last-message", "--ephemeral", "--sandbox",
 # all (on Windows, `windows.sandbox = "unelevated"`; without it every command
 # is "blocked by policy"). When the config is ignored, these keys are read from
 # it and passed explicitly with -c.
-LEAN_DEFAULTS: dict[str, Any] = {"use_user_config": False, "disable_features": [], "carry_config_keys": ["windows.sandbox"]}
+LEAN_DEFAULTS: dict[str, Any] = {"use_user_config": False, "disable_features": None, "carry_config_keys": ["windows.sandbox"]}
+# Measured 2026-09-30 (codex-cli 0.158.0, lean config, trivial task): every
+# request carried 27 tools = 443 KB of schemas (ChatGPT apps connectors --
+# Gmail, Drive, GitHub, Spotify... -- plus multi-agent, goals, plugins, web
+# search): ~455 KB per request. A bounded worker needs exec_command/write_stdin.
+# Disabling these (only those the installed CLI lists as enabled) cut the
+# request to 31 KB (-93%), 4 tools. options.disable_features overrides.
+WORKER_UNUSED_FEATURES = ("apps", "plugins", "remote_plugin", "multi_agent", "goals", "image_generation", "browser_use", "computer_use",
+                          "tool_suggest", "skill_search", "realtime_conversation")
+WORKER_CONFIG = {"web_search": "disabled"}
 
 
 class CodexCliAdapter(SubprocessAdapter):
@@ -62,7 +71,16 @@ class CodexCliAdapter(SubprocessAdapter):
 
     def probe_features(self, executable: str) -> dict[str, bool]:
         _, help_text = self._run_quick([executable, "exec", "--help"])
-        return {flag: flag in help_text for flag in OPTIONAL_FLAGS}
+        found = {flag: flag in help_text for flag in OPTIONAL_FLAGS}
+        # Which optional Codex features exist and are on (``codex features list``),
+        # so --disable is only ever passed for names this CLI version knows.
+        code, listing = self._run_quick([executable, "features", "list"])
+        if code == 0:
+            for line in listing.splitlines():
+                parts = line.split()
+                if len(parts) >= 3 and parts[-1] in ("true", "false"):
+                    found[f"feature:{parts[0]}"] = parts[-1] == "true"
+        return found
 
     def _env(self, request: AgentLaunchRequest, options: dict[str, Any]) -> dict[str, str]:
         """Worker env; ``secret_env`` maps an env var to a secrets:// reference
@@ -94,8 +112,14 @@ class CodexCliAdapter(SubprocessAdapter):
             argv.append("--ignore-user-config")
             for key, value in carried_config(options.get("carry_config_keys", LEAN_DEFAULTS["carry_config_keys"])):
                 argv += ["-c", f"{key}={json.dumps(value)}"]
-        for feature in options.get("disable_features", LEAN_DEFAULTS["disable_features"]) if features.get("--disable") else []:
+        wanted = options.get("disable_features")
+        if wanted is None:  # default: drop every tool family a bounded worker never uses
+            wanted = [name for name in WORKER_UNUSED_FEATURES if features.get(f"feature:{name}")]
+        for feature in wanted if features.get("--disable") else []:
             argv += ["--disable", str(feature)]
+        if options.get("lean_tools", True):
+            for key, value in WORKER_CONFIG.items():
+                argv += ["-c", f"{key}={json.dumps(value)}"]
         keep = options.get("keep_mcp_servers")
         if keep is not True and not ignore_config:
             # A bounded worker gets everything it needs in its prompt; the

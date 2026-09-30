@@ -81,6 +81,17 @@ class CodexLeanFlagTests(unittest.TestCase):
         self.assertIn('windows.sandbox="unelevated"', argv)
         self.assertNotIn("priority", " ".join(argv))
 
+    def test_default_drops_unused_tool_families_the_cli_reports_enabled(self) -> None:
+        # measured: 27 tools / 455 KB per request -> 4 tools / 31 KB with these disabled
+        instance = codex_cli.CodexCliAdapter({"id": "p", "executable": "x", "options": {}})
+        features = {flag: True for flag in codex_cli.OPTIONAL_FLAGS}
+        features.update({"feature:apps": True, "feature:multi_agent": True, "feature:goals": False, "feature:plugins": True})
+        instance.probe = lambda: ProviderStatus("p", True, executable="x", version="1", features=features)  # type: ignore[method-assign]
+        argv = instance.resolve_invocation(request()).argv
+        disabled = [argv[i + 1] for i, item in enumerate(argv) if item == "--disable"]
+        self.assertEqual(sorted(disabled), ["apps", "multi_agent", "plugins"])  # goals already off; unknown names never passed
+        self.assertIn('web_search="disabled"', argv)
+
     def test_disable_features(self) -> None:
         argv = adapter(codex_cli.CodexCliAdapter, codex_cli.OPTIONAL_FLAGS, disable_features=["image_generation"]).resolve_invocation(request()).argv
         self.assertEqual(argv[argv.index("--disable") + 1], "image_generation")
