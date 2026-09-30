@@ -180,15 +180,19 @@ def _planned_validators(task: dict[str, Any], patterns: list[str], project_comma
 _TEST_TARGET = re.compile(r"^(tests(?:[./][A-Za-z_]\w*)+?)(?:\.py)?(?:::.*|\.[A-Z]\w*(?:\.\w+)?)?$")
 
 
-def _scope_validator_tests(task: dict[str, Any]) -> None:
+def _scope_validator_tests(task: dict[str, Any]) -> list[str]:
     """Let a task edit the test file its own validator runs.
 
     A planner that scoped a task to ``src`` but validated it with
     ``python -m unittest tests.test_new`` left the worker unable to create the
-    test without asking a person to widen its scope."""
+    test without asking a person to widen its scope. Returns the paths added:
+    they are *soft* scope -- editable, but not counted when deciding which
+    tasks may run in parallel (live: 7 audit tasks sharing one validator test
+    file were serialized for 80 minutes)."""
+    added: list[str] = []
     scope = task.get("scope")
     if not isinstance(scope, list) or not scope:
-        return
+        return added
     for validator in task.get("validators") or []:
         for token in validator.get("command") or []:
             match = _TEST_TARGET.match(str(token).replace("\\", "/"))
@@ -197,6 +201,8 @@ def _scope_validator_tests(task: dict[str, Any]) -> None:
             path = match.group(1).replace(".", "/") + ".py"
             if not path_in_scope(path, scope):
                 scope.append(path)
+                added.append(path)
+    return added
 
 
 def expand(
@@ -231,7 +237,7 @@ def expand(
             if path_key in task and not isinstance(task[path_key], list):
                 raise PlanError(f"planner task {task.get('id')}: {path_key} must be a list")
         task["validators"] = _planned_validators(task, patterns, project, notes)
-        _scope_validator_tests(task)
+        soft = _scope_validator_tests(task)
         deterministic_available = task.get("execution_path") == "deterministic" or "deterministic" in (task.get("available_execution_paths") or [])
         if deterministic_available:
             argv = approved_argv(task.get("command"), patterns, project)
@@ -245,6 +251,8 @@ def expand(
                 task["effort"] = "none"
             task.pop("ladder", None)
         node = node_from_task(task, extra_depends=[planner_id], origin="planner")
+        if soft:
+            node["soft_scope"] = soft
         if node["id"] in nodes or node["id"] in added:
             raise PlanError(f"planner proposed duplicate id {node['id']}")
         if node["capability_class"] == "frontier":

@@ -1293,7 +1293,7 @@ class Orchestrator:
             if other["role"] not in {"implementer", "test_author"}:
                 continue
             holds = other["worktree"] is not None and not other["integrated"] and other["state"] not in {"CANCELLED"}
-            if holds and scopes_overlap(node["scope"], other["scope"]):
+            if holds and scopes_overlap(_hard_scope(node), _hard_scope(other)):
                 blockers.append(other["id"])
         return blockers
 
@@ -2160,6 +2160,15 @@ class Orchestrator:
 # ----------------------------------------------------------------------
 # Module helpers
 # ----------------------------------------------------------------------
+
+
+def _hard_scope(node: dict[str, Any]) -> list[str]:
+    """Scope that decides parallelism: without paths added only because the
+    task's validator runs them (planner soft_scope). An empty result keeps the
+    original scope, since an empty scope means the whole repository."""
+    soft = set(node.get("soft_scope") or [])
+    hard = [path for path in node.get("scope") or [] if path not in soft]
+    return hard or list(node.get("scope") or [])
 
 
 def _clean_override(value: dict[str, Any] | None) -> dict[str, Any]:

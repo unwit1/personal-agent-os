@@ -572,6 +572,25 @@ class EngineRoutingTests(OrchestratorFixture):
         self.assertIn("capability_class", self.planner_prompts[0])
         self.assertEqual(fd.load_state(self.foreman_home)["runs"], [run_id])
 
+    def test_tasks_sharing_only_a_validator_test_file_run_in_parallel(self) -> None:
+        # live: 7 audit tasks whose only overlap was their validator's test file ran one at a time
+        shared = ["python", "-m", "unittest", "tests.test_shared"]
+        self.PLAN = [{"id": "a", "goal": "write report a", "scope": ["a"], "capability_class": "fast", "validators": [shared]},
+                     {"id": "b", "goal": "write report b", "scope": ["b"], "capability_class": "fast", "validators": [shared]}]
+        self.foreman("ready")
+        run_id = self.create()
+        self.engine.start(run_id)
+        first_launch = None
+        for _ in range(12):
+            self.engine.step(run_id)
+            nodes = self.engine.load(run_id)["nodes"]
+            if "a" in nodes and "b" in nodes and (nodes["a"]["attempts"] or nodes["b"]["attempts"]):
+                first_launch = (nodes["a"]["attempts"], nodes["b"]["attempts"])
+                self.assertEqual(nodes["a"].get("soft_scope"), ["tests/test_shared.py"])
+                self.assertIn("tests/test_shared.py", nodes["a"]["scope"])  # still editable
+                break
+        self.assertEqual(first_launch, (1, 1), "both tasks must be dispatched in the same tick")
+
     def test_run_waits_for_a_loading_foreman_then_uses_it(self) -> None:
         self.foreman("loading")
         run_id = self.create()
