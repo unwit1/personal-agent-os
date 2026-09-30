@@ -11,6 +11,7 @@ message to a file; ``--ephemeral`` avoids persisting session files.
 from __future__ import annotations
 
 import json
+import os
 import re
 import tomllib
 from pathlib import Path
@@ -39,6 +40,8 @@ FAMILY_CLASSES = {"luna": "fast", "terra": "balanced", "sol": "reasoning", "astr
 _SLUG = re.compile(r"^gpt-(?P<version>\d+(?:\.\d+)*)-(?P<family>[a-z]+)$")
 # Logged by the Windows restricted-token sandbox when it cannot confine
 # commands to the workspace (for example, a workspace nested inside %TEMP%).
+WIN_SANDBOX_SHIM = Path(__file__).resolve().parent / "win_sandbox"
+
 SANDBOX_REFUSAL = "cannot enforce split writable root sets"
 # `codex exec --json` item types that are tool invocations, counted per worker.
 TOOL_ITEM_TYPES = frozenset({"command_execution", "mcp_tool_call", "file_change", "web_search"})
@@ -87,6 +90,10 @@ class CodexCliAdapter(SubprocessAdapter):
         """Worker env; ``secret_env`` maps an env var to a secrets:// reference
         resolved at launch (never written to the registry or invocation.json)."""
         env = build_env(self.provider.get("env_allowlist", []), request.env_allowlist, self.env_prefixes)
+        if os.name == "nt" and options.get("windows_tempdir_shim", True):
+            # Python's owner-only temp folders are unwritable inside the
+            # Windows sandbox; win_sandbox/sitecustomize.py fixes tempfile.
+            env["PYTHONPATH"] = os.pathsep.join(item for item in (str(WIN_SANDBOX_SHIM), env.get("PYTHONPATH")) if item)
         secret_env = options.get("secret_env") or {}
         if secret_env:
             from ..secret_refs import resolve
