@@ -191,8 +191,11 @@ the class guard for weak planners.
 | `deepseek/deepseek-v4-flash` | 86% → 100% | 50% → 50% | 100% | 45 | 6.3k |
 | `openai/gpt-oss-120b` | 57% → 86% | 33% → 50% | 85% | 37–56 | 1.5–2.1k |
 | `qwen/qwen3-235b-a22b-2507` | 14% → 43% | 0% → 50% | 77% | 16–26 | 0.9–1.2k |
+| `qwen/qwen3-32b` | 29% → 86% | 33% → 50% | 77% | 45 | 2.1k |
 
 Takeaways:
+- Every cheap per-token model plateaus at 50% on held-out, while the subscription foremen and the GPU Qwen2.5-14B reach 83%.
+  With only 6 held-out cases that gap is 3 vs 5 cases, so a 24-case second wave (dev2/holdout2) is running to firm it up.
 - On held-out cases no cheap per-token model has yet matched the subscription
   foremen. The rented Qwen2.5-14B with its strategy has. Each strength rating
   moved from a size guess to its measured value automatically.
