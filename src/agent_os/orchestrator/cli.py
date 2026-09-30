@@ -617,7 +617,9 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         elif args.action == "strategy":
             from . import foreman_strategy
 
-            emit({"host": foreman_strategy.host_models(), "models": foreman_strategy.strategy_table()})
+            reports = foreman_strategy._eval_reports(None)
+            emit({"host": foreman_strategy.host_models(), "models": foreman_strategy.strategy_table(reports=reports),
+                  "foreman_ranking": foreman_strategy.recommend_foreman(reports)})
         elif args.action == "eval":
             from . import foreman_eval
 

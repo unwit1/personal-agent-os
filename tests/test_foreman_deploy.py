@@ -960,6 +960,20 @@ class StrategyTests(unittest.TestCase):
         self.assertEqual(fs.strength("Qwen2.5-14B-Instruct")["band"], "weak")  # size hint for an unmeasured open model
         self.assertTrue(fs.strategy_for("small", provider=provider)["guard"])
 
+    def test_ranking_pools_all_evals_and_gates_on_the_wilson_lower_bound(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        def report(model, passes, n, split="dev"):
+            return {"model": model, "provider": "p", "split": split, "cases": [{"case": f"c{i}", "passed": i < passes, "valid": True, "usage": {}} for i in range(n)]}
+
+        reports = [report("steady", 11, 12), report("steady", 11, 12, "holdout"), report("lucky", 6, 6), report("weak", 5, 12)]
+        ranking = fs.recommend_foreman(reports, floor=0.7, min_cases=12)
+        self.assertEqual([(row["model"], row["qualified"]) for row in ranking][:1], [("steady", True)])
+        lucky = next(row for row in ranking if row["model"] == "lucky")
+        self.assertFalse(lucky["qualified"])  # 6/6 is not enough evidence
+        self.assertEqual(next(row for row in ranking if row["model"] == "steady")["cases"], 24)  # pooled, not latest-only
+        self.assertIn("24 plans", fs.strength("steady", reports=reports)["source"])
+
     def test_host_models_read_only_the_model_fields(self) -> None:
         from agent_os.orchestrator import foreman_strategy as fs
 

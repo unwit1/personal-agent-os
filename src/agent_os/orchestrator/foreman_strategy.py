@@ -145,17 +145,51 @@ def _eval_reports(eval_dir: Path | None) -> list[dict[str, Any]]:
     return reports
 
 
-def _measured(model: str, reports: list[dict[str, Any]]) -> dict[str, Any] | None:
-    """Latest completed eval of this exact model (aborted runs say nothing about judgement)."""
-    for report in reversed(reports):
+def _pooled(model: str, reports: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Every scored plan this exact model produced across completed evals
+    (aborted runs say nothing about judgement): raw and after-strategy pass
+    counts, validity, and the Wilson 95% interval of the after-strategy rate."""
+    from .capability import wilson
+
+    raw = guarded = valid = n = 0
+    for report in reports:
         if report.get("aborted"):
             continue
         served = {str((row.get("usage") or {}).get("model_resolved") or "") for row in report.get("cases") or []}
-        if model in served or report.get("model") == model:
-            summary = report.get("summary") or {}
-            if summary.get("cases"):
-                return summary
-    return None
+        if not (model in served or report.get("model") == model):
+            continue
+        for row in report.get("cases") or []:
+            n += 1
+            raw += bool(row.get("passed"))
+            guarded += bool((row.get("guarded") or row).get("passed"))
+            valid += bool(row.get("valid"))
+    if not n:
+        return None
+    low, high = wilson(guarded, n)
+    return {"cases": n, "judgement_accuracy": round(raw / n, 3), "guarded_accuracy": round(guarded / n, 3),
+            "valid_plans": round(valid / n, 3), "wilson_low": low, "wilson_high": high}
+
+
+def _measured(model: str, reports: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Pooled evidence for this model (all evals, not just the latest)."""
+    return _pooled(model, reports)
+
+
+def recommend_foreman(reports: list[dict[str, Any]], floor: float = 0.7, min_cases: int = 12) -> list[dict[str, Any]]:
+    """Eval-gated foreman ranking (advisory; nothing switches automatically).
+    A model qualifies when the lower bound of its after-strategy pass rate
+    clears ``floor`` over at least ``min_cases`` scored plans; qualified
+    models sort first, then by lower bound."""
+    models = {str(report.get("model")) for report in reports if report.get("model") and report.get("provider") not in ("optimize", "scripted")}
+    rows = []
+    for model in models:
+        pooled = _pooled(model, reports)
+        if not pooled:
+            continue
+        qualified = pooled["cases"] >= min_cases and (pooled["wilson_low"] or 0) >= floor
+        provider = next((report.get("provider") for report in reversed(reports) if report.get("model") == model), None)
+        rows.append({"model": model, "provider": provider, "qualified": qualified, **pooled})
+    return sorted(rows, key=lambda row: (not row["qualified"], -(row["wilson_low"] or 0), -row["cases"]))
 
 
 def _tier_of(model: str, provider: dict[str, Any] | None) -> str | None:
@@ -175,7 +209,8 @@ def strength(model: str, *, provider: dict[str, Any] | None = None, evidence: di
     measured = _measured(model, reports)
     if measured:
         score = 0.7 * float(measured.get("judgement_accuracy") or 0) + 0.3 * float(measured.get("valid_plans") or 0)
-        source = f"measured: foreman eval judgement {measured.get('judgement_accuracy')} / valid {measured.get('valid_plans')}"
+        source = (f"measured over {measured['cases']} plans: judgement {measured.get('judgement_accuracy')} / valid {measured.get('valid_plans')}"
+                  f" (after strategy {measured.get('guarded_accuracy')}, 95% low {measured.get('wilson_low')})")
     else:
         models = (evidence or {}).get("models") or {}
         indices = [entry.get("benchmarks", {}).get("intelligence_index") for entry in models.values() if isinstance(entry, dict)]
