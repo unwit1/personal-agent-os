@@ -136,3 +136,17 @@ Rent a GPU only when:
 
 The existing quote engine (`orchestrate quote`) already compares API vs GPU
 pod vs serverless for a described workload.
+
+## Per-worker request size (measured 2026-09-30 with local fake endpoints; no quota used)
+
+| Worker | Before | After |
+|---|---|---|
+| Codex CLI (lean config) | 455 KB, 27 tools: 443 KB of schemas (ChatGPT apps connectors such as Gmail, Drive, GitHub, Outlook, Notion and Spotify, plus multi-agent, goals, plugins and web search) | **31.7 KB, 4 tools (−93%)**: unused feature families are disabled (only names the installed CLI reports as enabled) and `web_search=disabled` is set |
+| Claude Code worker | 21.9 KB, 6 tools (`--strict-mcp-config`, lean `--tools`: already optimal) | unchanged |
+| Plain `claude -p` for comparison | 757 KB, 306 tools | — |
+
+The Codex fix applies to every ChatGPT/Codex worker the orchestrator
+launches. Cached tokens still count toward usage limits, so this directly
+stretches your Codex quota. It is also what makes the GPU coding agent fit
+in a vLLM context window: 455 KB is roughly 110k tokens, which a 32k/64k
+pod rejected.
