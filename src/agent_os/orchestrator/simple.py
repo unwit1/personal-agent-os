@@ -500,7 +500,7 @@ def advise(home: dict[str, Any], run_view_: dict[str, Any] | None, prep: dict[st
     if unfinished:
         state = unfinished[0].get("state")
         if state in {"APPROVAL_REQUIRED", "BLOCKED"}:
-            return {"target": "view-progress", "message": "An earlier run is waiting for your decision: see the run card below."}
+            return {"target": "view-progress", "message": "An earlier run is waiting for your decision: open Older unfinished runs to show it, or dismiss it and start something new."}
         return {"target": "continue", "message": "Press Start with the box empty. It will resume the run that was interrupted."}
     if home.get("next_stage"):
         note = " Your project has uncommitted changes; the agents will not see them." if home.get("dirty") else ""
