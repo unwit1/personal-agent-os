@@ -82,6 +82,7 @@ FAILURE_KINDS = (
     "unavailable",
     "invalid_model",
     "timeout",
+    "stuck",
     "malformed",
     "cancelled",
     "interrupted",

@@ -102,6 +102,7 @@ FAILURE_TEXT = {
     "unavailable": "{who} could not be started on this computer.",
     "invalid_model": "{who} rejected the model it was given.",
     "timeout": "{who} took too long and was stopped.",
+    "stuck": "{who} was repeating the same step without progress and was stopped.",
     "malformed": "{who} did not return a usable answer.",
     "interrupted": "The program driving this run stopped while {who} was working.",
     "validator_failed": "The change still fails its tests after every allowed attempt.",
@@ -400,7 +401,7 @@ def task_list(run: dict[str, Any]) -> list[dict[str, Any]]:
 _UPDATE_TYPES = {"run.created", "run.started", "run.paused", "run.resumed", "run.stopped", "run.complete", "plan.expanded", "plan.adjusted",
                  "worker.launched", "worker.finished", "node.escalated", "node.failed", "node.deferred", "gate.opened",
                  "validation.baseline_excused", "review.completed", "repair.requested", "integration.merged", "integration.refused",
-                 "foreman.applied", "foreman.backup", "foreman.fallback", "provider.cooldown", "provider.failover", "context.misfit",
+                 "foreman.applied", "worker.stuck", "foreman.backup", "foreman.fallback", "provider.cooldown", "provider.failover", "context.misfit",
                  "operator.message"}
 
 

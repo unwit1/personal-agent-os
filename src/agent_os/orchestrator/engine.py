@@ -53,6 +53,7 @@ from .model import (
 from .review import MalformedReview, apply_dispositions, material, parse_review
 from .router import ProviderRegistry, load_key, select
 from .store import RunStore, pid_alive, redact
+from .stall import repeated_command
 from .validators import run_all
 from .worktrees import GitError, WorktreeManager, current_branch, head_commit, is_dirty, repository_root
 
@@ -587,10 +588,26 @@ class Orchestrator:
                     adapter.cancel(handle)
                     self._handles.pop(key, None)
                     self._fail(record, node, "timeout", f"worker exceeded {record['policy']['worker_timeout_seconds']}s")
+                elif elapsed > 120 and self._loop_check_due(key):
+                    loop = repeated_command(handle.stdout_path)
+                    if loop:
+                        adapter.cancel(handle)
+                        self._handles.pop(key, None)
+                        self.store.append_event(record["run_id"], "worker.stuck", node_id, f"{loop['count']} of its last {loop['window']} commands were: {loop['command'][-160:]}")
+                        self._fail(record, node, "stuck", f"worker was looping ({loop['count']}/{loop['window']} identical commands); stopped early")
                 continue
             result = adapter.collect(handle)
             self._handles.pop(key, None)
             self._finish_worker(record, node, result)
+
+    def _loop_check_due(self, key: tuple[str, str], interval: float = 60.0) -> bool:
+        """Read a worker's event stream for loops at most once a minute."""
+        checks = self.__dict__.setdefault("_loop_checks", {})
+        now_ = time.monotonic()
+        if now_ - checks.get(key, 0.0) < interval:
+            return False
+        checks[key] = now_
+        return True
 
     def _reattach(self, node: dict[str, Any]) -> RunningAgent | None:
         """Rebuild a handle for a subprocess worker launched by an earlier
@@ -1165,7 +1182,7 @@ class Orchestrator:
                 item
                 for item in node["failures"]
                 if item["provider"] == provider
-                and item["kind"] in {"process_error", "timeout", "interrupted", "malformed"}
+                and item["kind"] in {"process_error", "timeout", "stuck", "interrupted", "malformed"}
                 and item.get("capability_class", node["capability_class"]) == node["capability_class"]
             ]
             if kind in PROVIDER_FAILURES or len(same_kind) >= 2:
