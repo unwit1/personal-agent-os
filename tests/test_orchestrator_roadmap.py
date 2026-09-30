@@ -416,6 +416,13 @@ class SimpleApiTests(RoadmapFixture):
         _, home, _ = self.call("GET", "/api/home")
         self.assertIsNone(home["current_run"], "a stale run must not be shown as current work")
         self.assertEqual([item["run_id"] for item in home["older_runs"]], [run_id])
+        # a campaign that remembers the run but is not being driven does not make it current
+        key = self.engine.load(run_id).get("project") or Path(self.repo).name
+        campaign_file = roadmap._campaign_path(self.engine, key)
+        campaign_file.parent.mkdir(parents=True, exist_ok=True)
+        campaign_file.write_text(json.dumps({"current_run": run_id, "status": "waiting"}), encoding="utf-8")
+        _, home, _ = self.call("GET", "/api/home")
+        self.assertIsNone(home["current_run"])
         status, _, _ = self.call("POST", f"/api/runs/{run_id}/dismiss", {})
         self.assertEqual(status, 200)
         _, home, _ = self.call("GET", "/api/home")

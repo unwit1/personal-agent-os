@@ -181,7 +181,8 @@ class Api:
             run_id = overview["unfinished_runs"][0]["run_id"]
         # Simple Mode shows only live or recent work as "current"; stale
         # unfinished runs are listed separately (resume or dismiss).
-        if run_id and not campaign.get("current_run") == run_id and not self._recent(engine, run_id, key):
+        campaign_live = campaign.get("current_run") == run_id and self.campaigns.alive(key)
+        if run_id and not campaign_live and not self._recent(engine, run_id, key):
             run_id = None
         overview["older_runs"] = [
             {"run_id": item["run_id"], "goal": item.get("goal"), "state": item.get("state"), "updated_at": item.get("updated_at"),
