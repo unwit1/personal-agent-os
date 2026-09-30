@@ -210,3 +210,14 @@ Takeaways:
   - It overfit the 7 dev cases, so the rewrite was not adopted. PA-gepa is
     now DEFER until there are at least 30 labelled dev cases.
   - About $0.02.
+
+## Context windows: analysis and changes (2026-09-30)
+
+What each prompt spends its window on, measured without model calls:
+
+| Finding | Evidence | Change |
+|---|---|---|
+| The repo map listed private, irrelevant data | For a locking goal, 7 of 12 "relevant files" were HR archive full-text files (28% of the planner prompt). Their file names went to external models | Data directories at any depth (≥ 60 files, ≤ 5% code) are no longer read or listed unless the goal names a file. Here 1,422 files are excluded and the map lists only src/tests/docs |
+| Requests did not fit the model's window | Codex requests were 455 KB (about 110k tokens) against a 64k vLLM window, failing 3 attempts | Codex tool trim (31.7 KB). **Context-fit routing**: prompt + measured harness overhead + an output reserve over 85% of a declared window routes the task elsewhere (`context.misfit` event) |
+| Prefix-cache ordering | Planner prompts for different goals share only 282 chars of prefix. But the static part is about 850 tokens, below the 1,024-token caching minimum at OpenAI/Anthropic, and the harness prompts are already cached (41k of 46k Codex input tokens came from cache) | Not worth reordering; skipped |
+| Prompt compression (PA-llmlingua) | Cost is dominated by harness tool schemas, now trimmed, not by prompt text | Still DEFER |
