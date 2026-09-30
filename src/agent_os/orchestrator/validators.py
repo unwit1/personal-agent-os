@@ -48,7 +48,10 @@ def run_validator(validator: dict[str, Any], cwd: Path | str, timeout: int = 900
             **test_counts(output),
         }
         if completed.returncode != 0:
-            result["failed_tests"] = failed_tests(output)
+            # Test names when a test runner ran; otherwise the command's error
+            # signature, so a failure that already exists on the base commit
+            # can still be recognised as pre-existing (engine baseline excuse).
+            result["failed_tests"] = failed_tests(output) or error_signature(completed.stdout or "", completed.stderr or "", cwd)
         return result
     if kind == "outputs_present":
         missing = [item for item in validator.get("outputs", []) if not (Path(cwd) / item).exists()]
@@ -85,6 +88,40 @@ def test_counts(output: str) -> dict[str, int]:
 
 _UNITTEST_FAILURE = re.compile(r"^(?:FAIL|ERROR): (\S+) \(([^)\s]+)\)", re.MULTILINE)
 _PYTEST_FAILURE = re.compile(r"^(?:FAILED|ERROR) (\S+::\S+)", re.MULTILINE)
+
+
+_ERROR_LINE = re.compile(r"(error|errors|exception)\b|\btraceback\b|\bfail(ed|ure|ures)?\b", re.I)
+_VOLATILE = re.compile(r"\b\d+(\.\d+)?\s*(s|ms|seconds)\b|0x[0-9a-f]+|\b\d{4}-\d{2}-\d{2}[T ][0-9:.+-]+")
+
+
+def error_signature(stdout: str, stderr: str, cwd: Path | str) -> list[str]:
+    """Normalized error lines of a failing non-test command, prefixed
+    ``error:``: the ``errors`` list of JSON output (e.g. ``agent.py validate``)
+    when there is one, else error-like lines. Worktree paths, timings and
+    addresses are normalized so the base commit and a change compare equal.
+    Empty when nothing error-like is found (then nothing can be excused)."""
+    import json as _json
+
+    roots = {str(Path(cwd)), str(Path(cwd)).replace("\\", "/")}
+
+    def clean(line: str) -> str:
+        for root in roots:
+            line = line.replace(root, "<worktree>")
+        return _VOLATILE.sub("<n>", line).strip()[:240]
+
+    lines: list[str] = []
+    text = (stdout or "").strip()
+    start = text.find("{")
+    if start != -1:
+        try:
+            data = _json.loads(text[start:])
+            if isinstance(data, dict) and isinstance(data.get("errors"), list):
+                lines = [str(item) for item in data["errors"]]
+        except ValueError:
+            pass
+    if not lines:
+        lines = [line for line in (stdout + "\n" + stderr).splitlines() if _ERROR_LINE.search(line) and "Warning" not in line]
+    return sorted({"error: " + clean(line) for line in lines if line.strip()})[:50]
 
 
 def failed_tests(output: str) -> list[str]:
