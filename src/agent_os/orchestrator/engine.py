@@ -296,6 +296,19 @@ class Orchestrator:
                 self.ledger.emit(run_id, "run_started", mode="orchestrated run", project=record.get("project"), planning=record["preflight"].get("planning"), auto_continue=record["policy"]["auto_continue"], nodes=len(record["nodes"]))
             return self.summary(record)
 
+    def add_message(self, run_id: str, text: str) -> dict[str, Any]:
+        """A message from the operator to the run's agents. Every prompt
+        built from now on carries the recent messages (prompts.py)."""
+        text = str(text or "").strip()
+        if not text:
+            raise OrchestratorError("the message is empty")
+        with self._lock:
+            record = self.store.load(run_id)
+            record.setdefault("operator_messages", []).append({"at": now(), "text": text[:2000]})
+            self.store.save(record)
+            self.store.append_event(run_id, "operator.message", None, text[:300])
+            return self.summary(record)
+
     def set_auto_continue(self, run_id: str, enabled: bool) -> dict[str, Any]:
         with self._lock:
             record = self.store.load(run_id)
@@ -2083,6 +2096,7 @@ class Orchestrator:
             "integration": record["integration"],
             "final": record["final"],
             "gates": record["gates"],
+            "operator_messages": record.get("operator_messages", [])[-50:],
             "nodes": [_node_view(nodes[node_id]) for node_id in record["order"]],
             "telemetry_warning": self.ledger.warning(record["run_id"]),
         }
@@ -2383,6 +2397,7 @@ def _node_view(node: dict[str, Any]) -> dict[str, Any]:
         "id": node["id"],
         "role": node["role"],
         "goal": node["goal"][:240],
+        "started_at": (node.get("process") or {}).get("started_at"),
         "state": node["state"],
         "wait_reason": node.get("wait_reason"),
         "subject": node.get("subject"),

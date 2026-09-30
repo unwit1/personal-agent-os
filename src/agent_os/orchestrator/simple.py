@@ -351,7 +351,98 @@ def efficiency_view(report: dict[str, Any] | None) -> dict[str, Any] | None:
     return {"rows": rows, "report": report}
 
 
-def run_view(run: dict[str, Any], events: list[dict[str, Any]], efficiency: dict[str, Any] | None, providers: list[dict[str, Any]], *, driving: bool, prep: dict[str, Any] | None = None, git_dirty: bool | None = None) -> dict[str, Any]:
+ROLE_WORDS = {"planner": "planning the work", "implementer": "writing code", "test_author": "writing tests",
+              "reviewer": "reviewing a change", "repairer": "fixing review findings"}
+PHASE_WORDS = {"CLAIMED": "setting up a worktree", "LAUNCHING": "starting", "RUNNING": "working",
+               "WAITING_FOR_RESULT": "finishing", "VALIDATING": "running the tests"}
+TASK_PROGRESS = {"PENDING": 0, "RUNNABLE": 5, "CLAIMED": 10, "LAUNCHING": 12, "RUNNING": 35, "WAITING_FOR_RESULT": 50,
+                 "VALIDATING": 60, "NEEDS_REPAIR": 65, "FAILED_RETRYABLE": 30, "WAITING_FOR_REVIEW": 75,
+                 "APPROVAL_REQUIRED": 80, "PASSED": 90, "FAILED_FINAL": 100, "CANCELLED": 100}
+TASK_WORDS = {"PENDING": "waiting", "RUNNABLE": "ready", "CLAIMED": "setting up", "LAUNCHING": "starting", "RUNNING": "working",
+              "WAITING_FOR_RESULT": "finishing", "VALIDATING": "testing", "NEEDS_REPAIR": "fixing review findings",
+              "FAILED_RETRYABLE": "retrying", "WAITING_FOR_REVIEW": "in review", "APPROVAL_REQUIRED": "needs you",
+              "PASSED": "done", "FAILED_FINAL": "failed", "CANCELLED": "cancelled"}
+
+
+def swarm_view(run: dict[str, Any]) -> dict[str, Any]:
+    """Every agent working right now: what it does, on which model, since when."""
+    agents = []
+    for node in run["nodes"]:
+        if node["state"] not in ACTIVE:
+            continue
+        agents.append({
+            "task": node["id"], "doing": ROLE_WORDS.get(node["role"], node["role"]), "phase": PHASE_WORDS.get(node["state"], node["state"].lower()),
+            "goal": str(node.get("goal") or "")[:160], "provider": provider_name(node.get("provider")) if node.get("provider") else None,
+            "model": node.get("model"), "effort": node.get("provider_effort"), "attempt": node.get("attempts"), "since": node.get("started_at"),
+        })
+    by_model: dict[str, int] = {}
+    for agent in agents:
+        if agent["model"]:
+            label = f"{agent['provider']} {agent['model']}" if agent["provider"] else str(agent["model"])
+            by_model[label] = by_model.get(label, 0) + 1
+    return {"running": len(agents), "by_model": by_model, "agents": agents}
+
+
+def task_list(run: dict[str, Any]) -> list[dict[str, Any]]:
+    """The planned tasks with a progress estimate from their state (not from time)."""
+    rows = []
+    for node in run["nodes"]:
+        if node["role"] not in EDITING:
+            continue
+        progress = 100 if node.get("integrated") else TASK_PROGRESS.get(node["state"], 0)
+        rows.append({"task": node["id"], "goal": str(node.get("goal") or "")[:140], "state": node["state"],
+                     "status": "merged" if node.get("integrated") else TASK_WORDS.get(node["state"], node["state"].lower()),
+                     "progress": progress, "attempts": node.get("attempts"), "model": node.get("model"),
+                     "failed": node["state"] in {"FAILED_FINAL", "CANCELLED"}})
+    return rows
+
+
+_UPDATE_TYPES = {"run.created", "run.started", "run.paused", "run.resumed", "run.stopped", "run.complete", "plan.expanded", "plan.adjusted",
+                 "worker.launched", "worker.finished", "node.escalated", "node.failed", "node.deferred", "gate.opened",
+                 "validation.baseline_excused", "review.completed", "repair.requested", "integration.merged", "integration.refused",
+                 "foreman.applied", "foreman.backup", "foreman.fallback", "provider.cooldown", "provider.failover", "context.misfit",
+                 "operator.message"}
+
+
+def updates_view(store_events: list[dict[str, Any]], limit: int = 40) -> list[dict[str, Any]]:
+    """Milestones in plain words, newest first -- built from the run's own
+    events, so updates cost no model tokens."""
+    out = []
+    for event in store_events:
+        kind = event.get("type") or ""
+        if kind not in _UPDATE_TYPES and not kind.startswith("completion."):
+            continue
+        node, detail = event.get("node"), str(event.get("detail") or "")
+        text = {
+            "worker.launched": f"Started {node}: {detail}",
+            "worker.finished": f"{node} finished its work: {detail}",
+            "node.escalated": f"{node} failed its checks and moves to a stronger setting ({detail})",
+            "node.failed": f"{node} failed: {detail}",
+            "gate.opened": f"Needs you: {detail}",
+            "integration.merged": f"Merged {node} into the combined result",
+            "validation.baseline_excused": f"{node}: failures that already existed before this run were ignored ({detail})",
+            "operator.message": f"You said: {detail}",
+        }.get(kind, f"{kind.replace('.', ' ').capitalize()}{': ' + node if node else ''}{' — ' + detail if detail else ''}")
+        out.append({"at": event.get("at"), "type": kind, "text": text[:400], "needs_you": kind == "gate.opened"})
+    return list(reversed(out[-limit:]))
+
+
+def chat_view(run: dict[str, Any]) -> list[dict[str, Any]]:
+    """Questions from agents (decision gates) and your messages, oldest first."""
+    items = []
+    for gate in run.get("gates") or []:
+        if gate.get("kind") not in {"agent_needs_decision"}:
+            continue
+        items.append({"at": gate.get("created_at"), "from": "agent", "task": gate.get("node"), "text": str(gate.get("reason") or "")[:1500],
+                      "gate_id": gate.get("id"), "open": gate.get("status") == "open"})
+        if gate.get("status") != "open" and gate.get("note"):
+            items.append({"at": gate.get("decided_at"), "from": "you", "text": str(gate["note"])[:1500]})
+    for message in run.get("operator_messages") or []:
+        items.append({"at": message.get("at"), "from": "you", "text": str(message.get("text") or "")[:2000]})
+    return sorted(items, key=lambda item: str(item.get("at") or ""))
+
+
+def run_view(run: dict[str, Any], events: list[dict[str, Any]], efficiency: dict[str, Any] | None, providers: list[dict[str, Any]], *, driving: bool, prep: dict[str, Any] | None = None, git_dirty: bool | None = None, store_events: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     overall, headline = OVERALL.get(run["state"], ("WORKING", run["state"].title()))
     active = any(node["state"] in ACTIVE for node in run["nodes"])
     if run["state"] not in {"COMPLETE", "PAUSED", "APPROVAL_REQUIRED", "BLOCKED", "CREATED"} and not driving and not active:
@@ -381,6 +472,11 @@ def run_view(run: dict[str, Any], events: list[dict[str, Any]], efficiency: dict
         "summary": run_summary(run, efficiency) if run["state"] == "COMPLETE" else None,
         "telemetry_warning": run.get("telemetry_warning"),
         "auto_continue": run.get("auto_continue"),
+        "swarm": swarm_view(run),
+        "task_list": task_list(run),
+        "updates": updates_view(store_events or []),
+        "chat": chat_view(run),
+        "questions_open": sum(1 for gate in run.get("gates") or [] if gate.get("kind") == "agent_needs_decision" and gate.get("status") == "open"),
     }
 
 

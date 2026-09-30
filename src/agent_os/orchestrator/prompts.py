@@ -248,5 +248,9 @@ def build_measured(
     context, measurement = _context_packet(run.get("project"), node["goal"], int(node.get("context_budget", 1200)))
     if context:
         lines += ["Project context:", context, ""]
+    messages = [item for item in run.get("operator_messages") or [] if str(item.get("text") or "").strip()][-5:]
+    if messages:
+        lines += ["Messages from the operator (most recent last); follow them where they apply to your assignment:",
+                  *[f"- {str(item['text'])[:600]}" for item in messages], ""]
     lines.append(_contract(role))
     return "\n".join(lines), measurement

@@ -228,9 +228,94 @@
     const activity = $("r-activity");
     activity.replaceChildren(...view.activity.slice(-40).reverse().map((item) => el("li", {},
       el("span", { class: "t" }, new Date(item.at).toLocaleTimeString()), " — ", item.text)));
+    renderSwarm(view.swarm);
+    renderTaskList(view.task_list || []);
+    renderUpdates(view.updates || []);
+    renderChat(view);
     renderEfficiency(view.efficiency);
     renderSummary(view.summary);
     $("r-advanced").textContent = JSON.stringify({ run_id: view.run_id, advice: view.advice, efficiency_files: view.efficiency && view.efficiency.report.files }, null, 2);
+  }
+
+  // ------------------------------------------------------------ swarm, tasks, updates, chat
+
+  function elapsed(iso) {
+    if (!iso) return "";
+    const seconds = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
+    return seconds < 90 ? `${seconds}s` : seconds < 5400 ? `${Math.round(seconds / 60)} min` : `${(seconds / 3600).toFixed(1)} h`;
+  }
+
+  function renderSwarm(swarm) {
+    swarm = swarm || { running: 0, by_model: {}, agents: [] };
+    $("r-swarm-count").textContent = swarm.running ? `${swarm.running} agent${swarm.running === 1 ? "" : "s"} working` : "no agent working right now";
+    $("r-swarm-models").textContent = Object.entries(swarm.by_model || {}).map(([model, count]) => `${model} ×${count}`).join(" · ");
+    $("r-swarm-agents").replaceChildren(...swarm.agents.map((agent) => el("div", { class: "agent-card" },
+      el("div", { class: "agent-top" },
+        el("span", { class: "agent-model" }, [agent.provider, agent.model].filter(Boolean).join(" ") || "—"),
+        el("span", { class: "muted" }, `${agent.phase} · ${elapsed(agent.since)}${agent.attempt > 1 ? ` · attempt ${agent.attempt}` : ""}`)),
+      el("div", {}, el("b", {}, agent.task), ` — ${agent.doing}`),
+      el("div", { class: "muted agent-goal" }, agent.goal))));
+  }
+
+  function renderTaskList(tasks) {
+    $("r-tasklist").replaceChildren(...(tasks.length ? tasks.map((task) => el("div", { class: `task-row${task.failed ? " failed" : ""}` },
+      el("div", { class: "task-top" },
+        el("span", { class: "task-name", title: task.goal }, task.task),
+        el("span", { class: "muted" }, `${task.status}${task.attempts > 1 ? ` · ${task.attempts} attempts` : ""}${task.model ? ` · ${task.model}` : ""}`)),
+      el("div", { class: "progress small" }, el("div", { class: "progress-bar", style: `width:${Math.max(task.progress, 2)}%` }))))
+      : [el("div", { class: "muted" }, "The foreman is planning the tasks…")]));
+  }
+
+  function renderUpdates(updates) {
+    $("r-updates").replaceChildren(...(updates.length ? updates.map((item) => el("li", { class: item.needs_you ? "needs-you" : "" },
+      el("span", { class: "t" }, new Date(item.at).toLocaleTimeString()), " ", item.text))
+      : [el("li", { class: "muted" }, "No updates yet.")]));
+  }
+
+  function renderChat(view) {
+    S.chatRunId = view.run_id;
+    const open = view.questions_open || 0;
+    $("chat-badge").classList.toggle("hidden", !open);
+    $("chat-badge").textContent = open ? `${open} question${open === 1 ? "" : "s"}` : "";
+    const log = $("chat-log");
+    const typing = log.contains(document.activeElement);
+    if (typing) return; // do not replace a reply box the user is typing in
+    log.replaceChildren(...((view.chat || []).length ? view.chat.map((item) => el("div", { class: `bubble ${item.from}` },
+      el("div", { class: "bubble-meta" }, `${item.from === "agent" ? `Agent (${item.task || "run"})` : "You"} · ${item.at ? new Date(item.at).toLocaleTimeString() : ""}`),
+      el("div", {}, item.text),
+      item.from === "agent" && item.open ? answerBox(view.run_id, item) : null))
+      : [el("div", { class: "muted" }, "No questions from the agents yet. You can message them below.")]));
+  }
+
+  function answerBox(runId, item) {
+    const input = el("input", { placeholder: "Your answer (the task continues with it)", autocomplete: "off" });
+    const send = el("button", { class: "primary small", onclick: (event) => act(event.currentTarget, "resume", "sending your answer", async () => {
+      await api(`runs/${encodeURIComponent(runId)}/decide`, { gate_id: item.gate_id, approve: true, note: input.value.trim() || undefined });
+      await loadHome();
+    }) }, "Answer");
+    return el("div", { class: "chat-compose" }, input, send);
+  }
+
+  function showTab(name) {
+    const chat = name === "chat";
+    $("tab-chat").classList.toggle("on", chat);
+    $("tab-updates").classList.toggle("on", !chat);
+    $("tab-chat").setAttribute("aria-selected", String(chat));
+    $("tab-updates").setAttribute("aria-selected", String(!chat));
+    $("r-chat").classList.toggle("hidden", !chat);
+    $("r-updates").classList.toggle("hidden", chat);
+    storageSet("agent-os-run-tab", name);
+  }
+
+  async function sendChat(button) {
+    const text = $("chat-input").value.trim();
+    const runId = S.shownRunId || S.chatRunId;
+    if (!text || !runId) return;
+    await act(button, "resume", "sending your message", async () => {
+      await api(`runs/${encodeURIComponent(runId)}/message`, { text });
+      $("chat-input").value = "";
+      await loadHome();
+    });
   }
 
   function renderEfficiency(eff) {
@@ -576,6 +661,11 @@
       });
     });
     $("task-goal").addEventListener("input", updateStartLabel);
+    $("tab-updates").addEventListener("click", () => showTab("updates"));
+    $("tab-chat").addEventListener("click", () => showTab("chat"));
+    showTab(storageGet("agent-os-run-tab", "updates"));
+    $("chat-send").addEventListener("click", (event) => sendChat(event.currentTarget));
+    $("chat-input").addEventListener("keydown", (event) => { if (event.key === "Enter") sendChat($("chat-send")); });
     $("quick-foreman").addEventListener("change", (event) => quickForeman(event.currentTarget));
     $("help-button").addEventListener("click", (event) => tellMeWhatToPress(event.currentTarget));
     $("advice-close").addEventListener("click", () => $("advice").classList.add("hidden"));

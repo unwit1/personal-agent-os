@@ -230,7 +230,9 @@ class Api:
         origin = summary.get("origin") or {}
         if prep is None or (prep.get("result") or {}).get("run_id") not in {None, run_id}:
             prep = self.preps[origin["prep"]].view() if origin.get("prep") in self.preps else None
-        view = simple.run_view(summary, events, report, self._providers(), driving=self._driving(run_id, key), prep=prep, git_dirty=dirty)
+        store_events = engine.store.read_events(run_id, 0, 2000)
+        view = simple.run_view(summary, events, report, self._providers(), driving=self._driving(run_id, key), prep=prep, git_dirty=dirty,
+                               store_events=store_events)
         view["advice"] = simple.advise({"next_stage": None}, view)
         return view
 
@@ -419,6 +421,8 @@ class Api:
             elif action == "stop":
                 self._stop_campaign(run_id)
                 engine.stop(run_id)
+            elif action == "message":
+                engine.add_message(run_id, str(body.get("text") or ""))
             elif action == "dismiss":
                 self._stop_campaign(run_id)
                 roadmap._abandon(engine, run_id, "dismissed by user from Simple Mode")

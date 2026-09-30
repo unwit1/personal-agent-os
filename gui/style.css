@@ -226,3 +226,32 @@ details.more[open] > summary { margin-bottom: 10px; }
 details.more .panel { border: none; padding: 6px 0; }
 #older-rows td { padding: 6px 8px; vertical-align: middle; }
 button.small { padding: 4px 10px; font-size: 12px; }
+
+/* ---- swarm, task progress, updates and chat (run card) ---- */
+.swarm, .tasklist { margin-top: 14px; }
+.swarm-head { font-size: 14px; margin-bottom: 6px; }
+.swarm-agents { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+.agent-card { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 13px; background: var(--bg); }
+.agent-top { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 2px; }
+.agent-model { font-weight: 600; color: var(--run); }
+.agent-goal { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.task-row { padding: 5px 0; }
+.task-top { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; }
+.task-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.progress.small { height: 6px; margin: 4px 0 0; }
+.task-row.failed .progress-bar { background: var(--bad); }
+.tabs { display: flex; gap: 6px; margin-top: 16px; border-bottom: 1px solid var(--line); }
+.tab { border: none; border-bottom: 2px solid transparent; border-radius: 0; background: none; padding: 6px 10px; color: var(--muted); }
+.tab.on { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+.updates { list-style: none; padding: 0; margin: 8px 0 0; max-height: 320px; overflow-y: auto; font-size: 13px; }
+.updates li { padding: 5px 0; border-bottom: 1px dashed var(--line); }
+.updates li.needs-you { color: var(--warn); font-weight: 600; }
+.updates .t { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 4px; }
+.chat { margin-top: 8px; }
+.chat-log { display: grid; gap: 8px; max-height: 340px; overflow-y: auto; padding: 4px 0; }
+.bubble { max-width: 85%; padding: 8px 12px; border-radius: 12px; font-size: 14px; white-space: pre-wrap; }
+.bubble.agent { background: var(--chip); justify-self: start; }
+.bubble.you { background: color-mix(in srgb, var(--accent) 16%, transparent); justify-self: end; }
+.bubble-meta { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.chat-compose { display: flex; gap: 8px; margin-top: 8px; }
+.chat-compose input { flex: 1; }

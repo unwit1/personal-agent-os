@@ -429,6 +429,26 @@ class SimpleApiTests(RoadmapFixture):
         self.assertEqual(home["older_runs"], [])
         self.assertTrue(self.engine.load(run_id)["origin"]["abandoned"])
 
+    def test_run_view_has_swarm_tasks_updates_and_chat_and_messages_reach_prompts(self) -> None:
+        run_id = self.engine.create_run("two small things", repository=self.repo, policy={"announce_claims": False, "require_distinct_review_provider": False},
+                                        tasks=[{"id": "a", "goal": "work on a", "scope": ["a"]}, {"id": "b", "goal": "work on b", "scope": ["b"]}])["run_id"]
+        status, _, _ = self.call("POST", f"/api/runs/{run_id}/message", {"text": "keep the changes small"})
+        self.assertEqual(status, 200)
+        _, view, _ = self.call("GET", f"/api/runs/{run_id}/simple")
+        self.assertEqual([task["task"] for task in view["task_list"]], ["a", "b"])
+        self.assertEqual(view["task_list"][0]["progress"], 0)
+        self.assertEqual(view["swarm"]["running"], 0)
+        self.assertEqual(view["chat"][-1], {"at": view["chat"][-1]["at"], "from": "you", "text": "keep the changes small"})
+        self.assertTrue(any("You said: keep the changes small" in item["text"] for item in view["updates"]))
+        record = self.engine.load(run_id)
+        from agent_os.orchestrator import prompts
+
+        prompt = prompts.build(record, record["nodes"]["a"])
+        self.assertIn("Messages from the operator", prompt)
+        self.assertIn("keep the changes small", prompt)
+        status, _, _ = self.call("POST", f"/api/runs/{run_id}/message", {"text": "  "})
+        self.assertNotEqual(status, 200)
+
     def test_home_fast_and_actions_on_idle(self) -> None:
         status, home, elapsed = self.call("GET", "/api/home")
         self.assertEqual(status, 200)

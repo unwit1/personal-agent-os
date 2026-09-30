@@ -70,6 +70,29 @@
       <div id="r-problems"></div>
       <div id="r-summary" class="summary hidden"></div>
 
+      <div class="swarm">
+        <div class="swarm-head"><span class="fact-label">Swarm</span> <span id="r-swarm-count">—</span> <span class="muted" id="r-swarm-models"></span></div>
+        <div id="r-swarm-agents" class="swarm-agents"></div>
+      </div>
+
+      <div class="tasklist">
+        <div class="fact-label">Tasks</div>
+        <div id="r-tasklist"></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button id="tab-updates" class="tab on" role="tab" aria-selected="true">Updates</button>
+        <button id="tab-chat" class="tab" role="tab" aria-selected="false">Chat <span id="chat-badge" class="badge hidden"></span></button>
+      </div>
+      <ol id="r-updates" class="updates"></ol>
+      <div id="r-chat" class="chat hidden">
+        <div id="chat-log" class="chat-log"></div>
+        <div class="chat-compose">
+          <input id="chat-input" placeholder="Message the agents, e.g. “keep the GUI changes small” (they see it from their next step)" autocomplete="off">
+          <button id="chat-send" class="primary">Send</button>
+        </div>
+      </div>
+
       <details id="r-details" class="efficiency">
         <summary>Details: steps, agents and activity</summary>
         <div class="cols">
