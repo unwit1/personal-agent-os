@@ -583,6 +583,53 @@ def openrouter_models(opener=None) -> list[dict[str, Any]]:
     return out
 
 
+# A foreman plan, measured live (Qwen2.5-14B / Opus / gpt-6-astra medians): tokens per plan.
+PLAN_TOKENS = {"in": 1700, "out": 500}
+LOAD_HOURS = 0.2  # measured deploy-to-ready incl. image pull and weights: 3-20 min
+
+
+_SIZE_TOKEN = re.compile(r"(?<![\d.])(\d+(?:\.\d+)?)b\b")
+
+
+def _family(repo: str) -> str:
+    name = repo.split("/")[-1].lower()
+    return re.sub(r"[^a-z0-9]", "", re.sub(r"-(instruct|chat|it|hf)$", "", name))
+
+
+def api_alternatives(repo: str, listing: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """The same model family on OpenRouter (e.g. Qwen/Qwen2.5-14B-Instruct ->
+    qwen/qwen-2.5-14b-instruct), cheapest first, with its cost per foreman plan."""
+    family = _family(repo)
+    vendor = repo.split("/")[0].lower()
+    size = _SIZE_TOKEN.search(repo.lower())
+    exact, similar = [], []
+    for row in listing:
+        if not row.get("id") or ":free" in row["id"]:
+            continue
+        per_plan = (PLAN_TOKENS["in"] * row["usd_per_mtok_in"] + PLAN_TOKENS["out"] * row["usd_per_mtok_out"]) / 1e6
+        item = {**row, "usd_per_plan": round(per_plan, 6)}
+        if _family(row["id"]) == family or _family(row["id"]).startswith(family):
+            exact.append({**item, "match": "same model"})
+        elif size and row["id"].lower().startswith(vendor + "/") and re.search(rf"(?<![\d.]){re.escape(size.group(1))}b\b", row["id"].lower()):
+            similar.append({**item, "match": f"same vendor and size ({size.group(1)}B), different version"})
+    key = lambda row: row["usd_per_plan"]
+    return sorted(exact, key=key) + sorted(similar, key=key)
+
+
+def rent_or_api(hourly_usd: float, api_per_plan: float | None, plans_per_hour: float | None = None) -> dict[str, Any]:
+    """Break-even between renting a pod and paying per token."""
+    if not api_per_plan:
+        return {"advice": "no per-token API serves this model or a same-size sibling: renting is the way to run it"}
+    break_even = hourly_usd / api_per_plan
+    result = {"break_even_plans_per_hour": round(break_even), "api_usd_per_plan": api_per_plan,
+              "pod_load_usd": round(hourly_usd * LOAD_HOURS, 3)}
+    if plans_per_hour is not None:
+        result["pod_usd_per_plan"] = round((hourly_usd + hourly_usd * LOAD_HOURS) / max(plans_per_hour, 1e-9), 5)
+    result["advice"] = (f"a per-token API is cheaper unless this pod serves more than ~{round(break_even):,} plans an hour "
+                        "(or you need custom weights, training, or no third-party API)")
+    return result
+
+
 def local_models(base_url: str, key: str | None = None, opener=None) -> list[str]:
     """Model ids an OpenAI-compatible server lists at /v1/models."""
     if not str(base_url or "").startswith(("http://", "https://")):
@@ -679,7 +726,15 @@ class ForemanManager:
         need = vram_needed_gb(model)
         offers = self._offers()
         chosen = choose_gpu(offers, need, cap_usd, heads=model.get("attention_heads"))
-        return {"model": model, "vram_needed_gb": need, "context": context_for(model), **chosen}
+        result = {"model": model, "vram_needed_gb": need, "context": context_for(model), **chosen}
+        try:  # rent-vs-API: the same family per token, when OpenRouter serves it
+            alternatives = api_alternatives(model["repo"], openrouter_models(self.opener))[:3]
+        except Exception:
+            alternatives = None
+        if alternatives is not None and chosen.get("choice"):
+            result["api_alternatives"] = alternatives
+            result["rent_or_api"] = rent_or_api(chosen["choice"]["hourly_usd"], alternatives[0]["usd_per_plan"] if alternatives else None)
+        return result
 
     def _offers(self) -> list[dict[str, Any]]:
         if self.inventory is not None:

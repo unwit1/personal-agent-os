@@ -176,6 +176,21 @@ class SizingTests(unittest.TestCase):
         pick = fd.choose_gpu(OFFERS, 40.0, 50.0, heads=7)["choice"]
         self.assertEqual((pick["name"], pick["gpu_count"]), ("A100 PCIe", 1))
 
+    def test_rent_or_api_finds_the_same_family_and_the_break_even(self) -> None:
+        listing = [{"id": "qwen/qwen-2.5-14b-instruct", "usd_per_mtok_in": 0.1, "usd_per_mtok_out": 0.2},
+                   {"id": "qwen/qwen-2.5-14b-instruct:free", "usd_per_mtok_in": 0.0, "usd_per_mtok_out": 0.0},
+                   {"id": "qwen/qwen-2.5-72b-instruct", "usd_per_mtok_in": 0.3, "usd_per_mtok_out": 0.4}]
+        alternatives = fd.api_alternatives("Qwen/Qwen2.5-14B-Instruct", listing)
+        self.assertEqual([row["id"] for row in alternatives], ["qwen/qwen-2.5-14b-instruct"])  # free tier and other sizes excluded
+        self.assertAlmostEqual(alternatives[0]["usd_per_plan"], (1700 * 0.1 + 500 * 0.2) / 1e6)
+        sibling = fd.api_alternatives("Qwen/Qwen2.5-14B-Instruct", [{"id": "qwen/qwen3-14b", "usd_per_mtok_in": 0.12, "usd_per_mtok_out": 0.24},
+                                                                    {"id": "qwen/qwen3-4b", "usd_per_mtok_in": 0.01, "usd_per_mtok_out": 0.02}])
+        self.assertEqual([(row["id"], row["match"][:15]) for row in sibling], [("qwen/qwen3-14b", "same vendor and")])
+        verdict = fd.rent_or_api(1.0, alternatives[0]["usd_per_plan"], plans_per_hour=30)
+        self.assertEqual(verdict["break_even_plans_per_hour"], 3704)
+        self.assertGreater(verdict["pod_usd_per_plan"], alternatives[0]["usd_per_plan"] * 100)
+        self.assertIn("rent", fd.rent_or_api(1.0, None)["advice"])
+
     def test_pod_request_pins_revision_and_guards_endpoint(self) -> None:
         model = fd.summarize_info(HF_INFO, HF_CONFIG)
         body = fd.pod_request(model, {**OFFERS[1], "gpu_count": 1, "hourly_usd": 0.5}, "secret-key", "hf-token", "n")

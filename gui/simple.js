@@ -458,6 +458,9 @@
       const c = plan.choice;
       facts.push(["Would rent", `${c.gpu_count}× ${c.name} (${c.tier}) at ${money(c.hourly_usd)}/hour`]);
       facts.push(["Runs up to", `${c.max_hours} hours within ${money(body.job_usd)}, then shuts down`]);
+      const alt = (plan.api_alternatives || [])[0];
+      if (alt) facts.push(["Per-token instead", `${alt.id} (${alt.match}): $${alt.usd_per_plan.toFixed(5)} per plan on OpenRouter, no rental`]);
+      if (plan.rent_or_api) facts.push(["Advice", plan.rent_or_api.advice]);
     }
     $("fm-status").replaceChildren(...facts.flatMap(([key, value]) => [el("dt", {}, key), el("dd", {}, value)]));
     $("fm-status").classList.remove("hidden");
