@@ -176,3 +176,34 @@ Its strength rating moved automatically from "medium" (235B size hint) to
 guards. I un-set it as the session foreman. Candidates to try next as a cheap
 foreman, for about $0.005 each: `openai/gpt-oss-120b`,
 `deepseek/deepseek-v4-flash`, `qwen/qwen3-32b`.
+
+## OpenRouter foreman bake-off and a GEPA-style spike (2026-09-30)
+
+All 13 cases per model, live on OpenRouter. "Strategy" means what the engine
+actually runs: role normalization, the class-safe overlapping-scope merge, and
+the class guard for weak planners.
+
+| Foreman | Dev: raw → strategy | Held-out: raw → strategy | Valid (raw) | Median s | Out tokens |
+|---|---|---|---|---|---|
+| Claude Opus 5.5 (subscription) | 86% → 100% | 83% → 83% | 100% | 19–22 | 2.0–2.2k |
+| ChatGPT gpt-6-astra (subscription) | 71% → 100% | 83% → 83% | 100% | 23–29 | 0.8–0.9k |
+| Qwen2.5-14B on a rented GPU | 29% → 100% | 50% → 83% | 71–83% | 9–18 | 0.5–0.7k |
+| `deepseek/deepseek-v4-flash` | 86% → 100% | 50% → 50% | 100% | 45 | 6.3k |
+| `openai/gpt-oss-120b` | 57% → 86% | 33% → 50% | 85% | 37–56 | 1.5–2.1k |
+| `qwen/qwen3-235b-a22b-2507` | 14% → 43% | 0% → 50% | 77% | 16–26 | 0.9–1.2k |
+
+Takeaways:
+- On held-out cases no cheap per-token model has yet matched the subscription
+  foremen. The rented Qwen2.5-14B with its strategy has. Each strength rating
+  moved from a size guess to its measured value automatically.
+- A bug found by the bake-off and fixed: the overlapping-scope merge folded a
+  `reasoning` design task into its `fast` implementation tasks. That moves
+  cheap work onto the expensive model and dropped plans below their useful
+  size. Reasoning/frontier tasks are now never merged with cheaper tasks.
+  Re-scored on every saved live answer, no case is worse than its raw plan.
+- GEPA-style spike (`foreman_optimize.py`: a reflector model rewrites a cheap
+  foreman's instructions):
+  - qwen3-235b dev improved from 85.7% to 100%, but held-out stayed at 50%.
+  - It overfit the 7 dev cases, so the rewrite was not adopted. PA-gepa is
+    now DEFER until there are at least 30 labelled dev cases.
+  - About $0.02.

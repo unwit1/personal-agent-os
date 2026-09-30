@@ -266,6 +266,15 @@ def recommend(host: dict[str, Any], foreman_kind: str | None, foreman_model: str
 MAX_MERGED = 4
 
 
+def _mergeable_class(task: dict[str, Any]) -> bool:
+    """Only cheap tasks are folded together. A reasoning/frontier task is the
+    plan's "decide once, let fast tasks implement" step: merging it with its
+    implementation would move the cheap work onto the expensive model
+    (measured: deepseek-v4-flash concurrency plan collapsed below its useful
+    size and into one reasoning task)."""
+    return task.get("capability_class") in (None, "fast", "balanced")
+
+
 def _acyclic(tasks: list[dict[str, Any]]) -> bool:
     graph = {str(task.get("id")): [str(dep) for dep in task.get("depends_on") or []] for task in tasks if isinstance(task, dict)}
     state: dict[str, int] = {}
@@ -330,7 +339,7 @@ def merge_same_scope(structured: dict[str, Any] | None) -> tuple[dict[str, Any] 
         return structured, []
     groups: dict[tuple[str, ...], list[str]] = {}
     for task in tasks:
-        if (isinstance(task, dict) and task.get("scope") and task.get("capability_class") != "deterministic"
+        if (isinstance(task, dict) and task.get("scope") and _mergeable_class(task)
                 and task.get("role", "implementer") in ("implementer", "test_author")):
             groups.setdefault(tuple(sorted(map(str, task["scope"]))), []).append(str(task.get("id")))
     notes: list[str] = []
@@ -383,7 +392,7 @@ def merge_overlapping(structured: dict[str, Any] | None, max_files: int = 6) -> 
     tasks = (structured or {}).get("tasks")
     if not isinstance(tasks, list) or len(tasks) < 2:
         return structured, []
-    eligible = [task for task in tasks if isinstance(task, dict) and task.get("scope") and task.get("capability_class") != "deterministic"
+    eligible = [task for task in tasks if isinstance(task, dict) and task.get("scope") and _mergeable_class(task)
                 and task.get("role", "implementer") in ("implementer", "test_author")]
     parent = {id(task): id(task) for task in eligible}
 

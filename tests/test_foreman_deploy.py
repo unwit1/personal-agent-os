@@ -864,7 +864,7 @@ class StrategyTests(unittest.TestCase):
         from agent_os.orchestrator import foreman_strategy as fs
 
         # found live: A (lock.py) -> B (engine.py) -> C (lock.py); folding A and C would loop through B
-        tasks = [{"id": "A", "goal": "contract", "scope": ["lock.py"], "capability_class": "reasoning"},
+        tasks = [{"id": "A", "goal": "contract", "scope": ["lock.py"], "capability_class": "balanced"},
                  {"id": "B", "goal": "use it", "scope": ["engine.py"], "capability_class": "fast", "depends_on": ["A"]},
                  {"id": "C", "goal": "finish", "scope": ["lock.py"], "capability_class": "fast", "depends_on": ["B"]}]
         merged, notes = fs.merge_same_scope({"tasks": tasks})
@@ -899,9 +899,13 @@ class StrategyTests(unittest.TestCase):
     def test_merge_keeps_the_strongest_class(self) -> None:
         from agent_os.orchestrator import foreman_strategy as fs
 
-        tasks = [dict(self.SAME_FILE[0]), {**self.SAME_FILE[1], "capability_class": "reasoning", "effort": "high"}]
+        tasks = [dict(self.SAME_FILE[0]), {**self.SAME_FILE[1], "capability_class": "balanced", "effort": "medium"}]
         merged, _ = fs.merge_same_scope({"tasks": tasks})
-        self.assertEqual((merged["tasks"][0]["capability_class"], merged["tasks"][0]["effort"]), ("reasoning", "high"))
+        self.assertEqual((merged["tasks"][0]["capability_class"], merged["tasks"][0]["effort"]), ("balanced", "medium"))
+        # a reasoning (decide-once) task is never folded into cheap implementation work
+        design = [dict(self.SAME_FILE[0]), {**self.SAME_FILE[1], "capability_class": "reasoning", "effort": "high"}]
+        kept, _ = fs.merge_overlapping({"tasks": design})
+        self.assertEqual([task["capability_class"] for task in kept["tasks"]], ["fast", "reasoning"])
 
     def test_guard_fixes_both_directions(self) -> None:
         from agent_os.orchestrator import foreman_strategy as fs

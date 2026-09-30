@@ -311,7 +311,7 @@
       "license_spdx": "MIT",
       "license_status": "operator granted academic reuse permission 2026-09-29; attribution recorded",
       "evaluated_revision": "v0.1.4",
-      "evaluated_at": "2026-09-29",
+      "evaluated_at": "2026-09-30",
       "activity": {
         "stars": 6784,
         "pushed_at": "2026-09-28",
@@ -343,17 +343,17 @@
         "dependency_weight": "light"
       },
       "evidence": {
-        "development_savings": "medium: avoids writing a reflective search loop",
-        "runtime_savings": "could cut model cost by improving cheap-route accuracy (unmeasured)",
-        "quality": "strong published results",
-        "reliability": "unknown",
+        "development_savings": "the subsumed loop is ~150 lines; no dependency needed",
+        "runtime_savings": "none measured",
+        "quality": "dev +14pts, held-out +0pts (overfit on 7 cases)",
+        "reliability": "loop ran cleanly; ~$0.02 on OpenRouter",
         "security": "must be fed development cases only; holdouts stay invisible",
         "complexity": "small library",
         "maintenance": "active (2026-09)",
         "portability": "provider-agnostic via callables"
       },
-      "decision": "INVESTIGATE",
-      "rationale": "Found by discovery: standalone reflective Pareto optimizer (ICLR 2026) that reads full execution traces to propose prompt edits; reported to beat MIPROv2 with far fewer rollouts. It optimizes any text artifact through an adapter, which fits Agent OS: candidate = a prompt in prompts.py or a delegate prompt builder, metric = orchestrate eval accuracy on the development split only. Small, MIT. Spike on one delegate prompt family once a family has an objective metric worth optimizing.",
+      "decision": "DEFER",
+      "rationale": "Found by discovery: standalone reflective Pareto optimizer (ICLR 2026) that reads full execution traces to propose prompt edits; reported to beat MIPROv2 with far fewer rollouts. It optimizes any text artifact through an adapter, which fits Agent OS: candidate = a prompt in prompts.py or a delegate prompt builder, metric = orchestrate eval accuracy on the development split only. Small, MIT. Spike on one delegate prompt family once a family has an objective metric worth optimizing. Spike 2026-09-30 (foreman_optimize.py, subsumed loop, no dependency): reflector openai/gpt-5-mini rewrote the planning instructions of qwen/qwen3-235b-a22b-2507; dev (7 cases) 85.7% -> 100%, held-out (6 cases, never shown) 50% -> 50%. The gain did not generalize: 7 dev cases are too few. Deferred until the eval has enough labelled cases.",
       "confidence": "medium",
       "provenance": [
         "https://github.com/gepa-ai/gepa",
@@ -371,9 +371,8 @@
         }
       ],
       "revisit_when": [
-        "a task family with an objective metric and cheap-route accuracy < floor exists",
-        "MIE-0020 starts",
-        "spike result recorded (foreman planner prompt, 2026-09-30)"
+        ">= 30 labelled development cases in foreman_eval (or another task family with that many)",
+        "MIE-0020 starts"
       ],
       "revisit_by": null
     },
