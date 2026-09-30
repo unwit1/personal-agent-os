@@ -1021,6 +1021,38 @@ class CapabilityEvidenceTests(unittest.TestCase):
             self.assertEqual(len(capability.read_observations()), before)
 
 
+class ContextAnatomyTests(unittest.TestCase):
+    def test_run_prompts_sections_duplication_and_amplification(self) -> None:
+        from agent_os.orchestrator import context_anatomy as ca
+
+        plan = {"status": "done", "tasks": [
+            {"id": "a", "goal": "change a", "scope": ["src/a.py"], "capability_class": "fast"},
+            {"id": "b", "goal": "change b", "scope": ["src/b.py"], "capability_class": "fast"},
+            {"id": "t", "role": "test_author", "goal": "test both", "scope": ["tests/test_ab.py"], "capability_class": "fast", "depends_on": ["a", "b"]}]}
+        calls = ca.build_run("Improve a and b and test them.", plan, Path(__file__).resolve().parents[1])
+        self.assertEqual({call["role"] for call in calls}, {"planner", "implementer", "test_author", "reviewer", "repairer"})
+        self.assertEqual(len(calls), 1 + 3 + 3 + 1)
+        report = ca.analyze(calls, harness_tokens=6000)
+        self.assertGreater(report["worker_fanout_duplication_share"], 0.3)  # goal, rules and contract repeat in every worker
+        self.assertGreater(report["context_amplification"], 1.0)
+        self.assertIn("diff", report["sections_by_role"]["reviewer"])
+        self.assertEqual(report["harness_tokens_total"], 6000 * len(calls))
+
+    def test_analyze_run_reads_saved_prompts(self) -> None:
+        from agent_os.orchestrator import context_anatomy as ca
+
+        with tempfile.TemporaryDirectory() as tmp:
+            run = Path(tmp) / "run-x"
+            worker = "You are the implementer.\nOverall goal: x\nRules:\n- rule one that is long enough"
+            for node, text in (("plan-1", "You are the planner.\nOverall goal: x"), ("a-1", worker), ("a-2", worker)):
+                (run / "workers" / node).mkdir(parents=True)
+                (run / "workers" / node / "prompt.md").write_text(text, encoding="utf-8")
+            (run / "state.json").write_text(json.dumps({"nodes": {"plan": {"role": "planner"}, "a": {"role": "implementer"}}}), encoding="utf-8")
+            report = ca.analyze_run(run)
+        self.assertEqual(report["by_role_calls"], {"implementer": 2, "planner": 1})
+        self.assertGreater(report["worker_fanout_duplicated_tokens"], 0)  # the retry re-sent the same prompt
+
+
 class OptimizeTests(unittest.TestCase):
     """GEPA-style reflective loop: accept only strict dev improvements; holdout judged once, never shown."""
 

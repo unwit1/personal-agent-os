@@ -248,6 +248,10 @@ def register(commands: argparse._SubParsersAction) -> None:
     fmn.add_argument("--case", action="append", help="eval: only these case ids")
     fmn.add_argument("--split", choices=["dev", "holdout", "dev2", "holdout2", "dev_all", "holdout_all", "all"], default="dev", help="eval: dev* cases may be used for tuning; holdout* never are")
 
+    ctx = actions.add_parser("context-anatomy", help="IMP-0018 Phase 0: tokens per prompt section, fan-out duplication and context amplification for a finished run (no model call)")
+    ctx.add_argument("run", help="run id (or a run directory)")
+    ctx.add_argument("--harness-tokens", type=int, default=6000, help="per-call harness overhead to assume (codex ~9000, claude ~6000)")
+
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
     cap.add_argument("--floor", type=float, default=0.9)
@@ -590,6 +594,14 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         record = RunStore().load(args.run)
         emit([foreman.compare(record, item) for item in foreman.load_proposals(args.run)])
+        return 0
+    if action == "context-anatomy":
+        from . import context_anatomy
+        from .store import RunStore
+
+        target = Path(args.run)
+        run_dir = target if target.is_dir() else RunStore().run_dir(args.run)
+        emit(context_anatomy.analyze_run(run_dir, args.harness_tokens))
         return 0
     if action == "foreman":
         from . import budget as budget_lib
