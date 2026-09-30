@@ -1118,3 +1118,45 @@ image generation and image/ML/LoRA training; voice/audio/ASR/TTS and future voic
 training/adaptation; artifact/checkpoint persistence; and continuous discovery of
 new models/providers. The current Orchestrator status marks this as the active
 operator-requested next action. Paid compute remains budget/approval gated.
+
+**2026-09-30 expansion:** IMP-0015 now includes a high-priority, measurement-first
+third-party optimization track for model swapping, delegation, and GPU/runtime
+efficiency: SkyPilot + a native RunPod fast path; TensorZero; PydanticAI-style
+isolated subagent delegation; AgentScope team/router patterns; RouteLLM-style
+calibrated escalation; LiteLLM as borrow/optional isolated adapter; vLLM vs
+SGLang runtime A/B testing; LMCache cache reuse; and AIBrix/llm-d when
+multi-replica or multi-GPU scale makes them worthwhile. Promote integrations
+only when Agent OS EVR/CAP evidence shows noninferior validation and material
+improvement in cost per verified successful task, utilization, reliability,
+latency, or useful development throughput.
+
+
+## Operator-priority: Context Efficiency & Token Amplification
+
+**Priority: HIGH — requested 2026-09-29.** Canonical specification:
+[context-efficiency-token-amplification.md](context-efficiency-token-amplification.md) (IMP-0018).
+
+Measure cumulative context growth across long-running and multi-agent workflows,
+including repeated history, tool-output retention, worker fan-out, retries,
+reviews, cache behavior, and checkpoint/resume. Establish deterministic baselines
+first. Promote only context-retrieval, deduplication, compaction, caching, or
+worker-scoping changes that reduce total tokens/cost/latency while preserving
+noninferior validation and provenance. Existing EVR-0013 / DEC-0018 results
+(~68% lower token use and latency for focused delegate attachments at equal
+accuracy) make this a high-value area for immediate testing.
+
+
+## Operator-priority: Episodic Agent Rotation
+
+**Priority: HIGH experimental track — requested 2026-09-29.** Canonical
+specification: [episodic-agent-rotation.md](episodic-agent-rotation.md)
+(IMP-0019).
+
+Test whether ending long-lived workers at semantic boundaries and starting
+fresh task-scoped workers can reduce cumulative context processing. Measure the
+full tradeoff: context avoided versus worker bootstrap, structured-handoff,
+retrieval, rediscovery, retries, reviews, and coordination. Begin with a shadow
+rotation advisor and synthetic/replay benchmarks. Promote automatic rotation
+only when total cost per validated completion improves with noninferior quality.
+Explicitly identify the point where additional worker rotation produces
+diminishing returns.

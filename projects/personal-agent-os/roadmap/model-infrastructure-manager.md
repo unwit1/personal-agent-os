@@ -504,6 +504,204 @@ audio.enhance
 Adapters may expose additional capabilities; core orchestration depends on
 capability contracts, not vendor names.
 
+## Third-party routing, delegation, and GPU-efficiency evaluation track
+
+**Priority: HIGH — operator directive 2026-09-30.**
+
+Orchestrator should actively test mature third-party projects that can improve model
+swapping, task delegation, RunPod/cloud use, inference throughput, context reuse,
+and cost efficiency. These projects are implementation candidates and prior art,
+not replacements for Orchestrator's provider-neutral control plane. Preserve the
+existing workload contract, CAP/EVR evidence, budget gates, secret abstraction,
+deterministic authorization boundaries, checkpointing, and measured-promotion
+policy.
+
+### Integration principle
+
+Use two routing layers rather than collapsing everything into one gateway:
+
+1. **Orchestrator semantic/capability routing** chooses task decomposition,
+   capability class, quality floor, privacy constraints, context contract,
+   model family/class, budget, verification, parallelism, and escalation policy.
+2. **Provider/runtime routing** chooses the concrete endpoint/provider/replica,
+   load-balancing path, cache-aware placement, retries/failover, and serving
+   runtime.
+
+External frameworks may implement or inform layer 2 and bounded parts of layer 1,
+but they must not become the authority for spending, secrets, destructive writes,
+or canonical Agent OS policy.
+
+### Required prior-art candidates and disposition targets
+
+The current agent must add/refresh prior-art registry entries and run bounded
+spikes for these candidates. The dispositions below are starting hypotheses,
+not automatic adoption decisions:
+
+| Candidate | Initial disposition | What to test / subsume |
+| --- | --- | --- |
+| **SkyPilot** | WRAP / BORROW | Multi-cloud provisioning abstraction, RunPod lifecycle semantics, job recovery, spot/preemptible handling, resource selection, state persistence. Keep native provider adapters available for optimized fast paths. |
+| **Native RunPod SDK/API** | WRAP | Provider-specific fast path for pods, serverless, inventory, lifecycle, health, pricing, and features SkyPilot cannot expose cleanly. |
+| **TensorZero** | WRAP / EXPERIMENT | Unified model/provider gateway, experiment telemetry, feedback/evals, variants, retries/fallbacks, and A/B routing. Evaluate as an optional sidecar/telemetry plane feeding Agent OS CAP/EVR evidence rather than replacing the router. |
+| **PydanticAI subagent patterns** | BORROW | Isolated child-agent context, per-tree usage accounting, delegation contracts, model-per-child selection, request/token/tool-call/cost limits. Prefer subsuming semantics into existing delegate machinery over adopting the framework wholesale. |
+| **AgentScope** | BORROW / EXPERIMENT | Dynamic model-router middleware, leader/member team delegation, A2A/team topology, and task handoff patterns. Compare against current foreman + delegate DAG behavior. |
+| **RouteLLM** | BORROW | Learned/calibrated strong-vs-weak routing and threshold selection. Do not promote learned routing until Agent OS has enough labeled task-family outcomes; use shadow/canary mode first. |
+| **LiteLLM** | BORROW / OPTIONAL ISOLATED ADAPTER | Provider catalog, normalized API shapes, fallback/routing ideas, price metadata. Keep it outside the trusted core unless a pinned isolated deployment demonstrates enough benefit to justify dependency/supply-chain surface. |
+| **vLLM** | WRAP | Baseline high-throughput self-hosted inference backend; continuous batching, prefix caching, quantization/runtime options, OpenAI-compatible serving. |
+| **SGLang** | WRAP + HEAD-TO-HEAD BENCHMARK | Alternative high-performance inference runtime; benchmark continuous batching, prefix/radix caching, speculative decoding, chunked prefill, parallelism, quantization, and multi-LoRA against vLLM. |
+| **LMCache** | WRAP / EXPERIMENT | Cross-request / cross-worker KV reuse and offload to CPU/SSD/shared stores. Test specifically on repeated Orchestrator/project prefixes and episodic worker rotation. |
+| **AIBrix** | DEFER UNTIL MULTI-WORKER, THEN EXPERIMENT | Prefix-aware routing, model-aware autoscaling, LoRA density, and inference scheduling. Promote only when one-node/multi-replica or small-cluster scale makes scheduler overhead worthwhile. |
+| **llm-d** | DEFER UNTIL MULTI-GPU CLUSTER | Cache/load-aware distributed scheduling, prefill/decode disaggregation, LoRA-aware routing, and cluster-scale inference. Treat as future large-cluster backend, not an immediate dependency. |
+
+Also continuously search for newer maintained alternatives that cover the same
+capability classes; these names are not architectural boundaries.
+
+### Required benchmark dimensions
+
+Every spike must be measured against the incumbent and recorded as EXP/EVR/DEC
+evidence. At minimum measure, where applicable:
+
+- total **cost per verified successful task**, not raw token/GPU price;
+- accepted/validated work per GPU-dollar and per wall-clock hour;
+- tokens/sec and requests/sec under representative concurrency;
+- time-to-first-token and end-to-end latency;
+- GPU utilization, VRAM occupancy, CPU/RAM/storage/network utilization, and paid
+  idle time;
+- startup/model-load/warmup time and warm-vs-cold economics;
+- prefix/KV-cache hit rate, bytes reused, and recompute avoided;
+- context/input-token savings from isolated subagents and cache reuse;
+- task success, validator/test pass rate, review acceptance, retry/escalation
+  rate, refusal/failure category, and attribution correctness;
+- orchestration/framework overhead in latency, memory, CPU, dependency count,
+  operational complexity, and failure modes;
+- throughput and quality by exact model revision + quantization + serving engine
+  + GPU + concurrency configuration;
+- provider/API versus self-hosted break-even point;
+- behavior under interruption, resume, retry, provider failure, and quota
+  exhaustion.
+
+Do not promote an integration merely because it improves one microbenchmark.
+Prefer **cost per validated completion** and reliability on representative Agent
+OS tasks.
+
+### Concrete experiment sequence
+
+Run the following in order unless measured evidence justifies reordering:
+
+1. **Finish the already queued SkyPilot spike** with no launch/spend: map RunPod
+   provision/status/stop/destroy/reconcile semantics, state ownership, secret
+   bridging, recovery, and lifecycle gaps. Record WRAP vs in-house/native
+   decision.
+2. **Complete the fake-provider gated provisioning path** and write-ahead spend
+   reservation before any new real paid-compute experiment.
+3. **Build the runtime benchmark harness** keyed by
+   `model@revision + quantization + engine + GPU + concurrency + cache mode`.
+   Reuse throughput/CAP/EVR infrastructure.
+4. **vLLM vs SGLang A/B** on the same served model/hardware/workload. Test
+   concurrency, prefix reuse, quantization, chunked prefill/speculation where
+   supported, and multi-LoRA where relevant.
+5. **LMCache spike** on repeated Agent OS prefixes and episodic-agent workloads.
+   Compare against native runtime prefix caching and no-cache baselines.
+6. **PydanticAI-style isolated delegation experiment** using existing
+   `orchestrate delegate`: child workers receive the smallest truthful Task
+   Context Contract, separate history, explicit usage limits, and optionally a
+   different model. Measure bootstrap/rediscovery cost versus context avoided.
+7. **AgentScope pattern spike**: compare leader/member delegation and router
+   middleware concepts against the incumbent foreman/DAG. Borrow only features
+   with measurable value.
+8. **TensorZero sidecar experiment**: mirror or route a bounded evaluation set
+   through it, ingest cost/latency/variant/feedback telemetry into Agent OS
+   evidence, and compare operational complexity with the native gateway.
+9. **RouteLLM-style shadow router** once enough outcomes exist: learn or
+   calibrate cheap->strong escalation thresholds per task family; no production
+   authority until held-out EVRs show noninferior validation at lower expected
+   cost.
+10. **LiteLLM isolated comparison** only if provider-coverage gaps remain after
+    the native gateway/TensorZero experiments. Pin versions, isolate credentials,
+    and measure whether the coverage benefit exceeds dependency and operational
+    risk.
+11. **AIBrix experiment** once Orchestrator routinely runs multiple local/RunPod
+    replicas, LoRAs, or model servers on one node/cluster and there is enough
+    load for routing/autoscaling decisions to matter.
+12. **llm-d experiment** only once a multi-GPU/multi-node workload exists that
+    can meaningfully benefit from distributed cache/load-aware scheduling or
+    prefill/decode disaggregation.
+
+### GPU saturation / opportunistic backfill controller
+
+Integrate these experiments with the existing GPU Saturation Controller roadmap.
+When paid compute is already running, Orchestrator should measure whether spare
+resources can safely execute useful checkpointable work without harming the
+primary job.
+
+Candidate backfill classes include:
+
+- cheap local subagents for code search, documentation, static review, metadata
+  extraction, test generation, and other automatically verifiable tasks;
+- embeddings/reranking/index updates;
+- queued evals and benchmark samples;
+- LoRA/adaptor inference or training when memory/headroom permits;
+- preprocessing and data transforms on otherwise idle CPU/RAM/storage/network.
+
+Backfill must be preemptible, budget-accounted, sensitivity-aware, and subordinate
+to the primary workload's latency/throughput SLA. Spawn more workers only when
+measured expected value exceeds coordination, context, cache, and contention
+cost.
+
+### Promotion gates
+
+A third-party runtime/framework may move from spike to supported adapter only
+when:
+
+1. representative tests show a material improvement in cost per verified
+   successful task, utilization, reliability, latency, or developer throughput;
+2. validation quality is noninferior to the incumbent on held-out tasks;
+3. failures and attribution are observable and resumable;
+4. secret handling and provider credentials remain behind Agent OS abstractions;
+5. budget/spend/authorization gates remain authoritative outside the external
+   component;
+6. the integration can be disabled or replaced without corrupting canonical
+   project/evidence state;
+7. dependency and operational complexity are justified by measured benefit;
+8. exact versions/configuration are recorded and reproducible;
+9. rollback to the incumbent is tested.
+
+Reject or defer candidates that add more coordination/runtime complexity than
+their measured savings justify.
+
+### New provider-neutral interfaces / evidence fields
+
+Extend existing contracts only where evidence demonstrates a need. Candidate
+interfaces/fields include:
+
+```text
+model.route.shadow
+model.route.calibrate
+model.route.variant_experiment
+delegate.context_isolation
+delegate.usage_budget
+
+runtime.backends.list
+runtime.benchmark
+runtime.cache.status
+runtime.cache.metrics
+runtime.config.compare
+
+compute.utilization
+compute.backfill.plan
+compute.backfill.start
+compute.backfill.preempt
+
+experiment.variant.record
+experiment.feedback.record
+```
+
+Runtime evidence should be keyed by exact model revision and configuration,
+including serving engine/version, quantization, GPU SKU/count, tensor/pipeline
+parallelism, concurrency, cache backend/mode, LoRA/adaptor set, and important
+runtime flags. Do not generalize one benchmark across materially different
+configurations.
+
+
 ## Implementation order
 
 ### Phase 0 — design/eval foundation (no paid compute)

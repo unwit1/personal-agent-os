@@ -188,6 +188,28 @@
       "dedupe_key": "e6e7dd0ea43355675ba0e25bc3fb4e61baa0d9fa994ab13820724ec978ed441b",
       "updated_at": "2026-09-29T18:07:09.630661+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0018",
+      "title": "Measure and reduce context amplification in long-running agent workflows",
+      "category": "performance",
+      "subsystem": "orchestrator/context-economy",
+      "status": "ready",
+      "priority": "high",
+      "dedupe_key": null,
+      "updated_at": "2026-09-29T20:42:00+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0019",
+      "title": "Test episodic agent rotation and learn the context break-even point",
+      "category": "performance",
+      "subsystem": "orchestrator/episode-scheduler",
+      "status": "ready",
+      "priority": "high",
+      "dedupe_key": null,
+      "updated_at": "2026-09-29T20:55:00+00:00",
+      "github_issue_number": null
     }
   ]
 }

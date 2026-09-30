@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0018",
+  "project": "personal-agent-os",
+  "title": "Measure and reduce context amplification in long-running agent workflows",
+  "category": "performance",
+  "subsystem": "orchestrator/context-economy",
+  "status": "ready",
+  "priority": "high",
+  "observation": "Long agent runs repeatedly process prior context, tool output, worker reports, and shared parent context. This can create superlinear cumulative token usage and multiplicative duplication across fan-out, retries, and review loops. Existing EVR-0013 / DEC-0018 evidence already measured roughly 68% lower tokens and latency from focused delegate attachments at equal accuracy.",
+  "evidence": [
+    "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0013.json",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0018.json",
+    "projects/personal-agent-os/roadmap/master-priority-roadmap.md#p23--promptcontext-optimization"
+  ],
+  "suspected_root_cause": "Context is often optimized per call rather than across the complete run, so repeated history, tool output, fan-out duplication, retries, and review loops can amplify total input far beyond unique useful information.",
+  "suggested_direction": "Instrument context amplification first, benchmark raw-history vs compiled/retrieved/checkpointed context, then promote only provenance-preserving reductions that lower total tokens/cost/latency without degrading validated outcomes.",
+  "acceptance": [
+    "Orchestrator reports cumulative input tokens and context amplification for representative runs",
+    "Synthetic long-session and multi-agent fan-out benchmarks demonstrate current scaling behavior",
+    "At least one context strategy is compared against the incumbent with identical validators",
+    "Winning optimizations are promoted only when validation is noninferior and total cost per successful task improves",
+    "Context provenance and checkpoint/resume correctness are preserved",
+    "Context-window size is treated as a measured resource rather than a target to fill"
+  ],
+  "risks": [
+    "Over-compaction can remove information needed for correctness or debugging",
+    "Token reductions can be offset by retries or stronger-model escalations",
+    "Provider cache accounting may be unavailable or provider-specific"
+  ],
+  "dedupe_key": null,
+  "source": {
+    "type": "operator",
+    "reference": "2026-09-29 explicit request to prioritize context-window/token amplification testing"
+  },
+  "github": null,
+  "created_at": "2026-09-29T20:42:00+00:00",
+  "updated_at": "2026-09-29T20:42:00+00:00",
+  "notes": "High priority, measurement first, no paid compute required for initial benchmarks."
+}
