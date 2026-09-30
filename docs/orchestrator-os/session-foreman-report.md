@@ -92,10 +92,18 @@ that led to the crash reporter).
 
 ## Not done yet / honest limits
 
-- A rented GPU model can plan and serve inline tasks, but it cannot edit
-  repositories: it has no tool harness. Driving an open model as a coding agent
-  (e.g. an OpenAI-compatible coding CLI pointed at the pod) is the next step
-  toward using the whole GPU for development.
+- **GPU coding agent: working (live 2026-09-30).** `foreman deploy <hf link>
+  --coding-agent` also registers `<foreman>-agent`, a Codex CLI worker that
+  drives the rented model with repository tools through a Responses-API custom
+  provider.
+  - Live on Qwen2.5-14B: one orchestrated task (add a function in a throwaway
+    repo), PASSED on the first attempt, 7 tool calls, 26 s, validator green.
+  - Zero Claude/ChatGPT quota used; the whole deploy + test cost $0.096.
+  - Earlier attempts hit the context window; fixed by the Codex tool trim below
+    and a 64k (YaRN) context for agent pods.
+  - Cost research still applies: per-token OpenRouter is usually cheaper than a
+    rented pod. The GPU agent pays off when the pod is already busy, or for
+    models no API serves.
 - The watchdog runs inside the GUI / `foreman deploy` process. If this computer
   is off, a pod bills until the GUI next starts, and is then deleted if past
   its deadline.
