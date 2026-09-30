@@ -36,6 +36,36 @@ _PATHLIKE = re.compile(r"`?([A-Za-z0-9_./-]+\.(?:py|md|json|js|ts|toml|html|css)
 _DEF = re.compile(r"^(?:def|class|async def) ([A-Za-z_][A-Za-z0-9_]*)", re.MULTILINE)
 
 
+CODE_SUFFIXES = {".py", ".js", ".ts", ".ps1", ".sh", ".toml", ".html", ".css"}
+DATA_DIR_MIN_FILES = 60
+DATA_DIR_MAX_CODE_SHARE = 0.05
+
+
+def data_dirs(tracked: list[str], *, min_files: int = DATA_DIR_MIN_FILES, max_code_share: float = DATA_DIR_MAX_CODE_SHARE,
+              max_depth: int = 4) -> set[str]:
+    """Directories (any depth) that hold data, not code: at least ``min_files``
+    tracked files, almost none of them code -- imported libraries, archives,
+    corpora, record stores. Their files are neither read nor listed in the
+    map (unless the goal names one): they crowd out the code a planner needs,
+    and their names can be private (measured: 7 of 12 map entries were HR
+    archive full-text files for a locking goal). Outermost directories only."""
+    totals: Counter = Counter()
+    code: Counter = Counter()
+    for name in tracked:
+        parts = name.split("/")[:-1]
+        is_code = Path(name).suffix.lower() in CODE_SUFFIXES
+        for depth in range(1, min(len(parts), max_depth) + 1):
+            prefix = "/".join(parts[:depth])
+            totals[prefix] += 1
+            code[prefix] += is_code
+    found = {prefix for prefix, count in totals.items() if count >= min_files and code[prefix] / count <= max_code_share}
+    return {prefix for prefix in found if not any(prefix != other and prefix.startswith(other + "/") for other in found)}
+
+
+def _in_dirs(name: str, dirs: set[str]) -> bool:
+    return any(name == folder or name.startswith(folder + "/") for folder in dirs)
+
+
 def terms(goal: str, limit: int = 24) -> list[str]:
     counts = Counter(word.casefold() for word in _WORD.findall(goal) if word.casefold() not in STOP)
     return [word for word, _ in counts.most_common(limit)]
@@ -56,6 +86,12 @@ def build(repo: Path | str, goal: str, *, max_files: int = 12, max_chars: int = 
     # Folders with thousands of tracked files are data (imported libraries,
     # corpora): match their paths, but do not read their contents.
     bulk = {folder for folder, count in layout.items() if count > BULK_FOLDER_FILES}
+    data = data_dirs(tracked)
+    named = lambda name: name in mentioned or any(name.casefold().endswith("/" + item.casefold()) for item in mentioned)
+    excluded = [name for name in tracked if _in_dirs(name, data) and not named(name)]
+    if excluded:
+        skip = set(excluded)
+        tracked = [name for name in tracked if name not in skip]
     texts: dict[str, str] = {}
     for name in tracked:
         path = repo / name
@@ -107,7 +143,8 @@ def build(repo: Path | str, goal: str, *, max_files: int = 12, max_chars: int = 
     text = "\n".join(lines)
     if len(text) > max_chars:
         text = text[: max_chars].rsplit("\n", 1)[0]
-    return {"text": text, "stats": {"tracked_files": len(tracked), "candidates_scored": len(scored), "listed": len(chosen), "related": len(related), "terms": words[:12], "chars": len(text)}}
+    return {"text": text, "stats": {"tracked_files": len(tracked) + len(excluded), "data_dirs": sorted(data), "excluded_data_files": len(excluded),
+                                    "candidates_scored": len(scored), "listed": len(chosen), "related": len(related), "terms": words[:12], "chars": len(text)}}
 
 
 def companions(chosen: list[str], tracked: list[str], bulk: set[str], limit: int = 8) -> list[str]:

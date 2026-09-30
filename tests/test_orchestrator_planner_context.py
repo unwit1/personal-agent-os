@@ -72,6 +72,22 @@ class RepoMapTests(unittest.TestCase):
     def test_bounded_size(self) -> None:
         self.assertLessEqual(len(repomap.build(self.repo, "invoice " * 50, max_chars=300)["text"]), 300)
 
+    def test_data_directories_are_not_listed_unless_named(self) -> None:
+        # measured 2026-09-30: 7 of 12 map entries were private HR archive text files for a locking goal
+        archive = self.repo / "knowledge" / "hr" / "sources"
+        archive.mkdir(parents=True)
+        for n in range(70):
+            (archive / f"fulltext-invoice-{n}.md").write_text("invoice invoice discount VAT rounding renderer\n" * 5, encoding="utf-8")
+        subprocess.run(["git", "add", "-A"], cwd=self.repo, check=True, capture_output=True)
+        subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@x", "commit", "-qm", "data"], cwd=self.repo, check=True)
+        self.assertEqual(repomap.data_dirs(subprocess.run(["git", "ls-files"], cwd=self.repo, capture_output=True, text=True).stdout.split()), {"knowledge"})
+        result = repomap.build(self.repo, "Add a discount line to the invoice renderer and cover VAT rounding.")
+        self.assertNotIn("knowledge/", "\n".join(result["text"].splitlines()[1:]))
+        self.assertEqual(result["text"].splitlines()[2][2:].split(" (")[0], "src/billing/invoice.py")
+        self.assertEqual(result["stats"]["excluded_data_files"], 70)
+        named = repomap.build(self.repo, "Fix the typo in `knowledge/hr/sources/fulltext-invoice-3.md`.")
+        self.assertIn("knowledge/hr/sources/fulltext-invoice-3.md", named["text"])
+
 
 class PlannerPromptTests(OrchestratorFixture):
     def test_budget_and_map_only_when_given(self) -> None:
