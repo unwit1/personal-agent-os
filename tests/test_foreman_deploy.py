@@ -953,7 +953,7 @@ class StrategyTests(unittest.TestCase):
         self.assertEqual(fs.strength("big", provider=provider)["band"], "strong")
         evidence = {"models": {"small": {"benchmarks": {"intelligence_index": 55}}, "big": {"benchmarks": {"intelligence_index": 60}}}}
         self.assertEqual(fs.strength("small", provider=provider, evidence=evidence)["band"], "strong")  # benchmark beats tier
-        reports = [{"model": "small", "summary": {"cases": 7, "judgement_accuracy": 0.3, "valid_plans": 0.6}, "cases": []}]
+        reports = [{"model": "small", "cases": [{"case": f"c{i}", "passed": i < 2, "valid": i < 4, "usage": {}} for i in range(7)]}]
         rated = fs.strength("small", provider=provider, evidence=evidence, reports=reports)
         self.assertEqual(rated["band"], "weak")  # measured judgement beats benchmarks
         self.assertIn("measured", rated["source"])
