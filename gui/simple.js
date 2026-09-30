@@ -104,29 +104,85 @@
     $("s-stage-dots").replaceChildren(...((home.roadmap && home.roadmap.stages) || []).map((stage) =>
       el("span", { class: `dot st-${stage.status}`, title: `${stage.id} ${stage.title}: ${stage.plain_status}` })));
     if (home.next_stage) {
-      $("s-next").textContent = `${home.next_stage.id} — ${home.next_stage.title}`;
+      $("s-next").textContent = `Next on the roadmap: ${home.next_stage.id} — ${home.next_stage.title}.`;
       $("s-next-why").textContent = `Status in the roadmap: ${home.next_stage.plain_status}` + (home.skipped && home.skipped.length ? ` · skipped ${home.skipped.map((item) => item.stage).join(", ")} (another agent has unfinished work there)` : "");
     } else {
-      $("s-next").textContent = home.roadmap ? "Nothing left: every eligible stage is complete" : "No roadmap file found";
+      $("s-next").textContent = home.roadmap ? "The roadmap has no eligible stage left; type a task instead." : "No roadmap found for this repository; type a task.";
       $("s-next-why").textContent = "";
     }
     const campaign = home.campaign || {};
     $("until-done").checked = storageGet("agent-os-until-done", "0") === "1";
     const control = core.controls(home);
+    S.control = control;
     if (!S.pending) {
-      $("continue-button").disabled = !control.continueEnabled;
-      $("continue-label").textContent = control.continueLabel;
+      $("continue-button").disabled = !control.continueEnabled && !$("task-goal").value.trim();
+      updateStartLabel();
       $("continue-spinner").classList.toggle("hidden", !control.busy);
     }
+    renderOlder(home.older_runs || []);
     $("pause-button").disabled = !control.pauseEnabled;
     $("stop-button").disabled = !control.stopEnabled;
     $("resume-button").classList.toggle("hidden", !control.showResume);
     if (home.prep && home.prep.state === "running") renderPrep(home.prep);
+    else if (S.shownRunId) api(`runs/${encodeURIComponent(S.shownRunId)}/simple`).then(renderRun).catch(() => { S.shownRunId = null; });
     else if (home.current_run) renderRun(home.current_run);
     else $("run-panel").classList.toggle("hidden", !(S.prep && S.prep.state !== "done"));
     if (campaign.status && campaign.stop_reason && campaign.status !== "active" && home.current_run && home.current_run.overall === "DONE") {
       $("r-headline").textContent = `Finished. ${campaign.stop_reason}`;
     }
+  }
+
+  function updateStartLabel() {
+    if (S.pending) return;
+    const typed = $("task-goal").value.trim();
+    const control = S.control || {};
+    $("continue-label").textContent = typed ? "START THIS TASK" : (control.continueLabel === "CONTINUE ROADMAP" ? "START (continue the roadmap)" : control.continueLabel || "START");
+    $("continue-button").disabled = !typed && control.continueEnabled === false;
+  }
+
+  function renderOlder(runs) {
+    $("older-runs-panel").classList.toggle("hidden", !runs.length);
+    $("older-count").textContent = runs.length ? String(runs.length) : "";
+    $("older-rows").replaceChildren(...runs.map((run) => el("tr", {},
+      el("td", {}, (run.stage ? `${run.stage}: ` : "") + (run.goal || run.run_id).slice(0, 110)),
+      el("td", { class: "muted" }, `${String(run.state || "").toLowerCase().replaceAll("_", " ")} · ${whenText(run.updated_at)}`),
+      el("td", {},
+        el("button", { class: "small", onclick: () => { S.shownRunId = run.run_id; loadHome(); $("run-panel").scrollIntoView({ behavior: "smooth" }); } }, "Show"),
+        " ",
+        el("button", { class: "small ghost", onclick: (event) => act(event.currentTarget, "stop", "dismissing the run", async () => {
+          await api(`runs/${encodeURIComponent(run.run_id)}/dismiss`, {});
+          if (S.shownRunId === run.run_id) S.shownRunId = null;
+          await loadHome();
+        }) }, "Dismiss")))));
+  }
+
+  // The quick Foreman picker: subscription foremen switch in one click; the
+  // other sources (OpenRouter, local, Hugging Face GPU) live under More.
+  async function quickForeman(select) {
+    const choice = select.value;
+    if (choice === "more") {
+      $("more").open = true;
+      $("foreman-panel").open = true;
+      $("foreman-panel").scrollIntoView({ behavior: "smooth" });
+      await syncQuickForeman();
+      return;
+    }
+    await act(null, "start-task", choice ? `making ${choice === "claude" ? "Claude" : "ChatGPT"} the foreman` : "switching back to the default planner", async () => {
+      const view = choice ? await api("foreman/use", { kind: choice }) : await api("foreman/stop", {});
+      renderForeman(view);
+      toast(choice ? `${choice === "claude" ? "Claude" : "ChatGPT"} will plan the next runs` : "The default planner will plan the next runs");
+    });
+    await syncQuickForeman();
+  }
+
+  async function syncQuickForeman(view) {
+    try {
+      view = view || await api("foreman");
+    } catch { return; }
+    const live = FOREMAN_ACTIVE.includes(view.status);
+    const select = $("quick-foreman");
+    select.value = !live ? "" : ["claude", "chatgpt"].includes(view.kind) ? view.kind : "more";
+    select.title = live ? `Foreman: ${SOURCE_LABEL[view.kind] || view.kind} (${(view.model || {}).repo || ""})` : "Default planner";
   }
 
   function renderPrep(prep) {
@@ -161,7 +217,8 @@
     $("r-headline").textContent = view.headline;
     $("r-stage").textContent = view.stage ? `${view.stage.id} — ${view.stage.title}` : "Specific task (not from the roadmap)";
     $("r-task").textContent = view.current_task;
-    $("r-tasks").textContent = view.tasks.total ? `${view.tasks.done} / ${view.tasks.total} tasks complete` : "planning…";
+    $("r-tasks").textContent = view.tasks.total ? `(${view.tasks.done} of ${view.tasks.total} tasks done)` : "(planning…)";
+    $("r-progress-bar").style.width = view.tasks.total ? `${Math.round(100 * view.tasks.done / view.tasks.total)}%` : "4%";
     $("r-steps").replaceChildren(...view.steps.map(stepItem));
     $("r-agents").replaceChildren(...view.agents.map((row) => el("tr", {},
       el("th", {}, row.agent), el("td", { class: `agent-${row.status.toLowerCase().replaceAll(" ", "-")}` }, row.status), el("td", { class: "muted" }, row.detail || ""))));
@@ -254,6 +311,7 @@
   // ------------------------------------------------------------ actions
 
   async function continueRoadmap(button) {
+    S.shownRunId = null;
     const untilDone = $("until-done").checked;
     // Immediate, local acknowledgement: the run panel appears with steps.
     S.prep = core.optimisticPrep();
@@ -270,7 +328,7 @@
   }
 
   async function runControl(button, action) {
-    const runId = S.home && S.home.current_run && S.home.current_run.run_id;
+    const runId = S.shownRunId || (S.home && S.home.current_run && S.home.current_run.run_id);
     if (!runId) { showAdvice("There is no run to control right now. Press Continue Roadmap to start one.", "continue"); return; }
     await act(button, action, `${action} the run`, async () => { await api(`runs/${runId}/${action}`, {}); await loadHome(); });
   }
@@ -390,6 +448,7 @@
 
   function renderForeman(view) {
     S.foremanChoices = view.choices || {};
+    syncQuickForeman(view);
     if (!S.foremanSourceSet) {
       S.foremanSourceSet = true;
       $("fm-source").value = FOREMAN_ACTIVE.includes(view.status) && view.kind ? view.kind : storageGet("agent-os-foreman-source", "claude");
@@ -504,29 +563,25 @@
     $("models-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the model list", async () => renderModels(await api("models"))); });
     $("models-refresh").addEventListener("click", (event) => act(event.currentTarget, "refresh", "checking the official model lists", async () => renderModels(await api("models/refresh", {}))));
     $("usage-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "adding up model usage", loadUsage); });
-    $("continue-button").addEventListener("click", (event) => continueRoadmap(event.currentTarget));
+    // One Start button: a typed task starts that task; an empty box continues the roadmap.
+    $("continue-button").addEventListener("click", (event) => {
+      const goal = $("task-goal").value.trim();
+      if (!goal) { continueRoadmap(event.currentTarget); return; }
+      act(event.currentTarget, "start-task", "starting your task", async () => {
+        await api("runs", { goal, project: S.project, repository: S.repository || undefined, start_recommended: true, auto_continue: true, preference: storageGet("agent-os-preference", "") || undefined, allow_paid_spend: $("allow-paid").checked });
+        $("task-goal").value = "";
+        S.shownRunId = null;
+        updateStartLabel();
+        await loadHome();
+      });
+    });
+    $("task-goal").addEventListener("input", updateStartLabel);
+    $("quick-foreman").addEventListener("change", (event) => quickForeman(event.currentTarget));
     $("help-button").addEventListener("click", (event) => tellMeWhatToPress(event.currentTarget));
     $("advice-close").addEventListener("click", () => $("advice").classList.add("hidden"));
     $("pause-button").addEventListener("click", (event) => runControl(event.currentTarget, "pause"));
     $("resume-button").addEventListener("click", (event) => runControl(event.currentTarget, "resume"));
     $("stop-button").addEventListener("click", (event) => runControl(event.currentTarget, "stop"));
-    $("view-progress-button").addEventListener("click", () => {
-      $("run-panel").classList.remove("hidden");
-      $("run-panel").scrollIntoView({ behavior: "smooth" });
-      if (!S.home || !S.home.current_run) showAdvice("No run has started yet. Press Continue Roadmap to start one.", "continue");
-    });
-    $("start-task-button").addEventListener("click", () => { $("task-form").classList.toggle("hidden"); $("task-goal").focus(); });
-    $("task-cancel").addEventListener("click", () => $("task-form").classList.add("hidden"));
-    $("task-start").addEventListener("click", (event) => {
-      const goal = $("task-goal").value.trim();
-      if (!goal) { showAdvice("Type what the agents should do first, then press Start This Task.", null); return; }
-      act(event.currentTarget, "start-task", "starting your task", async () => {
-        await api("runs", { goal, project: S.project, repository: S.repository || undefined, start_recommended: true, auto_continue: true, preference: storageGet("agent-os-preference", "") || undefined, allow_paid_spend: $("allow-paid").checked });
-        $("task-form").classList.add("hidden");
-        $("task-goal").value = "";
-        await loadHome();
-      });
-    });
     $("until-done").addEventListener("change", (event) => storageSet("agent-os-until-done", event.target.checked ? "1" : "0"));
     $("allow-paid").checked = storageGet("agent-os-allow-paid", "0") === "1";
     $("allow-paid").addEventListener("change", (event) => storageSet("agent-os-allow-paid", event.target.checked ? "1" : "0"));

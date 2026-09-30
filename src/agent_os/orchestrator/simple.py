@@ -494,19 +494,19 @@ def advise(home: dict[str, Any], run_view_: dict[str, Any] | None, prep: dict[st
             return {"target": None, "message": f"Nothing needs your attention. {who} is still {doing}."}
         if overall == "DONE":
             if home.get("next_stage"):
-                return {"target": "continue", "message": "Press Continue Roadmap. The last task is finished and the next one is ready."}
+                return {"target": "continue", "message": "Press Start with the box empty. The last task is finished and the next one is ready."}
             return {"target": None, "message": "Nothing to do. Every eligible roadmap stage is complete."}
     unfinished = home.get("unfinished_runs") or []
     if unfinished:
         state = unfinished[0].get("state")
         if state in {"APPROVAL_REQUIRED", "BLOCKED"}:
-            return {"target": "view-progress", "message": "Press View Progress. An earlier run is waiting for your decision."}
-        return {"target": "continue", "message": "Press Continue Roadmap. It will resume the run that was interrupted."}
+            return {"target": "view-progress", "message": "An earlier run is waiting for your decision: see the run card below."}
+        return {"target": "continue", "message": "Press Start with the box empty. It will resume the run that was interrupted."}
     if home.get("next_stage"):
         note = " Your project has uncommitted changes; the agents will not see them." if home.get("dirty") else ""
         if home.get("model_suggestions"):
             note += " Optional: there is a suggested model change under AI models."
-        return {"target": "continue", "message": f"Press Continue Roadmap. Everything is ready.{note}"}
+        return {"target": "continue", "message": f"Type a task, or press Start with the box empty to continue the roadmap. Everything is ready.{note}"}
     if home.get("roadmap") is None:
-        return {"target": "start-task", "message": "Press Start Specific Task. This project has no roadmap file I can read."}
+        return {"target": "start-task", "message": "Type what the agents should do and press Start. This project has no roadmap file I can read."}
     return {"target": None, "message": "Nothing to do. Every eligible roadmap stage is complete."}

@@ -179,6 +179,14 @@ class Api:
                 run_id = campaign["current_run"]
         if run_id is None and overview["unfinished_runs"]:
             run_id = overview["unfinished_runs"][0]["run_id"]
+        # Simple Mode shows only live or recent work as "current"; stale
+        # unfinished runs are listed separately (resume or dismiss).
+        if run_id and not campaign.get("current_run") == run_id and not self._recent(engine, run_id, key):
+            run_id = None
+        overview["older_runs"] = [
+            {"run_id": item["run_id"], "goal": item.get("goal"), "state": item.get("state"), "updated_at": item.get("updated_at"),
+             "stage": (item.get("origin") or {}).get("stage_id")}
+            for item in overview["unfinished_runs"] if item["run_id"] != run_id]
         prep = self._latest_prep({overview["project"], overview["repository"], self.default_repository} - {None})
         view = self.simple(run_id, key, dirty=overview["dirty"], prep=prep) if run_id else None
         overview["current_run"] = view
@@ -190,6 +198,27 @@ class Api:
 
         overview["model_suggestions"] = sum(1 for item in models.load().get("proposals", []) if item.get("status") == "open")
         return overview
+
+    RECENT_HOURS = 12
+    ACTIVE_STATES = frozenset({"CREATED", "PLANNING", "READY", "RUNNING", "VALIDATING", "REVIEWING", "INTEGRATING"})
+
+    def _recent(self, engine: Any, run_id: str, key: str | None) -> bool:
+        """Live (being driven, or in an active state) or touched in the last RECENT_HOURS."""
+        from datetime import datetime, timedelta, timezone
+
+        if self._driving(run_id, key):
+            return True
+        try:
+            record = engine.load(run_id)
+        except Exception:
+            return False
+        if record.get("state") in self.ACTIVE_STATES and engine.store.driver(run_id).get("active"):
+            return True
+        try:
+            updated = datetime.fromisoformat(str(record.get("updated_at")).replace("Z", "+00:00"))
+        except ValueError:
+            return False
+        return datetime.now(timezone.utc) - updated < timedelta(hours=self.RECENT_HOURS)
 
     def simple(self, run_id: str, project: str | None = None, dirty: bool | None = None, prep: dict[str, Any] | None = None) -> dict[str, Any]:
         engine = service.engine()
@@ -389,6 +418,9 @@ class Api:
             elif action == "stop":
                 self._stop_campaign(run_id)
                 engine.stop(run_id)
+            elif action == "dismiss":
+                self._stop_campaign(run_id)
+                roadmap._abandon(engine, run_id, "dismissed by user from Simple Mode")
             elif action == "fresh":
                 record = engine.load(run_id)
                 roadmap._abandon(engine, run_id, "set aside by user (Start Fresh)")

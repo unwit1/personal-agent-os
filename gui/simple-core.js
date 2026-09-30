@@ -73,7 +73,7 @@
 
   // Map an advice target to the element to highlight.
   const TARGETS = {
-    continue: "continue-button", "start-task": "start-task-button", "view-progress": "view-progress-button",
+    continue: "continue-button", "start-task": "task-goal", "view-progress": "run-panel",
     pause: "pause-button", resume: "resume-button", stop: "stop-button", settings: "settings-button",
   };
   function adviceElementId(target) {

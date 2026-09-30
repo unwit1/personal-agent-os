@@ -29,84 +29,86 @@
 
   <!-- ============================== SIMPLE MODE ============================== -->
   <main id="simple-mode">
-    <section class="panel hero">
-      <div class="project-facts">
-        <div><div class="fact-label">Project</div><div class="fact-value" id="s-project">—</div></div>
-        <div><div class="fact-label">Roadmap</div><div class="fact-value" id="s-roadmap">—</div>
-          <div class="stage-dots" id="s-stage-dots" aria-hidden="true"></div></div>
-        <div class="wide"><div class="fact-label">Next task</div><div class="fact-value" id="s-next">—</div>
-          <div class="muted" id="s-next-why"></div></div>
+    <section class="panel hero start-card">
+      <h2 class="start-title">What should the agents do?</h2>
+      <textarea id="task-goal" rows="3" placeholder="Describe a task, or leave this empty to continue the roadmap"></textarea>
+      <div class="muted" id="s-next-line"><span id="s-next">—</span> <span id="s-next-why"></span></div>
+      <div class="options-row">
+        <label class="option">Foreman
+          <select id="quick-foreman" title="The model that plans the work and picks a model for each task">
+            <option value="">Default planner</option>
+            <option value="claude">Claude Opus (recommended)</option>
+            <option value="chatgpt">ChatGPT</option>
+            <option value="more">Other (OpenRouter, local, GPU)…</option>
+          </select>
+        </label>
+        <label class="inline switch" title="When a roadmap task finishes, start the next one automatically"><input type="checkbox" id="until-done"> Keep going</label>
+        <label class="inline switch" title="Off: only your Claude/ChatGPT subscriptions and local models. On: this run may also use per-token APIs (OpenRouter) and rented GPUs (RunPod) when they are the most efficient option."><input type="checkbox" id="allow-paid"> Allow paid credits</label>
       </div>
-
-      <div class="primary-action">
-        <button id="continue-button" class="big primary" data-target-name="continue">
-          <span class="spinner hidden" id="continue-spinner"></span><span id="continue-label">CONTINUE ROADMAP</span>
-        </button>
-        <div class="primary-help">Find the next unfinished roadmap task and continue working automatically.</div>
-        <label class="inline switch"><input type="checkbox" id="until-done"> Keep going until the roadmap is done (Auto Continue Until Done)</label>
-        <label class="inline switch" title="Off: only your Claude/ChatGPT subscriptions and local models. On: this run may also use per-token APIs (OpenRouter) and rented GPUs (RunPod) when they are the most efficient option."><input type="checkbox" id="allow-paid"> Allow paid outside credits for this run (OpenRouter / RunPod)</label>
-      </div>
-
-      <div class="secondary-actions">
-        <button id="start-task-button" data-target-name="start-task">Start Specific Task</button>
-        <button id="view-progress-button" data-target-name="view-progress">View Progress</button>
-        <button id="pause-button" data-target-name="pause">Pause Work</button>
-        <button id="resume-button" data-target-name="resume" class="hidden">Resume</button>
-        <button id="stop-button" data-target-name="stop" class="danger">Stop Work</button>
-        <button id="settings-button" data-target-name="settings" class="ghost">Settings</button>
-      </div>
-
-      <div id="task-form" class="task-form hidden">
-        <label>What should the agents do?<textarea id="task-goal" rows="3" placeholder="Example: Add a --dry-run option to the mail sync command"></textarea></label>
-        <div class="row"><button id="task-start" class="primary">Start This Task</button><button id="task-cancel" class="ghost">Cancel</button></div>
+      <button id="continue-button" class="big primary" data-target-name="continue">
+        <span class="spinner hidden" id="continue-spinner"></span><span id="continue-label">START</span>
+      </button>
+      <div class="hidden" aria-hidden="true">
+        <span id="s-project"></span><span id="s-roadmap"></span><span id="s-stage-dots"></span>
       </div>
     </section>
 
     <section id="run-panel" class="panel run-panel hidden" aria-live="polite">
-      <div class="run-title">
-        <div>
-          <div class="eyebrow" id="r-eyebrow">AUTONOMOUS ROADMAP RUN</div>
-          <div class="overall"><span class="fact-label">Overall status</span> <span id="r-overall" class="status-pill">—</span></div>
-          <div id="r-headline" class="headline"></div>
-        </div>
+      <div class="run-head">
+        <span id="r-overall" class="status-pill">—</span>
+        <span class="eyebrow" id="r-eyebrow">RUN</span>
+        <span class="spacer"></span>
+        <button id="pause-button" data-target-name="pause">Pause</button>
+        <button id="resume-button" data-target-name="resume" class="hidden">Resume</button>
+        <button id="stop-button" data-target-name="stop" class="danger">Stop</button>
       </div>
-      <div class="facts2">
-        <div><div class="fact-label">Current stage</div><div id="r-stage" class="fact-value small">—</div></div>
-        <div><div class="fact-label">Current task</div><div id="r-task" class="fact-value small">—</div></div>
-        <div><div class="fact-label">Tasks in this stage</div><div id="r-tasks" class="fact-value small">—</div></div>
-      </div>
+      <div id="r-headline" class="headline"></div>
+      <div class="progress" aria-hidden="true"><div id="r-progress-bar" class="progress-bar"></div></div>
+      <div class="now-line"><span class="fact-label">Now</span> <span id="r-task">—</span> <span class="muted" id="r-tasks"></span></div>
+      <div class="hidden"><span id="r-stage"></span></div>
 
       <div id="r-problems"></div>
-
-      <div class="cols">
-        <div>
-          <h3>Progress</h3>
-          <ol id="r-steps" class="steps"></ol>
-        </div>
-        <div>
-          <h3>Agents</h3>
-          <table class="agents"><tbody id="r-agents"></tbody></table>
-          <div id="r-warning" class="wait hidden"></div>
-        </div>
-      </div>
-
       <div id="r-summary" class="summary hidden"></div>
 
-      <h3>Activity</h3>
-      <ol id="r-activity" class="activity"></ol>
-
-      <details id="r-efficiency" class="efficiency">
-        <summary>How much work did the models do? (token and efficiency report)</summary>
-        <p class="muted">“Measured” and “exact” numbers come from the providers or from counting. “Estimated” numbers are calculated and labelled as such. Nothing here is guessed.</p>
-        <table><tbody id="r-eff-rows"></tbody></table>
-        <div class="muted" id="r-eff-files"></div>
-      </details>
-
-      <details class="advanced-details">
-        <summary>Advanced Details</summary>
-        <pre id="r-advanced"></pre>
+      <details id="r-details" class="efficiency">
+        <summary>Details: steps, agents and activity</summary>
+        <div class="cols">
+          <div>
+            <h3>Progress</h3>
+            <ol id="r-steps" class="steps"></ol>
+          </div>
+          <div>
+            <h3>Agents</h3>
+            <table class="agents"><tbody id="r-agents"></tbody></table>
+            <div id="r-warning" class="wait hidden"></div>
+          </div>
+        </div>
+        <h3>Activity</h3>
+        <ol id="r-activity" class="activity"></ol>
+        <details id="r-efficiency" class="efficiency">
+          <summary>Token and efficiency report</summary>
+          <p class="muted">“Measured” and “exact” numbers come from the providers or from counting. “Estimated” numbers are calculated and labelled as such.</p>
+          <table><tbody id="r-eff-rows"></tbody></table>
+          <div class="muted" id="r-eff-files"></div>
+        </details>
+        <details class="advanced-details">
+          <summary>Raw details</summary>
+          <pre id="r-advanced"></pre>
+        </details>
       </details>
     </section>
+
+    <section id="older-runs-panel" class="panel hidden">
+      <details id="older-runs">
+        <summary>Older unfinished runs <span id="older-count" class="badge"></span></summary>
+        <p class="muted">Runs that stopped more than 12 hours ago and were never finished. Show one to continue it, or dismiss it to clear it away.</p>
+        <table><tbody id="older-rows"></tbody></table>
+      </details>
+    </section>
+
+    <details id="more" class="more">
+      <summary>More: foreman options, models, usage and compute</summary>
+      <div class="row"><button id="settings-button" data-target-name="settings" class="ghost">Settings</button></div>
 
     <section class="panel">
       <details id="foreman-panel" class="efficiency">
@@ -202,6 +204,7 @@
         <table><thead><tr><th>Route</th><th>Kind</th><th>Summary</th></tr></thead><tbody id="compute-signals"></tbody></table>
       </details>
     </section>
+    </details>
 
     <dialog id="repo-dialog" aria-labelledby="repo-title">
       <div class="row"><h2 id="repo-title">Choose a repository</h2><span class="spacer"></span>

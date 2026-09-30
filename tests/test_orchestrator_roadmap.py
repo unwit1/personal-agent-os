@@ -322,7 +322,7 @@ class SimpleViewTests(RoadmapFixture):
             self.assertEqual(card["advanced"]["kind"], kind)
 
     def test_home_advice(self) -> None:
-        self.assertEqual(simple.advise({"next_stage": {"id": "P0.2"}}, None)["message"], "Press Continue Roadmap. Everything is ready.")
+        self.assertEqual(simple.advise({"next_stage": {"id": "P0.2"}}, None)["message"], "Type a task, or press Start with the box empty to continue the roadmap. Everything is ready.")
         self.assertEqual(simple.advise({"next_stage": None, "roadmap": {"total": 1}}, None)["target"], None)
         self.assertEqual(simple.advise({"unfinished_runs": [{"state": "PAUSED"}]}, None)["target"], "continue")
         self.assertEqual(simple.advise({}, None, {"state": "running", "message": "Checking roadmap..."})["message"], "Nothing needs your attention. Checking roadmap...")
@@ -405,6 +405,22 @@ class SimpleApiTests(RoadmapFixture):
         self.assertIsNone(rows["Input tokens (provider-reported)"])
         _, efficiency, _ = self.call("GET", f"/api/runs/{run_id}/efficiency")
         self.assertTrue(efficiency["reconciliation"]["consistent"])
+
+    def test_stale_unfinished_run_is_listed_as_older_and_can_be_dismissed(self) -> None:
+        run_id = self.engine.create_run("an old experiment", repository=self.repo,
+                                        tasks=[{"id": "a", "goal": "work on a", "scope": ["a"]}], policy={"announce_claims": False})["run_id"]
+        path = self.engine.store.state_path(run_id)
+        record = json.loads(path.read_text(encoding="utf-8"))
+        record["updated_at"] = "2026-09-01T00:00:00+00:00"  # weeks old
+        path.write_text(json.dumps(record), encoding="utf-8")
+        _, home, _ = self.call("GET", "/api/home")
+        self.assertIsNone(home["current_run"], "a stale run must not be shown as current work")
+        self.assertEqual([item["run_id"] for item in home["older_runs"]], [run_id])
+        status, _, _ = self.call("POST", f"/api/runs/{run_id}/dismiss", {})
+        self.assertEqual(status, 200)
+        _, home, _ = self.call("GET", "/api/home")
+        self.assertEqual(home["older_runs"], [])
+        self.assertTrue(self.engine.load(run_id)["origin"]["abandoned"])
 
     def test_home_fast_and_actions_on_idle(self) -> None:
         status, home, elapsed = self.call("GET", "/api/home")
