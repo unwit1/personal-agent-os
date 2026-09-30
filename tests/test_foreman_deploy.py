@@ -881,6 +881,21 @@ class StrategyTests(unittest.TestCase):
         self.assertEqual([task["role"] for task in fixed["tasks"]], ["implementer", "test_author", "implementer"])
         self.assertEqual(len(notes), 2)
 
+    def test_overlapping_scopes_merge_with_the_union_of_files(self) -> None:
+        from agent_os.orchestrator import foreman_strategy as fs
+
+        tasks = [{"id": "a", "goal": "flag", "scope": ["src/cli.py", "tests/test_cli.py"], "capability_class": "fast"},
+                 {"id": "b", "goal": "output", "scope": ["src/cli.py"], "capability_class": "fast", "depends_on": ["a"]},
+                 {"id": "c", "goal": "elsewhere", "scope": ["src/other.py"], "capability_class": "fast"}]
+        merged, notes = fs.merge_overlapping({"tasks": tasks})
+        self.assertEqual([task["id"] for task in merged["tasks"]], ["a", "c"])
+        self.assertEqual(merged["tasks"][0]["scope"], ["src/cli.py", "tests/test_cli.py"])
+        self.assertEqual(merged["tasks"][0]["depends_on"], [])
+        wide = [{"id": f"t{n}", "goal": "x", "scope": ["src/shared.py", f"src/f{n}.py"], "capability_class": "fast"} for n in range(8)]
+        capped, _ = fs.merge_overlapping({"tasks": wide})
+        self.assertTrue(all(len(task["scope"]) <= 6 for task in capped["tasks"]))  # file cap splits big components
+        self.assertGreater(len(capped["tasks"]), 1)
+
     def test_merge_keeps_the_strongest_class(self) -> None:
         from agent_os.orchestrator import foreman_strategy as fs
 

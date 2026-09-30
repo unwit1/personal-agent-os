@@ -133,6 +133,10 @@ def score(case: dict[str, Any], structured: dict[str, Any] | None, record: dict[
     return row
 
 
+def _median(values: list[float]) -> float | None:
+    return round(statistics.median(values), 2) if values else None
+
+
 def summarize(rows: list[dict[str, Any]], hourly_usd: float | None = None) -> dict[str, Any]:
     n = len(rows) or 1
     # after the deterministic strategy; a case the guard left alone keeps its raw result
@@ -146,7 +150,7 @@ def summarize(rows: list[dict[str, Any]], hourly_usd: float | None = None) -> di
         "cases": len(rows),
         "judgement_accuracy": round(sum(1 for row in rows if row.get("passed")) / n, 3),
         "guarded_accuracy": round(sum(1 for row in guarded if row.get("passed")) / n, 3) if rows else None,
-        "guarded_median_cost_ratio": round(statistics.median([row["cost_ratio"] for row in guarded if row.get("cost_ratio")]), 2) if guarded else None,
+        "guarded_median_cost_ratio": _median([row["cost_ratio"] for row in guarded if row.get("cost_ratio")]),
         "valid_plans": round(sum(1 for row in rows if row.get("valid")) / n, 3),
         "over_provisioned_tasks": sum(len(row.get("over") or []) for row in rows),
         "under_provisioned_cases": sum(1 for row in rows if row.get("under")),

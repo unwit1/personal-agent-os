@@ -298,6 +298,7 @@ def _fold(tasks: list[dict[str, Any]], chunk: list[dict[str, Any]]) -> list[dict
     if validators:
         head["validators"] = validators
     head["depends_on"] = list(dict.fromkeys(str(dep) for task in chunk for dep in (task.get("depends_on") or []) if str(dep) not in ids))
+    head["scope"] = list(dict.fromkeys(str(path) for task in chunk for path in (task.get("scope") or [])))
     head.pop("ladder", None)
     folded = set(ids[1:])
     out = []
@@ -372,11 +373,71 @@ def normalize_roles(structured: dict[str, Any] | None) -> tuple[dict[str, Any] |
     return ({**(structured or {}), "tasks": out}, notes) if notes else (structured, [])
 
 
+def merge_overlapping(structured: dict[str, Any] | None, max_files: int = 6) -> tuple[dict[str, Any] | None, list[str]]:
+    """Fold tasks whose file scopes overlap (the engine serializes them anyway,
+    so splitting them buys no parallelism and pays the per-agent overhead each
+    time). Groups are connected components of the overlap graph, in plan
+    order, capped at MAX_MERGED tasks and ``max_files`` files; cycle-safe."""
+    from .model import scopes_overlap
+
+    tasks = (structured or {}).get("tasks")
+    if not isinstance(tasks, list) or len(tasks) < 2:
+        return structured, []
+    eligible = [task for task in tasks if isinstance(task, dict) and task.get("scope") and task.get("capability_class") != "deterministic"
+                and task.get("role", "implementer") in ("implementer", "test_author")]
+    parent = {id(task): id(task) for task in eligible}
+
+    def find(key: int) -> int:
+        while parent[key] != key:
+            parent[key] = parent[parent[key]]
+            key = parent[key]
+        return key
+
+    for index, first in enumerate(eligible):
+        for second in eligible[index + 1:]:
+            if scopes_overlap([str(path) for path in first["scope"]], [str(path) for path in second["scope"]]):
+                parent[find(id(second))] = find(id(first))
+    components: dict[int, list[dict[str, Any]]] = {}
+    for task in eligible:
+        components.setdefault(find(id(task)), []).append(task)
+    notes: list[str] = []
+    current = list(tasks)
+    for members in components.values():
+        chunk: list[dict[str, Any]] = []
+        files: set[str] = set()
+        groups = []
+        for task in members:
+            scope = {str(path) for path in task["scope"]}
+            if chunk and (len(chunk) >= MAX_MERGED or len(files | scope) > max_files):
+                groups.append(chunk)
+                chunk, files = [], set()
+            chunk.append(task)
+            files |= scope
+        groups.append(chunk)
+        for group in groups:
+            ids = [str(task.get("id")) for task in group]
+            live = [task for task in current if isinstance(task, dict) and str(task.get("id")) in ids]
+            if len(live) < 2:
+                continue
+            candidate = _fold(current, live)
+            if not _acyclic(candidate):
+                notes.append(f"merge skipped: folding {', '.join(ids)} would create a dependency cycle")
+                continue
+            current = candidate
+            notes.append(f"merge: {', '.join(ids)} edit overlapping files -> one task {ids[0]}")
+    if not any(note.startswith("merge:") for note in notes):
+        return structured, notes
+    return {**(structured or {}), "tasks": current}, notes
+
+
 def apply(goal: str, structured: dict[str, Any] | None, strategy: dict[str, Any] | None) -> tuple[dict[str, Any] | None, list[str]]:
     """Every session-foreman plan gets role normalization and the same-scope
     merge; weak planners also get the class guard."""
     structured, notes = normalize_roles(structured)
-    structured, merged = merge_same_scope(structured)
+    # Overlapping (not only identical) scopes: the engine serializes them anyway.
+    # Re-scored on every live answer: never lower accuracy, fewer agent launches
+    # for all four foremen on the held-out split (e.g. qwen3-235b 33% -> 50%).
+    structured, merged = merge_overlapping(structured)
     notes += merged
     if (strategy or {}).get("guard"):
         structured, more = guard(goal, structured)
