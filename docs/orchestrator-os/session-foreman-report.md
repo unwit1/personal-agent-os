@@ -158,3 +158,21 @@ launches. Cached tokens still count toward usage limits, so this directly
 stretches your Codex quota. It is also what makes the GPU coding agent fit
 in a vLLM context window: 455 KB is roughly 110k tokens, which a 32k/64k
 pod rejected.
+
+## OpenRouter foreman, live (2026-09-30): `qwen/qwen3-235b-a22b-2507`
+
+| Split | Judgement raw → with strategy | Valid plans | Median time | Tokens in/out | Cost |
+|---|---|---|---|---|---|
+| dev (7) | 14% → 43% | 86% | 25.5 s | 1.4k / 1.2k | $0.0033 for all 13 plans |
+| holdout (6) | 0% → 0% | 67% | 16.2 s | 1.4k / 0.9k | |
+
+A large model is not automatically a good foreman. This one mostly chose
+sensible classes per task, but it over-split heavily: 8–16 tasks where 1–5 fit.
+It also proposed an unapproved deterministic command, and two calls failed with
+an upstream provider error (HTTP 400 via OpenRouter).
+
+Its strength rating moved automatically from "medium" (235B size hint) to
+"weak" (measured judgement 7.7%, valid 77%), so it now gets the weak-planner
+guards. I un-set it as the session foreman. Candidates to try next as a cheap
+foreman, for about $0.005 each: `openai/gpt-oss-120b`,
+`deepseek/deepseek-v4-flash`, `qwen/qwen3-32b`.
