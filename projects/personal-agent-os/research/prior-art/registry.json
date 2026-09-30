@@ -2881,7 +2881,7 @@
       "license_spdx": "Apache-2.0",
       "license_status": "open source; no code copied (ideas and API shapes only)",
       "evaluated_revision": "release v0.14.0rc1",
-      "evaluated_at": "2026-09-29",
+      "evaluated_at": "2026-09-30",
       "activity": {
         "stars": 10665,
         "pushed_at": "2026-09-29",
@@ -2927,7 +2927,7 @@
         "portability": "not assessed (no spike yet)"
       },
       "decision": "BORROW",
-      "rationale": "The closest prior art for the Compute Broker: price catalogs, cheapest-feasible placement, auto-stop and preemption recovery. Too heavy to embed in the stdlib runtime for the read-only quote slice. Borrow its catalog and optimizer semantics now, and spike it as an optional provisioning backend (WRAP candidate) before implementing pod lifecycle in-house.",
+      "rationale": "The closest prior art for the Compute Broker: price catalogs, cheapest-feasible placement, auto-stop and preemption recovery. Too heavy to embed in the stdlib runtime for the read-only quote slice. Borrow its catalog and optimizer semantics now, and spike it as an optional provisioning backend (WRAP candidate) before implementing pod lifecycle in-house. 2026-09-30: an in-house RunPod pod lifecycle now exists (budget-metered, reaper, crash handling), so the 'spike before in-house lifecycle' step is superseded; SkyPilot stays the reference for catalogs/placement and becomes a WRAP candidate only if a second GPU cloud (e.g. Vast.ai, whose public offers API was checked) is needed.",
       "confidence": "medium",
       "provenance": [
         "GitHub REST api.github.com/repos/skypilot-org/skypilot (2026-09-29)",
@@ -2940,8 +2940,8 @@
         }
       ],
       "revisit_when": [
-        "Phase 2 pod lifecycle design",
-        "RunPod support changes in SkyPilot"
+        "a second GPU cloud is needed",
+        "multi-cloud failover for capacity errors is required"
       ],
       "revisit_by": null
     },
@@ -3091,7 +3091,7 @@
       "license_spdx": "MIT",
       "license_status": "open source; no code copied (ideas and API shapes only)",
       "evaluated_revision": "release v1.12.0",
-      "evaluated_at": "2026-09-29",
+      "evaluated_at": "2026-09-30",
       "activity": {
         "stars": 312,
         "pushed_at": "2026-09-29",
@@ -3123,16 +3123,16 @@
       },
       "evidence": {
         "development_savings": "medium",
-        "runtime_savings": "not assessed (no spike yet)",
-        "quality": "not assessed (no spike yet)",
-        "reliability": "not assessed (no spike yet)",
+        "runtime_savings": "n/a (control plane only)",
+        "quality": "live-verified create/get/list/delete across 8 deployments",
+        "reliability": "live: capacity errors are common for cheap types -> one request per (count, tier) group listing all affordable types, gpuTypePriority=custom; RunPod did not always honor the order (2.4x card once) -> 1.5x price ceiling per group",
         "security": "key via secret_refs only",
         "complexity": "small client needed for read-only inventory",
         "maintenance": "not assessed (no spike yet)",
         "portability": "not assessed (no spike yet)"
       },
       "decision": "BORROW",
-      "rationale": "Reference for the RunPod adapter endpoints and payloads. A small stdlib client matches DEC-0009 (no heavy provider SDKs) and keeps RunPod behind the provider-neutral compute interface.",
+      "rationale": "Reference for the RunPod adapter endpoints and payloads. A small stdlib client matches DEC-0009 (no heavy provider SDKs) and keeps RunPod behind the provider-neutral compute interface. Implemented 2026-09-30 as a stdlib client in foreman_deploy.py (REST v1 pods create/get/list/delete, GraphQL runtime uptime), matching the SDK's payloads; no SDK dependency needed.",
       "confidence": "medium",
       "provenance": [
         "GitHub REST api.github.com/repos/runpod/runpod-python (2026-09-29)",
@@ -3145,8 +3145,8 @@
         }
       ],
       "revisit_when": [
-        "RunPod adapter implementation",
-        "RunPod API version change"
+        "RunPod API version change",
+        "serverless endpoints are needed (scale-to-zero)"
       ],
       "revisit_by": null
     },
