@@ -246,7 +246,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     fmn.add_argument("--coding-agent", action="store_true", help="deploy/preview: also serve the model as a Codex CLI coding agent (64k context, tool calling; bigger GPU)")
     fmn.add_argument("--provider", help="eval: provider id to evaluate (default: the ready session foreman)")
     fmn.add_argument("--case", action="append", help="eval: only these case ids")
-    fmn.add_argument("--split", choices=["dev", "holdout", "all"], default="dev", help="eval: dev cases (used for tuning), holdout (never tuned on) or all")
+    fmn.add_argument("--split", choices=["dev", "holdout", "dev2", "holdout2", "dev_all", "holdout_all", "all"], default="dev", help="eval: dev* cases may be used for tuning; holdout* never are")
 
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")

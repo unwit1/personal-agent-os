@@ -81,6 +81,62 @@ HOLDOUT: list[dict[str, Any]] = [
      "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
 ]
 
+# Second wave (2026-09-30), written before any further tuning so optimizers
+# have more than 7 dev cases (PA-gepa spike overfit 7). "dev2" joins the dev
+# pool; "holdout2" joins the held-out pool and is never used for tuning.
+DEV2: list[dict[str, Any]] = [
+    {"id": "d2-docstring", "split": "dev2", "goal": "Add a one-paragraph module docstring to src/agent_os/orchestrator/throughput.py describing what it measures. No code changes.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+    {"id": "d2-constant", "split": "dev2", "goal": "Change CACHE_SECONDS in src/agent_os/orchestrator/compute.py from 6 hours to 3 hours and update the module docstring that mentions it.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+    {"id": "d2-cli-json", "split": "dev2", "goal": "Add a --json flag to `agent-os orchestrate budget show` (src/agent_os/orchestrator/cli.py) that prints compact single-line JSON, with a unit test in tests/test_budget.py.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 2]},
+    {"id": "d2-retry-test", "split": "dev2", "goal": "Add unit tests in tests/test_retry.py for the existing parse_retry_after helper in src/agent_os/orchestrator/retry.py: seconds, HTTP dates, and garbage input. Do not change retry.py.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+    {"id": "d2-gui-sort", "split": "dev2", "goal": "In gui/simple.js make the compute panel's GPU price table sortable by $/hour when its header is clicked, and add a pure sort helper with a test in tests/gui/simple_core.test.js.",
+     "ceiling": "balanced", "floor_any": None, "tasks": [1, 3]},
+    {"id": "d2-usage-field", "split": "dev2", "goal": "Record the model's reasoning_tokens in the per-run usage totals (src/agent_os/orchestrator/usage.py and the engine code that sums usage) and show them in the efficiency report, with tests.",
+     "ceiling": "balanced", "floor_any": None, "tasks": [1, 4]},
+    {"id": "d2-slow-tests", "split": "dev2", "goal": "tests/test_orchestrator_state_machine.py became 3x slower last week. Find which change caused it and fix the slowdown without weakening the test.",
+     "ceiling": "reasoning", "floor_any": "balanced", "tasks": [1, 3]},
+    {"id": "d2-stale-cache", "split": "dev2", "goal": "Users report the GPU price table sometimes shows prices from yesterday. Investigate the caching in src/agent_os/orchestrator/compute.py and fix the root cause with a regression test.",
+     "ceiling": "reasoning", "floor_any": "balanced", "tasks": [1, 3]},
+    {"id": "d2-idempotent-ledger", "split": "dev2", "goal": "Design and implement idempotent spend recording in src/agent_os/orchestrator/budget.py so a crash-and-retry of the foreman watchdog can never record the same spend twice, including how record ids are derived and how old ledgers without ids are read.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+    {"id": "d2-scheduler-fairness", "split": "dev2", "goal": "Design and implement fair dispatch across providers in the orchestrator engine so one provider at its concurrency limit cannot starve runnable tasks that another provider could serve, with tests for the starvation case.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+    {"id": "d2-token-exposure", "split": "dev2", "goal": "Audit how the control GUI's session token (src/agent_os/orchestrator/server.py) could leak through URLs, logs or the browser, then harden it and add tests proving it never appears in logs or event streams.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+    {"id": "d2-rename", "split": "dev2", "goal": "Rename the helper function _count_running in src/agent_os/orchestrator/engine.py to _count_launches_by_provider and update every call site. Behaviour does not change.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+]
+HOLDOUT2: list[dict[str, Any]] = [
+    {"id": "h2-readme-link", "split": "holdout2", "goal": "Add a link to docs/orchestrator-os/session-foreman-report.md from docs/model-infrastructure.md section 12. Nothing else changes.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+    {"id": "h2-default-idle", "split": "holdout2", "goal": "Change DEFAULT_IDLE_MINUTES in src/agent_os/orchestrator/foreman_deploy.py from 15 to 10 and update the GUI's default in gui/index.html to match.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 2]},
+    {"id": "h2-quote-test", "split": "holdout2", "goal": "Add unit tests for the existing budget_gate function in src/agent_os/orchestrator/quote.py covering an unapproved budget, a missing cap and a cost above the project budget. Do not change quote.py.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+    {"id": "h2-cli-flag", "split": "holdout2", "goal": "Add a --provider filter to `agent-os orchestrate usage-report` so it only counts calls from that provider, with a unit test.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 2]},
+    {"id": "h2-gui-copy", "split": "holdout2", "goal": "Add a Copy button next to each run id in the GUI run panel (gui/simple.js) that copies the id to the clipboard and shows a toast, with a test for the helper that formats the toast text.",
+     "ceiling": "balanced", "floor_any": None, "tasks": [1, 3]},
+    {"id": "h2-report-column", "split": "holdout2", "goal": "Add an 'escalations' column to the model scorecard (src/agent_os/orchestrator/usage_report.py) and render it in the GUI models panel, with tests.",
+     "ceiling": "balanced", "floor_any": None, "tasks": [1, 4]},
+    {"id": "h2-flaky-reaper", "split": "holdout2", "goal": "The foreman reaper scheduled task sometimes logs a traceback about a locked deployment.json. Find out why and fix it so concurrent readers and writers of that file never fail, with a regression test.",
+     "ceiling": "reasoning", "floor_any": "balanced", "tasks": [1, 3]},
+    {"id": "h2-wrong-cost", "split": "holdout2", "goal": "The efficiency report sometimes shows a negative cost for runs that used a cached prompt. Find the arithmetic error in src/agent_os/orchestrator/usage.py and fix it with a regression test.",
+     "ceiling": "reasoning", "floor_any": "balanced", "tasks": [1, 3]},
+    {"id": "h2-plugin-sandbox", "split": "holdout2", "goal": "Design and implement a permission model for delegated inline tasks so a prompt can never make an inline worker read files outside the attachments it was given, including how attachments are verified and tests for escape attempts.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+    {"id": "h2-distributed-budget", "split": "holdout2", "goal": "Design and implement safe budget enforcement when two orchestrator processes on the same machine record spend at the same time, including file locking on Windows and tests that race two writers.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+    {"id": "h2-key-rotation", "split": "holdout2", "goal": "Design and implement rotation for the foreman endpoint key (secrets://foreman/endpoint) so a key can be replaced while a pod is live without dropping in-flight planner calls, with a threat model and tests.",
+     "ceiling": "reasoning", "floor_any": "reasoning", "tasks": [2, 5]},
+    {"id": "h2-typo-comments", "split": "holdout2", "goal": "Fix spelling mistakes in the comments of src/agent_os/orchestrator/repomap.py. Code does not change.",
+     "ceiling": "fast", "floor_any": None, "tasks": [1, 1]},
+]
+
 NO_TOOLS_NOTE = ("\n\nYou have no file or shell tools in this call: plan from the goal and the repository map above, "
                  "and name only files the map lists. Answer with the fenced result block only.\n")
 
@@ -232,7 +288,8 @@ def run(provider_id: str | None = None, *, repo: Path | None = None, cases: list
     rows = []
     strategy = strategy_override  # None: the evaluated model's own strategy, once its model is known
     model_used = None
-    pool = {"dev": CASES, "holdout": HOLDOUT, "all": CASES + HOLDOUT}[split]
+    pool = {"dev": CASES, "holdout": HOLDOUT, "dev2": DEV2, "holdout2": HOLDOUT2, "dev_all": CASES + DEV2, "holdout_all": HOLDOUT + HOLDOUT2,
+            "all": CASES + HOLDOUT + DEV2 + HOLDOUT2}[split]
     for case in pool:
         if cases and case["id"] not in cases:
             continue
