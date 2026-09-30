@@ -302,14 +302,13 @@ class SimpleViewTests(RoadmapFixture):
         self.assertEqual(simple.advise({}, interrupted)["message"], "Press Resume. The previous run was interrupted.")
         synthetic.SCRIPTS["alpha"] = synthetic.SCRIPTS["beta"] = lambda request, call: {"failure": "quota"}
         self.engine.run_loop(run_id, max_ticks=20)
-        failed = self.view(run_id)
-        self.assertEqual(failed["overall"], "STOPPED")
-        card = failed["problems"][0]
-        self.assertEqual(card["recommended"]["label"], "Try Again")
-        self.assertIn("run out of usage", card["what"])
-        self.assertIn("No other available agent", card["what"])
-        self.assertNotIn("quota", card["title"] + card["what"], "raw error kinds stay in Advanced Details")
-        self.assertIn("failures", card["advanced"])
+        waiting = self.view(run_id, driving=True)  # the driver keeps sleeping until the reset
+        # Out of usage everywhere is not a failure: the run waits for the reset.
+        self.assertEqual(waiting["overall"], "WORKING")
+        self.assertIn("Out of usage", waiting["headline"])
+        self.assertNotIn("quota", waiting["headline"], "raw error kinds stay in Advanced Details")
+        self.assertIn("Out of usage", simple.advise({}, waiting)["message"])
+        self.assertEqual(waiting["problems"], [])
 
     def test_every_gate_kind_has_a_friendly_card(self) -> None:
         from agent_os.orchestrator.model import APPROVAL_GATES

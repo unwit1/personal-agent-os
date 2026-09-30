@@ -450,6 +450,10 @@ def run_view(run: dict[str, Any], events: list[dict[str, Any]], efficiency: dict
         overall, headline = "INTERRUPTED", "Not running: the program driving this run stopped"
     if run["state"] not in {"COMPLETE", "PAUSED", "APPROVAL_REQUIRED", "BLOCKED", "CREATED"} and not driving and active:
         overall, headline = "INTERRUPTED", "An agent may still be working, but nothing is collecting its result"
+    reset_wait = str(run.get("state_reason") or "")
+    if overall == "WORKING" and reset_wait.startswith("waiting for usage reset:"):
+        # Every usable agent is out of usage; the driver resumes on its own.
+        overall, headline = "WORKING", "Out of usage: continues on its own when " + reset_wait.split(":", 1)[1].strip() + " resets"
     nodes = {node["id"]: node for node in run["nodes"]}
     problems = [gate_card(gate, nodes.get(gate.get("node") or "")) for gate in run["gates"] if gate["status"] == "open"]
     if run["state"] == "BLOCKED":
@@ -584,6 +588,8 @@ def advise(home: dict[str, Any], run_view_: dict[str, Any] | None, prep: dict[st
             return {"target": "resume", "message": "Press Resume. The run is paused."}
         if overall == "INTERRUPTED":
             return {"target": "resume", "message": "Press Resume. The previous run was interrupted."}
+        if overall == "WORKING" and str(run_view_.get("headline") or "").startswith("Out of usage"):
+            return {"target": None, "message": f"Nothing needs your attention. {run_view_['headline']}."}
         if overall == "WORKING":
             busy = [row for row in run_view_["agents"] if row["status"] in {"Working", "Reviewing", "Planning"}]
             who = busy[0]["agent"] if busy else "Agent OS"

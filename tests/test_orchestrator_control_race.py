@@ -81,5 +81,18 @@ class RunHistoryTests(unittest.TestCase):
             merge_policy({"share_run_history": "yes"})
 
 
+
+class ReadOnlyUsageReportTests(unittest.TestCase):
+    def test_report_survives_an_unwritable_store(self) -> None:
+        from unittest import mock
+
+        from agent_os.orchestrator import usage_report
+
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(Path, "write_text", side_effect=PermissionError("denied")):
+            result = usage_report.report(home=Path(tmp))
+        self.assertIsNone(result["file"])
+        self.assertIn("PermissionError", result["file_error"])
+
+
 if __name__ == "__main__":
     unittest.main()

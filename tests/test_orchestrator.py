@@ -415,7 +415,7 @@ class FailoverAndRestartTests(OrchestratorFixture):
         self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
         a = self.node(run_id, "a")
         self.assertEqual(a["failures"][0]["kind"], "quota")
-        self.assertIn("alpha", a["excluded_providers"])
+        self.assertNotIn("alpha", a["excluded_providers"], "a quota is a timed cooldown, not a per-node exclusion")
         self.assertEqual(a["selection"]["provider"], "beta")
         # Partial work from the failed provider survived into the integration.
         integration_branch = self.engine.load(run_id)["integration"]["branch"]
@@ -423,11 +423,30 @@ class FailoverAndRestartTests(OrchestratorFixture):
 
     def test_every_provider_failing_blocks_instead_of_looping(self) -> None:
         for name in self.providers:
-            synthetic.SCRIPTS[name] = edit_script({"a": {"failure": "quota"}})
+            synthetic.SCRIPTS[name] = edit_script({"a": {"failure": "process_error"}})
         run_id = self.create([self.task("a")])
         final = self.engine.run_loop(run_id, max_ticks=40)
         self.assertEqual(final["state"], "BLOCKED")
-        self.assertIn("no provider", self.node(run_id, "a")["wait_reason"])
+        self.assertEqual(self.node(run_id, "a")["state"], "FAILED_FINAL")
+
+    def test_every_provider_out_of_usage_waits_for_the_reset_then_finishes(self) -> None:
+        for name in self.providers:
+            synthetic.SCRIPTS[name] = edit_script({"a": {"failure": "quota", "detail": "usage limit reached"}})
+        run_id = self.create([self.task("a")])
+        waiting = self.engine.run_loop(run_id, max_ticks=40)
+        self.assertEqual(waiting["state"], "READY", waiting["state_reason"])
+        self.assertTrue(waiting["state_reason"].startswith("waiting for usage reset:"), waiting["state_reason"])
+        a = self.node(run_id, "a")
+        self.assertEqual(a["state"], "RUNNABLE")
+        self.assertEqual(a["excluded_providers"], [])
+        # The reset arrives: cooldowns expire and the providers work again.
+        from agent_os.orchestrator import provider_health
+
+        provider_health.cooldown_path(self.engine.store.home).unlink()
+        for name in self.providers:
+            synthetic.SCRIPTS[name] = edit_script({})
+        final = self.engine.run_loop(run_id, max_ticks=60)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
 
     def test_restart_keeps_passed_work_and_interrupts_running_workers(self) -> None:
         synthetic.SCRIPTS["alpha"] = edit_script({"b": {"ticks": 1000}})

@@ -403,6 +403,7 @@ class Orchestrator:
                 node["state"] = "FAILED_RETRYABLE"
                 node["retries"] = 0
                 node["selection"] = None
+                node["excluded_providers"] = []  # a retry starts routing afresh
                 node["wait_reason"] = "retry requested by user"
             self._derive_state(record)
             self.store.save(record)
@@ -560,6 +561,8 @@ class Orchestrator:
                     break
                 if active or (record["state"] == "PLANNING" and str(record.get("state_reason") or "").startswith("waiting for the session foreman")):
                     self._sleep(float(record["policy"]["poll_interval_seconds"]))
+                elif str(record.get("state_reason") or "").startswith(USAGE_RESET_WAIT):
+                    self._sleep(max(float(record["policy"]["poll_interval_seconds"]), 30.0))
             return summary
         finally:
             self.store.release_driver(run_id)
@@ -605,6 +608,20 @@ class Orchestrator:
             result = adapter.collect(handle)
             self._handles.pop(key, None)
             self._finish_worker(record, node, result)
+
+    def _usage_reset_wait(self, record: dict[str, Any], node: dict[str, Any]) -> str | None:
+        """When the only reason nothing can run is a provider cooling down
+        (usage limit, open breaker), the wait reason naming the earliest
+        reset; the node waits for it instead of failing."""
+        cooling = _cooling_providers(self.store.home) - set(node.get("excluded_providers") or []) - set(self._paid_blocked(record))
+        enabled = {provider["id"] for provider in self.registry().providers if provider.get("enabled", True)}
+        cooling &= enabled
+        if not cooling:
+            return None
+        entries = _read_cooldowns(self.store.home)
+        until = sorted((str((entries.get(provider) or {}).get("until") or ""), provider) for provider in cooling)
+        moment, provider = until[0]
+        return f"{USAGE_RESET_WAIT} {provider} at {moment[:16].replace('T', ' ')} UTC"
 
     def _loop_check_due(self, key: tuple[str, str], interval: float = 60.0) -> bool:
         """Read a worker's event stream for loops at most once a minute."""
@@ -1196,7 +1213,10 @@ class Orchestrator:
                 and item["kind"] in {"process_error", "timeout", "stuck", "interrupted", "malformed"}
                 and item.get("capability_class", node["capability_class"]) == node["capability_class"]
             ]
-            if kind in PROVIDER_FAILURES or len(same_kind) >= 2:
+            # A quota is temporary and already recorded machine-wide as a
+            # cooldown until its reset; excluding the provider for the node as
+            # well would leave it unroutable after the reset.
+            if (kind in PROVIDER_FAILURES and kind != "quota") or len(same_kind) >= 2:
                 if provider not in node["excluded_providers"]:
                     node["excluded_providers"].append(provider)
                     self.store.append_event(record["run_id"], "provider.failover", node["id"], f"{provider} excluded for this node after {kind}")
@@ -1473,6 +1493,13 @@ class Orchestrator:
             if selection.get("waiting"):
                 node["state"] = "RUNNABLE"
                 node["wait_reason"] = selection["reason"]
+                return False
+            reset = self._usage_reset_wait(record, node)
+            if reset:
+                if node.get("wait_reason") != reset:
+                    self.store.append_event(record["run_id"], "node.waiting", node["id"], reset)
+                node["state"] = "RUNNABLE"
+                node["wait_reason"] = reset
                 return False
             node["state"] = "FAILED_FINAL"
             node["wait_reason"] = f"no provider: {selection['reason']}"
@@ -2083,8 +2110,12 @@ class Orchestrator:
             # Only a tick that actually tried to dispatch can conclude that
             # nothing is runnable; a freshly started run is merely READY.
             deploying = [node for node in waiting if node["role"] == "planner" and str(node.get("wait_reason") or "").startswith("waiting for the session foreman")]
+            resetting = [node for node in waiting if str(node.get("wait_reason") or "").startswith(USAGE_RESET_WAIT)]
             if deploying:  # not blocked: the foreman deployment finishes or falls back on its own
                 state, reason = "PLANNING", deploying[0]["wait_reason"]
+            elif resetting and not any(node["state"] in {"WAITING_FOR_REVIEW", "NEEDS_REPAIR"} for node in nodes):
+                # Not blocked either: usage comes back on its own; the driver sleeps until then.
+                state, reason = "READY", resetting[0]["wait_reason"]
             elif after_dispatch and waiting and not any(node["state"] in {"WAITING_FOR_REVIEW", "NEEDS_REPAIR"} for node in nodes):
                 state, reason = "BLOCKED", "no runnable work: " + "; ".join(f"{node['id']}: {node['wait_reason']}" for node in waiting)[:600]
             elif any(node["state"] == "PASSED" and node["role"] in INTEGRATED_ROLES and not node["integrated"] for node in nodes):
@@ -2415,6 +2446,9 @@ def _run_history_note(home: Path | str) -> str:
         f"- files: {runs} (one folder per run: state.json, events.jsonl, workers/<node>-<attempt>/)\n"
         f"- read-only CLI: set {HOME_ENV}={home} for `python -m agent_os orchestrate list|status|events|report|usage-report|context-anatomy`\n"
     )
+
+
+USAGE_RESET_WAIT = "waiting for usage reset:"
 
 
 def _operator_changed(record: dict[str, Any]) -> None:

@@ -178,7 +178,13 @@ def _score(card: dict[str, Any]) -> dict[str, Any]:
 def report(home: Path | None = None, since: str | None = None, include_benchmarks: bool = False, out: Path | None = None) -> dict[str, Any]:
     result = build(telemetry_files(home), since, include_benchmarks)
     target = Path(out) if out else Path(home or orchestrator_home()) / "reports" / f"usage-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.json"
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(result, indent=2), encoding="utf-8")
-    result["file"] = str(target)
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(result, indent=2), encoding="utf-8")
+        result["file"] = str(target)
+    except OSError as error:
+        # A read-only store (a sandboxed worker reading shared run history)
+        # still gets the report; only the saved copy is skipped.
+        result["file"] = None
+        result["file_error"] = f"{type(error).__name__}: report not saved"
     return result
