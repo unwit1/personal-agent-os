@@ -259,7 +259,7 @@
     S.prep = core.optimisticPrep();
     renderPrep(S.prep);
     await act(button, "continue", "starting the roadmap run", async () => {
-      const result = await api("roadmap/continue", { project: S.project, repository: S.repository || undefined, auto_until_done: untilDone, preference: storageGet("agent-os-preference", "") || null });
+      const result = await api("roadmap/continue", { project: S.project, repository: S.repository || undefined, auto_until_done: untilDone, preference: storageGet("agent-os-preference", "") || null, allow_paid_spend: $("allow-paid").checked });
       S.prep = result.prep;
       renderPrep(result.prep);
       pollPrep(result.prep.id);
@@ -521,13 +521,15 @@
       const goal = $("task-goal").value.trim();
       if (!goal) { showAdvice("Type what the agents should do first, then press Start This Task.", null); return; }
       act(event.currentTarget, "start-task", "starting your task", async () => {
-        await api("runs", { goal, project: S.project, repository: S.repository || undefined, start_recommended: true, auto_continue: true, preference: storageGet("agent-os-preference", "") || undefined });
+        await api("runs", { goal, project: S.project, repository: S.repository || undefined, start_recommended: true, auto_continue: true, preference: storageGet("agent-os-preference", "") || undefined, allow_paid_spend: $("allow-paid").checked });
         $("task-form").classList.add("hidden");
         $("task-goal").value = "";
         await loadHome();
       });
     });
     $("until-done").addEventListener("change", (event) => storageSet("agent-os-until-done", event.target.checked ? "1" : "0"));
+    $("allow-paid").checked = storageGet("agent-os-allow-paid", "0") === "1";
+    $("allow-paid").addEventListener("change", (event) => storageSet("agent-os-allow-paid", event.target.checked ? "1" : "0"));
     $("settings-button").addEventListener("click", () => { $("set-preference").value = storageGet("agent-os-preference", "balanced"); $("settings-dialog").showModal(); });
     $("settings-close").addEventListener("click", () => { storageSet("agent-os-preference", $("set-preference").value); $("settings-dialog").close(); });
     $("explain-close").addEventListener("click", () => $("explain-dialog").close());

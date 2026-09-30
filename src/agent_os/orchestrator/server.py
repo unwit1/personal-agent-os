@@ -214,16 +214,17 @@ class Api:
         for stale in list(self.preps)[:-20]:
             del self.preps[stale]
         auto_until_done = bool(body.get("auto_until_done"))
+        paid = {"allow_paid_spend": True} if body.get("allow_paid_spend") else None
 
         def work() -> None:
             result = roadmap.continue_roadmap(
                 engine, project, body.get("repository") or (None if project else self.default_repository),
                 auto_until_done=auto_until_done, preference=body.get("preference") or None,
-                fresh=bool(body.get("fresh")), prep=prep,
+                fresh=bool(body.get("fresh")), prep=prep, policy=paid,
             )
             if result["action"] in {"started", "resumed"}:
                 if auto_until_done and project:
-                    self.campaigns.ensure(engine, project)
+                    self.campaigns.ensure(engine, project, policy=paid)
                 else:
                     self.drivers.ensure(result["run_id"])
 
@@ -352,6 +353,8 @@ class Api:
                 policy["default_validators"] = [{"kind": "command", "command": command} for command in validators]
             if body.get("preference"):
                 policy["preference"] = body["preference"]
+            if body.get("allow_paid_spend"):
+                policy["allow_paid_spend"] = True
             policy["auto_continue"] = auto
             summary = service.create(
                 str(body.get("goal") or ""),
@@ -389,7 +392,8 @@ class Api:
             elif action == "fresh":
                 record = engine.load(run_id)
                 roadmap._abandon(engine, run_id, "set aside by user (Start Fresh)")
-                return self.start_continue({"project": record.get("project"), "auto_until_done": (record.get("origin") or {}).get("auto_until_done")})
+                return self.start_continue({"project": record.get("project"), "auto_until_done": (record.get("origin") or {}).get("auto_until_done"),
+                                            "allow_paid_spend": bool((record.get("policy") or {}).get("allow_paid_spend"))})
             elif action == "auto-continue":
                 engine.set_auto_continue(run_id, bool(body.get("enabled")))
                 if body.get("enabled"):

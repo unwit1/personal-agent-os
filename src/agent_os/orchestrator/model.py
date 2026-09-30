@@ -154,6 +154,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     "affected_tests_first": "retries",
     # IMP-0014: operator-only opt-out of the worker publication guard.
     "allow_worker_publication": False,
+    # Operator switch: may this run spend outside credits (per-token APIs such
+    # as OpenRouter, rented GPUs)? Off: only subscriptions and local models.
+    "allow_paid_spend": False,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -199,6 +202,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "reuse_validation",
         "planner_repo_map",
         "allow_worker_publication",
+        "allow_paid_spend",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")

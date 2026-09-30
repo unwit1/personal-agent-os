@@ -1297,6 +1297,14 @@ class Orchestrator:
                 blockers.append(other["id"])
         return blockers
 
+    def _paid_blocked(self, record: dict[str, Any]) -> list[str]:
+        """Providers billed to outside credits, when this run may not spend them."""
+        if (record.get("policy") or {}).get("allow_paid_spend"):
+            return []
+        from .model_profile import is_paid
+
+        return [provider["id"] for provider in self.registry().providers if is_paid(provider)]
+
     def _context_misfit(self, provider_id: str, prompt: str) -> str | None:
         """A reason when prompt + harness overhead + an output reserve exceeds
         85% of the provider's declared context window; None when it fits or
@@ -1351,7 +1359,12 @@ class Orchestrator:
         if info.get("status") == "fallback" or (roles.get("planner") and not info.get("applied")):
             return True
         unavailable = {provider for provider, ok in self.availability().items() if not ok}
-        hold = planner_hold(record, self._foreman_home, unavailable)
+        paid = set(self._paid_blocked(record))
+        hold = planner_hold(record, self._foreman_home, unavailable | paid)
+        if "wait" in hold and paid and "wait" not in planner_hold(record, self._foreman_home, unavailable):
+            # Only paid foremen are left and this run may not spend outside credits:
+            # plan with the normal (subscription) planner instead of waiting.
+            hold = {"fallback": "the session foreman uses paid outside credits, which are off for this run"}
         if "wait" in hold:
             node["state"] = "RUNNABLE"
             node["wait_reason"] = hold["wait"]
@@ -1405,7 +1418,7 @@ class Orchestrator:
             role=node["role"],
             preference=policy["preference"],
             availability=self.availability(),
-            excluded=node["excluded_providers"],
+            excluded=node["excluded_providers"] + self._paid_blocked(record),
             excluded_classes=node.get("excluded_classes", {}),
             avoid=avoid,
             running=running,

@@ -687,6 +687,52 @@ class ContextFitTests(OrchestratorFixture):
         self.assertIn("context window", events)
 
 
+class PaidSpendTests(OrchestratorFixture):
+    """allow_paid_spend: off -> only subscriptions and local models, even when a paid route is cheaper."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        paid = provider("paid-api", costs={"fast": 0.01, "balanced": 0.01, "reasoning": 0.01, "frontier": 0.01}, profile={"deployment": "api"})
+        rented = provider("gpu-agent", costs={"fast": 0.02, "balanced": 0.02, "reasoning": 0.02, "frontier": 0.02}, profile={"deployment": "gpu_pod"})
+        local = provider("local-model", costs={"fast": 0.5, "balanced": 0.5, "reasoning": 0.5, "frontier": 0.5}, profile={"deployment": "local"})
+        registry = ProviderRegistry(providers=[paid, rented, local, provider("alpha", profile={"deployment": "subscription"})])
+        for name in ("paid-api", "gpu-agent", "local-model", "alpha"):
+            synthetic.SCRIPTS[name] = __import__("test_orchestrator").edit_script()
+        self.engine = Orchestrator(RunStore(self.tmp / "home"), registry=registry, telemetry_store=LocalTelemetryStore(self.telemetry_path),
+                                   claims_path=self.claims, sleep=lambda seconds: None, session_foreman=True, foreman_home=self.tmp / "foreman")
+
+    def route(self, **policy) -> str:
+        run_id = self.create([self.task("a", review_required=False)], **policy)
+        self.engine.start(run_id)
+        for _ in range(20):
+            self.engine.step(run_id)
+        return self.engine.load(run_id)["nodes"]["a"]["selection"]["provider"]
+
+    def test_default_uses_only_subscriptions_and_local(self) -> None:
+        self.assertIn(self.route(), ("local-model", "alpha"))
+
+    def test_allowed_run_takes_the_cheapest_paid_route(self) -> None:
+        self.assertEqual(self.route(allow_paid_spend=True), "paid-api")
+
+    def test_paid_foreman_falls_back_when_paid_spend_is_off(self) -> None:
+        fd._save_state({"id": "FMN-P", "kind": "openrouter", "status": "ready", "provider_id": "paid-api", "model": {"repo": "x/y"}, "runs": [],
+                        "backups": []}, self.tmp / "foreman")
+        run_id = self.engine.create_run("plan something", repository=self.repo, policy=self.policy(require_distinct_review_provider=False, default_validators=[__import__("test_orchestrator").PASS]))["run_id"]
+        self.engine.start(run_id)
+        for _ in range(30):
+            self.engine.step(run_id)
+        record = self.engine.load(run_id)
+        self.assertNotEqual(record["nodes"]["plan"]["selection"]["provider"], "paid-api")
+        self.assertEqual(record["foreman"]["status"], "fallback")
+        self.assertIn("paid outside credits", record["foreman"]["reason"])
+
+    def test_policy_rejects_non_boolean(self) -> None:
+        from agent_os.orchestrator.model import PolicyError, merge_policy
+
+        with self.assertRaises(PolicyError):
+            merge_policy({"allow_paid_spend": "yes"})
+
+
 class EvalScoringTests(unittest.TestCase):
     """The eval's verdicts on canned foreman answers (the live run uses the same scorer)."""
 

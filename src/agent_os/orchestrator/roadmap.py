@@ -699,7 +699,7 @@ class CampaignThreads:
         thread = self._threads.get(key)
         return bool(thread and thread.is_alive())
 
-    def ensure(self, engine: Any, project: str | None, repository: str | None = None) -> bool:
+    def ensure(self, engine: Any, project: str | None, repository: str | None = None, policy: dict[str, Any] | None = None) -> bool:
         key = project or str(repository)
         with self._lock:
             if self.alive(key):
@@ -709,7 +709,7 @@ class CampaignThreads:
 
             def run() -> None:
                 try:
-                    drive_campaign(engine, project, repository, should_stop=lambda: self._stop.get(key, False))
+                    drive_campaign(engine, project, repository, should_stop=lambda: self._stop.get(key, False), policy=policy)
                 except Exception as exc:
                     self.errors[key] = f"{type(exc).__name__}: {exc}"[:400]
 

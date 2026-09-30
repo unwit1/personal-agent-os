@@ -33,6 +33,15 @@ from typing import Any
 from urllib.parse import urlparse
 
 DEPLOYMENTS = ("subscription", "api", "serverless", "gpu_pod", "local")
+# Deployments billed to outside credits (per token or per GPU-hour), as opposed
+# to flat subscriptions and local hardware. A run uses them only when its
+# policy allows paid spend (allow_paid_spend).
+PAID_DEPLOYMENTS = frozenset({"api", "serverless", "gpu_pod"})
+
+
+def is_paid(provider: dict[str, Any]) -> bool:
+    profile = provider.get("profile") or normalize_profile(None, provider.get("adapter"), provider.get("options"))
+    return str(profile.get("deployment") or "") in PAID_DEPLOYMENTS
 MODALITIES = ("text", "code", "vision", "image", "audio", "multimodal", "embedding")
 REFUSAL_PROFILES = ("standard", "low", "abliterated", "unknown")
 

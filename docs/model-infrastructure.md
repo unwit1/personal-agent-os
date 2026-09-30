@@ -349,3 +349,21 @@ The model you pick never becomes the authorization boundary. Consequential
 writes, pushes/publication (DEC-0022), spending, budget changes and secret
 access stay deterministic policy gates, whichever provider or refusal
 profile serves a task.
+
+## 13. Paid outside credits: off by default, per run
+
+GUI: **Allow paid outside credits for this run (OpenRouter / RunPod)**, next to
+Continue Roadmap and Start This Task. The checkbox is remembered per browser.
+The run policy key is `allow_paid_spend` (default `false`).
+
+- **Off:** the run routes only to your subscriptions (Claude Code, Codex) and
+  local models. Providers with deployment `api`, `gpu_pod` or `serverless`
+  (OpenRouter, API-key workers, rented pods and their coding agents) are
+  excluded, even when they are cheaper. A paid session foreman (OpenRouter or
+  Hugging Face) hands planning to its subscription backup. If it has no backup,
+  the normal planner is used; the reason is recorded in the run.
+- **On:** paid routes compete on cost like any other provider, so the cheapest
+  route that fits wins.
+
+This switch only controls routing. Renting a GPU is still its own operator
+action (Deploy as Foreman), gated by the job budget.
