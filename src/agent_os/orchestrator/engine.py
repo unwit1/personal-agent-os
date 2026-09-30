@@ -398,8 +398,16 @@ class Orchestrator:
                 node = self._node(record, node_id)
                 if node["state"] in ACTIVE_NODE_STATES:
                     raise OrchestratorError(f"{node_id} is still running")
-                if node["state"] == "PASSED":
+                deferred = node["state"] == "PASSED" and (node.get("integration") or {}).get("deferred")
+                if node["state"] == "PASSED" and not deferred:
                     raise OrchestratorError(f"{node_id} already passed; use review-again to re-check it")
+                if deferred:
+                    # A deferred host action merged nothing; once the host
+                    # problem is fixed the step can run again.
+                    node["integrated"] = False
+                    node["integration"] = None
+                    node["completed_at"] = None
+                    record["deferred_host_actions"] = [item for item in record.get("deferred_host_actions") or [] if item.get("node") != node_id]
                 node["state"] = "FAILED_RETRYABLE"
                 node["retries"] = 0
                 node["selection"] = None

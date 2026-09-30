@@ -48,6 +48,11 @@ class HostActionTests(OrchestratorFixture):
     def test_blocked_on_host_is_deferred_without_a_gate(self) -> None:
         record = self.run_blocked("blocked_on_host", "needs a client restart")
         self.assertEqual(record["deferred_host_actions"][0]["node"], "verify")
+        # Once the host is fixed, the deferred step can run again (nothing was merged).
+        retried = self.engine.retry(record["run_id"], "verify")
+        node = next(item for item in retried["nodes"] if item["id"] == "verify")
+        self.assertEqual(node["state"], "FAILED_RETRYABLE")
+        self.assertFalse(self.engine.load(record["run_id"]).get("deferred_host_actions"))
 
     def test_host_level_needs_decision_is_deferred_without_a_gate(self) -> None:
         self.run_blocked("needs_decision", "Can the Agent OS MCP server be restarted from its owning host?")
