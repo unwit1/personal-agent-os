@@ -237,7 +237,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     fmn = actions.add_parser("foreman", help="session foreman: deploy a Hugging Face model on a RunPod GPU within the job budget and use it as the planner for new runs")
     fmn.add_argument("action", choices=["use", "preview", "deploy", "status", "stop", "eval", "strategy", "reap"],
                      help="eval: score the live foreman's per-task model choices and efficiency on labeled planning cases (real calls)")
-    fmn.add_argument("link", nargs="?", help="preview/deploy: Hugging Face model link or org/name; use: claude, chatgpt or local")
+    fmn.add_argument("link", nargs="?", help="preview/deploy: Hugging Face model link or org/name; use: claude, chatgpt, openrouter or local")
     fmn.add_argument("--model", help="use: pin one model (e.g. opus, gpt-6.1-sol, or a local model id)")
     fmn.add_argument("--base-url", help="use local: the OpenAI-compatible server, e.g. http://127.0.0.1:11434")
     fmn.add_argument("--secret-ref", help="use local: secrets://<provider>/<profile> holding the server's API key, if it needs one")

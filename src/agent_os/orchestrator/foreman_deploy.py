@@ -101,7 +101,10 @@ WRAPPER = (
     'cd /tmp/agent-os && exec python3 -m http.server ' + str(PORT)
 )
 ACTIVE = ("planning", "provisioning", "loading", "ready")
-SOURCES = ("claude", "chatgpt", "local", "huggingface")
+SOURCES = ("claude", "chatgpt", "openrouter", "local", "huggingface")
+OPENROUTER_BASE = "https://openrouter.ai/api"
+OPENROUTER_SECRET = "secrets://openrouter/default"
+OPENROUTER_PROVIDER = "foreman-openrouter"
 SUBSCRIPTION_ADAPTERS = {"claude": "claude_code", "chatgpt": "codex_cli"}
 LOCAL_PROVIDER = "foreman-local"
 BYTES_PER_PARAM = {"BF16": 2, "F16": 2, "F32": 2, "F8_E4M3": 1, "F8_E5M2": 1, "I8": 1, "U8": 1, "I32": 4, "I16": 2, "F64": 2}
@@ -532,6 +535,28 @@ def default_backups(primary_provider: str, registry=None) -> list[dict[str, Any]
             for kind, choice in subscription_choices(registry).items() if choice["provider"] != primary_provider]
 
 
+def openrouter_models(opener=None) -> list[dict[str, Any]]:
+    """OpenRouter's public model list with per-token prices (USD per million
+    tokens), text models only, cheapest input first. No key needed."""
+    status, payload = _http(opener, "GET", f"{OPENROUTER_BASE}/v1/models", timeout=30)
+    if status != 200 or not isinstance(payload, dict):
+        raise ValueError(f"OpenRouter model list unavailable (HTTP {status})")
+    out = []
+    for item in payload.get("data") or []:
+        pricing = item.get("pricing") or {}
+        modality = str((item.get("architecture") or {}).get("output_modalities") or ["text"])
+        try:
+            price_in, price_out = float(pricing.get("prompt") or 0) * 1e6, float(pricing.get("completion") or 0) * 1e6
+        except (TypeError, ValueError):
+            continue
+        if price_in < 0 or price_out < 0 or "text" not in modality:
+            continue
+        out.append({"id": item.get("id"), "name": item.get("name"), "usd_per_mtok_in": round(price_in, 4), "usd_per_mtok_out": round(price_out, 4),
+                    "context": item.get("context_length"), "tools": "tools" in (item.get("supported_parameters") or [])})
+    out.sort(key=lambda row: (row["usd_per_mtok_in"] + 0.25 * row["usd_per_mtok_out"], row["id"]))
+    return out
+
+
 def local_models(base_url: str, key: str | None = None, opener=None) -> list[str]:
     """Model ids an OpenAI-compatible server lists at /v1/models."""
     if not str(base_url or "").startswith(("http://", "https://")):
@@ -661,9 +686,22 @@ class ForemanManager:
             backups: list[str] | None = None) -> dict[str, Any]:
         """Make a subscription model (claude / chatgpt) or a locally served model
         the session foreman. No rental, so it is ready at once."""
-        if kind not in ("claude", "chatgpt", "local"):
-            raise ValueError(f"source must be claude, chatgpt or local (huggingface uses deploy), got {kind!r}")
-        if kind == "local":
+        if kind not in ("claude", "chatgpt", "openrouter", "local"):
+            raise ValueError(f"source must be claude, chatgpt, openrouter or local (huggingface uses deploy), got {kind!r}")
+        if kind == "openrouter":
+            if not self.resolve(OPENROUTER_SECRET):
+                raise ValueError("OpenRouter API key missing: orchestrate secrets setup (openrouter.ai > Keys; set a credit limit on the key)")
+            if not model:
+                raise ValueError("pick an OpenRouter model id, e.g. qwen/qwen3-235b-a22b-2507 (see the model list)")
+            listed = {row["id"]: row for row in openrouter_models(self.opener)}
+            if model not in listed:
+                raise ValueError(f"OpenRouter does not list {model!r}")
+            row = listed[model]
+            fields = {"provider_id": OPENROUTER_PROVIDER, "base_url": OPENROUTER_BASE, "secret_ref": OPENROUTER_SECRET, "deployment": "api",
+                      "model": {"repo": model, "usd_per_mtok_in": row["usd_per_mtok_in"], "usd_per_mtok_out": row["usd_per_mtok_out"],
+                                "context": row["context"]},
+                      "registered": True, "detail": f"OpenRouter per-token: ${row['usd_per_mtok_in']}/M in, ${row['usd_per_mtok_out']}/M out; no rental"}
+        elif kind == "local":
             if not base_url:
                 raise ValueError("a local model needs its server URL, e.g. http://127.0.0.1:11434 (Ollama) or http://127.0.0.1:8000 (vLLM)")
             key = self.resolve(secret_ref) if secret_ref else None
@@ -756,7 +794,7 @@ class ForemanManager:
         if state.get("status") == PENDING:
             self._teardown(state, state.get("pending_status") or "stopped", "pod delete retried by the reaper")
             return {**self.status(), "reaped": True}
-        if state.get("status") not in ACTIVE or not state.get("pod_id") or state.get("kind") in ("claude", "chatgpt", "local"):
+        if state.get("status") not in ACTIVE or not state.get("pod_id") or state.get("kind") in ("claude", "chatgpt", "openrouter", "local"):
             return {**self.status(), "reaped": False}
         beat = float(state.get("watchdog_epoch") or state.get("pod_created_epoch") or 0)
         silent = self.clock() - beat
@@ -771,7 +809,7 @@ class ForemanManager:
         if state.get("status") == PENDING:
             self._teardown(state, state.get("pending_status") or "stopped", "pod delete retried after a restart")
             return self.status()
-        if state.get("status") not in ACTIVE or state.get("kind") in ("claude", "chatgpt", "local"):
+        if state.get("status") not in ACTIVE or state.get("kind") in ("claude", "chatgpt", "openrouter", "local"):
             return self.status()  # nothing rented: nothing to meter or enforce
         if not state.get("pod_id"):
             # Interrupted between "create pod" and saving its id: delete any pod with our name.
@@ -1022,12 +1060,16 @@ def _register_provider(state: dict[str, Any]) -> None:
     from .service import add_model_endpoint
 
     model = state["model"]
-    local = state.get("kind") == "local"
+    kind = state.get("kind")
+    local, api = kind == "local", kind == "openrouter"
     entry = endpoint_entry(state["provider_id"], base_url=state["base_url"], model=model["repo"], classes=["fast", "balanced", "reasoning", "frontier"],
-                           refusal_profile=model.get("refusal_hint") or "unknown", deployment=None if local else "gpu_pod",
-                           open_weights=None if local else True, license=model.get("license"), revision=model.get("sha"),
-                           context_window=None if local else context_for(model), secret_ref=state.get("secret_ref") if local else ENDPOINT_SECRET,
-                           cost=0.25, max_concurrency=4 if not local else 2, roles=["planner", "inline"])
+                           refusal_profile=model.get("refusal_hint") or "unknown", deployment="api" if api else None if local else "gpu_pod",
+                           open_weights=None if (local or api) else True, license=model.get("license"), revision=model.get("sha"),
+                           context_window=model.get("context") if api else None if local else context_for(model),
+                           secret_ref=state.get("secret_ref") if (local or api) else ENDPOINT_SECRET,
+                           cost=0.05 if api else 0.25, max_concurrency=4 if not local else 2, roles=["planner", "inline"])
+    if api:
+        entry["options"]["request_timeout"] = 600
     entry["options"]["request_timeout"] = 900
     entry["session_foreman"] = state["id"]
     result = add_model_endpoint(entry, write=True, force=True)

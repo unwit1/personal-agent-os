@@ -461,6 +461,32 @@ class SourceTests(Base):
         self.assertNotIn("secret_ref", captured["options"])
         self.assertIsNotNone(endpoint_entry)
 
+    def test_openrouter_foreman_validates_the_model_and_registers_a_per_token_endpoint(self) -> None:
+        listing = {"data": [{"id": "qwen/qwen3-235b-a22b-2507", "pricing": {"prompt": "0.000000087", "completion": "0.00000035"}, "context_length": 262144,
+                             "supported_parameters": ["tools"], "architecture": {"output_modalities": ["text"]}},
+                            {"id": "img/model", "pricing": {"prompt": "0.000001", "completion": "0"}, "architecture": {"output_modalities": ["image"]}}]}
+        cloud = self.cloud
+
+        def opener(request, timeout=None):
+            if request.full_url == fd.OPENROUTER_BASE + "/v1/models":
+                return _Response(200, listing)
+            return cloud(request, timeout)
+
+        self.assertEqual([row["id"] for row in fd.openrouter_models(opener)], ["qwen/qwen3-235b-a22b-2507"])  # image model dropped
+        manager = self.manager(registry=SUBSCRIPTIONS, opener=opener)
+        with self.assertRaisesRegex(ValueError, "API key missing"):
+            manager.use("openrouter", model="qwen/qwen3-235b-a22b-2507")
+        self.secrets[fd.OPENROUTER_SECRET] = "or-key"
+        with self.assertRaisesRegex(ValueError, "does not list"):
+            manager.use("openrouter", model="nope/nope")
+        status = manager.use("openrouter", model="qwen/qwen3-235b-a22b-2507")
+        self.assertEqual((status["kind"], status["provider_id"], status["model"]["usd_per_mtok_in"]), ("openrouter", fd.OPENROUTER_PROVIDER, 0.087))
+        self.assertEqual(self.registered[-1]["base_url"], fd.OPENROUTER_BASE)
+        self.assertNotIn("or-key", json.dumps(fd.load_state(self.foreman_home)))
+        self.assertFalse(manager.reap()["reaped"])  # nothing rented
+        manager.stop()
+        self.assertEqual(self.unregistered, [fd.OPENROUTER_PROVIDER])
+
     def test_switching_from_a_rented_pod_deletes_it_first(self) -> None:
         budget.set_budget(10, 10, home=self.budget_home)
         fd._save_state({"id": "FMN-1", "kind": "huggingface", "status": "ready", "pod_id": "podH", "provider_id": "foreman-x", "registered": True,

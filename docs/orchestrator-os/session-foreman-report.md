@@ -101,3 +101,38 @@ that led to the crash reporter).
   its deadline.
 - Adding RunPod credit from a saved card is a payment action I will not take;
   top up in the RunPod console if needed.
+
+## Cost research: RunPod vs OpenRouter vs Vast.ai (2026-09-30)
+
+Measured on this machine, not only list prices:
+
+| Option | What it really cost | Per foreman plan (about 1.7k in / 0.5k out) |
+|---|---|---|
+| RunPod pod, Qwen2.5-14B | Listed from $0.16/h, but the cheap cards were rarely obtainable. Rented at $0.80, $1.58 and $1.64/h, plus about $0.15–0.30 of load time per deployment | about **$0.03** (7 plans for about $0.17–0.23) |
+| Vast.ai | List prices similar to RunPod (RTX 3090 $0.12/h, A5000 $0.23/h, A100-40GB $0.40/h), with host reliability 0.93–0.999 | same economics as a pod |
+| OpenRouter `qwen/qwen3-14b` | $0.12/M in, $0.24/M out, no load, no idle | about **$0.0003** |
+| OpenRouter `qwen/qwen3-235b-a22b-2507` | $0.087/M in, $0.35/M out | about $0.0003, and a much stronger model |
+| OpenRouter `openai/gpt-oss-120b` | $0.037/M in, $0.17/M out | about $0.0001 |
+
+**Conclusion: for planning and small inline tasks, a per-token API is about 100×
+cheaper than renting a GPU.**
+
+- A $1.20/h pod only breaks even at roughly 3,000+ plans per hour, which means
+  sustained batch saturation.
+- OpenRouter aggregates Together, DeepInfra, Fireworks and others, so one
+  integration covers them. OpenRouter is now a foreman source (`foreman use
+  openrouter --model …`, GUI list with live prices).
+- It needs an OpenRouter key: openrouter.ai → Keys, then store it with
+  `orchestrate secrets setup`. Put a credit limit on the key; that limit is the
+  hard spend cap.
+
+Rent a GPU only when:
+- a batch job keeps it saturated (throughput beats the per-token price only
+  near full utilization);
+- training or fine-tuning (LoRA);
+- image or audio models no API serves;
+- custom or abliterated weights no API hosts;
+- you want no third-party inference API in the data path.
+
+The existing quote engine (`orchestrate quote`) already compares API vs GPU
+pod vs serverless for a described workload.

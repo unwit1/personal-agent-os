@@ -115,12 +115,22 @@
         <label>Foreman<select id="fm-source">
           <option value="claude">Claude (your subscription)</option>
           <option value="chatgpt">ChatGPT (your subscription)</option>
+          <option value="openrouter">OpenRouter model (pay per token, no rental)</option>
           <option value="local">Local model (a server on this computer)</option>
           <option value="huggingface">Hugging Face model (rented GPU)</option>
         </select></label>
         <div id="fm-sub" class="fm-group">
           <label>Model<select id="fm-sub-model"></select></label>
           <div class="row"><button id="fm-use" class="primary">Use as Foreman</button></div>
+        </div>
+        <div id="fm-or" class="fm-group hidden">
+          <div class="row">
+            <label>OpenRouter model<input id="fm-or-model" list="fm-or-list" placeholder="qwen/qwen3-235b-a22b-2507" autocomplete="off" spellcheck="false"></label>
+            <button id="fm-or-load">List Models &amp; Prices</button>
+          </div>
+          <datalist id="fm-or-list"></datalist>
+          <p class="muted">Pay per token with your OpenRouter key: no GPU, no idle cost. Set a credit limit on the key in OpenRouter; it is the hard cap.</p>
+          <div class="row"><button id="fm-use-or" class="primary">Use as Foreman</button></div>
         </div>
         <div id="fm-local" class="fm-group hidden">
           <div class="row">

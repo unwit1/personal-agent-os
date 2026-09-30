@@ -367,12 +367,13 @@
 
   function money(value) { return value == null ? "—" : `$${Number(value).toFixed(2)}`; }
 
-  const SOURCE_LABEL = { claude: "Claude", chatgpt: "ChatGPT", local: "Local model", huggingface: "Hugging Face" };
+  const SOURCE_LABEL = { claude: "Claude", chatgpt: "ChatGPT", openrouter: "OpenRouter", local: "Local model", huggingface: "Hugging Face" };
 
   function showSource() {
     const source = $("fm-source").value;
     $("fm-sub").classList.toggle("hidden", !["claude", "chatgpt"].includes(source));
     $("fm-local").classList.toggle("hidden", source !== "local");
+    $("fm-or").classList.toggle("hidden", source !== "openrouter");
     $("fm-hf").classList.toggle("hidden", source !== "huggingface");
     const choice = (S.foremanChoices || {})[source];
     if (choice) {
@@ -475,6 +476,12 @@
       const { models } = await api("foreman/local-models", { base_url: $("fm-local-url").value.trim() });
       $("fm-local-model").replaceChildren(...(models.length ? models.map((m) => el("option", { value: m }, m)) : [el("option", { value: "" }, "(no models loaded)")]));
     }));
+    $("fm-or-load").addEventListener("click", (event) => act(event.currentTarget, "refresh", "reading OpenRouter's model list and prices", async () => {
+      const { models } = await api("foreman/openrouter-models", {});
+      $("fm-or-list").replaceChildren(...models.map((m) => el("option", { value: m.id }, `$${m.usd_per_mtok_in}/M in · $${m.usd_per_mtok_out}/M out · ${Math.round((m.context || 0) / 1000)}k ctx`)));
+      toast(`${models.length} OpenRouter models listed, cheapest first`);
+    }));
+    $("fm-use-or").addEventListener("click", (event) => useForeman(event.currentTarget, { kind: "openrouter", model: $("fm-or-model").value.trim() }));
     $("fm-use-local").addEventListener("click", (event) => useForeman(event.currentTarget, { kind: "local", base_url: $("fm-local-url").value.trim(), model: $("fm-local-model").value || undefined }));
     $("foreman-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the session foreman", loadForeman); });
     $("fm-preview").addEventListener("click", (event) => act(event.currentTarget, "refresh", "reading the model and GPU prices", previewForeman));

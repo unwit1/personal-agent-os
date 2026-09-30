@@ -321,6 +321,10 @@ class Api:
             return foreman_deploy.manager().use(str(body.get("kind") or ""), model=body.get("model") or None,
                                                 base_url=body.get("base_url") or None, secret_ref=body.get("secret_ref") or None,
                                                 backups=None if backups in (None, "auto") else list(backups))
+        if parts == ["foreman", "openrouter-models"]:
+            from . import foreman_deploy
+
+            return {"models": foreman_deploy.openrouter_models()[:200]}
         if parts == ["foreman", "local-models"]:
             from . import foreman_deploy
 
