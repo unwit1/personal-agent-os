@@ -38,10 +38,10 @@ class SetupTests(unittest.TestCase):
             os.environ.pop(secret_refs.env_var(item["ref"]), None)
 
     def test_stores_entered_values_skips_blank_and_never_returns_them(self) -> None:
-        answers = iter(["rp-secret-123", "", None])
+        answers = iter(["rp-secret-123", "", None, None])  # runpod, openrouter, huggingface, local endpoint
         prompts = []
         results = secret_prompt.setup(prompt=lambda title, message: prompts.append((title, message)) or next(answers))
-        self.assertEqual([r["action"] for r in results], ["stored", "skipped", "skipped"])
+        self.assertEqual([r["action"] for r in results], ["stored", "skipped", "skipped", "skipped"])
         self.assertEqual(self.keyring.store[("agent-os", "runpod/default")], "rp-secret-123")
         self.assertNotIn("rp-secret-123", json.dumps(results))
         self.assertIn("Credential Manager", prompts[0][1])
