@@ -1119,6 +1119,17 @@ training/adaptation; artifact/checkpoint persistence; and continuous discovery o
 new models/providers. The current Orchestrator status marks this as the active
 operator-requested next action. Paid compute remains budget/approval gated.
 
+**2026-09-30 expansion:** IMP-0015 now includes a high-priority, measurement-first
+third-party optimization track for model swapping, delegation, and GPU/runtime
+efficiency: SkyPilot + a native RunPod fast path; TensorZero; PydanticAI-style
+isolated subagent delegation; AgentScope team/router patterns; RouteLLM-style
+calibrated escalation; LiteLLM as borrow/optional isolated adapter; vLLM vs
+SGLang runtime A/B testing; LMCache cache reuse; and AIBrix/llm-d when
+multi-replica or multi-GPU scale makes them worthwhile. Promote integrations
+only when Agent OS EVR/CAP evidence shows noninferior validation and material
+improvement in cost per verified successful task, utilization, reliability,
+latency, or useful development throughput.
+
 
 ## Operator-priority: Context Efficiency & Token Amplification
 
