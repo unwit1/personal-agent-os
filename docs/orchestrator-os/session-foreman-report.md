@@ -221,3 +221,28 @@ What each prompt spends its window on, measured without model calls:
 | Requests did not fit the model's window | Codex requests were 455 KB (about 110k tokens) against a 64k vLLM window, failing 3 attempts | Codex tool trim (31.7 KB). **Context-fit routing**: prompt + measured harness overhead + an output reserve over 85% of a declared window routes the task elsewhere (`context.misfit` event) |
 | Prefix-cache ordering | Planner prompts for different goals share only 282 chars of prefix. But the static part is about 850 tokens, below the 1,024-token caching minimum at OpenAI/Anthropic, and the harness prompts are already cached (41k of 46k Codex input tokens came from cache) | Not worth reordering; skipped |
 | Prompt compression (PA-llmlingua) | Cost is dominated by harness tool schemas, now trimmed, not by prompt text | Still DEFER |
+
+## Larger held-out set and eval-gated ranking (2026-09-30)
+
+holdout2 has 12 new cases, written before any further tuning and never tuned on.
+
+| Foreman | holdout2 raw → strategy | Valid | Tokens in / plan |
+|---|---|---|---|
+| Claude Opus 5.5 | 67% → **92%** | 100% | 9.1k |
+| ChatGPT gpt-6-astra | 58% → **92%** | 100% | **12.1k** (was 17.2k before the Codex tool trim: −30%, live) |
+| deepseek-v4-flash | 58% → 83% | 83% | 1.7k |
+| qwen3-32b (dev2) | 25% → 42% | 58% | 1.6k |
+
+- The 6-case held-out split was noisy. Pooled over all 18 held-out cases,
+  deepseek-v4-flash reaches 72%, not the 50% the 6 cases suggested.
+- The deterministic strategy adds about 25–34 points on unseen cases, even for
+  Opus.
+- `orchestrate foreman strategy` now prints `foreman_ranking`. A model qualifies
+  only with ≥ 12 scored plans and a Wilson 95% lower bound ≥ 0.70 on its
+  after-strategy pass rate. It is advisory: nothing switches automatically.
+  - Qualified: deepseek-v4-flash (37 plans, 86%, lower bound 0.72).
+  - Opus and gpt-6-astra have the best averages (89%) but only 18 pooled plans
+    (lower bound 0.67). They qualify with more samples, and the gate is right
+    not to decide on thin evidence.
+- Foreman evals now write CAP evidence (`foreman_planning`): 121 observations,
+  and 8 CAP records in `projects/personal-agent-os/orchestrator-os/records/capability/`.

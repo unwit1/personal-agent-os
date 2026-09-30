@@ -1,0 +1,104 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-4c543e5f84",
+  "type": "CAP",
+  "title": "foreman_planning via codex/None (medium)",
+  "status": "active",
+  "key": {
+    "task_family": "foreman_planning",
+    "role": "planner",
+    "provider": "codex",
+    "model_resolved": null,
+    "effort": "medium",
+    "toolset": "none"
+  },
+  "metrics": {
+    "sample_count": 14,
+    "final_success": 5,
+    "validator_pass_rate": 0.357,
+    "pass_rate_wilson95": [
+      0.163,
+      0.612
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.36,
+    "contract_pass_rate": 0.357,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 21.41,
+    "mean_input_tokens": 17211.14,
+    "mean_output_tokens": 948.43,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "invalid plan": 7,
+      "task count out of range": 2
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T200222Z:docs-typo"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T200222Z:cli-flag"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T200222Z:tests-existing"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T200222Z:multi-file-feature"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T200222Z:flaky-investigation"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T200222Z:concurrency-design"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T200222Z:security-audit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T215501Z:docs-typo"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T215501Z:cli-flag"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T215501Z:tests-existing"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T215501Z:multi-file-feature"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T215501Z:flaky-investigation"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T215501Z:concurrency-design"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T215501Z:security-audit"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "20260929T200222Z",
+    "observed_to": "20260929T215501Z"
+  },
+  "updated_at": "2026-09-30T14:42:57.783762+00:00"
+}

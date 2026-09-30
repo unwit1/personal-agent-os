@@ -1,0 +1,101 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-8de825c293",
+  "type": "CAP",
+  "title": "foreman_planning via foreman-qwen2-5-14b-instruct/Qwen/Qwen2.5-14B-Instruct (medium)",
+  "status": "active",
+  "key": {
+    "task_family": "foreman_planning",
+    "role": "planner",
+    "provider": "foreman-qwen2-5-14b-instruct",
+    "model_resolved": "Qwen/Qwen2.5-14B-Instruct",
+    "effort": "medium",
+    "toolset": "none"
+  },
+  "metrics": {
+    "sample_count": 13,
+    "final_success": 9,
+    "validator_pass_rate": 0.692,
+    "pass_rate_wilson95": [
+      0.424,
+      0.873
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.69,
+    "contract_pass_rate": 0.692,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 15.54,
+    "mean_input_tokens": 1665.77,
+    "mean_output_tokens": 589.0,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "invalid plan": 2,
+      "under-provisioned": 1,
+      "task count out of range": 1
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T220427Z:docs-typo"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T220427Z:cli-flag"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T220427Z:tests-existing"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T220427Z:multi-file-feature"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T220427Z:flaky-investigation"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T220427Z:concurrency-design"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T220427Z:security-audit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221829Z:ho-version-bump"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221829Z:ho-list-limit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221829Z:ho-blocked-badge"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221829Z:ho-double-release"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221829Z:ho-rate-limit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221829Z:ho-secret-retention"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "20260929T220427Z",
+    "observed_to": "20260929T221829Z"
+  },
+  "updated_at": "2026-09-30T14:42:57.783960+00:00"
+}

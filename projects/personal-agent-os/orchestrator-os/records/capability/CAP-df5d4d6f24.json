@@ -1,0 +1,128 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-df5d4d6f24",
+  "type": "CAP",
+  "title": "foreman_planning via foreman-openrouter/qwen/qwen3-32b (medium)",
+  "status": "active",
+  "key": {
+    "task_family": "foreman_planning",
+    "role": "planner",
+    "provider": "foreman-openrouter",
+    "model_resolved": "qwen/qwen3-32b",
+    "effort": "medium",
+    "toolset": "none"
+  },
+  "metrics": {
+    "sample_count": 25,
+    "final_success": 12,
+    "validator_pass_rate": 0.48,
+    "pass_rate_wilson95": [
+      0.3,
+      0.665
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.48,
+    "contract_pass_rate": 0.48,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 49.06,
+    "mean_input_tokens": 1645.72,
+    "mean_output_tokens": 1946.68,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "invalid plan": 8,
+      "under-provisioned": 5
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:concurrency-design"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:security-audit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:ho-version-bump"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:ho-list-limit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:ho-blocked-badge"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:ho-double-release"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:ho-rate-limit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T135627Z:ho-secret-retention"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-docstring"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-constant"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-cli-json"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-retry-test"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-gui-sort"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-usage-field"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-slow-tests"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-stale-cache"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-idempotent-ledger"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-scheduler-fairness"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-token-exposure"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143101Z:d2-rename"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "20260930T135627Z",
+    "observed_to": "20260930T143101Z"
+  },
+  "updated_at": "2026-09-30T14:42:57.783935+00:00"
+}
