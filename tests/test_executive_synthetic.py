@@ -18,7 +18,7 @@ class SyntheticGatewayTests(unittest.TestCase):
         gateway = SyntheticDashboardGateway(
             applicants=[{
                 "applicant_key": "internal-key", "agent_ref": "app-opaque", "name": "Example Person",
-                "position": "Driver", "status": "New", "county": "Test", "email": "test@example.invalid",
+                "position": "Driver", "status": "New", "county_preference": "Test", "email": "test@example.invalid",
                 "aa_pdf_path": "RESTRICTED_PATH", "race": "RESTRICTED_RACE",
                 "source_key": "RESTRICTED_SOURCE", "match": {"match": True, "reasons": ["County fit"]},
             }],
@@ -35,6 +35,9 @@ class SyntheticGatewayTests(unittest.TestCase):
     def _exercise_gateway(self, gateway, slot):
         applicant, review = gateway.ranked()[0]
         self.assertEqual(applicant["applicant_ref"], "app-opaque")
+        self.assertEqual(applicant["county"], "Test")
+        self.assertEqual(applicant["email"], "test@example.invalid")
+        self.assertNotIn("county_preference", applicant)
         self.assertNotIn("applicant_key", applicant)
         self.assertEqual(review["score"], 80)
         self.assertTrue(gateway.match_for(applicant)["match"])
@@ -46,7 +49,7 @@ class SyntheticGatewayTests(unittest.TestCase):
         self.assertIn("Driver", subject)
         self.assertIn("Please reply", body)
         self.assertEqual(gateway.record_outreach_drafted("app-opaque", slots, "phone", "office", 30, "draft.txt", manager), "synthetic-draft-1")
-        self.assertEqual(gateway.send_now("app-opaque", "interview", "test@example.invalid", subject, body), "synthetic-email-1")
+        self.assertEqual(gateway.send_now("app-opaque", "interview", applicant["email"], subject, body), "synthetic-email-1")
         self.assertEqual([call[0] for call in gateway.calls[:7]], [
             "ranked", "match_for", "manager_for", "suggest_slots", "render_outreach",
             "record_outreach_drafted", "send_now"])

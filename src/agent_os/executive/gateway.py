@@ -12,7 +12,7 @@ from typing import Any, Protocol
 from agent_os import rtec_applicants
 
 
-_APPLICANT_FIELDS = ("name", "position", "submitted", "status", "county", "city")
+_APPLICANT_FIELDS = ("name", "position", "submitted", "status", "county", "city", "email")
 _MATCH_FIELDS = ("match", "pending", "primary", "alternates", "reasons", "groups", "group_label", "manager")
 _REVIEW_FIELDS = ("summary", "strengths", "concerns")
 _REVIEWABLE = {"New", "Interested", "Interview Requested", "Clarification Requested"}
@@ -29,6 +29,8 @@ def _project(applicant: Any) -> dict[str, Any]:
         raise ValueError("Dashboard applicant has no opaque applicant_ref")
     result = {"applicant_ref": str(ref)}
     result.update({key: _value(applicant, key) for key in _APPLICANT_FIELDS})
+    if not result["county"]:
+        result["county"] = _value(applicant, "county_preference")
     return result
 
 
@@ -128,7 +130,7 @@ class LocalDashboardGateway:
             if not ref:
                 continue
             safe = _project({"applicant_ref": ref, **{
-                field: _value(applicant, field) for field in _APPLICANT_FIELDS
+                field: _value(applicant, field) for field in (*_APPLICANT_FIELDS, "county_preference")
             }})
             result.append((safe, _review(review)))
         return result

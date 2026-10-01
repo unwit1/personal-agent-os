@@ -25,6 +25,7 @@ class LocalGatewayTests(unittest.TestCase):
             conn.commit()
             conn.close()
             raw = {"applicant_key": "private-key", "name": "Test Person", "status": "New",
+                   "county_preference": "Pulaski", "email": "test@example.invalid",
                    "aa_pdf_path": "restricted.pdf", "source_key": "private-source"}
             skipped = [{**raw, "applicant_key": "other", "status": "Hired"},
                        {**raw, "applicant_key": "missing"}, {"status": "New"}]
@@ -59,7 +60,11 @@ class LocalGatewayTests(unittest.TestCase):
                     return types.SimpleNamespace(render_outreach=lambda *args: ("Subject", "Body"),
                         record_outreach_drafted=lambda *args: "draft-1")
                 if name == "email_sender":
-                    return types.SimpleNamespace(send_now=lambda *args: "email-1")
+                    def send_now(key, kind, to_addr, subject, body):
+                        self.assertEqual(key, "private-key")
+                        self.assertEqual(to_addr, "test@example.invalid")
+                        return "email-1"
+                    return types.SimpleNamespace(send_now=send_now)
                 raise AssertionError(name)
 
             real_connect = rtec_applicants._connect_readonly
@@ -78,6 +83,8 @@ class LocalGatewayTests(unittest.TestCase):
                 self.assertEqual(len(connections), 1)
                 applicant, review = ranked[0]
                 self.assertEqual(applicant["applicant_ref"], "app-test")
+                self.assertEqual(applicant["county"], "Pulaski")
+                self.assertEqual(applicant["email"], "test@example.invalid")
                 self.assertEqual(review["score"], 75)
                 self.assertNotIn("applicant_key", applicant)
                 self.assertNotIn("aa_pdf_path", applicant)
@@ -89,7 +96,7 @@ class LocalGatewayTests(unittest.TestCase):
                 slots = gateway.suggest_slots(manager, 30, 1)
                 self.assertEqual(gateway.render_outreach("Test Person", "Driver", slots, "phone", "office", 30, "", "Test"), ("Subject", "Body"))
                 self.assertEqual(gateway.record_outreach_drafted("app-test", slots, "phone", "office", 30, "draft", manager), "draft-1")
-                self.assertEqual(gateway.send_now("app-test", "interview", "test@example.invalid", "Subject", "Body"), "email-1")
+                self.assertEqual(gateway.send_now("app-test", "interview", applicant["email"], "Subject", "Body"), "email-1")
                 with self.assertRaisesRegex(KeyError, "Unknown applicant_ref"):
                     gateway.match_for({"applicant_ref": "app-unknown"})
 
