@@ -13,9 +13,6 @@ from agent_os import rtec_applicants
 
 
 _APPLICANT_FIELDS = ("name", "position", "submitted", "status", "county", "city")
-# Dashboard matching uses the applicant's geographic preference as well as
-# location. Keep it available to native Dashboard calls, never to Executive DTOs.
-_DASHBOARD_FIELDS = (*_APPLICANT_FIELDS, "county_preference", "email")
 _MATCH_FIELDS = ("match", "pending", "primary", "alternates", "reasons", "groups", "group_label", "manager")
 _REVIEW_FIELDS = ("summary", "strengths", "concerns")
 _REVIEWABLE = {"New", "Interested", "Interview Requested", "Clarification Requested"}
@@ -25,22 +22,13 @@ def _value(obj: Any, key: str, default: Any = None) -> Any:
     return obj.get(key, default) if isinstance(obj, dict) else getattr(obj, key, default)
 
 
-def _project(applicant: Any, *, email: bool = False) -> dict[str, Any]:
+def _project(applicant: Any) -> dict[str, Any]:
     """Allow only ordinary recruiting fields to cross the gateway."""
     ref = _value(applicant, "applicant_ref") or _value(applicant, "agent_ref")
     if not ref:
         raise ValueError("Dashboard applicant has no opaque applicant_ref")
     result = {"applicant_ref": str(ref)}
     result.update({key: _value(applicant, key) for key in _APPLICANT_FIELDS})
-    if email:
-        result["email"] = _value(applicant, "email")
-    return result
-
-
-def _internal(applicant: Any, ref: str) -> dict[str, Any]:
-    """Dashboard calls receive only the fields needed for recruiting operations."""
-    result = {key: _value(applicant, key) for key in ("applicant_key", *_DASHBOARD_FIELDS)}
-    result["agent_ref"] = ref
     return result
 
 
@@ -99,11 +87,8 @@ class LocalDashboardGateway:
         conn = rtec_applicants._connect_readonly()
         try:
             rtec_applicants._require_agent_ref_schema(conn)
-            columns = rtec_applicants._table_columns(conn, "applicants")
-            wanted = ("applicant_key", "agent_ref", *_DASHBOARD_FIELDS)
-            selected = [column for column in wanted if column in columns]
             row = conn.execute(
-                f"SELECT {', '.join(selected)} FROM applicants WHERE agent_ref = ?", (ref,)
+                "SELECT * FROM applicants WHERE agent_ref = ?", (ref,)
             ).fetchone()
             if row is None:
                 raise KeyError("Unknown applicant_ref")
@@ -142,8 +127,9 @@ class LocalDashboardGateway:
                 ref = refs_by_key.get(key)
             if not ref:
                 continue
-            internal = _internal(applicant, ref)
-            safe = _project(internal)
+            safe = _project({"applicant_ref": ref, **{
+                field: _value(applicant, field) for field in _APPLICANT_FIELDS
+            }})
             result.append((safe, _review(review)))
         return result
 

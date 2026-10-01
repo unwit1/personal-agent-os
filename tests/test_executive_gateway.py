@@ -20,8 +20,8 @@ class LocalGatewayTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             conn = sqlite3.connect(root / "dashboard.db")
-            conn.execute("CREATE TABLE applicants (applicant_key TEXT, agent_ref TEXT, name TEXT, status TEXT, email TEXT, county_preference TEXT)")
-            conn.execute("INSERT INTO applicants VALUES ('private-key', 'app-test', 'Test Person', 'New', 'test@example.invalid', 'Pulaski')")
+            conn.execute("CREATE TABLE applicants (applicant_key TEXT, agent_ref TEXT, name TEXT, status TEXT, email TEXT, county_preference TEXT, availability TEXT, aa_pdf_path TEXT, source_key TEXT)")
+            conn.execute("INSERT INTO applicants VALUES ('private-key', 'app-test', 'Test Person', 'New', 'test@example.invalid', 'Pulaski', 'weekdays', 'restricted.pdf', 'private-source')")
             conn.commit()
             conn.close()
             raw = {"applicant_key": "private-key", "name": "Test Person", "status": "New",
@@ -42,14 +42,16 @@ class LocalGatewayTests(unittest.TestCase):
                         review_all=forbidden, review_applicant=forbidden)
                 if name == "opening_match":
                     def match_for(applicant):
-                        self.assertNotIn("aa_pdf_path", applicant)
-                        self.assertNotIn("source_key", applicant)
                         self.assertEqual(applicant["county_preference"], "Pulaski")
+                        self.assertEqual(applicant["availability"], "weekdays")
+                        self.assertEqual(applicant["aa_pdf_path"], "restricted.pdf")
+                        self.assertEqual(applicant["source_key"], "private-source")
                         return {"match": True, "reasons": ["Fit"], "source_key": "private-source"}
                     return types.SimpleNamespace(match_for=match_for)
                 if name == "interview_calendar":
                     def manager_for(applicant):
                         self.assertEqual(applicant["county_preference"], "Pulaski")
+                        self.assertEqual(applicant["availability"], "weekdays")
                         return "Manager"
                     return types.SimpleNamespace(manager_for_applicant=manager_for,
                         suggest_slots=lambda manager, duration, count: [(datetime(2026, 10, 5, 10), "free")])
@@ -79,6 +81,8 @@ class LocalGatewayTests(unittest.TestCase):
                 self.assertEqual(review["score"], 75)
                 self.assertNotIn("applicant_key", applicant)
                 self.assertNotIn("aa_pdf_path", applicant)
+                self.assertNotIn("source_key", applicant)
+                self.assertNotIn("availability", applicant)
                 self.assertNotIn("source_key", gateway.match_for(applicant))
                 self.assertNotIn("county_preference", applicant)
                 manager = gateway.manager_for(applicant)
