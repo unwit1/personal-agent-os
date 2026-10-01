@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import fnmatch
 import json
+import re
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -221,13 +222,27 @@ def _commands(text: str) -> list[str]:
     return found
 
 
-def publication_attempts(texts: Iterable[str]) -> list[str]:
-    import re
+# Text written to a file through a here-string (PowerShell @'...'@) or a
+# heredoc (<<'EOF' ... EOF) is data, not a command: a worker writing a doc
+# that mentions "git push" did not push. Unless the same command hands that
+# text to a shell or Invoke-Expression, which would execute it.
+_HERE_STRING = re.compile(r"@(['\"])\r?\n.*?\r?\n\1@", re.DOTALL)
+_HEREDOC = re.compile(r"<<-?[ \t]*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[^\n]*\n.*?\n[ \t]*\2[ \t]*(?=\n|$|[\"'])", re.DOTALL)
+_EXECUTES_TEXT = re.compile(r"\|\s*(?:iex|invoke-expression|bash|sh|zsh|pwsh|powershell)\b|\b(?:iex|invoke-expression)\b|\b(?:bash|sh|zsh|pwsh|powershell)\s*<<", re.IGNORECASE)
 
+
+def _without_literal_text(command: str) -> str:
+    if _EXECUTES_TEXT.search(command):
+        return command
+    return _HEREDOC.sub(lambda match: f"<<{match[2]}", _HERE_STRING.sub("@''@", command))
+
+
+def publication_attempts(texts: Iterable[str]) -> list[str]:
     hits = []
     for text in texts:
         for command in _commands(text or ""):
-            if any(re.search(pattern, command, re.IGNORECASE) for pattern in PUBLISH_PATTERNS):
+            executed = _without_literal_text(command)
+            if any(re.search(pattern, executed, re.IGNORECASE) for pattern in PUBLISH_PATTERNS):
                 hits.append(command[:160])
     return hits
 

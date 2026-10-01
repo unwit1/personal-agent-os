@@ -23,17 +23,11 @@ def run_validator(validator: dict[str, Any], cwd: Path | str, timeout: int = 900
         command = validator["command"]
         shell = isinstance(command, str)
         try:
-            completed = subprocess.run(
+            completed = _run_tree(
                 command if shell else [str(item) for item in command],
                 cwd=str(cwd),
                 shell=shell,
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                errors="replace",
                 timeout=int(validator.get("timeout_seconds", timeout)),
-                stdin=subprocess.DEVNULL,
-                env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
             )
         except (OSError, subprocess.TimeoutExpired) as error:
             return {"name": label, "kind": "command", "passed": False, "returncode": None, "detail": redact(f"validator could not run: {error}", 400)}
@@ -57,6 +51,28 @@ def run_validator(validator: dict[str, Any], cwd: Path | str, timeout: int = 900
         missing = [item for item in validator.get("outputs", []) if not (Path(cwd) / item).exists()]
         return {"name": label, "kind": kind, "passed": not missing, "detail": None if not missing else "missing: " + ", ".join(missing)}
     return {"name": label, "kind": "none", "passed": True, "detail": "no validator declared"}
+
+
+def _run_tree(command: Any, *, cwd: str, shell: bool, timeout: int) -> subprocess.CompletedProcess:
+    """subprocess.run, except a timeout kills the whole process tree.
+
+    With ``shell=True`` on Windows the child is ``cmd.exe``; killing only it
+    leaves the real test process running and holding the output pipes, so
+    the timeout would not end the wait."""
+    process = subprocess.Popen(
+        command, cwd=cwd, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.DEVNULL,
+        text=True, encoding="utf-8", errors="replace", env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+    )
+    try:
+        stdout, stderr = process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        from .adapters.base import kill_tree
+
+        kill_tree(process.pid)
+        process.kill()
+        process.communicate()
+        raise
+    return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
 
 
 _UNITTEST_RAN = re.compile(r"^Ran (\d+) tests? in ", re.MULTILINE)

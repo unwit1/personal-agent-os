@@ -584,6 +584,9 @@ class Orchestrator:
             node = record["nodes"][node_id]
             if node["state"] not in ACTIVE_NODE_STATES:
                 continue
+            if node["state"] == "VALIDATING" and node.get("pending_validation") is not None:
+                self._collect_validation(record, node)
+                continue
             key = (record["run_id"], node_id)
             handle = self._handles.get(key)
             if handle is None:
@@ -799,10 +802,65 @@ class Orchestrator:
             # this attempt; the full suite would only repeat it more slowly.
             scoped = run_all([], worktree["path"], changed=changed, scope=node["scope"], control_plane=_control_plane(record, node))
             validation = {"passed": False, "declared_validators": len(validators), "evidence": [*scoped["evidence"], affected], "fail_fast": True, "at": now()}
-        else:
-            validation = self._validate(record, node, validators, worktree["path"], changed=changed, scope=node["scope"])
-            if affected is not None:
-                validation["evidence"] = [affected, *validation["evidence"]]
+            self._after_validation(record, node, structured, changed, validation)
+            return
+        validation = self._validate_cached(record, node, validators, worktree["path"], changed=changed, scope=node["scope"])
+        if validation is None:
+            # The suite runs in the background; the driver keeps collecting
+            # and dispatching meanwhile and finishes this node when it is done.
+            node["pending_validation"] = {"structured": structured, "affected": affected, "changed": changed, "validators": validators}
+            self._submit_validation(record, node, validators, worktree["path"], changed, node["scope"])
+            return
+        if affected is not None:
+            validation["evidence"] = [affected, *validation["evidence"]]
+        self._after_validation(record, node, structured, changed, validation)
+
+    def _submit_validation(self, record: dict[str, Any], node: dict[str, Any], validators: list[dict[str, Any]], cwd: str | Path, changed: list[str] | None, scope: list[str] | None) -> None:
+        from concurrent.futures import ThreadPoolExecutor
+
+        size = max(int(record["policy"].get("max_parallel_validations") or 1), 1)
+        pool = self.__dict__.get("_validation_pool")
+        if pool is None or self.__dict__.get("_validation_pool_size") != size:
+            pool = ThreadPoolExecutor(max_workers=size, thread_name_prefix="agent-os-validate")
+            self.__dict__["_validation_pool"], self.__dict__["_validation_pool_size"] = pool, size
+        control = _control_plane(record, node)
+        timeout = int(record["policy"]["worker_timeout_seconds"])
+        self.ledger.emit(record["run_id"], "tests_started", node["id"], validators=len(validators))
+        started = time.monotonic()
+
+        def work() -> tuple[dict[str, Any], float]:
+            # Subprocesses only: the run record is never touched off the driver thread.
+            result = run_all(validators, cwd, changed=changed, scope=scope, timeout=timeout, control_plane=control)
+            return result, round(time.monotonic() - started, 2)
+
+        self.__dict__.setdefault("_validations", {})[(record["run_id"], node["id"])] = pool.submit(work)
+
+    def _collect_validation(self, record: dict[str, Any], node: dict[str, Any]) -> None:
+        """Finish a node whose background validation is done; re-submit one
+        a previous driver process started but never collected."""
+        key = (record["run_id"], node["id"])
+        pending = node.get("pending_validation") or {}
+        validators = pending.get("validators") or node["validators"] or record["policy"]["default_validators"]
+        futures = self.__dict__.setdefault("_validations", {})
+        future = futures.get(key)
+        if future is None:
+            self._submit_validation(record, node, validators, node["worktree"]["path"], pending.get("changed"), node["scope"])
+            return
+        if not future.done():
+            return
+        futures.pop(key, None)
+        node.pop("pending_validation", None)
+        try:
+            validation, duration = future.result()
+        except Exception as exc:  # the validator runner itself broke
+            validation = {"passed": False, "declared_validators": 0, "evidence": [{"name": "validation", "kind": "command", "passed": False, "detail": redact(f"validation crashed: {exc}", 300)}]}
+            duration = 0.0
+        validation = self._validate_record(record, node, validators, node["worktree"]["path"], validation, duration)
+        if pending.get("affected") is not None:
+            validation["evidence"] = [pending["affected"], *validation["evidence"]]
+        self._after_validation(record, node, pending.get("structured"), pending.get("changed") or [], validation)
+
+    def _after_validation(self, record: dict[str, Any], node: dict[str, Any], structured: dict[str, Any] | None, changed: list[str], validation: dict[str, Any]) -> None:
         validation["changed_files"] = changed[:50]
         guard = _publication_guard(record, node)
         if guard is not None:
@@ -897,7 +955,26 @@ class Orchestrator:
         changed: list[str] | None = None,
         scope: list[str] | None = None,
     ) -> dict[str, Any]:
-        """Run validators, reusing an earlier result for identical code.
+        """Run validators now, reusing an identical tree's earlier result."""
+        cached = self._validate_cached(record, node, validators, cwd, changed=changed, scope=scope)
+        if cached is not None:
+            return cached
+        self.ledger.emit(record["run_id"], "tests_started", node["id"] if node else None, validators=len(validators))
+        started = time.monotonic()
+        validation = run_all(validators, cwd, changed=changed, scope=scope, timeout=int(record["policy"]["worker_timeout_seconds"]), control_plane=_control_plane(record, node))
+        return self._validate_record(record, node, validators, cwd, validation, round(time.monotonic() - started, 2))
+
+    def _validate_cached(
+        self,
+        record: dict[str, Any],
+        node: dict[str, Any] | None,
+        validators: list[dict[str, Any]],
+        cwd: str | Path,
+        *,
+        changed: list[str] | None = None,
+        scope: list[str] | None = None,
+    ) -> dict[str, Any] | None:
+        """An earlier result for identical code, or None when the validators must run.
 
         Validator results are cached per run by (Git tree, validator list).
         The same tree with the same commands cannot give a different answer
@@ -935,11 +1012,16 @@ class Orchestrator:
             if not cached["passed"]:
                 self.ledger.emit(run_id, "loop_guard", node_id, guard="unchanged_code_retest", reason="no new code since the last failed test run; tests were not run again")
             return validation
-        self.ledger.emit(run_id, "tests_started", node_id, validators=len(validators))
-        started = time.monotonic()
-        validation = run_all(validators, cwd, changed=changed, scope=scope, timeout=int(record["policy"]["worker_timeout_seconds"]), control_plane=_control_plane(record, node))
+        return None
+
+    def _validate_record(self, record: dict[str, Any], node: dict[str, Any] | None, validators: list[dict[str, Any]], cwd: str | Path, validation: dict[str, Any], duration: float) -> dict[str, Any]:
+        """Baseline excuse, cache entry and telemetry for a fresh validation (driver thread only)."""
+        run_id = record["run_id"]
+        node_id = node["id"] if node else None
+        tree = _tree_hash(cwd)
+        key = _validation_key(tree, validators) if tree and record["policy"].get("reuse_validation", True) else None
+        cache = record.setdefault("validation_cache", {})
         self._excuse_baseline_failures(record, node_id, validators, validation)
-        duration = round(time.monotonic() - started, 2)
         validation["at"] = now()
         commands = [item for item in validation["evidence"] if item["kind"] != "scope"]
         if key:
@@ -1318,7 +1400,7 @@ class Orchestrator:
         for node in nodes.values():
             if node["state"] in ACTIVE_NODE_STATES:
                 selection = node.get("selection") or {}
-                if selection.get("provider"):
+                if selection.get("provider") and node["state"] != "VALIDATING":  # tests are running, not a model
                     _count_running(running, selection["provider"], selection.get("capability_class"))
                 if node["role"] in {"implementer", "test_author", "repairer"}:
                     editors += 1

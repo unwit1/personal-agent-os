@@ -9,6 +9,7 @@ and escalated (~5 min per validation) although no task broke anything.
 from __future__ import annotations
 
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -39,6 +40,24 @@ class ErrorSignatureTests(unittest.TestCase):
 
     def test_nothing_error_like_means_no_signature(self) -> None:
         self.assertEqual(error_signature("all good\n", "", "."), [])
+
+
+
+
+class ValidatorTimeoutTests(unittest.TestCase):
+    def test_timeout_ends_the_wait_when_a_shell_child_keeps_running(self) -> None:
+        import sys
+        import time
+
+        from agent_os.orchestrator.validators import run_validator
+
+        command = f'"{sys.executable}" -c "import time; time.sleep(60)"'  # shell=True: cmd.exe or sh, then python
+        started = time.monotonic()
+        with tempfile.TemporaryDirectory() as tmp:
+            result = run_validator({"kind": "command", "name": "slow", "command": command, "timeout_seconds": 2}, tmp)
+        self.assertLess(time.monotonic() - started, 30)
+        self.assertFalse(result["passed"])
+        self.assertIn("timed out", result["detail"])
 
 
 if __name__ == "__main__":

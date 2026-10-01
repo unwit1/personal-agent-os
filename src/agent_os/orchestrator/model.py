@@ -162,6 +162,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     # event analysis) may read this machine's run history, read-only. Off:
     # a worktree only sees its own (empty) run store.
     "share_run_history": False,
+    # Validator suites that may run at once in the background, so the driver
+    # keeps collecting and dispatching while tests run.
+    "max_parallel_validations": 2,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -214,6 +217,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
             raise PolicyError(f"{key} must be boolean")
     for key in (
         "max_parallel_editors",
+        "max_parallel_validations",
         "max_stage_retries",
         "max_escalations",
         "max_review_rounds",

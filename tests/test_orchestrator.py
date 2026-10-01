@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -453,8 +454,11 @@ class FailoverAndRestartTests(OrchestratorFixture):
         synthetic.SCRIPTS["beta"] = edit_script({"b": {"ticks": 1000}})
         run_id = self.create([self.task("a"), self.task("b")], require_independent_review_for_model_edits=False)
         self.engine.start(run_id)
-        for _ in range(3):
+        for _ in range(200):  # validation runs in the background: tick until a lands
             self.engine.step(run_id)
+            if self.node(run_id, "a").get("integrated"):
+                break
+            time.sleep(0.02)
         a = self.node(run_id, "a")
         self.assertEqual(a["state"], "PASSED")
         self.assertTrue(a["integrated"])
