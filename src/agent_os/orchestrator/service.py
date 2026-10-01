@@ -28,8 +28,12 @@ WORKER_MARKER = "AGENT_OS_ORCHESTRATOR_WORKER"
 
 
 def _reject_worker_control() -> None:
-    """Keep isolated workers from mutating shared orchestrator Git state."""
-    if os.environ.get(WORKER_MARKER) == "1":
+    """Keep isolated workers from mutating shared orchestrator Git state.
+
+    Only the machine's default engine is shared. An embedded engine (a test
+    fixture, a custom host) has its own store and repositories, so a worker
+    running the test suite must not see every surface test fail here."""
+    if os.environ.get(WORKER_MARKER) == "1" and (_ENGINE is None or _ENGINE_IS_DEFAULT):
         raise RuntimeError(
             "orchestrator control is unavailable inside an isolated worker; "
             "report the host-side prerequisite to the parent controller"

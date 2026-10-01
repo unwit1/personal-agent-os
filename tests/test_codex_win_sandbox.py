@@ -28,7 +28,7 @@ class CodexWindowsTempdirShimTests(unittest.TestCase):
 
     def test_shim_changes_only_tempfile_mode_for_workers(self) -> None:
         probe = ("import os, tempfile, sitecustomize; print(sitecustomize.__file__); "
-                 "d = tempfile.mkdtemp(); os.rmdir(d); print(tempfile._os.mkdir is os.mkdir)")
+                 "print(tempfile._os.mkdir is os.mkdir)")  # no folder made: a sandboxed run could not remove an owner-only one
         base = {**os.environ, "PYTHONPATH": str(WIN_SANDBOX_SHIM)}
         worker = subprocess.run([sys.executable, "-c", probe], env={**base, "AGENT_OS_ORCHESTRATOR_WORKER": "1"}, capture_output=True, text=True, check=True).stdout.split()
         host = subprocess.run([sys.executable, "-c", probe], env={k: v for k, v in base.items() if k != "AGENT_OS_ORCHESTRATOR_WORKER"}, capture_output=True, text=True, check=True).stdout.split()
