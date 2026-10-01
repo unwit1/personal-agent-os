@@ -17,7 +17,7 @@ Exact validation command:
 python -m unittest tests.test_readiness_dirty_large -v
 ```
 
-The test creates disposable Python and JavaScript Git repositories with `tempfile` under the system temporary directory. The run path uses an embedded `Orchestrator(RunStore(<temp>/home), registry=ProviderRegistry(providers=[synthetic ...]))`; no machine orchestrator or external model is used. The focused command completed successfully in 9.451 seconds.
+The test creates disposable Python and JavaScript Git repositories with `tempfile` under the system temporary directory. The run path uses an embedded `Orchestrator(RunStore(<temp>/home), registry=ProviderRegistry(providers=[synthetic ...]))`; no machine orchestrator or external model is used. For DL-3, every file in `bulk/` contains `calc add` and `big/blob.txt` contains `calc add ` repeated 34,000 times, so the excluded inputs match the map query. The test asserts `data_dirs == ['bulk']` and `excluded_data_files == 1200`, along with absence of bulk paths and `blob.txt` from output. The focused command completed successfully in 8.125 seconds.
 
 ## Results
 
@@ -25,8 +25,8 @@ The test creates disposable Python and JavaScript Git repositories with `tempfil
 |---|---|---|---|---|
 | DL-1 | Completed; README bytes remained identical; `notes.txt` remained intact in base and absent from integration branch | Same | Assertions passed for both; worker branch derived from `git ls-tree -r --name-only <branch>` | PASS |
 | DL-2 | `create_run` proceeded, `dirty_worktree=True` | Same | Staged changes are detected as dirty and do not block creation | PASS |
-| DL-3 | Large Python fixture built | N/A; one shared large fixture is used | `repomap.build`: 0.049 s; 348 chars (<= 6,200); stats: 1,206 tracked files, `data_dirs=['bulk']`, 1,200 excluded data files, 4 candidates scored/listed, 0 related. No `bulk/` file name or `blob.txt` appeared. | PASS |
-| DL-4 | One-task large fixture run reached `COMPLETE` | N/A; large fixture is Python | 3.365 s elapsed | PASS |
+| DL-3 | Large Python fixture built with goal terms in all excluded files | N/A; one shared large fixture is used | `repomap.build`: 0.042 s; 348 chars (<= 6,200); stats: 1,206 tracked files, `data_dirs=['bulk']`, 1,200 excluded data files, 4 candidates scored/listed, 0 related. No `bulk/` path or `blob.txt` appeared despite matching query terms. | PASS |
+| DL-4 | One-task large fixture run reached `COMPLETE` | N/A; large fixture is Python | 3.119 s elapsed | PASS |
 
 ## Failures and limitations
 

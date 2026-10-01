@@ -86,10 +86,10 @@ class DirtyLargeReadiness(ReadinessFixture):
         bulk = large / "bulk"
         bulk.mkdir()
         for index in range(1200):
-            (bulk / f"file-{index:04}.txt").write_text("small\n", encoding="utf-8")
+            (bulk / f"file-{index:04}.txt").write_text("calc add\n", encoding="utf-8")
         blob = large / "big" / "blob.txt"
         blob.parent.mkdir()
-        blob.write_bytes(b"x" * 300_000)
+        blob.write_bytes(b"calc add " * 34_000)
         git(large, "add", "-A")
         git(large, "commit", "-m", "large fixture")
         start = time.perf_counter()
@@ -98,6 +98,8 @@ class DirtyLargeReadiness(ReadinessFixture):
         self.assertLessEqual(len(mapped["text"]), 6000 + 200)
         self.assertNotIn("bulk/", mapped["text"])
         self.assertNotIn("blob.txt", mapped["text"])
+        self.assertEqual(mapped["stats"]["data_dirs"], ["bulk"])
+        self.assertEqual(mapped["stats"]["excluded_data_files"], 1200)
         self.assertEqual(mapped["stats"]["tracked_files"], 1206)
         run_start = time.perf_counter()
         large_run = self._run(large, "large-python")
