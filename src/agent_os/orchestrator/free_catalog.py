@@ -103,6 +103,13 @@ def _read_cache(cache: Path) -> dict[str, Any] | None:
     return data if isinstance(data, dict) and isinstance(data.get("models"), list) else None
 
 
+def _epoch(snapshot: dict[str, Any]) -> float:
+    try:
+        return float(snapshot.get("fetched_epoch", 0))
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def discover(*, refresh: bool = False, home: Path | None = None, opener: Callable[..., Any] | None = None,
              now: Callable[[], float] = time.time) -> dict[str, Any]:
     """Versioned snapshot of current free models. Never raises; on failure
@@ -110,7 +117,7 @@ def discover(*, refresh: bool = False, home: Path | None = None, opener: Callabl
     ``error``."""
     cache = _cache_path(home)
     previous = _read_cache(cache)
-    if not refresh and previous and now() - float(previous.get("fetched_epoch", 0)) < CACHE_SECONDS:
+    if not refresh and previous and now() - _epoch(previous) < CACHE_SECONDS:
         return {**previous, "source": "cache"}
     request = urllib.request.Request(OPENROUTER_MODELS_URL, headers={"accept": "application/json", "user-agent": "agent-os/1"})
     try:
@@ -140,5 +147,9 @@ def discover(*, refresh: bool = False, home: Path | None = None, opener: Callabl
     }
     from ..storage import write_json
 
-    write_json(cache, snapshot)
-    return {**snapshot, "source": "live"}
+    result = {**snapshot, "source": "live"}
+    try:
+        write_json(cache, snapshot)
+    except OSError as exc:
+        result["cache_error"] = f"{type(exc).__name__}: {str(exc)[:200]}"
+    return result

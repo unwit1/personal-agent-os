@@ -119,6 +119,23 @@ class FreeCatalogTests(unittest.TestCase):
         self.assertEqual(len(out["models"]), 2)
         self.assertIn("error", out)
 
+    def test_cache_write_failure_is_data(self):
+        with mock.patch("agent_os.storage.write_json", side_effect=OSError("disk full")):
+            out = free_catalog.discover(home=self.home, opener=FakeOpener(fixture("v1")), now=Clock())
+        self.assertEqual(out["source"], "live")
+        self.assertEqual(len(out["models"]), 2)
+        self.assertIn("OSError", out["cache_error"])
+
+    def test_corrupt_fetched_epoch_forces_refresh(self):
+        opener, clock = FakeOpener(fixture("v1")), Clock(1_800_000_000.0)
+        free_catalog.discover(home=self.home, opener=opener, now=clock)
+        cache = free_catalog._cache_path(self.home)
+        data = json.loads(cache.read_text(encoding="utf-8"))
+        data["fetched_epoch"] = "garbage"
+        cache.write_text(json.dumps(data), encoding="utf-8")
+        out = free_catalog.discover(home=self.home, opener=opener, now=clock)
+        self.assertEqual((out["source"], opener.calls), ("live", 2))
+
     def test_no_model_literals_in_source(self):
         source = Path(free_catalog.__file__).read_text(encoding="utf-8")
         for name in ("v1", "v2"):
