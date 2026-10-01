@@ -1,0 +1,20 @@
+{
+  "data": [
+    {"id": "acme/alpha:free", "canonical_slug": "acme/alpha-2026-09-01", "context_length": 131072,
+     "architecture": {"input_modalities": ["text"], "output_modalities": ["text"]},
+     "pricing": {"prompt": "0", "completion": "0", "request": "0", "image": "0"},
+     "supported_parameters": ["tools", "temperature"]},
+    {"id": "acme/epsilon:free", "canonical_slug": "acme/epsilon-2026-10-01", "context_length": 16384,
+     "architecture": {"input_modalities": ["text"], "output_modalities": ["text"]},
+     "pricing": {"prompt": "0", "completion": "0", "request": "0", "image": "0"},
+     "supported_parameters": ["tools"]},
+    {"id": "acme/gamma", "canonical_slug": "acme/gamma", "context_length": 128000,
+     "architecture": {"input_modalities": ["text"], "output_modalities": ["text"]},
+     "pricing": {"prompt": "0.000001", "completion": "0.000002", "request": "0", "image": "0"},
+     "supported_parameters": ["tools"]},
+    {"id": "acme/delta", "canonical_slug": "acme/delta", "context_length": 200000,
+     "architecture": {"input_modalities": ["text", "image"], "output_modalities": ["text"]},
+     "pricing": {"prompt": "0.0000005", "completion": "0.0000015", "request": "0", "image": "0.001"},
+     "supported_parameters": ["tools", "response_format"]}
+  ]
+}
