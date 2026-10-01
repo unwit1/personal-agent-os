@@ -1222,3 +1222,19 @@ rotation advisor and synthetic/replay benchmarks. Promote automatic rotation
 only when total cost per validated completion improves with noninferior quality.
 Explicitly identify the point where additional worker rotation produces
 diminishing returns.
+
+
+## Operator-priority: Hermes Agent integration
+
+**Priority: HIGH — requested 2026-10-01.** Evaluation:
+[hermes-agent-evaluation.md](../research/hermes-agent-evaluation.md) (IMP-0020,
+PA-hermes-agent).
+
+Run Hermes Agent as the executive front door (messaging gateway, scheduled
+jobs including no-agent jobs, voice) and as an optional any-model orchestrator
+worker, with Agent OS canonical through MCP and an Agent OS memory-provider
+plugin. Port its skill-curator lifecycle and fallback wait-or-switch threshold;
+borrow its prompt-cache and footprint rules. Do not adopt its multi-agent board
+as a runtime: the orchestrator's worktree, validator and review gates stay.
+Phases H1-H6 each carry their own test; promotion follows the usual
+noninferior-validation rule.

@@ -3216,6 +3216,104 @@
         "SkyPilot spike rejected"
       ],
       "revisit_by": null
+    },
+    {
+      "id": "PA-hermes-agent",
+      "name": "Hermes Agent",
+      "repository": "https://github.com/NousResearch/hermes-agent",
+      "organization": "NousResearch",
+      "description": "Self-improving personal agent: messaging gateway, bounded memory, self-maintained skills, cron, subagents, plugins and MCP",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "license_status": "MIT; operator granted academic reuse permission 2026-09-29; attribution recorded",
+      "evaluated_revision": "bd394e2a",
+      "evaluated_at": "2026-10-01",
+      "activity": {
+        "stars": null,
+        "pushed_at": "2026-10-01",
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-10-01"
+      },
+      "language": "Python",
+      "capability_areas": [
+        "messaging gateway",
+        "scheduled jobs",
+        "bounded memory",
+        "skill lifecycle",
+        "self-evolution (GEPA)",
+        "headless agent CLI",
+        "credential pools and fallback",
+        "voice"
+      ],
+      "agent_os_overlap": "Executive function (EXEC-7/11.5/12/13, P2.2) is largely unbuilt in Agent OS and is Hermes' strength. Orchestrator OS already exceeds Hermes for verified multi-agent code work (worktrees, validators, cross-review, gates).",
+      "useful_parts": {
+        "run": [
+          "messaging gateway + `hermes mcp serve`",
+          "cron incl. no-agent mode",
+          "memory-provider ABC (Agent OS-backed plugin)",
+          "one-shot CLI `hermes -z` as an orchestrator worker",
+          "voice mode"
+        ],
+        "port": [
+          "skill curator lifecycle",
+          "fallback wait-or-switch threshold (min_switch_reset_seconds)",
+          "self-evolution on SKILL.md with holdouts"
+        ],
+        "borrow": [
+          "prompt-cache invariant",
+          "Footprint Ladder",
+          "bounded memory with forced consolidation",
+          "heartbeat/loop semantics",
+          "Kanban 90% iteration-budget checkpoint",
+          "admission vs completion delivery semantics",
+          "approval mining"
+        ]
+      },
+      "integration": "projects/personal-agent-os/research/hermes-agent-evaluation.md",
+      "risks": {
+        "churn": "commits daily; internal APIs carry no compatibility shims; pin a release and use only CLI, MCP and plugin ABCs",
+        "state": "one writer per HERMES_HOME; built-in MEMORY.md/USER.md would fork state unless the Agent OS provider plugin is used",
+        "spend": "Nous Portal/OpenRouter are paid; default to local models under allow_paid_spend=false",
+        "exposure": "gateway accepts inbound messages; DM pairing + allowlists mandatory; sends stay approval-gated"
+      },
+      "evidence": {
+        "development_savings": "large for executive function (gateway, cron, voice already built)",
+        "runtime_savings": "no-agent cron and deterministic curator avoid model calls; unmeasured in Agent OS",
+        "quality": "~39k tests upstream; not run here",
+        "reliability": "unmeasured in Agent OS",
+        "security": "command approval, DM pairing, protected write paths upstream",
+        "complexity": "large (~8k Python files); integrate only through stable seams",
+        "maintenance": "very active",
+        "portability": "native Windows, Linux, macOS, Android/Termux"
+      },
+      "decision": "WRAP",
+      "rationale": "Run Hermes as the executive front door (messaging, cron, voice) and as an optional any-model worker, with Agent OS canonical through MCP and a memory-provider plugin; port the curator lifecycle and the fallback wait threshold; borrow its caching and footprint rules. Skip its multi-agent board as a runtime. See the evaluation document for the per-capability split and phased tests (H1-H6).",
+      "confidence": "medium",
+      "provenance": [
+        "local shallow clone of NousResearch/hermes-agent at bd394e2a (2026-10-01): README.md, AGENTS.md, website/docs, hermes_cli/_parser.py, agent/memory_provider.py, mcp_serve.py, gateway/platforms, plugins/platforms",
+        "local shallow clone of NousResearch/hermes-agent-self-evolution (2026-10-01): README.md"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0020"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "PA-gepa"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "PA-dspy"
+        }
+      ],
+      "revisit_when": [
+        "H1 worker A/B completes",
+        "Executive Event Bus (P3) starts"
+      ],
+      "revisit_by": null
     }
   ]
 }

@@ -210,6 +210,17 @@
       "dedupe_key": null,
       "updated_at": "2026-09-29T20:55:00+00:00",
       "github_issue_number": null
+    },
+    {
+      "id": "IMP-0020",
+      "title": "Subsume Hermes Agent: executive front door, optional worker, ported curator",
+      "category": "architecture",
+      "subsystem": "executive/gateway + orchestrator/adapters",
+      "status": "ready",
+      "priority": "high",
+      "dedupe_key": null,
+      "updated_at": "2026-10-01T14:00:00+00:00",
+      "github_issue_number": null
     }
   ]
 }
