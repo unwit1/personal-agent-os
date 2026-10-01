@@ -165,6 +165,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     # Validator suites that may run at once in the background, so the driver
     # keeps collecting and dispatching while tests run.
     "max_parallel_validations": 2,
+    # Wait for a cheaper provider whose usage resets within this many seconds
+    # rather than failing over to a costlier one; 0 always fails over.
+    "wait_for_reset_seconds": 300,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -218,6 +221,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
     for key in (
         "max_parallel_editors",
         "max_parallel_validations",
+        "wait_for_reset_seconds",
         "max_stage_retries",
         "max_escalations",
         "max_review_rounds",

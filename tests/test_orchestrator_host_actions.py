@@ -237,5 +237,49 @@ class McpReloadTests(unittest.TestCase):
         self.assertIn("orchestrate.status", available)
 
 
+
+class WaitForCheaperResetTests(OrchestratorFixture):
+    """H6 (Hermes min_switch_reset_seconds): a cheap provider that resets soon
+    is waited for instead of failing over to a costlier one."""
+
+    def registry(self):
+        from agent_os.orchestrator.router import ProviderRegistry
+        from test_orchestrator import provider
+
+        cheap = {"fast": 0.03, "balanced": 0.03, "reasoning": 0.03, "frontier": 0.03}
+        dear = {"fast": 1.0, "balanced": 1.0, "reasoning": 1.0, "frontier": 1.0}
+        return ProviderRegistry(providers=[provider("alpha", costs=cheap), provider("beta", costs=dear)])
+
+    def cool_alpha(self, minutes: float) -> None:
+        from datetime import datetime, timedelta, timezone
+
+        from agent_os.orchestrator import engine as engine_mod
+
+        until = (datetime.now(timezone.utc) + timedelta(minutes=minutes)).isoformat(timespec="seconds")
+        engine_mod._write_cooldown(self.engine.store.home, "alpha", until, "quota: test")
+
+    def first_launch(self, run_id: str) -> dict:
+        self.engine.start(run_id)
+        for _ in range(3):
+            self.engine.step(run_id)
+        return self.engine.load(run_id)["nodes"]["a"]
+
+    def test_waits_when_the_cheaper_provider_resets_soon(self) -> None:
+        self.cool_alpha(2)
+        node = self.first_launch(self.create([self.task("a")]))
+        self.assertEqual(node["state"], "RUNNABLE")
+        self.assertIn("waiting for usage reset: alpha", node["wait_reason"])
+
+    def test_fails_over_when_the_reset_is_far(self) -> None:
+        self.cool_alpha(120)
+        node = self.first_launch(self.create([self.task("a")]))
+        self.assertEqual((node.get("selection") or {}).get("provider"), "beta")
+
+    def test_zero_turns_waiting_off(self) -> None:
+        self.cool_alpha(2)
+        node = self.first_launch(self.create([self.task("a")], wait_for_reset_seconds=0))
+        self.assertEqual((node.get("selection") or {}).get("provider"), "beta")
+
+
 if __name__ == "__main__":
     unittest.main()

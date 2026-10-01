@@ -634,6 +634,35 @@ class Orchestrator:
         moment, provider = until[0]
         return f"{USAGE_RESET_WAIT} {provider} at {moment[:16].replace('T', ' ')} UTC"
 
+    def _cheaper_reset_soon(self, record: dict[str, Any], node: dict[str, Any], selection: dict[str, Any]) -> str | None:
+        """Wait for a cheaper provider whose usage resets within
+        ``wait_for_reset_seconds`` instead of failing over to a costlier one
+        (Hermes' min_switch_reset_seconds). 0 turns it off."""
+        limit = int(record["policy"].get("wait_for_reset_seconds") or 0)
+        capability = selection.get("capability_class")
+        chosen = self.registry().get(selection["provider"]) or {}
+        chosen_cost = (chosen.get("costs") or {}).get(capability)
+        if limit <= 0 or chosen_cost is None:
+            return None
+        blocked = set(node.get("excluded_providers") or []) | set(self._paid_blocked(record))
+        moment = datetime.now(timezone.utc)
+        best = None
+        for provider_id, entry in _read_cooldowns(self.store.home).items():
+            provider = self.registry().get(provider_id)
+            if not provider or not provider.get("enabled", True) or provider_id in blocked or not (provider.get("models") or {}).get(capability):
+                continue
+            cost = (provider.get("costs") or {}).get(capability)
+            try:
+                until = datetime.fromisoformat(str((entry or {}).get("until")))
+            except ValueError:
+                continue
+            remaining = (until - moment).total_seconds()
+            if cost is not None and cost < chosen_cost and 0 < remaining <= limit and (best is None or until < best[0]):
+                best = (until, provider_id)
+        if best is None:
+            return None
+        return f"{USAGE_RESET_WAIT} {best[1]} at {best[0].isoformat()[:16].replace('T', ' ')} UTC (cheaper than {selection['provider']}; resets soon)"
+
     def _loop_check_due(self, key: tuple[str, str], interval: float = 60.0) -> bool:
         """Read a worker's event stream for loops at most once a minute."""
         checks = self.__dict__.setdefault("_loop_checks", {})
@@ -1602,6 +1631,13 @@ class Orchestrator:
             node["state"] = "FAILED_FINAL"
             node["wait_reason"] = f"no provider: {selection['reason']}"
             self.store.append_event(record["run_id"], "node.unroutable", node["id"], selection["reason"])
+            return False
+        wait = None if selection.get("overridden") else self._cheaper_reset_soon(record, node, selection)
+        if wait:
+            if node.get("wait_reason") != wait:
+                self.store.append_event(record["run_id"], "node.waiting", node["id"], wait)
+            node["state"] = "RUNNABLE"
+            node["wait_reason"] = wait
             return False
         selection["at"] = now()
         node["selection"] = selection
