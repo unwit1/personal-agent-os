@@ -14,8 +14,12 @@ usable when Agent OS is offline. The existing read-only
 references, checkout discovery, and local privacy-safe audit behavior.
 
 The gateway is the only place that may see the Dashboard's internal
-`applicant_key`. It resolves the key locally from `applicant_ref` when a
-Dashboard operation requires the key. `applicant_ref` is the only applicant
+`applicant_key`. Every Executive-facing gateway operation accepts
+`applicant_ref` as its applicant identity. `LocalDashboardGateway` resolves
+that reference to the internal key locally before calling a Dashboard function
+whose native signature requires the key; the Dashboard signatures stay
+unchanged. `ranked` returns projected applicants carrying `applicant_ref`,
+never the internal key. `applicant_ref` is the only applicant
 identity persisted in Executive batches, logs, audit records, or tool results;
 names and contact details may appear as restricted outreach content, never as
 lookup keys. Internal keys, source/provenance keys, filenames, document paths,
@@ -31,17 +35,20 @@ scoped path; it cannot inform candidate fit or interview choices.
 
 ## Gateway contract
 
-`DashboardGateway` has exactly these Dashboard-facing operations:
+`DashboardGateway` has exactly these Executive-facing operations. The
+Dashboard source column names the native function called inside the local
+gateway; any native `applicant` or `applicant_key` argument is resolved there
+and is not part of the Executive-facing signature.
 
 | Operation | Dashboard source | Contract |
 | --- | --- | --- |
 | `ranked(min_score=0)` | `candidate_review.ranked` | Read existing `(applicant, review)` pairs. Reviews provide score 0–100, recommendation `interview`, `maybe`, or `not_a_fit`, and `result_json` summary, strengths, concerns, and criterion evidence (`met`: `yes`, `no`, or `unclear`). |
-| `match_for(applicant)` | `opening_match.match_for` | Return `match`, `pending`, `primary`, `alternates`, `reasons`, `groups`, `group_label`, and `manager`. |
-| `manager_for(applicant)` | `interview_calendar.manager_for_applicant` | Resolve the Dashboard's manager for interview scheduling. |
+| `match_for(applicant_ref)` | `opening_match.match_for(applicant)` | Resolve the Dashboard applicant locally; return `match`, `pending`, `primary`, `alternates`, `reasons`, `groups`, `group_label`, and `manager`. |
+| `manager_for(applicant_ref)` | `interview_calendar.manager_for_applicant(applicant)` | Resolve the Dashboard applicant locally to find its manager for interview scheduling. |
 | `suggest_slots(manager, duration_minutes, count)` | `interview_calendar.suggest_slots` | Return conflict-checked `(datetime, reason)` suggestions. |
 | `render_outreach(name, position, slots, interview_type, location, duration_minutes, message, county)` | `interview_outreach.render_outreach` | Return the Dashboard-rendered `(subject, body)`. |
-| `record_outreach_drafted(applicant_key, slots, interview_type, location, duration_minutes, draft_path, area_manager)` | Dashboard draft recorder | Return the Dashboard draft record ID. This is a write and cannot occur while merely planning. |
-| `send_now(applicant_key, kind, to_addr, subject, body)` | `email_sender.send_now` | Send through Outlook; return an email ID or raise on failure. |
+| `record_outreach_drafted(applicant_ref, slots, interview_type, location, duration_minutes, draft_path, area_manager)` | Dashboard draft recorder (native `applicant_key`) | Resolve the key locally and return the Dashboard draft record ID. This is a write and cannot occur while merely planning. |
+| `send_now(applicant_ref, kind, to_addr, subject, body)` | `email_sender.send_now(applicant_key, kind, to_addr, subject, body)` | Resolve the key locally, send through Outlook, and return an email ID or raise on failure. |
 
 `LocalDashboardGateway` lazily imports Dashboard modules from the checkout
 already discovered by `rtec_applicants`; it adds that checkout to `sys.path`
@@ -82,12 +89,17 @@ it neither records a Dashboard draft nor sends mail. Outbox files are local
 restricted data; Git-backed memory receives only schema or aggregate data.
 
 The operator's first decision is `approve_batch(batch_id, choices)`. For each
-item, the operator confirms offered dates/times, changes them, or drops that
-item. The approved choices and resulting text are persisted before the batch
-moves to `APPROVED`. A changed slot must be checked against current Dashboard
-availability and the outreach re-rendered before it can be approved. Approval
-does not authorize delivery. Before sending, show the exact recipients,
-subjects, bodies, and confirmed dates/times for a distinct send confirmation.
+item, the operator confirms offered dates/times, selects different offered
+dates/times, or drops that item. At approval, the gateway calls `suggest_slots`
+again for the item's manager and duration. Every retained choice, including a
+confirmed original offer, must appear in these fresh conflict-checked results;
+otherwise the item needs a new choice from the fresh suggestions. Arbitrary
+typed times are not approvable under this gateway contract because it has no
+separate availability operation. Changed choices cause the Dashboard outreach
+to be re-rendered. The approved choices and resulting text are persisted before
+the batch moves to `APPROVED`. Approval does not authorize delivery. Before
+sending, show the exact recipients, subjects, bodies, and confirmed dates/times
+for a distinct send confirmation.
 
 Delivery is dry-run by default. Only an explicit send confirmation may invoke
 `send_now`. The send path resolves each internal key locally, verifies the
