@@ -7,7 +7,7 @@
   "subsystem": "orchestrator/model-infrastructure",
   "status": "in_progress",
   "priority": "high",
-  "observation": "Operator explicitly requested a plug-and-play model/compute layer that automatically researches new models, intelligently routes between subscription, API, open-weight and abliterated models, manages cloud GPU capacity such as RunPod, supports image/voice workloads and ML/LoRA training, and quotes/budgets work before paid execution.",
+  "observation": "Operator explicitly requested a plug-and-play model/compute layer that automatically researches new models, intelligently routes between subscription, API, open-weight and abliterated models, manages cloud GPU capacity such as RunPod, supports image/voice workloads and ML/LoRA training, quotes/budgets work before paid execution, and as of 2026-10-01 should aggressively maximize useful OpenRouter free-model capacity before paid inference.",
   "evidence": [
     "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
     "docs/orchestrator-os/CONSTITUTION.md#3-model-delegation-and-routing",
@@ -16,7 +16,7 @@
     "docs/model-infrastructure.md"
   ],
   "suspected_root_cause": "Current routing is provider/model aware but does not yet own cloud compute lifecycle, multimodal/training workloads, live pricing, quote/budget planning, or a continuous plug-and-play model catalog.",
-  "suggested_direction": "Implement the phased roadmap in model-infrastructure-manager.md. Extend existing routing/CAP/eval/research primitives; add provider-neutral workload/capability/compute/secret/artifact contracts, a RunPod-first adapter, shadow abliterated foreman evaluation, continuous model research, and image/audio/training support.",
+  "suggested_direction": "Implement the phased roadmap in model-infrastructure-manager.md. ASAP first slice: FreeComputeBroker with dynamic OpenRouter free-model discovery, read-only quota/credit visibility, quota governor, empirically specialized free-first routing for verifiable tasks, bounded alternate-free escalation, useful quota backfill, and operator top-up recommendation only when current provider policy/account state shows it is actually required. Then continue the existing provider-neutral RunPod/runtime/model-research plan.",
   "acceptance": [
     "New text/code models can be added without scheduler changes",
     "Image and voice/audio models are first-class capability types",
@@ -25,12 +25,18 @@
     "Credentials are configured locally and never committed",
     "Training/LoRA requests produce intelligent low/expected/high quotes before launch",
     "Abliterated foreman routing can be evaluated in shadow mode against incumbent routes",
-    "Continuous research can discover and benchmark future model releases"
+    "Continuous research can discover and benchmark future model releases",
+    "OpenRouter free models are discovered dynamically and empirically specialized by task family",
+    "Verifiable low-risk work can route free-first with independent validators and bounded escalation",
+    "Free-request quota/RPM/reset state is governed so failed retries cannot silently burn the allowance",
+    "Orchestrator measures useful progress per free request and paid fallbacks/cost avoided",
+    "OpenRouter top-up is recommended only when current verified policy and observed account state justify it; purchases remain approval-gated"
   ],
   "risks": [
     "Provider APIs and model metadata change quickly; adapters and research records must be versioned",
     "An experimental/abliterated foreman must not become the authorization or spending boundary",
-    "Cloud idle time, retries and artifact storage can create hidden cost if not included in quotes"
+    "Cloud idle time, retries and artifact storage can create hidden cost if not included in quotes",
+    "Free-model availability, quotas, context limits and provider data policies are volatile; discovery and policy provenance must be refreshed rather than hard-coded"
   ],
   "dedupe_key": null,
   "source": {
@@ -39,6 +45,6 @@
   },
   "github": null,
   "created_at": "2026-09-29T16:19:15.793144+00:00",
-  "updated_at": "2026-09-29T17:12:02.042373+00:00",
-  "notes": "High priority. Begin with no-cost schema/eval/quote infrastructure; paid compute remains approval/budget gated."
+  "updated_at": "2026-10-01T15:23:00+00:00",
+  "notes": "High priority. ASAP operator directive 2026-10-01: maximize useful OpenRouter free-model capacity before paid inference. Begin with no-cost/read-only discovery, quota/account visibility, quota governor and verifiable free-first routing. Current OpenRouter policy values must be versioned/provenanced, and any credit purchase or auto-recharge remains explicit user-approved spend."
 }
