@@ -1192,6 +1192,29 @@ only when Agent OS EVR/CAP evidence shows noninferior validation and material
 improvement in cost per verified successful task, utilization, reliability,
 latency, or useful development throughput.
 
+**2026-10-01 ASAP expansion — OpenRouter free-compute maximization:** before
+spending substantial effort or money on additional paid inference capacity,
+implement the FreeComputeBroker slice in the detailed roadmap. Dynamically
+discover current OpenRouter free models, empirically specialize them by task
+family, route verifiable low-risk work free-first, fan out disposable free
+workers where validation is cheap, and use otherwise-expiring free quota for
+useful checkpointable backfill. Track useful progress per free request,
+validator/review acceptance, retries, escalations, paid fallbacks avoided, and
+estimated paid cost avoided.
+
+Also implement read-only OpenRouter account/quota/credit awareness. Current
+provider guidance verified 2026-10-01 says adding at least USD 10 in credits
+raises the free-model daily allowance from roughly 50 to roughly 1,000 requests
+while retaining a 20 RPM limit; failed requests may consume allowance. Treat
+those figures as versioned provider policy, not constants. Detect the actual
+account/quota state and alert the operator if a top-up is genuinely required to
+obtain/maintain the higher free allowance. Do **not** equate a remaining balance
+below USD 10 with needing a top-up unless current provider policy/account state
+supports that conclusion, and never purchase credits or enable auto-recharge
+without explicit approval. This slice is **ASAP within IMP-0015** and may proceed
+independently of later paid RunPod/runtime experiments using existing router,
+telemetry, CAP/EVR, validation, budget, and Research Radar primitives.
+
 
 ## Operator-priority: Context Efficiency & Token Amplification
 
