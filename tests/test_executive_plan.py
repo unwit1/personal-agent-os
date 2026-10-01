@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import sys
-import tempfile
 import unittest
 from datetime import datetime
 from pathlib import Path
@@ -123,16 +122,16 @@ class PlanTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.plan(["ref-a"], gw=gw)
 
-    def test_file_store_and_eeo(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            store = ex.FileBatchStore(tmp)
-            batch, _, _ = self.plan(["ref-a"], store=store)
-            text = "".join(p.read_text() for p in Path(tmp).glob("*.json"))
-            self.assertEqual(store.load(batch["batch_id"]), batch)
-            with self.assertRaises(KeyError):
-                store.load("../x")
+    def test_stored_batch_has_no_eeo_fields(self):
+        batch, _, store = self.plan(["ref-a"])
+        self.assertEqual(store.load(batch["batch_id"]), batch)
+        text = json.dumps(store.data, default=str)
         for secret in ("SECRET-AA", "SECRET-RACE", "SECRET-KEY", "SECRET-SRC"):
             self.assertNotIn(secret, text)
+
+    def test_store_is_required(self):
+        with self.assertRaises(TypeError):
+            ex.plan_outreach(["ref-a"], "Tech", "phone", "Office", 30, gateway=FakeGateway(), now=NOW)
 
 
 class RosterPagingTests(unittest.TestCase):

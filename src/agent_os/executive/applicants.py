@@ -8,15 +8,11 @@ Applicant identity is the opaque ``applicant_ref`` everywhere.
 from __future__ import annotations
 
 import json
-import os
-import re
 import uuid
 from datetime import date, datetime, timedelta
-from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .. import rtec_applicants
-from ..paths import ROOT
 
 ADVISORY_LABEL = "Dashboard AI review: advisory; you decide"
 REVIEWABLE_STATUSES = ("New", "Interested", "Interview Requested", "Clarification Requested")
@@ -35,8 +31,6 @@ _NEXT_STEPS = {
 }
 _GENERIC_NEXT_STEP = "Open the applicant in the Dashboard and complete the administrative follow-up."
 _REASON_ORDER = list(_NEXT_STEPS)
-_OUTBOX_DIR = ROOT / ".agent-local" / "executive" / "outbox"
-_BATCH_ID_RE = re.compile(r"^batch-[0-9a-f]{12}$")
 
 # Whitelisted applicant fields that may appear in Executive output.
 _VIEW_FIELDS = ("applicant_ref", "name", "position", "submitted", "status", "county", "city")
@@ -165,34 +159,6 @@ def _reviewable_applicants() -> dict[str, dict[str, Any]]:
         if len(rows) < _PAGE_SIZE:
             return found
         offset += len(rows)
-
-
-# ---------------------------------------------------------------- batch store
-
-
-class FileBatchStore:
-    """Minimal JSON batch persistence under the gitignored executive outbox."""
-
-    def __init__(self, directory: Path | str | None = None) -> None:
-        self.directory = Path(directory) if directory else _OUTBOX_DIR
-
-    def _path(self, batch_id: str) -> Path:
-        if not _BATCH_ID_RE.match(str(batch_id)):
-            raise KeyError(batch_id)
-        return self.directory / f"{batch_id}.json"
-
-    def save(self, batch: dict[str, Any]) -> None:
-        path = self._path(batch["batch_id"])
-        path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = path.with_suffix(".json.tmp")
-        tmp.write_text(json.dumps(batch, indent=2, sort_keys=True), encoding="utf-8")
-        os.replace(tmp, path)
-
-    def load(self, batch_id: str) -> dict[str, Any]:
-        path = self._path(batch_id)
-        if not path.exists():
-            raise KeyError(batch_id)
-        return json.loads(path.read_text(encoding="utf-8"))
 
 
 # ---------------------------------------------------------------- needs_action
@@ -324,7 +290,7 @@ def plan_outreach(
     duration_minutes: int,
     *,
     gateway: Any = None,
-    store: Any = None,
+    store: Any,
     slot_count: int = DEFAULT_SLOT_COUNT,
     now: datetime | None = None,
 ) -> dict[str, Any]:
@@ -340,7 +306,6 @@ def plan_outreach(
         raise ValueError("duration_minutes must be positive")
 
     gateway = gateway or _default_gateway()
-    store = store or FileBatchStore()
     roster = _reviewable_applicants()
     known = {r for r in applicant_refs if r in roster}
     unknown = [r for r in applicant_refs if r not in known]
@@ -431,7 +396,7 @@ def approve_batch(
     choices: Mapping[str, Any],
     *,
     gateway: Any = None,
-    store: Any = None,
+    store: Any,
     now: datetime | None = None,
     max_age: timedelta = DEFAULT_MAX_BATCH_AGE,
 ) -> dict[str, Any]:
@@ -442,7 +407,6 @@ def approve_batch(
     not authorize delivery.
     """
     gateway = gateway or _default_gateway()
-    store = store or FileBatchStore()
     now = now or datetime.now()
     try:
         batch = store.load(batch_id)
@@ -493,7 +457,7 @@ def approve_batch(
             wanted, changed = original, False
         elif isinstance(choice, (list, tuple)) and choice:
             wanted = [_slot_key(c) for c in choice]
-            changed = set(wanted) != set(original)
+            changed = wanted != original
         else:
             raise ApprovalError(f"invalid choice for {ref}: use 'confirm', 'drop' or offered slots")
         if len(set(wanted)) != len(wanted):

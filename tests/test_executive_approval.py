@@ -103,6 +103,16 @@ class ApprovalTests(unittest.TestCase):
         self.assertNotIn("send_now", self.gw.names())
         self.assertNotIn("record_outreach_drafted", self.gw.names())
 
+    def test_reordered_slots_count_as_changed_and_rerender(self):
+        original = [s["start"] for s in self.batch["items"][0]["slots"]]
+        self.assertGreater(len(original), 1)
+        renders = self.gw.names().count("render_outreach")
+        out = self.approve({"ref-a": list(reversed(original)), "ref-b": "confirm"})
+        a = out["items"][0]
+        self.assertEqual(a["decision"], "changed")
+        self.assertEqual([s["start"] for s in a["slots"]], list(reversed(original)))
+        self.assertEqual(self.gw.names().count("render_outreach"), renders + 1)
+
     def test_drop(self):
         out = self.approve({"ref-a": "drop", "ref-b": "confirm"})
         self.assertEqual(out["items"][0]["state"], "DROPPED")
