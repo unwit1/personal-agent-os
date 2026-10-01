@@ -78,7 +78,7 @@ free-compute/
   catalog/diffs.jsonl                    # one diff per new snapshot
   account.json                           # last read-only account state (no key)
   policy-overrides.json                  # operator overrides (optional)
-  quota-ledger.jsonl                     # append-only events
+  ledger.jsonl                     # append-only events
   specialization.json                    # derived records
   backfill/queue.jsonl, backfill/checkpoints/<item_id>.json
 ```
@@ -237,7 +237,7 @@ routing. Its specialization history is kept.
 
 ### Quota ledger event (`free_quota.py`)
 
-One JSON line per free request attempt, appended to `quota-ledger.jsonl`:
+One JSON line per free request attempt, appended to `ledger.jsonl`:
 
 ```json
 {
@@ -309,7 +309,7 @@ only to use up quota.
   "status": "proven",
   "first_observed": "2026-09-21T10:00:00Z",
   "last_observed": "2026-10-01T12:03:17Z",
-  "evidence": ["local:free-compute/quota-ledger.jsonl#2026-10-01T12:03:17Z"]
+  "evidence": ["local:free-compute/ledger.jsonl#2026-10-01T12:03:17Z"]
 }
 ```
 
@@ -390,7 +390,7 @@ the engine executes them under existing budget and approval gates.
      "free_model_latency_p50_ms": 3900, "free_model_tool_reliability": null, "free_model_structured_output_reliability": 0.958}
   ],
   "by_lane": {"priority": 80, "swarm": 40, "backfill": 20},
-  "top_up": {"status": "not_needed", "shortfall_usd": null, "rationale": "account has high allowance (key.is_free_tier == false)", "evidence": ["policy:openrouter/free-model-allowance@v1 verified 2026-10-01"]}
+  "top_up": {"status": "not_needed", "shortfall_usd": null, "rationale": "account has high allowance (key.is_free_tier == false)", "evidence": ["policy:openrouter/free-model-allowance@v1 verified 2026-10-01"], "errors": []}
 }
 ```
 
@@ -407,7 +407,9 @@ the engine executes them under existing budget and approval gates.
 
 ## Low-risk and verifiable: the eligibility rule
 
-`free_routing.eligible(task, workload, policy)` is true only if **all** hold:
+`free_routing.eligible(task, *, sensitivity, protected_globs) -> (bool,
+failed_checks)` returns `(True, [])` only if **all** hold; otherwise it returns
+`(False, [...])` naming every failed check:
 
 1. **Declared validators.** The task has at least one declared validator
    (`validators.run_all` input). Each validator is a deterministic command,
@@ -419,21 +421,24 @@ the engine executes them under existing budget and approval gates.
    roles never go free-first.
 3. **Effort** is `low` or `medium`.
 4. **No protected or secret paths.** No path in the task scope or attachments
-   matches `control_plane.protected_globs(policy)` or the secret patterns
+   matches the `protected_globs` argument (callers pass
+   `control_plane.protected_globs(policy)`) or the secret patterns
    (`**/secrets/**`, `**/.env*`, `**/*.pem`, `**/*.key`, `**/credentials*`, and
    anything `secret_refs` manages). Run-level `protected_paths_allowed` grants
    do not extend to free routes.
-5. **Sensitivity allowed.** `workload.sensitivity` is in the policy's
-   `allowed_sensitivity` (default `["public", "internal"]`). `private` and
-   `secret` are never eligible. For `internal` (repository code), the chosen
-   endpoint's `data_policy.trains_on_prompts` must be `false`, unless the
-   project policy sets `allow_training_endpoints: true`. Unknown (`null`) counts
-   as `true`.
+5. **Sensitivity allowed.** The `sensitivity` argument (a
+   `workload.SENSITIVITY` value) is in the policy's `allowed_sensitivity`
+   (default `["public", "internal"]`). `private` and `secret` are never
+   eligible.
 
 If any check fails, the result is `route=escalate` with the failing checks in
-`eligibility.failed_checks`. The decision also requires a free model that meets
-the task's needs (context length >= estimated prompt + output; tools /
-structured output when required) and governor admission for the lane.
+`eligibility.failed_checks`. `eligible()` is model-independent. The decision
+also requires a free model that meets the task's needs (context length >=
+estimated prompt + output; tools / structured output when required), passes
+the data-policy check, and gets governor admission for the lane. Data-policy
+check: for `internal` sensitivity (repository code), the model's
+`data_policy.trains_on_prompts` must be `false`, unless the project policy sets
+`allow_training_endpoints: true`. Unknown (`null`) counts as `true`.
 
 Model choice inside the free pool: proven specialist with the highest Wilson
 lower bound for the family, then `useful_progress_per_request`, then lower p50
@@ -499,8 +504,13 @@ recommended | unknown | blocked_by_policy`:
   says that Agent OS will not buy credits: the operator tops up in the
   OpenRouter console.
 - `unknown`: high allowance is `null`, the policy is stale, or purchased
-  credits are unreadable. This is shown in the CLI/GUI with the reason and is
-  never sent as an alert.
+  credits are unreadable. Also `unknown`: `high_allowance is false` but the
+  computed `shortfall_usd <= 0` (purchases already meet the threshold). Then
+  `shortfall_usd` is `null`, the top-up result's `errors` (and the account
+  record's `errors`) record
+  `"discrepancy: is_free_tier true despite purchases >= threshold"`, and no
+  alert is sent. This is shown in the CLI/GUI with the reason and is never sent
+  as an alert.
 - `blocked_by_policy`: the operator disabled free routing or no task family is
   eligible under the data policy. A top-up would not help, so there is no alert.
 
@@ -509,9 +519,9 @@ recorded as a finding. The broker never acts on it.
 
 ## CLI / GUI surface
 
-`agent-os orchestrate free <catalog [--refresh] | diff | policy | account |
-quota | route <task.json> | specialization | metrics [--day] | backfill>` prints
-JSON. `free status` combines the roadmap view: allowance and remaining
+`agent-os orchestrate free-compute <catalog [--refresh] | diff | policy |
+account | quota | route <task.json> | specialization | metrics [--day] |
+backfill | status>` prints JSON. `orchestrate free-compute status` combines the roadmap view: allowance and remaining
 requests, RPM headroom, free-model count and preferred specialists, useful free
 requests today, estimated paid calls/cost avoided, free validation/acceptance
 rate, and top-up status. The GUI reads the same JSON.
@@ -532,7 +542,9 @@ rate, and top-up status. The GUI reads the same JSON.
   as canary.
 - Metrics arithmetic on a fixture ledger.
 - Top-up: the four statuses, including the case "balance USD 2 but
-  is_free_tier false -> not_needed" and an exact shortfall.
+  is_free_tier false -> not_needed", an exact shortfall, and the discrepancy
+  case "is_free_tier true, total_purchased_usd >= credit_threshold_usd ->
+  unknown, discrepancy recorded in errors, no alert".
 - Invariants: the account adapter rejects non-GET and non-allowlisted URLs. No
   secret value appears in any persisted file, decision, report or exception
   (the test seeds a sentinel key value and scans outputs). A route never names
