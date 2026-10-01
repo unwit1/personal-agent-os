@@ -39,9 +39,12 @@ These hold in every module and every test asserts them:
 2. **Never enable auto-recharge.** No setting, CLI flag or API call changes
    account configuration. The account adapter is read-only by construction.
 3. **Never call a paid model.** The broker only *decides*. A `route=free`
-   decision names a catalog model whose current snapshot pricing is zero on
-   every priced dimension. `free_swarm.py` and backfill re-check that predicate
-   against the latest snapshot immediately before dispatch and refuse otherwise.
+   decision names a catalog model for which `free_catalog.is_free(pricing)` is
+   true on the current snapshot: every value in the raw provider `pricing`
+   object parses to exactly 0 (see the catalog snapshot). `free_swarm.py` and
+   backfill call the same `is_free` function on the latest snapshot's raw
+   pricing immediately before dispatch and refuse otherwise. There is no second
+   predicate.
    `route=escalate` returns a *ladder* to the existing router, and that router
    applies its existing budget gate (`budget.effective`, `quote.budget_gate`)
    and approvals. The broker never dispatches a non-free request itself.
@@ -59,7 +62,7 @@ protected-path (`control_plane.protected_globs`) or repository-write controls.
 
 | Module | Responsibility | Reuses |
 |---|---|---|
-| `free_catalog.py` | Fetch `/api/v1/models` through an injectable opener, normalize it to the snapshot schema, decide "free" by zero pricing (no hard-coded model lists), persist versioned snapshots, diff consecutive snapshots | `compute.py` cache pattern, `storage.write_json`, `timestamps.utc_now_iso` |
+| `free_catalog.py` | Fetch `/api/v1/models` through an injectable opener, normalize it to the snapshot schema, decide "free" with the single `is_free(pricing)` predicate (every raw pricing value parses to 0; no hard-coded model lists), persist versioned snapshots, diff consecutive snapshots | `compute.py` cache pattern, `storage.write_json`, `timestamps.utc_now_iso` |
 | `free_policy.py` | Load the versioned provider-policy record, merge operator overrides, report staleness (`verified_at` age) | `store.orchestrator_home` |
 | `openrouter_account.py` | Read-only key/credit state behind `secrets://openrouter/default`; GET allowlist; derive `high_allowance` (`true`/`false`/`null`) | `secret_refs`, `retry.RetryPolicy` |
 | `free_quota.py` | Append-only quota ledger; daily budget, per-minute governor, reserve, retry budget, reset boundary; backfill eligibility | `provider_health` cooldowns / circuit breaker |
@@ -90,8 +93,9 @@ It is append-only: a new version is added, earlier versions are never edited.
 ## JSON shapes
 
 Every persisted object carries `schema_version`. Timestamps are UTC ISO-8601
-(`...Z`). USD amounts are numbers. Token prices are USD per token, parsed from
-OpenRouter's decimal strings.
+(`...Z`). USD amounts are numbers. Model `pricing` is persisted exactly as
+OpenRouter returns it (decimal strings, USD per unit, every key kept) and is
+parsed with `decimal.Decimal` only when evaluated.
 
 ### Catalog snapshot (`free_catalog.py`)
 
@@ -104,7 +108,7 @@ OpenRouter's decimal strings.
   "source_url": "https://openrouter.ai/api/v1/models",
   "authenticated": false,
   "content_sha256": "<sha256 of the normalized models array>",
-  "free_predicate": "pricing.prompt == 0 and pricing.completion == 0 and pricing.request == 0",
+  "free_predicate": "free_catalog.is_free/v1: pricing non-empty and every raw value parses to Decimal 0",
   "models": [
     {
       "slug": "example-org/example-model:free",
@@ -114,8 +118,8 @@ OpenRouter's decimal strings.
       "modalities": {"input": ["text"], "output": ["text"]},
       "supports_tools": true,
       "supports_structured_output": false,
-      "pricing": {"prompt": 0.0, "completion": 0.0, "request": 0.0, "image": 0.0},
-      "data_policy": {"trains_on_prompts": null, "retains_prompts": null, "moderated": false, "source": "unknown"},
+      "pricing": {"prompt": "0", "completion": "0", "request": "0", "image": "0", "web_search": "0", "internal_reasoning": "0"},
+      "data_policy": {"trains_on_prompts": false, "retains_prompts": null, "moderated": false, "source": "policy:openrouter/free-model-allowance@v2#data_policies[0]", "verified_at": "2026-10-01T00:00:00Z"},
       "first_seen": "2026-09-20T08:00:00Z",
       "last_seen": "2026-10-01T12:00:00Z",
       "last_verified": "2026-10-01T12:00:00Z"
@@ -124,7 +128,16 @@ OpenRouter's decimal strings.
 }
 ```
 
-- Only models that satisfy `free_predicate` are kept. The pool is whatever the
+- The free predicate is one function, `free_catalog.is_free(pricing) -> bool`.
+  It is true only when `pricing` is a non-empty object and **every** value in
+  it, whatever the key (including keys this design does not name, such as a
+  newly introduced priced dimension), parses as a `Decimal` equal to 0. A
+  missing `pricing` object, an empty one, a `null`, non-numeric or negative
+  value, or any non-zero value makes the model non-free. The snapshot stores
+  the raw pricing object with all keys unchanged, so the predicate can be
+  re-evaluated from the snapshot alone. Catalog filtering, routing and the
+  swarm/backfill pre-dispatch re-check all call this function.
+- Only models for which `is_free` holds are kept. The pool is whatever the
   provider currently prices at zero, so a model can join or leave without a
   code edit. `openrouter/free` is admitted as a pseudo-model with
   `"revision": null` and is only eligible for the backfill route (low-stakes
@@ -135,7 +148,15 @@ OpenRouter's decimal strings.
 - `supports_tools` / `supports_structured_output` come from
   `supported_parameters` (`tools`; `structured_outputs` or `response_format`).
 - `data_policy` fields are tri-state (`true`/`false`/`null` = unknown). Unknown
-  is treated as the restrictive value (see routing).
+  is treated as the restrictive value (see routing). The `/models` listing does
+  not supply them. Their only source is the `data_policies` entries of the
+  versioned provider-policy record (below). The snapshot stores the value
+  resolved at fetch time, with `source` naming the policy version and entry and
+  `verified_at` copied from that entry, or `{"...": null, "source": "unknown",
+  "verified_at": null}` when no entry matches. Routing does not trust this
+  stored copy: it re-resolves through `free_policy.data_policy_for(slug,
+  revision)` against the current effective policy, so a new policy version
+  takes effect without a refetch.
 - `first_seen` is carried forward from the previous snapshot. `last_seen` is
   this fetch. `last_verified` is the last time a real request to the model
   succeeded (from the ledger) or, failing that, `last_seen`.
@@ -176,7 +197,7 @@ routing. Its specialization history is kept.
   "schema_version": "agent-os/provider-policy/v1",
   "provider": "openrouter",
   "policy": "free-model-allowance",
-  "version": 1,
+  "version": 2,
   "free_rpm": 20,
   "daily_free_requests_low": 50,
   "daily_free_requests_high": 1000,
@@ -187,6 +208,11 @@ routing. Its specialization history is kept.
   "verified_at": "2026-10-01T00:00:00Z",
   "verified_by": "operator directive / roadmap 2026-10-01",
   "max_age_days": 30,
+  "data_policies": [
+    {"match": "example-org/example-model:free", "revision": "example-org/example-model-2026-09-15",
+     "trains_on_prompts": false, "retains_prompts": null, "moderated": false,
+     "source_url": "https://openrouter.ai/docs/<provider data-policy page>", "verified_at": "2026-10-01T00:00:00Z"}
+  ],
   "overrides": {}
 }
 ```
@@ -206,6 +232,21 @@ routing. Its specialization history is kept.
 - A record whose `verified_at` is older than `max_age_days` is `stale`. A stale
   policy still governs quota conservatively (it uses the low allowance), but it
   can never trigger a top-up alert.
+- `data_policies` is the only data-policy source. Each entry is reviewed by the
+  operator from the provider's published data policy for that model/endpoint
+  and carries its own `source_url` and `verified_at`. `match` is an exact slug
+  or a provider prefix ending in `/` (for example `"example-org/"`). An exact
+  slug beats a prefix; when `revision` is set the entry applies only to that
+  revision, so a swapped model falls back to unknown. An entry whose
+  `verified_at` is older than `max_age_days` resolves to unknown. A later
+  implementation may add a read-only per-endpoint fetch captured in a fixture,
+  but only by adding it to the GET allowlist and recording its result as a new
+  policy version; this slice does not.
+- The shipped `version: 1` record has `"data_policies": []`; the example above
+  is an illustrative later `version: 2` with one reviewed entry. **Until entries are
+  populated, every model's data policy is unknown and only `public`-sensitivity
+  work is free-eligible**; `internal` (repository) work escalates with
+  `"data_policy: unknown"` (see routing).
 
 ### Account state (`openrouter_account.py`, read-only)
 
@@ -217,21 +258,35 @@ routing. Its specialization history is kept.
   "configured": true,
   "key": {"is_free_tier": false, "usage_usd": 0.42, "limit_usd": null, "limit_remaining_usd": null, "rate_limit": {"requests": 20, "interval": "1m"}},
   "credits": {"total_purchased_usd": 10.0, "total_used_usd": 0.42, "balance_usd": 9.58},
+  "policy_version": 1,
   "high_allowance": true,
-  "high_allowance_basis": "key.is_free_tier == false",
+  "high_allowance_basis": "credits.total_purchased_usd 10.00 >= credit_threshold_usd 10.00 (policy@v1)",
   "observed_daily_peak": 212,
   "errors": []
 }
 ```
 
 - `secret_ref` is the reference string, never the value.
-- `high_allowance` is `true` when `key.is_free_tier` is `false`, or when the
-  ledger shows a UTC day with more accepted free requests than
-  `daily_free_requests_low` (observed cap evidence). It is `false` when
-  `is_free_tier` is `true` and no such evidence exists. It is `null` when
-  neither signal is available. When the provider field and ledger evidence
-  disagree, the disagreement goes into `errors` as `"discrepancy: ..."`. It is
-  surfaced, not guessed away.
+- `openrouter_account.derive_high_allowance(key, credits, policy, ledger)`
+  sets `high_allowance` from the policy's own criterion, purchased credits, in
+  this order:
+  1. **Credits readable** (`credits.total_purchased_usd` is a number) and the
+     policy has a non-null `credit_threshold_usd`: `high_allowance =
+     total_purchased_usd >= credit_threshold_usd`. Basis:
+     `"credits.total_purchased_usd X >= / < credit_threshold_usd T (policy@vN)"`.
+  2. **Credits unreadable**: `true` if the ledger shows a UTC day with more
+     charged free requests than `daily_free_requests_low` (observed-cap
+     evidence; basis `"ledger: N requests on <day> > low cap L"`), else `null`.
+     Without credits or that evidence the tier is unknown, never inferred.
+  `key.is_free_tier` is never used to set `high_allowance`. It is only a
+  cross-check: when it disagrees with the derived value in either direction
+  (`is_free_tier false` but `high_allowance false`, or `is_free_tier true` but
+  `high_allowance true`), `errors` gets
+  `"discrepancy: key.is_free_tier=<v> but high_allowance=<v> (<basis>)"`.
+  Ledger evidence that contradicts a credits-based `false` (a day above the
+  low cap while purchases are below the threshold) is recorded the same way as
+  `"discrepancy: ledger observed cap ..."`. Discrepancies are surfaced, not
+  guessed away.
 - A remaining balance (`balance_usd`) below the threshold says nothing about
   the allowance by itself and is never used to set `high_allowance`.
 
@@ -343,7 +398,7 @@ only to use up quota.
   "revision": "example-org/example-model-2026-09-15",
   "reason": "proven specialist: wilson95 low 0.690 >= floor 0.65; 412 free requests left before reserve",
   "eligibility": {"low_risk_verifiable": true, "failed_checks": []},
-  "policy_allowed_by": ["policy:openrouter/free-model-allowance@v1", "sensitivity:internal<=allowed", "data_policy:no-training-known", "validators:2 declared"],
+  "policy_allowed_by": ["policy:openrouter/free-model-allowance@v2", "sensitivity:internal<=allowed", "data_policy:trains_on_prompts=false (policy@v2#data_policies[0], verified 2026-10-01)", "validators:2 declared"],
   "catalog_snapshot": "FCS-20261001T120000Z-3f9a1c2b",
   "quota": {"budget_remaining": 412, "rpm_headroom": 17, "resets_at": "2026-10-02T00:00:00Z"},
   "ladder": [
@@ -390,7 +445,7 @@ the engine executes them under existing budget and approval gates.
      "free_model_latency_p50_ms": 3900, "free_model_tool_reliability": null, "free_model_structured_output_reliability": 0.958}
   ],
   "by_lane": {"priority": 80, "swarm": 40, "backfill": 20},
-  "top_up": {"status": "not_needed", "shortfall_usd": null, "rationale": "account has high allowance (key.is_free_tier == false)", "evidence": ["policy:openrouter/free-model-allowance@v1 verified 2026-10-01"], "errors": []}
+  "top_up": {"status": "not_needed", "shortfall_usd": null, "rationale": "account has high allowance (credits.total_purchased_usd 10.00 >= credit_threshold_usd 10.00)", "evidence": ["policy:openrouter/free-model-allowance@v1 verified 2026-10-01"], "errors": []}
 }
 ```
 
@@ -436,9 +491,15 @@ If any check fails, the result is `route=escalate` with the failing checks in
 also requires a free model that meets the task's needs (context length >=
 estimated prompt + output; tools / structured output when required), passes
 the data-policy check, and gets governor admission for the lane. Data-policy
-check: for `internal` sensitivity (repository code), the model's
-`data_policy.trains_on_prompts` must be `false`, unless the project policy sets
-`allow_training_endpoints: true`. Unknown (`null`) counts as `true`.
+check: the model's data policy is `free_policy.data_policy_for(slug, revision)`
+on the current effective policy (never the snapshot copy). For `internal`
+sensitivity (repository code), `trains_on_prompts` must be `false`, unless the
+project policy sets `allow_training_endpoints: true`. Unknown (`null`, no
+matching entry, or an expired entry) counts as `true`. `public` work needs no
+data-policy entry. With the shipped empty `data_policies`, internal work
+therefore always escalates (`reason: "data_policy: unknown"`); this is the
+intended conservative default, not an error. The route-decision example above
+assumes a later policy version (`@v2`) that has a verified entry.
 
 Model choice inside the free pool: proven specialist with the highest Wilson
 lower bound for the family, then `useful_progress_per_request`, then lower p50
@@ -495,22 +556,23 @@ recommended | unknown | blocked_by_policy`:
 - `not_needed`: `account.high_allowance is true`. This holds whatever the
   remaining balance is: a low balance by itself never triggers an alert.
 - `recommended` (the only status that alerts the operator): **all** of
-  `account.high_allowance is false`, the current policy is verified (not stale)
-  with a non-null `credit_threshold_usd`, and `credits.total_purchased_usd` is
-  known. The alert states the exact shortfall `shortfall_usd =
-  round(credit_threshold_usd - total_purchased_usd, 2)` (> 0), the allowance
-  it would unlock (`daily_free_requests_low` -> `daily_free_requests_high`),
-  the policy `source_url` and `verified_at`, and the account read time. It
-  says that Agent OS will not buy credits: the operator tops up in the
-  OpenRouter console.
-- `unknown`: high allowance is `null`, the policy is stale, or purchased
-  credits are unreadable. Also `unknown`: `high_allowance is false` but the
-  computed `shortfall_usd <= 0` (purchases already meet the threshold). Then
-  `shortfall_usd` is `null`, the top-up result's `errors` (and the account
-  record's `errors`) record
-  `"discrepancy: is_free_tier true despite purchases >= threshold"`, and no
-  alert is sent. This is shown in the CLI/GUI with the reason and is never sent
-  as an alert.
+  `account.high_allowance is false` with the credits basis (rule 1 above, so
+  `total_purchased_usd < credit_threshold_usd`), the current policy is
+  verified (not stale) with a non-null `credit_threshold_usd`, and no ledger
+  observed-cap discrepancy is recorded. The alert states the exact shortfall
+  `shortfall_usd = round(credit_threshold_usd - total_purchased_usd, 2)`
+  (always > 0 here), the allowance it would unlock (`daily_free_requests_low`
+  -> `daily_free_requests_high`), the policy `source_url` and `verified_at`,
+  and the account read time. An `is_free_tier` discrepancy does not suppress
+  the alert (the verified policy criterion is purchases); it is copied into
+  the result's `errors` so the operator sees it. The alert says that Agent OS
+  will not buy credits: the operator tops up in the OpenRouter console.
+- `unknown`: `high_allowance` is `null`, the policy is stale, purchased
+  credits are unreadable, or a ledger observed-cap discrepancy contradicts a
+  credits-based `false` (the published policy may be out of date).
+  `shortfall_usd` is `null`, the reason and any discrepancies are in `errors`,
+  and no alert is sent. This is shown in the CLI/GUI with the reason and is
+  never sent as an alert.
 - `blocked_by_policy`: the operator disabled free routing or no task family is
   eligible under the data policy. A top-up would not help, so there is no alert.
 
@@ -529,11 +591,23 @@ rate, and top-up status. The GUI reads the same JSON.
 ## Test plan (no network)
 
 - A fake opener serves fixture `/models`, `/key` and `/credits` payloads.
-  Tests check that free models are discovered by zero pricing, that
+  Tests check that free models are discovered by `is_free`, including that a
+  model with `"0"` prompt/completion but a non-zero (or unknown extra) pricing
+  key, a missing or empty `pricing`, or an unparseable value is excluded; that
+  raw pricing keys round-trip through the snapshot; that
   adding/removing/changing a model yields the right diff with no code edit, and
   that an identical fetch writes no new snapshot.
 - Policy: overrides merge; stale policy uses the low allowance and suppresses
-  alerts.
+  alerts. Data policy: with empty `data_policies`, `public` work is eligible
+  and `internal` work escalates with `"data_policy: unknown"`; an exact-slug
+  entry beats a prefix; a revision-pinned entry does not apply to a swapped
+  revision; an expired entry resolves to unknown.
+- High allowance: `is_free_tier false`, `total_purchased_usd 5`, threshold 10
+  -> `high_allowance false`, `is_free_tier` discrepancy in `errors`, top-up
+  `recommended` with `shortfall_usd 5.00`. `is_free_tier true`, purchases 10,
+  threshold 10 -> `high_allowance true`, discrepancy recorded, `not_needed`.
+  Credits unreadable with a ledger day above the low cap -> `true`; credits
+  unreadable without it -> `null`.
 - Governor: RPM window, daily budget at both tiers, failed requests charged,
   reset boundary, reserve, retry budget, open circuit.
 - Eligibility: each of the five checks fails alone.
@@ -542,13 +616,14 @@ rate, and top-up status. The GUI reads the same JSON.
   as canary.
 - Metrics arithmetic on a fixture ledger.
 - Top-up: the four statuses, including the case "balance USD 2 but
-  is_free_tier false -> not_needed", an exact shortfall, and the discrepancy
-  case "is_free_tier true, total_purchased_usd >= credit_threshold_usd ->
-  unknown, discrepancy recorded in errors, no alert".
+  total_purchased_usd 10 >= threshold 10 -> not_needed", an exact shortfall,
+  and the case "purchases below threshold but a ledger day above the low cap
+  -> unknown, discrepancy recorded in errors, no alert".
 - Invariants: the account adapter rejects non-GET and non-allowlisted URLs. No
   secret value appears in any persisted file, decision, report or exception
   (the test seeds a sentinel key value and scans outputs). A route never names
-  a model with non-zero pricing.
+  a model for which `is_free` is false, and swarm/backfill refuse dispatch
+  when the latest snapshot's pricing for the model fails `is_free`.
 
 ## Implementation order
 
