@@ -22,8 +22,11 @@ unchanged. `ranked` returns projected applicants carrying `applicant_ref`,
 never the internal key. `applicant_ref` is the only applicant
 identity persisted in Executive batches, logs, audit records, or tool results;
 names and contact details may appear as restricted outreach content, never as
-lookup keys. Internal keys, source/provenance keys, filenames, document paths,
-and raw Dashboard rows must not cross the gateway.
+lookup keys. Internal keys, source/provenance keys, applicant or source document
+filenames and paths, and raw Dashboard rows must not cross the gateway. The
+limited path exception is `draft_path`: the generated local outreach draft path
+passed to `record_outreach_drafted` after approval. It identifies an Executive
+draft, never an applicant or source document, and is not an applicant identity.
 
 The gateway projects applicants onto an explicit allowlist: `applicant_ref`,
 name, position, submitted time, status, county/city, and email only in the
