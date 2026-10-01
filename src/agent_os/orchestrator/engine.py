@@ -584,6 +584,10 @@ class Orchestrator:
                     self._sleep(float(record["policy"]["poll_interval_seconds"]))
                 elif str(record.get("state_reason") or "").startswith(USAGE_RESET_WAIT):
                     self._sleep(max(float(record["policy"]["poll_interval_seconds"]), 30.0))
+                else:
+                    # Nothing running and not stopped (e.g. a node parked on a
+                    # deferred repair): without a pause this loop spins a core.
+                    self._sleep(max(float(record["policy"]["poll_interval_seconds"]), IDLE_TICK_SECONDS))
             return summary
         finally:
             self.store.release_driver(run_id)
@@ -2632,6 +2636,8 @@ USAGE_RESET_WAIT = "waiting for usage reset:"
 # Consecutive git/OS tick failures the driver rides out (5s, 10s, 20s ... backoff)
 # before giving up; one killed git child must not orphan a long run.
 TRANSIENT_TICK_RETRIES = 6
+# Floor for the driver's wait between ticks when no worker is running.
+IDLE_TICK_SECONDS = 5.0
 
 
 def _operator_changed(record: dict[str, Any]) -> None:
