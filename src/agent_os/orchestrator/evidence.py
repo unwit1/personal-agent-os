@@ -117,8 +117,6 @@ def validate_tree() -> dict[str, Any]:
     ids = known_external_ids() | {data["id"] for _, data in all_records if isinstance(data, dict) and data.get("id")}
     seen: set[str] = set()
     for path, data in all_records:
-        if isinstance(data, dict) and data.get("schema_version", "").startswith("agent-os/provider-policy"):
-            continue
         checked += 1
         label = path.relative_to(ROOT).as_posix()
         problems = validate_record(data, label)
