@@ -35,9 +35,6 @@ class FakeStore:
         self.loads += 1
         return self.batches[batch_id]
 
-    def list_batches(self):
-        return list(self.batches.values())
-
 
 BATCH = {
     "batch_id": "batch-1",
@@ -66,18 +63,16 @@ class BrainTests(unittest.TestCase):
         self.assertEqual(status["state"], "PENDING_APPROVAL")
         self.assertEqual(status["item_states"], {"PLANNED": 1})
         self.assertNotIn("body", repr(status))
-        self.assertEqual(len(brn.batches()), 1)
         with self.assertRaises(ValueError):
             brain.ExecutiveBrain().batch_status("batch-1")
-        with self.assertRaises(ValueError):
-            brain.ExecutiveBrain().batches()
 
     def test_briefing_skips_suggestions_without_opening(self):
         with patch.object(applicants.rtec_applicants, "pending_actions", return_value=PENDING), \
                 patch.object(applicants, "suggestions") as sug:
-            out = brain.ExecutiveBrain(store=FakeStore([BATCH])).briefing(now=NOW)
+            out = brain.ExecutiveBrain(store=FakeStore([BATCH])).briefing(batch_ids=["batch-1"], now=NOW)
         sug.assert_not_called()
         self.assertNotIn("suggestions", out)
+        self.assertEqual(out["batches"][0]["batch_id"], "batch-1")
 
     def test_suggestions_delegates_with_gateway(self):
         gateway = object()

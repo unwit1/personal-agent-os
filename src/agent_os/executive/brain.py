@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import datetime
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 from . import applicants
 
@@ -54,20 +54,17 @@ class ExecutiveBrain:
             raise ValueError("no outbox store configured")
         return batch_status(self._store.load(batch_id))
 
-    def batches(self) -> list[dict[str, Any]]:
-        """Status of every stored batch; the store must provide ``list_batches``."""
-        if self._store is None:
-            raise ValueError("no outbox store configured")
-        return sorted(
-            (batch_status(b) for b in self._store.list_batches()),
-            key=lambda s: str(s["batch_id"]),
-        )
-
-    def briefing(self, opening: str | None = None, *, now: datetime | None = None) -> dict[str, Any]:
+    def briefing(
+        self,
+        opening: str | None = None,
+        *,
+        batch_ids: Sequence[str] = (),
+        now: datetime | None = None,
+    ) -> dict[str, Any]:
         """One deterministic snapshot; suggestions only when ``opening`` is given."""
         out: dict[str, Any] = {"needs_action": self.needs_action(now=now)}
-        if self._store is not None:
-            out["batches"] = self.batches()
+        if batch_ids:
+            out["batches"] = [self.batch_status(b) for b in batch_ids]
         if opening:
             out["suggestions"] = self.suggestions(opening)
         return out
