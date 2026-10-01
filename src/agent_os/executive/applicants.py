@@ -1,8 +1,9 @@
 """Applicant Executive read flows and the outreach plan/approve steps.
 
 Business logic stays in the RTEC Applicant Dashboard and is reached only through
-a ``DashboardGateway``. This module never sees internal applicant keys, never
-requests AI reviews, never writes Dashboard drafts and never sends mail.
+a ``DashboardGateway``. This module never sees internal applicant keys and never
+requests AI reviews. Dashboard draft records and mail delivery happen only in
+``send_batch`` after a separate explicit confirmation; the default is dry-run.
 Applicant identity is the opaque ``applicant_ref`` everywhere.
 """
 from __future__ import annotations
@@ -19,6 +20,9 @@ REVIEWABLE_STATUSES = ("New", "Interested", "Interview Requested", "Clarificatio
 
 PENDING_APPROVAL = "PENDING_APPROVAL"
 APPROVED = "APPROVED"
+PARTIALLY_SENT = "PARTIALLY_SENT"
+SENT = "SENT"
+OUTREACH_KIND = "interview_outreach"
 DEFAULT_SLOT_COUNT = 3
 DEFAULT_MAX_BATCH_AGE = timedelta(hours=24)
 
@@ -38,6 +42,10 @@ _VIEW_FIELDS = ("applicant_ref", "name", "position", "submitted", "status", "cou
 
 class ApprovalError(ValueError):
     """An approval request was unknown, stale, repeated, or incomplete."""
+
+
+class SendError(ValueError):
+    """A send request referred to an unknown or unapproved batch."""
 
 
 # ---------------------------------------------------------------- helpers
@@ -493,3 +501,143 @@ def approve_batch(
     batch["approved_at"] = now.isoformat(timespec="seconds")
     store.save(batch)
     return batch
+
+
+# ---------------------------------------------------------------- send_batch
+
+_SENDABLE_BATCH_STATES = (APPROVED, PARTIALLY_SENT, SENT)
+_RETRYABLE_ITEM_STATES = ("APPROVED", "SEND_FAILED")
+_AUDIT_SEND_STATUS = {"SENT": "sent", "SEND_UNKNOWN": "unknown", "SEND_FAILED": "failed"}
+
+
+def _preview(item: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "applicant_ref": item["applicant_ref"],
+        "name": item.get("name"),
+        "subject": item.get("subject"),
+        "slots": [s["start"] for s in item.get("slots") or []],
+    }
+
+
+def _send_summary(batch: Mapping[str, Any], *, dry_run: bool) -> dict[str, Any]:
+    by_state: dict[str, list[str]] = {}
+    for item in batch["items"]:
+        by_state.setdefault(item["state"], []).append(item["applicant_ref"])
+    return {
+        "batch_id": batch["batch_id"],
+        "dry_run": dry_run,
+        "state": batch["state"],
+        "sent": by_state.get("SENT", []),
+        "failed": by_state.get("SEND_FAILED", []),
+        "unknown": by_state.get("SEND_UNKNOWN", []),
+    }
+
+
+def _send_item(item: dict[str, Any], batch: dict[str, Any], *, gateway: Any, store: Any, stamp: str) -> None:
+    """One attempt for one item; ``item`` is updated in place and persisted."""
+    ref = item["applicant_ref"]
+    item["send_attempts"] = int(item.get("send_attempts") or 0) + 1
+    item.pop("send_error", None)
+
+    summary = rtec_applicants.get_summary(ref) or {}
+    to_addr = str(summary.get("email") or "").strip()
+    if not to_addr:
+        item.update(state="SEND_FAILED", send_error="no_email", send_stage="lookup")
+        return
+
+    if not item.get("draft_id"):
+        try:
+            draft_id = gateway.record_outreach_drafted(
+                ref,
+                [_as_when(s["start"]) for s in item["slots"]],
+                batch["interview_type"],
+                batch["location"],
+                batch["duration_minutes"],
+                "",
+                item.get("manager"),
+            )
+        except Exception as exc:
+            item.update(state="SEND_FAILED", send_error=type(exc).__name__, send_stage="draft")
+            return
+        item.update(draft_id=_jsonable(draft_id), drafted_at=stamp)
+
+    # Persist the in-flight marker first: if the process dies mid-send, the
+    # retry sees SENDING and refuses to resend an email that may have gone out.
+    item["state"] = "SENDING"
+    store.save(batch)
+    try:
+        email_id = gateway.send_now(ref, OUTREACH_KIND, to_addr, item["subject"], item["body"])
+    except Exception as exc:
+        item.update(state="SEND_FAILED", send_error=type(exc).__name__, send_stage="send")
+        return
+    if email_id is None or email_id == "":
+        item.update(state="SEND_UNKNOWN", send_stage="send")
+        return
+    item.pop("send_stage", None)
+    item.update(state="SENT", email_id=_jsonable(email_id), sent_at=stamp)
+
+
+def send_batch(
+    batch_id: str,
+    *,
+    confirm: bool = False,
+    gateway: Any = None,
+    store: Any,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    """Send an approved batch only on explicit ``confirm=True``; otherwise dry-run.
+
+    Dry-run lists what would be sent and touches neither the Dashboard nor the
+    store. A confirmed send handles approved, undropped items only: it records
+    the Dashboard outreach draft, then calls ``gateway.send_now``. The batch is
+    persisted after every attempt, so a retry skips items that already have an
+    email ID and never re-records a draft. An item interrupted mid-send becomes
+    SEND_UNKNOWN and is never resent automatically. Failures keep only the
+    exception type, since messages may carry addresses.
+    """
+    try:
+        batch = store.load(batch_id)
+    except KeyError:
+        raise SendError(f"unknown batch: {batch_id}") from None
+    if batch["state"] not in _SENDABLE_BATCH_STATES:
+        raise SendError(f"batch {batch_id} is {batch['state']}; approve it before sending")
+
+    pending = [i for i in batch["items"] if i["state"] in _RETRYABLE_ITEM_STATES]
+    if confirm is not True:
+        rtec_applicants._audit_access(
+            "executive.outreach_send_preview", metadata={"result_count": len(pending)}
+        )
+        result = _send_summary(batch, dry_run=True)
+        result["would_send"] = [_preview(i) for i in pending]
+        return result
+
+    gateway = gateway or _default_gateway()
+    stamp = (now or datetime.now()).isoformat(timespec="seconds")
+
+    for item in batch["items"]:
+        if item["state"] == "SENDING":
+            item.update(state="SEND_UNKNOWN", send_stage="interrupted")
+            store.save(batch)
+            rtec_applicants._audit_access(
+                "executive.outreach_send", applicant_ref=item["applicant_ref"],
+                metadata={"status": "unknown", "reason": "interrupted"},
+            )
+
+    for item in pending:
+        _send_item(item, batch, gateway=gateway, store=store, stamp=stamp)
+        store.save(batch)
+        rtec_applicants._audit_access(
+            "executive.outreach_send", applicant_ref=item["applicant_ref"],
+            metadata={
+                "status": _AUDIT_SEND_STATUS.get(item["state"], "failed"),
+                "reason": item.get("send_error") or item.get("send_stage"),
+            },
+        )
+
+    live = [i for i in batch["items"] if i["state"] not in ("DROPPED", "HELD")]
+    if live and all(i["state"] == "SENT" for i in live):
+        batch["state"] = SENT
+    elif any(i["state"] == "SENT" for i in live):
+        batch["state"] = PARTIALLY_SENT
+    store.save(batch)
+    return _send_summary(batch, dry_run=False)
