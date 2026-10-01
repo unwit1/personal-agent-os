@@ -58,8 +58,11 @@ class DirtyLargeReadiness(ReadinessFixture):
                 engine.start(created["run_id"])
                 engine.run_loop(created["run_id"])
                 record = engine.load(created["run_id"])
+                self.assertEqual(record["state"], "COMPLETE", record.get("state_reason"))
                 branch = record["integration"].get("branch")
-                files = git(repo, "ls-tree", "-r", "--name-only", branch).splitlines() if branch else []
+                self.assertTrue(branch, "completed run must have an integration branch")
+                files = git(repo, "ls-tree", "-r", "--name-only", branch).splitlines()
+                self.assertIn("README.md", files, "integration branch listing should contain tracked files")
                 self.assertNotIn("notes.txt", files)
                 self.assertEqual((repo / "README.md").read_bytes(), base)
                 self.assertEqual((repo / "notes.txt").read_bytes(), notes)
