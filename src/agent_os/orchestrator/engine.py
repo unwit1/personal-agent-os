@@ -548,10 +548,22 @@ class Orchestrator:
                 self.start(run_id)
             passed_before = _count_passed(self.store.load(run_id))
             boundary = False
+            transient_errors = 0
             while True:
                 # Without Auto Continue, reaching a stage boundary stops new
                 # dispatch; workers already running are still collected.
-                summary = self.step(run_id, dispatch=not boundary)
+                try:
+                    summary = self.step(run_id, dispatch=not boundary)
+                except (GitError, OSError):
+                    # A git or process call can fail once (a killed child, a
+                    # transient lock). Back off and retry rather than leaving
+                    # the run without a driver; give up if it keeps failing.
+                    transient_errors += 1
+                    if transient_errors > TRANSIENT_TICK_RETRIES:
+                        raise
+                    self._sleep(min(5.0 * 2 ** (transient_errors - 1), 120.0))
+                    continue
+                transient_errors = 0
                 ticks += 1
                 record = self.store.load(run_id)
                 active = _active(record)
@@ -2616,6 +2628,9 @@ def _run_history_note(snapshot_home: Path | str) -> str:
 
 
 USAGE_RESET_WAIT = "waiting for usage reset:"
+# Consecutive git/OS tick failures the driver rides out (5s, 10s, 20s ... backoff)
+# before giving up; one killed git child must not orphan a long run.
+TRANSIENT_TICK_RETRIES = 6
 
 
 def _operator_changed(record: dict[str, Any]) -> None:

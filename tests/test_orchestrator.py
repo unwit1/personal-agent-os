@@ -30,7 +30,7 @@ from agent_os.orchestrator.engine import Orchestrator, OrchestratorError
 from agent_os.orchestrator.model import PlanError, PolicyError, merge_policy, scopes_overlap
 from agent_os.orchestrator.router import ProviderRegistry, select
 from agent_os.orchestrator.store import RunStore, StoreError, redact
-from agent_os.orchestrator.worktrees import WorktreeManager, git
+from agent_os.orchestrator.worktrees import GitError, WorktreeManager, git
 from agent_os.paths import ROOT
 from agent_os.telemetry import LocalTelemetryStore
 
@@ -407,6 +407,28 @@ class FailoverAndRestartTests(OrchestratorFixture):
         self.assertEqual(node["excluded_classes"], {"alpha": ["balanced"]})
         self.assertNotIn("alpha", node["excluded_providers"])
         self.assertEqual((node["selection"]["provider"], node["selection"]["capability_class"]), ("alpha", "reasoning"))
+
+    def test_driver_rides_out_a_transient_git_failure(self) -> None:
+        run_id = self.create([self.task("a")])
+        real_step = self.engine.step
+        failures = iter([GitError("git worktree list --porcelain failed: ")])
+
+        def flaky_step(*args, **kwargs):
+            exc = next(failures, None)
+            if exc is not None:
+                raise exc
+            return real_step(*args, **kwargs)
+
+        with mock.patch.object(self.engine, "step", side_effect=flaky_step):
+            final = self.engine.run_loop(run_id, max_ticks=40)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+
+    def test_driver_gives_up_on_a_persistent_git_failure(self) -> None:
+        run_id = self.create([self.task("a")])
+        with mock.patch.object(self.engine, "step", side_effect=GitError("git rev-parse HEAD failed: ")):
+            with self.assertRaises(GitError):
+                self.engine.run_loop(run_id, max_ticks=40)
+        self.assertFalse(self.engine.store.driver(run_id).get("active"))
 
     def test_quota_failure_preserves_checkpoint_and_hands_off(self) -> None:
         partial = {"a/partial.txt": "half done\n"}
