@@ -55,9 +55,9 @@ class ExecutiveBrain:
         return batch_status(self._store.load(batch_id))
 
     def batches(self) -> list[dict[str, Any]]:
-        """Status of every stored batch, when the store can list them."""
-        if self._store is None or not hasattr(self._store, "list_batches"):
-            return []
+        """Status of every stored batch; the store must provide ``list_batches``."""
+        if self._store is None:
+            raise ValueError("no outbox store configured")
         return sorted(
             (batch_status(b) for b in self._store.list_batches()),
             key=lambda s: str(s["batch_id"]),
@@ -65,7 +65,9 @@ class ExecutiveBrain:
 
     def briefing(self, opening: str | None = None, *, now: datetime | None = None) -> dict[str, Any]:
         """One deterministic snapshot; suggestions only when ``opening`` is given."""
-        out: dict[str, Any] = {"needs_action": self.needs_action(now=now), "batches": self.batches()}
+        out: dict[str, Any] = {"needs_action": self.needs_action(now=now)}
+        if self._store is not None:
+            out["batches"] = self.batches()
         if opening:
             out["suggestions"] = self.suggestions(opening)
         return out

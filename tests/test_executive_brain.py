@@ -69,6 +69,8 @@ class BrainTests(unittest.TestCase):
         self.assertEqual(len(brn.batches()), 1)
         with self.assertRaises(ValueError):
             brain.ExecutiveBrain().batch_status("batch-1")
+        with self.assertRaises(ValueError):
+            brain.ExecutiveBrain().batches()
 
     def test_briefing_skips_suggestions_without_opening(self):
         with patch.object(applicants.rtec_applicants, "pending_actions", return_value=PENDING), \
