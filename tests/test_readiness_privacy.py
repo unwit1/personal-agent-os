@@ -68,6 +68,13 @@ class ReadinessPrivacyTests(readiness_fixtures.ReadinessFixture):
                 self.assertNotIn("abcdefghijklmnopqrstuvwxyz0123", cleaned)
                 self.assertNotIn("hunter2", cleaned)
 
+    def test_gap_redact_misses_generic_sk_token(self):
+        token = "sk-test-123456"
+        observed = redact(token)
+        for name, _repo in self.fixtures.items():
+            with self.subTest(fixture=name):
+                self.assertEqual(observed, token, "current generic sk-token behavior changed")
+
     def test_pr2_state_and_telemetry_hold_no_prompt_text(self):
         marker = "UNIQUE-PRIVACY-PROMPT-MARKER"
         for name, repo in self.fixtures.items():
@@ -78,10 +85,16 @@ class ReadinessPrivacyTests(readiness_fixtures.ReadinessFixture):
                 engine.run_loop(run_id, max_ticks=30)
                 state = engine.store.state_path(run_id).read_text(encoding="utf-8")
                 telemetry = self.telemetry_path.read_text(encoding="utf-8")
-                # Run state retains the user supplied goal, while prompt and
-                # conversation payloads are expected to stay out of telemetry.
-                self.assertIn(marker, state)
+                self.assertNotIn("Rules:", state)
+                self.assertNotIn("agent-os-result", state)
+                for key in ('"transcript"', '"messages"', '"conversation"', '"history"'):
+                    self.assertNotIn(key, state)
                 self.assertNotIn(marker, telemetry)
+                allowed = {"schema_version", "event_id", "occurred_at", "project_id", "task_category", "capability_class", "execution_path", "provider", "model", "input_tokens", "cached_tokens", "output_tokens", "duration_ms", "retries", "validator_passed", "escalations", "correction_or_override", "reasoning_tokens", "items_processed"}
+                events = [json.loads(line) for line in telemetry.splitlines()]
+                self.assertTrue(events)
+                for event in events:
+                    self.assertLessEqual(set(event), allowed)
 
     def test_pr3_repo_map_secret_file_visibility(self):
         observations = {}
@@ -121,7 +134,8 @@ class ReadinessPrivacyTests(readiness_fixtures.ReadinessFixture):
                 record = engine.load(run_id)
                 status = self._git(repo, "status", "--porcelain", "--untracked-files=all")
                 branch = record.get("integration", {}).get("branch")
-                tree = self._git(repo, "ls-tree", "-r", "--name-only", branch) if branch else ""
+                self.assertTrue(branch, record.get("integration"))
+                tree = self._git(repo, "ls-tree", "-r", "--name-only", branch)
                 leaked = [line for line in (status + "\n" + tree).splitlines() if ".agent-local" in line]
                 self.assertFalse(leaked, f".agent-local leakage: {leaked}")
 
