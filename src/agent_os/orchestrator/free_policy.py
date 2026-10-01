@@ -1,7 +1,7 @@
 """Versioned provider-policy records for free-compute quotas and data policies.
 
 The canonical policy history lives in Git at
-projects/personal-agent-os/orchestrator-os/records/provider-policy/openrouter-free.json.
+projects/personal-agent-os/orchestrator-os/provider-policy/openrouter-free.json.
 It is append-only: a new version is added, earlier versions are never edited.
 
 Operator overrides from orchestrator_home()/free-compute/policy-overrides.json
@@ -23,7 +23,7 @@ def _canonical_policy_path() -> Path:
     """Path to the canonical versioned provider-policy record in Git."""
     from ..paths import ROOT
 
-    return ROOT / "projects/personal-agent-os/orchestrator-os/records/provider-policy/openrouter-free.json"
+    return ROOT / "projects/personal-agent-os/orchestrator-os/provider-policy/openrouter-free.json"
 
 
 def _overrides_path(home: Path | None = None) -> Path:
