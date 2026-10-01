@@ -702,6 +702,226 @@ runtime flags. Do not generalize one benchmark across materially different
 configurations.
 
 
+
+## OpenRouter free-compute maximization / FreeComputeBroker
+
+**Priority: ASAP / HIGH — operator directive 2026-10-01.**
+
+Treat OpenRouter's currently free models as a volatile, opportunistic compute
+pool that Orchestrator should exploit as aggressively as is useful **without
+lowering validation quality, violating privacy policy, or wasting finite free
+requests**. This is an extension of the existing provider-neutral Compute
+Broker, adaptive router, disposable-subagent, and cost-per-verified-success
+work; do not build a parallel orchestration stack.
+
+### Current provider-policy baseline and provenance
+
+As of 2026-10-01, OpenRouter documentation says free-model usage is limited to
+approximately 50 requests/day and 20 requests/minute before the account has
+added at least USD 10 in credits, and approximately 1,000 free-model
+requests/day at the same 20 RPM after that threshold. Failed free requests may
+consume daily request allowance. Treat these values as **versioned external
+policy, not constants**: refresh them from provider documentation/account
+signals, store last-verified provenance, and keep thresholds/configuration
+overrideable.
+
+Do **not** assume that a remaining account balance below USD 10 means the user
+must top up. Determine whether the account actually has the higher free-model
+allowance from provider-visible account/quota state where possible. If the
+higher allowance is unavailable and current verified policy indicates that an
+additional credit purchase is required, notify the operator with the exact
+shortfall and rationale. Never purchase credits or enable auto-top-up without
+explicit approval.
+
+### FreeComputeBroker responsibilities
+
+Add a first-class FreeComputeBroker capability inside the existing model/
+compute broker:
+
+1. **Dynamic free-model discovery**
+   - enumerate current OpenRouter models/endpoints with zero effective prompt
+     and completion price or explicit free variants;
+   - record exact model slug/revision, context limits, modalities, tool and
+     structured-output support, provider/data-policy constraints, availability,
+     and last-seen/last-verified timestamps;
+   - detect additions/removals/changed limits without code changes;
+   - use `openrouter/free` only for low-stakes opportunistic work; prefer
+     explicitly selected free model slugs when empirical evidence shows a
+     task-family specialist is better.
+
+2. **Empirical task-family specialization**
+   - continuously learn per-model performance from Orchestrator's own workloads,
+     not public benchmark rank alone;
+   - maintain evidence for task families such as code search, unit-test
+     generation, bug fixing, static review, documentation, extraction,
+     classification, research triage, planning, tool use, and structured output;
+   - track validator pass rate, review acceptance, retries, latency, context
+     failures, tool-call reliability, structured-output reliability, and
+     useful-progress-per-request;
+   - use exploration/canary traffic so newly added free models can earn traffic
+     without displacing proven routes prematurely.
+
+3. **Free-first routing for verifiable work**
+   - route low-risk, independently verifiable subtasks through the free pool
+     before paid/frontier inference when predicted cost of verification +
+     retries remains favorable;
+   - favor tasks whose outputs can be checked by tests, compilers, linters,
+     schemas, deterministic repository inspection, source/citation checks, or
+     independent review;
+   - use paid/local/frontier models primarily as escalation or final adjudication
+     when validation fails, ambiguity remains, or the task is high-consequence.
+
+4. **Disposable free-model swarm**
+   - fan out bounded free workers for independent search, edge-case discovery,
+     test generation, alternative implementations, research triage, and
+     adversarial review;
+   - aggregate with deterministic validation/map-reduce where possible rather
+     than majority vote;
+   - prefer several small task-scoped workers over one context-heavy worker when
+     measured total useful progress improves;
+   - never let free-worker fan-out bypass existing concurrency, privacy, secret,
+     or repository-write controls.
+
+5. **Quota-aware useful backfill**
+   - maintain an explicit daily free-request budget, per-minute governor,
+     provider/model availability state, reserve, retry budget, and reset time;
+   - use otherwise-expiring free capacity for useful queued work such as tests,
+     docs, static review, benchmark samples, issue triage, metadata extraction,
+     evals, or repository-health sweeps;
+   - prioritize useful development progress per free request; never generate
+     pointless calls merely to consume quota;
+   - batch compatible microtasks into one structured request where doing so
+     increases useful progress per request without harming validation;
+   - apply bounded exponential backoff and avoid repeatedly spending free
+     allowance on an unhealthy endpoint.
+
+6. **Verification and escalation ladder**
+   - every production-affecting free-model result must have a declared validator
+     or review gate before acceptance;
+   - on failure, first try an empirically suitable alternate free model when the
+     expected value is positive, then local/already-paid compute, then cheap paid
+     API, then frontier reasoning as policy allows;
+   - preserve partial verified outputs and avoid redoing successful work during
+     escalation.
+
+7. **Privacy/sensitivity-aware routing**
+   - model/provider data policies are routing constraints;
+   - never send secrets, credentials, restricted HR/personal data, or other
+     disallowed sensitive context to a free endpoint;
+   - allow repository/code traffic only when the selected endpoint's current
+     provider/data policy is compatible with project policy;
+   - prefer minimal truthful task-scoped context and record which policy allowed
+     the route.
+
+### OpenRouter quota / credit awareness
+
+Implement an OpenRouter account-state adapter that can, where supported:
+
+- read remaining credits and per-key/account usage through the provider's
+  supported APIs;
+- infer or directly read current free-model request allowance, requests used,
+  requests remaining, RPM state, and reset boundary;
+- compare observed account behavior with the currently verified policy record;
+- surface discrepancies rather than guessing;
+- emit a user-facing **OpenRouter top-up recommended** alert only when the
+  account is not receiving the higher free-model allowance and a verified
+  current policy indicates additional purchased credits are required;
+- state the exact additional amount believed necessary (for example, enough to
+  reach the provider's then-current qualifying purchase threshold), why it is
+  useful, and the evidence date/source;
+- never charge a card, purchase credits, or enable auto-recharge without a
+  separate explicit approval.
+
+Expose this in the Orchestrator GUI/CLI with:
+- current free-model allowance and remaining requests;
+- current RPM headroom;
+- discovered free-model count and currently preferred specialists;
+- useful free requests used today;
+- estimated paid calls/tokens avoided;
+- validation/acceptance rate of free work;
+- top-up status: `not needed`, `recommended`, `policy/account state
+  unknown`, or `blocked by privacy/provider policy`.
+
+### Metrics
+
+Add at least:
+
+- `free_requests_attempted`;
+- `free_requests_successful`;
+- `free_requests_wasted_or_failed`;
+- `free_request_budget_remaining`;
+- `free_useful_progress_per_request`;
+- `free_validator_pass_rate`;
+- `free_review_acceptance_rate`;
+- `free_retry_rate`;
+- `free_escalation_rate`;
+- `free_paid_fallbacks_avoided`;
+- `estimated_paid_cost_avoided_usd`;
+- `free_model_task_family_success_rate`;
+- `free_model_latency`;
+- `free_model_tool_reliability`;
+- `free_model_structured_output_reliability`;
+- `free_policy_last_verified_at`;
+- `openrouter_credit_balance` where the account API exposes it safely;
+- `openrouter_free_quota_tier` / observed request-cap evidence.
+
+Optimize for **cost per verified successful task** and **useful development
+progress per free request**, not raw call count.
+
+### Implementation order
+
+1. Add current OpenRouter free-model discovery and normalized model metadata.
+2. Add read-only account/quota/credit telemetry and policy provenance; no spend.
+3. Add a quota governor with reset/RPM/retry accounting and reserve.
+4. Add free-first routing for a narrow set of automatically verifiable,
+   low-risk task families.
+5. Add validator-driven free -> alternate-free -> local/already-paid ->
+   cheap-paid -> frontier escalation.
+6. Add empirical per-model/task-family scorecards and route explanations.
+7. Add disposable free-worker fan-out for code search/test generation/review and
+   measure useful progress per request.
+8. Add quota-aware background/backfill queue that consumes otherwise-expiring
+   free capacity only on useful checkpointable work.
+9. Add new-model exploration/canary benchmarks and automatic specialist
+   promotion/demotion.
+10. Add GUI/CLI visibility and the operator top-up recommendation alert.
+11. Run representative A/B evaluations against the incumbent paid/local route
+    and promote only with noninferior validation and lower expected paid cost.
+
+### Acceptance criteria
+
+- Orchestrator discovers OpenRouter free models dynamically and can lose/gain a
+  free model without code edits.
+- At least three representative task families route to free specialists based on
+  measured Orchestrator outcomes rather than a hard-coded global favorite.
+- Every accepted production-affecting free result is independently validated.
+- A failed free attempt can fall through a bounded alternate-free/escalation
+  ladder without losing verified partial work.
+- The system respects the real daily/RPM allowance, handles reset boundaries,
+  and does not burn the quota in retry loops.
+- Remaining free capacity can be used for useful low-priority backfill without
+  delaying higher-priority work.
+- Telemetry can show useful free requests, validator/acceptance rates,
+  paid-model fallbacks avoided, and estimated paid cost avoided.
+- Sensitive tasks are excluded according to project/provider data policy.
+- Orchestrator can distinguish a genuinely needed OpenRouter credit top-up from
+  a merely low remaining balance and alerts the user only when current policy
+  and observed account state justify it.
+- Any credit purchase or auto-recharge remains explicit user-approved spend.
+- A held-out evaluation demonstrates noninferior validation quality and lower
+  paid inference consumption for the promoted free-first routes.
+
+### Immediate handoff
+
+The current Orchestrator development agent should treat this as an ASAP slice of
+IMP-0015. Start with **read-only discovery, quota/account visibility, the quota
+governor, and one or two verifiable free-first task families**. Reuse the
+existing provider registry, CAP/EVR evidence, router, budget gates, telemetry,
+delegate DAG, validators, and Research Radar. Do not wait for the broader
+RunPod/runtime work to finish if this slice can be implemented independently
+without destabilizing active work.
+
+
 ## Implementation order
 
 ### Phase 0 — design/eval foundation (no paid compute)
