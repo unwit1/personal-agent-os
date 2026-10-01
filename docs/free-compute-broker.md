@@ -186,8 +186,9 @@ parsed with `decimal.Decimal` only when evaluated.
 ```
 
 `changed` compares every snapshot field except `first_seen`, `last_seen` and
-`last_verified`. A `revision` change also resets that model's specialization
-status to `canary` (see below). A removed model is immediately ineligible for
+`last_verified`. A `revision` change starts a new specialization record keyed
+on the new revision with `n = 0`, so the model is `unproven` again (see below);
+the old revision's record is kept but no longer routes. A removed model is immediately ineligible for
 routing. Its specialization history is kept.
 
 ### Versioned provider-policy record (`free_policy.py`)
@@ -297,6 +298,7 @@ One JSON line per free request attempt, appended to `ledger.jsonl`:
 ```json
 {
   "schema_version": "agent-os/free-quota-event/v1",
+  "event_id": "FQE-20261001T120317Z-7c2e9a41",
   "ts": "2026-10-01T12:03:17Z",
   "model": "example-org/example-model:free",
   "revision": "example-org/example-model-2026-09-15",
@@ -321,14 +323,24 @@ One JSON line per free request attempt, appended to `ledger.jsonl`:
 - `outcome` is one of `success | invalid_output | validator_failed |
   rate_limited | quota_exhausted | provider_error | timeout | context_overflow`.
   `retry` is the 0-based attempt index for the same work item.
-  `validator_passed` / `accepted` are `null` until known. A later
-  `{"type": "verdict", "ts", "event_ts", "validator_passed", "accepted",
-  "escalated"}` line can complete them, so the ledger stays append-only.
+- `event_id` = `FQE-<ts compact>-<8 hex random>`, assigned when the attempt is
+  appended. It is unique across concurrent priority/swarm/backfill attempts
+  (unlike `ts`, which has one-second precision).
+- `validator_passed` / `accepted` are `null` until known. A later
+  `{"type": "verdict", "ts", "event_id", "validator_passed", "accepted",
+  "escalated"}` line can complete them, so the ledger stays append-only. The
+  verdict's `event_id` names the attempt it completes; the last verdict for an
+  `event_id` wins, and a verdict naming an unknown `event_id` is ignored and
+  reported in the metrics `errors`.
+- Attempt events are the lines with no `type` field. Only attempt events are
+  charged against allowance and counted as requests in metrics and in
+  specialization `n`. Verdict lines are never charged or counted; they only
+  fill in the fields of their attempt.
 - `lane` is `priority | swarm | backfill`.
 - `tokens` uses the `usage.normalized` accuracy labels. No prompt or output text
   is ever stored.
-- The governor counts the day's events with `ts >= last reset` as spent
-  allowance. When `failed_requests_count` is true, every outcome counts. A
+- The governor counts the day's attempt events (no `type` field) with
+  `ts >= last reset` as spent allowance. When `failed_requests_count` is true, every outcome counts. A
   `rate_limited` or `quota_exhausted` outcome also records a provider cooldown
   through `provider_health.record_quota` and opens the per-model circuit.
 
@@ -364,7 +376,7 @@ only to use up quota.
   "status": "proven",
   "first_observed": "2026-09-21T10:00:00Z",
   "last_observed": "2026-10-01T12:03:17Z",
-  "evidence": ["local:free-compute/ledger.jsonl#2026-10-01T12:03:17Z"]
+  "evidence": ["local:free-compute/ledger.jsonl#FQE-20261001T120317Z-7c2e9a41"]
 }
 ```
 
@@ -377,11 +389,18 @@ only to use up quota.
   - `unproven`: `n < canary_min` (default 5). The model may only receive
     exploration traffic: at most `explore_share` (default 10%) of eligible
     items in the family, and only in the backfill/swarm lanes.
-  - `canary`: `n >= canary_min` and Wilson lower bound below
-    `proven_floor`, or the revision changed. Traffic is capped by
-    `canary_share` (default 25%) and never displaces a proven specialist.
   - `proven`: `n >= proven_min` (default 20) and the Wilson lower bound is at
-    least `proven_floor` (default 0.65). It gets priority traffic for the family.
+    least `proven_floor` (default 0.65), and not currently demoted (below). It
+    gets priority traffic for the family.
+  - `canary`: `n >= canary_min` and not `proven`. This covers a low Wilson
+    lower bound, `n` still below `proven_min` whatever the bound, and a
+    demoted model. Traffic is capped by `canary_share` (default 25%) and never
+    displaces a proven specialist.
+  - The three statuses partition every record: `n < canary_min` is
+    `unproven`, otherwise `proven` if its rule holds, otherwise `canary`.
+  - `n` counts attempt events only (see the quota ledger). Records key on
+    `(task_family, model, revision)`, so a new revision starts at `n = 0` and
+    is `unproven`.
   - Demotion is automatic: if the Wilson upper bound over the last
     `demote_window` (default 20) events falls below `proven_floor`, the model
     returns to `canary`.
@@ -445,7 +464,8 @@ the engine executes them under existing budget and approval gates.
      "free_model_latency_p50_ms": 3900, "free_model_tool_reliability": null, "free_model_structured_output_reliability": 0.958}
   ],
   "by_lane": {"priority": 80, "swarm": 40, "backfill": 20},
-  "top_up": {"status": "not_needed", "shortfall_usd": null, "rationale": "account has high allowance (credits.total_purchased_usd 10.00 >= credit_threshold_usd 10.00)", "evidence": ["policy:openrouter/free-model-allowance@v1 verified 2026-10-01"], "errors": []}
+  "top_up": {"status": "not_needed", "shortfall_usd": null, "rationale": "account has high allowance (credits.total_purchased_usd 10.00 >= credit_threshold_usd 10.00)", "evidence": ["policy:openrouter/free-model-allowance@v1 verified 2026-10-01"], "errors": []},
+  "errors": []
 }
 ```
 
@@ -455,8 +475,17 @@ the engine executes them under existing budget and approval gates.
   the per-token price of the paid route the router would otherwise have chosen.
   It is labeled "estimated" and carries its basis. Subscription routes count
   as 0 USD avoided (already paid).
-- Rates divide by attempted requests in the window. A rate is `null` when its
-  denominator is zero.
+- Denominators. `free_validator_pass_rate` divides by attempt events in the
+  window whose `validator_passed` is non-null; `free_review_acceptance_rate`
+  divides by attempt events whose `accepted` is non-null. Rate limits, quota
+  exhaustion, timeouts and other attempts that never reached a validator or
+  review are therefore not counted as quality failures. `free_retry_rate`,
+  `free_escalation_rate` and `free_useful_progress_per_request` divide by
+  attempted requests (attempt events) in the window, so wasted requests do
+  lower them. A rate is `null` when its denominator is zero.
+- In the example, 140 attempts produced 118 successes and 22 wasted or failed
+  requests; the 0.84 validator pass rate and 0.9 review acceptance rate are
+  over the attempts that actually reached a validator / review.
 - The report is optimized for and ranked by *cost per verified successful task*
   and *useful progress per free request*, never by raw call count.
 
@@ -612,8 +641,12 @@ rate, and top-up status. The GUI reads the same JSON.
   reset boundary, reserve, retry budget, open circuit.
 - Eligibility: each of the five checks fails alone.
 - Ladder order is fixed. Partial outputs are preserved.
-- Specialization: status transitions and demotion. A swapped revision restarts
-  as canary.
+- Specialization: status transitions and demotion; `canary_min <= n <
+  proven_min` with a Wilson lower bound at or above `proven_floor` is
+  `canary`. A swapped revision starts a new record with `n = 0` and is
+  `unproven`. Verdict lines do not change `n`.
+- Ledger: verdict lines complete their attempt by `event_id` (two attempts in
+  the same second stay distinct) and are never charged by the governor.
 - Metrics arithmetic on a fixture ledger.
 - Top-up: the four statuses, including the case "balance USD 2 but
   total_purchased_usd 10 >= threshold 10 -> not_needed", an exact shortfall,
