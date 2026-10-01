@@ -210,25 +210,41 @@ def merge_free_catalog(snapshot: dict[str, Any], *, home: Path | None = None) ->
 
     models: dict[str, Any] = catalog.setdefault("models", {})
     fetched_at = snapshot.get("fetched_at") or utc_now_iso()
-    new, seen = [], 0
+    new, seen, errors = [], 0, []
+
+    # Validate snapshot has models
+    snapshot_models = snapshot.get("models")
+    if not isinstance(snapshot_models, list) or not snapshot_models:
+        errors.append({"snapshot": "Invalid or empty models list in snapshot"})
+        return {
+            "catalog": str(path),
+            "models_seen": 0,
+            "catalog_size": len(models),
+            "new": [],
+            "queued_for_eval": [],
+            "errors": errors,
+        }
 
     # Track which slugs are in this snapshot
     snapshot_slugs = set()
 
     # Identify models from openrouter-free source before this merge
-    free_model_ids_before = {
-        m["model_id"] for m in models.values()
-        if m.get("provenance", {}).get("source") == "openrouter-free"
-    }
+    free_model_ids_before = {k for k, m in models.items() if (m.get("provenance") or {}).get("source") == "openrouter-free"}
 
     # Process models from snapshot
-    for item in (snapshot.get("models") or []):
+    for item in snapshot_models:
         if not isinstance(item, dict) or not item.get("slug"):
             continue
 
         seen += 1
         model_id = item["slug"]
         snapshot_slugs.add(model_id)
+
+        # Check if model already exists and is from another source
+        existing = models.get(model_id)
+        if existing and (existing.get("provenance") or {}).get("source") != "openrouter-free":
+            # Skip overwriting models from other sources
+            continue
 
         # Flatten modalities from input/output dicts to sorted list
         modalities = []
@@ -269,8 +285,14 @@ def merge_free_catalog(snapshot: dict[str, Any], *, home: Path | None = None) ->
     # Mark removed free models as unavailable instead of deleting
     for model_id in free_model_ids_before - snapshot_slugs:
         if model_id in models:
-            models[model_id]["available"] = False
-            models[model_id]["last_seen"] = fetched_at
+            existing_model = models[model_id]
+            # Skip if already marked unavailable
+            if existing_model.get("available") is False:
+                continue
+            existing_model["available"] = False
+            # Add unavailable_since only if not already set
+            if "unavailable_since" not in existing_model:
+                existing_model["unavailable_since"] = fetched_at
 
     catalog["updated_at"] = fetched_at
     write_json(path, catalog)
@@ -306,7 +328,7 @@ def merge_free_catalog(snapshot: dict[str, Any], *, home: Path | None = None) ->
         "catalog_size": len(models),
         "new": new,
         "queued_for_eval": queued,
-        "errors": [],
+        "errors": errors,
     }
 
 
