@@ -1,4 +1,4 @@
-# Foreman strategy evidence
+﻿# Foreman strategy evidence
 
 Command: `python -m agent_os orchestrate foreman strategy`
 
@@ -17,12 +17,12 @@ Scores are tier-derived; N=0 measured plans.
 
 | Model | Tier | Score | Band | Source |
 |---|---|---:|---|---|
-| `gpt-6-astra` (codex) | frontier | 0.95 | strong | `~/.codex/config.toml` |
-| `opus` (claude-code) | reasoning | 0.85 | strong | latest Claude Code session (`09ecc8b6-e4e8-4fe6-9c4b-65c08a3f6566.jsonl`) |
-| `gpt-6-sol` (codex) | balanced | 0.6 | medium | `~/.codex/config.toml` |
-| `sonnet` (claude-code) | balanced | 0.6 | medium | latest Claude Code session (`09ecc8b6-e4e8-4fe6-9c4b-65c08a3f6566.jsonl`) |
-| `gpt-6-luna` (codex) | fast | 0.35 | weak | `~/.codex/config.toml` |
-| `haiku` (claude-code) | fast | 0.35 | weak | latest Claude Code session (`09ecc8b6-e4e8-4fe6-9c4b-65c08a3f6566.jsonl`) |
+| `gpt-6-astra` (codex) | frontier | 0.95 | strong | tier: frontier in its provider's lineup |
+| `opus` (claude-code) | reasoning | 0.85 | strong | tier: reasoning in its provider's lineup |
+| `gpt-6-sol` (codex) | balanced | 0.6 | medium | tier: balanced in its provider's lineup |
+| `sonnet` (claude-code) | balanced | 0.6 | medium | tier: balanced in its provider's lineup |
+| `gpt-6-luna` (codex) | fast | 0.35 | weak | tier: fast in its provider's lineup |
+| `haiku` (claude-code) | fast | 0.35 | weak | tier: fast in its provider's lineup |
 
 ## foreman_ranking
 
@@ -30,6 +30,6 @@ The command returned `foreman_ranking: []`; there are zero ranked entries, score
 
 ## Findings
 
-- The strategy table contains 6 model rows with scores from 0.35 to 0.95, sourced from 2 host configs (claude-code session and ~/.codex/config.toml).
+- The strategy table has 6 model rows, with tier-derived scores from 0.35 to 0.95; each shows 0 measured plans (N=0), so the score has no plan sample backing and is low-confidence.
 - There are 2 detected host models and no active host (`active: null`).
-- All 6 band assignments are tier-derived with 0 measured samples (N=0, below 5), so all are low-confidence. The foreman ranking is empty because no `foreman eval` has been run.
+- The foreman ranking has 0 entries and 0 evidence counts; no recommendation is supported by eval samples.
