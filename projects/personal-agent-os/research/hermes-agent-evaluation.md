@@ -92,6 +92,28 @@ mechanism in Agent OS, MIT attribution) · **BORROW** (adopt the idea/rule only)
 - **Two memories**: built-in `MEMORY.md`/`USER.md` writes would fork state. With the Agent OS
   provider plugin active, keep the built-in files minimal and treat them as cache.
 
+## Install decision (2026-10-01)
+
+Not installed. The operator allowed installation only for real efficiency gains, and this
+PC has no GPU suitable for local models. Checked against the Hermes docs
+(`codex-app-server-runtime.md`, `subscription-proxy.md`):
+
+- the only way Hermes uses the ChatGPT subscription is its Codex app-server runtime, which
+  wraps the Codex CLI and adds Hermes' composed prompt, memory and tool callback on top. As
+  an orchestrator worker that is strictly more input per task than the lean direct Codex
+  invocation (request 455 KB → 31.7 KB). It also registers itself in the operator's
+  `~/.codex/config.toml`;
+- the Claude subscription is not usable by Hermes; its other model routes (Nous Portal,
+  OpenRouter) are paid and `allow_paid_spend` is off;
+- the messaging front door (H3) adds reach, not savings, and every conversational turn would
+  spend the ChatGPT subscription through the same wrapper.
+
+Phases that need Hermes running (H1, H2, H3) are on hold until one of: a local or rented GPU
+endpoint becomes the routine worker path (Hermes could then use it), the executive Event Bus
+(P3) needs a messaging front door, or Hermes gains a direct subscription path without the
+wrapper. Phases that port mechanisms into Agent OS (H4, H5, H6) proceed without installing it;
+H6 landed as `wait_for_reset_seconds`.
+
 ## Phased plan (each phase has its own test)
 
 1. **H0 — record** (this document, PA-hermes-agent, IMP-0020). Done.

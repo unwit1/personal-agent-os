@@ -3289,7 +3289,7 @@
         "portability": "native Windows, Linux, macOS, Android/Termux"
       },
       "decision": "WRAP",
-      "rationale": "Run Hermes as the executive front door (messaging, cron, voice) and as an optional any-model worker, with Agent OS canonical through MCP and a memory-provider plugin; port the curator lifecycle and the fallback wait threshold; borrow its caching and footprint rules. Skip its multi-agent board as a runtime. See the evaluation document for the per-capability split and phased tests (H1-H6).",
+      "rationale": "Run Hermes as the executive front door (messaging, cron, voice) and as an optional any-model worker, with Agent OS canonical through MCP and a memory-provider plugin; port the curator lifecycle and the fallback wait threshold; borrow its caching and footprint rules. Skip its multi-agent board as a runtime. See the evaluation document for the per-capability split and phased tests (H1-H6). 2026-10-01: not installed on this PC (no local-model GPU; the ChatGPT-subscription path wraps Codex and adds overhead; Claude subscription unsupported); runtime phases H1-H3 on hold, ported phases H4-H6 proceed (H6 landed).",
       "confidence": "medium",
       "provenance": [
         "local shallow clone of NousResearch/hermes-agent at bd394e2a (2026-10-01): README.md, AGENTS.md, website/docs, hermes_cli/_parser.py, agent/memory_provider.py, mcp_serve.py, gateway/platforms, plugins/platforms",
@@ -3310,8 +3310,9 @@
         }
       ],
       "revisit_when": [
-        "H1 worker A/B completes",
-        "Executive Event Bus (P3) starts"
+        "a local or rented GPU endpoint is the routine worker path",
+        "Executive Event Bus (P3) needs a messaging front door",
+        "Hermes gains a direct subscription path without the Codex wrapper"
       ],
       "revisit_by": null
     }
