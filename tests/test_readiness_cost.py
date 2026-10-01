@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from readiness_fixtures import ReadinessFixture, edit_script, provider
 from agent_os.orchestrator.adapters import synthetic
 from agent_os.orchestrator.engine import Orchestrator
-from agent_os.orchestrator.model import PolicyError, merge_policy
+from agent_os.orchestrator.model import DEFAULT_POLICY, PolicyError, merge_policy
 from agent_os.orchestrator.router import ProviderRegistry
 from agent_os.orchestrator.store import RunStore
 from agent_os.telemetry import LocalTelemetryStore
@@ -50,10 +50,12 @@ class CostReadinessTests(ReadinessFixture):
         for fixture, repo in self.fixtures.items():
             with self.subTest(fixture=fixture):
                 run = self.engine.create_run('usage readiness', repository=repo, tasks=[self.task('a')], policy=self.policy())['run_id']
-                self.engine.run_loop(run, max_ticks=40)
+                final = self.engine.run_loop(run, max_ticks=40)
+                self.assertEqual(final['state'], 'COMPLETE')
                 usage = self.engine.load(run)['usage']
                 self.assertIsInstance(usage, dict)
-                self.assertIn('input_tokens', usage)
+                expected = {'input_tokens', 'cached_tokens', 'output_tokens', 'workers', 'cache_write_tokens', 'reasoning_tokens', 'cost_usd', 'calls_exact', 'calls_estimated', 'calls_unavailable'}
+                self.assertTrue(expected.issubset(usage), f"missing usage keys: {expected - usage.keys()}")
 
     def test_CC3_out_of_usage_waits_without_looping(self):
         for fixture, repo in self.fixtures.items():
@@ -68,15 +70,29 @@ class CostReadinessTests(ReadinessFixture):
     def test_CC4_retries_and_escalation_are_bounded(self):
         for fixture, repo in self.fixtures.items():
             with self.subTest(fixture=fixture):
+                synthetic.reset()
+                for name in self.providers:
+                    synthetic.SCRIPTS[name] = edit_script()
+                failing = {'kind': 'command', 'command': [sys.executable, '-c', 'raise SystemExit(3)']}
+                run = self.engine.create_run('retry readiness', repository=repo, tasks=[{**self.task('a'), 'validators': [failing]}], policy=self.policy(max_escalations=2))['run_id']
+                final = self.engine.run_loop(run, max_ticks=40)
+                node = self.engine.load(run)['nodes']['a']
+                self.assertEqual(final['state'], 'BLOCKED')
+                self.assertEqual(node['state'], 'FAILED_FINAL')
+                self.assertEqual(node['escalations'], 2)
+                self.assertEqual(node['attempts'], 3)
+
                 for name in self.providers:
                     synthetic.SCRIPTS[name] = edit_script({'a': {'failure': 'process_error'}})
                 run = self.engine.create_run('retry readiness', repository=repo, tasks=[self.task('a')], policy=self.policy(max_stage_retries=2, max_escalations=2))['run_id']
-                self.engine.run_loop(run, max_ticks=40)
+                final = self.engine.run_loop(run, max_ticks=40)
                 node = self.engine.load(run)['nodes']['a']
+                self.assertEqual(final['state'], 'BLOCKED')
                 self.assertLessEqual(node['attempts'], 3)
                 self.assertLessEqual(node['escalations'], 2)
 
     def test_CC5_unknown_money_cap_is_rejected(self):
+        self.assertFalse(any(any(part in key for part in ('usd', 'token', 'cost', 'money')) for key in DEFAULT_POLICY))
         with self.assertRaises(PolicyError):
             merge_policy({'max_usd': 1})
 
