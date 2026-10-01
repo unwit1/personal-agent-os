@@ -97,7 +97,11 @@ def drive_in_background(run_id: str) -> dict[str, Any]:
     kwargs: dict[str, Any] = {"cwd": str(ROOT), "env": env, "stdin": subprocess.DEVNULL}
     flag_sets: list[int] = [0]
     if os.name == "nt":
-        base = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
+        # CREATE_NO_WINDOW, not DETACHED_PROCESS: a detached driver has no
+        # console, so Windows opens a new visible window for every console
+        # child (git, python, worker CLIs) and their children. A hidden console
+        # is inherited by the whole process tree instead.
+        base = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
         # Breaking away from the host's job object keeps the driver alive when
         # the MCP client that asked for it exits; not every job allows it.
         flag_sets = [base | subprocess.CREATE_BREAKAWAY_FROM_JOB, base]
