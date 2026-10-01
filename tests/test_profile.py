@@ -32,7 +32,7 @@ IMPERSONAL_TASKS = (
 class IndexTests(unittest.TestCase):
     def test_only_curated_sources_are_indexed(self) -> None:
         names = {path.name for path in profile.CANONICAL_SOURCES}
-        self.assertEqual(names, {"preferences.json", "user-context.json"})
+        self.assertEqual(names, {"preferences.json", "user-context.json", "relationship-context.json"})
 
     def test_the_large_derived_context_is_never_loaded(self) -> None:
         """The derived Drive index is bulk, and bulk is what this module prevents."""
@@ -173,6 +173,8 @@ class PrivacyTests(unittest.TestCase):
     def test_the_privacy_section_is_never_retrievable(self) -> None:
         domains = {fact["domain"] for fact in profile.retrievable_facts()}
         self.assertNotIn("privacy", domains)
+        self.assertNotIn("unresolved_identity_candidates", domains)
+        self.assertNotIn("quarantined_or_unresolved", domains)
 
     def test_restricted_facts_are_excluded_from_retrieval(self) -> None:
         indexed = profile.index_facts()
@@ -199,6 +201,26 @@ class PrivacyTests(unittest.TestCase):
         findings = profile.privacy_findings(planted["statement"])
         self.assertIn("email", findings)
         self.assertIn("ssn", findings)
+
+
+
+
+class RelationshipProjectionTests(unittest.TestCase):
+    def test_unresolved_identity_candidates_do_not_embed_local_identity_data(self) -> None:
+        data = json.loads(profile.RELATIONSHIP_CONTEXT_PATH.read_text(encoding="utf-8"))
+        forbidden = {
+            "name", "display_name", "email", "phone", "address", "aliases",
+            "contact_identifiers", "source_ref", "source_refs", "evidence",
+            "raw_evidence", "message_id", "message_ids",
+        }
+        for candidate in data.get("unresolved_identity_candidates", []):
+            with self.subTest(candidate=candidate.get("id")):
+                self.assertFalse(forbidden.intersection(candidate))
+                self.assertTrue(str(candidate.get("status", "")).startswith("candidate"))
+
+    def test_relationship_projection_passes_generic_privacy_detector(self) -> None:
+        data = json.loads(profile.RELATIONSHIP_CONTEXT_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(profile.privacy_findings(data), [])
 
 
 class RelevanceTests(unittest.TestCase):

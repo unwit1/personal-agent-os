@@ -32,7 +32,7 @@ Each fact carries:
 
 ### Sources
 
-Canonical: `profile/preferences.json`, `profile/user-context.json`.
+Canonical: `profile/preferences.json`, `profile/user-context.json`, and the sanitized `profile/relationship-context.json`.
 
 `profile/drive-derived-context.json` is **deliberately excluded**. It is a
 60 KB derived index, not curated durable context, and loading it would
@@ -55,8 +55,7 @@ something inferred from a scan, and when two facts overlap, the stronger record
 wins — then the newer one. The superseded fact is reported in diagnostics
 rather than silently vanishing.
 
-**Privacy is enforced at retrieval, not at authorship.** The `privacy` section
-is never retrievable, and any fact tripping the privacy gate (email, SSN,
+**Privacy is enforced at retrieval, not at authorship.** The `privacy` section, quarantined claims, and unresolved identity candidates are never retrievable, and any fact tripping the privacy gate (email, SSN,
 phone, secrets, paths) is dropped regardless of what is on disk. No caller can
 reach restricted material by forgetting to filter. `agent.py validate` fails if
 a retrievable fact carries a privacy finding.
@@ -86,6 +85,8 @@ whole section is dropped — an empty diagnostics shell is pure overhead.
 
 ## Measured behaviour
 
+The table below is the original P0.2 baseline; counts should be re-benchmarked after the 2026-09-25 relationship-context expansion.
+
 Profile on disk: 105 facts indexed, 93 retrievable, 12 restricted.
 
 | task | facts | tokens | domains |
@@ -104,7 +105,6 @@ reduction** on personal tasks and complete absence on impersonal ones.
   synonyms the domain vocabulary does not know will retrieve nothing. That
   fails closed, which is the right direction, but it does mean
   `DOMAIN_TERMS` needs curation as the profile grows.
-- Candidate profile updates still flow through the existing candidate pipeline;
-  there is no profile-specific promotion rule yet.
+- Profile/relationship/identity candidates now have an actor+subject attribution gate. Richer cross-evidence contradiction and supersession reconciliation is still incomplete.
 - Facts inherit their source file's `updated_at` and provenance. Per-fact
   confirmation dates are not tracked, so "last confirmed" is file-level.

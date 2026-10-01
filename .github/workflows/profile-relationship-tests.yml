@@ -1,0 +1,76 @@
+name: Profile relationship and mail tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/agent_os/profile.py"
+      - "src/agent_os/candidates.py"
+      - "src/agent_os/source_attribution.py"
+      - "src/agent_os/people.py"
+      - "src/agent_os/mail/attachments.py"
+      - "src/agent_os/mail/attachment_analysis.py"
+      - "src/agent_os/mail/cli.py"
+      - "profile/**"
+      - "tests/test_profile.py"
+      - "tests/test_candidates.py"
+      - "tests/test_people.py"
+      - "tests/test_mail_attachment_analysis.py"
+      - "tests/test_mail_accounts.py"
+      - ".github/workflows/profile-relationship-tests.yml"
+  pull_request:
+    paths:
+      - "src/agent_os/profile.py"
+      - "src/agent_os/candidates.py"
+      - "src/agent_os/source_attribution.py"
+      - "src/agent_os/people.py"
+      - "src/agent_os/mail/attachments.py"
+      - "src/agent_os/mail/attachment_analysis.py"
+      - "src/agent_os/mail/cli.py"
+      - "profile/**"
+      - "tests/test_profile.py"
+      - "tests/test_candidates.py"
+      - "tests/test_people.py"
+      - "tests/test_mail_attachment_analysis.py"
+      - "tests/test_mail_accounts.py"
+      - ".github/workflows/profile-relationship-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install package and attachment parsers
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[attachments]"
+          python -m pip install pytest
+      - name: Run focused regression suite
+        id: pytest
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q \
+            tests/test_profile.py \
+            tests/test_candidates.py \
+            tests/test_people.py \
+            tests/test_mail_attachment_analysis.py \
+            tests/test_mail_accounts.py \
+            2>&1 | tee profile-relationship-test-output.txt
+          status=${PIPESTATUS[0]}
+          echo "exit_code=${status}" >> "$GITHUB_OUTPUT"
+          exit "${status}"
+      - name: Upload test output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: profile-relationship-test-output
+          path: profile-relationship-test-output.txt
+          if-no-files-found: ignore
+          retention-days: 7

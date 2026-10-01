@@ -63,6 +63,7 @@ from .maintenance import run as run_maintenance
 from .recovery import get_checkpoint, inspect_recovery, list_checkpoints, resume_recovery
 from .mail import cli as mail_cli
 from .profile import compact_profile, profile_status
+from .people import alias_lookup, bootstrap_from_sanitized_context, organization_role_lookup, people_status, relationship_lookup
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .surfaces import health as integration_health
@@ -272,6 +273,14 @@ def parser() -> argparse.ArgumentParser:
     cache_prune.add_argument("--max-bytes", type=int, default=536870912)
     cache_prune.add_argument("--max-age-days", type=int, default=90)
     commands.add_parser("profile-status")
+    commands.add_parser("people-bootstrap", help="seed the local/private people graph from sanitized relationship context")
+    commands.add_parser("people-status", help="show local people-graph counts without private records")
+    people_alias = commands.add_parser("people-alias", help="look up local identity candidates by exact alias")
+    people_alias.add_argument("alias")
+    people_rel = commands.add_parser("people-relationships", help="show local relationship edges for one stable person id")
+    people_rel.add_argument("person_id")
+    people_org = commands.add_parser("people-org-roles", help="show local organization/role edges for one stable person id")
+    people_org.add_argument("person_id")
     recovery_status = commands.add_parser("recovery-status")
     recovery_status.add_argument("--project")
     recovery_status.add_argument("--run-id")
@@ -565,6 +574,16 @@ def main(argv: list[str] | None = None) -> int:
             _print(DocumentCache().prune(args.max_bytes, args.max_age_days))
         elif args.command == "profile-status":
             _print(profile_status())
+        elif args.command == "people-bootstrap":
+            _print(bootstrap_from_sanitized_context())
+        elif args.command == "people-status":
+            _print(people_status())
+        elif args.command == "people-alias":
+            _print(alias_lookup(args.alias))
+        elif args.command == "people-relationships":
+            _print(relationship_lookup(args.person_id))
+        elif args.command == "people-org-roles":
+            _print(organization_role_lookup(args.person_id))
         elif args.command in {"recovery-status", "recovery-inspect"}:
             _print(inspect_recovery(args.project, args.run_id))
         elif args.command == "recovery-resume":

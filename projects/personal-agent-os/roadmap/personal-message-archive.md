@@ -29,7 +29,7 @@ Raw messages are evidence, not canonical profile facts. All durable learning fol
 2. **Local-first raw data.** Raw messages, attachments, contact identifiers, and high-volume indexes remain in local/private Agent OS storage by default and are never committed to Git.
 3. **Immutable source preservation.** Original backups/exports are read-only evidence. Derived stores can be rebuilt from them.
 4. **Selective retrieval.** Never inject a whole message archive into a model context. Retrieve only relevant conversations/messages/evidence spans under explicit budgets.
-5. **Authorship awareness.** Distinguish user-authored statements from third-party statements, automated messages, quoted content, forwarded content, and uncertain attribution.
+5. **Authorship and subject awareness.** Distinguish account ownership, authorship, and who a record is about. A ChatGPT/mail/device account belonging to the user does not prove the user authored or is described by every record; a message authored by the user can still be about an applicant, coworker, relative, vendor, or organization. Track actor state (`user`, `user_confirmed`, `other_account_user`, `third_party`, `organization_archive`, `automated`, `unknown`) separately from subject state (`user`, `user_confirmed`, `third_party`, `organization`, `mixed`, `unknown`) and require reconciliation before non-user subject evidence can alter the personal profile.
 6. **Third-party privacy boundaries.** Facts about other people are not automatically promoted into the user's canonical profile. Relationship context and third-party claims retain source attribution and stricter sensitivity controls.
 7. **Evidence-backed learning.** Every derived profile/commitment/project/relationship candidate must link back to one or more stable message evidence records.
 8. **Incremental and resumable.** Re-importing an archive must process only new or changed material, survive interruption, and never duplicate already-indexed messages.
@@ -286,7 +286,7 @@ Support:
 - user-authored statements about a relationship;
 - third-party facts separated from user facts.
 
-Never make private third-party information globally canonical merely because it appears in a conversation.
+Never make private third-party information globally canonical merely because it appears in a conversation. Identity confidence and relationship confidence are separate: knowing who someone is does not establish closeness, importance, or relationship type. Same-name matches stay separate until stable identifiers, contextual evidence, or user confirmation link them.
 
 ## Commitment / task integration
 

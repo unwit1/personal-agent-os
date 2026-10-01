@@ -102,14 +102,20 @@ def file_name(when: datetime | None, sender: str, original: str) -> str:
     return prefix + stem + (f".{extension}" if extension else "")
 
 
-def skip_reason(part: Any, data: bytes, filename: str) -> str | None:
+def skip_reason(part: Any, data: bytes, filename: str, *, analysis_mode: bool = False) -> str | None:
     kind = part.get_content_type()
     extension = os.path.splitext(filename)[1].lower()
-    if kind in SKIP_TYPES or extension in SKIP_EXTENSIONS:
-        return "invite_or_signature"
-    if kind.startswith("image/"):
+    signature_types = {"application/pkcs7-signature", "application/x-pkcs7-signature", "application/ms-tnef"}
+    signature_extensions = {".p7s"}
+    calendar_types = {"text/calendar", "application/ics"}
+    calendar_extensions = {".ics", ".vcs"}
+    if kind in signature_types or extension in signature_extensions:
+        return "signature_blob"
+    if (kind in calendar_types or extension in calendar_extensions) and not analysis_mode:
+        return "calendar_invite"
+    if kind.startswith("image/") and not analysis_mode:
         disposition = (part.get("Content-Disposition") or "").lower()
-        if len(data) < SMALL_IMAGE_BYTES:
+        if len(data) < SMALL_IMAGE_BYTES and not disposition.startswith("attachment"):
             return "small_image"
         if part.get("Content-ID") and not disposition.startswith("attachment"):
             return "inline_image"
@@ -117,15 +123,17 @@ def skip_reason(part: Any, data: bytes, filename: str) -> str | None:
 
 
 class Exporter:
-    def __init__(self, scope: str, root: Path | None = None) -> None:
+    def __init__(self, scope: str, root: Path | None = None, *, analysis_mode: bool = False) -> None:
         self.scope = config.check_scope(scope)
         self.root = Path(root or default_root()) / SCOPE_FOLDERS[scope]
+        self.analysis_mode = bool(analysis_mode)
         manifest = config.scope_dir(scope) / "attachments.sqlite3"
         manifest.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(manifest)
         self.conn.executescript(
             "CREATE TABLE IF NOT EXISTS files (sha256 TEXT PRIMARY KEY, path TEXT, source_id TEXT, saved_at TEXT);"
             "CREATE TABLE IF NOT EXISTS done (source_id TEXT PRIMARY KEY, saved INTEGER, at TEXT);"
+            "CREATE TABLE IF NOT EXISTS occurrences (source_id TEXT, sha256 TEXT, at TEXT, PRIMARY KEY(source_id, sha256));"
         )
         self.counts = {"saved": 0, "duplicates": 0, "skipped": 0, "messages": 0}
 
@@ -142,9 +150,14 @@ class Exporter:
     def is_done(self, source_id: str) -> bool:
         return self.conn.execute("SELECT 1 FROM done WHERE source_id=?", (source_id,)).fetchone() is not None
 
-    def export(self, raw: bytes, source_id: str) -> int:
-        """Save this message's attachments; returns how many new files."""
-        if self.is_done(source_id):
+    def export(self, raw: bytes, source_id: str, *, reconcile_occurrences: bool = False) -> int:
+        """Save this message's attachments; returns how many new files.
+
+        With ``reconcile_occurrences`` an already-completed message is parsed
+        again so the occurrence table can be rebuilt without rewriting any
+        attachment whose content hash is already present.
+        """
+        if self.is_done(source_id) and not reconcile_occurrences:
             return 0
         message = email.message_from_bytes(raw, policy=default_policy)
         when = email_date(str(message.get("Date") or ""))
@@ -162,10 +175,11 @@ class Exporter:
             except Exception:
                 continue
             filename = str(filename or f"attachment.{part.get_content_subtype()}")
-            if not data or skip_reason(part, data, filename):
+            if not data or skip_reason(part, data, filename, analysis_mode=self.analysis_mode):
                 self.counts["skipped"] += 1
                 continue
             digest = hashlib.sha256(data).hexdigest()
+            self.conn.execute("INSERT OR IGNORE INTO occurrences VALUES (?,?,?)", (source_id, digest, datetime.now(timezone.utc).isoformat()))
             if self.conn.execute("SELECT 1 FROM files WHERE sha256=?", (digest,)).fetchone():
                 self.counts["duplicates"] += 1
                 continue
@@ -190,16 +204,22 @@ class Exporter:
         return saved
 
 
-def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int = 50, root: Path | None = None) -> dict[str, Any]:
-    """Download attachments for mail that was indexed before exporting was on:
-    re-reads (read-only) only messages the index says carry attachments."""
+def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int = 50, root: Path | None = None,
+                        reconcile_occurrences: bool = False, analysis_mode: bool = False) -> dict[str, Any]:
+    """Download attachments for indexed live mail.
+
+    Normally only sources not already marked done are re-read. With
+    ``reconcile_occurrences`` every attachment-bearing live source is re-read
+    over read-only IMAP so provenance can be reconstructed for duplicate files
+    exported before occurrence tracking existed.
+    """
     from .accounts import get_secret
     from .imap import connect
     from .scopes import accounts_in
     from .store import Store
 
     results = []
-    with Exporter(scope, root) as exporter, Store(config.db_for(scope)) as store:
+    with Exporter(scope, root, analysis_mode=analysis_mode) as exporter, Store(config.db_for(scope)) as store:
         for account in accounts_in(scope):
             rows = store.conn.execute(
                 "SELECT s.id, s.mailbox, s.uidvalidity, s.uid FROM mail_sources s JOIN mail_messages m ON m.id=s.message_id "
@@ -207,7 +227,7 @@ def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int =
                 (account.id,)).fetchall()
             pending: dict[tuple[str, str], list[tuple[int, str]]] = {}
             for row in rows:
-                if not exporter.is_done(row["id"]):
+                if reconcile_occurrences or not exporter.is_done(row["id"]):
                     pending.setdefault((row["mailbox"], row["uidvalidity"]), []).append((int(row["uid"]), row["id"]))
             summary = {"account_id": account.id, "messages": sum(len(items) for items in pending.values()), "errors": 0}
             if pending:
@@ -225,11 +245,11 @@ def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int =
                             try:
                                 for record in client.fetch(uids[start:start + batch], body=True):
                                     if record.raw is not None and record.uid in by_uid:
-                                        exporter.export(record.raw, by_uid[record.uid])
+                                        exporter.export(record.raw, by_uid[record.uid], reconcile_occurrences=reconcile_occurrences)
                             except Exception:
                                 summary["errors"] += len(uids[start:start + batch])
                 finally:
                     client.logout()
             results.append(summary)
         counts = dict(exporter.counts)
-    return {"scope": scope, "accounts": results, **counts, "folder": str(Path(root or default_root()) / SCOPE_FOLDERS[scope])}
+    return {"scope": scope, "accounts": results, **counts, "reconciled_occurrences": bool(reconcile_occurrences), "analysis_mode": bool(analysis_mode), "folder": str(Path(root or default_root()) / SCOPE_FOLDERS[scope])}

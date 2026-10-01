@@ -991,6 +991,37 @@ class AttachmentExportTests(MailFixture):
         self.assertEqual(again["accounts"][0]["messages"], 0)
 
 
+    def test_attachment_occurrence_reconciliation_rereads_completed_sources(self) -> None:
+        from agent_os.mail import attachments
+
+        server = FakeIMAPServer()
+        payload = b"%PDF shared attachment" * 40
+        server.add("INBOX", 1, self.mail_with(("Shared.pdf", "application/pdf", payload, False), message_id="<one@x>"))
+        server.add("INBOX", 2, self.mail_with(("Shared.pdf", "application/pdf", payload, False), message_id="<two@x>"))
+        account = self.account("earthlink", "work-earthlink", "hr@4rtec.test")
+        sync_lib.sync_account(account, store_path=config.db_for("work"), ledger_dir=config.ledger_dir_for("work"), connect_factory=server.factory)
+
+        root = self.tmp / "Downloads"
+        first = attachments.export_missing_live("work", connect_factory=server.factory, root=root)
+        self.assertEqual(first["saved"], 1)
+        self.assertEqual(first["messages"], 2)
+
+        server.calls.clear()
+        second = attachments.export_missing_live(
+            "work",
+            connect_factory=server.factory,
+            root=root,
+            reconcile_occurrences=True,
+        )
+        self.assertEqual(second["accounts"][0]["messages"], 2)
+        self.assertTrue(second["reconciled_occurrences"])
+        manifest = config.scope_dir("work") / "attachments.sqlite3"
+        with sqlite3.connect(manifest) as conn:
+            occurrences = conn.execute("SELECT COUNT(*) FROM occurrences").fetchone()[0]
+        self.assertEqual(occurrences, 2)
+        self.assertTrue(all(call[2] is True for call in server.calls if call[0] == "select"), "EXAMINE only")
+
+
 class BenchmarkTests(unittest.TestCase):
     def test_benchmark_runs_on_synthetic_mail(self) -> None:
         from agent_os.mail.benchmark import run
