@@ -113,13 +113,24 @@ def build_records(observations: Iterable[dict[str, Any]] | None, catalog: Any, *
     return records
 
 
-def rank(records: Iterable[dict[str, Any]], task_family: str) -> list[str]:
-    """Models for the family: proven first by Wilson lower bound, then canary."""
-    def order(record: dict[str, Any]) -> tuple:
-        return (-(record["wilson95"][0] or 0.0), -record["n"], record["model"])
+def rank(records: Iterable[dict[str, Any]], task_family: str, catalog: Any = None) -> list[str]:
+    """Models for the family: proven first by Wilson lower bound, then canary.
 
-    mine = [r for r in records if r.get("task_family") == task_family]
-    chosen = sorted((r for r in mine if r["status"] == "proven"), key=order) + sorted((r for r in mine if r["status"] == "canary"), key=order)
+    One record per model: the catalog's current revision when given and
+    sampled, otherwise the best-ordered revision."""
+    def order(record: dict[str, Any]) -> tuple:
+        return (record["status"] != "proven", -(record["wilson95"][0] or 0.0), -record["n"], str(record.get("revision")))
+
+    current = _catalog_models(catalog) if catalog is not None else {}
+    best: dict[str, dict[str, Any]] = {}
+    for record in sorted((r for r in records if r.get("task_family") == task_family), key=order):
+        slug = record["model"]
+        revision = current.get(slug, {}).get("revision")
+        held = best.get(slug)
+        if held is None or (revision is not None and record.get("revision") == revision and held.get("revision") != revision):
+            best[slug] = record
+    chosen = [r for r in best.values() if r["status"] in ("proven", "canary")]
+    chosen.sort(key=lambda r: (r["status"] != "proven", -(r["wilson95"][0] or 0.0), -r["n"], r["model"]))
     return [r["model"] for r in chosen]
 
 
@@ -132,7 +143,10 @@ def canary_pick(records: Iterable[dict[str, Any]], task_family: str, catalog: An
                 *, min_samples: int = DEFAULT_MIN_SAMPLES) -> str | None:
     """Deterministically route ``rate`` of traffic to a new/under-sampled free
     model; None otherwise, so proven models keep all other traffic."""
-    sampled = {r["model"]: r["n"] for r in records if r.get("task_family") == task_family}
+    sampled: dict[str, int] = {}
+    for r in records:
+        if r.get("task_family") == task_family:
+            sampled[r["model"]] = sampled.get(r["model"], 0) + r["n"]
     candidates = sorted(slug for slug in _catalog_models(catalog) if sampled.get(slug, 0) < min_samples)
     if not candidates or rate <= 0 or _roll("explore", task_family, seed) >= rate:
         return None

@@ -56,6 +56,17 @@ class SpecializationTests(unittest.TestCase):
         self.assertTrue(50 < hits < 150)
         self.assertNotIn(fs.canary_pick(recs, "unit_tests", CATALOG, 1.0, "x"), ("a/proven:free", "b/weak:free"))
 
+    def test_two_revisions_one_model(self):
+        cat = {"models": [{"slug": "a/m:free", "revision": "r2"}]}
+        rows = [obs("a/m:free", model_revision="r1") for _ in range(40)] + [obs("a/m:free", model_revision="r2") for _ in range(3)]
+        recs = fs.build_records(rows, cat)
+        self.assertEqual(len(recs), 2)
+        self.assertEqual(fs.rank(recs, "unit_tests"), ["a/m:free"])
+        self.assertEqual(fs.rank(recs, "unit_tests", cat), ["a/m:free"])
+        self.assertEqual(fs.rank(recs + recs[::-1], "unit_tests", cat), ["a/m:free"])
+        # summed samples across revisions: not under-sampled
+        self.assertIsNone(fs.canary_pick(recs, "unit_tests", cat, 1.0, "s"))
+
 
 if __name__ == "__main__":
     unittest.main()
