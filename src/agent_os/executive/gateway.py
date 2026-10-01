@@ -111,9 +111,11 @@ class LocalDashboardGateway:
         conn = rtec_applicants._connect_readonly()
         try:
             rtec_applicants._require_agent_ref_schema(conn)
-            refs_by_key = {
-                row["applicant_key"]: row["agent_ref"]
-                for row in conn.execute("SELECT applicant_key, agent_ref FROM applicants")
+            contact_by_key = {
+                row["applicant_key"]: dict(row)
+                for row in conn.execute(
+                    "SELECT applicant_key, agent_ref, email, county_preference FROM applicants"
+                )
             }
         finally:
             conn.close()
@@ -121,17 +123,20 @@ class LocalDashboardGateway:
         for applicant, review in rows:
             if _value(applicant, "status") not in _REVIEWABLE:
                 continue
+            key = _value(applicant, "applicant_key")
+            contact = contact_by_key.get(key, {})
             ref = _value(applicant, "applicant_ref") or _value(applicant, "agent_ref")
             if not ref:
-                key = _value(applicant, "applicant_key")
-                if not key:
-                    continue
-                ref = refs_by_key.get(key)
+                ref = contact.get("agent_ref")
             if not ref:
                 continue
-            safe = _project({"applicant_ref": ref, **{
+            public_fields = {
                 field: _value(applicant, field) for field in (*_APPLICANT_FIELDS, "county_preference")
-            }})
+            }
+            public_fields["email"] = public_fields["email"] or contact.get("email")
+            if not public_fields["county"] and not public_fields["county_preference"]:
+                public_fields["county_preference"] = contact.get("county_preference")
+            safe = _project({"applicant_ref": ref, **public_fields})
             result.append((safe, _review(review)))
         return result
 

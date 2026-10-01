@@ -25,7 +25,6 @@ class LocalGatewayTests(unittest.TestCase):
             conn.commit()
             conn.close()
             raw = {"applicant_key": "private-key", "name": "Test Person", "status": "New",
-                   "county_preference": "Pulaski", "email": "test@example.invalid",
                    "aa_pdf_path": "restricted.pdf", "source_key": "private-source"}
             skipped = [{**raw, "applicant_key": "other", "status": "Hired"},
                        {**raw, "applicant_key": "missing"}, {"status": "New"}]
