@@ -24,7 +24,7 @@ class ReadinessPrivacyTests(readiness_fixtures.ReadinessFixture):
             cwd=repo, check=True, capture_output=True, text=True,
         ).stdout
 
-    def _engine(self, repo: Path, *, share_run_history: bool = False) -> Orchestrator:
+    def _engine(self, repo: Path) -> Orchestrator:
         return Orchestrator(
             RunStore(self.tmp / "home"),
             registry=ProviderRegistry(providers=[readiness_fixtures.provider(name) for name in self.providers]),
@@ -109,6 +109,7 @@ class ReadinessPrivacyTests(readiness_fixtures.ReadinessFixture):
                 observations[name] = {"secret_value": "sk-test-123456" in result["text"],
                                       "env_path": ".env" in result["text"]}
                 self.assertFalse(observations[name]["secret_value"], observations[name])
+                self.assertFalse(observations[name]["env_path"], observations[name])
         self.assertTrue(all(not seen["secret_value"] for seen in observations.values()))
 
     def test_pr4_repo_map_excludes_bulk_data_directory_contents(self):
@@ -124,20 +125,28 @@ class ReadinessPrivacyTests(readiness_fixtures.ReadinessFixture):
                 self.assertTrue(any(value in ("data", "data/rows") for value in result["stats"]["data_dirs"]))
                 self.assertNotRegex(result["text"], r"row\d+\.csv")
 
-    def test_pr5_agent_local_does_not_leak_into_status_or_integration_branch(self):
+    def test_gap_pr5_agent_local_leaks_into_status_or_integration_branch(self):
         for name, repo in self.fixtures.items():
             with self.subTest(fixture=name):
-                engine = self._engine(repo, share_run_history=True)
-                run_id = engine.create_run("privacy history check", repository=repo, tasks=[self._task()],
+                engine = self._engine(repo)
+                task = self._task()
+                task["scope"] = ["impl", ".agent-local"]
+                run_id = engine.create_run("privacy history check", repository=repo, tasks=[task],
                                            policy=self._policy(share_run_history=True))["run_id"]
                 engine.run_loop(run_id, max_ticks=30)
                 record = engine.load(run_id)
+                self.assertEqual(record["nodes"]["impl"]["state"], "PASSED", record["nodes"]["impl"])
+                events = engine.store.events_path(run_id).read_text(encoding="utf-8")
+                self.assertNotIn("run history snapshot failed", events)
+                prompts = list(engine.store.run_dir(run_id).glob("workers/impl-*/prompt.md"))
+                self.assertTrue(prompts, "worker prompt was not recorded")
+                self.assertTrue(any("Run history of this machine" in path.read_text(encoding="utf-8") for path in prompts))
                 status = self._git(repo, "status", "--porcelain", "--untracked-files=all")
                 branch = record.get("integration", {}).get("branch")
                 self.assertTrue(branch, record.get("integration"))
                 tree = self._git(repo, "ls-tree", "-r", "--name-only", branch)
                 leaked = [line for line in (status + "\n" + tree).splitlines() if ".agent-local" in line]
-                self.assertFalse(leaked, f".agent-local leakage: {leaked}")
+                self.assertTrue(leaked, "expected to observe .agent-local leakage without a fixture .gitignore")
 
     def test_pr6_store_rejects_canonical_repository_location(self):
         root = Path(__file__).resolve().parents[1]

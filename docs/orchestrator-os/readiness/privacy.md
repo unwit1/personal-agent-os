@@ -15,21 +15,21 @@ python -m unittest tests.test_readiness_privacy -v
 Exact final command output:
 
 ```text
+test_gap_pr5_agent_local_leaks_into_status_or_integration_branch (tests.test_readiness_privacy.ReadinessPrivacyTests.test_gap_pr5_agent_local_leaks_into_status_or_integration_branch) ... ok
 test_gap_redact_misses_generic_sk_token (tests.test_readiness_privacy.ReadinessPrivacyTests.test_gap_redact_misses_generic_sk_token) ... ok
 test_pr1_run_state_refuses_transcripts_and_redacts_secrets (tests.test_readiness_privacy.ReadinessPrivacyTests.test_pr1_run_state_refuses_transcripts_and_redacts_secrets) ... ok
 test_pr2_state_and_telemetry_hold_no_prompt_text (tests.test_readiness_privacy.ReadinessPrivacyTests.test_pr2_state_and_telemetry_hold_no_prompt_text) ... ok
 test_pr3_repo_map_secret_file_visibility (tests.test_readiness_privacy.ReadinessPrivacyTests.test_pr3_repo_map_secret_file_visibility) ... ok
 test_pr4_repo_map_excludes_bulk_data_directory_contents (tests.test_readiness_privacy.ReadinessPrivacyTests.test_pr4_repo_map_excludes_bulk_data_directory_contents) ... ok
-test_pr5_agent_local_does_not_leak_into_status_or_integration_branch (tests.test_readiness_privacy.ReadinessPrivacyTests.test_pr5_agent_local_does_not_leak_into_status_or_integration_branch) ... ok
 test_pr6_store_rejects_canonical_repository_location (tests.test_readiness_privacy.ReadinessPrivacyTests.test_pr6_store_rejects_canonical_repository_location) ... ok
 
 ----------------------------------------------------------------------
-Ran 7 tests in 11.885s
+Ran 7 tests in 11.640s
 
 OK
 ```
 
-Result: 7 test methods passed, 0 failures/errors. Fixture subtests ran for both Python and JavaScript where applicable. PR-1/PR-2 were rerun with the corrected assertions; PR-3 through PR-6 also passed in this final run.
+Result: 7 test methods passed, 0 failures/errors. Fixture subtests ran for both Python and JavaScript where applicable. PR-5 is an expected observed leakage, asserted and documented as a gap.
 
 ## Results
 
@@ -37,9 +37,9 @@ Result: 7 test methods passed, 0 failures/errors. Fixture subtests ran for both 
 |---|---|---|---|
 | PR-1 transcript refusal and secret redaction | Passed; generic-token gap | Passed; generic-token gap | Final run confirms transcript refusal and redaction of `sk-ant-abcdefghijklmnopqrstuvwxyz0123` and `password=hunter2` in persisted state. Named test `test_gap_redact_misses_generic_sk_token` confirms `redact("sk-test-123456")` currently returns that value unchanged on both fixtures. |
 | PR-2 state and telemetry exclude prompt text | Passed | Passed | Final run found no `Rules:`, `agent-os-result`, or transcript/messages/conversation/history keys in state. Telemetry omitted the unique prompt marker and every event's keys were a subset of the allowed metadata fields. |
-| PR-3 map handles `.env` and secrets file | Passed | Passed | Committed `.env` with `API_KEY=sk-test-123456` and `config/secrets.json`; `build(repo, 'add a feature using the api key config')` text did not contain the secret value. Test records whether `.env` is listed; no exclusion is required by this assertion. |
+| PR-3 map handles `.env` and secrets file | Passed | Passed | Committed `.env` with `API_KEY=sk-test-123456` and `config/secrets.json`; `build(repo, 'add a feature using the api key config')` text contained neither the secret value nor the `.env` path. The test asserts both observations for each fixture. |
 | PR-4 map omits bulk data filenames | Passed | Passed | Committed 70 `data/rows/rowNN.csv` files. `stats.data_dirs` included `data` or `data/rows`; no `rowNN.csv` appeared in map text. |
-| PR-5 `.agent-local` leakage with shared history | Passed | Passed | Ran synthetic orchestration with `share_run_history=True`; asserted an integration branch exists, then inspected `git status --porcelain --untracked-files=all` and `git ls-tree -r --name-only <integration branch>`. Neither listed an `.agent-local` path. |
+| PR-5 `.agent-local` leakage with shared history | **Gap observed** | **Gap observed** | Ran synthetic orchestration with `share_run_history=True`; the implementer reached `PASSED`, its worker prompt contained `Run history of this machine`, and no `run history snapshot failed` note appeared. The fixture has no `.gitignore`; `git status --porcelain --untracked-files=all` and `git ls-tree -r --name-only <integration branch>` yielded `.agent-local` entries, so the test asserts and records the leakage. |
 | PR-6 canonical repository state rejected as store home | Passed | Passed | `RunStore(<checkout>/projects/orchestrator-state)` raised `StoreError`. |
 
 ### Stage 3 prompt
