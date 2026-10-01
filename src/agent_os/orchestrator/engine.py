@@ -490,6 +490,7 @@ class Orchestrator:
                 del target[key]
             else:
                 record["overrides"]["run"] = {}
+            _operator_changed(record)
             self.store.save(record)
             self.store.append_event(run_id, "override.set", node, f"{role or node or 'run'} -> {value or 'cleared'}")
             return self.summary(record)

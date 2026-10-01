@@ -36,6 +36,15 @@ class ControlRaceTests(unittest.TestCase):
         self.assertEqual(final["operator_messages"][-1]["text"], "hold on")
         self.assertEqual(final["state"], "REVIEWING")
 
+    def test_driver_save_keeps_an_override_set_during_its_tick(self) -> None:
+        driver = self.store.load("run-x")
+        operator = self.store.load("run-x")
+        operator["overrides"] = {"run": {"provider": "alpha"}, "roles": {}, "nodes": {}}
+        engine_mod._operator_changed(operator)
+        self.store.save(operator)
+        self.store.save(driver)  # used to drop the override
+        self.assertEqual(self.store.load("run-x")["overrides"]["run"], {"provider": "alpha"})
+
     def test_the_driver_own_control_changes_still_save(self) -> None:
         driver = self.store.load("run-x")
         driver["control"]["stop_requested"] = True

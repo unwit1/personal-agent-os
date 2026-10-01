@@ -169,6 +169,8 @@ class RunStore:
             return False
         record["control"] = disk["control"]
         record["operator_messages"] = disk.get("operator_messages") or []
+        if isinstance(disk.get("overrides"), dict):
+            record["overrides"] = disk["overrides"]
         return True
 
     def save(self, record: dict[str, Any]) -> dict[str, Any]:
