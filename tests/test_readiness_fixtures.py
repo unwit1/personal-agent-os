@@ -2,9 +2,13 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 import unittest
+from pathlib import Path
 
-from tests.readiness_fixtures import ReadinessFixture, git
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from readiness_fixtures import ReadinessFixture, git, PASS, provider
 
 
 class ReadinessFixtureTests(ReadinessFixture):
@@ -35,7 +39,6 @@ class ReadinessFixtureTests(ReadinessFixture):
         self.assertEqual(self.engine, self)
         self.assertEqual(self.telemetry_path, self.tmp / 'telemetry' / 'events.jsonl')
         self.assertEqual(self.claims, self.tmp / 'claims.json')
-        from tests.readiness_fixtures import PASS, provider
         self.assertEqual(PASS['kind'], 'command')
         self.assertEqual(provider('alpha')['adapter'], 'synthetic')
 
