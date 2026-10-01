@@ -577,6 +577,27 @@ def _send_item(item: dict[str, Any], batch: dict[str, Any], *, gateway: Any, sto
     item.update(state="SENT", email_id=_jsonable(email_id), sent_at=stamp)
 
 
+def _naive(when: datetime) -> datetime:
+    return when.astimezone().replace(tzinfo=None) if when.tzinfo is not None else when
+
+
+def _check_sendable(
+    batch: Mapping[str, Any], pending: list[dict[str, Any]], *, now: datetime, max_age: timedelta
+) -> None:
+    now = _naive(now)
+    approved = _parse_when(batch.get("approved_at"))
+    if approved is None or now - _naive(approved) > max_age:
+        raise SendError(f"batch {batch['batch_id']} approval is stale; plan outreach again")
+    for item in pending:
+        for slot in item.get("slots") or []:
+            start = _parse_when(slot.get("start"))
+            if start is None or _naive(start) <= now:
+                raise SendError(
+                    f"batch {batch['batch_id']} offers a past or unreadable slot to "
+                    f"{item['applicant_ref']}; plan outreach again"
+                )
+
+
 def send_batch(
     batch_id: str,
     *,
@@ -584,6 +605,7 @@ def send_batch(
     gateway: Any = None,
     store: Any,
     now: datetime | None = None,
+    max_age: timedelta = DEFAULT_MAX_BATCH_AGE,
 ) -> dict[str, Any]:
     """Send an approved batch only on explicit ``confirm=True``; otherwise dry-run.
 
@@ -593,7 +615,9 @@ def send_batch(
     persisted after every attempt, so a retry skips items that already have an
     email ID and never re-records a draft. An item interrupted mid-send becomes
     SEND_UNKNOWN and is never resent automatically. Failures keep only the
-    exception type, since messages may carry addresses.
+    exception type, since messages may carry addresses. A confirmed send is
+    refused while items are pending if the approval is older than ``max_age``
+    or any pending item offers a slot that has already started.
     """
     try:
         batch = store.load(batch_id)
@@ -611,8 +635,11 @@ def send_batch(
         result["would_send"] = [_preview(i) for i in pending]
         return result
 
+    now = now or datetime.now()
+    if pending:
+        _check_sendable(batch, pending, now=now, max_age=max_age)
     gateway = gateway or _default_gateway()
-    stamp = (now or datetime.now()).isoformat(timespec="seconds")
+    stamp = now.isoformat(timespec="seconds")
 
     for item in batch["items"]:
         if item["state"] == "SENDING":

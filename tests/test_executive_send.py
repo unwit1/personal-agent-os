@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import sys
 import unittest
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
@@ -227,6 +227,31 @@ class SendTests(unittest.TestCase):
         a = self.items()["ref-a"]
         self.assertEqual((a["state"], a["send_error"]), ("SEND_FAILED", "no_email"))
         self.assertNotIn("ref-a", self.gw.drafts() + self.gw.sends())
+
+    def test_stale_approval_refuses_confirmed_send(self):
+        self.approve()
+        before = self.store.load(self.id)
+        late = NOW + ex.DEFAULT_MAX_BATCH_AGE + timedelta(minutes=1)
+        with self.assertRaises(ex.SendError):
+            ex.send_batch(self.id, gateway=self.gw, store=self.store, now=late, confirm=True)
+        self.assertEqual(self.gw.calls, [])
+        self.assertEqual(self.store.load(self.id), before)
+        # Dry-run still previews.
+        out = ex.send_batch(self.id, gateway=self.gw, store=self.store, now=late)
+        self.assertTrue(out["dry_run"])
+
+    def test_past_slot_refuses_confirmed_send(self):
+        self.approve()
+        batch = self.store.load(self.id)
+        batch["items"][1]["slots"][0]["start"] = (NOW - timedelta(hours=1)).isoformat()
+        self.store.save(batch)
+        with self.assertRaises(ex.SendError):
+            self.send(confirm=True)
+        self.assertEqual(self.gw.calls, [])
+        # A slot starting exactly now is also past.
+        with self.assertRaises(ex.SendError):
+            ex.send_batch(self.id, gateway=self.gw, store=self.store, now=SLOTS[0][0], confirm=True)
+        self.assertTrue(all("email_id" not in i for i in self.items().values()))
 
     def test_interrupted_or_unconfirmed_send_is_not_resent(self):
         self.approve()
