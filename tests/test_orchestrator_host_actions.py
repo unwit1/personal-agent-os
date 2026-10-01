@@ -121,6 +121,34 @@ class ReviewEscalationTests(OrchestratorFixture):
         node = self.engine.load(run_id)["nodes"]["a"]
         self.assertTrue(node["review"]["escalated"])
 
+    def test_confirmed_findings_get_one_last_repair_before_a_person(self) -> None:
+        # Seen live: the stronger reviewer confirmed a concrete doc error and
+        # the run asked a person although nobody had been asked to fix it.
+        state = {"fixed": False, "repairs": 0}
+
+        def script(request, call):
+            if request.role == "repairer":
+                state["repairs"] += 1
+                if state["repairs"] >= 2:  # ordinary repairs fail; only the final one succeeds
+                    state["fixed"] = True
+                return {"edits": {f"a/fix-{call}.txt": "x\n"}, "structured": {"status": "done", "dispositions": [{"id": "F1", "disposition": "fixed"}]}}
+            if request.role == "reviewer":
+                if state["fixed"]:
+                    return {"structured": {"status": "done", "verdict": "approved", "findings": []}}
+                finding = {"id": "F1", "severity": "medium", "summary": "wrong field in the table", "path": "a", "recommended_action": "use the source field"}
+                return {"structured": {"status": "done", "verdict": "changes_requested", "findings": [finding]}}
+            return {"edits": {f"a/{request.node_id}-{call}.txt": "x\n"}, "structured": {"status": "done"}}
+
+        for name in self.providers:
+            synthetic.SCRIPTS[name] = script
+        run_id = self.create([self.task("a")])
+        final = self.engine.run_loop(run_id, max_ticks=120)
+        node = self.engine.load(run_id)["nodes"]["a"]
+        self.assertTrue(node["review"]["escalated"])
+        self.assertTrue(node["review"].get("final_repair"))
+        self.assertEqual(final["gates"], [], "the last repair settled it without a person")
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+
 
 class QuotaCooldownTests(unittest.TestCase):
     def test_reset_time_is_read_from_the_quota_message(self) -> None:

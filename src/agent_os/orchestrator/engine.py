@@ -1199,6 +1199,14 @@ class Orchestrator:
             self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_escalated", reason="findings remain after the allowed rounds; asking a stronger reviewer before a person")
             self._create_reviewer(record, subject, capability="reasoning")
             return
+        if not subject["review"].get("final_repair"):
+            # The stronger reviewer confirmed the findings, so they are real
+            # and concrete: one last repair before asking a person (once).
+            subject["review"]["final_repair"] = True
+            subject["state"] = "NEEDS_REPAIR"
+            self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="final_repair", reason="a stronger reviewer confirmed the findings; one last repair before asking you")
+            self._create_repair(record, subject, blocking)
+            return
         self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_rounds", reason=f"stopped the review/fix cycle after {subject['review']['rounds']} round(s); asking you instead")
         subject["state"] = "APPROVAL_REQUIRED"
         self._open_gate(
