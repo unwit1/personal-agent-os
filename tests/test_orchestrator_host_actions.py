@@ -238,6 +238,48 @@ class McpReloadTests(unittest.TestCase):
 
 
 
+class NewFindingsAfterFinalRepairTests(OrchestratorFixture):
+    def test_findings_new_after_the_final_repair_get_one_more_repair(self) -> None:
+        # Seen live: round 4 raised real bugs no worker had been asked to fix,
+        # and the run sat on a gate for two hours.
+        state = {"repairs": 0}
+
+        def script(request, call):
+            if request.role == "repairer":
+                state["repairs"] += 1
+                return {"edits": {f"a/fix-{state['repairs']}.txt": "x"}, "structured": {"status": "done"}}
+            if request.role == "reviewer":
+                if state["repairs"] >= 3:  # the extra repair fixed it
+                    return {"structured": {"status": "done", "verdict": "approved", "findings": []}}
+                finding = {"id": f"bug{state['repairs']}", "severity": "high", "summary": f"new bug {state['repairs']}", "path": "a"}
+                return {"structured": {"status": "done", "verdict": "changes_requested", "findings": [finding]}}
+            return {"edits": {f"a/{request.node_id}-{call}.txt": "x"}, "structured": {"status": "done"}}
+
+        for name in self.providers:
+            synthetic.SCRIPTS[name] = script
+        run_id = self.create([self.task("a")])
+        final = self.engine.run_loop(run_id, max_ticks=160)
+        node = self.engine.load(run_id)["nodes"]["a"]
+        self.assertTrue(node["review"].get("final_repair"))
+        self.assertTrue(node["review"].get("extra_repair"))
+        self.assertEqual(final["gates"], [])
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+
+    def test_the_extra_repair_happens_once(self) -> None:
+        def script(request, call):
+            if request.role == "reviewer":
+                finding = {"id": f"bug{call}", "severity": "high", "summary": f"bug {call}", "path": "a"}
+                return {"structured": {"status": "done", "verdict": "changes_requested", "findings": [finding]}}
+            return {"edits": {f"a/{request.node_id}-{call}.txt": "x"}, "structured": {"status": "done"}}
+
+        for name in self.providers:
+            synthetic.SCRIPTS[name] = script
+        run_id = self.create([self.task("a")])
+        final = self.engine.run_loop(run_id, max_ticks=160)
+        self.assertEqual(final["state"], "APPROVAL_REQUIRED")
+        self.assertEqual(len([g for g in final["gates"] if g["status"] == "open"]), 1)
+
+
 class WaitForCheaperResetTests(OrchestratorFixture):
     """H6 (Hermes min_switch_reset_seconds): a cheap provider that resets soon
     is waited for instead of failing over to a costlier one."""

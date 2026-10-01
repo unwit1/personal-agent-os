@@ -1232,8 +1232,20 @@ class Orchestrator:
             # The stronger reviewer confirmed the findings, so they are real
             # and concrete: one last repair before asking a person (once).
             subject["review"]["final_repair"] = True
+            subject["review"]["final_repair_ids"] = [item["id"] for item in blocking]
             subject["state"] = "NEEDS_REPAIR"
             self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="final_repair", reason="a stronger reviewer confirmed the findings; one last repair before asking you")
+            self._create_repair(record, subject, blocking)
+            return
+        repaired = subject["review"].get("final_repair_ids") or []
+        new = [item for item in blocking if not any(item["id"] == fid or item["id"].endswith("-" + fid) for fid in repaired)]
+        if new and len(new) == len(blocking) and not subject["review"].get("extra_repair"):
+            # Every blocking finding is new in the review after the final
+            # repair: no worker has been asked to fix them yet. One more
+            # bounded repair (once per node) instead of waiting on a person.
+            subject["review"]["extra_repair"] = True
+            subject["state"] = "NEEDS_REPAIR"
+            self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="extra_repair", reason="the last review raised only new findings; one bounded repair before asking you")
             self._create_repair(record, subject, blocking)
             return
         self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_rounds", reason=f"stopped the review/fix cycle after {subject['review']['rounds']} round(s); asking you instead")
