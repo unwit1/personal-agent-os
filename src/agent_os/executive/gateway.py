@@ -13,6 +13,9 @@ from agent_os import rtec_applicants
 
 
 _APPLICANT_FIELDS = ("name", "position", "submitted", "status", "county", "city")
+# Dashboard matching uses the applicant's geographic preference as well as
+# location. Keep it available to native Dashboard calls, never to Executive DTOs.
+_DASHBOARD_FIELDS = (*_APPLICANT_FIELDS, "county_preference", "email")
 _MATCH_FIELDS = ("match", "pending", "primary", "alternates", "reasons", "groups", "group_label", "manager")
 _REVIEW_FIELDS = ("summary", "strengths", "concerns")
 _REVIEWABLE = {"New", "Interested", "Interview Requested", "Clarification Requested"}
@@ -36,7 +39,7 @@ def _project(applicant: Any, *, email: bool = False) -> dict[str, Any]:
 
 def _internal(applicant: Any, ref: str) -> dict[str, Any]:
     """Dashboard calls receive only the fields needed for recruiting operations."""
-    result = {key: _value(applicant, key) for key in ("applicant_key", *_APPLICANT_FIELDS, "email")}
+    result = {key: _value(applicant, key) for key in ("applicant_key", *_DASHBOARD_FIELDS)}
     result["agent_ref"] = ref
     return result
 
@@ -97,7 +100,7 @@ class LocalDashboardGateway:
         try:
             rtec_applicants._require_agent_ref_schema(conn)
             columns = rtec_applicants._table_columns(conn, "applicants")
-            wanted = ("applicant_key", "agent_ref", *_APPLICANT_FIELDS, "email")
+            wanted = ("applicant_key", "agent_ref", *_DASHBOARD_FIELDS)
             selected = [column for column in wanted if column in columns]
             row = conn.execute(
                 f"SELECT {', '.join(selected)} FROM applicants WHERE agent_ref = ?", (ref,)
@@ -118,6 +121,15 @@ class LocalDashboardGateway:
 
     def ranked(self, min_score: int = 0) -> list[tuple[dict[str, Any], dict[str, Any]]]:
         rows = self._module("candidate_review").ranked(min_score)
+        conn = rtec_applicants._connect_readonly()
+        try:
+            rtec_applicants._require_agent_ref_schema(conn)
+            refs_by_key = {
+                row["applicant_key"]: row["agent_ref"]
+                for row in conn.execute("SELECT applicant_key, agent_ref FROM applicants")
+            }
+        finally:
+            conn.close()
         result = []
         for applicant, review in rows:
             if _value(applicant, "status") not in _REVIEWABLE:
@@ -127,17 +139,11 @@ class LocalDashboardGateway:
                 key = _value(applicant, "applicant_key")
                 if not key:
                     continue
-                conn = rtec_applicants._connect_readonly()
-                try:
-                    row = conn.execute("SELECT agent_ref FROM applicants WHERE applicant_key = ?", (key,)).fetchone()
-                finally:
-                    conn.close()
-                ref = row[0] if row else None
+                ref = refs_by_key.get(key)
             if not ref:
                 continue
             internal = _internal(applicant, ref)
             safe = _project(internal)
-            self._raw_by_ref[ref] = internal
             result.append((safe, _review(review)))
         return result
 
