@@ -143,13 +143,14 @@ class RosterPagingTests(unittest.TestCase):
         ]
 
         def paged(status=None, limit=50, offset=0):
-            page = rows[offset:offset + limit]
+            page = [r for r in rows if r["status"] == status][offset:offset + limit]
             return {"count": len(page), "results": page}
 
         with patch.object(ex.rtec_applicants, "list_applicants", side_effect=paged) as lst:
             roster = ex._reviewable_applicants()
         self.assertEqual(len(roster), 450)
-        self.assertEqual(lst.call_count, 3)
+        self.assertEqual(lst.call_count, 6)
+        self.assertEqual({c.kwargs["status"] for c in lst.call_args_list}, set(ex.REVIEWABLE_STATUSES))
 
 
 if __name__ == "__main__":

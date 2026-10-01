@@ -135,30 +135,31 @@ _PAGE_SIZE = 200
 def _reviewable_applicants() -> dict[str, dict[str, Any]]:
     """Read-only administrative list of applicants in reviewable statuses.
 
-    Pages one unfiltered list (offset until a short page) and filters by status
-    here. ``list_applicants`` writes its own ``applicant.list`` access audit per
-    page; that is accepted and is separate from the one ``executive.*`` record
-    written per view.
+    Lists each reviewable status separately, paging within it. ``list_applicants``
+    writes its own ``applicant.list`` access audit per page; that is accepted and
+    is separate from the one ``executive.*`` record written per view.
     """
     found: dict[str, dict[str, Any]] = {}
-    offset = 0
-    while True:
-        rows = rtec_applicants.list_applicants(limit=_PAGE_SIZE, offset=offset)["results"]
-        for row in rows:
-            ref = row.get("agent_ref")
-            if ref and row.get("status") in REVIEWABLE_STATUSES:
-                found[ref] = {
-                    "applicant_ref": ref,
-                    "name": row.get("name"),
-                    "position": row.get("position"),
-                    "submitted": row.get("submitted"),
-                    "status": row.get("status"),
-                    "county": row.get("county"),
-                    "city": row.get("city"),
-                }
-        if len(rows) < _PAGE_SIZE:
-            return found
-        offset += len(rows)
+    for status in REVIEWABLE_STATUSES:
+        offset = 0
+        while True:
+            rows = rtec_applicants.list_applicants(status=status, limit=_PAGE_SIZE, offset=offset)["results"]
+            for row in rows:
+                ref = row.get("agent_ref")
+                if ref:
+                    found[ref] = {
+                        "applicant_ref": ref,
+                        "name": row.get("name"),
+                        "position": row.get("position"),
+                        "submitted": row.get("submitted"),
+                        "status": row.get("status"),
+                        "county": row.get("county"),
+                        "city": row.get("city"),
+                    }
+            if len(rows) < _PAGE_SIZE:
+                break
+            offset += len(rows)
+    return found
 
 
 # ---------------------------------------------------------------- needs_action
@@ -450,7 +451,7 @@ def approve_batch(
             out.update(state="HELD", decision="held", hold_reason="no_manager")
             decided.append(out)
             continue
-        fresh = list(gateway.suggest_slots(manager, duration, max(DEFAULT_SLOT_COUNT, len(item["slots"]))))
+        fresh = list(gateway.suggest_slots(manager, duration, 3 * max(DEFAULT_SLOT_COUNT, len(item["slots"]))))
         fresh_keys = {_slot_key(when): (when, reason) for when, reason in fresh}
         original = [_slot_key(s["start"]) for s in item["slots"]]
         if choice == "confirm":

@@ -46,7 +46,7 @@ class FakeGateway:
 
     def suggest_slots(self, manager, duration_minutes, count):
         self.calls.append(("suggest_slots", manager))
-        return list(self.slots)
+        return list(self.slots)[:count] if getattr(self, "honor_count", False) else list(self.slots)
 
     def render_outreach(self, name, position, slots, interview_type, location, duration_minutes, message, county):
         self.calls.append(("render_outreach", name))
@@ -102,6 +102,15 @@ class ApprovalTests(unittest.TestCase):
         self.assertEqual(self.store.load(self.id)["state"], "APPROVED")
         self.assertNotIn("send_now", self.gw.names())
         self.assertNotIn("record_outreach_drafted", self.gw.names())
+
+    def test_confirm_survives_earlier_slot_freeing_up(self):
+        original = [s["start"] for s in self.batch["items"][0]["slots"]]
+        freed = [(datetime(2026, 10, 5, 8), "freed")] + list(SLOTS) + [(datetime(2026, 10, 7, 9), "x")] * 0
+        self.gw.slots = freed
+        self.gw.honor_count = True
+        out = self.approve({"ref-a": "confirm", "ref-b": "confirm"})
+        self.assertEqual(out["state"], "APPROVED")
+        self.assertEqual([s["start"] for s in out["items"][0]["slots"]], original)
 
     def test_reordered_slots_count_as_changed_and_rerender(self):
         original = [s["start"] for s in self.batch["items"][0]["slots"]]
