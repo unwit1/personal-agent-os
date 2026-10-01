@@ -73,7 +73,10 @@ It does not convert a pending action into a hiring recommendation.
 
 `suggestions(opening)` reads existing Dashboard AI reviews, filters to the
 reviewable statuses and applicants whose Dashboard `match_for` result fits the
-requested opening, and orders matches by Dashboard score, best first. Each
+requested opening, and orders matches by Dashboard score, best first. An
+applicant fits an opening when the Dashboard's `match_for` result names that
+opening as its `match` or one of its `alternates`. A `pending` match does not
+fit. Agent OS does not compute fit on its own. Each
 suggestion contains score, recommendation, review reasons and criterion
 evidence, match reasons, and the label **“Dashboard AI review: advisory; you
 decide”**. It reports the count of matching applicants with no existing review
@@ -86,7 +89,26 @@ to interview.
 `plan_outreach(applicant_refs, opening, interview_type, location,
 duration_minutes)` resolves each opaque reference, asks the Dashboard for the
 manager and conflict-checked slots, and renders proposed subject/body through
-the Dashboard. It creates one batch in `PENDING_APPROVAL` under the gitignored
+the Dashboard.
+
+`opening` scopes the whole batch and has three defined effects:
+
+1. **Fit gate.** For each reference, `plan_outreach` calls `match_for` and
+   applies the same fit rule as `suggestions(opening)`. The applicant must also
+   be in a reviewable status. A reference that does not fit is not planned. It is listed in the batch's `excluded` items
+   with the Dashboard match reasons, and is never silently retargeted to another
+   opening. If no reference fits, no batch is created.
+2. **Rendered content.** The opening's position title is the `position`
+   argument passed to `render_outreach`. The applicant's stored position or
+   other matches are not used, so the offer names the opening the operator
+   chose.
+3. **Batch record.** The batch persists the opening identifier. Approval and
+   sending revalidate against it. If `match_for` no longer fits that opening at
+   approval or send time, the item is held for the operator and is not sent.
+
+The manager comes from `manager_for` and slots from `suggest_slots`; `opening`
+does not override the Dashboard's manager or calendar logic. The call creates
+one batch in `PENDING_APPROVAL` under the gitignored
 `.agent-local/executive/outbox/`. Planning is a local, reversible draft step:
 it neither records a Dashboard draft nor sends mail. Outbox files are local
 restricted data; Git-backed memory receives only schema or aggregate data.
@@ -123,8 +145,8 @@ This prevents a partial failure from silently duplicating mail.
 
 ## Validation contract
 
-Synthetic tests must verify the gateway call ledger, passive review reads,
-separate approval and send confirmation, dry-run behavior, and recovery after
+Synthetic tests must verify the gateway call ledger, passive review reads, the
+opening fit gate and exclusions in `plan_outreach`, separate approval and send confirmation, dry-run behavior, and recovery after
 partial or uncertain delivery. Feed a synthetic applicant with `aa_pdf_path`,
 self-ID fields, and source keys through every path and assert those values are
 absent from Executive output, the outbox, audit records, and LLM prompts.
