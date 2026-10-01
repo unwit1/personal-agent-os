@@ -99,7 +99,7 @@ Controlled execution:
 - `applicant.prepare_offer`
 - `applicant.prepare_area_manager_handoff`
 
-The Agent integration remains administrative/supportive. It must not rank applicants, recommend who should be hired or rejected, or make employment decisions. After the user has made an employment decision, the Agent may help prepare the corresponding administrative paperwork or communication for review.
+The Agent integration remains administrative/supportive and never makes employment decisions. Operator decision (2026-10-01): the executive may **surface the Dashboard's existing AI review ranking** (`candidate_review.ranked`: score, recommendation and the review's reasons) for a current opening, labelled advisory, with an audit record per view. Agent OS does not compute its own ranking, does not trigger new AI reviews, and never passes EEO/self-ID data anywhere near it. The operator makes every decision. Interview outreach may be prepared proactively, but each batch is sent only after the operator confirms the dates/times and then the send; the default is dry-run (drafts only).
 
 ## Event model
 
