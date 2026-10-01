@@ -47,6 +47,14 @@ class RegistryTests(unittest.TestCase):
         self.assertTrue(all("best" not in query for query in queries))
         self.assertTrue(any("durable" in query and "checkpoint" in query for query in queries))
 
+    def test_openrouter_free_routing_prior_art_is_recorded(self) -> None:
+        # IMP-0015 FreeComputeBroker: the design consulted this lookup.
+        matches = prior_art.lookup("OpenRouter free model routing")
+        self.assertEqual(matches[0]["id"], "PA-openrouter-api")
+        recorded = {item["id"]: item for item in prior_art.load()["entries"]}["PA-openrouter-api"]
+        self.assertNotEqual(recorded["decision"], "ADOPT")
+        self.assertIn({"rel": "relates_to", "ref": "IMP-0015"}, recorded["links"])
+
     def test_staleness_by_decision_window(self) -> None:
         registry = {"entries": [entry(decision="INVESTIGATE", evaluated_at="2026-08-01"), entry(id="PA-b", decision="BORROW", evaluated_at="2026-08-01"), entry(id="PA-c", revisit_by="2026-09-01")]}
         due = {item["id"] for item in prior_art.stale(registry, today=date(2026, 9, 29))}
