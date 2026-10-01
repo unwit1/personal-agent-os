@@ -29,7 +29,10 @@ SLOTS = [(datetime(2026, 10, 5, 9), "free"), (datetime(2026, 10, 5, 13), "free")
 
 
 def list_applicants(status=None, limit=50, offset=0):
-    rows = ROWS.get(status, [])
+    rows = [r for group in ROWS.values() for r in group]
+    if status:
+        rows = [r for r in rows if r["status"] == status]
+    rows = rows[offset:offset + limit]
     return {"count": len(rows), "results": [dict(r) for r in rows]}
 
 
@@ -130,6 +133,24 @@ class PlanTests(unittest.TestCase):
                 store.load("../x")
         for secret in ("SECRET-AA", "SECRET-RACE", "SECRET-KEY", "SECRET-SRC"):
             self.assertNotIn(secret, text)
+
+
+class RosterPagingTests(unittest.TestCase):
+    def test_pages_past_200_rows(self):
+        rows = [
+            {"agent_ref": f"r{i}", "name": "N", "position": "Tech", "submitted": "2026-09-20",
+             "status": "New", "county": "Kent", "city": "Dover"}
+            for i in range(450)
+        ]
+
+        def paged(status=None, limit=50, offset=0):
+            page = rows[offset:offset + limit]
+            return {"count": len(page), "results": page}
+
+        with patch.object(ex.rtec_applicants, "list_applicants", side_effect=paged) as lst:
+            roster = ex._reviewable_applicants()
+        self.assertEqual(len(roster), 450)
+        self.assertEqual(lst.call_count, 3)
 
 
 if __name__ == "__main__":

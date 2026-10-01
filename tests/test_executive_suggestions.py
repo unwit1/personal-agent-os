@@ -34,7 +34,10 @@ MATCHES = {
 
 
 def list_applicants(status=None, limit=50, offset=0):
-    rows = ROWS.get(status, [])
+    rows = [r for group in ROWS.values() for r in group]
+    if status:
+        rows = [r for r in rows if r["status"] == status]
+    rows = rows[offset:offset + limit]
     return {"count": len(rows), "results": [dict(r) for r in rows]}
 
 

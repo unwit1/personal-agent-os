@@ -23,7 +23,10 @@ TECH = {"match": "Tech", "pending": False, "alternates": [], "reasons": []}
 
 
 def list_applicants(status=None, limit=50, offset=0):
-    rows = ROWS.get(status, [])
+    rows = [r for group in ROWS.values() for r in group]
+    if status:
+        rows = [r for r in rows if r["status"] == status]
+    rows = rows[offset:offset + limit]
     return {"count": len(rows), "results": [dict(r) for r in rows]}
 
 
@@ -146,6 +149,18 @@ class ApprovalTests(unittest.TestCase):
         self.gw.matches["ref-b"] = {"match": "Clerk", "pending": False, "alternates": [], "reasons": []}
         out = self.approve({"ref-a": "confirm", "ref-b": "confirm"})
         self.assertEqual(out["items"][1]["state"], "HELD")
+
+    def test_missing_manager_holds_item(self):
+        self.gw.manager_for = lambda ref: None if ref == "ref-b" else "Mgr"
+        out = self.approve({"ref-a": "confirm", "ref-b": "confirm"})
+        self.assertEqual(out["items"][1]["state"], "HELD")
+        self.assertEqual(out["items"][1]["hold_reason"], "no_manager")
+        self.assertNotIn(("suggest_slots", None), self.gw.calls)
+
+    def test_timezone_aware_choice_matches_local_slot(self):
+        aware = SLOTS[2][0].astimezone().isoformat()
+        out = self.approve({"ref-a": "confirm", "ref-b": [aware]})
+        self.assertEqual(out["items"][1]["decision"], "changed")
 
 
 if __name__ == "__main__":
