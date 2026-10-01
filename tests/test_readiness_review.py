@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -16,38 +17,21 @@ from agent_os.telemetry import LocalTelemetryStore
 
 
 class ReviewReadinessTests(ReadinessFixture):
-    def setUp(self):
-        super().setUp()
-        self.repo = self.py_repo
-        self.engine = Orchestrator(
-            RunStore(self.tmp / 'home'),
-            registry=ProviderRegistry(providers=[provider('alpha'), provider('beta')]),
-            telemetry_store=LocalTelemetryStore(self.telemetry_path),
-            claims_path=self.claims,
-            sleep=lambda seconds: None,
-        )
-        for name in ('alpha', 'beta'):
-            synthetic.SCRIPTS[name] = self.script
-
-    def script(self, request, call):
-        if request.role == 'reviewer':
-            return {'structured': {'status': 'done', 'verdict': 'approved', 'findings': []}}
-        return {'edits': {'a/impl.txt': 'impl\n'}, 'structured': {'status': 'done'}}
-
     def for_each_fixture(self, callback):
         for name, repo in self.fixtures.items():
             with self.subTest(fixture=name):
                 self.repo = repo
-                self.engine = Orchestrator(
-                    RunStore(self.tmp / f'home-{name}'),
-                    registry=ProviderRegistry(providers=[provider('alpha'), provider('beta')]),
-                    telemetry_store=LocalTelemetryStore(self.tmp / f'telemetry-{name}' / 'events.jsonl'),
-                    claims_path=self.tmp / f'claims-{name}.json',
-                    sleep=lambda seconds: None,
-                )
-                synthetic.SCRIPTS['alpha'] = self.script
-                synthetic.SCRIPTS['beta'] = self.script
+                self.engine = self.make_engine(name)
                 callback()
+
+    def make_engine(self, name):
+        return Orchestrator(
+            RunStore(self.tmp / f'home-{name}'),
+            registry=ProviderRegistry(providers=[provider('alpha'), provider('beta')]),
+            telemetry_store=LocalTelemetryStore(self.tmp / f'telemetry-{name}' / 'events.jsonl'),
+            claims_path=self.tmp / f'claims-{name}.json',
+            sleep=lambda seconds: None,
+        )
 
     def git_repo(self, repo, *args):
         return subprocess.run(['git', '-c', 'user.name=fixture', '-c', 'user.email=f@x', *args], cwd=repo, check=True, capture_output=True, text=True).stdout
@@ -145,13 +129,14 @@ class ReviewReadinessTests(ReadinessFixture):
 
     def test_merge_to_base_requires_approval_then_fast_forwards(self):
         def check():
+            base_before = self.git_repo(self.repo, 'rev-parse', 'main').strip()
             run = self.create(final_integration='merge_to_base')
             stopped = self.engine.run_loop(run, max_ticks=40)
             self.assertEqual(stopped['state'], 'APPROVAL_REQUIRED')
             gate = stopped['gates'][-1]
             self.assertEqual(gate['kind'], 'consequential_repository_write')
-            before = self.git_repo(self.repo, 'rev-parse', 'main').strip()
-            self.assertEqual(before, stopped['base_commit'])
+            self.assertEqual(base_before, stopped['base_commit'])
+            self.assertEqual(self.git_repo(self.repo, 'rev-parse', 'main').strip(), base_before)
             done = self.engine.decide(run, gate['id'], approve=True)
             self.assertEqual(done['state'], 'COMPLETE')
             self.assertEqual(self.git_repo(self.repo, 'rev-parse', 'main').strip(), done['integration']['head'])
@@ -159,5 +144,7 @@ class ReviewReadinessTests(ReadinessFixture):
 
     def test_engine_sources_never_invoke_git_push(self):
         root = Path(__file__).resolve().parents[1] / 'src' / 'agent_os' / 'orchestrator'
-        for filename in ('engine.py', 'worktrees.py'):
-            self.assertNotIn('"push"', (root / filename).read_text(encoding='utf-8'))
+        push_argument = re.compile(r"['\"]push['\"]")
+        inspected = [path for path in root.glob('*.py') if path.name != 'repos.py']
+        matches = {path.name: push_argument.findall(path.read_text(encoding='utf-8')) for path in inspected}
+        self.assertFalse({name: found for name, found in matches.items() if found}, matches)
