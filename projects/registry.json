@@ -69,17 +69,19 @@
     {
       "id": "rtec-hr-process-model",
       "name": "RTEC HR Process Model",
-      "directory": "rtec-hr-process-model",
-      "repository": "https://github.com/unwit1/personal-agent-os.git",
+      "directory": "RTEC-HR",
+      "repository": "https://github.com/unwit1/RTEC-HR.git",
       "classification": "active",
       "state_file": "projects/rtec-hr-process-model/state.json",
-      "canonical_owner": "this_repository",
+      "canonical_owner": "project_repository",
       "privacy": "Store only derived, sanitized process knowledge and safe provenance; never commit live employee/applicant records, raw OCR, PII-bearing filenames, or employee-level case facts.",
       "aliases": [
-        "RTEC HR model",
-        "RTEC processes",
         "HR process model",
-        "RTEC HR knowledge"
+        "RTEC HR knowledge",
+        "RTEC HR model",
+        "RTEC HR repository",
+        "RTEC processes",
+        "RTEC-HR"
       ],
       "routing_terms": [
         "RTEC HR",
@@ -193,6 +195,40 @@
         "pyannote",
         "speaker diarization",
         "silero vad"
+      ]
+    },
+    {
+      "id": "ingester-engine",
+      "name": "Ingester Engine",
+      "directory": "ingester-engine",
+      "repository": "https://github.com/unwit1/ingester-engine.git",
+      "classification": "active",
+      "state_file": "projects/ingester-engine/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Engine code, specification, schemas, and synthetic fixtures only. Never commit corpus data, organization-specific vocabulary, or private local stores (document cache, placeholder keys, locator maps); those belong to downstream repositories or the user's private local directory.",
+      "aliases": [
+        "ingester",
+        "ingestion engine",
+        "ingester engine",
+        "knowledge engine ingestion",
+        "document cache",
+        "ingestion ledger"
+      ],
+      "routing_terms": [
+        "ingest",
+        "ingestion",
+        "import data",
+        "normalize documents",
+        "ocr cache",
+        "document extraction",
+        "resumable import",
+        "ingestion ledger",
+        "lore ingestion",
+        "writing style analysis",
+        "speech patterns",
+        "source map",
+        "novelty check",
+        "INGESTER.yaml"
       ]
     }
   ],

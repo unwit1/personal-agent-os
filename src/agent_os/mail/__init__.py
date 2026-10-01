@@ -23,7 +23,7 @@ from email.message import Message
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
-from ..ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from ingester_engine.ledger import IngestionLedger, stable_stage_id, stable_work_id
 from . import accounts as accounts_lib
 from . import config
 from .accounts import PROVIDERS, Account, AccountError

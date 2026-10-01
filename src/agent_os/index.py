@@ -6,7 +6,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
-from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from ingester_engine.ledger import IngestionLedger, stable_stage_id, stable_work_id
 from .paths import INDEX_DIR, INDEX_PATH, ROOT
 from .registry import load_state, projects
 from .skills import discover

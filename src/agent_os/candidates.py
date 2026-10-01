@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
-from .ingestion import IngestionLedger, empty_record_import_stats, stable_stage_id, stable_work_id
+from ingester_engine.ledger import IngestionLedger, empty_record_import_stats, stable_stage_id, stable_work_id
 from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .registry import get_project

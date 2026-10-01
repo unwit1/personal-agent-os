@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
-from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from ingester_engine.ledger import IngestionLedger, stable_stage_id, stable_work_id
 from .changes import compact_changes
 from .index import search
 from .improvements import compact_improvements

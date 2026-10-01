@@ -2,10 +2,11 @@
   "schema_version": 1,
   "project": "rtec-hr-process-model",
   "status": "active",
-  "updated_at": "2026-09-25",
+  "updated_at": "2026-10-01",
   "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
-  "repository": "https://github.com/unwit1/personal-agent-os.git",
+  "repository": "https://github.com/unwit1/RTEC-HR.git",
   "current_priorities": [
+    "Content, tooling, and schema moved to unwit1/RTEC-HR on 2026-10-01 (verified by blob SHA); edit and ingest there. New ingestion uses the Ingester Engine hr-v1 profile (RTEC-HR/INGESTER.yaml). The reconciliation extractor now uses engine adapters (rtec-local-extract@2), so the next audit run re-extracts once; OCR is cached per page in the shared engine cache.",
     "Continue the resumable PC filesystem reconciliation in audits/filesystem-reconciliation/RECONCILIATION_STATUS.md; metadata/hash discovery and deterministic extraction of all 15,441 candidates are complete. Cache-only OCR is operational (12 complete, 5 restricted samples, 6,392 pending) with image-size and thread limits. Local normalized-text duplicates are grouped (2,525 groups). Reconciliation separates 30 explicit source/file hash matches from 467 unverified generic/content hash matches. Filename-only HR GUI routing hints classify 173 restricted documents; continue OCR, review duplicate/version chains, then reconcile safe candidates before Knowledge Engine ingestion. R: remains excluded.",
     "Import the six distinct unindexed local PST candidates recorded in projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json after coordinating with the active read-only email-review pass; deduplicate at message level and preserve restricted content only in the local mail index.",
     "Continue the FY2017 grant scan ingestion in bounded, restart-safe section batches; do not attempt monolithic OCR of all 1,021 pages.",
@@ -249,5 +250,6 @@
     "field_contract_path": "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json",
     "coverage_ledger_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json",
     "coverage": "16/16 artifacts accounted for; 0 unreviewed"
-  }
+  },
+  "canonical_location": "RTEC-HR repository (paths below are relative to that checkout)"
 }

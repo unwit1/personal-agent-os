@@ -34,7 +34,7 @@ import time
 from pathlib import Path
 from typing import Any, Callable
 
-from ..ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from ingester_engine.ledger import IngestionLedger, stable_stage_id, stable_work_id
 from ..timestamps import utc_now_iso as now
 from . import config
 from .accounts import Account, AccountError, get_secret

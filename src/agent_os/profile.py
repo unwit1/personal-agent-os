@@ -29,7 +29,7 @@ import re
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
-from .ingestion import IngestionLedger, stable_item_id, stable_stage_id, stable_work_id
+from ingester_engine.ledger import IngestionLedger, stable_item_id, stable_stage_id, stable_work_id
 from .paths import ROOT
 from .privacy import privacy_findings
 from .storage import load_json, write_json

@@ -45,7 +45,7 @@ from .coordination import (
     submit_review,
     status as claims_status,
 )
-from .documents import DocumentCache
+from ingester_engine.cache import DocumentCache
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import rebuild, search
