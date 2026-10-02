@@ -238,6 +238,18 @@ class EmailSendTests(unittest.TestCase):
         self.assertIn("cannot contain newlines", str(cm.exception))
         self.assertEqual(self.transport_calls, [])
 
+    def test_send_invalid_in_reply_to_with_newline_raises(self):
+        """Send with newline in 'in_reply_to' raises ValueError."""
+        item = {"id": "item_1", "context": {}}
+        params = {"to": "alice@example.com", "subject": "Test", "body": "Hello", "in_reply_to": "msg-1@example.com\nBcc: attacker@example.com"}
+
+        with mock.patch.object(actions_email, "TRANSPORT", self.fake_transport):
+            with self.assertRaises(ValueError) as cm:
+                actions_email.email_send(item, params, confirm=True)
+
+        self.assertIn("cannot contain newlines", str(cm.exception))
+        self.assertEqual(self.transport_calls, [])
+
 
 class RegisterTests(unittest.TestCase):
     def test_actions_registered(self):

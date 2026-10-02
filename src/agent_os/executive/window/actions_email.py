@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import email.utils
+import secrets
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -32,7 +33,8 @@ def _save_draft(to: str, subject: str, body: str, in_reply_to: str | None = None
     drafts_dir.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
-    draft_path = drafts_dir / f"draft-{timestamp}.eml"
+    suffix = secrets.token_hex(4)
+    draft_path = drafts_dir / f"draft-{timestamp}-{suffix}.eml"
     eml_content = _format_eml(to, subject, body, in_reply_to)
     draft_path.write_text(eml_content, encoding="utf-8")
     return str(draft_path)
@@ -87,10 +89,10 @@ def email_send(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -
 
     if not to:
         raise ValueError("'to' address is required and cannot be empty")
-    if "\r" in to or "\n" in to:
-        raise ValueError("'to' address cannot contain newlines or carriage returns")
-    if "\r" in subject or "\n" in subject:
-        raise ValueError("'subject' cannot contain newlines or carriage returns")
+
+    for name, v in (("to", to), ("subject", subject), ("in_reply_to", in_reply_to or "")):
+        if "\r" in v or "\n" in v:
+            raise ValueError(f"'{name}' cannot contain newlines or carriage returns")
 
     if not confirm:
         return {
