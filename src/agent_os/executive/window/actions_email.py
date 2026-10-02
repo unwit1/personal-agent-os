@@ -42,7 +42,7 @@ def email_reply_draft(item: dict[str, Any], params: dict[str, Any], *, confirm: 
     """Draft a reply to a mail thread.
 
     Item context must contain thread data with messages. Builds reply from the
-    first message's sender and subject, optionally using the provided body.
+    latest message's sender and subject, optionally using the provided body.
     """
     context = item.get("context", {})
     thread = context.get("thread", {})
@@ -51,15 +51,15 @@ def email_reply_draft(item: dict[str, Any], params: dict[str, Any], *, confirm: 
     if not messages:
         raise ValueError("Thread context missing messages")
 
-    first_msg = messages[0]
+    latest_msg = messages[-1]
     body = params.get("body", "")
 
-    subject = first_msg.get("subject", "")
+    subject = latest_msg.get("subject", "")
     if subject and not subject.lower().startswith("re:"):
         subject = f"Re: {subject}"
 
-    to = first_msg.get("sender", "")
-    in_reply_to = first_msg.get("message_id")
+    to = latest_msg.get("sender", "")
+    in_reply_to = latest_msg.get("message_id")
 
     draft = {
         "to": to,
@@ -84,6 +84,13 @@ def email_send(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -
     subject = params.get("subject", "")
     body = params.get("body", "")
     in_reply_to = params.get("in_reply_to")
+
+    if not to:
+        raise ValueError("'to' address is required and cannot be empty")
+    if "\r" in to or "\n" in to:
+        raise ValueError("'to' address cannot contain newlines or carriage returns")
+    if "\r" in subject or "\n" in subject:
+        raise ValueError("'subject' cannot contain newlines or carriage returns")
 
     if not confirm:
         return {

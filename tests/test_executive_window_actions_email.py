@@ -91,6 +91,30 @@ class EmailReplyDraftTests(unittest.TestCase):
 
         self.assertEqual(result["body"], "")
 
+    def test_draft_uses_latest_message_in_thread(self):
+        """Draft uses the latest message in a multi-message thread."""
+        messages = [
+            {
+                "id": "msg_123",
+                "subject": "Original subject",
+                "sender": "alice@example.com",
+                "message_id": "msg-id-1@example.com",
+            },
+            {
+                "id": "msg_456",
+                "subject": "Another message",
+                "sender": "bob@example.com",
+                "message_id": "msg-id-2@example.com",
+            },
+        ]
+        item = mail_thread_item(messages)
+        with mock.patch.dict("os.environ", {"AGENT_OS_EXECUTIVE_WINDOW_HOME": self.tmp.name}):
+            result = actions_email.email_reply_draft(item, {"body": "My reply"}, confirm=False)
+
+        self.assertEqual(result["to"], "bob@example.com")
+        self.assertEqual(result["subject"], "Re: Another message")
+        self.assertEqual(result["in_reply_to"], "msg-id-2@example.com")
+
 
 class EmailSendTests(unittest.TestCase):
     def setUp(self):
@@ -177,6 +201,42 @@ class EmailSendTests(unittest.TestCase):
         self.assertNotEqual(path1, path2)
         self.assertTrue(path1.exists())
         self.assertTrue(path2.exists())
+
+    def test_send_invalid_empty_to_raises(self):
+        """Send with empty 'to' raises ValueError and never calls transport."""
+        item = {"id": "item_1", "context": {}}
+        params = {"to": "", "subject": "Test", "body": "Hello"}
+
+        with mock.patch.object(actions_email, "TRANSPORT", self.fake_transport):
+            with self.assertRaises(ValueError) as cm:
+                actions_email.email_send(item, params, confirm=True)
+
+        self.assertIn("'to' address is required", str(cm.exception))
+        self.assertEqual(self.transport_calls, [])
+
+    def test_send_invalid_to_with_newline_raises(self):
+        """Send with newline in 'to' raises ValueError."""
+        item = {"id": "item_1", "context": {}}
+        params = {"to": "alice@example.com\nBcc: attacker@example.com", "subject": "Test", "body": "Hello"}
+
+        with mock.patch.object(actions_email, "TRANSPORT", self.fake_transport):
+            with self.assertRaises(ValueError) as cm:
+                actions_email.email_send(item, params, confirm=True)
+
+        self.assertIn("cannot contain newlines", str(cm.exception))
+        self.assertEqual(self.transport_calls, [])
+
+    def test_send_invalid_subject_with_newline_raises(self):
+        """Send with newline in 'subject' raises ValueError."""
+        item = {"id": "item_1", "context": {}}
+        params = {"to": "alice@example.com", "subject": "Test\nBcc: attacker@example.com", "body": "Hello"}
+
+        with mock.patch.object(actions_email, "TRANSPORT", self.fake_transport):
+            with self.assertRaises(ValueError) as cm:
+                actions_email.email_send(item, params, confirm=True)
+
+        self.assertIn("cannot contain newlines", str(cm.exception))
+        self.assertEqual(self.transport_calls, [])
 
 
 class RegisterTests(unittest.TestCase):
