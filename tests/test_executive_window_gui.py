@@ -44,6 +44,23 @@ class ExecutiveWindowGUITests(unittest.TestCase):
         self.assertNotIn('auto-confirm', js_content.lower(), "JS should not auto-confirm actions")
         self.assertNotIn('autoconfirm', js_content.lower(), "JS should not auto-confirm actions")
 
+    def test_executive_js_compose_and_review(self) -> None:
+        """Compose panel, county openings and review wiring; Send is never automatic."""
+        gui_dir = Path(__file__).resolve().parents[1] / 'gui'
+        js = (gui_dir / 'executive.js').read_text(encoding='utf-8')
+
+        for needle in ('/api/send', 'compose-panel', 'county_openings', 'applicant.review', 'NOT SENT', '/api/act'):
+            self.assertIn(needle, js, f"JS does not contain {needle}")
+
+        # /api/send is called exactly once, directly inside the Send click handler.
+        self.assertEqual(js.count('/api/send'), 1)
+        self.assertRegex(
+            js,
+            r"sendBtn\.addEventListener\('click',\s*\(\)\s*=>\s*\{[\s\S]*?'/api/send'",
+        )
+        before_handler = js.split("sendBtn.addEventListener('click'")[0]
+        self.assertNotIn('/api/send', before_handler)
+
 
 if __name__ == '__main__':
     unittest.main()
