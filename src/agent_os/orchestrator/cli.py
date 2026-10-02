@@ -221,11 +221,20 @@ def register(commands: argparse._SubParsersAction) -> None:
     bud.add_argument("--job-cap-usd", type=float)
     bud.add_argument("--note")
 
-    cmp_ = actions.add_parser("compute", help="read-only GPU inventory and pricing (RunPod first); never provisions or spends")
-    cmp_.add_argument("action", choices=["inventory"])
-    cmp_.add_argument("--provider", default="runpod")
+    cmp_ = actions.add_parser("compute", help="GPU inventory, pricing, and gated compute provisioning (provision is gated by budget/approval; only the fake provider launches)")
+    cmp_.add_argument("action", choices=["inventory", "provision", "status", "stop", "destroy", "reconcile", "jobs"])
+    cmp_.add_argument("--provider", default=None)
     cmp_.add_argument("--refresh", action="store_true", help="ignore the 6 h cache")
     cmp_.add_argument("--min-vram", type=float, default=0.0)
+    cmp_.add_argument("--job-id")
+    cmp_.add_argument("--gpu")
+    cmp_.add_argument("--hourly-usd", type=float)
+    cmp_.add_argument("--low-usd", type=float)
+    cmp_.add_argument("--expected-usd", type=float)
+    cmp_.add_argument("--high-usd", type=float)
+    cmp_.add_argument("--max-runtime-seconds", type=int)
+    cmp_.add_argument("--secret-ref")
+    cmp_.add_argument("--actual-usd", type=float)
 
     fsh = actions.add_parser("foreman-shadow", help="shadow foreman: a candidate model proposes a DAG + classes for a run; compare/report are deterministic, propose is one real call")
     fsh.add_argument("action", choices=["propose", "compare", "report"])
@@ -684,12 +693,80 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit(budget.set_budget(args.project_usd, args.job_cap_usd, note=args.note))
         return 0
     if action == "compute":
-        from . import compute
+        from . import compute, provision
 
-        stock = compute.inventory(args.provider, refresh=args.refresh)
-        stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
-        emit(stock)
-        return 0
+        if args.action == "inventory":
+            provider = args.provider or "runpod"
+            stock = compute.inventory(provider, refresh=args.refresh)
+            stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
+            emit(stock)
+            return 0
+        if args.action == "provision":
+            try:
+                if not args.gpu or args.hourly_usd is None or args.expected_usd is None or args.low_usd is None or args.high_usd is None:
+                    emit({"error": "provision needs --gpu, --hourly-usd, --low-usd, --expected-usd, --high-usd"})
+                    return 2
+                request = {"provider": args.provider or "fake", "gpu": args.gpu, "hourly_usd": args.hourly_usd,
+                          "estimate": {"low": args.low_usd, "expected": args.expected_usd, "high": args.high_usd}}
+                if args.job_id:
+                    request["job_id"] = args.job_id
+                if args.max_runtime_seconds is not None:
+                    request["max_runtime_seconds"] = args.max_runtime_seconds
+                if args.secret_ref:
+                    request["secret_ref"] = args.secret_ref
+                result = provision.provision(request)
+                emit(result)
+                return 0
+            except ValueError as exc:
+                emit({"error": str(exc)})
+                return 2
+        if args.action == "status":
+            try:
+                if not args.job_id:
+                    emit({"error": "status needs --job-id"})
+                    return 2
+                result = provision.status(args.job_id)
+                emit(result)
+                return 0
+            except ValueError as exc:
+                emit({"error": str(exc)})
+                return 2
+        if args.action == "stop":
+            try:
+                if not args.job_id:
+                    emit({"error": "stop needs --job-id"})
+                    return 2
+                result = provision.stop(args.job_id)
+                emit(result)
+                return 0
+            except ValueError as exc:
+                emit({"error": str(exc)})
+                return 2
+        if args.action == "destroy":
+            try:
+                if not args.job_id:
+                    emit({"error": "destroy needs --job-id"})
+                    return 2
+                result = provision.destroy(args.job_id)
+                emit(result)
+                return 0
+            except ValueError as exc:
+                emit({"error": str(exc)})
+                return 2
+        if args.action == "reconcile":
+            try:
+                if not args.job_id:
+                    emit({"error": "reconcile needs --job-id"})
+                    return 2
+                result = provision.reconcile(args.job_id, actual_usd=args.actual_usd)
+                emit(result)
+                return 0
+            except ValueError as exc:
+                emit({"error": str(exc)})
+                return 2
+        if args.action == "jobs":
+            emit(provision.list_jobs())
+            return 0
     if action == "radar":
         from . import radar
 
