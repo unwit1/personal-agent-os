@@ -27,8 +27,8 @@ def _parse_hours_or_until(params: dict[str, Any]) -> str:
     return until.isoformat()
 
 
-def _approve_gate(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
-    """Approve an orchestrator gate."""
+def _gate(item: dict[str, Any], params: dict[str, Any], *, confirm: bool, approve: bool) -> dict[str, Any]:
+    """Approve or decline an orchestrator gate."""
     run_id = item.get("run_id")
     gate_id = item.get("gate_id")
     if not run_id or not gate_id:
@@ -37,32 +37,23 @@ def _approve_gate(item: dict[str, Any], params: dict[str, Any], *, confirm: bool
     preview = {
         "run_id": run_id,
         "gate_id": gate_id,
-        "approve": True,
+        "approve": approve,
         "gate_summary": item.get("gate_summary", ""),
     }
 
     if confirm:
-        return DECIDE(run_id, gate_id, True, params.get("note"))
+        return DECIDE(run_id, gate_id, approve, params.get("note"))
     return preview
+
+
+def _approve_gate(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
+    """Approve an orchestrator gate."""
+    return _gate(item, params, confirm=confirm, approve=True)
 
 
 def _decline_gate(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
     """Decline an orchestrator gate."""
-    run_id = item.get("run_id")
-    gate_id = item.get("gate_id")
-    if not run_id or not gate_id:
-        raise ValueError("item must have run_id and gate_id")
-
-    preview = {
-        "run_id": run_id,
-        "gate_id": gate_id,
-        "approve": False,
-        "gate_summary": item.get("gate_summary", ""),
-    }
-
-    if confirm:
-        return DECIDE(run_id, gate_id, False, params.get("note"))
-    return preview
+    return _gate(item, params, confirm=confirm, approve=False)
 
 
 def _dismiss_item(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:

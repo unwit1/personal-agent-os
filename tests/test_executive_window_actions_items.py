@@ -218,6 +218,33 @@ class ActionsItemsTests(unittest.TestCase):
         self.assertTrue(state.is_hidden(item["id"], now=now + timedelta(hours=1)))
         self.assertFalse(state.is_hidden(item["id"], now=now + timedelta(hours=3)))
 
+    def test_snooze_hides_item_in_registry(self):
+        """Snooze action hides item from Registry.outstanding()."""
+        item = regular_item("work:snooze_registry_item")
+        action = self.registry._get("item.snooze")
+
+        # Define a provider that returns the item
+        def test_provider():
+            return [item]
+        self.registry.register_provider("test_snooze_registry", test_provider)
+
+        # Snooze for 24 hours from now
+        now = datetime.now(timezone.utc)
+        until = (now + timedelta(hours=24)).isoformat()
+
+        # Item is visible before snooze
+        state = ItemState(self.tmp.name)
+        result = self.registry.outstanding(state=state)
+        self.assertEqual(len(result["items"]), 1)
+
+        # Call snooze
+        action["handler"](item, {"until": until}, confirm=False)
+
+        # Item is hidden after snooze (will be hidden for 24 hours)
+        state = ItemState(self.tmp.name)
+        result = self.registry.outstanding(state=state)
+        self.assertEqual(len(result["items"]), 0)
+
     def test_actions_are_registered(self):
         """All expected actions must be registered."""
         actions = {a["id"] for a in self.registry.actions()}
