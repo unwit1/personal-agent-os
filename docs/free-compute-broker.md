@@ -617,6 +617,469 @@ requests, RPM headroom, free-model count and preferred specialists, useful free
 requests today, estimated paid calls/cost avoided, free validation/acceptance
 rate, and top-up status. The GUI reads the same JSON.
 
+## Engine integration (free_routing_enabled)
+
+Status: decision record for IMP-0015 / ORCH-0038 (2026-10-02). The implementer
+tasks follow this section. It wires `free_routing.decide` / `escalate` into
+`engine.py` behind one opt-in run-policy flag and fixes the metrics findings
+accepted at the `fcb-metrics` gates (R5-1 to R5-5).
+
+Prior art: `agent-os orchestrate prior-art lookup "free-first model routing
+with validator-gated escalation"` (2026-10-02) returned PA-openrouter-api
+(INVESTIGATE), PA-llmrouter / PA-aflow / PA-optuna (DEFER), PA-crewai (REJECT),
+PA-hf-hub, PA-pydantic-ai and PA-ragas (BORROW, none for routing). Nothing
+covers validator-gated free-first dispatch inside an existing scheduler. We
+reuse our own primitives (`router.select`, `_next_rung`, the run ledger,
+`free_quota.Governor`) and add no dependency.
+
+### Run-policy flag
+
+- `model.DEFAULT_POLICY["free_routing_enabled"] = False`, added to the boolean
+  list in `model._check_policy`. It is operator-only like `allow_paid_spend`:
+  planners cannot set run policy.
+- The engine reads it as `bool(record["policy"].get("free_routing_enabled"))`,
+  so records created before the flag existed behave as off.
+- **Off (the default) is byte-for-byte the current behavior.** With the flag
+  off, `_launch` and `_validation_failed` do not import or call
+  `free_dispatch`, read no `free-compute/` file, write no free ledger line and
+  emit no new ledger event. Node records gain no new keys.
+
+### Module `src/agent_os/orchestrator/free_dispatch.py`
+
+Pure functions with no model calls and no network. Only `load_default` reads
+disk. Exact signatures:
+
+```python
+def task_view(record: dict, node: dict) -> dict
+@dataclass
+class FreeInputs:
+    catalog: dict            # catalog snapshot ({"models": [...]} at minimum)
+    specializations: list    # free_specialization records
+    governor: Any            # free_quota.Governor (or a fake with can_spend/remaining/record)
+    project_policy: dict     # free_policy effective record + protected_globs + source
+    @classmethod
+    def load_default(cls, home: Path | None = None) -> "FreeInputs"
+def decide_for_node(record: dict, node: dict, inputs: FreeInputs) -> dict
+def selection_for(decision: dict, registry: router.ProviderRegistry, *, role: str,
+                  availability: dict | None = None, excluded: list | None = None,
+                  excluded_classes: dict | None = None, running: dict | None = None,
+                  requirements: dict | None = None) -> tuple[dict | None, str | None]
+def free_exclusions(node: dict, registry: router.ProviderRegistry) -> dict[str, list[str]]
+def after_failure(node: dict, failure: dict, registry: router.ProviderRegistry, governor: Any) -> dict
+```
+
+- `task_view(record, node)` maps node fields to the `free_routing` task shape:
+  `role`, `effort`, `capability_class`, `scope` (the node's file scope),
+  `validators` (`node["validators"]`, else `record["policy"]["default_validators"]`,
+  the same fallback the engine uses to validate), `task_family =
+  node.get("task_family") or node["role"]`, `sensitivity` =
+  `(node.get("requirements") or {}).get("sensitivity")` when it is a
+  `workload.SENSITIVITY` value, else `"internal"`; `run_id`, `node_id`, and
+  `lane: "priority"`. A node whose `requirements.deployment` excludes `"api"`
+  (the deployment free OpenRouter providers run under) is given sensitivity
+  `"private"`, so it fails eligibility with a named reason instead of failing
+  later in `selection_for`. No other field is invented.
+- **Home convention.** `home` is an *orchestrator home* (the directory
+  `store.orchestrator_home()` returns), not the `free-compute/` directory.
+  `load_default` resolves it once, as `home = Path(home) if home is not None
+  else orchestrator_home()`, and every file it reads is under
+  `home / "free-compute"`. The same resolved `home` is passed to
+  `free_quota.Governor(..., home=home)` (whose ledger is
+  `home/free-compute/ledger.jsonl`) and to `free_catalog`'s cache path
+  (`home/free-compute/catalog/latest.json`). No read in `load_default` falls
+  back to the global `orchestrator_home()` when a `home` is given, so a test
+  with a temporary home is hermetic.
+- `FreeInputs.load_default(home)` reads, from `home/free-compute/`: the catalog
+  cache through `free_catalog`'s cache reader (`_read_cache(_cache_path(home))`),
+  **never `free_catalog.discover`** (the engine must not touch the network);
+  `specialization.json` (a list of records); the effective policy through
+  `free_policy.load(overrides=<overrides>)`, where `<overrides>` is
+  `load_json(home / "free-compute" / "policy-overrides.json")`, or `{}` when
+  that file is missing. Passing `overrides` explicitly matters: a bare
+  `free_policy.load()` reads `policy-overrides.json` from the global
+  `orchestrator_home()` and would ignore `home`, so a temp-home test would pick
+  up the operator's real overrides. It also reads `account.json` for
+  `high_allowance` and builds a
+  `free_quota.Governor(policy, high_tier=<high_allowance>, home=home)`.
+  `project_policy` is the effective policy plus `protected_globs =
+  control_plane.protected_globs()` (the canonical list; run-level
+  `protected_paths_allowed` grants never extend to free routes) and `source =
+  "policy:openrouter/free-model-allowance@v<version>"`. On **any** exception
+  it returns `FreeInputs({"models": []}, [], <governor that refuses>,
+  {"protected_globs": [...]})`, so `decide` escalates with `"no usable free
+  model: catalog empty"`. It never raises.
+- `decide_for_node(record, node, inputs)` returns `free_routing.decide(
+  task_view(record, node), catalog=inputs.catalog,
+  specializations=inputs.specializations, governor=inputs.governor,
+  project_policy=inputs.project_policy)` unchanged. It adds nothing and never
+  raises: an exception becomes an `escalate` decision with reason
+  `"free routing error: <ExceptionType>"`.
+- `selection_for(decision, registry, *, role, availability, excluded,
+  excluded_classes, running, requirements)` returns `(selection, None)` or
+  `(None, reason)`. It returns `(None, "not a free route")` unless
+  `decision["route"] == "free"`. It does **not** re-implement any router gate.
+  It delegates to the existing override path:
+  `router.select(registry, capability_class=decision["capability_class"],
+  effort=decision["effort"], role=role, availability=availability,
+  excluded=excluded, excluded_classes=excluded_classes, running=running,
+  override={"model": decision["model"]}, requirements=requirements)`. The
+  override path already applies every gate (disabled, unavailable, excluded,
+  role, workload profile, rejected class key, concurrency), so the reason
+  strings cannot drift from `select`. `router.py` is not changed. The result
+  is interpreted as follows:
+  - No provider in `registry.providers` has `decision["model"]` among its
+    `models` values: `(None, "no registry provider serves <slug>")`. This is
+    checked before `select` runs. It is a lookup, not a gate.
+  - `select` returns `resolved: True` and `model == decision["model"]`:
+    accept. The returned selection is copied with `overridden` reset to
+    `False`, `reason = "free route: " + decision["reason"]` and `free_route:
+    True` added. Every other field (`provider`, `adapter`, `capability_class`,
+    `effort`, `provider_effort`, `notes`, `profile`) is `select`'s own.
+  - `select` returns a resolved selection on a **different** model. The
+    override path ignores a model it cannot use (for example, every class key
+    serving the slug is in `excluded_classes`) and falls back to normal
+    routing. That fallback is never accepted as a free route:
+    `(None, "free model <slug> not selectable on this node")`.
+  - `select` is unresolved or waiting, and its `rejected` map names a provider
+    serving the slug: `(None, "free provider <id>: <rejected[id]>")` for the
+    first such provider in registry order (for example `"free provider
+    or-free: not configured for role implementer"` or `"... : at its
+    concurrency limit"`). Otherwise the result is `(None, select's reason)`.
+  A free route never waits: a concurrency limit escalates like any other
+  rejection.
+- `free_exclusions(node, registry)` derives exclusions from two fields and
+  never writes either one. `node["free_route"]["tried"]` is owned by
+  `free_routing.decide` / `escalate` (free slugs plus `"provider:model"`
+  router keys). `node["free_route"]["free_providers"]` is the engine's list of
+  provider ids that a free selection actually launched on (see below). For
+  each provider id `P` in `free_providers` that is still in the registry, the
+  result is `{P: [every class key k with P.models[k] == t, for some string t
+  in tried]}`, merged and de-duplicated, with empty lists dropped. A
+  `"provider:model"` router key never equals a model id, so it never matches.
+  Other models of `P`, including paid models, stay eligible. The engine uses
+  this map to keep free models that already ran (or were tried) on this node
+  out of `select()`.
+- `after_failure(node, failure, registry, governor)` calls
+  `free_routing.escalate(node["free_route"], failure, registry=registry,
+  governor=governor, role=node["role"], effort=node["effort"],
+  requirements=node.get("requirements"))` and returns one of the results
+  below. When `failure["kind"]` is in `model.PROVIDER_FAILURES` (`quota`,
+  `unavailable`, `invalid_model`), the failure is about the free provider, not
+  the model. `_fail` has already put that provider in cooldown or excluded it
+  for this node, so an alternate free model on it could not launch. For those
+  kinds `after_failure` passes `escalate` a copy of the decision with
+  `alternates_used = alternate_free_max`. The ladder therefore skips
+  `alternate_free` and the result is `router`, `wait` or `exhausted`, never
+  `free`. The node's stored decision is not mutated. The results are:
+  - `{"action": "free", "decision": step}` when the step is
+    `route == "free"` (an alternate free model);
+  - `{"action": "router", "capability_class": C, "effort": E, "decision":
+    step, "reason": step["reason"]}` when the step is `route == "router"` or
+    `"wait"`. `C` is the rung's class (`step["selection"]["capability_class"]`
+    for `router`, the node's class for `wait`); `E` is the node's effort. The
+    engine uses only `C`/`E`, never the provider `escalate` named, so the
+    normal `select()` path and its paid-spend, exclusion and approval gates
+    still choose the provider;
+  - `{"action": "exhausted", "decision": step}` when the ladder is exhausted.
+
+### Engine hook points (`src/agent_os/orchestrator/engine.py`)
+
+The `Orchestrator` constructor takes an optional `free_inputs` (a `FreeInputs`
+or a zero-argument callable returning one). Tests inject fixtures through it.
+Otherwise the engine calls `FreeInputs.load_default()` lazily, at most once per
+`step()`, and only when a run with the flag on reaches a hook.
+
+1. **`Orchestrator._launch`**, after `if node["execution_path"] ==
+   "deterministic": return self._run_deterministic(...)` and before `selection
+   = select(...)`. Runs only when the flag is on, `node["role"] in
+   {"implementer", "test_author"}`, and `self._override_for(record, node)` is
+   empty. **An operator override always wins**: with any run, role or node
+   override the hook does nothing (no decision, no `free_route` key, no free
+   event) and `select()` honors the override exactly as today.
+   - If `node.get("free_route")` exists with `free_state == "escalated"`, skip
+     the hook (the node is back on the normal path).
+   - Else, when `node.get("free_route")` exists with `free_state == "free"`,
+     use that decision. This is a retry on the same free model, or the
+     alternate that `after_failure` chose. Otherwise call `decide_for_node`.
+     Its decision is stored as returned: `tried` is the list `decide` built
+     and is never reset. Then `free_providers: []` is added, and
+     `free_route_decision` is emitted once the outcome below is known.
+   - `tried` is read-only to the engine. Only `decide` and `escalate` write
+     it. The engine records the provider it launched a free model on in the
+     separate `node["free_route"]["free_providers"]` list (append the
+     provider id if it is not already there). `escalate` copies the decision
+     with `dict(decision)`, so `free_providers`, `paid_route`, `event_id` and
+     `free_state` carry over into each step.
+   - On `route == "free"`, call `selection_for(decision, self.registry(),
+     role=node["role"], availability=self.availability(),
+     excluded=node["excluded_providers"], excluded_classes=node.get(
+     "excluded_classes", {}), running=running, requirements=<the same
+     requirements expression select() receives>)`.
+     - With a selection: set `node["free_route"]["free_state"] = "free"`,
+       append the selection's provider to `free_providers`, and let the
+       selection replace the `select()` result. `_paid_blocked` does not apply
+       to it: by invariant 3 the model is free on the current snapshot.
+       Everything after that is unchanged: the cheaper-reset wait, context
+       misfit, prompt, `routing_decision` / `model_selected` events,
+       `_count_running` and launch. A context misfit excludes the provider as
+       today. The next launch then gets `(None, "free provider <id>: excluded
+       after a provider failure on this node")` and escalates.
+     - With `(None, reason)`: set `decision["route"] = "escalate"` with that
+       reason (for example `"no registry provider serves <slug>"` or `"free
+       provider <id>: not configured for role implementer"`). Emit
+       `free_route_escalated`, run the escalation transition below (which sets
+       `free_state = "escalated"`), and fall through to `select()`.
+   - On `route == "escalate"` from `decide`, store the decision with
+     `free_state = "escalated"` and continue to `select()`. No free provider
+     was launched, so `free_exclusions` is empty.
+   - So every stored decision has `free_state` set: `"free"` exactly when the
+     route is `free` and `selection_for` returned a selection, otherwise
+     `"escalated"`. The `_launch`, `_validation_failed` and `_fail` hooks rely
+     on this.
+   - **Escalation transition** (every place `free_state` becomes
+     `"escalated"`: here, in `_validation_failed`, and in `_fail`): set
+     `free_state = "escalated"` and merge `free_exclusions(node,
+     self.registry())` into `node["excluded_classes"]` (create it with
+     `setdefault`, append without duplicates). The normal `select()` path can
+     then never relaunch a free model that this node already ran on, at any
+     class key that maps to it. Other providers, and other models of the same
+     provider, stay eligible. An operator retry clears these entries the same
+     way it clears other `excluded_classes` entries today.
+   - Counterfactual paid route (needed by R5-2): when the route is `free` with
+     a selection, the engine also makes the same `select(...)` call it would
+     otherwise have made, with one difference. Its `excluded_classes` is a
+     copy of the node's, merged with `{provider: [capability_class]}` of the
+     free selection and with `free_exclusions(node, self.registry())`. The
+     node is not mutated, and the call is deterministic with no model call. It
+     stores `{"provider", "model", "capability_class", "subscription": not
+     is_paid(provider)}` as `node["free_route"]["paid_route"]`, or `None` when
+     that selection is unresolved or waiting. As a final guard, a result
+     whose `(provider, model)` equals the free selection is stored as `None`,
+     so `paid_route` never names the free selection.
+2. **`Orchestrator._validation_failed`**, after `_push_failure` and
+   `_fallback_to_model`, before the `_next_rung(node)` block. When the flag is
+   on and `node.get("free_route", {}).get("free_state") == "free"`, call
+   `after_failure(node, {"kind": "validator_failed", "verified_outputs":
+   ...}, self.registry(), governor)`:
+   - `free`: replace `node["free_route"]` with the step (`free_state` stays
+     `"free"`), set `state = "FAILED_RETRYABLE"`, `selection = None`, and
+     `wait_reason = "validator failed; alternate free model <slug>"`.
+   - `router`: run the escalation transition, set `node["capability_class"] =
+     C`, `node["effort"] = E`, `state = "FAILED_RETRYABLE"`, `selection =
+     None`, and `wait_reason = "validator failed; escalated from free to
+     C/E"`.
+   - `exhausted`: run the escalation transition and fall through to the
+     existing `_next_rung` block unchanged.
+   Free transitions do not increment `node["escalations"]` and do not advance
+   `ladder_step`, so the node keeps its full paid ladder (`max_escalations`).
+   `alternate_free_max` (default 1) plus the single step off the free pool
+   bound the extra attempts. Each transition emits `free_route_escalated` and
+   the existing `model_escalated` event (`from: "free:<slug>"`).
+3. **`Orchestrator._fail`** (worker failures on a free-routed node). The
+   kinds are the engine's own `model.FAILURE_KINDS`. There is no
+   `rate_limited` kind: an adapter reports an HTTP 429 or a free-tier limit as
+   `quota`. `_fail` has no `_next_rung` call for these roles, so the hook sits
+   **after the `provider_failover` exclusion block (the `if provider and kind
+   == "invalid_model" ... elif provider and policy["provider_failover"]: ...`
+   chain) and immediately before `node["retries"] += 1`**. It runs when the
+   flag is on and `node.get("free_route", {}).get("free_state") == "free"`.
+   Two kinds are skipped. `cancelled` already returned earlier, and so did a
+   failure that `_fallback_to_model` handled. `interrupted` (an orchestrator
+   restart, not a model outcome) leaves `free_state == "free"` and takes the
+   ordinary retry on the same free route. The hook is placed **after** the
+   exclusion block on purpose. Earlier in `_fail`, `quota` has already put
+   the provider in machine-wide cooldown, and `unavailable` may have opened
+   its breaker. The exclusion block then excludes the provider for this node
+   on `unavailable` / `invalid_model`. Those effects stay. `after_failure`
+   matches them: for `quota`, `unavailable` and `invalid_model` it never
+   returns `free` (see the module section), so the node goes straight to the
+   `router` or `exhausted` step. For `timeout`, `process_error`, `stuck` and
+   `malformed`, the model is at fault and the provider is still usable after
+   a first failure, so an alternate free model may be chosen. The hook calls
+   `after_failure(node, {"kind": kind, "detail": redact(detail, 200)},
+   self.registry(), governor)`:
+   - `free` (only for model-level kinds): as in `_validation_failed`
+     (`wait_reason = "<kind>; alternate free model <slug>"`), then `return`.
+     If `_fail` excluded the provider (a second same-kind failure), the next
+     `_launch` gets `(None, "free provider <id>: excluded after a provider
+     failure on this node")` from `selection_for` and escalates there.
+   - `router`: escalation transition, set class/effort to `C`/`E`, `state =
+     "FAILED_RETRYABLE"`, `selection = None`, `wait_reason = "<kind>;
+     escalated from free to C/E"`, then `return`.
+   - `exhausted`: escalation transition, then fall through to `retries += 1`
+     and the existing retry/final logic unchanged.
+   **Free transitions do not consume `max_stage_retries`**: the `free` and
+   `router` branches return before `node["retries"] += 1`, exactly as they do
+   not consume `max_escalations` in `_validation_failed`. The extra attempts
+   are bounded by `alternate_free_max` + 1, the same bound as above, because
+   `after_failure` only runs while `free_state == "free"` and every path out
+   of it either picks a not-yet-tried alternate (`escalate`'s own cap) or sets
+   `"escalated"`. The machine-wide quota cooldown and the provider exclusion
+   that `_fail` already applied before the hook stay in effect.
+
+### Telemetry
+
+- Run ledger (`self.ledger.emit`, so `telemetry.jsonl`), only when the flag is
+  on: `free_route_decision` with `role`, `task_family`, `route`, `model`,
+  `reason`, `failed_checks` (from `eligibility`), `catalog_snapshot`, `quota`
+  and `paid_route`. `free_route_escalated` carries `from_model`, `to`
+  (`free:<slug>`, `class:<C>/<E>` or `exhausted`), `failure` and `reason`. No
+  prompt or output text is logged.
+- Free quota ledger (`inputs.governor.record`), only for workers launched on a
+  free route. When the result is collected (the `_record_telemetry` call sites),
+  the engine writes an attempt event (schema above) with `outcome` mapped from
+  the result and the engine failure kind (completed -> `success`; `timeout`
+  -> `timeout`; `quota` -> `quota_exhausted`; `malformed` or an unparseable
+  result block -> `invalid_output`; any other kind -> `provider_error`). The
+  engine never writes `rate_limited` because it has no such kind; that outcome
+  belongs to the swarm path. The event also carries `tokens` from
+  `result.usage`, `lane: "priority"`, `paid_route` from the decision, and
+  `validator_passed` / `accepted` set to `null`. Its `event_id` is stored in
+  `node["free_route"]["event_id"]`. Later facts append verdict lines: after
+  validation, after review (`accepted`), and when `after_failure` moves off the
+  model (`escalated: true`). Each verdict line carries **all three fields known
+  so far**, because the last verdict for an `event_id` wins.
+- `TelemetryEvent` gets no new field. The free route is visible because its
+  `provider` and `model` are the free selection.
+
+### Metrics fixes (`free_metrics.py`, R5-1 to R5-5)
+
+- **R5-1.** A verdict whose `event_id` names no attempt in `ledger_events`
+  adds `"verdict for unknown event_id <id>"` to `errors`, one entry per
+  distinct id, sorted. A verdict without `event_id` adds `"verdict without
+  event_id"` once. Neither changes any count.
+- **R5-2.** The signature is `report(ledger_events, *, prices=None)`. The
+  `paid_model` parameter is removed: passing it is a `TypeError`. Each
+  accepted, non-escalated attempt is priced from its own `paid_route` (written
+  by the engine as above): a `subscription: true` route adds 0 USD and counts
+  as priced; otherwise the cost is `(tokens.input * prices[model].input +
+  tokens.output * prices[model].output) / 1e6`, using
+  `model_prices.fetch_prices()["prices"]` per-million figures. The basis
+  string is `"per accepted free result: tokens x price of the paid route
+  router.select would otherwise have run"`.
+- **R5-3.** The estimate is partial, never all-or-nothing:
+  `estimated_paid_cost_avoided_usd = round(sum over priceable results, 6)`
+  when at least one result is priceable, else `null`. A new field
+  `estimated_paid_cost_coverage: {"priced": k, "accepted": n}` is added. Each
+  unpriceable cause adds one aggregated `errors` entry:
+  `"estimated cost: <m> accepted result(s) without tokens"`,
+  `"... without paid_route"`, `"... no price for paid model <model>"`, and
+  `"estimated cost unavailable: no prices supplied"` when `prices` is `None`
+  and a non-subscription result needs it. Tokens are usable only when
+  `tokens` is an object whose `input` and `output` are both non-negative `int`
+  (not `bool`). `0` counts as a value, not as missing.
+- **R5-4.** `prices` must be `None` or a mapping of `str` model ->
+  mapping. Its `input` and `output` must each be a finite, non-negative
+  `int`/`float` (not `bool`) or `None` (unpriced; that model counts as no
+  price). Other keys such as `cached_input` are ignored. The report never
+  raises on bad data: a non-mapping `prices` adds `"invalid prices: expected
+  an object of model -> {input, output}"` and prices nothing; a bad entry adds
+  `"invalid prices: <model>: <field> must be a non-negative number"` and is
+  treated as absent.
+- **R5-5.** Tests in `tests/test_free_metrics.py` assert exact values, not just
+  presence or truthiness:
+  - an unknown-id verdict is reported and changes no count;
+  - `report(events, paid_model="x")` raises `TypeError`;
+  - mixed paid routes price per event: two models at different prices give the
+    exact sum, and a subscription route adds 0 and counts as priced;
+  - one accepted event without tokens gives a partial sum and `coverage
+    {"priced": 1, "accepted": 2}` plus the error;
+  - each invalid `prices` shape is reported (non-mapping, string price, `bool`,
+    negative, `NaN`);
+  - the caller's events are not mutated;
+  - escalated or non-accepted events are never priced.
+
+### Tests for the integration (no network, no model calls)
+
+All integration tests live in **one file, `tests/test_free_routing_engine.py`**,
+owned by the `engine-free-routing-tests` task. There is no separate
+`tests/test_free_dispatch.py`. The file has two `TestCase` classes:
+
+- `FreeDispatchPureTests` (no engine). `task_view` field mapping, including
+  the `task_family` fallback, the sensitivity default and the deployment
+  narrowing. `load_default` on an empty or corrupt home returns an empty
+  catalog and never raises, and never calls `discover` (patched to raise).
+  `selection_for` returns the serving provider's selection with `overridden:
+  False`, `free_route: True` and `model` equal to the slug. It returns the
+  exact `(None, reason)` for each interpretation branch, not for each router
+  gate, because the gates are `select`'s own and are covered by its tests:
+  no provider serves the slug; a provider that is not configured for the role
+  (`"free provider <id>: not configured for role implementer"`); a provider
+  at its concurrency limit; and every serving class key in
+  `excluded_classes` (`"free model <slug> not selectable on this node"`,
+  although `select` resolves to another model). `free_exclusions`: with
+  `tried = [slug, "paid-p:paid-model"]` and `free_providers = [P]`, it maps
+  `P` to every class key whose model is the slug, and nothing else (no entry
+  for the router key, no paid class of `P`). It returns `{}` when
+  `free_providers` is empty. `after_failure` returns each of `free` /
+  `router` / `exhausted`. With an alternate remaining, kind `timeout` gives
+  `free`, while kinds `quota` and `unavailable` give `router`, and the node's
+  stored decision is unchanged.
+- `FreeRoutingEngineTests`, with a fake adapter and injected `FreeInputs`
+  (fixture catalog with one proven model and a registry provider serving its
+  `:free` slug):
+  - **Default off.** `free_dispatch.decide_for_node` and `load_default` are
+    patched to raise, and the run still completes. Selections and the ledger
+    event types match a run made without the patch, and no `free_route` key
+    or `free-compute/` file exists.
+  - **On, eligible.** The implementer launches on the free provider/model, a
+    `free_route_decision` event with `route: "free"` and a `paid_route` is
+    emitted, and an attempt event is written to the free ledger.
+  - **On, validator fails.** The node relaunches on the alternate free model,
+    then fails again and relaunches through `select()` at the escalated
+    class. `node["escalations"]` stays unchanged across the free steps, and
+    `free_route_escalated` events record each transition.
+  - **On, ineligible.** Each case is an **implementer** node, so the
+    `_launch` hook runs and emits a decision. The node routes exactly as with
+    the flag off (same selection), its stored decision has `free_state ==
+    "escalated"`, and the `free_route_decision` event has `route: "escalate"`
+    and `failed_checks` equal to exactly one string:
+    - `effort: "high"` -> `["not low-risk: effort high"]`;
+    - `validators: []` and `record["policy"]["default_validators"] = []` ->
+      `["not verifiable: no declared validators"]`;
+    - scope `["policy/CANONICAL_AGENT_POLICY.md"]` (matched by the injected
+      `protected_globs`) -> `["protected paths:
+      policy/CANONICAL_AGENT_POLICY.md"]`.
+  - **On, non-integrated role.** A reviewer node with the flag on gets no
+    hook: `decide_for_node` is patched to raise and is never called, no
+    `free_route_decision` event is emitted for that node, the node has no
+    `free_route` key, and its selection equals the flag-off selection.
+  - **`load_default` is hermetic.** With a temp `home` holding a
+    `free-compute/policy-overrides.json`, and `store.orchestrator_home`
+    patched to a different temp directory holding a conflicting override, the
+    effective policy reflects only the `home` file. The Governor's ledger path
+    is `home/free-compute/ledger.jsonl`.
+  - **On, no provider serves the slug.** The decision records route
+    `escalate` with reason `no registry provider serves <slug>`, and the node
+    uses `select()`.
+  - **On, operator override.** With a node override, `decide_for_node` is
+    patched to raise and is never called. The node launches on the override
+    and has no `free_route` key.
+  - **On, free provider not configured for the role.** The decision escalates
+    with `free provider <id>: not configured for role implementer`, and the
+    node launches through `select()` on another provider.
+  - **On, escalated nodes never reuse the free model.** The registry has the
+    free provider map the same `:free` slug at the escalated class. After the
+    free-to-router escalation, `node["excluded_classes"][<free provider>]`
+    lists those class keys, and the relaunch selection's model is not the
+    free slug. `paid_route` in the decision event never equals the free
+    `(provider, model)`.
+  - **On, decision bookkeeping.** After the first free launch,
+    `node["free_route"]["free_state"] == "free"`, `tried` equals the list
+    `decide` returned (`[slug]`, not reset and with no `(provider, model)`
+    pair), and `free_providers == [<free provider>]`. A decision that
+    escalated at `decide` is stored with `free_state == "escalated"`.
+  - **On, model failure on a free route.** A fake `timeout` result (then, in
+    a second case, `process_error`) moves to the alternate free model on the
+    same provider. A second failure of kind `unavailable` on the alternate
+    escalates straight to `select()` at the rung's class, with no further
+    free attempt even when `alternate_free_max` is 2. `node["retries"]` is
+    still 0 after both free transitions.
+  - **On, provider failure on a free route.** A first fake `quota` result,
+    with an alternate free model still available, skips the alternate and
+    relaunches through `select()` on a non-free provider. The provider
+    cooldown that `_fail` wrote is still present.
+
 ## Test plan (no network)
 
 - A fake opener serves fixture `/models`, `/key` and `/credits` payloads.
