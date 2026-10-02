@@ -51,6 +51,21 @@ def tokens(text: str) -> int:
     return int(round(len(text) / CHARS_PER_TOKEN))
 
 
+def common_prefix_tokens(prompts_list: list[str]) -> int:
+    """Return tokens() of the longest common character prefix of prompts.
+
+    Returns 0 for fewer than 2 prompts."""
+    if len(prompts_list) < 2:
+        return 0
+    prefix = ""
+    for chars in zip(*prompts_list):
+        if len(set(chars)) == 1:
+            prefix += chars[0]
+        else:
+            break
+    return tokens(prefix)
+
+
 def sections(prompt: str) -> dict[str, int]:
     """Token estimate per section (a section runs until the next marker)."""
     lines = prompt.splitlines()
@@ -133,6 +148,9 @@ def analyze(calls: list[dict[str, Any]], harness_tokens: int = 6000) -> dict[str
         per_role.setdefault(call["role"], Counter()).update(parts)
         totals.update(parts)
     workers = [call for call in calls if call["role"] != "planner"]
+    implementer_and_test_author = [call for call in calls if call["role"] in {"implementer", "test_author"}]
+    worker_prompts = [call["prompt"] for call in implementer_and_test_author]
+    worker_common_prefix = common_prefix_tokens(worker_prompts)
     line_counts = Counter(line for call in workers for line in set(call["prompt"].splitlines()) if len(line) > 20)
     duplicated = sum(tokens(line + "\n") * (count - 1) for line, count in line_counts.items() if count > 1)
     worker_tokens = sum(tokens(call["prompt"]) for call in workers)
@@ -150,6 +168,7 @@ def analyze(calls: list[dict[str, Any]], harness_tokens: int = 6000) -> dict[str
         "context_amplification": round(processed / unique, 2) if unique else None,
         "worker_fanout_duplicated_tokens": duplicated,
         "worker_fanout_duplication_share": round(duplicated / worker_tokens, 3) if worker_tokens else None,
+        "worker_common_prefix_tokens": worker_common_prefix,
         "sections_total": dict(totals.most_common()),
         "sections_by_role": {role: dict(counter.most_common()) for role, counter in per_role.items()},
         "top_repeated_lines": [{"tokens_wasted": waste, "copies": count, "line": line} for waste, count, line in top_repeats],
