@@ -47,10 +47,11 @@ The four lettered contracts the assignment asked for are anchored as **(a)** to 
 | `executive/window/transport.py` | `SendResult`, `SendTransport`, `SmtpImapTransport`, `FakeTransport`, `default_transport` (section 7 (d)) |
 | `executive/window/providers_applicants.py` | `county_items(groups_fn=None)`, `invalidate_county_cache()`, items of kind `county_openings` (section 8.1); the `human_review_pending` group is no longer emitted by `applicant_items` |
 | `executive/window/actions_applicant_compose.py` | `applicant.reach_out`, `applicant.invite_interview`, `applicant.email_manager` (sections 5, 9) |
+| `executive/window/compose_handoff.py` | `record_compose`, `pending_composes`, `consume_compose`: the `compose.jsonl` hand-off (section 5.1), owned by the compose-actions task |
 | `executive/window/actions_email.py`, `executive/window/actions_executive.py` | existing actions changed by section 11.1 (owned by the compose-actions task, the owner of `actions_applicant_compose.py`, together with their tests) |
 | `executive/window/actions_applicant_decisions.py` | `applicant.review`, `applicant.decline`, `applicant.hold` (section 8.4) |
 | `executive/window/actions_openings.py` | `parse_opening_event`, `county.refresh`, `county.opening_change` (section 10) |
-| `executive/window/server.py` | `Api(registry, bridge, home, *, transport=None, gateway_factory=None)`, `POST /api/send`, `GET /api/send/accounts`, chat route for opening events |
+| `executive/window/server.py` | `Api(registry, bridge, home, *, transport=None, gateway_factory=None)`, `POST /api/send`, `GET /api/send/accounts`, `composes` in `/api/pending`, `compose_id` on `/api/dismiss`, chat route for opening events |
 | `executive/window/builtin.py` | registers the provider and the three action modules |
 | `gui/executive.html`, `gui/executive.js`, `gui/style.css` | county groups, review panel, compose panel |
 
@@ -222,7 +223,52 @@ Every compose-producing action returns, as its `result`:
   section 8.3 allowlist.
 - Compose-producing actions are **not consequential** (they only draft) and return
   `{"status": "done", "result": {"compose": {...}}}` through `Registry.invoke`. The UI opens the
-  compose panel straight from `result.compose`.
+  compose panel straight from `result.compose`. Every compose action also records the payload
+  through the hand-off of section 5.1 and adds the returned id to it as `compose_id` (an
+  optional extra).
+
+### 5.1 Compose hand-off (`compose.jsonl`)
+
+Operator spec item 1 says the panel opens **whenever** the Executive plans an email. A compose
+action run by the chat model through `executive_window.run` (the MCP server, another process),
+or started from `/api/option`, returns its result to the model, not to the window. So every
+compose-producing action (`applicant.reach_out`, `applicant.invite_interview`,
+`applicant.email_manager`, `email.reply_draft`) records the payload in a file both processes
+share. Module `executive/window/compose_handoff.py`, owned by the compose-actions task:
+
+```python
+def record_compose(compose: dict[str, Any], *, home: Path | str | None = None) -> str
+def pending_composes(*, home: Path | str | None = None, limit: int = 20) -> list[dict[str, Any]]
+def consume_compose(compose_id: str, *, home: Path | str | None = None) -> bool
+```
+
+1. The file is `window_home(home) / "compose.jsonl"` (`confirm.window_home`, so the window
+   server and the MCP server resolve the same file; tests set `AGENT_OS_EXECUTIVE_WINDOW_HOME`
+   or pass `home`). It is append-only, one JSON object per line, written with a single
+   `write` of a line under a module lock.
+2. `record_compose` validates the section 5 shape (allowlisted keys only), appends
+   `{"compose_id": <secrets.token_hex(16)>, "created_at": <UTC ISO>, "compose": {...}}`
+   and returns the id.
+3. `consume_compose` appends `{"consumed": <compose_id>, "at": <UTC ISO>}` and returns
+   `False` when the id was never recorded or is already consumed. Nothing is rewritten or
+   deleted.
+4. `pending_composes` returns the recorded entries that are not consumed and are under 24
+   hours old, newest first, at most `limit`. Malformed lines are skipped.
+5. The file holds draft mail (addresses, subject, body) only, inside the window's local home,
+   like the `.eml` drafts. It never holds EEO or self-ID data, a credential or a path.
+   `audit.jsonl` still gets only `kind`, `applicant_ref`, `county` and `compose_id`.
+6. Nothing sends from the hand-off: it only makes the panel open. Send is still only the
+   operator's click on `POST /api/send`.
+
+Server side (owned by the server-send-endpoint task): `GET /api/pending` and
+`POST /api/pending` add `"composes": compose_handoff.pending_composes(home=self.home)` to the
+existing `{"pending", "previews"}` response. The window already polls `POST /api/pending`
+(`pollPending` in `gui/executive.js`) and calls it after each `/api/chat` and `/api/option`
+reply; the UI opens one compose panel per `compose_id` it is not already showing, so a compose
+returned directly by `/api/act` and the same entry polled later open once. Discard posts
+`POST /api/dismiss` with `{"compose_id": id}`, which calls `consume_compose` and returns
+`{"status": "declined", "declined": [id]}`. A successful send consumes the entry (section 6);
+a failed send leaves it pending, so the draft survives a reload.
 
 Compose panel: editable **From** (select), **To**, **Subject**, **Body**, a **Send** button
 and a **Discard** button. Send posts the edited values to `/api/send`; the button is disabled
@@ -237,7 +283,7 @@ Token-protected like every POST. Request:
 ```json
 {"to": "applicant@example.com", "subject": "...", "body": "...", "kind": "outreach",
  "applicant_ref": "ref-opaque", "county": "Example",
- "from_account": "work-earthlink", "in_reply_to": "<message-id>"}
+ "from_account": "work-earthlink", "in_reply_to": "<message-id>", "compose_id": "<hex>"}
 ```
 
 `to`, `subject`, `body`, `kind` are required; the rest are optional. The request values are
@@ -267,7 +313,10 @@ what is sent (the operator's edits). Missing required fields or CR/LF in `to`, `
    `record_applicant_sent` the server calls `providers_applicants.invalidate_county_cache()`.
 4. The send runs synchronously in the window server's own handler thread: no queue, no retry.
 5. The audit line in `audit.jsonl` is `{"send": true, "kind", "applicant_ref", "county",
-   "from_account", "sent", "message_id"}`: no addresses, subject or body.
+   "from_account", "compose_id", "sent", "message_id"}`: no addresses, subject or body.
+6. When `sent` is true and `compose_id` is present, the server calls
+   `compose_handoff.consume_compose(compose_id, home=self.home)` (section 5.1). An unknown or
+   already consumed id does not change the response.
 
 `GET /api/send/accounts` returns `{"accounts": transport.from_accounts()}` when the transport
 has that method, else `{"accounts": []}`; it feeds the From select (section 7).
@@ -554,7 +603,14 @@ which must be in the county item's `context.applicants`; otherwise `ValueError`.
 
 `builtin.default_registry` calls `register(registry.REGISTRY)` of the three new action modules
 after the existing ones. Handlers return only JSON-safe, allowlisted data. Compose actions are
-audited with `kind`, `applicant_ref`, `county` only.
+audited with `kind`, `applicant_ref`, `county`, `compose_id` only.
+
+**Gateway injection.** Each new action module (`actions_applicant_compose`,
+`actions_applicant_decisions`, `actions_openings`) resolves its gateway through a module-level
+`GATEWAY_FACTORY: Callable[[], Any] | None = None` and a private `_gateway()` that calls it
+when set, else `applicants._default_gateway()`, the same pattern as `actions_executive.py`.
+Handlers never construct `LocalDashboardGateway` themselves; tests set `GATEWAY_FACTORY` to
+return a `SyntheticDashboardGateway` (and restore it in `tearDown`).
 
 ### 11.1 Existing senders changed in this run
 
@@ -574,9 +630,6 @@ in the window, its registry or the model tools calls them.
 
 ## 12. Follow-ups (not in this run; no task here implements them)
 
-- A file-backed compose store so a compose produced by the model through
-  `executive_window.run` (another process) also opens in the window. In this run the panel
-  opens from the result of actions the window itself invokes.
 - Hiding held applicants for a period (an Executive-side hold ledger).
 - An Executive-side sent ledger with retry of failed Dashboard updates.
 - A persisted `top_n` setting and a settings endpoint.

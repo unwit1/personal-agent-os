@@ -190,6 +190,20 @@ class TestExecutiveApplicantWorkflowDoc(unittest.TestCase):
         self.assertIn("county-candidates task", self.content)
         self.assertIn("county_candidates(county, *, gateway=None, top_n=DEFAULT_TOP_N)", self.content)
 
+    def test_new_action_modules_inject_gateway(self):
+        section = self.content.partition("## 11. Action registry")[2].partition("## 12.")[0]
+        self.assertIn("GATEWAY_FACTORY", section)
+        self.assertIn("applicants._default_gateway()", section)
+        self.assertIn("SyntheticDashboardGateway", section)
+
+    def test_model_planned_compose_reaches_the_window(self):
+        required, _, _ = self.content.partition("## 12. Follow-ups")
+        for term in ("### 5.1 Compose hand-off", "compose.jsonl", "def record_compose(",
+                     "def pending_composes(", "def consume_compose(", '"composes"',
+                     "compose_id", "executive_window.run"):
+            with self.subTest(term=term):
+                self.assertIn(term, required)
+
     def test_events_and_privacy(self):
         for term in ("parse_opening_event", "we closed the opening in X", "a driver quit in X",
                      "we have a new opening in X", "Confirm", "top_n", "EEO", "self-ID", "Allowlist"):
