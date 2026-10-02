@@ -693,7 +693,6 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit(budget.set_budget(args.project_usd, args.job_cap_usd, note=args.note))
         return 0
     if action == "compute":
-        import os
         from . import compute, provision
 
         if args.action == "inventory":
@@ -702,9 +701,9 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
             emit(stock)
             return 0
-
-        budget_home_env = os.environ.get("AGENT_OS_BUDGET_HOME")
-        budget_home = Path(budget_home_env) if budget_home_env else None
+        if args.action in ("status", "stop", "destroy", "reconcile") and not args.job_id:
+            emit({"error": f"{args.action} needs --job-id"})
+            return 2
 
         try:
             if args.action == "provision":
@@ -722,31 +721,19 @@ def dispatch(args: argparse.Namespace, emit) -> int:
                     request["max_runtime_seconds"] = args.max_runtime_seconds
                 if args.secret_ref:
                     request["secret_ref"] = args.secret_ref
-                emit(provision.provision(request, budget_home=budget_home))
+                emit(provision.provision(request, budget_home=None))
                 return 0
             if args.action == "status":
-                if not args.job_id:
-                    emit({"error": "status needs --job-id"})
-                    return 2
-                emit(provision.status(args.job_id, budget_home=budget_home))
+                emit(provision.status(args.job_id, budget_home=None))
                 return 0
             if args.action == "stop":
-                if not args.job_id:
-                    emit({"error": "stop needs --job-id"})
-                    return 2
-                emit(provision.stop(args.job_id, budget_home=budget_home))
+                emit(provision.stop(args.job_id, budget_home=None))
                 return 0
             if args.action == "destroy":
-                if not args.job_id:
-                    emit({"error": "destroy needs --job-id"})
-                    return 2
-                emit(provision.destroy(args.job_id, budget_home=budget_home))
+                emit(provision.destroy(args.job_id, budget_home=None))
                 return 0
             if args.action == "reconcile":
-                if not args.job_id:
-                    emit({"error": "reconcile needs --job-id"})
-                    return 2
-                emit(provision.reconcile(args.job_id, actual_usd=args.actual_usd, budget_home=budget_home))
+                emit(provision.reconcile(args.job_id, actual_usd=args.actual_usd, budget_home=None))
                 return 0
             if args.action == "jobs":
                 emit(provision.list_jobs())
