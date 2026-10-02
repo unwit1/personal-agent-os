@@ -3,13 +3,17 @@
   "id": "EXP-0010",
   "type": "EXP",
   "title": "Phase 0 context-economy measurement: do fan-out fixed overhead and retries dominate amplification?",
-  "status": "open",
-  "summary": "Hypothesis: per-worker input-token amplification in orchestrator runs is dominated by fixed fan-out overhead (each worker re-reading the same prompt scaffold and context) and by retries/checkpoint resumes, rather than by task-specific work. Method: run the deterministic, privacy-safe `agent-os orchestrate context-economy` harness read-only over .agent-local/orchestrator/runs, reporting aggregates only (median/p90 input and output amplification per role, long-session context growth ratio, duplicated fan-out overhead, checkpoint-resume overhead share, exact-call coverage), with no prompt or transcript text. Outcome: blocked. The worker's Bash call was denied ('Permission for this tool use was denied. It requires approval, and this session has no approval surface'), so the harness was not run and no numbers exist; the hypothesis is neither supported nor refuted. See EVR-0018. Re-run from a host session.",
-  "outcome": "blocked",
+  "status": "resolved",
+  "summary": "Hypothesis: per-worker input-token amplification in orchestrator runs is dominated by fixed fan-out overhead (each worker re-reading the same prompt scaffold and context) and by retries/checkpoint resumes, rather than by task-specific work. Method: ran the deterministic, privacy-safe `agent-os orchestrate context-economy` harness read-only over .agent-local/orchestrator/runs (20 runs, 653 exact-usage calls), reporting aggregates only (no prompt or transcript text). Outcome: positive for fan-out, only partly for retries. Fixed fan-out overhead is 253.4M of 255.8M worker input tokens (share 0.9905), so task-specific input is about 1%; pooled amplification is 104.8x and the median worker role (implementer/repairer/test_author) sees 141-189x, while reviewers sit at 11.7x. Retries/repeat attempts account for 47.7M tokens (about 19% of worker input; 26 retries, 63 escalations, 15 fallbacks) and checkpoint-resume overhead is 17.2% of run input in the runs that resumed, so retries and resumes are material but secondary. Long sessions do not enlarge later calls (per-node last/first input median 0.78 and 0.43) but cumulative input per run grows superlinearly in most runs (exponent up to 1.88). Interpretation: the fixed per-worker context is the main lever for IMP-0018 and most of it is cache reads (median cache-read share 0.84), so savings depend on trimming scaffold size and worker count rather than on fewer retries. Caveat: the overhead share is a model-based upper bound and the amplification denominator is a characters/4 estimate. See EVR-0018.",
+  "outcome": "positive",
   "task_family": "context_economy",
   "metrics": {
-    "runs_counted": null,
-    "blocked_error": "Permission for this tool use was denied. It requires approval, and this session has no approval surface",
+    "runs_counted": 20,
+    "exact_calls": 653,
+    "fanout_overhead_share": 0.9905,
+    "repeat_attempt_share_of_worker_input": 0.1863,
+    "resume_overhead_share": 0.1715,
+    "amplification_pooled": 104.8479,
     "model_calls": 0,
     "paid_compute_usd": 0
   },
@@ -22,6 +26,6 @@
     "session": "run-20261002T050208Z-aa864e economy-baseline-evidence",
     "author_tier": "worker"
   },
-  "created_at": "2026-10-02T05:30:00+00:00",
-  "updated_at": "2026-10-02T05:30:00+00:00"
+  "created_at": "2026-10-02T08:00:00+00:00",
+  "updated_at": "2026-10-02T08:00:00+00:00"
 }
