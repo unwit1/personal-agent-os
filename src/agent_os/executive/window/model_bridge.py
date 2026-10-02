@@ -10,6 +10,8 @@ from typing import Any, Callable
 REPO_ROOT = Path(__file__).resolve().parents[4]
 SERVER_NAME = "agent-os"
 ALLOWED_TOOLS = "mcp__agent-os__*"
+DEFAULT_MODEL = "sonnet"
+DEFAULT_EFFORT = "medium"
 DEFAULT_TIMEOUT_SECONDS = 600
 
 
@@ -46,6 +48,11 @@ def build_invocation(
     argv = [
         claude, "-p", prompt,
         "--output-format", "json",
+        # The window runs short, interactive tasks: a fast model at medium
+        # effort keeps a click responsive (the CLI default was Opus at full
+        # effort, which made small tasks take minutes). Overridable.
+        "--model", os.environ.get("AGENT_OS_EXECUTIVE_MODEL", DEFAULT_MODEL),
+        "--effort", os.environ.get("AGENT_OS_EXECUTIVE_EFFORT", DEFAULT_EFFORT),
         "--mcp-config", str(mcp_config_path),
         "--strict-mcp-config",
         "--tools", "",

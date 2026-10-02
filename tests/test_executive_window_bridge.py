@@ -50,6 +50,7 @@ class BridgeTests(unittest.TestCase):
         self.assertEqual(first, {"reply": "hi", "session_id": "sid-1", "error": None})
         cfg = str(self.home / "mcp-config.json")
         expected = ["claude", "-p", "hello", "--output-format", "json",
+                    "--model", mb.DEFAULT_MODEL, "--effort", mb.DEFAULT_EFFORT,
                     "--mcp-config", cfg, "--strict-mcp-config",
                     "--tools", "",
                     "--allowedTools", "mcp__agent-os__*"]
