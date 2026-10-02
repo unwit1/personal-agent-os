@@ -92,6 +92,110 @@ const Executive = (() => {
     }
   }
 
+  function textEl(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    el.textContent = text;
+    return el;
+  }
+
+  function countsText(counts) {
+    const entries = Object.entries(counts || {});
+    if (entries.length === 0) return 'none';
+    return entries.map(([k, v]) => k + ': ' + v).join(', ');
+  }
+
+  function renderMailCleanup(item) {
+    const group = document.createElement('div');
+    group.className = 'mail-cleanup';
+    const context = item.context || {};
+    const plan = context.plan;
+    if (!plan) {
+      group.appendChild(textEl('div', 'muted', 'No plan yet'));
+    } else {
+      const accounts = plan.accounts || plan.per_account || {};
+      Object.keys(accounts).forEach(account => {
+        const acct = accounts[account] || {};
+        const categories = acct.categories || acct;
+        group.appendChild(textEl('div', 'mail-cleanup-account', account));
+        const table = document.createElement('table');
+        table.className = 'mail-cleanup-table';
+        const head = document.createElement('tr');
+        ['Category', 'Count', 'Sample subjects', 'Target folder', ''].forEach(h => head.appendChild(textEl('th', '', h)));
+        table.appendChild(head);
+        Object.keys(categories).forEach(category => {
+          const entry = categories[category] || {};
+          const row = document.createElement('tr');
+          row.appendChild(textEl('td', '', category));
+          row.appendChild(textEl('td', '', String(entry.count || 0)));
+          row.appendChild(textEl('td', '', (entry.sample_subjects || entry.samples || []).join(' | ')));
+          row.appendChild(textEl('td', '', entry.target_folder || ''));
+          const actionCell = document.createElement('td');
+          if (entry.target_folder) {
+            const btn = textEl('button', 'option-consequential mail-cleanup-apply', 'Apply ' + category);
+            btn.addEventListener('click', () => handleMailOrganizeApply(item, account, category, btn));
+            actionCell.appendChild(btn);
+          }
+          row.appendChild(actionCell);
+          table.appendChild(row);
+        });
+        group.appendChild(table);
+      });
+    }
+    group.appendChild(textEl('div', 'mail-cleanup-filtered', 'Spam filtered: ' + countsText(context.spam_filtered)));
+    return group;
+  }
+
+  function renderMailFiltered(item) {
+    const group = document.createElement('div');
+    group.className = 'mail-filtered';
+    const context = item.context || {};
+    const filtered = context.filtered || context.items || [];
+    let counts = context.counts_by_reason || context.counts;
+    if (!counts) {
+      counts = {};
+      filtered.forEach(f => { counts[f.reason] = (counts[f.reason] || 0) + 1; });
+    }
+    group.appendChild(textEl('div', 'mail-filtered-counts', 'By reason: ' + countsText(counts)));
+    const details = document.createElement('details');
+    details.appendChild(textEl('summary', '', 'Filtered subjects (' + filtered.length + ')'));
+    const list = document.createElement('ul');
+    filtered.forEach(f => {
+      list.appendChild(textEl('li', '', (f.subject || '(no subject)') + ' — ' + (f.reason || '')));
+    });
+    details.appendChild(list);
+    group.appendChild(details);
+    return group;
+  }
+
+  function handleMailOrganizeApply(item, account, category, btn) {
+    const payload = {
+      conversation_id: getOrCreateConversationId(),
+      item_id: item.id,
+      action_id: 'mail.organize_apply',
+      params: { account: account, category: category },
+    };
+    btn.disabled = true;
+    showBusy(true);
+    clearError();
+    apiCall('POST', '/api/option', payload)
+      .then(response => {
+        showBusy(false);
+        btn.disabled = false;
+        if (response.message) {
+          addChatMessage('agent', response.message);
+        }
+        if (response.preview) {
+          showPreview(response.preview, 'mail.organize_apply');
+        }
+        loadItems();
+      })
+      .catch(() => {
+        showBusy(false);
+        btn.disabled = false;
+      });
+  }
+
   function renderItem(item) {
     const card = document.createElement('div');
     card.className = 'item-card';
@@ -123,6 +227,12 @@ const Executive = (() => {
     }
     if (meta.children.length > 0) {
       card.appendChild(meta);
+    }
+
+    if (item.kind === 'mail_cleanup') {
+      card.appendChild(renderMailCleanup(item));
+    } else if (item.kind === 'mail_filtered') {
+      card.appendChild(renderMailFiltered(item));
     }
 
     if (item.options && item.options.length > 0) {
