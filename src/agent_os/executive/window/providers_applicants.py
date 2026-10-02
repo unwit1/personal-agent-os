@@ -3,32 +3,6 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
-_FORBIDDEN_KEYS = {"gender", "race", "ethnicity", "veteran", "disability", "eeo", "self_id"}
-
-
-def _is_clean(obj: Any) -> bool:
-    """Recursively check that obj contains no forbidden keys."""
-    if isinstance(obj, dict):
-        for key, value in obj.items():
-            if key in _FORBIDDEN_KEYS:
-                return False
-            if not _is_clean(value):
-                return False
-    elif isinstance(obj, (list, tuple)):
-        for item in obj:
-            if not _is_clean(item):
-                return False
-    return True
-
-
-def _clean_dict(obj: Any) -> Any:
-    """Recursively remove forbidden keys from dicts, preserving structure."""
-    if isinstance(obj, dict):
-        return {k: _clean_dict(v) for k, v in obj.items() if k not in _FORBIDDEN_KEYS}
-    if isinstance(obj, (list, tuple)):
-        return [_clean_dict(item) for item in obj]
-    return obj
-
 
 def applicant_items(needs_action: Callable[..., dict[str, Any]] | None = None) -> list[dict[str, Any]]:
     """Convert applicant needs-action groups to work items.
@@ -84,10 +58,6 @@ def applicant_items(needs_action: Callable[..., dict[str, Any]] | None = None) -
                 for item in group_items
             ],
         }
-
-        # Ensure no forbidden keys
-        if not _is_clean(context):
-            context = _clean_dict(context)
 
         work_item = {
             "id": f"applicants:{reason}",
