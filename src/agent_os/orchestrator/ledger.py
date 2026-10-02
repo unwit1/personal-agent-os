@@ -52,6 +52,8 @@ EVENT_TYPES = frozenset(
         "model_completed",
         "model_failed",
         "model_escalated",
+        "free_route_decided",
+        "free_route_escalated",
         "retry",
         "fallback",
         "review_started",
@@ -235,6 +237,10 @@ def describe(event: dict[str, Any]) -> str:
         return f"{who} could not finish {role}" + (f" on {node}" if node else "") + f" ({data.get('failure_kind')})"
     if kind == "model_escalated":
         return f"Moved {node} to a stronger setting ({data.get('to')}) because {data.get('reason') or 'validation failed'}"
+    if kind == "free_route_decided":
+        return f"{node}: free routing chose {data.get('route')}" + (f" ({data.get('model')})" if data.get("model") else "") + (f" — {data.get('reason')}" if data.get("reason") else "")
+    if kind == "free_route_escalated":
+        return f"Moved {node} off free model {data.get('from_model')} to {data.get('to')} ({data.get('failure') or data.get('reason') or 'escalated'})"
     if kind == "retry":
         return f"Retrying {node} ({data.get('reason') or 'previous attempt failed'})"
     if kind == "fallback":
