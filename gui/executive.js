@@ -64,10 +64,24 @@ const Executive = (() => {
     }
   }
 
+  function normalizeErrors(errors) {
+    if (!errors) return '';
+    return [].concat(errors).map(e =>
+      typeof e === 'string' ? e : (e.provider ? e.provider + ': ' : '') + (e.error || e.message || JSON.stringify(e))
+    ).join('; ');
+  }
+
   function showError(message) {
     const container = document.getElementById('provider-errors');
     if (container) {
-      container.textContent = message;
+      container.textContent = normalizeErrors(message);
+    }
+  }
+
+  function clearError() {
+    const container = document.getElementById('provider-errors');
+    if (container) {
+      container.textContent = '';
     }
   }
 
@@ -155,7 +169,11 @@ const Executive = (() => {
       action_id: option.action_id,
     };
 
+    const buttons = document.querySelectorAll('.item-options button');
+    buttons.forEach(btn => btn.disabled = true);
+
     showBusy(true);
+    clearError();
     apiCall('POST', '/api/option', payload)
       .then(response => {
         showBusy(false);
@@ -165,9 +183,11 @@ const Executive = (() => {
         if (response.preview) {
           showPreview(response.preview, option.action_id);
         }
+        loadItems();
       })
       .catch(() => {
         showBusy(false);
+        buttons.forEach(btn => btn.disabled = false);
       });
   }
 
@@ -245,6 +265,9 @@ const Executive = (() => {
   }
 
   function handleConfirm(preview, cardElement) {
+    const buttons = cardElement.querySelectorAll('.preview-actions button');
+    buttons.forEach(btn => btn.disabled = true);
+
     const convId = getOrCreateConversationId();
     apiCall('POST', '/api/confirm', {
       conversation_id: convId,
@@ -255,13 +278,17 @@ const Executive = (() => {
         if (response.message) {
           addChatMessage('agent', response.message);
         }
+        loadItems();
       })
       .catch(() => {
-        /* error already shown */
+        buttons.forEach(btn => btn.disabled = false);
       });
   }
 
   function handleDismiss(preview, cardElement) {
+    const buttons = cardElement.querySelectorAll('.preview-actions button');
+    buttons.forEach(btn => btn.disabled = true);
+
     const convId = getOrCreateConversationId();
     apiCall('POST', '/api/dismiss', {
       conversation_id: convId,
@@ -269,9 +296,10 @@ const Executive = (() => {
     })
       .then(() => {
         cardElement.remove();
+        loadItems();
       })
       .catch(() => {
-        /* error already shown */
+        buttons.forEach(btn => btn.disabled = false);
       });
   }
 
@@ -312,6 +340,8 @@ const Executive = (() => {
         }
         if (response.errors) {
           showError(response.errors);
+        } else {
+          clearError();
         }
       })
       .catch(() => {

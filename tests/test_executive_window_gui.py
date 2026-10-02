@@ -18,7 +18,7 @@ class ExecutiveWindowGUITests(unittest.TestCase):
         """Test HTML structure and required elements."""
         gui_dir = Path(__file__).resolve().parents[1] / 'gui'
         html_file = gui_dir / 'executive.html'
-        html_content = html_file.read_text()
+        html_content = html_file.read_text(encoding='utf-8')
 
         self.assertIn('style.css', html_content, "HTML does not link style.css")
         self.assertIn('executive.js', html_content, "HTML does not link executive.js")
@@ -30,12 +30,14 @@ class ExecutiveWindowGUITests(unittest.TestCase):
         """Test that JS contains required API references and headers."""
         gui_dir = Path(__file__).resolve().parents[1] / 'gui'
         js_file = gui_dir / 'executive.js'
-        js_content = js_file.read_text()
+        js_content = js_file.read_text(encoding='utf-8')
 
         self.assertIn('/api/items', js_content, "JS does not reference /api/items")
         self.assertIn('/api/option', js_content, "JS does not reference /api/option")
+        self.assertIn('/api/chat', js_content, "JS does not reference /api/chat")
         self.assertIn('/api/pending', js_content, "JS does not reference /api/pending")
         self.assertIn('/api/confirm', js_content, "JS does not reference /api/confirm")
+        self.assertIn('/api/dismiss', js_content, "JS does not reference /api/dismiss")
         self.assertIn('X-Agent-OS-Token', js_content, "JS does not use X-Agent-OS-Token header")
 
         # Ensure no auto-confirmation
