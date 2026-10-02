@@ -232,6 +232,26 @@ class EscalateTest(unittest.TestCase):
                                      governor=FakeGovernor({"org/b:free": "per-minute limit reached"}))
         self.assertEqual(step["rung"], "local_or_already_paid")
 
+    def test_quota_blocked_candidate_is_never_an_alternate(self):
+        catalog = {"models": [model("org/a:free"), model("org/b:free"), model("org/c:free")]}
+        specs = SPECS + [record("org/c:free", 0.5)]
+        decision = free_routing.decide(task(), catalog=catalog, specializations=specs,
+                                       governor=FakeGovernor({"org/a:free": "daily allowance reached"}),
+                                       project_policy=POLICY)
+        self.assertEqual(decision["model"], "org/b:free")
+        self.assertEqual([a["model"] for a in decision["alternates"]], ["org/c:free"])
+        step = free_routing.escalate(decision, "validator_failed", registry=self.registry())
+        self.assertEqual((step["rung"], step["model"]), ("alternate_free", "org/c:free"))
+
+    def test_alternate_uses_catalog_revision_record(self):
+        stale = {**record("org/b:free", 0.9), "revision": "org/b:free-r0"}
+        specs = [record("org/a:free", 0.8), stale, record("org/b:free", 0.05)]
+        decision = free_routing.decide(task(), catalog=CATALOG, specializations=specs,
+                                       governor=FakeGovernor(), project_policy=POLICY)
+        self.assertEqual(decision["model"], "org/a:free")
+        self.assertEqual(decision["alternates"][0]["wilson_low"], 0.05)
+        self.assertLessEqual(decision["alternates"][0]["expected_value"], 0)
+
     def test_sensitive_work_never_resolves_to_api_provider(self):
         for extra in ({"sensitivity": "secret"}, {"scope": ["secrets/openrouter.json"]}, {"sensitivity": "private"}):
             with self.subTest(extra):

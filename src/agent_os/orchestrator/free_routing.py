@@ -132,18 +132,22 @@ def _model_problem(model: Mapping[str, Any], task: Mapping[str, Any]) -> str | N
     return None
 
 
-def _wilson_low(records: Iterable[Mapping[str, Any]], family: str, slug: str) -> float:
-    lows = [(r.get("wilson95") or [None])[0] for r in records if r.get("task_family") == family and r.get("model") == slug]
-    return max((low for low in lows if low is not None), default=0.0)
+def _record(records: Iterable[Mapping[str, Any]], family: str, model: Mapping[str, Any]) -> Mapping[str, Any]:
+    """The record ``free_specialization.rank`` uses for ``model``: the catalog
+    revision's record when sampled, else the best by rank's order."""
+    def order(record: Mapping[str, Any]) -> tuple:
+        return (record.get("status") != "proven", -((record.get("wilson95") or [None])[0] or 0.0),
+                -(record.get("n") or 0), str(record.get("revision")))
+
+    mine = sorted((r for r in records if r.get("task_family") == family and r.get("model") == model.get("slug")),
+                  key=order)
+    revision = model.get("revision")
+    current = [r for r in mine if revision is not None and r.get("revision") == revision]
+    return (current or mine or [{}])[0]
 
 
-def _status(records: Iterable[Mapping[str, Any]], family: str, model: Mapping[str, Any]) -> str | None:
-    """Status of the record ``free_specialization.rank`` uses for ``model``:
-    the catalog revision's record when sampled, else the best revision."""
-    mine = [r for r in records if r.get("task_family") == family and r.get("model") == model.get("slug")]
-    current = [r for r in mine if model.get("revision") is not None and r.get("revision") == model.get("revision")]
-    statuses = {r.get("status") for r in current or mine}
-    return "proven" if "proven" in statuses else next(iter(sorted(s for s in statuses if s)), None)
+def _wilson_low(record: Mapping[str, Any]) -> float:
+    return float((record.get("wilson95") or [None])[0] or 0.0)
 
 
 def _economics(project_policy: Mapping[str, Any]) -> dict[str, float]:
@@ -246,7 +250,7 @@ def decide(task: Mapping[str, Any], *, catalog: Any, specializations: Iterable[M
     ordered = [slug for slug in free_specialization.rank(records, family, pool) if slug in usable]
     lane = task.get("lane") or "priority"
     if lane not in SWARM_LANES:  # priority work never rides canary/under-sampled models
-        ordered = [slug for slug in ordered if _status(records, family, usable[slug]) == "proven"]
+        ordered = [slug for slug in ordered if _record(records, family, usable[slug]).get("status") == "proven"]
     seed = task.get("seed") or f"{task.get('run_id')}|{task.get('node_id')}"
     rate = economics["explore_share"] if lane in SWARM_LANES else 0.0
     canary = free_specialization.canary_pick(records, family, pool, rate, seed)
@@ -258,23 +262,24 @@ def decide(task: Mapping[str, Any], *, catalog: Any, specializations: Iterable[M
         return escalated(f"no proven or canary free model for {family}")
 
     decision["quota"] = _quota(governor)
-    chosen, quota_reasons = None, []
+    chosen, quota_refused = None, {}
     for slug in candidates:
         allowed, why = governor.can_spend(slug)
         if allowed:
             chosen = slug
             break
-        quota_reasons.append(why)
+        quota_refused[slug] = why
     if chosen is None:
-        return escalated("quota: " + (quota_reasons[-1] if quota_reasons else "unavailable"))
+        return escalated("quota: " + (list(quota_refused.values())[-1] if quota_refused else "unavailable"))
 
     model = usable[chosen]
-    low = _wilson_low(records, family, chosen)
-    alternates = [
-        {"model": slug, "wilson_low": _wilson_low(records, family, slug),
-         "expected_value": expected_value(_wilson_low(records, family, slug), economics)}
-        for slug in candidates if slug != chosen
-    ]
+    low = _wilson_low(_record(records, family, model))
+    alternates = []
+    for slug in candidates:
+        if slug == chosen or slug in quota_refused:  # the governor already refused it
+            continue
+        alt_low = _wilson_low(_record(records, family, usable[slug]))
+        alternates.append({"model": slug, "wilson_low": alt_low, "expected_value": expected_value(alt_low, economics)})
     kind = "canary pick" if chosen == canary else "specialist"
     decision.update({
         "route": "free",
