@@ -352,6 +352,16 @@ class RoutingTests(unittest.TestCase):
         self.assertFalse(choice["resolved"])
 
 
+class FreeRoutingDefaultOffTests(OrchestratorFixture):
+    def test_default_off_run_never_touches_free_dispatch(self) -> None:
+        run_id = self.create([self.task("a")])
+        with mock.patch("agent_os.orchestrator.free_dispatch.decide_for_node", side_effect=AssertionError("called")):
+            self.engine.start(run_id)
+            self.engine.step(run_id)
+        self.assertNotIn("free_route", self.node(run_id, "a"))
+        self.assertIsNone(self.engine._free_inputs)
+
+
 class OverrideTests(OrchestratorFixture):
     def test_override_applies_without_modifying_manifests_or_tasks(self) -> None:
         manifest_hashes = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in (ROOT / "workflows").glob("*.json")}

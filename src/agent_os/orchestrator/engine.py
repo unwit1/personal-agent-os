@@ -84,6 +84,7 @@ class Orchestrator:
         sleep: Callable[[float], None] = time.sleep,
         session_foreman: bool | None = None,
         foreman_home: Path | None = None,
+        free_inputs: Any = None,
     ) -> None:
         self.store = store or RunStore()
         # The machine engine (no injected registry) attaches new runs to a live
@@ -95,6 +96,7 @@ class Orchestrator:
         self._telemetry = telemetry_store
         self._claims_path = claims_path
         self._sleep = sleep
+        self._free_inputs = free_inputs  # FreeInputs, a zero-argument callable, or None (loaded lazily)
         self._handles: dict[tuple[str, str], RunningAgent] = {}
         self._adapters: dict[str, Any] = {}
         self._availability: dict[str, bool] | None = None
@@ -109,6 +111,128 @@ class Orchestrator:
         if self._registry is None:
             self._registry = ProviderRegistry(self._registry_path)
         return self._registry
+
+    def free_inputs(self) -> Any:
+        """Free-routing inputs, resolved once on first use (flag-on runs only)."""
+        if self._free_inputs is None or callable(self._free_inputs):
+            from . import free_dispatch
+
+            loader = self._free_inputs
+            self._free_inputs = loader() if callable(loader) else free_dispatch.FreeInputs.load_default(self.store.home)
+        return self._free_inputs
+
+    def _free_escalate_state(self, node: dict[str, Any]) -> None:
+        from . import free_dispatch
+
+        node["free_route"]["free_state"] = "escalated"
+        classes = node.setdefault("excluded_classes", {})
+        for provider_id, keys in free_dispatch.free_exclusions(node, self.registry()).items():
+            merged = classes.setdefault(provider_id, [])
+            merged.extend(key for key in keys if key not in merged)
+
+    def _free_hook(self, record: dict[str, Any], node: dict[str, Any], running: dict[str, int], requirements: Any) -> dict[str, Any] | None:
+        """Free-first routing before select(). Returns a free selection or None."""
+        from . import free_dispatch
+        from .model_profile import is_paid
+
+        run_id = record["run_id"]
+        state = node.get("free_route")
+        if state and state.get("free_state") == "escalated":
+            return None
+        inputs = self.free_inputs()
+        fresh = not state
+        decision = state if state else dict(free_dispatch.decide_for_node(record, node, inputs), free_providers=[])
+        selection = None
+        if decision.get("route") == "free":
+            selection, why = free_dispatch.selection_for(
+                decision, self.registry(), role=node["role"], availability=self.availability(),
+                excluded=node["excluded_providers"], excluded_classes=node.get("excluded_classes", {}),
+                running=running, requirements=requirements)
+            if selection is None:
+                decision["route"] = "escalate"
+                decision["reason"] = why
+        node["free_route"] = decision
+        if selection is None:
+            was_free = decision.get("model")
+            self._free_escalate_state(node)
+            if fresh:
+                self._free_emit_decision(record, node, decision)
+            if was_free:
+                self.ledger.emit(run_id, "free_route_escalated", node["id"], from_model=was_free, to=f"class:{node['capability_class']}/{node['effort']}", failure="unselectable", reason=decision.get("reason"))
+            return None
+        decision["free_state"] = "free"
+        if selection["provider"] not in decision["free_providers"]:
+            decision["free_providers"].append(selection["provider"])
+        # The paid route that would otherwise run, for cost-avoided metrics.
+        classes = {key: list(value) for key, value in (node.get("excluded_classes") or {}).items()}
+        taken = classes.setdefault(selection["provider"], [])
+        if node["capability_class"] not in taken:
+            taken.append(node["capability_class"])
+        for provider_id, keys in free_dispatch.free_exclusions(node, self.registry()).items():
+            merged = classes.setdefault(provider_id, [])
+            merged.extend(key for key in keys if key not in merged)
+        paid = select(
+            self.registry(), capability_class=node["capability_class"], effort=node["effort"], role=node["role"],
+            preference=record["policy"]["preference"], availability=self.availability(),
+            excluded=node["excluded_providers"] + self._paid_blocked(record), excluded_classes=classes,
+            running=running, requirements=requirements)
+        paid_route = None
+        if paid.get("resolved") and not paid.get("waiting") and (paid["provider"], paid.get("model")) != (selection["provider"], selection.get("model")):
+            provider = self.registry().get(paid["provider"]) or {}
+            paid_route = {"model": paid.get("model"), "provider": paid["provider"], "subscription": not is_paid(provider)}
+        decision["paid_route"] = paid_route
+        try:
+            attempt = inputs.governor.record({
+                "model": selection.get("model"), "provider": selection["provider"], "run_id": run_id, "node": node["id"],
+                "task_family": decision.get("task_family"), "outcome": "success", "paid_route": paid_route})
+            if isinstance(attempt, dict) and attempt.get("event_id"):
+                decision["event_id"] = attempt["event_id"]
+        except Exception as exc:  # the free ledger never blocks a launch
+            self.ledger.emit(run_id, "note", node["id"], text=f"free ledger unavailable: {type(exc).__name__}")
+        if fresh:
+            self._free_emit_decision(record, node, decision)
+        return selection
+
+    def _free_emit_decision(self, record: dict[str, Any], node: dict[str, Any], decision: dict[str, Any]) -> None:
+        self.ledger.emit(
+            record["run_id"], "free_route_decided", node["id"], role=node["role"], task_family=decision.get("task_family"),
+            route=decision.get("route"), model=decision.get("model"), reason=decision.get("reason"),
+            failed_checks=(decision.get("eligibility") or {}).get("failed_checks"),
+            catalog_snapshot=decision.get("catalog_snapshot"), quota=decision.get("quota"), paid_route=decision.get("paid_route"))
+
+    def _free_after_failure(self, record: dict[str, Any], node: dict[str, Any], failure: dict[str, Any], label: str) -> bool:
+        """Escalate a failed free-routed node. True when the node was rescheduled."""
+        from . import free_dispatch
+
+        old = node["free_route"].get("model")
+        result = free_dispatch.after_failure(node, failure, self.registry(), self.free_inputs().governor)
+        action = result["action"]
+        if action == "free":
+            to = f"free:{result['decision'].get('model')}"
+        elif action == "router":
+            to = f"class:{result['capability_class']}/{result['effort']}"
+        else:
+            to = "exhausted"
+        self.ledger.emit(record["run_id"], "free_route_escalated", node["id"], from_model=old, to=to, failure=failure.get("kind"), reason=result["decision"].get("reason"))
+        if action == "free":
+            node["free_route"] = dict(result["decision"], free_state="free")
+            node["state"] = "FAILED_RETRYABLE"
+            node["selection"] = None
+            node["wait_reason"] = f"{label}; alternate free model {result['decision'].get('model')}"
+            node["escalations"] += 1
+            return True
+        self._free_escalate_state(node)
+        if action != "router":
+            return False
+        node["capability_class"] = result["capability_class"]
+        node["effort"] = result["effort"]
+        node["escalations"] += 1
+        node["state"] = "FAILED_RETRYABLE"
+        node["selection"] = None
+        node["wait_reason"] = f"{label}; escalated from free to {result['capability_class']}/{result['effort']}"
+        self.store.append_event(record["run_id"], "node.escalated", node["id"], f"-> {to}")
+        self.ledger.emit(record["run_id"], "model_escalated", node["id"], **{"from": f"free:{old}", "to": f"{result['capability_class']}/{result['effort']}", "reason": label, "escalation": node["escalations"]})
+        return True
 
     def reload_providers(self) -> dict[str, Any]:
         with self._lock:
@@ -1162,6 +1286,14 @@ class Orchestrator:
         policy = record["policy"]
         if self._fallback_to_model(record, node, "validator_failed", detail):
             return
+        if (
+            policy.get("free_routing_enabled")
+            and node["execution_path"] == "model"
+            and (node.get("free_route") or {}).get("free_state") == "free"
+            and node["escalations"] < policy["max_escalations"]
+            and self._free_after_failure(record, node, {"kind": "validator_failed", "verified_outputs": []}, "validator failed")
+        ):
+            return
         if node["execution_path"] == "model" and node["escalations"] < policy["max_escalations"]:
             before = f"{node['capability_class']}/{node['effort']}"
             rung = _next_rung(node)
@@ -1628,23 +1760,27 @@ class Orchestrator:
         avoid = []
         if node["role"] == "reviewer" and subject and subject.get("selection"):
             avoid = [subject["selection"]["provider"]]
-        selection = select(
-            self.registry(),
-            capability_class=node["capability_class"],
-            effort=node["effort"],
-            role=node["role"],
-            preference=policy["preference"],
-            availability=self.availability(),
-            excluded=node["excluded_providers"] + self._paid_blocked(record),
-            excluded_classes=node.get("excluded_classes", {}),
-            avoid=avoid,
-            running=running,
-            override=self._override_for(record, node),
-            require_avoid=node["role"] == "reviewer" and policy["require_distinct_review_provider"],
-            # Reviewers and repairers read the subject's work, so they inherit its
-            # workload requirements (e.g. deployment=local for private code).
-            requirements=node.get("requirements") or (subject or {}).get("requirements"),
-        )
+        selection = None
+        if policy.get("free_routing_enabled") and node["role"] in {"implementer", "test_author"} and not self._override_for(record, node):
+            selection = self._free_hook(record, node, running, node.get("requirements"))
+        if selection is None:
+            selection = select(
+                self.registry(),
+                capability_class=node["capability_class"],
+                effort=node["effort"],
+                role=node["role"],
+                preference=policy["preference"],
+                availability=self.availability(),
+                excluded=node["excluded_providers"] + self._paid_blocked(record),
+                excluded_classes=node.get("excluded_classes", {}),
+                avoid=avoid,
+                running=running,
+                override=self._override_for(record, node),
+                require_avoid=node["role"] == "reviewer" and policy["require_distinct_review_provider"],
+                # Reviewers and repairers read the subject's work, so they inherit its
+                # workload requirements (e.g. deployment=local for private code).
+                requirements=node.get("requirements") or (subject or {}).get("requirements"),
+            )
         if not selection.get("resolved"):
             if selection.get("waiting"):
                 node["state"] = "RUNNABLE"

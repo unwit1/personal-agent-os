@@ -29,6 +29,10 @@ class FakeGovernor:
     def remaining(self):
         return {}
 
+    def record(self, event):
+        self.events = getattr(self, "events", []) + [dict(event)]
+        return {**event, "event_id": f"FQE-{len(self.events)}"}
+
 
 def provider(provider_id: str, models: dict, deployment: str) -> dict:
     return {"id": provider_id, "adapter": "synthetic", "models": models,
@@ -168,6 +172,69 @@ class LoadDefaultTest(unittest.TestCase):
             loaded = FreeInputs.load_default(Path(tmp))
         decision = free_dispatch.decide_for_node(RECORD, node(), loaded)
         self.assertEqual(decision["route"], "escalate")
+
+
+class EngineWiringTest(unittest.TestCase):
+    def setUp(self):
+        import shutil
+        import tempfile
+
+        from agent_os.orchestrator.engine import Orchestrator
+        from agent_os.orchestrator.store import RunStore
+
+        tmp = Path(tempfile.mkdtemp(prefix="agent-os-free-"))
+        self.addCleanup(shutil.rmtree, tmp, True)
+        self.recorded = []
+        self.engine = Orchestrator(RunStore(tmp / "home"), registry=registry(), free_inputs=inputs(), session_foreman=False)
+        self.engine.ledger.emit = lambda run_id, kind, node=None, /, **data: self.recorded.append((kind, data))
+        self.engine._availability = {"or-free": True, "local": True, "paid": True}
+        self.record = {"run_id": "R1", "policy": {"preference": "balanced", "default_validators": ["x"], "max_escalations": 2,
+                                                  "allow_paid_spend": True, "free_routing_enabled": True}, "nodes": {}}
+
+    def kinds(self):
+        return [kind for kind, _ in self.recorded]
+
+    def test_default_off_policy_is_false(self):
+        from agent_os.orchestrator.model import DEFAULT_POLICY
+
+        self.assertFalse(DEFAULT_POLICY["free_routing_enabled"])
+
+    def test_inputs_are_lazy_and_injectable(self):
+        self.assertEqual(self.engine.free_inputs().catalog["snapshot_id"], "FCS-test")
+
+    def test_free_selection_records_paid_route_and_decision(self):
+        item = node(requirements=None)
+        selection = self.engine._free_hook(self.record, item, {}, None)
+        self.assertEqual(selection["model"], "org/a:free")
+        state = item["free_route"]
+        self.assertEqual(state["free_state"], "free")
+        self.assertEqual(state["free_providers"], ["or-free"])
+        self.assertEqual(state["paid_route"]["provider"] in {"local", "paid"}, True)
+        self.assertIn("subscription", state["paid_route"])
+        self.assertEqual(self.kinds(), ["free_route_decided"])
+        attempt = self.engine.free_inputs().governor.events[0]
+        self.assertEqual(attempt["paid_route"], state["paid_route"])
+        self.assertEqual(state["event_id"], "FQE-1")
+
+    def test_validator_failure_escalates_free_node_to_router(self):
+        item = node(requirements=None, escalations=0, execution_path="model", state="RUNNING")
+        self.engine._free_hook(self.record, item, {}, None)
+        moved = self.engine._free_after_failure(self.record, item, {"kind": "validator_failed"}, "validator failed")
+        self.assertTrue(moved)
+        self.assertIn("free_route_escalated", self.kinds())
+        self.assertEqual(item["state"], "FAILED_RETRYABLE")
+        self.assertEqual(item["escalations"], 1)
+        if item["free_route"]["free_state"] == "escalated":
+            self.assertIn("or-free", item["excluded_classes"])
+
+    def test_escalate_decision_skips_free_launch(self):
+        self.engine._free_inputs = FreeInputs({"models": []}, [], FakeGovernor(), {})
+        item = node(requirements=None)
+        self.assertIsNone(self.engine._free_hook(self.record, item, {}, None))
+        self.assertEqual(item["free_route"]["free_state"], "escalated")
+        self.assertEqual(self.kinds(), ["free_route_decided"])
+        self.assertIsNone(self.engine._free_hook(self.record, item, {}, None))  # back on the normal path, no new events
+        self.assertEqual(self.kinds(), ["free_route_decided"])
 
 
 if __name__ == "__main__":
