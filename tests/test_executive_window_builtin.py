@@ -20,7 +20,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         reg = builtin.default_registry()
         provider_names = set(reg._providers.keys())
 
-        expected_providers = {"applicants", "orchestrator", "mail"}
+        expected_providers = {"applicants", "orchestrator", "mail", "counties"}
         self.assertEqual(provider_names, expected_providers)
 
     def test_default_registry_registers_actions(self):
@@ -38,8 +38,31 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "orchestrator.decline_gate",
             "item.dismiss",
             "item.snooze",
+            "applicant.reach_out",
+            "applicant.invite_interview",
+            "applicant.email_manager",
+            "applicant.review",
+            "applicant.decline",
+            "applicant.hold",
+            "openings.event",
         }
         self.assertEqual(action_ids, expected_actions)
+
+    def test_new_actions_are_item_options_and_tools(self):
+        reg = builtin.default_registry()
+        listed = {a["id"] for a in reg.actions()}
+        self.assertTrue({"applicant.decline", "applicant.hold", "openings.event"} <= listed)
+        tools = {a["id"]: a for a in reg.actions()}
+        for action_id in ("applicant.reach_out", "applicant.invite_interview", "applicant.email_manager",
+                          "applicant.review", "applicant.decline", "applicant.hold", "openings.event"):
+            self.assertIn(action_id, tools)
+            self.assertNotIn("handler", tools[action_id])
+            self.assertIn("params_schema", tools[action_id])
+            self.assertTrue(tools[action_id]["label"])
+        for action_id in ("applicant.decline", "applicant.hold", "openings.event"):
+            self.assertTrue(reg._actions[action_id]["consequential"])
+        for action_id in ("applicant.reach_out", "applicant.invite_interview", "applicant.email_manager"):
+            self.assertFalse(reg._actions[action_id]["consequential"])
 
     def test_default_registry_idempotent(self):
         """Test that calling default_registry twice does not duplicate anything."""
@@ -53,6 +76,10 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
 
         # Should be the same registry
         self.assertIs(reg1, reg2)
+        self.assertEqual(sorted(reg1._providers), sorted(reg2._providers))
+        self.assertEqual([a["id"] for a in reg1.actions()], [a["id"] for a in reg2.actions()])
+        self.assertIn("counties", reg2._providers)
+        self.assertIn("openings.event", reg2._actions)
 
         # Counts should not increase
         self.assertEqual(provider_count_1, provider_count_2)

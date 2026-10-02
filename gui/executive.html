@@ -180,6 +180,51 @@
       padding: 6px 10px;
       font-size: 12px;
     }
+    .county-group { display: grid; gap: 4px; }
+    .applicant-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+    .applicant-meta { color: var(--muted); font-size: 12px; }
+    .review-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      display: grid;
+      gap: 6px;
+    }
+    .review-panel.hidden { display: none; }
+    .review-title { font-weight: 600; }
+    .review-fields { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 0; font-size: 13px; }
+    .review-fields dt { color: var(--muted); }
+    .review-fields dd { margin: 0; word-break: break-word; }
+    .compose-panel {
+      position: fixed;
+      top: 10vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(640px, 92vw);
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel);
+      display: grid;
+      gap: 8px;
+      z-index: 20;
+    }
+    .compose-title { font-weight: 600; }
+    .compose-field { display: grid; gap: 2px; font-size: 12px; }
+    .compose-field input, .compose-field textarea, .compose-field select { width: 100%; box-sizing: border-box; }
+    .compose-actions { display: flex; gap: 8px; }
+    .compose-status { font-size: 13px; }
+    .compose-error { color: #fff; background: #b00020; padding: 8px; border-radius: 6px; font-weight: 700; }
+    .compose-ok { color: #0a7a2f; font-weight: 600; }
     @media (max-width: 1024px) {
       .executive-container {
         grid-template-columns: 1fr;

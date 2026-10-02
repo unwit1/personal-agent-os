@@ -23,7 +23,7 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from ...paths import ROOT
-from . import model_bridge
+from . import actions_openings, model_bridge
 from .confirm import ItemState, PendingStore, window_home
 
 GUI_DIR = ROOT / "gui"
@@ -47,8 +47,17 @@ def _first(body: dict[str, Any], *keys: str) -> Any:
 
 
 class Api:
-    def __init__(self, registry: Any, bridge: Any, home: Path) -> None:
+    def __init__(self, registry: Any, bridge: Any, home: Path, transport: Any = None,
+                 gateway_factory: Any = None) -> None:
         self.registry = registry
+        if transport is None:
+            from .transport import default_transport
+
+            transport = default_transport()
+        if gateway_factory is None:
+            from .actions_executive import _default_gateway as gateway_factory
+        self.transport = transport
+        self.gateway_factory = gateway_factory
         self.bridge = bridge
         self.home = home
         self.pending = PendingStore(home)
@@ -94,6 +103,16 @@ class Api:
         result["previews"] = self._previews()
         return result
 
+    def _opening_event(self, event: dict[str, Any]) -> dict[str, Any]:
+        """Preview a chat-stated opening event; it only applies through /api/confirm."""
+        item = {"id": f"county:{event['county']}", "kind": "county_openings"}
+        try:
+            self.registry.invoke("openings.event", item, dict(event), self.pending)
+        except Exception as exc:
+            return {"message": f"Could not preview the openings change: {type(exc).__name__}: {exc}"[:600],
+                    "previews": self._previews(), "opening_event": event}
+        return {"message": "Confirm to update openings", "previews": self._previews(), "opening_event": event}
+
     # -- routes ---------------------------------------------------------------
 
     def get(self, path: str, query: dict[str, list[str]]) -> Any:
@@ -127,13 +146,62 @@ class Api:
             text = str(_first(body, "text", "message") or "").strip()
             if not text:
                 raise ValueError("text is required")
+            event = actions_openings.parse_opening_event(text)
+            if event is not None:
+                return self._opening_event(event)
             return self._model(body.get("conversation_id"), text)
+        if path == "/api/send":
+            return self.send(body)
         if path == "/api/option":
             item = self._item(body.get("item_id"))
             action = self._action(body.get("action_id"))
             build = getattr(self.bridge, "option_prompt", None) or model_bridge.option_prompt
             return self._model(body.get("conversation_id"), build(item, action))
         raise KeyError(path)
+
+    def send(self, body: dict[str, Any]) -> dict[str, Any]:
+        """Send the composed email through the transport; only reachable via the Send click."""
+        to = str(body.get("to") or "").strip()
+        subject = str(body.get("subject") or "").strip()
+        text = str(body.get("body") or "")
+        kind = str(body.get("kind") or "").strip()
+        ref = str(body.get("applicant_ref") or "").strip() or None
+        if not to:
+            raise ValueError("To is required")
+        if not subject:
+            raise ValueError("Subject is required")
+        if not text.strip():
+            raise ValueError("Body is required")
+        if not kind:
+            raise ValueError("kind is required")
+        result = self.transport.send(to, subject, text, from_account=body.get("from_account") or None,
+                                     in_reply_to=body.get("in_reply_to") or None)
+        sent = bool(getattr(result, "sent", False))
+        error = getattr(result, "error", None)
+        warning = getattr(result, "warning", None)
+        event: dict[str, Any] = {"to": to, "subject": subject, "kind": kind, "applicant_ref": ref,
+                                 "county": body.get("county") or None, "sent": sent}
+        if not sent:
+            error = str(error or "NOT SENT")
+            if not error.startswith("NOT SENT"):
+                error = f"NOT SENT: {error}"
+            event["error"] = error
+            self.pending.audit({"send": event})
+            return {"sent": False, "error": error}
+        out: dict[str, Any] = {"sent": True, "message_id": getattr(result, "message_id", None)}
+        if warning:
+            out["warning"] = warning
+            event["warning"] = warning
+        if ref:
+            try:
+                self.gateway_factory().record_applicant_sent(ref, kind, to, subject)
+                out["status_recorded"] = True
+            except Exception as exc:
+                out["status_recorded"] = False
+                out["error"] = f"Sent, but the applicant status was not updated: {type(exc).__name__}: {exc}"[:600]
+            event["status_recorded"] = out["status_recorded"]
+        self.pending.audit({"send": event})
+        return out
 
     def dismiss(self, body: dict[str, Any]) -> dict[str, Any]:
         """Decline pending previews (by token, else every preview for item_id) without executing."""
@@ -269,7 +337,8 @@ def _bind_exclusive(host: str, port: int, handler: Any, attempts: int = 20) -> T
 
 
 def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, bridge: Any = None,
-                 home: Path | str | None = None) -> tuple[ThreadingHTTPServer, str]:
+                 home: Path | str | None = None, transport: Any = None,
+                 gateway_factory: Any = None) -> tuple[ThreadingHTTPServer, str]:
     if host not in LOOPBACK_HOSTS:
         raise ValueError("the Executive window only binds to loopback")
     home_path = window_home(home)
@@ -280,7 +349,7 @@ def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, b
     if bridge is None:
         bridge = model_bridge.ChatBridge(home_path)
     token = secrets.token_urlsafe(24)
-    api = Api(registry, bridge, home_path)
+    api = Api(registry, bridge, home_path, transport=transport, gateway_factory=gateway_factory)
     server = _bind_exclusive(host, port, make_handler(api, token, set()))
     actual = server.server_address[1]
     allowed = {f"{name}:{actual}".casefold() for name in ("127.0.0.1", "localhost", "[::1]")}
