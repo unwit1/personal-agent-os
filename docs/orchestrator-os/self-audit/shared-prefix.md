@@ -106,8 +106,12 @@ Decisions:
    get different packet lines today. Compiling once from `run['goal']` would give
    a third, different text, and that breaks line-for-line parity on real
    projects. So the shared packet does not call `compile_context` or `_fit`.
-   A module helper `_shared_packet(project, budget)` (no task argument) wrapped
-   in `functools.lru_cache(maxsize=16)`:
+   A module helper `_shared_packet(run_id, project, budget)` (no task argument)
+   wrapped in `functools.lru_cache(maxsize=16)`. The cache key includes
+   `run_id`, so the cache is **run-scoped**: `run_id` is used only as the key,
+   and every new run in a long-lived orchestrator process misses and reads
+   current project state. Only workers of the same run reuse a packet. The
+   helper:
    - resolves `get_project(project)` and `load_state(project)`. Any exception
      returns `("", None)`, as `_context_packet` does;
    - emits the same lines as `_context_packet`, in the same order and format:
@@ -134,14 +138,19 @@ Decisions:
    when today's cut falls inside it, appears as the start of a shared line.
    §3 tests this property instead of exact line equality.
 
-   Both `shared_prefix` and `build_measured(prefix=...)` call the cached helper,
-   so there is one state read per (project, budget) per process.
+   Both `shared_prefix` and `build_measured(prefix=...)` call the cached helper
+   with `run['run_id']`, so there is one state read per (run, project, budget).
    `build_measured(prefix=...)` returns a `copy.deepcopy` of that measurement, so
    the engine's `context_selected` event keeps its keys. Its `selected_*` values
-   now describe the shared packet. A state edit while a run is live changes the
-   prefix only after a process restart (a single cache miss, not a parity loss).
-   Tests on the flag-on path call `prompts._shared_packet.cache_clear()` in
-   `setUp`. The flag-off path never touches the cache and keeps calling
+   now describe the shared packet. A state edit while a run is live does not
+   reach that run's prefix, which keeps the prefix byte-stable for the run (the
+   provider cache scope). The next run, in the same process or a new one, reads
+   the edited state. If an in-flight run is resumed in a new process, its first
+   launch is one cache miss and the prefix may change once, with no parity loss.
+   `maxsize=16` bounds memory: it allows 16 concurrent (run, project, budget)
+   keys, which covers the three family budgets of several runs, and older runs
+   are evicted. An eviction only costs a re-read. Tests on the flag-on path call
+   `prompts._shared_packet.cache_clear()` in `setUp`. The flag-off path never touches the cache and keeps calling
    `_context_packet(project, node['goal'], ...)`.
 8. **Budget override.** The superset property in §1.7 needs equal budgets. When
    `node.get("context_budget", default)` differs from
@@ -177,21 +186,45 @@ an existing non-orchestrator test file. For each fixture node it builds
 `on = build_measured(run, node, ..., prefix=shared_prefix(run, family(role)))`,
 with the same `diff`, `findings`, `repo_map` and `cwd`. It asserts:
 
-Let `K(x)` be the `project_context` packet text inside prompt `x`: the lines
-after `Project context:` up to the next blank line, or `""` if the heading is
-absent. Let `L(x)` be the multiset of non-empty lines of `x`
-(`line.strip() != ""`, compared without stripping) **outside** `K(x)`.
+Packet text is the lines after a `Project context:` heading up to the next
+blank line. `build_measured` emits the heading only when the packet is
+non-empty. A flag-on prompt can hold two packets, so they are named by their
+position relative to the `SHARED_PREFIX_END` line:
+
+- `K(off)`: the packet after the only `Project context:` heading in `off`, or
+  `""` if `off` has no heading.
+- `K_prefix(on)`: the packet after the `Project context:` heading that
+  precedes `SHARED_PREFIX_END` (block P3), or `""` if there is none.
+- `K_suffix(on)`: the packet after the `Project context:` heading that follows
+  `SHARED_PREFIX_END` (block S8, budget-override case only), or `""` if there
+  is none.
+
+Let `L(off)` be the multiset of non-empty lines of `off` (`line.strip() != ""`,
+compared without stripping) outside `K(off)`. Let `L(on)` be the same for `on`,
+outside both `K_prefix(on)` and `K_suffix(on)`. The `Project context:` headings
+themselves are counted in `L`.
 
 1. **Line multiset inclusion (all sections except project context).** Every line
    in `L(off)` appears in `L(on)` at least as many times. Only order may change.
 2. **Project context by presence and prefix.** The project context is compared
    by presence, not line by line, because the shared packet is built once from
-   project state (§1.7). If `K(off) != ""`, then `K(on) != ""` and
-   `K(on).startswith(K(off))`. In the budget-override case (§1.8), the suffix
-   copy must equal `K(off)` exactly.
-3. **Closed set of additions.** `L(on) - L(off)` contains only P1, the
-   separator and `Assignment rules:`. `K(on)` may be longer than `K(off)`; the
-   extra lines are project state that today's `_fit` pruned for that node.
+   project state (§1.7).
+   - No override (`node.get("context_budget", default) ==
+     SHARED_CONTEXT_BUDGET[family]`): `K_suffix(on) == ""`, and if
+     `K(off) != ""` then `K_prefix(on) != ""` and
+     `K_prefix(on).startswith(K(off))`.
+   - Budget override (§1.8): `K_suffix(on) == K(off)` exactly. `K_prefix(on)`
+     is the family packet, equal to `_shared_packet(run_id, project,
+     SHARED_CONTEXT_BUDGET[family])[0]`, and is not compared with `K(off)`
+     because the budgets differ.
+3. **Closed set of additions.** `L(on) - L(off)` (multiset difference) contains
+   only P1, the separator, `Assignment rules:`, and at most one
+   `Project context:` line. That extra heading is the P3 heading when `off` has
+   no packet (today's `_fit` emptied it for that node), or the P3 heading next
+   to the S8 copy in the budget-override case. So `on` holds at most two
+   `Project context:` lines, one on each side of `SHARED_PREFIX_END`.
+   `K_prefix(on)` may be longer than `K(off)`; the extra lines are project state
+   that today's `_fit` pruned for that node.
 4. **Sections.** The set of section names with tokens > 0 in
    `context_anatomy.sections(off)` is a subset of the set for
    `context_anatomy.sections(on)`. This covers `header`, `goal`, `assignment`,
@@ -215,9 +248,12 @@ match-rich one (the run goal repeated plus skill and path names, more than 2000
 characters), so `_fit` sees different packet sizes. The test asserts:
 
 - `shared_prefix(run, family)` is byte-identical for every node of the family;
-- for every node, `K(on) == _shared_packet(project, budget)[0]` and
-  `K(on).startswith(K(off))`, where `K(off)` is today's per-node
+- for every node, `K_prefix(on) == _shared_packet(run_id, project, budget)[0]`
+  and `K_prefix(on).startswith(K(off))`, where `K(off)` is today's per-node
   `_context_packet(project, node['goal'], budget)[0]`;
+- a second run with a different `run_id`, built after the state is changed in
+  the same process, gets the new state in its `K_prefix` (the cache is
+  run-scoped, §1.7);
 - the full checks 1 to 5 above.
 
 If `K(off)` is already equal for both goals on the current registry state, the
@@ -228,7 +264,7 @@ with 8 long constraints and 8 validation commands (patched `load_state`) to forc
 ## 4. Byte-stability rule
 
 The prefix is a pure function of `(run['run_id'], run['goal'],
-_shared_packet(run['project'], budget), family, run['operator_messages'])` and
+_shared_packet(run['run_id'], run['project'], budget), family, run['operator_messages'])` and
 module constants. No node goal reaches it, not even through context selection. It must not
 contain:
 
