@@ -1,0 +1,29 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0018",
+  "type": "EVR",
+  "title": "Context-economy baseline over real orchestrator runs (IMP-0018 Phase 0) - blocked",
+  "status": "accepted",
+  "outcome": "blocked",
+  "summary": "The baseline measurement was not produced. The worker could not execute `python -m agent_os orchestrate context-economy --home <H> --out docs/orchestrator-os/self-audit/context-economy-baseline.json`: the sandbox denied the Bash call with the exact error 'Permission for this tool use was denied. It requires approval, and this session has no approval surface'. No numbers are recorded here and none were invented; context-economy-baseline.json was not written. Re-run the command from a host session and replace the null metrics.",
+  "task_family": "context_economy",
+  "metrics": {
+    "runs_counted": null,
+    "exact_call_coverage": null,
+    "amplification_by_role": null,
+    "growth_ratio": null,
+    "fanout_duplicated_overhead": null,
+    "resume_overhead_share": null,
+    "blocked_error": "Permission for this tool use was denied. It requires approval, and this session has no approval surface",
+    "model_calls": 0,
+    "spend_usd": 0
+  },
+  "links": [
+    {"rel": "measures", "ref": "src/agent_os/orchestrator/context_economy.py"},
+    {"rel": "relates_to", "ref": "IMP-0018"},
+    {"rel": "relates_to", "ref": "EVR-0013"}
+  ],
+  "provenance": {"source": "agent-os orchestrate context-economy (not run; blocked)", "session": "run-20261002T050208Z-aa864e economy-baseline-evidence"},
+  "created_at": "2026-10-02T05:30:00+00:00",
+  "updated_at": "2026-10-02T05:30:00+00:00"
+}
