@@ -39,7 +39,13 @@ class FakeClient:
     def response(self, name):
         return name, ([b"77"] if name == "UIDVALIDITY" else [None])
 
+    def _simple_command(self, name, *args):
+        self.commands.append(" ".join([name, *map(str, args)]))
+        return "OK", [b"[COPYUID 77 5,6 105,106] done"]
+
     def uid(self, command, *args):
+        if command == "MOVE":  # stdlib imaplib rejects UID MOVE
+            raise RuntimeError("Unknown IMAP4 UID command: MOVE")
         self.commands.append(" ".join(["UID", command, *map(str, args)]))
         if command in ("MOVE", "COPY"):
             return "OK", [b"[COPYUID 77 5,6 105,106] done"]

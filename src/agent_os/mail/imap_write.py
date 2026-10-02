@@ -80,6 +80,13 @@ class ImapMover:
                 mapping.update(zip(_expand(match.group(2)), _expand(match.group(3))))
         return mapping
 
+    def _uid_command(self, command: str, *args: str) -> Any:
+        """stdlib imaplib.uid() rejects UID MOVE, so send it as a raw command."""
+        if command == "MOVE" and hasattr(self.client, "_simple_command"):
+            typ, data = self.client._simple_command("UID", "MOVE", *args)
+            return typ, data
+        return self.client.uid(command, *args)
+
     def _clear_untagged(self) -> None:
         untagged = getattr(self.client, "untagged_responses", None)
         if isinstance(untagged, dict):
@@ -144,7 +151,7 @@ class ImapMover:
             return {}
         command = "MOVE" if "MOVE" in self._capability_set() else "COPY"
         self._clear_untagged()
-        data = self._check(self.client.uid(command, self._uid_set(uids), _quote(target)), command)
+        data = self._check(self._uid_command(command, self._uid_set(uids), _quote(target)), command)
         mapping = self._copyuid(data)
         return {str(u): mapping.get(str(u)) for u in uids}
 
