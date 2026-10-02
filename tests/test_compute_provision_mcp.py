@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import sys
-import time
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -30,14 +29,10 @@ class ComputeProvisionMcpTests(SurfaceFixture):
 
     def setUp(self) -> None:
         super().setUp()
-        from agent_os.orchestrator import budget, service
+        from agent_os.orchestrator import budget
 
         budget.set_budget(100.0, 50.0, set_by="test", home=self.engine.store.home.parent)
-
-        # Initialize the FakeProvider in service._FAKE_PROVIDERS for the test home
-        service._FAKE_PROVIDERS.clear()
-        self.fake_provider = FakeProvider(hourly_usd=1.5, clock=time.time)
-        service._FAKE_PROVIDERS[self.engine.store.home] = self.fake_provider
+        self.fake_state = self.engine.store.home / "compute-providers" / "fake.json"
 
     def call(self, name: str, arguments: dict) -> dict:
         response = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": name, "arguments": arguments}}, methods())
@@ -97,6 +92,35 @@ class ComputeProvisionMcpTests(SurfaceFixture):
         self.assertIsNotNone(reconciled["reconcile"])
         self.assertIn("actual_usd", reconciled["reconcile"])
         self.assertIn("variance_usd", reconciled["reconcile"])
+
+        # Reconcile released the reservation; the job is terminal and destroy terminated the instance
+        from agent_os.orchestrator import budget, service
+        _, budget_home = service._compute_homes()
+        self.assertEqual(budget.open_reservation(job_id, budget_home), 0)
+        self.assertEqual(self.call("compute.status", {"job_id": job_id})["state"], "reconciled")
+        instance = FakeProvider(state_path=self.fake_state).instances[provision["instance_id"]]
+        self.assertEqual(instance["state"], "terminated")
+
+    def test_status_cost_uses_each_jobs_own_rate(self) -> None:
+        estimate = {"low": 0.5, "expected": 1.0, "high": 2.0}
+        now = [1_000_000.0]
+        clock = mock.Mock()
+        clock.time = lambda: now[0]
+        with mock.patch.object(provision, "time", clock):
+            first = self.call("compute.provision", {"provider": "fake", "gpu": "a100", "hourly_usd": 1.0, "estimate": estimate, "job_id": "rate-one"})
+            self.call("compute.provision", {"provider": "fake", "gpu": "a100", "hourly_usd": 3.0, "estimate": estimate, "job_id": "rate-three"})
+            now[0] += 360.0  # 0.1 hour
+            status = self.call("compute.status", {"job_id": first["job_id"]})
+        self.assertEqual(status["state"], "running")
+        self.assertAlmostEqual(status["runtime_seconds"], 360.0)
+        self.assertAlmostEqual(status["cost_usd"], 0.1)
+
+    def test_fake_provider_state_persists_at_home(self) -> None:
+        estimate = {"low": 0.5, "expected": 1.0, "high": 2.0}
+        provisioned = self.call("compute.provision", {"provider": "fake", "gpu": "a100", "hourly_usd": 1.0, "estimate": estimate, "job_id": "persist-job"})
+        self.assertTrue(self.fake_state.exists(), self.fake_state)
+        fresh = FakeProvider(state_path=self.fake_state)  # as a new process would see it
+        self.assertEqual(fresh.lookup("persist-job"), provisioned["instance_id"])
 
     def test_non_fake_provider_is_blocked(self) -> None:
         estimate = {"low": 0.5, "expected": 1.0, "high": 2.0}
