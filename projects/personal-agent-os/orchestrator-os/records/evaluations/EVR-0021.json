@@ -36,9 +36,9 @@
     },
     "delta": {
       "total_input_tokens": 5,
-      "total_uncached_reduction": -3928,
+      "total_uncached_reduction": 3928,
       "total_uncached_reduction_ratio": 0.2227,
-      "worker_uncached_reduction": -3928,
+      "worker_uncached_reduction": 3928,
       "worker_uncached_reduction_ratio": 0.3723,
       "cache_read_share_improvement": 0.0406,
       "worker_cache_read_share_improvement": 0.0439
