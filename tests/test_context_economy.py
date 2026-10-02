@@ -259,6 +259,27 @@ class ContextEconomyTests(unittest.TestCase):
         self.assertEqual(written["schema"], context_economy.SCHEMA)
         self.assertEqual(written["coverage"]["eligible_calls"], 3)
 
+    def test_odd_but_valid_json_events_do_not_abort(self):
+        run = Run(self.runs, RUN_A).call("n", "implementer", 100, 10)
+        run.write()
+        odd = [json.dumps(x) for x in ([1, 2], "text", None)]
+        odd.append(json.dumps({"schema": TELEMETRY_SCHEMA, "type": "model_completed", "seq": "7", "node": "m", "data": "oops"}))
+        odd.append(json.dumps({"schema": TELEMETRY_SCHEMA, "type": "run_started", "seq": None, "data": [1]}))
+        with open(run.dir / "telemetry.jsonl", "a", encoding="utf-8") as handle:
+            handle.write("\n".join(odd) + "\n")
+        result = context_economy.build([run.dir])
+        self.assertEqual(result["coverage"]["malformed_lines"], 5)
+        self.assertEqual(result["coverage"]["eligible_calls"], 1)
+        self.assertEqual(result["coverage"]["calls"], 1)
+
+    def test_node_and_worker_names_matching_report_keys_do_not_raise(self):
+        run = Run(self.runs, RUN_A).call("totals", "implementer", 100, 10).call("by_run", "implementer", 50, 10)
+        run.write()
+        (run.dir / "workers" / "coverage-1").mkdir(parents=True)
+        result = context_economy.build([run.dir])
+        self.assertTrue(result["privacy"]["passed"])
+        self.assertNotIn("planted", json.dumps(result))
+
     def test_empty_home(self):
         result = context_economy.report(self.home / "missing")
         self.assertEqual(result["runs"], [])

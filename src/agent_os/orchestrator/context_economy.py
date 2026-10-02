@@ -123,12 +123,16 @@ def _classify(usage: dict[str, Any]) -> tuple[str, int | None]:
 
 def _read_run(run_dir: Path, labels: _Labels, cov: dict[str, Any], forbidden: set[str]) -> dict[str, Any]:
     events, bad = read_events(run_dir / "telemetry.jsonl")
-    cov["malformed_lines"] += bad
-    cov["events"] += len(events)
+    dicts = [e for e in events if isinstance(e, dict)]
+    cov["malformed_lines"] += bad + len(events) - len(dicts)
+    cov["events"] += len(dicts)
+    events = dicts
     run: dict[str, Any] = {"calls": [], "checkpoints": [], "resumes": [], "pauses": 0, "started": False,
                            "retries": 0, "escalations": 0, "fallbacks": 0, "workers": []}
     for event in events:
-        kind, data, seq = event.get("type"), event.get("data") or {}, int(event.get("seq") or 0)
+        data = event.get("data")
+        data = data if isinstance(data, dict) else {}
+        kind, seq = event.get("type"), _int(event.get("seq")) or 0
         node = event.get("node")
         node = str(node) if node else None
         if node:
@@ -451,7 +455,7 @@ def _scan(report: dict[str, Any], forbidden: Iterable[str]) -> int:
                 if not isinstance(key, str):
                     raise ValueError(f"non-string key at {here}")
                 count += 1
-                if _violates(key) or key in banned:
+                if _violates(key):
                     raise ValueError(f"privacy rule violated by key at {here}")
                 walk(value, f"{path}.{key}")
         elif isinstance(item, (list, tuple)):
