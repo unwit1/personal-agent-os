@@ -1,3 +1,5 @@
+import copy
+import math
 import sys
 import tempfile
 import unittest
@@ -394,13 +396,16 @@ class FreeMetricsTests(unittest.TestCase):
         self.assertEqual(result["schema_version"], "agent-os/free-metrics/v1")
 
     def test_cost_basis_included(self):
-        """Cost basis mentions the paid route when prices are provided."""
+        """Cost basis uses exact wording about the paid route (R3-R2-1)."""
         prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
         events = [make_event(accepted=True, escalated=False, tokens={"input": 100000, "output": 50000},
                             paid_route={"model": "gpt-4", "provider": None, "subscription": False})]
         result = free_metrics.report(events, prices=prices)
         self.assertIsNotNone(result["estimated_paid_cost_basis"])
-        self.assertIn("paid route that would have run", result["estimated_paid_cost_basis"])
+        self.assertEqual(
+            result["estimated_paid_cost_basis"],
+            "per accepted free result: tokens x price of the paid route that would otherwise have run"
+        )
 
     def test_events_not_mutated(self):
         """Original event dicts should not be mutated by report()."""
@@ -434,18 +439,15 @@ class FreeMetricsTests(unittest.TestCase):
             "accepted": True
         }  # No event_id at all
 
-        result = free_metrics.report([attempt, verdict_unknown, verdict_no_id])
+        prices = {"gpt-4-turbo": {"input": 0.01, "output": 0.03}}
+        result = free_metrics.report([attempt, verdict_unknown, verdict_no_id], prices=prices)
 
-        # Verify errors contain entries for both unknown verdicts
-        error_text = " ".join(str(e) for e in result["errors"])
-        self.assertTrue(
-            any("FQE-unknown-999" in str(e) for e in result["errors"]),
-            f"Expected error for FQE-unknown-999, got {result['errors']}"
-        )
-        self.assertTrue(
-            any("no event_id" in str(e) for e in result["errors"]),
-            f"Expected error for verdict with no event_id, got {result['errors']}"
-        )
+        # Verify exact errors for both unknown verdicts
+        expected_errors = [
+            "verdict for unknown event_id FQE-unknown-999",
+            "verdict for unknown event_id: no event_id provided"
+        ]
+        self.assertEqual(result["errors"], expected_errors)
 
     # R5-2 tests: Price from paid_route, including subscription = 0
     def test_r5_2_subscription_costs_zero(self):
@@ -622,9 +624,8 @@ class FreeMetricsTests(unittest.TestCase):
             "good-model": {"input": 0.01, "output": 0.03},
             "bad-model": "not-a-dict",
         }
-        # Make a copy to compare with later
-        prices_copy = dict(original_prices)
-        prices_copy["bad-model"] = original_prices["bad-model"]
+        # Make a deep copy to verify no mutation
+        expected_prices = copy.deepcopy(original_prices)
 
         events = [
             make_event(
@@ -638,9 +639,7 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=original_prices)
 
         # Verify original prices dict is unchanged
-        self.assertEqual(len(original_prices), 2)
-        self.assertIn("bad-model", original_prices)
-        self.assertEqual(original_prices["bad-model"], "not-a-dict")
+        self.assertEqual(original_prices, expected_prices)
 
     # R1-2 test: Falsy non-dict prices rejected
     def test_r1_2_falsy_non_dict_prices_rejected(self):
@@ -725,6 +724,72 @@ class FreeMetricsTests(unittest.TestCase):
             any("missing tokens" in str(e).lower() for e in result["errors"]),
             f"Expected missing tokens error for string tokens, got {result['errors']}"
         )
+
+    def test_r3_4_nan_tokens_rejected(self):
+        """NaN tokens are rejected as invalid (R3-4)."""
+        prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": float('nan'), "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+                event_id="FQE-nan-001"
+            ),
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": 100000, "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+                event_id="FQE-valid-001"
+            ),
+        ]
+        result = free_metrics.report(events, prices=prices)
+
+        # Valid event is priced, NaN event is not
+        # Expected cost: (100000 * 0.01 + 50000 * 0.03) / 1e6 = 0.0025
+        self.assertEqual(result["estimated_paid_cost_avoided_usd"], 0.0025)
+        self.assertEqual(result["estimated_paid_cost_coverage"]["priced"], 1)
+        self.assertEqual(result["estimated_paid_cost_coverage"]["accepted"], 2)
+        self.assertTrue(
+            any("missing tokens" in str(e).lower() for e in result["errors"]),
+            f"Expected missing tokens error for NaN, got {result['errors']}"
+        )
+
+    def test_r3_4_inf_tokens_rejected(self):
+        """Inf tokens are rejected as invalid (R3-4)."""
+        prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": float('inf'), "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+            ),
+        ]
+        result = free_metrics.report(events, prices=prices)
+
+        self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        self.assertTrue(
+            any("missing tokens" in str(e).lower() for e in result["errors"]),
+            f"Expected missing tokens error for inf, got {result['errors']}"
+        )
+
+    def test_r3_4_nan_price_rejected(self):
+        """NaN in prices is rejected as invalid (R3-4)."""
+        prices = {"gpt-4": {"input": float('nan'), "output": 0.03}}
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": 100000, "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+            ),
+        ]
+        result = free_metrics.report(events, prices=prices)
+
+        self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        self.assertTrue(
+            any("gpt-4" in str(e) and "non-finite" in str(e) for e in result["errors"]),
+            f"Expected non-finite price error for gpt-4, got {result['errors']}"
+        )
+
 
 
 if __name__ == "__main__":

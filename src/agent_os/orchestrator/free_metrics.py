@@ -6,6 +6,7 @@ instead of paid alternatives.
 """
 from __future__ import annotations
 
+import math
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -42,7 +43,7 @@ def report(
         estimated_paid_cost_avoided_usd, estimated_paid_cost_basis,
         estimated_paid_cost_coverage, by_task_family, by_model, errors.
 
-        estimated_paid_cost_basis: "per accepted free result: tokens x price of the paid route that would have run"
+        estimated_paid_cost_basis: "per accepted free result: tokens x price of the paid route that would otherwise have run"
         estimated_paid_cost_coverage: {"priced": int, "accepted": int} count of events that were priced vs total accepted
     """
 
@@ -54,8 +55,7 @@ def report(
     # Collect errors early
     errors = []
 
-    # Build verdict map and track unknown event_ids (R5-1)
-    verdict_map: dict[str, dict[str, Any]] = {}
+    # Build attempt map and apply verdicts, track unknown event_ids (R5-1)
     attempt_map = {e.get("event_id"): e for e in attempts if e.get("event_id")}
 
     for verdict in verdicts:
@@ -65,11 +65,7 @@ def report(
         elif event_id not in attempt_map:
             errors.append(f"verdict for unknown event_id {event_id}")
         else:
-            verdict_map[event_id] = verdict
-
-    # Apply verdicts to copies of attempts
-    for event_id, verdict in verdict_map.items():
-        if event_id in attempt_map:
+            # Apply verdict to the attempt
             for key in ["validator_passed", "accepted", "escalated"]:
                 if key in verdict:
                     attempt_map[event_id][key] = verdict[key]
@@ -91,7 +87,7 @@ def report(
                 errors.append(f"invalid prices for model {model}: expected dict with input/output fields")
                 continue
 
-            # Validate input and output fields
+            # Validate input and output fields (R3-4: check for non-finite)
             valid_entry = {}
             is_valid_entry = True
             for key in ["input", "output"]:
@@ -99,6 +95,10 @@ def report(
                 if val is not None:
                     if isinstance(val, bool) or not isinstance(val, (int, float)):
                         errors.append(f"invalid price for {model}/{key}: expected number, got {type(val).__name__}")
+                        is_valid_entry = False
+                        break
+                    elif not math.isfinite(val):
+                        errors.append(f"invalid price for {model}/{key}: non-finite value")
                         is_valid_entry = False
                         break
                     elif val < 0:
@@ -178,11 +178,11 @@ def report(
 
     # Estimate paid cost avoided using per-event paid_route (R5-2, R5-3)
     estimated_paid_cost_avoided_usd = None
-    cost_basis = "per accepted free result: tokens x price of the paid route that would have run"
+    cost_basis = "per accepted free result: tokens x price of the paid route that would otherwise have run"
     estimated_paid_cost_coverage = None
 
     if useful_accepted:
-        # Only skip pricing if prices is None or invalid (R1-3)
+        # Note when prices are missing at the start
         if prices is None:
             errors.append("no prices supplied")
 
@@ -235,16 +235,27 @@ def report(
             input_tokens = tokens.get("input", 0)
             output_tokens = tokens.get("output", 0)
 
-            # Validate token types and values (R1-4)
-            try:
-                # Reject bool (bool is a subclass of int in Python)
-                if isinstance(input_tokens, bool) or isinstance(output_tokens, bool):
-                    raise TypeError("tokens must not be bool")
-                input_tokens = float(input_tokens)
-                output_tokens = float(output_tokens)
-                if input_tokens < 0 or output_tokens < 0:
-                    raise ValueError("tokens must be non-negative")
-            except (ValueError, TypeError):
+            # Validate token types and values (R1-4, R3-4)
+            # Reject bool (bool is a subclass of int in Python)
+            if isinstance(input_tokens, bool) or isinstance(output_tokens, bool):
+                if not suppress_unpriced_errors:
+                    unpriced_reasons["missing tokens"] += 1
+                continue
+
+            # Require int or float (not string, list, etc.)
+            if not isinstance(input_tokens, (int, float)) or not isinstance(output_tokens, (int, float)):
+                if not suppress_unpriced_errors:
+                    unpriced_reasons["missing tokens"] += 1
+                continue
+
+            # Check for non-finite values (NaN, inf) (R3-4)
+            if not math.isfinite(input_tokens) or not math.isfinite(output_tokens):
+                if not suppress_unpriced_errors:
+                    unpriced_reasons["missing tokens"] += 1
+                continue
+
+            # Check for negative values
+            if input_tokens < 0 or output_tokens < 0:
                 if not suppress_unpriced_errors:
                     unpriced_reasons["missing tokens"] += 1
                 continue
