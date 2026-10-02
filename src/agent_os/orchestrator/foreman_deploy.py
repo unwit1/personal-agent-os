@@ -48,6 +48,12 @@ evaluation path; this module is the operator's explicit opt-in to give a model
 planner authority for runs in this session. Its plans are still data --
 planner.expand validates the DAG, scopes and commands exactly as for any
 planner.
+
+Role coverage: a rented GPU pod and an interactive coding agent share one vLLM
+server concurrently. The rented provider covers planner, inline, implementer,
+test_author, and reviewer roles; the agent entry covers implementer, test_author,
+repairer, and reviewer, with tier_concurrency limiting heavy tiers to 1 request
+so both workflows are live at once.
 """
 
 from __future__ import annotations
@@ -66,7 +72,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
-from . import budget
+from . import adaptive_concurrency, budget, gpu_keep_busy, prefix_stability, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
 
 RUNPOD_REST = "https://rest.runpod.io/v1"
 HF_API = "https://huggingface.co/api/models"
@@ -93,6 +99,13 @@ TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qw
                 # (<tool_call><function=...><parameter=...>), the Qwen3-Coder format.
                 "qwen3_5": "qwen3_coder", "qwen3_5_moe": "qwen3_coder"}
 AGENT_SUFFIX = "-agent"
+# Roles of the main provider entry; deployment-specific roles from ROLES_BY_CLASS override this fallback, and keep-busy follows them.
+ENDPOINT_ROLES = ("planner", "inline")
+ROLES_BY_CLASS = {
+    "gpu_pod": ["planner", "inline", "implementer", "test_author", "reviewer"],
+    "local": ["planner", "inline"],
+    "api": ["planner", "inline"],
+}
 GPU_KEY_ENV = "AGENT_OS_GPU_KEY"
 CRASH_LOG = "agent-os-crash.log"
 # Runs vLLM; if it exits, serves the redacted tail of its log on the same port
@@ -275,13 +288,17 @@ def attempt_groups(candidates: list[dict[str, Any]], limit: int = 6, price_facto
     return ordered[:limit]
 
 
-def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, Any]], endpoint_key: str, hf_token: str | None, name: str) -> dict[str, Any]:
+def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, Any]], endpoint_key: str, hf_token: str | None, name: str, *,
+                vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None) -> dict[str, Any]:
     """RunPod ``POST /v1/pods`` body: vLLM's OpenAI server, pinned revision.
-    ``choice`` may be a group of same-count, same-tier offers (attempt_groups)."""
+    ``choice`` may be a group of same-count, same-tier offers (attempt_groups).
+    ``vllm_overrides`` tunes throughput flags; ``weight_volume`` attaches a RunPod
+    network volume that caches model weights."""
     group = choice if isinstance(choice, list) else [choice]
     choice = group[0]
+    overrides = dict(vllm_overrides or {})
     args = ["--model", model["repo"], "--served-model-name", model["repo"], "--host", "0.0.0.0", "--port", str(PORT),
-            "--max-model-len", str(context_for(model)), "--gpu-memory-utilization", "0.90",
+            "--max-model-len", str(context_for(model)), "--gpu-memory-utilization", str(overrides.get("gpu_memory_utilization") or "0.90"),
             "--tensor-parallel-size", str(choice["gpu_count"])]
     if model.get("sha"):
         args += ["--revision", model["sha"]]
@@ -290,9 +307,23 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
     rope = rope_override(model)
     if rope:
         args += ["--hf-overrides", json.dumps(rope, separators=(",", ":"))]
+    tuning = {key: value for key, value in overrides.items() if key != "gpu_memory_utilization"}
+    util = overrides.get("gpu_memory_utilization")
+    if util and "max_num_seqs" not in tuning:  # size the KV budget at the utilization actually launched
+        kv_dtype = tuning["kv_cache_dtype"] if "kv_cache_dtype" in tuning else ("fp8" if vllm_tuning.fp8_kv_supported(choice.get("gpu_id", "")) else None)
+        tuning["max_num_seqs"] = vllm_tuning.max_num_seqs(
+            model, choice.get("gpu_count", 1), choice.get("vram_gb") or 0, gpu_memory_utilization=float(util),
+            kv_dtype_bytes=1 if (kv_dtype and str(kv_dtype).startswith("fp8")) else 2, context=context_for(model))
+    args += vllm_tuning.throughput_args(model, {**choice, "vram_gb": choice.get("vram_gb") or 0}, tuning, context=context_for(model))
     env = {"VLLM_API_KEY": endpoint_key}  # env, not argv: vLLM logs its arguments
     if hf_token and (model.get("gated") or model.get("private")):
         env["HF_TOKEN"] = hf_token  # only sent when the repo needs it
+    volume_body: dict[str, Any] = {}
+    if weight_volume:
+        fields = weight_cache.volume_fields(weight_volume)
+        volume_body = dict(fields["body"])
+        for key, value in fields["env"].items():
+            env.setdefault(key, value)  # never overwrite VLLM_API_KEY / HF_TOKEN
     return {
         "name": name[:191],
         "imageName": IMAGE,
@@ -306,6 +337,7 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
         "env": env,
         "dockerEntrypoint": ["bash", "-c", WRAPPER, "agent-os-vllm"],
         "dockerStartCmd": args,
+        **volume_body,
     }
 
 
@@ -404,24 +436,12 @@ class RunPod:
         return True
 
 
-METRICS = {"vllm:num_requests_running": "running", "vllm:num_requests_waiting": "waiting", "vllm:prompt_tokens_total": "prompt_tokens",
-           "vllm:generation_tokens_total": "generation_tokens", "vllm:request_success_total": "requests"}
+METRICS = vllm_metrics_parser.METRICS  # compatibility alias
 
 
 def parse_metrics(text: str) -> dict[str, float]:
-    """Sum the vLLM Prometheus series we use (labels ignored)."""
-    out: dict[str, float] = {}
-    for line in (text or "").splitlines():
-        if not line or line.startswith("#"):
-            continue
-        name = line.split("{", 1)[0].split(" ", 1)[0]
-        key = METRICS.get(name)
-        if key:
-            try:
-                out[key] = out.get(key, 0.0) + float(line.rsplit(" ", 1)[1])
-            except (IndexError, ValueError):
-                continue
-    return out
+    """Sum the vLLM Prometheus series we use (labels ignored); see vllm_metrics.parse."""
+    return vllm_metrics_parser.parse(text)
 
 
 def vllm_metrics(base_url: str, opener=None) -> dict[str, float] | None:
@@ -442,6 +462,9 @@ def utilization_view(state: dict[str, Any]) -> dict[str, Any] | None:
     busy = usage.get("busy_ticks", 0) / ticks
     generated = usage.get("generation_tokens", 0.0)
     requests = usage.get("requests", 0.0)
+    seconds = ticks * TICK_SECONDS
+    queries = float(usage.get("prefix_queries") or 0)
+    paid = gpu_keep_busy.PaidIdle.from_dict(usage.get("paid_idle"))
     return {
         "busy_pct": round(100 * busy, 1),
         "requests": int(requests),
@@ -451,6 +474,44 @@ def utilization_view(state: dict[str, Any]) -> dict[str, Any] | None:
         "usd_per_mtok_generated": round(spent / generated * 1e6, 2) if generated else None,
         "idle_usd": round(spent * (1 - busy), 4),
         "sampled_minutes": round(ticks * TICK_SECONDS / 60, 1),
+        "tokens_per_s": round(generated / seconds, 2) if generated and seconds else None,
+        "kv_usage_pct": round(100 * float(usage["kv_usage"]), 1) if usage.get("kv_usage") is not None else None,
+        "prefix_cache_hit_pct": round(100 * float(usage.get("prefix_hits") or 0) / queries, 1) if queries else None,
+        "concurrency_limit": (state.get("concurrency") or {}).get("limit"),
+        "paid_idle_pct": round(100 * paid.share(), 1) if paid.paid_seconds else None,
+        "idle_target_pct": round(100 * gpu_keep_busy.DEFAULT_IDLE_TARGET, 1),
+        "meets_idle_target": paid.meets_target(gpu_keep_busy.DEFAULT_IDLE_TARGET) if paid.paid_seconds else None,
+        "usd_per_useful_request": round(spent / requests, 4) if requests else None,
+    }
+
+
+def utilization_preview(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, Any]], *, hourly_usd: float, starts_per_month: int = 20,
+                        vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None) -> dict[str, Any]:
+    """Deploy-time plan of how the rented GPU will be used; no spend, no network."""
+    choice = choice[0] if isinstance(choice, list) else choice
+    flags = pod_request(model, choice, "k", None, "preview", vllm_overrides=vllm_overrides)["dockerStartCmd"]
+
+    def flag(name: str) -> str | None:
+        return flags[flags.index(name) + 1] if name in flags else None
+
+    policy = adaptive_concurrency.ConcurrencyPolicy()
+    cache = weight_cache.cost_check(float(model.get("weight_gb") or 0), float(hourly_usd), starts_per_month)
+    enabled = bool(weight_volume)
+    if cache["recommended"] and not enabled:
+        cache["recommendation"] = (f"attach a {cache['volume_gb']} GB network volume: saves about ${cache['saves_usd_month']:.2f}/month "
+                                   f"({cache['download_minutes_per_start']:.1f} min download per start)")
+    cache["enabled"] = enabled
+    return {
+        "planned_max_num_seqs": int(flag("--max-num-seqs")) if flag("--max-num-seqs") else None,
+        "kv_cache_dtype": flag("--kv-cache-dtype"),
+        "prefix_caching": "--enable-prefix-caching" in flags,
+        "chunked_prefill": "--enable-chunked-prefill" in flags,
+        "roles": sorted(registered_roles({"model": model, "provider_id": "preview", "base_url": "", "kind": "huggingface"})),
+        "initial_concurrency": policy.start,
+        "concurrency_bounds": {"minimum": policy.minimum, "maximum": policy.maximum},
+        "idle_target_pct": round(100 * gpu_keep_busy.DEFAULT_IDLE_TARGET, 1),
+        "prefix_stable": None,  # unknown at deploy time: the run-level prefix is fingerprinted when a run attaches
+        "weight_cache": cache,
     }
 
 
@@ -656,7 +717,7 @@ class ForemanManager:
 
     def __init__(self, *, base: Path | None = None, budget_home: Path | None = None, opener=None, resolve=None,
                  store_secret=None, register=None, unregister=None, run_loader=None, clock: Callable[[], float] = time.time,
-                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None) -> None:
+                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None, retune=None, backfill_loader=None) -> None:
         from . import secret_refs
 
         self.registry = registry
@@ -667,7 +728,9 @@ class ForemanManager:
         self.store_secret = store_secret or secret_refs.store
         self.register = register or _register_provider
         self.unregister = unregister or _unregister_provider
+        self.retune = retune or _retune_provider
         self.run_loader = run_loader or _load_run
+        self.backfill_loader = backfill_loader or (lambda: [])
         self.clock = clock
         self.sleep = sleep
         self.inventory = inventory
@@ -730,6 +793,8 @@ class ForemanManager:
         offers = self._offers()
         chosen = choose_gpu(offers, need, cap_usd, heads=model.get("attention_heads"))
         result = {"model": model, "vram_needed_gb": need, "context": context_for(model), **chosen}
+        if chosen.get("choice"):
+            result["utilization_plan"] = utilization_preview(model, chosen["choice"], hourly_usd=chosen["choice"]["hourly_usd"])
         try:  # rent-vs-API: the same family per token, when OpenRouter serves it
             alternatives = api_alternatives(model["repo"], openrouter_models(self.opener))[:3]
         except Exception:
@@ -820,7 +885,8 @@ class ForemanManager:
         return self.status()
 
     def deploy(self, link: str, *, job_cap_usd: float | None = None, idle_minutes: int = DEFAULT_IDLE_MINUTES,
-               background: bool = True, backups: list[str] | None = None, coding_agent: bool = False) -> dict[str, Any]:
+               background: bool = True, backups: list[str] | None = None, coding_agent: bool = False,
+               vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None) -> dict[str, Any]:
         """Start an autonomous deployment. Refuses when one is active, the budget
         is not approved, or the RunPod key is missing."""
         parse_hf_link(link)  # fail fast on a bad link, before anything is replaced
@@ -843,6 +909,7 @@ class ForemanManager:
             state = {"id": f"FMN-{uuid.uuid4().hex[:8]}", "kind": "huggingface", "status": "planning", "detail": "reading the model from Hugging Face",
                      "link": link, "cap_usd": round(cap, 4), "spent_usd": 0.0, "idle_minutes": int(idle_minutes), "runs": [],
                      "backups": self._backups("", backups), "coding_agent": bool(coding_agent),
+                     "vllm_overrides": dict(vllm_overrides) if vllm_overrides else None, "weight_volume": weight_volume or None,
                      "started_at": utc_now_iso(), "model": None}
             _save_state(state, self.base)
             self._stop.clear()
@@ -870,6 +937,12 @@ class ForemanManager:
             if run_id not in state["runs"]:
                 state["runs"].append(run_id)
             state["last_needed_epoch"] = self.clock()
+            try:  # fingerprint only: the prefix itself never goes into state
+                prefix = prefix_stability.run_prefix(self.run_loader(run_id))
+                if prefix:
+                    state["prefix_fingerprint"] = prefix_stability.prefix_fingerprint(prefix)
+            except Exception:
+                pass
             _save_state(state, self.base)
             return {"deployment_id": state["id"], "model": (state.get("model") or {}).get("repo"), "attached_at": utc_now_iso()}
 
@@ -977,7 +1050,8 @@ class ForemanManager:
         for group in attempt_groups([choice, *plan.get("alternatives", [])]):
             candidate = group[0]
             tried.append(f"{candidate['gpu_count']}x {'/'.join(item['name'] for item in group)} ({candidate['tier']})")
-            body = pod_request(model, group, endpoint_key, self.resolve(HF_SECRET), _pod_name(state))
+            body = pod_request(model, group, endpoint_key, self.resolve(HF_SECRET), _pod_name(state),
+                               vllm_overrides=state.get("vllm_overrides"), weight_volume=state.get("weight_volume"))
             try:
                 pod = client.create(body)
             except RuntimeError as exc:  # usually "no capacity" for that GPU type; try the next one
@@ -1038,7 +1112,33 @@ class ForemanManager:
             usage["busy_ticks"] = usage.get("busy_ticks", 0) + 1
         for key in ("prompt_tokens", "generation_tokens", "requests"):
             usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
-        return self._update(state, usage=usage)
+        for key in ("prefix_hits", "prefix_queries"):
+            usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
+        if "kv_usage" in metrics:
+            usage["kv_usage"] = metrics["kv_usage"]
+        usage["prev"] = dict(metrics)
+        # Paid idle seconds: has_work is the previous tick's keep-busy verdict (_idle runs after _sample).
+        paid_idle = gpu_keep_busy.PaidIdle.from_dict(usage.get("paid_idle"))
+        paid_idle.tick(metrics.get("running", 0) + metrics.get("waiting", 0) > 0, bool((state.get("keep_busy") or {}).get("count")), TICK_SECONDS)
+        usage["paid_idle"] = paid_idle.to_dict()
+        if not (state.get("registered") and state.get("provider_id")) or state.get("kind") == "local":
+            return self._update(state, usage=usage)
+        concurrency = dict(state.get("concurrency") or {"limit": 4, "memory": {}})
+        current = int(concurrency.get("limit") or 4)
+        limit, memory, decision = adaptive_concurrency.next_limit(current, metrics, concurrency.get("memory") or {})
+        concurrency["memory"] = memory
+        if limit != current:
+            entry = {**decision, "at": self.clock()}
+            try:
+                self.retune(state, limit)
+                concurrency["limit"] = limit
+            except Exception as error:  # a failed retune must never stop the watcher (spend metering, teardown)
+                entry.update(failed=True, error=str(error)[:200])
+            history = list(concurrency.get("history") or [])
+            history.append(entry)
+            concurrency["history"] = history[-50:]
+        concurrency.setdefault("limit", current)
+        return self._update(state, usage=usage, concurrency=concurrency)
 
     def _watch(self, state: dict[str, Any]) -> None:
         while not self._stop.is_set():
@@ -1082,9 +1182,42 @@ class ForemanManager:
             if record.get("state") not in ("COMPLETE", "FAILED") and (planner is None or planner.get("state") not in ("PASSED", "FAILED_FINAL", "CANCELLED")):
                 busy = True
         if busy:
-            self._update(state, last_needed_epoch=self.clock())
+            self._update(state, last_needed_epoch=self.clock(), keep_busy=None)
             return False
-        return self.clock() - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
+        work = self._useful_work(state)
+        now = self.clock()
+        if work["kind"]:
+            # The router sends this work to the still-registered, cheap provider; the foreman only declines to tear down.
+            # The idle timer restarts when work first appears and while the pod is serving; a queue the router never
+            # sends here gets one idle_minutes grace period and then ends in teardown. Spend stays bounded by _meter
+            # (job cap, deadline, project budget) and the reaper.
+            fresh = not state.get("keep_busy")
+            prev = (state.get("usage") or {}).get("prev") or {}
+            serving = prev.get("running", 0) + prev.get("waiting", 0) > 0
+            fields: dict[str, Any] = {"keep_busy": {"kind": work["kind"], "count": len(work["items"]), "reason": work["reason"]}}
+            if fresh or serving:
+                fields["last_needed_epoch"] = now
+            self._update(state, **fields)
+            if fresh or serving:
+                return False
+            return now - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
+        if state.get("keep_busy"):
+            self._update(state, keep_busy=None)
+        return now - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
+
+    def _useful_work(self, state: dict[str, Any]) -> dict[str, Any]:
+        """Queued work the router may send to this provider; any loader failure counts as no work."""
+        records = []
+        for run_id in state.get("runs") or []:
+            try:
+                records.append(self.run_loader(run_id))
+            except Exception:
+                continue
+        try:
+            backfill = list(self.backfill_loader() or [])
+            return gpu_keep_busy.useful_work(records, backfill, roles=registered_roles(state), home=self.budget_home)
+        except Exception:
+            return {"kind": None, "items": [], "reason": "useful-work lookup failed"}
 
     def _teardown(self, state: dict[str, Any], status: str, detail: str) -> None:
         with self._lock:
@@ -1158,15 +1291,17 @@ def _register_provider(state: dict[str, Any]) -> None:
     model = state["model"]
     kind = state.get("kind")
     local, api = kind == "local", kind == "openrouter"
+    deployment = "api" if api else None if local else "gpu_pod"
+    endpoint_roles = ROLES_BY_CLASS.get(deployment, list(ENDPOINT_ROLES))
     entry = endpoint_entry(state["provider_id"], base_url=state["base_url"], model=model["repo"], classes=["fast", "balanced", "reasoning", "frontier"],
-                           refusal_profile=model.get("refusal_hint") or "unknown", deployment="api" if api else None if local else "gpu_pod",
+                           refusal_profile=model.get("refusal_hint") or "unknown", deployment=deployment,
                            open_weights=None if (local or api) else True, license=model.get("license"), revision=model.get("sha"),
                            context_window=model.get("context") if api else None if local else context_for(model),
                            secret_ref=state.get("secret_ref") if (local or api) else ENDPOINT_SECRET,
-                           cost=0.05 if api else 0.25, max_concurrency=4 if not local else 2, roles=["planner", "inline"])
-    if api:
-        entry["options"]["request_timeout"] = 600
+                           cost=0.05 if api else 0.25, max_concurrency=2 if local else int((state.get("concurrency") or {}).get("limit") or 4), roles=endpoint_roles)
     entry["options"]["request_timeout"] = 900
+    if deployment == "gpu_pod":
+        entry["tier_concurrency"] = {"reasoning": 1, "frontier": 1}
     entry["session_foreman"] = state["id"]
     result = add_model_endpoint(entry, write=True, force=True)
     if result.get("error"):
@@ -1174,6 +1309,35 @@ def _register_provider(state: dict[str, Any]) -> None:
     agent = agent_entry(state)
     if agent:
         add_model_endpoint(agent, write=True, force=True)
+
+
+def _retune_provider(state: dict[str, Any], limit: int) -> None:
+    """Rewrite max_concurrency on the registered provider entry and its agent entry."""
+    from ..capabilities import load_providers
+    from .service import add_model_endpoint
+
+    ours = {state["provider_id"], state["provider_id"] + AGENT_SUFFIX}
+    written = 0
+    for entry in load_providers().get("providers") or []:
+        if isinstance(entry, dict) and entry.get("id") in ours:
+            result = add_model_endpoint({**entry, "max_concurrency": limit}, write=True, force=True)
+            if not isinstance(result, dict) or result.get("error") or result.get("written") is False:
+                raise RuntimeError(str((result or {}).get("error") if isinstance(result, dict) else result or "retune not written")[:200])
+            written += 1
+    if not written:
+        raise RuntimeError(f"no registered provider entry found for {state['provider_id']}")
+
+
+def registered_roles(state: dict[str, Any]) -> set[str]:
+    """Roles the registered provider entries cover: the same lists _register_provider writes."""
+    kind = state.get("kind")
+    local, api = kind == "local", kind == "openrouter"
+    deployment = "api" if api else "local" if local else "gpu_pod"
+    roles = set(ROLES_BY_CLASS.get(deployment, list(ENDPOINT_ROLES)))
+    agent = agent_entry(state) if state.get("model") else None
+    if agent:
+        roles.update(agent["roles"])
+    return roles
 
 
 def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:
@@ -1191,8 +1355,8 @@ def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:
         "enabled": True,
         "models": {"fast": model["repo"], "balanced": model["repo"]},
         "costs": {"fast": 0.1, "balanced": 0.3},
-        "roles": ["implementer", "test_author", "repairer"],
-        "max_concurrency": 4,
+        "roles": ["implementer", "test_author", "repairer", "reviewer"],
+        "max_concurrency": int((state.get("concurrency") or {}).get("limit") or 4),
         "options": {
             "use_user_config": False,
             "extra_config": {"model_provider": name, f"model_providers.{name}.name": "Agent OS GPU",
