@@ -416,5 +416,61 @@ class KeepBusyTests(Base):
                                 "idle_with_work_seconds": 2.0 * fd.TICK_SECONDS})
 
 
+class UtilizationViewTests(unittest.TestCase):
+    def seeded(self) -> dict:
+        return {"spent_usd": 1.0, "concurrency": {"limit": 6}, "usage": {
+            "ticks": 10, "busy_ticks": 8, "generation_tokens": 6000.0, "prompt_tokens": 100.0, "requests": 4.0,
+            "kv_usage": 0.42, "prefix_hits": 30, "prefix_queries": 40,
+            "paid_idle": {"paid_seconds": 100.0, "idle_seconds": 10.0, "idle_with_work_seconds": 0.0}}}
+
+    def test_new_keys_from_seeded_state(self) -> None:
+        view = fd.utilization_view(self.seeded())
+        self.assertEqual(view["busy_pct"], 80.0)  # existing keys kept
+        self.assertEqual(view["tokens_per_s"], round(6000 / (10 * fd.TICK_SECONDS), 2))
+        self.assertEqual(view["kv_usage_pct"], 42.0)
+        self.assertEqual(view["prefix_cache_hit_pct"], 75.0)
+        self.assertEqual(view["concurrency_limit"], 6)
+        self.assertEqual(view["paid_idle_pct"], 10.0)
+        self.assertEqual(view["idle_target_pct"], 15.0)
+        self.assertTrue(view["meets_idle_target"])
+        self.assertEqual(view["usd_per_useful_request"], 0.25)
+
+    def test_unknowns_are_none(self) -> None:
+        self.assertIsNone(fd.utilization_view({}))
+        view = fd.utilization_view({"usage": {"ticks": 1}})
+        for key in ("tokens_per_s", "kv_usage_pct", "prefix_cache_hit_pct", "concurrency_limit", "paid_idle_pct",
+                    "meets_idle_target", "usd_per_useful_request"):
+            self.assertIsNone(view[key], key)
+
+
+class UtilizationPreviewTests(unittest.TestCase):
+    def plan(self, weight_gb: float, **kw) -> dict:
+        model = {**fd.summarize_info(HF_INFO, HF_CONFIG), "weight_gb": weight_gb}
+        return fd.utilization_preview(model, H100, hourly_usd=2.5, **kw)
+
+    def test_big_model_recommends_weight_cache(self) -> None:
+        plan = self.plan(70, starts_per_month=100)
+        self.assertTrue(plan["weight_cache"]["recommended"])
+        self.assertIn("network volume", plan["weight_cache"]["recommendation"])
+        self.assertEqual(self.plan(70, starts_per_month=100, weight_volume="vol")["weight_cache"].get("recommendation"), None)
+
+    def test_small_model_does_not(self) -> None:
+        cache = self.plan(4)["weight_cache"]
+        self.assertFalse(cache["recommended"])
+        self.assertNotIn("recommendation", cache)
+
+    def test_plan_fields(self) -> None:
+        plan = self.plan(4)
+        self.assertTrue(plan["prefix_caching"] and plan["chunked_prefill"])
+        self.assertEqual(plan["kv_cache_dtype"], "fp8")
+        self.assertGreaterEqual(plan["planned_max_num_seqs"], 4)
+        self.assertIn("reviewer", plan["roles"])
+        self.assertEqual(plan["initial_concurrency"], 4)
+        self.assertEqual(plan["concurrency_bounds"], {"minimum": 2, "maximum": 32})
+        self.assertFalse(plan["prefix_stable"])
+        self.assertTrue(self.plan(4, shared_prefix=True)["prefix_stable"])
+        self.assertEqual(self.plan(4, vllm_overrides={"max_num_seqs": 7})["planned_max_num_seqs"], 7)
+
+
 if __name__ == "__main__":
     unittest.main()
