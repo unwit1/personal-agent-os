@@ -55,7 +55,7 @@ joined with `"\n"`, and a blank line ends each block:
 |---|---|---|---|
 | P1 | header | `` Agent OS orchestrated run `<run_id>`: shared instructions for every agent in this run. Your own role and assignment follow them. `` | always |
 | P2 | goal | `Overall goal: <run['goal']>` (the same line as today) | always |
-| P3 | project context | `Project context:` + packet text, compiled **once** from `run['goal']` (not `node['goal']`) with budget `SHARED_CONTEXT_BUDGET[family]` | `run['project']` set and packet non-empty |
+| P3 | project context | `Project context:` + packet text, built **once** per run from `load_state(project)` directly (no task, no `compile_context`, no `_fit`), cut to `SHARED_CONTEXT_BUDGET[family] * 4` characters (§1.7) | `run['project']` set and packet non-empty |
 | P4 | family rules | worker: `Rules:` + every line of `WORKER_RULES`; reviewer: every line of `REVIEWER_RULES`; planner: nothing | family is worker or reviewer |
 | P5 | operator messages | the current heading and the last 5 non-empty messages, `[:600]` each, in record order | any message exists |
 | P6 | separator | `SHARED_PREFIX_END` | always |
@@ -95,23 +95,61 @@ Decisions:
    the`). `shared_prefix(run, family)` takes no `repo_map`. The planner is 23 of
    666 calls (3.5%) in EVR-0018. The planner prefix is therefore P1, P2, P3, P5,
    P6, and it is still byte-identical across planner attempts.
-7. **Project context compiled once.** The packet text is task-independent:
-   `_context_packet` uses only `packet["summary"]` and `state.constraints` /
-   `state.validation_commands`, and `compile_context` reads those from
-   `load_state(project)`. Compiling from the run goal therefore gives the same
-   text that each node gets today. A module helper
-   `_shared_packet(project, goal, budget)` wrapped in
-   `functools.lru_cache(maxsize=16)` returns `(text, measurement)`. Both
-   `shared_prefix` and `build_measured(prefix=...)` call it, so there is one
-   `compile_context` per (project, goal, budget) per process.
+7. **Project context built once, from project state, not from a task.** Today's
+   per-node packet is **not** task-independent. `_context_packet` prints only
+   `packet["summary"]` and `state.constraints` / `state.validation_commands`, but
+   `compile_context` runs `_fit` over the whole JSON packet first. That packet
+   also holds the task text, `search_matches`, `matched_skills`,
+   `development_context` and `profile_context`, all selected from the task. A
+   long or match-rich node goal makes `_fit` prune `state` keys
+   (`validation_commands` first, then `constraints`), so two nodes of one run can
+   get different packet lines today. Compiling once from `run['goal']` would give
+   a third, different text, and that breaks line-for-line parity on real
+   projects. So the shared packet does not call `compile_context` or `_fit`.
+   A module helper `_shared_packet(project, budget)` (no task argument) wrapped
+   in `functools.lru_cache(maxsize=16)`:
+   - resolves `get_project(project)` and `load_state(project)`. Any exception
+     returns `("", None)`, as `_context_packet` does;
+   - emits the same lines as `_context_packet`, in the same order and format:
+     `Project summary: <state['summary']>`, then for `constraints` and
+     `validation_commands` the capitalised heading and `- <item>` for the first
+     8 values. The line-building loop moves into a shared private helper
+     `_packet_lines(summary, state)` that both paths call, so the format cannot
+     drift;
+   - cuts the joined text to `budget * 4` characters, as today;
+   - returns `(text, measurement)` with the same keys as `_context_packet`.
+     `selected_*` come from the text. `candidate_*` use the task-independent
+     naive formula that `compile_context` uses (`state['context_files']` that
+     exist plus `discover(project_path, state['skill_roots'])`), with no git,
+     search, profile or handoff reads.
+
+   **Why this is a superset of today.** `_fit` prunes whole state keys from the
+   end of the printed order (`validation_commands`, then `constraints`). It
+   clears `packet["summary"]` only after `state` is already empty, and then the
+   per-node text is `""`. So today's untruncated per-node text is always a
+   line prefix of the unpruned state text. With the same budget, both are cut at
+   `budget * 4`, so **today's per-node packet text is a string prefix of the
+   shared packet text** (`shared.startswith(off_packet)`). Every complete line
+   of today's packet appears verbatim in the shared packet. The last line,
+   when today's cut falls inside it, appears as the start of a shared line.
+   §3 tests this property instead of exact line equality.
+
+   Both `shared_prefix` and `build_measured(prefix=...)` call the cached helper,
+   so there is one state read per (project, budget) per process.
    `build_measured(prefix=...)` returns a `copy.deepcopy` of that measurement, so
-   the engine's `context_selected` telemetry is unchanged. Tests on the flag-on
-   path call `prompts._shared_packet.cache_clear()` in `setUp`. The flag-off
-   path never touches the cache.
-8. **Budget override.** When `node.get("context_budget", default)` differs from
+   the engine's `context_selected` event keeps its keys. Its `selected_*` values
+   now describe the shared packet. A state edit while a run is live changes the
+   prefix only after a process restart (a single cache miss, not a parity loss).
+   Tests on the flag-on path call `prompts._shared_packet.cache_clear()` in
+   `setUp`. The flag-off path never touches the cache and keeps calling
+   `_context_packet(project, node['goal'], ...)`.
+8. **Budget override.** The superset property in §1.7 needs equal budgets. When
+   `node.get("context_budget", default)` differs from
    `SHARED_CONTEXT_BUDGET[family]` (only possible when a planner task sets it),
-   that node also gets its own flag-off packet in the suffix (§2, S8), in the
-   current format. The prefix stays family-identical, and parity holds.
+   that node also gets its own flag-off packet,
+   `_context_packet(project, node['goal'], node_budget)`, in the suffix (§2,
+   S8), in the current format. The prefix stays family-identical, and parity
+   holds line for line for that packet.
 9. **Output contract stays in the suffix**, at the very end, as today. It differs
    between implementer/test_author and repairer, and the end of the prompt is
    where a worker looks for it.
@@ -139,31 +177,59 @@ an existing non-orchestrator test file. For each fixture node it builds
 `on = build_measured(run, node, ..., prefix=shared_prefix(run, family(role)))`,
 with the same `diff`, `findings`, `repo_map` and `cwd`. It asserts:
 
-1. **Line multiset inclusion.** Let `L(x)` be the multiset of non-empty lines
-   of `x` (`line.strip() != ""`, compared without stripping). Every line in
-   `L(off)` appears in `L(on)` at least as many times.
-2. **Closed set of additions.** `L(on) - L(off)` contains only P1, the
-   separator, `Assignment rules:`, and the duplicated `Project context:` packet
-   lines in the budget-override case.
-3. **Sections.** The set of section names with tokens > 0 in
+Let `K(x)` be the `project_context` packet text inside prompt `x`: the lines
+after `Project context:` up to the next blank line, or `""` if the heading is
+absent. Let `L(x)` be the multiset of non-empty lines of `x`
+(`line.strip() != ""`, compared without stripping) **outside** `K(x)`.
+
+1. **Line multiset inclusion (all sections except project context).** Every line
+   in `L(off)` appears in `L(on)` at least as many times. Only order may change.
+2. **Project context by presence and prefix.** The project context is compared
+   by presence, not line by line, because the shared packet is built once from
+   project state (§1.7). If `K(off) != ""`, then `K(on) != ""` and
+   `K(on).startswith(K(off))`. In the budget-override case (§1.8), the suffix
+   copy must equal `K(off)` exactly.
+3. **Closed set of additions.** `L(on) - L(off)` contains only P1, the
+   separator and `Assignment rules:`. `K(on)` may be longer than `K(off)`; the
+   extra lines are project state that today's `_fit` pruned for that node.
+4. **Sections.** The set of section names with tokens > 0 in
    `context_anatomy.sections(off)` is a subset of the set for
    `context_anatomy.sections(on)`. This covers `header`, `goal`, `assignment`,
    `worker_rules`, `reviewer_rules`, `siblings`, `diff`, `findings`,
    `planner_rules`, `repo_map`, `planner_rules_2`, `project_context` and
    `contract`, wherever they occur today.
-4. `on.startswith(prefix)`, and `on` ends with `_contract(role)`.
+5. `on.startswith(prefix)`, and `on` ends with `_contract(role)`.
 
 Fixture nodes: an implementer with scope and two command validators, a
 test_author with an empty scope (`(whole repository)`), a repairer with findings
 that carry `recommended_action`, a reviewer with diff, findings and siblings, and
 a planner with and without `repo_map`. Fixtures run with operator messages and
-with none. Fixtures run with `project=None`, and also with `_context_packet`
-patched to return a fixed packet (no registry or network access).
+with none, and with `project=None`.
+
+**Real registered project test.** A patched fixed packet cannot show the
+`_fit` divergence that §1.7 is about, so one test uses the real registered
+project `personal-agent-os`, which existing tests (`tests/test_agent_os.py`)
+already compile offline. It needs local registry, state and `git status` reads
+only, and no network. Node goals: a short one (`"fix a typo"`), and a long,
+match-rich one (the run goal repeated plus skill and path names, more than 2000
+characters), so `_fit` sees different packet sizes. The test asserts:
+
+- `shared_prefix(run, family)` is byte-identical for every node of the family;
+- for every node, `K(on) == _shared_packet(project, budget)[0]` and
+  `K(on).startswith(K(off))`, where `K(off)` is today's per-node
+  `_context_packet(project, node['goal'], budget)[0]`;
+- the full checks 1 to 5 above.
+
+If `K(off)` is already equal for both goals on the current registry state, the
+prefix assertions still hold. The test then also builds a temporary state copy
+with 8 long constraints and 8 validation commands (patched `load_state`) to force
+`_fit` pruning for the long goal, and repeats the assertions on that state.
 
 ## 4. Byte-stability rule
 
-The prefix is a pure function of `(run['run_id'], run['goal'], run['project']
-packet, family, run['operator_messages'])` and module constants. It must not
+The prefix is a pure function of `(run['run_id'], run['goal'],
+_shared_packet(run['project'], budget), family, run['operator_messages'])` and
+module constants. No node goal reaches it, not even through context selection. It must not
 contain:
 
 - timestamps, other than the one inside `run_id`, which is constant for the run
@@ -210,15 +276,19 @@ run_lcp_tokens  = floor(len(os.path.commonprefix(all worker prompts)) / 4)
 the `ceil` in `estimate_tokens`.
 
 **Before/after comparison through the harness.** New module
-`src/agent_os/orchestrator/prefix_comparison.py` with
+`src/agent_os/orchestrator/shared_prefix_compare.py` with
 `compare(work_dir: Path) -> dict` and a `__main__` that prints the JSON. It makes
 no model calls and no network calls, and it is deterministic.
+`context_economy.py` is **not edited**: the comparison only calls its public
+`build` and reads the existing v1 keys.
 
 1. Build a synthetic run. Use a fixed goal of about 600 tokens and a fixed plan
    passed through `planner.planner_plan` + `planner.expand`, as
    `context_anatomy.build_run` does: 6 implementer/test_author tasks with
    validators, their reviewers with `context_anatomy._synthetic_diff`, and one
-   repairer with findings. Use a patched fixed project packet. Each node gets a
+   repairer with findings. Patch `load_state`/`get_project` with one fixed
+   state, so both `_context_packet` (off) and `_shared_packet` (on) read the same
+   project data without touching the registry. Each node gets a
    distinct `cwd = "/fixture/wt/<node_id>"`, which mirrors per-node worktrees.
    This matters: `build_run` uses one shared `cwd`, and that would overstate the
    "before" common prefix.
@@ -237,12 +307,15 @@ no model calls and no network calls, and it is deterministic.
    token-granular automatic prefix caching over Orchestrator-written text only
    (CLI preamble = 0), and it is an upper bound for providers with coarser cache
    boundaries.
-4. Run `context_economy.build([run_dir])` per arm and drop `generated_at`. To get
-   uncached input straight from the harness, add one additive key
-   `sum_cache_read` to `context_economy._group`. The v1 schema keeps all its
-   existing keys, and `context_economy.py` is not protected. Then
-   `uncached = amplification.all.sum_input - amplification.all.sum_cache_read`,
-   overall and per role.
+4. Run `context_economy.build([run_dir])` per arm and drop `generated_at`. Take
+   `sum_input`, `count` and `cache_read_share` from its existing
+   `amplification.all` and `amplification.by_role.<role>` output. `_group` has no cache-read sum, so
+   `shared_prefix_compare` computes `sum_cache_read` itself, overall and per
+   role, by summing `usage.cache_read_tokens` over the `model_completed` events
+   it just wrote. Then `uncached = sum_input - sum_cache_read`. As a
+   consistency check, the module asserts that its own `sum(input_tokens)` equals
+   the harness `sum_input` for each arm and role. So the harness and the
+   telemetry describe the same calls.
 5. Return `{"off": arm, "on": arm, "reduction": {...}}`. Each arm has
    `sum_input`, `sum_cache_read`, `uncached`, per-role `cache_read_share.median`,
    `cacheable_F` and `prefix_tokens_F` per family, and `run_lcp_tokens`.
@@ -255,7 +328,7 @@ Test (in `tests/test_context_economy.py`, no network, temp dir):
 with `k_F >= 2`; two `compare` calls return identical JSON; and the report passes
 the harness privacy scan (no node ids or cwd strings).
 
-**Evidence.** Run `python -m agent_os.orchestrator.prefix_comparison` once and
+**Evidence.** Run `python -m agent_os.orchestrator.shared_prefix_compare` once and
 record the results with the existing record formats:
 
 - **EXP-NNNN**: hypothesis: a family-level shared prefix makes at least 25% of
