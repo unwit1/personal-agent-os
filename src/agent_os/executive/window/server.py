@@ -23,7 +23,7 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from ...paths import ROOT
-from . import model_bridge
+from . import actions_openings, model_bridge
 from .confirm import ItemState, PendingStore, window_home
 
 GUI_DIR = ROOT / "gui"
@@ -103,6 +103,16 @@ class Api:
         result["previews"] = self._previews()
         return result
 
+    def _opening_event(self, event: dict[str, Any]) -> dict[str, Any]:
+        """Preview a chat-stated opening event; it only applies through /api/confirm."""
+        item = {"id": f"county:{event['county']}", "kind": "county_openings"}
+        try:
+            self.registry.invoke("openings.event", item, dict(event), self.pending)
+        except Exception as exc:
+            return {"message": f"Could not preview the openings change: {type(exc).__name__}: {exc}"[:600],
+                    "previews": self._previews(), "opening_event": event}
+        return {"message": "Confirm to update openings", "previews": self._previews(), "opening_event": event}
+
     # -- routes ---------------------------------------------------------------
 
     def get(self, path: str, query: dict[str, list[str]]) -> Any:
@@ -136,6 +146,9 @@ class Api:
             text = str(_first(body, "text", "message") or "").strip()
             if not text:
                 raise ValueError("text is required")
+            event = actions_openings.parse_opening_event(text)
+            if event is not None:
+                return self._opening_event(event)
             return self._model(body.get("conversation_id"), text)
         if path == "/api/send":
             return self.send(body)
