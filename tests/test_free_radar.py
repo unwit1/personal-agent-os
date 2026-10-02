@@ -219,6 +219,8 @@ class MergeFreeRadarTests(unittest.TestCase):
 
         result1 = radar.merge_free_catalog(v1_snapshot, home=self.home)
         self.assertEqual(set(result1["new"]), {"acme/alpha:free", "acme/beta:free"})
+        queue1 = self._queue()
+        self.assertEqual(set(e["model_id"] for e in queue1), {"acme/alpha:free", "acme/beta:free"})
 
         catalog1 = self._catalog()
         models_v1 = set(catalog1["models"].keys())
@@ -229,6 +231,10 @@ class MergeFreeRadarTests(unittest.TestCase):
         result2 = radar.merge_free_catalog(v2_snapshot, home=self.home)
         # Only epsilon is new in v2
         self.assertEqual(set(result2["new"]), {"acme/epsilon:free"})
+        queue2 = self._queue()
+        # Queue should now have entries for alpha, beta (from v1) and epsilon (new in v2)
+        queue2_ids = {e["model_id"] for e in queue2}
+        self.assertEqual(queue2_ids, {"acme/alpha:free", "acme/beta:free", "acme/epsilon:free"})
 
         catalog2 = self._catalog()
 
