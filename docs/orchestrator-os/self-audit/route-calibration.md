@@ -50,17 +50,17 @@ The calibrator reads only telemetry already collected by existing infrastructure
 
 ### 3.1 Model events
 
-From `telemetry.jsonl`, extract these event types:
+From `telemetry.jsonl`, extract these event types. **Reviewer nodes are excluded.**
 
 | Event | Relevant fields | Meaning |
 |---|---|---|
-| `model_completed` | `role`, `provider`, `capability_class`, `effort`, `node` | Attempted a task on a model; effort is a relative cost proxy. |
-| `model_failed` | `role`, `provider`, `capability_class`, `effort`, `node` | Model call failed or returned an error. Treated as a run (not a pass). |
-| `model_escalated` | `node`, `from_class`, `to_class` | Escalated from weaker to stronger; not a task outcome, used to infer initial route choice. |
-| `retry` | `node` | Task was retried after failure; used for context only. |
-| `fallback` | `node` | Switched providers within the same class; used for context only. |
-| `tests_completed` | `node`, `passed` | Test/validator ran, with pass/fail outcome. |
-| `review_completed` | `subject`, `verdict`, `material_findings` | Code review of task node (the event `node` is the reviewer, keyed by `data.subject`). Verdict is `approved`, `blocked`, or similar. |
+| `model_completed` | `role`, `provider`, `capability_class`, `effort` | Attempted a task on a model; effort is a relative cost proxy. |
+| `model_failed` | `role`, `provider`, `capability_class`, `effort` | Model call failed or returned an error. Treated as a run (not a pass). |
+| `model_escalated` | `from`, `to` | Escalated from weaker to stronger; not a task outcome, used to infer initial route choice. |
+| `retry` | — | Task was retried after failure; used for context only. |
+| `fallback` | — | Switched providers within the same class; used for context only. |
+| `tests_completed` | `passed` | Test/validator ran, with pass/fail outcome. |
+| `review_completed` | `subject`, `verdict`, `material_findings` | Code review of task node. Verdict is `approved`, `blocked`, or similar. |
 
 Events are ordered by `seq` (sequence number). A `.repair<N>` node inherits the review
 counters of its subject `<subject>`, via id parsing.
@@ -74,17 +74,11 @@ These are fixed per provider/model combination.
 
 ## 4. Label
 
-For each task (identified by `node`), determine whether the kept-cheap route would have
-**passed validation and review**:
+For each task, determine whether the kept-cheap route would have **passed validation and review**:
 
-| Outcome | Label | Meaning |
-|---|---|---|
-| Task completed on cheap/standard class AND all downstream validators/reviewers approved | `cheap_route_passed=True` | The cheap route was sufficient. |
-| Task was escalated OR failed validators/reviewers after trying the cheap route | `cheap_route_passed=False` | The cheap route was insufficient. |
-| Task never attempted the cheap route (started on strong class), or outcome is ambiguous | `cheap_route_passed=unlabeled` | No training signal; excluded from pass-rate estimation. |
-
-A task that started on a cheap class and later escalated is labeled `False`.
-A task that started on a strong class with no failed cheaper attempt is unlabeled.
+- **`True`**: The initial cheap capability class passed all tests and review with no escalation.
+- **`False`**: The task was escalated, or it failed tests, or the review issued a blocking verdict.
+- **`unlabeled`**: The task never attempted the cheap route (started on a strong class), or the outcome is ambiguous. Excluded from pass-rate estimation.
 
 ## 5. Estimator
 
@@ -120,19 +114,18 @@ For each `(family, class)` pair with sufficient samples:
    If the conservative bound meets or exceeds T, keep the cheap route for future
    tasks of that family and class. Otherwise escalate.
 3. **Cost-vs-quality curve**: For each threshold, record:
-   - `threshold`: the escalation threshold.
-   - `kept_cheap_count`: how many tasks would remain on cheap (pass the rule).
-   - `kept_cheap_pass_rate`: what fraction of kept-cheap tasks actually passed.
+   - `threshold`: the escalation threshold value.
+   - `kept_count`: how many tasks would remain on cheap (pass the rule).
+   - `kept_pass_rate`: what fraction of kept tasks actually passed.
    - `escalated_count`: how many would be escalated (fail the rule).
-   - `escalated_pass_rate`: of those escalated, what fraction passed anyway.
 
 4. **Recommended threshold**: The smallest threshold T such that
    ```
-   kept_cheap_pass_rate(T) >= target  (target = 0.9 by default)
+   kept_pass_rate(T) >= target  (target = 0.9 by default)
    ```
    If no threshold achieves the target, report the highest achievable and a reason code.
 
-Reason codes include: `target_not_achievable`, `insufficient_samples`, `low_overall_pass_rate`.
+Reason codes include: `target_achievable`, `insufficient_samples`, `low_overall_pass_rate`.
 
 ## 7. Output schema and privacy
 
@@ -160,10 +153,9 @@ is the only nondeterministic field.
         "curve": [
           {
             "threshold": 0.5,
-            "kept_cheap_count": 0,
-            "kept_cheap_pass_rate": 0.0,
-            "escalated_count": 0,
-            "escalated_pass_rate": 0.0
+            "kept_count": 0,
+            "kept_pass_rate": 0.0,
+            "escalated_count": 0
           }
         ],
         "recommended_threshold": 0.75,
@@ -171,18 +163,11 @@ is the only nondeterministic field.
       }
     }
   },
-  "privacy": {"rule": "max80-no-whitespace", "strings_checked": 0, "passed": true}
+  "privacy": {"rule": "assert_aggregate_only", "strings_checked": 0, "passed": true}
 }
 ```
 
-**Privacy** follows context-economy §4 without changes. Node ids, task subjects,
-review verdicts, provider credentials, and user-facing paths are **never emitted**.
-All string keys are fixed: schema id, mode, reason codes, capability-class names,
-and task-family names (already sanitized in telemetry). Before returning, `build`
-calls `assert_aggregate_only(report, forbidden)`, where `forbidden` is the set
-of node ids and subjects extracted during the read. It fills `privacy.strings_checked`
-and `passed` only after the check succeeds. `report()` calls `assert_aggregate_only`
-again before writing `--out`.
+**Privacy**: Node ids, task subjects, review verdicts, provider credentials, and user-facing paths are **never emitted**. All string keys are fixed: schema id, mode, reason codes, capability-class names, and task-family names (already sanitized in telemetry). Before returning, `build` calls `assert_aggregate_only(report, forbidden)`, where `forbidden` is the set of node ids and subjects extracted during the read. The function fills `privacy.strings_checked` and `passed` only after the check succeeds. `report()` calls `assert_aggregate_only` again before writing `--out`.
 
 ## 8. Limits and caveats
 
