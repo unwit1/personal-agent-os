@@ -360,6 +360,52 @@ class OrchestratorProviderTests(unittest.TestCase):
         self.assertEqual(items[0]["kind"], "orchestrator_parked")
         self.assertEqual(items[0]["id"], "parked:run10:node_cancelled")
 
+    def test_failed_final_rejected_by_user_node_ignored(self):
+        """A FAILED_FINAL node with 'rejected by user' wait_reason produces no item."""
+        runs = [{"run_id": "run11", "state": "RUNNING"}]
+        statuses = {
+            "run11": {
+                "gates": [],
+                "nodes": [
+                    {
+                        "id": "node_failed_rejected",
+                        "state": "FAILED_FINAL",
+                        "goal": "test goal",
+                        "provider": "claude",
+                        "wait_reason": "Gate rejected by user",
+                    }
+                ],
+            }
+        }
+        items = orchestrator_items(
+            lambda: runs,
+            lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
+        )
+        self.assertEqual(len(items), 0)
+
+    def test_rejected_by_user_with_note_ignored(self):
+        """A node with 'rejected by user: note' wait_reason is correctly filtered."""
+        runs = [{"run_id": "run12", "state": "RUNNING"}]
+        statuses = {
+            "run12": {
+                "gates": [],
+                "nodes": [
+                    {
+                        "id": "node_rejected_with_note",
+                        "state": "CANCELLED",
+                        "goal": "test goal",
+                        "provider": "claude",
+                        "wait_reason": "rejected by user: user pressed decline",
+                    }
+                ],
+            }
+        }
+        items = orchestrator_items(
+            lambda: runs,
+            lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
+        )
+        self.assertEqual(len(items), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -69,7 +69,7 @@ def _parked_nodes_as_items(run_id: str, run_status: dict[str, Any]) -> list[dict
     for node in run_status.get("nodes") or []:
         if node["state"] not in ("FAILED_FINAL", "CANCELLED"):
             continue
-        if node["state"] == "CANCELLED" and (node.get("wait_reason") or "").endswith("rejected by user"):
+        if (node.get("wait_reason") or "").split(":")[0].endswith("rejected by user"):
             continue
         card = failure_card(node)
         items.append(
