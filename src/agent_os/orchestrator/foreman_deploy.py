@@ -72,7 +72,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
-from . import adaptive_concurrency, budget, gpu_keep_busy, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
+from . import adaptive_concurrency, budget, gpu_keep_busy, prefix_stability, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
 
 RUNPOD_REST = "https://rest.runpod.io/v1"
 HF_API = "https://huggingface.co/api/models"
@@ -462,6 +462,9 @@ def utilization_view(state: dict[str, Any]) -> dict[str, Any] | None:
     busy = usage.get("busy_ticks", 0) / ticks
     generated = usage.get("generation_tokens", 0.0)
     requests = usage.get("requests", 0.0)
+    seconds = ticks * TICK_SECONDS
+    queries = float(usage.get("prefix_queries") or 0)
+    paid = gpu_keep_busy.PaidIdle.from_dict(usage.get("paid_idle"))
     return {
         "busy_pct": round(100 * busy, 1),
         "requests": int(requests),
@@ -471,6 +474,44 @@ def utilization_view(state: dict[str, Any]) -> dict[str, Any] | None:
         "usd_per_mtok_generated": round(spent / generated * 1e6, 2) if generated else None,
         "idle_usd": round(spent * (1 - busy), 4),
         "sampled_minutes": round(ticks * TICK_SECONDS / 60, 1),
+        "tokens_per_s": round(generated / seconds, 2) if generated and seconds else None,
+        "kv_usage_pct": round(100 * float(usage["kv_usage"]), 1) if usage.get("kv_usage") is not None else None,
+        "prefix_cache_hit_pct": round(100 * float(usage.get("prefix_hits") or 0) / queries, 1) if queries else None,
+        "concurrency_limit": (state.get("concurrency") or {}).get("limit"),
+        "paid_idle_pct": round(100 * paid.share(), 1) if paid.paid_seconds else None,
+        "idle_target_pct": round(100 * gpu_keep_busy.DEFAULT_IDLE_TARGET, 1),
+        "meets_idle_target": paid.meets_target(gpu_keep_busy.DEFAULT_IDLE_TARGET) if paid.paid_seconds else None,
+        "usd_per_useful_request": round(spent / requests, 4) if requests else None,
+    }
+
+
+def utilization_preview(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, Any]], *, hourly_usd: float, starts_per_month: int = 20,
+                        vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None) -> dict[str, Any]:
+    """Deploy-time plan of how the rented GPU will be used; no spend, no network."""
+    choice = choice[0] if isinstance(choice, list) else choice
+    flags = pod_request(model, choice, "k", None, "preview", vllm_overrides=vllm_overrides)["dockerStartCmd"]
+
+    def flag(name: str) -> str | None:
+        return flags[flags.index(name) + 1] if name in flags else None
+
+    policy = adaptive_concurrency.ConcurrencyPolicy()
+    cache = weight_cache.cost_check(float(model.get("weight_gb") or 0), float(hourly_usd), starts_per_month)
+    enabled = bool(weight_volume)
+    if cache["recommended"] and not enabled:
+        cache["recommendation"] = (f"attach a {cache['volume_gb']} GB network volume: saves about ${cache['saves_usd_month']:.2f}/month "
+                                   f"({cache['download_minutes_per_start']:.1f} min download per start)")
+    cache["enabled"] = enabled
+    return {
+        "planned_max_num_seqs": int(flag("--max-num-seqs")) if flag("--max-num-seqs") else None,
+        "kv_cache_dtype": flag("--kv-cache-dtype"),
+        "prefix_caching": "--enable-prefix-caching" in flags,
+        "chunked_prefill": "--enable-chunked-prefill" in flags,
+        "roles": sorted(registered_roles({"model": model, "provider_id": "preview", "base_url": "", "kind": "huggingface"})),
+        "initial_concurrency": policy.start,
+        "concurrency_bounds": {"minimum": policy.minimum, "maximum": policy.maximum},
+        "idle_target_pct": round(100 * gpu_keep_busy.DEFAULT_IDLE_TARGET, 1),
+        "prefix_stable": None,  # unknown at deploy time: the run-level prefix is fingerprinted when a run attaches
+        "weight_cache": cache,
     }
 
 
@@ -752,6 +793,8 @@ class ForemanManager:
         offers = self._offers()
         chosen = choose_gpu(offers, need, cap_usd, heads=model.get("attention_heads"))
         result = {"model": model, "vram_needed_gb": need, "context": context_for(model), **chosen}
+        if chosen.get("choice"):
+            result["utilization_plan"] = utilization_preview(model, chosen["choice"], hourly_usd=chosen["choice"]["hourly_usd"])
         try:  # rent-vs-API: the same family per token, when OpenRouter serves it
             alternatives = api_alternatives(model["repo"], openrouter_models(self.opener))[:3]
         except Exception:
@@ -894,6 +937,12 @@ class ForemanManager:
             if run_id not in state["runs"]:
                 state["runs"].append(run_id)
             state["last_needed_epoch"] = self.clock()
+            try:  # fingerprint only: the prefix itself never goes into state
+                prefix = prefix_stability.run_prefix(self.run_loader(run_id))
+                if prefix:
+                    state["prefix_fingerprint"] = prefix_stability.prefix_fingerprint(prefix)
+            except Exception:
+                pass
             _save_state(state, self.base)
             return {"deployment_id": state["id"], "model": (state.get("model") or {}).get("repo"), "attached_at": utc_now_iso()}
 
