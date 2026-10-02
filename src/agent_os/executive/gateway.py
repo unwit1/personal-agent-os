@@ -195,13 +195,13 @@ class SyntheticDashboardGateway:
         return sorted(rows, key=lambda row: row[1]["score"], reverse=True)
 
     def match_for(self, applicant: dict[str, Any]) -> dict[str, Any]:
-        ref = _value(applicant, "applicant_ref")
+        ref = applicant if isinstance(applicant, str) else _value(applicant, "applicant_ref")
         self._call("match_for", ref)
         match = self.applicants[ref].get("match", {})
         return {key: match.get(key) for key in _MATCH_FIELDS}
 
     def manager_for(self, applicant: dict[str, Any]) -> Any:
-        ref = _value(applicant, "applicant_ref")
+        ref = applicant if isinstance(applicant, str) else _value(applicant, "applicant_ref")
         self._call("manager_for", ref)
         return self.managers.get(ref)
 
