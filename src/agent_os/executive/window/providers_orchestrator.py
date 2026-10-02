@@ -5,6 +5,9 @@ from __future__ import annotations
 from typing import Any, Callable
 
 
+_TERMINAL_RUN_STATES = frozenset({"COMPLETE", "FAILED"})
+
+
 def orchestrator_items(
     list_runs: Callable[[], list[dict[str, Any]]] | None = None,
     status: Callable[[str], dict[str, Any]] | None = None,
@@ -25,7 +28,9 @@ def orchestrator_items(
     items: list[dict[str, Any]] = []
     for run in list_runs() or []:
         run_id = run.get("run_id")
-        if not run_id or run.get("state") == "COMPLETE":
+        # COMPLETE and FAILED are terminal: a finished or dead run has
+        # nothing the operator can act on, so it must not keep producing items.
+        if not run_id or run.get("state") in _TERMINAL_RUN_STATES:
             continue
         try:
             run_status = status(run_id)
@@ -67,7 +72,9 @@ def _parked_nodes_as_items(run_id: str, run_status: dict[str, Any]) -> list[dict
 
     items: list[dict[str, Any]] = []
     for node in run_status.get("nodes") or []:
-        if node["state"] not in ("FAILED_FINAL", "CANCELLED"):
+        # Only FAILED_FINAL needs the operator; CANCELLED nodes were stopped on
+        # purpose and offer nothing to act on.
+        if node["state"] != "FAILED_FINAL":
             continue
         if (node.get("wait_reason") or "").split(":")[0].endswith("rejected by user"):
             continue

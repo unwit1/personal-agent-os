@@ -335,8 +335,8 @@ class OrchestratorProviderTests(unittest.TestCase):
         self.assertEqual(len(items), 1)
         self.assertEqual(items[0]["kind"], "orchestrator_gate")
 
-    def test_cancelled_other_reason_node_included(self):
-        """A CANCELLED node without 'rejected by user' in wait_reason produces an item."""
+    def test_cancelled_node_is_not_an_item(self):
+        """A CANCELLED node was stopped on purpose; the operator has nothing to act on."""
         runs = [{"run_id": "run10", "state": "RUNNING"}]
         statuses = {
             "run10": {
@@ -356,9 +356,15 @@ class OrchestratorProviderTests(unittest.TestCase):
             lambda: runs,
             lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
         )
-        self.assertEqual(len(items), 1)
-        self.assertEqual(items[0]["kind"], "orchestrator_parked")
-        self.assertEqual(items[0]["id"], "parked:run10:node_cancelled")
+        self.assertEqual(items, [])
+
+    def test_failed_runs_ignored(self):
+        """A FAILED run is terminal: its gates and failed nodes produce no items."""
+        runs = [{"run_id": "run11", "state": "FAILED"}]
+        statuses = {"run11": {"gates": [{"id": "G1", "kind": "budget_exhausted", "status": "open", "reason": "x", "node": None}],
+                              "nodes": [{"id": "n", "state": "FAILED_FINAL", "goal": "g", "provider": "p", "wait_reason": "boom"}]}}
+        items = orchestrator_items(lambda: runs, lambda run_id: statuses[run_id])
+        self.assertEqual(items, [])
 
     def test_failed_final_rejected_by_user_node_ignored(self):
         """A FAILED_FINAL node with 'rejected by user' wait_reason produces no item."""
