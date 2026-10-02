@@ -269,6 +269,10 @@ def register(commands: argparse._SubParsersAction) -> None:
     rot.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
     rot.add_argument("--out", type=Path, help="write advice JSON to this path")
 
+    rcal = actions.add_parser("route-calibration", help="IMP-0015 shadow: RouteLLM-style escalation calibration per task family and capability class from run telemetry (aggregates only, advice only, no model call)")
+    rcal.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
+    rcal.add_argument("--out", type=Path, help="write report JSON to this path")
+
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
     cap.add_argument("--floor", type=float, default=0.9)
@@ -633,6 +637,13 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         home = args.home if args.home else orchestrator_home()
         emit(rotation_advisor.report(home, args.out))
+        return 0
+    if action == "route-calibration":
+        from . import route_calibration
+        from .store import orchestrator_home
+
+        home = args.home if args.home else orchestrator_home()
+        emit(route_calibration.report(home, args.out))
         return 0
     if action == "foreman":
         from . import budget as budget_lib
