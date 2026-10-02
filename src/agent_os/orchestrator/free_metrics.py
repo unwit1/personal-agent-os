@@ -6,36 +6,24 @@ instead of paid alternatives.
 """
 from __future__ import annotations
 
-import json
-from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Callable
 
-from .store import orchestrator_home
+from . import free_quota
 
 SCHEMA_VERSION = "agent-os/free-metrics/v1"
 
 
 def read_ledger(home: Path | None = None) -> list[dict[str, Any]]:
     """Load all free-compute ledger events from orchestrator home."""
-    path = (Path(home) if home is not None else orchestrator_home()) / "free-compute" / "ledger.jsonl"
-    if not path.exists():
-        return []
-    events = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        try:
-            item = json.loads(line)
-        except ValueError:
-            continue
-        if isinstance(item, dict):
-            events.append(item)
-    return events
+    return free_quota.read_events(home)
 
 
 def report(
     ledger_events: list[dict[str, Any]],
     *,
-    prices: dict[str, Any] | None = None
+    prices: dict[str, Any] | None = None,
+    paid_model_for: Callable[[str, str], str | None] | None = None
 ) -> dict[str, Any]:
     """Generate metrics report from free-compute ledger events.
 
@@ -43,6 +31,8 @@ def report(
         ledger_events: Attempt and verdict events from the free-quota ledger.
         prices: Model prices dict (from model_prices.fetch_prices()["prices"]).
                 If None, estimated_paid_cost_avoided_usd will be None.
+        paid_model_for: Optional callable(free_model, task_family) -> paid_model_name.
+                       If provided, used to price the paid route instead of the free model.
 
     Returns:
         Dict with metrics: requests, useful_progress_per_request, validator_acceptance,
@@ -51,22 +41,20 @@ def report(
     """
     prices = prices or {}
 
-    # Separate attempt events from verdict events
-    attempts = [e for e in ledger_events if e.get("type") != "verdict"]
+    # Copy events to avoid mutating caller's data
+    attempts = [dict(e) for e in ledger_events if e.get("type") != "verdict"]
     verdicts = [e for e in ledger_events if e.get("type") == "verdict"]
 
-    # Apply verdicts to update attempts in-place
+    # Build verdict map and apply to copies of attempts
     verdict_map: dict[str, dict[str, Any]] = {}
     for verdict in verdicts:
         event_id = verdict.get("event_id")
         if event_id:
             verdict_map[event_id] = verdict
 
-    # Build a map of event_id -> attempt for verdict updates
     attempt_map = {e.get("event_id"): e for e in attempts if e.get("event_id")}
     for event_id, verdict in verdict_map.items():
         if event_id in attempt_map:
-            # Update the attempt with verdict fields (last verdict for an event_id wins)
             for key in ["validator_passed", "accepted", "escalated"]:
                 if key in verdict:
                     attempt_map[event_id][key] = verdict[key]
@@ -139,20 +127,31 @@ def report(
         total_cost = 0.0
         calculated_any = False
         for evt in useful_accepted:
-            model = evt.get("model")
+            free_model = evt.get("model")
+            task_family = evt.get("task_family", "unknown")
             tokens = evt.get("tokens", {})
             input_tokens = tokens.get("input", 0) if isinstance(tokens, dict) else 0
             output_tokens = tokens.get("output", 0) if isinstance(tokens, dict) else 0
 
-            if not model or not (input_tokens or output_tokens):
+            if not free_model or not (input_tokens or output_tokens):
                 continue
 
-            if model not in prices:
-                if model not in missing_prices:
-                    missing_prices.append(model)
+            # Determine the paid model to price
+            paid_model = None
+            if paid_model_for is not None:
+                paid_model = paid_model_for(free_model, task_family)
+
+            if paid_model is None:
+                if free_model not in missing_prices:
+                    missing_prices.append(f"{free_model} (no paid route)")
                 continue
 
-            model_price = prices[model]
+            if paid_model not in prices:
+                if paid_model not in missing_prices:
+                    missing_prices.append(paid_model)
+                continue
+
+            model_price = prices[paid_model]
             input_price = float(model_price.get("input") or 0)
             output_price = float(model_price.get("output") or 0)
 
@@ -162,49 +161,28 @@ def report(
             calculated_any = True
 
         if calculated_any:
-            estimated_paid_cost_avoided_usd = round(total_cost, 2)
-            cost_basis = "per accepted free result: tokens x price of the cheapest paid route router.select would have used"
+            estimated_paid_cost_avoided_usd = round(total_cost, 6)
+            cost_basis = "per accepted free result: tokens x price of the paid route that would have run"
 
-    # Group by task_family
-    by_family: dict[str, dict[str, Any]] = {}
-    for evt in attempts:
-        family = evt.get("task_family", "unknown")
-        if family not in by_family:
-            by_family[family] = {
-                "requests": 0,
-                "accepted": 0,
-                "escalated": 0,
-                "useful_units": 0,
-                "preferred_model": None,
-            }
-        by_family[family]["requests"] += 1
-        if evt.get("accepted") is True:
-            by_family[family]["accepted"] += 1
-        if evt.get("escalated") is True:
-            by_family[family]["escalated"] += 1
-        useful_units = evt.get("useful_units", 0)
-        if isinstance(useful_units, (int, float)):
-            by_family[family]["useful_units"] += useful_units
+    def _group_by_key(key_name: str) -> dict[str, dict[str, Any]]:
+        """Group attempt metrics by a top-level event key."""
+        groups: dict[str, dict[str, Any]] = {}
+        for evt in attempts:
+            key = evt.get(key_name, "unknown")
+            if key not in groups:
+                groups[key] = {"requests": 0, "accepted": 0, "escalated": 0, "useful_units": 0}
+            groups[key]["requests"] += 1
+            if evt.get("accepted") is True:
+                groups[key]["accepted"] += 1
+            if evt.get("escalated") is True:
+                groups[key]["escalated"] += 1
+            useful_units = evt.get("useful_units", 0)
+            if isinstance(useful_units, (int, float)):
+                groups[key]["useful_units"] += useful_units
+        return groups
 
-    # Group by model
-    by_model: dict[str, dict[str, Any]] = {}
-    for evt in attempts:
-        model = evt.get("model", "unknown")
-        if model not in by_model:
-            by_model[model] = {
-                "requests": 0,
-                "accepted": 0,
-                "escalated": 0,
-                "useful_units": 0,
-            }
-        by_model[model]["requests"] += 1
-        if evt.get("accepted") is True:
-            by_model[model]["accepted"] += 1
-        if evt.get("escalated") is True:
-            by_model[model]["escalated"] += 1
-        useful_units = evt.get("useful_units", 0)
-        if isinstance(useful_units, (int, float)):
-            by_model[model]["useful_units"] += useful_units
+    by_family = _group_by_key("task_family")
+    by_model = _group_by_key("model")
 
     # Build errors list
     errors = []
