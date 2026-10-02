@@ -2,6 +2,7 @@ const Executive = (() => {
   let conversationId = null;
   let token = null;
   let pendingPolling = null;
+  let chatInFlight = false;
 
   function initToken() {
     const meta = document.querySelector('meta[name="agent-os-token"]');
@@ -24,7 +25,7 @@ const Executive = (() => {
     return conversationId;
   }
 
-  function apiCall(method, endpoint, data = null) {
+  function apiCall(method, endpoint, data = null, quiet = false) {
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -50,9 +51,15 @@ const Executive = (() => {
       })
       .catch(error => {
         console.error('API call failed:', error);
-        showError(error.message);
+        if (!quiet) {
+          showError(error.message);
+        }
         throw error;
       });
+  }
+
+  function apiCallQuiet(method, endpoint, data = null) {
+    return apiCall(method, endpoint, data, true);
   }
 
   function showBusy(show = true) {
@@ -201,9 +208,17 @@ const Executive = (() => {
   }
 
   function handleChatSend() {
+    if (chatInFlight) return;
+
     const input = document.getElementById('chat-input');
+    const send = document.getElementById('chat-send');
     const text = input.value.trim();
     if (!text) return;
+
+    chatInFlight = true;
+    input.disabled = true;
+    send.disabled = true;
+    showBusy(true);
 
     input.value = '';
     addChatMessage('you', text);
@@ -212,7 +227,7 @@ const Executive = (() => {
     apiCall('POST', '/api/chat', {
       conversation_id: convId,
       message: text,
-    })
+    }, false)
       .then(response => {
         if (response.message) {
           addChatMessage('agent', response.message);
@@ -220,6 +235,13 @@ const Executive = (() => {
       })
       .catch(() => {
         /* error already shown */
+      })
+      .finally(() => {
+        chatInFlight = false;
+        input.disabled = false;
+        send.disabled = false;
+        showBusy(false);
+        input.focus();
       });
   }
 
@@ -305,21 +327,32 @@ const Executive = (() => {
 
   function pollPending() {
     const convId = getOrCreateConversationId();
-    apiCall('POST', '/api/pending', {
+    apiCallQuiet('POST', '/api/pending', {
       conversation_id: convId,
     })
       .then(response => {
+        const container = document.getElementById('pending-previews');
+        const currentIds = new Set();
+
         if (response.previews && Array.isArray(response.previews)) {
           response.previews.forEach(preview => {
+            currentIds.add('preview-' + preview.id);
             const existing = document.getElementById('preview-' + preview.id);
             if (!existing) {
               showPreview(preview, 'pending');
             }
           });
         }
+
+        const allCards = container.querySelectorAll('.preview-card');
+        allCards.forEach(card => {
+          if (!currentIds.has(card.id)) {
+            card.remove();
+          }
+        });
       })
       .catch(() => {
-        /* error already shown */
+        /* fail silently on connection issues */
       });
   }
 
