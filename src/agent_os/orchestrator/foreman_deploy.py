@@ -1054,15 +1054,21 @@ class ForemanManager:
         if "kv_usage" in metrics:
             usage["kv_usage"] = metrics["kv_usage"]
         usage["prev"] = dict(metrics)
+        if not (state.get("registered") and state.get("provider_id")) or state.get("kind") == "local":
+            return self._update(state, usage=usage)
         concurrency = dict(state.get("concurrency") or {"limit": 4, "memory": {}})
         current = int(concurrency.get("limit") or 4)
         limit, memory, decision = adaptive_concurrency.next_limit(current, metrics, concurrency.get("memory") or {})
         concurrency["memory"] = memory
         if limit != current:
-            self.retune(state, limit)
-            concurrency["limit"] = limit
+            entry = {**decision, "at": self.clock()}
+            try:
+                self.retune(state, limit)
+                concurrency["limit"] = limit
+            except Exception as error:  # a failed retune must never stop the watcher (spend metering, teardown)
+                entry.update(failed=True, error=str(error)[:200])
             history = list(concurrency.get("history") or [])
-            history.append({**decision, "at": self.clock()})
+            history.append(entry)
             concurrency["history"] = history[-50:]
         concurrency.setdefault("limit", current)
         return self._update(state, usage=usage, concurrency=concurrency)

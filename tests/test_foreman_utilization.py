@@ -153,6 +153,26 @@ class AdaptiveConcurrencySampleTests(Base):
         self.assertEqual((self.state["usage"]["prefix_hits"], self.state["usage"]["prefix_queries"]), (7, 9))
         self.assertEqual(self.state["usage"]["prev"]["prefix_hits"], 3)
 
+    def test_retune_failure_keeps_usage_and_limit(self) -> None:
+        def boom(state, limit):
+            raise RuntimeError("registry locked")
+
+        self.manager_.retune = boom
+        self.sample(_metrics_text(4, 0, 0.3, 5, 10))
+        state = self.sample(_metrics_text(4, 0, 0.3, 8, 20))
+        self.assertEqual(state["usage"]["ticks"], 2)
+        self.assertEqual(state["concurrency"]["limit"], 4)
+        self.assertTrue(state["concurrency"]["history"][-1]["failed"])
+
+    def test_unregistered_and_local_skip_the_controller(self) -> None:
+        for patch in ({"registered": False}, {"kind": "local"}):
+            self.state = {**self.state, **patch, "concurrency": None}
+            for _ in range(3):
+                self.sample(_metrics_text(4, 0, 0.3))
+            self.assertEqual(self.retunes, [])
+            self.assertFalse(self.state.get("concurrency"))
+            self.assertGreater(self.state["usage"]["ticks"], 0)
+
     def test_parse_metrics_delegates(self) -> None:
         parsed = fd.parse_metrics(_metrics_text(2, 1, 0.4, 3, 6))
         self.assertEqual((parsed["running"], parsed["kv_usage"], parsed["prefix_queries"]), (2, 0.4, 6))
