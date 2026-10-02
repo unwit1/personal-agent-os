@@ -99,7 +99,7 @@ TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qw
                 # (<tool_call><function=...><parameter=...>), the Qwen3-Coder format.
                 "qwen3_5": "qwen3_coder", "qwen3_5_moe": "qwen3_coder"}
 AGENT_SUFFIX = "-agent"
-# Roles of the main provider entry; the role-coverage work extends this one list, and keep-busy follows it.
+# Roles of the main provider entry; deployment-specific roles from ROLES_BY_CLASS override this fallback, and keep-busy follows them.
 ENDPOINT_ROLES = ("planner", "inline")
 ROLES_BY_CLASS = {
     "gpu_pod": ["planner", "inline", "implementer", "test_author", "reviewer"],
@@ -1284,7 +1284,10 @@ def _retune_provider(state: dict[str, Any], limit: int) -> None:
 
 def registered_roles(state: dict[str, Any]) -> set[str]:
     """Roles the registered provider entries cover: the same lists _register_provider writes."""
-    roles = set(ENDPOINT_ROLES)
+    kind = state.get("kind")
+    local, api = kind == "local", kind == "openrouter"
+    deployment = "api" if api else "local" if local else "gpu_pod"
+    roles = set(ROLES_BY_CLASS.get(deployment, list(ENDPOINT_ROLES)))
     agent = agent_entry(state) if state.get("model") else None
     if agent:
         roles.update(agent["roles"])

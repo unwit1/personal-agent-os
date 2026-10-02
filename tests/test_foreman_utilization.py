@@ -393,9 +393,17 @@ class KeepBusyTests(Base):
         self.assertFalse(self.state.get("keep_busy"))
 
     def test_registered_roles_come_from_the_registered_entries(self) -> None:
-        self.assertEqual(fd.registered_roles({"model": {"repo": "org/coder-7b"}}), {"planner", "inline", "reviewer"} | set(
+        gpu_pod_base = {"planner", "inline", "implementer", "test_author", "reviewer"}
+        self.assertEqual(fd.registered_roles({"model": {"repo": "org/coder-7b"}}), gpu_pod_base | set(
             (fd.agent_entry({"model": {"repo": "org/coder-7b"}}) or {}).get("roles") or ()))
-        self.assertEqual(fd.registered_roles({"roles": ["x"]}), {"planner", "inline", "reviewer"})
+        self.assertEqual(fd.registered_roles({"roles": ["x"]}), gpu_pod_base)
+
+    def test_registered_roles_without_agent_when_coding_agent_disabled(self) -> None:
+        gpu_pod_base = {"planner", "inline", "implementer", "test_author", "reviewer"}
+        local_base = {"planner", "inline"}
+        self.assertEqual(fd.registered_roles({"kind": "local", "model": {"repo": "org/coder-7b"}}), local_base)
+        self.assertEqual(fd.registered_roles({"kind": "openrouter", "model": {"repo": "qwen/qwen3"}}), local_base)
+        self.assertEqual(fd.registered_roles({"model": {"repo": "org/exotic", "model_type": "exotic"}}), gpu_pod_base)
 
     def test_keep_busy_state_records_kind_count_and_reason(self) -> None:
         self.clock.now += 20 * 60
