@@ -66,7 +66,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
-from . import budget
+from . import budget, vllm_tuning, weight_cache
 
 RUNPOD_REST = "https://rest.runpod.io/v1"
 HF_API = "https://huggingface.co/api/models"
@@ -275,13 +275,17 @@ def attempt_groups(candidates: list[dict[str, Any]], limit: int = 6, price_facto
     return ordered[:limit]
 
 
-def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, Any]], endpoint_key: str, hf_token: str | None, name: str) -> dict[str, Any]:
+def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, Any]], endpoint_key: str, hf_token: str | None, name: str, *,
+                vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None) -> dict[str, Any]:
     """RunPod ``POST /v1/pods`` body: vLLM's OpenAI server, pinned revision.
-    ``choice`` may be a group of same-count, same-tier offers (attempt_groups)."""
+    ``choice`` may be a group of same-count, same-tier offers (attempt_groups).
+    ``vllm_overrides`` tunes throughput flags; ``weight_volume`` attaches a RunPod
+    network volume that caches model weights."""
     group = choice if isinstance(choice, list) else [choice]
     choice = group[0]
+    overrides = dict(vllm_overrides or {})
     args = ["--model", model["repo"], "--served-model-name", model["repo"], "--host", "0.0.0.0", "--port", str(PORT),
-            "--max-model-len", str(context_for(model)), "--gpu-memory-utilization", "0.90",
+            "--max-model-len", str(context_for(model)), "--gpu-memory-utilization", str(overrides.get("gpu_memory_utilization") or "0.90"),
             "--tensor-parallel-size", str(choice["gpu_count"])]
     if model.get("sha"):
         args += ["--revision", model["sha"]]
@@ -290,9 +294,17 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
     rope = rope_override(model)
     if rope:
         args += ["--hf-overrides", json.dumps(rope, separators=(",", ":"))]
+    tuning = {key: value for key, value in overrides.items() if key != "gpu_memory_utilization"}
+    args += vllm_tuning.throughput_args(model, {**choice, "vram_gb": choice.get("vram_gb") or 0}, tuning, context=context_for(model))
     env = {"VLLM_API_KEY": endpoint_key}  # env, not argv: vLLM logs its arguments
     if hf_token and (model.get("gated") or model.get("private")):
         env["HF_TOKEN"] = hf_token  # only sent when the repo needs it
+    volume_body: dict[str, Any] = {}
+    if weight_volume:
+        fields = weight_cache.volume_fields(weight_volume)
+        volume_body = dict(fields["body"])
+        for key, value in fields["env"].items():
+            env.setdefault(key, value)  # never overwrite VLLM_API_KEY / HF_TOKEN
     return {
         "name": name[:191],
         "imageName": IMAGE,
@@ -306,6 +318,7 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
         "env": env,
         "dockerEntrypoint": ["bash", "-c", WRAPPER, "agent-os-vllm"],
         "dockerStartCmd": args,
+        **volume_body,
     }
 
 
@@ -820,7 +833,8 @@ class ForemanManager:
         return self.status()
 
     def deploy(self, link: str, *, job_cap_usd: float | None = None, idle_minutes: int = DEFAULT_IDLE_MINUTES,
-               background: bool = True, backups: list[str] | None = None, coding_agent: bool = False) -> dict[str, Any]:
+               background: bool = True, backups: list[str] | None = None, coding_agent: bool = False,
+               vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None) -> dict[str, Any]:
         """Start an autonomous deployment. Refuses when one is active, the budget
         is not approved, or the RunPod key is missing."""
         parse_hf_link(link)  # fail fast on a bad link, before anything is replaced
@@ -843,6 +857,7 @@ class ForemanManager:
             state = {"id": f"FMN-{uuid.uuid4().hex[:8]}", "kind": "huggingface", "status": "planning", "detail": "reading the model from Hugging Face",
                      "link": link, "cap_usd": round(cap, 4), "spent_usd": 0.0, "idle_minutes": int(idle_minutes), "runs": [],
                      "backups": self._backups("", backups), "coding_agent": bool(coding_agent),
+                     "vllm_overrides": dict(vllm_overrides) if vllm_overrides else None, "weight_volume": weight_volume or None,
                      "started_at": utc_now_iso(), "model": None}
             _save_state(state, self.base)
             self._stop.clear()
@@ -977,7 +992,8 @@ class ForemanManager:
         for group in attempt_groups([choice, *plan.get("alternatives", [])]):
             candidate = group[0]
             tried.append(f"{candidate['gpu_count']}x {'/'.join(item['name'] for item in group)} ({candidate['tier']})")
-            body = pod_request(model, group, endpoint_key, self.resolve(HF_SECRET), _pod_name(state))
+            body = pod_request(model, group, endpoint_key, self.resolve(HF_SECRET), _pod_name(state),
+                               vllm_overrides=state.get("vllm_overrides"), weight_volume=state.get("weight_volume"))
             try:
                 pod = client.create(body)
             except RuntimeError as exc:  # usually "no capacity" for that GPU type; try the next one
