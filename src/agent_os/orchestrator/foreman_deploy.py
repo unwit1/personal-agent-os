@@ -295,6 +295,12 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
     if rope:
         args += ["--hf-overrides", json.dumps(rope, separators=(",", ":"))]
     tuning = {key: value for key, value in overrides.items() if key != "gpu_memory_utilization"}
+    util = overrides.get("gpu_memory_utilization")
+    if util and "max_num_seqs" not in tuning:  # size the KV budget at the utilization actually launched
+        kv_dtype = tuning["kv_cache_dtype"] if "kv_cache_dtype" in tuning else ("fp8" if vllm_tuning.fp8_kv_supported(choice.get("gpu_id", "")) else None)
+        tuning["max_num_seqs"] = vllm_tuning.max_num_seqs(
+            model, choice.get("gpu_count", 1), choice.get("vram_gb") or 0, gpu_memory_utilization=float(util),
+            kv_dtype_bytes=1 if (kv_dtype and str(kv_dtype).startswith("fp8")) else 2, context=context_for(model))
     args += vllm_tuning.throughput_args(model, {**choice, "vram_gb": choice.get("vram_gb") or 0}, tuning, context=context_for(model))
     env = {"VLLM_API_KEY": endpoint_key}  # env, not argv: vLLM logs its arguments
     if hf_token and (model.get("gated") or model.get("private")):

@@ -47,6 +47,12 @@ class PodRequestTuningTests(unittest.TestCase):
         self.assertIn("--enable-chunked-prefill", args)
         self.assertNotIn("--kv-cache-dtype", args)
 
+    def test_lower_utilization_shrinks_computed_max_num_seqs(self) -> None:
+        model = {**self.model, "kv_bytes_per_token": 200000, "weight_gb": 10}
+        base = int(_flag(fd.pod_request(model, H100, "k", None, "n")["dockerStartCmd"], "--max-num-seqs"))
+        low = int(_flag(fd.pod_request(model, H100, "k", None, "n", vllm_overrides={"gpu_memory_utilization": 0.5})["dockerStartCmd"], "--max-num-seqs"))
+        self.assertLess(low, base)
+
     def test_choice_without_vram_falls_back_to_floor(self) -> None:
         args = fd.pod_request(self.model, {"gpu_id": "g", "gpu_count": 1, "tier": "community"}, "k", None, "n")["dockerStartCmd"]
         self.assertEqual(_flag(args, "--max-num-seqs"), "4")
