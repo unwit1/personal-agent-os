@@ -729,28 +729,33 @@ def dispatch(args: argparse.Namespace, emit) -> int:
                 emit({"error": str(exc)})
                 return 2
 
-        # Refactored: single try/except for all job-scoped actions
         try:
-            if args.action in {"status", "stop", "destroy", "reconcile"}:
-                if not args.job_id:
-                    emit({"error": f"{args.action} needs --job-id"})
-                    return 2
-
             if args.action == "status":
-                result = provision.status(args.job_id, budget_home=budget_home)
+                if not args.job_id:
+                    emit({"error": "status needs --job-id"})
+                    return 2
+                emit(provision.status(args.job_id, budget_home=budget_home))
+                return 0
             elif args.action == "stop":
-                result = provision.stop(args.job_id, budget_home=budget_home)
+                if not args.job_id:
+                    emit({"error": "stop needs --job-id"})
+                    return 2
+                emit(provision.stop(args.job_id, budget_home=budget_home))
+                return 0
             elif args.action == "destroy":
-                result = provision.destroy(args.job_id, budget_home=budget_home)
+                if not args.job_id:
+                    emit({"error": "destroy needs --job-id"})
+                    return 2
+                emit(provision.destroy(args.job_id, budget_home=budget_home))
+                return 0
             elif args.action == "reconcile":
-                result = provision.reconcile(args.job_id, actual_usd=args.actual_usd, budget_home=budget_home)
+                if not args.job_id:
+                    emit({"error": "reconcile needs --job-id"})
+                    return 2
+                emit(provision.reconcile(args.job_id, actual_usd=args.actual_usd, budget_home=budget_home))
+                return 0
             elif args.action == "jobs":
-                result = provision.list_jobs()
-            else:
-                result = None
-
-            if result is not None:
-                emit(result)
+                emit(provision.list_jobs())
                 return 0
         except (ValueError, KeyError) as exc:
             emit({"error": str(exc)})

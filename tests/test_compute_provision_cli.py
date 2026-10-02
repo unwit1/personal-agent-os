@@ -58,23 +58,6 @@ class ComputeProvisionCliTests(CliFixture):
         self.assertEqual(job["provider"], "fake")
         self.assertEqual(job["gpu"], "A100")
 
-    def test_provision_with_budget_set_at_machine_level(self) -> None:
-        """Test that provision works when budget is set before CLI call."""
-        # This tests that the CLI correctly passes budget info to provision()
-        budget.set_budget(100, 5, home=self.budget_home)
-        code, job = self.cli(
-            "orchestrate", "compute", "provision",
-            "--provider", "fake",
-            "--gpu", "A100",
-            "--hourly-usd", "2.0",
-            "--low-usd", "0.5",
-            "--expected-usd", "1.0",
-            "--high-usd", "2.0",
-        )
-        self.assertEqual(code, 0, job)
-        self.assertEqual(job["state"], "running")
-        self.assertEqual(job["provider"], "fake")
-
     def test_provision_runpod_requires_approval(self) -> None:
         budget.set_budget(100, 5, home=self.budget_home)
         code, job = self.cli(
@@ -90,6 +73,7 @@ class ComputeProvisionCliTests(CliFixture):
         self.assertEqual(job["state"], "blocked")
         self.assertIn("approval_required", job["reason"])
         self.assertEqual(job["gate"], "approval_required")
+        self.assertIsNone(job["instance_id"])
 
     def test_provision_missing_arguments(self) -> None:
         budget.set_budget(100, 5, home=self.budget_home)
@@ -130,6 +114,7 @@ class ComputeProvisionCliTests(CliFixture):
             "--expected-usd", "1.0",
             "--high-usd", "2.0",
         )
+        self.assertEqual(code, 0, job1)
         code, job2 = self.cli(
             "orchestrate", "compute", "provision",
             "--provider", "fake",
@@ -139,6 +124,7 @@ class ComputeProvisionCliTests(CliFixture):
             "--expected-usd", "1.5",
             "--high-usd", "3.0",
         )
+        self.assertEqual(code, 0, job2)
         code, jobs = self.cli("orchestrate", "compute", "jobs")
         self.assertEqual(code, 0)
         self.assertIsInstance(jobs, list)
@@ -166,6 +152,7 @@ class ComputeProvisionCliTests(CliFixture):
         self.assertEqual(code, 0, result)
         self.assertEqual(result["state"], "blocked", f"Expected blocked state, got {result}")
         self.assertIn("reason", result)
+        self.assertIn("budget", result["reason"].lower())
 
     def test_provision_requires_provider(self) -> None:
         """Test that --provider is required for provision."""
@@ -182,14 +169,8 @@ class ComputeProvisionCliTests(CliFixture):
         self.assertIn("error", result)
         self.assertIn("provider", result["error"].lower())
 
-    @unittest.expectedFailure
     def test_roundtrip_provision_status_stop_reconcile_destroy(self) -> None:
-        """Test round-trip: provision -> status -> stop -> reconcile -> destroy.
-
-        Note: This test is marked as expected to fail because FakeProvider state is not
-        persisted across CLI invocations. Once FakeProvider saves state to
-        <home>/compute-providers/fake.json (follow-up task), this can be enabled.
-        """
+        """Test round-trip: provision -> status -> stop -> reconcile -> destroy."""
         budget.set_budget(100, 5, home=self.budget_home)
 
         # Provision
