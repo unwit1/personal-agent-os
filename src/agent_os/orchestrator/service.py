@@ -463,52 +463,63 @@ def _compute_homes() -> tuple[Path | None, Path | None]:
     return home, budget_home
 
 
-def _get_fake_provider(home: Path | None) -> Any:
-    """Return or create a FakeProvider for the given home."""
+def _get_fake_provider(home: Path | None, hourly_usd: float = 1.5) -> Any:
+    """Return or create a FakeProvider for the given home, updating hourly_usd if needed."""
     if home not in _FAKE_PROVIDERS:
         import time
         from .compute_fake import FakeProvider
-        _FAKE_PROVIDERS[home] = FakeProvider(hourly_usd=1.5, clock=time.time)
+        _FAKE_PROVIDERS[home] = FakeProvider(hourly_usd=hourly_usd, clock=time.time)
+    else:
+        _FAKE_PROVIDERS[home].hourly_usd = hourly_usd
     return _FAKE_PROVIDERS[home]
+
+
+def _compute_ctx(job_id: str | None = None) -> tuple[Path | None, Path | None, Any]:
+    """Return (home, budget_home, provider) for a compute operation.
+
+    If job_id is provided, load it to get the provider name and hourly_usd,
+    and create/update the cached fake provider if needed. Otherwise, provider is None.
+    """
+    from . import provision
+
+    home, budget_home = _compute_homes()
+    provider_obj = None
+    if job_id:
+        job = provision._load(job_id, home)
+        if job["provider"] == "fake":
+            provider_obj = _get_fake_provider(home, job["hourly_usd"])
+    return home, budget_home, provider_obj
 
 
 def compute_provision(provider: str, gpu: str, hourly_usd: float, estimate: dict[str, float], max_runtime_seconds: float | None = None, secret_ref: str | None = None, job_id: str | None = None) -> dict[str, Any]:
     from . import provision
     request = {"provider": provider, "gpu": gpu, "hourly_usd": hourly_usd, "estimate": estimate, "max_runtime_seconds": max_runtime_seconds, "secret_ref": secret_ref, "job_id": job_id}
     home, budget_home = _compute_homes()
-    provider_obj = _get_fake_provider(home) if provider == "fake" else None
+    provider_obj = _get_fake_provider(home, hourly_usd) if provider == "fake" else None
     return provision.provision(request, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_status(job_id: str) -> dict[str, Any]:
     from . import provision
-    home, budget_home = _compute_homes()
-    job = provision._load(job_id, home)
-    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    home, budget_home, provider_obj = _compute_ctx(job_id)
     return provision.status(job_id, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_stop(job_id: str) -> dict[str, Any]:
     from . import provision
-    home, budget_home = _compute_homes()
-    job = provision._load(job_id, home)
-    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    home, budget_home, provider_obj = _compute_ctx(job_id)
     return provision.stop(job_id, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_destroy(job_id: str) -> dict[str, Any]:
     from . import provision
-    home, budget_home = _compute_homes()
-    job = provision._load(job_id, home)
-    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    home, budget_home, provider_obj = _compute_ctx(job_id)
     return provision.destroy(job_id, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_reconcile(job_id: str, actual_usd: float | None = None) -> dict[str, Any]:
     from . import provision
-    home, budget_home = _compute_homes()
-    job = provision._load(job_id, home)
-    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    home, budget_home, provider_obj = _compute_ctx(job_id)
     return provision.reconcile(job_id, actual_usd=actual_usd, home=home, budget_home=budget_home, provider=provider_obj)
 
 
