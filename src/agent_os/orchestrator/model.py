@@ -168,6 +168,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     # Wait for a cheaper provider whose usage resets within this many seconds
     # rather than failing over to a costlier one; 0 always fails over.
     "wait_for_reset_seconds": 300,
+    # IMP-0015: operator opt-in; verifiable low-risk tasks route free-first per
+    # docs/free-compute-broker.md; off means existing runs are unchanged.
+    "free_routing_enabled": False,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -215,6 +218,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "allow_worker_publication",
         "allow_paid_spend",
         "share_run_history",
+        "free_routing_enabled",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")
