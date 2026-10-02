@@ -6,6 +6,7 @@ production, a fake in tests). Dry-run is the default and never connects.
 """
 from __future__ import annotations
 
+import itertools
 import json
 import os
 import secrets
@@ -74,13 +75,19 @@ def read_journal(journal_path: Path) -> list[dict[str, Any]]:
     return lines
 
 
-def _append(journal_path: Path, entry: dict[str, Any]) -> None:
+def _append_many(journal_path: Path, entries: list[dict[str, Any]]) -> None:
+    """Append entries in one open and one fsync."""
     path = Path(journal_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(entry, sort_keys=True) + "\n")
+        for entry in entries:
+            handle.write(json.dumps(entry, sort_keys=True) + "\n")
         handle.flush()
         os.fsync(handle.fileno())
+
+
+def _append(journal_path: Path, entry: dict[str, Any]) -> None:
+    _append_many(journal_path, [entry])
 
 
 def _now(now: datetime | None) -> datetime:
@@ -200,6 +207,7 @@ def apply_plan(plan: dict[str, Any], category: str, *, accounts: Any = None, onl
     result["journal_id"] = journal_id
     path = Path(journal_path) if journal_path else default_journal_path(str(plan.get("scope") or "work"))
     budget = max(0, int(max_moves))
+    counter = itertools.count(_next_seq(path, journal_id) if journal_id else 1)
     opener = None if dry_run else _connect(connect)
     for account_id, entry in (plan.get("accounts") or {}).items():
         if wanted is not None and account_id not in wanted:
@@ -230,11 +238,12 @@ def apply_plan(plan: dict[str, Any], category: str, *, accounts: Any = None, onl
             row["would_move"] = len(planned)
             continue
         budget -= _apply_account(account, plan, category, target, planned, sources, row, opener, path,
-                                 journal_id, moment, store)
+                                 journal_id, moment, store, counter)
     return result
 
 
-def _apply_account(account, plan, category, target, ids, sources, row, opener, path, journal_id, moment, store) -> int:
+def _apply_account(account, plan, category, target, ids, sources, row, opener, path, journal_id, moment, store,
+                   counter) -> int:
     scope = plan.get("scope") or getattr(account, "mail_scope", None)
     by_mailbox: dict[str, list[str]] = {}
     for message_id in ids:
@@ -256,7 +265,7 @@ def _apply_account(account, plan, category, target, ids, sources, row, opener, p
             for batch in _chunks(message_ids, BATCH):
                 mover.select(mailbox)
                 _apply_batch(mover, batch, sources, mailbox, validity, real_target, target_validity, use_move,
-                             account, category, plan, scope, row, path, journal_id, moment, store)
+                             account, category, plan, scope, row, path, journal_id, moment, store, counter)
     except Exception as exc:  # per account: one connection error never stops the others
         row.update(status="error", error=f"{type(exc).__name__}: {str(exc)[:200]}")
     finally:
@@ -269,7 +278,7 @@ def _apply_account(account, plan, category, target, ids, sources, row, opener, p
 
 
 def _apply_batch(mover, batch, sources, mailbox, validity, real_target, target_validity, use_move, account,
-                 category, plan, scope, row, path, journal_id, moment, store) -> None:
+                 category, plan, scope, row, path, journal_id, moment, store, counter) -> None:
     uids = [str(sources[m]["uid"]) for m in batch if sources[m].get("uid") not in (None, "")]
     fetched = mover.message_ids(uids) if uids else {}
     ready = []
@@ -288,11 +297,13 @@ def _apply_batch(mover, batch, sources, mailbox, validity, real_target, target_v
     if not ready:
         return
     seqs = {}
+    pending = []
     for message_id, source, uid in ready:
-        seq = seqs[message_id] = _next_seq(path, journal_id)
-        _append(path, _line(journal_id, seq, "pending", moment, plan, category, account, scope, message_id, source,
-                            mailbox, validity, real_target, target_validity, None, "move" if use_move else "copy_flag",
-                            None))
+        seq = seqs[message_id] = next(counter)
+        pending.append(_line(journal_id, seq, "pending", moment, plan, category, account, scope, message_id, source,
+                             mailbox, validity, real_target, target_validity, None,
+                             "move" if use_move else "copy_flag", None))
+    _append_many(path, pending)
     error = None
     mapping: dict[str, str | None] = {}
     try:
@@ -348,15 +359,29 @@ def _line(journal_id, seq, status, moment, plan, category, account, scope, messa
 # ---------------------------------------------------------------------------
 
 
+def _locate_journal(journal_id: str, journal_path: Path | None, scope: str | None) -> Path:
+    """Explicit path, else the given scope's journal, else whichever scope journal holds the id."""
+    if journal_path:
+        return Path(journal_path)
+    if scope:
+        return default_journal_path(scope)
+    for candidate in ("work", "personal"):
+        path = default_journal_path(candidate)
+        if any(line.get("journal_id") == journal_id for line in read_journal(path)):
+            return path
+    return default_journal_path("work")
+
+
 def undo(journal_id: str, *, seq: int | None = None, dry_run: bool = True, accounts: Any = None,
          connect: Callable[[Any], Mover] | None = None, journal_path: Path | None = None,
-         now: datetime | None = None, store: Any = None) -> dict[str, Any]:
+         now: datetime | None = None, store: Any = None, scope: str | None = None) -> dict[str, Any]:
     """Reverse one move (``seq``) or a whole journal batch; journaled as ``undone``.
 
     Raises ``UndoError`` when everything asked for was already undone.
     """
-    path = Path(journal_path) if journal_path else default_journal_path()
+    path = _locate_journal(journal_id, journal_path, scope)
     lines = read_journal(path)
+    counter = itertools.count(_next_seq(path, journal_id))
     finals = _final_lines(lines)
     done = {int(l["undone_of"]) for l in lines if l.get("status") == "undone" and l.get("journal_id") == journal_id}
     pending_seqs = {int(l["seq"]) for l in lines if l.get("journal_id") == journal_id and l.get("status") == "pending"}
@@ -400,7 +425,7 @@ def undo(journal_id: str, *, seq: int | None = None, dry_run: bool = True, accou
                 if reason:
                     result["skipped"].append({"seq": entry["seq"], "reason": reason})
                     continue
-                _append(path, {"journal_id": journal_id, "seq": _next_seq(path, journal_id), "ts": moment.isoformat(),
+                _append(path, {"journal_id": journal_id, "seq": next(counter), "ts": moment.isoformat(),
                                "status": "undone", "undone_of": entry["seq"], "plan_id": entry.get("plan_id"),
                                "category": entry.get("category"), "account_id": account_id,
                                "scope": entry.get("scope"), "message_id": entry.get("message_id"),

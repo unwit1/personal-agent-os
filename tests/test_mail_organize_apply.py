@@ -274,6 +274,35 @@ class ApplyTests(unittest.TestCase):
                 connect=lambda a: movers[a.id])
         self.assertIn(("unflag", ("41",)), movers["work-a"].calls)
 
+    def test_undo_finds_personal_scope_journal_by_default(self):
+        from unittest import mock
+        paths = {"work": Path(self.tmp.name) / "work.jsonl", "personal": Path(self.tmp.name) / "personal.jsonl"}
+        plan = make_plan()
+        plan["scope"] = "personal"
+        with mock.patch.object(oa, "default_journal_path", side_effect=lambda scope="work": paths[scope]):
+            result, movers, _ = self.run_apply(plan=plan, dry_run=False, journal_path=None)
+            self.assertTrue(paths["personal"].exists())
+            self.assertFalse(paths["work"].exists())
+            done = oa.undo(result["journal_id"], dry_run=False, connect=lambda a: movers[a.id],
+                           accounts=[account("work-a"), account("work-b")], now=NOW)
+            self.assertEqual(len(done["undone"]), 3, done)
+            with self.assertRaises(oa.UndoError):
+                oa.undo(result["journal_id"], scope="personal", dry_run=False, connect=lambda a: movers[a.id],
+                        accounts=[account("work-a"), account("work-b")])
+
+    def test_journal_is_read_once_per_apply_and_undo(self):
+        from unittest import mock
+        real = oa.read_journal
+        with mock.patch.object(oa, "read_journal", side_effect=real) as spy:
+            result, movers, _ = self.run_apply(dry_run=False)
+            self.assertEqual(spy.call_count, 1)
+            spy.reset_mock()
+            oa.undo(result["journal_id"], dry_run=False, journal_path=self.journal, connect=lambda a: movers[a.id],
+                    accounts=[account("work-a"), account("work-b")], now=NOW)
+            self.assertEqual(spy.call_count, 2)  # one for the entries, one for the next sequence number
+        seqs = [l["seq"] for l in real(self.journal) if l["status"] == "undone"]
+        self.assertEqual(seqs, sorted(set(seqs)))
+
     def test_default_journal_path_is_under_mail_home(self):
         from agent_os.mail import config
         self.assertEqual(oa.default_journal_path("work").parent, config.scope_dir("work"))
