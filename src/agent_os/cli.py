@@ -137,6 +137,9 @@ def _register_executive(commands) -> None:
     send = sub.add_parser("send")
     send.add_argument("batch_id")
     send.add_argument("--confirm", action="store_true", help="actually send; without it the send is a dry-run")
+    window = sub.add_parser("window")
+    window.add_argument("--port", type=int, default=8770)
+    window.add_argument("--no-open", action="store_true")
 
 
 def _approval_state(batch: dict) -> dict:
@@ -185,6 +188,9 @@ def _dispatch_executive(args) -> int:
             gateway=_executive_gateway() if args.confirm else None, store=store,
         )
         _print({"approval": approval, "dry_run": not args.confirm, "result": result})
+    elif cmd == "window":
+        from .executive.window import server
+        return server.serve(port=args.port, open_window=not args.no_open)
     return 0
 
 
