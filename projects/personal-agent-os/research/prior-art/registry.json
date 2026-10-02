@@ -3315,6 +3315,89 @@
         "Hermes gains a direct subscription path without the Codex wrapper"
       ],
       "revisit_by": null
+    },
+    {
+      "id": "PA-openrouter-api",
+      "name": "OpenRouter API (models / key / credits endpoints)",
+      "repository": "https://openrouter.ai/docs",
+      "organization": "OpenRouter",
+      "description": "Hosted OpenAI-compatible model gateway. Its public catalog (GET /api/v1/models) and key/credit endpoints (GET /api/v1/key, GET /api/v1/credits) are the interfaces the FreeComputeBroker reads; not an open-source project.",
+      "license": "proprietary hosted service; public API documentation",
+      "license_status": "no code is reused; only documented request/response shapes are borrowed",
+      "evaluated_revision": "public docs as summarized in the roadmap 2026-10-01 (not re-fetched: worker had no network)",
+      "evaluated_at": "2026-10-01",
+      "activity": {
+        "stars": null,
+        "pushed_at": null,
+        "archived": false,
+        "latest_release": null,
+        "released_at": null,
+        "checked_at": "2026-10-01"
+      },
+      "language": null,
+      "capability_areas": [
+        "openrouter free model routing",
+        "free model catalog discovery",
+        "model pricing and modality metadata",
+        "free request quota and rate limits",
+        "credit balance and key usage"
+      ],
+      "agent_os_overlap": "model_prices.parse_openrouter scrapes per-model prices; router.py routes CLI providers by capability class; capability.py keeps CAP Wilson pass rates per task family; provider_health.py records quota cooldowns; secret_refs.py resolves secrets:// keys. No OpenRouter catalog, account or free-quota reader yet (docs/free-compute-broker.md).",
+      "useful_parts": {
+        "schemas_interfaces": [
+          "GET /api/v1/models: id, canonical_slug, context_length, architecture.input_modalities/output_modalities, pricing (string USD per token), supported_parameters (tools, structured_outputs, response_format)",
+          "':free' model-variant suffix and the openrouter/free auto-router",
+          "GET /api/v1/key: usage, limit, limit_remaining, is_free_tier, rate_limit (read-only key state)",
+          "GET /api/v1/credits: total_credits, total_usage (read-only)"
+        ],
+        "algorithms": [
+          "zero prompt+completion price as the free predicate instead of a hard-coded model list"
+        ]
+      },
+      "integration": "stdlib urllib adapters behind injectable openers (free_catalog.py, openrouter_account.py); fixtures in tests; no SDK dependency",
+      "risks": {
+        "provider_lock_in": "catalog fields are OpenRouter-specific; normalized into a provider-neutral snapshot",
+        "maintenance": "free-model set and allowance policy change without notice; treated as versioned data with last_verified",
+        "privacy": "free endpoints may log or train on prompts; per-endpoint data policy is a routing constraint",
+        "security": "API key only via secrets://openrouter/default; never logged"
+      },
+      "evidence": {
+        "development_savings": "medium: catalog fields map directly onto the snapshot schema; no scraping",
+        "runtime_savings": "potentially large: free requests replace paid calls for verifiable low-risk work (to be measured by free_metrics)",
+        "quality": "unknown per task family until specialization records exist",
+        "reliability": "unknown; free endpoints are rate limited (documented ~20 RPM) and volatile",
+        "security": "read-only GETs; no spend endpoint is ever called",
+        "complexity": "small: three GET endpoints",
+        "maintenance": "provider changes fields and policy; the snapshot diff detects it",
+        "portability": "OpenAI-compatible chat format; catalog shape is vendor-specific"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "The registry had no OpenRouter-specific prior art: lookup for 'OpenRouter free model routing' returned only generic routers (RouteLLM, LLMRouter) and catalogs (huggingface_hub). OpenRouter's own documented endpoints are the authoritative interface for free-model discovery and read-only quota/credit state, so the FreeComputeBroker borrows their shapes through a minimal stdlib adapter (as compute.py and radar.py do) instead of adopting a gateway dependency such as LiteLLM. Field names were not re-verified against the live API from this worker; confirm with a captured fixture before code depends on them.",
+      "confidence": "low",
+      "provenance": [
+        "projects/personal-agent-os/roadmap/model-infrastructure-manager.md (OpenRouter free-compute maximization, 2026-10-01)",
+        "agent-os orchestrate prior-art lookup 'OpenRouter free model routing' (2026-10-01)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "IMP-0015"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "PA-litellm"
+        },
+        {
+          "rel": "relates_to",
+          "ref": "PA-routellm"
+        }
+      ],
+      "revisit_when": [
+        "first live catalog/key fixture is captured for free_catalog.py / openrouter_account.py",
+        "OpenRouter changes free-model allowance or credit threshold policy",
+        "an open-source OpenRouter free-model router appears in discovery queries"
+      ],
+      "revisit_by": "2026-10-31"
     }
   ]
 }

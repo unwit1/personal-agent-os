@@ -61,6 +61,23 @@ QUANT_TAGS = ("gguf", "awq", "gptq", "exl2", "mlx", "fp8", "int4", "int8", "2-bi
 SUITES_BY_MODALITY = {"text": ["EVS-CAPABILITY-CLASSIFICATION", "EVS-CONTEXT"], "code": ["EVS-TEST-SELECTION"], "vision": [], "image": [], "audio": [], "embedding": []}
 
 
+def _queue_entries(home: Path | None, fetched_at: str, items: list[tuple[dict[str, Any], str]]) -> list[str]:
+	"""Create and append eval queue entries from (model, reason) pairs.
+
+	Returns list of model_ids queued."""
+	queued = []
+	target = queue_path(home)
+	target.parent.mkdir(parents=True, exist_ok=True)
+	with target.open("a", encoding="utf-8") as handle:
+		for model, reason in items:
+			suites = sorted({suite for modality in model["modalities"] for suite in SUITES_BY_MODALITY.get(modality, [])})
+			entry = {"at": fetched_at, "model_id": model["model_id"], "revision": model.get("revision"), "reason": reason,
+					 "modalities": model["modalities"], "suggested_suites": suites, "status": "queued"}
+			handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+			queued.append(model["model_id"])
+	return queued
+
+
 def catalog_path(home: Path | None = None) -> Path:
     return Path(home or orchestrator_home()) / "model-catalog.json"
 
@@ -176,21 +193,140 @@ def scan(scans: list[dict[str, Any]] | None = None, *, home: Path | None = None,
     write_json(path, catalog)
     queued = []
     if queue:
-        target = queue_path(home)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with target.open("a", encoding="utf-8") as handle:
-            for model_id in [*new, *revised]:
-                model = models[model_id]
-                reason = eval_candidate(model, min_downloads)
-                if not reason:
-                    continue
-                suites = sorted({suite for modality in model["modalities"] for suite in SUITES_BY_MODALITY.get(modality, [])})
-                entry = {"at": fetched_at, "model_id": model_id, "revision": model.get("revision"), "reason": reason,
-                         "modalities": model["modalities"], "suggested_suites": suites, "status": "queued"}
-                handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
-                queued.append(model_id)
+        items = []
+        for model_id in [*new, *revised]:
+            model = models[model_id]
+            reason = eval_candidate(model, min_downloads)
+            if reason:
+                items.append((model, reason))
+        queued = _queue_entries(home, fetched_at, items)
     return {"catalog": str(path), "models_seen": seen, "catalog_size": len(models), "new": new, "new_revisions": revised,
             "queued_for_eval": queued, "errors": errors}
+
+
+def merge_free_catalog(snapshot: dict[str, Any], *, home: Path | None = None) -> dict[str, Any]:
+    """Merge OpenRouter free models snapshot into the radar catalog.
+
+    Upserts free models from snapshot, tagging with source='openrouter-free' and
+    last_seen/last_verified timestamps. Marks free models removed from the snapshot
+    as unavailable (available=False) instead of deleting them. Queues newly added
+    free models as eval candidates."""
+    from ..storage import write_json
+
+    path = catalog_path(home)
+    try:
+        catalog = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        catalog = {"schema": "personal-agent/model-catalog/v1", "models": {}}
+
+    models: dict[str, Any] = catalog.setdefault("models", {})
+    fetched_at = snapshot.get("fetched_at") or utc_now_iso()
+    new, seen, errors = [], 0, []
+
+    # Validate snapshot has models
+    snapshot_models = snapshot.get("models")
+    if not isinstance(snapshot_models, list) or not snapshot_models:
+        errors.append({"snapshot": "Invalid or empty models list in snapshot"})
+        return {
+            "catalog": str(path),
+            "models_seen": 0,
+            "catalog_size": len(models),
+            "new": [],
+            "queued_for_eval": [],
+            "errors": errors,
+        }
+
+    # Track which slugs are in this snapshot
+    snapshot_slugs = set()
+
+    # Identify models from openrouter-free source before this merge
+    free_model_ids_before = {k for k, m in models.items() if (m.get("provenance") or {}).get("source") == "openrouter-free"}
+
+    # Process models from snapshot
+    for item in snapshot_models:
+        if not isinstance(item, dict) or not item.get("slug"):
+            continue
+
+        seen += 1
+        model_id = item["slug"]
+        snapshot_slugs.add(model_id)
+
+        # Check if model already exists and is from another source
+        existing = models.get(model_id)
+        if existing and (existing.get("provenance") or {}).get("source") != "openrouter-free":
+            # Skip overwriting models from other sources
+            continue
+
+        # Flatten modalities from input/output dicts to sorted list
+        modalities = []
+        if isinstance(item.get("modalities"), dict):
+            input_mods = item["modalities"].get("input", []) or []
+            output_mods = item["modalities"].get("output", []) or []
+            modalities = sorted(set(input_mods + output_mods))
+
+        # Build fresh snapshot fields (excluding capabilities to preserve enrichment)
+        fresh = {
+            "model_id": model_id,
+            "revision": item.get("canonical_slug") or item.get("revision"),
+            "modalities": modalities,
+            "context_length": item.get("context_length"),
+            "supports_tools": item.get("supports_tools", False),
+            "supports_structured_output": item.get("supports_structured_output", False),
+            "pricing": item.get("pricing", {}),
+            "provenance": {
+                "source": "openrouter-free",
+                "provider": snapshot.get("provider", "openrouter"),
+                "catalog_version": snapshot.get("catalog_version"),
+                "fetched_at": fetched_at,
+            },
+            "last_seen": fetched_at,
+            "last_verified": fetched_at,
+        }
+
+        if model_id in models:
+            # Overlay fresh fields on existing entry, preserving capabilities and other enrichment
+            model = {**models[model_id], **fresh}
+            model["first_seen"] = models[model_id].get("first_seen", fetched_at)
+            # Pop availability flags when model reappears
+            model.pop("available", None)
+            model.pop("unavailable_since", None)
+        else:
+            model = fresh
+            model["first_seen"] = fetched_at
+            model["capabilities"] = []
+            new.append(model_id)
+
+        models[model_id] = model
+
+    # Mark removed free models as unavailable instead of deleting
+    for model_id in free_model_ids_before - snapshot_slugs:
+        if model_id in models:
+            existing_model = models[model_id]
+            # Skip if already marked unavailable
+            if existing_model.get("available") is False:
+                continue
+            existing_model["available"] = False
+            # Add unavailable_since only if not already set
+            if "unavailable_since" not in existing_model:
+                existing_model["unavailable_since"] = fetched_at
+
+    catalog["updated_at"] = fetched_at
+    write_json(path, catalog)
+
+    # Queue newly added free models for evaluation
+    queued = []
+    if new:
+        items = [(models[model_id], f"free tier OpenRouter model, context_length {models[model_id].get('context_length')}") for model_id in new]
+        queued = _queue_entries(home, fetched_at, items)
+
+    return {
+        "catalog": str(path),
+        "models_seen": seen,
+        "catalog_size": len(models),
+        "new": new,
+        "queued_for_eval": queued,
+        "errors": errors,
+    }
 
 
 def catalog_summary(home: Path | None = None, *, modality: str | None = None, refusal_profile: str | None = None, limit: int = 25) -> dict[str, Any]:

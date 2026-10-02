@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-10-02T03:58:00+00:00",
+  "updated_at": "2026-10-01T20:00:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
-  "active_objective": "ASAP: implement IMP-0015 OpenRouter FreeComputeBroker/free-first routing and quota awareness to maximize useful free-model capacity, while continuing the existing measurement-first IMP-0015 provider/runtime work plus IMP-0018 context economy and IMP-0019 episodic rotation.",
+  "active_objective": "Continue IMP-0015 integration: wire free-first routing (free_routing.decide) into engine dispatch behind opt-in run policy flag, then execute measurement-first third-party optimization (SkyPilot/RunPod, vLLM, TensorZero, etc.) and parallel IMP-0018/IMP-0019 experiments.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -60,11 +60,11 @@
     "FAIL-0006: storage.load_json retries transient Windows sharing violations (read side of FAIL-0005)",
     "Credential setup via masked pop-ups into Windows Credential Manager: orchestrate secrets setup / set --gui; radar sends an optional HF token (DEC-0040)",
     "Operator-approved compute budget $10 project / $5 per-job hard cap (machine-wide ~/.agent-os/budget.json, history + spend ledger, orchestrate budget show|set); quote gate enforces it (DEC-0041)",
-    "Operator raised the per-job hard cap to $10 (project budget $10) on 2026-09-29; recorded in ~/.agent-os/budget-history.jsonl"
+    "Operator raised the per-job hard cap to $10 (project budget $10) on 2026-09-29; recorded in ~/.agent-os/budget-history.jsonl",
+    "IMP-0015 slice 10: OpenRouter FreeComputeBroker (free-first routing, dynamic model discovery, versioned cached catalog, per-task empirical specialization, quota/account visibility, fan-out backfill with checkpoints, validator-gated escalation, useful-progress metrics, operator-alert-only top-up recommendation) — modules: free_catalog, free_quota, free_routing, free_specialization, free_swarm, free_metrics, openrouter_account; tests: 95 pass; CLI: orchestrate free-compute (landed); read-only account visibility with secrets://openrouter/default awareness; docs: free-compute-broker.md"
   ],
   "blockers": [],
   "active_experiments": [
-    "IMP-0015 OpenRouter FreeComputeBroker: dynamic free-model discovery, quota/account visibility, empirically specialized free-first verifiable work, useful quota backfill, validator-driven escalation, and top-up recommendation when genuinely required",
     "HYP-0003 (monitoring): affected_tests_first always vs retries",
     "IMP-0019: episodic agent rotation / context-pressure break-even benchmark (shadow first)",
     "IMP-0015 third-party optimization track: SkyPilot/native RunPod, vLLM vs SGLang, LMCache, PydanticAI-style isolated delegation, AgentScope patterns, TensorZero, RouteLLM, optional isolated LiteLLM, then AIBrix/llm-d when scale justifies them"
@@ -79,24 +79,31 @@
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
     "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
     "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout",
-    "IMP-0015: budget approved ($10 project, $10 per-job cap after operator raise; DEC-0041). Operator provided a RunPod key and asked to try the abliterated foreman on a pod (2026-09-29). RunPod account balance was $2.77 at that time, the practical ceiling."
+    "IMP-0015: budget approved ($10 project, $10 per-job cap after operator raise; DEC-0041). Operator provided a RunPod key and asked to try the abliterated foreman on a pod (2026-09-29). RunPod account balance was $2.77 at that time, the practical ceiling.",
+    "IMP-0015 FreeComputeBroker slice 10 remaining items: (a) Live allowance verification with a real secrets://openrouter/default key (read-only account/quota/credit awareness for operator-alert-only top-up recommendations); (b) Operator decision on which free-endpoint data policies are acceptable for repository code (determines whether free-model responses can be included in training data, logs, or other downstream use)."
   ],
   "next_action": {
-    "summary": "ASAP operator directive 2026-10-01: implement the OpenRouter FreeComputeBroker slice first/alongside other no-spend IMP-0015 work. Start with (1) dynamic current free-model discovery and capability/data-policy metadata, (2) read-only OpenRouter account/quota/credit visibility with versioned policy provenance, (3) daily/RPM/reset/retry quota governor, and (4) one or two automatically verifiable free-first task families with bounded alternate-free -> local/already-paid -> cheap-paid -> frontier escalation. Add telemetry for useful progress per free request, validator/review acceptance, failed/wasted free calls, paid fallbacks avoided and estimated paid cost avoided. Use otherwise-expiring free quota only for useful checkpointable backfill. Current provider guidance verified 2026-10-01 says adding at least USD 10 in credits raises the free-model daily allowance from about 50 to about 1,000 requests at 20 RPM; treat that as mutable external policy, detect actual account/quota eligibility, and alert the operator only if a top-up is genuinely required. Never purchase credits or enable auto-recharge without explicit approval. IMP-0015 third-party routing/delegation/GPU-efficiency track (2026-09-30): execute the measurement-first sequence in model-infrastructure-manager.md. Finish SkyPilot + fake-provider provisioning gates first; then benchmark vLLM vs SGLang, LMCache, isolated subagent delegation, AgentScope patterns, TensorZero sidecar, RouteLLM shadow calibration, optional isolated LiteLLM, and defer AIBrix/llm-d until workload scale justifies them. Promote only on held-out noninferior validation and lower cost per verified successful task or another material measured benefit. High-priority parallel experiment IMP-0019: after/with IMP-0018 measurement, benchmark continuing a context-heavy worker versus rotating at semantic boundaries to a fresh task-scoped worker. Include bootstrap, handoff, retrieval, rediscovery, retries/reviews and validator outcomes; start with a shadow rotation advisor, not automatic spawning, and identify the diminishing-return/break-even region. High-priority parallel track: run IMP-0018 Phase 0 context-economy measurement before or alongside the next implementation slice. Instrument cumulative input/context amplification and benchmark long-session growth, worker fan-out, tool-output retention, checkpoint resume, and task-specific context packets. If controlled results show material savings with noninferior validation, implement the lowest-risk winners and record EXP/EVR/DEC evidence. Continue IMP-0015. Unpaid next slices: (1) SkyPilot spike (PA-skypilot) in an isolated venv under the scratchpad: RunPod pod lifecycle semantics, state kept, credential bridging to secrets://; record EXP + DEC (WRAP vs in-house lifecycle); launch nothing. (2) Gated provisioning interface (compute.provision/status/stop/destroy/reconcile) against a fake provider: preconditions = budget.effective allows the high estimate, a spend reservation is written first (write-ahead, like IMP-0013), mandatory max-runtime auto-stop derived from the cap, reconcile actual vs estimate and release the reservation. (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs.",
+    "summary": "Wire free_routing.decide into engine dispatch behind an opt-in run policy flag ('free_routing_enabled' per task context). Then continue IMP-0015 unpaid next slices: (1) SkyPilot spike (PA-skypilot) in an isolated venv under the scratchpad: RunPod pod lifecycle semantics, state kept, credential bridging to secrets://; record EXP + DEC (WRAP vs in-house lifecycle); launch nothing. (2) Gated provisioning interface (compute.provision/status/stop/destroy/reconcile) against a fake provider: preconditions = budget.effective allows the high estimate, a spend reservation is written first (write-ahead, like IMP-0013), mandatory max-runtime auto-stop derived from the cap, reconcile actual vs estimate and release the reservation. (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. Parallel high-priority: IMP-0018 Phase 0 context-economy measurement (input/output amplification, long-session growth, worker fan-out, checkpoint resume) and IMP-0019 episodic rotation shadow advisor (bootstrap, handoff, retrieval, retries/reviews). Promotion gate: held-out noninferior validation + lower cost per verified task. Never purchase credits or auto-recharge without explicit approval.",
     "prior_art": "third-party model routing/delegation/inference efficiency (TensorZero, AgentScope, PydanticAI subagents, RouteLLM, LiteLLM); cloud GPU brokers (SkyPilot/native RunPod); inference runtimes/caching/schedulers (vLLM, SGLang, LMCache, AIBrix, llm-d); shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
     "worker_class": "reasoning",
     "effort": "medium",
     "why_this_class": "cross-cutting contracts and evaluation design; implementation is deterministic stdlib code",
     "context_refs": [
+      "src/agent_os/orchestrator/free_routing.py",
+      "src/agent_os/orchestrator/free_catalog.py",
+      "src/agent_os/orchestrator/free_quota.py",
+      "src/agent_os/orchestrator/free_specialization.py",
+      "src/agent_os/orchestrator/free_swarm.py",
+      "src/agent_os/orchestrator/free_metrics.py",
       "projects/personal-agent-os/improvements/IMP-0019.json",
       "projects/personal-agent-os/roadmap/episodic-agent-rotation.md",
       "projects/personal-agent-os/improvements/IMP-0018.json",
       "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
       "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
       "docs/model-infrastructure.md",
-      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0041.json",
       "src/agent_os/orchestrator/budget.py",
-      "src/agent_os/orchestrator/compute.py"
+      "src/agent_os/orchestrator/compute.py",
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0041.json"
     ],
     "stop_conditions": [
       "a slice is implemented, tested, recorded and merged",
