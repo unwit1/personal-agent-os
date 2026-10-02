@@ -17,6 +17,7 @@ from unittest import mock
 
 from agent_os.orchestrator import free_dispatch, free_quota
 from agent_os.orchestrator.engine import Orchestrator
+from agent_os.orchestrator.ledger import describe
 from agent_os.orchestrator.free_dispatch import FreeInputs
 from agent_os.orchestrator.router import ProviderRegistry
 from agent_os.orchestrator.store import RunStore
@@ -183,6 +184,14 @@ class FreeRoutingEngineTests(OrchestratorFixture):
         for node in reviewers:
             self.assertNotIn(node["selection"]["provider"], FREE_PROVIDERS)
             self.assertNotIn("free_route", node)
+
+    def test_free_route_event_types_are_recorded_and_described(self) -> None:
+        engine = self.free_engine()
+        run_id = engine.create_run("fixture goal", repository=self.repo, tasks=[self.task("a")], policy=self.policy())["run_id"]
+        for kind in ("free_route_decided", "free_route_escalated"):
+            record = engine.ledger.emit(run_id, kind, "a", route="free", from_model="m", to="class:fast/low")
+            self.assertIsNotNone(record, kind)
+            self.assertTrue(describe(record))
 
 
 if __name__ == "__main__":
