@@ -516,6 +516,13 @@ existing workload contract, CAP/EVR evidence, budget gates, secret abstraction,
 deterministic authorization boundaries, checkpointing, and measured-promotion
 policy.
 
+As part of this track, **IMP-0015** implements a measurement-first route
+calibration system (see [route-calibration.md](../../orchestrator-os/self-audit/route-calibration.md))
+that uses existing orchestrator telemetry to estimate the probability that cheaper
+routes would pass validation, and recommends escalation thresholds targeting 90%
+pass rate on kept-cheap tasks. The calibrator operates in shadow mode only and
+never changes routing until held-out validation evidence confirms benefit.
+
 ### Integration principle
 
 Use two routing layers rather than collapsing everything into one gateway:

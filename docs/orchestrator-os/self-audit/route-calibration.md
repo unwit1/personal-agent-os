@@ -10,12 +10,12 @@ The calibrator answers one question for every task family and capability class
 pair: **given observed task outcomes and their review verdicts, at which
 escalation threshold would the estimated pass rate of the cheaper route
 meet or exceed a target bar (0.9)?** A threshold (T) is a bar on the Wilson
-confidence bound. If the wilson_lower >= T, the cheap route is kept; otherwise,
-escalation to a stronger model is recommended. The calibrator is deterministic
-and offline. It makes no model calls and no network calls. It **records advice
-only** and never changes what Orchestrator runs. No routing, scheduling, or
-dispatch code imports it. The advisor estimates, does not validate. Limits in
-§8 apply.
+confidence bound lower bound. If wilson_lower >= T, the cheap route is kept;
+otherwise, escalation to a stronger model is recommended. The calibrator is
+deterministic and offline. It makes no model calls and no network calls. It
+**records advice only** and never changes what Orchestrator runs. No routing,
+scheduling, or dispatch code imports it. The advisor estimates, does not
+validate. Limits in §8 apply.
 
 ## 1. Purpose
 
@@ -112,11 +112,12 @@ For each `(task_family, initial_capability_class)` pair:
 For each `(family, class)` pair with sufficient samples:
 
 1. **Grid thresholds** from 0.50 to 0.95 in increments of 0.05 (fixed set: 0.50, 0.55, ..., 0.95).
+   T is a bar on the Wilson lower bound.
 2. **Decision rule at each threshold**:
    ```
    keep_cheap at threshold T := wilson_lower >= T
    ```
-   If the conservative bound meets the threshold, keep the cheap route for future
+   If the conservative bound meets or exceeds T, keep the cheap route for future
    tasks of that family and class. Otherwise escalate.
 3. **Cost-vs-quality curve**: For each threshold, record:
    - `threshold`: the escalation threshold.
@@ -187,84 +188,32 @@ again before writing `--out`.
 
 The advisor has three key limitations:
 
-1. **No counterfactual for nodes that started on strong class.** The advisor cannot
-   observe what would have happened if Orchestrator had taken a different route.
-   Tasks that escalated to strong did not run on cheap; estimated pass rates are
-   derived from tasks that did run on cheap. The estimate may not apply to a
-   different distribution of tasks or effort levels.
+1. **No counterfactual for strong-start nodes.** The advisor cannot observe what
+   would have happened if a node had taken a cheaper route instead. Tasks that
+   did not run on cheap contribute no labeled outcome and cannot inform the pass
+   rate estimate.
 
-2. **Selection bias from the ladder.** The advisor observes only tasks that
-   Orchestrator chose to route through the cheap class. Tasks never attempted
-   on the cheap route contribute no labeled outcome, creating positive bias.
-   Estimated pass rates assume that future cheap routes will have similar coverage
-   and difficulty. Hard tasks are underrepresented.
+2. **Ladder selection bias.** The advisor observes only tasks that Orchestrator
+   routed through the cheap class. This creates positive bias: estimated pass rates
+   are conditioned on Orchestrator's routing choice and may not apply to hard tasks
+   never attempted on cheap.
 
 3. **Small samples.** With `min_samples = 5`, many `(family, class)` pairs will
-   have fewer than 10 labeled outcomes, especially early in deployment. Wilson
-   bounds are wider when `n` is small; confidence is lower. The advisor remains
-   deterministic but recommends caution when curve counts are low.
+   have fewer than 10 labeled outcomes early in deployment. Wilson bounds widen
+   with small `n`; confidence is lower.
 
 ## 9. How the supervisor runs it
 
-The worker builds the module and its tests. The **supervisor** runs the calibrator
-over real local telemetry after this worktree is merged:
+The worker builds the module in `src/agent_os/orchestrator/route_calibration.py`
+and its tests in `tests/`. The **supervisor** runs the calibrator over real local
+telemetry after this worktree is merged:
 
 ```text
 agent-os orchestrate route-calibration --home --out docs/orchestrator-os/self-audit/route-calibration-baseline.json
 ```
 
-The calibrator is deterministic and offline; only `--home` reads local paths and
-collects real run data. The CLI returns a report with aggregates only.
-
-### 9.1 Module and functions
-
-- Module: `src/agent_os/orchestrator/route_calibration.py`.
-  - `estimate_family(outcomes) -> dict` is pure. Returns posterior mean, Wilson
-    bound, sample counts per `(family, class)` pair.
-  - `calibrate_threshold(estimate, target=0.9) -> dict` returns the cost-vs-quality
-    curve and recommended threshold per family and class.
-  - `build(run_dirs) -> dict` reads telemetry and produces estimates.
-  - `report(home=None, out=None) -> dict` formats and writes the output.
-  - It reuses `ledger.read_events`, privacy checks from context-economy,
-    `RUN_ID`, `PRIVACY_RULE`, and `assert_aggregate_only`. It adds no second
-    telemetry parser.
-- CLI: `agent-os orchestrate route-calibration [--home PATH] [--out PATH]`.
-  Prints the report.
-- **Shadow guarantee.** Only `cli.py` imports `route_calibration`. `engine.py`,
-  routing, scheduling, and existing modules do not. A test asserts this.
-  The calibrator writes nothing under `runs/`.
-
-### 9.2 Tests
-
-Each test file starts with `sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))`.
-Fixtures write ledger-schema `telemetry.jsonl` lines into a temporary `runs/`
-directory. Required cases:
-
-1. **Formulas.** A task family with 5+ labeled outcomes (mix of `cheap_route_passed=True`
-   and `False`). Compute `n_pass`, `n_fail`, `p_pass` mean, Wilson lower bound by hand
-   and verify against the function output.
-2. **Insufficient samples.** A `(family, class)` pair with 3 outcomes (`< min_samples=5`).
-   Status should be `insufficient_samples` and the pair should not appear in the curve.
-3. **Threshold curve.** A family with 20+ outcomes and varying pass rates. Verify that
-   the curve traces threshold 0.50–0.95 correctly, that `kept_cheap_count` and `passed_rate`
-   change monotonically, and that the recommended threshold is the smallest T where
-   `kept_cheap_pass_rate >= 0.9`.
-4. **Unlabeled outcomes.** Add tasks that started on strong class or have ambiguous
-   verdict. Verify they are excluded from `labeled_outcomes` and `n_total`.
-5. **Privacy and strings only.** Node ids, subjects, and sentinel phrases are absent.
-   `assert_aggregate_only` passes. Two builds are identical except for `generated_at`.
-6. **Shadow.** `mode == "shadow"` and `dispatch_changes == 0`, and no module except `cli.py`
-   imports `route_calibration`.
-
-### 9.3 Promotion gates
-
-Promotion to automatic escalation thresholds requires a separate held-out validation
-(EVR) showing noninferior quality and lower cost per verified task compared to the
-incumbent routing. Shadow advice alone is not evidence that automatic thresholds
-will improve production routing. The supervisor records evaluation results with:
-
-- `metrics`: aggregates from the report (per-family sample counts, p_pass estimates,
-  recommended thresholds, curve data where applicable). Plus `model_calls: 0`,
-  `spend_usd: 0`, `dispatch_changes: 0`.
-- `links`: `measures` → `src/agent_os/orchestrator/route_calibration.py`,
-  `relates_to` → `IMP-0015`, `relates_to` → `PA-routellm`.
+The CLI is deterministic and offline; `--home` reads local telemetry, `--out`
+writes a privacy-safe aggregate report. Promotion to automatic thresholds requires
+a separate held-out validation (EVR) showing noninferior quality and lower cost
+per verified task compared to the incumbent routing. Shadow advice alone is not
+evidence; the supervisor gate is noninferior quality plus cost savings.
