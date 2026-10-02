@@ -45,7 +45,10 @@ const Executive = (() => {
     return fetch(endpoint, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(`API error: ${response.status} ${response.statusText}`);
+          return response.json().catch(() => ({})).then(body => {
+            const reason = body && (body.error || body.message);
+            throw new Error(reason ? normalizeErrors(reason) : `API error: ${response.status} ${response.statusText}`);
+          });
         }
         return response.json();
       })
@@ -303,6 +306,14 @@ const Executive = (() => {
           status.className = 'compose-status compose-ok';
           status.textContent = 'Sent';
           addChatMessage('agent', 'Sent: ' + (payload.subject || '(no subject)'));
+          if (response && response.record_error) {
+            showError('Sent, but the applicant status was not recorded: ' + normalizeErrors(response.record_error));
+            addChatMessage('agent', 'Warning: applicant status not recorded: ' + normalizeErrors(response.record_error));
+          }
+          if (response && response.warning) {
+            showError('Sent. Warning: ' + normalizeErrors(response.warning));
+            addChatMessage('agent', 'Warning: ' + normalizeErrors(response.warning));
+          }
           closeCompose();
           loadItems();
         })
