@@ -8,7 +8,7 @@ Provider name: 'fake'.
 from __future__ import annotations
 
 import time
-from typing import Any
+from typing import Any, Callable
 
 
 class FakeProvider:
@@ -17,7 +17,7 @@ class FakeProvider:
 
     name = "fake"
 
-    def __init__(self, hourly_usd: float = 1.0, clock: callable | None = None,
+    def __init__(self, hourly_usd: float = 1.0, clock: Callable[[], float] | None = None,
                  fail_launch: bool = False) -> None:
         """Initialize FakeProvider.
 
@@ -54,9 +54,17 @@ class FakeProvider:
         Returns:
             Dictionary with 'instance_id'.
 
+        Launch-or-lookup: if an instance with the same spec 'name' already exists (including one
+        created by a launch that then raised), its id is returned and nothing new is created.
+
         Raises:
-            RuntimeError: If fail_launch is set (after creating the instance).
+            RuntimeError: If fail_launch is set (after creating the instance). A lookup hit never raises.
         """
+        name = spec.get("name")
+        if name:
+            existing = self.lookup(name)
+            if existing is not None:
+                return {"instance_id": existing}
         now = self.clock()
         self.launches += 1
         instance_id = f"fake-{self.launches}"
@@ -66,7 +74,7 @@ class FakeProvider:
             "started_at": now,
             "stopped_at": None,
             "terminated_at": None,
-            "hourly_usd": self.hourly_usd,
+            "hourly_usd": float(spec["hourly_usd"]) if "hourly_usd" in spec else self.hourly_usd,
             "max_runtime_seconds": spec.get("max_runtime_seconds"),
         }
 
@@ -74,6 +82,13 @@ class FakeProvider:
             raise RuntimeError(f"Simulated launch failure for {instance_id}")
 
         return {"instance_id": instance_id}
+
+    def lookup(self, name: str) -> str | None:
+        """Return the instance_id of an existing instance whose spec name equals `name`, or None."""
+        for instance_id, instance in self.instances.items():
+            if instance["name"] == name:
+                return instance_id
+        return None
 
     def poll(self, instance_id: str) -> dict[str, Any]:
         """Poll instance state and cost.
@@ -100,7 +115,7 @@ class FakeProvider:
             runtime = now - instance["started_at"]
 
         runtime = max(0.0, runtime)
-        cost = runtime / 3600.0 * self.hourly_usd
+        cost = runtime / 3600.0 * instance["hourly_usd"]
 
         return {
             "state": instance["state"],
