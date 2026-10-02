@@ -486,7 +486,7 @@ def utilization_view(state: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def utilization_preview(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, Any]], *, hourly_usd: float, starts_per_month: int = 20,
-                        vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None, shared_prefix: bool = False) -> dict[str, Any]:
+                        vllm_overrides: dict[str, Any] | None = None, weight_volume: str | None = None) -> dict[str, Any]:
     """Deploy-time plan of how the rented GPU will be used; no spend, no network."""
     choice = choice[0] if isinstance(choice, list) else choice
     flags = pod_request(model, choice, "k", None, "preview", vllm_overrides=vllm_overrides)["dockerStartCmd"]
@@ -510,7 +510,7 @@ def utilization_preview(model: dict[str, Any], choice: dict[str, Any] | list[dic
         "initial_concurrency": policy.start,
         "concurrency_bounds": {"minimum": policy.minimum, "maximum": policy.maximum},
         "idle_target_pct": round(100 * gpu_keep_busy.DEFAULT_IDLE_TARGET, 1),
-        "prefix_stable": bool(shared_prefix),
+        "prefix_stable": None,  # unknown at deploy time: the run-level prefix is fingerprinted when a run attaches
         "weight_cache": cache,
     }
 

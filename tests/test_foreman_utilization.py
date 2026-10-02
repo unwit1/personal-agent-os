@@ -468,8 +468,7 @@ class UtilizationPreviewTests(unittest.TestCase):
         self.assertEqual(len(plan["roles"]), len(set(plan["roles"])))
         self.assertEqual(plan["initial_concurrency"], 4)
         self.assertEqual(plan["concurrency_bounds"], {"minimum": 2, "maximum": 32})
-        self.assertFalse(plan["prefix_stable"])
-        self.assertTrue(self.plan(4, shared_prefix=True)["prefix_stable"])
+        self.assertIsNone(plan["prefix_stable"])
         self.assertEqual(self.plan(4, vllm_overrides={"max_num_seqs": 7})["planned_max_num_seqs"], 7)
 
 
