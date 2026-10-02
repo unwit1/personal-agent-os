@@ -95,7 +95,7 @@ def _now(now: datetime | None) -> datetime:
 
 
 def _undo_command(journal_id: str, seq: int) -> str:
-    return f"agent-os mail organize-undo --journal {journal_id} --seq {seq}"
+    return f"agent-os mail organize-undo {journal_id} --seq {seq}"
 
 
 def _final_lines(lines: list[dict[str, Any]]) -> dict[tuple[str, int], dict[str, Any]]:

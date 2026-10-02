@@ -347,5 +347,61 @@ v1 migration, failed migration rollback, legacy supersede, MCP/CLI surfaces.
   UID listing.
 - PDF/Office attachment text is not extracted yet.
 - No PST parser; only the import seam.
-- Send/reply/delete/move/flag are not implemented and must go through a
+- Send/reply/delete/flag are not implemented and must go through a
   separate approval-gated action layer (draft -> approval -> send -> audit).
+- Move (for inbox organization) is implemented only as confirmed, reversible IMAP
+  moves; the sync path stays read-only (no outbound SMTP or expunge).
+
+## Spam filtering and inbox organization
+
+Full design: [mail-intelligence.md](mail-intelligence.md).
+
+### Signals
+
+A deterministic classifier decides whether an outstanding mail item is
+likely-human mail that needs a reply. Signals: the server spam/junk folder;
+`List-Unsubscribe` and `List-Id` headers; `Precedence: bulk/list`; known
+marketing and notification sender patterns; promotional subject markers;
+first-contact sender versus a known correspondent (the operator has replied
+before); and the operator's own sent mail. Commitments and the Work/Personal
+mail items include only likely-human mail. Each filtered item carries a reason.
+
+### Review queue and evaluation
+
+Borderline cases go to an operator-review queue instead of being dropped.
+`agent-os mail spam-eval` reports precision and recall on a synthetic labeled
+set.
+
+### Organize plan, apply, undo
+
+- `agent-os mail organize-plan` categorizes the whole local index (all accounts,
+  both scopes) and prints an ORGANIZATION PLAN: counts per category per account,
+  sample subjects and the target folder per category.
+- `agent-os mail organize-apply` applies the plan. **Dry-run is the default**;
+  real moves need explicit confirmation per category.
+- `agent-os mail organize-undo` reverses a journaled run.
+
+Moves are IMAP only (MOVE, or COPY plus flag when MOVE is unsupported); there
+is no Outlook/COM path. Before moving, identity is verified by Message-ID (same
+normalization as the index) or by (account, mailbox, UIDVALIDITY, UID);
+unverified messages are skipped and reported. Every move is journaled with an
+undo command; the journal lives under the Agent OS local state directory
+(`.agent-local`, not committed). **Never delete or expunge**: only reversible
+moves.
+
+Sync stays read-only for all accounts. IMAP moves require the operator to set
+`allow_organize` (the per-account organize permission, default off) in
+`accounts.json`. Nothing is moved otherwise.
+
+**Journal and undo:** every move is recorded in a per-scope journal at
+`.agent-local/mail/<scope>/organize-journal.jsonl` (a JSON lines file, gitignored).
+Each successfully moved message gets a line with `undo.command`:
+
+```bash
+agent-os mail organize-undo org_20261002T120500_ab12 --seq 1 [--confirm] [--scope work|personal]
+```
+
+Undo is a dry-run by default; pass `--confirm` to actually reverse the moves.
+`--scope` is optional (defaults to auto-detecting work or personal); use it to specify
+which scope's journal to search. Messages that fail to verify at apply time (missing or changed) 
+are recorded with a reason and skipped; they remain in INBOX for manual review.

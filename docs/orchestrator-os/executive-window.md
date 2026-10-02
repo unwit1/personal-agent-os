@@ -96,3 +96,31 @@ Opens Edge `--app` window on the local server.
 ## Known: email.send
 
 The `email.send` action saves a draft (no outbound SMTP yet); operator opens it in Outlook to review and send. Applicant outreach goes through the Dashboard's mail module.
+
+## Mail intelligence items and actions
+
+See [mail-intelligence.md](../integrations/mail-intelligence.md) and
+[mail.md](../integrations/mail.md).
+
+### Items
+
+- **`mail_filtered`:** one item per tab with counts per primary reason and up to
+  25 sample subjects/senders/reasons showing which mail was filtered out, so nothing
+  disappears silently.
+- **`mail_review`:** borderline (verdict `review`) threads with their reasons,
+  shown alongside reply items.
+- **`mail_cleanup`:** the organization plan, showing counts per category per
+  account and a per-category Confirm button to move mail.
+
+### Actions
+
+- **`mail.organize_inbox`:** builds and caches an organization plan for each
+  configured scope; dry-run, no moves. Returns the plan summary (counts, sample
+  subjects, and categorization rules per account).
+- **`mail.organize_apply`:** applies the plan to one category. Parameters: `account`,
+  `category`. Consequential: preview (dry-run) shows what would move; Confirm
+  executes the reversible IMAP moves and journals them with undo commands.
+
+Accounts need `allow_organize` set by the operator (default off, per account) in
+`.agent-local/mail/accounts.json` before any organize action can move mail. Nothing
+is moved otherwise.

@@ -89,7 +89,7 @@ def organize_apply(item: dict[str, Any], params: dict[str, Any], *, confirm: boo
         return result
     journal_id = result.get("journal_id")
     return {**result, "move_id": journal_id,
-            "undo_command": f"agent-os mail organize-undo --journal {journal_id}" if journal_id else None}
+            "undo_command": f"agent-os mail organize-undo {journal_id}" if journal_id else None}
 
 
 def register(registry: Any) -> None:

@@ -156,7 +156,7 @@ class ApplyTests(unittest.TestCase):
         # pending precedes the IMAP command
         self.assertEqual(lines[0]["status"], "pending")
         final = [l for l in a_lines if l["status"] == "moved"][0]
-        self.assertEqual(final["undo"]["command"], f"agent-os mail organize-undo --journal {result['journal_id']} --seq {final['seq']}")
+        self.assertEqual(final["undo"]["command"], f"agent-os mail organize-undo {result['journal_id']} --seq {final['seq']}")
         self.assertEqual(final["from"]["mailbox"], "INBOX")
         self.assertEqual(final["to"]["mailbox"], "Agent OS.Receipts")
         self.assertEqual(final["rfc_message_id"], "a1@x.com")
