@@ -121,6 +121,13 @@ class Orchestrator:
             self._free_inputs = loader() if callable(loader) else free_dispatch.FreeInputs.load_default(self.store.home)
         return self._free_inputs
 
+    @staticmethod
+    def _free_persistable(decision: dict[str, Any]) -> dict[str, Any]:
+        """The run store rejects a 'history' key, so the escalation trail is kept as 'route_history'."""
+        if "history" in decision:
+            decision["route_history"] = decision.pop("history")
+        return decision
+
     def _free_escalate_state(self, node: dict[str, Any]) -> None:
         from . import free_dispatch
 
@@ -151,7 +158,7 @@ class Orchestrator:
             if selection is None:
                 decision["route"] = "escalate"
                 decision["reason"] = why
-        node["free_route"] = decision
+        node["free_route"] = self._free_persistable(decision)
         if selection is None:
             was_free = decision.get("model")
             self._free_escalate_state(node)
@@ -161,8 +168,6 @@ class Orchestrator:
                 self.ledger.emit(run_id, "free_route_escalated", node["id"], from_model=was_free, to=f"class:{node['capability_class']}/{node['effort']}", failure="unselectable", reason=decision.get("reason"))
             return None
         decision["free_state"] = "free"
-        if selection["provider"] not in decision["free_providers"]:
-            decision["free_providers"].append(selection["provider"])
         # The paid route that would otherwise run, for cost-avoided metrics.
         classes = {key: list(value) for key, value in (node.get("excluded_classes") or {}).items()}
         taken = classes.setdefault(selection["provider"], [])
@@ -181,17 +186,25 @@ class Orchestrator:
             provider = self.registry().get(paid["provider"]) or {}
             paid_route = {"model": paid.get("model"), "provider": paid["provider"], "subscription": not is_paid(provider)}
         decision["paid_route"] = paid_route
-        try:
-            attempt = inputs.governor.record({
-                "model": selection.get("model"), "provider": selection["provider"], "run_id": run_id, "node": node["id"],
-                "task_family": decision.get("task_family"), "outcome": "success", "paid_route": paid_route})
-            if isinstance(attempt, dict) and attempt.get("event_id"):
-                decision["event_id"] = attempt["event_id"]
-        except Exception as exc:  # the free ledger never blocks a launch
-            self.ledger.emit(run_id, "note", node["id"], text=f"free ledger unavailable: {type(exc).__name__}")
+        # Recorded by _launch once the worker actually starts.
+        selection["free_attempt"] = {
+            "model": selection.get("model"), "provider": selection["provider"], "run_id": run_id, "node": node["id"],
+            "task_family": decision.get("task_family"), "outcome": "success", "paid_route": paid_route}
         if fresh:
             self._free_emit_decision(record, node, decision)
         return selection
+
+    def _free_launched(self, record: dict[str, Any], node: dict[str, Any], pending: dict[str, Any]) -> None:
+        """Record one free attempt and its provider after a free launch happened."""
+        decision = node["free_route"]
+        if pending["provider"] not in decision["free_providers"]:
+            decision["free_providers"].append(pending["provider"])
+        try:
+            attempt = self.free_inputs().governor.record(pending)
+            if isinstance(attempt, dict) and attempt.get("event_id"):
+                decision["event_id"] = attempt["event_id"]
+        except Exception as exc:  # the free ledger never blocks a launch
+            self.ledger.emit(record["run_id"], "note", node["id"], text=f"free ledger unavailable: {type(exc).__name__}")
 
     def _free_emit_decision(self, record: dict[str, Any], node: dict[str, Any], decision: dict[str, Any]) -> None:
         self.ledger.emit(
@@ -205,7 +218,9 @@ class Orchestrator:
         from . import free_dispatch
 
         old = node["free_route"].get("model")
-        result = free_dispatch.after_failure(node, failure, self.registry(), self.free_inputs().governor)
+        stored = node["free_route"]
+        view = dict(node, free_route=dict(stored, history=list(stored.get("route_history") or [])))
+        result = free_dispatch.after_failure(view, failure, self.registry(), self.free_inputs().governor)
         action = result["action"]
         if action == "free":
             to = f"free:{result['decision'].get('model')}"
@@ -215,7 +230,7 @@ class Orchestrator:
             to = "exhausted"
         self.ledger.emit(record["run_id"], "free_route_escalated", node["id"], from_model=old, to=to, failure=failure.get("kind"), reason=result["decision"].get("reason"))
         if action == "free":
-            node["free_route"] = dict(result["decision"], free_state="free")
+            node["free_route"] = self._free_persistable(dict(result["decision"], free_state="free"))
             node["state"] = "FAILED_RETRYABLE"
             node["selection"] = None
             node["wait_reason"] = f"{label}; alternate free model {result['decision'].get('model')}"
@@ -1804,6 +1819,7 @@ class Orchestrator:
             node["state"] = "RUNNABLE"
             node["wait_reason"] = wait
             return False
+        free_attempt = selection.pop("free_attempt", None)
         selection["at"] = now()
         node["selection"] = selection
         if node["role"] == "reviewer":
@@ -1916,6 +1932,8 @@ class Orchestrator:
         node["state"] = "RUNNING"
         node["wait_reason"] = None
         record["launches"] += 1
+        if free_attempt:
+            self._free_launched(record, node, free_attempt)
         _count_running(running, selection["provider"], selection["capability_class"])
         self._announce(record, node)
         self.store.append_event(
