@@ -337,8 +337,10 @@ class FakeProviderPersistenceTests(unittest.TestCase):
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         with self.assertRaises(RuntimeError):
             failing.launch(spec)
+        self.assertTrue(self.state_path.exists())
 
         fresh = FakeProvider(clock=self.clock, state_path=self.state_path)
+        self.assertEqual(fresh.lookup("job-1"), "fake-1")
         self.assertEqual(fresh.launch(spec)["instance_id"], "fake-1")
         self.assertEqual(fresh.launches, 1)
         self.assertEqual(len(fresh.instances), 1)
