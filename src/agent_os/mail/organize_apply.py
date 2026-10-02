@@ -207,7 +207,7 @@ def apply_plan(plan: dict[str, Any], category: str, *, accounts: Any = None, onl
     result["journal_id"] = journal_id
     path = Path(journal_path) if journal_path else default_journal_path(str(plan.get("scope") or "work"))
     budget = max(0, int(max_moves))
-    counter = itertools.count(_next_seq(path, journal_id) if journal_id else 1)
+    counter = itertools.count(1)  # journal_id is fresh, so numbering starts at 1
     opener = None if dry_run else _connect(connect)
     for account_id, entry in (plan.get("accounts") or {}).items():
         if wanted is not None and account_id not in wanted:
@@ -313,14 +313,23 @@ def _apply_batch(mover, batch, sources, mailbox, validity, real_target, target_v
         error = f"{type(exc).__name__}: {str(exc)[:200]}"
     for message_id, source, uid in ready:
         status, new_uid = "failed", None
+        rfc = source.get("rfc_message_id")
         if error is None:
             new_uid = mapping.get(uid)
-            rfc = source.get("rfc_message_id")
             found = mover.find(real_target, rfc) if rfc else None
             new_uid = new_uid or found
             ok = bool(found) if rfc else bool(new_uid)
             status = "moved" if ok else "unverified"
             mover.select(mailbox)
+        elif rfc:
+            # the call raised, but it may have moved some messages first: probe so those stay undoable
+            try:
+                found = mover.find(real_target, rfc)
+                mover.select(mailbox)
+            except Exception:
+                found = None
+            if found:
+                status, new_uid = "moved", found
         line = _line(journal_id, seqs[message_id], status, moment, plan, category, account, scope, message_id, source,
                      mailbox, validity, real_target, target_validity, new_uid, "move" if use_move else "copy_flag",
                      error)
@@ -381,7 +390,7 @@ def undo(journal_id: str, *, seq: int | None = None, dry_run: bool = True, accou
     """
     path = _locate_journal(journal_id, journal_path, scope)
     lines = read_journal(path)
-    counter = itertools.count(_next_seq(path, journal_id))
+    counter = itertools.count(1 + max([int(l["seq"]) for l in lines if l.get("journal_id") == journal_id] or [0]))
     finals = _final_lines(lines)
     done = {int(l["undone_of"]) for l in lines if l.get("status") == "undone" and l.get("journal_id") == journal_id}
     pending_seqs = {int(l["seq"]) for l in lines if l.get("journal_id") == journal_id and l.get("status") == "pending"}

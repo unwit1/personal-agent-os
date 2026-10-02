@@ -295,13 +295,34 @@ class ApplyTests(unittest.TestCase):
         real = oa.read_journal
         with mock.patch.object(oa, "read_journal", side_effect=real) as spy:
             result, movers, _ = self.run_apply(dry_run=False)
-            self.assertEqual(spy.call_count, 1)
+            self.assertEqual(spy.call_count, 0)
             spy.reset_mock()
             oa.undo(result["journal_id"], dry_run=False, journal_path=self.journal, connect=lambda a: movers[a.id],
                     accounts=[account("work-a"), account("work-b")], now=NOW)
-            self.assertEqual(spy.call_count, 2)  # one for the entries, one for the next sequence number
+            self.assertEqual(spy.call_count, 1)
         seqs = [l["seq"] for l in real(self.journal) if l["status"] == "undone"]
         self.assertEqual(seqs, sorted(set(seqs)))
+
+    def test_partial_move_then_raise_keeps_moved_messages_undoable(self):
+        class Partial(FakeMover):
+            def move(self, uids, target):
+                if any(c[0] == "move" for c in self.calls):
+                    return super().move(uids, target)
+                self.calls.append(("move", tuple(uids), target))
+                self._relocate(uids[:1], target)
+                raise RuntimeError("connection dropped")
+
+        movers = {"work-a": Partial(IDS), "work-b": FakeMover(IDS)}
+        result, movers, _ = self.run_apply(movers=movers, dry_run=False)
+        row = result["accounts"]["work-a"]
+        self.assertEqual((row["moved"], row["failed"]), (1, 1))
+        lines = [l for l in oa.read_journal(self.journal) if l["account_id"] == "work-a" and l["status"] != "pending"]
+        self.assertEqual(sorted(l["status"] for l in lines), ["failed", "moved"])
+        moved = [l for l in lines if l["status"] == "moved"][0]
+        self.assertIn("undo", moved)
+        done = oa.undo(result["journal_id"], seq=moved["seq"], dry_run=False, journal_path=self.journal,
+                       connect=lambda a: movers[a.id], accounts=[account("work-a"), account("work-b")], now=NOW)
+        self.assertEqual(len(done["undone"]), 1, done)
 
     def test_default_journal_path_is_under_mail_home(self):
         from agent_os.mail import config
