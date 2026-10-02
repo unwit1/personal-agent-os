@@ -1250,10 +1250,7 @@ def _register_provider(state: dict[str, Any]) -> None:
                            context_window=model.get("context") if api else None if local else context_for(model),
                            secret_ref=state.get("secret_ref") if (local or api) else ENDPOINT_SECRET,
                            cost=0.05 if api else 0.25, max_concurrency=2 if local else int((state.get("concurrency") or {}).get("limit") or 4), roles=endpoint_roles)
-    if api:
-        entry["options"]["request_timeout"] = 600
-    else:
-        entry["options"]["request_timeout"] = 900
+    entry["options"]["request_timeout"] = 900
     if deployment == "gpu_pod":
         entry["tier_concurrency"] = {"reasoning": 1, "frontier": 1}
     entry["session_foreman"] = state["id"]
