@@ -17,6 +17,14 @@ BUILTIN_TOOLS = (
 DEFAULT_TIMEOUT_SECONDS = 600
 
 
+API_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN")
+
+
+def _child_env() -> dict[str, str]:
+    """Parent environment minus API credentials so the CLI uses the subscription."""
+    return {k: v for k, v in os.environ.items() if k not in API_KEY_VARS}
+
+
 def mcp_config(path: Path | str) -> Path:
     """Write a strict MCP config naming only the agent-os server."""
     target = Path(path)
@@ -118,7 +126,7 @@ class ChatBridge:
         try:
             proc = self.runner(
                 argv, capture_output=True, text=True, timeout=self.timeout,
-                encoding="utf-8", cwd=str(REPO_ROOT),
+                encoding="utf-8", cwd=str(REPO_ROOT), env=_child_env(),
             )
         except (OSError, subprocess.SubprocessError) as exc:
             return {"reply": "", "session_id": session_id, "error": f"{type(exc).__name__}: {exc}"}

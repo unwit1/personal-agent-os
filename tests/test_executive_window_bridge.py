@@ -7,6 +7,7 @@ import json
 import os
 import tempfile
 import unittest
+import unittest.mock
 from types import SimpleNamespace
 
 from agent_os.executive.window import model_bridge as mb
@@ -70,12 +71,13 @@ class BridgeTests(unittest.TestCase):
             self.assertIn(tool, argv[argv.index("--disallowedTools") + 1].split(","))
 
     def test_no_api_key_set(self):
-        before = os.environ.get("ANTHROPIC_API_KEY")
         runner = FakeRunner(ok("s"))
-        mb.ChatBridge(self.home, runner=runner).send("c", "t")
-        self.assertEqual(os.environ.get("ANTHROPIC_API_KEY"), before)
+        with unittest.mock.patch.dict(os.environ, {"ANTHROPIC_API_KEY": "fake", "ANTHROPIC_AUTH_TOKEN": "fake"}):
+            mb.ChatBridge(self.home, runner=runner).send("c", "t")
+            self.assertEqual(os.environ.get("ANTHROPIC_API_KEY"), "fake")
         argv, kwargs = runner.calls[0]
-        self.assertNotIn("env", kwargs)
+        self.assertNotIn("ANTHROPIC_API_KEY", kwargs["env"])
+        self.assertNotIn("ANTHROPIC_AUTH_TOKEN", kwargs["env"])
         self.assertFalse(any("ANTHROPIC_API_KEY" in a for a in argv))
 
     def test_errors_surfaced(self):
