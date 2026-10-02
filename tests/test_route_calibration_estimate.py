@@ -177,6 +177,79 @@ class EstimateCellsTest(unittest.TestCase):
             classes = list(result[family].keys())
             self.assertEqual(classes, sorted(classes))
 
+    def test_p_pass_and_wilson_with_real_numbers(self):
+        # 8 passes in 10 labeled outcomes
+        outcomes = []
+        for i in range(8):
+            outcomes.append({
+                "family": "f", "initial_class": "c", "cheap_route_passed": True,
+                "escalations": 0, "retries": 0, "review_clean": True,
+                "initial_effort": "low", "provider": "p1"
+            })
+        for i in range(2):
+            outcomes.append({
+                "family": "f", "initial_class": "c", "cheap_route_passed": False,
+                "escalations": 1, "retries": 0, "review_clean": False,
+                "initial_effort": "low", "provider": "p1"
+            })
+
+        result = estimate_cells(outcomes, min_samples=1)
+        cell = result["f"]["c"]
+
+        # p_pass = (passes + 1) / (n + 2) = (8 + 1) / (10 + 2) = 9/12 = 0.75
+        self.assertEqual(cell["p_pass"], round(9/12, 4))
+        self.assertEqual(cell["p_pass"], 0.75)
+
+        # wilson_lower with 8 passes in 10
+        self.assertEqual(cell["wilson_lower"], 0.4902)
+
+    def test_p_pass_and_wilson_all_pass(self):
+        # All outcomes pass (passes == n)
+        outcomes = []
+        for i in range(10):
+            outcomes.append({
+                "family": "f", "initial_class": "c", "cheap_route_passed": True,
+                "escalations": 0, "retries": 0, "review_clean": True,
+                "initial_effort": "low", "provider": "p1"
+            })
+
+        result = estimate_cells(outcomes, min_samples=1)
+        cell = result["f"]["c"]
+
+        # p_pass = (10 + 1) / (10 + 2) = 11/12 ≈ 0.9167
+        self.assertAlmostEqual(cell["p_pass"], 11/12, places=4)
+        self.assertEqual(cell["p_pass"], round(11/12, 4))
+
+        # wilson_lower when all pass should be relatively high
+        self.assertGreater(cell["wilson_lower"], 0.7)
+
+    def test_unlabeled_mixed_with_labeled(self):
+        # Mix labeled and unlabeled, should only count labeled in n
+        outcomes = []
+        for i in range(5):
+            outcomes.append({
+                "family": "f", "initial_class": "c", "cheap_route_passed": True,
+                "escalations": 0, "retries": 0, "review_clean": True,
+                "initial_effort": "low", "provider": "p1"
+            })
+        for i in range(3):
+            outcomes.append({
+                "family": "f", "initial_class": "c", "cheap_route_passed": None,
+                "escalations": 0, "retries": 0, "review_clean": None,
+                "initial_effort": "low", "provider": "p1"
+            })
+
+        result = estimate_cells(outcomes, min_samples=1)
+        cell = result["f"]["c"]
+
+        # Should have 5 labeled (passes), 3 unlabeled
+        self.assertEqual(cell["n"], 5)
+        self.assertEqual(cell["passes"], 5)
+        self.assertEqual(cell["unlabeled"], 3)
+
+        # p_pass = (5 + 1) / (5 + 2) = 6/7 ≈ 0.8571
+        self.assertEqual(cell["p_pass"], round(6/7, 4))
+
 
 class CalibrateTest(unittest.TestCase):
     def test_empty_cells(self):
