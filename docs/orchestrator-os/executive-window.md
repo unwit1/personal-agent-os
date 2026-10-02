@@ -96,3 +96,18 @@ Opens Edge `--app` window on the local server.
 ## Known: email.send
 
 The `email.send` action saves a draft (no outbound SMTP yet); operator opens it in Outlook to review and send. Applicant outreach goes through the Dashboard's mail module.
+
+## Mail intelligence items and actions
+
+See [mail-intelligence.md](../integrations/mail-intelligence.md) and
+[mail.md](../integrations/mail.md).
+
+- `mail_filtered`: counts of spam/bulk items kept out of commitments, each with
+  its reason, so nothing disappears silently.
+- `mail_review`: borderline items queued for operator review.
+- `mail_cleanup`: the organization plan group, with a per-category Confirm button.
+
+Actions: `mail.organize_inbox` (builds and shows the plan; dry-run, no moves)
+and `mail.organize_apply` (consequential: preview first, executes only on the
+operator's Confirm, reversible IMAP moves only, journaled with undo, never
+deletes). Accounts need `allow_moves` set by the operator.
