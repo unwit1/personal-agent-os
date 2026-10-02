@@ -110,13 +110,12 @@ const Executive = (() => {
     group.className = 'mail-cleanup';
     const context = item.context || {};
     const plan = context.plan;
-    if (!plan) {
+    if (!plan || Object.keys(plan).length === 0) {
       group.appendChild(textEl('div', 'muted', 'No plan yet'));
     } else {
-      const accounts = plan.accounts || plan.per_account || {};
-      Object.keys(accounts).forEach(account => {
-        const acct = accounts[account] || {};
-        const categories = acct.categories || acct;
+      Object.keys(plan).forEach(account => {
+        const acct = plan[account] || {};
+        const categories = acct.categories || {};
         group.appendChild(textEl('div', 'mail-cleanup-account', account));
         const table = document.createElement('table');
         table.className = 'mail-cleanup-table';
@@ -128,7 +127,7 @@ const Executive = (() => {
           const row = document.createElement('tr');
           row.appendChild(textEl('td', '', category));
           row.appendChild(textEl('td', '', String(entry.count || 0)));
-          row.appendChild(textEl('td', '', (entry.sample_subjects || entry.samples || []).join(' | ')));
+          row.appendChild(textEl('td', '', (entry.samples || []).join(' | ')));
           row.appendChild(textEl('td', '', entry.target_folder || ''));
           const actionCell = document.createElement('td');
           if (entry.target_folder) {
@@ -142,7 +141,10 @@ const Executive = (() => {
         group.appendChild(table);
       });
     }
-    group.appendChild(textEl('div', 'mail-cleanup-filtered', 'Spam filtered: ' + countsText(context.spam_filtered)));
+    const spamFiltered = context.spam_filtered || {};
+    const byAccount = spamFiltered.by_account || {};
+    const spamCounts = {total: spamFiltered.total || 0, spam: spamFiltered.spam || 0, bulk: spamFiltered.bulk || 0};
+    group.appendChild(textEl('div', 'mail-cleanup-filtered', 'Spam filtered: ' + countsText(spamCounts)));
     return group;
   }
 
@@ -150,18 +152,15 @@ const Executive = (() => {
     const group = document.createElement('div');
     group.className = 'mail-filtered';
     const context = item.context || {};
-    const filtered = context.filtered || context.items || [];
-    let counts = context.counts_by_reason || context.counts;
-    if (!counts) {
-      counts = {};
-      filtered.forEach(f => { counts[f.reason] = (counts[f.reason] || 0) + 1; });
-    }
+    const filtered = context.filtered || [];
+    const counts = context.counts || {};
     group.appendChild(textEl('div', 'mail-filtered-counts', 'By reason: ' + countsText(counts)));
     const details = document.createElement('details');
     details.appendChild(textEl('summary', '', 'Filtered subjects (' + filtered.length + ')'));
     const list = document.createElement('ul');
     filtered.forEach(f => {
-      list.appendChild(textEl('li', '', (f.subject || '(no subject)') + ' — ' + (f.reason || '')));
+      const reasons = (f.reasons || []).join(', ');
+      list.appendChild(textEl('li', '', (f.subject || '(no subject)') + ' — ' + reasons));
     });
     details.appendChild(list);
     group.appendChild(details);
@@ -170,7 +169,6 @@ const Executive = (() => {
 
   function handleMailOrganizeApply(item, account, category, btn) {
     const payload = {
-      conversation_id: getOrCreateConversationId(),
       item_id: item.id,
       action_id: 'mail.organize_apply',
       params: { account: account, category: category },
@@ -178,15 +176,19 @@ const Executive = (() => {
     btn.disabled = true;
     showBusy(true);
     clearError();
-    apiCall('POST', '/api/option', payload)
+    apiCall('POST', '/api/act', payload)
       .then(response => {
         showBusy(false);
         btn.disabled = false;
-        if (response.message) {
+        if (response.confirm_token && response.preview) {
+          const previewObj = {
+            id: response.confirm_token,
+            title: 'mail.organize_apply: ' + account + '/' + category,
+            content: JSON.stringify(response.preview, null, 2),
+          };
+          showPreview(previewObj, 'mail.organize_apply');
+        } else if (response.message) {
           addChatMessage('agent', response.message);
-        }
-        if (response.preview) {
-          showPreview(response.preview, 'mail.organize_apply');
         }
         loadItems();
       })
