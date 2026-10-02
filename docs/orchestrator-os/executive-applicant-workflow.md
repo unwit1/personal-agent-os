@@ -24,6 +24,9 @@ The four lettered contracts the assignment asked for are anchored as **(a)** to 
 2. **Nothing sends without the Send click.** Planning an email only produces a compose
    payload. The only code path that sends is `POST /api/send`, which the operator's Send
    button calls. No registered action, no model tool and no `/api/chat` route sends mail.
+   This run makes that true for the two existing senders (section 11.1): `executive.reach_out`
+   (batch send through `gateway.send_now` / `email_sender`) and `email.send` are removed from
+   the registry, and `email.reply_draft` returns a compose payload.
 3. **The Dashboard stays the system of record.** Executive code reaches it only through
    `DashboardGateway` methods that call the Dashboard's own Python functions. Never raw SQL
    writes, never `UPDATE`/`INSERT` from Agent OS, never edits of `openings_settings.json`
@@ -40,10 +43,11 @@ The four lettered contracts the assignment asked for are anchored as **(a)** to 
 | Module | Owns |
 | --- | --- |
 | `executive/gateway.py` | the six gateway methods of section 4 (a), `DashboardGatewayError`, `SENT_STATUS_BY_KIND` |
-| `executive/applicants.py` | `county_groups`, `county_candidates`, `applicant_review` (section 8) |
+| `executive/applicants.py` | `DEFAULT_TOP_N`, `county_groups`, `county_candidates`, `applicant_review` (section 8): **all owned by the county-candidates task** |
 | `executive/window/transport.py` | `SendResult`, `SendTransport`, `SmtpImapTransport`, `FakeTransport`, `default_transport` (section 7 (d)) |
-| `executive/window/providers_applicants.py` | `county_items(groups_fn=None)`, items of kind `county_openings` (section 8.1); the `human_review_pending` group is no longer emitted by `applicant_items` |
+| `executive/window/providers_applicants.py` | `county_items(groups_fn=None)`, `invalidate_county_cache()`, items of kind `county_openings` (section 8.1); the `human_review_pending` group is no longer emitted by `applicant_items` |
 | `executive/window/actions_applicant_compose.py` | `applicant.reach_out`, `applicant.invite_interview`, `applicant.email_manager` (sections 5, 9) |
+| `executive/window/actions_email.py`, `executive/window/actions_executive.py` | existing actions changed by section 11.1 (owned by the compose-actions task, the owner of `actions_applicant_compose.py`, together with their tests) |
 | `executive/window/actions_applicant_decisions.py` | `applicant.review`, `applicant.decline`, `applicant.hold` (section 8.4) |
 | `executive/window/actions_openings.py` | `parse_opening_event`, `county.refresh`, `county.opening_change` (section 10) |
 | `executive/window/server.py` | `Api(registry, bridge, home, *, transport=None, gateway_factory=None)`, `POST /api/send`, `GET /api/send/accounts`, chat route for opening events |
@@ -207,7 +211,13 @@ Every compose-producing action returns, as its `result`:
   applicant the manager email is about); `county` (optional) when known.
 - Optional extras a consumer must tolerate: `in_reply_to` (for `reply`) and `warnings` (list
   of short strings, for example `"no area manager found for Example County"`).
-- An applicant's `to` comes from `rtec_applicants.get_summary(ref)["email"]`.
+- An applicant's `to` comes from `applicants.applicant_review(ref, gateway=gateway)["email"]`
+  (the gateway's allowlisted `email` field), so `SyntheticDashboardGateway` fakes it in tests.
+  Compose actions never call `rtec_applicants.get_summary` or read the Dashboard directly.
+- `kind: "reply"` is produced by the existing `email.reply_draft` action on `mail_thread`
+  items (section 11.1): `{"compose": {"to": <latest sender>, "subject": "Re: ...", "body":
+  <params.body or "">, "kind": "reply", "in_reply_to": <latest message_id>}}`, no
+  `applicant_ref`.
 - A compose payload never contains EEO or self-ID data, paths, notes, or any field outside the
   section 8.3 allowlist.
 - Compose-producing actions are **not consequential** (they only draft) and return
@@ -253,7 +263,8 @@ what is sent (the operator's edits). Missing required fields or CR/LF in `to`, `
    calls `gateway_factory().record_applicant_sent(applicant_ref, kind, to, subject)` and adds
    `"journal_id"` to the response. If that fails the mail is still `sent: true` and the
    response adds `"record_error": "Sent, but the Dashboard was not updated: <reason>"`. A failed
-   send never touches the Dashboard. `reply` never calls the gateway.
+   send never touches the Dashboard. `reply` never calls the gateway. After a successful
+   `record_applicant_sent` the server calls `providers_applicants.invalidate_county_cache()`.
 4. The send runs synchronously in the window server's own handler thread: no queue, no retry.
 5. The audit line in `audit.jsonl` is `{"send": true, "kind", "applicant_ref", "county",
    "from_account", "sent", "message_id"}`: no addresses, subject or body.
@@ -322,9 +333,30 @@ account. It opens no sockets. `default_transport()` returns `SmtpImapTransport()
 
 `providers_applicants.county_items(groups_fn=None) -> list[dict]`, registered in
 `builtin.default_registry` as provider `"counties"`. `groups_fn` defaults to
-`lambda: applicants.county_groups(gateway.open_counties(), gateway=gateway)`; tests inject a
-function returning synthetic groups. `applicant_items` no longer emits the
+
+```python
+def _default_groups():
+    g = applicants._default_gateway()
+    return applicants.county_groups(g.open_counties(), gateway=g)
+```
+
+and tests inject a function returning synthetic groups. `applicant_items` no longer emits the
 `human_review_pending` group; other reason groups are unchanged.
+
+**Short cache.** `Api._item` resolves every `/api/act` (review, compose, hold, decline,
+opening change) and every chat opening event through `registry.outstanding()`, which re-runs
+**every** provider. So `county_items` caches the built item list in-process for
+`COUNTY_CACHE_SECONDS = 30` (one entry, guarded by a lock, keyed by `groups_fn`), and
+`providers_applicants.invalidate_county_cache()` drops it. It is invalidated after a confirmed
+`applicant.decline`, after `applicant.hold`, after a confirmed `county.opening_change`, and by
+`/api/send` after `record_applicant_sent` succeeds. A provider error is not cached.
+
+Per-click cost: within the cache window a click costs **zero** Dashboard calls in the county
+provider (the other providers run as they do today; this run does not change them or
+`Api._item`). On a cold cache the provider costs one `open_counties()`, one `ranked(0)` and
+one `match_for` per reviewable applicant (section 8.2), independent of the number of
+counties. A compose or review action then adds one `applicant_review` (one `ranked(0)`, one
+`match_for`), and `applicant.email_manager` one `manager_for_county`.
 
 Output:
 
@@ -344,7 +376,8 @@ Output:
 
 ### 8.2 Ranking: one pass over the Dashboard data
 
-New in `executive/applicants.py`:
+New in `executive/applicants.py`, owned by the county-candidates task (with
+`applicant_review`, section 8.3):
 
 ```python
 DEFAULT_TOP_N = 5
@@ -352,11 +385,16 @@ DEFAULT_TOP_N = 5
 def county_groups(open_counties: list[dict[str, Any]], *, gateway: Any = None,
                   top_n: int = DEFAULT_TOP_N) -> list[dict[str, Any]]
 
-def county_candidates(county: str, group_label: str | None = None, *, gateway: Any = None,
-                      top_n: int = DEFAULT_TOP_N,
+def county_candidates(county: str, *, gateway: Any = None, top_n: int = DEFAULT_TOP_N,
+                      group_label: str | None = None,
                       ranked: list[tuple[dict, dict]] | None = None,
                       matches: dict[str, dict] | None = None) -> dict[str, Any]
 ```
+
+`county_candidates(county, *, gateway=None, top_n=DEFAULT_TOP_N)` is the binding call form;
+everything after `top_n` is keyword-only with a default, so a caller of the short form never
+breaks. With `group_label=None` it takes the label from that county's `gateway.open_counties()`
+entry (a closed county has none and falls back to the county-name rule of step 3).
 
 `county_groups` does the Dashboard work **once for all counties**:
 
@@ -474,13 +512,17 @@ Two routes, one action:
    `county:<slug>` if that item exists, else on `openings:console`, and returns
    `{"reply": "<preview summary>. Click Confirm to apply it.", "message": same, "previews":
    [...], "error": null}` without calling the model. No match: the text goes to the model as
-   today.
+   today. The chat route catches `ValueError` and `KeyError` from that `county.opening_change`
+   invoke (unknown county, nothing open to close, bad count, missing item) and returns HTTP
+   200 `{"reply": "<message>", "message": same, "error": null, "previews": [...]}` with the
+   exception's message, for example "Unknown county: X". It does not fall through to the
+   model and never turns a parsed event into HTTP 400.
 2. **Model tool.** `county.opening_change` is an `executive_window.run` tool; its description
    tells the model to use it for statements such as "we closed the opening in X". Being
    consequential, it only returns `needs_confirmation`.
 
-On Confirm, `county.opening_change` calls `gateway.apply_opening_change` and then
-**immediately** recomputes that county's group with `applicants.county_candidates`:
+On Confirm, `county.opening_change` calls `gateway.apply_opening_change`, then
+`providers_applicants.invalidate_county_cache()`, and then **immediately** recomputes that county's group with `applicants.county_candidates`:
 
 ```json
 {"applied": true, "county": "Example", "change": "quit", "before": {}, "after": {},
@@ -514,6 +556,22 @@ which must be in the county item's `context.applicants`; otherwise `ValueError`.
 after the existing ones. Handlers return only JSON-safe, allowlisted data. Compose actions are
 audited with `kind`, `applicant_ref`, `county` only.
 
+### 11.1 Existing senders changed in this run
+
+Owned by the compose-actions task (the owner of `actions_applicant_compose.py`), which also
+updates `tests/test_executive_window_actions_email.py`,
+`tests/test_executive_window_actions_executive.py` and `tests/test_executive_window_builtin.py`
+to match:
+
+| Action id | Change |
+| --- | --- |
+| `executive.reach_out` | **Unregistered.** `actions_executive.register` registers only `executive.plan_interviews` and `executive.approve_batch`. No window action or model tool reaches `gateway.send_now` / `email_sender`. After a batch is approved the operator sends each applicant with `applicant.reach_out` (compose, then Send). |
+| `email.send` | **Unregistered.** The confirm-to-send path and its `TRANSPORT` hook are removed from the registry; the only send path is `POST /api/send`. |
+| `email.reply_draft` | Still non-consequential on `mail_thread`; returns the `kind: "reply"` compose payload of section 5 (it may still save the `.eml` draft, which is not part of the contract). |
+
+`ex.send_batch` and `gateway.send_now` stay in the code for the existing batch tests; nothing
+in the window, its registry or the model tools calls them.
+
 ## 12. Follow-ups (not in this run; no task here implements them)
 
 - A file-backed compose store so a compose produced by the model through
@@ -522,9 +580,8 @@ audited with `kind`, `applicant_ref`, `county` only.
 - Hiding held applicants for a period (an Executive-side hold ledger).
 - An Executive-side sent ledger with retry of failed Dashboard updates.
 - A persisted `top_n` setting and a settings endpoint.
-- Per-applicant registry item ids (`Registry.item`).
-- Routing `email.send` and `executive.reach_out` through the compose panel. Until then they
-  keep their current behavior and must not be wired to the new transport.
+- Per-applicant registry item ids (`Registry.item`), and resolving `/api/act` items without
+  re-running every provider.
 
 ## 13. Validation
 

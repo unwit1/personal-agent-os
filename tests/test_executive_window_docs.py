@@ -161,6 +161,35 @@ class TestExecutiveApplicantWorkflowDoc(unittest.TestCase):
             with self.subTest(term=term):
                 self.assertIn(term, self.content)
 
+    def test_existing_senders_go_through_compose(self):
+        required, _, follow_ups = self.content.partition("## 12. Follow-ups")
+        self.assertIn("### 11.1 Existing senders changed in this run", required)
+        for term in ("`executive.reach_out` | **Unregistered.**", "`email.send` | **Unregistered.**",
+                     "`email.reply_draft`", '"kind": "reply"'):
+            with self.subTest(term=term):
+                self.assertIn(term, required)
+        self.assertNotIn("keep their current behavior", self.content)
+
+    def test_compose_to_comes_through_gateway(self):
+        self.assertIn('applicants.applicant_review(ref, gateway=gateway)["email"]', self.content)
+        self.assertNotIn('get_summary(ref)["email"]', self.content)
+
+    def test_provider_default_and_cache(self):
+        self.assertIn("g = applicants._default_gateway()", self.content)
+        self.assertIn("county_groups(g.open_counties(), gateway=g)", self.content)
+        self.assertNotIn("gateway.open_counties(), gateway=gateway)", self.content)
+        for term in ("COUNTY_CACHE_SECONDS", "invalidate_county_cache()", "Per-click cost"):
+            with self.subTest(term=term):
+                self.assertIn(term, self.content)
+
+    def test_chat_opening_errors_are_replies(self):
+        self.assertIn("catches `ValueError` and `KeyError`", self.content)
+        self.assertIn("never turns a parsed event into HTTP 400", self.content)
+
+    def test_county_functions_have_an_owner(self):
+        self.assertIn("county-candidates task", self.content)
+        self.assertIn("county_candidates(county, *, gateway=None, top_n=DEFAULT_TOP_N)", self.content)
+
     def test_events_and_privacy(self):
         for term in ("parse_opening_event", "we closed the opening in X", "a driver quit in X",
                      "we have a new opening in X", "Confirm", "top_n", "EEO", "self-ID", "Allowlist"):
