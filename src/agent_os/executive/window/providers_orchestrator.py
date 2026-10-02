@@ -62,12 +62,14 @@ def _gates_as_items(run_id: str, run_status: dict[str, Any]) -> list[dict[str, A
 
 
 def _parked_nodes_as_items(run_id: str, run_status: dict[str, Any]) -> list[dict[str, Any]]:
-    """Convert parked/blocked/failed nodes to outstanding items."""
+    """Convert parked/failed nodes to outstanding items."""
     from agent_os.orchestrator.simple import failure_card
 
     items: list[dict[str, Any]] = []
     for node in run_status.get("nodes") or []:
-        if node["state"] not in ("BLOCKED", "FAILED_FINAL", "CANCELLED"):
+        if node["state"] not in ("FAILED_FINAL", "CANCELLED"):
+            continue
+        if node["state"] == "CANCELLED" and (node.get("wait_reason") or "").endswith("rejected by user"):
             continue
         card = failure_card(node)
         items.append(

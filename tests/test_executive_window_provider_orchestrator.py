@@ -144,7 +144,7 @@ class OrchestratorProviderTests(unittest.TestCase):
 
     def test_multiple_gates_and_nodes(self):
         """Multiple gates and nodes in one run produce multiple items."""
-        runs = [{"run_id": "run6", "state": "BLOCKED"}]
+        runs = [{"run_id": "run6", "state": "RUNNING"}]
         statuses = {
             "run6": {
                 "gates": [
@@ -166,9 +166,10 @@ class OrchestratorProviderTests(unittest.TestCase):
                 "nodes": [
                     {
                         "id": "node1",
-                        "state": "BLOCKED",
+                        "state": "FAILED_FINAL",
                         "goal": "test goal",
                         "provider": "claude",
+                        "failures": [{"kind": "timeout"}],
                     },
                     {
                         "id": "node2",
@@ -301,6 +302,63 @@ class OrchestratorProviderTests(unittest.TestCase):
         )
         self.assertEqual(len(items), 1)
         self.assertEqual(items[0]["id"], "gate:run_with_state:G1")
+
+    def test_cancelled_rejected_by_user_node_ignored(self):
+        """A CANCELLED node with wait_reason ending in 'rejected by user' produces no item."""
+        runs = [{"run_id": "run9", "state": "RUNNING"}]
+        statuses = {
+            "run9": {
+                "gates": [
+                    {
+                        "id": "G1",
+                        "kind": "consequential_repository_write",
+                        "status": "open",
+                        "reason": "test",
+                        "node": None,
+                    }
+                ],
+                "nodes": [
+                    {
+                        "id": "node_rejected",
+                        "state": "CANCELLED",
+                        "goal": "test goal",
+                        "provider": "claude",
+                        "wait_reason": "Dependent node cancelled due to gate rejected by user",
+                    }
+                ],
+            }
+        }
+        items = orchestrator_items(
+            lambda: runs,
+            lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
+        )
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["kind"], "orchestrator_gate")
+
+    def test_cancelled_other_reason_node_included(self):
+        """A CANCELLED node without 'rejected by user' in wait_reason produces an item."""
+        runs = [{"run_id": "run10", "state": "RUNNING"}]
+        statuses = {
+            "run10": {
+                "gates": [],
+                "nodes": [
+                    {
+                        "id": "node_cancelled",
+                        "state": "CANCELLED",
+                        "goal": "test goal",
+                        "provider": "claude",
+                        "wait_reason": "Resource exhausted",
+                    }
+                ],
+            }
+        }
+        items = orchestrator_items(
+            lambda: runs,
+            lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
+        )
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["kind"], "orchestrator_parked")
+        self.assertEqual(items[0]["id"], "parked:run10:node_cancelled")
 
 
 if __name__ == "__main__":
