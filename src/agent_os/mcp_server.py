@@ -14,7 +14,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_import_candidates, connector_status, import_connector_candidate, register_connector
+from .connectors import connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -320,6 +320,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
     "connector.import_candidates": {
         "description": "Read-only inventory of client MCP server names and executable basenames for import review. Arguments, paths, environment values, and credentials are omitted.",
+        "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
+    },
+    "connector.reconcile_plan": {
+        "description": "Read-only plan comparing desired connector registrations with each client surface's declared connector capabilities. Never writes configuration, reads credentials, or contacts providers.",
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
     },
     "connector.import": {
@@ -924,6 +928,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "agent.latest_handoff": latest_project_handoff,
         "connector.list": connector_status,
         "connector.import_candidates": connector_import_candidates,
+        "connector.reconcile_plan": connector_reconcile_plan,
         "connector.import": import_connector_candidate,
         "connector.register": register_connector,
         }
@@ -958,6 +963,7 @@ INSTRUCTIONS = (
     "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory. "
     "Use connector.list to discover registered connector metadata; credential references stay local."
     " Use connector.import_candidates for a read-only, privacy-filtered inventory of client MCP registrations."
+    " Use connector.reconcile_plan for a read-only per-surface action plan; it applies nothing."
     " Use connector.import to attach explicitly reviewed provider/scopes to a current candidate; it never copies credentials and writes only when reviewed=true and confirm_write=true."
     " connector.register previews metadata by default and writes only when confirm_write=true; credentials and unverified health states are rejected."
 )
