@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "project": "ingester-engine",
+  "status": "active",
+  "updated_at": "2026-10-01",
+  "summary": "Canonical ingestion protocol and reference runtime: resumable, provenance-backed, privacy-reviewed import of any data (documents, lore/fiction, writing style, speech/chat, HR records) into a pinned downstream repository. Owns the shared document-extraction/OCR cache and the restart-safe ingestion ledger used by Agent OS.",
+  "repository": "https://github.com/unwit1/ingester-engine.git",
+  "engine_revision": "17b815a5f8cafd48e6173bdc4a054e83a966701b",
+  "current_priorities": [
+    "Analysis-adapter interface for interpretive lenses (theme, emotion, craft, character, narrative, revision, preference, research), candidate-only and cached by normalized hash.",
+    "Adoption mode: reversible migration of existing repositories into the reference layout.",
+    "Revision alignment from revision_of lineage; research saturation tracking; split-safe ML exports.",
+    "Audio/video transcription adapter behind the pending-units queue."
+  ],
+  "constraints": [
+    "Protocol (INGESTER.md, spec/) is authoritative; the runtime implements it.",
+    "No organization-specific vocabulary or data in the engine; downstream repos supply ingester/vocabulary.json.",
+    "Primary-corpus processing requires corpus.primary_processing_authorized in the downstream INGESTER.yaml.",
+    "Private stores (document cache, placeholder keys, locator maps) live outside every Git working tree."
+  ],
+  "important_paths": [
+    "INGESTER.md",
+    "ROADMAP.md",
+    "spec/runtime.md",
+    "spec/profiles.md",
+    "src/ingester_engine/",
+    "migrations/",
+    "ontology/concepts.json",
+    "tests/"
+  ],
+  "validation_commands": [
+    "python -m pytest tests",
+    "python tools/validate_repo.py <downstream-repo>"
+  ],
+  "downstream": [
+    "RTEC-HR (hr-v1)"
+  ],
+  "consumers": [
+    "personal-agent-os (ingester_engine.ledger, ingester_engine.cache via agent_os.ingester_bridge)",
+    "HR-GUI scanner (ingester_engine.cache)"
+  ],
+  "context_files": [
+    "INGESTER.md",
+    "README.md",
+    "ROADMAP.md",
+    "spec/runtime.md",
+    "spec/profiles.md",
+    "AGENTS.md"
+  ],
+  "default_branch": "main",
+  "skill_roots": [],
+  "provenance": {
+    "registered_by": "agent-os",
+    "registered_at": "2026-10-01",
+    "reason": "Ingestion primitives (ledger, document cache) extracted from Agent OS; engine is canonical for ingestion."
+  }
+}

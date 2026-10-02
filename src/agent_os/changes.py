@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from .candidates import stage_candidates
-from .ingestion import load_json_records_incremental, read_json_record
+from ingester_engine.ledger import load_json_records_incremental, read_json_record
 from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .privacy import privacy_findings, require_private_safe

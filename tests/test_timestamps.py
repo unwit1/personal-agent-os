@@ -5,7 +5,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os import changes, improvements, ingestion, telemetry, workflows  # noqa: E402
+from agent_os import changes, improvements, telemetry, workflows  # noqa: E402
+from ingester_engine import ledger as ingestion  # noqa: E402  (ledger moved to the Ingester Engine)
 from agent_os.timestamps import utc_now_iso  # noqa: E402
 
 

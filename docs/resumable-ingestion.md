@@ -1,8 +1,13 @@
 # Resumable ingestion ledger
 
-Status: bounded P0.4 foundation.
+Status: bounded P0.4 foundation. **Moved (2026-10-01):** the ledger now lives in
+the Ingester Engine (`unwit1/ingester-engine`, `ingester_engine.ledger`) with an
+unchanged on-disk format, and Agent OS imports it through
+`agent_os.ingester_bridge`. For new bulk imports, prefer the engine runtime
+(`ingester ingest`), which adds SQLite job state, privacy review, provenance,
+and parallel processing on top of these semantics.
 
-`src/agent_os/ingestion.py` provides a provider-neutral local ledger for long
+`ingester_engine.ledger` provides a provider-neutral local ledger for long
 imports and crawls. It is deliberately metadata-only: source payloads are
 hashed, not copied into the ledger, and callers should keep the JSON file in a
 gitignored local directory such as `.agent-local`.

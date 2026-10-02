@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import re
-import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -10,7 +9,7 @@ from .adapters import ADAPTER
 from .candidates import KINDS, STATUSES
 from .changes import CHANGE_TYPES, STATUSES as CHANGE_STATUSES
 from .connectors import REGISTRY_PATH as CONNECTOR_REGISTRY_PATH, load_connector_registry
-from .documents import CACHE_DIR
+from ingester_engine.cache import cache_root, is_private_location
 from .improvements import CATEGORIES, PRIORITIES, STATUSES as IMPROVEMENT_STATUSES
 from .paths import ROOT
 from .privacy import privacy_findings
@@ -177,15 +176,10 @@ def validate() -> dict[str, Any]:
     if ".agent-local/" not in gitignore:
         errors.append("the private local-runtime directory is not gitignored")
     checked += 1
-    try:
-        tracked = subprocess.run(
-            ["git", "ls-files", "--error-unmatch", str(CACHE_DIR.relative_to(ROOT))],
-            cwd=str(ROOT), capture_output=True, text=True, timeout=30,
-        )
-        if tracked.returncode == 0 and tracked.stdout.strip():
-            errors.append("the document cache is tracked in Git; it holds derived work-document text")
-    except (OSError, subprocess.SubprocessError):
-        pass
+    # The shared document cache (Ingester Engine) holds derived work-document
+    # text; it must resolve outside Git or to an ignored local-runtime path.
+    if not is_private_location(cache_root()):
+        errors.append("the document cache resolves inside a Git working tree; it holds derived work-document text")
     form_registry = ROOT / "forms" / "registry.json"
     checked += 1
     if not form_registry.exists():

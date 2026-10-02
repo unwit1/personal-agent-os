@@ -4,11 +4,10 @@
   "type": "EVS",
   "title": "Resume and recovery safety",
   "status": "active",
-  "summary": "Checkpoints, recovery resume and restart safety do not duplicate consequential effects.",
+  "summary": "Checkpoints, recovery resume and restart safety do not duplicate consequential effects. Ledger resume tests moved with the ledger to ingester-engine (tests/test_ledger.py).",
   "metrics": {
     "runners": [
-      "tests/test_recovery.py",
-      "tests/test_ingestion.py"
+      "tests/test_recovery.py"
     ],
     "dimensions": [
       "resume_safety",
@@ -24,5 +23,5 @@
   },
   "links": [],
   "created_at": "2026-09-28T23:55:00+00:00",
-  "updated_at": "2026-09-28T23:55:00+00:00"
+  "updated_at": "2026-10-01T00:00:00+00:00"
 }

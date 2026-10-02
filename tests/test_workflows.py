@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import capabilities, workflows
 from agent_os.compiler import compile_context
-from agent_os.documents import DocumentCache, PageKey, extract_page
+from ingester_engine.cache import DocumentCache, PageKey, extract_page
 from agent_os.paths import ROOT
 from agent_os.telemetry import LocalTelemetryStore
 

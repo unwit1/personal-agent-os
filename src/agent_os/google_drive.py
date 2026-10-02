@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 
-from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from ingester_engine.ledger import IngestionLedger, stable_stage_id, stable_work_id
 
 
 SOURCE = "google-drive"

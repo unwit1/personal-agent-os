@@ -8,6 +8,13 @@ version = "0.1.0"
 description = "A Git-backed, vendor-neutral context and memory layer for coding agents"
 requires-python = ">=3.11"
 dependencies = ["keyring>=25,<26"]
+# Ingestion primitives (ledger, document cache) live in the Ingester Engine,
+# resolved by agent_os.ingester_bridge from an installed package,
+# INGESTER_ENGINE_ROOT, or the registered sibling checkout. Install it by
+# direct Git URL (never by bare name, to avoid dependency confusion).
+
+[project.optional-dependencies]
+ingester = ["ingester-engine @ git+https://github.com/unwit1/ingester-engine.git"]
 
 [project.scripts]
 agent-os = "agent_os.cli:main"

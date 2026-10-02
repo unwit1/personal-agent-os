@@ -355,7 +355,9 @@ Detailed design:
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
 Status: **foundation complete; field-region OCR seam started** (2026-09-24).
-The cache/extraction foundation is implemented in `src/agent_os/documents.py`,
+The cache/extraction foundation was implemented in `src/agent_os/documents.py` and
+moved on 2026-10-01 to the Ingester Engine (`ingester_engine.cache`, shared per-user
+cache, unchanged keys); this roadmap item continues there. It was
 exposed through CLI and MCP, enforced by `agent.py validate`, and covered by 40
 regression tests. The new field-region seam is a library API awaiting project
 integration and focused regression coverage.
@@ -443,7 +445,9 @@ Requirements:
 Success signal:
 - interruption or restart does not cause a full re-run.
 
-Current bounded foundation (2026-09-22): `src/agent_os/ingestion.py` provides
+Current bounded foundation (2026-09-22; moved 2026-10-01 to the Ingester Engine as
+`ingester_engine.ledger`, unchanged format, imported via `agent_os.ingester_bridge`):
+it provides
 provider-neutral local ledgers with stable work/run/stage/item IDs, content and
 processor fingerprints, deduplication, explicit item states, scalar
 checkpoints, and recovery of interrupted claims. The iCloud Mail adapter,

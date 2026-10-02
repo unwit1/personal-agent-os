@@ -7,7 +7,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from agent_os import google_drive
-from agent_os.ingestion import content_fingerprint
+from ingester_engine.ledger import content_fingerprint
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "google_drive" / "synthetic_files.json"

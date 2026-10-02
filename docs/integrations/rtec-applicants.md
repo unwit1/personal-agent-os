@@ -10,7 +10,7 @@ Google Sheets/Drive.
 See:
 
 - `projects/personal-agent-os/roadmap/rtec-applicant-pipeline.md`
-- `knowledge/libraries/rtec-hr/systems/fillout-applicant-dashboard-agent-os-integration.json`
+- `knowledge/libraries/rtec-hr/systems/fillout-applicant-dashboard-agent-os-integration.json` (in the RTEC-HR repository)
 - `unwit1/job-applicant-dashboard/docs/AGENT_OS_INTEGRATION.md` (external canonical application repo)
 
 Key rule: Agent OS connects to the Dashboard normalization/workflow layer, not

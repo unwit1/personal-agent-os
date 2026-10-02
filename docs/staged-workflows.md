@@ -70,7 +70,9 @@ policy explanation; it does not name or invoke a provider.
 `cache_lookup` is currently limited to a content-addressed `document_page` key
 (`file_hash`, `page_index`, and optional extraction settings). It is a lookup
 contract, not a second document-processing implementation; callers populate
-the cache through `agent_os.documents.extract_page`.
+the cache through `ingester_engine.cache.extract_page` (the shared per-user cache
+owned by the Ingester Engine; legacy `<checkout>/.agent-local/document-cache`
+entries are still honored on lookup).
 
 ## Manifests
 

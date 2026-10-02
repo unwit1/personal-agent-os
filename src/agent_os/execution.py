@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .documents import DocumentCache, PageKey
+from ingester_engine.cache import DocumentCache, PageKey
 
 
 CACHE_LOOKUP_KIND = "document_page"
@@ -56,8 +56,13 @@ def lookup_document_page(config: dict[str, Any], root: Path) -> CacheLookup:
     if problems:
         raise ValueError("; ".join(problems))
     key = PageKey(**config["key"])
-    cache = DocumentCache(root=Path(root) / ".agent-local" / "document-cache")
-    hit = cache.get(key) is not None
+    # The shared per-user cache (Ingester Engine) first, then a checkout's
+    # legacy .agent-local cache written before the move; keys are identical.
+    hit = False
+    for cache_dir in (None, Path(root) / ".agent-local" / "document-cache"):
+        if DocumentCache(root=cache_dir).get(key) is not None:
+            hit = True
+            break
     return CacheLookup(
         hit=hit,
         cache_key=key.fingerprint(),
