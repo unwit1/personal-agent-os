@@ -399,7 +399,7 @@ class CountyItemsTests(unittest.TestCase):
         self.assertEqual(w["context"]["open_count"], 2)
         self.assertEqual(set(w["context"]["applicants"][0]), {
             "applicant_ref", "name", "position", "status", "submitted", "city", "score", "recommendation"})
-        self.assertEqual(items[1]["title"], "Dare - 1 opening")
+        self.assertEqual(items[1]["title"], "Dare - hiring")
         self.assertNotIn("FORBIDDEN", json.dumps(items))
 
 

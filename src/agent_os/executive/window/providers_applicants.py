@@ -108,7 +108,9 @@ def county_items(groups_fn: Callable[..., list[dict[str, Any]]] | None = None) -
             "id": f"county:{county}",
             "tab": "work",
             "kind": "county_openings",
-            "title": f"{county} - {n} opening{'s' if n != 1 else ''}",
+            # The Dashboard tracks each group as open or closed (count 1), so a
+            # single opening reads as "hiring"; counts only show when there are more.
+            "title": f"{county} - hiring" if n == 1 else f"{county} - {n} openings",
             "why": f"{k} applicant{'s' if k != 1 else ''} to review",
             "source": "applicant_executive",
             "context": {"county": county, "open_count": open_count, "applicants": applicants},
