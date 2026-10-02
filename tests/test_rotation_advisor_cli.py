@@ -3,11 +3,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+import contextlib
+import io
 import json
-import subprocess
 import tempfile
 import unittest
 
+from agent_os.cli import main
 from agent_os.orchestrator.ledger import SCHEMA as TELEMETRY_SCHEMA
 
 RUN_ID = "run-20261001T000000Z-aaaaaa"
@@ -89,28 +91,11 @@ class RotationAdvisorCLITests(unittest.TestCase):
 
         out_file = self.home / "result.json"
 
-        import os
-        env = os.environ.copy()
-        env["PYTHONPATH"] = "src"
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            rc = main(["orchestrate", "rotation-advisor", "--home", str(self.home), "--out", str(out_file)])
 
-        result = subprocess.run(
-            [
-                "python",
-                "-m",
-                "agent_os",
-                "orchestrate",
-                "rotation-advisor",
-                "--home",
-                str(self.home),
-                "--out",
-                str(out_file),
-            ],
-            env=env,
-            capture_output=True,
-            text=True,
-        )
-
-        self.assertEqual(result.returncode, 0, f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}")
+        self.assertEqual(rc, 0, f"Exit code was {rc}")
         self.assertTrue(out_file.exists(), f"Output file not created at {out_file}")
 
         output_data = json.loads(out_file.read_text(encoding="utf-8"))
