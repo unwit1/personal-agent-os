@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib
 import json
+import os
 import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -178,6 +179,10 @@ class LocalDashboardGateway:
         root = Path(rtec_applicants._project_root())
         if not root.is_dir():
             raise FileNotFoundError("Applicant Dashboard checkout is unavailable")
+        # The Dashboard resolves its data folder at import time (app_paths);
+        # point it at the runtime folder Agent OS reads, or it opens (and
+        # SQLite creates) an empty dashboard.db next to its code.
+        os.environ.setdefault("RTEC_DASHBOARD_RUNTIME_DIR", str(rtec_applicants._runtime_root()))
         root_text = str(root)
         if root_text not in sys.path:
             sys.path.insert(0, root_text)

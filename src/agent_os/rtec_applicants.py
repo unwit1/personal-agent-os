@@ -357,12 +357,15 @@ def _runtime_root() -> Path:
     """Where the Dashboard keeps dashboard.db and Config/, resolved the way
     run_dashboard.bat does: RTEC_DASHBOARD_RUNTIME_DIR, else the path in
     <RTEC_HR_AUTOMATION_HOME>/Job Applicant Dashboard/runtime-path.txt ("."
-    meaning that folder), else that folder. A database in the project folder
-    itself (the Dashboard's default, and test fixtures) always wins."""
+    meaning that folder), else that folder. A non-empty database in the
+    project folder itself (the Dashboard's default, and test fixtures) always
+    wins; an empty one is the stray file SQLite leaves when something opens a
+    missing database there, and is ignored."""
     import os
 
     project = _project_root()
-    if (project / _DB_NAME).is_file():
+    project_db = project / _DB_NAME
+    if project_db.is_file() and project_db.stat().st_size > 0:
         return project
     home = Path(os.environ.get("RTEC_HR_AUTOMATION_HOME") or Path.home() / "Documents" / "HR Automation Local")
     default = home / "Job Applicant Dashboard"

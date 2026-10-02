@@ -48,9 +48,25 @@ class RuntimePathTests(unittest.TestCase):
             self.assertEqual(rtec_applicants._db_path(), self.runtime / "dashboard.db")
 
     def test_database_in_the_project_folder_wins(self) -> None:
-        (self.project / "dashboard.db").write_bytes(b"")
+        (self.project / "dashboard.db").write_bytes(b"SQLite format 3")
         with self.env():
             self.assertEqual(rtec_applicants._db_path(), self.project / "dashboard.db")
+
+    def test_empty_project_database_is_ignored(self) -> None:
+        # SQLite leaves a zero-byte file when something opens a missing
+        # database; it must not hide the real runtime database.
+        (self.project / "dashboard.db").write_bytes(b"")
+        with self.env():
+            self.assertEqual(rtec_applicants._db_path(), self.runtime / "dashboard.db")
+
+    def test_gateway_points_the_dashboard_at_the_runtime_folder(self) -> None:
+        from agent_os.executive import gateway
+
+        with self.env(), mock.patch.object(gateway.importlib, "import_module", return_value=object()) as imp:
+            gateway.LocalDashboardGateway._module("candidate_review")
+            self.assertEqual(os.environ["RTEC_DASHBOARD_RUNTIME_DIR"], str(self.runtime))
+            imp.assert_called_once_with("candidate_review")
+        sys.path[:] = [p for p in sys.path if p != str(self.project)]
 
     def test_no_runtime_database_falls_back_to_the_project(self) -> None:
         (self.runtime / "dashboard.db").unlink()
