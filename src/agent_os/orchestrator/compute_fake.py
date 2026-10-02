@@ -1,0 +1,182 @@
+"""Fake compute provider (IMP-0015 slice 2): in-memory test doubles for launch/poll/stop/terminate.
+
+FakeProvider is injected via a factory protocol, never reached via network. The protocol
+conforms to DEC-0042 / docs/model-infrastructure.md Gated provisioning interface.
+Provider name: 'fake'.
+"""
+
+from __future__ import annotations
+
+import json
+import time
+from pathlib import Path
+from typing import Any
+
+
+class FakeProvider:
+    """Fake compute provider for testing and development. Instance lifecycle is in-memory;
+    cost accrues while running and freezes at stop."""
+
+    def __init__(self, hourly_usd: float = 1.0, clock: callable | None = None,
+                 fail_launch: bool = False, state_path: Path | None = None) -> None:
+        """Initialize FakeProvider.
+
+        Args:
+            hourly_usd: Cost per hour of runtime (default 1.0).
+            clock: Time function returning epoch seconds (default time.monotonic).
+            fail_launch: If True, the next launch() creates the instance then raises.
+            state_path: Optional path for persistent state (for CLI/MCP). Tests use memory only.
+        """
+        self.hourly_usd = float(hourly_usd)
+        self.clock = clock or time.monotonic
+        self.fail_launch = fail_launch
+        self.state_path = state_path
+        self.launches = 0
+        self.instances: dict[str, dict[str, Any]] = {}
+        self.launch_names: dict[str, str] = {}
+
+    def _load_state(self) -> None:
+        """Load persisted state if state_path is set."""
+        if self.state_path and self.state_path.exists():
+            try:
+                data = json.loads(self.state_path.read_text(encoding="utf-8"))
+                self.instances = data.get("instances", {})
+                self.launch_names = data.get("launch_names", {})
+                self.launches = data.get("launches", 0)
+            except (OSError, ValueError):
+                pass
+
+    def _save_state(self) -> None:
+        """Persist state if state_path is set."""
+        if self.state_path:
+            self.state_path.parent.mkdir(parents=True, exist_ok=True)
+            state = {
+                "instances": self.instances,
+                "launch_names": self.launch_names,
+                "launches": self.launches,
+            }
+            self.state_path.write_text(json.dumps(state, indent=2), encoding="utf-8")
+
+    def launch(self, spec: dict[str, Any]) -> dict[str, str]:
+        """Launch an instance from spec. Idempotent by spec['name'].
+
+        Args:
+            spec: Dictionary with keys: name (job_id), gpu, hourly_usd, max_runtime_seconds, secret_ref (optional).
+
+        Returns:
+            Dictionary with 'instance_id'.
+
+        Raises:
+            RuntimeError: If fail_launch is set (after creating the instance).
+        """
+        self._load_state()
+        spec_name = spec.get("name")
+        if spec_name in self.launch_names:
+            return {"instance_id": self.launch_names[spec_name]}
+
+        now = self.clock()
+        self.launches += 1
+        instance_id = f"fake-{self.launches}"
+        self.instances[instance_id] = {
+            "name": spec_name,
+            "state": "running",
+            "started_at": now,
+            "stopped_at": None,
+            "terminated_at": None,
+            "hourly_usd": self.hourly_usd,
+            "max_runtime_seconds": spec.get("max_runtime_seconds"),
+        }
+        self.launch_names[spec_name] = instance_id
+        self._save_state()
+
+        if self.fail_launch:
+            raise RuntimeError(f"Simulated launch failure for {instance_id}")
+
+        return {"instance_id": instance_id}
+
+    def poll(self, instance_id: str) -> dict[str, Any]:
+        """Poll instance state and cost.
+
+        Args:
+            instance_id: Instance identifier from launch().
+
+        Returns:
+            Dictionary with 'state' (running|stopped|terminated), 'runtime_seconds', 'cost_usd'.
+
+        Raises:
+            KeyError: If instance_id does not exist.
+        """
+        self._load_state()
+        if instance_id not in self.instances:
+            raise KeyError(f"unknown instance {instance_id}")
+
+        instance = self.instances[instance_id]
+        now = self.clock()
+
+        if instance["state"] == "running":
+            runtime = now - instance["started_at"]
+            max_runtime = instance.get("max_runtime_seconds")
+            if max_runtime is not None and runtime >= max_runtime:
+                instance["state"] = "stopped"
+                instance["stopped_at"] = instance["started_at"] + max_runtime
+                self._save_state()
+        elif instance["state"] == "stopped" and instance["stopped_at"] is None:
+            instance["stopped_at"] = now
+            self._save_state()
+
+        if instance["state"] == "stopped":
+            runtime = instance["stopped_at"] - instance["started_at"]
+        elif instance["state"] == "terminated":
+            end_time = instance.get("stopped_at") or instance.get("terminated_at") or now
+            runtime = end_time - instance["started_at"]
+        else:
+            runtime = now - instance["started_at"]
+
+        runtime = max(0.0, runtime)
+        cost = runtime / 3600.0 * self.hourly_usd
+
+        return {
+            "state": instance["state"],
+            "runtime_seconds": runtime,
+            "cost_usd": cost,
+        }
+
+    def stop(self, instance_id: str) -> None:
+        """Stop an instance. Idempotent.
+
+        Args:
+            instance_id: Instance identifier from launch().
+
+        Raises:
+            KeyError: If instance_id does not exist.
+        """
+        self._load_state()
+        if instance_id not in self.instances:
+            raise KeyError(f"unknown instance {instance_id}")
+
+        instance = self.instances[instance_id]
+        if instance["state"] == "running":
+            instance["stopped_at"] = self.clock()
+            instance["state"] = "stopped"
+            self._save_state()
+
+    def terminate(self, instance_id: str) -> None:
+        """Terminate an instance. Idempotent.
+
+        Args:
+            instance_id: Instance identifier from launch().
+
+        Raises:
+            KeyError: If instance_id does not exist.
+        """
+        self._load_state()
+        if instance_id not in self.instances:
+            raise KeyError(f"unknown instance {instance_id}")
+
+        instance = self.instances[instance_id]
+        if instance["state"] != "terminated":
+            if instance["state"] == "running" and instance["stopped_at"] is None:
+                instance["stopped_at"] = self.clock()
+            instance["terminated_at"] = self.clock()
+            instance["state"] = "terminated"
+            self._save_state()
