@@ -1,6 +1,6 @@
 # Model infrastructure: plugging in open-weight and abliterated models
 
-Status: IMP-0015 Phase 0/1 slice (2026-09-29). Roadmap:
+Status: IMP-0015 Phase 0/1 slice (2026-09-29) + IMP-0015 ASAP slice FreeComputeBroker (2026-10-01). Roadmap:
 `projects/personal-agent-os/roadmap/model-infrastructure-manager.md`.
 
 This page covers what works today: registering any OpenAI-compatible endpoint
@@ -343,6 +343,317 @@ under-provisioned cases (a needed `reasoning` task missing), task count, the pla
 routing cost relative to the cheapest plan the labels allow, tokens, latency and
 GPU dollars. Reports go to `<orchestrator home>/foreman-eval/`.
 
+## Gated provisioning interface (slice 2)
+
+Contract pinned by DEC-0043 (IMP-0015 slice 2). Slice 2 implements and tests
+it against a **fake provider only**: no real adapter is called, there is no
+network, and nothing is spent. The design borrows SkyPilot (PA-skypilot): its
+cluster status set, its cluster name used as the idempotency key, and its
+provider-side autostop. The difference here is that autostop comes from the
+budget, not from idle time.
+
+### Modules and functions
+
+`src/agent_os/orchestrator/provision.py`. Every function returns the job
+record (a JSON-able dict) as persisted:
+
+```python
+provision(request, *, provider=None, home=None, budget_home=None, clock=None)
+status(job_id, *, provider=None, home=None, budget_home=None, clock=None)
+stop(job_id, *, provider=None, home=None, budget_home=None, clock=None)
+destroy(job_id, *, provider=None, home=None, budget_home=None, clock=None)
+reconcile(job_id, actual_usd=None, *, provider=None, home=None, budget_home=None, clock=None)
+```
+
+Parameters:
+- `home` overrides `orchestrator_home()`.
+- `budget_home` is passed to `budget.py`, so tests use temporary directories
+  for both.
+- `clock` is a callable that returns epoch seconds (default `time.time`).
+  History timestamps are ISO-8601 UTC strings derived from it.
+- An unknown `job_id` raises `KeyError`.
+
+`src/agent_os/orchestrator/compute_fake.py` holds the provider protocol and
+`FakeProvider`:
+
+| Method | Returns |
+| --- | --- |
+| `launch(spec)` | `{"instance_id"}` |
+| `lookup(name)` | `instance_id` of the instance created under `name`, or `None` |
+| `poll(instance_id)` | `{"state", "runtime_seconds", "cost_usd"}`, where `state` is `running`, `stopped` or `terminated` |
+| `stop(instance_id)` | — |
+| `terminate(instance_id)` | — |
+
+`spec` carries `name` (= `job_id`), `gpu`, `hourly_usd`,
+`max_runtime_seconds` and `secret_ref`. `launch` is idempotent by
+`spec["name"]`: a second launch with the same name returns the same
+`instance_id`, as SkyPilot's `sky launch -c <name>` does. It is
+launch-or-lookup: an instance the provider created under that name is found,
+even if the call that created it raised before returning. That makes resuming
+a crashed or failed `launching` step safe, and it is the only way Agent OS
+finds an instance whose id it never received. Slice 3 adapters must keep this
+lookup-first behavior.
+
+`provision()` calls `lookup(job_id)` first when the provider has it, and
+launches only when that returns `None`. Adapters must offer `lookup` or keep
+`launch` idempotent by name.
+
+`FakeProvider(hourly_usd=1.0, clock=None, fail_launch=False, state_path=None)`
+works as follows:
+- It never touches the network.
+- Cost is `runtime_seconds / 3600 * hourly_usd`, using each instance's own
+  `hourly_usd` taken from its `spec` (the constructor value is only the
+  default), so one shared provider prices every instance correctly.
+- It enforces `max_runtime_seconds` itself, so it models provider-side
+  autostop. A poll after the deadline reports `stopped`, with runtime capped
+  at the deadline.
+- `state_path` is optional. Whenever `provision` resolves provider `fake`
+  with `provider=None` (CLI, MCP, and library), state persists at
+  `<home>/compute-providers/fake.json`, so a fake job survives new processes.
+  Without `state_path` it is purely in memory.
+- It has a test-only fault hook, `fail_launch`: `launch` creates the
+  instance, persists it, then raises, which models a provider that creates an
+  instance but loses the response. A later `launch` with the same name
+  returns that instance.
+
+The CLI and MCP resolve `budget_home` the standard way: next to the provider
+registry, with the `AGENT_OS_PROVIDERS` override. There is no
+`AGENT_OS_BUDGET_HOME` variable.
+
+### Provider resolution
+
+With `provider=None`, a request whose `provider` is `fake` uses
+`FakeProvider`. **Any other provider name ends in `blocked`**: slice 2 wires
+no real adapter, and a real launch needs a write-enabled key plus operator
+confirmation (slice 3). Nothing is reserved or launched.
+
+### Request validation
+
+Validation errors raise `ValueError` and persist nothing:
+- `provider` and `gpu` are required strings.
+- `hourly_usd` must be greater than 0.
+- `estimate` must be `{low, expected, high}`, numeric, with
+  `0 <= low <= expected <= high` and `high > 0`.
+- `max_runtime_seconds` is optional and must be greater than 0.
+- `budget` is optional: a workload budget block, which can only tighten.
+- `job_id` is optional and must match `^[a-z0-9][a-z0-9-]{2,63}$`. When it is
+  absent it is `cj-` + the first 12 hex digits of the sha256 of the canonical
+  (sorted-key) request JSON, so the same request names the same job.
+- `secret_ref` is optional and must be a `secrets://<provider>/<name>`
+  reference. Any other credential-looking key (`api_key`, `token`,
+  `password`, `secret`, ...) or a raw value is rejected before anything
+  reaches disk. The reference is stored, never resolved, in slice 2.
+
+### Job record
+
+The record lives at `<orchestrator_home()>/compute-jobs/<job_id>.json` and is
+always written with `storage.write_json` (atomic). Fields:
+- `job_id`, `provider`, `gpu`, `hourly_usd`;
+- `estimate {low, expected, high}`, `reservation_usd`;
+- `max_runtime_seconds`, `auto_stop_at` (ISO, set at launch);
+- `instance_id`, `state`;
+- `runtime_seconds` and `cost_usd` (last poll), `reason` (for
+  `blocked`/`failed`), `reconcile` (after reconcile);
+- `history[]` of `{at, from, to, reason}`;
+- `secret_ref`.
+
+### Lifecycle
+
+```
+requested -> reserved -> launching -> running -> stopping -> stopped -> destroyed -> reconciled
+requested -> blocked                                  (precondition failed)
+blocked -> requested                                  (only from provision(): retry)
+requested|reserved|launching|running|stopping|stopped -> failed
+failed -> destroyed | reconciled
+```
+
+Every transition goes through one `transition(record, to, reason)` helper,
+which checks this table and appends to `history`. A transition that is not
+listed raises `ValueError`. `reconciled` is terminal. `blocked` is at rest
+(nothing reserved, nothing launched): `status`, `stop`, `destroy` and
+`reconcile` return it unchanged, and only `provision` leaves it (see
+Operations).
+
+`launching -> failed` is allowed only once `instance_id` is known. A
+`launching` job never fails without it, because its instance may exist at the
+provider (see Write-ahead reservation).
+
+### Preconditions (budget gate)
+
+`gate = budget.effective(request.get("budget"), budget_home)`. Provisioning
+continues only if all of these hold:
+- `gate["approved"]` is true;
+- `job_hard_cap_usd` and `project_usd` are both set;
+- `estimate.high <= job_hard_cap_usd`;
+- `estimate.high <= project_usd`;
+- `max_runtime_seconds` (see Mandatory auto-stop), computed here from
+  `estimate.high`, is greater than 0.
+
+Otherwise the job goes `requested -> blocked` with the failing check as
+`reason`. Nothing is reserved or launched. Every check, including the
+runtime one, runs before the ledger reservation is written, so a job never
+needs a `reserved -> blocked` transition.
+
+### Write-ahead reservation
+
+The pattern follows IMP-0013 / DEC-0020:
+1. Persist `requested`.
+2. Append the ledger entry
+   `budget.record_spend(estimate.high, job_id=…, kind="reserved")`.
+3. Persist `reserved` with `reservation_usd = estimate.high`.
+4. Persist `launching` **before** calling `provider.launch`.
+5. Persist `instance_id`, `auto_stop_at` and `running` after the launch
+   returns.
+
+If `launch` raises, the provider may already have created the instance. So
+the job **stays in `launching`**, with the error stored as `reason` and
+`launch_attempts` incremented, and the ledger reservation stays held. There is
+no `failed` transition and no release. Recovery always goes through the
+idempotent launch-or-lookup on `spec["name"]`:
+- `provision` again resumes `launching` and calls `launch(spec)`. It gets the
+  existing instance (or a new one) and moves to `running`, and there is still
+  one instance and one reservation.
+- `destroy` on a `launching` job abandons it: it calls `launch(spec)` to learn
+  the `instance_id` and persists it, moves `launching -> failed` (reason
+  `abandoned_launch`), calls `provider.terminate`, then moves
+  `failed -> destroyed`. Only then can `reconcile` release the reservation,
+  using the polled cost as `actual_usd`.
+- If that lookup raises again, `destroy` raises, and the job stays in
+  `launching` with the reservation held. A held reservation of at most
+  `estimate.high` is the safe failure mode. An untracked instance with a
+  released reservation is not.
+
+Ledger appends are idempotent per `(job_id, kind)`: the ledger is scanned
+before appending. When the ledger already holds this job's reservation, the
+gate has already passed, so a resume goes straight to `reserved` instead of
+counting its own reservation against itself.
+
+### Mandatory auto-stop
+
+```
+max_runtime_seconds = floor(min(request.max_runtime_seconds or inf, estimate.high / hourly_usd * 3600))
+```
+
+It is computed from `estimate.high` during the precondition check, before
+the ledger reservation is written; the reservation that follows has the same
+amount (`reservation_usd = estimate.high`). Because
+`estimate.high <= min(job cap, remaining project)`, billed runtime can never
+exceed what the budget cap allows. If the value is `<= 0`, the job goes
+`requested -> blocked` and nothing is reserved.
+
+The deadline is enforced in two places:
+- The provider receives the limit in `spec`. Its own stop is what survives
+  Agent OS dying; this is the gap the foreman watchdog has.
+- `status()` checks `clock() >= auto_stop_at` and stops the job itself.
+
+Either way the history records `running -> stopping -> stopped` with reason
+`auto_stop`.
+
+### Operations
+
+- **`provision`** is idempotent and resumable:
+  - an existing job in `requested`, `reserved` or `launching` continues from
+    that state;
+  - an existing job in `blocked` is re-evaluated. It moves
+    `blocked -> requested` (reason `retry`, recorded in `history`), and the
+    full precondition check runs again against the current
+    `budget.effective`. A job that is still blocked goes back to `blocked`
+    with the new reason. A job that now passes reserves and launches as
+    usual. The default idempotency key therefore stays usable after an
+    operator approves or raises the budget, with no need to change the
+    request or invent a `job_id`;
+  - any other state is returned unchanged.
+- **`status`** polls the provider when an `instance_id` exists, updates
+  `runtime_seconds`/`cost_usd`, applies auto-stop and follows provider-side
+  `stopped`/`terminated`. Because auto-stop calls `provider.stop` and writes
+  the record, `status` is **not** read-only (MCP `readOnlyHint: false`); it
+  never terminates or deletes anything.
+- **`stop`** goes `running -> stopping -> stopped` via `provider.stop`. It is
+  a no-op once the job is stopped or later.
+- **`destroy`** stops first when the job is running, then
+  `provider.terminate`, then `destroyed`. On a `launching` job it abandons
+  the launch as described under Write-ahead reservation. On a `requested`
+  or `reserved` job (no `instance_id`, nothing launched) it abandons the job
+  without any provider call: `requested|reserved -> failed` (reason
+  `abandoned`), then `failed -> destroyed`. `reconcile` then releases this
+  job's ledger `reserved` amount (if one was written) with `actual_usd = 0`,
+  so a reservation never has to be launched and spent to be freed. It is a
+  no-op once the job is destroyed or reconciled.
+- **`reconcile`** runs from `destroyed` or `failed`; a `failed` job with a
+  known instance is terminated and destroyed first. On any other state it
+  raises `ValueError`; in particular, a stuck `launching` job must be
+  destroyed first. Steps:
+  1. `actual_usd` defaults to the last polled `cost_usd` (0 if none was
+     launched).
+  2. Append `kind="actual"` for `actual_usd` and `kind="release"` for the
+     amount of this `job_id`'s `kind="reserved"` ledger entry (both
+     idempotent per `(job_id, kind)`). The release amount comes from the
+     ledger scan already done for idempotency, **not** from
+     `record.reservation_usd`: a job that failed after the ledger
+     reservation was written but before `reserved` was persisted still
+     releases its full reservation, so no orphan reservation lowers
+     `budget.remaining()`. With no `reserved` entry, nothing is released.
+  3. Store `reconcile {actual_usd, estimate_expected, variance_usd,
+     within_band, over_reservation}` and move to `reconciled`.
+
+  Net ledger effect: only actual spend remains. Reconciling a job that is
+  already reconciled returns it unchanged.
+
+### CLI and MCP
+
+The CLI extends the existing `orchestrate compute` subcommand:
+
+```powershell
+agent-os orchestrate compute provision --request job.json   # JSON request as above
+agent-os orchestrate compute status    <job_id>
+agent-os orchestrate compute stop      <job_id>
+agent-os orchestrate compute destroy   <job_id>
+agent-os orchestrate compute reconcile <job_id> [--actual-usd 0.42]
+```
+
+MCP tools follow the `namespace.action` pattern in `mcp_server.py`:
+
+| Tool | Arguments | Annotations |
+| --- | --- | --- |
+| `compute.provision` | `request` | `destructiveHint: false` |
+| `compute.status` | `job_id` | `readOnlyHint: false`, `destructiveHint: false` (may auto-stop) |
+| `compute.stop` | `job_id` | `destructiveHint: true` |
+| `compute.destroy` | `job_id` | `destructiveHint: true` |
+| `compute.reconcile` | `job_id`, optional `actual_usd` | — |
+
+All of them carry `openWorldHint: false`. Both surfaces use
+`FakeProvider(state_path=…)`. Gate and validation outcomes come back as data
+(`blocked` plus `reason`) or as an error message, never as a traceback.
+
+### Tests
+
+`tests/test_provision.py`, all with temporary homes and an injected clock:
+- an unapproved budget, high above the cap, and high above the project
+  budget each give `blocked`, with no ledger entry and no launch;
+- the happy path: the ledger shows reserved, then actual + release, and
+  `budget.spent()` equals the actual cost;
+- advancing the clock past `auto_stop_at` gives `stopped` with reason
+  `auto_stop`;
+- `provision` twice gives one reservation and one launch;
+- resume after a simulated crash at `reserved` and at `launching`;
+- blocked by an unapproved budget, then the budget is approved, then
+  `provision` with the same request (default `job_id`) gives `running` with
+  one reservation. Its history shows `blocked -> requested` (reason `retry`);
+- `fail_launch_after_create`: the job stays `launching` with the reservation
+  held and no release. A second `provision` gives `running` on the same single
+  instance. In a separate case, `destroy` on the stuck job terminates the
+  leaked instance (`launching -> failed -> destroyed`), and `reconcile` then
+  releases the reservation;
+- `destroy` on a `reserved` job (and on a `requested` job after the ledger
+  reservation was written) gives `failed` (reason `abandoned`) then
+  `destroyed` with no provider call and no launch; `reconcile` then releases
+  the full reservation, records `actual_usd = 0`, and `budget.remaining()`
+  is back to its value before `provision`;
+- an illegal transition raises `ValueError`;
+- a raw secret raises `ValueError` and leaves no file;
+- a non-fake provider gives `blocked`;
+- `reconcile` is idempotent.
+
 ## What stays gated
 
 The model you pick never becomes the authorization boundary. Consequential
@@ -367,3 +678,132 @@ The run policy key is `allow_paid_spend` (default `false`).
 
 This switch only controls routing. Renting a GPU is still its own operator
 action (Deploy as Foreman), gated by the job budget.
+
+## 14. FreeComputeBroker (OpenRouter free pool)
+
+See `docs/free-compute-broker.md` for the design, data shapes, test plan, and
+implementation order.
+
+The FreeComputeBroker maximizes useful work on OpenRouter's volatile free-model
+pool. It runs inside the existing router, budget, CAP/EVR, validator and
+Research Radar primitives, with no second orchestration stack. All modules are
+deterministic code over cached, versioned data; tests run against fixtures only.
+
+### Modules (`src/agent_os/orchestrator/`)
+
+- `free_catalog.py`: Fetch and cache OpenRouter free models; decide "free" via
+  `is_free(pricing)` predicate (every raw pricing value parses to Decimal 0).
+- `free_policy.py`: Load versioned provider-policy record; merge operator
+  overrides; report staleness.
+- `openrouter_account.py`: Read-only access to key, credit state, and rate
+  limits behind `secrets://openrouter/default`; derive `high_allowance` flag
+  from credits or ledger evidence.
+- `free_quota.py`: Append-only quota ledger; daily budget, per-minute governor,
+  reserve, retry budget, reset boundary; backfill eligibility.
+- `free_specialization.py`: Per-(task_family × model) specialization records
+  from ledger + CAP observations; Wilson bounds; proven/canary/unproven status.
+- `free_metrics.py`: Metrics report (useful progress per request, validator
+  acceptance, retries, escalations, paid fallbacks avoided, estimated paid cost
+  avoided).
+- `free_routing.py`: Low-risk/verifiable eligibility rule, data-policy check,
+  model choice, escalation ladder, top-up alert evaluation.
+- `free_swarm.py`: Bounded disposable fan-out where validation is cheap;
+  checkpointable backfill queue for otherwise-expiring quota.
+
+### CLI commands
+
+```powershell
+agent-os orchestrate free-compute catalog [--refresh]    # discovered models
+agent-os orchestrate free-compute diff                   # changes since last fetch
+agent-os orchestrate free-compute policy                 # versioned provider policy
+agent-os orchestrate free-compute account                # read-only account state
+agent-os orchestrate free-compute quota                  # ledger and governor status
+agent-os orchestrate free-compute route <task.json>      # routing decision (free or escalate)
+agent-os orchestrate free-compute specialization         # per-family model evidence
+agent-os orchestrate free-compute metrics [--day]        # cost, progress, acceptance rates
+agent-os orchestrate free-compute backfill               # queue status
+agent-os orchestrate free-compute status                 # operator summary
+```
+
+### State location
+
+**Runtime state** (derived, rebuildable, outside Git):
+`<orchestrator_home>/free-compute/`:
+- `catalog/snapshots/<snapshot_id>.json`: Versioned model discovery
+- `catalog/latest.json`: Most recent snapshot
+- `catalog/diffs.jsonl`: Consecutive snapshot diffs
+- `account.json`: Last read-only account state (key never stored)
+- `policy-overrides.json`: Operator overrides (optional)
+- `ledger.jsonl`: Append-only free request attempt events
+- `specialization.json`: Derived per-(task_family × model) records
+- `backfill/queue.jsonl`, `backfill/checkpoints/<item_id>.json`: Backfill work items and checkpoints
+
+**Provider policy** (reviewed, Git-backed, append-only):
+`projects/personal-agent-os/orchestrator-os/records/provider-policy/openrouter-free.json`:
+- Versioned allowance figures (daily requests at low/high tiers, RPM, reset
+  boundary, credit threshold).
+- Data-policy entries per model/revision, reviewed from OpenRouter's published
+  data policies.
+- Overrideable through `policy-overrides.json` (operator only).
+
+### Allowance versioning and overrides
+
+The provider-policy record in Git holds `{"schema_version": "...",
+"versions": [<record>, ...]}`, with highest `version` as current. Each version
+carries `free_rpm`, `daily_free_requests_low`, `daily_free_requests_high`,
+`credit_threshold_usd`, `reset` (UTC boundary), `verified_at` (timestamp),
+`verified_by` (source), `max_age_days`, and `data_policies` (reviewed per-model
+entries).
+
+These are **data, never constants**: no module hard-codes 20 RPM, 50 requests,
+1000 requests, or $10 threshold.
+
+**Overrides** are optional, in `<orchestrator_home>/free-compute/policy-overrides.json`
+(operator only). `free_policy.effective()` merges the current policy version with
+overrides for any numeric field, `reserve_requests`, `retry_budget`,
+`backfill_window_hours`, `swarm_max_width`, `allowed_sensitivity`, or
+`allow_training_endpoints`.
+
+A policy record whose `verified_at` is older than `max_age_days` is marked
+`stale`. Stale policy still governs quota (uses the low allowance), but can
+never trigger a top-up alert.
+
+### Top-up alert rule
+
+`free_routing.top_up_status(account, policy)` evaluates whether to alert the
+operator, returning `not_needed | recommended | unknown | blocked_by_policy`:
+
+- **`not_needed`**: `account.high_allowance is true`. The account is eligible
+  for the higher daily allowance; a low balance by itself never triggers an alert.
+- **`recommended`** (the only status that alerts): **all** hold:
+  - `account.high_allowance is false` via the credits basis (total purchased
+    credits < policy's `credit_threshold_usd`).
+  - Current policy is verified (not stale) with a non-null threshold.
+  - No ledger-based discrepancy recorded.
+  
+  The alert names the exact shortfall (e.g. `shortfall_usd: 5.00`), the
+  allowance it unlocks (low → high daily requests), policy source and
+  verification date, and account read time. **Agent OS never purchases credits
+  or enables auto-recharge.** The operator tops up in the OpenRouter console.
+- **`unknown`**: `high_allowance` is `null`, policy is stale, purchased credits
+  unreadable, or a ledger observed-cap discrepancy contradicts a credits-based
+  false. No alert sent; reason and discrepancies shown in CLI/GUI.
+- **`blocked_by_policy`**: Operator disabled free routing or no task family is
+  eligible. A top-up would not help.
+
+### Hard invariants (enforced by every module and assertion)
+
+1. **Never purchase credits.** No code path POSTs to billing, checkout or
+   payment endpoints. `openrouter_account.py` sends only GET requests to an
+   allowlist (`/api/v1/models`, `/api/v1/key`, `/api/v1/credits`).
+2. **Never enable auto-recharge.** No setting, flag or API call changes account
+   configuration. The account adapter is read-only by construction.
+3. **Never call a paid model.** A `route=free` decision names a model for which
+   `free_catalog.is_free(pricing)` is true on the current snapshot. The broker
+   only *decides*; escalation delegates to the existing router and its budget
+   gate. Swarm/backfill re-check `is_free` on the latest snapshot immediately
+   before dispatch.
+4. **Never read or print secret values.** The key reference
+   `secrets://openrouter/default` is resolved only inside the adapter's request
+   builder and never returned, logged, cached, stored or put in an exception.
+   Errors are redacted; status reports presence and source only.

@@ -221,11 +221,20 @@ def register(commands: argparse._SubParsersAction) -> None:
     bud.add_argument("--job-cap-usd", type=float)
     bud.add_argument("--note")
 
-    cmp_ = actions.add_parser("compute", help="read-only GPU inventory and pricing (RunPod first); never provisions or spends")
-    cmp_.add_argument("action", choices=["inventory"])
-    cmp_.add_argument("--provider", default="runpod")
+    cmp_ = actions.add_parser("compute", help="GPU inventory, pricing, and gated compute provisioning (provision is gated by budget/approval; only the fake provider launches)")
+    cmp_.add_argument("action", choices=["inventory", "provision", "status", "stop", "destroy", "reconcile", "jobs"])
+    cmp_.add_argument("--provider", default=None)
     cmp_.add_argument("--refresh", action="store_true", help="ignore the 6 h cache")
     cmp_.add_argument("--min-vram", type=float, default=0.0)
+    cmp_.add_argument("--job-id")
+    cmp_.add_argument("--gpu")
+    cmp_.add_argument("--hourly-usd", type=float)
+    cmp_.add_argument("--low-usd", type=float)
+    cmp_.add_argument("--expected-usd", type=float)
+    cmp_.add_argument("--high-usd", type=float)
+    cmp_.add_argument("--max-runtime-seconds", type=int)
+    cmp_.add_argument("--secret-ref")
+    cmp_.add_argument("--actual-usd", type=float)
 
     fsh = actions.add_parser("foreman-shadow", help="shadow foreman: a candidate model proposes a DAG + classes for a run; compare/report are deterministic, propose is one real call")
     fsh.add_argument("action", choices=["propose", "compare", "report"])
@@ -251,6 +260,14 @@ def register(commands: argparse._SubParsersAction) -> None:
     ctx = actions.add_parser("context-anatomy", help="IMP-0018 Phase 0: tokens per prompt section, fan-out duplication and context amplification for a finished run (no model call)")
     ctx.add_argument("run", help="run id (or a run directory)")
     ctx.add_argument("--harness-tokens", type=int, default=6000, help="per-call harness overhead to assume (codex ~9000, claude ~6000)")
+
+    econ = actions.add_parser("context-economy", help="IMP-0018 Phase 0: token amplification, context growth, fan-out and resume overhead across run telemetry (aggregates only, no model call)")
+    econ.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
+    econ.add_argument("--out", type=Path, help="write report JSON to this path")
+
+    rot = actions.add_parser("rotation-advisor", help="IMP-0019 shadow: would-rotate advice per worker from run telemetry (aggregates only, advice only, no model call)")
+    rot.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
+    rot.add_argument("--out", type=Path, help="write advice JSON to this path")
 
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
@@ -603,6 +620,20 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         run_dir = target if target.is_dir() else RunStore().run_dir(args.run)
         emit(context_anatomy.analyze_run(run_dir, args.harness_tokens))
         return 0
+    if action == "context-economy":
+        from . import context_economy
+        from .store import orchestrator_home
+
+        home = args.home if args.home else orchestrator_home()
+        emit(context_economy.report(home, args.out))
+        return 0
+    if action == "rotation-advisor":
+        from . import rotation_advisor
+        from .store import orchestrator_home
+
+        home = args.home if args.home else orchestrator_home()
+        emit(rotation_advisor.report(home, args.out))
+        return 0
     if action == "foreman":
         from . import budget as budget_lib
         from .foreman_deploy import manager
@@ -684,12 +715,54 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit(budget.set_budget(args.project_usd, args.job_cap_usd, note=args.note))
         return 0
     if action == "compute":
-        from . import compute
+        from . import compute, provision
 
-        stock = compute.inventory(args.provider, refresh=args.refresh)
-        stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
-        emit(stock)
-        return 0
+        if args.action == "inventory":
+            provider = args.provider or "runpod"
+            stock = compute.inventory(provider, refresh=args.refresh)
+            stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
+            emit(stock)
+            return 0
+        if args.action in ("status", "stop", "destroy", "reconcile") and not args.job_id:
+            emit({"error": f"{args.action} needs --job-id"})
+            return 2
+
+        try:
+            if args.action == "provision":
+                if not args.provider:
+                    emit({"error": "provision needs --provider (e.g., fake, runpod)"})
+                    return 2
+                if not args.gpu or args.hourly_usd is None or args.expected_usd is None or args.low_usd is None or args.high_usd is None:
+                    emit({"error": "provision needs --gpu, --hourly-usd, --low-usd, --expected-usd, --high-usd"})
+                    return 2
+                request = {"provider": args.provider, "gpu": args.gpu, "hourly_usd": args.hourly_usd,
+                          "estimate": {"low": args.low_usd, "expected": args.expected_usd, "high": args.high_usd}}
+                if args.job_id:
+                    request["job_id"] = args.job_id
+                if args.max_runtime_seconds is not None:
+                    request["max_runtime_seconds"] = args.max_runtime_seconds
+                if args.secret_ref:
+                    request["secret_ref"] = args.secret_ref
+                emit(provision.provision(request, budget_home=None))
+                return 0
+            if args.action == "status":
+                emit(provision.status(args.job_id, budget_home=None))
+                return 0
+            if args.action == "stop":
+                emit(provision.stop(args.job_id, budget_home=None))
+                return 0
+            if args.action == "destroy":
+                emit(provision.destroy(args.job_id, budget_home=None))
+                return 0
+            if args.action == "reconcile":
+                emit(provision.reconcile(args.job_id, actual_usd=args.actual_usd, budget_home=None))
+                return 0
+            if args.action == "jobs":
+                emit(provision.list_jobs())
+                return 0
+        except (ValueError, KeyError) as exc:
+            emit({"error": str(exc)})
+            return 2
     if action == "radar":
         from . import radar
 

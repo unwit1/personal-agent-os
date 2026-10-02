@@ -1,0 +1,23 @@
+{
+  "schema_version": "agent-os/provider-policy-history/v1",
+  "versions": [
+    {
+      "schema_version": "agent-os/provider-policy/v1",
+      "provider": "openrouter",
+      "policy": "free-model-allowance",
+      "version": 1,
+      "free_rpm": 20,
+      "daily_free_requests_low": 50,
+      "daily_free_requests_high": 1000,
+      "credit_threshold_usd": 10.0,
+      "failed_requests_count": true,
+      "reset": "00:00Z",
+      "source_url": "https://openrouter.ai/docs/api-reference/limits",
+      "verified_at": "2026-10-01T00:00:00Z",
+      "verified_by": "operator directive / roadmap 2026-10-01",
+      "max_age_days": 30,
+      "data_policies": [],
+      "overrides": {}
+    }
+  ]
+}

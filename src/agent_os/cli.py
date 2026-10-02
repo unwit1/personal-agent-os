@@ -93,6 +93,101 @@ def _load_object(path: str) -> dict:
     return value
 
 
+def _json_input(value: str) -> object:
+    """Structured input: an inline JSON document or a path to a JSON file."""
+    text = value.strip()
+    if text[:1] not in ("[", "{", '"'):
+        text = Path(value).read_text(encoding="utf-8")
+    return json.loads(text)
+
+
+def _executive_gateway():
+    from .executive.gateway import LocalDashboardGateway
+
+    return LocalDashboardGateway()
+
+
+def _executive_store():
+    from .executive import outbox
+
+    return outbox.OutboxStore()
+
+
+def _register_executive(commands) -> None:
+    executive = commands.add_parser("executive")
+    sub = executive.add_subparsers(dest="executive_command", required=True)
+    needs = sub.add_parser("needs-action")
+    needs.add_argument("--limit", type=int, default=100)
+    suggest = sub.add_parser("suggestions")
+    suggest.add_argument("opening")
+    plan = sub.add_parser("plan")
+    plan.add_argument("--opening", required=True)
+    plan.add_argument("--applicant-refs", required=True, help="JSON list of applicant_ref values, inline or a file path")
+    plan.add_argument("--interview-type", required=True)
+    plan.add_argument("--location", required=True)
+    plan.add_argument("--duration-minutes", type=int, default=30)
+    inspect = sub.add_parser("batch")
+    inspect.add_argument("batch_id")
+    approve = sub.add_parser("approve")
+    approve.add_argument("batch_id")
+    approve.add_argument(
+        "--choices", required=True,
+        help='JSON object: applicant_ref -> "confirm" | "drop" | [slot datetimes], inline or a file path',
+    )
+    send = sub.add_parser("send")
+    send.add_argument("batch_id")
+    send.add_argument("--confirm", action="store_true", help="actually send; without it the send is a dry-run")
+
+
+def _approval_state(batch: dict) -> dict:
+    return {
+        "batch_id": batch.get("batch_id"),
+        "state": batch.get("state"),
+        "approved_at": batch.get("approved_at"),
+        "items": [
+            {"applicant_ref": i.get("applicant_ref"), "state": i.get("state"), "decision": i.get("decision")}
+            for i in batch.get("items", [])
+        ],
+    }
+
+
+def _dispatch_executive(args) -> int:
+    from .executive import applicants as ex
+
+    cmd = args.executive_command
+    if cmd == "needs-action":
+        _print(ex.needs_action(limit=args.limit))
+    elif cmd == "suggestions":
+        _print(ex.suggestions(args.opening, gateway=_executive_gateway()))
+    elif cmd == "plan":
+        refs = _json_input(args.applicant_refs)
+        if not isinstance(refs, list):
+            raise ValueError("--applicant-refs must be a JSON list")
+        _print(ex.plan_outreach(
+            refs, args.opening, args.interview_type, args.location, args.duration_minutes,
+            gateway=_executive_gateway(), store=_executive_store(),
+        ))
+    elif cmd == "batch":
+        _print(_executive_store().load(args.batch_id))
+    elif cmd == "approve":
+        choices = _json_input(args.choices)
+        if not isinstance(choices, dict):
+            raise ValueError("--choices must be a JSON object")
+        _print(ex.approve_batch(args.batch_id, choices, gateway=_executive_gateway(), store=_executive_store()))
+    elif cmd == "send":
+        store = _executive_store()
+        try:
+            approval = _approval_state(store.load(args.batch_id))
+        except KeyError:
+            raise ValueError(f"unknown batch: {args.batch_id}") from None
+        result = ex.send_batch(
+            args.batch_id, confirm=args.confirm,
+            gateway=_executive_gateway() if args.confirm else None, store=store,
+        )
+        _print({"approval": approval, "dry_run": not args.confirm, "result": result})
+    return 0
+
+
 def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="agent-os")
     commands = root.add_subparsers(dest="command", required=True)
@@ -407,6 +502,7 @@ def parser() -> argparse.ArgumentParser:
     review.add_argument("--tests-failed", action="store_true")
     review.add_argument("--architecture-change", action="store_true")
     register_orchestrate(commands)
+    _register_executive(commands)
     return root
 
 
@@ -671,9 +767,11 @@ def main(argv: list[str] | None = None) -> int:
             _print({"created": str(path)})
         elif args.command == "review":
             _print(assess(args.changed_file, args.tests_failed, args.architecture_change))
+        elif args.command == "executive":
+            return _dispatch_executive(args)
         elif args.command == "orchestrate":
             return dispatch_orchestrate(args, _print)
-    except (KeyError, OSError, ValueError) as exc:
+    except (KeyError, OSError, ValueError, ImportError) as exc:
         _print({"error": str(exc)})
         return 2
     return 0

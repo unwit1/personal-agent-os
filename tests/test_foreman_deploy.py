@@ -1149,3 +1149,17 @@ class OptimizeTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Qwen35ToolParserTests(unittest.TestCase):
+    """Qwen3.5-generation templates emit XML tool calls (the Qwen3-Coder format)."""
+
+    def test_qwen3_5_family_can_serve_as_a_coding_agent(self) -> None:
+        from agent_os.orchestrator import foreman_deploy as fd
+
+        model = {"repo": "org/qwen35", "model_type": "qwen3_5", "agent": True, "weight_gb": 10, "max_position_embeddings": 262144,
+                 "kv_bytes_per_token": 262144, "attention_heads": 24}
+        self.assertTrue(fd.agent_capable(model))
+        body = fd.pod_request(model, {"gpu_id": "g", "gpu_count": 1, "tier": "community"}, "k", None, "n")
+        args = body["dockerStartCmd"]
+        self.assertEqual(args[args.index("--tool-call-parser") + 1], "qwen3_coder")

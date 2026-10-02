@@ -1,0 +1,45 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0009",
+  "type": "EXP",
+  "title": "SkyPilot spike: RunPod lifecycle, state and credential semantics (offline source inspection)",
+  "status": "resolved",
+  "summary": "IMP-0015 slice 1 (PA-skypilot). SkyPilot 0.13.0 with the runpod extra was installed in an isolated, git-ignored venv (.agent-local/spikes/skypilot/venv) and its installed source was read offline; nothing was launched and no cloud API or credential was touched. Findings: (1) Lifecycle: the RunPod provisioner implements run/wait/terminate/query/cluster-info, but stop_instances raises NotImplementedError and the RunPod cloud declares STOP and MULTI_NODE unsupported, so any autostop on RunPod must be autodown (terminate, losing the pod disk). (2) State: cluster state lives in SkyPilot's own per-user SQLite databases under ~/.sky/ (state_db plus spot-jobs/serve DBs, with lock files), a second source of truth outside Agent OS's compute-jobs records, so reconcile would have to read SkyPilot state rather than own it. (3) Credentials: the RunPod adaptor accepts runpod.api_key or the RUNPOD_API_KEY environment variable, but SkyPilot's credential check requires ~/.runpod/config.toml to exist with an api_key under the profile, so a secrets:// reference cannot be bridged without a plaintext key file on disk unless the check is bypassed. (4) Footprint: a large dependency tree for one provider. The spike could not run inside an orchestrator worker: workers cannot read files outside their worktree, so the node deferred; it was completed by the supervisor session.",
+  "outcome": "positive",
+  "task_family": "compute_broker_prior_art",
+  "metrics": {
+    "skypilot_version": "0.13.0",
+    "launched": 0,
+    "cloud_api_calls": 0,
+    "paid_compute_usd": 0,
+    "model_calls": 0,
+    "runpod_stop_supported": false,
+    "runpod_multi_node_supported": false,
+    "state_store": "~/.sky/*.db (SQLite)",
+    "credential_requirement": "~/.runpod/config.toml api_key (env RUNPOD_API_KEY read by adaptor only)"
+  },
+  "links": [
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0015"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "projects/personal-agent-os/research/prior-art/registry.json"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0042"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0041"
+    }
+  ],
+  "provenance": {
+    "session": "supervisor session 2026-10-01/02 (orchestrator run run-20261002T031119Z-2113b9 deferred)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-10-02T03:55:00+00:00",
+  "updated_at": "2026-10-02T03:55:00+00:00"
+}
