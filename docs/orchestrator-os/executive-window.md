@@ -104,26 +104,23 @@ See [mail-intelligence.md](../integrations/mail-intelligence.md) and
 
 ### Items
 
-- **`mail_filtered`:** counts of spam/bulk items kept out of commitments, each
-  with its reason, so nothing disappears silently. Grouped by tab (work/personal).
-- **`mail_review`:** borderline mail (verdict `review`, score 3-5) queued for
-  operator review; sorted by score and date. Up to 20 shown per tab.
+- **`mail_filtered`:** one item per tab with counts per primary reason and up to
+  25 sample subjects/senders/reasons showing which mail was filtered out, so nothing
+  disappears silently.
+- **`mail_review`:** borderline (verdict `review`) threads with their reasons,
+  shown alongside reply items.
 - **`mail_cleanup`:** the organization plan, showing counts per category per
   account and a per-category Confirm button to move mail.
 
 ### Actions
 
-- **`mail.organize`:** builds and saves an organization plan for each configured
-  scope; dry-run, no moves. Returns the plan summary (counts, sample subjects, and
-  categorization rules per account).
-- **`mail.organize.apply.<category>`** (7 actions for movable categories): applies
-  the plan to one category. Consequential: preview shows what would move; Confirm
-  executes the reversible IMAP moves and journals them with undo commands. Both
-  preview and Confirm are dry-run unless the account has `allow_organize` enabled
-  by the operator.
-- **`mail.organize.allow`:** enables or disables `allow_organize` for one account,
-  letting the operator control which accounts can be reorganized.
+- **`mail.organize_inbox`:** builds and caches an organization plan for each
+  configured scope; dry-run, no moves. Returns the plan summary (counts, sample
+  subjects, and categorization rules per account).
+- **`mail.organize_apply`:** applies the plan to one category. Parameters: `account`,
+  `category`. Consequential: preview (dry-run) shows what would move; Confirm
+  executes the reversible IMAP moves and journals them with undo commands.
 
-Accounts need `allow_organize` set by the operator (default off, per account)
-before any organize action can move mail; the window `mail.organize.allow` action
-sets it, or the operator can edit `accounts.json` directly.
+Accounts need `allow_organize` set by the operator (default off, per account) in
+`.agent-local/mail/accounts.json` before any organize action can move mail. Nothing
+is moved otherwise.

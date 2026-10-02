@@ -391,14 +391,14 @@ moves.
 
 Sync stays read-only for all accounts. IMAP moves require the operator to set
 `allow_organize` (the per-account organize permission, default off) in
-`accounts.json` (or turn it on from the window). Nothing is moved otherwise.
+`accounts.json`. Nothing is moved otherwise.
 
 **Journal and undo:** every move is recorded in a per-scope journal at
 `.agent-local/mail/<scope>/organize-journal.jsonl` (a JSON lines file, gitignored).
 Each successfully moved message gets a line with `undo.command`:
 
 ```bash
-agent-os mail organize-undo --journal org_20261002T120500_ab12 --seq 1
+agent-os mail organize-undo org_20261002T120500_ab12 --seq 1 [--confirm]
 ```
 
 Undo is a dry-run by default; pass `--confirm` to actually reverse the moves.
