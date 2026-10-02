@@ -325,6 +325,24 @@ class FakeProviderFullLifecycleTests(unittest.TestCase):
         self.assertAlmostEqual(status1["cost_usd"], 2000.0 / 3600.0)
         self.assertAlmostEqual(status2["cost_usd"], 2000.0 / 3600.0)
 
+    def test_stop_at_clock_zero(self) -> None:
+        clock = ManualClock(0.0)
+        provider = FakeProvider(hourly_usd=1.0, clock=clock)
+        spec = {"name": "job-zero", "gpu": "A100", "hourly_usd": 1.0}
+        result = provider.launch(spec)
+        instance_id = result["instance_id"]
+
+        provider.stop(instance_id)
+        status = provider.poll(instance_id)
+        self.assertEqual(status["state"], "stopped")
+        self.assertAlmostEqual(status["runtime_seconds"], 0.0)
+
+        clock.advance(100.0)
+        provider.terminate(instance_id)
+        status = provider.poll(instance_id)
+        self.assertEqual(status["state"], "terminated")
+        self.assertAlmostEqual(status["runtime_seconds"], 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()

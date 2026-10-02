@@ -131,15 +131,8 @@ class FakeProvider:
         now = self.clock()
         self._settle(instance, now)
 
-        if instance["state"] == "stopped" and instance["stopped_at"] is None:
-            instance["stopped_at"] = now
-            self._save_state()
-
-        if instance["state"] == "stopped":
+        if instance["state"] in ("stopped", "terminated"):
             runtime = instance["stopped_at"] - instance["started_at"]
-        elif instance["state"] == "terminated":
-            end_time = instance.get("stopped_at") or instance.get("terminated_at") or now
-            runtime = end_time - instance["started_at"]
         else:
             runtime = now - instance["started_at"]
 
