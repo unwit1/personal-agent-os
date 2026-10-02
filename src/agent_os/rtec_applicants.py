@@ -353,12 +353,36 @@ def _project_root() -> Path:
     return Path(get_project(_PROJECT_ID)["path"])
 
 
+def _runtime_root() -> Path:
+    """Where the Dashboard keeps dashboard.db and Config/, resolved the way
+    run_dashboard.bat does: RTEC_DASHBOARD_RUNTIME_DIR, else the path in
+    <RTEC_HR_AUTOMATION_HOME>/Job Applicant Dashboard/runtime-path.txt ("."
+    meaning that folder), else that folder. A database in the project folder
+    itself (the Dashboard's default, and test fixtures) always wins."""
+    import os
+
+    project = _project_root()
+    if (project / _DB_NAME).is_file():
+        return project
+    home = Path(os.environ.get("RTEC_HR_AUTOMATION_HOME") or Path.home() / "Documents" / "HR Automation Local")
+    default = home / "Job Applicant Dashboard"
+    runtime = os.environ.get("RTEC_DASHBOARD_RUNTIME_DIR") or ""
+    config = default / "runtime-path.txt"
+    if config.is_file():
+        try:
+            runtime = (config.read_text(encoding="utf-8-sig").splitlines() or [""])[0].strip() or runtime
+        except (OSError, UnicodeError):
+            pass
+    candidate = default if runtime in {"", "."} else Path(os.path.expandvars(os.path.expanduser(runtime)))
+    return candidate if (candidate / _DB_NAME).is_file() else project
+
+
 def _db_path() -> Path:
-    return _project_root() / _DB_NAME
+    return _runtime_root() / _DB_NAME
 
 
 def _health_path() -> Path:
-    return _project_root() / _HEALTH_RELATIVE
+    return _runtime_root() / _HEALTH_RELATIVE
 
 
 def _load_local_json(path: Path) -> dict[str, Any]:
