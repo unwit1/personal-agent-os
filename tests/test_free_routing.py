@@ -149,6 +149,19 @@ class DecideTest(unittest.TestCase):
         self.assertTrue(decision["reason"].startswith("quota: "))
         self.assertEqual(governor.asked, ["org/a:free", "org/b:free"])
 
+    def test_priority_lane_never_routes_to_canary_models(self):
+        canaries = [record("org/a:free", 0.4, n=5, status="canary"), record("org/b:free", 0.3, n=3, status="canary")]
+        decision = self.decide(specs=canaries)
+        self.assertEqual((decision["route"], decision["model"]), ("escalate", None))
+        self.assertIn("priority lane", decision["reason"])
+        # A proven model still wins the priority lane; the canary is not an alternate.
+        mixed = [record("org/a:free", 0.4, n=5, status="canary"), record("org/b:free", 0.6)]
+        decision = self.decide(specs=mixed)
+        self.assertEqual((decision["route"], decision["model"]), ("free", "org/b:free"))
+        self.assertEqual(decision["alternates"], [])
+        # Swarm work may still use canary models.
+        self.assertEqual(self.decide(task(lane="swarm", role="inline"), specs=canaries)["route"], "free")
+
     def test_non_free_or_unfit_models_are_never_named(self):
         catalog = {"models": [model("org/a:free", pricing={"prompt": "0", "completion": "0.000001"}),
                               model("org/b:free", supports_tools=False)]}
