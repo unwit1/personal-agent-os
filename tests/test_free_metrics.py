@@ -188,11 +188,8 @@ class FreeMetricsTests(unittest.TestCase):
         # Verify coverage shows 0 priced
         self.assertEqual(result["estimated_paid_cost_coverage"]["priced"], 0)
         self.assertEqual(result["estimated_paid_cost_coverage"]["accepted"], 1)
-        # Verify error about missing paid_route
-        self.assertTrue(
-            any("no paid_route" in str(err) for err in result["errors"]),
-            f"Expected 'no paid_route' error, got {result['errors']}"
-        )
+        # Verify exact error about missing paid_route
+        self.assertEqual(result["errors"], ["unpriced events (no paid_route): 1"])
 
     def test_missing_paid_price_error(self):
         """Report when paid route model has no prices."""
@@ -204,10 +201,8 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
         # Cost calculation fails due to missing expensive-model price
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("expensive-model" in str(err) for err in result["errors"]),
-            f"Expected missing expensive-model error, got {result['errors']}"
-        )
+        # Verify exact error for missing expensive-model price
+        self.assertEqual(result["errors"], ["unpriced events (no price for expensive-model): 1"])
 
     def test_no_prices_dict(self):
         """When prices dict is None, cost avoided is None with error note."""
@@ -217,9 +212,8 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=None)
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
         self.assertIsNone(result["estimated_paid_cost_basis"])
-        # Verify error note about missing prices
-        error_text = " ".join(str(e) for e in result["errors"])
-        self.assertIn("no prices supplied", error_text, f"Expected 'no prices supplied' error note, got {result['errors']}")
+        # Verify exact error about missing prices
+        self.assertEqual(result["errors"], ["no prices supplied"])
 
     def test_verdict_updates_attempt(self):
         """Verdict events update attempt fields."""
@@ -254,38 +248,40 @@ class FreeMetricsTests(unittest.TestCase):
     def test_by_task_family(self):
         """Breakdown by task family."""
         events = [
-            make_event(task_family=FAMILY1, accepted=True, useful_units=1),
-            make_event(task_family=FAMILY1, accepted=False, useful_units=0),
-            make_event(task_family=FAMILY2, accepted=True, useful_units=2),
+            make_event(task_family=FAMILY1, accepted=True, escalated=False, useful_units=1),
+            make_event(task_family=FAMILY1, accepted=False, escalated=False, useful_units=0),
+            make_event(task_family=FAMILY2, accepted=True, escalated=False, useful_units=2),
         ]
         result = free_metrics.report(events)
         by_fam = result["by_task_family"]
-        self.assertIn(FAMILY1, by_fam)
-        self.assertIn(FAMILY2, by_fam)
-        self.assertEqual(by_fam[FAMILY1]["requests"], 2)
-        self.assertEqual(by_fam[FAMILY1]["accepted"], 1)
-        self.assertEqual(by_fam[FAMILY1]["useful_units"], 1)
-        self.assertEqual(by_fam[FAMILY2]["requests"], 1)
-        self.assertEqual(by_fam[FAMILY2]["accepted"], 1)
-        self.assertEqual(by_fam[FAMILY2]["useful_units"], 2)
+        # Verify exact structure for each family
+        self.assertEqual(
+            by_fam[FAMILY1],
+            {"requests": 2, "accepted": 1, "escalated": 0, "useful_units": 1}
+        )
+        self.assertEqual(
+            by_fam[FAMILY2],
+            {"requests": 1, "accepted": 1, "escalated": 0, "useful_units": 2}
+        )
 
     def test_by_model(self):
         """Breakdown by model."""
         events = [
-            make_event(model=MODEL1, accepted=True, useful_units=1),
-            make_event(model=MODEL1, accepted=False, useful_units=0),
-            make_event(model=MODEL2, accepted=True, useful_units=2),
+            make_event(model=MODEL1, accepted=True, escalated=False, useful_units=1),
+            make_event(model=MODEL1, accepted=False, escalated=False, useful_units=0),
+            make_event(model=MODEL2, accepted=True, escalated=False, useful_units=2),
         ]
         result = free_metrics.report(events)
         by_mdl = result["by_model"]
-        self.assertIn(MODEL1, by_mdl)
-        self.assertIn(MODEL2, by_mdl)
-        self.assertEqual(by_mdl[MODEL1]["requests"], 2)
-        self.assertEqual(by_mdl[MODEL1]["accepted"], 1)
-        self.assertEqual(by_mdl[MODEL1]["useful_units"], 1)
-        self.assertEqual(by_mdl[MODEL2]["requests"], 1)
-        self.assertEqual(by_mdl[MODEL2]["accepted"], 1)
-        self.assertEqual(by_mdl[MODEL2]["useful_units"], 2)
+        # Verify exact structure for each model
+        self.assertEqual(
+            by_mdl[MODEL1],
+            {"requests": 2, "accepted": 1, "escalated": 0, "useful_units": 1}
+        )
+        self.assertEqual(
+            by_mdl[MODEL2],
+            {"requests": 1, "accepted": 1, "escalated": 0, "useful_units": 2}
+        )
 
     def test_validator_acceptance_only_non_null(self):
         """Validator acceptance rate only counts where validator_passed is non-null."""
@@ -384,11 +380,8 @@ class FreeMetricsTests(unittest.TestCase):
         # Verify coverage shows 0 priced
         self.assertEqual(result["estimated_paid_cost_coverage"]["priced"], 0)
         self.assertEqual(result["estimated_paid_cost_coverage"]["accepted"], 1)
-        # Verify error note is present
-        self.assertTrue(
-            any("missing tokens" in str(err).lower() for err in result["errors"]),
-            f"Expected missing-tokens error note, got {result['errors']}"
-        )
+        # Verify exact error about missing tokens
+        self.assertEqual(result["errors"], ["unpriced events (missing tokens): 1"])
 
     def test_schema_version(self):
         """Report includes schema version."""
@@ -552,9 +545,10 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices="not-a-dict")
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("invalid prices" in str(e) and "expected mapping" in str(e) for e in result["errors"]),
-            f"Expected invalid prices error, got {result['errors']}"
+        # Verify exact error about invalid prices
+        self.assertEqual(
+            result["errors"],
+            ["invalid prices: expected mapping of model -> {input, output}"]
         )
 
     def test_r5_4_invalid_model_entry_non_dict(self):
@@ -574,9 +568,13 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("bad-model" in str(e) and "invalid" in str(e).lower() for e in result["errors"]),
-            f"Expected error about bad-model, got {result['errors']}"
+        # Verify exact errors for bad-model and missing price
+        self.assertEqual(
+            result["errors"],
+            [
+                "invalid prices for model bad-model: expected dict with input/output fields",
+                "unpriced events (no price for bad-model): 1"
+            ]
         )
 
     def test_r5_4_bool_price_rejected(self):
@@ -593,9 +591,13 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("model-with-bool" in str(e) and "input" in str(e) for e in result["errors"]),
-            f"Expected error about bool input price, got {result['errors']}"
+        # Verify exact error about bool input price
+        self.assertEqual(
+            result["errors"],
+            [
+                "invalid price for model-with-bool/input: expected number, got bool",
+                "unpriced events (no price for model-with-bool): 1"
+            ]
         )
 
     def test_r5_4_negative_price_rejected(self):
@@ -612,9 +614,13 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("model-neg" in str(e) and "negative" in str(e).lower() for e in result["errors"]),
-            f"Expected error about negative price, got {result['errors']}"
+        # Verify exact error about negative price
+        self.assertEqual(
+            result["errors"],
+            [
+                "invalid price for model-neg/input: negative price",
+                "unpriced events (no price for model-neg): 1"
+            ]
         )
 
     # R1-1 test: No mutation of input prices dict
@@ -650,9 +656,11 @@ class FreeMetricsTests(unittest.TestCase):
             with self.subTest(prices=falsy_price):
                 result = free_metrics.report(events, prices=falsy_price)
                 self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-                self.assertTrue(
-                    any("invalid prices" in str(e) for e in result["errors"]),
-                    f"Expected invalid prices error for {falsy_price}, got {result['errors']}"
+                # Verify exact error for invalid prices
+                self.assertEqual(
+                    result["errors"],
+                    ["invalid prices: expected mapping of model -> {input, output}"],
+                    f"Expected invalid prices error for {falsy_price}"
                 )
 
     # R1-3 test: Subscription with invalid prices doesn't yield 0.0
@@ -669,6 +677,11 @@ class FreeMetricsTests(unittest.TestCase):
         # Cost should be None, not 0.0
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
         self.assertEqual(result["estimated_paid_cost_coverage"]["priced"], 0)
+        # Verify exact error about invalid prices
+        self.assertEqual(
+            result["errors"],
+            ["invalid prices: expected mapping of model -> {input, output}"]
+        )
 
     # R1-4 test: Token validation
     def test_r1_4_bool_tokens_rejected(self):
@@ -684,9 +697,10 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("missing tokens" in str(e).lower() for e in result["errors"]),
-            f"Expected missing tokens error for bool input, got {result['errors']}"
+        # Verify exact error for missing tokens
+        self.assertEqual(
+            result["errors"],
+            ["unpriced events (missing tokens): 1"]
         )
 
     def test_r1_4_negative_tokens_rejected(self):
@@ -702,9 +716,10 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("missing tokens" in str(e).lower() for e in result["errors"]),
-            f"Expected missing tokens error for negative tokens, got {result['errors']}"
+        # Verify exact error for missing tokens
+        self.assertEqual(
+            result["errors"],
+            ["unpriced events (missing tokens): 1"]
         )
 
     def test_r1_4_string_tokens_rejected(self):
@@ -720,9 +735,10 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("missing tokens" in str(e).lower() for e in result["errors"]),
-            f"Expected missing tokens error for string tokens, got {result['errors']}"
+        # Verify exact error for missing tokens
+        self.assertEqual(
+            result["errors"],
+            ["unpriced events (missing tokens): 1"]
         )
 
     def test_r3_4_nan_tokens_rejected(self):
@@ -749,9 +765,10 @@ class FreeMetricsTests(unittest.TestCase):
         self.assertEqual(result["estimated_paid_cost_avoided_usd"], 0.0025)
         self.assertEqual(result["estimated_paid_cost_coverage"]["priced"], 1)
         self.assertEqual(result["estimated_paid_cost_coverage"]["accepted"], 2)
-        self.assertTrue(
-            any("missing tokens" in str(e).lower() for e in result["errors"]),
-            f"Expected missing tokens error for NaN, got {result['errors']}"
+        # Verify exact error for missing tokens
+        self.assertEqual(
+            result["errors"],
+            ["unpriced events (missing tokens): 1"]
         )
 
     def test_r3_4_inf_tokens_rejected(self):
@@ -767,9 +784,10 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("missing tokens" in str(e).lower() for e in result["errors"]),
-            f"Expected missing tokens error for inf, got {result['errors']}"
+        # Verify exact error for missing tokens
+        self.assertEqual(
+            result["errors"],
+            ["unpriced events (missing tokens): 1"]
         )
 
     def test_r3_4_nan_price_rejected(self):
@@ -785,11 +803,78 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices)
 
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("gpt-4" in str(e) and "non-finite" in str(e) for e in result["errors"]),
-            f"Expected non-finite price error for gpt-4, got {result['errors']}"
+        # Verify exact error for non-finite price
+        self.assertEqual(
+            result["errors"],
+            [
+                "invalid price for gpt-4/input: non-finite value",
+                "unpriced events (no price for gpt-4): 1"
+            ]
         )
 
+    def test_escalated_accepted_never_priced_or_counted(self):
+        """Escalated accepted events are never priced or counted in paid_fallbacks_avoided (R5-5)."""
+        prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
+        events = [
+            make_event(
+                accepted=True, escalated=True,
+                tokens={"input": 100000, "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+                event_id="FQE-escalated-001"
+            ),
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": 100000, "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+                event_id="FQE-not-escalated-001"
+            ),
+        ]
+        result = free_metrics.report(events, prices=prices)
+
+        # Escalated event should not be counted in paid_fallbacks_avoided
+        self.assertEqual(result["paid_fallbacks_avoided"], 1)
+        # Only non-escalated event is priced
+        # Cost: (100000 * 0.01 + 50000 * 0.03) / 1e6 = 0.0025
+        self.assertEqual(result["estimated_paid_cost_avoided_usd"], 0.0025)
+        # Coverage shows only 1 priced, 1 accepted (the non-escalated one)
+        self.assertEqual(result["estimated_paid_cost_coverage"]["priced"], 1)
+        self.assertEqual(result["estimated_paid_cost_coverage"]["accepted"], 1)
+        # No errors
+        self.assertEqual(result["errors"], [])
+
+    def test_verdict_only_ledger_zero_requests(self):
+        """Ledger with only verdict events (no attempts) counts 0 requests (R5-5)."""
+        events = [
+            make_verdict("FQE-001", accepted=True, validator_passed=True),
+            make_verdict("FQE-002", accepted=False, validator_passed=False),
+        ]
+        result = free_metrics.report(events)
+
+        # No attempt events = 0 requests
+        self.assertEqual(result["requests"], 0)
+        # No validated/reviewed counts since there are no attempt events
+        self.assertIsNone(result["validator_acceptance"])
+        self.assertIsNone(result["review_acceptance"])
+        self.assertIsNone(result["useful_progress_per_request"])
+        # No accepted results to count
+        self.assertEqual(result["paid_fallbacks_avoided"], 0)
+        self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        # Errors about unknown verdicts and no prices supplied (since no accepted results)
+        expected_errors = [
+            "verdict for unknown event_id FQE-001",
+            "verdict for unknown event_id FQE-002",
+            "no prices supplied"
+        ]
+        self.assertEqual(result["errors"], expected_errors)
+
+    def test_report_paid_model_keyword_raises_typeerror(self):
+        """Calling report() with paid_model= keyword raises TypeError (R5-5)."""
+        events = [make_event(accepted=True, escalated=False)]
+        # paid_model parameter was removed; calling with it should raise TypeError
+        with self.assertRaises(TypeError) as ctx:
+            free_metrics.report(events, paid_model="gpt-4")
+        # Verify the error message indicates unexpected keyword
+        self.assertIn("paid_model", str(ctx.exception))
 
 
 if __name__ == "__main__":
