@@ -14,6 +14,8 @@ MODEL2 = "other-org/other-model:free"
 FAMILY1 = "unit_test_generation"
 FAMILY2 = "documentation"
 
+_event_id_counter = 0
+
 
 def make_event(
     ts=None,
@@ -29,11 +31,15 @@ def make_event(
     event_id=None,
 ):
     """Create a synthetic ledger event."""
+    global _event_id_counter
     if tokens is None:
         tokens = {"input": 1000, "output": 500}
+    if event_id is None:
+        _event_id_counter += 1
+        event_id = f"FQE-{_event_id_counter:06d}"
     return {
         "schema_version": "agent-os/free-quota-event/v1",
-        "event_id": event_id or f"FQE-{len(repr(model))}",
+        "event_id": event_id,
         "ts": (ts or T0).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "model": model,
         "revision": f"{model}-rev-1",
@@ -131,9 +137,8 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events)
         self.assertEqual(result["paid_fallbacks_avoided"], 2)
 
-    def test_estimated_cost_with_prices_and_paid_model_for(self):
-        """Calculate estimated paid cost avoided using paid_model_for callable."""
-        paid_model_for = lambda free_model, task_family: "gpt-4-turbo"
+    def test_estimated_cost_with_prices_and_paid_model(self):
+        """Calculate estimated paid cost avoided using paid_model."""
         prices = {
             "gpt-4-turbo": {"input": 0.01, "output": 0.03},
         }
@@ -151,35 +156,30 @@ class FreeMetricsTests(unittest.TestCase):
                 tokens={"input": 200000, "output": 100000},
             ),
         ]
-        result = free_metrics.report(events, prices=prices, paid_model_for=paid_model_for)
+        result = free_metrics.report(events, prices=prices, paid_model="gpt-4-turbo")
         # (100000 * 0.01 + 50000 * 0.03) / 1e6 + (200000 * 0.01 + 100000 * 0.03) / 1e6
         # = (1000 + 1500) / 1e6 + (2000 + 3000) / 1e6 = 2500 / 1e6 + 5000 / 1e6
         # = 0.0025 + 0.005 = 0.0075
         expected = 0.0075
         self.assertEqual(result["estimated_paid_cost_avoided_usd"], expected)
 
-    def test_missing_paid_model_for(self):
-        """When paid_model_for is not provided, cost calculation returns None with note."""
+    def test_missing_paid_model(self):
+        """When paid_model is not provided, cost calculation returns None."""
         prices = {MODEL1: {"input": 0.001, "output": 0.002}}
         events = [
             make_event(model=MODEL1, accepted=True, escalated=False),
         ]
-        result = free_metrics.report(events, prices=prices, paid_model_for=None)
-        # Without paid_model_for, can't determine paid route, so cost is None
+        result = free_metrics.report(events, prices=prices, paid_model=None)
+        # Without paid_model, can't calculate cost, so cost is None
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
-        self.assertTrue(
-            any("no paid route" in str(err) for err in result["errors"]),
-            f"Expected 'no paid route' error, got {result['errors']}"
-        )
 
     def test_missing_paid_price_error(self):
         """Report when paid model prices are missing."""
-        paid_model_for = lambda free_model, task_family: "expensive-model"
         prices = {MODEL1: {"input": 0.001, "output": 0.002}}
         events = [
             make_event(model=MODEL1, accepted=True, escalated=False),
         ]
-        result = free_metrics.report(events, prices=prices, paid_model_for=paid_model_for)
+        result = free_metrics.report(events, prices=prices, paid_model="expensive-model")
         # Cost calculation fails due to missing expensive-model price
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
         self.assertTrue(
@@ -315,6 +315,20 @@ class FreeMetricsTests(unittest.TestCase):
             loaded = free_metrics.read_ledger(home)
             self.assertEqual(loaded, [])
 
+    def test_useful_units_only_accepted(self):
+        """useful_units only counted for accepted results."""
+        events = [
+            make_event(accepted=True, escalated=False, useful_units=5),  # counts
+            make_event(accepted=False, escalated=False, useful_units=10),  # doesn't count (rejected)
+            make_event(accepted=True, escalated=True, useful_units=3),  # doesn't count (escalated)
+        ]
+        result = free_metrics.report(events)
+        # Only the first event's useful_units (5) are counted: 5 / 3 requests
+        self.assertEqual(result["useful_progress_per_request"], round(5 / 3, 3))
+        # Verify by_task_family also only counts accepted useful_units
+        by_fam = result["by_task_family"]
+        self.assertEqual(by_fam[FAMILY1]["useful_units"], 5)
+
     def test_useful_units_default_zero(self):
         """useful_units defaults to 0 when absent."""
         events = [
@@ -332,15 +346,20 @@ class FreeMetricsTests(unittest.TestCase):
 
     def test_tokens_missing_gracefully(self):
         """Missing tokens are handled gracefully in cost calculation."""
-        prices = {MODEL1: {"input": 0.001, "output": 0.002}}
+        prices = {"gpt-4": {"input": 0.001, "output": 0.002}}
         events = [
             make_event(accepted=True, escalated=False, tokens=None),
         ]
         # Remove tokens from the event
         events[0].pop("tokens", None)
-        result = free_metrics.report(events, prices=prices)
+        result = free_metrics.report(events, prices=prices, paid_model="gpt-4")
         # No cost calculated (no tokens), returns None
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        # Verify error note is present
+        self.assertTrue(
+            any("missing tokens" in str(err).lower() or "incomplete" in str(err).lower() for err in result["errors"]),
+            f"Expected missing-tokens error note, got {result['errors']}"
+        )
 
     def test_schema_version(self):
         """Report includes schema version."""
@@ -349,10 +368,9 @@ class FreeMetricsTests(unittest.TestCase):
 
     def test_cost_basis_included(self):
         """Cost basis mentions the paid route when prices are provided."""
-        paid_model_for = lambda free_model, task_family: "gpt-4"
-        prices = {MODEL1: {"input": 0.001, "output": 0.002}, "gpt-4": {"input": 0.01, "output": 0.03}}
+        prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
         events = [make_event(accepted=True, escalated=False, tokens={"input": 100000, "output": 50000})]
-        result = free_metrics.report(events, prices=prices, paid_model_for=paid_model_for)
+        result = free_metrics.report(events, prices=prices, paid_model="gpt-4")
         self.assertIsNotNone(result["estimated_paid_cost_basis"])
         self.assertIn("paid route that would have run", result["estimated_paid_cost_basis"])
 

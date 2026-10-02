@@ -7,7 +7,7 @@ instead of paid alternatives.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from . import free_quota
 
@@ -23,7 +23,7 @@ def report(
     ledger_events: list[dict[str, Any]],
     *,
     prices: dict[str, Any] | None = None,
-    paid_model_for: Callable[[str, str], str | None] | None = None
+    paid_model: str | None = None
 ) -> dict[str, Any]:
     """Generate metrics report from free-compute ledger events.
 
@@ -31,8 +31,8 @@ def report(
         ledger_events: Attempt and verdict events from the free-quota ledger.
         prices: Model prices dict (from model_prices.fetch_prices()["prices"]).
                 If None, estimated_paid_cost_avoided_usd will be None.
-        paid_model_for: Optional callable(free_model, task_family) -> paid_model_name.
-                       If provided, used to price the paid route instead of the free model.
+        paid_model: Optional paid model name to price accepted results against.
+                   If provided with prices, calculates cost avoided; otherwise None.
 
     Returns:
         Dict with metrics: requests, useful_progress_per_request, validator_acceptance,
@@ -62,7 +62,7 @@ def report(
     # Basic counts
     total_requests = len(attempts)
 
-    # Sum useful units and count accepted results
+    # Sum useful units only for accepted results
     total_useful_units = 0
     useful_accepted = []  # For calculating cost avoided
     retries = 0
@@ -71,10 +71,6 @@ def report(
     reviewed_attempts = []  # where accepted is non-null
 
     for evt in attempts:
-        useful_units = evt.get("useful_units", 0)
-        if isinstance(useful_units, (int, float)):
-            total_useful_units += useful_units
-
         if evt.get("retry", 0) > 0:
             retries += 1
 
@@ -89,9 +85,12 @@ def report(
         if evt.get("accepted") is not None:
             reviewed_attempts.append(evt)
 
-        # Collect accepted, non-escalated results for cost calculation
+        # Collect accepted, non-escalated results for cost calculation and useful units
         if evt.get("accepted") is True and evt.get("escalated") is not True:
             useful_accepted.append(evt)
+            useful_units = evt.get("useful_units", 0)
+            if isinstance(useful_units, (int, float)):
+                total_useful_units += useful_units
 
     # Calculate rates
     validator_pass_count = sum(1 for e in validated_attempts if e.get("validator_passed") is True)
@@ -121,48 +120,53 @@ def report(
     # Estimate paid cost avoided
     estimated_paid_cost_avoided_usd = None
     cost_basis = None
-    missing_prices = []
+    errors = []
 
-    if useful_accepted and prices:
+    if useful_accepted and prices and paid_model:
         total_cost = 0.0
-        calculated_any = False
+        can_price_all = True
         for evt in useful_accepted:
-            free_model = evt.get("model")
-            task_family = evt.get("task_family", "unknown")
             tokens = evt.get("tokens", {})
             input_tokens = tokens.get("input", 0) if isinstance(tokens, dict) else 0
             output_tokens = tokens.get("output", 0) if isinstance(tokens, dict) else 0
 
-            if not free_model or not (input_tokens or output_tokens):
-                continue
+            # Check for missing tokens
+            if not (input_tokens or output_tokens):
+                can_price_all = False
+                break
 
-            # Determine the paid model to price
-            paid_model = None
-            if paid_model_for is not None:
-                paid_model = paid_model_for(free_model, task_family)
-
-            if paid_model is None:
-                if free_model not in missing_prices:
-                    missing_prices.append(f"{free_model} (no paid route)")
-                continue
-
+            # Check if paid_model is in prices
             if paid_model not in prices:
-                if paid_model not in missing_prices:
-                    missing_prices.append(paid_model)
-                continue
+                can_price_all = False
+                break
 
             model_price = prices[paid_model]
-            input_price = float(model_price.get("input") or 0)
-            output_price = float(model_price.get("output") or 0)
+            input_price = model_price.get("input")
+            output_price = model_price.get("output")
+
+            # Check for None prices
+            if input_price is None or output_price is None:
+                can_price_all = False
+                break
+
+            input_price = float(input_price)
+            output_price = float(output_price)
 
             # Prices are per million tokens
             cost = (input_tokens * input_price + output_tokens * output_price) / 1e6
             total_cost += cost
-            calculated_any = True
 
-        if calculated_any:
+        if can_price_all:
             estimated_paid_cost_avoided_usd = round(total_cost, 6)
             cost_basis = "per accepted free result: tokens x price of the paid route that would have run"
+        else:
+            # If any accepted result cannot be priced, add error and return None
+            if not paid_model:
+                errors.append("estimated cost unavailable: no paid_model provided")
+            elif paid_model not in prices:
+                errors.append(f"estimated cost unavailable: no price data for paid model {paid_model}")
+            else:
+                errors.append(f"estimated cost unavailable: incomplete price data or missing tokens for paid model {paid_model}")
 
     def _group_by_key(key_name: str) -> dict[str, dict[str, Any]]:
         """Group attempt metrics by a top-level event key."""
@@ -176,20 +180,17 @@ def report(
                 groups[key]["accepted"] += 1
             if evt.get("escalated") is True:
                 groups[key]["escalated"] += 1
-            useful_units = evt.get("useful_units", 0)
-            if isinstance(useful_units, (int, float)):
-                groups[key]["useful_units"] += useful_units
+            # Only count useful_units for accepted, non-escalated results
+            if evt.get("accepted") is True and evt.get("escalated") is not True:
+                useful_units = evt.get("useful_units", 0)
+                if isinstance(useful_units, (int, float)):
+                    groups[key]["useful_units"] += useful_units
         return groups
 
     by_family = _group_by_key("task_family")
     by_model = _group_by_key("model")
 
-    # Build errors list
-    errors = []
-    if missing_prices:
-        errors.append(
-            f"estimated cost incomplete: no price data for models {sorted(missing_prices)}"
-        )
+    # Build errors list (cost errors already added above)
     if verdicts and not attempts:
         errors.append("ledger contains verdict lines but no attempt lines")
 
