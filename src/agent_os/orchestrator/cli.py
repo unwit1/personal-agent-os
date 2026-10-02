@@ -706,8 +706,8 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         budget_home_env = os.environ.get("AGENT_OS_BUDGET_HOME")
         budget_home = Path(budget_home_env) if budget_home_env else None
 
-        if args.action == "provision":
-            try:
+        try:
+            if args.action == "provision":
                 if not args.provider:
                     emit({"error": "provision needs --provider (e.g., fake, runpod)"})
                     return 2
@@ -722,39 +722,33 @@ def dispatch(args: argparse.Namespace, emit) -> int:
                     request["max_runtime_seconds"] = args.max_runtime_seconds
                 if args.secret_ref:
                     request["secret_ref"] = args.secret_ref
-                result = provision.provision(request, budget_home=budget_home)
-                emit(result)
+                emit(provision.provision(request, budget_home=budget_home))
                 return 0
-            except (ValueError, KeyError) as exc:
-                emit({"error": str(exc)})
-                return 2
-
-        try:
             if args.action == "status":
                 if not args.job_id:
                     emit({"error": "status needs --job-id"})
                     return 2
                 emit(provision.status(args.job_id, budget_home=budget_home))
                 return 0
-            elif args.action == "stop":
+            if args.action == "stop":
                 if not args.job_id:
                     emit({"error": "stop needs --job-id"})
                     return 2
                 emit(provision.stop(args.job_id, budget_home=budget_home))
                 return 0
-            elif args.action == "destroy":
+            if args.action == "destroy":
                 if not args.job_id:
                     emit({"error": "destroy needs --job-id"})
                     return 2
                 emit(provision.destroy(args.job_id, budget_home=budget_home))
                 return 0
-            elif args.action == "reconcile":
+            if args.action == "reconcile":
                 if not args.job_id:
                     emit({"error": "reconcile needs --job-id"})
                     return 2
                 emit(provision.reconcile(args.job_id, actual_usd=args.actual_usd, budget_home=budget_home))
                 return 0
-            elif args.action == "jobs":
+            if args.action == "jobs":
                 emit(provision.list_jobs())
                 return 0
         except (ValueError, KeyError) as exc:
