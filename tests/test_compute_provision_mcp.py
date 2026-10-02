@@ -4,10 +4,8 @@ from __future__ import annotations
 
 import json
 import sys
-import time
 import unittest
 from pathlib import Path
-from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -15,8 +13,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_orchestrator_surfaces import SurfaceFixture
 
 from agent_os.mcp_server import TOOL_SCHEMAS, _handle_mcp, methods  # noqa: E402
-from agent_os.orchestrator.compute_fake import FakeProvider  # noqa: E402
-from agent_os.orchestrator import provision  # noqa: E402
 
 
 class ComputeProvisionMcpTests(SurfaceFixture):
@@ -33,19 +29,6 @@ class ComputeProvisionMcpTests(SurfaceFixture):
         from agent_os.orchestrator import budget
 
         budget.set_budget(100.0, 50.0, set_by="test", home=self.engine.store.home.parent)
-
-        self.fake_provider = FakeProvider(hourly_usd=1.5, clock=time.time)
-        self.provider_patcher = mock.patch(
-            "agent_os.orchestrator.provision._resolve_provider",
-            side_effect=self._mock_resolve_provider,
-        )
-        self.provider_patcher.start()
-        self.addCleanup(self.provider_patcher.stop)
-
-    def _mock_resolve_provider(self, name: str, provider: any, clock, hourly: float = 1.0) -> any:
-        if name == "fake":
-            return self.fake_provider
-        raise ValueError(f"no adapter for provider {name!r} in slice 2")
 
     def call(self, name: str, arguments: dict) -> dict:
         response = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": name, "arguments": arguments}}, methods())

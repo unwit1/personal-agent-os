@@ -445,46 +445,51 @@ MCP_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 }
 
 
+def _compute_homes() -> tuple[Path | None, Path | None]:
+    """Return (home, budget_home) for compute operations.
+
+    For default engine: use None for budget_home so the budget module uses
+    its standard machine-wide location. For embedded engines: use home.parent.
+    """
+    orch = engine()
+    home = orch.store.home if orch.store else None
+    if _ENGINE_IS_DEFAULT:
+        budget_home = None
+    else:
+        budget_home = home.parent if home else None
+    return home, budget_home
+
+
 def compute_provision(provider: str, gpu: str, hourly_usd: float, estimate: dict[str, float], max_runtime_seconds: float | None = None, secret_ref: str | None = None, job_id: str | None = None) -> dict[str, Any]:
     from . import provision
     if secret_ref is not None and not secret_ref.startswith("secrets://"):
         raise ValueError("secret_ref must use secrets:// protocol")
     request = {"provider": provider, "gpu": gpu, "hourly_usd": hourly_usd, "estimate": estimate, "max_runtime_seconds": max_runtime_seconds, "secret_ref": secret_ref, "job_id": job_id}
-    orch = engine()
-    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
-    budget_home = home.parent if home else None
+    home, budget_home = _compute_homes()
     return provision.provision(request, home=home, budget_home=budget_home)
 
 
 def compute_status(job_id: str) -> dict[str, Any]:
     from . import provision
-    orch = engine()
-    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
-    budget_home = home.parent if home else None
+    home, budget_home = _compute_homes()
     return provision.status(job_id, home=home, budget_home=budget_home)
 
 
 def compute_stop(job_id: str) -> dict[str, Any]:
     from . import provision
-    orch = engine()
-    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
-    budget_home = home.parent if home else None
+    home, budget_home = _compute_homes()
     return provision.stop(job_id, home=home, budget_home=budget_home)
 
 
 def compute_destroy(job_id: str) -> dict[str, Any]:
     from . import provision
-    orch = engine()
-    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
-    budget_home = home.parent if home else None
+    home, budget_home = _compute_homes()
     return provision.destroy(job_id, home=home, budget_home=budget_home)
 
 
 def compute_reconcile(job_id: str, actual_usd: float | None = None) -> dict[str, Any]:
     from . import provision
-    orch = engine()
-    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
-    budget_home = home.parent if home else None
+    home, budget_home = _compute_homes()
     return provision.reconcile(job_id, actual_usd=actual_usd, home=home, budget_home=budget_home)
 
 
