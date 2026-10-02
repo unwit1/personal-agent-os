@@ -1,0 +1,49 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0020",
+  "type": "EVR",
+  "title": "IMP-0019 shadow rotation advisor on real local run telemetry (offline, advice only)",
+  "status": "accepted",
+  "outcome": "positive",
+  "summary": "The supervisor ran `agent.py orchestrate rotation-advisor` over the real local orchestrator home: 22 runs, 606 workers, 737 calls (724 with exact usage, 13 without usage excluded), 5,920 events, 0 malformed lines. Shadow mode, so dispatch was never changed. The advisor would rotate to a fresh episode for 2.81% of eligible workers (17). Modeled worker input cost falls from 288.8M to 269.5M token-cost units if its advice were followed (-6.7%). Per rotated worker the predicted saving is a median 1.05M (p90 1.77M, max 3.42M). Break-even boundaries fall at the first episode boundary for implementer, repairer and test_author, and the second for planner. Aggregates only; no prompt or transcript text in the output. Orchestrator workers cannot read run telemetry outside their worktree, so the supervisor ran this host step. Next: keep shadow mode while more runs accumulate, and cross-check against IMP-0018 Phase 1 (shared prefix), which lowers the per-worker bootstrap cost the model assumes.",
+  "metrics": {
+    "runs": 22,
+    "workers": 606,
+    "calls": 737,
+    "exact_calls": 724,
+    "would_rotate_share": 0.0281,
+    "advised_rotations": 17,
+    "sum_continue_cost": 288800427,
+    "sum_rotate_cost_if_advised": 269506043,
+    "relative_change": -0.0667,
+    "predicted_savings_median": 1053153,
+    "predicted_savings_p90": 1768692,
+    "dispatch_changed": false,
+    "model_calls": 0,
+    "spend_usd": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EVR-0019"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EXP-0011"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0018"
+    },
+    {
+      "rel": "measures",
+      "ref": "src/agent_os/orchestrator/rotation_advisor.py"
+    }
+  ],
+  "provenance": {
+    "session": "supervisor session 2026-10-02 (host step after run-20261002T083019Z-8ff831)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-10-02T11:50:00+00:00",
+  "updated_at": "2026-10-02T11:50:00+00:00"
+}
