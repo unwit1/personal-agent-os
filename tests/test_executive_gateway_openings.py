@@ -48,13 +48,11 @@ class LocalOpeningsTests(unittest.TestCase):
         self.assertEqual(preview["after"]["open_count"], 3)
         self.assertEqual(self.fake.saved, [])
 
-    def test_apply_saves(self):
-        result = self.gateway.apply_opening_change("gamma", "close")
-        self.assertTrue(result["applied"])
-        self.assertEqual(len(self.fake.saved), 1)
-        self.assertEqual(self.fake.settings["county_openings"]["Gamma"], 0)
-        self.assertIsNone(result["group"])
-        self.assertEqual([r["county"] for r in self.gateway.open_counties()], ["Alpha"])
+    def test_apply_raises_until_settings_model_verified(self):
+        with self.assertRaises(gw.DashboardGatewayError):
+            self.gateway.apply_opening_change("gamma", "close")
+        self.assertEqual(self.fake.saved, [])
+        self.assertEqual(self.fake.settings["county_openings"]["Gamma"], 1)
 
     def test_errors_do_not_save(self):
         with self.assertRaises(ValueError):
@@ -66,18 +64,6 @@ class LocalOpeningsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.gateway.apply_opening_change("Alpha", "new", count=21)
         self.assertEqual(self.fake.saved, [])
-
-    def test_apply_without_settings_key_raises_and_does_not_save(self):
-        self.fake.load_settings = lambda: {}
-        self.fake.evaluate = lambda settings, today=None: {"Alpha": 2}
-        with self.assertRaises(gw.DashboardGatewayError):
-            self.gateway.apply_opening_change("Alpha", "quit")
-        self.assertEqual(self.fake.saved, [])
-
-    def test_new_on_closed_county_increments(self):
-        result = self.gateway.apply_opening_change("Beta", "new", count=2)
-        self.assertEqual(result["after"]["open_count"], 2)
-        self.assertEqual(result["group"]["county"], "Beta")
 
 
 class SyntheticOpeningsTests(unittest.TestCase):

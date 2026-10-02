@@ -344,24 +344,12 @@ class LocalDashboardGateway:
         return _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
 
     def apply_opening_change(self, county: str, change: str, *, count: int = 1) -> dict[str, Any]:
-        openings, settings, state = self._opening_state()
+        _, _, state = self._opening_state()
         entry = _opening_entry(state, county)
-        preview = _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
-        save = getattr(openings, "save_settings", None)
-        if save is None:
-            raise DashboardGatewayError("openings save is not available in this Dashboard checkout")
-        table = settings.get("county_openings") if isinstance(settings, dict) else None
-        key = next((k for k in (table or {}) if _county_name(k).casefold() == entry["county"].casefold()), None)
-        if key is None:
-            raise DashboardGatewayError("openings settings do not hold a county_openings entry for this county")
-        new_count = preview["after"]["open_count"]
-        table[key] = new_count
-        save(settings)
-        group = None
-        if new_count:
-            group = {"county": entry["county"], "open_count": new_count, "group_label": entry["group_label"]}
-        return {"county": entry["county"], "change": change, "count": count, "applied": True,
-                "before": preview["before"], "after": preview["after"], "group": group}
+        _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
+        # The Dashboard's settings structure for openings (transit_driver_groups, boolean per
+        # group?) and its save function are not verified, so nothing is written until they are.
+        raise DashboardGatewayError("openings save is not available in this Dashboard checkout")
 
 
 class SyntheticDashboardGateway:
