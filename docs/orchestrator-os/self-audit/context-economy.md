@@ -396,3 +396,12 @@ record formats in `projects/personal-agent-os/orchestrator-os/records/`:
 
 Findings are baselines, not optimizations. Promoting any reduction still needs
 the controlled evaluation in the roadmap's promotion rule.
+
+## Phase 1: shared run-level prompt prefix
+
+Status: design and measurement. Tracked improvement: **IMP-0018**, Phase 1 of
+[context-efficiency-token-amplification.md](../../../projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md).
+Design: [shared-prefix.md](shared-prefix.md). Run policy flag: `shared_prefix`
+(default: `false`). Evidence: **EXP-0012** (hypothesis of 25% cacheable-token gain
+per worker) and **EVR-0021** (baseline comparison with synthetic fixtures).
+Reproduce: `python -m agent_os.orchestrator.shared_prefix_compare`.

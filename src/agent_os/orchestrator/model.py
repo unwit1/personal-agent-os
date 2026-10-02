@@ -142,6 +142,7 @@ DEFAULT_POLICY: dict[str, Any] = {
     "cleanup_worktrees": True,
     "reuse_validation": True,
     "planner_repo_map": True,
+    "shared_prefix": False,  # IMP-0018 Phase 1, compile the run-level prompt prefix once per run and keep it byte-stable for provider prompt caching
     "planner_read_budget": 8,
     # Operator-only grant of protected control/evaluation-plane paths
     # (orchestrator/control_plane.py). Planners cannot set run policy.
@@ -222,6 +223,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "cleanup_worktrees",
         "reuse_validation",
         "planner_repo_map",
+        "shared_prefix",
         "allow_worker_publication",
         "allow_paid_spend",
         "share_run_history",

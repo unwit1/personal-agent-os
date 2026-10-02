@@ -19,6 +19,7 @@ allowed alternative -- not a reason to abandon the run.
 
 from __future__ import annotations
 
+import hashlib
 import os
 import re
 import threading
@@ -103,6 +104,26 @@ class Orchestrator:
         self._availability: dict[str, bool] | None = None
         self._lock = threading.RLock()
         self.ledger = Ledger(self.store.run_dir)
+        self._prefixes: dict[tuple[str, str], str] = {}
+
+    def _run_prefix(self, record: dict[str, Any], node: dict[str, Any]) -> str | None:
+        """The run-level prompt prefix for the node's family, compiled once per (run, family).
+
+        None when the `shared_prefix` policy flag is off or the role has no family."""
+        family = prompts.FAMILIES.get(node["role"])
+        if family is None or not (record.get("policy") or {}).get("shared_prefix"):
+            return None
+        key = (record["run_id"], family)
+        with self._lock:
+            if key not in self._prefixes:
+                prefix = prompts.shared_prefix(record, family)
+                self._prefixes[key] = prefix
+                self.ledger.emit(
+                    record["run_id"], "context_selected", node["id"], method="shared run-level prompt prefix (IMP-0018 Phase 1)",
+                    family=family, prefix_sha256=hashlib.sha256(prefix.encode("utf-8")).hexdigest(),
+                    selected_tokens_estimate=usage_lib.estimate_tokens(len(prefix)),
+                )
+            return self._prefixes[key]
 
     # ------------------------------------------------------------------
     # Providers
@@ -1950,7 +1971,8 @@ class Orchestrator:
                 )
             except Exception as exc:  # the planner still works without a map
                 self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
-        prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
+        prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd),
+                                                  prefix=self._run_prefix(record, node))
         prompt += _prior_attempts(node, policy["material_severities"])
         if policy.get("share_run_history") and node["role"] in {"planner", "implementer", "test_author", "reviewer"}:
             try:
