@@ -318,6 +318,13 @@ def destroy(job_id: str, *, provider: Any = None, home: Path | None = None, budg
     return _save(job, home)
 
 
+def list_jobs(home: Path | None = None) -> list[dict[str, Any]]:
+    directory = _jobs_dir(home)
+    if not directory.exists():
+        return []
+    return [json.loads(path.read_text(encoding="utf-8")) for path in sorted(directory.glob("*.json"))]
+
+
 def _ledger_kinds(job_id: str, budget_home: Path | None) -> set[str]:
     path = budget.budget_path(budget_home).parent / "spend.jsonl"
     kinds: set[str] = set()
@@ -338,7 +345,7 @@ def reconcile(job_id: str, actual_usd: float | None = None, *, provider: Any = N
     job = _load(job_id, home)
     if job["state"] in ("blocked", "reconciled"):
         return job
-    if job["state"] == "failed" and job.get("instance_id"):
+    if job["state"] == "stopped" or (job["state"] == "failed" and job.get("instance_id")):
         job = destroy(job_id, provider=provider, home=home, budget_home=budget_home, clock=clock)
     if job["state"] not in ("destroyed", "failed"):
         raise ValueError(f"cannot reconcile a job in state {job['state']!r}; destroy it first")
@@ -350,6 +357,7 @@ def reconcile(job_id: str, actual_usd: float | None = None, *, provider: Any = N
     budget.release(job_id, home=budget_home, note="reconciled")
     est = job["estimate"]
     job["reconcile"] = {"actual_usd": actual, "estimate_expected": est["expected"], "variance_usd": round(actual - est["expected"], 4),
-                        "within_band": est["low"] <= actual <= est["high"], "over_reservation": actual > est["high"]}
+                        "within_band": est["low"] <= actual <= est["high"], "over_reservation": actual > est["high"],
+                        "estimate_high": est["high"], "delta_usd": round(actual - est["high"], 4)}
     _transition(job, "reconciled", clock=clock)
     return _save(job, home)
