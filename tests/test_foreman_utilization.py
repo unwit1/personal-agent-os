@@ -292,10 +292,6 @@ class KeepBusyTests(Base):
         self.state = {"id": "FMN-K", "kind": "huggingface", "status": "ready", "pod_id": "podK", "provider_id": "foreman-k", "base_url": "http://pod",
                       "hourly_usd": 1.0, "cap_usd": 5.0, "spent_usd": 0.0, "billed_until_epoch": self.clock.now, "last_needed_epoch": self.clock.now,
                       "deadline_epoch": self.clock.now + 6 * 3600, "runs": ["run-1"], "idle_minutes": 5, "model": {"repo": "org/coder-7b"}}
-        # Role coverage (reviewer on the rented endpoint) is a separate node; model it by extending the shared list.
-        patcher = mock.patch.object(fd, "ENDPOINT_ROLES", ("planner", "inline", "reviewer"))
-        patcher.start()
-        self.addCleanup(patcher.stop)
         self.runs["run-1"] = {"state": "RUNNING", "nodes": {"plan": {"state": "PASSED"}, "rev": {"role": "reviewer", "state": "PENDING"}}}
         fd._save_state(self.state, self.foreman_home)
 
@@ -349,6 +345,22 @@ class KeepBusyTests(Base):
         self.assertIn("idle for 5 min", state["detail"])
         self.assertEqual(self.cloud.deleted, ["podK"])
         self.assertEqual(self.runs["run-1"]["nodes"]["rev"]["state"], "PENDING")
+
+    def test_each_run_loads_once_and_lookup_failures_are_recorded(self) -> None:
+        calls = []
+        loader = self.manager_.run_loader
+
+        def counting(run_id):
+            calls.append(run_id)
+            if run_id == "run-gone":
+                raise KeyError(run_id)
+            return loader(run_id)
+
+        self.manager_.run_loader = counting
+        self.state["runs"] = ["run-1", "run-gone"]
+        self.assertFalse(self.manager_._idle(self.state))  # the queued review still holds the GPU
+        self.assertEqual(calls, ["run-1", "run-gone"])
+        self.assertIn("run-gone: KeyError", self.state["keep_busy_error"])
 
     def test_work_the_provider_has_no_role_for_does_not_hold_the_gpu(self) -> None:
         self.runs["run-1"]["nodes"]["rev"]["role"] = "security_reviewer"

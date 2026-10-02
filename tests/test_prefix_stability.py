@@ -86,7 +86,7 @@ class PrefixStabilityTests(unittest.TestCase):
         result = prefix_stability.stabilize(messages, prefix)
 
         self.assertEqual(result[0]["role"], "system")
-        self.assertEqual(result[0]["content"], "shared prefixOriginal system")
+        self.assertEqual(result[0]["content"], "shared prefix\n\nOriginal system")
 
     def test_stabilize_creates_system_message_if_none_exists(self) -> None:
         """If no system message exists, one is created with the prefix."""
@@ -120,7 +120,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"], "shared prefixadditional")
+        self.assertEqual(result[0]["content"], "shared prefix\n\nadditional")
 
     def test_stabilize_repairs_whitespace_drift(self) -> None:
         """Trailing whitespace drift in prefix is repaired."""
@@ -162,7 +162,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"], "shared prefixFirst system")
+        self.assertEqual(result[0]["content"], "shared prefix\n\nFirst system")
         self.assertEqual(result[1]["content"], "Second system")
 
     def test_stabilize_identical_prefix_for_different_tasks(self) -> None:
@@ -263,7 +263,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"], "Be brief\nBe briefly helpful")
+        self.assertEqual(result[0]["content"], "Be brief\n\nBe briefly helpful")
 
     def test_stabilize_drift_repair_with_whitespace_boundary(self) -> None:
         """Drift repair fires when rest starts with whitespace after stripped prefix."""
@@ -273,7 +273,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"], "Be brief\nhelper")
+        self.assertEqual(result[0]["content"], "Be brief\n\nhelper")
 
     def test_stabilize_list_content_empty_list(self) -> None:
         """Empty content list gets a text block with the prefix."""
@@ -298,7 +298,7 @@ class PrefixStabilityTests(unittest.TestCase):
         result = prefix_stability.stabilize(messages, prefix)
 
         self.assertIsInstance(result[0]["content"], list)
-        self.assertEqual(result[0]["content"][0]["text"], prefix + "Original text")
+        self.assertEqual(result[0]["content"][0]["text"], prefix + prefix_stability.SEPARATOR + "Original text")
 
     def test_stabilize_list_content_text_block_already_has_prefix(self) -> None:
         """Text block already starting with prefix is not modified."""
@@ -310,7 +310,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"][0]["text"], "shared prefixrest")
+        self.assertEqual(result[0]["content"][0]["text"], "shared prefix\n\nrest")
 
     def test_stabilize_list_content_non_text_block_first(self) -> None:
         """Non-text block content gets a new text block inserted first."""
@@ -339,7 +339,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"][0]["text"], prefix + "First text")
+        self.assertEqual(result[0]["content"][0]["text"], prefix + prefix_stability.SEPARATOR + "First text")
         self.assertEqual(result[0]["content"][1]["type"], "image_url")
         self.assertEqual(result[0]["content"][2]["text"], "Second text")
 
@@ -353,7 +353,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"][0]["text"], "Be brief\nhelper")
+        self.assertEqual(result[0]["content"][0]["text"], "Be brief\n\nhelper")
 
     def test_stabilize_list_content_no_repair_without_whitespace(self) -> None:
         """List content drift repair respects whitespace boundary - no repair case."""
@@ -365,7 +365,7 @@ class PrefixStabilityTests(unittest.TestCase):
         ]
         result = prefix_stability.stabilize(messages, prefix)
 
-        self.assertEqual(result[0]["content"][0]["text"], "Be brief\nBe briefly helpful")
+        self.assertEqual(result[0]["content"][0]["text"], "Be brief\n\nBe briefly helpful")
 
     def test_stabilize_list_content_does_not_mutate_text_block(self) -> None:
         """List content with text block is not mutated during stabilization."""
@@ -384,7 +384,7 @@ class PrefixStabilityTests(unittest.TestCase):
         self.assertEqual(messages[0]["content"][0]["text"], "Original text")
         self.assertEqual(messages[0]["content"][0]["text"], original_text)
         # Result should have the prefix
-        self.assertEqual(result[0]["content"][0]["text"], "shared prefixOriginal text")
+        self.assertEqual(result[0]["content"][0]["text"], "shared prefix\n\nOriginal text")
 
     def test_stabilize_list_content_does_not_mutate_non_text_first_block(self) -> None:
         """List content with non-text first block is not mutated during insertion."""
@@ -426,8 +426,18 @@ class PrefixStabilityTests(unittest.TestCase):
         self.assertEqual(messages[0]["content"][2]["text"], original_text_2)
         self.assertEqual(len(messages[0]["content"]), original_len)
         # Result should have modified first block
-        self.assertEqual(result[0]["content"][0]["text"], "shared prefixFirst text")
+        self.assertEqual(result[0]["content"][0]["text"], "shared prefix\n\nFirst text")
         self.assertEqual(result[0]["content"][2]["text"], "Second text")
+
+
+class SeparatorTests(unittest.TestCase):
+    def test_requests_share_the_prefix_and_separator_bytes(self) -> None:
+        prefix = "Run context: build the thing."
+        a = prefix_stability.stabilize([{"role": "system", "content": "Task one"}], prefix)[0]["content"]
+        b = prefix_stability.stabilize([{"role": "system", "content": prefix + "  Task two"}], prefix)[0]["content"]
+        stable = prefix + prefix_stability.SEPARATOR
+        self.assertTrue(a.startswith(stable) and b.startswith(stable))
+        self.assertEqual((a[len(stable):], b[len(stable):]), ("Task one", "Task two"))
 
 
 if __name__ == "__main__":

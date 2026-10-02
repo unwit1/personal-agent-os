@@ -12,6 +12,10 @@ from __future__ import annotations
 import hashlib
 from typing import Any
 
+# Fixed bytes between the shared prefix and per-request text. Without them
+# request text fused onto the prefix, so the bytes after it varied per request.
+SEPARATOR = "\n\n"
+
 
 def run_prefix(record: dict[str, Any]) -> str | None:
     """Extract shared_prefix from record when present and non-empty.
@@ -73,20 +77,22 @@ def stabilize(messages: list[dict[str, Any]], prefix: str | None) -> list[dict[s
 def _with_prefix(text: str, prefix: str) -> str:
     """Return text with prefix prepended, repairing whitespace drift.
 
-    If text starts with prefix exactly, returns it unchanged.
-    If text starts with a whitespace-drifted copy of prefix, repairs it.
-    Otherwise prepends prefix to text.
+    The result is the prefix (trailing whitespace dropped), then ``SEPARATOR``,
+    then the per-request text, so the bytes up to the request text never vary.
+    An exact or whitespace-drifted copy of the prefix at the start of ``text``
+    is replaced by those canonical bytes; otherwise the prefix is prepended.
+    With no per-request text the prefix is returned as given.
     """
+    head = prefix.rstrip()
+    rest = text
     if text.startswith(prefix):
-        return text
-
-    stripped_prefix = prefix.rstrip()
-    if stripped_prefix and text.startswith(stripped_prefix):
-        rest = text[len(stripped_prefix):]
-        if not rest or rest[0].isspace():
-            return prefix + rest.lstrip(" \t\r\n")
-
-    return prefix + text
+        rest = text[len(prefix):]
+    elif head and text.startswith(head):
+        tail = text[len(head):]
+        if not tail or tail[0].isspace():
+            rest = tail
+    rest = rest.lstrip(" \t\r\n")
+    return head + SEPARATOR + rest if rest else prefix
 
 
 def _stabilize_string_content(msg: dict[str, Any], prefix: str) -> None:

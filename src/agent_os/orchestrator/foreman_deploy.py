@@ -73,6 +73,7 @@ from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
 from . import adaptive_concurrency, budget, gpu_keep_busy, prefix_stability, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
+from .store import redact
 
 RUNPOD_REST = "https://rest.runpod.io/v1"
 HF_API = "https://huggingface.co/api/models"
@@ -99,8 +100,7 @@ TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qw
                 # (<tool_call><function=...><parameter=...>), the Qwen3-Coder format.
                 "qwen3_5": "qwen3_coder", "qwen3_5_moe": "qwen3_coder"}
 AGENT_SUFFIX = "-agent"
-# Roles of the main provider entry; deployment-specific roles from ROLES_BY_CLASS override this fallback, and keep-busy follows them.
-ENDPOINT_ROLES = ("planner", "inline")
+# Roles of the main provider entry per deployment; registration and keep-busy both read them through deployment_roles().
 ROLES_BY_CLASS = {
     "gpu_pod": ["planner", "inline", "implementer", "test_author", "reviewer"],
     "local": ["planner", "inline"],
@@ -296,7 +296,7 @@ def pod_request(model: dict[str, Any], choice: dict[str, Any] | list[dict[str, A
     network volume that caches model weights."""
     group = choice if isinstance(choice, list) else [choice]
     choice = group[0]
-    overrides = dict(vllm_overrides or {})
+    overrides = vllm_tuning.validate_overrides(vllm_overrides)
     args = ["--model", model["repo"], "--served-model-name", model["repo"], "--host", "0.0.0.0", "--port", str(PORT),
             "--max-model-len", str(context_for(model)), "--gpu-memory-utilization", str(overrides.get("gpu_memory_utilization") or "0.90"),
             "--tensor-parallel-size", str(choice["gpu_count"])]
@@ -1173,18 +1173,21 @@ class ForemanManager:
         if state.get("status") != "ready":
             return False
         busy = False
+        records, failed = [], []
         for run_id in state.get("runs") or []:
             try:
                 record = self.run_loader(run_id)
-            except Exception:
+            except Exception as exc:  # a run that cannot be read holds no work; the reason is recorded below
+                failed.append(f"{run_id}: {type(exc).__name__}")
                 continue
+            records.append(record)
             planner = (record.get("nodes") or {}).get("plan")
             if record.get("state") not in ("COMPLETE", "FAILED") and (planner is None or planner.get("state") not in ("PASSED", "FAILED_FINAL", "CANCELLED")):
                 busy = True
         if busy:
             self._update(state, last_needed_epoch=self.clock(), keep_busy=None)
             return False
-        work = self._useful_work(state)
+        work = self._useful_work(state, records, failed)
         now = self.clock()
         if work["kind"]:
             # The router sends this work to the still-registered, cheap provider; the foreman only declines to tear down.
@@ -1205,19 +1208,23 @@ class ForemanManager:
             self._update(state, keep_busy=None)
         return now - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
 
-    def _useful_work(self, state: dict[str, Any]) -> dict[str, Any]:
-        """Queued work the router may send to this provider; any loader failure counts as no work."""
-        records = []
-        for run_id in state.get("runs") or []:
-            try:
-                records.append(self.run_loader(run_id))
-            except Exception:
-                continue
+    def _useful_work(self, state: dict[str, Any], records: list[dict[str, Any]],
+                     failed: list[str] | None = None) -> dict[str, Any]:
+        """Queued work the router may send to this provider, from the run records _idle already loaded.
+
+        A failed lookup counts as no work, so a broken loader can only end in the
+        normal idle teardown, never hold a paid GPU; the error is kept in the
+        state (``keep_busy_error``) instead of being dropped."""
+        errors = list(failed or [])
         try:
             backfill = list(self.backfill_loader() or [])
-            return gpu_keep_busy.useful_work(records, backfill, roles=registered_roles(state), home=self.budget_home)
-        except Exception:
-            return {"kind": None, "items": [], "reason": "useful-work lookup failed"}
+            work = gpu_keep_busy.useful_work(records, backfill, roles=registered_roles(state), home=self.budget_home)
+        except Exception as exc:
+            errors.append(f"useful-work lookup: {type(exc).__name__}: {redact(str(exc), 200)}")
+            work = {"kind": None, "items": [], "reason": "useful-work lookup failed"}
+        if errors or state.get("keep_busy_error"):
+            self._update(state, keep_busy_error="; ".join(errors)[:500] or None)
+        return work
 
     def _teardown(self, state: dict[str, Any], status: str, detail: str) -> None:
         with self._lock:
@@ -1292,7 +1299,7 @@ def _register_provider(state: dict[str, Any]) -> None:
     kind = state.get("kind")
     local, api = kind == "local", kind == "openrouter"
     deployment = "api" if api else None if local else "gpu_pod"
-    endpoint_roles = ROLES_BY_CLASS.get(deployment, list(ENDPOINT_ROLES))
+    endpoint_roles = deployment_roles(state)
     entry = endpoint_entry(state["provider_id"], base_url=state["base_url"], model=model["repo"], classes=["fast", "balanced", "reasoning", "frontier"],
                            refusal_profile=model.get("refusal_hint") or "unknown", deployment=deployment,
                            open_weights=None if (local or api) else True, license=model.get("license"), revision=model.get("sha"),
@@ -1328,12 +1335,16 @@ def _retune_provider(state: dict[str, Any], limit: int) -> None:
         raise RuntimeError(f"no registered provider entry found for {state['provider_id']}")
 
 
+def deployment_roles(state: dict[str, Any]) -> list[str]:
+    """Roles of the main provider entry for this deployment (local, API or rented GPU pod)."""
+    kind = state.get("kind")
+    deployment = "api" if kind == "openrouter" else "local" if kind == "local" else "gpu_pod"
+    return list(ROLES_BY_CLASS[deployment])
+
+
 def registered_roles(state: dict[str, Any]) -> set[str]:
     """Roles the registered provider entries cover: the same lists _register_provider writes."""
-    kind = state.get("kind")
-    local, api = kind == "local", kind == "openrouter"
-    deployment = "api" if api else "local" if local else "gpu_pod"
-    roles = set(ROLES_BY_CLASS.get(deployment, list(ENDPOINT_ROLES)))
+    roles = set(deployment_roles(state))
     agent = agent_entry(state) if state.get("model") else None
     if agent:
         roles.update(agent["roles"])

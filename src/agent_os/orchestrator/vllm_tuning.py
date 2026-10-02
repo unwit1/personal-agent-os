@@ -3,6 +3,38 @@
 from __future__ import annotations
 
 DEFAULT_CONTEXT = 32768
+# Values vLLM's --kv-cache-dtype accepts; anything else stops the server at start.
+VALID_KV_DTYPES = ("auto", "fp8", "fp8_e4m3", "fp8_e5m2")
+OVERRIDE_KEYS = ("prefix_caching", "chunked_prefill", "max_num_seqs", "kv_cache_dtype", "gpu_memory_utilization")
+MAX_NUM_SEQS_LIMIT = 4096
+
+
+def validate_overrides(overrides: dict | None) -> dict:
+    """Check vLLM overrides when the deploy is previewed, never at pod start.
+
+    False/None removes a flag. Unknown keys and invalid values raise ValueError
+    with the reason, instead of being dropped silently or crashing vLLM."""
+    overrides = dict(overrides or {})
+    unknown = sorted(set(overrides) - set(OVERRIDE_KEYS))
+    if unknown:
+        raise ValueError(f"unknown vLLM override(s): {', '.join(unknown)}; expected {', '.join(OVERRIDE_KEYS)}")
+    for key in ("prefix_caching", "chunked_prefill"):
+        if key in overrides and not isinstance(overrides[key], bool) and overrides[key] is not None:
+            raise ValueError(f"{key} must be true, false or null")
+    if "max_num_seqs" in overrides:
+        value = overrides["max_num_seqs"]
+        if value is not None and value is not False and (isinstance(value, bool) or not isinstance(value, int)
+                                           or not 1 <= value <= MAX_NUM_SEQS_LIMIT):
+            raise ValueError(f"max_num_seqs must be an integer from 1 to {MAX_NUM_SEQS_LIMIT}, or null to omit it")
+    if "kv_cache_dtype" in overrides:
+        value = overrides["kv_cache_dtype"]
+        if value is not None and value is not False and value not in VALID_KV_DTYPES:
+            raise ValueError(f"kv_cache_dtype must be one of {', '.join(VALID_KV_DTYPES)}, or null to omit it")
+    if "gpu_memory_utilization" in overrides and overrides["gpu_memory_utilization"] is not None:
+        value = overrides["gpu_memory_utilization"]
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0.1 <= float(value) <= 0.98:
+            raise ValueError("gpu_memory_utilization must be a number from 0.1 to 0.98")
+    return overrides
 FP8_KV_GPU_MARKERS = ("H100", "H200", "H20", "L4", "L40", "RTX 4090", "RTX 6000 Ada", "B200", "RTX 5090")
 
 
@@ -85,7 +117,7 @@ def throughput_args(
     - Each override wins over computed value
     context: served context window in tokens (default: 32768)
     """
-    overrides = overrides or {}
+    overrides = validate_overrides(overrides)
     args = []
 
     # --enable-prefix-caching
@@ -108,7 +140,7 @@ def throughput_args(
     # --max-num-seqs N
     if "max_num_seqs" in overrides:
         max_seqs = overrides["max_num_seqs"]
-        if isinstance(max_seqs, int) and not isinstance(max_seqs, bool):
+        if max_seqs is not None and max_seqs is not False:  # validated: an int in range
             args.extend(["--max-num-seqs", str(max_seqs)])
     else:
         # Compute automatically: use fp8 scaling only if effective dtype starts with 'fp8'

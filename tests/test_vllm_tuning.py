@@ -106,14 +106,15 @@ class MaxNumSeqsTests(unittest.TestCase):
     def test_clamped_at_floor(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
         # With floor=10, even a very small amount of headroom
-        result = vllm_tuning.max_num_seqs(model, 1, 80.0, floor=10)
-        self.assertGreaterEqual(result, 10)
+        # Unclamped: (80e9*0.9 - 14e9*1.1) / (3200 * 8192) = 2159 sequences.
+        self.assertEqual(vllm_tuning.max_num_seqs(model, 1, 80.0, ceiling=5000), 2159)
+        # A floor above that value wins.
+        self.assertEqual(vllm_tuning.max_num_seqs(model, 1, 80.0, floor=3000, ceiling=5000), 3000)
 
     def test_clamped_at_ceiling(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 1.0}
         # With ceiling=20, even large headroom won't exceed it
-        result = vllm_tuning.max_num_seqs(model, 8, 80.0, ceiling=20)
-        self.assertLessEqual(result, 20)
+        self.assertEqual(vllm_tuning.max_num_seqs(model, 8, 80.0, ceiling=20), 20)
 
     def test_respects_custom_context(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
@@ -218,12 +219,12 @@ class ThroughputArgsTests(unittest.TestCase):
 
         self.assertNotIn("--max-num-seqs", args)
 
-    def test_override_max_num_seqs_true_removes_flag(self) -> None:
+    def test_override_max_num_seqs_true_is_rejected(self) -> None:
+        # Used to be dropped silently; an override that cannot apply is an error.
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
         choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
-        args = vllm_tuning.throughput_args(model, choice, overrides={"max_num_seqs": True})
-
-        self.assertNotIn("--max-num-seqs", args)
+        with self.assertRaises(ValueError):
+            vllm_tuning.throughput_args(model, choice, overrides={"max_num_seqs": True})
 
     def test_override_kv_cache_dtype_none_removes_flag(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
@@ -235,10 +236,23 @@ class ThroughputArgsTests(unittest.TestCase):
     def test_override_kv_cache_dtype_custom_value(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
         choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
-        args = vllm_tuning.throughput_args(model, choice, overrides={"kv_cache_dtype": "fp16"})
+        args = vllm_tuning.throughput_args(model, choice, overrides={"kv_cache_dtype": "fp8_e5m2"})
 
         dtype_idx = args.index("--kv-cache-dtype")
-        self.assertEqual(args[dtype_idx + 1], "fp16")
+        self.assertEqual(args[dtype_idx + 1], "fp8_e5m2")
+
+    def test_invalid_overrides_are_rejected(self) -> None:
+        model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
+        choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
+        for bad in ({"kv_cache_dtype": "fp16"}, {"max_num_seqs": 0}, {"max_num_seqs": "8"}, {"max_num_seqs": True},
+                    {"max_num_seqs": 100000}, {"gpu_memory_utilization": 1.5}, {"prefix_caching": "yes"},
+                    {"max_seqs": 4}):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                vllm_tuning.throughput_args(model, choice, overrides=bad)
+        for ok in ({"kv_cache_dtype": None}, {"kv_cache_dtype": "auto"}, {"max_num_seqs": None},
+                   {"gpu_memory_utilization": 0.85}, {"prefix_caching": False}):
+            with self.subTest(ok=ok):
+                vllm_tuning.validate_overrides(ok)
 
     def test_all_overrides_honored(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
@@ -355,15 +369,16 @@ class EdgeCasesTests(unittest.TestCase):
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
         choice = {"gpu_id": "nvidia-h100-pcie", "gpu_count": 8, "vram_gb": 141.0}
         result = vllm_tuning.max_num_seqs(model, choice["gpu_count"], choice["vram_gb"])
-        # Should be clamped at ceiling
-        self.assertLessEqual(result, 256)
+        # Far more headroom than the default ceiling of 256.
+        self.assertEqual(result, 256)
 
     def test_very_small_kv_bytes_per_token(self) -> None:
         model = {"kv_bytes_per_token": 64, "weight_gb": 14.0}
         choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
         result = vllm_tuning.max_num_seqs(model, 1, 80.0)
-        # Should still be reasonable
-        self.assertGreaterEqual(result, 4)
+        # 56.6e9 bytes / (64 * 8192) per sequence is far above the ceiling.
+        self.assertEqual(result, 256)
+        self.assertEqual(vllm_tuning.max_num_seqs(model, 1, 80.0, ceiling=200000), 107955)
 
 
 if __name__ == "__main__":
