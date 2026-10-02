@@ -46,132 +46,65 @@ cost model is specific to Orchestrator routing state.
 
 ## 3. Inputs
 
-The calibrator reads only telemetry already collected by existing infrastructure.
+The calibrator reads only `telemetry.jsonl` from existing run directories.
 
-### 3.1 Model events
-
-From `telemetry.jsonl`, extract these event types. **Reviewer nodes are excluded.**
-
-| Event | Relevant fields | Meaning |
+| Event | Fields used | Use |
 |---|---|---|
-| `model_completed` | `role`, `provider`, `capability_class`, `effort` | Attempted a task on a model; effort is a relative cost proxy. |
-| `model_failed` | `role`, `provider`, `capability_class`, `effort` | Model call failed or returned an error. Treated as a run (not a pass). |
-| `model_escalated` | `from`, `to` | Escalated from weaker to stronger; not a task outcome, used to infer initial route choice. |
-| `retry` | — | Task was retried after failure; used for context only. |
-| `fallback` | — | Switched providers within the same class; used for context only. |
-| `tests_completed` | `passed` | Test/validator ran, with pass/fail outcome. |
-| `review_completed` | `subject`, `verdict`, `material_findings` | Code review of task node. Verdict is `approved`, `blocked`, or similar. |
+| `model_completed`, `model_failed` | `role`, `provider`, `capability_class`, `effort` | The first such event of a node fixes its initial class, effort and provider. |
+| `model_escalated` | `from`, `to` | Counts as an escalation; `to` gives the final class. |
+| `retry`, `fallback` | none | Counted for context only. |
+| `tests_completed` | `passed` | Validation result (the last event wins). |
+| `review_completed` | `subject`, `verdict`, `material_findings` | Review result for the subject node. |
 
-Events are ordered by `seq` (sequence number). A `.repair<N>` node inherits the review
-counters of its subject `<subject>`, via id parsing.
-
-### 3.2 Capability class and effort
-
-Each `model_completed` or `model_failed` event carries `capability_class`
-(e.g., `cheap`, `standard`, `strong`, `reasoning`; the exact values come from
-the routing config) and `effort` (a relative cost metric, where cheap is lower).
-These are fixed per provider/model combination.
+**Reviewer nodes are excluded.** A `.repair<N>` node is attributed to the review
+of its subject node, not to a review of its own.
 
 ## 4. Label
 
-For each task, determine whether the kept-cheap route would have passed validation and review.
-The label rule is exact:
+`cheap_route_passed` is set per non-reviewer node:
 
-- **`True`**: The initial cheap capability class completed without escalation, passed all tests (if tests ran), and received a non-blocking review verdict (if reviewed). Equivalently: no escalation AND (no tests OR tests passed) AND (no review OR review not blocked).
-- **`False`**: The task was escalated to a stronger class, OR tests failed, OR review returned a blocking verdict.
-- **`unlabeled`**: The task never attempted the cheap route (started on a strong class), or required fields are missing. Excluded from pass-rate estimation.
+- **True**: the initial cheap class passed tests and review with no escalation.
+- **False**: the node escalated, its tests failed, or its review was blocking.
+- **Unlabeled** (`None`): otherwise, i.e. no escalation and no test or review
+  evidence. Unlabeled nodes are counted in coverage but not in estimates.
 
 ## 5. Estimator
 
-For each `(task_family, initial_capability_class)` pair:
+Per task family and initial capability class, over labeled outcomes only:
+`n` labeled, `passes` True.
 
-1. **Collect labeled outcomes** where `cheap_route_passed in [True, False]`.
-   Exclude unlabeled.
-2. **Count** `n_pass` (True outcomes) and `n_total` (True + False outcomes).
-3. If `n_total < min_samples` (default `min_samples = 5`), the pair is too sparse;
-   report `insufficient_samples` and proceed to the next pair.
-4. **Posterior mean** using Beta(α, β) with uniform prior Beta(1, 1):
-   ```
-   p_pass = (n_pass + 1) / (n_total + 2)
-   ```
-5. **Confidence interval** using Wilson score, 95% level:
-   ```
-   wilson_lower = (p_hat + z²/2n - z√(p_hat(1-p_hat)/n + z²/4n²)) / (1 + z²/n)
-   where z = 1.96 and p_hat = n_pass / n_total
-   ```
-   The lower bound is conservative; it captures aleatory (measurement) uncertainty
-   and is used to decide escalation, not p_pass itself.
+- `p_pass` = Beta(1,1) posterior mean = (passes + 1) / (n + 2).
+- `wilson_lower` = 95% Wilson lower bound (z = 1.96) of passes / n; the decision
+  uses this conservative bound, not `p_pass`.
+- A cell is `sufficient` only when `n >= min_samples` (default 5).
 
 ## 6. Calibration
 
-For each `(family, class)` pair with sufficient samples:
-
-1. **Grid thresholds** from 0.50 to 0.95 in increments of 0.05 (fixed set: 0.50, 0.55, ..., 0.95).
-   T is a bar on the Wilson lower bound.
-2. **Decision rule at each threshold**:
-   ```
-   keep_cheap at threshold T := wilson_lower >= T
-   ```
-   If the conservative bound meets or exceeds T, keep the cheap route for future
-   tasks of that family and class. Otherwise escalate.
-3. **Cost-vs-quality curve**: For each threshold, record:
-   - `threshold`: the escalation threshold value.
-   - `kept_count`: how many tasks would remain on cheap (pass the rule).
-   - `kept_pass_rate`: what fraction of kept tasks actually passed.
-   - `escalated_count`: how many would be escalated (fail the rule).
-
-4. **Recommended threshold**: The smallest threshold T such that
-   ```
-   kept_pass_rate(T) >= target  (target = 0.9 by default)
-   ```
-   If no threshold achieves the target, report the highest achievable pass rate and a reason code explaining why the target was not met.
-
-Status values and reason codes are mutually exclusive indicators of the outcome:
-- **`status: ok`** with **`reason_codes: ["target_achievable"]`** means a threshold was found that achieves the target.
-- **`status: insufficient_samples`** with **`reason_codes: ["insufficient_samples"]`** means fewer than `min_samples` labeled outcomes for this pair.
-- **`status: low_overall_pass_rate`** with **`reason_codes: ["low_overall_pass_rate"]`** means the overall pass rate on the pair is below the target, even at the lowest threshold.
+1. Grid of thresholds 0.50, 0.55, ..., 0.95.
+2. At threshold T a sufficient cell is `keep_cheap` when `wilson_lower >= T`.
+3. Curve point per threshold: `threshold`, `cheap_share` (labeled share in
+   kept cells), `kept_pass_rate` (pass rate over kept cells, null if none), and
+   `escalations_avoided`.
+4. **Recommended threshold**: the smallest T whose `kept_pass_rate >= target`
+   (default 0.9).
+5. Reason codes: `threshold_selected`, `no_threshold_meets_target` (sufficient
+   cells exist but none reach the target; threshold is null), and
+   `insufficient_evidence` (no sufficient cell).
+6. Per-cell advice, for the recommended threshold (0.95 when none):
+   `keep_cheap`, `escalate_earlier`, or `insufficient_data`.
 
 ## 7. Output schema and privacy
 
-Aggregates only. The keys are serialized with `sort_keys=True`. `generated_at`
-is the only nondeterministic field.
+Aggregates only. Top-level keys: `schema`
+(`personal-agent/orchestrator-route-calibration/v1`), `mode` (shadow),
+`generated_at`, `routing_changed` (always false), `runs`, `coverage`, `cells`
+(per family and class: `n`, `passes`, `unlabeled`, `escalated`, `p_pass`,
+`wilson_lower`, `sufficient`, effort and provider counts), `calibration`
+(`curve`, `target`, `recommended_threshold`, `reason`), `advice`, and `method`.
 
-```json
-{
-  "schema": "personal-agent/orchestrator-route-calibration/v1",
-  "mode": "shadow",
-  "dispatch_changes": 0,
-  "generated_at": "iso-8601",
-  "task_families": ["family1", "family2"],
-  "calibration": {
-    "task_family": {
-      "initial_class": {
-        "samples": 0,
-        "labeled_outcomes": 0,
-        "n_pass": 0,
-        "n_fail": 0,
-        "p_pass_mean": 0.0,
-        "wilson_lower_95": 0.0,
-        "min_samples": 5,
-        "status": "ok | insufficient_samples | low_overall_pass_rate",
-        "curve": [
-          {
-            "threshold": 0.5,
-            "kept_count": 0,
-            "kept_pass_rate": 0.0,
-            "escalated_count": 0
-          }
-        ],
-        "recommended_threshold": 0.75,
-        "reason_codes": ["reason1"]
-      }
-    }
-  },
-  "privacy": {"rule": "assert_aggregate_only", "strings_checked": 0, "passed": true}
-}
-```
-
-**Privacy**: Node ids, task subjects, review verdicts, provider credentials, and user-facing paths are **never emitted**. The `build` function sanitizes capability-class names and task-family names (e.g., replacing sensitive paths or internal identifiers with symbolic names). All string keys in the output are fixed: schema id, mode, reason codes, sanitized capability-class names, and sanitized task-family names. Before returning the report, `build` calls `assert_aggregate_only(report, forbidden)`, where `forbidden` is the set of node ids and subjects extracted during the read. The function fills `privacy.strings_checked` and `passed` only after the check succeeds. `report()` calls `assert_aggregate_only` again before writing `--out`.
+No node ids are emitted. `build` sanitizes family, class, effort and provider
+labels, then runs `assert_aggregate_only` with the node ids as forbidden
+strings. `report()` checks again before writing `--out`.
 
 ## 8. Limits and caveats
 
