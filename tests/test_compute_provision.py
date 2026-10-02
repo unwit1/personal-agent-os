@@ -195,6 +195,51 @@ class ProvisionTests(unittest.TestCase):
         self.assertEqual(job["reconcile"]["actual_usd"], 0.0)
         self.assertEqual(budget.remaining(self.bhome), before)
 
+    def test_stop_destroy_reconcile_lifecycle_and_idempotence(self):
+        budget.set_budget(10, 5, home=self.bhome)
+        job = provision.provision(request(), **self.kw())
+        jid = job["job_id"]
+        self.clock.now += 1800
+        self.assertEqual(provision.status(jid, **self.kw())["state"], "running")
+        job = provision.stop(jid, **self.kw())
+        self.assertEqual(job["state"], "stopped")
+        self.assertEqual(provision.stop(jid, **self.kw())["history"], job["history"])
+        job = provision.destroy(jid, **self.kw())
+        self.assertEqual(job["state"], "destroyed")
+        self.assertEqual(provision.destroy(jid, **self.kw())["history"], job["history"])
+        job = provision.reconcile(jid, **self.kw())
+        self.assertEqual(job["state"], "reconciled")
+        self.assertAlmostEqual(budget.spent(self.bhome), 1.0)
+        self.assertEqual(job["reconcile"]["estimate_high"], 2.0)
+        self.assertAlmostEqual(job["reconcile"]["delta_usd"], -1.0)
+        lines = len(self.ledger())
+        again = provision.reconcile(jid, **self.kw())
+        self.assertEqual(again["state"], "reconciled")
+        self.assertEqual(len(self.ledger()), lines)
+        self.assertEqual(budget.open_reservation(jid, self.bhome), 0)
+        self.assertEqual([j["job_id"] for j in provision.list_jobs(self.home)], [jid])
+        self.assertEqual(provision.stop(jid, **self.kw())["state"], "reconciled")
+
+    def test_reconcile_before_stop_raises(self):
+        budget.set_budget(10, 5, home=self.bhome)
+        job = provision.provision(request(), **self.kw())
+        with self.assertRaises(ValueError):
+            provision.reconcile(job["job_id"], **self.kw())
+
+    def test_auto_stop_then_reconcile(self):
+        budget.set_budget(10, 5, home=self.bhome)
+        job = provision.provision(request(), **self.kw())
+        self.clock.now += 3601
+        job = provision.status(job["job_id"], **self.kw())
+        self.assertEqual(job["state"], "stopped")
+        job = provision.reconcile(job["job_id"], **self.kw())
+        self.assertEqual(job["state"], "reconciled")
+        self.assertAlmostEqual(budget.spent(self.bhome), 2.0)
+        self.assertEqual(budget.open_reservation(job["job_id"], self.bhome), 0)
+
+    def test_list_jobs_empty(self):
+        self.assertEqual(provision.list_jobs(self.home), [])
+
     def test_illegal_transition(self):
         with self.assertRaises(ValueError):
             provision._transition({"state": "requested", "history": []}, "running")
