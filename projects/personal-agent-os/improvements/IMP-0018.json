@@ -9,6 +9,8 @@
   "priority": "high",
   "observation": "Long agent runs repeatedly process prior context, tool output, worker reports, and shared parent context. This can create superlinear cumulative token usage and multiplicative duplication across fan-out, retries, and review loops. Existing EVR-0013 / DEC-0018 evidence already measured roughly 68% lower tokens and latency from focused delegate attachments at equal accuracy.",
   "evidence": [
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0018.json",
+    "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0010.json",
     "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
     "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0013.json",
     "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0018.json",
