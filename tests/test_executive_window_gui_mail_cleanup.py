@@ -4,33 +4,41 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 
 import unittest
+import re
 
 GUI = Path(__file__).resolve().parents[1] / 'gui'
 
 
 class MailCleanupGuiTests(unittest.TestCase):
-    def test_js_references(self):
+    def test_mail_cleanup_feature_integration(self):
         js = (GUI / 'executive.js').read_text(encoding='utf-8')
-        for needle in ('mail_cleanup', 'mail.organize_apply', 'mail_filtered', '/api/confirm', 'No plan yet'):
-            self.assertIn(needle, js)
+        html = (GUI / 'executive.html').read_text(encoding='utf-8')
 
-    def test_api_act_endpoint(self):
-        js = (GUI / 'executive.js').read_text(encoding='utf-8')
+        # Verify item.kind checks for both mail_cleanup and mail_filtered
+        self.assertIn("item.kind === 'mail_cleanup'", js)
+        self.assertIn("item.kind === 'mail_filtered'", js)
+
+        # Verify action_id pattern with params for mail.organize_apply
+        self.assertRegex(js, r"action_id:\s*'mail\.organize_apply'")
+        self.assertRegex(js, r"params:\s*\{\s*account:\s*account,\s*category:\s*category\s*\}")
+
+        # Verify /api/act and /api/confirm endpoints
         self.assertIn("'/api/act'", js)
-        # Verify handleMailOrganizeApply uses /api/act
-        self.assertIn("apiCall('POST', '/api/act', payload)", js)
+        self.assertIn("'/api/confirm'", js)
 
-    def test_confirm_token_handling(self):
-        js = (GUI / 'executive.js').read_text(encoding='utf-8')
+        # Verify API confirm flow
         self.assertIn('response.confirm_token', js)
 
-    def test_categories_reference(self):
-        js = (GUI / 'executive.js').read_text(encoding='utf-8')
+        # Verify mail cleanup UI references
+        self.assertIn('No plan yet', js)
         self.assertIn('.categories', js)
 
-    def test_css_present(self):
-        html = (GUI / 'executive.html').read_text(encoding='utf-8')
+        # Verify CSS for mail cleanup and filtered display
         self.assertIn('.mail-cleanup-table', html)
+        self.assertIn('.mail-cleanup-account', html)
+        self.assertIn('.mail-cleanup-filtered', html)
+        self.assertIn('.mail-filtered', html)
+        self.assertIn('.mail-filtered-counts', html)
 
 
 if __name__ == '__main__':

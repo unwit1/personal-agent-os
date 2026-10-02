@@ -117,6 +117,9 @@ const Executive = (() => {
         const acct = plan[account] || {};
         const categories = acct.categories || {};
         group.appendChild(textEl('div', 'mail-cleanup-account', account));
+        if (byAccount[account]) {
+          group.appendChild(textEl('div', 'mail-cleanup-account-filtered', 'Filtered: ' + countsText(byAccount[account])));
+        }
         const table = document.createElement('table');
         table.className = 'mail-cleanup-table';
         const head = document.createElement('tr');
@@ -143,8 +146,10 @@ const Executive = (() => {
     }
     const spamFiltered = context.spam_filtered || {};
     const byAccount = spamFiltered.by_account || {};
-    const spamCounts = {total: spamFiltered.total || 0, spam: spamFiltered.spam || 0, bulk: spamFiltered.bulk || 0};
-    group.appendChild(textEl('div', 'mail-cleanup-filtered', 'Spam filtered: ' + countsText(spamCounts)));
+    const spamFilteredCounts = Object.fromEntries(
+      Object.entries(spamFiltered).filter(([k]) => k !== 'by_account')
+    );
+    group.appendChild(textEl('div', 'mail-cleanup-filtered', 'Spam filtered: ' + countsText(spamFilteredCounts)));
     return group;
   }
 
@@ -241,6 +246,9 @@ const Executive = (() => {
       const optionsDiv = document.createElement('div');
       optionsDiv.className = 'item-options';
       item.options.forEach(option => {
+        if (item.kind === 'mail_cleanup' && option.action_id === 'mail.organize_apply') {
+          return;
+        }
         const btn = document.createElement('button');
         btn.className = option.consequential ? 'option-consequential' : '';
         btn.textContent = option.label;
