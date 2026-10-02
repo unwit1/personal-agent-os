@@ -181,124 +181,108 @@ def report(
     cost_basis = "per accepted free result: tokens x price of the paid route that would otherwise have run"
     estimated_paid_cost_coverage = None
 
+    def _valid_tokens(tokens: Any) -> tuple[int | float, int | float] | None:
+        """Validate and extract input/output tokens, return (input, output) or None."""
+        if not isinstance(tokens, dict):
+            return None
+        input_tokens = tokens.get("input", 0)
+        output_tokens = tokens.get("output", 0)
+        # Reject bool (bool is a subclass of int in Python)
+        if isinstance(input_tokens, bool) or isinstance(output_tokens, bool):
+            return None
+        # Require int or float (not string, list, etc.)
+        if not isinstance(input_tokens, (int, float)) or not isinstance(output_tokens, (int, float)):
+            return None
+        # Check for non-finite values (NaN, inf) (R3-4)
+        if not math.isfinite(input_tokens) or not math.isfinite(output_tokens):
+            return None
+        # Check for negative values
+        if input_tokens < 0 or output_tokens < 0:
+            return None
+        # Require at least one token
+        if not (input_tokens or output_tokens):
+            return None
+        return (input_tokens, output_tokens)
+
     if useful_accepted:
         # Note when prices are missing at the start
         if prices is None:
             errors.append("no prices supplied")
 
-        # Only add granular unpriced errors if prices exist and are valid
-        suppress_unpriced_errors = prices is None or not prices_valid
+        # If prices not available/valid, skip pricing loop and set coverage
+        if prices is None or not prices_valid:
+            estimated_paid_cost_coverage = {
+                "priced": 0,
+                "accepted": len(useful_accepted)
+            }
+        else:
+            # Run pricing loop only when prices are valid
+            total_cost = 0.0
+            priced_count = 0
+            unpriced_reasons = Counter()
 
-        total_cost = 0.0
-        priced_count = 0
-        unpriced_reasons = Counter()
-
-        for evt in useful_accepted:
-            paid_route = evt.get("paid_route")
-            if not paid_route:
-                if not suppress_unpriced_errors:
+            for evt in useful_accepted:
+                paid_route = evt.get("paid_route")
+                if not paid_route:
                     unpriced_reasons["no paid_route"] += 1
-                continue
+                    continue
 
-            if not isinstance(paid_route, dict):
-                if not suppress_unpriced_errors:
+                if not isinstance(paid_route, dict):
                     unpriced_reasons["invalid paid_route"] += 1
-                continue
+                    continue
 
-            model = paid_route.get("model")
-            subscription = paid_route.get("subscription", False)
+                model = paid_route.get("model")
+                subscription = paid_route.get("subscription", False)
 
-            if not model:
-                if not suppress_unpriced_errors:
+                if not model:
                     unpriced_reasons["no model in paid_route"] += 1
-                continue
+                    continue
 
-            # Skip pricing if prices not valid (R1-3)
-            if not prices_valid:
-                if not suppress_unpriced_errors:
-                    unpriced_reasons["prices invalid"] += 1
-                continue
+                # Only count subscription as priced if prices are valid
+                if subscription:
+                    # Subscription routes cost 0
+                    priced_count += 1
+                    continue
 
-            # Only count subscription as priced if prices are valid (R1-3)
-            if subscription:
-                # Subscription routes cost 0
-                priced_count += 1
-                continue
-
-            # Get tokens and validate them (R1-4)
-            tokens = evt.get("tokens", {})
-            if not isinstance(tokens, dict):
-                if not suppress_unpriced_errors:
+                # Get tokens and validate them
+                token_pair = _valid_tokens(evt.get("tokens"))
+                if token_pair is None:
                     unpriced_reasons["missing tokens"] += 1
-                continue
+                    continue
 
-            input_tokens = tokens.get("input", 0)
-            output_tokens = tokens.get("output", 0)
+                input_tokens, output_tokens = token_pair
 
-            # Validate token types and values (R1-4, R3-4)
-            # Reject bool (bool is a subclass of int in Python)
-            if isinstance(input_tokens, bool) or isinstance(output_tokens, bool):
-                if not suppress_unpriced_errors:
-                    unpriced_reasons["missing tokens"] += 1
-                continue
-
-            # Require int or float (not string, list, etc.)
-            if not isinstance(input_tokens, (int, float)) or not isinstance(output_tokens, (int, float)):
-                if not suppress_unpriced_errors:
-                    unpriced_reasons["missing tokens"] += 1
-                continue
-
-            # Check for non-finite values (NaN, inf) (R3-4)
-            if not math.isfinite(input_tokens) or not math.isfinite(output_tokens):
-                if not suppress_unpriced_errors:
-                    unpriced_reasons["missing tokens"] += 1
-                continue
-
-            # Check for negative values
-            if input_tokens < 0 or output_tokens < 0:
-                if not suppress_unpriced_errors:
-                    unpriced_reasons["missing tokens"] += 1
-                continue
-
-            if not (input_tokens or output_tokens):
-                if not suppress_unpriced_errors:
-                    unpriced_reasons["missing tokens"] += 1
-                continue
-
-            # Check if model has prices
-            if model not in valid_prices:
-                if not suppress_unpriced_errors:
+                # Check if model has prices
+                if model not in valid_prices:
                     unpriced_reasons[f"no price for {model}"] += 1
-                continue
+                    continue
 
-            model_price = valid_prices[model]
-            input_price = model_price.get("input")
-            output_price = model_price.get("output")
+                model_price = valid_prices[model]
+                input_price = model_price.get("input")
+                output_price = model_price.get("output")
 
-            # Check for None or missing prices
-            if input_price is None or output_price is None:
-                if not suppress_unpriced_errors:
+                # Check for None or missing prices
+                if input_price is None or output_price is None:
                     unpriced_reasons[f"incomplete price for {model}"] += 1
-                continue
+                    continue
 
-            # Prices are per million tokens
-            cost = (input_tokens * input_price + output_tokens * output_price) / 1e6
-            total_cost += cost
-            priced_count += 1
+                # Prices are per million tokens
+                cost = (input_tokens * input_price + output_tokens * output_price) / 1e6
+                total_cost += cost
+                priced_count += 1
 
-        # Add aggregated errors for unpriced reasons (but not if already reported no prices)
-        if prices is not None:
+            # Add aggregated errors for unpriced reasons
             for reason, count in unpriced_reasons.items():
                 errors.append(f"unpriced events ({reason}): {count}")
 
-        # Set cost and coverage only if we have priced events
-        if priced_count > 0:
-            estimated_paid_cost_avoided_usd = round(total_cost, 6)
+            # Set cost and coverage only if we have priced events
+            if priced_count > 0:
+                estimated_paid_cost_avoided_usd = round(total_cost, 6)
 
-        estimated_paid_cost_coverage = {
-            "priced": priced_count,
-            "accepted": len(useful_accepted)
-        }
+            estimated_paid_cost_coverage = {
+                "priced": priced_count,
+                "accepted": len(useful_accepted)
+            }
     else:
         # No accepted results
         if prices is None:
