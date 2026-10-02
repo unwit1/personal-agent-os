@@ -398,9 +398,10 @@ Sync stays read-only for all accounts. IMAP moves require the operator to set
 Each successfully moved message gets a line with `undo.command`:
 
 ```bash
-agent-os mail organize-undo org_20261002T120500_ab12 --seq 1 [--confirm]
+agent-os mail organize-undo org_20261002T120500_ab12 --seq 1 [--confirm] [--scope work|personal]
 ```
 
 Undo is a dry-run by default; pass `--confirm` to actually reverse the moves.
-Messages that fail to verify at apply time (missing or changed) are recorded with
-a reason and skipped; they remain in INBOX for manual review.
+`--scope` is optional (defaults to auto-detecting work or personal); use it to specify
+which scope's journal to search. Messages that fail to verify at apply time (missing or changed) 
+are recorded with a reason and skipped; they remain in INBOX for manual review.
