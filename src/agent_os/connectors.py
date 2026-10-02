@@ -94,6 +94,78 @@ def connector_status(surface_id: str | None = None) -> dict[str, Any]:
     }
 
 
+def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
+    """Analyze desired connector registrations and plan provisioning steps.
+
+    Strictly read-only: loads registry and surfaces, compares desired state to
+    known surfaces and capabilities, and returns action recommendations.
+    Never writes, reads credentials, or contacts providers.
+    """
+    from .surfaces import surfaces, _connector_capabilities
+
+    registry = load_connector_registry()
+    known = {s["id"]: s for s in surfaces()}
+
+    items = []
+    for connector in registry["connectors"]:
+        connector_id = connector["id"]
+        for registration in connector["registrations"]:
+            reg_surface_id = registration["surface_id"]
+            if surface_id and reg_surface_id != surface_id:
+                continue
+
+            state = registration["state"]
+            action: str
+            reason: str
+
+            if reg_surface_id not in known:
+                action = "unknown_surface"
+                reason = "surface is not declared in the surface registry"
+            elif state in {"registered", "disabled", "unsupported"}:
+                action = "none"
+                reason = f"registration is already {state}"
+            elif state == "error":
+                action = "investigate"
+                reason = "registration reported an error; an adapter must re-verify it"
+            else:
+                cap = _connector_capabilities(known[reg_surface_id]).get("mutate_local_config", {})
+                available = cap.get("available")
+                if available is True:
+                    action = "provision_local_config"
+                    reason = cap.get("reason")
+                elif available is False:
+                    action = "manual_host_setup"
+                    reason = cap.get("reason") or "connector capability has not been declared for this surface"
+                else:
+                    action = "undetermined"
+                    reason = cap.get("reason") or "connector capability has not been declared for this surface"
+
+            items.append({
+                "connector_id": connector_id,
+                "surface_id": reg_surface_id,
+                "state": state,
+                "action": action,
+                "reason": reason,
+                "credential_reference_configured": connector["secret_ref"] is not None,
+            })
+
+    items.sort(key=lambda item: (item["connector_id"], item["surface_id"]))
+
+    action_counts: dict[str, int] = {}
+    for item in items:
+        action = item["action"]
+        action_counts[action] = action_counts.get(action, 0) + 1
+
+    return {
+        "schema": "personal-agent/connector-reconcile-plan/v1",
+        "applied": False,
+        "surface_filter": surface_id,
+        "count": len(items),
+        "action_counts": action_counts,
+        "items": items,
+    }
+
+
 def register_connector(
     connector: Any,
     *,
