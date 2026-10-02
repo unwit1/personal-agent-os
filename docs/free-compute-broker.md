@@ -558,7 +558,7 @@ observation, so escalation rates are measurable.
 
 ## Shadow route calibration (`route_calibration.py`)
 
-`orchestrate route-calibration --home --out` analyzes past runs' telemetry to calibrate escalation thresholds. It measures, per task family and capability class, how often the cheaper route (free model or lower-effort class) passed both validation and review, and recommends an escalation threshold that would maximize useful work within quota or budget constraints. It runs in **shadow mode only**: it records advice and never changes free routing decisions or engine dispatch. The calibrator uses existing validation outcomes and review acceptance rates from the ledger and capability observations, never makes new requests, and produces a deterministic, reproducible report. Operators use its findings to tune `free_specialization` status thresholds, `free_routing` eligibility rules, and ladder rung ordering.
+`orchestrate route-calibration --home --out` measures, per task family and capability class, how often the cheaper route passed validation and review, and recommends an escalation threshold in shadow mode. It records advice only and does not change free_routing or engine dispatch.
 
 ## Disposable fan-out and backfill (`free_swarm.py`)
 
