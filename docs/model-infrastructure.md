@@ -343,6 +343,228 @@ under-provisioned cases (a needed `reasoning` task missing), task count, the pla
 routing cost relative to the cheapest plan the labels allow, tokens, latency and
 GPU dollars. Reports go to `<orchestrator home>/foreman-eval/`.
 
+## Gated provisioning interface (slice 2)
+
+Contract pinned by DEC-0042 (IMP-0015 slice 2). Slice 2 implements and tests
+it against a **fake provider only**: no real adapter is called, there is no
+network, and nothing is spent. The design borrows SkyPilot (PA-skypilot): its
+cluster status set, its cluster name used as the idempotency key, and its
+provider-side autostop. The difference here is that autostop comes from the
+budget, not from idle time.
+
+### Modules and functions
+
+`src/agent_os/orchestrator/provision.py`. Every function returns the job
+record (a JSON-able dict) as persisted:
+
+```python
+provision(request, *, provider=None, home=None, budget_home=None, clock=None)
+status(job_id, *, provider=None, home=None, budget_home=None, clock=None)
+stop(job_id, *, provider=None, home=None, budget_home=None, clock=None)
+destroy(job_id, *, provider=None, home=None, budget_home=None, clock=None)
+reconcile(job_id, actual_usd=None, *, provider=None, home=None, budget_home=None, clock=None)
+```
+
+Parameters:
+- `home` overrides `orchestrator_home()`.
+- `budget_home` is passed to `budget.py`, so tests use temporary directories
+  for both.
+- `clock` is a callable that returns epoch seconds (default `time.time`).
+  History timestamps are ISO-8601 UTC strings derived from it.
+- An unknown `job_id` raises `KeyError`.
+
+`src/agent_os/orchestrator/compute_fake.py` holds the provider protocol and
+`FakeProvider`:
+
+| Method | Returns |
+| --- | --- |
+| `launch(spec)` | `{"instance_id"}` |
+| `poll(instance_id)` | `{"state", "runtime_seconds", "cost_usd"}`, where `state` is `running`, `stopped` or `terminated` |
+| `stop(instance_id)` | — |
+| `terminate(instance_id)` | — |
+
+`spec` carries `name` (= `job_id`), `gpu`, `hourly_usd`,
+`max_runtime_seconds` and `secret_ref`. `launch` is idempotent by
+`spec["name"]`: a second launch with the same name returns the same
+`instance_id`, as SkyPilot's `sky launch -c <name>` does. That makes resuming
+a crashed `launching` step safe.
+
+`FakeProvider(clock=None, state_path=None)` works as follows:
+- It is in-memory and never touches the network.
+- Cost is `runtime_seconds / 3600 * hourly_usd`.
+- It enforces `max_runtime_seconds` itself, so it models provider-side
+  autostop. A poll after the deadline reports `stopped`, with runtime capped
+  at the deadline.
+- `state_path` is optional, used only by the CLI/MCP so that a fake job
+  survives across processes (`<home>/compute-jobs/fake-provider.json`).
+  Tests stay purely in memory.
+
+### Provider resolution
+
+With `provider=None`, a request whose `provider` is `fake` uses
+`FakeProvider`. **Any other provider name ends in `blocked`**: slice 2 wires
+no real adapter, and a real launch needs a write-enabled key plus operator
+confirmation (slice 3). Nothing is reserved or launched.
+
+### Request validation
+
+Validation errors raise `ValueError` and persist nothing:
+- `provider` and `gpu` are required strings.
+- `hourly_usd` must be greater than 0.
+- `estimate` must be `{low, expected, high}`, numeric, with
+  `0 <= low <= expected <= high`.
+- `max_runtime_seconds` is optional and must be greater than 0.
+- `budget` is optional: a workload budget block, which can only tighten.
+- `job_id` is optional and must match `^[a-z0-9][a-z0-9-]{2,63}$`. When it is
+  absent it is `cj-` + the first 12 hex digits of the sha256 of the canonical
+  (sorted-key) request JSON, so the same request names the same job.
+- `secret_ref` is optional and must be a `secrets://<provider>/<name>`
+  reference. Any other credential-looking key (`api_key`, `token`,
+  `password`, `secret`, ...) or a raw value is rejected before anything
+  reaches disk. The reference is stored, never resolved, in slice 2.
+
+### Job record
+
+The record lives at `<orchestrator_home()>/compute-jobs/<job_id>.json` and is
+always written with `storage.write_json` (atomic). Fields:
+- `job_id`, `provider`, `gpu`, `hourly_usd`;
+- `estimate {low, expected, high}`, `reservation_usd`;
+- `max_runtime_seconds`, `auto_stop_at` (ISO, set at launch);
+- `instance_id`, `state`;
+- `runtime_seconds` and `cost_usd` (last poll), `reason` (for
+  `blocked`/`failed`), `reconcile` (after reconcile);
+- `history[]` of `{at, from, to, reason}`;
+- `secret_ref`.
+
+### Lifecycle
+
+```
+requested -> reserved -> launching -> running -> stopping -> stopped -> destroyed -> reconciled
+requested -> blocked                                  (precondition failed; terminal)
+requested|reserved|launching|running|stopping|stopped -> failed
+failed -> destroyed | reconciled
+```
+
+Every transition goes through one `transition(record, to, reason)` helper,
+which checks this table and appends to `history`. A transition that is not
+listed raises `ValueError`. `blocked` and `reconciled` are terminal.
+
+### Preconditions (budget gate)
+
+`gate = budget.effective(request.get("budget"), budget_home)`. Provisioning
+continues only if all of these hold:
+- `gate["approved"]` is true;
+- `job_hard_cap_usd` and `project_usd` are both set;
+- `estimate.high <= job_hard_cap_usd`;
+- `estimate.high <= project_usd`.
+
+Otherwise the job goes to `blocked` with the failing check as `reason`.
+Nothing is reserved or launched.
+
+### Write-ahead reservation
+
+The pattern follows IMP-0013 / DEC-0020:
+1. Persist `requested`.
+2. Append the ledger entry
+   `budget.record_spend(estimate.high, job_id=…, kind="reserved")`.
+3. Persist `reserved` with `reservation_usd = estimate.high`.
+4. Persist `launching` **before** calling `provider.launch`.
+5. Persist `instance_id`, `auto_stop_at` and `running` after the launch
+   returns.
+
+If `launch` raises, the job goes to `failed` with the error as `reason`.
+
+Ledger appends are idempotent per `(job_id, kind)`: the ledger is scanned
+before appending. When the ledger already holds this job's reservation, the
+gate has already passed, so a resume goes straight to `reserved` instead of
+counting its own reservation against itself.
+
+### Mandatory auto-stop
+
+```
+max_runtime_seconds = floor(min(request.max_runtime_seconds or inf, reservation_usd / hourly_usd * 3600))
+```
+
+Because `reservation_usd = estimate.high <= min(job cap, remaining project)`,
+billed runtime can never exceed what the budget cap allows. If the value is
+`<= 0`, the job is `blocked`.
+
+The deadline is enforced in two places:
+- The provider receives the limit in `spec`. Its own stop is what survives
+  Agent OS dying; this is the gap the foreman watchdog has.
+- `status()` checks `clock() >= auto_stop_at` and stops the job itself.
+
+Either way the history records `running -> stopping -> stopped` with reason
+`auto_stop`.
+
+### Operations
+
+- **`provision`** is idempotent and resumable:
+  - an existing job in `requested`, `reserved` or `launching` continues from
+    that state;
+  - any other state is returned unchanged.
+- **`status`** polls the provider when an `instance_id` exists, updates
+  `runtime_seconds`/`cost_usd`, applies auto-stop and follows provider-side
+  `stopped`/`terminated`. It is otherwise read-only.
+- **`stop`** goes `running -> stopping -> stopped` via `provider.stop`. It is
+  a no-op once the job is stopped or later.
+- **`destroy`** stops first when the job is running, then
+  `provider.terminate`, then `destroyed`. It is a no-op once the job is
+  destroyed or reconciled.
+- **`reconcile`** runs from `destroyed` or `failed`; a `failed` job with a
+  known instance is terminated and destroyed first. Steps:
+  1. `actual_usd` defaults to the last polled `cost_usd` (0 if none was
+     launched).
+  2. Append `kind="actual"` for `actual_usd` and `kind="release"` for
+     `reservation_usd` (both idempotent per `(job_id, kind)`).
+  3. Store `reconcile {actual_usd, estimate_expected, variance_usd,
+     within_band, over_reservation}` and move to `reconciled`.
+
+  Net ledger effect: only actual spend remains. Reconciling a job that is
+  already reconciled returns it unchanged.
+
+### CLI and MCP
+
+The CLI extends the existing `orchestrate compute` subcommand:
+
+```powershell
+agent-os orchestrate compute provision --request job.json   # JSON request as above
+agent-os orchestrate compute status    <job_id>
+agent-os orchestrate compute stop      <job_id>
+agent-os orchestrate compute destroy   <job_id>
+agent-os orchestrate compute reconcile <job_id> [--actual-usd 0.42]
+```
+
+MCP tools follow the `namespace.action` pattern in `mcp_server.py`:
+
+| Tool | Arguments | Annotations |
+| --- | --- | --- |
+| `compute.provision` | `request` | `destructiveHint: false` |
+| `compute.status` | `job_id` | `readOnlyHint: true` |
+| `compute.stop` | `job_id` | `destructiveHint: true` |
+| `compute.destroy` | `job_id` | `destructiveHint: true` |
+| `compute.reconcile` | `job_id`, optional `actual_usd` | — |
+
+All of them carry `openWorldHint: false`. Both surfaces use
+`FakeProvider(state_path=…)`. Gate and validation outcomes come back as data
+(`blocked` plus `reason`) or as an error message, never as a traceback.
+
+### Tests
+
+`tests/test_provision.py`, all with temporary homes and an injected clock:
+- an unapproved budget, high above the cap, and high above the project
+  budget each give `blocked`, with no ledger entry and no launch;
+- the happy path: the ledger shows reserved, then actual + release, and
+  `budget.spent()` equals the actual cost;
+- advancing the clock past `auto_stop_at` gives `stopped` with reason
+  `auto_stop`;
+- `provision` twice gives one reservation and one launch;
+- resume after a simulated crash at `reserved` and at `launching`;
+- an illegal transition raises `ValueError`;
+- a raw secret raises `ValueError` and leaves no file;
+- a non-fake provider gives `blocked`;
+- `reconcile` is idempotent.
+
 ## What stays gated
 
 The model you pick never becomes the authorization boundary. Consequential

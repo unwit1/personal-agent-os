@@ -1,0 +1,26 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0042",
+  "type": "DEC",
+  "title": "Gated compute provisioning interface (IMP-0015 slice 2): budget-gated, write-ahead reserved, budget-derived auto-stop, fake provider only",
+  "status": "accepted",
+  "summary": "provision.py exposes provision/status/stop/destroy/reconcile, each returning the persisted job record (JSON-able dict). Records live at <orchestrator_home()>/compute-jobs/<job_id>.json and are written atomically with storage.write_json. A job moves through a persisted lifecycle state machine: requested -> reserved -> launching -> running -> stopping -> stopped -> destroyed -> reconciled. blocked is a terminal state reachable only from requested. failed is reachable from requested through stopped, and failed -> destroyed|reconciled. Any unlisted transition raises ValueError. Precondition: budget.effective(request.budget, budget_home) is approved, both caps are set, and estimate.high <= job_hard_cap_usd and <= project_usd. Otherwise the job is blocked with a reason, and nothing is reserved or launched. Write-ahead, as in IMP-0013/DEC-0020: the job persists requested, appends a ledger reservation of estimate.high, persists reserved, then persists launching before provider.launch. Ledger appends are idempotent per (job_id, kind), and a found reservation means the gate already passed. Mandatory auto-stop: max_runtime_seconds = floor(min(requested runtime, reservation_usd / hourly_usd * 3600)), so billed runtime never exceeds the budget cap. The provider enforces it (survives Agent OS dying) and status() enforces it as well. Reconcile appends actual (defaulting to the polled provider cost) and a release of the reservation, then records variance against the expected estimate. Idempotency key: an explicit job_id, else cj-<sha256(canonical request)[:12]>. provider.launch is idempotent by spec name = job_id, so resuming a crashed launching step is safe. Secrets are accepted only as a secrets:// reference, stored and never resolved in this slice. Raw credential keys or values raise ValueError before anything is persisted. compute_fake.py defines the provider protocol (launch/poll/stop/terminate) and an in-memory FakeProvider with an injectable clock and no network. Any non-fake provider name is blocked: a real launch still needs a write-enabled key and operator confirmation (slice 3). Exposure: `orchestrate compute provision|status|stop|destroy|reconcile` and MCP tools compute.provision/status/stop/destroy/reconcile. The full contract is pinned in docs/model-infrastructure.md, section 'Gated provisioning interface (slice 2)'.",
+  "prior_art": {
+    "checked": "agent-os orchestrate prior-art lookup \"cloud GPU brokers (SkyPilot); cluster lifecycle autostop\" -> PA-skypilot (BORROW), PA-dstack (DEFER), PA-runpod-python (BORROW), PA-temporal (REJECT)",
+    "found": "SkyPilot: a cluster status set (INIT/UP/STOPPED, then terminated by down), the cluster name as the launch idempotency key (sky launch -c <name> reuses an existing cluster), and autostop/--down enforced on the cluster side. dstack: an equivalent lifecycle, but with its own server. runpod-python: pod create/get/delete payloads, already mirrored by the stdlib client in foreman_deploy.py. Temporal: durable execution with a server cluster.",
+    "reused": "SkyPilot status set mapped onto launching/running/stopped/destroyed; SkyPilot name-as-idempotency-key for provider.launch; SkyPilot provider-side autostop idea, made budget-derived instead of idle-derived; IMP-0013/DEC-0020 write-ahead intent pattern; budget.effective and the budget.record_spend reserved/actual/release ledger (DEC-0041); storage.write_json for atomic records",
+    "why_custom": "SkyPilot is too heavy to embed in the stdlib runtime (DEC-0009), has no spend reservation or operator budget gate, and its autostop is idle-based. The registry already records that an in-house RunPod lifecycle supersedes the spike-first step, so the interface is provider-neutral and in-house, and SkyPilot remains a WRAP candidate behind the same protocol if a second GPU cloud is needed. Temporal is rejected (server cluster); file-based write-ahead is enough at this scale."
+  },
+  "links": [
+    {"rel": "decides", "ref": "docs/model-infrastructure.md#gated-provisioning-interface-slice-2"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "DEC-0041"},
+    {"rel": "relates_to", "ref": "DEC-0020"},
+    {"rel": "relates_to", "ref": "DEC-0009"},
+    {"rel": "derived_from", "ref": "research:PA-skypilot"}
+  ],
+  "metrics": {"paid_compute_usd": 0, "real_provider_calls": 0, "network_calls_in_tests": 0, "model_calls": 0},
+  "provenance": {"session": "run-20261002T001408Z-c3bb9e / provision-design-dec", "author_tier": "frontier (Opus 5.5) design decision"},
+  "created_at": "2026-10-02T00:30:00+00:00",
+  "updated_at": "2026-10-02T00:30:00+00:00"
+}
