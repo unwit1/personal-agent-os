@@ -4,6 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import builtins
+import io
 import json
 import tempfile
 import unittest
@@ -124,6 +125,52 @@ class ContextEconomyPrivacyTests(unittest.TestCase):
         # Verify no node ID appears in the output
         self.assertNotIn("node-", result_text)
 
+    def test_sentinel_in_all_event_fields_and_worker_files_not_leaked(self):
+        """Plant sentinel in all four event fields plus worker files, verify complete privacy."""
+        node_id_with_sentinel = f"worker-{SENTINEL}"
+
+        run = Run(self.runs, RUN_ID)
+        # Plant sentinel in summary
+        run.event("run_started", summary=f"Summary with {SENTINEL}")
+        # Plant sentinel in goal
+        run.event("run_info", goal=f"Goal with {SENTINEL}")
+        # Plant sentinel in failure text
+        run.event("model_failed", node_id_with_sentinel, failure_text=f"Failure: {SENTINEL}")
+        # Add a regular call with sentinel in node id
+        run.call(node_id_with_sentinel, "implementer", 1000, 500)
+        run.write()
+
+        # Create worker files with sentinel in all relevant files
+        worker_dir = run.dir / "workers" / f"{node_id_with_sentinel}-1"
+        worker_dir.mkdir(parents=True)
+        (worker_dir / "prompt.md").write_text(f"Prompt: {SENTINEL}")
+        (worker_dir / "stdout.log").write_text(f"Stdout: {SENTINEL}")
+        (worker_dir / "last-message.md").write_text(f"Message: {SENTINEL}")
+
+        # Write to output file
+        out_file = self.home / "comprehensive.json"
+        result = context_economy.report(home=self.home, out=out_file)
+
+        # Verify sentinel not in result
+        result_text = json.dumps(result)
+        self.assertNotIn(SENTINEL, result_text, "Sentinel found in result dict")
+
+        # Verify node id not in result
+        self.assertNotIn(node_id_with_sentinel, result_text, "Node ID with sentinel found in result")
+        self.assertNotIn("worker-", result_text, "Node ID pattern found in result")
+
+        # Verify sentinel not in written file
+        self.assertTrue(out_file.exists(), "Output file was not created")
+        written_text = out_file.read_text(encoding="utf-8")
+        self.assertNotIn(SENTINEL, written_text, "Sentinel found in written file")
+        self.assertNotIn(node_id_with_sentinel, written_text, "Node ID with sentinel found in written file")
+        self.assertNotIn("worker-", written_text, "Node ID pattern found in written file")
+
+        # Verify the file is valid JSON and has proper schema
+        written_data = json.loads(written_text)
+        self.assertEqual(written_data["schema"], context_economy.SCHEMA, "Output file has incorrect schema")
+        self.assertTrue(written_data["privacy"]["passed"], "Privacy check failed in written file")
+
     def test_sentinel_in_worker_files_not_leaked(self):
         """Plant sentinel in worker directory files and verify it's not opened."""
         node_id = f"worker-{SENTINEL}"
@@ -161,21 +208,53 @@ class ContextEconomyPrivacyTests(unittest.TestCase):
         (worker_dir / "prompt.md").write_text(f"This contains {SENTINEL}")
         (worker_dir / "stdout.log").write_bytes(b"output data")
 
+        workers_prefix = str((run.dir / "workers").resolve())
+
         real_open = builtins.open
         real_read_text = Path.read_text
+        real_path_open = Path.open
+        real_read_bytes = Path.read_bytes
+        real_io_open = io.open
+
+        def check_workers_access(target_str):
+            """Check if target is under workers prefix; raise if so."""
+            if target_str.startswith(workers_prefix):
+                raise AssertionError(f"worker file access attempted: {target_str}")
 
         def guard_open(target, *args, **kwargs):
-            if "workers" in str(target):
-                raise AssertionError(f"worker file was opened: {target}")
+            try:
+                target_str = str(Path(target).resolve())
+                check_workers_access(target_str)
+            except (TypeError, ValueError):
+                pass
             return real_open(target, *args, **kwargs)
 
         def guard_read_text(self, *args, **kwargs):
-            if "workers" in str(self):
-                raise AssertionError(f"worker file read_text was called: {self}")
+            check_workers_access(str(self.resolve()))
             return real_read_text(self, *args, **kwargs)
 
-        with mock.patch("builtins.open", guard_open), mock.patch.object(Path, "read_text", guard_read_text):
-            result = context_economy.build([run.dir])
+        def guard_path_open(self, *args, **kwargs):
+            check_workers_access(str(self.resolve()))
+            return real_path_open(self, *args, **kwargs)
+
+        def guard_read_bytes(self, *args, **kwargs):
+            check_workers_access(str(self.resolve()))
+            return real_read_bytes(self, *args, **kwargs)
+
+        def guard_io_open(target, *args, **kwargs):
+            try:
+                target_str = str(Path(target).resolve())
+                check_workers_access(target_str)
+            except (TypeError, ValueError):
+                pass
+            return real_io_open(target, *args, **kwargs)
+
+        with mock.patch("builtins.open", guard_open), \
+             mock.patch.object(Path, "read_text", guard_read_text), \
+             mock.patch.object(Path, "open", guard_path_open), \
+             mock.patch.object(Path, "read_bytes", guard_read_bytes), \
+             mock.patch("io.open", guard_io_open):
+            result = context_economy.report(home=self.home)
 
         # Verify files were stat'd (size recorded) but not opened
         self.assertIn("worker_files", result)
