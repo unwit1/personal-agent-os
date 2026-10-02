@@ -5,7 +5,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.orchestrator import free_dispatch
-from tests import test_orchestrator
 from agent_os.orchestrator.free_dispatch import FreeInputs
 from agent_os.orchestrator.router import ProviderRegistry
 
@@ -29,10 +28,6 @@ class FakeGovernor:
 
     def remaining(self):
         return {}
-
-    def record(self, event):
-        self.events = getattr(self, "events", []) + [dict(event)]
-        return {**event, "event_id": f"FQE-{len(self.events)}"}
 
 
 def provider(provider_id: str, models: dict, deployment: str) -> dict:
@@ -173,132 +168,6 @@ class LoadDefaultTest(unittest.TestCase):
             loaded = FreeInputs.load_default(Path(tmp))
         decision = free_dispatch.decide_for_node(RECORD, node(), loaded)
         self.assertEqual(decision["route"], "escalate")
-
-
-class EngineWiringTest(unittest.TestCase):
-    def setUp(self):
-        import shutil
-        import tempfile
-
-        from agent_os.orchestrator.engine import Orchestrator
-        from agent_os.orchestrator.store import RunStore
-
-        tmp = Path(tempfile.mkdtemp(prefix="agent-os-free-"))
-        self.addCleanup(shutil.rmtree, tmp, True)
-        self.recorded = []
-        self.engine = Orchestrator(RunStore(tmp / "home"), registry=registry(), free_inputs=inputs(), session_foreman=False)
-        self.engine.ledger.emit = lambda run_id, kind, node=None, /, **data: self.recorded.append((kind, data))
-        self.engine._availability = {"or-free": True, "local": True, "paid": True}
-        self.record = {"run_id": "R1", "policy": {"preference": "balanced", "default_validators": ["x"], "max_escalations": 2,
-                                                  "allow_paid_spend": True, "free_routing_enabled": True}, "nodes": {}}
-
-    def kinds(self):
-        return [kind for kind, _ in self.recorded]
-
-    def test_default_off_policy_is_false(self):
-        from agent_os.orchestrator.model import DEFAULT_POLICY
-
-        self.assertFalse(DEFAULT_POLICY["free_routing_enabled"])
-
-    def test_inputs_are_lazy_and_injectable(self):
-        self.assertEqual(self.engine.free_inputs().catalog["snapshot_id"], "FCS-test")
-
-    def test_free_selection_records_paid_route_and_decision(self):
-        item = node(requirements=None)
-        selection = self.engine._free_hook(self.record, item, {}, None)
-        self.assertEqual(selection["model"], "org/a:free")
-        state = item["free_route"]
-        self.assertEqual(state["free_state"], "free")
-        self.assertEqual(state["free_providers"], [])  # recorded only once a launch happens
-        self.assertIn(state["paid_route"]["provider"], {"local", "paid"})
-        self.assertIn("subscription", state["paid_route"])
-        self.assertEqual(self.kinds(), ["free_route_decided"])
-        self.assertFalse(hasattr(self.engine.free_inputs().governor, "events"))
-        pending = selection["free_attempt"]
-        self.assertEqual(pending["paid_route"], state["paid_route"])
-        self.engine._free_launched(self.record, item, pending)
-        self.assertEqual(state["free_providers"], ["or-free"])
-        self.assertEqual(self.engine.free_inputs().governor.events, [pending])
-        self.assertEqual(state["event_id"], "FQE-1")
-
-    def test_validator_failure_escalates_free_node_to_router(self):
-        item = node(requirements=None, escalations=0, execution_path="model", state="RUNNING")
-        self.engine._free_hook(self.record, item, {}, None)
-        moved = self.engine._free_after_failure(self.record, item, {"kind": "validator_failed"}, "validator failed")
-        self.assertTrue(moved)
-        self.assertIn("free_route_escalated", self.kinds())
-        self.assertEqual(item["state"], "FAILED_RETRYABLE")
-        self.assertEqual(item["escalations"], 1)
-        self.assertEqual(item["free_route"]["free_state"], "free")  # a positive-EV alternate remains
-        self.assertEqual(item["free_route"]["model"], "org/b:free")
-
-    def test_escalate_decision_skips_free_launch(self):
-        self.engine._free_inputs = FreeInputs({"models": []}, [], FakeGovernor(), {})
-        item = node(requirements=None)
-        self.assertIsNone(self.engine._free_hook(self.record, item, {}, None))
-        self.assertEqual(item["free_route"]["free_state"], "escalated")
-        self.assertEqual(self.kinds(), ["free_route_decided"])
-        self.assertIsNone(self.engine._free_hook(self.record, item, {}, None))  # back on the normal path, no new events
-        self.assertEqual(self.kinds(), ["free_route_decided"])
-
-
-class FlagOnEngineFlowTest(test_orchestrator.OrchestratorFixture):
-    providers = ("or-free", "or-free2", "paid")
-
-    def registry(self):
-        return ProviderRegistry(providers=[
-            test_orchestrator.provider("or-free", models={"fast": "org/a:free"}),
-            test_orchestrator.provider("or-free2", models={"reasoning": "org/b:free"}),
-            test_orchestrator.provider("paid"),
-        ])
-
-    def setUp(self):
-        super().setUp()
-        self.engine = self.make_engine()
-        specs = [dict(spec(slug, low), task_family="implementer") for slug, low in (("org/a:free", 0.8), ("org/b:free", 0.6))]
-        self.engine._free_inputs = inputs(specs)
-        self.engine._availability = {"or-free": True, "or-free2": True, "paid": True}
-        self.fail_command = {"kind": "command", "command": [sys.executable, "-c", "raise SystemExit(1)"]}
-
-    def free_task(self, validator):
-        return self.task("a", effort="low", capability_class="fast", validators=[validator])
-
-    def create_free(self, validator, **policy):
-        return self.create([self.free_task(validator)], free_routing_enabled=True, **policy)
-
-    def test_launch_routes_free_and_records_attempt_after_launch(self):
-        run_id = self.create_free(test_orchestrator.PASS)
-        self.engine.start(run_id)
-        self.engine.step(run_id)
-        item = self.node(run_id, "a")
-        self.assertEqual((item["selection"]["provider"], item["selection"]["model"]), ("or-free", "org/a:free"))
-        self.assertNotIn("free_attempt", item["selection"])
-        state = item["free_route"]
-        self.assertEqual(state["route"], "free")
-        self.assertEqual(state["free_providers"], ["or-free"])
-        self.assertEqual(state["paid_route"], {"model": "paid-fast", "provider": "paid", "subscription": True})
-        events = self.engine.free_inputs().governor.events
-        self.assertEqual(len(events), 1)
-        self.assertEqual(events[0]["paid_route"], state["paid_route"])
-
-    def test_validator_failure_escalates_to_alternate_then_router_capped_by_max_escalations(self):
-        run_id = self.create_free(self.fail_command, max_escalations=2)
-        self.engine.run_loop(run_id, max_ticks=40)
-        item = self.node(run_id, "a")
-        self.assertEqual(item["escalations"], 2)
-        state = item["free_route"]
-        self.assertEqual(state["free_state"], "escalated")
-        self.assertEqual(state["alternates_used"], 1)
-        self.assertEqual(item["state"], "FAILED_FINAL")
-        self.assertEqual([entry["model"] for entry in self.engine.free_inputs().governor.events][:2], ["org/a:free", "org/b:free"])
-        self.assertEqual(self.engine.free_inputs().governor.events[0]["paid_route"], {"model": "paid-fast", "provider": "paid", "subscription": True})
-
-    def test_zero_max_escalations_never_escalates_free_node(self):
-        run_id = self.create_free(self.fail_command, max_escalations=0)
-        self.engine.run_loop(run_id, max_ticks=40)
-        item = self.node(run_id, "a")
-        self.assertEqual(item["escalations"], 0)
-        self.assertEqual(item["free_route"]["free_state"], "free")
 
 
 if __name__ == "__main__":

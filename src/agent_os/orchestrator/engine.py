@@ -60,6 +60,7 @@ from .worktrees import GitError, WorktreeManager, current_branch, head_commit, i
 
 MAX_FAILURES_KEPT = 10
 MAX_EVENTS_IN_SUMMARY = 30
+FREE_WAIT_SECONDS = 600  # bounded wait for a busy free provider before escalating (policy: free_wait_seconds)
 _LABEL_CLEAN = re.compile(r"[^a-z0-9_.-]+")
 
 
@@ -155,9 +156,25 @@ class Orchestrator:
                 decision, self.registry(), role=node["role"], availability=self.availability(),
                 excluded=node["excluded_providers"], excluded_classes=node.get("excluded_classes", {}),
                 running=running, requirements=requirements)
+            if selection is None and str(why or "").endswith("at its concurrency limit"):
+                # A busy free provider is a wait, not an escalation, until the bounded free wait runs out.
+                limit = float(record["policy"].get("free_wait_seconds", FREE_WAIT_SECONDS))
+                started = decision.setdefault("wait_started", now())
+                try:
+                    waited = (datetime.now(timezone.utc) - datetime.fromisoformat(str(started))).total_seconds()
+                except (TypeError, ValueError):
+                    waited = 0.0
+                if waited <= limit:
+                    decision["free_state"] = "free"
+                    node["free_route"] = self._free_persistable(decision)
+                    if fresh:
+                        self._free_emit_decision(record, node, decision)
+                    return {"resolved": False, "waiting": True, "reason": f"waiting for a free slot: {why}"}
+                why = f"free wait exceeded {int(limit)}s: {why}"
             if selection is None:
                 decision["route"] = "escalate"
                 decision["reason"] = why
+        decision.pop("wait_started", None)
         node["free_route"] = self._free_persistable(decision)
         if selection is None:
             was_free = decision.get("model")
@@ -186,24 +203,52 @@ class Orchestrator:
             provider = self.registry().get(paid["provider"]) or {}
             paid_route = {"model": paid.get("model"), "provider": paid["provider"], "subscription": not is_paid(provider)}
         decision["paid_route"] = paid_route
-        # Recorded by _launch once the worker actually starts.
+        # Kept on the node by _launch once the worker actually starts; recorded when its result is collected.
         selection["free_attempt"] = {
-            "model": selection.get("model"), "provider": selection["provider"], "run_id": run_id, "node": node["id"],
-            "task_family": decision.get("task_family"), "outcome": "success", "paid_route": paid_route}
+            "model": selection.get("model"), "provider": selection["provider"], "run_id": run_id, "node_id": node["id"],
+            "task_family": decision.get("task_family"), "paid_route": paid_route}
         if fresh:
             self._free_emit_decision(record, node, decision)
         return selection
 
     def _free_launched(self, record: dict[str, Any], node: dict[str, Any], pending: dict[str, Any]) -> None:
-        """Record one free attempt and its provider after a free launch happened."""
+        """Note the free provider and the pending attempt after a free launch happened."""
         decision = node["free_route"]
         if pending["provider"] not in decision["free_providers"]:
             decision["free_providers"].append(pending["provider"])
+        decision["pending_attempt"] = pending
+
+    def _free_collected(self, record: dict[str, Any], node: dict[str, Any], result: AgentResult, structured: Any, usage: dict[str, Any]) -> None:
+        """Write the free attempt event for a collected result of a free-launched worker."""
+        decision = node.get("free_route") or {}
+        pending = decision.pop("pending_attempt", None)
+        if not pending:
+            return
+        kind = result.failure_kind
+        if result.outcome == "completed":
+            outcome = "success" if isinstance(structured, dict) else "invalid_output"
+        else:
+            outcome = {"timeout": "timeout", "quota": "quota_exhausted", "malformed": "invalid_output"}.get(kind or "", "provider_error")
+        tokens = None
+        if isinstance(usage.get("input_tokens"), int) and isinstance(usage.get("output_tokens"), int):
+            tokens = {"input": usage["input_tokens"], "output": usage["output_tokens"], "accuracy": usage.get("accuracy")}
+        event = dict(pending, outcome=outcome, tokens=tokens, lane="priority", latency_ms=result.duration_ms,
+                     validator_passed=None, accepted=None, escalated=False)
+        event.pop("provider", None)
         try:
-            attempt = self.free_inputs().governor.record(pending)
+            attempt = self.free_inputs().governor.record(event)
             if isinstance(attempt, dict) and attempt.get("event_id"):
                 decision["event_id"] = attempt["event_id"]
-        except Exception as exc:  # the free ledger never blocks a launch
+        except Exception as exc:  # the free ledger never blocks collection
+            self.ledger.emit(record["run_id"], "note", node["id"], text=f"free ledger unavailable: {type(exc).__name__}")
+
+    def _free_verdict(self, record: dict[str, Any], node: dict[str, Any], **fields: Any) -> None:
+        event_id = (node.get("free_route") or {}).get("event_id")
+        if not event_id:
+            return
+        try:
+            self.free_inputs().governor.record({"type": "verdict", "event_id": event_id, **fields})
+        except Exception as exc:
             self.ledger.emit(record["run_id"], "note", node["id"], text=f"free ledger unavailable: {type(exc).__name__}")
 
     def _free_emit_decision(self, record: dict[str, Any], node: dict[str, Any], decision: dict[str, Any]) -> None:
@@ -229,6 +274,7 @@ class Orchestrator:
         else:
             to = "exhausted"
         self.ledger.emit(record["run_id"], "free_route_escalated", node["id"], from_model=old, to=to, failure=failure.get("kind"), reason=result["decision"].get("reason"))
+        self._free_verdict(record, node, validator_passed=False if failure.get("kind") == "validator_failed" else None, accepted=False, escalated=True)
         if action == "free":
             node["free_route"] = self._free_persistable(dict(result["decision"], free_state="free"))
             node["state"] = "FAILED_RETRYABLE"
@@ -907,6 +953,8 @@ class Orchestrator:
                 tokens_avoided_estimate=self._measured_average(record, "implementer"),
                 estimate_basis="average exact input+output tokens of implementer calls in this run" if self._measured_average(record, "implementer") else None,
             )
+        if record["policy"].get("free_routing_enabled") and model_call and (node.get("free_route") or {}).get("pending_attempt"):
+            self._free_collected(record, node, result, structured, call_usage)
         if result.outcome != "completed":
             self._record_telemetry(record, node, result, validator_passed=None)
             self._fail(
@@ -1524,6 +1572,15 @@ class Orchestrator:
                     node["excluded_providers"].append(provider)
                     self.store.append_event(record["run_id"], "provider.failover", node["id"], f"{provider} excluded for this node after {kind}")
                     self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind)
+        if (
+            policy.get("free_routing_enabled")
+            and kind != "interrupted"
+            and (node.get("selection") or {}).get("free_route")
+            and (node.get("free_route") or {}).get("free_state") == "free"
+            and node["escalations"] < policy["max_escalations"]
+            and self._free_after_failure(record, node, {"kind": kind, "detail": redact(detail, 200)}, kind)
+        ):
+            return
         node["retries"] += 1
         if node["retries"] > policy["max_stage_retries"]:
             selection = node.get("selection") or {}
