@@ -10,10 +10,6 @@ from typing import Any, Callable
 REPO_ROOT = Path(__file__).resolve().parents[4]
 SERVER_NAME = "agent-os"
 ALLOWED_TOOLS = "mcp__agent-os__*"
-BUILTIN_TOOLS = (
-    "Bash", "Edit", "Write", "MultiEdit", "NotebookEdit", "WebFetch", "WebSearch",
-    "Read", "Glob", "Grep", "Task", "TodoWrite",
-)
 DEFAULT_TIMEOUT_SECONDS = 600
 
 
@@ -52,8 +48,8 @@ def build_invocation(
         "--output-format", "json",
         "--mcp-config", str(mcp_config_path),
         "--strict-mcp-config",
+        "--tools", "",
         "--allowedTools", ALLOWED_TOOLS,
-        "--disallowedTools", ",".join(BUILTIN_TOOLS),
     ]
     if session_id:
         argv += ["--resume", session_id]

@@ -51,8 +51,8 @@ class BridgeTests(unittest.TestCase):
         cfg = str(self.home / "mcp-config.json")
         expected = ["claude", "-p", "hello", "--output-format", "json",
                     "--mcp-config", cfg, "--strict-mcp-config",
-                    "--allowedTools", "mcp__agent-os__*",
-                    "--disallowedTools", ",".join(mb.BUILTIN_TOOLS)]
+                    "--tools", "",
+                    "--allowedTools", "mcp__agent-os__*"]
         self.assertEqual(runner.calls[0][0], expected)
         bridge.send("c1", "again")
         argv = runner.calls[1][0]
@@ -65,10 +65,17 @@ class BridgeTests(unittest.TestCase):
 
     def test_allowlist_only_agent_os(self):
         argv = mb.build_invocation("p", None, "cfg.json")
-        allowed = argv[argv.index("--allowedTools") + 1:argv.index("--allowedTools") + 2]
-        self.assertTrue(all(a.startswith("mcp__agent-os__") for a in allowed))
-        for tool in ("Bash", "Edit", "Write", "WebFetch"):
-            self.assertIn(tool, argv[argv.index("--disallowedTools") + 1].split(","))
+        self.assertEqual(argv.count("--allowedTools"), 1)
+        start = argv.index("--allowedTools") + 1
+        values = []
+        for a in argv[start:]:
+            if a.startswith("--"):
+                break
+            values.extend(v for v in a.replace(",", " ").split() if v)
+        self.assertTrue(values)
+        self.assertTrue(all(v.startswith("mcp__agent-os__") for v in values))
+        self.assertEqual(argv[argv.index("--tools") + 1], "")
+        self.assertNotIn("--disallowedTools", argv)
 
     def test_no_api_key_set(self):
         runner = FakeRunner(ok("s"))
