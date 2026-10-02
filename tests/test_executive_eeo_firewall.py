@@ -78,6 +78,18 @@ def _leaks(text):
     return found
 
 
+def _create_guard_patches(fail_fn):
+    """Create patches for guards that should not be triggered during brain operations."""
+    return [
+        patch("agent_os.executive.gateway.LocalDashboardGateway", side_effect=fail_fn),
+        patch.object(rtec_applicants, "_project_root", side_effect=fail_fn),
+        patch.object(rtec_applicants, "_connect_readonly", side_effect=fail_fn),
+        patch("socket.create_connection", side_effect=fail_fn),
+        patch("socket.socket.connect", side_effect=fail_fn),
+        patch("agent_os.executive.gateway.importlib.import_module", side_effect=fail_fn),
+    ]
+
+
 class EeoFirewallTests(unittest.TestCase):
     def test_restricted_fields_never_leave_the_gateway(self):
         audits = []
@@ -96,12 +108,7 @@ class EeoFirewallTests(unittest.TestCase):
         def fail(*_a, **_k):
             raise AssertionError("real Dashboard, Outlook or network access")
 
-        patches = [
-            patch("agent_os.executive.gateway.LocalDashboardGateway", side_effect=fail),
-            patch.object(rtec_applicants, "_project_root", side_effect=fail),
-            patch.object(rtec_applicants, "_connect_readonly", side_effect=fail),
-            patch("socket.create_connection", side_effect=fail),
-            patch("socket.socket.connect", side_effect=fail),
+        patches = _create_guard_patches(fail) + [
             patch.object(ex.rtec_applicants, "list_applicants",
                          side_effect=lambda status=None, limit=50, offset=0: {
                              "count": 0, "results": [dict(r) for r in roster if r["status"] == status][offset:offset + limit]}),
@@ -115,7 +122,6 @@ class EeoFirewallTests(unittest.TestCase):
             patch.object(ex.rtec_applicants, "_audit_access",
                          side_effect=lambda action, applicant_ref=None, metadata=None: audits.append(
                              (action, applicant_ref, dict(metadata or {})))),
-            patch("agent_os.executive.gateway.importlib.import_module", side_effect=fail),
         ]
         for p in patches:
             p.start()
@@ -166,6 +172,110 @@ class EeoFirewallTests(unittest.TestCase):
         ])
         self.assertEqual(_leaks(text), [])
         self.assertTrue([a for a in audits if a[0] == "executive.outreach_send"])
+
+    def test_brain_prompt_filters_restricted_fields(self):
+        """Verify brain.build_prompt and batch_status filter restricted fields even when poisoned."""
+        def fail(*_a, **_k):
+            raise AssertionError("real Dashboard, Outlook or network access")
+
+        patches = _create_guard_patches(fail)
+        for p in patches:
+            p.start()
+            self.addCleanup(p.stop)
+
+        # Hand-craft a poisoned batch with restricted fields embedded.
+        poisoned_batch = {
+            "batch_id": "poisoned-batch-1",
+            "state": "APPROVED",
+            "opening": "Tech",
+            "created_at": "2026-10-01T09:00:00",
+            "items": [
+                {
+                    "applicant_ref": "ref-a",
+                    "name": "Ann",
+                    "state": "APPROVED",
+                    "body": "Interview scheduled",
+                    # Inject restricted fields; should be filtered from output
+                    **RESTRICTED,
+                },
+                {
+                    "applicant_ref": "ref-b",
+                    "name": "Bo",
+                    "state": "APPROVED",
+                    "body": "Interview scheduled",
+                    **RESTRICTED,
+                },
+            ],
+            "excluded": [],
+            # Inject restricted fields at batch level
+            **RESTRICTED,
+        }
+
+        # Hand-craft a poisoned needs_action briefing.
+        poisoned_needs = {
+            "groups": [
+                {
+                    "reason": "human_review_pending",
+                    "count": 1,
+                    "next_step": "Review.",
+                    "items": [
+                        {
+                            "applicant_ref": "ref-c",
+                            "name": "Charlie",
+                            "age_days": 5,
+                            # Inject restricted fields
+                            **RESTRICTED,
+                        }
+                    ],
+                }
+            ]
+        }
+
+        # Hand-craft a poisoned suggestions briefing.
+        poisoned_suggestions = {
+            "label": "Advisory",
+            "opening": "Tech",
+            "unreviewed_matching_count": 1,
+            "suggestions": [
+                {
+                    "applicant_ref": "ref-d",
+                    "name": "Dana",
+                    "position": "Tech",
+                    "score": 85,
+                    "recommendation": "interview",
+                    # Inject restricted fields
+                    **RESTRICTED,
+                }
+            ],
+        }
+
+        # Create a briefing with poisoned data at all levels.
+        poisoned_briefing = {
+            "needs_action": poisoned_needs,
+            "suggestions": poisoned_suggestions,
+            "batches": [brain.batch_status(poisoned_batch)],
+        }
+
+        # Test build_prompt filters restricted fields.
+        prompt = brain.build_prompt(poisoned_briefing, question="Who should I interview?")
+        self.assertIn("ref-c", prompt)
+        self.assertIn("ref-d", prompt)
+        self.assertIn("Who should I interview?", prompt)
+
+        # Test batch_status output doesn't leak restricted fields.
+        status = brain.batch_status(poisoned_batch)
+        self.assertEqual(status["batch_id"], "poisoned-batch-1")
+        self.assertEqual(status["state"], "APPROVED")
+        self.assertEqual(status["item_count"], 2)
+
+        # Verify no leaks in actual outputs (not the poisoned input).
+        outputs = [
+            json.dumps(prompt, default=str),
+            json.dumps(status, default=str),
+        ]
+        text = "\n".join(outputs)
+        leaked = _leaks(text)
+        self.assertEqual(leaked, [], f"Restricted fields leaked: {leaked}")
 
 
 if __name__ == "__main__":
