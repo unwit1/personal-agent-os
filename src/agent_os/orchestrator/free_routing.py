@@ -17,7 +17,7 @@ from ..capabilities import CAPABILITY_CLASSES, rank as class_rank
 from . import free_catalog, free_specialization, router
 from .model import INTEGRATED_ROLES
 from .model_profile import is_paid
-from .workload import SENSITIVITY
+from .workload import SENSITIVITY, SENSITIVITY_DEPLOYMENTS
 
 SCHEMA_VERSION = "agent-os/free-route-decision/v1"
 DEFAULT_ALLOWED_SENSITIVITY = ("public", "internal")
@@ -177,6 +177,7 @@ def decide(task: Mapping[str, Any], *, catalog: Any, specializations: Iterable[M
     decision: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "task_family": family,
+        "sensitivity": sensitivity,
         "route": "escalate",
         "model": None,
         "revision": None,
@@ -205,6 +206,8 @@ def decide(task: Mapping[str, Any], *, catalog: Any, specializations: Iterable[M
     ok, failed = eligible(task, sensitivity=sensitivity, protected_globs=project_policy.get("protected_globs") or [],
                           allowed_sensitivity=project_policy.get("allowed_sensitivity"))
     decision["eligibility"] = {"low_risk_verifiable": ok, "failed_checks": failed}
+    if any(check.startswith("secret paths") for check in failed):
+        decision["sensitivity"] = "secret"  # escalation rungs must keep secret work local
     if not ok:
         return escalated("; ".join(failed))
     if project_policy.get("free_routing_enabled") is False:
@@ -230,11 +233,13 @@ def decide(task: Mapping[str, Any], *, catalog: Any, specializations: Iterable[M
         return escalated("no usable free model" + (f" ({'; '.join(reasons)})" if reasons else ": catalog empty"))
 
     pool = {"models": list(usable.values())}
-    ordered = free_specialization.rank(records, family, pool)
+    # rank/canary_pick read records too, so keep only models usable right now.
+    ordered = [slug for slug in free_specialization.rank(records, family, pool) if slug in usable]
     lane = task.get("lane") or "priority"
     seed = task.get("seed") or f"{task.get('run_id')}|{task.get('node_id')}"
     rate = economics["explore_share"] if lane in SWARM_LANES else 0.0
     canary = free_specialization.canary_pick(records, family, pool, rate, seed)
+    canary = canary if canary in usable else None
     candidates = ([canary] if canary else []) + [slug for slug in ordered if slug != canary]
     if not candidates:
         return escalated(f"no proven or canary free model for {family}")
@@ -334,9 +339,19 @@ def escalate(decision: Mapping[str, Any], failure: Any, *, registry: router.Prov
             continue
         kwargs = {"effort": decision.get("effort") or "medium", "role": decision.get("role") or "implementer",
                   **select_kwargs}
+        requirements = dict(kwargs.get("requirements") or {})
+        deployments = requirements.get("deployment")
+        if isinstance(deployments, str):
+            deployments = [deployments]
         if rung["rung"] == "local_or_already_paid":
-            requirements = dict(kwargs.get("requirements") or {})
-            requirements.setdefault("deployment", LOCAL_DEPLOYMENTS)
+            deployments = [d for d in deployments or LOCAL_DEPLOYMENTS if d in LOCAL_DEPLOYMENTS]
+        floor = SENSITIVITY_DEPLOYMENTS.get(str(decision.get("sensitivity") or "internal"))
+        if floor:  # private/secret work never leaves its deployment floor on any rung
+            deployments = [d for d in deployments or floor if d in floor]
+        if deployments is not None:
+            if not deployments:
+                continue
+            requirements["deployment"] = deployments
             kwargs["requirements"] = requirements
         kwargs["capability_class"] = rung["capability_class"]
         selection = router.select(registry, **kwargs)

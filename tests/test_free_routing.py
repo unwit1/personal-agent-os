@@ -156,6 +156,16 @@ class DecideTest(unittest.TestCase):
         self.assertEqual(decision["route"], "escalate")
         self.assertIsNone(decision["model"])
 
+    def test_refused_model_ranked_higher_is_never_chosen_or_alternate(self):
+        catalog = {"models": [model("org/paid", pricing={"prompt": "0.000001", "completion": "0.000001"}),
+                              model("org/trains:free", data_policy={"trains_on_prompts": True, "source": "p@v2"}),
+                              model("org/b:free")]}
+        specs = [record("org/paid", 0.95), record("org/trains:free", 0.9), record("org/gone:free", 0.85),
+                 record("org/b:free", 0.6)]
+        decision = self.decide(catalog=catalog, specs=specs)
+        self.assertEqual((decision["route"], decision["model"]), ("free", "org/b:free"))
+        self.assertEqual(decision["alternates"], [])
+
 
 class EscalateTest(unittest.TestCase):
     def registry(self):
@@ -208,6 +218,18 @@ class EscalateTest(unittest.TestCase):
         step = free_routing.escalate(decision, "validator_failed", registry=self.registry(),
                                      governor=FakeGovernor({"org/b:free": "per-minute limit reached"}))
         self.assertEqual(step["rung"], "local_or_already_paid")
+
+    def test_sensitive_work_never_resolves_to_api_provider(self):
+        for extra in ({"sensitivity": "secret"}, {"scope": ["secrets/openrouter.json"]}, {"sensitivity": "private"}):
+            with self.subTest(extra):
+                step = free_routing.decide(task(**extra), catalog=CATALOG, specializations=SPECS,
+                                           governor=FakeGovernor(), project_policy=POLICY)
+                providers = []
+                for _ in range(4):
+                    step = free_routing.escalate(step, "validator_failed", registry=self.registry())
+                    providers.append(step["provider"])
+                self.assertEqual(providers, ["local", None, None, None])
+                self.assertEqual(step["route"], "exhausted")
 
     def test_preserves_select_kwargs(self):
         decision = free_routing.decide(task(validators=[]), catalog=CATALOG, specializations=SPECS,
