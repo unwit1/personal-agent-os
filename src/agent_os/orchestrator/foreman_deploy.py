@@ -1215,9 +1215,15 @@ def _retune_provider(state: dict[str, Any], limit: int) -> None:
     from .service import add_model_endpoint
 
     ours = {state["provider_id"], state["provider_id"] + AGENT_SUFFIX}
+    written = 0
     for entry in load_providers().get("providers") or []:
         if isinstance(entry, dict) and entry.get("id") in ours:
-            add_model_endpoint({**entry, "max_concurrency": limit}, write=True, force=True)
+            result = add_model_endpoint({**entry, "max_concurrency": limit}, write=True, force=True)
+            if not isinstance(result, dict) or result.get("error") or result.get("written") is False:
+                raise RuntimeError(str((result or {}).get("error") if isinstance(result, dict) else result or "retune not written")[:200])
+            written += 1
+    if not written:
+        raise RuntimeError(f"no registered provider entry found for {state['provider_id']}")
 
 
 def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:

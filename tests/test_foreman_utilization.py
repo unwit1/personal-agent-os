@@ -164,6 +164,30 @@ class AdaptiveConcurrencySampleTests(Base):
         self.assertEqual(state["concurrency"]["limit"], 4)
         self.assertTrue(state["concurrency"]["history"][-1]["failed"])
 
+    def test_default_retune_with_no_matching_entry_is_a_failure(self) -> None:
+        from unittest import mock
+
+        self.manager_.retune = fd._retune_provider
+        with mock.patch("agent_os.capabilities.load_providers", return_value={"providers": []}):
+            self.sample(_metrics_text(4, 0, 0.3, 5, 10))
+            state = self.sample(_metrics_text(4, 0, 0.3, 8, 20))
+        self.assertEqual(state["concurrency"]["limit"], 4)
+        self.assertTrue(state["concurrency"]["history"][-1]["failed"])
+
+    def test_default_retune_rejects_error_or_unwritten_results(self) -> None:
+        from unittest import mock
+
+        providers = {"providers": [{"id": "foreman-x", "max_concurrency": 4}]}
+        for result in ({"error": "bad"}, {"written": False}):
+            with mock.patch("agent_os.capabilities.load_providers", return_value=providers), \
+                    mock.patch("agent_os.orchestrator.service.add_model_endpoint", return_value=result):
+                with self.assertRaises(RuntimeError):
+                    fd._retune_provider(self.state, 6)
+        with mock.patch("agent_os.capabilities.load_providers", return_value=providers), \
+                mock.patch("agent_os.orchestrator.service.add_model_endpoint", return_value={"written": True}) as add:
+            fd._retune_provider(self.state, 6)
+        self.assertEqual(add.call_args.args[0]["max_concurrency"], 6)
+
     def test_unregistered_and_local_skip_the_controller(self) -> None:
         for patch in ({"registered": False}, {"kind": "local"}):
             self.state = {**self.state, **patch, "concurrency": None}
