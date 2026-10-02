@@ -1,0 +1,12 @@
+C:\Users\HR.RTEC\GitHub\personal-agent-os\.agent-local\orchestrator\wt\12288eb6\eeo-firewall-pip-625b\src\agent_os\mail\cli.py:85: SyntaxWarning: "\M" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\M"? A raw string is also an option.
+  attach = sub.add_parser("attachments", help="save attachments to Downloads\Mail Attachments (named Date - Sender - Name)")
+C:\Users\HR.RTEC\GitHub\personal-agent-os\.agent-local\orchestrator\wt\12288eb6\eeo-firewall-pip-625b\src\agent_os\mail\cli.py:88: SyntaxWarning: "\M" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\M"? A raw string is also an option.
+  attach.add_argument("--folder", help="where to save (default: Downloads\Mail Attachments)")
+........F.F....F...F............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................C:\Python314\Lib\email\message.py:683: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x00000208FE430B80>
+  name = p.strip()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..........................................................................................................................................C:\Python314\Lib\tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 401: 'err'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+...C:\Python314\Lib\tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 429: 'err'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+.................................................................................................................................................................s..........................................................FF..........F....................F..........F................................................................................................................
