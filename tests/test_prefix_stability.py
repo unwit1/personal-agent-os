@@ -124,27 +124,33 @@ class PrefixStabilityTests(unittest.TestCase):
 
     def test_stabilize_repairs_whitespace_drift(self) -> None:
         """Trailing whitespace drift in prefix is repaired."""
-        prefix = "shared prefix"
-        stripped = "shared prefix"
-
+        prefix = "P\n\n"
         messages = [
-            {"role": "system", "content": stripped + "\nSome additional text"},
+            {"role": "system", "content": "P\nrest"},
             {"role": "user", "content": "User message"}
         ]
         result = prefix_stability.stabilize(messages, prefix)
-
-        self.assertEqual(result[0]["content"], prefix + "\nSome additional text")
+        self.assertEqual(result[0]["content"], prefix + "rest")
 
     def test_stabilize_repairs_space_drift(self) -> None:
-        """Space after prefix is normalized."""
-        prefix = "shared prefix"
+        """Space drift after prefix is normalized."""
+        prefix = "P\n\n"
         messages = [
-            {"role": "system", "content": "shared prefix" + " some text"},
+            {"role": "system", "content": "P  rest"},
             {"role": "user", "content": "User message"}
         ]
         result = prefix_stability.stabilize(messages, prefix)
+        self.assertEqual(result[0]["content"], prefix + "rest")
 
-        self.assertEqual(result[0]["content"], prefix + " some text")
+    def test_stabilize_exact_prefix_with_content_unchanged(self) -> None:
+        """Content already equal to prefix + rest is returned unchanged."""
+        prefix = "P\n\n"
+        messages = [
+            {"role": "system", "content": prefix + "rest"},
+            {"role": "user", "content": "User message"}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+        self.assertEqual(result[0]["content"], prefix + "rest")
 
     def test_stabilize_multiple_system_messages_uses_first(self) -> None:
         """Only the first system message is modified."""

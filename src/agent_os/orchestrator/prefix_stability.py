@@ -60,13 +60,14 @@ def stabilize(messages: list[dict[str, Any]], prefix: str | None) -> list[dict[s
     else:
         current_content = str(messages[system_idx].get("content") or "")
 
-        if not current_content.startswith(prefix):
-            messages[system_idx]["content"] = prefix + current_content
+        if current_content.startswith(prefix):
+            pass
         else:
             stripped_prefix = prefix.rstrip()
-            if current_content.startswith(stripped_prefix + "\n") or \
-               current_content.startswith(stripped_prefix + " "):
-                messages[system_idx]["content"] = prefix + current_content[len(stripped_prefix):]
+            if stripped_prefix and current_content.startswith(stripped_prefix):
+                messages[system_idx]["content"] = prefix + current_content[len(stripped_prefix):].lstrip(" \t\r\n")
+            else:
+                messages[system_idx]["content"] = prefix + current_content
 
     return messages
 
