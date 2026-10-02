@@ -1,26 +1,36 @@
 """IMAP mover for organization plans: MOVE, or COPY plus keyword flag. Never deletes.
 
 Implements ``organize_apply.Mover`` over an injected ``connect(account)`` that
-returns an authenticated imaplib-like client. Nothing here issues STORE
-\\Deleted or EXPUNGE, so every operation leaves a copy that can be undone.
+returns an authenticated imaplib-like client. Every client call goes through
+``ImapMover._send``, which refuses anything outside a small allow-list, so no
+STORE \\Deleted, EXPUNGE, CLOSE, DELETE, RENAME or APPEND can be issued and
+every operation leaves a copy that can be undone.
 """
 from __future__ import annotations
 
+import imaplib
 import re
+import ssl
 from typing import Any, Callable
+
+from . import accounts as accounts_mod
+from .imap import _quote
 
 KEYWORD = "$AgentOSOrganized"
 _COPYUID = re.compile(rb"COPYUID\s+(\d+)\s+([\d:,]+)\s+([\d:,]+)", re.I)
 _UIDVALIDITY = re.compile(rb"UIDVALIDITY\s+(\d+)", re.I)
-_LIST_NAME = re.compile(rb'\)\s+(?:"(?:[^"\\]|\\.)*"|NIL)\s+(.*)$')
+_LIST_LINE = re.compile(rb'\)\s+(?:"(?P<delim>(?:[^"\\]|\\.)*)"|NIL)\s+(?P<name>.*)$')
+_STORE_FLAGS = {"+FLAGS.SILENT", "-FLAGS.SILENT"}
+_ALLOWED = {"CAPABILITY", "LIST", "CREATE", "SUBSCRIBE", "SELECT", "LOGOUT",
+            "UID FETCH", "UID SEARCH", "UID MOVE", "UID COPY", "UID STORE"}
 
 
 class MoveRefused(RuntimeError):
     pass
 
 
-def _quote(name: str) -> str:
-    return '"' + name.replace("\\", "\\\\").replace('"', '\\"') + '"'
+class WriteViolation(RuntimeError):
+    """A command outside the reversible-move allow-list was requested."""
 
 
 def _as_bytes(item: Any) -> bytes:
@@ -52,6 +62,23 @@ class ImapMover:
         self._caps: set[str] | None = None
 
     # -- helpers -----------------------------------------------------------
+    def _send(self, command: str, *args: Any, **kwargs: Any) -> Any:
+        """The only path to the client: refuses everything outside the allow-list."""
+        name = " ".join(command.upper().split())
+        if name not in _ALLOWED:
+            raise WriteViolation(f"IMAP command refused: {name}")
+        if name == "UID STORE":
+            parts = [str(a) for a in args]
+            if len(parts) != 3 or parts[1].upper() not in _STORE_FLAGS or parts[2] != f"({KEYWORD})":
+                raise WriteViolation("UID STORE is limited to the organize keyword")
+        if name == "UID FETCH" and "PEEK" not in " ".join(str(a) for a in args).upper():
+            raise WriteViolation("UID FETCH must use BODY.PEEK")
+        if name == "UID MOVE" and hasattr(self.client, "_simple_command"):
+            return self.client._simple_command("UID", "MOVE", *args)  # imaplib.uid() rejects MOVE
+        if name.startswith("UID "):
+            return self.client.uid(name[4:], *args)
+        return getattr(self.client, name.lower())(*args, **kwargs)
+
     def _check(self, result: Any, what: str) -> list[Any]:
         typ, data = result[0], result[1]
         if str(typ).upper() != "OK":
@@ -60,7 +87,7 @@ class ImapMover:
 
     def _capability_set(self) -> set[str]:
         if self._caps is None:
-            data = self._check(self.client.capability(), "CAPABILITY")
+            data = self._check(self._send("CAPABILITY"), "CAPABILITY")
             text = b" ".join(_as_bytes(d) for d in data).decode("ascii", "replace").upper()
             self._caps = set(text.split())
         return self._caps
@@ -80,13 +107,6 @@ class ImapMover:
                 mapping.update(zip(_expand(match.group(2)), _expand(match.group(3))))
         return mapping
 
-    def _uid_command(self, command: str, *args: str) -> Any:
-        """stdlib imaplib.uid() rejects UID MOVE, so send it as a raw command."""
-        if command == "MOVE" and hasattr(self.client, "_simple_command"):
-            typ, data = self.client._simple_command("UID", "MOVE", *args)
-            return typ, data
-        return self.client.uid(command, *args)
-
     def _clear_untagged(self) -> None:
         untagged = getattr(self.client, "untagged_responses", None)
         if isinstance(untagged, dict):
@@ -105,23 +125,43 @@ class ImapMover:
             pass
         return {"move": "MOVE" in self._capability_set(), "permanent_flags": flags}
 
+    def resolve_folder(self, logical_name: str, names: set[str], delimiter: str) -> str:
+        """Map a logical ``/``-separated name to the server's real name."""
+        if logical_name in names:
+            return logical_name
+        real = delimiter.join(p for p in logical_name.split("/") if p)
+        if not real.upper().startswith("INBOX") and any(n.startswith(f"INBOX{delimiter}") for n in names):
+            real = f"INBOX{delimiter}{real}"
+        return real
+
     def ensure_folder(self, logical_name: str) -> str:
-        names = set()
-        for item in self._check(self.client.list(), "LIST"):
-            match = _LIST_NAME.search(_as_bytes(item))
+        names: set[str] = set()
+        delimiter = ""
+        for item in self._check(self._send("LIST"), "LIST"):
+            match = _LIST_LINE.search(_as_bytes(item))
             if match:
-                names.add(match.group(1).strip().strip(b'"').decode("utf-8", "replace"))
-        if logical_name not in names:
-            self._check(self.client.create(_quote(logical_name)), "CREATE")
+                names.add(match.group("name").strip().strip(b'"').decode("utf-8", "replace"))
+                delimiter = delimiter or (match.group("delim") or b"").decode("ascii", "replace")
+        delimiter = delimiter or "/"
+        real = self.resolve_folder(logical_name, names, delimiter)
+        parts = real.split(delimiter)
+        for depth in range(1, len(parts) + 1):
+            level = delimiter.join(parts[:depth])
+            if level in names:
+                continue
+            typ, data = self._send("CREATE", _quote(level))[:2]
+            text = b" ".join(_as_bytes(d) for d in data or []).upper()
+            if str(typ).upper() != "OK" and b"ALREADYEXISTS" not in text:
+                raise RuntimeError(f"IMAP CREATE failed: {typ}")
             try:
-                self.client.subscribe(_quote(logical_name))
+                self._send("SUBSCRIBE", _quote(level))
             except Exception:
                 pass  # subscription is cosmetic
-        return logical_name
+        return real
 
     def select(self, mailbox: str) -> str:
         self._clear_untagged()
-        self._check(self.client.select(_quote(mailbox), readonly=False), "SELECT")
+        self._check(self._send("SELECT", _quote(mailbox), readonly=False), "SELECT")
         self.mailbox = mailbox
         _, data = self.client.response("UIDVALIDITY")
         for item in data or []:
@@ -135,8 +175,8 @@ class ImapMover:
         out: dict[str, str] = {}
         if not uids:
             return out
-        data = self._check(self.client.uid(
-            "FETCH", self._uid_set(uids), "(BODY.PEEK[HEADER.FIELDS (MESSAGE-ID)])"), "FETCH")
+        data = self._check(self._send(
+            "UID FETCH", self._uid_set(uids), "(BODY.PEEK[HEADER.FIELDS (MESSAGE-ID)])"), "FETCH")
         for item in data:
             if not isinstance(item, tuple):
                 continue
@@ -149,9 +189,10 @@ class ImapMover:
     def move(self, uids: list[str], target: str) -> dict[str, str | None]:
         if not uids:
             return {}
-        command = "MOVE" if "MOVE" in self._capability_set() else "COPY"
+        if "MOVE" not in self._capability_set():
+            raise MoveRefused("server lacks MOVE; use copy_flag so undo cannot duplicate the original")
         self._clear_untagged()
-        data = self._check(self._uid_command(command, self._uid_set(uids), _quote(target)), command)
+        data = self._check(self._send("UID MOVE", self._uid_set(uids), _quote(target)), "MOVE")
         mapping = self._copyuid(data)
         return {str(u): mapping.get(str(u)) for u in uids}
 
@@ -159,32 +200,39 @@ class ImapMover:
         if not uids:
             return {}
         self._clear_untagged()
-        data = self._check(self.client.uid("COPY", self._uid_set(uids), _quote(target)), "COPY")
+        data = self._check(self._send("UID COPY", self._uid_set(uids), _quote(target)), "COPY")
         mapping = self._copyuid(data)
-        self._check(self.client.uid("STORE", self._uid_set(uids), "+FLAGS.SILENT", f"({KEYWORD})"), "STORE")
+        self._check(self._send("UID STORE", self._uid_set(uids), "+FLAGS.SILENT", f"({KEYWORD})"), "STORE")
         return {str(u): mapping.get(str(u)) for u in uids}
 
     def unflag(self, uids: list[str]) -> None:
         if uids:
-            self._check(self.client.uid("STORE", self._uid_set(uids), "-FLAGS.SILENT", f"({KEYWORD})"), "STORE")
+            self._check(self._send("UID STORE", self._uid_set(uids), "-FLAGS.SILENT", f"({KEYWORD})"), "STORE")
 
     def find(self, mailbox: str, rfc_message_id: str) -> str | None:
         self.select(mailbox)
         needle = str(rfc_message_id).strip()
         if not needle.startswith("<"):
             needle = f"<{needle}>"
-        data = self._check(self.client.uid("SEARCH", "HEADER", "Message-ID", _quote(needle)), "SEARCH")
+        data = self._check(self._send("UID SEARCH", "HEADER", "Message-ID", _quote(needle)), "SEARCH")
         found = b" ".join(_as_bytes(d) for d in data).split()
         return found[-1].decode("ascii") if found else None
 
     def undo(self, entry: dict[str, Any]) -> str | None:
-        """Move the destination UID of a journal entry back to its source folder."""
+        """Move the destination UID of a journal entry back to its source folder.
+
+        Acts only when the mailbox UIDVALIDITY still matches the journal.
+        """
         source, target = entry["from"], entry["to"]
         if entry.get("method") == "copy_flag":
-            self.select(source["mailbox"])
+            validity = self.select(source["mailbox"])
+            if str(validity) != str(source.get("uidvalidity")):
+                return None
             self.unflag([str(source["uid"])])
             return None
-        self.select(target["mailbox"])
+        validity = self.select(target["mailbox"])
+        if str(validity) != str(target.get("uidvalidity")):
+            return None
         uid = str(target.get("uid") or "")
         if not uid:
             return None
@@ -193,6 +241,22 @@ class ImapMover:
 
     def close(self) -> None:
         try:
-            self.client.logout()  # LOGOUT only: no CLOSE, which would expunge
+            self._send("LOGOUT")  # LOGOUT only: no CLOSE, which would expunge
         except Exception:
             pass
+
+
+def _default_connector(account: Any) -> Any:
+    context = ssl.create_default_context()
+    if account.tls == "starttls":
+        client = imaplib.IMAP4(account.host, account.port, timeout=60)
+        client.starttls(ssl_context=context)
+    else:
+        client = imaplib.IMAP4_SSL(account.host, account.port, ssl_context=context, timeout=60)
+    client.login(account.login_name, accounts_mod.get_secret(account))
+    return client
+
+
+def connect_write(account: Any, *, factory: Callable[[Any], Any] | None = None) -> ImapMover:
+    """Build a mover for an account the operator enabled with allow_organize."""
+    return ImapMover(account, factory or _default_connector)
