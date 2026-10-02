@@ -66,6 +66,11 @@ class WindowMcpTests(unittest.TestCase):
         self.assertEqual(self.call("executive_window.actions", {})["actions"][0]["id"], "synthetic.send")
         bad = self.rpc("tools/call", {"name": "executive_window.run", "arguments": {"action_id": "synthetic.send", "item_id": "nope"}})
         self.assertTrue(bad["isError"])
+    def test_non_applicable_action_is_rejected(self):
+        self.reg.register_action("other.act", "Other", ["other"], lambda item, params, confirm=False: {}, True)
+        bad = self.rpc("tools/call", {"name": "executive_window.run", "arguments": {"action_id": "other.act", "item_id": "syn-1"}})
+        self.assertTrue(bad["isError"])
+        self.assertNotIn(True, self.calls)
 
 
 if __name__ == "__main__":

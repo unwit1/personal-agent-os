@@ -717,17 +717,20 @@ WINDOW_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Executive window: list registered actions (id, label, applies_to, consequential, description).",
         "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
     },
-    "executive_window.run": {"description": "", "inputSchema": {"type": "object"}},
 }
 
-
-def _refresh_window_schemas() -> None:
-    WINDOW_TOOL_SCHEMAS["executive_window.run"] = _window_run_schema()
-    TOOL_SCHEMAS.update(WINDOW_TOOL_SCHEMAS)
+WINDOW_RUN_TOOL = "executive_window.run"
+WINDOW_TOOL_NAMES = frozenset([*WINDOW_TOOL_SCHEMAS, WINDOW_RUN_TOOL])
 
 
-# Placeholder run schema keeps the tool callable; the registry-built schema is made lazily in tools/list.
-TOOL_SCHEMAS.update(WINDOW_TOOL_SCHEMAS)
+def _window_tool_schemas() -> dict[str, dict[str, Any]]:
+    """Window tool schemas; the run schema is built from the live registry on every call."""
+    schemas = dict(WINDOW_TOOL_SCHEMAS)
+    try:
+        schemas[WINDOW_RUN_TOOL] = _window_run_schema()
+    except Exception:
+        pass  # a registry failure must not break tools/list for every other tool
+    return schemas
 
 
 def _window_outstanding(tab: str | None = None) -> dict[str, Any]:
@@ -750,6 +753,8 @@ def _window_run(action_id: str, item_id: str, params: dict[str, Any] | None = No
     item = next((i for i in found["items"] if str(i.get("id")) == str(item_id)), None)
     if item is None:
         raise ValueError(f"unknown item: {item_id}")
+    if action_id not in {option.get("action_id") for option in item.get("options", [])}:
+        raise ValueError(f"action {action_id} is not an option for item {item_id}")
     return registry.invoke(action_id, item, params, PendingStore(home))
 
 
@@ -1004,12 +1009,12 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
     if method == "ping":
         return _ok(request_id, {})
     if method == "tools/list":
-        _refresh_window_schemas()
-        return _ok(request_id, {"tools": [{"name": name, **schema} for name, schema in TOOL_SCHEMAS.items()]})
+        listed = {**TOOL_SCHEMAS, **_window_tool_schemas()}
+        return _ok(request_id, {"tools": [{"name": name, **schema} for name, schema in listed.items()]})
     if method == "tools/call":
         params = request.get("params", {})
         name = params.get("name") if isinstance(params, dict) else None
-        if name not in TOOL_SCHEMAS or name not in available:
+        if (name not in TOOL_SCHEMAS and name not in WINDOW_TOOL_NAMES) or name not in available:
             return _ok(request_id, _mcp_result({"error": f"Unknown tool: {name}"}, error=True))
         try:
             arguments = params.get("arguments", {})
