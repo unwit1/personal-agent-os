@@ -394,3 +394,19 @@ The EVR must state these limits:
   adapter. That adapter change is a follow-up and is outside Phase 1. Until live
   telemetry shows a higher `cache_read_share` for flag-on runs, evidence says
   "cacheable", not "cached".
+
+## Default decision
+
+Date: 2026-10-02
+
+Command: `python -m unittest discover -s tests -p "test_orchestrator_*.py"`
+
+Results:
+- Ran 217 tests in 500.403s
+- FAILED (errors=1, skipped=1)
+- Failing test: `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects`
+  - Error: KeyError: 'candidate_tokens_estimate' when flag=True
+
+Resulting default: **False**
+
+Rationale: The test `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects` fails with the shared_prefix flag set to True. When the flag is on, engine.py:119 emits a `context_selected` telemetry event for the shared prefix compilation itself. That event lacks the `candidate_*` fields (it carries `selected_tokens_estimate` only), and the test picks it up as `selected[0]`, the first `context_selected` event, so it raises KeyError on `candidate_tokens_estimate`. The per-node event built in prompts.py (which still sets `candidate_tokens_estimate`) is emitted later and is not the one the test reads. Follow-up: emit the prefix event under a different type (e.g. `shared_prefix_compiled`) or add the `candidate_*` fields to it. The flag stays False until then.
