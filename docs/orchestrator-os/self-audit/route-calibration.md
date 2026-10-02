@@ -9,14 +9,27 @@ outcomes per task family).
 The calibrator answers one question for every task family and capability class
 pair: **given observed task outcomes and their review verdicts, at which
 escalation threshold would the estimated pass rate of the cheaper route
-meet or exceed a target bar (0.9)?** A threshold is a score above which
-escalation to a stronger model is recommended; a lower threshold escalates
-more often. The calibrator is deterministic and offline. It makes no model
-calls and no network calls. It **records advice only** and never changes what
-Orchestrator runs. No routing, scheduling, or dispatch code imports it. The
-advisor estimates, does not validate. Limits in §8 apply.
+meet or exceed a target bar (0.9)?** A threshold (T) is a bar on the Wilson
+confidence bound. If the wilson_lower >= T, the cheap route is kept; otherwise,
+escalation to a stronger model is recommended. The calibrator is deterministic
+and offline. It makes no model calls and no network calls. It **records advice
+only** and never changes what Orchestrator runs. No routing, scheduling, or
+dispatch code imports it. The advisor estimates, does not validate. Limits in
+§8 apply.
 
-## 0. Prior art
+## 1. Purpose
+
+The third-party optimization track, measurement-first methodology (IMP-0015)
+requires calibration advice that estimates, from real outcomes, whether cheaper
+routes (lower capability class) would pass validation at a given escalation threshold,
+and recommends a threshold that targets 90% pass rate on the kept-cheap tasks.
+
+This is shadow mode: the advice is recorded and analyzed offline. It never
+touches dispatch, routing configuration, or live decisions. A real promotion to
+automatic escalation thresholds requires separate held-out validation evidence
+(EVR) showing noninferior quality and lower cost per verified task.
+
+## 2. Prior art
 
 `agent-os orchestrate prior-art lookup "RouteLLM / strong-vs-weak routing /
 calibrated threshold / shadow advisor / cost-vs-quality curve"`
@@ -31,23 +44,11 @@ is custom. The estimator is simple: Beta posteriors and Wilson bounds,
 suitable for small, slowly growing sample sizes per family and class. The
 cost model is specific to Orchestrator routing state.
 
-## 1. Purpose
-
-The third-party optimization track, measurement-first methodology (IMP-0015)
-requires calibration advice that estimates, from real outcomes, whether cheaper
-routes (lower capability class) would pass validation at a given escalation threshold,
-and recommends a threshold that targets 90% pass rate on the kept-cheap tasks.
-
-This is shadow mode: the advice is recorded and analyzed offline. It never
-touches dispatch, routing configuration, or live decisions. A real promotion to
-automatic escalation thresholds requires separate held-out validation evidence
-(EVR) showing noninferior quality and lower cost per verified task.
-
-## 2. Inputs
+## 3. Inputs
 
 The calibrator reads only telemetry already collected by existing infrastructure.
 
-### 2.1 Model events
+### 3.1 Model events
 
 From `telemetry.jsonl`, extract these event types:
 
@@ -64,14 +65,14 @@ From `telemetry.jsonl`, extract these event types:
 Events are ordered by `seq` (sequence number). A `.repair<N>` node inherits the review
 counters of its subject `<subject>`, via id parsing.
 
-### 2.2 Capability class and effort
+### 3.2 Capability class and effort
 
 Each `model_completed` or `model_failed` event carries `capability_class`
 (e.g., `cheap`, `standard`, `strong`, `reasoning`; the exact values come from
 the routing config) and `effort` (a relative cost metric, where cheap is lower).
 These are fixed per provider/model combination.
 
-## 3. Labels
+## 4. Label
 
 For each task (identified by `node`), determine whether the kept-cheap route would have
 **passed validation and review**:
@@ -85,7 +86,7 @@ For each task (identified by `node`), determine whether the kept-cheap route wou
 A task that started on a cheap class and later escalated is labeled `False`.
 A task that started on a strong class with no failed cheaper attempt is unlabeled.
 
-## 4. Estimator
+## 5. Estimator
 
 For each `(task_family, initial_capability_class)` pair:
 
@@ -106,7 +107,7 @@ For each `(task_family, initial_capability_class)` pair:
    The lower bound is conservative; it captures aleatory (measurement) uncertainty
    and is used to decide escalation, not p_pass itself.
 
-## 5. Calibration
+## 6. Calibration
 
 For each `(family, class)` pair with sufficient samples:
 
@@ -132,7 +133,7 @@ For each `(family, class)` pair with sufficient samples:
 
 Reason codes include: `target_not_achievable`, `insufficient_samples`, `low_overall_pass_rate`.
 
-## 6. Output schema and privacy
+## 7. Output schema and privacy
 
 Aggregates only. The keys are serialized with `sort_keys=True`. `generated_at`
 is the only nondeterministic field.
@@ -182,36 +183,40 @@ of node ids and subjects extracted during the read. It fills `privacy.strings_ch
 and `passed` only after the check succeeds. `report()` calls `assert_aggregate_only`
 again before writing `--out`.
 
-## 7. Limits and caveats
+## 8. Limits and caveats
 
-### 7.1 Selection bias
+The advisor has three key limitations:
 
-The advisor observes only tasks that Orchestrator chose to route. Tasks never
-attempted on the cheap route contribute no labeled outcome, creating positive
-bias: estimated pass rates assume that future cheap routes will have similar
-coverage and difficulty. Hard tasks are underrepresented.
+1. **No counterfactual for nodes that started on strong class.** The advisor cannot
+   observe what would have happened if Orchestrator had taken a different route.
+   Tasks that escalated to strong did not run on cheap; estimated pass rates are
+   derived from tasks that did run on cheap. The estimate may not apply to a
+   different distribution of tasks or effort levels.
 
-### 7.2 Small samples
+2. **Selection bias from the ladder.** The advisor observes only tasks that
+   Orchestrator chose to route through the cheap class. Tasks never attempted
+   on the cheap route contribute no labeled outcome, creating positive bias.
+   Estimated pass rates assume that future cheap routes will have similar coverage
+   and difficulty. Hard tasks are underrepresented.
 
-With `min_samples = 5`, many `(family, class)` pairs will have fewer than 10
-labeled outcomes, especially early in deployment. Wilson bounds are wider when
-`n` is small; confidence is lower. The advisor remains deterministic but
-recommends caution when curve counts are low.
+3. **Small samples.** With `min_samples = 5`, many `(family, class)` pairs will
+   have fewer than 10 labeled outcomes, especially early in deployment. Wilson
+   bounds are wider when `n` is small; confidence is lower. The advisor remains
+   deterministic but recommends caution when curve counts are low.
 
-### 7.3 No counterfactual
+## 9. How the supervisor runs it
 
-The advisor cannot observe what would happen if Orchestrator had taken a different
-route. Tasks that escalated to strong did not run on cheap; their cheap-route pass
-rate is estimated from tasks that did run on cheap. The estimate may not apply
-to a different distribution of tasks or effort levels.
+The worker builds the module and its tests. The **supervisor** runs the calibrator
+over real local telemetry after this worktree is merged:
 
-### 7.4 Effort proxy
+```text
+agent-os orchestrate route-calibration --home --out docs/orchestrator-os/self-audit/route-calibration-baseline.json
+```
 
-`effort` is a relative cost metric, not model quality. Two different cheap-class
-models may have different pass rates. The calibrator groups by `capability_class`,
-not per model, so it trades off precision for stability on small samples.
+The calibrator is deterministic and offline; only `--home` reads local paths and
+collects real run data. The CLI returns a report with aggregates only.
 
-## 8. Implementation shape
+### 9.1 Module and functions
 
 - Module: `src/agent_os/orchestrator/route_calibration.py`.
   - `estimate_family(outcomes) -> dict` is pure. Returns posterior mean, Wilson
@@ -226,14 +231,12 @@ not per model, so it trades off precision for stability on small samples.
 - CLI: `agent-os orchestrate route-calibration [--home PATH] [--out PATH]`.
   Prints the report.
 - **Shadow guarantee.** Only `cli.py` imports `route_calibration`. `engine.py`,
-  routing, scheduling and existing modules do not. A test asserts this.
+  routing, scheduling, and existing modules do not. A test asserts this.
   The calibrator writes nothing under `runs/`.
-- Protected control-plane paths are not touched.
 
-## 9. Tests (synthetic fixtures, no network)
+### 9.2 Tests
 
-Each test file starts with
-`sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))`.
+Each test file starts with `sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))`.
 Fixtures write ledger-schema `telemetry.jsonl` lines into a temporary `runs/`
 directory. Required cases:
 
@@ -253,46 +256,15 @@ directory. Required cases:
 6. **Shadow.** `mode == "shadow"` and `dispatch_changes == 0`, and no module except `cli.py`
    imports `route_calibration`.
 
-## 10. Offline evaluation and promotion
+### 9.3 Promotion gates
 
-The worker builds the module and its tests. The **host** runs it over the
-real local telemetry:
+Promotion to automatic escalation thresholds requires a separate held-out validation
+(EVR) showing noninferior quality and lower cost per verified task compared to the
+incumbent routing. Shadow advice alone is not evidence that automatic thresholds
+will improve production routing. The supervisor records evaluation results with:
 
-```text
-agent-os orchestrate route-calibration --out docs/orchestrator-os/self-audit/route-calibration-baseline.json
-```
-
-Results are recorded with existing formats under
-`projects/personal-agent-os/orchestrator-os/records/`:
-
-- **EXP** (`experiments/`). Hypothesis: A calibrated cheaper-route escalation
-  threshold per task family would achieve 90% pass rate on the kept-cheap set,
-  reducing paid-model spend. Method: shadow calibration over all local runs.
-  Falsifiers: `wilson_lower < 0.8` for a major task family (under-confidence),
-  or a held-out validation EVR showing higher failure rate than predicted.
-- **EVR** (`evaluations/`, schema `personal-agent/evidence-record/v1`,
-  `task_family: "route_calibration"`). `metrics` copies report aggregates:
-  per-family sample counts, p_pass estimates, recommended thresholds, curve
-  data where applicable. Plus `model_calls: 0`, `spend_usd: 0`,
-  `dispatch_changes: 0`. `links`: `measures` → `src/agent_os/orchestrator/route_calibration.py`,
+- `metrics`: aggregates from the report (per-family sample counts, p_pass estimates,
+  recommended thresholds, curve data where applicable). Plus `model_calls: 0`,
+  `spend_usd: 0`, `dispatch_changes: 0`.
+- `links`: `measures` → `src/agent_os/orchestrator/route_calibration.py`,
   `relates_to` → `IMP-0015`, `relates_to` → `PA-routellm`.
-
-Promotion to automatic escalation thresholds requires a separate held-out
-validation (EVR) showing noninferior quality and lower cost per verified
-task compared to the incumbent routing. Shadow advice alone is not evidence
-that automatic thresholds will improve production routing.
-
-## 11. Integration into routing
-
-The calibration output is static advice, not a live router. When/if thresholds
-are promoted from shadow to active:
-
-1. A separate configuration step applies the recommended threshold to the routing
-   layer's escalation policy.
-2. The routing layer checks the escalation score (from the routing model or a
-   heuristic) against the threshold and decides whether to escalate.
-3. Telemetry continues to record model completions, escalations, and outcomes.
-4. The next calibration run re-estimates from the new data and can recommend
-   threshold adjustments.
-
-This keeps the calibrator decoupled from live routing code.
