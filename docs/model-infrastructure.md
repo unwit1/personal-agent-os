@@ -558,8 +558,13 @@ Either way the history records `running -> stopping -> stopped` with reason
   a no-op once the job is stopped or later.
 - **`destroy`** stops first when the job is running, then
   `provider.terminate`, then `destroyed`. On a `launching` job it abandons
-  the launch as described under Write-ahead reservation. It is a no-op once
-  the job is destroyed or reconciled.
+  the launch as described under Write-ahead reservation. On a `requested`
+  or `reserved` job (no `instance_id`, nothing launched) it abandons the job
+  without any provider call: `requested|reserved -> failed` (reason
+  `abandoned`), then `failed -> destroyed`. `reconcile` then releases this
+  job's ledger `reserved` amount (if one was written) with `actual_usd = 0`,
+  so a reservation never has to be launched and spent to be freed. It is a
+  no-op once the job is destroyed or reconciled.
 - **`reconcile`** runs from `destroyed` or `failed`; a `failed` job with a
   known instance is terminated and destroyed first. On any other state it
   raises `ValueError`; in particular, a stuck `launching` job must be
@@ -625,6 +630,11 @@ All of them carry `openWorldHint: false`. Both surfaces use
   instance. In a separate case, `destroy` on the stuck job terminates the
   leaked instance (`launching -> failed -> destroyed`), and `reconcile` then
   releases the reservation;
+- `destroy` on a `reserved` job (and on a `requested` job after the ledger
+  reservation was written) gives `failed` (reason `abandoned`) then
+  `destroyed` with no provider call and no launch; `reconcile` then releases
+  the full reservation, records `actual_usd = 0`, and `budget.remaining()`
+  is back to its value before `provision`;
 - an illegal transition raises `ValueError`;
 - a raw secret raises `ValueError` and leaves no file;
 - a non-fake provider gives `blocked`;
