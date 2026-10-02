@@ -174,10 +174,6 @@ def _chunks(items: list[Any], size: int):
         yield items[start:start + size]
 
 
-def _next_seq(journal_path: Path, journal_id: str) -> int:
-    return 1 + max([int(l["seq"]) for l in read_journal(journal_path) if l.get("journal_id") == journal_id] or [0])
-
-
 # ---------------------------------------------------------------------------
 # Apply
 # ---------------------------------------------------------------------------
