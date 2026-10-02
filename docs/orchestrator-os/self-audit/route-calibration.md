@@ -74,11 +74,12 @@ These are fixed per provider/model combination.
 
 ## 4. Label
 
-For each task, determine whether the kept-cheap route would have **passed validation and review**:
+For each task, determine whether the kept-cheap route would have passed validation and review.
+The label rule is exact:
 
-- **`True`**: The initial cheap capability class passed all tests and review with no escalation.
-- **`False`**: The task was escalated, or it failed tests, or the review issued a blocking verdict.
-- **`unlabeled`**: The task never attempted the cheap route (started on a strong class), or the outcome is ambiguous. Excluded from pass-rate estimation.
+- **`True`**: The initial cheap capability class completed without escalation, passed all tests (if tests ran), and received a non-blocking review verdict (if reviewed). Equivalently: no escalation AND (no tests OR tests passed) AND (no review OR review not blocked).
+- **`False`**: The task was escalated to a stronger class, OR tests failed, OR review returned a blocking verdict.
+- **`unlabeled`**: The task never attempted the cheap route (started on a strong class), or required fields are missing. Excluded from pass-rate estimation.
 
 ## 5. Estimator
 
@@ -123,9 +124,12 @@ For each `(family, class)` pair with sufficient samples:
    ```
    kept_pass_rate(T) >= target  (target = 0.9 by default)
    ```
-   If no threshold achieves the target, report the highest achievable and a reason code.
+   If no threshold achieves the target, report the highest achievable pass rate and a reason code explaining why the target was not met.
 
-Reason codes include: `target_achievable`, `insufficient_samples`, `low_overall_pass_rate`.
+Status values and reason codes are mutually exclusive indicators of the outcome:
+- **`status: ok`** with **`reason_codes: ["target_achievable"]`** means a threshold was found that achieves the target.
+- **`status: insufficient_samples`** with **`reason_codes: ["insufficient_samples"]`** means fewer than `min_samples` labeled outcomes for this pair.
+- **`status: low_overall_pass_rate`** with **`reason_codes: ["low_overall_pass_rate"]`** means the overall pass rate on the pair is below the target, even at the lowest threshold.
 
 ## 7. Output schema and privacy
 
@@ -167,7 +171,7 @@ is the only nondeterministic field.
 }
 ```
 
-**Privacy**: Node ids, task subjects, review verdicts, provider credentials, and user-facing paths are **never emitted**. All string keys are fixed: schema id, mode, reason codes, capability-class names, and task-family names (already sanitized in telemetry). Before returning, `build` calls `assert_aggregate_only(report, forbidden)`, where `forbidden` is the set of node ids and subjects extracted during the read. The function fills `privacy.strings_checked` and `passed` only after the check succeeds. `report()` calls `assert_aggregate_only` again before writing `--out`.
+**Privacy**: Node ids, task subjects, review verdicts, provider credentials, and user-facing paths are **never emitted**. The `build` function sanitizes capability-class names and task-family names (e.g., replacing sensitive paths or internal identifiers with symbolic names). All string keys in the output are fixed: schema id, mode, reason codes, sanitized capability-class names, and sanitized task-family names. Before returning the report, `build` calls `assert_aggregate_only(report, forbidden)`, where `forbidden` is the set of node ids and subjects extracted during the read. The function fills `privacy.strings_checked` and `passed` only after the check succeeds. `report()` calls `assert_aggregate_only` again before writing `--out`.
 
 ## 8. Limits and caveats
 
