@@ -178,12 +178,49 @@ class EeoFirewallTests(unittest.TestCase):
         def fail(*_a, **_k):
             raise AssertionError("real Dashboard, Outlook or network access")
 
-        patches = _create_guard_patches(fail)
+        # Roster for _reviewable_applicants() to find our test refs.
+        roster = [{"agent_ref": r, "name": n, "position": "Tech", "submitted": "2026-09-20",
+                   "status": "New", "county": "Kent", "city": "Dover", **RESTRICTED}
+                  for r, n in zip(REFS, ("Ann", "Bo"))]
+
+        patches = _create_guard_patches(fail) + [
+            patch.object(ex.rtec_applicants, "list_applicants",
+                         side_effect=lambda status=None, limit=50, offset=0: {
+                             "count": 0, "results": [dict(r) for r in roster if r["status"] == status][offset:offset + limit]}),
+            patch.object(ex.rtec_applicants, "pending_actions",
+                         return_value={"results": [{
+                             "applicant_ref": "ref-c", "name": "Charlie", "position": "Tech", "status": "New",
+                             "submitted": "2026-09-20", "administrative_action": "human_review_pending",
+                             **RESTRICTED}]}),
+            patch.object(ex.rtec_applicants, "_audit_access",
+                         side_effect=lambda action, applicant_ref=None, metadata=None: None),
+        ]
         for p in patches:
             p.start()
             self.addCleanup(p.stop)
 
-        # Hand-craft a poisoned batch with restricted fields embedded.
+        # Set up poisoned gateway for real flow test.
+        gateway = SyntheticDashboardGateway(
+            applicants=[_applicant(r, n) for r, n in zip(REFS, ("Ann", "Bo"))],
+            reviews={"ref-a": _review(90), "ref-b": _review(70)},
+            managers={r: "Manager One" for r in REFS},
+            calendar={"Manager One": [SLOT, SLOT + timedelta(hours=2), SLOT + timedelta(hours=4)]},
+        )
+        store = MemStore()
+
+        # Test 1: Real flow - plan_outreach + approve_batch on poisoned gateway.
+        batch = ex.plan_outreach(list(REFS), "Tech", "phone", "Office", 30,
+                                 gateway=gateway, store=store, now=NOW)
+        approved = ex.approve_batch(batch["batch_id"], {"ref-a": "confirm", "ref-b": "confirm"},
+                                    gateway=gateway, store=store, now=NOW)
+
+        # Create briefing from real batch via ExecutiveBrain.
+        executive = brain.ExecutiveBrain(gateway=gateway, store=store)
+        real_briefing = executive.briefing("Tech", batch_ids=[batch["batch_id"]], now=NOW)
+        real_prompt = brain.build_prompt(real_briefing, question="Who should I call first?")
+        self.assertIn("ref-a", real_prompt)
+
+        # Test 2: Hand-craft a poisoned batch with restricted fields embedded.
         poisoned_batch = {
             "batch_id": "poisoned-batch-1",
             "state": "APPROVED",
@@ -257,10 +294,10 @@ class EeoFirewallTests(unittest.TestCase):
         }
 
         # Test build_prompt filters restricted fields.
-        prompt = brain.build_prompt(poisoned_briefing, question="Who should I interview?")
-        self.assertIn("ref-c", prompt)
-        self.assertIn("ref-d", prompt)
-        self.assertIn("Who should I interview?", prompt)
+        poisoned_prompt = brain.build_prompt(poisoned_briefing, question="Who should I interview?")
+        self.assertIn("ref-c", poisoned_prompt)
+        self.assertIn("ref-d", poisoned_prompt)
+        self.assertIn("Who should I interview?", poisoned_prompt)
 
         # Test batch_status output doesn't leak restricted fields.
         status = brain.batch_status(poisoned_batch)
@@ -268,12 +305,16 @@ class EeoFirewallTests(unittest.TestCase):
         self.assertEqual(status["state"], "APPROVED")
         self.assertEqual(status["item_count"], 2)
 
-        # Verify no leaks in actual outputs (not the poisoned input).
-        outputs = [
-            json.dumps(prompt, default=str),
-            json.dumps(status, default=str),
+        # Verify no leaks in brain outputs: prompts and batch_status filter restricted fields
+        # even when the input briefing/batch was poisoned. The briefing from ExecutiveBrain
+        # (real_briefing) is produced deterministically from needs_action and batch_status.
+        brain_outputs = [
+            json.dumps(real_briefing, default=str),
+            real_prompt,
+            poisoned_prompt,  # Output of build_prompt on poisoned input should filter
+            json.dumps(status, default=str),  # batch_status output on poisoned batch should filter
         ]
-        text = "\n".join(outputs)
+        text = "\n".join(brain_outputs)
         leaked = _leaks(text)
         self.assertEqual(leaked, [], f"Restricted fields leaked: {leaked}")
 
