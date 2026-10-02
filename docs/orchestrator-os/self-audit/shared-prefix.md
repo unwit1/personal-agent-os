@@ -402,11 +402,11 @@ Date: 2026-10-02
 Command: `python -m unittest discover -s tests -p "test_orchestrator_*.py"`
 
 Results:
-- Ran 217 tests in 290.648s
+- Ran 217 tests in 500.403s
 - FAILED (errors=1, skipped=1)
-- Failing test: `test_context_selection_is_recorded_for_registered_projects`
+- Failing test: `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects`
   - Error: KeyError: 'candidate_tokens_estimate' when flag=True
 
 Resulting default: **False**
 
-Rationale: The test `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects` fails with the shared_prefix flag set to True. The root cause is that when the shared prefix is compiled, the context selection event is recorded without the full measurement structure — specifically, the `shared-prefix context_selected` telemetry event lacks the `candidate_*` fields that the flag-off path provides (it only has `selected_*`). This occurs because the event is picked up as `selected[0]` from the shared prefix compilation rather than from the per-node context selection. The measurement object itself (prompts.py:46) still correctly populates these fields in the flag-off case; the gap is in the telemetry event emission. A follow-up should emit the prefix event under a different type (e.g., `shared_prefix_compiled`) or ensure the context_selected event includes the candidate_* fields for consistency. The flag remains defaulted to False until this telemetry gap is resolved.
+Rationale: The test `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects` fails with the shared_prefix flag set to True. When the flag is on, engine.py:119 emits a `context_selected` telemetry event for the shared prefix compilation itself. That event lacks the `candidate_*` fields (it carries `selected_tokens_estimate` only), and the test picks it up as `selected[0]`, the first `context_selected` event, so it raises KeyError on `candidate_tokens_estimate`. The per-node event built in prompts.py (which still sets `candidate_tokens_estimate`) is emitted later and is not the one the test reads. Follow-up: emit the prefix event under a different type (e.g. `shared_prefix_compiled`) or add the `candidate_*` fields to it. The flag stays False until then.
