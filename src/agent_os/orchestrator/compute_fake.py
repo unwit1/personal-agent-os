@@ -7,59 +7,30 @@ Provider name: 'fake'.
 
 from __future__ import annotations
 
-import json
 import time
-from pathlib import Path
 from typing import Any
-
-from ..storage import write_json
 
 
 class FakeProvider:
     """Fake compute provider for testing and development. Instance lifecycle is in-memory;
     cost accrues while running and freezes at stop."""
 
+    name = "fake"
+
     def __init__(self, hourly_usd: float = 1.0, clock: callable | None = None,
-                 fail_launch: bool = False, state_path: Path | None = None) -> None:
+                 fail_launch: bool = False) -> None:
         """Initialize FakeProvider.
 
         Args:
             hourly_usd: Cost per hour of runtime (default 1.0).
-            clock: Time function returning epoch seconds (default time.time for persistent state, time.monotonic for tests).
-            fail_launch: If True, the next launch() creates the instance then raises.
-            state_path: Optional path for persistent state (for CLI/MCP). Tests use memory only.
+            clock: Time function returning seconds (default time.monotonic).
+            fail_launch: If True, launch() creates the instance then raises.
         """
         self.hourly_usd = float(hourly_usd)
-        if clock is None:
-            self.clock = time.time if state_path else time.monotonic
-        else:
-            self.clock = clock
+        self.clock = clock if clock is not None else time.monotonic
         self.fail_launch = fail_launch
-        self.state_path = Path(state_path) if state_path else None
         self.launches = 0
         self.instances: dict[str, dict[str, Any]] = {}
-        self.launch_names: dict[str, str] = {}
-
-    def _load_state(self) -> None:
-        """Load persisted state if state_path is set. Raises on corrupt JSON."""
-        if self.state_path:
-            try:
-                data = json.loads(self.state_path.read_text(encoding="utf-8"))
-                self.instances = data.get("instances", {})
-                self.launch_names = data.get("launch_names", {})
-                self.launches = data.get("launches", 0)
-            except FileNotFoundError:
-                pass
-
-    def _save_state(self) -> None:
-        """Persist state atomically if state_path is set."""
-        if self.state_path:
-            state = {
-                "instances": self.instances,
-                "launch_names": self.launch_names,
-                "launches": self.launches,
-            }
-            write_json(self.state_path, state)
 
     def _settle(self, instance: dict[str, Any], now: float) -> None:
         """Apply max_runtime deadline to instance. If deadline has passed, stop it."""
@@ -75,7 +46,7 @@ class FakeProvider:
             instance["stopped_at"] = deadline
 
     def launch(self, spec: dict[str, Any]) -> dict[str, str]:
-        """Launch an instance from spec. Idempotent by spec['name'].
+        """Launch an instance from spec.
 
         Args:
             spec: Dictionary with keys: name (job_id), gpu, hourly_usd, max_runtime_seconds, secret_ref (optional).
@@ -86,16 +57,11 @@ class FakeProvider:
         Raises:
             RuntimeError: If fail_launch is set (after creating the instance).
         """
-        self._load_state()
-        spec_name = spec.get("name")
-        if spec_name in self.launch_names:
-            return {"instance_id": self.launch_names[spec_name]}
-
         now = self.clock()
         self.launches += 1
         instance_id = f"fake-{self.launches}"
         self.instances[instance_id] = {
-            "name": spec_name,
+            "name": spec.get("name"),
             "state": "running",
             "started_at": now,
             "stopped_at": None,
@@ -103,8 +69,6 @@ class FakeProvider:
             "hourly_usd": self.hourly_usd,
             "max_runtime_seconds": spec.get("max_runtime_seconds"),
         }
-        self.launch_names[spec_name] = instance_id
-        self._save_state()
 
         if self.fail_launch:
             raise RuntimeError(f"Simulated launch failure for {instance_id}")
@@ -123,7 +87,6 @@ class FakeProvider:
         Raises:
             KeyError: If instance_id does not exist.
         """
-        self._load_state()
         if instance_id not in self.instances:
             raise KeyError(f"unknown instance {instance_id}")
 
@@ -154,7 +117,6 @@ class FakeProvider:
         Raises:
             KeyError: If instance_id does not exist.
         """
-        self._load_state()
         if instance_id not in self.instances:
             raise KeyError(f"unknown instance {instance_id}")
 
@@ -165,7 +127,6 @@ class FakeProvider:
         if instance["state"] == "running":
             instance["stopped_at"] = now
             instance["state"] = "stopped"
-            self._save_state()
 
     def terminate(self, instance_id: str) -> None:
         """Terminate an instance. Idempotent. Respects max_runtime deadline.
@@ -176,7 +137,6 @@ class FakeProvider:
         Raises:
             KeyError: If instance_id does not exist.
         """
-        self._load_state()
         if instance_id not in self.instances:
             raise KeyError(f"unknown instance {instance_id}")
 
@@ -189,4 +149,3 @@ class FakeProvider:
                 instance["stopped_at"] = now
             instance["terminated_at"] = now
             instance["state"] = "terminated"
-            self._save_state()

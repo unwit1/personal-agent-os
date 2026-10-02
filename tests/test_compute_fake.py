@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-import json
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 
@@ -33,6 +31,9 @@ class FakeProviderTests(unittest.TestCase):
         self.clock = ManualClock(start=1000.0)
         self.provider = FakeProvider(hourly_usd=1.0, clock=self.clock, fail_launch=False)
 
+    def test_class_name_attribute(self) -> None:
+        self.assertEqual(FakeProvider.name, "fake")
+
     def test_launch_returns_instance_id(self) -> None:
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0, "max_runtime_seconds": 3600}
         result = self.provider.launch(spec)
@@ -40,14 +41,15 @@ class FakeProviderTests(unittest.TestCase):
         self.assertEqual(result["instance_id"], "fake-1")
         self.assertEqual(self.provider.launches, 1)
 
-    def test_launch_idempotent_by_name(self) -> None:
+    def test_launch_increments_counter_on_each_call(self) -> None:
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         result1 = self.provider.launch(spec)
         result2 = self.provider.launch(spec)
-        self.assertEqual(result1["instance_id"], result2["instance_id"])
-        self.assertEqual(self.provider.launches, 1)
+        self.assertEqual(result1["instance_id"], "fake-1")
+        self.assertEqual(result2["instance_id"], "fake-2")
+        self.assertEqual(self.provider.launches, 2)
 
-    def test_launch_increments_counter(self) -> None:
+    def test_launch_different_specs_creates_different_instances(self) -> None:
         spec1 = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         spec2 = {"name": "job-2", "gpu": "A100", "hourly_usd": 1.0}
         self.provider.launch(spec1)
@@ -151,16 +153,6 @@ class FakeProviderTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.provider.terminate("fake-999")
 
-    def test_double_stop_after_terminate(self) -> None:
-        spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
-        result = self.provider.launch(spec)
-        instance_id = result["instance_id"]
-
-        self.clock.advance(1000.0)
-        self.provider.terminate(instance_id)
-        status = self.provider.poll(instance_id)
-        self.assertEqual(status["state"], "terminated")
-
     def test_max_runtime_seconds_autostop(self) -> None:
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0, "max_runtime_seconds": 3600}
         result = self.provider.launch(spec)
@@ -210,40 +202,6 @@ class FakeProviderTests(unittest.TestCase):
         self.assertAlmostEqual(status["runtime_seconds"], 3600.0)
         self.assertAlmostEqual(status["cost_usd"], 1.0)
 
-    def test_state_persistence(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            state_path = Path(tmp) / "fake.json"
-            provider = FakeProvider(hourly_usd=2.0, clock=self.clock, state_path=state_path)
-
-            spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 2.0}
-            result = provider.launch(spec)
-            instance_id = result["instance_id"]
-            self.clock.advance(1000.0)
-            provider.poll(instance_id)
-
-            self.assertTrue(state_path.exists())
-            data = json.loads(state_path.read_text(encoding="utf-8"))
-            self.assertIn(instance_id, data["instances"])
-            self.assertEqual(data["launches"], 1)
-
-    def test_state_reload_after_launch(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            state_path = Path(tmp) / "fake.json"
-            clock1 = ManualClock(start=1000.0)
-            provider1 = FakeProvider(hourly_usd=1.0, clock=clock1, state_path=state_path)
-
-            spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
-            result1 = provider1.launch(spec)
-            instance_id = result1["instance_id"]
-
-            clock2 = ManualClock(start=1000.0)
-            provider2 = FakeProvider(hourly_usd=1.0, clock=clock2, state_path=state_path)
-            result2 = provider2.launch(spec)
-
-            self.assertEqual(result1["instance_id"], result2["instance_id"])
-            self.assertEqual(provider2.launches, 1)
-
-
 class FakeProviderFullLifecycleTests(unittest.TestCase):
     """Test full lifecycle: launch, run, stop, terminate."""
 
@@ -289,19 +247,6 @@ class FakeProviderFullLifecycleTests(unittest.TestCase):
         status = self.provider.poll(instance_id)
         self.assertEqual(status["state"], "terminated")
         self.assertAlmostEqual(status["cost_usd"], 1000.0 / 3600.0)
-
-    def test_fail_launch_then_recover(self) -> None:
-        provider = FakeProvider(hourly_usd=1.0, clock=self.clock, fail_launch=True)
-        spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
-
-        with self.assertRaises(RuntimeError):
-            provider.launch(spec)
-
-        self.assertEqual(provider.launches, 1)
-        provider.fail_launch = False
-        result = provider.launch(spec)
-        self.assertEqual(result["instance_id"], "fake-1")
-        self.assertEqual(provider.launches, 1)
 
     def test_multiple_jobs_independent(self) -> None:
         spec1 = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
