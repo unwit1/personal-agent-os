@@ -228,7 +228,7 @@ class ComputeProvisionCliTests(CliFixture):
         # Destroy
         code, destroy_result = self.cli("orchestrate", "compute", "destroy", "--job-id", job_id)
         self.assertEqual(code, 0, destroy_result)
-        self.assertEqual(destroy_result["state"], "destroyed")
+        self.assertEqual(destroy_result["state"], "reconciled")
 
     def test_inventory_with_mocked_provider(self) -> None:
         """Test inventory with a mocked provider to avoid real API calls."""
