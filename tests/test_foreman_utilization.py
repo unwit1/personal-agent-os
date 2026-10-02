@@ -215,8 +215,15 @@ class RoleCoverageTests(Base):
             endpoints_added.append(dict(entry))
             return {"written": True}
 
-        with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
-            self.manager().deploy("org/coder-7b", job_cap_usd=1.0, background=False)
+        manager = self.manager()
+        with mock.patch.object(manager, "register") as mock_register:
+            def register_with_capture(state):
+                from agent_os.orchestrator.foreman_deploy import _register_provider
+                with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
+                    _register_provider(state)
+
+            mock_register.side_effect = register_with_capture
+            manager.deploy("org/coder-7b", job_cap_usd=1.0, background=False, coding_agent=True)
 
         self.assertEqual(len(endpoints_added), 2)  # main endpoint + agent entry
         main_entry = endpoints_added[0]
@@ -287,8 +294,15 @@ class RoleCoverageTests(Base):
             endpoints_added.append(dict(entry))
             return {"written": True}
 
-        with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
-            self.manager().deploy("org/coder-7b", job_cap_usd=1.0, background=False)
+        manager = self.manager()
+        with mock.patch.object(manager, "register") as mock_register:
+            def register_with_capture(state):
+                from agent_os.orchestrator.foreman_deploy import _register_provider
+                with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
+                    _register_provider(state)
+
+            mock_register.side_effect = register_with_capture
+            manager.deploy("org/coder-7b", job_cap_usd=1.0, background=False, coding_agent=True)
 
         main_entry = endpoints_added[0]
         self.assertEqual(main_entry["tier_concurrency"], {"reasoning": 1, "frontier": 1})

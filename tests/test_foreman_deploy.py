@@ -839,7 +839,7 @@ class GpuAgentTests(unittest.TestCase):
 
     def test_agent_entry_routes_codex_to_the_pod_without_the_key_in_config(self) -> None:
         entry = fd.agent_entry(self.STATE)
-        self.assertEqual((entry["id"], entry["adapter"], entry["roles"]), ("foreman-coder-7b-agent", "codex_cli", ["implementer", "test_author", "repairer"]))
+        self.assertEqual((entry["id"], entry["adapter"], entry["roles"]), ("foreman-coder-7b-agent", "codex_cli", ["implementer", "test_author", "repairer", "reviewer"]))
         self.assertEqual(entry["options"]["extra_config"]["model_providers.agentosgpu.base_url"], "https://pod1-8000.proxy.runpod.net/v1")
         self.assertEqual(entry["options"]["extra_config"]["model_providers.agentosgpu.wire_api"], "responses")
         self.assertEqual(entry["options"]["secret_env"], {fd.GPU_KEY_ENV: fd.ENDPOINT_SECRET})
