@@ -57,6 +57,28 @@ class HostActionTests(OrchestratorFixture):
     def test_host_level_needs_decision_is_deferred_without_a_gate(self) -> None:
         self.run_blocked("needs_decision", "Can the Agent OS MCP server be restarted from its owning host?")
 
+    def test_deferred_step_with_unmerged_work_holds_its_dependents(self) -> None:
+        question = "needs a client restart"
+
+        def script(request, call):
+            if request.role == "reviewer":
+                return {"structured": {"status": "done", "verdict": "approved", "findings": []}}
+            if request.node_id == "verify":
+                return {"edits": {"a/api.py": "def api():\n    return 1\n"},
+                        "structured": {"status": "blocked_on_host", "summary": question, "question": question}}
+            return {"edits": {f"{request.node_id}/done.txt": "x\n"}, "structured": {"status": "done"}}
+
+        for name in self.providers:
+            synthetic.SCRIPTS[name] = script
+        run_id = self.create([self.task("verify", scope=["a"]), self.task("impl", depends_on=["verify"])])
+        self.engine.run_loop(run_id, max_ticks=40)
+        record = self.engine.load(run_id)
+        verify = record["nodes"]["verify"]
+        self.assertTrue(verify["integration"]["deferred"])
+        self.assertIn("a/api.py", verify["integration"]["unmerged_files"])
+        self.assertNotIn("impl", record["integration"]["merged"])
+        self.assertIn("deferred host action on verify", record["nodes"]["impl"]["wait_reason"])
+
     def test_design_questions_still_open_a_gate(self) -> None:
         self.assertFalse(_host_action("keep the v1 API?"))
         self.assertTrue(_host_action("Restart the Agent OS MCP server before expecting clients to use the fix"))

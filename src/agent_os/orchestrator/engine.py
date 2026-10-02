@@ -1500,7 +1500,9 @@ class Orchestrator:
                 continue
             unmet = [dep for dep in node["depends_on"] if not _dependency_met(nodes.get(dep))]
             if unmet:
-                node["wait_reason"] = "waiting for " + ", ".join(unmet)
+                deferred = [dep for dep in unmet if ((nodes.get(dep) or {}).get("integration") or {}).get("deferred")]
+                node["wait_reason"] = "waiting for " + ", ".join(unmet) + (
+                    f" (deferred host action on {', '.join(deferred)}; retry it once the host step is done)" if deferred else "")
                 continue
             if node["approval_gate"] and not node["approval"]:
                 if node["approval_gate"]["kind"] in policy["approval_gates"]:
@@ -2062,12 +2064,20 @@ class Orchestrator:
     def _defer_host_action(self, record: dict[str, Any], node: dict[str, Any], action: str) -> None:
         """Set aside a step only the host can do, without asking a person.
 
-        Nothing from the step is merged; dependents proceed and the deferral is
-        recorded so the final summary and handoff still name the host action."""
+        Nothing from the step is merged. Dependents proceed unless the step left
+        unmerged work behind (they would build against missing code); the
+        deferral is recorded so the final summary and handoff still name it."""
+        unmerged: list[str] = []
+        worktree = node.get("worktree") or {}
+        if worktree.get("path") and worktree.get("base_commit"):
+            try:
+                unmerged = self._manager(record).changed_files(worktree["path"], worktree["base_commit"])[:50]
+            except GitError:
+                unmerged = []
         node["state"] = "PASSED"
         node["completed_at"] = now()
         node["integrated"] = True
-        node["integration"] = {"deferred": True, "reason": redact(action, 300), "at": now()}
+        node["integration"] = {"deferred": True, "reason": redact(action, 300), "at": now(), "unmerged_files": unmerged}
         node["wait_reason"] = f"deferred host action: {redact(action, 200)}"
         record.setdefault("deferred_host_actions", []).append({"node": node["id"], "action": redact(action, 300), "at": now()})
         self._close_node_gates(record, node["id"], "deferred automatically: host-level action")
@@ -2530,6 +2540,13 @@ def _host_action(text: str) -> bool:
 
 def _dependency_met(node: dict[str, Any] | None) -> bool:
     if node is None or node["state"] != "PASSED":
+        return False
+    integration = node.get("integration") or {}
+    if node["role"] in INTEGRATED_ROLES and integration.get("deferred") and integration.get("unmerged_files"):
+        # The deferred step left work that was never merged: dependents would
+        # build against code that is not there. They wait until the host
+        # action is done and the node is retried and integrated. A deferral
+        # that left no work behind still never stalls the run.
         return False
     return node["integrated"] or node["role"] not in INTEGRATED_ROLES
 
