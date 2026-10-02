@@ -118,7 +118,8 @@ def _default_iter_rows(scope: str) -> Iterable[dict] | None:
     path = config.db_for(scope)
     if not path.exists():
         return None
-    return list(Store(path).iter_messages())
+    with Store(path) as store:
+        return list(store.iter_messages())
 
 
 def _own_addresses() -> set[str]:
