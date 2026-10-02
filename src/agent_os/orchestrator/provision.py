@@ -120,14 +120,15 @@ def _validate(request: dict[str, Any]) -> dict[str, Any]:
             "max_runtime_request": None if cap is None else float(cap)}
 
 
-def _resolve_provider(name: str, provider: Any, clock: Callable[[], float], hourly: float = 1.0) -> Any:
+def _resolve_provider(name: str, provider: Any, clock: Callable[[], float], home: Path | None = None) -> Any:
+    """Return the injected provider, else a fake whose state persists at <home>/compute-providers/fake.json."""
     if provider is not None:
         return provider
     if name != "fake":
         raise ValueError(f"no adapter for provider {name!r} in slice 2")
     from .compute_fake import FakeProvider
 
-    return FakeProvider(hourly_usd=hourly, clock=clock)
+    return FakeProvider(clock=clock, state_path=Path(home or orchestrator_home()) / "compute-providers" / "fake.json")
 
 
 def _spec(job: dict[str, Any]) -> dict[str, Any]:
@@ -136,9 +137,14 @@ def _spec(job: dict[str, Any]) -> dict[str, Any]:
 
 
 def _launch_or_lookup(provider: Any, job: dict[str, Any]) -> str:
-    """Find an instance already created under this job's name before launching (resume-safe)."""
-    for instance_id, instance in (getattr(provider, "instances", None) or {}).items():
-        if instance.get("name") == job["job_id"]:
+    """Find an instance already created under this job's name before launching (resume-safe).
+
+    Uses the provider's ``lookup(name)`` when it has one; ``launch`` must itself be idempotent by spec name.
+    """
+    lookup = getattr(provider, "lookup", None)
+    if callable(lookup):
+        instance_id = lookup(job["job_id"])
+        if instance_id is not None:
             return instance_id
     return provider.launch(_spec(job))["instance_id"]
 
@@ -253,7 +259,7 @@ def provision(request: dict[str, Any], *, provider: Any = None, home: Path | Non
                       clock, home, gate="approval_required")
     if job["state"] == "requested":
         job["max_runtime_seconds"] = _max_runtime(job, fields["max_runtime_request"])
-    return _advance(job, request, _resolve_provider(job["provider"], provider, clock, job["hourly_usd"]), clock, home, budget_home)
+    return _advance(job, request, _resolve_provider(job["provider"], provider, clock, home), clock, home, budget_home)
 
 
 def status(job_id: str, *, provider: Any = None, home: Path | None = None, budget_home: Path | None = None,
@@ -262,7 +268,7 @@ def status(job_id: str, *, provider: Any = None, home: Path | None = None, budge
     job = _load(job_id, home)
     if not job.get("instance_id") or job["state"] not in ("running", "stopping"):
         return job
-    provider = _resolve_provider(job["provider"], provider, clock, job["hourly_usd"])
+    provider = _resolve_provider(job["provider"], provider, clock, home)
     polled = provider.poll(job["instance_id"])
     _apply_poll(job, polled)
     overdue = clock() >= float(job.get("auto_stop_epoch") or math.inf)
@@ -288,7 +294,7 @@ def stop(job_id: str, *, provider: Any = None, home: Path | None = None, budget_
         job["stop_requested"] = True
         return _save(job, home)
     if state in ("running", "stopping"):
-        return _finish_stop(job, _resolve_provider(job["provider"], provider, clock, job["hourly_usd"]), "stop", clock, home)
+        return _finish_stop(job, _resolve_provider(job["provider"], provider, clock, home), "stop", clock, home)
     return job
 
 
@@ -304,7 +310,7 @@ def destroy(job_id: str, *, provider: Any = None, home: Path | None = None, budg
         _save(job, home)
         _transition(job, "destroyed", clock=clock)
         return _save(job, home)
-    provider = _resolve_provider(job["provider"], provider, clock, job["hourly_usd"])
+    provider = _resolve_provider(job["provider"], provider, clock, home)
     if state == "launching":
         job["instance_id"] = _launch_or_lookup(provider, job)  # raises: stays launching, reservation held
         _transition(job, "failed", "abandoned_launch", clock=clock)
