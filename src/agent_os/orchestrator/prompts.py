@@ -8,10 +8,7 @@ run record or canonical Git state.
 
 from __future__ import annotations
 
-import copy
-import functools
 import json
-from pathlib import Path
 from typing import Any
 
 from .adapters.base import RESULT_FENCE
@@ -128,60 +125,10 @@ def _sibling_lines(run: dict[str, Any], node: dict[str, Any]) -> list[str]:
     return [*lines, ""]
 
 
+# Prompt families that share one run-level prefix: every node of a family gets the same rules.
 FAMILIES = {"implementer": "worker", "test_author": "worker", "repairer": "worker", "reviewer": "reviewer", "planner": "planner"}
-SHARED_PREFIX_END = "--- End of shared run instructions; your role and assignment follow. ---"
-SHARED_CONTEXT_BUDGET = {"worker": 1200, "reviewer": 1200, "planner": 1200}
 
-
-def family(role: str) -> str | None:
-    return FAMILIES.get(role)
-
-
-@functools.lru_cache(maxsize=16)
-def _shared_packet(run_id: str, project: str | None, budget: int) -> tuple[str, dict[str, Any] | None]:
-    """Run-scoped project context from project state alone (no task); run_id is only the cache key."""
-    if not project:
-        return "", None
-    try:
-        from ..registry import get_project, load_state
-        from ..skills import discover
-
-        record = get_project(project)
-        state = load_state(record)
-        path = Path(record["path"])
-        available = discover(path, state.get("skill_roots", []))
-        files = [item for item in state.get("context_files", []) if (path / item).is_file()]
-        naive_chars = sum((path / item).stat().st_size for item in files) + sum(skill.path.stat().st_size for skill in available)
-    except Exception:
-        return "", None
-    lines = []
-    if state.get("summary"):
-        lines.append(f"Project summary: {state['summary']}")
-    items = 0
-    for key in ("constraints", "validation_commands"):
-        values = state.get(key) or []
-        if values:
-            items += 1
-            lines.append(f"{key.replace('_', ' ').capitalize()}:")
-            lines.extend(f"- {item}" for item in values[:8])
-    text = "\n".join(lines)[: budget * 4]
-    return text, {
-        "method": "candidate = every registered context file and skill for the project; selected = the compact slice placed in the shared prefix",
-        "candidate_items": len(files) + len(available),
-        "candidate_tokens_estimate": (naive_chars + 3) // 4,
-        "selected_items": items + (1 if state.get("summary") else 0),
-        "selected_tokens_estimate": estimate_tokens(text),
-    }
-
-
-def _operator_lines(run: dict[str, Any]) -> list[str]:
-    messages = [item for item in run.get("operator_messages") or [] if str(item.get("text") or "").strip()][-5:]
-    if not messages:
-        return []
-    return ["Messages from the operator (most recent last); follow them where they apply to your assignment:",
-            *[f"- {str(item['text'])[:600]}" for item in messages], ""]
-
-
+_WORKER_RULES_HEAD = "- Work only inside this worktree; another agent may be editing a different one."
 _WORKER_RULES_TAIL = (
     "- Do not commit, push, merge, rebase, or delete branches; the orchestrator checkpoints your work.",
     "- Do not start, resume, or control a nested Agent OS orchestrator run from this worker. Its Git metadata is shared with",
@@ -197,14 +144,7 @@ _WORKER_RULES_TAIL = (
     "- If a decision would materially change the requested outcome, stop and report status needs_decision with a question.",
     "- If the assignment is already fully done in this worktree, change nothing and report status already_done, citing the evidence in summary.",
 )
-
-# Static worker rules (no per-node scope or validators), in today's order.
-WORKER_RULES = (
-    "- Work only inside this worktree; another agent may be editing a different one.",
-    *_WORKER_RULES_TAIL,
-)
-
-REVIEWER_RULES = (
+_REVIEWER_RULES = (
     "You are an independent reviewer; another agent wrote this change. Do not edit files.",
     "Inspect the change below and the worktree. Review, in priority order:",
     "1. Correctness: bugs, broken edge cases, missing error handling at boundaries, tests that do not exercise the change.",
@@ -218,49 +158,56 @@ REVIEWER_RULES = (
 )
 
 
-def shared_prefix(run: dict[str, Any], family: str) -> str:
-    """Run-level prompt prefix: a pure function of run fields and the family, never of a node or cwd."""
-    lines = [
-        f"Agent OS orchestrated run `{run['run_id']}`: shared instructions for every agent in this run. "
-        "Your own role and assignment follow them.",
-        "",
-        f"Overall goal: {run['goal']}",
+def _scope_line(node: dict[str, Any]) -> str:
+    scope = node.get("scope") or []
+    return "- Edit only paths inside your scope: " + (", ".join(scope) if scope else "(whole repository)")
+
+
+def _validator_lines(node: dict[str, Any]) -> list[str]:
+    validators = [item for item in node.get("validators") or [] if item.get("kind") == "command"]
+    if not validators:
+        return []
+    return ["- Your work will be validated with:",
+            *[f"    {item['command'] if isinstance(item['command'], str) else ' '.join(item['command'])}" for item in validators]]
+
+
+def _operator_lines(run: dict[str, Any]) -> list[str]:
+    messages = [item for item in run.get("operator_messages") or [] if str(item.get("text") or "").strip()][-5:]
+    if not messages:
+        return []
+    return ["Messages from the operator (most recent last); follow them where they apply to your assignment:",
+            *[f"- {str(item['text'])[:600]}" for item in messages], ""]
+
+
+def _cwd_lines(cwd: str | None) -> list[str]:
+    if not cwd:
+        return []
+    return [
+        f"Your working directory is {cwd}. It is a complete checkout of the code you work on:",
+        "use paths relative to it. Never read or edit the repository it is nested inside.",
         "",
     ]
-    context, _ = _shared_packet(run["run_id"], run.get("project"), SHARED_CONTEXT_BUDGET[family])
-    if context:
-        lines += ["Project context:", context, ""]
+
+
+def shared_prefix(run: dict[str, Any], family: str) -> str:
+    """The run-level start of a prompt for one family ('worker', 'reviewer' or 'planner').
+
+    Built only from run fields (goal, operator messages) and static rules, never from a node
+    or a working directory, so it is byte-identical for every node of the family and a
+    provider prompt cache can serve it. Per-node text follows it."""
+    lines = [f"Overall goal: {run['goal']}", ""]
     if family == "worker":
-        lines += ["Rules:", *WORKER_RULES, ""]
+        lines += ["Rules:", _WORKER_RULES_HEAD, *_WORKER_RULES_TAIL, ""]
     elif family == "reviewer":
-        lines += [*REVIEWER_RULES, ""]
+        lines += [*_REVIEWER_RULES, ""]
     lines += _operator_lines(run)
-    lines += [SHARED_PREFIX_END, "", ""]
-    return "\n".join(lines)
+    return "\n".join([*lines, ""])
 
 
-def _suffix(
-    run: dict[str, Any], node: dict[str, Any], *, diff: str | None, findings: list[dict[str, Any]] | None,
-    repo_map: str | None, cwd: str | None, prefix_family: str,
-) -> tuple[str, dict[str, Any] | None]:
-    """Per-node blocks that follow the shared prefix."""
+def _node_blocks(run: dict[str, Any], node: dict[str, Any], diff: str | None, findings: list[dict[str, Any]] | None, repo_map: str | None) -> list[str]:
+    """Role-specific per-node blocks: reviewer diff and findings, repairer findings, planner instructions."""
     role = node["role"]
-    lines = [f"You are the {role.replace('_', ' ')} for Agent OS orchestrated run `{run['run_id']}`.", ""]
-    if cwd:
-        lines += [
-            f"Your working directory is {cwd}. It is a complete checkout of the code you work on:",
-            "use paths relative to it. Never read or edit the repository it is nested inside.",
-            "",
-        ]
-    lines += [f"Your assignment ({node['id']}): {node['goal']}", ""]
-    if prefix_family == "worker":
-        scope = node.get("scope") or []
-        lines += ["Assignment rules:", "- Edit only paths inside your scope: " + (", ".join(scope) if scope else "(whole repository)")]
-        validators = [item for item in node.get("validators") or [] if item.get("kind") == "command"]
-        if validators:
-            lines.append("- Your work will be validated with:")
-            lines += [f"    {item['command'] if isinstance(item['command'], str) else ' '.join(item['command'])}" for item in validators]
-        lines.append("")
+    lines: list[str] = []
     if role == "reviewer":
         lines += [
             *_sibling_lines(run, node),
@@ -271,40 +218,20 @@ def _suffix(
             "",
         ]
         if findings:
-            lines += _reviewer_findings(findings)
+            lines += ["Earlier review rounds left these findings unresolved. Check each against the current change: report it again",
+                      "(same id and summary) if it still applies, and do not approve while one does.", ""]
+            for item in findings[-10:]:
+                lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
+            lines.append("")
     if role == "repairer" and findings:
-        lines += _repairer_findings(findings)
+        lines += ["Address these review findings (fix them, or reject one with a concrete reason):", ""]
+        for item in findings:
+            lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {item['summary']}")
+            if item.get("recommended_action"):
+                lines.append(f"  recommended: {item['recommended_action']}")
+        lines.append("")
     if role == "planner":
         lines += _planner_lines(run, repo_map)
-    measurement = None
-    budget = int(node.get("context_budget", 1200))
-    if budget != SHARED_CONTEXT_BUDGET[prefix_family]:
-        context, measurement = _context_packet(run.get("project"), node["goal"], budget)
-        if context:
-            lines += ["Project context:", context, ""]
-    if measurement is None:
-        _, measurement = _shared_packet(run["run_id"], run.get("project"), SHARED_CONTEXT_BUDGET[prefix_family])
-        measurement = copy.deepcopy(measurement)
-    lines.append(_contract(role))
-    return "\n".join(lines), measurement
-
-
-def _reviewer_findings(findings: list[dict[str, Any]]) -> list[str]:
-    lines = ["Earlier review rounds left these findings unresolved. Check each against the current change: report it again",
-             "(same id and summary) if it still applies, and do not approve while one does.", ""]
-    for item in findings[-10:]:
-        lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
-    lines.append("")
-    return lines
-
-
-def _repairer_findings(findings: list[dict[str, Any]]) -> list[str]:
-    lines = ["Address these review findings (fix them, or reject one with a concrete reason):", ""]
-    for item in findings:
-        lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {item['summary']}")
-        if item.get("recommended_action"):
-            lines.append(f"  recommended: {item['recommended_action']}")
-    lines.append("")
     return lines
 
 
@@ -320,99 +247,34 @@ def build_measured(
 ) -> tuple[str, dict[str, Any] | None]:
     """The prompt and the context-selection measurement behind it.
 
-    With the run policy flag `shared_prefix` on, the prompt is the run-level
-    prefix followed by the per-node suffix; otherwise the original layout."""
+    With the run policy flag `shared_prefix` on, the prompt is the run-level prefix
+    (`prefix`, else `shared_prefix(run, family)`) followed by the per-node text. The words are
+    the same as with the flag off; only their order differs."""
     role = node["role"]
-    fam = family(role)
-    if (run.get("policy") or {}).get("shared_prefix") and fam:
-        head = prefix if prefix is not None else shared_prefix(run, fam)
-        suffix, measurement = _suffix(run, node, diff=diff, findings=findings, repo_map=repo_map, cwd=cwd, prefix_family=fam)
-        return head + suffix, measurement
-    lines = [
-        f"You are the {role.replace('_', ' ')} for Agent OS orchestrated run `{run['run_id']}`.",
-        "",
-        *(
-            [
-                f"Your working directory is {cwd}. It is a complete checkout of the code you work on:",
-                "use paths relative to it. Never read or edit the repository it is nested inside.",
-                "",
-            ]
-            if cwd
-            else []
-        ),
-        f"Overall goal: {run['goal']}",
-        f"Your assignment ({node['id']}): {node['goal']}",
-        "",
-    ]
-    if role in {"implementer", "test_author", "repairer"}:
-        scope = node.get("scope") or []
-        lines += [
-            "Rules:",
-            "- Work only inside this worktree; another agent may be editing a different one.",
-            "- Edit only paths inside your scope: " + (", ".join(scope) if scope else "(whole repository)"),
-            "- Do not commit, push, merge, rebase, or delete branches; the orchestrator checkpoints your work.",
-            "- Do not start, resume, or control a nested Agent OS orchestrator run from this worker. Its Git metadata is shared with",
-            "  the parent repository and is outside this worker's write boundary. If the assignment needs a host-level action",
-            "  (restarting a server or client, running a nested orchestrator, installing software), do not ask a person: report",
-            "  status blocked_on_host with that action in summary. The orchestrator defers the step and keeps the run moving.",
-            "- Do not print, store, or request credentials or secrets.",
-            "- Every command runs to completion before its output returns. If output is long or cut off, rerun it redirected to",
-            "  a file in the worktree and read that file. Never wait on, poll, or inspect processes you did not start: other",
-            "  python processes on this machine belong to the orchestrator.",
-            "- Everything you need is in this prompt and the worktree. Do not consult Agent OS, memory, or other context",
-            "  tools. Read only the files you need, make the change, run your validator once, and finish.",
-            "- If a decision would materially change the requested outcome, stop and report status needs_decision with a question.",
-            "- If the assignment is already fully done in this worktree, change nothing and report status already_done, citing the evidence in summary.",
-        ]
-        validators = [item for item in node.get("validators") or [] if item.get("kind") == "command"]
-        if validators:
-            lines.append("- Your work will be validated with:")
-            lines += [f"    {item['command'] if isinstance(item['command'], str) else ' '.join(item['command'])}" for item in validators]
-        lines.append("")
-    if role == "reviewer":
-        lines += [
-            "You are an independent reviewer; another agent wrote this change. Do not edit files.",
-            "Inspect the change below and the worktree. Review, in priority order:",
-            "1. Correctness: bugs, broken edge cases, missing error handling at boundaries, tests that do not exercise the change.",
-            "2. Waste: dead code, unused parameters or imports, logic an existing helper already covers, needless abstraction",
-            "   or indirection, speculative features beyond the assignment. Prefer deleting code to adding it.",
-            "3. Efficiency: repeated work, avoidable quadratic loops, extra subprocess, I/O, or model calls.",
-            "4. Scope: edits unrelated to the assignment.",
-            "Severity: critical/high = wrong behaviour, data loss, or security; medium = bad code that should be cut or",
-            "simplified before merge; low/info = optional polish. Give the smallest concrete fix for each finding.",
-            "Report evidenced problems only, not style preferences. An approval with no findings must still be a structured result.",
-            "",
-            *_sibling_lines(run, node),
-            "Change under review:",
-            "```diff",
-            (diff or "(no diff)").rstrip(),
-            "```",
-            "",
-        ]
-    if role == "reviewer" and findings:
-        lines += ["Earlier review rounds left these findings unresolved. Check each against the current change: report it again",
-                  "(same id and summary) if it still applies, and do not approve while one does.", ""]
-        for item in findings[-10:]:
-            lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
-        lines.append("")
-    if role == "repairer" and findings:
-        lines += ["Address these review findings (fix them, or reject one with a concrete reason):", ""]
-        for item in findings:
-            lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {item['summary']}")
-            if item.get("recommended_action"):
-                lines.append(f"  recommended: {item['recommended_action']}")
-        lines.append("")
-    if role == "planner":
-        lines += _planner_lines(run, repo_map)
+    fam = FAMILIES.get(role)
+    shared = bool((run.get("policy") or {}).get("shared_prefix")) and fam is not None
+    lines = [f"You are the {role.replace('_', ' ')} for Agent OS orchestrated run `{run['run_id']}`.", "", *_cwd_lines(cwd)]
+    if shared:
+        lines += [f"Your assignment ({node['id']}): {node['goal']}", ""]
+        if fam == "worker":
+            lines += [_scope_line(node), *_validator_lines(node), ""]
+    else:
+        lines += [f"Overall goal: {run['goal']}", f"Your assignment ({node['id']}): {node['goal']}", ""]
+        if fam == "worker":
+            lines += ["Rules:", _WORKER_RULES_HEAD, _scope_line(node), *_WORKER_RULES_TAIL, *_validator_lines(node), ""]
+        elif fam == "reviewer":
+            lines += [*_REVIEWER_RULES, ""]
+    lines += _node_blocks(run, node, diff, findings, repo_map)
     context, measurement = _context_packet(run.get("project"), node["goal"], int(node.get("context_budget", 1200)))
     if context:
         lines += ["Project context:", context, ""]
-    messages = [item for item in run.get("operator_messages") or [] if str(item.get("text") or "").strip()][-5:]
-    if messages:
-        lines += ["Messages from the operator (most recent last); follow them where they apply to your assignment:",
-                  *[f"- {str(item['text'])[:600]}" for item in messages], ""]
+    if not shared:
+        lines += _operator_lines(run)
     lines.append(_contract(role))
-    return "\n".join(lines), measurement
+    text = "\n".join(lines)
+    if shared:
+        text = (prefix if prefix is not None else shared_prefix(run, fam)) + text
+    return text, measurement
 
 
 def _planner_lines(run: dict[str, Any], repo_map: str | None) -> list[str]:
