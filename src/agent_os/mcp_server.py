@@ -726,7 +726,8 @@ def _refresh_window_schemas() -> None:
     TOOL_SCHEMAS.update(WINDOW_TOOL_SCHEMAS)
 
 
-_refresh_window_schemas()
+# Placeholder run schema keeps the tool callable; the registry-built schema is made lazily in tools/list.
+TOOL_SCHEMAS.update(WINDOW_TOOL_SCHEMAS)
 
 
 def _window_outstanding(tab: str | None = None) -> dict[str, Any]:
