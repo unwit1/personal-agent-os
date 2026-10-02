@@ -25,9 +25,12 @@ def orchestrator_items(
     items: list[dict[str, Any]] = []
     for run in list_runs() or []:
         run_id = run.get("run_id")
-        if not run_id or run["state"] == "COMPLETE":
+        if not run_id or run.get("state") == "COMPLETE":
             continue
-        run_status = status(run_id)
+        try:
+            run_status = status(run_id)
+        except (KeyError, ValueError, OSError):
+            continue
         items.extend(_gates_as_items(run_id, run_status))
         items.extend(_parked_nodes_as_items(run_id, run_status))
     return items

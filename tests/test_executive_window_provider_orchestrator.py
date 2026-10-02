@@ -67,15 +67,22 @@ class OrchestratorProviderTests(unittest.TestCase):
         self.assertIn("node1", items[0]["context"]["node_id"])
 
     def test_closed_gates_ignored(self):
-        """Closed approval gates are not included."""
-        runs = [{"run_id": "run3", "state": "COMPLETE"}]
+        """Closed approval gates are not included; only open gates become items."""
+        runs = [{"run_id": "run3", "state": "APPROVAL_REQUIRED"}]
         statuses = {
             "run3": {
                 "gates": [
                     {
                         "id": "G1",
                         "kind": "consequential_repository_write",
-                        "status": "closed",
+                        "status": "open",
+                        "reason": "test",
+                        "node": None,
+                    },
+                    {
+                        "id": "G2",
+                        "kind": "consequential_repository_write",
+                        "status": "approved",
                         "reason": "test",
                         "node": None,
                     }
@@ -87,7 +94,8 @@ class OrchestratorProviderTests(unittest.TestCase):
             lambda: runs,
             lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
         )
-        self.assertEqual(len(items), 0)
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["id"], "gate:run3:G1")
 
     def test_completed_runs_ignored(self):
         """Runs in COMPLETE state produce no items."""
@@ -234,6 +242,65 @@ class OrchestratorProviderTests(unittest.TestCase):
             lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
         )
         self.assertEqual(len(items), 0)
+
+    def test_corrupt_run_status_skipped(self):
+        """If a run's status raises (corrupt/missing), skip it and continue."""
+        runs = [
+            {"run_id": "run_bad", "state": "RUNNING"},
+            {"run_id": "run_good", "state": "APPROVAL_REQUIRED"}
+        ]
+        statuses = {
+            "run_good": {
+                "gates": [
+                    {
+                        "id": "G1",
+                        "kind": "consequential_repository_write",
+                        "status": "open",
+                        "reason": "test",
+                        "node": None,
+                    }
+                ],
+                "nodes": [],
+            }
+        }
+        def failing_status(run_id):
+            if run_id == "run_bad":
+                raise ValueError("Corrupt run state")
+            return statuses.get(run_id, {"gates": [], "nodes": []})
+
+        items = orchestrator_items(
+            lambda: runs,
+            failing_status,
+        )
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["id"], "gate:run_good:G1")
+
+    def test_run_without_state_field(self):
+        """A run missing the 'state' field is skipped using get()."""
+        runs = [
+            {"run_id": "run_no_state"},
+            {"run_id": "run_with_state", "state": "APPROVAL_REQUIRED"}
+        ]
+        statuses = {
+            "run_with_state": {
+                "gates": [
+                    {
+                        "id": "G1",
+                        "kind": "consequential_repository_write",
+                        "status": "open",
+                        "reason": "test",
+                        "node": None,
+                    }
+                ],
+                "nodes": [],
+            }
+        }
+        items = orchestrator_items(
+            lambda: runs,
+            lambda run_id: statuses.get(run_id, {"gates": [], "nodes": []}),
+        )
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["id"], "gate:run_with_state:G1")
 
 
 if __name__ == "__main__":
