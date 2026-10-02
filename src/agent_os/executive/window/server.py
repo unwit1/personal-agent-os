@@ -107,7 +107,7 @@ class Api:
         """Preview a chat-stated opening event; it only applies through /api/confirm."""
         item = {"id": f"county:{event['county']}", "kind": "county_openings"}
         try:
-            self.registry.invoke("county.opening_change", item, dict(event), self.pending)
+            self.registry.invoke("openings.event", item, dict(event), self.pending)
         except Exception as exc:
             return {"message": f"Could not preview the openings change: {type(exc).__name__}: {exc}"[:600],
                     "previews": self._previews(), "opening_event": event}
