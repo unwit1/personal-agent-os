@@ -68,6 +68,7 @@ MCP tools   ─┘                              │
 | ReviewCoordinator | `review.py` + `engine.py` | structured findings, repair, re-review |
 | IntegrationManager | `engine.py` (`_integrate`, `_land`) | validated-only merges, conflict gates |
 | EventStream | `store.py` events + `server.py` SSE | structured state changes for clients |
+| RouteCalibrator | `route_calibration.py` | IMP-0015 shadow RouteLLM-style escalation calibration; advice only; design docs/orchestrator-os/self-audit/route-calibration.md |
 
 The GUI is a client. Every button maps to one engine call, and nothing in
 `gui/` decides policy.
