@@ -506,7 +506,7 @@ def utilization_preview(model: dict[str, Any], choice: dict[str, Any] | list[dic
         "kv_cache_dtype": flag("--kv-cache-dtype"),
         "prefix_caching": "--enable-prefix-caching" in flags,
         "chunked_prefill": "--enable-chunked-prefill" in flags,
-        "roles": list(ROLES_BY_CLASS["gpu_pod"]) + list((agent_entry({"model": model, "provider_id": "preview", "base_url": "", "kind": "huggingface"}) or {}).get("roles") or []),
+        "roles": sorted(registered_roles({"model": model, "provider_id": "preview", "base_url": "", "kind": "huggingface"})),
         "initial_concurrency": policy.start,
         "concurrency_bounds": {"minimum": policy.minimum, "maximum": policy.maximum},
         "idle_target_pct": round(100 * gpu_keep_busy.DEFAULT_IDLE_TARGET, 1),

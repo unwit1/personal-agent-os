@@ -465,11 +465,28 @@ class UtilizationPreviewTests(unittest.TestCase):
         self.assertEqual(plan["kv_cache_dtype"], "fp8")
         self.assertGreaterEqual(plan["planned_max_num_seqs"], 4)
         self.assertIn("reviewer", plan["roles"])
+        self.assertEqual(len(plan["roles"]), len(set(plan["roles"])))
         self.assertEqual(plan["initial_concurrency"], 4)
         self.assertEqual(plan["concurrency_bounds"], {"minimum": 2, "maximum": 32})
         self.assertFalse(plan["prefix_stable"])
         self.assertTrue(self.plan(4, shared_prefix=True)["prefix_stable"])
         self.assertEqual(self.plan(4, vllm_overrides={"max_num_seqs": 7})["planned_max_num_seqs"], 7)
+
+
+class PreviewAndAttachWiringTests(Base):
+    def test_quote_contains_utilization_plan(self) -> None:
+        result = self.manager().preview("org/coder-7b", 10.0)
+        self.assertIn("utilization_plan", result)
+        self.assertTrue(result["utilization_plan"]["prefix_caching"])
+
+    def test_attach_records_prefix_fingerprint_only(self) -> None:
+        manager = self.manager()
+        fd._save_state({"id": "FMN-1", "status": "ready", "provider_id": "foreman-x", "model": {"repo": "org/m"}, "runs": []}, self.foreman_home)
+        self.runs["run-1"] = {"shared_prefix": "STABLE PREFIX"}
+        self.assertIsNotNone(manager.attach("run-1"))
+        state = fd.load_state(self.foreman_home)
+        self.assertTrue(state["prefix_fingerprint"])
+        self.assertNotIn("STABLE PREFIX", str(state))
 
 
 if __name__ == "__main__":
