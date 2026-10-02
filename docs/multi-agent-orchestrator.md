@@ -432,7 +432,7 @@ open, nothing new is dispatched.
   "max_stage_retries": 2, "max_escalations": 2, "max_review_rounds": 2, "max_final_repairs": 1,
   "material_severities": ["critical", "high", "medium"], "preference": "balanced",
   "planning": "auto", "max_planned_tasks": 16, "planner_capability_class": "balanced",
-  "planner_effort": "medium", "planner_repo_map": true, "planner_read_budget": 8, "reuse_validation": true, "approved_commands": ["python -m unittest( [A-Za-z0-9_./-]+)*( -v)?", "..."],
+  "planner_effort": "medium", "planner_repo_map": true, "planner_read_budget": 8, "shared_prefix": false, "reuse_validation": true, "approved_commands": ["python -m unittest( [A-Za-z0-9_./-]+)*( -v)?", "..."],
   "final_integration": "branch", "max_launches": 40,
   "poll_interval_seconds": 2.0, "worker_timeout_seconds": 3600,
   "default_validators": [], "completion_validators": [],
