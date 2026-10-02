@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from agent_os.orchestrator import shared_prefix_compare
+from agent_os.orchestrator import context_anatomy, shared_prefix_compare
 
 
 def _no_network(*args, **kwargs):
@@ -45,6 +45,26 @@ class SharedPrefixCompareTests(unittest.TestCase):
         self.assertEqual(first["delta"], second["delta"])
         self.assertEqual(first["before"]["total_input_tokens"], second["before"]["total_input_tokens"])
         self.assertEqual(first["after"]["cache_read_tokens"], second["after"]["cache_read_tokens"])
+
+    def test_parity_required_sections(self):
+        """Verify all required prompt sections present in both before and after variants."""
+        before_calls = context_anatomy.build_run(
+            shared_prefix_compare.GOAL, shared_prefix_compare.PLAN, self.repo,
+            project=None, policy={"shared_prefix": False, "planner_repo_map": False}
+        )
+        after_calls = context_anatomy.build_run(
+            shared_prefix_compare.GOAL, shared_prefix_compare.PLAN, self.repo,
+            project=None, policy={"shared_prefix": True, "planner_repo_map": False}
+        )
+        self.assertEqual(len(before_calls), len(after_calls), "call count mismatch between variants")
+        for before, after in zip(before_calls, after_calls):
+            self.assertEqual(before["role"], after["role"], f"role mismatch for node {before['node']}")
+            self.assertEqual(before["node"], after["node"], "node mismatch")
+            before_sections = context_anatomy.sections(before["prompt"])
+            after_sections = context_anatomy.sections(after["prompt"])
+            self.assertEqual(set(before_sections.keys()), set(after_sections.keys()),
+                           f"section mismatch for {before['role']} {before['node']}: "
+                           f"before={sorted(before_sections.keys())} after={sorted(after_sections.keys())}")
 
 
 if __name__ == "__main__":
