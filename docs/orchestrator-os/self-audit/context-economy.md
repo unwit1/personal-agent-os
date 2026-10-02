@@ -313,10 +313,13 @@ violates(s) = len(s) > 80  or  re.search(r"\s", s) is not None
    label from telemetry where `violates(label)` is true becomes `"other"`, and
    `coverage.sanitized_labels` is incremented. One odd model string therefore
    cannot block a report.
-2. **Final check (before writing).** `check_privacy(report)` walks every dict
-   key and every string value recursively. It also rejects any string equal to
-   a node id or worker directory name seen during the scan, unless the string
-   is also an allowed role, class, provider or model label. On any violation it
+2. **Final check (before writing).**
+   `check_privacy(report, forbidden=...)` walks every dict key and every string
+   value recursively. The report itself holds no node ids, so the caller must
+   supply them: while scanning, `measure` collects every node id and worker
+   directory name into a set held only in memory, and passes it as `forbidden`.
+   The check rejects any string equal to a member of `forbidden`, unless the
+   string is also an allowed role, class, provider or model label. On any violation it
    raises `ValueError`, naming the JSON path of the offending item but not its
    text. The report is not written. `privacy.strings_checked` and
    `privacy.passed` are filled in only after the check passes.
@@ -328,9 +331,15 @@ The length bound catches long single tokens such as paths or encoded blobs.
 
 - Module: `src/agent_os/orchestrator/context_economy.py` with
   `measure(runs_dir: Path, run_ids: list[str] | None = None) -> dict` and
-  `check_privacy(report: dict) -> int` (returns the number of strings checked).
+  `check_privacy(report: dict, forbidden: Iterable[str] = ()) -> int` (returns
+  the number of strings checked). `measure` calls
+  `check_privacy(report, forbidden=seen_ids)` before returning, where
+  `seen_ids` is the set of node ids and worker directory names it collected
+  during the scan. That set is never returned or stored. With the default
+  empty `forbidden`, only the length and whitespace rules apply.
 - CLI: `agent-os orchestrate context-economy [--run RUN_ID ...] [--out PATH]`.
-  It prints the JSON report. `--out` writes it after `check_privacy` passes. It
+  It prints the JSON report. `--out` writes it only if `measure`, and therefore
+  its `check_privacy` call, passed. It
   defaults to `<home>/reports/context-economy-<UTC>.json`, gitignored runtime
   state, and the timestamp goes in the file name only.
 - Reuse `ledger.read_events` and `usage.CHARS_PER_TOKEN`. Do not add a second
@@ -361,7 +370,9 @@ cases:
    neither contains it nor contains any node id. The test patches `open` and
    `Path.read_text` for the workers tree to prove that files are never opened.
 6. Privacy: a planted node id, a goal sentence and an 81-character label are
-   rejected or sanitized as specified. A clean report passes, and two runs of
+   rejected or sanitized as specified. `check_privacy(report, forbidden={id})`
+   rejects a report string equal to `id`, and passes the same report when
+   `forbidden` is empty. A clean report passes, and two runs of
    `measure` produce identical JSON.
 
 ## 7. Recording findings
