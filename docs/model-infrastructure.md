@@ -1,6 +1,6 @@
 # Model infrastructure: plugging in open-weight and abliterated models
 
-Status: IMP-0015 Phase 0/1 slice (2026-09-29). Roadmap:
+Status: IMP-0015 Phase 0/1 slice (2026-09-29) + IMP-0015 ASAP slice FreeComputeBroker (2026-10-01). Roadmap:
 `projects/personal-agent-os/roadmap/model-infrastructure-manager.md`.
 
 This page covers what works today: registering any OpenAI-compatible endpoint
@@ -367,3 +367,132 @@ The run policy key is `allow_paid_spend` (default `false`).
 
 This switch only controls routing. Renting a GPU is still its own operator
 action (Deploy as Foreman), gated by the job budget.
+
+## 14. FreeComputeBroker (OpenRouter free pool)
+
+See `docs/free-compute-broker.md` for the design, data shapes, test plan, and
+implementation order.
+
+The FreeComputeBroker maximizes useful work on OpenRouter's volatile free-model
+pool. It runs inside the existing router, budget, CAP/EVR, validator and
+Research Radar primitives, with no second orchestration stack. All modules are
+deterministic code over cached, versioned data; tests run against fixtures only.
+
+### Modules (`src/agent_os/orchestrator/`)
+
+- `free_catalog.py`: Fetch and cache OpenRouter free models; decide "free" via
+  `is_free(pricing)` predicate (every raw pricing value parses to Decimal 0).
+- `free_policy.py`: Load versioned provider-policy record; merge operator
+  overrides; report staleness.
+- `openrouter_account.py`: Read-only access to key, credit state, and rate
+  limits behind `secrets://openrouter/default`; derive `high_allowance` flag
+  from credits or ledger evidence.
+- `free_quota.py`: Append-only quota ledger; daily budget, per-minute governor,
+  reserve, retry budget, reset boundary; backfill eligibility.
+- `free_specialization.py`: Per-(task_family × model) specialization records
+  from ledger + CAP observations; Wilson bounds; proven/canary/unproven status.
+- `free_metrics.py`: Metrics report (useful progress per request, validator
+  acceptance, retries, escalations, paid fallbacks avoided, estimated paid cost
+  avoided).
+- `free_routing.py`: Low-risk/verifiable eligibility rule, data-policy check,
+  model choice, escalation ladder, top-up alert evaluation.
+- `free_swarm.py`: Bounded disposable fan-out where validation is cheap;
+  checkpointable backfill queue for otherwise-expiring quota.
+
+### CLI commands
+
+```powershell
+agent-os orchestrate free-compute catalog [--refresh]    # discovered models
+agent-os orchestrate free-compute diff                   # changes since last fetch
+agent-os orchestrate free-compute policy                 # versioned provider policy
+agent-os orchestrate free-compute account                # read-only account state
+agent-os orchestrate free-compute quota                  # ledger and governor status
+agent-os orchestrate free-compute route <task.json>      # routing decision (free or escalate)
+agent-os orchestrate free-compute specialization         # per-family model evidence
+agent-os orchestrate free-compute metrics [--day]        # cost, progress, acceptance rates
+agent-os orchestrate free-compute backfill               # queue status
+agent-os orchestrate free-compute status                 # operator summary
+```
+
+### State location
+
+**Runtime state** (derived, rebuildable, outside Git):
+`<orchestrator_home>/free-compute/`:
+- `catalog/snapshots/<snapshot_id>.json`: Versioned model discovery
+- `catalog/latest.json`: Most recent snapshot
+- `catalog/diffs.jsonl`: Consecutive snapshot diffs
+- `account.json`: Last read-only account state (key never stored)
+- `policy-overrides.json`: Operator overrides (optional)
+- `ledger.jsonl`: Append-only free request attempt events
+- `specialization.json`: Derived per-(task_family × model) records
+- `backfill/queue.jsonl`, `backfill/checkpoints/<item_id>.json`: Backfill work items and checkpoints
+
+**Provider policy** (reviewed, Git-backed, append-only):
+`projects/personal-agent-os/orchestrator-os/records/provider-policy/openrouter-free.json`:
+- Versioned allowance figures (daily requests at low/high tiers, RPM, reset
+  boundary, credit threshold).
+- Data-policy entries per model/revision, reviewed from OpenRouter's published
+  data policies.
+- Overrideable through `policy-overrides.json` (operator only).
+
+### Allowance versioning and overrides
+
+The provider-policy record in Git holds `{"schema_version": "...",
+"versions": [<record>, ...]}`, with highest `version` as current. Each version
+carries `free_rpm`, `daily_free_requests_low`, `daily_free_requests_high`,
+`credit_threshold_usd`, `reset` (UTC boundary), `verified_at` (timestamp),
+`verified_by` (source), `max_age_days`, and `data_policies` (reviewed per-model
+entries).
+
+These are **data, never constants**: no module hard-codes 20 RPM, 50 requests,
+1000 requests, or $10 threshold.
+
+**Overrides** are optional, in `<orchestrator_home>/free-compute/policy-overrides.json`
+(operator only). `free_policy.effective()` merges the current policy version with
+overrides for any numeric field, `reserve_requests`, `retry_budget`,
+`backfill_window_hours`, `swarm_max_width`, `allowed_sensitivity`, or
+`allow_training_endpoints`.
+
+A policy record whose `verified_at` is older than `max_age_days` is marked
+`stale`. Stale policy still governs quota (uses the low allowance), but can
+never trigger a top-up alert.
+
+### Top-up alert rule
+
+`free_routing.top_up_status(account, policy)` evaluates whether to alert the
+operator, returning `not_needed | recommended | unknown | blocked_by_policy`:
+
+- **`not_needed`**: `account.high_allowance is true`. The account is eligible
+  for the higher daily allowance; a low balance by itself never triggers an alert.
+- **`recommended`** (the only status that alerts): **all** hold:
+  - `account.high_allowance is false` via the credits basis (total purchased
+    credits < policy's `credit_threshold_usd`).
+  - Current policy is verified (not stale) with a non-null threshold.
+  - No ledger-based discrepancy recorded.
+  
+  The alert names the exact shortfall (e.g. `shortfall_usd: 5.00`), the
+  allowance it unlocks (low → high daily requests), policy source and
+  verification date, and account read time. **Agent OS never purchases credits
+  or enables auto-recharge.** The operator tops up in the OpenRouter console.
+- **`unknown`**: `high_allowance` is `null`, policy is stale, purchased credits
+  unreadable, or a ledger observed-cap discrepancy contradicts a credits-based
+  false. No alert sent; reason and discrepancies shown in CLI/GUI.
+- **`blocked_by_policy`**: Operator disabled free routing or no task family is
+  eligible. A top-up would not help.
+
+### Hard invariants (enforced by every module and assertion)
+
+1. **Never purchase credits.** No code path POSTs to billing, checkout or
+   payment endpoints. `openrouter_account.py` sends only GET requests to an
+   allowlist (`/api/v1/models`, `/api/v1/key`, `/api/v1/credits`).
+2. **Never enable auto-recharge.** No setting, flag or API call changes account
+   configuration. The account adapter is read-only by construction.
+3. **Never call a paid model.** A `route=free` decision names a model for which
+   `free_catalog.is_free(pricing)` is true on the current snapshot. The broker
+   only *decides*; escalation delegates to the existing router and its budget
+   gate. Swarm/backfill re-check `is_free` on the latest snapshot immediately
+   before dispatch.
+4. **Never read or print secret values.** The key reference
+   `secrets://openrouter/default` is resolved only inside the adapter's request
+   builder and never returned, logged, cached, stored or put in an exception.
+   Errors are redacted; status reports presence and source only.
