@@ -48,11 +48,19 @@ class LocalOpeningsTests(unittest.TestCase):
         self.assertEqual(preview["after"]["open_count"], 3)
         self.assertEqual(self.fake.saved, [])
 
-    def test_apply_raises_until_settings_model_verified(self):
-        with self.assertRaises(gw.DashboardGatewayError):
-            self.gateway.apply_opening_change("gamma", "close")
-        self.assertEqual(self.fake.saved, [])
-        self.assertEqual(self.fake.settings["county_openings"]["Gamma"], 1)
+    def test_apply_calls_save_and_returns_new_state(self):
+        result = self.gateway.apply_opening_change("gamma", "close")
+        self.assertEqual(len(self.fake.saved), 1)
+        self.assertTrue(result["applied"])
+        self.assertEqual(result["before"]["open_count"], 1)
+        self.assertEqual(result["after"]["open_count"], 0)
+        self.assertIsNone(result["group"])
+        self.assertEqual(self.fake.settings["county_openings"]["Gamma"], 0)
+
+    def test_apply_quit_increments(self):
+        result = self.gateway.apply_opening_change("Alpha", "quit")
+        self.assertEqual(result["after"]["open_count"], 3)
+        self.assertEqual(result["group"]["group_label"], "Alpha Transit")
 
     def test_errors_do_not_save(self):
         with self.assertRaises(ValueError):

@@ -344,12 +344,23 @@ class LocalDashboardGateway:
         return _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
 
     def apply_opening_change(self, county: str, change: str, *, count: int = 1) -> dict[str, Any]:
-        _, _, state = self._opening_state()
+        openings, settings, state = self._opening_state()
         entry = _opening_entry(state, county)
-        _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
-        # The Dashboard's settings structure for openings (transit_driver_groups, boolean per
-        # group?) and its save function are not verified, so nothing is written until they are.
-        raise DashboardGatewayError("openings save is not available in this Dashboard checkout")
+        preview = _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
+        save = getattr(openings, "save_settings", None)
+        counts = settings.get("county_openings") if isinstance(settings, dict) else None
+        if save is None or not isinstance(counts, dict):
+            raise DashboardGatewayError("openings save is not available in this Dashboard checkout")
+        key = next((k for k in counts if _county_name(k).casefold() == entry["county"].casefold()), entry["county"])
+        counts[key] = preview["after"]["open_count"]
+        save(settings)
+        _, _, fresh = self._opening_state()
+        now = fresh.get(entry["county"].casefold(), {"open_count": 0, "group_label": None})
+        group = ({"county": entry["county"], "open_count": now["open_count"], "group_label": now["group_label"]}
+                 if now["open_count"] else None)
+        return {"county": entry["county"], "change": change, "count": count, "applied": True,
+                "before": preview["before"], "after": _opening_view(now["open_count"], now["group_label"]),
+                "group": group}
 
 
 class SyntheticDashboardGateway:
