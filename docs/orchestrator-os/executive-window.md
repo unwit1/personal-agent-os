@@ -102,12 +102,28 @@ The `email.send` action saves a draft (no outbound SMTP yet); operator opens it 
 See [mail-intelligence.md](../integrations/mail-intelligence.md) and
 [mail.md](../integrations/mail.md).
 
-- `mail_filtered`: counts of spam/bulk items kept out of commitments, each with
-  its reason, so nothing disappears silently.
-- `mail_review`: borderline items queued for operator review.
-- `mail_cleanup`: the organization plan group, with a per-category Confirm button.
+### Items
 
-Actions: `mail.organize_inbox` (builds and shows the plan; dry-run, no moves)
-and `mail.organize_apply` (consequential: preview first, executes only on the
-operator's Confirm, reversible IMAP moves only, journaled with undo, never
-deletes). Accounts need `allow_moves` set by the operator.
+- **`mail_filtered`:** counts of spam/bulk items kept out of commitments, each
+  with its reason, so nothing disappears silently. Grouped by tab (work/personal).
+- **`mail_review`:** borderline mail (verdict `review`, score 3-5) queued for
+  operator review; sorted by score and date. Up to 20 shown per tab.
+- **`mail_cleanup`:** the organization plan, showing counts per category per
+  account and a per-category Confirm button to move mail.
+
+### Actions
+
+- **`mail.organize`:** builds and saves an organization plan for each configured
+  scope; dry-run, no moves. Returns the plan summary (counts, sample subjects, and
+  categorization rules per account).
+- **`mail.organize.apply.<category>`** (7 actions for movable categories): applies
+  the plan to one category. Consequential: preview shows what would move; Confirm
+  executes the reversible IMAP moves and journals them with undo commands. Both
+  preview and Confirm are dry-run unless the account has `allow_organize` enabled
+  by the operator.
+- **`mail.organize.allow`:** enables or disables `allow_organize` for one account,
+  letting the operator control which accounts can be reorganized.
+
+Accounts need `allow_organize` set by the operator (default off, per account)
+before any organize action can move mail; the window `mail.organize.allow` action
+sets it, or the operator can edit `accounts.json` directly.

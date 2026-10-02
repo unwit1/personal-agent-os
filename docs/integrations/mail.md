@@ -347,8 +347,10 @@ v1 migration, failed migration rollback, legacy supersede, MCP/CLI surfaces.
   UID listing.
 - PDF/Office attachment text is not extracted yet.
 - No PST parser; only the import seam.
-- Send/reply/delete/move/flag are not implemented and must go through a
+- Send/reply/delete/flag are not implemented and must go through a
   separate approval-gated action layer (draft -> approval -> send -> audit).
+- Move (for inbox organization) is implemented only as confirmed, reversible IMAP
+  moves; the sync path stays read-only (no outbound SMTP or expunge).
 
 ## Spam filtering and inbox organization
 
@@ -387,6 +389,18 @@ undo command; the journal lives under the Agent OS local state directory
 (`.agent-local`, not committed). **Never delete or expunge**: only reversible
 moves.
 
-Accounts are read_only today. IMAP moves require the operator to set
-`allow_moves` (the per-account organize permission, default off) in
+Sync stays read-only for all accounts. IMAP moves require the operator to set
+`allow_organize` (the per-account organize permission, default off) in
 `accounts.json` (or turn it on from the window). Nothing is moved otherwise.
+
+**Journal and undo:** every move is recorded in a per-scope journal at
+`.agent-local/mail/<scope>/organize-journal.jsonl` (a JSON lines file, gitignored).
+Each successfully moved message gets a line with `undo.command`:
+
+```bash
+agent-os mail organize-undo --journal org_20261002T120500_ab12 --seq 1
+```
+
+Undo is a dry-run by default; pass `--confirm` to actually reverse the moves.
+Messages that fail to verify at apply time (missing or changed) are recorded with
+a reason and skipped; they remain in INBOX for manual review.
