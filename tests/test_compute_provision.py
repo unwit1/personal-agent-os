@@ -29,6 +29,27 @@ class HookProvider(FakeProvider):
         return super().launch(spec)
 
 
+class LookupOnlyProvider:
+    """Provider with lookup() but no ``instances`` attribute; launch is not idempotent and raises once after creating."""
+
+    def __init__(self):
+        self._store = {}
+        self.launch_calls = 0
+        self.fail_next = True
+
+    def lookup(self, name):
+        return next((iid for iid, inst in self._store.items() if inst["name"] == name), None)
+
+    def launch(self, spec):
+        self.launch_calls += 1
+        instance_id = f"lk-{self.launch_calls}"
+        self._store[instance_id] = {"name": spec["name"]}
+        if self.fail_next:
+            self.fail_next = False
+            raise RuntimeError("created then failed")
+        return {"instance_id": instance_id}
+
+
 def request(**over):
     base = {"provider": "fake", "gpu": "A100", "hourly_usd": 2.0, "estimate": {"low": 0.5, "expected": 1.0, "high": 2.0}}
     base.update(over)
@@ -135,6 +156,42 @@ class ProvisionTests(unittest.TestCase):
         job = provision.provision(request(), **self.kw())
         self.assertEqual(job["state"], "running")
         self.assertEqual(self.provider.launches, 1)
+
+    def test_launch_or_lookup_uses_provider_lookup_after_launch_error(self):
+        budget.set_budget(10, 5, home=self.bhome)
+        self.provider = LookupOnlyProvider()
+        job = provision.provision(request(job_id="job-lookup"), **self.kw())
+        self.assertEqual(job["state"], "launching")
+        job = provision.provision(request(job_id="job-lookup"), **self.kw())
+        self.assertEqual(job["state"], "running")
+        self.assertEqual(job["instance_id"], "lk-1")
+        self.assertEqual(self.provider.launch_calls, 1)
+
+    def test_default_fake_provider_state_persists_across_calls(self):
+        budget.set_budget(10, 5, home=self.bhome)
+        kw = self.kw(provider=None)
+        job = provision.provision(request(job_id="job-persist"), **kw)
+        self.assertEqual(job["state"], "running")
+        state_path = self.home / "compute-providers" / "fake.json"
+        self.assertTrue(state_path.exists())
+        self.clock.now += 1800
+        job = provision.status("job-persist", **kw)
+        self.assertEqual(job["state"], "running")
+        self.assertAlmostEqual(job["cost_usd"], 1.0)
+        self.assertEqual(provision.stop("job-persist", **kw)["state"], "stopped")
+        self.assertEqual(provision.destroy("job-persist", **kw)["state"], "destroyed")
+        instances = json.loads(state_path.read_text())["instances"]
+        self.assertEqual(instances[job["instance_id"]]["name"], "job-persist")
+        self.assertEqual(instances[job["instance_id"]]["state"], "terminated")
+
+    def test_default_fake_provider_uses_per_instance_rates(self):
+        budget.set_budget(10, 5, home=self.bhome)
+        kw = self.kw(provider=None)
+        provision.provision(request(job_id="job-rate-a", hourly_usd=2.0), **kw)
+        provision.provision(request(job_id="job-rate-b", hourly_usd=4.0), **kw)
+        self.clock.now += 900
+        self.assertAlmostEqual(provision.status("job-rate-a", **kw)["cost_usd"], 0.5)
+        self.assertAlmostEqual(provision.status("job-rate-b", **kw)["cost_usd"], 1.0)
 
     def test_raw_key_rejected(self):
         budget.set_budget(10, 5, home=self.bhome)
