@@ -517,7 +517,7 @@ deterministic authorization boundaries, checkpointing, and measured-promotion
 policy.
 
 As part of this track, **IMP-0015** implements a measurement-first route
-calibration system (see [route-calibration.md](../../orchestrator-os/self-audit/route-calibration.md))
+calibration system (see [route-calibration.md](../../../docs/orchestrator-os/self-audit/route-calibration.md))
 that uses existing orchestrator telemetry to estimate the probability that cheaper
 routes would pass validation, and recommends escalation thresholds targeting 90%
 pass rate on kept-cheap tasks. The calibrator operates in shadow mode only and
@@ -551,7 +551,7 @@ not automatic adoption decisions:
 | **TensorZero** | WRAP / EXPERIMENT | Unified model/provider gateway, experiment telemetry, feedback/evals, variants, retries/fallbacks, and A/B routing. Evaluate as an optional sidecar/telemetry plane feeding Agent OS CAP/EVR evidence rather than replacing the router. |
 | **PydanticAI subagent patterns** | BORROW | Isolated child-agent context, per-tree usage accounting, delegation contracts, model-per-child selection, request/token/tool-call/cost limits. Prefer subsuming semantics into existing delegate machinery over adopting the framework wholesale. |
 | **AgentScope** | BORROW / EXPERIMENT | Dynamic model-router middleware, leader/member team delegation, A2A/team topology, and task handoff patterns. Compare against current foreman + delegate DAG behavior. |
-| **RouteLLM** | BORROW | Learned/calibrated strong-vs-weak routing and threshold selection. Do not promote learned routing until Agent OS has enough labeled task-family outcomes; use shadow/canary mode first. See [route-calibration.md](../../orchestrator-os/self-audit/route-calibration.md) for the shadow calibrator design (IMP-0015). |
+| **RouteLLM** | BORROW | Learned/calibrated strong-vs-weak routing and threshold selection. Do not promote learned routing until Agent OS has enough labeled task-family outcomes; use shadow/canary mode first. See [route-calibration.md](../../../docs/orchestrator-os/self-audit/route-calibration.md) for the shadow calibrator design (IMP-0015). |
 | **LiteLLM** | BORROW / OPTIONAL ISOLATED ADAPTER | Provider catalog, normalized API shapes, fallback/routing ideas, price metadata. Keep it outside the trusted core unless a pinned isolated deployment demonstrates enough benefit to justify dependency/supply-chain surface. |
 | **vLLM** | WRAP | Baseline high-throughput self-hosted inference backend; continuous batching, prefix caching, quantization/runtime options, OpenAI-compatible serving. |
 | **SGLang** | WRAP + HEAD-TO-HEAD BENCHMARK | Alternative high-performance inference runtime; benchmark continuous batching, prefix/radix caching, speculative decoding, chunked prefill, parallelism, quantization, and multi-LoRA against vLLM. |
