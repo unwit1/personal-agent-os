@@ -204,6 +204,75 @@ class AdaptiveConcurrencySampleTests(Base):
         self.assertIs(fd.METRICS, fd.vllm_metrics_parser.METRICS)
 
 
+class RoleCoverageTests(Base):
+    """Role sets for rented, local, and subscription foremanns."""
+
+    def _register_and_capture(self, state: dict) -> list[dict]:
+        """Helper that captures endpoints added via _register_provider by patching add_model_endpoint."""
+        endpoints_added = []
+
+        def capture_endpoint(entry, **kwargs):
+            endpoints_added.append(dict(entry))
+            return {"written": True}
+
+        from agent_os.orchestrator.foreman_deploy import _register_provider
+        with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
+            _register_provider(state)
+        return endpoints_added
+
+    def test_rented_gpu_pod_covers_all_roles_with_tier_concurrency(self) -> None:
+        budget.set_budget(10, 10, home=self.budget_home)
+        manager = self.manager()
+        with mock.patch.object(manager, "register", side_effect=lambda state: None):
+            manager.deploy("org/coder-7b", job_cap_usd=1.0, background=False, coding_agent=True)
+
+        state = fd.load_state(self.foreman_home)
+        endpoints_added = self._register_and_capture(state)
+
+        self.assertEqual(len(endpoints_added), 2)  # main endpoint + agent entry
+        main_entry = endpoints_added[0]
+        self.assertEqual(main_entry["id"], "foreman-coder-7b")
+        self.assertEqual(set(main_entry["roles"]), {"planner", "inline", "implementer", "test_author", "reviewer"})
+        self.assertEqual(main_entry.get("profile", {}).get("deployment"), "gpu_pod")
+        self.assertEqual(main_entry["tier_concurrency"], {"reasoning": 1, "frontier": 1})
+
+        agent_entry = endpoints_added[1]
+        self.assertTrue(agent_entry["id"].endswith("-agent"))
+        self.assertEqual(set(agent_entry["roles"]), {"implementer", "test_author", "repairer", "reviewer"})
+        self.assertNotIn("tier_concurrency", agent_entry)  # agent entry has no tier_concurrency
+
+    def test_local_server_keeps_planner_inline_roles(self) -> None:
+        manager = self.manager()
+        with mock.patch("agent_os.orchestrator.foreman_deploy.local_models", return_value=["org/coder-7b"]):
+            with mock.patch.object(manager, "register", side_effect=lambda state: None):
+                manager.use("local", base_url="http://127.0.0.1:8000", model="org/coder-7b")
+
+        state = fd.load_state(self.foreman_home)
+        endpoints_added = self._register_and_capture(state)
+
+        self.assertEqual(len(endpoints_added), 1)  # local server, no agent entry
+        entry = endpoints_added[0]
+        self.assertEqual(set(entry["roles"]), {"planner", "inline"})
+        self.assertIn(entry.get("profile", {}).get("deployment"), (None, "local"))
+
+    def test_openrouter_keeps_planner_inline_roles(self) -> None:
+        self.secrets["secrets://openrouter/default"] = "or-key"
+        openrouter_listing = [{"id": "qwen/qwen3-235b-a22b-2507", "name": "Qwen3 235B", "usd_per_mtok_in": 0.1, "usd_per_mtok_out": 0.2, "context": 65536}]
+
+        manager = self.manager()
+        with mock.patch("agent_os.orchestrator.foreman_deploy.openrouter_models", return_value=openrouter_listing):
+            with mock.patch.object(manager, "register", side_effect=lambda state: None):
+                manager.use("openrouter", model="qwen/qwen3-235b-a22b-2507")
+
+        state = fd.load_state(self.foreman_home)
+        endpoints_added = self._register_and_capture(state)
+
+        self.assertEqual(len(endpoints_added), 1)  # openrouter, no agent entry
+        entry = endpoints_added[0]
+        self.assertEqual(set(entry["roles"]), {"planner", "inline"})
+        self.assertEqual(entry.get("profile", {}).get("deployment"), "api")
+
+
 class KeepBusyTests(Base):
     """Queued useful work holds off the idle teardown; budget, deadline and reaper paths still fire."""
 
@@ -288,9 +357,17 @@ class KeepBusyTests(Base):
         self.assertFalse(self.state.get("keep_busy"))
 
     def test_registered_roles_come_from_the_registered_entries(self) -> None:
-        self.assertEqual(fd.registered_roles({"model": {"repo": "org/coder-7b"}}), {"planner", "inline", "reviewer"} | set(
+        gpu_pod_base = {"planner", "inline", "implementer", "test_author", "reviewer"}
+        self.assertEqual(fd.registered_roles({"model": {"repo": "org/coder-7b"}}), gpu_pod_base | set(
             (fd.agent_entry({"model": {"repo": "org/coder-7b"}}) or {}).get("roles") or ()))
-        self.assertEqual(fd.registered_roles({"roles": ["x"]}), {"planner", "inline", "reviewer"})
+        self.assertEqual(fd.registered_roles({"roles": ["x"]}), gpu_pod_base)
+
+    def test_registered_roles_without_agent_when_coding_agent_disabled(self) -> None:
+        gpu_pod_base = {"planner", "inline", "implementer", "test_author", "reviewer"}
+        local_base = {"planner", "inline"}
+        self.assertEqual(fd.registered_roles({"kind": "local", "model": {"repo": "org/coder-7b"}}), local_base)
+        self.assertEqual(fd.registered_roles({"kind": "openrouter", "model": {"repo": "qwen/qwen3"}}), local_base)
+        self.assertEqual(fd.registered_roles({"model": {"repo": "org/exotic", "model_type": "exotic"}}), gpu_pod_base)
 
     def test_keep_busy_state_records_kind_count_and_reason(self) -> None:
         self.clock.now += 20 * 60
