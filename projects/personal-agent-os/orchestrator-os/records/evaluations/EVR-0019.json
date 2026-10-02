@@ -1,0 +1,62 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0019",
+  "type": "EVR",
+  "title": "IMP-0018 Phase 1: shared run-level prompt prefix, synthetic before/after",
+  "status": "accepted",
+  "outcome": "demonstrated",
+  "summary": "Synthetic before/after comparison of shared run-level prompt prefix (IMP-0018 Phase 1) using deterministic offline harness, no network or model calls. Rendered every prompt of a synthetic orchestrator run (14 calls: 4 implementer, 2 test_author, 1 repairer, 6 reviewer, 1 planner) with the shared_prefix flag off and on, modelled provider prompt caching using longest common character prefix with earlier prompts, and measured via the context_economy harness. Before (flag=False): total 96,701 input tokens (79,064 cached, 17,637 uncached); worker input 89,617 tokens (79,064 cached, 10,553 uncached). After (flag=True): total 96,706 input tokens (82,997 cached, 13,709 uncached); worker input 89,622 tokens (83,997 cached, 6,625 uncached). Uncached reduction: 3,928 tokens (22.27% of total, 37.23% of worker input). Cache-read share increased from 0.8176 to 0.8582 overall, 0.8822 to 0.9261 for workers. Amplification pooled metrics unchanged (7.61 vs 7.61). The fixture uses synthetic diffs, fixed project state, and per-node worktree paths. Limits: Orchestrator-written text is about 1% of provider input (per EVR-0018 amplification 104.8x); most fixed overhead is the agent CLI's system prompt and tool schemas, which Phase 1 does not touch. Reduction is modelled on automatic token-granular prefix caching (OpenAI/Codex style) and is an upper bound for providers with coarser caching. Real-run re-measurement with `orchestrate context-economy` is still pending. EVR-0018's fixed overhead share (99.05% of worker input) is an upper bound that likely includes provider harness overhead (~6000 tokens/call) that Phase 1 cannot reduce. The default decision (2026-10-02) is False due to a test failure in `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects` when the flag is on; follow-up required to emit the prefix event under a different telemetry type or add the missing `candidate_*` fields.",
+  "task_family": "context_economy",
+  "metrics": {
+    "method": "synthetic fixtures with deterministic provider-model prefix caching",
+    "fixture_calls": 14,
+    "fixture_worker_calls": 13,
+    "harness_tokens_per_call": 6000,
+    "before": {
+      "shared_prefix": false,
+      "total_input_tokens": 96701,
+      "total_cache_read_tokens": 79064,
+      "total_uncached_input_tokens": 17637,
+      "cache_read_share": 0.8176,
+      "worker_input_tokens": 89617,
+      "worker_cache_read_tokens": 79064,
+      "worker_uncached_input_tokens": 10553,
+      "worker_cache_read_share": 0.8822
+    },
+    "after": {
+      "shared_prefix": true,
+      "total_input_tokens": 96706,
+      "total_cache_read_tokens": 82997,
+      "total_uncached_input_tokens": 13709,
+      "cache_read_share": 0.8582,
+      "worker_input_tokens": 89622,
+      "worker_cache_read_tokens": 83997,
+      "worker_uncached_input_tokens": 6625,
+      "worker_cache_read_share": 0.9261
+    },
+    "delta": {
+      "total_input_tokens": 5,
+      "total_uncached_reduction": -3928,
+      "total_uncached_reduction_ratio": 0.2227,
+      "worker_uncached_reduction": -3928,
+      "worker_uncached_reduction_ratio": 0.3723,
+      "cache_read_share_improvement": 0.0406,
+      "worker_cache_read_share_improvement": 0.0439
+    },
+    "parity_passed": true,
+    "model_calls": 0,
+    "spend_usd": 0
+  },
+  "links": [
+    {"rel": "measures", "ref": "src/agent_os/orchestrator/prompts.py"},
+    {"rel": "measures", "ref": "src/agent_os/orchestrator/shared_prefix_compare.py"},
+    {"rel": "relates_to", "ref": "IMP-0018"},
+    {"rel": "relates_to", "ref": "EVR-0018"}
+  ],
+  "provenance": {
+    "source": "agent-os orchestrator shared_prefix_compare (deterministic, synthetic, no network)",
+    "session": "run-20261002T092957Z-074700/record-evr-exp"
+  },
+  "created_at": "2026-10-02T10:30:00+00:00",
+  "updated_at": "2026-10-02T10:30:00+00:00"
+}
