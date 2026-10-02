@@ -112,7 +112,38 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
         item = result["items"][0]
         self.assertEqual(item["state"], "desired")
         self.assertEqual(item["action"], "provision_local_config")
-        self.assertIsNone(item["reason"])
+        self.assertIsInstance(item["reason"], str)
+        self.assertGreater(len(item["reason"]), 0)
+        self.assertEqual(item["reason"], "connector capability has not been declared for this surface")
+
+    def test_desired_state_with_mutate_available_true_explicit_reason(self) -> None:
+        surfaces = [
+            {
+                "id": "agent-os-mcp",
+                "name": "Agent OS MCP",
+                "vendor": "Anthropic",
+                "mechanism": "MCP",
+                "summary": "Direct Agent OS MCP integration",
+                "expected_tier": "routed",
+                "invocation": {"kind": "none"},
+                "instruction": {"kind": "none"},
+                "capture": {"kind": "none"},
+                "connector_capabilities": {
+                    "inspect_local_config": {"available": True, "reason": None},
+                    "mutate_local_config": {"available": True, "reason": "explicit capability reason"},
+                    "transfer_credentials": {"available": False, "reason": "not supported"},
+                    "agent_os_bridge": {"available": True, "reason": None},
+                },
+            },
+        ]
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry()):
+            with patch("agent_os.surfaces.surfaces", return_value=surfaces):
+                result = connector_reconcile_plan()
+
+        item = result["items"][0]
+        self.assertEqual(item["state"], "desired")
+        self.assertEqual(item["action"], "provision_local_config")
+        self.assertEqual(item["reason"], "explicit capability reason")
 
     def test_desired_state_with_mutate_available_false(self) -> None:
         connectors = [valid_connector("conn-a", "claude-code", "desired")]

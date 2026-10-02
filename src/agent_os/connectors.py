@@ -130,15 +130,13 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
             else:
                 cap = _connector_capabilities(known[reg_surface_id]).get("mutate_local_config", {})
                 available = cap.get("available")
+                reason = cap.get("reason") or "connector capability has not been declared for this surface"
                 if available is True:
                     action = "provision_local_config"
-                    reason = cap.get("reason")
                 elif available is False:
                     action = "manual_host_setup"
-                    reason = cap.get("reason") or "connector capability has not been declared for this surface"
                 else:
                     action = "undetermined"
-                    reason = cap.get("reason") or "connector capability has not been declared for this surface"
 
             items.append({
                 "connector_id": connector_id,
