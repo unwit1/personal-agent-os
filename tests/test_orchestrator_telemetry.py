@@ -330,5 +330,24 @@ class EngineTelemetryTests(OrchestratorFixture):
         self.assertIsNotNone(self.engine.efficiency(run_id)["context"]["reduction_pct"])
 
 
+class ContextEconomyDesignTests(unittest.TestCase):
+    """The IMP-0018 Phase 0 design names its schema, all four metrics with
+    formulas, and the privacy rule the harness must enforce."""
+
+    DOC = Path(__file__).resolve().parents[1] / "docs" / "orchestrator-os" / "self-audit" / "context-economy.md"
+
+    def test_design_defines_metrics_schema_and_privacy_rule(self) -> None:
+        text = self.DOC.read_text(encoding="utf-8")
+        self.assertIn("personal-agent/orchestrator-context-economy/v1", text)
+        for heading in ("Metric 1", "Metric 2", "Metric 3", "Metric 4"):
+            section = text.split(f"### {heading}", 1)[1].split("\n### ", 1)[0]
+            self.assertIn("```text", section, heading)
+        for formula in ("A(c) = I(c) / P(c)", "growth_n", "duplicated_fixed_overhead", "resume_share"):
+            self.assertIn(formula, text)
+        self.assertIn('violates(s) = len(s) > 80  or  re.search(r"\\s", s) is not None', text)
+        self.assertIn("ledger.read_events", text)
+        self.assertIn("os.stat", text)
+
+
 if __name__ == "__main__":
     unittest.main()
