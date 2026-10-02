@@ -103,7 +103,7 @@ Whenever the Executive plans an email (applicant outreach, interview invite, man
 
 ### County openings groups
 
-Counties with openings replace the "Human review pending" group on the Work tab. Counties come from the Dashboard openings settings; under each county the best applicants are ranked by the existing screening and suggestion logic, limited to a configurable top N. Clicking an applicant opens a review panel with allowlisted Dashboard fields only (never EEO or self-ID data).
+Counties with openings replace the "Human review pending" group on the Work tab. Counties come from the Dashboard openings settings; under each county the best applicants are ranked by the existing screening and suggestion logic, limited to a configurable top N. The Dashboard tracks Transit Driver openings as open or closed per group (`transit_driver_groups` in `openings_settings.json`), not as counts: closing an opening closes the group, and a driver quitting or a new opening opens it, saved through the Dashboard's own `openings.save_settings`. Each county lists the applicants awaiting review: AI-reviewed ones first by score, then those without an AI review yet. Clicking an applicant opens a review panel with allowlisted Dashboard fields only (never EEO or self-ID data).
 
 ### Applicant decisions
 

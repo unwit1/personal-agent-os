@@ -37,7 +37,8 @@ def _county(item: dict[str, Any], entry: dict[str, Any]) -> str:
 
 
 def _applicant_email(gateway: Any, ref: str) -> str:
-    for applicant, _review in gateway.ranked(0):
+    rows = gateway.reviewable() if hasattr(gateway, "reviewable") else gateway.ranked(0)
+    for applicant, _review in rows:
         if _get(applicant, "applicant_ref") == ref:
             return str(_get(applicant, "email") or "").strip()
     return ""

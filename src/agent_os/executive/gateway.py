@@ -143,6 +143,19 @@ def _opening_preview(county: str, change: str, count: int, before: int, label: s
             "affects": [county], "summary": _opening_summary(county, change, before, after)}
 
 
+def _group_preview(county: str, change: str, count: int, before: int, label: str | None) -> dict[str, Any]:
+    """Preview for the Dashboard's open/closed groups: any opening event leaves
+    the group open, a close leaves it closed; there is no count to keep."""
+    preview = _opening_preview(county, change, count, before, label)
+    after = min(preview["after"]["open_count"], 1)
+    preview["after"] = _opening_view(after, label)
+    lead = preview["summary"].split(":", 1)[0]
+    state = {0: "closed", 1: "open"}
+    preview["summary"] = (f"{lead}: Transit Driver hiring in {county} goes from {state[min(before, 1)]} "
+                          f"to {state[after]}.")
+    return preview
+
+
 def _opening_entry(state: dict[str, dict[str, Any]], county: str) -> dict[str, Any]:
     entry = state.get(_county_name(county).casefold())
     if entry is None:
@@ -152,6 +165,7 @@ def _opening_entry(state: dict[str, dict[str, Any]], county: str) -> dict[str, A
 
 class DashboardGateway(Protocol):
     def ranked(self, min_score: int = 0) -> list[tuple[dict[str, Any], dict[str, Any]]]: ...
+    def reviewable(self) -> list[tuple[dict[str, Any], dict[str, Any]]]: ...
     def match_for(self, applicant: dict[str, Any]) -> dict[str, Any]: ...
     def manager_for(self, applicant: dict[str, Any]) -> Any: ...
     def suggest_slots(self, manager: Any, duration_minutes: int, count: int) -> list[tuple[datetime, str]]: ...
@@ -213,7 +227,19 @@ class LocalDashboardGateway:
         return self._raw_by_ref[ref]
 
     def ranked(self, min_score: int = 0) -> list[tuple[dict[str, Any], dict[str, Any]]]:
-        rows = self._module("candidate_review").ranked(min_score)
+        return self._project_rows(self._module("candidate_review").ranked(min_score))
+
+    def reviewable(self) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+        """Every applicant awaiting review: AI-reviewed ones in the Dashboard's
+        ranked order, then the not-yet-reviewed ones (score None)."""
+        review_module = self._module("candidate_review")
+        reviewed = review_module.ranked(0)
+        seen = {_value(applicant, "applicant_key") for applicant, _ in reviewed}
+        rest = [(a, {}) for a in review_module.reviewable_applicants()
+                if _value(a, "applicant_key") not in seen]
+        return self._project_rows([*reviewed, *rest])
+
+    def _project_rows(self, rows: list[Any]) -> list[tuple[dict[str, Any], dict[str, Any]]]:
         conn = rtec_applicants._connect_readonly()
         try:
             rtec_applicants._require_agent_ref_schema(conn)
@@ -320,45 +346,57 @@ class LocalDashboardGateway:
         return _manager_view(fn(county))
 
     def _opening_state(self, today: date | None = None) -> tuple[Any, Any, dict[str, dict[str, Any]]]:
+        """Transit Driver openings as the Dashboard keeps them: a list of open
+        groups (``transit_driver_groups`` in openings_settings.json), each open
+        or closed with no count. Every group the Dashboard knows (drive_times
+        group_names) is listed so a closed one can be reopened."""
         openings = self._module("openings")
-        for name in ("load_settings", "evaluate", "open_groups_in_range"):
+        for name in ("load_settings", "save_settings"):
             if getattr(openings, name, None) is None:
                 raise DashboardGatewayError("openings lookup is not available in this Dashboard checkout")
         settings = openings.load_settings()
-        evaluated = openings.evaluate(settings, today or date.today())
-        if not isinstance(evaluated, dict):
-            raise DashboardGatewayError("openings evaluate returned an unexpected shape")
+        open_groups = settings.get("transit_driver_groups") if isinstance(settings, dict) else None
+        if not isinstance(open_groups, list):
+            raise DashboardGatewayError("openings settings have an unexpected shape")
+        open_keys = {_county_name(g).casefold() for g in open_groups if str(g or "").strip()}
+        try:
+            known = list(openings.dt.group_names())
+        except Exception:
+            known = []
         state: dict[str, dict[str, Any]] = {}
-        for raw_name, value in evaluated.items():
-            if not raw_name:
+        for raw in [*known, *open_groups]:
+            if not str(raw or "").strip():
                 continue
-            name = _county_name(raw_name)
-            count = _opening_count(value)
-            label = _group_text(openings.open_groups_in_range(settings, name)) if count else None
-            state[name.casefold()] = {"county": name, "open_count": count, "group_label": label}
+            name = _county_name(raw)
+            if name.casefold() not in state:
+                is_open = name.casefold() in open_keys
+                state[name.casefold()] = {"county": name, "open_count": 1 if is_open else 0,
+                                          "group_label": name, "group": str(raw).strip()}
         return openings, settings, state
 
     def open_counties(self, today: date | None = None) -> list[dict[str, Any]]:
         _, _, state = self._opening_state(today)
-        rows = [dict(row) for row in state.values() if row["open_count"] >= 1]
+        rows = [{k: row[k] for k in ("county", "open_count", "group_label")}
+                for row in state.values() if row["open_count"] >= 1]
         return sorted(rows, key=lambda row: row["county"].casefold())
 
     def preview_opening_change(self, county: str, change: str, *, count: int = 1) -> dict[str, Any]:
         _, _, state = self._opening_state()
         entry = _opening_entry(state, county)
-        return _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
+        return _group_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
 
     def apply_opening_change(self, county: str, change: str, *, count: int = 1) -> dict[str, Any]:
         openings, settings, state = self._opening_state()
         entry = _opening_entry(state, county)
-        preview = _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
-        save = getattr(openings, "save_settings", None)
-        counts = settings.get("county_openings") if isinstance(settings, dict) else None
-        if save is None or not isinstance(counts, dict):
-            raise DashboardGatewayError("openings save is not available in this Dashboard checkout")
-        key = next((k for k in counts if _county_name(k).casefold() == entry["county"].casefold()), entry["county"])
-        counts[key] = preview["after"]["open_count"]
-        save(settings)
+        preview = _group_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
+        groups = [g for g in settings["transit_driver_groups"]
+                  if str(g or "").strip() and _county_name(g).casefold() != entry["county"].casefold()]
+        if preview["after"]["open_count"]:
+            groups.append(entry["group"])
+        saved = openings.save_settings(groups, settings.get("office_positions") or {},
+                                       settings.get("max_drive_minutes"), settings.get("nearby_offer_minutes"))
+        if saved is False:
+            raise DashboardGatewayError("the Dashboard could not save the openings settings")
         _, _, fresh = self._opening_state()
         now = fresh.get(entry["county"].casefold(), {"open_count": 0, "group_label": None})
         group = ({"county": entry["county"], "open_count": now["open_count"], "group_label": now["group_label"]}
@@ -401,6 +439,14 @@ class SyntheticDashboardGateway:
                 if ref in self.reviews and a.get("status") in _REVIEWABLE
                 and self.reviews[ref].get("score", 0) >= min_score]
         return sorted(rows, key=lambda row: row[1]["score"], reverse=True)
+
+    def reviewable(self) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+        self._call("reviewable")
+        reviewed = self.ranked(0)
+        seen = {row[0]["applicant_ref"] for row in reviewed}
+        rest = [(_project(a), _review({})) for ref, a in self.applicants.items()
+                if ref not in seen and a.get("status") in _REVIEWABLE]
+        return [*reviewed, *rest]
 
     def match_for(self, applicant: dict[str, Any]) -> dict[str, Any]:
         ref = applicant if isinstance(applicant, str) else _value(applicant, "applicant_ref")

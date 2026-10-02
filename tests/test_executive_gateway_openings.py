@@ -9,23 +9,33 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agent_os.executive import gateway as gw
 
 
+class FakeDriveTimes:
+    @staticmethod
+    def group_names():
+        return ["Alpha", "Beta", "Gamma"]
+
+
 class FakeOpenings:
+    """Mirrors the Dashboard's openings.py: open Transit Driver groups are a
+    list, office positions are company-wide booleans, and save_settings takes
+    them positionally."""
+
+    dt = FakeDriveTimes
+
     def __init__(self):
-        self.settings = {"county_openings": {"Alpha": 2, "Beta": 0, "Gamma": 1}}
+        self.groups = ["Alpha", "Gamma"]
+        self.office = {"Garage Attendant": False, "Dispatcher": True, "CSR": False}
         self.saved = []
 
     def load_settings(self):
-        return {"county_openings": dict(self.settings["county_openings"])}
+        return {"transit_driver_groups": list(self.groups), "office_positions": dict(self.office),
+                "max_drive_minutes": 30, "nearby_offer_minutes": 30}
 
-    def evaluate(self, settings, today=None):
-        return dict(settings["county_openings"])
-
-    def open_groups_in_range(self, settings, county, *args, **kwargs):
-        return [f"{county} Transit"]
-
-    def save_settings(self, settings):
-        self.saved.append(settings)
-        self.settings = settings
+    def save_settings(self, transit_driver_groups, office_positions, max_drive_minutes, nearby_offer_minutes=None):
+        self.saved.append((list(transit_driver_groups), dict(office_positions), max_drive_minutes, nearby_offer_minutes))
+        self.groups = list(transit_driver_groups)
+        self.office = dict(office_positions)
+        return True
 
 
 class LocalOpeningsTests(unittest.TestCase):
@@ -36,31 +46,39 @@ class LocalOpeningsTests(unittest.TestCase):
         self.addCleanup(patcher.stop)
         self.gateway = gw.LocalDashboardGateway()
 
-    def test_open_counties_minimal_and_sorted(self):
+    def test_open_counties_are_the_open_groups(self):
         rows = self.gateway.open_counties(date(2026, 10, 2))
         self.assertEqual(rows, [
-            {"county": "Alpha", "open_count": 2, "group_label": "Alpha Transit"},
-            {"county": "Gamma", "open_count": 1, "group_label": "Gamma Transit"}])
+            {"county": "Alpha", "open_count": 1, "group_label": "Alpha"},
+            {"county": "Gamma", "open_count": 1, "group_label": "Gamma"}])
 
     def test_preview_does_not_save(self):
-        preview = self.gateway.preview_opening_change("Alpha County", "quit")
-        self.assertEqual(preview["before"]["open_count"], 2)
-        self.assertEqual(preview["after"]["open_count"], 3)
+        preview = self.gateway.preview_opening_change("Beta County", "new")
+        self.assertEqual(preview["before"]["open_count"], 0)
+        self.assertEqual(preview["after"]["open_count"], 1)
+        self.assertIn("from closed to open", preview["summary"])
         self.assertEqual(self.fake.saved, [])
 
-    def test_apply_calls_save_and_returns_new_state(self):
+    def test_close_removes_the_group_and_keeps_other_settings(self):
         result = self.gateway.apply_opening_change("gamma", "close")
-        self.assertEqual(len(self.fake.saved), 1)
+        self.assertEqual(self.fake.saved, [(["Alpha"], {"Garage Attendant": False, "Dispatcher": True, "CSR": False}, 30, 30)])
         self.assertTrue(result["applied"])
         self.assertEqual(result["before"]["open_count"], 1)
         self.assertEqual(result["after"]["open_count"], 0)
         self.assertIsNone(result["group"])
-        self.assertEqual(self.fake.settings["county_openings"]["Gamma"], 0)
 
-    def test_apply_quit_increments(self):
+    def test_quit_or_new_opens_a_closed_group(self):
+        result = self.gateway.apply_opening_change("Beta", "quit")
+        self.assertEqual(self.fake.groups, ["Alpha", "Gamma", "Beta"])
+        self.assertEqual(result["after"]["open_count"], 1)
+        self.assertEqual(result["group"]["group_label"], "Beta")
+
+    def test_quit_in_an_open_group_keeps_it_open(self):
+        preview = self.gateway.preview_opening_change("Alpha", "quit", count=3)
+        self.assertEqual(preview["after"]["open_count"], 1)
         result = self.gateway.apply_opening_change("Alpha", "quit")
-        self.assertEqual(result["after"]["open_count"], 3)
-        self.assertEqual(result["group"]["group_label"], "Alpha Transit")
+        self.assertEqual(sorted(self.fake.groups), ["Alpha", "Gamma"])
+        self.assertEqual(result["after"]["open_count"], 1)
 
     def test_errors_do_not_save(self):
         with self.assertRaises(ValueError):
@@ -72,6 +90,11 @@ class LocalOpeningsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.gateway.apply_opening_change("Alpha", "new", count=21)
         self.assertEqual(self.fake.saved, [])
+
+    def test_failed_save_is_reported(self):
+        self.fake.save_settings = lambda *a, **k: False
+        with self.assertRaises(gw.DashboardGatewayError):
+            self.gateway.apply_opening_change("Beta", "new")
 
 
 class SyntheticOpeningsTests(unittest.TestCase):

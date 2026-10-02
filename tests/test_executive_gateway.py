@@ -100,5 +100,34 @@ class LocalGatewayTests(unittest.TestCase):
                     gateway.match_for({"applicant_ref": "app-unknown"})
 
 
+    def test_reviewable_lists_unreviewed_after_reviewed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            conn = sqlite3.connect(root / "dashboard.db")
+            conn.execute("CREATE TABLE applicants (applicant_key TEXT, agent_ref TEXT, name TEXT, status TEXT, email TEXT, county_preference TEXT)")
+            conn.executemany("INSERT INTO applicants VALUES (?, ?, ?, 'New', ?, 'Pulaski')",
+                             [("k1", "app-1", "Reviewed Person", "r@example.invalid"),
+                              ("k2", "app-2", "Waiting Person", "w@example.invalid")])
+            conn.commit()
+            conn.close()
+            reviewed = {"applicant_key": "k1", "name": "Reviewed Person", "status": "New"}
+            waiting = {"applicant_key": "k2", "name": "Waiting Person", "status": "New"}
+            review = {"score": 80, "recommendation": "interview", "result_json": "{}"}
+
+            def forbidden(*args, **kwargs):
+                raise AssertionError("AI review must not be triggered")
+
+            module = types.SimpleNamespace(
+                ranked=lambda min_score: [(reviewed, review)],
+                reviewable_applicants=lambda: [reviewed, waiting],
+                review_all=forbidden, review_applicant=forbidden)
+            with patch.object(rtec_applicants, "_project_root", return_value=root),                  patch("agent_os.executive.gateway.importlib.import_module", return_value=module):
+                rows = LocalDashboardGateway().reviewable()
+            self.assertEqual([a["applicant_ref"] for a, _ in rows], ["app-1", "app-2"])
+            self.assertEqual(rows[0][1]["score"], 80)
+            self.assertIsNone(rows[1][1]["score"])
+            self.assertEqual(rows[1][0]["email"], "w@example.invalid")
+
+
 if __name__ == "__main__":
     unittest.main()

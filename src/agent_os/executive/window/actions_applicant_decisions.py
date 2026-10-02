@@ -49,7 +49,8 @@ def _ref(params: dict[str, Any]) -> str:
 
 
 def _find(gateway: Any, ref: str) -> tuple[dict[str, Any], dict[str, Any]]:
-    for applicant, review in gateway.ranked(0):
+    rows = gateway.reviewable() if hasattr(gateway, "reviewable") else gateway.ranked(0)
+    for applicant, review in rows:
         if str(applicant.get("applicant_ref")) == ref:
             return applicant, review
     raise KeyError("Unknown applicant_ref")

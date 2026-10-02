@@ -74,6 +74,14 @@ class CountyCandidateTests(unittest.TestCase):
                 self.assertNotIn(key, a)
         self.assertNotIn("SECRET", repr(out))
 
+    def test_unreviewed_applicants_listed_after_reviewed(self):
+        gateway = _gateway()
+        gateway.applicants["g"] = _app("g", "Kent")  # no AI review yet
+        with patch.object(ex.rtec_applicants, "_audit_access"),                 patch.object(ex, "_reviewable_applicants", return_value={}):
+            out = ex.county_candidates("Kent", top_n=10, gateway=gateway)
+        self.assertEqual([a["applicant_ref"] for a in out["applicants"]], ["b", "e", "c", "a", "g"])
+        self.assertIsNone(out["applicants"][-1]["score"])
+
     def test_open_county_groups(self):
         groups = self.go(ex.open_county_groups, top_n=1)
         self.assertEqual([(g["county"], g["open_count"]) for g in groups], [("Kent", 2), ("Sussex", 1)])

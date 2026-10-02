@@ -337,12 +337,19 @@ def _county_entries(
     return {"county": county, "count": len(results), "top_n": limit, "applicants": results}
 
 
+def _reviewable_rows(gateway: Any) -> list[Any]:
+    """Applicants awaiting review, AI-reviewed first; a gateway without
+    ``reviewable`` falls back to the reviewed-only ranking."""
+    fn = getattr(gateway, "reviewable", None)
+    return list(fn() if fn is not None else gateway.ranked(0))
+
+
 def county_candidates(county: str, *, top_n: int | None = None, gateway: Any = None) -> dict[str, Any]:
     """Best reviewable applicants for one county, ranked by Dashboard AI score."""
     county = _clean_opening(county)
     limit = _top_n(top_n)
     gateway = gateway or _default_gateway()
-    group = _county_entries(county, list(gateway.ranked(0)), {}, limit, gateway)
+    group = _county_entries(county, _reviewable_rows(gateway), {}, limit, gateway)
     rtec_applicants._audit_access(
         "executive.county_candidates", metadata={"result_count": group["count"]}
     )
@@ -353,7 +360,7 @@ def open_county_groups(*, top_n: int | None = None, gateway: Any = None) -> list
     """One ``county_candidates`` entry per county with openings (ranked once, one audit)."""
     limit = _top_n(top_n)
     gateway = gateway or _default_gateway()
-    ranked = list(gateway.ranked(0))
+    ranked = _reviewable_rows(gateway)
     match_cache: dict[str, Any] = {}
     groups = []
     for row in gateway.open_counties():
