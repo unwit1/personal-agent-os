@@ -823,10 +823,10 @@ scheduling, and multi-role coverage to squeeze maximum useful work per paid seco
 - `--enable-chunked-prefill`: enabled by default; processes input tokens in
   smaller batches to reduce latency variance under high concurrency.
 - `--max-num-seqs N`: computed from the free KV-cache capacity. Formula:
-  `free_kv_bytes = gpu_count * vram_gb * 0.90 - weight_gb * 1.1`, divided by
-  `(kv_bytes_per_token * avg_context_tokens) * kv_dtype_bytes`. Average context
-  is 1/4 the served window (sequences rarely fill it). The result is clamped to
-  [4, 256] and is the steady-state request concurrency budget.
+  `free_kv_bytes = gpu_count * vram_gb * 1e9 * 0.90 - weight_gb * 1e9 * 1.1`,
+  divided by `kv_bytes_per_token * (kv_dtype_bytes / 2) * avg_tokens`, where
+  average tokens = context // 4 (sequences rarely fill the window). The result
+  is clamped to [4, 256] and is the steady-state request concurrency budget.
 - `--kv-cache-dtype fp8`: when the GPU supports it (H100, H200, H20, L4, L40,
   RTX 4090, RTX 6000 Ada, B200, RTX 5090), compresses KV cache from 2 bytes to
   1 byte per token, doubling max-num-seqs and prefix-cache utilization. Disabled
@@ -908,10 +908,13 @@ attached) and safe to leave off for short-lived runs.
 ### Shared-prefix stability (IMP-0018 integration)
 
 When IMP-0018's `shared_prefix` is available in the run record, the rented
-provider uses `prefix_stability.stabilize()` to ensure every request to vLLM
-starts with exactly those bytes, before any per-request content. No separator is
-added by stabilize (the run-level prefix is byte-stable), but the node that
-builds requests to the rented model must keep a fixed separator between the
+provider is designed to ensure every request to vLLM starts with exactly those
+bytes before any per-request content. The `prefix_stability.stabilize()` function
+exists for this purpose and handles whitespace repair and message structure
+adjustments, but it is not yet wired into request building. The foreman currently
+records the prefix fingerprint in telemetry only. Once integrated, no separator
+will be added by stabilize (the run-level prefix is byte-stable), but the node
+that builds requests to the rented model must keep a fixed separator between the
 stable prefix and per-request text, and assert it in tests (DEC-0043 R5-3).
 
 Prefix stability maximizes vLLM's prefix-cache hit rate by eliminating drift
@@ -933,8 +936,8 @@ cost metrics with:
   marks idle if `running + waiting == 0`.
 - `idle_target_pct`: the 15% target.
 - `meets_idle_target`: whether actual paid idle is at or under target.
-- `usd_per_useful_request`: amortized cost per request counted as useful
-  (excludes internal metrics checks, etc.).
+- `usd_per_useful_request`: amortized cost per request; currently equal to
+  `usd_per_request` (cost divided by all served requests).
 
 **Deploy-time utilization_plan** (from `utilization_preview()`) shows the
 expected plan:
