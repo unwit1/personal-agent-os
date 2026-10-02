@@ -58,18 +58,60 @@ def stabilize(messages: list[dict[str, Any]], prefix: str | None) -> list[dict[s
     if system_idx is None:
         messages.insert(0, {"role": "system", "content": prefix})
     else:
-        current_content = str(messages[system_idx].get("content") or "")
+        content = messages[system_idx].get("content")
 
-        if current_content.startswith(prefix):
-            pass
+        if isinstance(content, list):
+            _stabilize_list_content(messages[system_idx], prefix)
+        elif isinstance(content, str):
+            _stabilize_string_content(messages[system_idx], prefix)
         else:
-            stripped_prefix = prefix.rstrip()
-            if stripped_prefix and current_content.startswith(stripped_prefix):
-                messages[system_idx]["content"] = prefix + current_content[len(stripped_prefix):].lstrip(" \t\r\n")
-            else:
-                messages[system_idx]["content"] = prefix + current_content
+            messages[system_idx]["content"] = prefix
 
     return messages
+
+
+def _stabilize_string_content(msg: dict[str, Any], prefix: str) -> None:
+    """Repair a string-type system message content."""
+    current_content = msg.get("content") or ""
+
+    if current_content.startswith(prefix):
+        return
+
+    stripped_prefix = prefix.rstrip()
+    if stripped_prefix and current_content.startswith(stripped_prefix):
+        rest = current_content[len(stripped_prefix):]
+        if not rest or rest[0].isspace():
+            msg["content"] = prefix + rest.lstrip(" \t\r\n")
+        else:
+            msg["content"] = prefix + current_content
+    else:
+        msg["content"] = prefix + current_content
+
+
+def _stabilize_list_content(msg: dict[str, Any], prefix: str) -> None:
+    """Repair a list-type (OpenAI-style) system message content."""
+    content = msg.get("content") or []
+
+    if not content:
+        msg["content"] = [{"type": "text", "text": prefix}]
+        return
+
+    if isinstance(content[0], dict) and content[0].get("type") == "text":
+        text = content[0].get("text") or ""
+        if text.startswith(prefix):
+            return
+
+        stripped_prefix = prefix.rstrip()
+        if stripped_prefix and text.startswith(stripped_prefix):
+            rest = text[len(stripped_prefix):]
+            if not rest or rest[0].isspace():
+                content[0]["text"] = prefix + rest.lstrip(" \t\r\n")
+            else:
+                content[0]["text"] = prefix + text
+        else:
+            content[0]["text"] = prefix + text
+    else:
+        content.insert(0, {"type": "text", "text": prefix})
 
 
 def prefix_fingerprint(prefix: str) -> str:

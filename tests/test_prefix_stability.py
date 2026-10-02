@@ -251,6 +251,122 @@ class PrefixStabilityTests(unittest.TestCase):
         self.assertEqual(result[2]["role"], "assistant")
         self.assertEqual(result[3]["role"], "user")
 
+    def test_stabilize_drift_repair_requires_whitespace_boundary(self) -> None:
+        """Drift repair only fires if rest begins with whitespace or is empty.
+
+        If content starts with a stripped prefix but the rest is non-whitespace,
+        it's unrelated text (not a drifted prefix) and should prepend instead.
+        """
+        prefix = "Be brief\n"
+        messages = [
+            {"role": "system", "content": "Be briefly helpful"}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertEqual(result[0]["content"], "Be brief\nBe briefly helpful")
+
+    def test_stabilize_drift_repair_with_whitespace_boundary(self) -> None:
+        """Drift repair fires when rest starts with whitespace after stripped prefix."""
+        prefix = "Be brief\n"
+        messages = [
+            {"role": "system", "content": "Be brief  helper"}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertEqual(result[0]["content"], "Be brief\nhelper")
+
+    def test_stabilize_list_content_empty_list(self) -> None:
+        """Empty content list gets a text block with the prefix."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": []}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertIsInstance(result[0]["content"], list)
+        self.assertEqual(len(result[0]["content"]), 1)
+        self.assertEqual(result[0]["content"][0], {"type": "text", "text": prefix})
+
+    def test_stabilize_list_content_text_block(self) -> None:
+        """Text block in list content is stabilized like string content."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "text", "text": "Original text"}
+            ]}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertIsInstance(result[0]["content"], list)
+        self.assertEqual(result[0]["content"][0]["text"], prefix + "Original text")
+
+    def test_stabilize_list_content_text_block_already_has_prefix(self) -> None:
+        """Text block already starting with prefix is not modified."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "text", "text": "shared prefixrest"}
+            ]}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertEqual(result[0]["content"][0]["text"], "shared prefixrest")
+
+    def test_stabilize_list_content_non_text_block_first(self) -> None:
+        """Non-text block content gets a new text block inserted first."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "image_url", "image_url": {"url": "http://example.com"}}
+            ]}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertIsInstance(result[0]["content"], list)
+        self.assertEqual(len(result[0]["content"]), 2)
+        self.assertEqual(result[0]["content"][0], {"type": "text", "text": prefix})
+        self.assertEqual(result[0]["content"][1]["type"], "image_url")
+
+    def test_stabilize_list_content_multiple_blocks(self) -> None:
+        """Multiple blocks with text first - only first text block is modified."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "text", "text": "First text"},
+                {"type": "image_url", "image_url": {"url": "http://example.com"}},
+                {"type": "text", "text": "Second text"}
+            ]}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertEqual(result[0]["content"][0]["text"], prefix + "First text")
+        self.assertEqual(result[0]["content"][1]["type"], "image_url")
+        self.assertEqual(result[0]["content"][2]["text"], "Second text")
+
+    def test_stabilize_list_content_drift_repair_with_whitespace(self) -> None:
+        """List content drift repair also respects whitespace boundary."""
+        prefix = "Be brief\n"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "text", "text": "Be brief  helper"}
+            ]}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertEqual(result[0]["content"][0]["text"], "Be brief\nhelper")
+
+    def test_stabilize_list_content_no_repair_without_whitespace(self) -> None:
+        """List content drift repair respects whitespace boundary - no repair case."""
+        prefix = "Be brief\n"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "text", "text": "Be briefly helpful"}
+            ]}
+        ]
+        result = prefix_stability.stabilize(messages, prefix)
+
+        self.assertEqual(result[0]["content"][0]["text"], "Be brief\nBe briefly helpful")
+
 
 if __name__ == "__main__":
     unittest.main()
