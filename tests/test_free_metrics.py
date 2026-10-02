@@ -615,6 +615,117 @@ class FreeMetricsTests(unittest.TestCase):
             f"Expected error about negative price, got {result['errors']}"
         )
 
+    # R1-1 test: No mutation of input prices dict
+    def test_r1_1_prices_not_mutated(self):
+        """Input prices dict is not mutated by report() (R1-1)."""
+        original_prices = {
+            "good-model": {"input": 0.01, "output": 0.03},
+            "bad-model": "not-a-dict",
+        }
+        # Make a copy to compare with later
+        prices_copy = dict(original_prices)
+        prices_copy["bad-model"] = original_prices["bad-model"]
+
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": 100000, "output": 50000},
+                paid_route={"model": "good-model", "provider": None, "subscription": False},
+            ),
+        ]
+
+        # Call report with prices
+        result = free_metrics.report(events, prices=original_prices)
+
+        # Verify original prices dict is unchanged
+        self.assertEqual(len(original_prices), 2)
+        self.assertIn("bad-model", original_prices)
+        self.assertEqual(original_prices["bad-model"], "not-a-dict")
+
+    # R1-2 test: Falsy non-dict prices rejected
+    def test_r1_2_falsy_non_dict_prices_rejected(self):
+        """Falsy non-dict prices ([], '', 0, False) are rejected (R1-2)."""
+        events = [make_event(accepted=True, escalated=False)]
+
+        for falsy_price in [[], '', 0, False]:
+            with self.subTest(prices=falsy_price):
+                result = free_metrics.report(events, prices=falsy_price)
+                self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+                self.assertTrue(
+                    any("invalid prices" in str(e) for e in result["errors"]),
+                    f"Expected invalid prices error for {falsy_price}, got {result['errors']}"
+                )
+
+    # R1-3 test: Subscription with invalid prices doesn't yield 0.0
+    def test_r1_3_subscription_with_invalid_prices_no_cost(self):
+        """Subscription events with invalid prices don't yield 0.0 cost (R1-3)."""
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                paid_route={"model": "gpt-4", "provider": None, "subscription": True}
+            ),
+        ]
+        result = free_metrics.report(events, prices="not-a-dict")
+
+        # Cost should be None, not 0.0
+        self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        self.assertEqual(result["estimated_paid_cost_coverage"]["priced"], 0)
+
+    # R1-4 test: Token validation
+    def test_r1_4_bool_tokens_rejected(self):
+        """Bool tokens are rejected as invalid (R1-4)."""
+        prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": True, "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+            ),
+        ]
+        result = free_metrics.report(events, prices=prices)
+
+        self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        self.assertTrue(
+            any("missing tokens" in str(e).lower() for e in result["errors"]),
+            f"Expected missing tokens error for bool input, got {result['errors']}"
+        )
+
+    def test_r1_4_negative_tokens_rejected(self):
+        """Negative tokens are rejected as invalid (R1-4)."""
+        prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": -100000, "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+            ),
+        ]
+        result = free_metrics.report(events, prices=prices)
+
+        self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        self.assertTrue(
+            any("missing tokens" in str(e).lower() for e in result["errors"]),
+            f"Expected missing tokens error for negative tokens, got {result['errors']}"
+        )
+
+    def test_r1_4_string_tokens_rejected(self):
+        """String tokens are rejected as invalid (R1-4)."""
+        prices = {"gpt-4": {"input": 0.01, "output": 0.03}}
+        events = [
+            make_event(
+                accepted=True, escalated=False,
+                tokens={"input": "not-a-number", "output": 50000},
+                paid_route={"model": "gpt-4", "provider": None, "subscription": False},
+            ),
+        ]
+        result = free_metrics.report(events, prices=prices)
+
+        self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        self.assertTrue(
+            any("missing tokens" in str(e).lower() for e in result["errors"]),
+            f"Expected missing tokens error for string tokens, got {result['errors']}"
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
