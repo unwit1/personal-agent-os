@@ -37,7 +37,7 @@ calibrated threshold / shadow advisor / cost-vs-quality curve"`
 
 | Id | Decision | What it gives here |
 |---|---|---|
-| PA-routellm | BORROW | Choosing the escalation threshold against a cost-vs-quality curve on a development set. The cost-vs-quality curve traces what pass rate is achievable at each threshold. The recommended threshold is the smallest one whose kept pass rate meets the target bar (0.9). Borrowed: the grid of thresholds and the curve concept. Rejected: trained routers, torch dependency, and online updates. |
+| PA-routellm | BORROW | Choosing the escalation threshold against a cost-vs-quality curve on a development set. The cost-vs-quality curve traces what pass rate is achievable at each threshold. The recommended threshold is the smallest one whose kept pass rate meets the target bar (0.9). Borrowed: the grid of thresholds and the curve concept. Rejected: trained routers on chat preference data, and the torch dependency. |
 
 The registry has no other directly applicable entry. The threshold selection
 is custom. The estimator is simple: Beta posteriors and Wilson bounds,
@@ -63,10 +63,14 @@ of its subject node, not to a review of its own.
 
 `cheap_route_passed` is set per non-reviewer node:
 
-- **True**: the initial cheap class passed tests and review with no escalation.
-- **False**: the node escalated, its tests failed, or its review was blocking.
-- **Unlabeled** (`None`): otherwise, i.e. no escalation and no test or review
-  evidence. Unlabeled nodes are counted in coverage but not in estimates.
+- **True**: no escalation, no failed tests, no blocking review, and positive
+  evidence: tests passed or a review was clean (`material_findings` 0 and verdict
+  not `blocked`).
+- **False**: the node escalated, its last `tests_completed` had `passed` false,
+  or a review of it (including its `.repair` nodes) was blocking or had material
+  findings.
+- **Unlabeled** (`None`): no escalation and no tests or review evidence.
+  Unlabeled nodes are counted in `unlabeled` but not in estimates.
 
 ## 5. Estimator
 
