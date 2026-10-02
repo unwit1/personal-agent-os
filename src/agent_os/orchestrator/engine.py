@@ -1111,9 +1111,15 @@ class Orchestrator:
         anything. Only project validators are compared; a task's own validators
         must pass outright."""
         by_name = {item.get("name"): item for item in validators}
+        project_suites = {_suite_key(command) for command in _project_commands(record.get("project"))}
         for item in validation["evidence"]:
             validator = by_name.get(item.get("name"))
-            if item["passed"] or not validator or not str(item.get("name", "")).startswith("project-validation") or not item.get("failed_tests"):
+            project_wide = str(item.get("name", "")).startswith("project-validation") or (
+                # A planned validator that runs the project's whole suite is that
+                # suite, not a task check: judge it against the same baseline.
+                validator is not None and _suite_key(validator.get("command")) in project_suites
+            )
+            if item["passed"] or not validator or not project_wide or not item.get("failed_tests"):
                 continue
             known = self._baseline_failures(record, validator)
             if known is None:
@@ -2475,6 +2481,12 @@ def _project_validators(project_id: str) -> list[dict[str, Any]]:
 
 def _project_commands(project_id: str | None) -> list[str]:
     return [validator["command"] for validator in _project_validators(project_id)] if project_id else []
+
+
+def _suite_key(command: Any) -> str:
+    """A command normalized for comparing suites: argv or string, ignoring -v."""
+    parts = command if isinstance(command, list) else str(command or "").split()
+    return " ".join(str(part) for part in parts if str(part) not in {"-v", "--verbose"})
 
 
 def _count_running(running: dict[str, int], provider: str, capability_class: str | None) -> None:

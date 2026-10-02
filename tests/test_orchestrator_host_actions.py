@@ -104,6 +104,21 @@ class BaselineValidationTests(OrchestratorFixture):
         record = self.engine.load(run_id)
         self.assertEqual(list(record["validation_baseline"].values()), [["t.flaky"]])
 
+    def test_planned_copy_of_the_project_suite_uses_the_same_baseline(self) -> None:
+        planned = dict(self.suite(False), name="planned-1")
+        project_command = " ".join(planned["command"]) + " -v"
+        with mock.patch("agent_os.orchestrator.engine._project_commands", return_value=[project_command]):
+            run_id = self.create([self.task("a", validators=[planned])], require_independent_review_for_model_edits=False)
+            final = self.engine.run_loop(run_id, max_ticks=40)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+
+    def test_task_specific_validator_must_still_pass_outright(self) -> None:
+        planned = dict(self.suite(False), name="planned-1")
+        with mock.patch("agent_os.orchestrator.engine._project_commands", return_value=["python -m unittest discover -s tests"]):
+            run_id = self.create([self.task("a", validators=[planned])], require_independent_review_for_model_edits=False)
+            final = self.engine.run_loop(run_id, max_ticks=40)
+        self.assertNotEqual(final["state"], "COMPLETE")
+
     def test_cached_failure_from_before_itemizing_is_rerun(self) -> None:
         run_id = self.create([self.task("a", validators=[self.suite(False)])], require_independent_review_for_model_edits=False)
         record = self.engine.load(run_id)
