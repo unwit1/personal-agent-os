@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 
-from agent_os.executive.window.providers_applicants import applicant_items
+from agent_os.executive.window.providers_applicants import applicant_items, county_items
 
 
 class ApplicantItemsTests(unittest.TestCase):
@@ -18,7 +18,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 3,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 2,
                         "next_step": "Review the application.",
                         "items": [
@@ -68,7 +68,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 1,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 1,
                         "next_step": "Review it.",
                         "items": [
@@ -106,7 +106,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 2,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 1,
                         "next_step": "Review.",
                         "items": [
@@ -149,7 +149,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 2,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 2,
                         "next_step": "Review.",
                         "items": [
@@ -193,7 +193,7 @@ class ApplicantItemsTests(unittest.TestCase):
         ids = [item["id"] for item in items]
 
         # IDs should be stable (based on reason, not data content)
-        self.assertIn("applicants:human_review_pending", ids)
+        self.assertIn("applicants:new_reply_unread", ids)
         self.assertIn("applicants:interview_request_outstanding", ids)
 
         # Call again, should get same IDs
@@ -208,7 +208,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 1,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 1,
                         "next_step": "Review it.",
                         "items": [
@@ -251,7 +251,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 3,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 3,
                         "next_step": "Review.",
                         "items": [
@@ -295,7 +295,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 2,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 2,
                         "next_step": "Review.",
                         "items": [
@@ -344,7 +344,7 @@ class ApplicantItemsTests(unittest.TestCase):
                 "count": 0,
                 "groups": [
                     {
-                        "reason": "human_review_pending",
+                        "reason": "new_reply_unread",
                         "count": 0,
                         "next_step": "Review.",
                         "items": [],
@@ -362,6 +362,45 @@ class ApplicantItemsTests(unittest.TestCase):
 
         items = applicant_items(needs_action=fake_needs_action)
         self.assertEqual(len(items), 0)
+
+    def test_human_review_pending_filtered_others_stay(self):
+        def fake():
+            row = {"applicant_ref": "r1", "name": "A", "position": "P", "status": "S",
+                   "submitted": "2026-09-20", "age_days": 1}
+            return {"count": 2, "groups": [
+                {"reason": "human_review_pending", "count": 1, "next_step": "x", "items": [row]},
+                {"reason": "interview_request_outstanding", "count": 1, "next_step": "y", "items": [row]},
+            ]}
+
+        ids = [i["id"] for i in applicant_items(needs_action=fake)]
+        self.assertEqual(ids, ["applicants:interview_request_outstanding"])
+
+
+class CountyItemsTests(unittest.TestCase):
+    def test_shape(self):
+        def groups():
+            return [
+                {"county": "Wake", "open_count": 2, "count": 1, "applicants": [
+                    {"applicant_ref": "r1", "name": "Al", "position": "Driver", "status": "New",
+                     "submitted": "2026-09-20", "city": "Cary", "score": 80,
+                     "recommendation": "Advance", "gender": "FORBIDDEN"}]},
+                {"county": "Dare", "open_count": 1, "applicants": []},
+            ]
+
+        items = county_items(groups_fn=groups)
+        self.assertEqual([i["id"] for i in items], ["county:Wake", "county:Dare"])
+        w = items[0]
+        self.assertEqual(w["tab"], "work")
+        self.assertEqual(w["kind"], "county_openings")
+        self.assertEqual(w["title"], "Wake - 2 openings")
+        self.assertEqual(w["why"], "1 applicant to review")
+        self.assertEqual(w["source"], "applicant_executive")
+        self.assertEqual(w["context"]["county"], "Wake")
+        self.assertEqual(w["context"]["open_count"], 2)
+        self.assertEqual(set(w["context"]["applicants"][0]), {
+            "applicant_ref", "name", "position", "status", "submitted", "city", "score", "recommendation"})
+        self.assertEqual(items[1]["title"], "Dare - 1 opening")
+        self.assertNotIn("FORBIDDEN", json.dumps(items))
 
 
 if __name__ == "__main__":
