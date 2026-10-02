@@ -265,6 +265,10 @@ def register(commands: argparse._SubParsersAction) -> None:
     econ.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
     econ.add_argument("--out", type=Path, help="write report JSON to this path")
 
+    rot = actions.add_parser("rotation-advisor", help="IMP-0019 shadow: would-rotate advice per worker from run telemetry (aggregates only, advice only, no model call)")
+    rot.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
+    rot.add_argument("--out", type=Path, help="write advice JSON to this path")
+
     cap = actions.add_parser("capability", help="aggregate capability observations into CAP records (no model call)")
     cap.add_argument("--write", action="store_true", help="write CAP records to projects/personal-agent-os/orchestrator-os/records/capability/")
     cap.add_argument("--floor", type=float, default=0.9)
@@ -622,6 +626,13 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         home = args.home if args.home else orchestrator_home()
         emit(context_economy.report(home, args.out))
+        return 0
+    if action == "rotation-advisor":
+        from . import rotation_advisor
+        from .store import orchestrator_home
+
+        home = args.home if args.home else orchestrator_home()
+        emit(rotation_advisor.report(home, args.out))
         return 0
     if action == "foreman":
         from . import budget as budget_lib
