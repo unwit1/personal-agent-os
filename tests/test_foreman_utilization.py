@@ -257,8 +257,29 @@ class KeepBusyTests(Base):
         self.clock.now += 20 * 60  # four times idle_minutes with the GPU idle
         self.assertFalse(self.manager_._idle(self.state))
         self.assertEqual(self.state["last_needed_epoch"], self.clock.now)
+        self.state["usage"] = {"prev": {"running": 2, "waiting": 0}}  # the router is sending the queued work here
+        for _ in range(3):
+            self.clock.now += 20 * 60
+            self.assertFalse(self.manager_._idle(self.state))
+            self.assertEqual(self.state["last_needed_epoch"], self.clock.now)
+
+    def test_queue_the_router_ignores_ends_in_teardown_after_the_grace_period(self) -> None:
         self.clock.now += 20 * 60
+        self.assertFalse(self.manager_._idle(self.state))  # work first seen: one idle_minutes grace period
+        first_seen = self.state["last_needed_epoch"]
+        self.clock.now += 4 * 60
         self.assertFalse(self.manager_._idle(self.state))
+        self.assertEqual(self.state["last_needed_epoch"], first_seen)  # no refresh without serving
+        self.clock.now += 2 * 60
+        self.assertTrue(self.manager_._idle(self.state))
+        self.assertEqual(self.state["keep_busy"]["kind"], "review")  # the work was still queued
+
+    def test_ignored_queue_tears_down_through_the_watcher(self) -> None:
+        state = self.watch()  # metrics stay idle for the whole run; the review is never served
+        self.assertEqual(state["status"], "stopped")
+        self.assertIn("idle for 5 min", state["detail"])
+        self.assertEqual(self.cloud.deleted, ["podK"])
+        self.assertEqual(self.runs["run-1"]["nodes"]["rev"]["state"], "PENDING")
 
     def test_work_the_provider_has_no_role_for_does_not_hold_the_gpu(self) -> None:
         self.runs["run-1"]["nodes"]["rev"]["role"] = "security_reviewer"

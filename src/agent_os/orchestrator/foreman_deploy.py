@@ -1050,7 +1050,6 @@ class ForemanManager:
         usage["ticks"] = usage.get("ticks", 0) + 1
         if metrics.get("running", 0) + metrics.get("waiting", 0) > 0:
             usage["busy_ticks"] = usage.get("busy_ticks", 0) + 1
-            usage["last_busy_epoch"] = self.clock()
         for key in ("prompt_tokens", "generation_tokens", "requests"):
             usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
         for key in ("prefix_hits", "prefix_queries"):
@@ -1129,10 +1128,19 @@ class ForemanManager:
         now = self.clock()
         if work["kind"]:
             # The router sends this work to the still-registered, cheap provider; the foreman only declines to tear down.
-            # Spend stays bounded by _meter (job cap, deadline, project budget) and the reaper, not by the idle timer.
-            self._update(state, last_needed_epoch=now,
-                         keep_busy={"kind": work["kind"], "count": len(work["items"]), "reason": work["reason"]})
-            return False
+            # The idle timer restarts when work first appears and while the pod is serving; a queue the router never
+            # sends here gets one idle_minutes grace period and then ends in teardown. Spend stays bounded by _meter
+            # (job cap, deadline, project budget) and the reaper.
+            fresh = not state.get("keep_busy")
+            prev = (state.get("usage") or {}).get("prev") or {}
+            serving = prev.get("running", 0) + prev.get("waiting", 0) > 0
+            fields: dict[str, Any] = {"keep_busy": {"kind": work["kind"], "count": len(work["items"]), "reason": work["reason"]}}
+            if fresh or serving:
+                fields["last_needed_epoch"] = now
+            self._update(state, **fields)
+            if fresh or serving:
+                return False
+            return now - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
         if state.get("keep_busy"):
             self._update(state, keep_busy=None)
         return now - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
