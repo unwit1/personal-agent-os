@@ -33,21 +33,26 @@ Operator rules that shape everything below:
 
 Goals the contract serves: "filter out the spam from the commitments" and "organize my entire email inbox".
 
+**Scope of this run.** Only what section 5 lists as a step's deliverable is binding for this run. Everything in
+section 0.3 is **deferred**: it is described so a later run builds it the same way, but no task in this run
+implements it, no test in this run asserts it, and a reviewer must not treat its absence as a defect. Where a task
+description and this file differ, this file wins; section 5 lists each task's scope and the overrides.
+
 ## 0. Foundations
 
 ### 0.1 Module map (who owns what)
 
 | Path | New / changed | Purpose | Section |
 |---|---|---|---|
-| `src/agent_os/mail/message.py`, `store.py` | changed | Capture four headers (schema v3), `Store.iter_rows`, `Store.set_headers`, `Store.mark_source_moved` / `mark_source_present` | 0.2 |
-| `src/agent_os/mail/imap.py` | changed | `ReadOnlyIMAP.fetch_headers` (header backfill, still read-only) | 0.2 |
-| `src/agent_os/mail/spam.py` | new | Deterministic spam/bulk classifier `classify`, `known_correspondents`, `classify_with_overrides` | 1 |
+| `src/agent_os/mail/message.py`, `store.py` | changed | Capture four headers (schema v3), `Store.iter_rows`, `Store.mark_source_moved` / `mark_source_present` (`Store.set_headers` deferred, D1) | 0.2 |
+| `src/agent_os/mail/imap.py` | unchanged in this run | `ReadOnlyIMAP.fetch_headers` is deferred (D1) | 0.2 |
+| `src/agent_os/mail/spam.py` | new | Deterministic spam/bulk classifier `classify`, `known_correspondents` (`classify_with_overrides` deferred, D2) | 1 |
 | `src/agent_os/mail/spam_eval.py` | new | `SYNTHETIC` labeled set, `evaluate` (precision/recall), `review_queue` | 1.7 |
 | `src/agent_os/mail/organize.py` | new | Categorizer, `CATEGORIES`, `TARGET_FOLDERS`, `categorize`, `build_plan`, `plan_summary`; pure, no I/O except `plan_from_index` | 2 |
 | `src/agent_os/mail/imap_write.py` | new | `ImapMover`: a second, separate IMAP wrapper whose allowed command set is exactly the move set; `connect_write` | 3.1 |
 | `src/agent_os/mail/organize_apply.py` | new | `Mover` protocol, `apply_plan`, `undo`, journal; the only caller of `imap_write` | 3.3-3.5 |
 | `src/agent_os/mail/accounts.py` | changed | `Account.allow_organize`, `set_allow_organize` | 3.2 |
-| `src/agent_os/mail/cli.py` | changed | `agent-os mail organize-plan`, `organize-apply`, `organize-undo`, `organize-journal`, `account organize`, `headers-backfill` | 3.6 |
+| `src/agent_os/mail/cli.py` | changed | `agent-os mail organize-plan`, `organize-apply`, `organize-undo`, `account organize` (`organize-journal`, `headers-backfill` deferred, D5/D1) | 3.6 |
 | `src/agent_os/executive/window/providers_mail.py` | changed | Commitments use the classifier; `mail_filtered` and `mail_review` items | 1.8 |
 | `src/agent_os/executive/window/actions_mail_organize.py` | new | Provider `mail_cleanup_items` and the window actions (section 4); `register(registry)` | 4 |
 | `src/agent_os/executive/window/builtin.py` | changed | `register_provider("mail_cleanup", actions_mail_organize.mail_cleanup_items)` and `actions_mail_organize.register(registry.REGISTRY)` | 4 |
@@ -73,7 +78,7 @@ The local index (`mail_messages`) does not store the four headers the classifier
 * `Store._summary` (and therefore `mail.search`) returns the four keys, `None` when unknown, so search rows can
   be passed straight to `classify`.
 * Existing rows have NULL headers. The classifier treats NULL like "header absent", so old mail is classified
-  on the remaining signals (degraded mode). `agent-os mail headers-backfill [--account ID]` fills them without
+  on the remaining signals (degraded mode). **(deferred, D1)** `agent-os mail headers-backfill [--account ID]` fills them without
   re-downloading bodies, through the new read-only method `ReadOnlyIMAP.fetch_headers(uids)` that issues
   `UID FETCH ... (BODY.PEEK[HEADER.FIELDS (LIST-UNSUBSCRIBE LIST-ID PRECEDENCE AUTO-SUBMITTED)])` and `Store.set_headers`.
   `PEEK` keeps it inside the existing read-only guard (`FORBIDDEN_FETCH` does not match `BODY.PEEK[`).
@@ -88,6 +93,20 @@ The local index (`mail_messages`) does not store the four headers the classifier
 Folders to sync: spam-folder detection and "known correspondent" detection need the Junk and Sent folders in
 the account's `folders` list (default is only `INBOX`). Without them the signals are simply absent: no folder
 verdicts, and every sender counts as a first contact. This is a documented degraded mode, not an error.
+
+### 0.3 Deferred (not built in this run)
+
+These items appear further down so the design stays whole, each marked **(deferred, 0.3)** where it appears.
+No task of this run implements them; the delivered code must not depend on them.
+
+| Id | Deferred item | What this run does instead |
+|---|---|---|
+| D1 | Header backfill: `ReadOnlyIMAP.fetch_headers`, `Store.set_headers`, `agent-os mail headers-backfill` | Headers are captured for newly synced mail only; older rows are classified in degraded mode (NULL = absent) |
+| D2 | Operator decisions on the review queue: `classify_with_overrides`, `<window_home>/mail-review.json`, the actions `mail.review.human` / `mail.review.bulk` | The review queue is built and shown (`review_queue`, `mail_review` items); every call site uses `classify`, and `review_queue` / `mail_items` take no `overrides` parameter |
+| D3 | The `mail.filtered.show` action | The `mail_filtered` item shows the counts and top reasons, and borderline mail is listed as `mail_review` items |
+| D4 | Automatic reconciliation of orphaned `pending` journal lines | An orphaned `pending` line is left as written; `undo` skips that `seq` and reports it in `skipped` with reason `no final journal line` |
+| D5 | `agent-os mail organize-journal` | The journal file is plain JSON lines; `organize-apply --confirm` prints the `journal_id` and each moved line's `undo.command` |
+| D6 | The window action `mail.organize.undo` | Undo runs through `agent-os mail organize-undo` (the `undo.command` in every journal line) |
 
 ## 1. Spam/bulk classifier: `src/agent_os/mail/spam.py`
 
@@ -104,7 +123,7 @@ def classify(message: dict, *, own: set[str], known: set[str]) -> dict:
 
 def known_correspondents(rows, own: set[str]) -> set[str]: ...
 
-def classify_with_overrides(message, *, own, known, overrides: dict) -> dict: ...   # 1.6
+def classify_with_overrides(message, *, own, known, overrides: dict) -> dict: ...   # 1.6 (deferred, D2)
 ```
 
 `message` keys: `sender`, `recipients`, `subject`, `snippet`, `mailbox`, `list_unsubscribe`, `list_id`,
@@ -116,7 +135,10 @@ never mutates them and never raises on missing or odd values (it raises `TypeErr
 A header counts as **present** when its value is not `None` and `str(value).strip() != ""`.
 
 Result: `verdict` as below; `reasons` is a non-empty list of short human strings, in signal order (table in 1.3),
-the verdict-level reason (1.4) last; `score` is an `int`, never negative. Same input gives identical output.
+followed, for verdict `spam` from the spam rule only, by the reason `unsolicited promotion (no unsubscribe headers)`
+(1.4); no other verdict adds a verdict-level reason. Inside `promotional subject (...)` the matched marker labels
+are listed in the order of the marker list in 1.3, joined with `, `. `score` is an `int`, never negative. Same
+input gives identical output.
 
 `known_correspondents(rows, own)` returns the lower-case addresses that appear in `recipients` (and in `cc`
 when the row carries it) of rows whose sender address is in `own`, minus `own` itself. It is the only way the
@@ -207,30 +229,33 @@ The review band is exactly scores 3, 4 and 5 for messages that are not own mail 
 Typical members: an unknown person whose subject says "webinar" (2 + 1 = 3); `info@smallbiz.example` writing
 for the first time (2 + 1 = 3); a first-contact message with only `Precedence: list` (4 + 1 = 5); a known
 correspondent relaying list mail (5 - 2 = 3). A `review` row is **never moved** by organization (section 2.2)
-and never becomes a commitment until the operator answers (1.6, 1.8).
+and never becomes a commitment (1.8); in this run it stays in the review queue, and operator decisions on it
+are deferred (1.6, D2).
 
 ### 1.5 Worked examples (the test task must include these verbatim)
 
-`own = {"me@example.com"}`, `known = {"pat@corp.com"}`.
+`own = {"me@example.com"}`, `known = {"pat@corp.com"}`. Every message below has `mailbox="INBOX"` and no
+`list_unsubscribe`, `list_id`, `precedence` or `auto_submitted` unless the row says otherwise. The Reasons column
+is the exact `reasons` list, in order.
 
 | Message | Score | Verdict | Reasons |
 |---|---|---|---|
 | `Pat <pat@corp.com>`, "Lunch?" | 0 (-4 clamped) | human | `known correspondent (you replied before)` |
 | `Lee <lee@new.org>`, "Lunch?" | 1 | human | `first contact (you never replied)` |
 | `noreply@shop.com`, "Your receipt" | 7 (6 + 1) | bulk | `automated sender address`, `first contact (you never replied)` |
-| `news@brand.com`, "Spring SALE: 30% off", `List-Unsubscribe` set | 12 (2 + 5 + 4 + 1) | bulk | has a list header, so not spam |
-| `deals@promo-mart.biz`, "Limited time deal: 50% off", no headers | 7 (2 + 4 + 1) | spam | three markers, no list headers, unknown sender |
-| `Lee <lee@new.org>`, "Webinar invite?" | 3 (2 + 1) | review | `promotional subject (webinar)`, first contact |
-| `Pat <pat@corp.com>`, "Webinar notes" | 0 (2 - 4 clamped) | human | |
-| `info@smallbiz.example`, "Your quote" | 3 (2 + 1) | review | `generic sender address (info@)`, first contact |
-| `pat@corp.com`, `Auto-Submitted: auto-replied` | 8 (no discount) | bulk | `auto-generated (Auto-Submitted)` |
-| `sam@x.org` (known), `List-Id` set | 3 (5 - 2) | review | `mailing list (List-Id)`, known correspondent |
-| sender `me@example.com` | 0 | bulk | `own sent mail` |
-| any sender, `mailbox="Junk E-mail"` | 100 | spam | `in server spam folder (Junk E-mail)` |
+| `news@brand.com`, "Spring SALE: 30% off", `list_unsubscribe="<mailto:u@brand.com>"` | 12 (5 + 2 + 4 + 1) | bulk (a list header is present, so not spam) | `has List-Unsubscribe header`, `generic sender address (news@)`, `promotional subject (% off, sale)`, `first contact (you never replied)` |
+| `deals@promo-mart.biz`, "Limited time deal: 50% off" | 7 (2 + 4 + 1) | spam | `generic sender address (deals@)`, `promotional subject (% off, deal, limited time)`, `first contact (you never replied)`, `unsolicited promotion (no unsubscribe headers)` |
+| `Lee <lee@new.org>`, "Webinar invite?" | 3 (2 + 1) | review | `promotional subject (webinar)`, `first contact (you never replied)` |
+| `Pat <pat@corp.com>`, "Webinar notes" | 0 (2 - 4 clamped) | human | `promotional subject (webinar)`, `known correspondent (you replied before)` |
+| `info@smallbiz.example`, "Your quote" | 3 (2 + 1) | review | `generic sender address (info@)`, `first contact (you never replied)` |
+| `pat@corp.com`, "Out of office", `auto_submitted="auto-replied"` | 8 (no known discount) | bulk | `auto-generated (Auto-Submitted)` |
+| `pat@corp.com`, "Minutes from Tuesday", `list_id="<team.corp.com>"` | 3 (5 - 2) | review | `mailing list (List-Id)`, `known correspondent (you replied before)` |
+| `me@example.com`, "Re: Lunch?" | 0 | bulk | `own sent mail` |
+| `Lee <lee@new.org>`, "Lunch?", `mailbox="Junk E-mail"` | 100 | spam | `in server spam folder (Junk E-mail)` |
 
-### 1.6 Operator decisions on the review queue
+### 1.6 Operator decisions on the review queue (deferred, D2)
 
-The review queue is the set of `review` verdicts. The operator answers per sender: "this is a person" or
+Not built in this run; described for the later run. The review queue is the set of `review` verdicts. The operator answers per sender: "this is a person" or
 "this is bulk". Decisions persist in `<window_home>/mail-review.json`
 (`{"human": {"addr": "<iso>"}, "bulk": {"addr": "<iso>"}}`, written with the same atomic temp-file-and-replace
 helper as `confirm._write_json`). `classify_with_overrides(message, *, own, known, overrides)` calls `classify`
@@ -246,7 +271,7 @@ SYNTHETIC_OWN: set[str]                 # own addresses the set is written again
 SYNTHETIC_KNOWN: set[str]               # known correspondents the set is written against
 
 def evaluate(cases=SYNTHETIC, *, own=SYNTHETIC_OWN, known=SYNTHETIC_KNOWN) -> dict: ...
-def review_queue(rows, *, own, known, overrides=None, limit: int = 100) -> list[dict]: ...
+def review_queue(rows, *, own, known, limit: int = 100) -> list[dict]: ...
 ```
 
 `SYNTHETIC` is the synthetic labeled set, kept in the module (not in the test) so the window and CLI can report
@@ -272,7 +297,7 @@ the same numbers. All addresses use `example.com`/`.example`/`.org` style test d
   denominator gives `1.0`.
 
 `review_queue(rows, ...)` is the operator-review queue for borderline cases: every row whose
-`classify_with_overrides` verdict is `review`, as `{"message_id", "account_id", "scope", "subject", "sender",
+`classify` verdict is `review` (the deferred D2 adds an `overrides` parameter later), as `{"message_id", "account_id", "scope", "subject", "sender",
 "score", "reasons"}`, highest score first, then newest first, capped at `limit`. The plan (2.3) and the window
 (1.8) both use it.
 
@@ -287,19 +312,21 @@ section "Measured results" at the bottom of this file.
 ### 1.8 Use in the window's commitments
 
 `providers_mail.mail_items` keeps its signature (`db_path`, `own_addresses`, `days`, `limit`, `search`, `now`)
-and gains `known: set[str] | None = None` and `overrides: dict | None = None`.
+and gains `known: set[str] | None = None` (no `overrides` parameter in this run, D2).
 
 * `known=None` means: compute per scope with `known_correspondents(mail.iter_rows(scope, senders=own), own)`
   when the default search is used, or from the rows the injected `search` returned (so tests need no index).
-* For each thread's latest message, call `classify_with_overrides`. Only verdict `human` becomes a
+* For each thread's latest message, call `classify`. Only verdict `human` becomes a
   `mail_thread` item. The old `AUTOMATED` regex and the "sender is own" check are removed (the classifier
   covers both); the third point of `_score` ("not automated") becomes "verdict is human" and the `score >= 2`
   gate stays as it is.
 * Filtered mail is never silently dropped. The provider also returns, per tab:
   * one `mail_filtered` summary item (section 4.1) with counts of `spam`, `bulk`, `own_sent`, `review` and
-    the top reasons for the same window (`days`);
-  * up to 20 `mail_review` items for the borderline band (`spam_eval.review_queue`), newest first.
-* Verdict `review` threads are **not** commitments until the operator answers; they live in the review queue.
+    the top reasons, counted over the **window row set**: the latest message of each thread the provider
+    considered for that tab (the same rows the commitments are chosen from, within `days`);
+  * up to 20 `mail_review` items for the borderline band (`spam_eval.review_queue` over the same window row
+    set), newest first.
+* Verdict `review` threads are **not** commitments; they live in the review queue.
 
 ## 2. Inbox categorizer: `src/agent_os/mail/organize.py`
 
@@ -348,7 +375,7 @@ scope index) is own sent mail; `build_plan` computes it by grouping rows on `thr
 |---|---|---|
 | 0 | (excluded) | Own sent mail (verdict `bulk` with reason `own sent mail`) is never categorized or moved; it is counted in `spam_filtered.own_sent` |
 | 1 | `spam` | verdict `spam` (a row already in a server spam folder gets this category but `move = false`: it is already filed) |
-| 2 | `hr_applicants` | scope `work`, verdict `human` or `bulk`, and the subject matches `applicant|application|apply|resume|r[ée]sum[ée]|cv\b|candidate|interview|hiring|recruit|job posting|offer letter|onboarding` or the sender domain is a job board (`indeed.com`, `ziprecruiter.com`, `greenhouse.io`, `lever.co`, `workable.com`, `applytojob.com`, `jobvite.com`, `smartrecruiters.com`) |
+| 2 | `hr_applicants` | scope `work`, verdict `bulk` (**never** `human` or `review`: a person writing about an application needs a reply and goes on to rules 6-7), and the subject matches `applicant|application|apply|resume|r[ée]sum[ée]|cv\b|candidate|interview|hiring|recruit|job posting|offer letter|onboarding` or the sender domain is a job board (`indeed.com`, `ziprecruiter.com`, `greenhouse.io`, `lever.co`, `workable.com`, `applytojob.com`, `jobvite.com`, `smartrecruiters.com`) |
 | 3 | `receipts_finance` | verdict `bulk` and the subject matches `receipt|invoice|order confirmation|your order|payment|statement|billing|refund|transaction|tax|paid` or the sender local part is `billing|invoice|invoices|receipts?|payments?|orders?` or the domain is `paypal.com`, `stripe.com`, `squareup.com`, `venmo.com` |
 | 4 | `notifications` | verdict `bulk`, the sender matches the strong sender pattern or `auto_submitted` is present, and no promotional marker matched the subject |
 | 5 | `newsletters_promotions` | verdict `bulk` (everything else that is bulk: list headers, marketing senders, promotional subjects) |
@@ -358,10 +385,13 @@ scope index) is own sent mail; `build_plan` computes it by grouping rows on `thr
 | 9 | `archive_old` | age (against `now`) over **365 days** for any row that reached this point |
 | 10 | `action_needed` (default) | anything left, for safety: it stays in the INBOX |
 
-Borderline mail is never moved: rules 1-5 require verdict `spam` or `bulk` (or `human`/`bulk` for rule 2) and
-rule 6 requires `human`, so a verdict-`review` row always stops at rule 7, never reaches rules 8-9, and the age
-overlay below never applies to it (`action_needed` is never archived). `review = true` is set only by rule 7 and
-those rows also appear in `review_queue`.
+Mail that needs a reply is never moved: rules 1-5 require verdict `spam` or `bulk`, so a verdict-`human` row
+reaches rule 6 at the earliest, and a `human` row that asks (a `?`, or the operator directly addressed) and is
+not waiting on others always becomes `action_needed` in the INBOX, whatever its subject (an applicant writing
+"Interview time?" stays in `action_needed`). Borderline mail is never moved either: rule 6 requires `human`, so a
+verdict-`review` row always stops at rule 7, never reaches rules 8-9, and the age overlay below never applies to
+it (`action_needed` is never archived). `review = true` is set only by rule 7 and those rows also appear in
+`review_queue`.
 
 Age overlay: after rules 1-8, a row whose category is `notifications`, `newsletters_promotions`, `personal` or
 `waiting_on_others` and whose age is over 365 days becomes `archive_old`. `spam`, `hr_applicants` and
@@ -430,9 +460,9 @@ Details:
   cut at 120 characters; `message_ids` lists **all** index message ids in that category for that account (not
   just the samples). Counts per category sum to `inbox_total`.
 * `spam_filtered` covers every row seen by the plan across all mailboxes of the account (including Junk and Sent),
-  so the operator can reconcile it with what the commitments hide: `total = spam + bulk` (own sent mail and
-  review are reported separately, not in `total`); `by_reason` counts each reason string once per message and keeps
-  the top 15.
+  for the whole index regardless of age: `total = spam + bulk` (own sent mail and review are reported separately,
+  not in `total`); `by_reason` counts each reason string once per message and keeps the top 15. It is **not** the
+  same row set as the window's `mail_filtered` counts (1.8, 4.3), and the two numbers are not expected to match.
 * `review_queue` is `spam_eval.review_queue(...)` over the INBOX rows, capped at 100 entries, highest score first.
 * `skipped` counts what the plan could not consider: `archive_sources` (PST/archive observations, which cannot be
   moved) and `non_inbox` (live rows in other mailboxes, used for context and counts only).
@@ -578,9 +608,10 @@ Journal: append-only JSON lines at `<scope dir>/organize-journal.jsonl`
           "steps": ["UID MOVE 7 from Agent OS/Receipts back to INBOX"]}}
 ```
 
-Every `moved` line carries `undo.command` (a runnable CLI line) and `undo.steps` (plain words). `pending` lines
-without a final line (a crash between command and journal) are reconciled at the start of the next apply or
-undo by searching both folders for the `Message-ID` and writing the real final line.
+Every `moved` line carries `undo.command` (a runnable CLI line) and `undo.steps` (plain words). A `pending` line
+without a final line (a crash between command and journal) stays as written in this run: `undo` skips that
+`seq` with reason `no final journal line`. **(deferred, D4)** A later run reconciles such lines at the start of
+the next apply or undo by searching both folders for the `Message-ID` and writing the real final line.
 
 `undo(journal_id, *, seq=None, dry_run=True, connect=None, journal_dir=None) -> dict` reverses one move or a
 whole journal: it finds the message in the `to` folder (by `to.uid` when `to.uidvalidity` is unchanged, else by
@@ -588,8 +619,8 @@ whole journal: it finds the message in the `to` folder (by `to.uid` when `to.uid
 reports that the copy in the target folder remains (a delete would be needed to remove it, and Agent OS never
 deletes). Undo is itself journaled (`status: "undone"`, with `undone_of: <seq>`), is dry-run by default, never
 creates a second undo for an undo, and is idempotent (a message already back in its source folder is skipped).
-In the window it is the consequential action `mail.organize.undo` (Confirm); `Store.mark_source_present`
-restores the index state.
+In this run undo is run through `agent-os mail organize-undo` (the window action `mail.organize.undo` is
+deferred, D6); `Store.mark_source_present` restores the index state.
 
 ### 3.6 CLI (`src/agent_os/mail/cli.py`)
 
@@ -600,10 +631,11 @@ dry-run unless `--confirm`:
 agent-os mail organize-plan [--scope work|personal] [--json]          # builds, saves and prints the plan
 agent-os mail organize-apply --plan <id> --category <c> [--account <id>] [--confirm]
 agent-os mail organize-undo --journal <id> [--seq N] [--confirm]
-agent-os mail organize-journal [--scope work|personal]
 agent-os mail account organize <account-id> --on|--off              # sets allow_organize
-agent-os mail headers-backfill [--account <id>]
 ```
+
+Deferred (0.3): `agent-os mail organize-journal [--scope work|personal]` (D5) and
+`agent-os mail headers-backfill [--account <id>]` (D1).
 
 ### 3.7 Safety invariants (each needs a test)
 
@@ -618,9 +650,13 @@ agent-os mail headers-backfill [--account <id>]
 7. No credential, app password or secret appears in the plan, the journal, the audit line, or any result.
 8. Work and personal scopes stay separate: plans, known-correspondent sets and journals are per scope; the only
    place both appear together is the operator's own window.
-9. Spam and bulk are filtered from commitments only; they are counted in `spam_filtered` and listed by
-   `mail.filtered.show`. Nothing is deleted, and the spam category is moved to `Agent OS/Spam`, not to Trash.
+9. Spam and bulk are filtered from commitments only; they are counted in the `mail_filtered` item (window row
+   set) and in the plan's `spam_filtered` (whole index). Nothing is deleted, and the spam category is moved to
+   `Agent OS/Spam`, not to Trash.
 10. A verdict-`review` row is always `action_needed` with `review = true` and is never moved, at any age.
+11. An apply Confirm moves only messages of the `plan_id` that was previewed; a missing, different or stale plan
+    moves nothing (4.2).
+12. A verdict-`human` row that asks is never moved, whatever its subject (rule 2 accepts only `bulk`, 2.2).
 
 ## 4. Window integration: `src/agent_os/executive/window/actions_mail_organize.py`
 
@@ -634,9 +670,9 @@ the local index and the saved plan. Building a plan is an explicit action.
 | `kind` | `id` | `tab` | Source | Shows |
 |---|---|---|---|---|
 | `mail_thread` | `mail:<thread>` | work / personal | `providers_mail.mail_items` | unchanged, but only classifier verdict `human` |
-| `mail_filtered` | `mail-filtered:<tab>` | work / personal | `providers_mail.mail_items` | title `N filtered out of commitments (S spam, B bulk)`, `why` lists the top 3 reasons and the review count; `context` = the `spam_filtered` shape for the window `days` |
+| `mail_filtered` | `mail-filtered:<tab>` | work / personal | `providers_mail.mail_items` | title `N filtered out of commitments (S spam, B bulk)`, `why` lists the top 3 reasons and the review count; `context` = the keys of `spam_filtered` (`total`, `spam`, `bulk`, `own_sent`, `review`, `by_reason`, `by_account`) counted over the window row set of 1.8, not the plan's |
 | `mail_review` | `mail-review:<message id>` | work / personal | `providers_mail.mail_items` | borderline mail: `title` = subject, `why` = `borderline (score N): <reasons>`; `context` = `message_id`, `sender`, `subject`, `score`, `reasons` |
-| `mail_cleanup` | `mail-cleanup:<tab>` | work / personal | `actions_mail_organize.mail_cleanup_items` | the mail-cleanup group: with a saved plan, `title` = `Mail cleanup: N messages can be organized`, `why` = per-category counts; `context` = `plan_summary` for that scope plus `accounts: [{account_id, email, allow_organize}]`. Without a plan: `title` = `Organize inbox`, `why` = `No plan yet. Run Organize inbox to review it.` Always present when the scope has at least one configured account |
+| `mail_cleanup` | `mail-cleanup:<tab>` | work / personal | `actions_mail_organize.mail_cleanup_items` | the mail-cleanup group: with a saved plan, `title` = `Mail cleanup: N messages can be organized`, `why` = per-category counts and `whole index: S spam, B bulk` (4.3); `context` = `plan_summary` for that scope (including its `plan_id`) plus `accounts: [{account_id, email, allow_organize}]`. Without a plan: `title` = `Organize inbox`, `why` = `No plan yet. Run Organize inbox to review it.` Always present when the scope has at least one configured account |
 
 `mail_cleanup_items(window_home=None, accounts_path=None, now=None) -> list[dict]` returns one `mail_cleanup`
 item per scope with a configured account. For tab `work` it contains only work-scope accounts, for `personal`
@@ -651,15 +687,24 @@ preview **is** the dry-run and Confirm performs. Every consequential action is a
 | Action id | Label | Applies to | Consequential | Params | What it does |
 |---|---|---|---|---|---|
 | `mail.organize` | `Organize inbox` | `mail_cleanup` | no | `scope` (optional) | Builds a plan (`plan_from_index`), saves it, returns `plan_summary`. Changes no mail and needs no network; this is the dry-run view. |
-| `mail.organize.apply.<category>` | `Organize: <category label>` | `mail_cleanup` | **yes** | `plan_id` (default: newest), `accounts` (optional list of account ids) | One action per **movable** category: `receipts_finance`, `newsletters_promotions`, `notifications`, `hr_applicants`, `personal`, `spam`, `archive_old` (seven actions; `action_needed` and `waiting_on_others` have none). Preview (`confirm=False`) = `apply_plan(..., dry_run=True)`: per account, how many messages would move, to which folder, with the samples, plus accounts that are skipped because `allow_organize` is off. Confirm performs the moves. This is the **per-category Confirm button**. |
+| `mail.organize.apply.<category>` | `Organize: <category label>` | `mail_cleanup` | **yes** | `plan_id` (**required**, no default), `accounts` (optional list of account ids) | One action per **movable** category: `receipts_finance`, `newsletters_promotions`, `notifications`, `hr_applicants`, `personal`, `spam`, `archive_old` (seven actions; `action_needed` and `waiting_on_others` have none). Preview (`confirm=False`) = `apply_plan(..., dry_run=True)`: per account, how many messages would move, to which folder, with the samples, plus accounts that are skipped because `allow_organize` is off. Confirm performs the moves. This is the **per-category Confirm button**. |
 | `mail.organize.allow` | `Allow organizing` | `mail_cleanup` | **yes** | `account_id`, `allow` (bool) | Sets `allow_organize` on one account (`accounts.set_allow_organize`). Preview text states: "lets Agent OS move (never delete) mail in <email>'s INBOX; syncing stays read-only". |
-| `mail.organize.undo` | `Undo organize` | `mail_cleanup` | **yes** | `journal_id` | Preview lists what would move back; Confirm runs `undo`. |
-| `mail.filtered.show` | `Show filtered mail` | `mail_filtered` | no | `kind` (`spam`/`bulk`/`review`, optional), `limit` (<= 50) | Returns subject, sender, date and reasons of filtered messages, so nothing is hidden without a way to look. |
-| `mail.review.human` | `This is a person` | `mail_review` | no | none | Records the sender in `mail-review.json` under `human` (section 1.6). |
-| `mail.review.bulk` | `This is bulk` | `mail_review` | no | none | Records the sender under `bulk`. |
+
+Deferred actions (0.3), **not registered in this run**: `mail.organize.undo` (D6; `journal_id`, preview lists
+what would move back, Confirm runs `undo`), `mail.filtered.show` (D3; `kind`, `limit` <= 50, returns subject,
+sender, date and reasons of filtered messages), `mail.review.human` and `mail.review.bulk` (D2; record the
+sender in `mail-review.json`, section 1.6).
 
 Confirm rules for the apply actions:
 
+* **The previewed plan is the confirmed plan.** `plan_id` is required: a call without it returns an error
+  (`plan_id is required; run Organize inbox and pick the plan shown`) and no preview or confirm token is
+  created. The preview refuses a `plan_id` that differs from `item.context.plan_id` (the plan the operator is
+  looking at), and returns the `plan_id` it previewed as `preview.plan_id`. `Registry.invoke` stores the params
+  with the confirm token, and `Registry.confirm` hands the handler exactly those params, so Confirm loads exactly
+  `<window_home>/mail-plans/<plan_id>.json`. Confirm refuses, moving nothing, when that file is missing, stale
+  (3.4), or its `plan_id` differs from the requested one. Apply never falls back to the newest plan; a newer plan
+  needs a new preview.
 * Per-category Confirm is per action call: confirming `receipts_finance` never moves anything in another category.
 * A Confirm moves at most **500 messages per account**; the result reports `remaining` and the operator confirms again.
 * The plan is re-validated at Confirm time (section 3.4); stale or changed messages are skipped, never forced.
@@ -667,25 +712,56 @@ Confirm rules for the apply actions:
 
 ### 4.3 Ordering and counts
 
-`mail_filtered` and `mail_cleanup` items sort after `mail_thread` items and carry `age_days: null`. The
-filtered count shown in the window equals `spam_filtered.total` for the same scope and window, so a reviewer can
-reconcile it with the plan.
+`mail_filtered` and `mail_cleanup` items sort after `mail_thread` items and carry `age_days: null`.
+
+The two filtered counts measure different row sets and are labelled so nobody expects them to match:
+
+* `mail_filtered` (commitments): the latest message of each thread in that tab's window (`days`), as defined in
+  1.8. Its title is `N filtered out of commitments (S spam, B bulk)` with `N = S + B`, and its counts reconcile
+  with the window: every thread the provider considered has exactly one verdict, so
+  `considered = human + review + spam + bulk + own_sent`, where `human` threads are the commitment candidates
+  (still subject to the existing `_score` gate) and `review` threads are the review queue (up to 20 shown as items).
+* `mail_cleanup` (plan): `spam_filtered` of the saved plan, every row of the whole index for that scope (2.3).
+  Its `why` labels it `whole index: S spam, B bulk`.
+
+The window never claims either number equals the other.
 
 ## 5. Order of work and acceptance
 
-1. Foundations: schema v3 and `Store.iter_rows` (section 0.2), `Account.allow_organize` (3.2): tests in
-   `test_mail.py`, `test_mail_accounts.py`.
-2. Section 1: `spam.py` and `spam_eval.py` with `SYNTHETIC` and the targets in 1.7: `test_mail_spam.py`.
-3. Section 2: `organize.py` (`categorize`, `build_plan`, `plan_summary`, `TARGET_FOLDERS`): `test_mail_organize.py`
-   with one test per rule, review rows never moved at any age, the age overlay, per-account counts that sum to
-   `inbox_total`, `spam_filtered` reconciliation, both scopes.
-4. Section 3: `imap_write.py`, `organize_apply.py`, CLI: `test_mail_organize_apply.py` with a `FakeIMAP` client
-   under `ImapMover` and a fake `Mover`, covering MOVE, the copy fallback, unsupported-keyword refusal, folder
-   creation, UIDVALIDITY change, undo, crash reconciliation, and every invariant in 3.7.
-5. Section 4: `providers_mail.py` (commitments exclude spam and bulk, filtered summary and review items),
-   `actions_mail_organize.py`, `builtin.py`: tests in `test_executive_window_provider_mail.py` (existing cases keep
-   passing), `test_executive_window_registry.py` and `test_executive_window_builtin.py` style tests for the new
-   actions (preview does not move; Confirm moves).
+Each step below is the **complete binding scope** of the task that implements it; nothing in section 0.3 is part
+of any step. Where a task description in the run's task graph says something different, the step below wins.
+Overrides of task descriptions, binding for every step:
+
+* The per-account switch is `allow_organize` (the `account-allow-moves` task delivers it under that name; no
+  `allow_moves` field or alias).
+* No Outlook and no COM: moves are IMAP only (`imap_write.ImapMover`); there is no backend selection.
+* The classifier result is `{'verdict', 'reasons', 'score'}` from `classify`; the deferred `classify_with_overrides`
+  is not called anywhere in this run.
+* The window apply actions take a **required** `plan_id` (4.2).
+* `hr_applicants` (rule 2) accepts verdict `bulk` only (2.2).
+
+Steps:
+
+1. Foundations: schema v3 (four header columns, captured at sync), `Store.iter_rows`, `mail.iter_rows`,
+   `Store.mark_source_moved` / `mark_source_present` (section 0.2), and `Account.allow_organize` with
+   `set_allow_organize` (3.2): tests in `test_mail.py`, `test_mail_accounts.py`. Not in scope: D1.
+2. Section 1: `spam.py` (`classify`, `known_correspondents`) and `spam_eval.py` (`SYNTHETIC`, `evaluate`,
+   `review_queue` without `overrides`) with the worked examples of 1.5 and the targets in 1.7: `test_mail_spam.py`.
+   Not in scope: D2.
+3. Section 2: `organize.py` (`categorize`, `build_plan`, `plan_from_index`, `plan_summary`, `TARGET_FOLDERS`):
+   `test_mail_organize.py` with one test per rule, review rows never moved at any age, human rows that ask never
+   moved (including an applicant subject), the age overlay, per-account counts that sum to `inbox_total`,
+   `spam_filtered` totals, both scopes, and invariants 10 and 12 of 3.7.
+4. Section 3: `imap_write.py`, `organize_apply.py` (`apply_plan`, `undo`, journal) and the CLI commands of 3.6:
+   `test_mail_organize_apply.py` with a `FakeIMAP` client under `ImapMover` and a fake `Mover`, covering MOVE, the
+   copy fallback, unsupported-keyword refusal, folder creation, UIDVALIDITY change, undo, undo skipping an orphaned
+   `pending` line, and invariants 1-8 of 3.7. Not in scope: D4, D5.
+5. Section 4: `providers_mail.py` (commitments use `classify`; `mail_filtered` and `mail_review` items over the
+   window row set), `actions_mail_organize.py` (`mail_cleanup_items`; actions `mail.organize`,
+   `mail.organize.apply.<category>` x7, `mail.organize.allow`), `builtin.py`: tests in
+   `test_executive_window_provider_mail.py` (existing cases keep passing), `test_executive_window_registry.py`
+   and `test_executive_window_builtin.py` style tests for the new actions (preview does not move; Confirm moves;
+   missing or mismatched `plan_id` refused) and invariants 9 and 11 of 3.7. Not in scope: D2, D3, D6.
 6. Update `docs/integrations/mail.md` (the read-only statements become "sync is read-only; organizing needs
    `allow_organize`") and fill in "Measured results" below.
 
