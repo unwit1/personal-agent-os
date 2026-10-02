@@ -238,21 +238,24 @@ const Executive = (() => {
       return control;
     }
 
-    let fromSelect = null;
-    const accounts = compose.accounts || compose.from_accounts || [];
-    if (accounts.length > 0) {
-      fromSelect = document.createElement('select');
-      fromSelect.id = 'compose-from';
-      accounts.forEach(account => {
-        const value = typeof account === 'string' ? account : (account.id || account.address);
-        const label = typeof account === 'string' ? account : (account.label || account.address || value);
-        const option = el('option', null, label);
-        option.value = value;
-        if (value === compose.from || value === compose.from_account) option.selected = true;
-        fromSelect.appendChild(option);
-      });
-      field('From', fromSelect);
-    }
+    if (compose.compose_id) panel.dataset.composeId = compose.compose_id;
+
+    const fromSelect = document.createElement('select');
+    fromSelect.id = 'compose-from';
+    field('From', fromSelect);
+    apiCallQuiet('GET', '/api/send/accounts')
+      .then(response => {
+        const accounts = (response && response.accounts) || [];
+        accounts.forEach(account => {
+          const option = el('option', null, account.label || account.account_id);
+          option.value = account.account_id;
+          if (compose.from_account ? account.account_id === compose.from_account : account.default) {
+            option.selected = true;
+          }
+          fromSelect.appendChild(option);
+        });
+      })
+      .catch(() => { /* From list unavailable; server default applies */ });
 
     const toInput = document.createElement('input');
     toInput.id = 'compose-to';
@@ -282,13 +285,11 @@ const Executive = (() => {
       status.textContent = 'Sending…';
       const payload = Object.assign({}, compose, {
         conversation_id: getOrCreateConversationId(),
-        to: toInput.value.split(/[;,]/).map(s => s.trim()).filter(Boolean),
+        to: toInput.value.split(/[;,]/).map(s => s.trim()).filter(Boolean).join(', '),
         subject: subjectInput.value,
         body: bodyInput.value,
       });
-      delete payload.accounts;
-      delete payload.from_accounts;
-      if (fromSelect) payload.from = fromSelect.value;
+      if (fromSelect.value) payload.from_account = fromSelect.value;
       apiCallQuiet('POST', '/api/send', payload)
         .then(response => {
           const failed = response && (response.error || response.sent === false ||
@@ -315,7 +316,15 @@ const Executive = (() => {
 
     const cancelBtn = el('button', 'ghost', 'Discard');
     cancelBtn.type = 'button';
-    cancelBtn.addEventListener('click', closeCompose);
+    cancelBtn.addEventListener('click', () => {
+      if (!compose.compose_id) {
+        closeCompose();
+        return;
+      }
+      apiCallQuiet('POST', '/api/dismiss', { compose_id: compose.compose_id })
+        .catch(() => { /* still close locally */ })
+        .then(closeCompose);
+    });
     actions.appendChild(cancelBtn);
     panel.appendChild(actions);
 
@@ -585,6 +594,12 @@ const Executive = (() => {
               showPreview(preview, 'pending');
             }
           });
+        }
+
+        if (response.composes && Array.isArray(response.composes) &&
+            !document.getElementById('compose-panel')) {
+          const next = response.composes.find(c => c && c.compose_id);
+          if (next) showCompose(next);
         }
 
         const allCards = container.querySelectorAll('.preview-card');

@@ -53,13 +53,16 @@ class ExecutiveWindowGUITests(unittest.TestCase):
             self.assertIn(needle, js, f"JS does not contain {needle}")
 
         # /api/send is called exactly once, directly inside the Send click handler.
-        self.assertEqual(js.count('/api/send'), 1)
+        self.assertEqual(js.count("'/api/send'"), 1)
+        self.assertIn("'/api/send/accounts'", js)
+        self.assertIn('from_account', js)
+        self.assertIn("'/api/dismiss'", js)
         self.assertRegex(
             js,
             r"sendBtn\.addEventListener\('click',\s*\(\)\s*=>\s*\{[\s\S]*?'/api/send'",
         )
         before_handler = js.split("sendBtn.addEventListener('click'")[0]
-        self.assertNotIn('/api/send', before_handler)
+        self.assertNotIn("'/api/send'", before_handler)
 
 
 if __name__ == '__main__':
