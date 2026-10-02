@@ -233,11 +233,14 @@ class KeepBusyTests(Base):
     def test_queued_review_blocks_idle_teardown_past_idle_minutes(self) -> None:
         ticks = {"n": 0}
 
+        self.metrics = _metrics_text(2, 0, 0.3)  # the router is sending the queued work here
+
         def sleep(seconds: float) -> None:
             self.clock.sleep(seconds)
             ticks["n"] += 1
             if ticks["n"] == 30:  # 15 minutes: three times idle_minutes
                 self.runs["run-1"]["nodes"]["rev"]["state"] = "PASSED"
+                self.metrics = _metrics_text(0, 0, 0.1)
 
         self.manager_.sleep = sleep
         state = self.watch()
@@ -245,6 +248,20 @@ class KeepBusyTests(Base):
         self.assertEqual(state["status"], "stopped")
         self.assertIn("idle for 5 min", state["detail"])
         self.assertFalse(state.get("keep_busy"))  # cleared once nothing was queued
+
+    def test_hold_is_bounded_when_the_router_never_sends_the_work(self) -> None:
+        state = self.watch()  # work stays queued and the GPU stays idle
+        self.assertEqual(state["status"], "stopped")
+        self.assertIn("idle for 5 min", state["detail"])
+        self.assertEqual(self.runs["run-1"]["nodes"]["rev"]["state"], "PENDING")
+        self.assertLessEqual(state["usage"]["paid_idle"]["idle_with_work_seconds"], 6 * 60 + 2 * fd.TICK_SECONDS)
+
+    def test_default_roles_cover_reviewer(self) -> None:
+        del self.state["roles"]
+        self.assertIn("reviewer", fd.registered_roles(self.state))
+        self.clock.now += 20 * 60
+        self.assertFalse(self.manager_._idle(self.state))
+        self.assertEqual(self.state["keep_busy"]["kind"], "review")
 
     def test_keep_busy_state_records_kind_count_and_reason(self) -> None:
         self.clock.now += 20 * 60
@@ -276,7 +293,7 @@ class KeepBusyTests(Base):
         self.assertEqual(self.runs["run-1"]["nodes"]["rev"]["state"], "PENDING")  # the work was still queued
 
     def test_budget_cap_tears_down_with_work_queued(self) -> None:
-        self.state["cap_usd"] = 0.2
+        self.state["cap_usd"] = 0.05
         fd._save_state(self.state, self.foreman_home)
         state = self.watch()
         self.assertEqual(state["status"], "stopped")

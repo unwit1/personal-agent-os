@@ -1048,6 +1048,7 @@ class ForemanManager:
         usage["ticks"] = usage.get("ticks", 0) + 1
         if metrics.get("running", 0) + metrics.get("waiting", 0) > 0:
             usage["busy_ticks"] = usage.get("busy_ticks", 0) + 1
+            usage["last_busy_epoch"] = self.clock()
         for key in ("prompt_tokens", "generation_tokens", "requests"):
             usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
         for key in ("prefix_hits", "prefix_queries"):
@@ -1123,14 +1124,19 @@ class ForemanManager:
             self._update(state, last_needed_epoch=self.clock(), keep_busy=None)
             return False
         work = self._useful_work(state)
+        now = self.clock()
         if work["kind"]:
             # The router sends this work to the still-registered, cheap provider; the foreman only declines to tear down.
-            self._update(state, last_needed_epoch=self.clock(),
+            # The hold is bounded: it starts a fresh idle window, and only GPU activity (_sample's last_busy_epoch)
+            # extends it, so work the router never sends here cannot keep an idle pod up.
+            last = now if not state.get("keep_busy") else float(state.get("last_needed_epoch") or 0)
+            last = max(last, float((state.get("usage") or {}).get("last_busy_epoch") or 0))
+            self._update(state, last_needed_epoch=last,
                          keep_busy={"kind": work["kind"], "count": len(work["items"]), "reason": work["reason"]})
-            return False
+            return now - last > state["idle_minutes"] * 60
         if state.get("keep_busy"):
             self._update(state, keep_busy=None)
-        return self.clock() - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
+        return now - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
 
     def _useful_work(self, state: dict[str, Any]) -> dict[str, Any]:
         """Queued work the router may send to this provider; any loader failure counts as no work."""
@@ -1257,7 +1263,7 @@ def registered_roles(state: dict[str, Any]) -> set[str]:
     """Roles the registered provider entries cover (an explicit state["roles"] overrides the defaults)."""
     if state.get("roles"):
         return set(state["roles"])
-    roles = {"planner", "inline"}
+    roles = {"planner", "inline", "reviewer"}
     agent = agent_entry(state) if state.get("model") else None
     if agent:
         roles.update(agent["roles"])
