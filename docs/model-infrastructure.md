@@ -379,6 +379,7 @@ Parameters:
 | Method | Returns |
 | --- | --- |
 | `launch(spec)` | `{"instance_id"}` |
+| `lookup(name)` | `instance_id` of the instance created under `name`, or `None` |
 | `poll(instance_id)` | `{"state", "runtime_seconds", "cost_usd"}`, where `state` is `running`, `stopped` or `terminated` |
 | `stop(instance_id)` | — |
 | `terminate(instance_id)` | — |
@@ -393,18 +394,31 @@ a crashed or failed `launching` step safe, and it is the only way Agent OS
 finds an instance whose id it never received. Slice 3 adapters must keep this
 lookup-first behavior.
 
-`FakeProvider(clock=None, state_path=None)` works as follows:
-- It is in-memory and never touches the network.
-- Cost is `runtime_seconds / 3600 * hourly_usd`.
+`provision()` calls `lookup(job_id)` first when the provider has it, and
+launches only when that returns `None`. Adapters must offer `lookup` or keep
+`launch` idempotent by name.
+
+`FakeProvider(hourly_usd=1.0, clock=None, fail_launch=False, state_path=None)`
+works as follows:
+- It never touches the network.
+- Cost is `runtime_seconds / 3600 * hourly_usd`, using each instance's own
+  `hourly_usd` taken from its `spec` (the constructor value is only the
+  default), so one shared provider prices every instance correctly.
 - It enforces `max_runtime_seconds` itself, so it models provider-side
   autostop. A poll after the deadline reports `stopped`, with runtime capped
   at the deadline.
-- `state_path` is optional, used only by the CLI/MCP so that a fake job
-  survives across processes (`<home>/compute-jobs/fake-provider.json`).
-  Tests stay purely in memory.
-- It has a test-only fault hook, `fail_launch_after_create`: the next
-  `launch` creates the instance and then raises, which models a provider
-  that creates an instance but loses the response.
+- `state_path` is optional. Whenever `provision` resolves provider `fake`
+  with `provider=None` (CLI, MCP, and library), state persists at
+  `<home>/compute-providers/fake.json`, so a fake job survives new processes.
+  Without `state_path` it is purely in memory.
+- It has a test-only fault hook, `fail_launch`: `launch` creates the
+  instance, persists it, then raises, which models a provider that creates an
+  instance but loses the response. A later `launch` with the same name
+  returns that instance.
+
+The CLI and MCP resolve `budget_home` the standard way: next to the provider
+registry, with the `AGENT_OS_PROVIDERS` override. There is no
+`AGENT_OS_BUDGET_HOME` variable.
 
 ### Provider resolution
 
