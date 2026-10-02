@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -307,6 +309,71 @@ class FakeProviderFullLifecycleTests(unittest.TestCase):
         status = provider.poll(instance_id)
         self.assertEqual(status["state"], "terminated")
         self.assertAlmostEqual(status["runtime_seconds"], 0.0)
+
+
+class FakeProviderPersistenceTests(unittest.TestCase):
+    """Test state_path persistence across FakeProvider objects."""
+
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.state_path = Path(self.tmp.name) / "compute-providers" / "fake.json"
+        self.clock = ManualClock(start=1000.0)
+
+    def test_new_provider_finds_persisted_instance_with_its_rate(self) -> None:
+        first = FakeProvider(hourly_usd=1.0, clock=self.clock, state_path=self.state_path)
+        instance_id = first.launch({"name": "job-1", "gpu": "H100", "hourly_usd": 4.0})["instance_id"]
+        self.assertTrue(self.state_path.exists())
+
+        second = FakeProvider(hourly_usd=9.0, clock=self.clock, state_path=self.state_path)
+        self.assertEqual(second.lookup("job-1"), instance_id)
+        self.clock.advance(1800.0)
+        status = second.poll(instance_id)
+        self.assertEqual(status["state"], "running")
+        self.assertAlmostEqual(status["cost_usd"], 2.0)
+
+    def test_raised_launch_persists_instance_for_new_provider(self) -> None:
+        failing = FakeProvider(clock=self.clock, fail_launch=True, state_path=self.state_path)
+        spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
+        with self.assertRaises(RuntimeError):
+            failing.launch(spec)
+
+        fresh = FakeProvider(clock=self.clock, state_path=self.state_path)
+        self.assertEqual(fresh.launch(spec)["instance_id"], "fake-1")
+        self.assertEqual(fresh.launches, 1)
+        self.assertEqual(len(fresh.instances), 1)
+
+    def test_stop_persists_across_new_provider(self) -> None:
+        first = FakeProvider(clock=self.clock, state_path=self.state_path)
+        instance_id = first.launch({"name": "job-1", "gpu": "A100", "hourly_usd": 1.0})["instance_id"]
+        self.clock.advance(1800.0)
+        first.stop(instance_id)
+
+        self.clock.advance(3600.0)
+        second = FakeProvider(clock=self.clock, state_path=self.state_path)
+        status = second.poll(instance_id)
+        self.assertEqual(status["state"], "stopped")
+        self.assertAlmostEqual(status["cost_usd"], 0.5)
+
+    def test_poll_autostop_persists_across_new_provider(self) -> None:
+        first = FakeProvider(clock=self.clock, state_path=self.state_path)
+        instance_id = first.launch(
+            {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0, "max_runtime_seconds": 3600}
+        )["instance_id"]
+        self.clock.advance(5400.0)
+        self.assertEqual(first.poll(instance_id)["state"], "stopped")
+
+        data = json.loads(self.state_path.read_text(encoding="utf-8"))
+        self.assertEqual(data["instances"][instance_id]["state"], "stopped")
+        self.assertEqual(data["instances"][instance_id]["stopped_at"], 4600.0)
+
+    def test_no_file_written_without_state_path(self) -> None:
+        provider = FakeProvider(clock=self.clock)
+        instance_id = provider.launch({"name": "job-1", "gpu": "A100", "hourly_usd": 1.0})["instance_id"]
+        provider.stop(instance_id)
+        provider.terminate(instance_id)
+        self.assertIsNone(provider.state_path)
+        self.assertEqual(list(Path(self.tmp.name).iterdir()), [])
 
 
 if __name__ == "__main__":
