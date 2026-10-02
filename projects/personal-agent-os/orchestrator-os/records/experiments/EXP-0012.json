@@ -1,0 +1,34 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0012",
+  "type": "EXP",
+  "title": "Phase 1 shared run-level prompt prefix: can a byte-stable family prefix make 25% of uncached worker input tokens cacheable?",
+  "status": "open",
+  "summary": "Hypothesis: A shared, byte-stable run-level prompt prefix (identical for all nodes of the same role family) reorders the prompt to put cross-family blocks before family-specific blocks, making the prefix cacheable under provider automatic token caching. This should make at least 25% of Orchestrator-written uncached worker input tokens cacheable (measured as uncached reduction for worker calls only), with no rule lost. Method: Deterministic synthetic comparison. Rendered 14 calls (4 implementer, 2 test_author, 1 repairer, 6 reviewer, 1 planner) of one synthetic run with the shared_prefix flag off and on, using fixed project state and per-node worktrees. Modelled provider automatic prefix caching at token granularity (longest common prefix with any earlier prompt of the same family). Variant: shared_prefix flag on in prompts.build_measured(). Outcome: The shared_prefix variant reduces uncached worker input tokens from 10,553 to 6,625 (37.22% reduction ratio, exceeding the 25% hypothesis threshold). Overall uncached input falls from 17,637 to 13,709 (22.27% reduction ratio, below 25%). Cache-read share improves from 0.8822 to 0.9261 for workers. Parity held: all rule sections present in both variants, no rules lost. Promotion gate: (1) noninferior validation: existing tests must pass unchanged with the flag; currently blocked by test failure in `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects` (candidate_tokens_estimate missing from prefix event). (2) Lower cost per verified task on real runs: requires `orchestrate context-economy` re-measurement on live runs with flag=True. Interpretation: The hypothesis, measured on worker input uncached reduction (37.22%), is met. The overall uncached reduction (22.27%) is also substantial though below 25%, because non-worker calls (reviewers, planner) have smaller prompts with less shared prefix benefit. The result is modelled on token-granular automatic caching; real delivery depends on provider caching capability and adapter support (Claude style requires explicit cache block, outside Phase 1 scope). Fixture results do not determine the flag promotion—the noninferior validation gate and real-run cost measurement must pass first. Current default: False until validation gate passes.",
+  "outcome": "inconclusive",
+  "task_family": "context_economy",
+  "metrics": {
+    "runs_counted": 1,
+    "fixture_calls": 14,
+    "worker_calls": 13,
+    "hypothesis_threshold": 0.25,
+    "uncached_reduction_ratio_overall": 0.2227,
+    "uncached_reduction_ratio_workers": 0.3722,
+    "uncached_reduction_absolute_workers": 3928,
+    "hypothesis_met": true,
+    "cache_read_share_improvement_workers": 0.0439,
+    "model_calls": 0,
+    "paid_compute_usd": 0
+  },
+  "links": [
+    {"rel": "relates_to", "ref": "IMP-0018"},
+    {"rel": "relates_to", "ref": "EVR-0021"},
+    {"rel": "relates_to", "ref": "EVR-0018"}
+  ],
+  "provenance": {
+    "session": "run-20261002T092957Z-074700/record-evr-exp",
+    "author_tier": "worker"
+  },
+  "created_at": "2026-10-02T10:30:00+00:00",
+  "updated_at": "2026-10-02T10:30:00+00:00"
+}
