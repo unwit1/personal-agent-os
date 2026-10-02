@@ -16,6 +16,35 @@ _APPLICANT_FIELDS = ("name", "position", "submitted", "status", "county", "city"
 _MATCH_FIELDS = ("match", "pending", "primary", "alternates", "reasons", "groups", "group_label", "manager")
 _REVIEW_FIELDS = ("summary", "strengths", "concerns")
 _REVIEWABLE = {"New", "Interested", "Interview Requested", "Clarification Requested"}
+_SENT_KINDS = ("outreach", "interview", "manager")
+_NOTE_LIMIT = 500
+_KEEP_INTERVIEW = {"Interviewing", "Offered", "Hired"}
+SENT_STATUS_BY_KIND = {
+    "outreach": ("Interested", "Outreach email sent (Executive window)"),
+    "interview": ("Interview Requested", "Interview invitation sent (Executive window)"),
+    "manager": (None, "Applicant details emailed to area manager (Executive window)"),
+}
+
+
+class DashboardGatewayError(RuntimeError):
+    """The Dashboard or a needed Dashboard function is unavailable."""
+
+
+def _status_after_send(kind: str, current: Any) -> str | None:
+    target = SENT_STATUS_BY_KIND[kind][0]
+    if kind == "outreach":
+        return target if current == "New" else None
+    if kind == "interview":
+        return None if current in _KEEP_INTERVIEW or current == target else target
+    return None
+
+
+def _manager_view(manager: Any) -> dict[str, str] | None:
+    if manager is None:
+        return None
+    name = str(_value(manager, "name", "") or "").strip()
+    email = str(_value(manager, "email", "") or "").strip()
+    return {"name": name, "email": email} if email else None
 
 
 def _value(obj: Any, key: str, default: Any = None) -> Any:
@@ -64,6 +93,9 @@ class DashboardGateway(Protocol):
     def record_outreach_drafted(self, applicant_key: str, slots: list[Any], interview_type: str,
                                 location: str, duration_minutes: int, draft_path: str, area_manager: Any) -> Any: ...
     def send_now(self, applicant_key: str, kind: str, to_addr: str, subject: str, body: str) -> Any: ...
+    def record_applicant_sent(self, applicant_ref: str, kind: str, to_addr: str, subject: str) -> str: ...
+    def set_applicant_status(self, applicant_ref: str, status: str | None, note: str) -> str: ...
+    def manager_for_county(self, county: str) -> dict[str, str] | None: ...
 
 
 class LocalDashboardGateway:
@@ -167,6 +199,52 @@ class LocalDashboardGateway:
         key = self._raw(applicant_key)["applicant_key"]
         return self._module("email_sender").send_now(key, kind, to_addr, subject, body)
 
+    def _apply_status(self, key: str, status: str) -> None:
+        database = self._module("database")
+        for name in ("set_status", "update_applicant_status"):
+            fn = getattr(database, name, None)
+            if fn is not None:
+                fn(key, status)
+                return
+        raise DashboardGatewayError("applicant status update is not available in this Dashboard checkout")
+
+    def _journal(self, key: str, text: str) -> str:
+        fn = getattr(self._module("database"), "add_journal_entry", None)
+        if fn is None:
+            raise DashboardGatewayError("applicant journal is not available in this Dashboard checkout")
+        entry = fn(key, text)
+        return "" if entry is None else str(entry)
+
+    def record_applicant_sent(self, applicant_ref: str, kind: str, to_addr: str, subject: str) -> str:
+        if kind not in _SENT_KINDS:
+            raise ValueError(f"Unknown send kind: {kind}")
+        raw = self._raw(applicant_ref)
+        key = raw["applicant_key"]
+        new_status = _status_after_send(kind, raw.get("status"))
+        if new_status:
+            self._apply_status(key, new_status)
+        text = f"{SENT_STATUS_BY_KIND[kind][1]}: {subject} -> {to_addr}"
+        return self._journal(key, text[:_NOTE_LIMIT])
+
+    def set_applicant_status(self, applicant_ref: str, status: str | None, note: str) -> str:
+        if status is not None and status not in rtec_applicants._ALLOWED_STATUSES:
+            raise ValueError(f"Status not allowed: {status}")
+        note = " ".join(str(note or "").split())
+        if not note or len(note) > _NOTE_LIMIT:
+            raise ValueError(f"note must be 1 to {_NOTE_LIMIT} characters")
+        key = self._raw(applicant_ref)["applicant_key"]
+        if status is not None:
+            self._apply_status(key, status)
+        return self._journal(key, note)
+
+    def manager_for_county(self, county: str) -> dict[str, str] | None:
+        if not str(county or "").strip():
+            raise ValueError("county is required")
+        fn = getattr(self._module("area_managers"), "manager_for_county", None)
+        if fn is None:
+            raise DashboardGatewayError("area manager lookup is not available in this Dashboard checkout")
+        return _manager_view(fn(county))
+
 
 class SyntheticDashboardGateway:
     """In-memory gateway fixture with no imports from the Dashboard or Outlook."""
@@ -174,7 +252,8 @@ class SyntheticDashboardGateway:
     def __init__(self, applicants: list[dict[str, Any]] | None = None,
                  reviews: dict[str, dict[str, Any]] | None = None,
                  managers: dict[str, Any] | None = None,
-                 calendar: dict[Any, list[datetime]] | None = None) -> None:
+                 calendar: dict[Any, list[datetime]] | None = None,
+                 managers_by_county: dict[str, Any] | None = None) -> None:
         self.applicants = {str(a.get("applicant_ref") or a.get("agent_ref")): dict(a) for a in (applicants or [])}
         self.reviews = reviews or {}
         self.managers = managers or {}
@@ -183,6 +262,8 @@ class SyntheticDashboardGateway:
         self.calls: list[tuple[str, tuple[Any, ...]]] = []
         self.drafts: list[dict[str, Any]] = []
         self.sent: list[dict[str, Any]] = []
+        self.managers_by_county = {str(k).casefold(): v for k, v in (managers_by_county or {}).items()}
+        self.status_log: list[dict[str, Any]] = []
 
     def _call(self, name: str, *args: Any) -> None:
         self.calls.append((name, args))
@@ -238,3 +319,37 @@ class SyntheticDashboardGateway:
         email_id = f"synthetic-email-{len(self.sent) + 1}"
         self.sent.append({"id": email_id, "applicant_ref": applicant_key, "kind": kind})
         return email_id
+
+    def _log_status(self, ref: str, status: str | None, text: str) -> str:
+        entry_id = f"synthetic-journal-{len(self.status_log) + 1}"
+        self.status_log.append({"id": entry_id, "applicant_ref": ref, "status": status, "note": text})
+        if status is not None:
+            self.applicants[ref]["status"] = status
+        return entry_id
+
+    def record_applicant_sent(self, applicant_ref: str, kind: str, to_addr: str, subject: str) -> str:
+        self._call("record_applicant_sent", applicant_ref, kind, to_addr, subject)
+        if kind not in _SENT_KINDS:
+            raise ValueError(f"Unknown send kind: {kind}")
+        if applicant_ref not in self.applicants:
+            raise KeyError("Unknown applicant_ref")
+        new_status = _status_after_send(kind, self.applicants[applicant_ref].get("status"))
+        text = f"{SENT_STATUS_BY_KIND[kind][1]}: {subject} -> {to_addr}"
+        return self._log_status(applicant_ref, new_status, text[:_NOTE_LIMIT])
+
+    def set_applicant_status(self, applicant_ref: str, status: str | None, note: str) -> str:
+        self._call("set_applicant_status", applicant_ref, status, note)
+        if status is not None and status not in rtec_applicants._ALLOWED_STATUSES:
+            raise ValueError(f"Status not allowed: {status}")
+        note = " ".join(str(note or "").split())
+        if not note or len(note) > _NOTE_LIMIT:
+            raise ValueError(f"note must be 1 to {_NOTE_LIMIT} characters")
+        if applicant_ref not in self.applicants:
+            raise KeyError("Unknown applicant_ref")
+        return self._log_status(applicant_ref, status, note)
+
+    def manager_for_county(self, county: str) -> dict[str, str] | None:
+        self._call("manager_for_county", county)
+        if not str(county or "").strip():
+            raise ValueError("county is required")
+        return _manager_view(self.managers_by_county.get(str(county).strip().casefold()))
