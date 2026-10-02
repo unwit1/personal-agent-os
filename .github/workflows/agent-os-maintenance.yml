@@ -16,12 +16,13 @@ jobs:
         with:
           python-version: "3.11"
       - name: Check out Ingester Engine
-        # Private sibling repository; needs a fine-grained read-only token secret.
+        # Private sibling repository, read through a read-only deploy key scoped
+        # to ingester-engine (secret INGESTER_ENGINE_DEPLOY_KEY).
         uses: actions/checkout@v4
         with:
           repository: unwit1/ingester-engine
           path: _deps/ingester-engine
-          token: ${{ secrets.INGESTER_ENGINE_TOKEN }}
+          ssh-key: ${{ secrets.INGESTER_ENGINE_DEPLOY_KEY }}
       - name: Install Ingester Engine
         run: python -m pip install -e _deps/ingester-engine
       - name: Rebuild derived index and report candidate reviews
