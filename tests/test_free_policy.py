@@ -2,16 +2,23 @@
 
 from __future__ import annotations
 
+import os
 import sys
 import tempfile
 import unittest
-from datetime import datetime, timedelta, timezone
+from unittest import mock
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.orchestrator import free_policy  # noqa: E402
+from agent_os.orchestrator.store import HOME_ENV  # noqa: E402
 from agent_os.storage import write_json  # noqa: E402
+
+
+def _dt(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
 class FreePolicyLoadTests(unittest.TestCase):
@@ -21,6 +28,9 @@ class FreePolicyLoadTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.home = Path(self.tmp.name)
         self.addCleanup(self.tmp.cleanup)
+        patcher = mock.patch.dict(os.environ, {HOME_ENV: str(self.home)})
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
     def test_load_canonical_policy(self) -> None:
         """Load the canonical policy from Git."""
@@ -50,11 +60,33 @@ class FreePolicyLoadTests(unittest.TestCase):
         overrides_file.parent.mkdir(parents=True, exist_ok=True)
         write_json(overrides_file, policy_overrides)
 
-        record = free_policy.load(overrides=policy_overrides)
+        record = free_policy.load()
         self.assertEqual(record["daily_free_requests_high"], 2000)
         self.assertEqual(record["credit_threshold_usd"], 20.0)
+        self.assertEqual(sorted(record["overridden"]), ["credit_threshold_usd", "daily_free_requests_high"])
         self.assertIn("daily_free_requests_high", record["overridden"])
         self.assertIn("credit_threshold_usd", record["overridden"])
+
+    def test_missing_overrides_file_means_no_overrides(self) -> None:
+        record = free_policy.load()
+        self.assertEqual(record["overridden"], [])
+        self.assertEqual(record["free_rpm"], 20)
+
+    def test_corrupt_overrides_file_raises(self) -> None:
+        overrides_file = self.home / "free-compute" / "policy-overrides.json"
+        overrides_file.parent.mkdir(parents=True)
+        overrides_file.write_text("{not json", encoding="utf-8")
+        with self.assertRaises(ValueError) as ctx:
+            free_policy.load()
+        self.assertIn("policy-overrides.json", str(ctx.exception))
+
+    def test_non_object_overrides_file_raises(self) -> None:
+        overrides_file = self.home / "free-compute" / "policy-overrides.json"
+        overrides_file.parent.mkdir(parents=True)
+        overrides_file.write_text("[1, 2]", encoding="utf-8")
+        with self.assertRaises(ValueError) as ctx:
+            free_policy.load()
+        self.assertIn("policy-overrides.json", str(ctx.exception))
 
     def test_overrides_with_none_value_are_ignored(self) -> None:
         """None values in overrides are not applied."""
@@ -88,7 +120,7 @@ class FreePolicyStalenessTests(unittest.TestCase):
             "verified_at": "2026-10-01T12:00:00Z",
             "max_age_days": 30,
         }
-        self.assertFalse(free_policy.is_stale(record, now_iso="2026-10-01T13:00:00Z"))
+        self.assertFalse(free_policy.is_stale(record, now=_dt("2026-10-01T13:00:00Z")))
 
     def test_policy_at_max_age_boundary(self) -> None:
         """A policy exactly at max age is not stale."""
@@ -97,7 +129,7 @@ class FreePolicyStalenessTests(unittest.TestCase):
             "max_age_days": 30,
         }
         # Exactly 30 days later should not be stale
-        self.assertFalse(free_policy.is_stale(record, now_iso="2026-10-01T00:00:00Z"))
+        self.assertFalse(free_policy.is_stale(record, now=_dt("2026-10-01T00:00:00Z")))
 
     def test_policy_past_max_age_is_stale(self) -> None:
         """A policy past max age is stale."""
@@ -106,7 +138,7 @@ class FreePolicyStalenessTests(unittest.TestCase):
             "max_age_days": 30,
         }
         # One day after max age
-        self.assertTrue(free_policy.is_stale(record, now_iso="2026-10-01T00:01:00Z"))
+        self.assertTrue(free_policy.is_stale(record, now=_dt("2026-10-01T00:01:00Z")))
 
     def test_stale_policy_uses_default_max_age(self) -> None:
         """Missing max_age_days defaults to 30."""
@@ -114,7 +146,7 @@ class FreePolicyStalenessTests(unittest.TestCase):
             "verified_at": "2026-08-01T00:00:00Z",
         }
         # 61 days old, default 30-day max age
-        self.assertTrue(free_policy.is_stale(record, now_iso="2026-09-30T00:00:00Z"))
+        self.assertTrue(free_policy.is_stale(record, now=_dt("2026-09-30T00:00:00Z")))
 
     def test_stale_policy_with_explicit_max_age(self) -> None:
         """Explicit max_age_days parameter overrides record."""
@@ -123,17 +155,21 @@ class FreePolicyStalenessTests(unittest.TestCase):
             "max_age_days": 30,
         }
         # 10 days old, but max_age_days=5 passed explicitly
-        self.assertTrue(free_policy.is_stale(record, now_iso="2026-09-11T00:00:00Z", max_age_days=5))
+        self.assertTrue(free_policy.is_stale(record, now=_dt("2026-09-11T00:00:00Z"), max_age_days=5))
 
     def test_missing_verified_at_is_stale(self) -> None:
         """A record with no verified_at is considered stale."""
         record: dict = {}
-        self.assertTrue(free_policy.is_stale(record))
+        self.assertTrue(free_policy.is_stale(record, now=_dt("2026-10-02T00:00:00Z")))
 
     def test_invalid_verified_at_is_stale(self) -> None:
         """A record with invalid verified_at is considered stale."""
         record = {"verified_at": "not-a-date"}
-        self.assertTrue(free_policy.is_stale(record))
+        self.assertTrue(free_policy.is_stale(record, now=_dt("2026-10-02T00:00:00Z")))
+
+    def test_naive_now_is_treated_as_utc(self) -> None:
+        record = {"verified_at": "2026-10-01T00:00:00Z", "max_age_days": 30}
+        self.assertFalse(free_policy.is_stale(record, now=datetime(2026, 10, 2)))
 
 
 class FreePolicyAllowanceTests(unittest.TestCase):
@@ -197,11 +233,14 @@ class FreePolicyIntegrationTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.home = Path(self.tmp.name)
         self.addCleanup(self.tmp.cleanup)
+        patcher = mock.patch.dict(os.environ, {HOME_ENV: str(self.home)})
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
     def test_load_fresh_policy_and_get_allowance(self) -> None:
         """Load a fresh policy and compute allowance for both tiers."""
         record = free_policy.load()
-        self.assertFalse(free_policy.is_stale(record))
+        self.assertFalse(free_policy.is_stale(record, now=_dt("2026-10-02T00:00:00Z")))
 
         high = free_policy.allowance(record, high_tier=True)
         low = free_policy.allowance(record, high_tier=False)
@@ -217,7 +256,7 @@ class FreePolicyIntegrationTests(unittest.TestCase):
         # Make it stale manually
         record["verified_at"] = "2026-01-01T00:00:00Z"
 
-        self.assertTrue(free_policy.is_stale(record))
+        self.assertTrue(free_policy.is_stale(record, now=_dt("2026-10-02T00:00:00Z")))
         high = free_policy.allowance(record, high_tier=True)
         low = free_policy.allowance(record, high_tier=False)
 
@@ -233,10 +272,10 @@ class FreePolicyIntegrationTests(unittest.TestCase):
         write_json(overrides_file, policy_overrides)
 
         # Load with overrides
-        record = free_policy.load(overrides=policy_overrides)
+        record = free_policy.load()
 
         self.assertEqual(record["daily_free_requests_high"], 2000)
-        self.assertFalse(free_policy.is_stale(record))
+        self.assertFalse(free_policy.is_stale(record, now=_dt("2026-10-02T00:00:00Z")))
 
 
 if __name__ == "__main__":

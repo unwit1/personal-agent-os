@@ -10,13 +10,11 @@ are merged at runtime and take precedence.
 
 from __future__ import annotations
 
-import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-from ..storage import load_json, write_json
-from ..timestamps import utc_now_iso as now
+from ..storage import load_json
 
 
 def _canonical_policy_path() -> Path:
@@ -60,18 +58,17 @@ def load(path: Path | None = None, overrides: dict[str, Any] | None = None) -> d
     current = max(versions, key=lambda v: v.get("version", 0))
 
     if overrides is None:
-        # Try to load overrides from the default location
         overrides_file = _overrides_path()
-        if overrides_file.exists():
-            try:
-                overrides = load_json(overrides_file)
-            except (OSError, ValueError):
-                overrides = {}
-        else:
+        try:
+            overrides = load_json(overrides_file)
+        except FileNotFoundError:
             overrides = {}
-
-    if not isinstance(overrides, dict):
-        overrides = {}
+        except ValueError as exc:
+            raise ValueError(f"invalid policy overrides in {overrides_file}: {exc}") from exc
+        if not isinstance(overrides, dict):
+            raise ValueError(f"invalid policy overrides in {overrides_file}: expected a JSON object")
+    elif not isinstance(overrides, dict):
+        raise ValueError("policy overrides must be a dict")
 
     # Merge overrides into a copy of the current policy
     result = dict(current)
@@ -86,21 +83,23 @@ def load(path: Path | None = None, overrides: dict[str, Any] | None = None) -> d
     return result
 
 
-def is_stale(record: dict[str, Any], now_iso: str | None = None, max_age_days: int | None = None) -> bool:
+def is_stale(record: dict[str, Any], now: datetime | None = None, max_age_days: int | None = None) -> bool:
     """Check if a policy record is stale based on its verified_at timestamp.
 
     A record is stale if verified_at is older than max_age_days (default from record, or 30).
 
     Args:
         record: The policy record.
-        now_iso: Current time in ISO format. Defaults to utc_now_iso().
+        now: Current time as a datetime; naive values are treated as UTC. Defaults to the real clock.
         max_age_days: Maximum age in days. Defaults to record's max_age_days field, or 30.
 
     Returns:
-        True if the record's verified_at is older than max_age_days.
+        True if the record's verified_at is missing, unparseable, or older than max_age_days.
     """
-    if now_iso is None:
-        now_iso = now()
+    if now is None:
+        now = datetime.now(timezone.utc)
+    elif now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
 
     if max_age_days is None:
         max_age_days = record.get("max_age_days", 30)
@@ -111,11 +110,11 @@ def is_stale(record: dict[str, Any], now_iso: str | None = None, max_age_days: i
 
     try:
         verified_at = datetime.fromisoformat(verified_at_str.replace("Z", "+00:00"))
-        current = datetime.fromisoformat(now_iso.replace("Z", "+00:00"))
-        age = current - verified_at
-        return age > timedelta(days=max_age_days)
+        if verified_at.tzinfo is None:
+            verified_at = verified_at.replace(tzinfo=timezone.utc)
     except (ValueError, AttributeError):
         return True
+    return now - verified_at > timedelta(days=max_age_days)
 
 
 def allowance(record: dict[str, Any], *, high_tier: bool) -> dict[str, int]:
