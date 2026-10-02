@@ -207,23 +207,27 @@ class AdaptiveConcurrencySampleTests(Base):
 class RoleCoverageTests(Base):
     """Role sets for rented, local, and subscription foremanns."""
 
-    def test_rented_gpu_pod_covers_planner_inline_and_implementer_roles(self) -> None:
-        budget.set_budget(10, 10, home=self.budget_home)
+    def _register_and_capture(self, state: dict) -> list[dict]:
+        """Helper that captures endpoints added via _register_provider by patching add_model_endpoint."""
         endpoints_added = []
 
         def capture_endpoint(entry, **kwargs):
             endpoints_added.append(dict(entry))
             return {"written": True}
 
-        manager = self.manager()
-        with mock.patch.object(manager, "register") as mock_register:
-            def register_with_capture(state):
-                from agent_os.orchestrator.foreman_deploy import _register_provider
-                with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
-                    _register_provider(state)
+        from agent_os.orchestrator.foreman_deploy import _register_provider
+        with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
+            _register_provider(state)
+        return endpoints_added
 
-            mock_register.side_effect = register_with_capture
+    def test_rented_gpu_pod_covers_all_roles_with_tier_concurrency(self) -> None:
+        budget.set_budget(10, 10, home=self.budget_home)
+        manager = self.manager()
+        with mock.patch.object(manager, "register", side_effect=lambda state: None):
             manager.deploy("org/coder-7b", job_cap_usd=1.0, background=False, coding_agent=True)
+
+        state = fd.load_state(self.foreman_home)
+        endpoints_added = self._register_and_capture(state)
 
         self.assertEqual(len(endpoints_added), 2)  # main endpoint + agent entry
         main_entry = endpoints_added[0]
@@ -235,25 +239,16 @@ class RoleCoverageTests(Base):
         agent_entry = endpoints_added[1]
         self.assertTrue(agent_entry["id"].endswith("-agent"))
         self.assertEqual(set(agent_entry["roles"]), {"implementer", "test_author", "repairer", "reviewer"})
+        self.assertNotIn("tier_concurrency", agent_entry)  # agent entry has no tier_concurrency
 
     def test_local_server_keeps_planner_inline_roles(self) -> None:
-        endpoints_added = []
-
-        def capture_endpoint(entry, **kwargs):
-            endpoints_added.append(dict(entry))
-            return {"written": True}
-
         manager = self.manager()
-        with mock.patch.object(manager, "register") as mock_register:
-            def register_with_capture(state):
-                # Call _register_provider which will call add_model_endpoint
-                from agent_os.orchestrator.foreman_deploy import _register_provider
-                with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
-                    _register_provider(state)
-
-            mock_register.side_effect = register_with_capture
-            with mock.patch("agent_os.orchestrator.foreman_deploy.local_models", return_value=["org/coder-7b"]):
+        with mock.patch("agent_os.orchestrator.foreman_deploy.local_models", return_value=["org/coder-7b"]):
+            with mock.patch.object(manager, "register", side_effect=lambda state: None):
                 manager.use("local", base_url="http://127.0.0.1:8000", model="org/coder-7b")
+
+        state = fd.load_state(self.foreman_home)
+        endpoints_added = self._register_and_capture(state)
 
         self.assertEqual(len(endpoints_added), 1)  # local server, no agent entry
         entry = endpoints_added[0]
@@ -262,51 +257,20 @@ class RoleCoverageTests(Base):
 
     def test_openrouter_keeps_planner_inline_roles(self) -> None:
         self.secrets["secrets://openrouter/default"] = "or-key"
-        endpoints_added = []
-
-        def capture_endpoint(entry, **kwargs):
-            endpoints_added.append(dict(entry))
-            return {"written": True}
-
         openrouter_listing = [{"id": "qwen/qwen3-235b-a22b-2507", "name": "Qwen3 235B", "usd_per_mtok_in": 0.1, "usd_per_mtok_out": 0.2, "context": 65536}]
 
         manager = self.manager()
-        with mock.patch.object(manager, "register") as mock_register:
-            def register_with_capture(state):
-                from agent_os.orchestrator.foreman_deploy import _register_provider
-                with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
-                    _register_provider(state)
-
-            mock_register.side_effect = register_with_capture
-            with mock.patch("agent_os.orchestrator.foreman_deploy.openrouter_models", return_value=openrouter_listing):
+        with mock.patch("agent_os.orchestrator.foreman_deploy.openrouter_models", return_value=openrouter_listing):
+            with mock.patch.object(manager, "register", side_effect=lambda state: None):
                 manager.use("openrouter", model="qwen/qwen3-235b-a22b-2507")
+
+        state = fd.load_state(self.foreman_home)
+        endpoints_added = self._register_and_capture(state)
 
         self.assertEqual(len(endpoints_added), 1)  # openrouter, no agent entry
         entry = endpoints_added[0]
         self.assertEqual(set(entry["roles"]), {"planner", "inline"})
         self.assertEqual(entry.get("profile", {}).get("deployment"), "api")
-
-    def test_rented_tier_concurrency_limits_reasoning_and_frontier(self) -> None:
-        budget.set_budget(10, 10, home=self.budget_home)
-        endpoints_added = []
-
-        def capture_endpoint(entry, **kwargs):
-            endpoints_added.append(dict(entry))
-            return {"written": True}
-
-        manager = self.manager()
-        with mock.patch.object(manager, "register") as mock_register:
-            def register_with_capture(state):
-                from agent_os.orchestrator.foreman_deploy import _register_provider
-                with mock.patch("agent_os.orchestrator.service.add_model_endpoint", side_effect=capture_endpoint):
-                    _register_provider(state)
-
-            mock_register.side_effect = register_with_capture
-            manager.deploy("org/coder-7b", job_cap_usd=1.0, background=False, coding_agent=True)
-
-        main_entry = endpoints_added[0]
-        self.assertEqual(main_entry["tier_concurrency"], {"reasoning": 1, "frontier": 1})
-        self.assertNotIn("tier_concurrency", endpoints_added[1])  # agent entry has no tier_concurrency
 
 
 class KeepBusyTests(Base):

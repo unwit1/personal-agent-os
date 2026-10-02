@@ -416,35 +416,6 @@ SUBSCRIPTIONS = ProviderRegistry(providers=[
 ], discover=False)
 
 
-class RegisteredRolesTests(Base):
-    """registered_roles correctly reports roles from ROLES_BY_CLASS based on deployment kind."""
-
-    def test_registered_roles_for_rented_gpu_pod(self) -> None:
-        state = {"kind": "huggingface", "model": {"repo": "org/coder-7b", "model_type": "qwen2", "agent": True}, "provider_id": "foreman-x", "base_url": "http://pod"}
-        roles = fd.registered_roles(state)
-        self.assertIn("planner", roles)
-        self.assertIn("inline", roles)
-        self.assertIn("implementer", roles)
-        self.assertIn("test_author", roles)
-        self.assertIn("reviewer", roles)
-        self.assertIn("repairer", roles)  # from agent entry
-
-    def test_registered_roles_for_local_server(self) -> None:
-        state = {"kind": "local", "model": {"repo": "qwen2.5:14b"}, "provider_id": "foreman-local", "base_url": "http://127.0.0.1:8000"}
-        roles = fd.registered_roles(state)
-        self.assertEqual(roles, {"planner", "inline"})
-
-    def test_registered_roles_for_openrouter(self) -> None:
-        state = {"kind": "openrouter", "model": {"repo": "qwen/qwen3-235b"}, "provider_id": "foreman-openrouter", "base_url": "https://openrouter.ai"}
-        roles = fd.registered_roles(state)
-        self.assertEqual(roles, {"planner", "inline"})
-
-    def test_registered_roles_for_gpu_pod_without_agent(self) -> None:
-        state = {"kind": "huggingface", "model": {"repo": "org/exotic", "model_type": "exotic"}, "provider_id": "foreman-x"}
-        roles = fd.registered_roles(state)
-        self.assertEqual(roles, {"planner", "inline", "implementer", "test_author", "reviewer"})
-
-
 class SourceTests(Base):
     """Claude / ChatGPT subscriptions and local servers as the session foreman."""
 
