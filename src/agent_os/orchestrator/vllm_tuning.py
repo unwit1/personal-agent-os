@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from .foreman_deploy import MAX_CONTEXT
-
+DEFAULT_CONTEXT = 32768
 FP8_KV_GPU_MARKERS = ("H100", "H200", "H20", "L4", "L40", "RTX 4090", "RTX 6000 Ada", "B200", "RTX 5090")
 
 
@@ -55,7 +54,7 @@ def max_num_seqs(
     kv_bytes_per_token_scaled = kv_bytes_per_token * (kv_dtype_bytes / 2)
 
     # Average tokens per sequence: sequences rarely fill the window
-    avg_context = context or MAX_CONTEXT
+    avg_context = context or DEFAULT_CONTEXT
     avg_tokens = avg_context // 4
 
     # Bytes per sequence for KV cache
@@ -74,11 +73,14 @@ def max_num_seqs(
 def throughput_args(
     model: dict,
     choice: dict,
+    *,
+    context: int | None = None,
     overrides: dict | None = None,
 ) -> list[str]:
     """Generate vLLM throughput flags: prefix caching, chunked prefill, max_num_seqs, kv_cache_dtype.
 
     choice has: gpu_id, gpu_count, vram_gb
+    context: served context window in tokens (default: 32768)
     overrides dict keys: prefix_caching, chunked_prefill, max_num_seqs, kv_cache_dtype
     - False/None removes that flag
     - Each override wins over computed value
@@ -118,7 +120,7 @@ def throughput_args(
             choice.get("gpu_count", 1),
             choice.get("vram_gb", 0),
             kv_dtype_bytes=kv_dtype_bytes,
-            context=model.get("context"),
+            context=context,
         )
         args.extend(["--max-num-seqs", str(max_seqs)])
 

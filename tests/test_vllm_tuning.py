@@ -290,23 +290,20 @@ class ThroughputArgsTests(unittest.TestCase):
 
 
 class EdgeCasesTests(unittest.TestCase):
-    def test_context_from_model_metadata(self) -> None:
-        """throughput_args should pass model.get('context') to max_num_seqs."""
+    def test_context_from_parameter(self) -> None:
+        """throughput_args should accept context as a keyword parameter."""
         model = {
             "kv_bytes_per_token": 3200,
             "weight_gb": 14.0,
-            "context": 8192,  # Smaller context than default 32768
         }
         choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 20.0}
-        args = vllm_tuning.throughput_args(model, choice)
-
         # With smaller context (8192 vs 32768), should get higher max_num_seqs
-        seqs_idx = args.index("--max-num-seqs")
-        seqs_with_custom_context = int(args[seqs_idx + 1])
+        args_small_context = vllm_tuning.throughput_args(model, choice, context=8192)
+        seqs_idx = args_small_context.index("--max-num-seqs")
+        seqs_with_custom_context = int(args_small_context[seqs_idx + 1])
 
         # Compare with default context
-        model_default_context = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
-        args_default = vllm_tuning.throughput_args(model_default_context, choice)
+        args_default = vllm_tuning.throughput_args(model, choice)
         seqs_idx_default = args_default.index("--max-num-seqs")
         seqs_with_default_context = int(args_default[seqs_idx_default + 1])
 
@@ -326,10 +323,9 @@ class EdgeCasesTests(unittest.TestCase):
             "weight_gb": 14.0,
             "repo": "Qwen/Qwen2.5-14B",
             "params": 14e9,
-            "context": 32768,
         }
         choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
-        args = vllm_tuning.throughput_args(model, choice)
+        args = vllm_tuning.throughput_args(model, choice, context=32768)
         self.assertIn("--enable-prefix-caching", args)
 
     def test_very_large_vram(self) -> None:
