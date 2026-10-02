@@ -10,7 +10,10 @@ harness, [context-economy.md](context-economy.md),
 The advisor answers one question for every worker in past runs: **at which
 call boundary, if any, would ending the episode and starting a fresh worker
 have cost less input than continuing?** A fresh worker is bootstrapped from a
-checkpoint, a structured handoff and targeted retrieval. The advisor is
+checkpoint, a structured handoff and targeted retrieval. Because every
+Orchestrator call is already a fresh CLI process, "continuing" means keeping
+the existing re-attempt behavior (original prompt plus a failure note); §3.1
+states this precisely. The advisor is
 deterministic and offline. It makes no model calls and no network calls, and
 it spends nothing. It **records advice only**. No dispatch, scheduling or
 routing code imports it, and it never changes what Orchestrator runs.
@@ -144,6 +147,17 @@ All token quantities are integers. A median or a product is rounded up with
 ```text
 C_continue(k) = sum_{j=k}^{n-1} I(c_j)              actual input of the remaining calls (hindsight)
 ```
+
+**What "continue" means here.** Orchestrator runs every call as its own CLI
+process, so the calls after a semantic boundary are already fresh processes:
+Orchestrator's existing re-attempt restarts the worker with the original
+assignment prompt plus a failure note. `C_continue(k)` is therefore the
+observed cost of that existing re-attempt path, not of a long-lived session.
+`savings(k)` (§3.6) estimates whether a different restart, built from a capped
+structured handoff `H(k)` plus targeted retrieval `R`, would have cost less
+input than the re-attempt that actually ran. "Rotate" in this document means
+"restart with a structured handoff instead of the original prompt", and
+"continue" means "keep Orchestrator's current re-attempt behavior".
 
 ### 3.2 Bootstrap
 
@@ -359,7 +373,7 @@ writing `--out`.
     `RUN_ID`, `PRIVACY_RULE` and `assert_aggregate_only`, plus
     `ledger.read_events` and `usage.CHARS_PER_TOKEN` / `ESTIMATE_METHOD`. It
     adds no second call parser or token estimator.
-- CLI: `agent-os orchestrate rotation-advice [--home PATH] [--out PATH]`. It
+- CLI: `agent-os orchestrate rotation-advisor [--home PATH] [--out PATH]`. It
   prints the report.
 - **Shadow guarantee.** Only `cli.py` imports `rotation_advisor`. `engine.py`,
   routing, scheduling and `context_economy.py` do not, and a test asserts this.
@@ -406,7 +420,7 @@ The worker builds the command and its tests. The **host** runs it over the
 real local telemetry, because workers cannot read the orchestrator home:
 
 ```text
-python agent.py orchestrate rotation-advice --out docs/orchestrator-os/self-audit/rotation-advice-baseline.json
+python agent.py orchestrate rotation-advisor --out docs/orchestrator-os/self-audit/rotation-advisor-baseline.json
 ```
 
 Results are recorded with the existing formats under
