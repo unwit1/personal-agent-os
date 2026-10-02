@@ -53,7 +53,7 @@ def _gateway() -> Any:
 
 
 def openings_event(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
-    county = params.get("county")
+    county = params.get("county") or (item.get("context") or {}).get("county")
     change = params.get("change")
     count = params.get("count", 1)
     if params.get("text"):
@@ -73,7 +73,46 @@ def openings_event(item: dict[str, Any], params: dict[str, Any], *, confirm: boo
     return {"applied": applied, "county_group": group}
 
 
+def county_refresh(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
+    county = params.get("county") or (item.get("context") or {}).get("county")
+    if not county:
+        raise ValueError("county is required")
+    from .. import applicants
+
+    return applicants.county_candidates(county, top_n=params.get("top_n"), gateway=_gateway())
+
+
+_CHANGE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "county": {"type": "string"},
+        "change": {"type": "string", "enum": ["close", "quit", "new"]},
+        "count": {"type": "integer", "minimum": 1, "maximum": 20},
+        "text": {"type": "string", "description": "Natural language, e.g. 'we closed the opening in X'"},
+    },
+}
+
+
 def register(registry: Any) -> None:
+    registry.register_action(
+        id="county.refresh",
+        label="Refresh county",
+        applies_to=["county_openings"],
+        handler=county_refresh,
+        consequential=False,
+        description="Re-rank the latest applicants for this county's openings.",
+        params_schema={"type": "object", "properties": {"top_n": {"type": "integer", "minimum": 1}}},
+    )
+    registry.register_action(
+        id="county.opening_change",
+        label="Change opening",
+        applies_to=["county_openings", "openings_console"],
+        handler=openings_event,
+        consequential=True,
+        description="Close, record a quit, or add an opening for a county; previews, then applies on Confirm and refreshes the county group.",
+        params_schema=_CHANGE_SCHEMA,
+    )
+    # Alias kept for the chat route, which matches free text from any item.
     registry.register_action(
         id="openings.event",
         label="Update county openings",

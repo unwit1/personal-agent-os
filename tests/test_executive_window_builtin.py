@@ -44,6 +44,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "applicant.review",
             "applicant.decline",
             "applicant.hold",
+            "county.refresh",
+            "county.opening_change",
             "openings.event",
         }
         self.assertEqual(action_ids, expected_actions)

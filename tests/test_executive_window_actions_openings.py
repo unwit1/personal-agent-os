@@ -46,10 +46,28 @@ class ActionTests(unittest.TestCase):
         actions_openings.register(self.registry)
 
     def test_registered(self):
-        action = self.registry.actions()[0]
-        self.assertEqual(action["id"], "openings.event")
-        self.assertTrue(action["consequential"])
-        self.assertEqual(action["applies_to"], "*")
+        actions = {a["id"]: a for a in self.registry.actions()}
+        self.assertEqual(set(actions), {"county.refresh", "county.opening_change", "openings.event"})
+        self.assertTrue(actions["openings.event"]["consequential"])
+        self.assertEqual(actions["openings.event"]["applies_to"], "*")
+        self.assertTrue(actions["county.opening_change"]["consequential"])
+        self.assertEqual(actions["county.opening_change"]["applies_to"], ["county_openings", "openings_console"])
+        self.assertFalse(actions["county.refresh"]["consequential"])
+        self.assertEqual(actions["county.refresh"]["applies_to"], ["county_openings"])
+
+    def test_opening_change_takes_county_from_item(self):
+        item = {"id": "county:Example", "kind": "county_openings", "context": {"county": "Example"}}
+        out = actions_openings.openings_event(item, {"change": "new"}, confirm=True)
+        self.assertEqual(self.gateway.openings["Example"]["open_count"], 2)
+        self.assertEqual(out["county_group"]["county"], "Example")
+
+    def test_county_refresh(self):
+        item = {"id": "county:Example", "kind": "county_openings", "context": {"county": "Example"}}
+        group = actions_openings.county_refresh(item, {}, confirm=False)
+        self.assertEqual(group["county"], "Example")
+        self.assertNotIn("apply_opening_change", [c[0] for c in self.gateway.calls])
+        with self.assertRaises(ValueError):
+            actions_openings.county_refresh({}, {}, confirm=False)
 
     def test_preview_does_not_save(self):
         out = actions_openings.openings_event({}, {"text": "a driver quit in Example"}, confirm=False)
