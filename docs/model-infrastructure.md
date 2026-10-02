@@ -386,8 +386,12 @@ Parameters:
 `spec` carries `name` (= `job_id`), `gpu`, `hourly_usd`,
 `max_runtime_seconds` and `secret_ref`. `launch` is idempotent by
 `spec["name"]`: a second launch with the same name returns the same
-`instance_id`, as SkyPilot's `sky launch -c <name>` does. That makes resuming
-a crashed `launching` step safe.
+`instance_id`, as SkyPilot's `sky launch -c <name>` does. It is
+launch-or-lookup: an instance the provider created under that name is found,
+even if the call that created it raised before returning. That makes resuming
+a crashed or failed `launching` step safe, and it is the only way Agent OS
+finds an instance whose id it never received. Slice 3 adapters must keep this
+lookup-first behavior.
 
 `FakeProvider(clock=None, state_path=None)` works as follows:
 - It is in-memory and never touches the network.
@@ -398,6 +402,9 @@ a crashed `launching` step safe.
 - `state_path` is optional, used only by the CLI/MCP so that a fake job
   survives across processes (`<home>/compute-jobs/fake-provider.json`).
   Tests stay purely in memory.
+- It has a test-only fault hook, `fail_launch_after_create`: the next
+  `launch` creates the instance and then raises, which models a provider
+  that creates an instance but loses the response.
 
 ### Provider resolution
 
@@ -440,14 +447,22 @@ always written with `storage.write_json` (atomic). Fields:
 
 ```
 requested -> reserved -> launching -> running -> stopping -> stopped -> destroyed -> reconciled
-requested -> blocked                                  (precondition failed; terminal)
+requested -> blocked                                  (precondition failed)
+blocked -> requested                                  (only from provision(): retry)
 requested|reserved|launching|running|stopping|stopped -> failed
 failed -> destroyed | reconciled
 ```
 
 Every transition goes through one `transition(record, to, reason)` helper,
 which checks this table and appends to `history`. A transition that is not
-listed raises `ValueError`. `blocked` and `reconciled` are terminal.
+listed raises `ValueError`. `reconciled` is terminal. `blocked` is at rest
+(nothing reserved, nothing launched): `status`, `stop`, `destroy` and
+`reconcile` return it unchanged, and only `provision` leaves it (see
+Operations).
+
+`launching -> failed` is allowed only once `instance_id` is known. A
+`launching` job never fails without it, because its instance may exist at the
+provider (see Write-ahead reservation).
 
 ### Preconditions (budget gate)
 
@@ -476,7 +491,23 @@ The pattern follows IMP-0013 / DEC-0020:
 5. Persist `instance_id`, `auto_stop_at` and `running` after the launch
    returns.
 
-If `launch` raises, the job goes to `failed` with the error as `reason`.
+If `launch` raises, the provider may already have created the instance. So
+the job **stays in `launching`**, with the error stored as `reason` and
+`launch_attempts` incremented, and the ledger reservation stays held. There is
+no `failed` transition and no release. Recovery always goes through the
+idempotent launch-or-lookup on `spec["name"]`:
+- `provision` again resumes `launching` and calls `launch(spec)`. It gets the
+  existing instance (or a new one) and moves to `running`, and there is still
+  one instance and one reservation.
+- `destroy` on a `launching` job abandons it: it calls `launch(spec)` to learn
+  the `instance_id` and persists it, moves `launching -> failed` (reason
+  `abandoned_launch`), calls `provider.terminate`, then moves
+  `failed -> destroyed`. Only then can `reconcile` release the reservation,
+  using the polled cost as `actual_usd`.
+- If that lookup raises again, `destroy` raises, and the job stays in
+  `launching` with the reservation held. A held reservation of at most
+  `estimate.high` is the safe failure mode. An untracked instance with a
+  released reservation is not.
 
 Ledger appends are idempotent per `(job_id, kind)`: the ledger is scanned
 before appending. When the ledger already holds this job's reservation, the
@@ -509,6 +540,14 @@ Either way the history records `running -> stopping -> stopped` with reason
 - **`provision`** is idempotent and resumable:
   - an existing job in `requested`, `reserved` or `launching` continues from
     that state;
+  - an existing job in `blocked` is re-evaluated. It moves
+    `blocked -> requested` (reason `retry`, recorded in `history`), and the
+    full precondition check runs again against the current
+    `budget.effective`. A job that is still blocked goes back to `blocked`
+    with the new reason. A job that now passes reserves and launches as
+    usual. The default idempotency key therefore stays usable after an
+    operator approves or raises the budget, with no need to change the
+    request or invent a `job_id`;
   - any other state is returned unchanged.
 - **`status`** polls the provider when an `instance_id` exists, updates
   `runtime_seconds`/`cost_usd`, applies auto-stop and follows provider-side
@@ -518,10 +557,13 @@ Either way the history records `running -> stopping -> stopped` with reason
 - **`stop`** goes `running -> stopping -> stopped` via `provider.stop`. It is
   a no-op once the job is stopped or later.
 - **`destroy`** stops first when the job is running, then
-  `provider.terminate`, then `destroyed`. It is a no-op once the job is
-  destroyed or reconciled.
+  `provider.terminate`, then `destroyed`. On a `launching` job it abandons
+  the launch as described under Write-ahead reservation. It is a no-op once
+  the job is destroyed or reconciled.
 - **`reconcile`** runs from `destroyed` or `failed`; a `failed` job with a
-  known instance is terminated and destroyed first. Steps:
+  known instance is terminated and destroyed first. On any other state it
+  raises `ValueError`; in particular, a stuck `launching` job must be
+  destroyed first. Steps:
   1. `actual_usd` defaults to the last polled `cost_usd` (0 if none was
      launched).
   2. Append `kind="actual"` for `actual_usd` and `kind="release"` for the
@@ -575,6 +617,14 @@ All of them carry `openWorldHint: false`. Both surfaces use
   `auto_stop`;
 - `provision` twice gives one reservation and one launch;
 - resume after a simulated crash at `reserved` and at `launching`;
+- blocked by an unapproved budget, then the budget is approved, then
+  `provision` with the same request (default `job_id`) gives `running` with
+  one reservation. Its history shows `blocked -> requested` (reason `retry`);
+- `fail_launch_after_create`: the job stays `launching` with the reservation
+  held and no release. A second `provision` gives `running` on the same single
+  instance. In a separate case, `destroy` on the stuck job terminates the
+  leaked instance (`launching -> failed -> destroyed`), and `reconcile` then
+  releases the reservation;
 - an illegal transition raises `ValueError`;
 - a raw secret raises `ValueError` and leaves no file;
 - a non-fake provider gives `blocked`;
