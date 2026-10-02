@@ -45,7 +45,10 @@ const Executive = (() => {
     return fetch(endpoint, options)
       .then(response => {
         if (!response.ok) {
-          throw new Error(`API error: ${response.status} ${response.statusText}`);
+          return response.json().catch(() => ({})).then(body => {
+            const reason = body && (body.error || body.message);
+            throw new Error(reason ? normalizeErrors(reason) : `API error: ${response.status} ${response.statusText}`);
+          });
         }
         return response.json();
       })
@@ -92,6 +95,254 @@ const Executive = (() => {
     }
   }
 
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = text;
+    return node;
+  }
+
+  function findCompose(response) {
+    if (!response || typeof response !== 'object') return null;
+    if (response.compose && typeof response.compose === 'object') return response.compose;
+    if (response.result && response.result.compose && typeof response.result.compose === 'object') {
+      return response.result.compose;
+    }
+    return null;
+  }
+
+  function findPreview(response) {
+    if (!response || typeof response !== 'object') return null;
+    const raw = response.preview || (response.result && response.result.preview);
+    if (!raw) return null;
+    const token = response.confirm_token || (response.result && response.result.confirm_token);
+    if (typeof raw === 'object') {
+      return Object.assign({}, raw, { id: raw.id || token });
+    }
+    return { id: token, title: 'Pending action', content: String(raw) };
+  }
+
+  function handleActResult(response, actionId) {
+    if (!response) return;
+    if (response.message) addChatMessage('agent', response.message);
+    const compose = findCompose(response);
+    if (compose) showCompose(compose);
+    const preview = findPreview(response);
+    if (preview) showPreview(preview, actionId);
+    if (response.error) showError(response.error);
+  }
+
+  function runAction(item, actionId, params) {
+    showBusy(true);
+    clearError();
+    return apiCall('POST', '/api/act', {
+      conversation_id: getOrCreateConversationId(),
+      item_id: item.id,
+      action_id: actionId,
+      params: params || {},
+    })
+      .then(response => {
+        showBusy(false);
+        handleActResult(response, actionId);
+        return response;
+      })
+      .catch(error => {
+        showBusy(false);
+        throw error;
+      });
+  }
+
+  function renderCountyOpenings(item, card) {
+    const context = item.context || {};
+    const applicants = context.applicants || [];
+    const group = el('div', 'county-group');
+    if (applicants.length === 0) {
+      group.appendChild(el('div', 'muted', 'No applicants to review'));
+    }
+    applicants.forEach(applicant => {
+      const row = el('button', 'applicant-row');
+      row.type = 'button';
+      const name = applicant.name || applicant.display_name || applicant.id || 'Applicant';
+      row.appendChild(el('span', 'applicant-name', name));
+      const bits = [];
+      if (applicant.rank !== undefined && applicant.rank !== null) bits.push('#' + applicant.rank);
+      if (applicant.score !== undefined && applicant.score !== null) bits.push('score ' + applicant.score);
+      if (applicant.suggestion) bits.push(applicant.suggestion);
+      if (bits.length) row.appendChild(el('span', 'applicant-meta', bits.join(' · ')));
+      row.addEventListener('click', () => openApplicantReview(item, applicant, card));
+      group.appendChild(row);
+    });
+    const panel = el('div', 'review-panel hidden');
+    panel.id = 'review-' + item.id;
+    group.appendChild(panel);
+    return group;
+  }
+
+  function openApplicantReview(item, applicant, card) {
+    const panel = card.querySelector('.review-panel');
+    if (!panel) return;
+    const params = { applicant_id: applicant.id };
+    runAction(item, 'applicant.review', params)
+      .then(response => {
+        const result = (response && response.result) || response || {};
+        const review = result.review || result;
+        const fields = review.fields || result.fields || applicant.fields || {};
+        const decisions = review.decisions || result.decisions || applicant.decisions || [];
+        panel.innerHTML = '';
+        panel.classList.remove('hidden');
+        panel.appendChild(el('div', 'review-title', applicant.name || applicant.id || 'Applicant'));
+        const list = el('dl', 'review-fields');
+        Object.keys(fields).forEach(key => {
+          const value = fields[key];
+          list.appendChild(el('dt', null, key));
+          list.appendChild(el('dd', null, value === null || value === undefined ? '' :
+            (typeof value === 'object' ? JSON.stringify(value) : String(value))));
+        });
+        panel.appendChild(list);
+        const buttons = el('div', 'item-options');
+        decisions.forEach(decision => {
+          const actionId = decision.action_id || decision.id;
+          if (!actionId) return;
+          const btn = el('button', decision.consequential ? 'option-consequential' : '', decision.label || actionId);
+          btn.type = 'button';
+          btn.addEventListener('click', () => {
+            btn.disabled = true;
+            runAction(item, actionId, Object.assign({ applicant_id: applicant.id }, decision.params || {}))
+              .then(() => loadItems())
+              .catch(() => { /* error already shown */ })
+              .finally(() => { btn.disabled = false; });
+          });
+          buttons.appendChild(btn);
+        });
+        panel.appendChild(buttons);
+      })
+      .catch(() => { /* error already shown */ });
+  }
+
+  function closeCompose() {
+    const existing = document.getElementById('compose-panel');
+    if (existing) existing.remove();
+  }
+
+  function showCompose(compose) {
+    closeCompose();
+    const panel = el('div', 'compose-panel');
+    panel.id = 'compose-panel';
+    panel.appendChild(el('div', 'compose-title', 'Compose email'));
+
+    const status = el('div', 'compose-status');
+    status.id = 'compose-status';
+
+    function field(label, control) {
+      const wrap = el('label', 'compose-field');
+      wrap.appendChild(el('span', null, label));
+      wrap.appendChild(control);
+      panel.appendChild(wrap);
+      return control;
+    }
+
+    if (compose.compose_id) panel.dataset.composeId = compose.compose_id;
+
+    const fromSelect = document.createElement('select');
+    fromSelect.id = 'compose-from';
+    field('From', fromSelect);
+    apiCallQuiet('GET', '/api/send/accounts')
+      .then(response => {
+        const accounts = (response && response.accounts) || [];
+        accounts.forEach(account => {
+          const option = el('option', null, account.label || account.account_id);
+          option.value = account.account_id;
+          if (compose.from_account ? account.account_id === compose.from_account : account.default) {
+            option.selected = true;
+          }
+          fromSelect.appendChild(option);
+        });
+      })
+      .catch(() => { /* From list unavailable; server default applies */ });
+
+    const toInput = document.createElement('input');
+    toInput.id = 'compose-to';
+    toInput.value = [].concat(compose.to || []).join(', ');
+    field('To', toInput);
+
+    const subjectInput = document.createElement('input');
+    subjectInput.id = 'compose-subject';
+    subjectInput.value = compose.subject || '';
+    field('Subject', subjectInput);
+
+    const bodyInput = document.createElement('textarea');
+    bodyInput.id = 'compose-body';
+    bodyInput.rows = 12;
+    bodyInput.value = compose.body || '';
+    field('Body', bodyInput);
+
+    panel.appendChild(status);
+
+    const actions = el('div', 'compose-actions');
+    const sendBtn = el('button', 'primary', 'Send');
+    sendBtn.id = 'compose-send';
+    sendBtn.type = 'button';
+    sendBtn.addEventListener('click', () => {
+      sendBtn.disabled = true;
+      status.className = 'compose-status';
+      status.textContent = 'Sending…';
+      const payload = Object.assign({}, compose, {
+        conversation_id: getOrCreateConversationId(),
+        to: toInput.value.split(/[;,]/).map(s => s.trim()).filter(Boolean).join(', '),
+        subject: subjectInput.value,
+        body: bodyInput.value,
+      });
+      if (fromSelect.value) payload.from_account = fromSelect.value;
+      apiCallQuiet('POST', '/api/send', payload)
+        .then(response => {
+          const failed = response && (response.error || response.sent === false ||
+            response.status === 'error' || response.status === 'not_sent');
+          if (failed) {
+            status.className = 'compose-status compose-error';
+            status.textContent = 'NOT SENT: ' + normalizeErrors(response.error || response.message || 'send failed');
+            sendBtn.disabled = false;
+            return;
+          }
+          status.className = 'compose-status compose-ok';
+          status.textContent = 'Sent';
+          addChatMessage('agent', 'Sent: ' + (payload.subject || '(no subject)'));
+          if (response && response.record_error) {
+            showError('Sent, but the applicant status was not recorded: ' + normalizeErrors(response.record_error));
+            addChatMessage('agent', 'Warning: applicant status not recorded: ' + normalizeErrors(response.record_error));
+          }
+          if (response && response.warning) {
+            showError('Sent. Warning: ' + normalizeErrors(response.warning));
+            addChatMessage('agent', 'Warning: ' + normalizeErrors(response.warning));
+          }
+          closeCompose();
+          loadItems();
+        })
+        .catch(error => {
+          status.className = 'compose-status compose-error';
+          status.textContent = 'NOT SENT: ' + error.message;
+          sendBtn.disabled = false;
+        });
+    });
+    actions.appendChild(sendBtn);
+
+    const cancelBtn = el('button', 'ghost', 'Discard');
+    cancelBtn.type = 'button';
+    cancelBtn.addEventListener('click', () => {
+      if (!compose.compose_id) {
+        closeCompose();
+        return;
+      }
+      apiCallQuiet('POST', '/api/dismiss', { compose_id: compose.compose_id })
+        .catch(() => { /* still close locally */ })
+        .then(closeCompose);
+    });
+    actions.appendChild(cancelBtn);
+    panel.appendChild(actions);
+
+    document.body.appendChild(panel);
+    toInput.focus();
+  }
+
   function renderItem(item) {
     const card = document.createElement('div');
     card.className = 'item-card';
@@ -123,6 +374,10 @@ const Executive = (() => {
     }
     if (meta.children.length > 0) {
       card.appendChild(meta);
+    }
+
+    if (item.kind === 'county_openings') {
+      card.appendChild(renderCountyOpenings(item, card));
     }
 
     if (item.options && item.options.length > 0) {
@@ -187,8 +442,11 @@ const Executive = (() => {
         if (response.message) {
           addChatMessage('agent', response.message);
         }
-        if (response.preview) {
-          showPreview(response.preview, option.action_id);
+        const compose = findCompose(response);
+        if (compose) showCompose(compose);
+        const preview = findPreview(response);
+        if (preview) {
+          showPreview(preview, option.action_id);
         }
         loadItems();
       })
@@ -232,6 +490,11 @@ const Executive = (() => {
         if (response.message) {
           addChatMessage('agent', response.message);
         }
+        const compose = findCompose(response);
+        if (compose) showCompose(compose);
+        const preview = findPreview(response);
+        if (preview) showPreview(preview, 'chat');
+        if (response.refresh || compose || preview) loadItems();
       })
       .catch(() => {
         /* error already shown */
@@ -342,6 +605,12 @@ const Executive = (() => {
               showPreview(preview, 'pending');
             }
           });
+        }
+
+        if (response.composes && Array.isArray(response.composes) &&
+            !document.getElementById('compose-panel')) {
+          const next = response.composes.find(c => c && c.compose_id);
+          if (next) showCompose(next);
         }
 
         const allCards = container.querySelectorAll('.preview-card');
