@@ -55,6 +55,9 @@ def register(commands: argparse._SubParsersAction) -> None:
         parser.add_argument("run_id")
         parser.add_argument("gate_id")
         parser.add_argument("--note")
+        if name == "approve":
+            parser.add_argument("--add-scope", action="append", default=[], metavar="PATH",
+                                help="grant a worker's request to edit PATH (repeatable; agent_needs_decision gates)")
 
     for name in ("retry", "review-again"):
         parser = actions.add_parser(name)
@@ -429,7 +432,8 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit(final)
         return TERMINAL_EXIT.get(final["state"], 0)
     if action in {"approve", "reject"}:
-        emit(service.decide(args.run_id, args.gate_id, action == "approve", args.note))
+        emit(service.decide(args.run_id, args.gate_id, action == "approve", args.note,
+                            getattr(args, "add_scope", None) or None))
         return 0
     if action == "retry":
         emit(service.retry(args.run_id, args.node_id))

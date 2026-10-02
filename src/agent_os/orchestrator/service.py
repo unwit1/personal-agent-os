@@ -304,9 +304,10 @@ def control(run_id: str, action: str) -> dict[str, Any]:
     return _kick(summary) if action in {"start", "resume", "auto_continue_on"} else summary
 
 
-def decide(run_id: str, gate_id: str, approve: bool, note: str | None = None) -> dict[str, Any]:
+def decide(run_id: str, gate_id: str, approve: bool, note: str | None = None,
+           add_scope: list[str] | None = None) -> dict[str, Any]:
     _reject_worker_control()
-    return _kick(engine().decide(run_id, gate_id, approve, note))
+    return _kick(engine().decide(run_id, gate_id, approve, note, add_scope))
 
 
 def retry(run_id: str, node_id: str) -> dict[str, Any]:

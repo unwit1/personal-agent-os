@@ -91,16 +91,23 @@ class EngineAffectedFirstTests(OrchestratorFixture):
         self.assertNotIn("project-validation-1", [item.get("name") for item in validation["evidence"]])
 
     def test_passing_change_still_runs_the_full_validators(self) -> None:
-        node = self.run_one("def add(a, b):\n    return b + a\n", affected_tests_first="always")
+        node = self.run_one("def add(a, b):\n    return b + a\n", affected_tests_first="always", node_validation="full")
         names = [item.get("name") for item in node["validation"]["evidence"]]
         self.assertIn("affected-tests", names)
         self.assertIn("project-validation-1", names)
         self.assertTrue(node["validation"]["passed"])
 
-    def test_default_skips_first_attempts(self) -> None:
-        node = self.run_one(BROKEN)
+    def test_full_node_validation_skips_affected_on_first_attempts(self) -> None:
+        node = self.run_one(BROKEN, node_validation="full")
         names = [item.get("name") for item in node["validation"]["evidence"]]
         self.assertNotIn("affected-tests", names)
+
+    def test_default_node_validation_runs_affected_tests_first(self) -> None:
+        # node_validation "affected" (the default): each node runs only the
+        # tests its change affects; the full suite runs once at completion.
+        node = self.run_one(BROKEN)
+        names = [item.get("name") for item in node["validation"]["evidence"]]
+        self.assertIn("affected-tests", names)
 
     def test_policy_values(self) -> None:
         from agent_os.orchestrator.model import PolicyError, merge_policy
@@ -111,7 +118,7 @@ class EngineAffectedFirstTests(OrchestratorFixture):
             merge_policy({"affected_tests_first": "sometimes"})
 
     def test_policy_can_disable_the_step(self) -> None:
-        node = self.run_one(BROKEN, affected_tests_first=False)
+        node = self.run_one(BROKEN, affected_tests_first=False, node_validation="full")
         names = [item.get("name") for item in node["validation"]["evidence"]]
         self.assertNotIn("affected-tests", names)
         self.assertIn("project-validation-1", names)

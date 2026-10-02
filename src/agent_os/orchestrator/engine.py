@@ -566,7 +566,9 @@ class Orchestrator:
             self.ledger.emit(run_id, "run_paused", reason="stopped by user", workers_cancelled=cancelled["count"])
             return self.summary(record)
 
-    def decide(self, run_id: str, gate_id: str, approve: bool, note: str | None = None) -> dict[str, Any]:
+    def decide(self, run_id: str, gate_id: str, approve: bool, note: str | None = None,
+               add_scope: list[str] | None = None) -> dict[str, Any]:
+        add_scope = _scope_additions(add_scope)
         with self._lock:
             record = self.store.load(run_id)
             gate = next((item for item in record["gates"] if item["id"] == gate_id), None)
@@ -581,12 +583,12 @@ class Orchestrator:
                 # decision in control (adopted by revision) for that driver to
                 # apply on its next tick.
                 record["control"].setdefault("pending_decisions", []).append(
-                    {"gate": gate_id, "approve": bool(approve), "note": note, "at": now()})
+                    {"gate": gate_id, "approve": bool(approve), "note": note, "add_scope": add_scope, "at": now()})
                 _operator_changed(record)
                 self.store.save(record)
                 self.store.append_event(run_id, "gate.decision_queued", gate.get("node"), f"{gate_id}: {'approve' if approve else 'reject'}")
                 return self.summary(record)
-            self._apply_gate(record, gate, approve, note)
+            self._apply_gate(record, gate, approve, note, add_scope)
             return self.summary(record)
 
     def _apply_pending_decisions(self, record: dict[str, Any]) -> None:
@@ -594,10 +596,18 @@ class Orchestrator:
         for item in record["control"].pop("pending_decisions", None) or []:
             gate = next((g for g in record["gates"] if g["id"] == item.get("gate")), None)
             if gate is not None and gate["status"] == "open":
-                self._apply_gate(record, gate, bool(item.get("approve")), item.get("note"))
+                self._apply_gate(record, gate, bool(item.get("approve")), item.get("note"), item.get("add_scope"))
 
-    def _apply_gate(self, record: dict[str, Any], gate: dict[str, Any], approve: bool, note: str | None) -> None:
+    def _apply_gate(self, record: dict[str, Any], gate: dict[str, Any], approve: bool, note: str | None,
+                    add_scope: list[str] | None = None) -> None:
         run_id = record["run_id"]
+        if approve and add_scope:
+            node = record["nodes"].get(gate.get("node") or "")
+            if gate["kind"] != "agent_needs_decision" or node is None:
+                raise OrchestratorError("add_scope only applies to an agent_needs_decision gate on a node")
+            # The operator granted the worker's request for more files: widen
+            # the editable scope, or the scope validator fails the node again.
+            node["scope"] = [*node["scope"], *[p for p in add_scope if p not in node["scope"]]]
         gate["status"] = "approved" if approve else "rejected"
         gate["decided_at"] = now()
         gate["note"] = redact(note or "", 500) or None
@@ -642,6 +652,13 @@ class Orchestrator:
                 node["selection"] = None
                 node["excluded_providers"] = []  # a retry starts routing afresh
                 node["wait_reason"] = "retry requested by user"
+                subject = record["nodes"].get(node.get("subject") or "") if node["role"] == "repairer" else None
+                if (subject is not None and subject["state"] == "FAILED_FINAL"
+                        and subject.get("wait_reason") == f"repair {node_id} could not pass validation"):
+                    # This repair's failure is what failed its subject; while it
+                    # retries, the subject waits on it again instead of blocking the run.
+                    subject["state"] = "NEEDS_REPAIR"
+                    subject["wait_reason"] = f"waiting for retried repair {node_id}"
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "node.retry", node_id, "retry requested by user")
@@ -2947,6 +2964,23 @@ USAGE_RESET_WAIT = "waiting for usage reset:"
 TRANSIENT_TICK_RETRIES = 6
 # Floor for the driver's wait between ticks when no worker is running.
 IDLE_TICK_SECONDS = 5.0
+
+
+def _scope_additions(paths: list[str] | None) -> list[str]:
+    """Validate repository-relative paths an operator adds to a node's scope.
+    Protected control-plane paths are refused here as well as by the validator."""
+    from .control_plane import protected_changes
+
+    clean: list[str] = []
+    for raw in paths or []:
+        path = str(raw or "").strip().replace("\\", "/")
+        if not path or path.startswith("/") or ":" in path or ".." in path.split("/"):
+            raise OrchestratorError(f"add_scope needs a repository-relative path: {raw!r}")
+        if protected_changes([path]):
+            raise OrchestratorError(f"add_scope cannot grant a protected control-plane path: {path}")
+        if path not in clean:
+            clean.append(path)
+    return clean
 
 
 def _operator_changed(record: dict[str, Any]) -> None:
