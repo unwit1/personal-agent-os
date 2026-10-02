@@ -67,6 +67,13 @@ class LocalOpeningsTests(unittest.TestCase):
             self.gateway.apply_opening_change("Alpha", "new", count=21)
         self.assertEqual(self.fake.saved, [])
 
+    def test_apply_without_settings_key_raises_and_does_not_save(self):
+        self.fake.load_settings = lambda: {}
+        self.fake.evaluate = lambda settings, today=None: {"Alpha": 2}
+        with self.assertRaises(gw.DashboardGatewayError):
+            self.gateway.apply_opening_change("Alpha", "quit")
+        self.assertEqual(self.fake.saved, [])
+
     def test_new_on_closed_county_increments(self):
         result = self.gateway.apply_opening_change("Beta", "new", count=2)
         self.assertEqual(result["after"]["open_count"], 2)

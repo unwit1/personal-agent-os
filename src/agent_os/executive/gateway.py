@@ -97,8 +97,6 @@ def _county_name(county: Any) -> str:
 def _opening_count(value: Any) -> int:
     if isinstance(value, dict):
         value = value.get("open_count", value.get("count", 0))
-    if isinstance(value, bool):
-        return int(value)
     try:
         return max(0, int(value or 0))
     except (TypeError, ValueError):
@@ -113,7 +111,7 @@ def _group_text(group: Any) -> str | None:
     return str(group) if group else None
 
 
-def _opening_view(county: str, count: int, label: str | None) -> dict[str, Any]:
+def _opening_view(count: int, label: str | None) -> dict[str, Any]:
     return {"open": count > 0, "open_count": count, "group_label": label}
 
 
@@ -139,9 +137,16 @@ def _opening_summary(county: str, change: str, before: int, after: int) -> str:
 def _opening_preview(county: str, change: str, count: int, before: int, label: str | None) -> dict[str, Any]:
     after = _after_count(county, change, count, before)
     return {"county": county, "change": change, "count": count,
-            "before": _opening_view(county, before, label),
-            "after": _opening_view(county, after, label),
+            "before": _opening_view(before, label),
+            "after": _opening_view(after, label),
             "affects": [county], "summary": _opening_summary(county, change, before, after)}
+
+
+def _opening_entry(state: dict[str, dict[str, Any]], county: str) -> dict[str, Any]:
+    entry = state.get(_county_name(county).casefold())
+    if entry is None:
+        raise ValueError(f"Unknown county: {county}")
+    return entry
 
 
 class DashboardGateway(Protocol):
@@ -316,19 +321,14 @@ class LocalDashboardGateway:
                 raise DashboardGatewayError("openings lookup is not available in this Dashboard checkout")
         settings = openings.load_settings()
         evaluated = openings.evaluate(settings, today or date.today())
-        counts: dict[str, int] = {}
-        known = settings.get("county_openings") if isinstance(settings, dict) else None
-        for name in (known or {}):
-            counts[_county_name(name)] = 0
-        if isinstance(evaluated, dict):
-            pairs = [(k, v) for k, v in evaluated.items()]
-        else:
-            pairs = [(_value(row, "county"), row) for row in (evaluated or [])]
-        for name, value in pairs:
-            if name:
-                counts[_county_name(name)] = _opening_count(value)
+        if not isinstance(evaluated, dict):
+            raise DashboardGatewayError("openings evaluate returned an unexpected shape")
         state: dict[str, dict[str, Any]] = {}
-        for name, count in counts.items():
+        for raw_name, value in evaluated.items():
+            if not raw_name:
+                continue
+            name = _county_name(raw_name)
+            count = _opening_count(value)
             label = _group_text(openings.open_groups_in_range(settings, name)) if count else None
             state[name.casefold()] = {"county": name, "open_count": count, "group_label": label}
         return openings, settings, state
@@ -338,28 +338,24 @@ class LocalDashboardGateway:
         rows = [dict(row) for row in state.values() if row["open_count"] >= 1]
         return sorted(rows, key=lambda row: row["county"].casefold())
 
-    def _opening_entry(self, state: dict[str, dict[str, Any]], county: str) -> dict[str, Any]:
-        entry = state.get(county.casefold())
-        if entry is None:
-            raise ValueError(f"Unknown county: {county}")
-        return entry
-
     def preview_opening_change(self, county: str, change: str, *, count: int = 1) -> dict[str, Any]:
-        county = _county_name(county)
         _, _, state = self._opening_state()
-        entry = self._opening_entry(state, county)
+        entry = _opening_entry(state, county)
         return _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
 
     def apply_opening_change(self, county: str, change: str, *, count: int = 1) -> dict[str, Any]:
-        county = _county_name(county)
         openings, settings, state = self._opening_state()
-        entry = self._opening_entry(state, county)
+        entry = _opening_entry(state, county)
         preview = _opening_preview(entry["county"], change, count, entry["open_count"], entry["group_label"])
         save = getattr(openings, "save_settings", None)
-        if save is None or not isinstance(settings, dict):
+        if save is None:
             raise DashboardGatewayError("openings save is not available in this Dashboard checkout")
+        table = settings.get("county_openings") if isinstance(settings, dict) else None
+        key = next((k for k in (table or {}) if _county_name(k).casefold() == entry["county"].casefold()), None)
+        if key is None:
+            raise DashboardGatewayError("openings settings do not hold a county_openings entry for this county")
         new_count = preview["after"]["open_count"]
-        settings.setdefault("county_openings", {})[entry["county"]] = new_count
+        table[key] = new_count
         save(settings)
         group = None
         if new_count:
