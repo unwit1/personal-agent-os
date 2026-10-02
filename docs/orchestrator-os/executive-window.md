@@ -93,13 +93,9 @@ tools/executive-window.cmd
 
 Opens Edge `--app` window on the local server.
 
-## Known: email.send
-
-The `email.send` action saves a draft (no outbound SMTP yet); operator opens it in Outlook to review and send. Applicant outreach goes through the Dashboard's mail module.
-
 ## Applicant workflow
 
-Full contract: [executive-applicant-workflow.md](executive-applicant-workflow.md). The `email.send` note above is superseded: `email.send` and `executive.reach_out` are unregistered, and the only send path is the compose panel.
+Full contract: [executive-applicant-workflow.md](executive-applicant-workflow.md). The `email.send` and `executive.reach_out` actions are unregistered; the only send path is the compose panel.
 
 ### Compose and Send panel
 

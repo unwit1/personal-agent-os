@@ -300,6 +300,12 @@
       "deterministic_operations": "~60 incl. 2 full-suite gates and a corpus benchmark",
       "model_calls": 0,
       "measured_cost_usd": 0
+    },
+    "run-20261002T170546Z-ece407": {
+      "deterministic_operations": "~15 (doc repair, contradiction removal, JSON validation, test validation)",
+      "model_calls": 0,
+      "measured_cost_usd": 0,
+      "note": "repair: removed superseded 'Known: email.send' section from executive-window.md; status entry appended"
     }
   },
   "known_baseline": {
