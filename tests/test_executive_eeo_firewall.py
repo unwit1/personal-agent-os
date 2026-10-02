@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -80,13 +80,18 @@ def _leaks(text):
 
 def _create_guard_patches(fail_fn):
     """Create patches for guards that should not be triggered during brain operations."""
+    import urllib.request
     return [
         patch("agent_os.executive.gateway.LocalDashboardGateway", side_effect=fail_fn),
         patch.object(rtec_applicants, "_project_root", side_effect=fail_fn),
         patch.object(rtec_applicants, "_connect_readonly", side_effect=fail_fn),
         patch("socket.create_connection", side_effect=fail_fn),
         patch("socket.socket.connect", side_effect=fail_fn),
-        patch("agent_os.executive.gateway.importlib.import_module", side_effect=fail_fn),
+        patch.object(urllib.request, "urlopen", side_effect=fail_fn),
+        patch.dict("sys.modules", {
+            "win32com": MagicMock(side_effect=fail_fn),
+            "win32com.client": MagicMock(side_effect=fail_fn),
+        }),
     ]
 
 
@@ -108,7 +113,7 @@ class EeoFirewallTests(unittest.TestCase):
         def fail(*_a, **_k):
             raise AssertionError("real Dashboard, Outlook or network access")
 
-        patches = _create_guard_patches(fail) + [
+        additional_patches = [
             patch.object(ex.rtec_applicants, "list_applicants",
                          side_effect=lambda status=None, limit=50, offset=0: {
                              "count": 0, "results": [dict(r) for r in roster if r["status"] == status][offset:offset + limit]}),
@@ -123,8 +128,16 @@ class EeoFirewallTests(unittest.TestCase):
                          side_effect=lambda action, applicant_ref=None, metadata=None: audits.append(
                              (action, applicant_ref, dict(metadata or {})))),
         ]
-        for p in patches:
+        for p in additional_patches:
             p.start()
+            self.addCleanup(p.stop)
+
+        guard_patches = _create_guard_patches(fail)
+        guard_mocks = []
+        for p in guard_patches:
+            m = p.start()
+            if hasattr(m, 'call_count'):
+                guard_mocks.append(m)
             self.addCleanup(p.stop)
 
         sug = ex.suggestions("Tech", gateway=gateway)
@@ -173,6 +186,10 @@ class EeoFirewallTests(unittest.TestCase):
         self.assertEqual(_leaks(text), [])
         self.assertTrue([a for a in audits if a[0] == "executive.outreach_send"])
 
+        # Verify guards were not triggered
+        for m in guard_mocks:
+            self.assertEqual(m.call_count, 0, f"Guard mock was called unexpectedly")
+
     def test_brain_prompt_filters_restricted_fields(self):
         """Verify brain.build_prompt and batch_status filter restricted fields even when poisoned."""
         def fail(*_a, **_k):
@@ -183,7 +200,7 @@ class EeoFirewallTests(unittest.TestCase):
                    "status": "New", "county": "Kent", "city": "Dover", **RESTRICTED}
                   for r, n in zip(REFS, ("Ann", "Bo"))]
 
-        patches = _create_guard_patches(fail) + [
+        additional_patches = [
             patch.object(ex.rtec_applicants, "list_applicants",
                          side_effect=lambda status=None, limit=50, offset=0: {
                              "count": 0, "results": [dict(r) for r in roster if r["status"] == status][offset:offset + limit]}),
@@ -195,8 +212,16 @@ class EeoFirewallTests(unittest.TestCase):
             patch.object(ex.rtec_applicants, "_audit_access",
                          side_effect=lambda action, applicant_ref=None, metadata=None: None),
         ]
-        for p in patches:
+        for p in additional_patches:
             p.start()
+            self.addCleanup(p.stop)
+
+        guard_patches = _create_guard_patches(fail)
+        guard_mocks = []
+        for p in guard_patches:
+            m = p.start()
+            if hasattr(m, 'call_count'):
+                guard_mocks.append(m)
             self.addCleanup(p.stop)
 
         # Set up poisoned gateway for real flow test.
@@ -317,6 +342,10 @@ class EeoFirewallTests(unittest.TestCase):
         text = "\n".join(brain_outputs)
         leaked = _leaks(text)
         self.assertEqual(leaked, [], f"Restricted fields leaked: {leaked}")
+
+        # Verify guards were not triggered
+        for m in guard_mocks:
+            self.assertEqual(m.call_count, 0, f"Guard mock was called unexpectedly")
 
 
 if __name__ == "__main__":
