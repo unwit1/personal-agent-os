@@ -66,7 +66,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
-from . import adaptive_concurrency, budget, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
+from . import adaptive_concurrency, budget, gpu_keep_busy, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
 
 RUNPOD_REST = "https://rest.runpod.io/v1"
 HF_API = "https://huggingface.co/api/models"
@@ -663,7 +663,7 @@ class ForemanManager:
 
     def __init__(self, *, base: Path | None = None, budget_home: Path | None = None, opener=None, resolve=None,
                  store_secret=None, register=None, unregister=None, run_loader=None, clock: Callable[[], float] = time.time,
-                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None, retune=None) -> None:
+                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None, retune=None, backfill_loader=None) -> None:
         from . import secret_refs
 
         self.registry = registry
@@ -676,6 +676,7 @@ class ForemanManager:
         self.unregister = unregister or _unregister_provider
         self.retune = retune or _retune_provider
         self.run_loader = run_loader or _load_run
+        self.backfill_loader = backfill_loader or (lambda: [])
         self.clock = clock
         self.sleep = sleep
         self.inventory = inventory
@@ -1054,6 +1055,10 @@ class ForemanManager:
         if "kv_usage" in metrics:
             usage["kv_usage"] = metrics["kv_usage"]
         usage["prev"] = dict(metrics)
+        # Paid idle seconds: has_work is the previous tick's keep-busy verdict (_idle runs after _sample).
+        paid_idle = gpu_keep_busy.PaidIdle.from_dict(usage.get("paid_idle"))
+        paid_idle.tick(metrics.get("running", 0) + metrics.get("waiting", 0) > 0, bool((state.get("keep_busy") or {}).get("count")), TICK_SECONDS)
+        usage["paid_idle"] = paid_idle.to_dict()
         if not (state.get("registered") and state.get("provider_id")) or state.get("kind") == "local":
             return self._update(state, usage=usage)
         concurrency = dict(state.get("concurrency") or {"limit": 4, "memory": {}})
@@ -1115,9 +1120,31 @@ class ForemanManager:
             if record.get("state") not in ("COMPLETE", "FAILED") and (planner is None or planner.get("state") not in ("PASSED", "FAILED_FINAL", "CANCELLED")):
                 busy = True
         if busy:
-            self._update(state, last_needed_epoch=self.clock())
+            self._update(state, last_needed_epoch=self.clock(), keep_busy=None)
             return False
+        work = self._useful_work(state)
+        if work["kind"]:
+            # The router sends this work to the still-registered, cheap provider; the foreman only declines to tear down.
+            self._update(state, last_needed_epoch=self.clock(),
+                         keep_busy={"kind": work["kind"], "count": len(work["items"]), "reason": work["reason"]})
+            return False
+        if state.get("keep_busy"):
+            self._update(state, keep_busy=None)
         return self.clock() - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
+
+    def _useful_work(self, state: dict[str, Any]) -> dict[str, Any]:
+        """Queued work the router may send to this provider; any loader failure counts as no work."""
+        records = []
+        for run_id in state.get("runs") or []:
+            try:
+                records.append(self.run_loader(run_id))
+            except Exception:
+                continue
+        try:
+            backfill = list(self.backfill_loader() or [])
+            return gpu_keep_busy.useful_work(records, backfill, roles=registered_roles(state), home=self.budget_home)
+        except Exception:
+            return {"kind": None, "items": [], "reason": "useful-work lookup failed"}
 
     def _teardown(self, state: dict[str, Any], status: str, detail: str) -> None:
         with self._lock:
@@ -1224,6 +1251,17 @@ def _retune_provider(state: dict[str, Any], limit: int) -> None:
             written += 1
     if not written:
         raise RuntimeError(f"no registered provider entry found for {state['provider_id']}")
+
+
+def registered_roles(state: dict[str, Any]) -> set[str]:
+    """Roles the registered provider entries cover (an explicit state["roles"] overrides the defaults)."""
+    if state.get("roles"):
+        return set(state["roles"])
+    roles = {"planner", "inline"}
+    agent = agent_entry(state) if state.get("model") else None
+    if agent:
+        roles.update(agent["roles"])
+    return roles
 
 
 def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:

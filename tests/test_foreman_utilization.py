@@ -203,5 +203,95 @@ class AdaptiveConcurrencySampleTests(Base):
         self.assertIs(fd.METRICS, fd.vllm_metrics_parser.METRICS)
 
 
+class KeepBusyTests(Base):
+    """Queued useful work holds off the idle teardown; budget, deadline and reaper paths still fire."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        budget.set_budget(10, 10, home=self.budget_home)
+        self.cloud.pods["podK"] = {"id": "podK", "desiredStatus": "RUNNING", "costPerHr": 1.0}
+        self.backfill: list[dict] = []
+        self.metrics = _metrics_text(0, 0, 0.1)
+
+        def opener(request, timeout=None):
+            if request.full_url.endswith("/metrics"):
+                return _Text(self.metrics)
+            return self.cloud(request, timeout)
+
+        self.manager_ = self.manager(opener=opener, sleep=self.clock.sleep, backfill_loader=lambda: self.backfill)
+        self.state = {"id": "FMN-K", "kind": "huggingface", "status": "ready", "pod_id": "podK", "provider_id": "foreman-k", "base_url": "http://pod",
+                      "hourly_usd": 1.0, "cap_usd": 5.0, "spent_usd": 0.0, "billed_until_epoch": self.clock.now, "last_needed_epoch": self.clock.now,
+                      "deadline_epoch": self.clock.now + 6 * 3600, "runs": ["run-1"], "idle_minutes": 5, "model": {"repo": "org/coder-7b"},
+                      "roles": ["planner", "inline", "reviewer"]}
+        self.runs["run-1"] = {"state": "RUNNING", "nodes": {"plan": {"state": "PASSED"}, "rev": {"role": "reviewer", "state": "PENDING"}}}
+        fd._save_state(self.state, self.foreman_home)
+
+    def watch(self) -> dict:
+        self.manager_._watch(self.state)
+        return fd.load_state(self.foreman_home)
+
+    def test_queued_review_blocks_idle_teardown_past_idle_minutes(self) -> None:
+        ticks = {"n": 0}
+
+        def sleep(seconds: float) -> None:
+            self.clock.sleep(seconds)
+            ticks["n"] += 1
+            if ticks["n"] == 30:  # 15 minutes: three times idle_minutes
+                self.runs["run-1"]["nodes"]["rev"]["state"] = "PASSED"
+
+        self.manager_.sleep = sleep
+        state = self.watch()
+        self.assertGreaterEqual(ticks["n"], 30)
+        self.assertEqual(state["status"], "stopped")
+        self.assertIn("idle for 5 min", state["detail"])
+        self.assertFalse(state.get("keep_busy"))  # cleared once nothing was queued
+
+    def test_keep_busy_state_records_kind_count_and_reason(self) -> None:
+        self.clock.now += 20 * 60
+        self.assertFalse(self.manager_._idle(self.state))
+        self.assertEqual(self.state["keep_busy"], {"kind": "review", "count": 1, "reason": "1 reviewer node(s) ready"})
+        self.assertEqual(self.state["last_needed_epoch"], self.clock.now)
+
+    def test_empty_queue_still_tears_down(self) -> None:
+        self.runs["run-1"]["nodes"]["rev"]["state"] = "PASSED"
+        state = self.watch()
+        self.assertEqual(state["status"], "stopped")
+        self.assertIn("idle for 5 min", state["detail"])
+        self.assertEqual(self.cloud.deleted, ["podK"])
+
+    def test_backfill_queue_keeps_gpu_when_no_run_work(self) -> None:
+        self.runs["run-1"]["nodes"]["rev"]["state"] = "PASSED"
+        self.backfill.append({"id": "b1", "kind": "docs"})
+        self.clock.now += 20 * 60
+        self.assertFalse(self.manager_._idle(self.state))
+        self.assertEqual(self.state["keep_busy"]["kind"], "backfill")
+
+    def test_deadline_tears_down_with_work_queued(self) -> None:
+        self.state["deadline_epoch"] = self.clock.now + 120
+        fd._save_state(self.state, self.foreman_home)
+        state = self.watch()
+        self.assertEqual(state["status"], "stopped")
+        self.assertIn("job budget reached", state["detail"])
+        self.assertEqual(self.cloud.deleted, ["podK"])
+        self.assertEqual(self.runs["run-1"]["nodes"]["rev"]["state"], "PENDING")  # the work was still queued
+
+    def test_budget_cap_tears_down_with_work_queued(self) -> None:
+        self.state["cap_usd"] = 0.2
+        fd._save_state(self.state, self.foreman_home)
+        state = self.watch()
+        self.assertEqual(state["status"], "stopped")
+        self.assertIn("job budget reached", state["detail"])
+
+    def test_paid_idle_seconds_accumulate(self) -> None:
+        self.state["keep_busy"] = {"kind": "review", "count": 1, "reason": "x"}
+        self.manager_._sample(self.state)
+        self.manager_._sample(self.state)
+        self.metrics = _metrics_text(2, 0, 0.3)
+        self.manager_._sample(self.state)
+        paid = self.state["usage"]["paid_idle"]
+        self.assertEqual(paid, {"paid_seconds": 3.0 * fd.TICK_SECONDS, "idle_seconds": 2.0 * fd.TICK_SECONDS,
+                                "idle_with_work_seconds": 2.0 * fd.TICK_SECONDS})
+
+
 if __name__ == "__main__":
     unittest.main()
