@@ -156,7 +156,6 @@ def _approval_state(batch: dict) -> dict:
 
 def _dispatch_executive(args) -> int:
     from .executive import applicants as ex
-    from .executive.window import server
 
     cmd = args.executive_command
     if cmd == "needs-action":
@@ -190,6 +189,7 @@ def _dispatch_executive(args) -> int:
         )
         _print({"approval": approval, "dry_run": not args.confirm, "result": result})
     elif cmd == "window":
+        from .executive.window import server
         return server.serve(port=args.port, open_window=not args.no_open)
     return 0
 
