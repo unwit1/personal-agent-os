@@ -846,10 +846,10 @@ vLLM `/metrics` every tick (30 s), informed by:
 The `ConcurrencyPolicy` tunable defines behavior:
 - `minimum: 2, maximum: 32`: hard bounds;
 - `start: 4`: initial limit on each deployment;
-- `step_up: 2`, `raise_after: 2`: when KV usage stays below 70% and at least
-  one request is running, raise the limit by 2 every 2 ticks;
-- `backoff_after: 1`: when the queue grows or KV usage hits 90%, back off
-  immediately (halve on saturation, step down otherwise).
+- `step_up: 2`, `raise_after: 2`: raise the limit by 2 after 2 ticks with no
+  queue, KV < 70% and running >= limit-1;
+- `backoff_after: 1`: back off immediately on any waiting request (step down to
+  limit-2) or KV >= 90% (halve to limit//2); hold when metrics are missing.
 
 The state machine has hysteresis: a `raise` or `backoff` decision resets the
 counter so each direction requires sustained evidence (e.g. 2 ticks in good
@@ -861,14 +861,16 @@ When attached runs are idle or between planning and execution, the rented
 provider (via `gpu_keep_busy.useful_work`) looks for queued work in priority order:
 
 1. **Reviews**: nodes in reviewer role, state READY or WAITING_FOR_REVIEW.
-2. **Worker tasks**: implementer, test_author, or repairer nodes, fast or
-   balanced capability class, state READY or PENDING.
+2. **Worker tasks**: implementer, test_author nodes, fast or balanced capability
+   class, state READY or PENDING. (Repairer nodes are matched only if registered
+   in the active roles; they are not registered for gpu_pod by default.)
 3. **Backfill**: checkpointable items from the free-compute broker's backfill
    queue (see section 14), re-checked against `is_free()` immediately before dispatch.
 
-The scheduler does not start work when no run is attached (it has no plan
-context). Paid idle — seconds with no user request running — is tracked
-separately and a target of 15% (DEFAULT_IDLE_TARGET) is recorded in telemetry.
+Queued useful work restarts the idle timer once and keeps it running while
+serving. Unrouted work the router ignores gets one `idle_minutes` grace period
+before teardown. Paid idle — seconds with no user request running (tracked
+separately) — has a target of 15% (DEFAULT_IDLE_TARGET) recorded in telemetry.
 **The budget, deadline, and reaper safety checks still take precedence:** idle
 teardown waits until nothing useful is queued, then counts down; the budget
 watchdog deletes the pod before the next tick would cross 95% of the job cap; and
@@ -926,7 +928,9 @@ cost metrics with:
 - `kv_usage_pct`: current GPU KV-cache occupancy (0–100).
 - `prefix_cache_hit_pct`: (prefix cache hits) / (queries), when tracked.
 - `concurrency_limit`: current adaptive concurrency limit.
-- `paid_idle_pct`: fraction of paid time with no user request running.
+- `paid_idle_pct`: fraction of paid time spent idle (no running or waiting
+  requests). Derived from `PaidIdle.tick()` calls in the meter loop: each tick
+  marks idle if `running + waiting == 0`.
 - `idle_target_pct`: the 15% target.
 - `meets_idle_target`: whether actual paid idle is at or under target.
 - `usd_per_useful_request`: amortized cost per request counted as useful
@@ -937,7 +941,8 @@ expected plan:
 - `planned_max_num_seqs`: the --max-num-seqs value that will be launched.
 - `kv_cache_dtype`: fp8, fp16, or None.
 - `prefix_caching`, `chunked_prefill`: flags enabled at launch.
-- `roles`: capability classes the pod can serve (from ROLES_BY_CLASS).
+- `roles`: role names from ROLES_BY_CLASS (planner, inline, implementer,
+  test_author, reviewer for gpu_pod).
 - `initial_concurrency`, `concurrency_bounds`: starting limit and min/max range.
 - `idle_target_pct`: the 15% target.
 - `prefix_stable`: None (will be fingerprinted once a run attaches).
