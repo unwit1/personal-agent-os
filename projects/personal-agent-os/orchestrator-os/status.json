@@ -61,7 +61,7 @@
     "Credential setup via masked pop-ups into Windows Credential Manager: orchestrate secrets setup / set --gui; radar sends an optional HF token (DEC-0040)",
     "Operator-approved compute budget $10 project / $5 per-job hard cap (machine-wide ~/.agent-os/budget.json, history + spend ledger, orchestrate budget show|set); quote gate enforces it (DEC-0041)",
     "Operator raised the per-job hard cap to $10 (project budget $10) on 2026-09-29; recorded in ~/.agent-os/budget-history.jsonl",
-    "IMP-0015 slice 10: OpenRouter FreeComputeBroker (free-first routing, dynamic model discovery, versioned cached catalog, per-task empirical specialization, quota/account visibility, fan-out backfill with checkpoints, validator-gated escalation, useful-progress metrics, operator-alert-only top-up recommendation) — modules: free_catalog, free_quota, free_routing, free_specialization, free_swarm, free_metrics; tests: 95 pass; CLI: orchestrate free-*; read-only account visibility with secrets://openrouter/default awareness"
+    "IMP-0015 slice 10: OpenRouter FreeComputeBroker (free-first routing, dynamic model discovery, versioned cached catalog, per-task empirical specialization, quota/account visibility, fan-out backfill with checkpoints, validator-gated escalation, useful-progress metrics, operator-alert-only top-up recommendation) — modules: free_catalog, free_quota, free_routing, free_specialization, free_swarm, free_metrics; tests: 95 pass; CLI: pending (fcb-cli); read-only account visibility with secrets://openrouter/default awareness"
   ],
   "blockers": [],
   "active_experiments": [
