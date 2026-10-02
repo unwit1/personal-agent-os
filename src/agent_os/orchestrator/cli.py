@@ -693,6 +693,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit(budget.set_budget(args.project_usd, args.job_cap_usd, note=args.note))
         return 0
     if action == "compute":
+        import os
         from . import compute, provision
 
         if args.action == "inventory":
@@ -701,6 +702,10 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             stock["offers"] = [offer for offer in stock.get("offers") or [] if (offer.get("vram_gb") or 0) >= args.min_vram]
             emit(stock)
             return 0
+
+        budget_home_env = os.environ.get("AGENT_OS_BUDGET_HOME")
+        budget_home = Path(budget_home_env) if budget_home_env else None
+
         if args.action == "provision":
             try:
                 if not args.provider:
@@ -717,7 +722,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
                     request["max_runtime_seconds"] = args.max_runtime_seconds
                 if args.secret_ref:
                     request["secret_ref"] = args.secret_ref
-                result = provision.provision(request)
+                result = provision.provision(request, budget_home=budget_home)
                 emit(result)
                 return 0
             except (ValueError, KeyError) as exc:
@@ -732,13 +737,13 @@ def dispatch(args: argparse.Namespace, emit) -> int:
                     return 2
 
             if args.action == "status":
-                result = provision.status(args.job_id)
+                result = provision.status(args.job_id, budget_home=budget_home)
             elif args.action == "stop":
-                result = provision.stop(args.job_id)
+                result = provision.stop(args.job_id, budget_home=budget_home)
             elif args.action == "destroy":
-                result = provision.destroy(args.job_id)
+                result = provision.destroy(args.job_id, budget_home=budget_home)
             elif args.action == "reconcile":
-                result = provision.reconcile(args.job_id, actual_usd=args.actual_usd)
+                result = provision.reconcile(args.job_id, actual_usd=args.actual_usd, budget_home=budget_home)
             elif args.action == "jobs":
                 result = provision.list_jobs()
             else:
