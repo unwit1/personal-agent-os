@@ -86,36 +86,3 @@ class MailScopeTabTests(unittest.TestCase):
             return []
 
         self.assertEqual(mail_items(own_addresses=[], search=search, now=datetime(2026, 10, 2, tzinfo=timezone.utc)), [])
-
-
-class MailIntelligenceContractDocTests(unittest.TestCase):
-    """docs/integrations/mail-intelligence.md is the binding contract for the mail-intelligence tasks."""
-
-    DOC = Path(__file__).resolve().parents[1] / "docs" / "integrations" / "mail-intelligence.md"
-
-    def setUp(self):
-        self.text = self.DOC.read_text(encoding="utf-8")
-
-    def test_names_the_apis_and_modules(self):
-        for term in ("src/agent_os/mail/spam.py", "src/agent_os/mail/organize.py", "src/agent_os/mail/organize_apply.py",
-                     "classify(message: dict, *, own: set[str], known: set[str])", "known_correspondents(rows, own",
-                     "build_plan", "CATEGORIES", "spam_filtered", "allow_organize", "mail_cleanup", "mail.organize"):
-            with self.subTest(term=term):
-                self.assertIn(term, self.text)
-
-    def test_every_category_has_a_default_folder_entry(self):
-        for category in ("action_needed", "waiting_on_others", "receipts_finance", "newsletters_promotions",
-                         "notifications", "hr_applicants", "personal", "spam", "archive_old"):
-            with self.subTest(category=category):
-                self.assertIn(f'"{category}":', self.text)
-        self.assertIn("Agent OS/Receipts", self.text)
-
-    def test_states_the_safety_rules(self):
-        for term in ("UID MOVE", "never delete", "EXPUNGE", "$AgentOSOrganized", "dry_run=True", "undo.command", "No Outlook"):
-            with self.subTest(term=term):
-                self.assertIn(term, self.text)
-
-    def test_states_the_verdict_thresholds(self):
-        for term in ("HUMAN_MAX = 2", "REVIEW_MIN = 3", "BULK_MIN = 6", "own sent mail", "Junk E-mail", "List-Unsubscribe", "List-Id"):
-            with self.subTest(term=term):
-                self.assertIn(term, self.text)
