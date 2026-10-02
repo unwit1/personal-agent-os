@@ -88,7 +88,10 @@ PENDING = "teardown_pending"
 REAP_AFTER_SECONDS = 6 * TICK_SECONDS  # watchdog silent this long -> it died with its process
 # vLLM tool-call parser per model family: needed for a coding agent (tool use).
 TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qwen3_moe": "hermes", "llama": "llama3_json",
-                "mistral": "mistral", "mixtral": "mistral"}
+                "mistral": "mistral", "mixtral": "mistral",
+                # Qwen3.5-generation chat templates emit XML tool calls
+                # (<tool_call><function=...><parameter=...>), the Qwen3-Coder format.
+                "qwen3_5": "qwen3_coder", "qwen3_5_moe": "qwen3_coder"}
 AGENT_SUFFIX = "-agent"
 GPU_KEY_ENV = "AGENT_OS_GPU_KEY"
 CRASH_LOG = "agent-os-crash.log"
