@@ -305,7 +305,7 @@
       "deterministic_operations": "~15 (doc repair, contradiction removal, JSON validation, test validation)",
       "model_calls": 0,
       "measured_cost_usd": 0,
-      "note": "repair: removed superseded 'Known: email.send' section from executive-window.md; status entry appended"
+      "note": "repair: docs updated to refer to contract for sender registration state; county.refresh documented per contract but not yet code-registered (gap); email.send/executive.reach_out remain code-registered pending contract implementation"
     }
   },
   "known_baseline": {

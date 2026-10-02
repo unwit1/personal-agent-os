@@ -95,7 +95,7 @@ Opens Edge `--app` window on the local server.
 
 ## Applicant workflow
 
-Full contract: [executive-applicant-workflow.md](executive-applicant-workflow.md). The `email.send` and `executive.reach_out` actions are registered for general use; the compose panel is the primary send path for applicant and manager outreach in this workflow.
+Full contract: [executive-applicant-workflow.md](executive-applicant-workflow.md). The compose panel is the primary send path for applicant and manager outreach in this workflow; see section 11.1 of the contract for which senders are available.
 
 ### Compose and Send panel
 
