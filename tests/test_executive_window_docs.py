@@ -74,11 +74,41 @@ class TestExecutiveApplicantWorkflowDoc(unittest.TestCase):
             "NOT SENT:",
             "message_id",
             "only after a successful send",
-            "ComposeStore",
-            "/api/compose",
+            "Api.__init__(self, registry, bridge, home, *, transport=None, gateway_factory=None)",
         ):
             with self.subTest(term=term):
                 self.assertIn(term, self.content)
+
+    def test_lettered_anchors(self):
+        for heading in ("## 4. (a)", "## 5. (b)", "## 6. (c)", "## 7. (d)"):
+            with self.subTest(heading=heading):
+                self.assertIn(heading, self.content)
+
+    def test_downstream_module_names(self):
+        for term in (
+            "executive/window/transport.py",
+            "county_items(groups_fn=None)",
+            "actions_applicant_compose",
+            "actions_applicant_decisions",
+            "actions_openings",
+            "`applicant.review`",
+            "county_openings",
+        ):
+            with self.subTest(term=term):
+                self.assertIn(term, self.content)
+
+    def test_unowned_infrastructure_is_only_a_follow_up(self):
+        required, _, follow_ups = self.content.partition("## 12. Follow-ups")
+        self.assertTrue(follow_ups)
+        for term in ("ComposeStore", "HoldStore", "/api/settings", "/api/compose", "retry-record",
+                     "Registry.item(", "sent.jsonl"):
+            with self.subTest(term=term):
+                self.assertNotIn(term, required)
+
+    def test_provider_reads_dashboard_once(self):
+        self.assertIn("def county_groups(", self.content)
+        self.assertIn("`ranked = gateway.ranked(0)` exactly once", self.content)
+        self.assertIn("`gateway.match_for(ref)` exactly once", self.content)
 
     def test_transport_contract(self):
         for term in (
@@ -127,7 +157,7 @@ class TestExecutiveApplicantWorkflowDoc(unittest.TestCase):
         ):
             with self.subTest(action_id=action_id):
                 self.assertIn(f"`{action_id}`", self.content)
-        for term in ("register_action", "executive_window.run", "county_applicant", "county_group", "openings_console"):
+        for term in ("register_action", "executive_window.run", "county_openings", "openings_console"):
             with self.subTest(term=term):
                 self.assertIn(term, self.content)
 
