@@ -110,6 +110,11 @@ const Executive = (() => {
     group.className = 'mail-cleanup';
     const context = item.context || {};
     const plan = context.plan;
+    const spamFiltered = context.spam_filtered || {};
+    const byAccount = spamFiltered.by_account || {};
+    const spamFilteredCounts = Object.fromEntries(
+      Object.entries(spamFiltered).filter(([k]) => k !== 'by_account')
+    );
     if (!plan || Object.keys(plan).length === 0) {
       group.appendChild(textEl('div', 'muted', 'No plan yet'));
     } else {
@@ -144,11 +149,6 @@ const Executive = (() => {
         group.appendChild(table);
       });
     }
-    const spamFiltered = context.spam_filtered || {};
-    const byAccount = spamFiltered.by_account || {};
-    const spamFilteredCounts = Object.fromEntries(
-      Object.entries(spamFiltered).filter(([k]) => k !== 'by_account')
-    );
     group.appendChild(textEl('div', 'mail-cleanup-filtered', 'Spam filtered: ' + countsText(spamFilteredCounts)));
     return group;
   }
