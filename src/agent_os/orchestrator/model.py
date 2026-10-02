@@ -153,6 +153,13 @@ DEFAULT_POLICY: dict[str, Any] = {
     # adds ~36% on passing ones (DEC-0007), so "always" pays only when more
     # than ~36% of validations fail. "off" disables it.
     "affected_tests_first": "retries",
+    # Per-node validation depth. "affected" (default, operator choice
+    # 2026-10-02): a node runs its import-graph-affected tests, its planned
+    # validators and the cheap project checks, but not the project's full unit
+    # suite; that suite still gates the integrated result at completion.
+    # "full": every node also runs the full suite (slower, catches unrelated
+    # breakage one step earlier).
+    "node_validation": "affected",
     # IMP-0014: operator-only opt-out of the worker publication guard.
     "allow_worker_publication": False,
     # Operator switch: may this run spend outside credits (per-token APIs such
@@ -260,6 +267,8 @@ def _check_policy(policy: dict[str, Any]) -> None:
         policy["affected_tests_first"] = mode = "always" if mode else "off"
     if mode not in {"off", "retries", "always"}:
         raise PolicyError("affected_tests_first must be off, retries or always")
+    if policy.get("node_validation", "affected") not in {"affected", "full"}:
+        raise PolicyError("node_validation must be affected or full")
     granted = policy.get("protected_paths_allowed", [])
     if not isinstance(granted, list) or any(not isinstance(item, str) for item in granted):
         raise PolicyError("protected_paths_allowed must be a list of path globs")

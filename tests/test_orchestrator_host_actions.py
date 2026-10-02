@@ -362,3 +362,36 @@ class WaitForCheaperResetTests(OrchestratorFixture):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NodeValidationDepthTests(OrchestratorFixture):
+    """node_validation=affected: the full unit suite gates completion, not every node."""
+
+    def suite(self) -> dict:
+        # "unittest" in the command marks it as the project's unit suite.
+        return {"kind": "command", "command": [sys.executable, "-c", "import sys; print('unittest suite ok'); sys.exit(0)"],
+                "name": "project-validation-1"}
+
+    def run_depth(self, depth: str) -> dict:
+        # As the planner does: the project suite is appended to each node's validators.
+        from test_orchestrator import PASS
+        run_id = self.create([self.task("a", validators=[PASS, self.suite()])], require_independent_review_for_model_edits=False,
+                             default_validators=[self.suite()], node_validation=depth)
+        final = self.engine.run_loop(run_id, max_ticks=40)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+        return self.engine.load(run_id)
+
+    def test_affected_mode_runs_the_suite_only_at_completion(self) -> None:
+        record = self.run_depth("affected")
+        node_names = [item["name"] for item in record["nodes"]["a"]["validation"]["evidence"]]
+        self.assertNotIn("project-validation-1", node_names)
+        self.assertIn("project-validation-1", [item["name"] for item in record["final"]["validation"]["evidence"]])
+
+    def test_full_mode_keeps_the_suite_on_every_node(self) -> None:
+        record = self.run_depth("full")
+        self.assertIn("project-validation-1", [item["name"] for item in record["nodes"]["a"]["validation"]["evidence"]])
+
+    def test_invalid_depth_is_rejected(self) -> None:
+        from agent_os.orchestrator.model import PolicyError
+        with self.assertRaises(PolicyError):
+            self.create([self.task("a")], node_validation="sometimes")

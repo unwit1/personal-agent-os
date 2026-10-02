@@ -1053,7 +1053,12 @@ class Orchestrator:
         manager = self._manager(record)
         changed = manager.changed_files(worktree["path"], worktree["base_commit"])
         validators = node["validators"] or record["policy"]["default_validators"]
-        affected = self._affected_tests_first(record, node, validators, worktree["path"], changed)
+        slim = record["policy"].get("node_validation", "affected") == "affected"
+        affected = self._affected_tests_first(record, node, validators, worktree["path"], changed, force=slim)
+        if slim:
+            # The project's full unit suite gates the integrated result at
+            # completion; per node, the affected tests stand in for it.
+            validators = _without_full_suite(record, validators)
         if affected is not None and not affected["passed"]:
             # Fail fast: a new failure in the affected modules already decides
             # this attempt; the full suite would only repeat it more slowly.
@@ -1170,7 +1175,7 @@ class Orchestrator:
         node["state"] = "PASSED"
         node["completed_at"] = now()
 
-    def _affected_tests_first(self, record: dict[str, Any], node: dict[str, Any], validators: list[dict[str, Any]], cwd: str | Path, changed: list[str]) -> dict[str, Any] | None:
+    def _affected_tests_first(self, record: dict[str, Any], node: dict[str, Any], validators: list[dict[str, Any]], cwd: str | Path, changed: list[str], *, force: bool = False) -> dict[str, Any] | None:
         """IMP-0006: run the import-graph-selected test modules before the
         full validators. Returns the evidence item, or None when the step does
         not apply. Failures that already fail on the base commit (per the
@@ -1183,6 +1188,8 @@ class Orchestrator:
         project = [item for item in validators if str(item.get("name", "")).startswith("project-validation")]
         mode = record["policy"].get("affected_tests_first", "retries")
         mode = {True: "always", False: "off"}.get(mode, mode) if isinstance(mode, bool) else mode
+        if force:
+            mode = "always"  # node_validation=affected: these tests replace the per-node full suite
         retrying = int(node.get("attempts") or 1) > 1 or node["role"] == "repairer"
         if mode == "off" or (mode == "retries" and not retrying) or not changed or not project or not runs_unit_tests(project):
             return None
@@ -2698,6 +2705,22 @@ def _suite_key(command: Any) -> str:
     """A command normalized for comparing suites: argv or string, ignoring -v."""
     parts = command if isinstance(command, list) else str(command or "").split()
     return " ".join(str(part) for part in parts if str(part) not in {"-v", "--verbose"})
+
+
+def _without_full_suite(record: dict[str, Any], validators: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Validators minus the project's full unit suite (project-validation
+    entries or planned copies of the same command); everything else stays."""
+    from .test_selection import runs_unit_tests
+
+    suites = {_suite_key(command) for command in _project_commands(record.get("project"))}
+    kept = []
+    for validator in validators:
+        full = runs_unit_tests([validator]) and (
+            str(validator.get("name", "")).startswith("project-validation") or _suite_key(validator.get("command")) in suites
+        )
+        if not full:
+            kept.append(validator)
+    return kept
 
 
 def _count_running(running: dict[str, int], provider: str, capability_class: str | None) -> None:
