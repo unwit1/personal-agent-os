@@ -294,7 +294,9 @@ def build(run_dirs: Iterable[Path], min_samples: int = 5, target: float = 0.9) -
         cov["runs"] += 1
 
         outcomes = node_outcomes(events)
-        cov["reviewer_nodes_excluded"] += len({e['node'] for e in events if isinstance(e, dict) and isinstance(e.get('data'), dict) and e.get('type') in _MODEL_EVENTS and e.get('node') is not None}) - len(outcomes)
+        # Reviewer nodes are those with model events but excluded from outcomes
+        model_nodes = {e['node'] for e in events if isinstance(e, dict) and isinstance(e.get('data'), dict) and e.get('type') in _MODEL_EVENTS and e.get('node') is not None}
+        cov["reviewer_nodes_excluded"] += len(model_nodes) - len(outcomes)
         for outcome in outcomes:
             node = outcome.get("node")
             if node:

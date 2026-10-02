@@ -135,18 +135,24 @@ class ReportTest(unittest.TestCase):
             runs_dir = tmpdir_path / "runs"
             runs_dir.mkdir()
 
+            schema = "personal-agent/orchestrator-telemetry/v1"
             run_dir = runs_dir / "run-20260101T000000Z-abc123"
             run_dir.mkdir()
             telemetry = run_dir / "telemetry.jsonl"
             telemetry.write_text(
-                json.dumps({"type": "model_completed", "node": "node-1", "seq": 1,
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-1", "seq": 1,
                            "data": {"role": "worker", "capability_class": "cheap",
-                                   "effort": "low", "provider": "p1"}}) + "\n"
+                                   "effort": "low", "provider": "p1"}}) + "\n" +
+                json.dumps({"schema": schema, "type": "tests_completed", "node": "node-1", "seq": 2,
+                           "data": {"passed": True}}) + "\n"
             )
 
             result = report(home=tmpdir_path)
             self.assertEqual(len(result["runs"]), 1)
             self.assertEqual(result["runs"][0], "run-20260101T000000Z-abc123")
+            self.assertEqual(result["coverage"]["nodes"], 1)
+            self.assertIn("orchestrator-worker", result["cells"])
+            self.assertIn("cheap", result["cells"]["orchestrator-worker"])
 
     def test_report_with_output_file(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -154,11 +160,12 @@ class ReportTest(unittest.TestCase):
             runs_dir = tmpdir_path / "runs"
             runs_dir.mkdir()
 
+            schema = "personal-agent/orchestrator-telemetry/v1"
             run_dir = runs_dir / "run-20260101T000000Z-abc123"
             run_dir.mkdir()
             telemetry = run_dir / "telemetry.jsonl"
             telemetry.write_text(
-                json.dumps({"type": "model_completed", "node": "node-1", "seq": 1,
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-1", "seq": 1,
                            "data": {"role": "worker", "capability_class": "cheap",
                                    "effort": "low", "provider": "p1"}}) + "\n"
             )
@@ -172,22 +179,34 @@ class ReportTest(unittest.TestCase):
             self.assertEqual(loaded["schema"], result["schema"])
             self.assertEqual(loaded["mode"], result["mode"])
 
-    def test_report_output_parents_created(self):
+    def test_report_output_and_json_formatting(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             tmpdir_path = Path(tmpdir)
             runs_dir = tmpdir_path / "runs"
             runs_dir.mkdir()
 
+            schema = "personal-agent/orchestrator-telemetry/v1"
             run_dir = runs_dir / "run-20260101T000000Z-abc123"
             run_dir.mkdir()
             telemetry = run_dir / "telemetry.jsonl"
-            telemetry.write_text("")
+            telemetry.write_text(
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-1", "seq": 1,
+                           "data": {"role": "worker", "capability_class": "cheap",
+                                   "effort": "low", "provider": "p1"}}) + "\n"
+            )
 
             out_path = tmpdir_path / "deep" / "nested" / "path" / "report.json"
             result = report(home=tmpdir_path, out=out_path)
 
             self.assertTrue(out_path.exists())
             self.assertTrue(out_path.parent.exists())
+            with open(out_path) as f:
+                content = f.read()
+            loaded = json.loads(content)
+
+            self.assertEqual(loaded["schema"], result["schema"])
+            keys = list(loaded.keys())
+            self.assertEqual(keys, sorted(keys))
 
     def test_report_multiple_runs_sorted(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -195,12 +214,17 @@ class ReportTest(unittest.TestCase):
             runs_dir = tmpdir_path / "runs"
             runs_dir.mkdir()
 
+            schema = "personal-agent/orchestrator-telemetry/v1"
             for name in ["run-20260103T000000Z-abcdef", "run-20260101T000000Z-abc123",
                         "run-20260102T000000Z-def456"]:
                 run_dir = runs_dir / name
                 run_dir.mkdir()
                 telemetry = run_dir / "telemetry.jsonl"
-                telemetry.write_text("")
+                telemetry.write_text(
+                    json.dumps({"schema": schema, "type": "model_completed", "node": "node-1", "seq": 1,
+                               "data": {"role": "worker", "capability_class": "cheap",
+                                       "effort": "low", "provider": "p1"}}) + "\n"
+                )
 
             result = report(home=tmpdir_path)
             self.assertEqual(len(result["runs"]), 3)
@@ -214,10 +238,15 @@ class ReportTest(unittest.TestCase):
             runs_dir = tmpdir_path / "runs"
             runs_dir.mkdir()
 
+            schema = "personal-agent/orchestrator-telemetry/v1"
             valid_run = runs_dir / "run-20260101T000000Z-abc123"
             valid_run.mkdir()
             telemetry = valid_run / "telemetry.jsonl"
-            telemetry.write_text("")
+            telemetry.write_text(
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-1", "seq": 1,
+                           "data": {"role": "worker", "capability_class": "cheap",
+                                   "effort": "low", "provider": "p1"}}) + "\n"
+            )
 
             invalid_dir = runs_dir / "not-a-run"
             invalid_dir.mkdir()
@@ -225,28 +254,6 @@ class ReportTest(unittest.TestCase):
             result = report(home=tmpdir_path)
             self.assertEqual(len(result["runs"]), 1)
             self.assertEqual(result["coverage"]["malformed_runs"], 1)
-
-    def test_report_json_formatting(self):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            tmpdir_path = Path(tmpdir)
-            runs_dir = tmpdir_path / "runs"
-            runs_dir.mkdir()
-
-            run_dir = runs_dir / "run-20260101T000000Z-abc123"
-            run_dir.mkdir()
-            telemetry = run_dir / "telemetry.jsonl"
-            telemetry.write_text("")
-
-            out_path = tmpdir_path / "report.json"
-            result = report(home=tmpdir_path, out=out_path)
-
-            with open(out_path) as f:
-                content = f.read()
-            loaded = json.loads(content)
-
-            self.assertEqual(loaded["schema"], result["schema"])
-            keys = list(loaded.keys())
-            self.assertEqual(keys, sorted(keys))
 
 
 if __name__ == "__main__":
