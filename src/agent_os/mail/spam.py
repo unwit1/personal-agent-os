@@ -115,25 +115,22 @@ def _bulk_domain(domain: str) -> bool:
 
 def known_correspondents(rows, own: set[str]) -> set[str]:
     """Addresses the operator wrote to (To/Cc of rows sent by an own address), minus own."""
-    own_l = {str(a).strip().lower() for a in own}
     known: set[str] = set()
     for row in rows:
-        if _address(row.get("sender")) not in own_l:
+        if _address(row.get("sender")) not in own:
             continue
         known.update(_addresses(row.get("recipients")))
         known.update(_addresses(row.get("cc")))
-    return known - own_l
+    return known - own
 
 
 def classify(message: dict, *, own: set[str], known: set[str]) -> dict:
     """-> {'verdict': 'human'|'bulk'|'spam'|'review', 'reasons': [str], 'score': int}"""
     if not isinstance(message, dict):
         raise TypeError("message must be a dict")
-    own_l = {str(a).strip().lower() for a in own}
-    known_l = {str(a).strip().lower() for a in known}
     addr = _address(message.get("sender"))
 
-    if addr and addr in own_l:
+    if addr and addr in own:
         return {"verdict": "bulk", "reasons": [R_OWN], "score": 0}
     mailbox = message.get("mailbox")
     if _spam_folder(mailbox):
@@ -187,7 +184,7 @@ def classify(message: dict, *, own: set[str], known: set[str]) -> dict:
         score += 1
         reasons.append("mentions unsubscribe")
 
-    is_known = bool(addr) and addr in known_l
+    is_known = bool(addr) and addr in known
     if is_known:
         if auto or strong:
             discount = 0
