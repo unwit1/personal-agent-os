@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -41,13 +43,13 @@ class FakeProviderTests(unittest.TestCase):
         self.assertEqual(result["instance_id"], "fake-1")
         self.assertEqual(self.provider.launches, 1)
 
-    def test_launch_increments_counter_on_each_call(self) -> None:
+    def test_launch_same_name_returns_existing_instance(self) -> None:
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         result1 = self.provider.launch(spec)
         result2 = self.provider.launch(spec)
-        self.assertEqual(result1["instance_id"], "fake-1")
-        self.assertEqual(result2["instance_id"], "fake-2")
-        self.assertEqual(self.provider.launches, 2)
+        self.assertEqual(result1["instance_id"], result2["instance_id"])
+        self.assertEqual(self.provider.launches, 1)
+        self.assertEqual(len(self.provider.instances), 1)
 
     def test_launch_different_specs_creates_different_instances(self) -> None:
         spec1 = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
@@ -56,19 +58,39 @@ class FakeProviderTests(unittest.TestCase):
         self.provider.launch(spec2)
         self.assertEqual(self.provider.launches, 2)
 
-    def test_launch_raises_when_fail_launch_set(self) -> None:
+    def test_fail_launch_creates_instance_then_raises(self) -> None:
         provider = FakeProvider(hourly_usd=1.0, clock=self.clock, fail_launch=True)
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         with self.assertRaises(RuntimeError) as cm:
             provider.launch(spec)
         self.assertIn("launch failure", str(cm.exception))
+        self.assertEqual(provider.launches, 1)
+        self.assertEqual(provider.lookup("job-1"), "fake-1")
 
-    def test_launch_creates_instance_even_on_fail(self) -> None:
+    def test_relaunch_after_raised_launch_returns_created_instance(self) -> None:
         provider = FakeProvider(hourly_usd=1.0, clock=self.clock, fail_launch=True)
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         with self.assertRaises(RuntimeError):
             provider.launch(spec)
+        result = provider.launch(spec)
+        self.assertEqual(result["instance_id"], "fake-1")
         self.assertEqual(provider.launches, 1)
+        self.assertEqual(len(provider.instances), 1)
+
+    def test_lookup_unknown_name_returns_none(self) -> None:
+        self.assertIsNone(self.provider.lookup("no-such-job"))
+        self.provider.launch({"name": "job-1", "gpu": "A100", "hourly_usd": 1.0})
+        self.assertIsNone(self.provider.lookup("no-such-job"))
+
+    def test_cost_uses_per_instance_rate(self) -> None:
+        cheap = self.provider.launch({"name": "cheap", "gpu": "A100", "hourly_usd": 1.0})["instance_id"]
+        dear = self.provider.launch({"name": "dear", "gpu": "H100", "hourly_usd": 4.0})["instance_id"]
+        self.provider.hourly_usd = 9.0
+        self.clock.advance(1800.0)
+        cheap_cost = self.provider.poll(cheap)["cost_usd"]
+        dear_cost = self.provider.poll(dear)["cost_usd"]
+        self.assertAlmostEqual(cheap_cost, 0.5)
+        self.assertAlmostEqual(dear_cost, 4 * cheap_cost)
 
     def test_poll_unknown_instance_raises_key_error(self) -> None:
         with self.assertRaises(KeyError):
@@ -287,6 +309,73 @@ class FakeProviderFullLifecycleTests(unittest.TestCase):
         status = provider.poll(instance_id)
         self.assertEqual(status["state"], "terminated")
         self.assertAlmostEqual(status["runtime_seconds"], 0.0)
+
+
+class FakeProviderPersistenceTests(unittest.TestCase):
+    """Test state_path persistence across FakeProvider objects."""
+
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.state_path = Path(self.tmp.name) / "compute-providers" / "fake.json"
+        self.clock = ManualClock(start=1000.0)
+
+    def test_new_provider_finds_persisted_instance_with_its_rate(self) -> None:
+        first = FakeProvider(hourly_usd=1.0, clock=self.clock, state_path=self.state_path)
+        instance_id = first.launch({"name": "job-1", "gpu": "H100", "hourly_usd": 4.0})["instance_id"]
+        self.assertTrue(self.state_path.exists())
+
+        second = FakeProvider(hourly_usd=9.0, clock=self.clock, state_path=self.state_path)
+        self.assertEqual(second.lookup("job-1"), instance_id)
+        self.clock.advance(1800.0)
+        status = second.poll(instance_id)
+        self.assertEqual(status["state"], "running")
+        self.assertAlmostEqual(status["cost_usd"], 2.0)
+
+    def test_raised_launch_persists_instance_for_new_provider(self) -> None:
+        failing = FakeProvider(clock=self.clock, fail_launch=True, state_path=self.state_path)
+        spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
+        with self.assertRaises(RuntimeError):
+            failing.launch(spec)
+        self.assertTrue(self.state_path.exists())
+
+        fresh = FakeProvider(clock=self.clock, state_path=self.state_path)
+        self.assertEqual(fresh.lookup("job-1"), "fake-1")
+        self.assertEqual(fresh.launch(spec)["instance_id"], "fake-1")
+        self.assertEqual(fresh.launches, 1)
+        self.assertEqual(len(fresh.instances), 1)
+
+    def test_stop_persists_across_new_provider(self) -> None:
+        first = FakeProvider(clock=self.clock, state_path=self.state_path)
+        instance_id = first.launch({"name": "job-1", "gpu": "A100", "hourly_usd": 1.0})["instance_id"]
+        self.clock.advance(1800.0)
+        first.stop(instance_id)
+
+        self.clock.advance(3600.0)
+        second = FakeProvider(clock=self.clock, state_path=self.state_path)
+        status = second.poll(instance_id)
+        self.assertEqual(status["state"], "stopped")
+        self.assertAlmostEqual(status["cost_usd"], 0.5)
+
+    def test_poll_autostop_persists_across_new_provider(self) -> None:
+        first = FakeProvider(clock=self.clock, state_path=self.state_path)
+        instance_id = first.launch(
+            {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0, "max_runtime_seconds": 3600}
+        )["instance_id"]
+        self.clock.advance(5400.0)
+        self.assertEqual(first.poll(instance_id)["state"], "stopped")
+
+        data = json.loads(self.state_path.read_text(encoding="utf-8"))
+        self.assertEqual(data["instances"][instance_id]["state"], "stopped")
+        self.assertEqual(data["instances"][instance_id]["stopped_at"], 4600.0)
+
+    def test_no_file_written_without_state_path(self) -> None:
+        provider = FakeProvider(clock=self.clock)
+        instance_id = provider.launch({"name": "job-1", "gpu": "A100", "hourly_usd": 1.0})["instance_id"]
+        provider.stop(instance_id)
+        provider.terminate(instance_id)
+        self.assertIsNone(provider.state_path)
+        self.assertEqual(list(Path(self.tmp.name).iterdir()), [])
 
 
 if __name__ == "__main__":
