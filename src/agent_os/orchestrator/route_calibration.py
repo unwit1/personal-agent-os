@@ -293,14 +293,25 @@ def build(run_dirs: Iterable[Path], min_samples: int = 5, target: float = 0.9) -
         cov["malformed_lines"] += malformed_count
         cov["runs"] += 1
 
+        # Count reviewer nodes: nodes whose first model event has role == 'reviewer'
+        node_first_model_event: dict[Any, Mapping[str, Any]] = {}
+        for event in events:
+            if isinstance(event, dict) and isinstance(event.get("data"), dict):
+                node = event.get("node")
+                if node is not None and node not in node_first_model_event:
+                    if event.get("type") in _MODEL_EVENTS:
+                        node_first_model_event[node] = event["data"]
+
+        for data in node_first_model_event.values():
+            if data.get("role") == "reviewer":
+                cov["reviewer_nodes_excluded"] += 1
+
         outcomes = node_outcomes(events)
         for outcome in outcomes:
             node = outcome.get("node")
             if node:
                 forbidden.add(str(node))
                 cov["nodes"] += 1
-            if outcome.get("role") == "reviewer":
-                cov["reviewer_nodes_excluded"] += 1
             if outcome.get("cheap_route_passed") is not None:
                 cov["labeled"] += 1
             else:

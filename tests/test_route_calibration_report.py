@@ -19,6 +19,11 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(result["runs"], [])
         self.assertEqual(result["coverage"]["runs"], 0)
         self.assertEqual(result["coverage"]["malformed_runs"], 0)
+        self.assertEqual(result["coverage"]["malformed_lines"], 0)
+        self.assertEqual(result["coverage"]["nodes"], 0)
+        self.assertEqual(result["coverage"]["labeled"], 0)
+        self.assertEqual(result["coverage"]["unlabeled"], 0)
+        self.assertEqual(result["coverage"]["reviewer_nodes_excluded"], 0)
 
     def test_malformed_run_dir_name(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -195,6 +200,93 @@ class BuildTest(unittest.TestCase):
 
             result = build([run_dir])
             self.assertEqual(result["routing_changed"], False)
+
+    def test_synthetic_home_with_coverage_and_cells(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmpdir_path = Path(tmpdir)
+            schema = "personal-agent/orchestrator-telemetry/v1"
+
+            run1 = tmpdir_path / "run-20260101T000000Z-abc123"
+            run1.mkdir()
+            telemetry1 = run1 / "telemetry.jsonl"
+            telemetry1.write_text(
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-1", "seq": 1,
+                           "data": {"role": "worker", "capability_class": "cheap",
+                                   "effort": "low", "provider": "p1"}}) + "\n" +
+                json.dumps({"schema": schema, "type": "tests_completed", "node": "node-1", "seq": 2,
+                           "data": {"passed": True}}) + "\n" +
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-2", "seq": 1,
+                           "data": {"role": "worker", "capability_class": "cheap",
+                                   "effort": "low", "provider": "p1"}}) + "\n" +
+                json.dumps({"schema": schema, "type": "model_escalated", "node": "node-2", "seq": 2,
+                           "data": {"to": "expensive/default"}}) + "\n"
+            )
+
+            run2 = tmpdir_path / "run-20260102T000000Z-def456"
+            run2.mkdir()
+            telemetry2 = run2 / "telemetry.jsonl"
+            telemetry2.write_text(
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-3", "seq": 1,
+                           "data": {"role": "worker", "capability_class": "cheap",
+                                   "effort": "low", "provider": "p1"}}) + "\n" +
+                json.dumps({"schema": schema, "type": "tests_completed", "node": "node-3", "seq": 2,
+                           "data": {"passed": False}}) + "\n" +
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-4", "seq": 1,
+                           "data": {"role": "reviewer", "capability_class": "standard",
+                                   "effort": "medium", "provider": "p2"}}) + "\n" +
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-5", "seq": 1,
+                           "data": {"role": "worker", "capability_class": "expensive",
+                                   "effort": "high", "provider": "p3"}}) + "\n" +
+                json.dumps({"schema": schema, "type": "tests_completed", "node": "node-5", "seq": 2,
+                           "data": {"passed": True}}) + "\n"
+            )
+
+            malformed_run = tmpdir_path / "bad-run-dir"
+            malformed_run.mkdir()
+            malformed_telemetry = malformed_run / "telemetry.jsonl"
+            malformed_telemetry.write_text("")
+
+            run3 = tmpdir_path / "run-20260103T000000Z-aabbcc"
+            run3.mkdir()
+            telemetry3 = run3 / "telemetry.jsonl"
+            telemetry3.write_text(
+                json.dumps({"schema": schema, "type": "model_completed", "node": "node-6", "seq": 1,
+                           "data": {"role": "worker", "capability_class": "cheap",
+                                   "effort": "low", "provider": "p1"}}) + "\n" +
+                "not valid json\n" +
+                json.dumps({"schema": schema, "type": "tests_completed", "node": "node-6", "seq": 2,
+                           "data": {"passed": True}}) + "\n"
+            )
+
+            result = build([run1, run2, malformed_run, run3])
+
+            self.assertEqual(result["coverage"]["runs"], 3)
+            self.assertEqual(result["coverage"]["malformed_runs"], 1)
+            self.assertEqual(result["coverage"]["malformed_lines"], 1)
+            self.assertEqual(result["coverage"]["nodes"], 5)
+            self.assertEqual(result["coverage"]["reviewer_nodes_excluded"], 1)
+            self.assertEqual(result["coverage"]["labeled"], 5)
+            self.assertEqual(result["coverage"]["unlabeled"], 0)
+
+            self.assertEqual(len(result["runs"]), 3)
+            self.assertIn("run-20260101T000000Z-abc123", result["runs"])
+            self.assertIn("run-20260102T000000Z-def456", result["runs"])
+            self.assertIn("run-20260103T000000Z-aabbcc", result["runs"])
+
+            cells = result["cells"]
+            self.assertIn("orchestrator-worker", cells)
+            self.assertIn("cheap", cells["orchestrator-worker"])
+
+            cheap_cell = cells["orchestrator-worker"]["cheap"]
+            self.assertEqual(cheap_cell["n"], 4)
+            self.assertEqual(cheap_cell["passes"], 2)
+            self.assertEqual(cheap_cell["unlabeled"], 0)
+            self.assertEqual(cheap_cell["escalated"], 1)
+
+            self.assertIn("expensive", cells["orchestrator-worker"])
+            expensive_cell = cells["orchestrator-worker"]["expensive"]
+            self.assertEqual(expensive_cell["n"], 1)
+            self.assertEqual(expensive_cell["passes"], 1)
 
     def test_malformed_json_line(self):
         with tempfile.TemporaryDirectory() as tmpdir:
