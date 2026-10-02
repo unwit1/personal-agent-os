@@ -241,6 +241,33 @@ def make_handler(api: Api, token: str, allowed_hosts: set[str]):
     return Handler
 
 
+class _ExclusiveServer(ThreadingHTTPServer):
+    """Never share a port. ThreadingHTTPServer sets allow_reuse_address, which
+    on Windows lets a second process bind a port already in use, so requests
+    silently reached another app (an older prototype on 8770) and the window
+    rendered empty. Bind exclusively instead."""
+
+    allow_reuse_address = False
+
+    def server_bind(self) -> None:
+        import socket
+
+        if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+        super().server_bind()
+
+
+def _bind_exclusive(host: str, port: int, handler: Any, attempts: int = 20) -> ThreadingHTTPServer:
+    """Bind ``port``; if another program holds it, use the next free port."""
+    last: OSError | None = None
+    for candidate in ([port] if port == 0 else range(port, port + attempts)):
+        try:
+            return _ExclusiveServer((host, candidate), handler)
+        except OSError as exc:
+            last = exc
+    raise OSError(f"no free port in {port}-{port + attempts - 1}: {last}")
+
+
 def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, bridge: Any = None,
                  home: Path | str | None = None) -> tuple[ThreadingHTTPServer, str]:
     if host not in LOOPBACK_HOSTS:
@@ -254,7 +281,7 @@ def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, b
         bridge = model_bridge.ChatBridge(home_path)
     token = secrets.token_urlsafe(24)
     api = Api(registry, bridge, home_path)
-    server = ThreadingHTTPServer((host, port), make_handler(api, token, set()))
+    server = _bind_exclusive(host, port, make_handler(api, token, set()))
     actual = server.server_address[1]
     allowed = {f"{name}:{actual}".casefold() for name in ("127.0.0.1", "localhost", "[::1]")}
     server.RequestHandlerClass = make_handler(api, token, allowed)

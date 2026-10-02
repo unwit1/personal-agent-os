@@ -153,3 +153,21 @@ class ExecutiveWindowServerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ExclusivePortTests(unittest.TestCase):
+    def test_a_taken_port_is_never_shared(self):
+        import socket
+        from agent_os.executive.window.server import _bind_exclusive
+        from http.server import BaseHTTPRequestHandler
+
+        holder = _bind_exclusive("127.0.0.1", 0, BaseHTTPRequestHandler)
+        try:
+            taken = holder.server_address[1]
+            other = _bind_exclusive("127.0.0.1", taken, BaseHTTPRequestHandler)
+            try:
+                self.assertNotEqual(other.server_address[1], taken)
+            finally:
+                other.server_close()
+        finally:
+            holder.server_close()
