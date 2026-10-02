@@ -807,3 +807,141 @@ operator, returning `not_needed | recommended | unknown | blocked_by_policy`:
    `secrets://openrouter/default` is resolved only inside the adapter's request
    builder and never returned, logged, cached, stored or put in an exception.
    Errors are redacted; status reports presence and source only.
+
+## 15. Rented-GPU utilization (IMP-0015)
+
+A rented pod's cost structure — fixed hourly rate regardless of request volume —
+makes peak utilization critical. IMP-0015 adds concurrency tuning, keep-busy
+scheduling, and multi-role coverage to squeeze maximum useful work per paid second.
+
+### vLLM throughput settings
+
+`pod_request()` sets throughput flags tuned for the model, GPU, and operator preferences:
+
+- `--enable-prefix-caching`: enabled by default, caches KV prefixes across
+  requests to maximize cache hits when IMP-0018's shared_prefix is available.
+- `--enable-chunked-prefill`: enabled by default; processes input tokens in
+  smaller batches to reduce latency variance under high concurrency.
+- `--max-num-seqs N`: computed from the free KV-cache capacity. Formula:
+  `free_kv_bytes = gpu_count * vram_gb * 0.90 - weight_gb * 1.1`, divided by
+  `(kv_bytes_per_token * avg_context_tokens) * kv_dtype_bytes`. Average context
+  is 1/4 the served window (sequences rarely fill it). The result is clamped to
+  [4, 256] and is the steady-state request concurrency budget.
+- `--kv-cache-dtype fp8`: when the GPU supports it (H100, H200, H20, L4, L40,
+  RTX 4090, RTX 6000 Ada, B200, RTX 5090), compresses KV cache from 2 bytes to
+  1 byte per token, doubling max-num-seqs and prefix-cache utilization. Disabled
+  by default on GPUs without fp8 hardware.
+
+Every flag can be overridden: pass `vllm_overrides` to `pod_request()` with
+keys `prefix_caching`, `chunked_prefill`, `max_num_seqs`, or `kv_cache_dtype`.
+Overrides are stored at deployment and reported in `utilization_preview()`.
+
+### Adaptive concurrency
+
+The rented provider's `max_concurrency` limit starts at 4 and adapts from live
+vLLM `/metrics` every tick (30 s), informed by:
+- running and waiting request counts (zero queue → opportunity to grow);
+- GPU KV-cache usage (70% threshold to raise, 90% to back off).
+
+The `ConcurrencyPolicy` tunable defines behavior:
+- `minimum: 2, maximum: 32`: hard bounds;
+- `start: 4`: initial limit on each deployment;
+- `step_up: 2`, `raise_after: 2`: when KV usage stays below 70% and at least
+  one request is running, raise the limit by 2 every 2 ticks;
+- `backoff_after: 1`: when the queue grows or KV usage hits 90%, back off
+  immediately (halve on saturation, step down otherwise).
+
+The state machine has hysteresis: a `raise` or `backoff` decision resets the
+counter so each direction requires sustained evidence (e.g. 2 ticks in good
+condition, 1 tick in bad). Decisions are recorded in telemetry for analysis.
+
+### Keep the paid GPU busy
+
+When attached runs are idle or between planning and execution, the rented
+provider (via `gpu_keep_busy.useful_work`) looks for queued work in priority order:
+
+1. **Reviews**: nodes in reviewer role, state READY or WAITING_FOR_REVIEW.
+2. **Worker tasks**: implementer, test_author, or repairer nodes, fast or
+   balanced capability class, state READY or PENDING.
+3. **Backfill**: checkpointable items from the free-compute broker's backfill
+   queue (see section 14), re-checked against `is_free()` immediately before dispatch.
+
+The scheduler does not start work when no run is attached (it has no plan
+context). Paid idle — seconds with no user request running — is tracked
+separately and a target of 15% (DEFAULT_IDLE_TARGET) is recorded in telemetry.
+**The budget, deadline, and reaper safety checks still take precedence:** idle
+teardown waits until nothing useful is queued, then counts down; the budget
+watchdog deletes the pod before the next tick would cross 95% of the job cap; and
+the reaper deletes orphan pods left by client crashes.
+
+### Role coverage and shared-GPU limits
+
+The rented provider is registered for every role its GPU class allows:
+- `gpu_pod`: planner, inline, implementer, test_author, reviewer.
+- `local` or `api`: planner, inline (read-only roles; no compute).
+
+An interactive coding agent can share the same vLLM server concurrently, bounded
+by `tier_concurrency`: heavy tiers (reasoning, etc.) are limited to 1 concurrent
+request so both workflows — rented planning and live coding — can run at once.
+**Open decision (noted in summary)**: whether to register a separate distinct
+`foreman-reviewer` provider for reviews (dedicated queue, higher isolation) or
+route reviews through the planner's concurrency pool.
+
+### Weight caching (off by default)
+
+`pod_request()` accepts an optional `weight_volume` (RunPod network volume ID).
+When provided, the pod mounts the volume and sets `HF_HOME` to cache model
+weights across pod starts, saving download time and cost on restart.
+
+`weight_cache.cost_check()` compares storage cost per month against the savings
+from avoiding repeated downloads:
+- storage cost: `volume_gb * 0.07 $/GB/month` (RunPod's standard rate);
+- download cost per start: `weight_gb / 0.5 GBPS * pod_hourly_usd / 3600` (0.5 GB/s is typical Hugging Face throughput);
+- saves = (download cost per month) — (storage cost).
+
+The preview reports `weight_cache.recommended: true` when `saves > 0`, and suggests the
+volume size and estimated monthly savings. The feature is off by default (no volume
+attached) and safe to leave off for short-lived runs.
+
+### Shared-prefix stability (IMP-0018 integration)
+
+When IMP-0018's `shared_prefix` is available in the run record, the rented
+provider uses `prefix_stability.stabilize()` to ensure every request to vLLM
+starts with exactly those bytes, before any per-request content. No separator is
+added by stabilize (the run-level prefix is byte-stable), but the node that
+builds requests to the rented model must keep a fixed separator between the
+stable prefix and per-request text, and assert it in tests (DEC-0043 R5-3).
+
+Prefix stability maximizes vLLM's prefix-cache hit rate by eliminating drift
+from per-request formatting. The feature is active only when `shared_prefix` is
+present; runs without it work normally. `utilization_preview()` reports
+`prefix_stable: None` (unknown until a run attaches and its prefix is
+fingerprinted in telemetry).
+
+### Utilization reporting and preview
+
+**Live utilization_view** (from `foreman_deploy.utilization_view()`) extends the
+cost metrics with:
+- `tokens_per_s`: generation throughput across all requests.
+- `kv_usage_pct`: current GPU KV-cache occupancy (0–100).
+- `prefix_cache_hit_pct`: (prefix cache hits) / (queries), when tracked.
+- `concurrency_limit`: current adaptive concurrency limit.
+- `paid_idle_pct`: fraction of paid time with no user request running.
+- `idle_target_pct`: the 15% target.
+- `meets_idle_target`: whether actual paid idle is at or under target.
+- `usd_per_useful_request`: amortized cost per request counted as useful
+  (excludes internal metrics checks, etc.).
+
+**Deploy-time utilization_plan** (from `utilization_preview()`) shows the
+expected plan:
+- `planned_max_num_seqs`: the --max-num-seqs value that will be launched.
+- `kv_cache_dtype`: fp8, fp16, or None.
+- `prefix_caching`, `chunked_prefill`: flags enabled at launch.
+- `roles`: capability classes the pod can serve (from ROLES_BY_CLASS).
+- `initial_concurrency`, `concurrency_bounds`: starting limit and min/max range.
+- `idle_target_pct`: the 15% target.
+- `prefix_stable`: None (will be fingerprinted once a run attaches).
+- `weight_cache`: cost analysis result (`recommended`, `saves_usd_month`, etc.).
+
+The preview is deterministic and makes no network call; it is safe to run before
+deciding to deploy.
