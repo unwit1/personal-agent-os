@@ -407,7 +407,120 @@ MCP_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         ),
     },
     "orchestrate.result": {"description": "Collect the final (or current) result of a run: integration branch, validation, findings, usage.", "inputSchema": _schema(_RUN, ["run_id"])},
+    "compute.provision": {
+        "description": "Provision a compute job (fake provider only in slice 2; other providers blocked at approval gate).",
+        "inputSchema": _schema(
+            {
+                "provider": {"type": "string"},
+                "gpu": {"type": "string"},
+                "hourly_usd": {"type": "number"},
+                "estimate": {
+                    "type": "object",
+                    "properties": {"low": {"type": "number"}, "expected": {"type": "number"}, "high": {"type": "number"}},
+                    "required": ["low", "expected", "high"],
+                },
+                "max_runtime_seconds": {"type": ["number", "null"]},
+                "secret_ref": {"type": ["string", "null"], "pattern": "^secrets://"},
+                "job_id": {"type": ["string", "null"]},
+            },
+            ["provider", "gpu", "hourly_usd", "estimate"],
+        ),
+    },
+    "compute.status": {
+        "description": "Inspect a compute job: state, instance, cost, history.",
+        "inputSchema": _schema({"job_id": {"type": "string"}}, ["job_id"]),
+    },
+    "compute.stop": {
+        "description": "Stop or cancel a compute job. On requested/reserved: releases reservation. On launching: marks for stop. On running/stopping: initiates or resumes stop.",
+        "inputSchema": _schema({"job_id": {"type": "string"}}, ["job_id"]),
+    },
+    "compute.destroy": {
+        "description": "Destroy a compute instance and release the spend reservation.",
+        "inputSchema": _schema({"job_id": {"type": "string"}}, ["job_id"]),
+    },
+    "compute.reconcile": {
+        "description": "Reconcile a stopped/destroyed job: compare actual spend to estimate and release the reservation.",
+        "inputSchema": _schema({"job_id": {"type": "string"}, "actual_usd": {"type": ["number", "null"]}}, ["job_id"]),
+    },
 }
+
+
+_FAKE_PROVIDERS: dict[Path | None, Any] = {}
+
+
+def _compute_homes() -> tuple[Path | None, Path | None]:
+    """Return (home, budget_home) for compute operations.
+
+    For default engine: use None for budget_home so the budget module uses
+    its standard machine-wide location. For embedded engines: use home.parent.
+    """
+    orch = engine()
+    home = orch.store.home if orch.store else None
+    if _ENGINE_IS_DEFAULT:
+        budget_home = None
+    else:
+        budget_home = home.parent if home else None
+    return home, budget_home
+
+
+def _get_fake_provider(home: Path | None, hourly_usd: float = 1.5) -> Any:
+    """Return or create a FakeProvider for the given home, updating hourly_usd if needed."""
+    if home not in _FAKE_PROVIDERS:
+        import time
+        from .compute_fake import FakeProvider
+        _FAKE_PROVIDERS[home] = FakeProvider(hourly_usd=hourly_usd, clock=time.time)
+    else:
+        _FAKE_PROVIDERS[home].hourly_usd = hourly_usd
+    return _FAKE_PROVIDERS[home]
+
+
+def _compute_ctx(job_id: str | None = None) -> tuple[Path | None, Path | None, Any]:
+    """Return (home, budget_home, provider) for a compute operation.
+
+    If job_id is provided, load it to get the provider name and hourly_usd,
+    and create/update the cached fake provider if needed. Otherwise, provider is None.
+    """
+    from . import provision
+
+    home, budget_home = _compute_homes()
+    provider_obj = None
+    if job_id:
+        job = provision._load(job_id, home)
+        if job["provider"] == "fake":
+            provider_obj = _get_fake_provider(home, job["hourly_usd"])
+    return home, budget_home, provider_obj
+
+
+def compute_provision(provider: str, gpu: str, hourly_usd: float, estimate: dict[str, float], max_runtime_seconds: float | None = None, secret_ref: str | None = None, job_id: str | None = None) -> dict[str, Any]:
+    from . import provision
+    request = {"provider": provider, "gpu": gpu, "hourly_usd": hourly_usd, "estimate": estimate, "max_runtime_seconds": max_runtime_seconds, "secret_ref": secret_ref, "job_id": job_id}
+    home, budget_home = _compute_homes()
+    provider_obj = _get_fake_provider(home, hourly_usd) if provider == "fake" else None
+    return provision.provision(request, home=home, budget_home=budget_home, provider=provider_obj)
+
+
+def compute_status(job_id: str) -> dict[str, Any]:
+    from . import provision
+    home, budget_home, provider_obj = _compute_ctx(job_id)
+    return provision.status(job_id, home=home, budget_home=budget_home, provider=provider_obj)
+
+
+def compute_stop(job_id: str) -> dict[str, Any]:
+    from . import provision
+    home, budget_home, provider_obj = _compute_ctx(job_id)
+    return provision.stop(job_id, home=home, budget_home=budget_home, provider=provider_obj)
+
+
+def compute_destroy(job_id: str) -> dict[str, Any]:
+    from . import provision
+    home, budget_home, provider_obj = _compute_ctx(job_id)
+    return provision.destroy(job_id, home=home, budget_home=budget_home, provider=provider_obj)
+
+
+def compute_reconcile(job_id: str, actual_usd: float | None = None) -> dict[str, Any]:
+    from . import provision
+    home, budget_home, provider_obj = _compute_ctx(job_id)
+    return provision.reconcile(job_id, actual_usd=actual_usd, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def mcp_methods() -> dict[str, Any]:
@@ -424,4 +537,9 @@ def mcp_methods() -> dict[str, Any]:
         "orchestrate.review_again": review_again,
         "orchestrate.override": override,
         "orchestrate.result": result,
+        "compute.provision": compute_provision,
+        "compute.status": compute_status,
+        "compute.stop": compute_stop,
+        "compute.destroy": compute_destroy,
+        "compute.reconcile": compute_reconcile,
     }

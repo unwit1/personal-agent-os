@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-10-01T20:00:00+00:00",
+  "updated_at": "2026-10-02T06:30:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
   "active_objective": "Continue IMP-0015 integration: wire free-first routing (free_routing.decide) into engine dispatch behind opt-in run policy flag, then execute measurement-first third-party optimization (SkyPilot/RunPod, vLLM, TensorZero, etc.) and parallel IMP-0018/IMP-0019 experiments.",
   "completed": [
@@ -61,9 +61,12 @@
     "Credential setup via masked pop-ups into Windows Credential Manager: orchestrate secrets setup / set --gui; radar sends an optional HF token (DEC-0040)",
     "Operator-approved compute budget $10 project / $5 per-job hard cap (machine-wide ~/.agent-os/budget.json, history + spend ledger, orchestrate budget show|set); quote gate enforces it (DEC-0041)",
     "Operator raised the per-job hard cap to $10 (project budget $10) on 2026-09-29; recorded in ~/.agent-os/budget-history.jsonl",
-    "IMP-0015 slice 10: OpenRouter FreeComputeBroker (free-first routing, dynamic model discovery, versioned cached catalog, per-task empirical specialization, quota/account visibility, fan-out backfill with checkpoints, validator-gated escalation, useful-progress metrics, operator-alert-only top-up recommendation) — modules: free_catalog, free_quota, free_routing, free_specialization, free_swarm, free_metrics, openrouter_account; tests: 95 pass; CLI: orchestrate free-compute (landed); read-only account visibility with secrets://openrouter/default awareness; docs: free-compute-broker.md"
+    "IMP-0015 slice 10: OpenRouter FreeComputeBroker (free-first routing, dynamic model discovery, versioned cached catalog, per-task empirical specialization, quota/account visibility, fan-out backfill with checkpoints, validator-gated escalation, useful-progress metrics, operator-alert-only top-up recommendation) — modules: free_catalog, free_quota, free_routing, free_specialization, free_swarm, free_metrics, openrouter_account; tests: 95 pass; CLI: orchestrate free-compute (landed); read-only account visibility with secrets://openrouter/default awareness; docs: free-compute-broker.md",
+    "IMP-0015 slice 2: gated compute provisioning interface (compute.provision/status/stop/destroy/reconcile) against fake provider only: budget-gated with write-ahead spend reservation, mandatory max-runtime auto-stop derived from budget cap, reconcile with actual-vs-estimate variance tracking, persisted lifecycle state machine, idempotent resumable operations, secrets only via secrets:// refs; exposed through `orchestrate compute` CLI and MCP tools; 0 paid compute (DEC-0042, src/agent_os/orchestrator/provision.py, compute_fake.py)"
   ],
-  "blockers": [],
+  "blockers": [
+    "IMP-0015 slice 3: before any real RunPod launch, operator must provide a write-enabled RunPod API key and confirm the first launch (not yet received; slice 2 uses fake provider only)"
+  ],
   "active_experiments": [
     "HYP-0003 (monitoring): affected_tests_first always vs retries",
     "IMP-0019: episodic agent rotation / context-pressure break-even benchmark (shadow first)",
@@ -73,7 +76,8 @@
     "DEC-0039",
     "DEC-0040",
     "DEC-0041",
-    "DEC-0042"
+    "DEC-0042",
+    "DEC-0043"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
@@ -83,7 +87,7 @@
     "IMP-0015 FreeComputeBroker slice 10 remaining items: (a) Live allowance verification with a real secrets://openrouter/default key (read-only account/quota/credit awareness for operator-alert-only top-up recommendations); (b) Operator decision on which free-endpoint data policies are acceptable for repository code (determines whether free-model responses can be included in training data, logs, or other downstream use)."
   ],
   "next_action": {
-    "summary": "Wire free_routing.decide into engine dispatch behind an opt-in run policy flag ('free_routing_enabled' per task context). Then continue IMP-0015 unpaid next slices: (1) SkyPilot spike (PA-skypilot) in an isolated venv under the scratchpad: RunPod pod lifecycle semantics, state kept, credential bridging to secrets://; record EXP + DEC (WRAP vs in-house lifecycle); launch nothing. (2) Gated provisioning interface (compute.provision/status/stop/destroy/reconcile) against a fake provider: preconditions = budget.effective allows the high estimate, a spend reservation is written first (write-ahead, like IMP-0013), mandatory max-runtime auto-stop derived from the cap, reconcile actual vs estimate and release the reservation. (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. Parallel high-priority: IMP-0018 Phase 0 context-economy measurement (input/output amplification, long-session growth, worker fan-out, checkpoint resume) and IMP-0019 episodic rotation shadow advisor (bootstrap, handoff, retrieval, retries/reviews). Promotion gate: held-out noninferior validation + lower cost per verified task. Never purchase credits or auto-recharge without explicit approval.",
+    "summary": "Wire free_routing.decide into engine dispatch behind an opt-in run policy flag ('free_routing_enabled' per task context). IMP-0015 slices 1 (SkyPilot spike: no wrap, native RunPod lifecycle, DEC-0042) and 2 (gated provisioning interface on a fake provider, DEC-0043) are complete. Remaining: (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. Parallel high-priority: IMP-0018 Phase 0 context-economy measurement (input/output amplification, long-session growth, worker fan-out, checkpoint resume) and IMP-0019 episodic rotation shadow advisor (bootstrap, handoff, retrieval, retries/reviews). Promotion gate: held-out noninferior validation + lower cost per verified task. Never purchase credits or auto-recharge without explicit approval.",
     "prior_art": "third-party model routing/delegation/inference efficiency (TensorZero, AgentScope, PydanticAI subagents, RouteLLM, LiteLLM); cloud GPU brokers (SkyPilot/native RunPod); inference runtimes/caching/schedulers (vLLM, SGLang, LMCache, AIBrix, llm-d); shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
     "worker_class": "reasoning",
     "effort": "medium",
