@@ -675,6 +675,83 @@ EXECUTIVE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 TOOL_SCHEMAS.update(EXECUTIVE_TOOL_SCHEMAS)
 
 
+def _window_registry() -> Any:
+    from .executive.window.builtin import default_registry
+
+    return default_registry()
+
+
+def _window_run_schema() -> dict[str, Any]:
+    """executive_window.run schema; the action enum and description come from the live registry."""
+    actions = _window_registry().actions()
+    ids = [action["id"] for action in actions]
+    lines = [
+        f"{action['id']}: {action['label']}" + (" (consequential: returns a preview and confirm_token only)" if action["consequential"] else "")
+        for action in actions
+    ]
+    return {
+        "description": (
+            "Executive window: run a registered action on an outstanding item. Consequential actions never execute here; "
+            "they return status needs_confirmation with a preview, and only the operator's Confirm click in the window executes them. "
+            "Actions: " + "; ".join(lines)
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "action_id": {"type": "string", "enum": ids},
+                "item_id": {"type": "string"},
+                "params": {"type": "object"},
+            },
+            "required": ["action_id", "item_id"],
+            "additionalProperties": False,
+        },
+    }
+
+
+WINDOW_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "executive_window.outstanding": {
+        "description": "Executive window: everything outstanding, as items with their registered options. Read-only; uses local data only.",
+        "inputSchema": {"type": "object", "properties": {"tab": {"type": "string", "enum": ["work", "personal"]}}, "additionalProperties": False},
+    },
+    "executive_window.actions": {
+        "description": "Executive window: list registered actions (id, label, applies_to, consequential, description).",
+        "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
+    },
+    "executive_window.run": {"description": "", "inputSchema": {"type": "object"}},
+}
+
+
+def _refresh_window_schemas() -> None:
+    WINDOW_TOOL_SCHEMAS["executive_window.run"] = _window_run_schema()
+    TOOL_SCHEMAS.update(WINDOW_TOOL_SCHEMAS)
+
+
+_refresh_window_schemas()
+
+
+def _window_outstanding(tab: str | None = None) -> dict[str, Any]:
+    from .executive.window.confirm import ItemState, window_home
+
+    return _window_registry().outstanding(tab, state=ItemState(window_home()))
+
+
+def _window_actions() -> dict[str, Any]:
+    return {"actions": _window_registry().actions()}
+
+
+def _window_run(action_id: str, item_id: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Preview-only for consequential actions; there is deliberately no confirming tool."""
+    from .executive.window.confirm import ItemState, PendingStore, window_home
+
+    registry = _window_registry()
+    home = window_home()
+    found = registry.outstanding(None, state=ItemState(home))
+    item = next((i for i in found["items"] if str(i.get("id")) == str(item_id)), None)
+    if item is None:
+        raise ValueError(f"unknown item: {item_id}")
+    return registry.invoke(action_id, item, params, PendingStore(home))
+
+
 def _executive_gateway() -> Any:
     from .executive.gateway import LocalDashboardGateway
 
@@ -853,6 +930,9 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive.batch": _executive_batch,
             "executive.approve": _executive_approve,
             "executive.send": _executive_send,
+            "executive_window.outstanding": _window_outstanding,
+            "executive_window.actions": _window_actions,
+            "executive_window.run": _window_run,
         }
     )
     available.update(orchestrate_methods())
@@ -923,6 +1003,7 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
     if method == "ping":
         return _ok(request_id, {})
     if method == "tools/list":
+        _refresh_window_schemas()
         return _ok(request_id, {"tools": [{"name": name, **schema} for name, schema in TOOL_SCHEMAS.items()]})
     if method == "tools/call":
         params = request.get("params", {})
