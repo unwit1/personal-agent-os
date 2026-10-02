@@ -13,13 +13,31 @@ Each item has a title, why line, source, and optional buttons for registered act
 
 ## Schemas
 
-| Field | Item | Action |
-|-------|------|--------|
-| `id` | Unique from provider | Unique action identifier |
-| `tab` | `work` \| `personal` | `work` \| `personal` \| `any` |
-| `title` | Summary for list | UI label for button |
-| `consequential` | boolean | If true, model returns preview only; Confirm required to execute |
-| `options` | `[{action_id, label, consequential}]` | `handler(item, params, *, confirm)` contract |
+**Item** (returned by providers):
+```
+{
+  id: string,                    # unique from provider
+  tab: "work" | "personal",
+  title: string,                 # summary for list
+  why: string,                   # context line
+  source: string,                # where it came from
+  due/age: string,               # optional deadline or age
+  options: [
+    { action_id: string, label: string, consequential: bool }
+  ]
+}
+```
+
+**Action** (registered with `register_action`):
+```
+{
+  id: string,                    # unique action identifier
+  label: string,                 # UI button label
+  tab: "work" | "personal" | "any",
+  handler: fn(item, params, *, confirm: bool),  # receives item context
+  consequential: bool            # if True, preview-only until Confirm
+}
+```
 
 ## Providers and actions
 
