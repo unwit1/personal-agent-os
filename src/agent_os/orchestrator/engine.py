@@ -60,6 +60,7 @@ from .worktrees import GitError, WorktreeManager, current_branch, head_commit, i
 
 MAX_FAILURES_KEPT = 10
 MAX_EVENTS_IN_SUMMARY = 30
+FREE_WAIT_SECONDS = 600  # bounded wait for a busy free provider before escalating (policy: free_wait_seconds)
 _LABEL_CLEAN = re.compile(r"[^a-z0-9_.-]+")
 
 
@@ -84,6 +85,7 @@ class Orchestrator:
         sleep: Callable[[float], None] = time.sleep,
         session_foreman: bool | None = None,
         foreman_home: Path | None = None,
+        free_inputs: Any = None,
     ) -> None:
         self.store = store or RunStore()
         # The machine engine (no injected registry) attaches new runs to a live
@@ -95,6 +97,7 @@ class Orchestrator:
         self._telemetry = telemetry_store
         self._claims_path = claims_path
         self._sleep = sleep
+        self._free_inputs = free_inputs  # FreeInputs, a zero-argument callable, or None (loaded lazily)
         self._handles: dict[tuple[str, str], RunningAgent] = {}
         self._adapters: dict[str, Any] = {}
         self._availability: dict[str, bool] | None = None
@@ -109,6 +112,188 @@ class Orchestrator:
         if self._registry is None:
             self._registry = ProviderRegistry(self._registry_path)
         return self._registry
+
+    def free_inputs(self) -> Any:
+        """Free-routing inputs, resolved once on first use (flag-on runs only)."""
+        if self._free_inputs is None or callable(self._free_inputs):
+            from . import free_dispatch
+
+            loader = self._free_inputs
+            self._free_inputs = loader() if callable(loader) else free_dispatch.FreeInputs.load_default(self.store.home)
+        return self._free_inputs
+
+    @staticmethod
+    def _free_persistable(decision: dict[str, Any]) -> dict[str, Any]:
+        """The run store rejects a 'history' key, so the escalation trail is kept as 'route_history'."""
+        if "history" in decision:
+            decision["route_history"] = decision.pop("history")
+        return decision
+
+    def _free_escalate_state(self, node: dict[str, Any]) -> None:
+        from . import free_dispatch
+
+        node["free_route"]["free_state"] = "escalated"
+        classes = node.setdefault("excluded_classes", {})
+        for provider_id, keys in free_dispatch.free_exclusions(node, self.registry()).items():
+            merged = classes.setdefault(provider_id, [])
+            merged.extend(key for key in keys if key not in merged)
+
+    def _free_hook(self, record: dict[str, Any], node: dict[str, Any], running: dict[str, int], requirements: Any) -> dict[str, Any] | None:
+        """Free-first routing before select(). Returns a free selection or None."""
+        from . import free_dispatch
+        from .model_profile import is_paid
+
+        run_id = record["run_id"]
+        state = node.get("free_route")
+        if state and state.get("free_state") == "escalated":
+            return None
+        inputs = self.free_inputs()
+        fresh = not state
+        decision = state if state else dict(free_dispatch.decide_for_node(record, node, inputs), free_providers=[])
+        selection = None
+        if decision.get("route") == "free":
+            selection, why = free_dispatch.selection_for(
+                decision, self.registry(), role=node["role"], availability=self.availability(),
+                excluded=node["excluded_providers"], excluded_classes=node.get("excluded_classes", {}),
+                running=running, requirements=requirements)
+            if selection is None and str(why or "").endswith("at its concurrency limit"):
+                # A busy free provider is a wait, not an escalation, until the bounded free wait runs out.
+                limit = float(record["policy"].get("free_wait_seconds", FREE_WAIT_SECONDS))
+                started = decision.setdefault("wait_started", now())
+                try:
+                    waited = (datetime.now(timezone.utc) - datetime.fromisoformat(str(started))).total_seconds()
+                except (TypeError, ValueError):
+                    waited = 0.0
+                if waited <= limit:
+                    decision["free_state"] = "free"
+                    node["free_route"] = self._free_persistable(decision)
+                    if fresh:
+                        self._free_emit_decision(record, node, decision)
+                    return {"resolved": False, "waiting": True, "reason": f"waiting for a free slot: {why}"}
+                why = f"free wait exceeded {int(limit)}s: {why}"
+            if selection is None:
+                decision["route"] = "escalate"
+                decision["reason"] = why
+        decision.pop("wait_started", None)
+        node["free_route"] = self._free_persistable(decision)
+        if selection is None:
+            was_free = decision.get("model")
+            self._free_escalate_state(node)
+            if fresh:
+                self._free_emit_decision(record, node, decision)
+            if was_free:
+                self.ledger.emit(run_id, "free_route_escalated", node["id"], from_model=was_free, to=f"class:{node['capability_class']}/{node['effort']}", failure="unselectable", reason=decision.get("reason"))
+            return None
+        decision["free_state"] = "free"
+        # The paid route that would otherwise run, for cost-avoided metrics.
+        classes = {key: list(value) for key, value in (node.get("excluded_classes") or {}).items()}
+        taken = classes.setdefault(selection["provider"], [])
+        if node["capability_class"] not in taken:
+            taken.append(node["capability_class"])
+        for provider_id, keys in free_dispatch.free_exclusions(node, self.registry()).items():
+            merged = classes.setdefault(provider_id, [])
+            merged.extend(key for key in keys if key not in merged)
+        paid = select(
+            self.registry(), capability_class=node["capability_class"], effort=node["effort"], role=node["role"],
+            preference=record["policy"]["preference"], availability=self.availability(),
+            excluded=node["excluded_providers"] + self._paid_blocked(record), excluded_classes=classes,
+            running=running, requirements=requirements)
+        paid_route = None
+        if paid.get("resolved") and not paid.get("waiting") and (paid["provider"], paid.get("model")) != (selection["provider"], selection.get("model")):
+            provider = self.registry().get(paid["provider"]) or {}
+            paid_route = {"model": paid.get("model"), "provider": paid["provider"], "subscription": not is_paid(provider)}
+        decision["paid_route"] = paid_route
+        # Kept on the node by _launch once the worker actually starts; recorded when its result is collected.
+        selection["free_attempt"] = {
+            "model": selection.get("model"), "provider": selection["provider"], "run_id": run_id, "node_id": node["id"],
+            "task_family": decision.get("task_family"), "paid_route": paid_route}
+        if fresh:
+            self._free_emit_decision(record, node, decision)
+        return selection
+
+    def _free_launched(self, record: dict[str, Any], node: dict[str, Any], pending: dict[str, Any]) -> None:
+        """Note the free provider and the pending attempt after a free launch happened."""
+        decision = node["free_route"]
+        if pending["provider"] not in decision["free_providers"]:
+            decision["free_providers"].append(pending["provider"])
+        decision["pending_attempt"] = pending
+
+    def _free_collected(self, record: dict[str, Any], node: dict[str, Any], result: AgentResult, structured: Any, usage: dict[str, Any]) -> None:
+        """Write the free attempt event for a collected result of a free-launched worker."""
+        decision = node.get("free_route") or {}
+        pending = decision.pop("pending_attempt", None)
+        if not pending:
+            return
+        kind = result.failure_kind
+        if result.outcome == "completed":
+            outcome = "success" if isinstance(structured, dict) else "invalid_output"
+        else:
+            outcome = {"timeout": "timeout", "quota": "quota_exhausted", "malformed": "invalid_output"}.get(kind or "", "provider_error")
+        tokens = None
+        if isinstance(usage.get("input_tokens"), int) and isinstance(usage.get("output_tokens"), int):
+            tokens = {"input": usage["input_tokens"], "output": usage["output_tokens"], "accuracy": usage.get("accuracy")}
+        event = dict(pending, outcome=outcome, tokens=tokens, lane="priority", latency_ms=result.duration_ms,
+                     validator_passed=None, accepted=None, escalated=False)
+        event.pop("provider", None)
+        try:
+            attempt = self.free_inputs().governor.record(event)
+            if isinstance(attempt, dict) and attempt.get("event_id"):
+                decision["event_id"] = attempt["event_id"]
+        except Exception as exc:  # the free ledger never blocks collection
+            self.ledger.emit(record["run_id"], "note", node["id"], text=f"free ledger unavailable: {type(exc).__name__}")
+
+    def _free_verdict(self, record: dict[str, Any], node: dict[str, Any], **fields: Any) -> None:
+        event_id = (node.get("free_route") or {}).get("event_id")
+        if not event_id:
+            return
+        try:
+            self.free_inputs().governor.record({"type": "verdict", "event_id": event_id, **fields})
+        except Exception as exc:
+            self.ledger.emit(record["run_id"], "note", node["id"], text=f"free ledger unavailable: {type(exc).__name__}")
+
+    def _free_emit_decision(self, record: dict[str, Any], node: dict[str, Any], decision: dict[str, Any]) -> None:
+        self.ledger.emit(
+            record["run_id"], "free_route_decided", node["id"], role=node["role"], task_family=decision.get("task_family"),
+            route=decision.get("route"), model=decision.get("model"), reason=decision.get("reason"),
+            failed_checks=(decision.get("eligibility") or {}).get("failed_checks"),
+            catalog_snapshot=decision.get("catalog_snapshot"), quota=decision.get("quota"), paid_route=decision.get("paid_route"))
+
+    def _free_after_failure(self, record: dict[str, Any], node: dict[str, Any], failure: dict[str, Any], label: str) -> bool:
+        """Escalate a failed free-routed node. True when the node was rescheduled."""
+        from . import free_dispatch
+
+        old = node["free_route"].get("model")
+        stored = node["free_route"]
+        view = dict(node, free_route=dict(stored, history=list(stored.get("route_history") or [])))
+        result = free_dispatch.after_failure(view, failure, self.registry(), self.free_inputs().governor)
+        action = result["action"]
+        if action == "free":
+            to = f"free:{result['decision'].get('model')}"
+        elif action == "router":
+            to = f"class:{result['capability_class']}/{result['effort']}"
+        else:
+            to = "exhausted"
+        self.ledger.emit(record["run_id"], "free_route_escalated", node["id"], from_model=old, to=to, failure=failure.get("kind"), reason=result["decision"].get("reason"))
+        self._free_verdict(record, node, validator_passed=False if failure.get("kind") == "validator_failed" else None, accepted=False, escalated=True)
+        if action == "free":
+            node["free_route"] = self._free_persistable(dict(result["decision"], free_state="free"))
+            node["state"] = "FAILED_RETRYABLE"
+            node["selection"] = None
+            node["wait_reason"] = f"{label}; alternate free model {result['decision'].get('model')}"
+            node["escalations"] += 1
+            return True
+        self._free_escalate_state(node)
+        if action != "router":
+            return False
+        node["capability_class"] = result["capability_class"]
+        node["effort"] = result["effort"]
+        node["escalations"] += 1
+        node["state"] = "FAILED_RETRYABLE"
+        node["selection"] = None
+        node["wait_reason"] = f"{label}; escalated from free to {result['capability_class']}/{result['effort']}"
+        self.store.append_event(record["run_id"], "node.escalated", node["id"], f"-> {to}")
+        self.ledger.emit(record["run_id"], "model_escalated", node["id"], **{"from": f"free:{old}", "to": f"{result['capability_class']}/{result['effort']}", "reason": label, "escalation": node["escalations"]})
+        return True
 
     def reload_providers(self) -> dict[str, Any]:
         with self._lock:
@@ -768,6 +953,8 @@ class Orchestrator:
                 tokens_avoided_estimate=self._measured_average(record, "implementer"),
                 estimate_basis="average exact input+output tokens of implementer calls in this run" if self._measured_average(record, "implementer") else None,
             )
+        if record["policy"].get("free_routing_enabled") and model_call and (node.get("free_route") or {}).get("pending_attempt"):
+            self._free_collected(record, node, result, structured, call_usage)
         if result.outcome != "completed":
             self._record_telemetry(record, node, result, validator_passed=None)
             self._fail(
@@ -1162,6 +1349,14 @@ class Orchestrator:
         policy = record["policy"]
         if self._fallback_to_model(record, node, "validator_failed", detail):
             return
+        if (
+            policy.get("free_routing_enabled")
+            and node["execution_path"] == "model"
+            and (node.get("free_route") or {}).get("free_state") == "free"
+            and node["escalations"] < policy["max_escalations"]
+            and self._free_after_failure(record, node, {"kind": "validator_failed", "verified_outputs": []}, "validator failed")
+        ):
+            return
         if node["execution_path"] == "model" and node["escalations"] < policy["max_escalations"]:
             before = f"{node['capability_class']}/{node['effort']}"
             rung = _next_rung(node)
@@ -1377,6 +1572,15 @@ class Orchestrator:
                     node["excluded_providers"].append(provider)
                     self.store.append_event(record["run_id"], "provider.failover", node["id"], f"{provider} excluded for this node after {kind}")
                     self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind)
+        if (
+            policy.get("free_routing_enabled")
+            and kind != "interrupted"
+            and (node.get("selection") or {}).get("free_route")
+            and (node.get("free_route") or {}).get("free_state") == "free"
+            and node["escalations"] < policy["max_escalations"]
+            and self._free_after_failure(record, node, {"kind": kind, "detail": redact(detail, 200)}, kind)
+        ):
+            return
         node["retries"] += 1
         if node["retries"] > policy["max_stage_retries"]:
             selection = node.get("selection") or {}
@@ -1628,23 +1832,27 @@ class Orchestrator:
         avoid = []
         if node["role"] == "reviewer" and subject and subject.get("selection"):
             avoid = [subject["selection"]["provider"]]
-        selection = select(
-            self.registry(),
-            capability_class=node["capability_class"],
-            effort=node["effort"],
-            role=node["role"],
-            preference=policy["preference"],
-            availability=self.availability(),
-            excluded=node["excluded_providers"] + self._paid_blocked(record),
-            excluded_classes=node.get("excluded_classes", {}),
-            avoid=avoid,
-            running=running,
-            override=self._override_for(record, node),
-            require_avoid=node["role"] == "reviewer" and policy["require_distinct_review_provider"],
-            # Reviewers and repairers read the subject's work, so they inherit its
-            # workload requirements (e.g. deployment=local for private code).
-            requirements=node.get("requirements") or (subject or {}).get("requirements"),
-        )
+        selection = None
+        if policy.get("free_routing_enabled") and node["role"] in {"implementer", "test_author"} and not self._override_for(record, node):
+            selection = self._free_hook(record, node, running, node.get("requirements"))
+        if selection is None:
+            selection = select(
+                self.registry(),
+                capability_class=node["capability_class"],
+                effort=node["effort"],
+                role=node["role"],
+                preference=policy["preference"],
+                availability=self.availability(),
+                excluded=node["excluded_providers"] + self._paid_blocked(record),
+                excluded_classes=node.get("excluded_classes", {}),
+                avoid=avoid,
+                running=running,
+                override=self._override_for(record, node),
+                require_avoid=node["role"] == "reviewer" and policy["require_distinct_review_provider"],
+                # Reviewers and repairers read the subject's work, so they inherit its
+                # workload requirements (e.g. deployment=local for private code).
+                requirements=node.get("requirements") or (subject or {}).get("requirements"),
+            )
         if not selection.get("resolved"):
             if selection.get("waiting"):
                 node["state"] = "RUNNABLE"
@@ -1668,6 +1876,7 @@ class Orchestrator:
             node["state"] = "RUNNABLE"
             node["wait_reason"] = wait
             return False
+        free_attempt = selection.pop("free_attempt", None)
         selection["at"] = now()
         node["selection"] = selection
         if node["role"] == "reviewer":
@@ -1780,6 +1989,8 @@ class Orchestrator:
         node["state"] = "RUNNING"
         node["wait_reason"] = None
         record["launches"] += 1
+        if free_attempt:
+            self._free_launched(record, node, free_attempt)
         _count_running(running, selection["provider"], selection["capability_class"])
         self._announce(record, node)
         self.store.append_event(
