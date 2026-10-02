@@ -48,7 +48,12 @@ def _plan_interviews(item: dict[str, Any], params: dict[str, Any], *, confirm: b
         gateway=gateway,
         store=store,
     )
-    return {"batch_id": batch["batch_id"], "count": len(batch["items"])}
+    return {
+        "batch_id": batch["batch_id"],
+        "state": batch["state"],
+        "items": [ex._preview(i) | {"state": i["state"]} for i in batch["items"]],
+        "excluded": batch.get("excluded", []),
+    }
 
 
 def _approve_batch(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
@@ -68,7 +73,12 @@ def _approve_batch(item: dict[str, Any], params: dict[str, Any], *, confirm: boo
         gateway=gateway,
         store=store,
     )
-    return {"batch_id": batch["batch_id"], "state": batch["state"]}
+    return {
+        "batch_id": batch["batch_id"],
+        "state": batch["state"],
+        "items": [ex._preview(i) | {"state": i["state"]} for i in batch["items"]],
+        "excluded": batch.get("excluded", []),
+    }
 
 
 def _reach_out(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:

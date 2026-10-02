@@ -129,7 +129,17 @@ class ActionExecutiveTests(unittest.TestCase):
         result = actions_executive._plan_interviews(item, params, confirm=False)
 
         self.assertIn("batch_id", result)
-        self.assertEqual(result["count"], 3)
+        self.assertEqual(result["state"], ex.PENDING_APPROVAL)
+        self.assertEqual(len(result["items"]), 3)
+
+        # Verify each item includes slots
+        for item_result in result["items"]:
+            self.assertIn("applicant_ref", item_result)
+            self.assertIn("name", item_result)
+            self.assertIn("subject", item_result)
+            self.assertIn("slots", item_result)
+            self.assertIn("state", item_result)
+            self.assertGreater(len(item_result["slots"]), 0)
 
         # Verify batch was created in store
         batch = self.store.load(result["batch_id"])
