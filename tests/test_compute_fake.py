@@ -41,13 +41,13 @@ class FakeProviderTests(unittest.TestCase):
         self.assertEqual(result["instance_id"], "fake-1")
         self.assertEqual(self.provider.launches, 1)
 
-    def test_launch_increments_counter_on_each_call(self) -> None:
+    def test_launch_same_name_returns_existing_instance(self) -> None:
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         result1 = self.provider.launch(spec)
         result2 = self.provider.launch(spec)
-        self.assertEqual(result1["instance_id"], "fake-1")
-        self.assertEqual(result2["instance_id"], "fake-2")
-        self.assertEqual(self.provider.launches, 2)
+        self.assertEqual(result1["instance_id"], result2["instance_id"])
+        self.assertEqual(self.provider.launches, 1)
+        self.assertEqual(len(self.provider.instances), 1)
 
     def test_launch_different_specs_creates_different_instances(self) -> None:
         spec1 = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
@@ -56,19 +56,39 @@ class FakeProviderTests(unittest.TestCase):
         self.provider.launch(spec2)
         self.assertEqual(self.provider.launches, 2)
 
-    def test_launch_raises_when_fail_launch_set(self) -> None:
+    def test_fail_launch_creates_instance_then_raises(self) -> None:
         provider = FakeProvider(hourly_usd=1.0, clock=self.clock, fail_launch=True)
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         with self.assertRaises(RuntimeError) as cm:
             provider.launch(spec)
         self.assertIn("launch failure", str(cm.exception))
+        self.assertEqual(provider.launches, 1)
+        self.assertEqual(provider.lookup("job-1"), "fake-1")
 
-    def test_launch_creates_instance_even_on_fail(self) -> None:
+    def test_relaunch_after_raised_launch_returns_created_instance(self) -> None:
         provider = FakeProvider(hourly_usd=1.0, clock=self.clock, fail_launch=True)
         spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0}
         with self.assertRaises(RuntimeError):
             provider.launch(spec)
+        result = provider.launch(spec)
+        self.assertEqual(result["instance_id"], "fake-1")
         self.assertEqual(provider.launches, 1)
+        self.assertEqual(len(provider.instances), 1)
+
+    def test_lookup_unknown_name_returns_none(self) -> None:
+        self.assertIsNone(self.provider.lookup("no-such-job"))
+        self.provider.launch({"name": "job-1", "gpu": "A100", "hourly_usd": 1.0})
+        self.assertIsNone(self.provider.lookup("no-such-job"))
+
+    def test_cost_uses_per_instance_rate(self) -> None:
+        cheap = self.provider.launch({"name": "cheap", "gpu": "A100", "hourly_usd": 1.0})["instance_id"]
+        dear = self.provider.launch({"name": "dear", "gpu": "H100", "hourly_usd": 4.0})["instance_id"]
+        self.provider.hourly_usd = 9.0
+        self.clock.advance(1800.0)
+        cheap_cost = self.provider.poll(cheap)["cost_usd"]
+        dear_cost = self.provider.poll(dear)["cost_usd"]
+        self.assertAlmostEqual(cheap_cost, 0.5)
+        self.assertAlmostEqual(dear_cost, 4 * cheap_cost)
 
     def test_poll_unknown_instance_raises_key_error(self) -> None:
         with self.assertRaises(KeyError):
