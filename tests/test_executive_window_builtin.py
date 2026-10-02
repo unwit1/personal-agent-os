@@ -20,7 +20,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         reg = builtin.default_registry()
         provider_names = set(reg._providers.keys())
 
-        expected_providers = {"applicants", "orchestrator", "mail"}
+        expected_providers = {"applicants", "orchestrator", "mail", "mail_cleanup"}
         self.assertEqual(provider_names, expected_providers)
 
     def test_default_registry_registers_actions(self):
@@ -38,6 +38,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "orchestrator.decline_gate",
             "item.dismiss",
             "item.snooze",
+            "mail.organize_inbox",
+            "mail.organize_apply",
         }
         self.assertEqual(action_ids, expected_actions)
 
@@ -68,6 +70,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "executive.reach_out",
             "orchestrator.approve_gate",
             "orchestrator.decline_gate",
+            "mail.organize_apply",
         }
 
         for action_id in consequential_actions:
@@ -84,6 +87,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "executive.approve_batch",
             "item.dismiss",
             "item.snooze",
+            "mail.organize_inbox",
         }
 
         for action_id in non_consequential_actions:
