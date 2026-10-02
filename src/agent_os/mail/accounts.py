@@ -95,7 +95,7 @@ class Account:
     scope: str | None = None
     legacy: bool = False
     created_at: str | None = None
-    allow_moves: bool = False
+    allow_organize: bool = False
 
     @property
     def read_only(self) -> bool:
@@ -136,7 +136,7 @@ class Account:
             "email": self.email,
             "enabled": self.enabled,
             "read_only": True,
-            "allow_moves": bool(self.allow_moves),
+            "allow_organize": bool(self.allow_organize),
             "scope": self.mail_scope,
             "imap": {"host": self.host, "port": self.port, "security": self.tls},
             "folders": list(self.folders),
