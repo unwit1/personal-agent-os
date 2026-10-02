@@ -12,8 +12,15 @@ node.
 
 from __future__ import annotations
 
+import json
 import math
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Iterable, Mapping
+
+from .context_economy import RUN_ID, _Labels, _scan, assert_aggregate_only
+from .ledger import read_events
+from .store import orchestrator_home
 
 SCHEMA = "personal-agent/orchestrator-route-calibration/v1"
 MODE = "shadow"
@@ -250,4 +257,109 @@ def advise(cells: dict[str, dict[str, dict[str, Any]]], threshold: float) -> dic
             else:
                 result[family][class_name] = "escalate_earlier"
 
+    return result
+
+
+# -- offline report ----------------------------------------------------------
+
+
+def build(run_dirs: Iterable[Path], min_samples: int = 5, target: float = 0.9) -> dict[str, Any]:
+    """Build route calibration report from run directories.
+
+    Processes telemetry from each run, estimates pass rates per (family, class) cell,
+    calibrates a threshold targeting the desired pass rate, and advises on routing.
+    """
+    labels = _Labels()
+    forbidden: set[str] = set()
+    cov: dict[str, Any] = {
+        "runs": 0,
+        "malformed_runs": 0,
+        "malformed_lines": 0,
+        "nodes": 0,
+        "labeled": 0,
+        "unlabeled": 0,
+        "reviewer_nodes_excluded": 0,
+        "sanitized_labels": 0,
+    }
+    runs: list[tuple[str, list[dict[str, Any]]]] = []
+
+    for run_dir in sorted(Path(p) for p in run_dirs):
+        if not RUN_ID.match(run_dir.name):
+            cov["malformed_runs"] += 1
+            continue
+
+        telemetry_path = run_dir / "telemetry.jsonl"
+        events, malformed_count = read_events(telemetry_path)
+        cov["malformed_lines"] += malformed_count
+        cov["runs"] += 1
+
+        outcomes = node_outcomes(events)
+        for outcome in outcomes:
+            node = outcome.get("node")
+            if node:
+                forbidden.add(str(node))
+                cov["nodes"] += 1
+            if outcome.get("role") == "reviewer":
+                cov["reviewer_nodes_excluded"] += 1
+            if outcome.get("cheap_route_passed") is not None:
+                cov["labeled"] += 1
+            else:
+                cov["unlabeled"] += 1
+
+        runs.append((run_dir.name, outcomes))
+
+    all_outcomes: list[dict[str, Any]] = []
+    for _, outcomes in runs:
+        for outcome in outcomes:
+            sanitized = dict(outcome)
+            sanitized["family"] = labels(sanitized.get("family"))
+            sanitized["initial_class"] = labels(sanitized.get("initial_class"))
+            sanitized["initial_effort"] = labels(sanitized.get("initial_effort"))
+            sanitized["provider"] = labels(sanitized.get("provider"))
+            all_outcomes.append(sanitized)
+
+    cov["sanitized_labels"] = labels.sanitized
+
+    cells = estimate_cells(all_outcomes, min_samples=min_samples)
+    calibration = calibrate(cells, target=target)
+    recommended_threshold = calibration.get("recommended_threshold") or 0.95
+    advice = advise(cells, recommended_threshold)
+
+    result = {
+        "schema": SCHEMA,
+        "mode": MODE,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "routing_changed": False,
+        "runs": [run_id for run_id, _ in runs],
+        "coverage": cov,
+        "cells": cells,
+        "calibration": calibration,
+        "advice": advice,
+        "method": {
+            "estimator": "beta_binomial_laplace",
+            "bound": "wilson_95",
+            "prior_art": "PA-routellm",
+            "decision": "BORROW",
+        },
+    }
+
+    _scan(result, forbidden - labels.seen)
+    assert_aggregate_only(result, forbidden - labels.seen)
+    return result
+
+
+def report(home: Path | None = None, out: Path | None = None) -> dict[str, Any]:
+    """Generate route calibration report from orchestrator home directory.
+
+    Reads all run directories under home/runs, builds the report, and optionally
+    writes it to the specified output file.
+    """
+    root = Path(home or orchestrator_home())
+    run_dirs = [p for p in sorted((root / "runs").glob("*")) if p.is_dir()] if (root / "runs").is_dir() else []
+    result = build(run_dirs)
+    assert_aggregate_only(result)
+    if out:
+        target = Path(out)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(result, indent=2, sort_keys=True), encoding="utf-8")
     return result
