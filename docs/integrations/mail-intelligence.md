@@ -314,8 +314,15 @@ section "Measured results" at the bottom of this file.
 `providers_mail.mail_items` keeps its signature (`db_path`, `own_addresses`, `days`, `limit`, `search`, `now`)
 and gains `known: set[str] | None = None` (no `overrides` parameter in this run, D2).
 
+* **Row source.** With the default `search=None`, the window row set of each scope comes from
+  `mail.iter_rows(scope, after=cutoff)` (cutoff = `now - days`), which has no row cap, so the counts below cover
+  every message of the window. `mail.search` is **not** used on this path: it is capped at 50 rows (`MAX_LIMIT`)
+  and would silently drop older threads from the counts. A scope with no index is skipped as today. The injected
+  `search` parameter exists for tests only: when it is given, it is called as today and its rows are used as is
+  (a test that injects `search` controls the whole row set). An explicit `db_path` reads that one index through
+  `mail.iter_rows(db_path=db_path, after=cutoff)` as the personal tab, as today.
 * `known=None` means: compute per scope with `known_correspondents(mail.iter_rows(scope, senders=own), own)`
-  when the default search is used, or from the rows the injected `search` returned (so tests need no index).
+  on the default path, or from the rows the injected `search` returned (so tests need no index).
 * For each thread's latest message, call `classify`. Only verdict `human` becomes a
   `mail_thread` item. The old `AUTOMATED` regex and the "sender is own" check are removed (the classifier
   covers both); the third point of `_score` ("not automated") becomes "verdict is human" and the `score >= 2`
@@ -332,9 +339,16 @@ and gains `known: set[str] | None = None` (no `overrides` parameter in this run,
 
 ### 2.1 Row shape (input)
 
-One dict per live IMAP source in the INBOX of every configured account, from both scopes
-(`mail.iter_rows`). Other mailboxes (Sent, Junk, folders the operator already made) are used as context only,
-they are never moved.
+One dict per live IMAP source of every configured account of **one scope** (`mail.iter_rows(scope)`; one plan
+per scope, 2.3). All rows of the scope are read, but only **INBOX rows** are categorized and can be moved.
+
+**INBOX row (exact definition):** a row whose `mailbox.strip().casefold() == "inbox"`. This is an exact match:
+`INBOX.Receipts`, `INBOX/Agent OS/Receipts`, `INBOX.Junk`, `Inbox Archive` and every other child or look-alike
+folder is **not** an INBOX row, so mail already filed under a namespace prefix (including the plan's own target
+folders such as `INBOX.Agent OS.Receipts`) is never eligible to move again. Every non-INBOX row (Sent, Junk,
+folders the operator already made, child folders of INBOX) is used as context only: it feeds
+`known_correspondents`, `thread_last_own` and `spam_filtered`, is counted in `skipped.non_inbox`, and is never
+categorized or moved.
 
 ```
 id (index message id, "msg_..."), thread_id, message_id (RFC), subject, sender, recipients, date (ISO UTC),
@@ -374,7 +388,7 @@ scope index) is own sent mail; `build_plan` computes it by grouping rows on `thr
 | Order | Category | Rule |
 |---|---|---|
 | 0 | (excluded) | Own sent mail (verdict `bulk` with reason `own sent mail`) is never categorized or moved; it is counted in `spam_filtered.own_sent` |
-| 1 | `spam` | verdict `spam` (a row already in a server spam folder gets this category but `move = false`: it is already filed) |
+| 1 | `spam` | verdict `spam` (for an INBOX row this comes from the spam rule of 1.4; a row in a server spam folder is not an INBOX row, 2.1, so it is never categorized and is counted only in `spam_filtered` and `skipped.non_inbox`) |
 | 2 | `hr_applicants` | scope `work`, verdict `bulk` (**never** `human` or `review`: a person writing about an application needs a reply and goes on to rules 6-7), and the subject matches `applicant|application|apply|resume|r[ée]sum[ée]|cv\b|candidate|interview|hiring|recruit|job posting|offer letter|onboarding` or the sender domain is a job board (`indeed.com`, `ziprecruiter.com`, `greenhouse.io`, `lever.co`, `workable.com`, `applytojob.com`, `jobvite.com`, `smartrecruiters.com`) |
 | 3 | `receipts_finance` | verdict `bulk` and the subject matches `receipt|invoice|order confirmation|your order|payment|statement|billing|refund|transaction|tax|paid` or the sender local part is `billing|invoice|invoices|receipts?|payments?|orders?` or the domain is `paypal.com`, `stripe.com`, `squareup.com`, `venmo.com` |
 | 4 | `notifications` | verdict `bulk`, the sender matches the strong sender pattern or `auto_submitted` is present, and no promotional marker matched the subject |
@@ -406,29 +420,37 @@ the stored plan for the operator's drill-down.
 ### 2.3 `build_plan`
 
 ```python
-def build_plan(rows, *, own: set[str], known: dict[str, set[str]] | set[str], now: datetime | None = None,
+def build_plan(rows, *, scope: str, own: set[str], known: set[str], now: datetime | None = None,
                folders: dict[str, str | None] | None = None, allow: dict[str, bool] | None = None,
                sample_size: int = 5) -> dict: ...
 
-def plan_from_index(scopes=("work", "personal"), *, now=None, db_paths=None, folders=None) -> dict: ...
+def plan_from_index(scope: str, *, now=None, db_path=None, folders=None) -> dict: ...
 def plan_summary(plan: dict) -> dict: ...
 ```
 
-`build_plan` is pure (no I/O). `known` is a mapping scope -> set (a plain set applies to every scope). `folders`
-overrides entries of `TARGET_FOLDERS`. `allow` maps `account_id` to its `allow_organize` value for display only.
-`plan_from_index` is the I/O wrapper: it reads `mail.iter_rows` for each scope that has an index (a scope with no
-index is skipped and simply missing from `scopes`), loads `own` from the configured accounts and `known` per
-scope, and returns `build_plan(...)`. `plan_summary` returns the plan without `message_ids` and `sources` (this
-is what the window shows and what the model is given).
+**One plan per scope (fixed).** A plan covers exactly one scope (`work` or `personal`) and is saved as its own
+file; there is no combined plan. This is what keeps invariant 8 of 3.7 true.
+
+`build_plan` is pure (no I/O). `scope` is the plan's scope; a row whose `scope` key is present and differs raises
+`ValueError` (rows without a `scope` key are taken as belonging to `scope`). `known` is that scope's set.
+`folders` overrides entries of `TARGET_FOLDERS`. `allow` maps `account_id` to its `allow_organize` value for
+display only. `plan_from_index(scope)` is the I/O wrapper: it reads `mail.iter_rows(scope)` (or `db_path` when
+given), loads `own` from the configured accounts and `known` for that scope, and returns `build_plan(...)`; when
+the scope has no index it raises `ValueError("no local index for scope <scope>")`. Callers that build "all"
+plans (`mail.organize` without `scope`, `organize-plan` without `--scope`) call `plan_from_index` once per scope,
+save each plan as its own file, skip a scope that raises with the note `<scope>: no local index`, and return one
+summary per scope built. `plan_summary` returns the plan without `message_ids` and `sources` (this is what the
+window shows and what the model is given).
 
 **Plan JSON** (stable keys; every category is always present for every account, with `count: 0` and empty
 lists when nothing matched):
 
 ```json
 {
-  "plan_id": "plan_<first 16 hex of sha256(generated_at + per-account counts)>",
+  "plan_id": "plan_<first 16 hex of sha256(scope + generated_at + per-account counts)>",
   "generated_at": "2026-10-02T12:00:00+00:00",
-  "scopes": ["work", "personal"],
+  "scope": "work",
+  "scopes": ["work"],
   "folders": {"action_needed": null, "receipts_finance": "Agent OS/Receipts", "...": "..."},
   "accounts": {
     "work-earthlink": {
@@ -456,6 +478,8 @@ lists when nothing matched):
 
 Details:
 
+* `scope` is the plan's one scope. `scopes` is always the one-element list `[scope]`, kept so the plan has the
+  operator spec's `scopes` key; code reads `scope`. Every account in `accounts` has that scope.
 * `count` is the total in the category; `samples` holds up to `sample_size` (5) subjects, newest first, each
   cut at 120 characters; `message_ids` lists **all** index message ids in that category for that account (not
   just the samples). Counts per category sum to `inbox_total`.
@@ -468,7 +492,9 @@ Details:
   moved) and `non_inbox` (live rows in other mailboxes, used for context and counts only).
 * The stored plan (on disk) additionally has `sources`: `{account_id: {message_id: {"source_id", "mailbox",
   "uidvalidity", "uid", "rfc_message_id"}}}`, which `organize_apply` needs. A plan is saved by the caller (CLI or
-  window action) at `<window_home>/mail-plans/<plan_id>.json` with the atomic writer. Plans older than **24 hours**
+  window action) at `<window_home>/mail-plans/<plan_id>.json` with the atomic writer, one file per scope's plan.
+  "The newest plan for a scope" means the file in `mail-plans/` whose `scope` equals that scope and whose
+  `generated_at` is latest; a plan of the other scope is never used for it. Plans older than **24 hours**
   are refused by apply ("plan is stale, run Organize inbox again"). The plan contains subjects and sender
   addresses only, never bodies and never credentials.
 
@@ -628,7 +654,7 @@ Flat, hyphenated subcommands like the existing `import-pst` and `split-scopes`; 
 dry-run unless `--confirm`:
 
 ```
-agent-os mail organize-plan [--scope work|personal] [--json]          # builds, saves and prints the plan
+agent-os mail organize-plan [--scope work|personal] [--json]          # builds, saves and prints one plan per scope (both when --scope is omitted)
 agent-os mail organize-apply --plan <id> --category <c> [--account <id>] [--confirm]
 agent-os mail organize-undo --journal <id> [--seq N] [--confirm]
 agent-os mail account organize <account-id> --on|--off              # sets allow_organize
@@ -648,8 +674,9 @@ Deferred (0.3): `agent-os mail organize-journal [--scope work|personal]` (D5) an
 5. A mismatched `UIDVALIDITY` or `Message-ID` moves nothing for that message.
 6. `ReadOnlyIMAP` and the sync path are unchanged: the existing read-only tests still pass untouched.
 7. No credential, app password or secret appears in the plan, the journal, the audit line, or any result.
-8. Work and personal scopes stay separate: plans, known-correspondent sets and journals are per scope; the only
-   place both appear together is the operator's own window.
+8. Work and personal scopes stay separate: plans, known-correspondent sets and journals are per scope (each plan
+   file has exactly one `scope` and only that scope's accounts and rows, 2.3); the only place both appear together
+   is the operator's own window.
 9. Spam and bulk are filtered from commitments only; they are counted in the `mail_filtered` item (window row
    set) and in the plan's `spam_filtered` (whole index). Nothing is deleted, and the spam category is moved to
    `Agent OS/Spam`, not to Trash.
@@ -676,7 +703,8 @@ the local index and the saved plan. Building a plan is an explicit action.
 
 `mail_cleanup_items(window_home=None, accounts_path=None, now=None) -> list[dict]` returns one `mail_cleanup`
 item per scope with a configured account. For tab `work` it contains only work-scope accounts, for `personal`
-only personal-scope accounts. It reads the newest plan file for the scope; it never rebuilds one.
+only personal-scope accounts. It reads the newest plan for the scope (the newest file whose `scope` equals the
+tab's scope, 2.3); it never rebuilds one.
 
 ### 4.2 Actions
 
@@ -686,7 +714,7 @@ preview **is** the dry-run and Confirm performs. Every consequential action is a
 
 | Action id | Label | Applies to | Consequential | Params | What it does |
 |---|---|---|---|---|---|
-| `mail.organize` | `Organize inbox` | `mail_cleanup` | no | `scope` (optional) | Builds a plan (`plan_from_index`), saves it, returns `plan_summary`. Changes no mail and needs no network; this is the dry-run view. |
+| `mail.organize` | `Organize inbox` | `mail_cleanup` | no | `scope` (optional) | Builds one plan per scope (`plan_from_index(scope)`; only the given scope when `scope` is set, else each scope with an index), saves each as its own file, returns `{"plans": {scope: plan_summary}, "skipped": ["<scope>: no local index"]}`. Changes no mail and needs no network; this is the dry-run view. |
 | `mail.organize.apply.<category>` | `Organize: <category label>` | `mail_cleanup` | **yes** | `plan_id` (**required**, no default), `accounts` (optional list of account ids) | One action per **movable** category: `receipts_finance`, `newsletters_promotions`, `notifications`, `hr_applicants`, `personal`, `spam`, `archive_old` (seven actions; `action_needed` and `waiting_on_others` have none). Preview (`confirm=False`) = `apply_plan(..., dry_run=True)`: per account, how many messages would move, to which folder, with the samples, plus accounts that are skipped because `allow_organize` is off. Confirm performs the moves. This is the **per-category Confirm button**. |
 | `mail.organize.allow` | `Allow organizing` | `mail_cleanup` | **yes** | `account_id`, `allow` (bool) | Sets `allow_organize` on one account (`accounts.set_allow_organize`). Preview text states: "lets Agent OS move (never delete) mail in <email>'s INBOX; syncing stays read-only". |
 
@@ -739,6 +767,26 @@ Overrides of task descriptions, binding for every step:
   is not called anywhere in this run.
 * The window apply actions take a **required** `plan_id` (4.2).
 * `hr_applicants` (rule 2) accepts verdict `bulk` only (2.2).
+* Plans are one per scope (2.3); an INBOX row is an exact `mailbox.strip().casefold() == "inbox"` match (2.1).
+* The window row set comes from `mail.iter_rows`, not the capped `mail.search` (1.8).
+
+Per task id (binding; where a task description in the graph says otherwise, this line wins):
+
+* `mail-list-headers`: delivers the schema v3 part of step 1: **four** nullable fields `list_unsubscribe`,
+  `list_id`, `precedence` **and `auto_submitted`** on `ParsedMessage`, the `mail_messages` columns, `Store.record`
+  and the search/`iter_rows` rows (0.2). A description that lists fewer fields is overridden.
+* `account-allow-moves`: delivers `Account.allow_organize` and `set_allow_organize` (3.2) under that name, as part
+  of step 1.
+* `spam-eval`: delivers `spam_eval.py` of step 2 (1.7): `SYNTHETIC` is a list of `(message, label)` tuples with
+  `label` in `human`/`bulk`/`spam`, **at least 60 cases**, and the acceptance targets of 1.7. A description that
+  asks for dict cases (for example `{"message", "label"}` records) or a smaller set is overridden.
+* `organize-apply-journal`: delivers `organize_apply.py` (`Mover` protocol, `apply_plan`, `undo`, journal) of
+  step 4 against `imap_write.ImapMover` only. There is **no** `choose_backend` function, no backend parameter and
+  no Outlook branch; a description that asks for one is overridden.
+* `outlook-mover`: **no deliverable.** The operator removed Outlook and COM from this feature. The task must not
+  create `src/agent_os/mail/outlook_move.py` (or any other Outlook/COM module, test or fake) and changes no code;
+  it reports `already_done` (or an empty change) citing this line. IMAP moves are delivered by step 4.
+* Any other task id implements the step below whose section its description names, with exactly that step's scope.
 
 Steps:
 
@@ -751,13 +799,14 @@ Steps:
 3. Section 2: `organize.py` (`categorize`, `build_plan`, `plan_from_index`, `plan_summary`, `TARGET_FOLDERS`):
    `test_mail_organize.py` with one test per rule, review rows never moved at any age, human rows that ask never
    moved (including an applicant subject), the age overlay, per-account counts that sum to `inbox_total`,
-   `spam_filtered` totals, both scopes, and invariants 10 and 12 of 3.7.
+   `spam_filtered` totals, one plan per scope (a row of another scope is rejected; `plan["scope"]` is set),
+   INBOX-row matching (`INBOX.Receipts` and a server spam folder are `non_inbox`), and invariants 8, 10 and 12 of 3.7.
 4. Section 3: `imap_write.py`, `organize_apply.py` (`apply_plan`, `undo`, journal) and the CLI commands of 3.6:
    `test_mail_organize_apply.py` with a `FakeIMAP` client under `ImapMover` and a fake `Mover`, covering MOVE, the
    copy fallback, unsupported-keyword refusal, folder creation, UIDVALIDITY change, undo, undo skipping an orphaned
    `pending` line, and invariants 1-8 of 3.7. Not in scope: D4, D5.
 5. Section 4: `providers_mail.py` (commitments use `classify`; `mail_filtered` and `mail_review` items over the
-   window row set), `actions_mail_organize.py` (`mail_cleanup_items`; actions `mail.organize`,
+   window row set, read from `mail.iter_rows` on the default path, 1.8), `actions_mail_organize.py` (`mail_cleanup_items`; actions `mail.organize`,
    `mail.organize.apply.<category>` x7, `mail.organize.allow`), `builtin.py`: tests in
    `test_executive_window_provider_mail.py` (existing cases keep passing), `test_executive_window_registry.py`
    and `test_executive_window_builtin.py` style tests for the new actions (preview does not move; Confirm moves;
