@@ -46,15 +46,43 @@ class MailProviderTests(unittest.TestCase):
         self.assertEqual(item["context"], {"thread_id": "t-reply", "message_id": "<1@x>",
                                            "sender": "Pat <pat@corp.com>", "subject": "Lunch?"})
         self.assertNotIn("body", item)
-        self.assertEqual(len(calls), 1)
+        self.assertEqual(sorted(c.get("scope") for c in calls), ["personal", "work"])  # one local query per scope index
 
     def test_default_search_is_local_index_only(self):
         with mock.patch.object(mail, "sync", side_effect=AssertionError("sync called")), \
              mock.patch.object(mail, "search", return_value=list(ROWS)) as s:
             items = mail_items(own_addresses=[ME], now=NOW)
-        s.assert_called_once()
+        self.assertEqual(sorted(c.kwargs.get("scope") for c in s.call_args_list), ["personal", "work"])
         self.assertEqual(len(items), 1)
 
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MailScopeTabTests(unittest.TestCase):
+    def test_work_scope_threads_go_to_the_work_tab(self):
+        from datetime import datetime, timezone
+        from agent_os.executive.window.providers_mail import mail_items
+
+        now = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
+
+        def search(query, scope=None, **kw):
+            sender = {"personal": "Friend <friend@example.org>", "work": "Vendor <vendor@example.com>"}[scope]
+            return [{"thread_id": f"t-{scope}", "id": f"m-{scope}", "message_id": f"m-{scope}", "date": "2026-10-01T09:00:00+00:00",
+                     "sender": sender, "recipients": "me@example.net", "subject": f"{scope} question?", "snippet": "can you reply?"}]
+
+        items = mail_items(own_addresses=["me@example.net"], search=search, now=now)
+        tabs = {item["context"]["thread_id"]: item["tab"] for item in items}
+        self.assertEqual(tabs, {"t-personal": "personal", "t-work": "work"})
+
+    def test_a_scope_without_an_index_is_skipped(self):
+        from datetime import datetime, timezone
+        from agent_os.executive.window.providers_mail import mail_items
+
+        def search(query, scope=None, **kw):
+            if scope == "work":
+                raise ValueError("no work index")
+            return []
+
+        self.assertEqual(mail_items(own_addresses=[], search=search, now=datetime(2026, 10, 2, tzinfo=timezone.utc)), [])
