@@ -6,6 +6,8 @@ instead of paid alternatives.
 """
 from __future__ import annotations
 
+import math
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -23,43 +25,90 @@ def report(
     ledger_events: list[dict[str, Any]],
     *,
     prices: dict[str, Any] | None = None,
-    paid_model: str | None = None
 ) -> dict[str, Any]:
     """Generate metrics report from free-compute ledger events.
 
     Args:
         ledger_events: Attempt and verdict events from the free-quota ledger.
                       Attempt events have no 'type' field; verdict events have type='verdict'.
-        prices: Model prices dict (from model_prices.fetch_prices()["prices"]).
+                      Accepted attempt events should have a 'paid_route' field:
+                      {"model": str, "provider": str|None, "subscription": bool}.
+        prices: Model prices dict mapping model name to {"input": float, "output": float}.
                 If None, estimated_paid_cost_avoided_usd will be None with 'no prices supplied' note.
-        paid_model: Single assumed paid route model name to price accepted results against.
-                   If None with useful_accepted results, adds 'no paid_model given' note.
+                Prices dict must not be mutated by this function.
 
     Returns:
         Dict with metrics: requests, useful_progress_per_request, validator_acceptance,
         review_acceptance, retries, escalations, paid_fallbacks_avoided,
-        estimated_paid_cost_avoided_usd, by_task_family, by_model, errors.
+        estimated_paid_cost_avoided_usd, estimated_paid_cost_basis,
+        estimated_paid_cost_coverage, by_task_family, by_model, errors.
+
+        estimated_paid_cost_basis: "per accepted free result: tokens x price of the paid route that would otherwise have run"
+        estimated_paid_cost_coverage: {"priced": int, "accepted": int} count of events that were priced vs total accepted
     """
-    prices = prices or {}
 
     # Copy events to avoid mutating caller's data
     # Attempt events have no 'type' field; verdict events have type='verdict'
     attempts = [dict(e) for e in ledger_events if e.get("type") is None]
     verdicts = [e for e in ledger_events if e.get("type") == "verdict"]
 
-    # Build verdict map and apply to copies of attempts
-    verdict_map: dict[str, dict[str, Any]] = {}
+    # Collect errors early
+    errors = []
+
+    # Build attempt map and apply verdicts, track unknown event_ids (R5-1)
+    attempt_map = {e.get("event_id"): e for e in attempts if e.get("event_id")}
+
     for verdict in verdicts:
         event_id = verdict.get("event_id")
-        if event_id:
-            verdict_map[event_id] = verdict
-
-    attempt_map = {e.get("event_id"): e for e in attempts if e.get("event_id")}
-    for event_id, verdict in verdict_map.items():
-        if event_id in attempt_map:
+        if not event_id:
+            errors.append(f"verdict for unknown event_id: no event_id provided")
+        elif event_id not in attempt_map:
+            errors.append(f"verdict for unknown event_id {event_id}")
+        else:
+            # Apply verdict to the attempt
             for key in ["validator_passed", "accepted", "escalated"]:
                 if key in verdict:
                     attempt_map[event_id][key] = verdict[key]
+
+    # Validate prices structure without mutating input (R1-1, R1-2)
+    prices_valid = True
+    valid_prices: dict[str, dict[str, Any]] = {}
+
+    if prices is None:
+        prices_valid = False
+    elif not isinstance(prices, dict):
+        # R1-2: Reject falsy non-dict prices ([], '', 0, False) explicitly
+        errors.append("invalid prices: expected mapping of model -> {input, output}")
+        prices_valid = False
+    else:
+        # Validate per-model entries without mutating input dict
+        for model, price_entry in prices.items():
+            if not isinstance(price_entry, dict):
+                errors.append(f"invalid prices for model {model}: expected dict with input/output fields")
+                continue
+
+            # Validate input and output fields (R3-4: check for non-finite)
+            valid_entry = {}
+            is_valid_entry = True
+            for key in ["input", "output"]:
+                val = price_entry.get(key)
+                if val is not None:
+                    if isinstance(val, bool) or not isinstance(val, (int, float)):
+                        errors.append(f"invalid price for {model}/{key}: expected number, got {type(val).__name__}")
+                        is_valid_entry = False
+                        break
+                    elif not math.isfinite(val):
+                        errors.append(f"invalid price for {model}/{key}: non-finite value")
+                        is_valid_entry = False
+                        break
+                    elif val < 0:
+                        errors.append(f"invalid price for {model}/{key}: negative price")
+                        is_valid_entry = False
+                        break
+                    valid_entry[key] = val
+
+            if is_valid_entry:
+                valid_prices[model] = valid_entry
 
     # Basic counts
     total_requests = len(attempts)
@@ -127,62 +176,117 @@ def report(
     # Paid fallbacks avoided = accepted results that were never escalated
     paid_fallbacks_avoided = len(useful_accepted)
 
-    # Estimate paid cost avoided
+    # Estimate paid cost avoided using per-event paid_route (R5-2, R5-3)
     estimated_paid_cost_avoided_usd = None
-    cost_basis = None
-    errors = []
+    cost_basis = "per accepted free result: tokens x price of the paid route that would otherwise have run"
+    estimated_paid_cost_coverage = None
+
+    def _valid_tokens(tokens: Any) -> tuple[int | float, int | float] | None:
+        """Validate and extract input/output tokens, return (input, output) or None."""
+        if not isinstance(tokens, dict):
+            return None
+        input_tokens = tokens.get("input", 0)
+        output_tokens = tokens.get("output", 0)
+        # Reject bool (bool is a subclass of int in Python)
+        if isinstance(input_tokens, bool) or isinstance(output_tokens, bool):
+            return None
+        # Require int or float (not string, list, etc.)
+        if not isinstance(input_tokens, (int, float)) or not isinstance(output_tokens, (int, float)):
+            return None
+        # Check for non-finite values (NaN, inf) (R3-4)
+        if not math.isfinite(input_tokens) or not math.isfinite(output_tokens):
+            return None
+        # Check for negative values
+        if input_tokens < 0 or output_tokens < 0:
+            return None
+        # Require at least one token
+        if not (input_tokens or output_tokens):
+            return None
+        return (input_tokens, output_tokens)
 
     if useful_accepted:
-        # Try to calculate cost; gather reasons we can't if needed
-        if prices and paid_model:
+        # Note when prices are missing at the start
+        if prices is None:
+            errors.append("no prices supplied")
+
+        # If prices not available/valid, skip pricing loop and set coverage
+        if prices is None or not prices_valid:
+            estimated_paid_cost_coverage = {
+                "priced": 0,
+                "accepted": len(useful_accepted)
+            }
+        else:
+            # Run pricing loop only when prices are valid
             total_cost = 0.0
-            can_price_all = True
+            priced_count = 0
+            unpriced_reasons = Counter()
+
             for evt in useful_accepted:
-                tokens = evt.get("tokens", {})
-                input_tokens = tokens.get("input", 0) if isinstance(tokens, dict) else 0
-                output_tokens = tokens.get("output", 0) if isinstance(tokens, dict) else 0
+                paid_route = evt.get("paid_route")
+                if not paid_route:
+                    unpriced_reasons["no paid_route"] += 1
+                    continue
 
-                # Check for missing tokens
-                if not (input_tokens or output_tokens):
-                    can_price_all = False
-                    break
+                if not isinstance(paid_route, dict):
+                    unpriced_reasons["invalid paid_route"] += 1
+                    continue
 
-                # Check if paid_model is in prices
-                if paid_model not in prices:
-                    can_price_all = False
-                    break
+                model = paid_route.get("model")
+                subscription = paid_route.get("subscription", False)
 
-                model_price = prices[paid_model]
+                if not model:
+                    unpriced_reasons["no model in paid_route"] += 1
+                    continue
+
+                # Only count subscription as priced if prices are valid
+                if subscription:
+                    # Subscription routes cost 0
+                    priced_count += 1
+                    continue
+
+                # Get tokens and validate them
+                token_pair = _valid_tokens(evt.get("tokens"))
+                if token_pair is None:
+                    unpriced_reasons["missing tokens"] += 1
+                    continue
+
+                input_tokens, output_tokens = token_pair
+
+                # Check if model has prices
+                if model not in valid_prices:
+                    unpriced_reasons[f"no price for {model}"] += 1
+                    continue
+
+                model_price = valid_prices[model]
                 input_price = model_price.get("input")
                 output_price = model_price.get("output")
 
-                # Check for None prices
+                # Check for None or missing prices
                 if input_price is None or output_price is None:
-                    can_price_all = False
-                    break
-
-                input_price = float(input_price)
-                output_price = float(output_price)
+                    unpriced_reasons[f"incomplete price for {model}"] += 1
+                    continue
 
                 # Prices are per million tokens
                 cost = (input_tokens * input_price + output_tokens * output_price) / 1e6
                 total_cost += cost
+                priced_count += 1
 
-            if can_price_all:
+            # Add aggregated errors for unpriced reasons
+            for reason, count in unpriced_reasons.items():
+                errors.append(f"unpriced events ({reason}): {count}")
+
+            # Set cost and coverage only if we have priced events
+            if priced_count > 0:
                 estimated_paid_cost_avoided_usd = round(total_cost, 6)
-                cost_basis = "per accepted free result: tokens x price of the paid route that would have run"
-            else:
-                # If any accepted result cannot be priced, add error
-                if paid_model not in prices:
-                    errors.append(f"estimated cost unavailable: no price data for paid model {paid_model}")
-                else:
-                    errors.append(f"estimated cost unavailable: incomplete price data or missing tokens for paid model {paid_model}")
-        else:
-            # Accepted results exist but missing prices or paid_model
-            if not prices:
-                errors.append("estimated cost unavailable: no prices supplied")
-            if not paid_model:
-                errors.append("estimated cost unavailable: no paid_model given")
+
+            estimated_paid_cost_coverage = {
+                "priced": priced_count,
+                "accepted": len(useful_accepted)
+            }
+    else:
+        # No accepted results
+        if prices is None:
+            errors.append("no prices supplied")
 
     def _group_by_key(key_name: str) -> dict[str, dict[str, Any]]:
         """Group attempt metrics by a top-level event key."""
@@ -216,7 +320,8 @@ def report(
         "escalations": escalations,
         "paid_fallbacks_avoided": paid_fallbacks_avoided,
         "estimated_paid_cost_avoided_usd": estimated_paid_cost_avoided_usd,
-        "estimated_paid_cost_basis": cost_basis,
+        "estimated_paid_cost_basis": cost_basis if estimated_paid_cost_avoided_usd is not None else None,
+        "estimated_paid_cost_coverage": estimated_paid_cost_coverage,
         "by_task_family": by_family,
         "by_model": by_model,
         "errors": errors,
