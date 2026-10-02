@@ -218,8 +218,8 @@ class ActionExecutiveTests(unittest.TestCase):
         self.assertEqual(self.gw.sends(), ["ref-a", "ref-b"])
         self.assertIn(("send_now", "ref-a", ex.OUTREACH_KIND, EMAILS["ref-a"]), self.gw.calls)
 
-    def test_register_adds_three_actions(self):
-        """Test that register() adds the three actions to the registry."""
+    def test_register_adds_two_actions(self):
+        """register() adds plan and approve; reach_out goes through compose."""
         reg = registry.Registry()
         actions_executive.register(reg)
 
@@ -227,15 +227,14 @@ class ActionExecutiveTests(unittest.TestCase):
 
         self.assertIn("executive.plan_interviews", actions)
         self.assertIn("executive.approve_batch", actions)
-        self.assertIn("executive.reach_out", actions)
+        self.assertNotIn("executive.reach_out", actions)
 
         # Verify properties
         self.assertFalse(actions["executive.plan_interviews"]["consequential"])
         self.assertFalse(actions["executive.approve_batch"]["consequential"])
-        self.assertTrue(actions["executive.reach_out"]["consequential"])
 
         # Verify applies_to
-        for action_id in ["executive.plan_interviews", "executive.approve_batch", "executive.reach_out"]:
+        for action_id in ["executive.plan_interviews", "executive.approve_batch"]:
             self.assertEqual(actions[action_id]["applies_to"], ["applicant_group"])
 
     def test_actions_through_registry(self):
@@ -261,7 +260,7 @@ class ActionExecutiveTests(unittest.TestCase):
             self.assertIn("batch_id", result["result"])
 
     def test_reach_out_consequential_flow(self):
-        """Test the full consequential flow for reach_out (preview -> confirm)."""
+        """reach_out is not a window action: the registry refuses it and nothing sends."""
         with tempfile.TemporaryDirectory() as tmp:
             pending = PendingStore(tmp)
             reg = registry.Registry()
@@ -288,11 +287,9 @@ class ActionExecutiveTests(unittest.TestCase):
             # Preview reach_out (should not actually send)
             self.gw.calls.clear()
             reach_params = {"batch_id": batch_id}
-            preview_result = reg.invoke("executive.reach_out", item, reach_params, pending)
-
-            self.assertEqual(preview_result["status"], "needs_confirmation")
+            with self.assertRaises(KeyError):
+                reg.invoke("executive.reach_out", item, reach_params, pending)
             self.assertEqual(self.gw.sends(), [])
-            self.assertTrue(preview_result["preview"]["dry_run"])
 
     def test_privacy_preserved_in_output(self):
         """Test that action output preserves privacy rules (no secrets in JSON)."""

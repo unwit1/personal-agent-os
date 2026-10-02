@@ -253,7 +253,7 @@ class EmailSendTests(unittest.TestCase):
 
 class RegisterTests(unittest.TestCase):
     def test_actions_registered(self):
-        """Both email actions are registered."""
+        """Only the reply draft is registered; sending goes through compose."""
         from agent_os.executive.window.registry import Registry
 
         registry = Registry()
@@ -261,7 +261,7 @@ class RegisterTests(unittest.TestCase):
 
         action_ids = [a["id"] for a in registry.actions()]
         self.assertIn("email.reply_draft", action_ids)
-        self.assertIn("email.send", action_ids)
+        self.assertNotIn("email.send", action_ids)
 
     def test_reply_draft_not_consequential(self):
         """email.reply_draft is not consequential."""
@@ -273,16 +273,6 @@ class RegisterTests(unittest.TestCase):
         action = next(a for a in registry.actions() if a["id"] == "email.reply_draft")
         self.assertFalse(action["consequential"])
 
-    def test_send_consequential(self):
-        """email.send is consequential."""
-        from agent_os.executive.window.registry import Registry
-
-        registry = Registry()
-        actions_email.register(registry)
-
-        action = next(a for a in registry.actions() if a["id"] == "email.send")
-        self.assertTrue(action["consequential"])
-
     def test_reply_draft_applies_to_mail_thread(self):
         """email.reply_draft applies to mail_thread items."""
         from agent_os.executive.window.registry import Registry
@@ -292,16 +282,6 @@ class RegisterTests(unittest.TestCase):
 
         action = next(a for a in registry.actions() if a["id"] == "email.reply_draft")
         self.assertEqual(action["applies_to"], ["mail_thread"])
-
-    def test_send_applies_to_all(self):
-        """email.send applies to all item kinds."""
-        from agent_os.executive.window.registry import Registry
-
-        registry = Registry()
-        actions_email.register(registry)
-
-        action = next(a for a in registry.actions() if a["id"] == "email.send")
-        self.assertEqual(action["applies_to"], "*")
 
 
 if __name__ == "__main__":

@@ -129,21 +129,5 @@ def register(registry: Any) -> None:
             },
         },
     )
-    registry.register_action(
-        "email.send",
-        "Send email",
-        "*",
-        email_send,
-        consequential=True,
-        description="Send an email (requires confirmation)",
-        params_schema={
-            "type": "object",
-            "properties": {
-                "to": {"type": "string", "description": "Recipient email address"},
-                "subject": {"type": "string", "description": "Email subject"},
-                "body": {"type": "string", "description": "Email body"},
-                "in_reply_to": {"type": "string", "description": "Message ID to reply to (optional)"},
-            },
-            "required": ["to", "subject", "body"],
-        },
-    )
+    # email.send is not registered: the only send path is the compose panel's
+    # POST /api/send (executive-applicant-workflow.md section 11.1).

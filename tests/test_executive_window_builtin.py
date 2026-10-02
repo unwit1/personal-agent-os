@@ -30,10 +30,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
 
         expected_actions = {
             "email.reply_draft",
-            "email.send",
             "executive.plan_interviews",
             "executive.approve_batch",
-            "executive.reach_out",
             "orchestrator.approve_gate",
             "orchestrator.decline_gate",
             "item.dismiss",
@@ -95,12 +93,15 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
 
         # These should be consequential (require confirmation)
         consequential_actions = {
-            "email.send",
-            "executive.reach_out",
             "orchestrator.approve_gate",
             "orchestrator.decline_gate",
             "mail.organize_apply",
+            "applicant.decline",
+            "county.opening_change",
         }
+        # The old direct senders are gone: every email goes through compose.
+        self.assertNotIn("email.send", reg._actions)
+        self.assertNotIn("executive.reach_out", reg._actions)
 
         for action_id in consequential_actions:
             action = reg._actions[action_id]

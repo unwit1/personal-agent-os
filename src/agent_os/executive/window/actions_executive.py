@@ -122,11 +122,5 @@ def register(reg: registry.Registry) -> None:
         description="Approve a pending batch with per-applicant decisions",
     )
 
-    reg.register_action(
-        "executive.reach_out",
-        "Send Outreach",
-        ["applicant_group"],
-        _reach_out,
-        consequential=True,
-        description="Send approved interview outreach emails to applicants",
-    )
+    # executive.reach_out is not registered: after a batch is approved each
+    # applicant is sent with applicant.reach_out (compose, then Send).
