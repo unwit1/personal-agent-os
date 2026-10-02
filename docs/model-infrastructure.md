@@ -412,7 +412,7 @@ Validation errors raise `ValueError` and persist nothing:
 - `provider` and `gpu` are required strings.
 - `hourly_usd` must be greater than 0.
 - `estimate` must be `{low, expected, high}`, numeric, with
-  `0 <= low <= expected <= high`.
+  `0 <= low <= expected <= high` and `high > 0`.
 - `max_runtime_seconds` is optional and must be greater than 0.
 - `budget` is optional: a workload budget block, which can only tighten.
 - `job_id` is optional and must match `^[a-z0-9][a-z0-9-]{2,63}$`. When it is
@@ -456,10 +456,14 @@ continues only if all of these hold:
 - `gate["approved"]` is true;
 - `job_hard_cap_usd` and `project_usd` are both set;
 - `estimate.high <= job_hard_cap_usd`;
-- `estimate.high <= project_usd`.
+- `estimate.high <= project_usd`;
+- `max_runtime_seconds` (see Mandatory auto-stop), computed here from
+  `estimate.high`, is greater than 0.
 
-Otherwise the job goes to `blocked` with the failing check as `reason`.
-Nothing is reserved or launched.
+Otherwise the job goes `requested -> blocked` with the failing check as
+`reason`. Nothing is reserved or launched. Every check, including the
+runtime one, runs before the ledger reservation is written, so a job never
+needs a `reserved -> blocked` transition.
 
 ### Write-ahead reservation
 
@@ -482,12 +486,15 @@ counting its own reservation against itself.
 ### Mandatory auto-stop
 
 ```
-max_runtime_seconds = floor(min(request.max_runtime_seconds or inf, reservation_usd / hourly_usd * 3600))
+max_runtime_seconds = floor(min(request.max_runtime_seconds or inf, estimate.high / hourly_usd * 3600))
 ```
 
-Because `reservation_usd = estimate.high <= min(job cap, remaining project)`,
-billed runtime can never exceed what the budget cap allows. If the value is
-`<= 0`, the job is `blocked`.
+It is computed from `estimate.high` during the precondition check, before
+the ledger reservation is written; the reservation that follows has the same
+amount (`reservation_usd = estimate.high`). Because
+`estimate.high <= min(job cap, remaining project)`, billed runtime can never
+exceed what the budget cap allows. If the value is `<= 0`, the job goes
+`requested -> blocked` and nothing is reserved.
 
 The deadline is enforced in two places:
 - The provider receives the limit in `spec`. Its own stop is what survives
@@ -505,7 +512,9 @@ Either way the history records `running -> stopping -> stopped` with reason
   - any other state is returned unchanged.
 - **`status`** polls the provider when an `instance_id` exists, updates
   `runtime_seconds`/`cost_usd`, applies auto-stop and follows provider-side
-  `stopped`/`terminated`. It is otherwise read-only.
+  `stopped`/`terminated`. Because auto-stop calls `provider.stop` and writes
+  the record, `status` is **not** read-only (MCP `readOnlyHint: false`); it
+  never terminates or deletes anything.
 - **`stop`** goes `running -> stopping -> stopped` via `provider.stop`. It is
   a no-op once the job is stopped or later.
 - **`destroy`** stops first when the job is running, then
@@ -515,8 +524,14 @@ Either way the history records `running -> stopping -> stopped` with reason
   known instance is terminated and destroyed first. Steps:
   1. `actual_usd` defaults to the last polled `cost_usd` (0 if none was
      launched).
-  2. Append `kind="actual"` for `actual_usd` and `kind="release"` for
-     `reservation_usd` (both idempotent per `(job_id, kind)`).
+  2. Append `kind="actual"` for `actual_usd` and `kind="release"` for the
+     amount of this `job_id`'s `kind="reserved"` ledger entry (both
+     idempotent per `(job_id, kind)`). The release amount comes from the
+     ledger scan already done for idempotency, **not** from
+     `record.reservation_usd`: a job that failed after the ledger
+     reservation was written but before `reserved` was persisted still
+     releases its full reservation, so no orphan reservation lowers
+     `budget.remaining()`. With no `reserved` entry, nothing is released.
   3. Store `reconcile {actual_usd, estimate_expected, variance_usd,
      within_band, over_reservation}` and move to `reconciled`.
 
@@ -540,7 +555,7 @@ MCP tools follow the `namespace.action` pattern in `mcp_server.py`:
 | Tool | Arguments | Annotations |
 | --- | --- | --- |
 | `compute.provision` | `request` | `destructiveHint: false` |
-| `compute.status` | `job_id` | `readOnlyHint: true` |
+| `compute.status` | `job_id` | `readOnlyHint: false`, `destructiveHint: false` (may auto-stop) |
 | `compute.stop` | `job_id` | `destructiveHint: true` |
 | `compute.destroy` | `job_id` | `destructiveHint: true` |
 | `compute.reconcile` | `job_id`, optional `actual_usd` | — |
