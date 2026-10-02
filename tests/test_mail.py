@@ -139,5 +139,18 @@ class MailTests(unittest.TestCase):
             self.assertGreater(resumed["checkpoint"]["sequence"], interrupted["checkpoint"]["sequence"])
 
 
+class OrganizeUndoCommandTests(unittest.TestCase):
+    def test_emitted_undo_command_parses_with_cli(self) -> None:
+        import argparse
+        import shlex
+        from agent_os.mail import cli, organize_apply
+
+        parser = argparse.ArgumentParser(prog="agent-os")
+        cli.register(parser.add_subparsers(dest="mail_command"))
+        argv = shlex.split(organize_apply._undo_command("org_x", 2))[1:]
+        args = parser.parse_args(argv)
+        self.assertEqual((args.move_id, args.seq), ("org_x", 2))
+
+
 if __name__ == "__main__":
     unittest.main()
