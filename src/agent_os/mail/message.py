@@ -130,6 +130,10 @@ class ParsedMessage:
     content_hash: str = ""
     composite_key: str = ""
     raw_hash: str = ""
+    list_unsubscribe: str | None = None
+    list_id: str | None = None
+    precedence: str | None = None
+    auto_submitted: str | None = None
 
     def addresses(self) -> dict[str, str]:
         return {"sender": _addresses(self.sender), "to": _addresses(self.to), "cc": _addresses(self.cc)}
@@ -172,6 +176,10 @@ def parse(raw: bytes) -> ParsedMessage:
         body=body_text(msg),
         attachments=_attachments(msg),
         raw_hash=hashlib.sha256(raw).hexdigest(),
+        list_unsubscribe=decode(msg.get("List-Unsubscribe")) or None,
+        list_id=decode(msg.get("List-Id")) or None,
+        precedence=decode(msg.get("Precedence")) or None,
+        auto_submitted=decode(msg.get("Auto-Submitted")) or None,
     )
     addresses = parsed.addresses()
     # Normalized content: what a person would call "the same email", whatever
