@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-10-02T09:30:00+00:00",
+  "updated_at": "2026-10-02T11:40:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
   "active_objective": "Continue IMP-0015 integration: wire free-first routing (free_routing.decide) into engine dispatch behind opt-in run policy flag, then execute measurement-first third-party optimization (SkyPilot/RunPod, vLLM, TensorZero, etc.) and parallel IMP-0018/IMP-0019 experiments.",
   "completed": [
@@ -65,7 +65,7 @@
     "IMP-0015 slice 2: gated compute provisioning interface (compute.provision/status/stop/destroy/reconcile) against fake provider only: budget-gated with write-ahead spend reservation, mandatory max-runtime auto-stop derived from budget cap, reconcile with actual-vs-estimate variance tracking, persisted lifecycle state machine, idempotent resumable operations, secrets only via secrets:// refs; exposed through `orchestrate compute` CLI and MCP tools; 0 paid compute (DEC-0042, src/agent_os/orchestrator/provision.py, compute_fake.py)",
     "IMP-0018 Phase 0: context-economy measurement harness (src/agent_os/orchestrator/context_economy.py, CLI `orchestrate context-economy`, synthetic-fixture tests, EVR-0018, EXP-0010) - deterministic, offline, aggregates only. Baseline over 20 real runs / 666 calls (98% exact usage): pooled input amplification 104.8x (implementer median 141x, reviewer 11.7x); median cache-read share 0.84; duplicated fixed per-worker overhead 253.4M of 255.8M worker input (share 0.99, upper bound); checkpoint-resume overhead share 0.17 of run input.",
     "IMP-0015 provisioning review fixes (run-20261002T062418Z-2e1e10, findings from run-20261002T001408Z-c3bb9e): FakeProvider launch is idempotent launch-or-lookup by spec name (also after a raised call that created the instance) with per-instance hourly rates; fake provider state is file-backed at <home>/compute-providers/fake.json and survives new processes; provision() looks up an existing instance before launching; MCP in-memory _FAKE_PROVIDERS cache removed; CLI AGENT_OS_BUDGET_HOME env var removed (budget home resolved via the standard provider-registry path); each fix covered by a test that fails without it; 0 paid compute",
-    "IMP-0018 Phase 1 repair (record-evr-exp.repair4): R4-1 fixed - EXP-0012 hypothesis clarified to measure uncached reduction for worker input only (37.22% > 25% threshold); hypothesis_met set to true per the stated hypothesis in the title and summary; EVR-0021 and EXP-0012 records complete with synthetic before/after data; shared_prefix_compare test suite passes (3/3); fixture deterministic parity confirmed"
+    "IMP-0019 shadow phase: deterministic rotation advisor (src/agent_os/orchestrator/rotation_advisor.py, CLI `orchestrate rotation-advisor`, synthetic-fixture tests, DEC-0044, EXP-0011, EVR-0019); advice only, dispatch unchanged; real-telemetry evaluation pending host run of `orchestrate rotation-advisor --out docs/orchestrator-os/self-audit/rotation-advisor-baseline.json`"
   ],
   "blockers": [
     "IMP-0015 slice 3: before any real RunPod launch, operator must provide a write-enabled RunPod API key and confirm the first launch (not yet received; slice 2 uses fake provider only)"
@@ -80,7 +80,8 @@
     "DEC-0040",
     "DEC-0041",
     "DEC-0042",
-    "DEC-0043"
+    "DEC-0043",
+    "DEC-0044"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
