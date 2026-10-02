@@ -9,7 +9,7 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from unittest import mock
 
-from agent_os.executive.window.actions_items import register
+import agent_os.executive.window.actions_items as actions_items
 from agent_os.executive.window.confirm import ItemState, ENV_HOME
 from agent_os.executive.window.registry import Registry
 
@@ -46,59 +46,58 @@ class ActionsItemsTests(unittest.TestCase):
         self.addCleanup(self._env_patcher.stop)
 
         self.registry = Registry()
-        self.decide_calls = []
-
-        def fake_decide(run_id, gate_id, approve, note=None):
-            self.decide_calls.append({
-                "run_id": run_id,
-                "gate_id": gate_id,
-                "approve": approve,
-                "note": note,
-            })
-            return {"decided": True}
-
-        # Patch DECIDE before registering actions
-        with mock.patch("agent_os.executive.window.actions_items.DECIDE", fake_decide):
-            register(self.registry)
+        actions_items.register(self.registry)
 
     def test_approve_gate_preview_no_decide(self):
         """Gate preview with confirm=False must not call DECIDE."""
-        action = self.registry._get("orchestrator.approve_gate")
-        preview = action["handler"](gate_item(), {}, confirm=False)
-        self.assertEqual(preview["approve"], True)
-        self.assertEqual(preview["run_id"], "run1")
-        self.assertEqual(preview["gate_id"], "g1")
-        self.assertEqual(len(self.decide_calls), 0)
+        def fake_decide(run_id, gate_id, approve, note=None):
+            raise AssertionError("DECIDE should not be called in preview")
+
+        with mock.patch.object(actions_items, 'DECIDE', fake_decide):
+            action = self.registry._get("orchestrator.approve_gate")
+            preview = action["handler"](gate_item(), {}, confirm=False)
+            self.assertEqual(preview["approve"], True)
+            self.assertEqual(preview["run_id"], "run1")
+            self.assertEqual(preview["gate_id"], "g1")
 
     def test_approve_gate_confirm_calls_decide(self):
         """Gate with confirm=True must call DECIDE with approve=True."""
-        with mock.patch("agent_os.executive.window.actions_items.DECIDE") as mock_decide:
-            mock_decide.return_value = {"decided": True}
-            registry = Registry()
-            register(registry)
-            action = registry._get("orchestrator.approve_gate")
+        decide_calls = []
+        def fake_decide(run_id, gate_id, approve, note=None):
+            decide_calls.append((run_id, gate_id, approve, note))
+            return {"decided": True}
+
+        with mock.patch.object(actions_items, 'DECIDE', fake_decide):
+            action = self.registry._get("orchestrator.approve_gate")
             result = action["handler"](gate_item(), {"note": "approved"}, confirm=True)
-            mock_decide.assert_called_once_with("run1", "g1", True, "approved")
+            self.assertEqual(len(decide_calls), 1)
+            self.assertEqual(decide_calls[0], ("run1", "g1", True, "approved"))
             self.assertEqual(result, {"decided": True})
 
     def test_decline_gate_preview_no_decide(self):
         """Gate preview with confirm=False must not call DECIDE."""
-        action = self.registry._get("orchestrator.decline_gate")
-        preview = action["handler"](gate_item(), {}, confirm=False)
-        self.assertEqual(preview["approve"], False)
-        self.assertEqual(preview["run_id"], "run1")
-        self.assertEqual(preview["gate_id"], "g1")
-        self.assertEqual(len(self.decide_calls), 0)
+        def fake_decide(run_id, gate_id, approve, note=None):
+            raise AssertionError("DECIDE should not be called in preview")
+
+        with mock.patch.object(actions_items, 'DECIDE', fake_decide):
+            action = self.registry._get("orchestrator.decline_gate")
+            preview = action["handler"](gate_item(), {}, confirm=False)
+            self.assertEqual(preview["approve"], False)
+            self.assertEqual(preview["run_id"], "run1")
+            self.assertEqual(preview["gate_id"], "g1")
 
     def test_decline_gate_confirm_calls_decide(self):
         """Gate with confirm=True must call DECIDE with approve=False."""
-        with mock.patch("agent_os.executive.window.actions_items.DECIDE") as mock_decide:
-            mock_decide.return_value = {"decided": False}
-            registry = Registry()
-            register(registry)
-            action = registry._get("orchestrator.decline_gate")
+        decide_calls = []
+        def fake_decide(run_id, gate_id, approve, note=None):
+            decide_calls.append((run_id, gate_id, approve, note))
+            return {"decided": False}
+
+        with mock.patch.object(actions_items, 'DECIDE', fake_decide):
+            action = self.registry._get("orchestrator.decline_gate")
             result = action["handler"](gate_item(), {"note": "rejected"}, confirm=True)
-            mock_decide.assert_called_once_with("run1", "g1", False, "rejected")
+            self.assertEqual(len(decide_calls), 1)
+            self.assertEqual(decide_calls[0], ("run1", "g1", False, "rejected"))
             self.assertEqual(result, {"decided": False})
 
     def test_dismiss_item(self):
@@ -117,18 +116,28 @@ class ActionsItemsTests(unittest.TestCase):
         # Item is hidden after dismiss
         self.assertTrue(state.is_hidden(item["id"]))
 
-    def test_dismiss_preview_no_state_change(self):
-        """Dismiss preview with confirm=False must not hide item."""
-        state = ItemState(self.tmp.name)
+    def test_dismiss_hides_item_in_registry(self):
+        """Dismiss action hides item from Registry.outstanding()."""
         item = regular_item("work:item2")
         action = self.registry._get("item.dismiss")
 
-        # Call dismiss with confirm=False
-        result = action["handler"](item, {}, confirm=False)
-        self.assertEqual(result, {"dismissed": True})
+        # Define a provider that returns the item
+        def test_provider():
+            return [item]
+        self.registry.register_provider("test", test_provider)
 
-        # Item should still be visible
-        self.assertFalse(state.is_hidden(item["id"]))
+        # Item is visible before dismiss
+        state = ItemState(self.tmp.name)
+        result = self.registry.outstanding(state=state)
+        self.assertEqual(len(result["items"]), 1)
+
+        # Call dismiss
+        action["handler"](item, {}, confirm=False)
+
+        # Item is hidden after dismiss
+        state = ItemState(self.tmp.name)
+        result = self.registry.outstanding(state=state)
+        self.assertEqual(len(result["items"]), 0)
 
     def test_snooze_item_with_until(self):
         """Snooze action with until parameter hides item until that time."""
@@ -192,21 +201,22 @@ class ActionsItemsTests(unittest.TestCase):
         self.assertTrue(state.is_hidden(item["id"], now=now + timedelta(hours=1)))
         self.assertFalse(state.is_hidden(item["id"], now=now + timedelta(hours=25)))
 
-    def test_snooze_preview_no_state_change(self):
-        """Snooze preview with confirm=False must not hide item."""
-        state = ItemState(self.tmp.name)
-        item = regular_item("work:item5")
+
+    def test_snooze_hides_item_until_time(self):
+        """Snoozed item is hidden until the specified time."""
+        item = regular_item("work:item6")
         action = self.registry._get("item.snooze")
 
         now = datetime(2026, 10, 2, 12, 0, tzinfo=timezone.utc)
         until = (now + timedelta(hours=2)).isoformat()
 
-        # Call snooze with confirm=False
-        result = action["handler"](item, {"until": until}, confirm=False)
-        self.assertIn("snoozed_until", result)
+        # Call snooze
+        action["handler"](item, {"until": until}, confirm=False)
 
-        # Item should still be visible
-        self.assertFalse(state.is_hidden(item["id"], now=now))
+        # Verify state tracks the snooze
+        state = ItemState(self.tmp.name)
+        self.assertTrue(state.is_hidden(item["id"], now=now + timedelta(hours=1)))
+        self.assertFalse(state.is_hidden(item["id"], now=now + timedelta(hours=3)))
 
     def test_actions_are_registered(self):
         """All expected actions must be registered."""

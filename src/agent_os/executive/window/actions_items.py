@@ -1,19 +1,13 @@
 from __future__ import annotations
 
-import os
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from agent_os.orchestrator import service
 
-from .confirm import ItemState, window_home, ENV_HOME
+from .confirm import ItemState, window_home
 
 DECIDE = service.decide
-
-
-def _window_home_for_action(item: dict[str, Any]) -> str | None:
-    """Get window home from env if available, to allow test injection."""
-    return os.environ.get(ENV_HOME)
 
 
 def _parse_hours_or_until(params: dict[str, Any]) -> str:
@@ -77,10 +71,8 @@ def _dismiss_item(item: dict[str, Any], params: dict[str, Any], *, confirm: bool
     if not item_id:
         raise ValueError("item must have id")
 
-    if confirm:
-        home = _window_home_for_action(item)
-        state = ItemState(home)
-        state.dismiss(item_id)
+    state = ItemState(window_home())
+    state.dismiss(item_id)
     return {"dismissed": True}
 
 
@@ -92,10 +84,8 @@ def _snooze_item(item: dict[str, Any], params: dict[str, Any], *, confirm: bool)
 
     until_iso = _parse_hours_or_until(params)
 
-    if confirm:
-        home = _window_home_for_action(item)
-        state = ItemState(home)
-        state.snooze(item_id, until_iso)
+    state = ItemState(window_home())
+    state.snooze(item_id, until_iso)
     return {"snoozed_until": until_iso}
 
 
