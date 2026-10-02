@@ -1,6 +1,6 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-10-01T15:23:00+00:00",
+  "updated_at": "2026-10-02T03:58:00+00:00",
   "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
   "active_objective": "ASAP: implement IMP-0015 OpenRouter FreeComputeBroker/free-first routing and quota awareness to maximize useful free-model capacity, while continuing the existing measurement-first IMP-0015 provider/runtime work plus IMP-0018 context economy and IMP-0019 episodic rotation.",
   "completed": [
@@ -72,7 +72,8 @@
   "recent_decisions": [
     "DEC-0039",
     "DEC-0040",
-    "DEC-0041"
+    "DEC-0041",
+    "DEC-0042"
   ],
   "approval_conditions": [
     "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
