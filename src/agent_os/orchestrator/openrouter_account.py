@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import urllib.request
+from datetime import datetime, timedelta, timezone
 from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
@@ -94,7 +95,25 @@ def _rpm(rate_limit: Any) -> float | None:
     return requests * 60.0 / (count * unit)
 
 
-def topup_advice(state: dict[str, Any], policy: dict[str, Any]) -> dict[str, Any]:
+def policy_is_stale(policy: dict[str, Any], now: datetime | None = None) -> bool:
+    """Use an explicit ``stale`` flag (free_policy.effective) when present, else
+    derive it from ``verified_at`` and ``max_age_days`` (raw record). An
+    unverifiable record counts as stale."""
+    if isinstance(policy.get("stale"), bool):
+        return policy["stale"]
+    try:
+        verified = datetime.fromisoformat(str(policy.get("verified_at")).replace("Z", "+00:00"))
+        if verified.tzinfo is None:
+            verified = verified.replace(tzinfo=timezone.utc)
+        max_age = _number(policy.get("max_age_days"))
+        if max_age is None:
+            return True
+        return (now or datetime.now(timezone.utc)) - verified > timedelta(days=max_age)
+    except (TypeError, ValueError):
+        return True
+
+
+def topup_advice(state: dict[str, Any], policy: dict[str, Any], now: datetime | None = None) -> dict[str, Any]:
     """Alert only when account evidence shows the high allowance is not active
     and a current (non-stale) policy requires credits for it."""
     advice: dict[str, Any] = {"alert": False, "reason": "", "shortfall_usd": 0.0, "discrepancies": []}
@@ -111,7 +130,7 @@ def topup_advice(state: dict[str, Any], policy: dict[str, Any]) -> dict[str, Any
     if threshold is None:
         advice["reason"] = "policy does not require credits for the high allowance"
         return advice
-    if policy.get("stale"):
+    if policy_is_stale(policy, now):
         advice["reason"] = "policy is stale; cannot trigger a top-up alert"
         return advice
     total = _number(state.get("credits_total"))

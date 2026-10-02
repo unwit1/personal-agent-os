@@ -90,6 +90,17 @@ class AccountTests(unittest.TestCase):
         self.assertFalse(acct.topup_advice(dict(state, credits_total=None), POLICY)["alert"])
         self.assertFalse(acct.topup_advice(state, {"free_rpm": 20})["alert"])
 
+    def test_raw_record_staleness_from_verified_at(self):
+        from datetime import datetime, timezone
+        raw = {"free_rpm": 20, "credit_threshold_usd": 10.0, "max_age_days": 30,
+               "verified_at": "2026-10-01T00:00:00Z"}
+        state, _ = state_for(0.0, 0.0)
+        fresh = datetime(2026, 10, 10, tzinfo=timezone.utc)
+        old = datetime(2026, 12, 1, tzinfo=timezone.utc)
+        self.assertTrue(acct.topup_advice(state, raw, fresh)["alert"])
+        self.assertFalse(acct.topup_advice(state, raw, old)["alert"])
+        self.assertFalse(acct.topup_advice(state, dict(raw, verified_at=None), fresh)["alert"])
+
     def test_rate_limit_discrepancy(self):
         state, _ = state_for(10.0, 0.0, rate={"requests": 100, "interval": "1m"})
         self.assertEqual(len(acct.topup_advice(state, POLICY)["discrepancies"]), 1)
