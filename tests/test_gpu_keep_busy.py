@@ -43,7 +43,23 @@ class UsefulWorkTests(unittest.TestCase):
         self.assertEqual(self.run_work([rec], roles={"planner"})["kind"], "backfill")
 
     def test_terminal_run_ignored(self):
-        rec = {"run_id": "r", "status": "CANCELLED", "nodes": [node("v", "reviewer")]}
+        rec = {"run_id": "r", "state": "COMPLETE", "nodes": [node("v", "reviewer")]}
+        self.assertEqual(self.run_work([rec])["kind"], "backfill")
+
+    def test_non_dispatching_run_states_ignored(self):
+        for st in ("FAILED", "PAUSED", "BLOCKED", "APPROVAL_REQUIRED"):
+            rec = {"run_id": "r", "state": st, "nodes": [node("v", "reviewer")]}
+            self.assertEqual(self.run_work([rec])["kind"], "backfill", st)
+        rec = {"run_id": "r", "state": "RUNNING", "nodes": [node("v", "reviewer")]}
+        self.assertEqual(self.run_work([rec])["kind"], "review")
+
+    def test_dispatchable_node_states(self):
+        for st in ("RUNNABLE", "FAILED_RETRYABLE"):
+            rec = {"run_id": "r", "nodes": [node("w", "implementer", st)]}
+            self.assertEqual(self.run_work([rec])["kind"], "worker", st)
+        rec = {"run_id": "r", "nodes": [node("v", "reviewer", "WAITING_FOR_REVIEW")]}
+        self.assertEqual(self.run_work([rec])["kind"], "review")
+        rec = {"run_id": "r", "nodes": [node("w", "implementer", "WAITING_FOR_REVIEW")]}
         self.assertEqual(self.run_work([rec])["kind"], "backfill")
 
     def test_done_backfill_skipped_and_empty(self):

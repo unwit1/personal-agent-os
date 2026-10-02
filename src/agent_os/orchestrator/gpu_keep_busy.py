@@ -5,12 +5,16 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from . import free_swarm
+from .model import DISPATCHABLE_NODE_STATES
 
 DEFAULT_IDLE_TARGET = 0.15
 WORKER_ROLES = frozenset({"implementer", "test_author", "repairer"})
 DEFAULT_CLASSES = frozenset({"fast", "balanced"})
-_STARTABLE = frozenset({"READY", "PENDING"})
-_TERMINAL_RUN = frozenset({"PASSED", "FAILED", "FAILED_FINAL", "CANCELLED", "COMPLETED", "DONE"})
+# PENDING nodes may still have unmet dependencies; the router re-checks before dispatch.
+_STARTABLE = DISPATCHABLE_NODE_STATES | {"READY"}
+_REVIEW_STARTABLE = _STARTABLE | {"WAITING_FOR_REVIEW"}
+# Run states that cannot dispatch new nodes.
+_TERMINAL_RUN = frozenset({"COMPLETE", "FAILED", "PAUSED", "BLOCKED", "APPROVAL_REQUIRED"})
 
 
 def _nodes(record: Mapping[str, Any]) -> list[Mapping[str, Any]]:
@@ -33,15 +37,15 @@ def useful_work(run_records: Iterable[Mapping[str, Any]], backfill_queue: Iterab
     reviews: list[dict[str, Any]] = []
     workers: list[dict[str, Any]] = []
     for record in run_records or []:
-        if not isinstance(record, Mapping) or str(record.get("status") or "").upper() in _TERMINAL_RUN:
+        if not isinstance(record, Mapping) or str(record.get("state") or "").upper() in _TERMINAL_RUN:
             continue
         for node in _nodes(record):
-            if node.get("state") not in _STARTABLE:
-                continue
+            state = node.get("state")
             role = node.get("role")
-            if role == "reviewer" and "reviewer" in roles:
+            if role == "reviewer" and "reviewer" in roles and state in _REVIEW_STARTABLE:
                 reviews.append(_item(record, node))
-            elif role in WORKER_ROLES and role in roles and node.get("capability_class") in classes:
+            elif (role in WORKER_ROLES and role in roles and state in _STARTABLE
+                  and node.get("capability_class") in classes):
                 workers.append(_item(record, node))
     if reviews:
         return {"kind": "review", "items": reviews, "reason": f"{len(reviews)} reviewer node(s) ready"}
