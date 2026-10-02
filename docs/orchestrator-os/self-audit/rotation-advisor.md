@@ -325,7 +325,7 @@ context-economy.
   },
   "margin_sensitivity": {"0.0": {"rotate_workers": 0, "projected_savings": 0},
                          "0.1": "same", "0.2": "same", "0.3": "same", "0.5": "same"},
-  "calibration": {"fresh_call_ratio": "stats", "handoff_ratio": "stats"},
+  "calibration": {"bootstrap_ratio": "stats", "handoff_ratio": "stats"},
   "by_run": {"run-...": {"workers": 0, "scored_boundaries": 0, "rotate_workers": 0, "projected_savings": 0}},
   "privacy": {"rule": "max80-no-whitespace", "strings_checked": 0, "passed": true}
 }
@@ -342,14 +342,21 @@ denominator.
 - `margin_sensitivity` reruns only the §4 rule with `MARGIN` set to each listed
   value, so the threshold can be read off a curve (the PA-routellm idea; it
   also feeds the roadmap's EXP-B). The keys are fixed strings.
-- `calibration.fresh_call_ratio` is `stats((B(role(c_k)) + H(k) + R(c_k)) / I(c_k))`
+- Calibration checks each estimated component against an observed quantity.
+  It never uses the decision ratio `F(k) / C_continue(k)`: a low value of that
+  ratio is a projected saving, not a sign of mis-scaling.
+- `calibration.bootstrap_ratio` is `stats((B(role(c_k)) + R(c_k)) / I(c_k))`
   over scored semantic boundaries with `I(c_k) > 0`. A new attempt is already
-  a new CLI process, so `I(c_k)` is an **observed** fresh-process cost. A
-  median far from 1 means the model is mis-scaled.
+  a new CLI process started from the original assignment prompt, without a
+  structured handoff. So `I(c_k)` is an **observed** fresh-process cost, and
+  `B + R` is the model's estimate of that same quantity. `H(k)` is left out,
+  because the observed call carried no structured handoff. A median far from
+  1 means the bootstrap or retrieval estimate is mis-scaled.
 - `calibration.handoff_ratio` is `stats(observed / H(k))`, where `observed =
   ceil(sum st_size(last-message.md for the attempts of c_0..c_{k-1}) /
   CHARS_PER_TOKEN)`. It is defined when `H(k) > 0` and at least one file
-  exists. Otherwise `handoff_size_missing` is incremented.
+  exists. Otherwise `handoff_size_missing` is incremented. `H(k)` is validated
+  only through this ratio.
 
 **Privacy** follows context-economy §4 without changes. The allowed strings
 are fixed keys, the four recommendation labels, run ids matching `RUN_ID`,
@@ -430,8 +437,11 @@ Results are recorded with the existing formats under
   boundaries would have cost less input than continuing for a material share
   of multi-call workers. Method: this advisor over all local runs, in shadow
   mode. Falsifiers: `savings_share < 0.05` at `MARGIN = 0.2`, or a
-  `calibration.fresh_call_ratio` median outside `[0.5, 2.0]`. A miscalibrated
-  model makes the savings figure untrustworthy.
+  `calibration.bootstrap_ratio` median outside `[0.5, 2.0]`. A miscalibrated
+  fresh-process estimate makes the savings figure untrustworthy. The ratio
+  does not depend on `C_continue(k)` or `H(k)`, so strong projected savings
+  cannot trip this falsifier. The `handoff_ratio` median is reported next to it
+  as the separate check on `H(k)`.
 - **EVR** (`evaluations/`, schema `personal-agent/evidence-record/v1`,
   `task_family: "rotation_advice"`). `metrics` copies report aggregates only:
   coverage, advice counts, `projected_savings`, `savings_share`, the
