@@ -720,7 +720,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
                 result = provision.provision(request)
                 emit(result)
                 return 0
-            except ValueError as exc:
+            except (ValueError, KeyError) as exc:
                 emit({"error": str(exc)})
                 return 2
 
@@ -747,7 +747,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             if result is not None:
                 emit(result)
                 return 0
-        except ValueError as exc:
+        except (ValueError, KeyError) as exc:
             emit({"error": str(exc)})
             return 2
     if action == "radar":

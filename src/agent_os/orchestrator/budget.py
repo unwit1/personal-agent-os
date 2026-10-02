@@ -21,6 +21,7 @@ paid job is approved only if the machine budget is approved.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +33,9 @@ def _home(home: Path | None) -> Path:
     per-checkout orchestrator home: one budget for every clone and worktree."""
     if home:
         return Path(home)
+    configured = os.environ.get("AGENT_OS_BUDGET_HOME")
+    if configured:
+        return Path(configured)
     from ..capabilities import registry_path
 
     return registry_path().parent
