@@ -179,10 +179,26 @@ class ThroughputArgsTests(unittest.TestCase):
         self.assertNotIn("--enable-prefix-caching", args)
         self.assertIn("--enable-chunked-prefill", args)
 
+    def test_override_prefix_caching_none(self) -> None:
+        model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
+        choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
+        args = vllm_tuning.throughput_args(model, choice, overrides={"prefix_caching": None})
+
+        self.assertNotIn("--enable-prefix-caching", args)
+        self.assertIn("--enable-chunked-prefill", args)
+
     def test_override_chunked_prefill_false(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
         choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
         args = vllm_tuning.throughput_args(model, choice, overrides={"chunked_prefill": False})
+
+        self.assertIn("--enable-prefix-caching", args)
+        self.assertNotIn("--enable-chunked-prefill", args)
+
+    def test_override_chunked_prefill_none(self) -> None:
+        model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
+        choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
+        args = vllm_tuning.throughput_args(model, choice, overrides={"chunked_prefill": None})
 
         self.assertIn("--enable-prefix-caching", args)
         self.assertNotIn("--enable-chunked-prefill", args)
@@ -199,6 +215,13 @@ class ThroughputArgsTests(unittest.TestCase):
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
         choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
         args = vllm_tuning.throughput_args(model, choice, overrides={"max_num_seqs": False})
+
+        self.assertNotIn("--max-num-seqs", args)
+
+    def test_override_max_num_seqs_true_removes_flag(self) -> None:
+        model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
+        choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 80.0}
+        args = vllm_tuning.throughput_args(model, choice, overrides={"max_num_seqs": True})
 
         self.assertNotIn("--max-num-seqs", args)
 

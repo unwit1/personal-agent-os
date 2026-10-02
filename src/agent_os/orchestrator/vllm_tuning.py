@@ -73,29 +73,27 @@ def max_num_seqs(
 def throughput_args(
     model: dict,
     choice: dict,
+    overrides: dict | None = None,
     *,
     context: int | None = None,
-    overrides: dict | None = None,
 ) -> list[str]:
     """Generate vLLM throughput flags: prefix caching, chunked prefill, max_num_seqs, kv_cache_dtype.
 
     choice has: gpu_id, gpu_count, vram_gb
-    context: served context window in tokens (default: 32768)
     overrides dict keys: prefix_caching, chunked_prefill, max_num_seqs, kv_cache_dtype
     - False/None removes that flag
     - Each override wins over computed value
+    context: served context window in tokens (default: 32768)
     """
     overrides = overrides or {}
     args = []
 
     # --enable-prefix-caching
-    prefix_caching = overrides.get("prefix_caching", True)
-    if prefix_caching is not False:
+    if overrides.get("prefix_caching", True):
         args.append("--enable-prefix-caching")
 
     # --enable-chunked-prefill
-    chunked_prefill = overrides.get("chunked_prefill", True)
-    if chunked_prefill is not False:
+    if overrides.get("chunked_prefill", True):
         args.append("--enable-chunked-prefill")
 
     # Resolve effective kv_cache_dtype (override takes precedence)
@@ -110,7 +108,7 @@ def throughput_args(
     # --max-num-seqs N
     if "max_num_seqs" in overrides:
         max_seqs = overrides["max_num_seqs"]
-        if max_seqs is not False and max_seqs is not None:
+        if isinstance(max_seqs, int) and not isinstance(max_seqs, bool):
             args.extend(["--max-num-seqs", str(max_seqs)])
     else:
         # Compute automatically: use fp8 scaling only if effective dtype starts with 'fp8'
