@@ -116,6 +116,46 @@ def effective(workload_budget: dict[str, Any] | None, home: Path | None = None) 
     }
 
 
+def open_reservation(job_id: str, home: Path | None = None) -> float:
+    """Sum of reserved minus released amounts for job_id."""
+    path = _home(home) / "spend.jsonl"
+    total = 0.0
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                entry = json.loads(line)
+            except ValueError:
+                continue
+            if entry.get("job_id") != job_id:
+                continue
+            amount = float(entry.get("amount_usd") or 0)
+            kind = entry.get("kind")
+            if kind == "reserved":
+                total += amount
+            elif kind == "release":
+                total -= amount
+    return round(max(total, 0.0), 4)
+
+
+def reserve(amount_usd: float, *, job_id: str, provider: str | None = None, note: str | None = None,
+            home: Path | None = None) -> dict[str, Any]:
+    """Idempotent reservation: returns existing reservation if present, otherwise writes new one."""
+    existing = open_reservation(job_id, home)
+    if existing > 0:
+        return {"reused": True, "amount_usd": existing}
+    entry = record_spend(amount_usd, job_id=job_id, kind="reserved", provider=provider, note=note, home=home)
+    return {**entry, "reused": False}
+
+
+def release(job_id: str, *, home: Path | None = None, note: str | None = None) -> dict[str, Any]:
+    """Record release for the open amount when > 0; otherwise no-op."""
+    amount = open_reservation(job_id, home)
+    if amount > 0:
+        entry = record_spend(amount, job_id=job_id, kind="release", note=note, home=home)
+        return {**entry, "released_usd": amount}
+    return {"released_usd": 0.0}
+
+
 def show(home: Path | None = None) -> dict[str, Any]:
     machine = load(home)
     return {**(machine or {"approved": False, "note": "no budget set; paid options require: agent-os orchestrate budget set --project-usd N --job-cap-usd M"}),

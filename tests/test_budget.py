@@ -71,6 +71,43 @@ class BudgetTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             budget.record_spend(1, job_id="x", kind="refund", home=self.home)
 
+    def test_reserve_is_idempotent_and_spends(self) -> None:
+        budget.set_budget(20, 10, home=self.home)
+        result1 = budget.reserve(5.0, job_id="job1", home=self.home)
+        self.assertEqual((result1["reused"], result1["amount_usd"], result1["kind"]), (False, 5.0, "reserved"))
+        self.assertEqual(budget.spent(self.home), 5.0)
+        self.assertEqual(budget.remaining(self.home), 15.0)
+        result2 = budget.reserve(5.0, job_id="job1", home=self.home)
+        self.assertEqual((result2["reused"], result2["amount_usd"]), (True, 5.0))
+        self.assertEqual(budget.spent(self.home), 5.0)
+        lines = (self.home / "spend.jsonl").read_text(encoding="utf-8").splitlines()
+        self.assertEqual(len(lines), 1)
+
+    def test_open_reservation_tracks_job_reservations(self) -> None:
+        budget.set_budget(20, 10, home=self.home)
+        self.assertEqual(budget.open_reservation("job1", self.home), 0.0)
+        budget.reserve(3.0, job_id="job1", home=self.home)
+        self.assertEqual(budget.open_reservation("job1", self.home), 3.0)
+        budget.record_spend(1.0, job_id="job1", kind="release", home=self.home)
+        self.assertEqual(budget.open_reservation("job1", self.home), 2.0)
+
+    def test_release_restores_remaining(self) -> None:
+        budget.set_budget(20, 10, home=self.home)
+        budget.reserve(8.0, job_id="job2", home=self.home)
+        self.assertEqual(budget.remaining(self.home), 12.0)
+        result = budget.release("job2", home=self.home)
+        self.assertEqual((result["released_usd"], result["kind"]), (8.0, "release"))
+        self.assertEqual(budget.remaining(self.home), 20.0)
+
+    def test_release_is_idempotent_no_op_when_empty(self) -> None:
+        budget.set_budget(20, 10, home=self.home)
+        result1 = budget.release("job3", home=self.home)
+        self.assertEqual(result1["released_usd"], 0.0)
+        lines = (self.home / "spend.jsonl").read_text(encoding="utf-8").splitlines() if (self.home / "spend.jsonl").exists() else []
+        self.assertEqual(len(lines), 0)
+        result2 = budget.release("job3", home=self.home)
+        self.assertEqual(result2["released_usd"], 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()
