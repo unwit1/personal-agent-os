@@ -93,6 +93,8 @@ TOOL_PARSERS = {"qwen2": "hermes", "qwen2_moe": "hermes", "qwen3": "hermes", "qw
                 # (<tool_call><function=...><parameter=...>), the Qwen3-Coder format.
                 "qwen3_5": "qwen3_coder", "qwen3_5_moe": "qwen3_coder"}
 AGENT_SUFFIX = "-agent"
+# Roles of the main provider entry; the role-coverage work extends this one list, and keep-busy follows it.
+ENDPOINT_ROLES = ("planner", "inline")
 GPU_KEY_ENV = "AGENT_OS_GPU_KEY"
 CRASH_LOG = "agent-os-crash.log"
 # Runs vLLM; if it exits, serves the redacted tail of its log on the same port
@@ -1127,13 +1129,10 @@ class ForemanManager:
         now = self.clock()
         if work["kind"]:
             # The router sends this work to the still-registered, cheap provider; the foreman only declines to tear down.
-            # The hold is bounded: it starts a fresh idle window, and only GPU activity (_sample's last_busy_epoch)
-            # extends it, so work the router never sends here cannot keep an idle pod up.
-            last = now if not state.get("keep_busy") else float(state.get("last_needed_epoch") or 0)
-            last = max(last, float((state.get("usage") or {}).get("last_busy_epoch") or 0))
-            self._update(state, last_needed_epoch=last,
+            # Spend stays bounded by _meter (job cap, deadline, project budget) and the reaper, not by the idle timer.
+            self._update(state, last_needed_epoch=now,
                          keep_busy={"kind": work["kind"], "count": len(work["items"]), "reason": work["reason"]})
-            return now - last > state["idle_minutes"] * 60
+            return False
         if state.get("keep_busy"):
             self._update(state, keep_busy=None)
         return now - float(state.get("last_needed_epoch") or 0) > state["idle_minutes"] * 60
@@ -1229,7 +1228,7 @@ def _register_provider(state: dict[str, Any]) -> None:
                            open_weights=None if (local or api) else True, license=model.get("license"), revision=model.get("sha"),
                            context_window=model.get("context") if api else None if local else context_for(model),
                            secret_ref=state.get("secret_ref") if (local or api) else ENDPOINT_SECRET,
-                           cost=0.05 if api else 0.25, max_concurrency=2 if local else int((state.get("concurrency") or {}).get("limit") or 4), roles=["planner", "inline"])
+                           cost=0.05 if api else 0.25, max_concurrency=2 if local else int((state.get("concurrency") or {}).get("limit") or 4), roles=list(ENDPOINT_ROLES))
     if api:
         entry["options"]["request_timeout"] = 600
     entry["options"]["request_timeout"] = 900
@@ -1260,10 +1259,8 @@ def _retune_provider(state: dict[str, Any], limit: int) -> None:
 
 
 def registered_roles(state: dict[str, Any]) -> set[str]:
-    """Roles the registered provider entries cover (an explicit state["roles"] overrides the defaults)."""
-    if state.get("roles"):
-        return set(state["roles"])
-    roles = {"planner", "inline", "reviewer"}
+    """Roles the registered provider entries cover: the same lists _register_provider writes."""
+    roles = set(ENDPOINT_ROLES)
     agent = agent_entry(state) if state.get("model") else None
     if agent:
         roles.update(agent["roles"])
