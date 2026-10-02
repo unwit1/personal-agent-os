@@ -30,22 +30,14 @@ class ComputeProvisionMcpTests(SurfaceFixture):
 
     def setUp(self) -> None:
         super().setUp()
-        from agent_os.orchestrator import budget
+        from agent_os.orchestrator import budget, service
 
         budget.set_budget(100.0, 50.0, set_by="test", home=self.engine.store.home.parent)
 
+        # Initialize the FakeProvider in service._FAKE_PROVIDERS for the test home
+        service._FAKE_PROVIDERS.clear()
         self.fake_provider = FakeProvider(hourly_usd=1.5, clock=time.time)
-        self.provider_patcher = mock.patch(
-            "agent_os.orchestrator.provision._resolve_provider",
-            side_effect=self._mock_resolve_provider,
-        )
-        self.provider_patcher.start()
-        self.addCleanup(self.provider_patcher.stop)
-
-    def _mock_resolve_provider(self, name: str, provider: any, clock, hourly: float = 1.0) -> any:
-        if name == "fake":
-            return self.fake_provider
-        raise ValueError(f"no adapter for provider {name!r} in slice 2")
+        service._FAKE_PROVIDERS[self.engine.store.home] = self.fake_provider
 
     def call(self, name: str, arguments: dict) -> dict:
         response = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": name, "arguments": arguments}}, methods())
@@ -158,6 +150,14 @@ class ComputeProvisionMcpTests(SurfaceFixture):
         self.assertEqual(prov1["job_id"], prov2["job_id"])
         self.assertEqual(prov1["instance_id"], prov2["instance_id"])
         self.assertEqual(prov1["state"], prov2["state"])
+
+    def test_compute_homes_returns_correct_values(self) -> None:
+        """With embedded engine (set_engine called), budget_home should be home.parent."""
+        from agent_os.orchestrator import service
+        home, budget_home = service._compute_homes()
+        self.assertIsNotNone(home)
+        self.assertIsNotNone(budget_home)
+        self.assertEqual(budget_home, home.parent)
 
 
 if __name__ == "__main__":

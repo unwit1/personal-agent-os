@@ -445,6 +445,9 @@ MCP_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 }
 
 
+_FAKE_PROVIDERS: dict[Path | None, Any] = {}
+
+
 def _compute_homes() -> tuple[Path | None, Path | None]:
     """Return (home, budget_home) for compute operations.
 
@@ -460,37 +463,53 @@ def _compute_homes() -> tuple[Path | None, Path | None]:
     return home, budget_home
 
 
+def _get_fake_provider(home: Path | None) -> Any:
+    """Return or create a FakeProvider for the given home."""
+    if home not in _FAKE_PROVIDERS:
+        import time
+        from .compute_fake import FakeProvider
+        _FAKE_PROVIDERS[home] = FakeProvider(hourly_usd=1.5, clock=time.time)
+    return _FAKE_PROVIDERS[home]
+
+
 def compute_provision(provider: str, gpu: str, hourly_usd: float, estimate: dict[str, float], max_runtime_seconds: float | None = None, secret_ref: str | None = None, job_id: str | None = None) -> dict[str, Any]:
     from . import provision
-    if secret_ref is not None and not secret_ref.startswith("secrets://"):
-        raise ValueError("secret_ref must use secrets:// protocol")
     request = {"provider": provider, "gpu": gpu, "hourly_usd": hourly_usd, "estimate": estimate, "max_runtime_seconds": max_runtime_seconds, "secret_ref": secret_ref, "job_id": job_id}
     home, budget_home = _compute_homes()
-    return provision.provision(request, home=home, budget_home=budget_home)
+    provider_obj = _get_fake_provider(home) if provider == "fake" else None
+    return provision.provision(request, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_status(job_id: str) -> dict[str, Any]:
     from . import provision
     home, budget_home = _compute_homes()
-    return provision.status(job_id, home=home, budget_home=budget_home)
+    job = provision._load(job_id, home)
+    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    return provision.status(job_id, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_stop(job_id: str) -> dict[str, Any]:
     from . import provision
     home, budget_home = _compute_homes()
-    return provision.stop(job_id, home=home, budget_home=budget_home)
+    job = provision._load(job_id, home)
+    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    return provision.stop(job_id, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_destroy(job_id: str) -> dict[str, Any]:
     from . import provision
     home, budget_home = _compute_homes()
-    return provision.destroy(job_id, home=home, budget_home=budget_home)
+    job = provision._load(job_id, home)
+    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    return provision.destroy(job_id, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def compute_reconcile(job_id: str, actual_usd: float | None = None) -> dict[str, Any]:
     from . import provision
     home, budget_home = _compute_homes()
-    return provision.reconcile(job_id, actual_usd=actual_usd, home=home, budget_home=budget_home)
+    job = provision._load(job_id, home)
+    provider_obj = _get_fake_provider(home) if job["provider"] == "fake" else None
+    return provision.reconcile(job_id, actual_usd=actual_usd, home=home, budget_home=budget_home, provider=provider_obj)
 
 
 def mcp_methods() -> dict[str, Any]:

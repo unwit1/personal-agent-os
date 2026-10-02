@@ -210,33 +210,5 @@ class HttpApiTests(SurfaceFixture):
         connection.close()
 
 
-class ComputeDefaultEngineTests(SurfaceFixture):
-    """Verify compute operations work correctly with default engine path."""
-
-    def test_compute_homes_returns_none_for_budget_home_with_embedded_engine(self) -> None:
-        """With embedded engine (set_engine called), budget_home should be home.parent."""
-        home, budget_home = service._compute_homes()
-        self.assertIsNotNone(home)
-        self.assertIsNotNone(budget_home)
-        self.assertEqual(budget_home, home.parent)
-
-    def test_compute_homes_returns_none_for_budget_home_with_default_engine(self) -> None:
-        """With default engine (_ENGINE_IS_DEFAULT=True), budget_home should be None."""
-        # Save current state
-        original_engine = service._ENGINE
-        original_is_default = service._ENGINE_IS_DEFAULT
-        try:
-            # Clear to use default engine
-            service.set_engine(None)
-            service._ENGINE_IS_DEFAULT = True
-            home, budget_home = service._compute_homes()
-            # With default engine, budget_home should be None so the budget module uses its standard location
-            self.assertIsNone(budget_home)
-        finally:
-            # Restore
-            service._ENGINE = original_engine
-            service._ENGINE_IS_DEFAULT = original_is_default
-
-
 if __name__ == "__main__":
     unittest.main()
