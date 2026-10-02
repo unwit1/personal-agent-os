@@ -92,6 +92,117 @@ const Executive = (() => {
     }
   }
 
+  function textEl(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    el.textContent = text;
+    return el;
+  }
+
+  function countsText(counts) {
+    const entries = Object.entries(counts || {});
+    if (entries.length === 0) return 'none';
+    return entries.map(([k, v]) => k + ': ' + v).join(', ');
+  }
+
+  function renderMailCleanup(item) {
+    const group = document.createElement('div');
+    group.className = 'mail-cleanup';
+    const context = item.context || {};
+    const plan = context.plan;
+    const spamFiltered = context.spam_filtered || {};
+    const byAccount = spamFiltered.by_account || {};
+    const spamFilteredCounts = Object.fromEntries(
+      Object.entries(spamFiltered).filter(([k]) => k !== 'by_account')
+    );
+    if (!plan || Object.keys(plan).length === 0) {
+      group.appendChild(textEl('div', 'muted', 'No plan yet'));
+    } else {
+      Object.keys(plan).forEach(account => {
+        const acct = plan[account] || {};
+        const categories = acct.categories || {};
+        group.appendChild(textEl('div', 'mail-cleanup-account', account));
+        if (byAccount[account]) {
+          group.appendChild(textEl('div', 'mail-cleanup-account-filtered', 'Filtered: ' + countsText(byAccount[account])));
+        }
+        const table = document.createElement('table');
+        table.className = 'mail-cleanup-table';
+        const head = document.createElement('tr');
+        ['Category', 'Count', 'Sample subjects', 'Target folder', ''].forEach(h => head.appendChild(textEl('th', '', h)));
+        table.appendChild(head);
+        Object.keys(categories).forEach(category => {
+          const entry = categories[category] || {};
+          const row = document.createElement('tr');
+          row.appendChild(textEl('td', '', category));
+          row.appendChild(textEl('td', '', String(entry.count || 0)));
+          row.appendChild(textEl('td', '', (entry.samples || []).join(' | ')));
+          row.appendChild(textEl('td', '', entry.target_folder || ''));
+          const actionCell = document.createElement('td');
+          if (entry.target_folder) {
+            const btn = textEl('button', 'option-consequential mail-cleanup-apply', 'Apply ' + category);
+            btn.addEventListener('click', () => handleMailOrganizeApply(item, account, category, btn));
+            actionCell.appendChild(btn);
+          }
+          row.appendChild(actionCell);
+          table.appendChild(row);
+        });
+        group.appendChild(table);
+      });
+    }
+    group.appendChild(textEl('div', 'mail-cleanup-filtered', 'Spam filtered: ' + countsText(spamFilteredCounts)));
+    return group;
+  }
+
+  function renderMailFiltered(item) {
+    const group = document.createElement('div');
+    group.className = 'mail-filtered';
+    const context = item.context || {};
+    const filtered = context.filtered || [];
+    const counts = context.counts || {};
+    group.appendChild(textEl('div', 'mail-filtered-counts', 'By reason: ' + countsText(counts)));
+    const details = document.createElement('details');
+    details.appendChild(textEl('summary', '', 'Filtered subjects (' + filtered.length + ')'));
+    const list = document.createElement('ul');
+    filtered.forEach(f => {
+      const reasons = (f.reasons || []).join(', ');
+      list.appendChild(textEl('li', '', (f.subject || '(no subject)') + ' — ' + reasons));
+    });
+    details.appendChild(list);
+    group.appendChild(details);
+    return group;
+  }
+
+  function handleMailOrganizeApply(item, account, category, btn) {
+    const payload = {
+      item_id: item.id,
+      action_id: 'mail.organize_apply',
+      params: { account: account, category: category },
+    };
+    btn.disabled = true;
+    showBusy(true);
+    clearError();
+    apiCall('POST', '/api/act', payload)
+      .then(response => {
+        showBusy(false);
+        btn.disabled = false;
+        if (response.confirm_token && response.preview) {
+          const previewObj = {
+            id: response.confirm_token,
+            title: 'mail.organize_apply: ' + account + '/' + category,
+            content: JSON.stringify(response.preview, null, 2),
+          };
+          showPreview(previewObj, 'mail.organize_apply');
+        } else if (response.message) {
+          addChatMessage('agent', response.message);
+        }
+        loadItems();
+      })
+      .catch(() => {
+        showBusy(false);
+        btn.disabled = false;
+      });
+  }
+
   function renderItem(item) {
     const card = document.createElement('div');
     card.className = 'item-card';
@@ -125,10 +236,19 @@ const Executive = (() => {
       card.appendChild(meta);
     }
 
+    if (item.kind === 'mail_cleanup') {
+      card.appendChild(renderMailCleanup(item));
+    } else if (item.kind === 'mail_filtered') {
+      card.appendChild(renderMailFiltered(item));
+    }
+
     if (item.options && item.options.length > 0) {
       const optionsDiv = document.createElement('div');
       optionsDiv.className = 'item-options';
       item.options.forEach(option => {
+        if (item.kind === 'mail_cleanup' && option.action_id === 'mail.organize_apply') {
+          return;
+        }
         const btn = document.createElement('button');
         btn.className = option.consequential ? 'option-consequential' : '';
         btn.textContent = option.label;
