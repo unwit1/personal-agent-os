@@ -75,7 +75,7 @@ def openings_event(item: dict[str, Any], params: dict[str, Any], *, confirm: boo
 
 def register(registry: Any) -> None:
     registry.register_action(
-        id="openings.event",
+        id="county.opening_change",
         label="Update county openings",
         applies_to="*",
         handler=openings_event,
