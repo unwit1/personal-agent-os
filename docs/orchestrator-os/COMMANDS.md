@@ -54,6 +54,7 @@ checkpoint) are described here and in [ENTRYPOINT.md](ENTRYPOINT.md).
 | `orchestrate foreman-shadow` † | shadow foreman: a candidate model proposes a DAG + classes for a run (`propose`, one real call); `compare`/`report` score proposals against actual outcomes deterministically |
 | `orchestrate foreman` † | session foreman: `preview`/`deploy` a Hugging Face model on a RunPod GPU within the job budget and use it as the planner for new runs; `status`/`stop`; `eval` scores its per-task model choices and efficiency (real calls) |
 | `orchestrate context-anatomy` | IMP-0018 Phase 0: tokens per prompt section, fan-out duplication and context amplification for a finished run's saved prompts (no model call) |
+| `orchestrate context-economy` | IMP-0018 Phase 0: token amplification, context growth, fan-out and resume overhead across run telemetry (aggregates only, no model call) |
 | `orchestrate capability` | aggregate capability observations into CAP records (no model call) |
 | `orchestrate checkpoint` | Orchestrator OS continuation checkpoint + next prompt (no model call) |
 | `orchestrate next-prompt` | print the current generated next prompt |
