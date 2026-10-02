@@ -107,9 +107,13 @@ class ActionExecutiveTests(unittest.TestCase):
         self.gw = FakeGateway()
         self.store = MemStore()
 
-        # Set up injectable factories
-        actions_executive.GATEWAY_FACTORY = lambda: self.gw
-        actions_executive.STORE_FACTORY = lambda: self.store
+        # Set up injectable factories with proper cleanup
+        gw_patch = patch.object(actions_executive, "GATEWAY_FACTORY", lambda: self.gw)
+        store_patch = patch.object(actions_executive, "STORE_FACTORY", lambda: self.store)
+        gw_patch.start()
+        store_patch.start()
+        self.addCleanup(gw_patch.stop)
+        self.addCleanup(store_patch.stop)
 
     def test_plan_interviews_creates_batch(self):
         """Test that plan_interviews action creates a PENDING_APPROVAL batch."""
