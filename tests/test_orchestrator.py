@@ -353,6 +353,24 @@ class RoutingTests(unittest.TestCase):
 
 
 class OverrideTests(OrchestratorFixture):
+    def test_gate_decided_while_another_process_drives_is_not_lost(self) -> None:
+        run_id = self.create([self.task("a")])
+        record = self.engine.store.load(run_id)
+        gate_id = self.engine._open_gate(record, "budget_exhausted", "test budget", None)["id"]
+        self.engine.store.save(record)
+        stale = self.engine.store.load(run_id)  # the driver's copy, loaded before the decision
+        with mock.patch.object(self.engine.store, "driver", return_value={"active": True, "pid": -1}):
+            self.engine.decide(run_id, gate_id, True, "approved elsewhere")
+        self.engine.store.save(stale)  # used to overwrite the decision
+        record = self.engine.store.load(run_id)
+        self.assertEqual(record["control"]["pending_decisions"][0]["gate"], gate_id)
+        budget = record["launch_budget"]
+        self.engine._apply_pending_decisions(record)
+        gate = next(g for g in record["gates"] if g["id"] == gate_id)
+        self.assertEqual(gate["status"], "approved")
+        self.assertGreater(record["launch_budget"], budget)
+        self.assertNotIn("pending_decisions", record["control"])
+
     def test_override_applies_without_modifying_manifests_or_tasks(self) -> None:
         manifest_hashes = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in (ROOT / "workflows").glob("*.json")}
         tasks_file = self.tmp / "tasks.json"

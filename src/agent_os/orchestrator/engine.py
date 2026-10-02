@@ -368,24 +368,47 @@ class Orchestrator:
                 raise OrchestratorError(f"unknown gate {gate_id}")
             if gate["status"] != "open":
                 return self.summary(record)
-            gate["status"] = "approved" if approve else "rejected"
-            gate["decided_at"] = now()
-            gate["note"] = redact(note or "", 500) or None
-            if approve and gate["kind"] == "consequential_repository_write":
-                # Write-ahead: persist the approval and the intent before the
-                # base branch moves, so a crash after landing cannot leave the
-                # record claiming the gate is still open (IMP-0013).
-                record["final"]["landing"] = {"state": "intended", "gate": gate["id"], "at": now()}
+            driver = self.store.driver(run_id)
+            if driver.get("active") and driver.get("pid") != os.getpid():
+                # Another process holds this run for a whole tick and then saves
+                # its copy, which would overwrite a gate decided here. Queue the
+                # decision in control (adopted by revision) for that driver to
+                # apply on its next tick.
+                record["control"].setdefault("pending_decisions", []).append(
+                    {"gate": gate_id, "approve": bool(approve), "note": note, "at": now()})
+                _operator_changed(record)
                 self.store.save(record)
-            self._apply_decision(record, gate, approve, gate["note"])
-            self._derive_state(record)
-            self.store.save(record)
-            self.store.append_event(run_id, f"gate.{gate['status']}", gate.get("node"), f"{gate['kind']}: {gate['reason']}")
-            from .simple import GATE_CARDS
-
-            title = GATE_CARDS.get(gate["kind"], {}).get("title", gate["kind"].replace("_", " "))
-            self.ledger.emit(run_id, "note", gate.get("node"), text=f"You {'approved' if approve else 'declined'}: {title.lower()}", gate=gate_id, approved=approve, kind=gate["kind"])
+                self.store.append_event(run_id, "gate.decision_queued", gate.get("node"), f"{gate_id}: {'approve' if approve else 'reject'}")
+                return self.summary(record)
+            self._apply_gate(record, gate, approve, note)
             return self.summary(record)
+
+    def _apply_pending_decisions(self, record: dict[str, Any]) -> None:
+        """Apply gate decisions another process queued while this one drove the run."""
+        for item in record["control"].pop("pending_decisions", None) or []:
+            gate = next((g for g in record["gates"] if g["id"] == item.get("gate")), None)
+            if gate is not None and gate["status"] == "open":
+                self._apply_gate(record, gate, bool(item.get("approve")), item.get("note"))
+
+    def _apply_gate(self, record: dict[str, Any], gate: dict[str, Any], approve: bool, note: str | None) -> None:
+        run_id = record["run_id"]
+        gate["status"] = "approved" if approve else "rejected"
+        gate["decided_at"] = now()
+        gate["note"] = redact(note or "", 500) or None
+        if approve and gate["kind"] == "consequential_repository_write":
+            # Write-ahead: persist the approval and the intent before the
+            # base branch moves, so a crash after landing cannot leave the
+            # record claiming the gate is still open (IMP-0013).
+            record["final"]["landing"] = {"state": "intended", "gate": gate["id"], "at": now()}
+            self.store.save(record)
+        self._apply_decision(record, gate, approve, gate["note"])
+        self._derive_state(record)
+        self.store.save(record)
+        self.store.append_event(run_id, f"gate.{gate['status']}", gate.get("node"), f"{gate['kind']}: {gate['reason']}")
+        from .simple import GATE_CARDS
+
+        title = GATE_CARDS.get(gate["kind"], {}).get("title", gate["kind"].replace("_", " "))
+        self.ledger.emit(run_id, "note", gate.get("node"), text=f"You {'approved' if approve else 'declined'}: {title.lower()}", gate=gate["id"], approved=approve, kind=gate["kind"])
 
     def retry(self, run_id: str, node_id: str) -> dict[str, Any]:
         with self._lock:
@@ -510,6 +533,7 @@ class Orchestrator:
             if record["control"].get("stop_requested"):
                 self._cancel_active(record, reason="stopped by user")
                 record["control"]["stop_requested"] = False
+            self._apply_pending_decisions(record)
             passed_before = _count_passed(record)
             try:
                 self._poll(record)
