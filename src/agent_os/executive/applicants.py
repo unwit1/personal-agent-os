@@ -315,17 +315,17 @@ def _fits_county(applicant: Any, match: Any, county: str) -> bool:
     return False
 
 
-def county_candidates(county: str, *, top_n: int | None = None, gateway: Any = None) -> dict[str, Any]:
-    """Best reviewable applicants for one county, ranked by Dashboard AI score."""
-    county = _clean_opening(county)
-    limit = _top_n(top_n)
-    gateway = gateway or _default_gateway()
+def _county_entries(
+    county: str, ranked: list[Any], match_cache: dict[str, Any], limit: int, gateway: Any
+) -> dict[str, Any]:
     results: list[dict[str, Any]] = []
-    for applicant, review in gateway.ranked(0):
+    for applicant, review in ranked:
         ref = _get(applicant, "applicant_ref")
         if not ref or _get(applicant, "status") not in REVIEWABLE_STATUSES:
             continue
-        match = gateway.match_for(ref)
+        if ref not in match_cache:
+            match_cache[ref] = gateway.match_for(ref)
+        match = match_cache[ref]
         if not _fits_county(applicant, match, county):
             continue
         entry = _project(applicant)
@@ -334,20 +334,36 @@ def county_candidates(county: str, *, top_n: int | None = None, gateway: Any = N
         results.append(entry)
     results.sort(key=lambda e: (e["score"] is None, -(e["score"] or 0)))
     results = results[:limit]
-    rtec_applicants._audit_access(
-        "executive.county_candidates", metadata={"result_count": len(results)}
-    )
     return {"county": county, "count": len(results), "top_n": limit, "applicants": results}
 
 
-def open_county_groups(*, top_n: int | None = None, gateway: Any = None) -> list[dict[str, Any]]:
-    """One ``county_candidates`` entry per county with openings."""
+def county_candidates(county: str, *, top_n: int | None = None, gateway: Any = None) -> dict[str, Any]:
+    """Best reviewable applicants for one county, ranked by Dashboard AI score."""
+    county = _clean_opening(county)
+    limit = _top_n(top_n)
     gateway = gateway or _default_gateway()
+    group = _county_entries(county, list(gateway.ranked(0)), {}, limit, gateway)
+    rtec_applicants._audit_access(
+        "executive.county_candidates", metadata={"result_count": group["count"]}
+    )
+    return group
+
+
+def open_county_groups(*, top_n: int | None = None, gateway: Any = None) -> list[dict[str, Any]]:
+    """One ``county_candidates`` entry per county with openings (ranked once, one audit)."""
+    limit = _top_n(top_n)
+    gateway = gateway or _default_gateway()
+    ranked = list(gateway.ranked(0))
+    match_cache: dict[str, Any] = {}
     groups = []
     for row in gateway.open_counties():
-        group = county_candidates(row["county"], top_n=top_n, gateway=gateway)
+        group = _county_entries(_clean_opening(row["county"]), ranked, match_cache, limit, gateway)
         group["open_count"] = row.get("open_count")
         groups.append(group)
+    rtec_applicants._audit_access(
+        "executive.open_county_groups",
+        metadata={"county_count": len(groups), "result_count": sum(g["count"] for g in groups)},
+    )
     return groups
 
 
