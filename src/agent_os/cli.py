@@ -20,7 +20,7 @@ from .browser_bridge_server import (
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
-from .connectors import connector_import_candidates, import_connector_candidate, register_connector
+from .connectors import connector_import_candidates, connector_reconcile_plan, import_connector_candidate, register_connector
 from .creator_profiles import (
     list_profiles as creator_list_profiles,
     pending_discovery as creator_pending_discovery,
@@ -257,6 +257,11 @@ def parser() -> argparse.ArgumentParser:
         help="read-only inventory of local client MCP registrations for connector review",
     )
     connector_candidates.add_argument("--surface")
+    connector_reconcile = commands.add_parser(
+        "connector-reconcile-plan",
+        help="read-only plan of connector registration actions per client surface; applies nothing",
+    )
+    connector_reconcile.add_argument("--surface")
     connector_register = commands.add_parser(
         "connector-register",
         help="preview or explicitly write provider-neutral connector metadata from a JSON file",
@@ -582,6 +587,8 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if args.strict and not report["ok"] else 0
         elif args.command == "connector-import-candidates":
             _print(connector_import_candidates(args.surface))
+        elif args.command == "connector-reconcile-plan":
+            _print(connector_reconcile_plan(args.surface))
         elif args.command == "connector-register":
             _print(
                 register_connector(

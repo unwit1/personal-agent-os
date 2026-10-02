@@ -22,6 +22,16 @@ registry.
 `integration-health` reports each connector under `connector_providers`,
 separately from whether each client surface reaches Agent OS.
 
+The read-only MCP tool `connector.reconcile_plan` and CLI equivalent
+`python agent.py connector-reconcile-plan [--surface <id>]` generate a
+read-only plan listing one action per registered connector: `none` (already
+registered/disabled/unsupported), `investigate` (error state),
+`provision_local_config` (surface declares capability to change local config),
+`manual_host_setup` (host owns its settings), `undetermined` (capability not
+declared), or `unknown_surface`. The result always has `applied: false`,
+reports whether a credential reference is configured (never its value), and
+writes nothing. It resolves no credentials and contacts no providers.
+
 `connector.register` validates a metadata descriptor and previews it by default.
 It writes only when the caller sets `confirm_write: true`. New entries must
 start with provider health `unknown` and client registrations `desired`; only
@@ -36,6 +46,8 @@ The same discovery report is available without MCP:
 ```powershell
 python agent.py connector-import-candidates
 python agent.py connector-import-candidates --surface codex-cli
+python agent.py connector-reconcile-plan
+python agent.py connector-reconcile-plan --surface codex-cli
 ```
 
 Registering metadata from a reviewed JSON descriptor also previews by default:
@@ -68,8 +80,9 @@ resolves them.
 ## Not implemented yet
 
 The current broker slice does not import connector settings from client
-applications, read credential stores, invoke provider APIs, reconcile desired
-and actual client configuration, or provision connector tools across surfaces.
+applications, read credential stores, invoke provider APIs, apply reconciliation
+to client configuration (only a read-only plan exists), or provision connector
+tools across surfaces.
 Host limitations and unsupported registration states must remain explicit.
 Do not treat a discovered registration or a `declared_ready_unverified` result
 as proof that a provider is connected through Agent OS.
