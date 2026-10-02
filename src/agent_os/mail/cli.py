@@ -94,6 +94,18 @@ def register(commands: argparse._SubParsersAction) -> None:
     thread.add_argument("id")
     thread.add_argument("--scope", choices=config.SCOPES, required=True)
     thread.add_argument("--body", action="store_true")
+    plan = sub.add_parser("organize-plan", help="categorize the local index into an organization plan (read-only)")
+    plan.add_argument("--scope", choices=config.SCOPES)
+    apply = sub.add_parser("organize-apply", help="move one category's INBOX mail over IMAP (dry run unless --confirm)")
+    apply.add_argument("--account", dest="account_id", required=True)
+    apply.add_argument("--category", required=True)
+    apply.add_argument("--confirm", action="store_true", help="really move (account must have allow_organize on)")
+    undo = sub.add_parser("organize-undo", help="reverse a journaled move (id from the organize-apply journal)")
+    undo.add_argument("move_id")
+    undo.add_argument("--seq", type=int)
+    undo.add_argument("--scope", choices=config.SCOPES)
+    undo.add_argument("--confirm", action="store_true", help="really undo (default is a dry run)")
+    sub.add_parser("spam-eval", help="precision/recall of the spam classifier on the synthetic labeled set")
 
 
 def dispatch(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
@@ -164,6 +176,33 @@ def dispatch(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
             emit({"export_attachments": current["export_attachments"], "folder": str(attachments.default_root())})
         else:
             emit([attachments.export_missing_live(scope) for scope in ([args.scope] if args.scope else config.SCOPES)])
+    elif command == "organize-plan":
+        from . import organize
+
+        emit(organize.build_plan(scopes=(args.scope,) if args.scope else config.SCOPES))
+    elif command == "organize-apply":
+        from . import imap_write, organize, organize_apply
+
+        scope = accounts_lib.get_account(args.account_id).mail_scope
+        plan = organize.build_plan(scopes=(scope,))
+        try:
+            emit(organize_apply.apply_plan(plan, args.category, only_accounts=[args.account_id], dry_run=not args.confirm,
+                                           connect=imap_write.connect_write, journal_path=organize_apply.default_journal_path(scope)))
+        except organize_apply.OrganizeError as exc:
+            emit({"error": str(exc)})
+            return 1
+    elif command == "organize-undo":
+        from . import imap_write, organize_apply
+
+        try:
+            emit(organize_apply.undo(args.move_id, seq=args.seq, dry_run=not args.confirm, connect=imap_write.connect_write, scope=args.scope))
+        except organize_apply.OrganizeError as exc:
+            emit({"error": str(exc)})
+            return 1
+    elif command == "spam-eval":
+        from . import spam_eval
+
+        emit(spam_eval.evaluate())
     elif command == "split-scopes":
         from .scopes import split_combined_index
 
