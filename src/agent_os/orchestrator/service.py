@@ -407,7 +407,85 @@ MCP_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         ),
     },
     "orchestrate.result": {"description": "Collect the final (or current) result of a run: integration branch, validation, findings, usage.", "inputSchema": _schema(_RUN, ["run_id"])},
+    "compute.provision": {
+        "description": "Provision a compute job (fake provider only in slice 2; other providers blocked at approval gate).",
+        "inputSchema": _schema(
+            {
+                "provider": {"type": "string"},
+                "gpu": {"type": "string"},
+                "hourly_usd": {"type": "number"},
+                "estimate": {
+                    "type": "object",
+                    "properties": {"low": {"type": "number"}, "expected": {"type": "number"}, "high": {"type": "number"}},
+                    "required": ["low", "expected", "high"],
+                },
+                "max_runtime_seconds": {"type": ["number", "null"]},
+                "secret_ref": {"type": ["string", "null"], "pattern": "^secrets://"},
+                "job_id": {"type": ["string", "null"]},
+            },
+            ["provider", "gpu", "hourly_usd", "estimate"],
+        ),
+    },
+    "compute.status": {
+        "description": "Inspect a compute job: state, instance, cost, history.",
+        "inputSchema": _schema({"job_id": {"type": "string"}}, ["job_id"]),
+    },
+    "compute.stop": {
+        "description": "Stop or cancel a compute job. On requested/reserved: releases reservation. On launching: marks for stop. On running/stopping: initiates or resumes stop.",
+        "inputSchema": _schema({"job_id": {"type": "string"}}, ["job_id"]),
+    },
+    "compute.destroy": {
+        "description": "Destroy a compute instance and release the spend reservation.",
+        "inputSchema": _schema({"job_id": {"type": "string"}}, ["job_id"]),
+    },
+    "compute.reconcile": {
+        "description": "Reconcile a stopped/destroyed job: compare actual spend to estimate and release the reservation.",
+        "inputSchema": _schema({"job_id": {"type": "string"}, "actual_usd": {"type": ["number", "null"]}}, ["job_id"]),
+    },
 }
+
+
+def compute_provision(provider: str, gpu: str, hourly_usd: float, estimate: dict[str, float], max_runtime_seconds: float | None = None, secret_ref: str | None = None, job_id: str | None = None) -> dict[str, Any]:
+    from . import provision
+    if secret_ref is not None and not secret_ref.startswith("secrets://"):
+        raise ValueError("secret_ref must use secrets:// protocol")
+    request = {"provider": provider, "gpu": gpu, "hourly_usd": hourly_usd, "estimate": estimate, "max_runtime_seconds": max_runtime_seconds, "secret_ref": secret_ref, "job_id": job_id}
+    orch = engine()
+    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
+    budget_home = home.parent if home else None
+    return provision.provision(request, home=home, budget_home=budget_home)
+
+
+def compute_status(job_id: str) -> dict[str, Any]:
+    from . import provision
+    orch = engine()
+    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
+    budget_home = home.parent if home else None
+    return provision.status(job_id, home=home, budget_home=budget_home)
+
+
+def compute_stop(job_id: str) -> dict[str, Any]:
+    from . import provision
+    orch = engine()
+    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
+    budget_home = home.parent if home else None
+    return provision.stop(job_id, home=home, budget_home=budget_home)
+
+
+def compute_destroy(job_id: str) -> dict[str, Any]:
+    from . import provision
+    orch = engine()
+    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
+    budget_home = home.parent if home else None
+    return provision.destroy(job_id, home=home, budget_home=budget_home)
+
+
+def compute_reconcile(job_id: str, actual_usd: float | None = None) -> dict[str, Any]:
+    from . import provision
+    orch = engine()
+    home = orch.store.home if _ENGINE_IS_DEFAULT or orch.store else None
+    budget_home = home.parent if home else None
+    return provision.reconcile(job_id, actual_usd=actual_usd, home=home, budget_home=budget_home)
 
 
 def mcp_methods() -> dict[str, Any]:
@@ -424,4 +502,9 @@ def mcp_methods() -> dict[str, Any]:
         "orchestrate.review_again": review_again,
         "orchestrate.override": override,
         "orchestrate.result": result,
+        "compute.provision": compute_provision,
+        "compute.status": compute_status,
+        "compute.stop": compute_stop,
+        "compute.destroy": compute_destroy,
+        "compute.reconcile": compute_reconcile,
     }
