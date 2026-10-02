@@ -14,7 +14,8 @@ from unittest import mock
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.cli import main  # noqa: E402
-from agent_os.orchestrator import budget  # noqa: E402
+from agent_os.orchestrator import budget, provision  # noqa: E402
+from agent_os.orchestrator.compute_fake import FakeProvider  # noqa: E402
 
 
 class CliFixture(unittest.TestCase):
@@ -172,6 +173,11 @@ class ComputeProvisionCliTests(CliFixture):
     def test_roundtrip_provision_status_stop_reconcile_destroy(self) -> None:
         """Test round-trip: provision -> status -> stop -> reconcile -> destroy."""
         budget.set_budget(100, 5, home=self.budget_home)
+        # Each CLI call builds a fresh FakeProvider; share one so instance state survives between calls.
+        shared = FakeProvider(hourly_usd=2.0)
+        patcher = mock.patch.object(provision, "_resolve_provider", lambda *a, **k: shared)
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
         # Provision
         code, job = self.cli(
