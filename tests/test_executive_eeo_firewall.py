@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agent_os import rtec_applicants
 from agent_os.executive import applicants as ex
 from agent_os.executive import brain
+from agent_os.executive import gateway as gateway_module
 from agent_os.executive.gateway import SyntheticDashboardGateway
 from agent_os.executive.outbox import OutboxStore
 
@@ -82,15 +83,16 @@ def _create_guard_patches(fail_fn):
     """Create patches for guards that should not be triggered during brain operations."""
     import urllib.request
     return [
-        patch("agent_os.executive.gateway.LocalDashboardGateway", side_effect=fail_fn),
+        patch.object(gateway_module, "LocalDashboardGateway", side_effect=fail_fn),
+        patch.object(gateway_module.importlib, "import_module", wraps=gateway_module.importlib.import_module),
         patch.object(rtec_applicants, "_project_root", side_effect=fail_fn),
         patch.object(rtec_applicants, "_connect_readonly", side_effect=fail_fn),
         patch("socket.create_connection", side_effect=fail_fn),
         patch("socket.socket.connect", side_effect=fail_fn),
         patch.object(urllib.request, "urlopen", side_effect=fail_fn),
         patch.dict("sys.modules", {
-            "win32com": MagicMock(side_effect=fail_fn),
-            "win32com.client": MagicMock(side_effect=fail_fn),
+            "win32com": None,
+            "win32com.client": None,
         }),
     ]
 
@@ -139,6 +141,10 @@ class EeoFirewallTests(unittest.TestCase):
             if hasattr(m, 'call_count'):
                 guard_mocks.append(m)
             self.addCleanup(p.stop)
+
+        # Reset call counts after patch setup to ignore any calls during patch initialization
+        for m in guard_mocks:
+            m.reset_mock()
 
         sug = ex.suggestions("Tech", gateway=gateway)
         self.assertEqual(sug["count"], 2)
@@ -223,6 +229,10 @@ class EeoFirewallTests(unittest.TestCase):
             if hasattr(m, 'call_count'):
                 guard_mocks.append(m)
             self.addCleanup(p.stop)
+
+        # Reset call counts after patch setup to ignore any calls during patch initialization
+        for m in guard_mocks:
+            m.reset_mock()
 
         # Set up poisoned gateway for real flow test.
         gateway = SyntheticDashboardGateway(
