@@ -164,7 +164,7 @@ class FreeMetricsTests(unittest.TestCase):
         self.assertEqual(result["estimated_paid_cost_avoided_usd"], expected)
 
     def test_missing_paid_model(self):
-        """When paid_model is not provided, cost calculation returns None."""
+        """When paid_model is not provided, cost calculation returns None with error note."""
         prices = {MODEL1: {"input": 0.001, "output": 0.002}}
         events = [
             make_event(model=MODEL1, accepted=True, escalated=False),
@@ -172,6 +172,11 @@ class FreeMetricsTests(unittest.TestCase):
         result = free_metrics.report(events, prices=prices, paid_model=None)
         # Without paid_model, can't calculate cost, so cost is None
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
+        # Verify error note about missing paid_model
+        self.assertTrue(
+            any("no paid_model given" in str(err) for err in result["errors"]),
+            f"Expected 'no paid_model given' error note, got {result['errors']}"
+        )
 
     def test_missing_paid_price_error(self):
         """Report when paid model prices are missing."""
@@ -188,13 +193,17 @@ class FreeMetricsTests(unittest.TestCase):
         )
 
     def test_no_prices_dict(self):
-        """When prices dict is None, cost avoided is None."""
+        """When prices dict is None, cost avoided is None with error note."""
         events = [
             make_event(accepted=True, escalated=False),
         ]
         result = free_metrics.report(events, prices=None)
         self.assertIsNone(result["estimated_paid_cost_avoided_usd"])
         self.assertIsNone(result["estimated_paid_cost_basis"])
+        # Verify error notes about missing prices and paid_model
+        error_text = " ".join(str(e) for e in result["errors"])
+        self.assertIn("no prices supplied", error_text, f"Expected 'no prices supplied' error note, got {result['errors']}")
+        self.assertIn("no paid_model given", error_text, f"Expected 'no paid_model given' error note, got {result['errors']}")
 
     def test_verdict_updates_attempt(self):
         """Verdict events update attempt fields."""
