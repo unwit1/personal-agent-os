@@ -93,6 +93,33 @@ tools/executive-window.cmd
 
 Opens Edge `--app` window on the local server.
 
-## Known: email.send
+## Applicant workflow
 
-The `email.send` action saves a draft (no outbound SMTP yet); operator opens it in Outlook to review and send. Applicant outreach goes through the Dashboard's mail module.
+Full contract: [executive-applicant-workflow.md](executive-applicant-workflow.md). The compose panel is the primary send path for applicant and manager outreach in this workflow; see section 11.1 of the contract for which senders are available.
+
+### Compose and Send panel
+
+Whenever the Executive plans an email (applicant outreach, interview invite, manager email, reply), the window opens an editable compose panel with To, Subject, Body, a From account picker and a Send button. Nothing sends without that Send click. Send calls `POST /api/send`, which uses a `SendTransport`: `SmtpImapTransport` (SMTP submission with the account credential from the keyring, then an IMAP APPEND copy to the Sent folder) or `FakeTransport` in tests. The transport runs in the window server's own process. Any failure is shown clearly as **NOT SENT**. After a successful applicant send the applicant's Dashboard status is updated through the gateway (`record_applicant_sent`, `set_applicant_status`), never raw SQL.
+
+### County openings groups
+
+Counties with openings replace the "Human review pending" group on the Work tab. Counties come from the Dashboard openings settings; under each county the best applicants are ranked by the existing screening and suggestion logic, limited to a configurable top N. Clicking an applicant opens a review panel with allowlisted Dashboard fields only (never EEO or self-ID data).
+
+### Applicant decisions
+
+| Decision | Action id |
+| --- | --- |
+| Review | `applicant.review` |
+| Reach out (compose) | `applicant.reach_out` |
+| Invite to interview (compose) | `applicant.invite_interview` |
+| Email county manager (compose) | `applicant.email_manager` |
+| Decline (Confirm) | `applicant.decline` |
+| Hold | `applicant.hold` |
+| Refresh county group | `county.refresh` |
+| Change an opening (preview, then Confirm; refreshes the county group) | `county.opening_change` |
+
+Each is registered in the action registry, so it is both an item option and a model tool.
+
+### Natural-language opening events
+
+Chat messages such as "we closed the opening in X", "a driver quit in Y" or "we have a new opening in Z" map to `county.opening_change`. The change goes through gateway methods that call the Dashboard's own openings save functions. The window previews the change and requires Confirm; after Confirm the county's group is refreshed immediately with the latest applicants to review.
