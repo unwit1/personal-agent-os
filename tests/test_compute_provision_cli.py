@@ -119,29 +119,15 @@ class ComputeProvisionCliTests(CliFixture):
         self.assertIn("error", result)
         self.assertIn("hourly-usd", result["error"])
 
-    def test_status_requires_job_id(self) -> None:
-        code, result = self.cli("orchestrate", "compute", "status")
-        self.assertEqual(code, 2)
-        self.assertIn("error", result)
-        self.assertIn("job-id", result["error"])
-
-    def test_stop_requires_job_id(self) -> None:
-        code, result = self.cli("orchestrate", "compute", "stop")
-        self.assertEqual(code, 2)
-        self.assertIn("error", result)
-        self.assertIn("job-id", result["error"])
-
-    def test_destroy_requires_job_id(self) -> None:
-        code, result = self.cli("orchestrate", "compute", "destroy")
-        self.assertEqual(code, 2)
-        self.assertIn("error", result)
-        self.assertIn("job-id", result["error"])
-
-    def test_reconcile_requires_job_id(self) -> None:
-        code, result = self.cli("orchestrate", "compute", "reconcile")
-        self.assertEqual(code, 2)
-        self.assertIn("error", result)
-        self.assertIn("job-id", result["error"])
+    def test_job_actions_require_job_id(self) -> None:
+        """Test that status/stop/destroy/reconcile all require --job-id."""
+        actions = ["status", "stop", "destroy", "reconcile"]
+        for action in actions:
+            with self.subTest(action=action):
+                code, result = self.cli("orchestrate", "compute", action)
+                self.assertEqual(code, 2, f"Expected code 2 for {action}")
+                self.assertIn("error", result)
+                self.assertIn("job-id", result["error"], f"Missing job-id error for {action}")
 
     def test_jobs_lists_all_jobs(self) -> None:
         budget.set_budget(100, 5, home=self.budget_home)
@@ -176,13 +162,101 @@ class ComputeProvisionCliTests(CliFixture):
         self.assertEqual(code, 0)
         self.assertEqual(jobs, [])
 
-    def test_inventory_still_works(self) -> None:
-        code, stock = self.cli(
-            "orchestrate", "compute", "inventory",
-            "--provider", "runpod",
+    def test_provision_without_budget_is_blocked(self) -> None:
+        """Test that provision without a budget is blocked."""
+        code, result = self.cli(
+            "orchestrate", "compute", "provision",
+            "--provider", "fake",
+            "--gpu", "A100",
+            "--hourly-usd", "2.0",
+            "--low-usd", "0.5",
+            "--expected-usd", "1.0",
+            "--high-usd", "2.0",
         )
-        self.assertIn(code, {0, 2})  # 0 if network available, 2 if offline (test has no network)
-        self.assertIsInstance(stock, dict)
+        self.assertEqual(code, 0, result)
+        self.assertEqual(result["state"], "blocked", f"Expected blocked state, got {result}")
+        self.assertIn("reason", result)
+
+    def test_provision_requires_provider(self) -> None:
+        """Test that --provider is required for provision."""
+        budget.set_budget(100, 5, home=self.budget_home)
+        code, result = self.cli(
+            "orchestrate", "compute", "provision",
+            "--gpu", "A100",
+            "--hourly-usd", "2.0",
+            "--low-usd", "0.5",
+            "--expected-usd", "1.0",
+            "--high-usd", "2.0",
+        )
+        self.assertEqual(code, 2)
+        self.assertIn("error", result)
+        self.assertIn("provider", result["error"].lower())
+
+    def test_roundtrip_provision_status_stop_reconcile_destroy(self) -> None:
+        """Test round-trip: provision -> status -> stop -> reconcile -> destroy."""
+        budget.set_budget(100, 5, home=self.budget_home)
+
+        # Provision
+        code, job = self.cli(
+            "orchestrate", "compute", "provision",
+            "--provider", "fake",
+            "--gpu", "A100",
+            "--hourly-usd", "2.0",
+            "--low-usd", "0.5",
+            "--expected-usd", "1.0",
+            "--high-usd", "2.0",
+        )
+        self.assertEqual(code, 0, job)
+        self.assertEqual(job["state"], "running")
+        job_id = job["job_id"]
+
+        # Status
+        code, status_result = self.cli("orchestrate", "compute", "status", "--job-id", job_id)
+        self.assertEqual(code, 0, status_result)
+        self.assertEqual(status_result["state"], "running")
+        self.assertEqual(status_result["job_id"], job_id)
+
+        # Stop
+        code, stop_result = self.cli("orchestrate", "compute", "stop", "--job-id", job_id)
+        self.assertEqual(code, 0, stop_result)
+        # After stop, job should be in stopping or stopped state
+        self.assertIn(stop_result["state"], {"stopping", "stopped"})
+
+        # Reconcile with actual_usd
+        code, reconcile_result = self.cli(
+            "orchestrate", "compute", "reconcile", "--job-id", job_id, "--actual-usd", "0.8"
+        )
+        self.assertEqual(code, 0, reconcile_result)
+        # After reconcile, job should be in reconciled state or preparing to be
+        self.assertIn(reconcile_result["state"], {"stopped", "destroyed", "reconciled"})
+
+        # Destroy
+        code, destroy_result = self.cli("orchestrate", "compute", "destroy", "--job-id", job_id)
+        self.assertEqual(code, 0, destroy_result)
+        # After destroy, job should be in destroyed or reconciled state
+        self.assertIn(destroy_result["state"], {"destroyed", "reconciled"})
+
+    def test_inventory_with_mocked_provider(self) -> None:
+        """Test inventory with a mocked provider to avoid real API calls."""
+        from agent_os.orchestrator import compute
+
+        mock_inventory_result = {
+            "provider": "runpod",
+            "offers": [
+                {"name": "A100", "vram_gb": 40, "hourly_usd": 1.99},
+                {"name": "H100", "vram_gb": 80, "hourly_usd": 3.99},
+            ],
+        }
+
+        with mock.patch.object(compute, "inventory", return_value=mock_inventory_result):
+            code, stock = self.cli(
+                "orchestrate", "compute", "inventory",
+                "--provider", "runpod",
+            )
+
+        self.assertEqual(code, 0, stock)
+        self.assertEqual(stock["provider"], "runpod")
+        self.assertEqual(len(stock["offers"]), 2)
 
 
 if __name__ == "__main__":

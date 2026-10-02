@@ -703,10 +703,13 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             return 0
         if args.action == "provision":
             try:
+                if not args.provider:
+                    emit({"error": "provision needs --provider (e.g., fake, runpod)"})
+                    return 2
                 if not args.gpu or args.hourly_usd is None or args.expected_usd is None or args.low_usd is None or args.high_usd is None:
                     emit({"error": "provision needs --gpu, --hourly-usd, --low-usd, --expected-usd, --high-usd"})
                     return 2
-                request = {"provider": args.provider or "fake", "gpu": args.gpu, "hourly_usd": args.hourly_usd,
+                request = {"provider": args.provider, "gpu": args.gpu, "hourly_usd": args.hourly_usd,
                           "estimate": {"low": args.low_usd, "expected": args.expected_usd, "high": args.high_usd}}
                 if args.job_id:
                     request["job_id"] = args.job_id
@@ -720,53 +723,33 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             except ValueError as exc:
                 emit({"error": str(exc)})
                 return 2
-        if args.action == "status":
-            try:
+
+        # Refactored: single try/except for all job-scoped actions
+        try:
+            if args.action in {"status", "stop", "destroy", "reconcile"}:
                 if not args.job_id:
-                    emit({"error": "status needs --job-id"})
+                    emit({"error": f"{args.action} needs --job-id"})
                     return 2
+
+            if args.action == "status":
                 result = provision.status(args.job_id)
-                emit(result)
-                return 0
-            except ValueError as exc:
-                emit({"error": str(exc)})
-                return 2
-        if args.action == "stop":
-            try:
-                if not args.job_id:
-                    emit({"error": "stop needs --job-id"})
-                    return 2
+            elif args.action == "stop":
                 result = provision.stop(args.job_id)
-                emit(result)
-                return 0
-            except ValueError as exc:
-                emit({"error": str(exc)})
-                return 2
-        if args.action == "destroy":
-            try:
-                if not args.job_id:
-                    emit({"error": "destroy needs --job-id"})
-                    return 2
+            elif args.action == "destroy":
                 result = provision.destroy(args.job_id)
-                emit(result)
-                return 0
-            except ValueError as exc:
-                emit({"error": str(exc)})
-                return 2
-        if args.action == "reconcile":
-            try:
-                if not args.job_id:
-                    emit({"error": "reconcile needs --job-id"})
-                    return 2
+            elif args.action == "reconcile":
                 result = provision.reconcile(args.job_id, actual_usd=args.actual_usd)
+            elif args.action == "jobs":
+                result = provision.list_jobs()
+            else:
+                result = None
+
+            if result is not None:
                 emit(result)
                 return 0
-            except ValueError as exc:
-                emit({"error": str(exc)})
-                return 2
-        if args.action == "jobs":
-            emit(provision.list_jobs())
-            return 0
+        except ValueError as exc:
+            emit({"error": str(exc)})
+            return 2
     if action == "radar":
         from . import radar
 
