@@ -679,11 +679,27 @@ def after_failure(node: dict, failure: dict, registry: router.ProviderRegistry, 
   (the deployment free OpenRouter providers run under) is given sensitivity
   `"private"`, so it fails eligibility with a named reason instead of failing
   later in `selection_for`. No other field is invented.
-- `FreeInputs.load_default(home)` reads, from `<orchestrator home>/free-compute/`
-  unless `home` is given: the catalog cache through `free_catalog`'s cache
-  reader, **never `free_catalog.discover`** (the engine must not touch the
-  network); `specialization.json` (a list of records); `free_policy.load()` for
-  the effective policy; `account.json` for `high_allowance`; and a
+- **Home convention.** `home` is an *orchestrator home* (the directory
+  `store.orchestrator_home()` returns), not the `free-compute/` directory.
+  `load_default` resolves it once, as `home = Path(home) if home is not None
+  else orchestrator_home()`, and every file it reads is under
+  `home / "free-compute"`. The same resolved `home` is passed to
+  `free_quota.Governor(..., home=home)` (whose ledger is
+  `home/free-compute/ledger.jsonl`) and to `free_catalog`'s cache path
+  (`home/free-compute/catalog/latest.json`). No read in `load_default` falls
+  back to the global `orchestrator_home()` when a `home` is given, so a test
+  with a temporary home is hermetic.
+- `FreeInputs.load_default(home)` reads, from `home/free-compute/`: the catalog
+  cache through `free_catalog`'s cache reader (`_read_cache(_cache_path(home))`),
+  **never `free_catalog.discover`** (the engine must not touch the network);
+  `specialization.json` (a list of records); the effective policy through
+  `free_policy.load(overrides=<overrides>)`, where `<overrides>` is
+  `load_json(home / "free-compute" / "policy-overrides.json")`, or `{}` when
+  that file is missing. Passing `overrides` explicitly matters: a bare
+  `free_policy.load()` reads `policy-overrides.json` from the global
+  `orchestrator_home()` and would ignore `home`, so a temp-home test would pick
+  up the operator's real overrides. It also reads `account.json` for
+  `high_allowance` and builds a
   `free_quota.Governor(policy, high_tier=<high_allowance>, home=home)`.
   `project_policy` is the effective policy plus `protected_globs =
   control_plane.protected_globs()` (the canonical list; run-level
@@ -1013,9 +1029,26 @@ owned by the `engine-free-routing-tests` task. There is no separate
     then fails again and relaunches through `select()` at the escalated
     class. `node["escalations"]` stays unchanged across the free steps, and
     `free_route_escalated` events record each transition.
-  - **On, ineligible** (reviewer role, high effort, or a protected path). The
-    node routes exactly as with the flag off, and the decision event names the
-    failed check.
+  - **On, ineligible.** Each case is an **implementer** node, so the
+    `_launch` hook runs and emits a decision. The node routes exactly as with
+    the flag off (same selection), its stored decision has `free_state ==
+    "escalated"`, and the `free_route_decision` event has `route: "escalate"`
+    and `failed_checks` equal to exactly one string:
+    - `effort: "high"` -> `["not low-risk: effort high"]`;
+    - `validators: []` and `record["policy"]["default_validators"] = []` ->
+      `["not verifiable: no declared validators"]`;
+    - scope `["policy/CANONICAL_AGENT_POLICY.md"]` (matched by the injected
+      `protected_globs`) -> `["protected paths:
+      policy/CANONICAL_AGENT_POLICY.md"]`.
+  - **On, non-integrated role.** A reviewer node with the flag on gets no
+    hook: `decide_for_node` is patched to raise and is never called, no
+    `free_route_decision` event is emitted for that node, the node has no
+    `free_route` key, and its selection equals the flag-off selection.
+  - **`load_default` is hermetic.** With a temp `home` holding a
+    `free-compute/policy-overrides.json`, and `store.orchestrator_home`
+    patched to a different temp directory holding a conflicting override, the
+    effective policy reflects only the `home` file. The Governor's ledger path
+    is `home/free-compute/ledger.jsonl`.
   - **On, no provider serves the slug.** The decision records route
     `escalate` with reason `no registry provider serves <slug>`, and the node
     uses `select()`.
