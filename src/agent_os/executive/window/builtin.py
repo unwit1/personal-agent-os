@@ -8,6 +8,7 @@ from . import (
     actions_openings,
     actions_executive,
     actions_items,
+    actions_mail_organize,
     providers_applicants,
     providers_mail,
     providers_orchestrator,
@@ -31,6 +32,7 @@ def default_registry() -> registry.Registry:
         registry.register_provider("orchestrator", providers_orchestrator.orchestrator_items)
         registry.register_provider("mail", providers_mail.mail_items)
         registry.register_provider("counties", providers_applicants.county_items)
+        registry.register_provider("mail_cleanup", actions_mail_organize.mail_cleanup_items)
 
         # Register actions
         actions_applicant_compose.register(registry.REGISTRY)
@@ -39,6 +41,7 @@ def default_registry() -> registry.Registry:
         actions_email.register(registry.REGISTRY)
         actions_executive.register(registry.REGISTRY)
         actions_items.register(registry.REGISTRY)
+        actions_mail_organize.register(registry.REGISTRY)
 
         _initialized = True
 

@@ -38,7 +38,7 @@ class MailProviderTests(unittest.TestCase):
 
         with mock.patch.object(mail, "sync", side_effect=AssertionError("sync called")):
             items = mail_items(own_addresses=[ME], search=fake, now=NOW)
-        self.assertEqual([i["id"] for i in items], ["mail:t-reply"])
+        self.assertEqual([i["id"] for i in items if i["kind"] == "mail_thread"], ["mail:t-reply"])
         item = items[0]
         self.assertEqual(item["tab"], "personal")
         self.assertEqual(item["kind"], "mail_thread")
@@ -53,7 +53,7 @@ class MailProviderTests(unittest.TestCase):
              mock.patch.object(mail, "search", return_value=list(ROWS)) as s:
             items = mail_items(own_addresses=[ME], now=NOW)
         self.assertEqual(sorted(c.kwargs.get("scope") for c in s.call_args_list), ["personal", "work"])
-        self.assertEqual(len(items), 1)
+        self.assertEqual([i["id"] for i in items if i["kind"] == "mail_thread"], ["mail:t-reply"])
 
 
 if __name__ == "__main__":
@@ -86,3 +86,39 @@ class MailScopeTabTests(unittest.TestCase):
             return []
 
         self.assertEqual(mail_items(own_addresses=[], search=search, now=datetime(2026, 10, 2, tzinfo=timezone.utc)), [])
+
+
+class MailFilterTests(unittest.TestCase):
+    def _items(self, rows):
+        return mail_items(own_addresses=[ME], search=lambda q, **kw: list(rows) if kw.get("scope") != "work" else [], now=NOW)
+
+    def test_newsletter_is_filtered_and_counted(self):
+        rows = [dict(msg("n1", "t-news", "Weekly <hello@news.example.com>", 1, "This week?"), list_unsubscribe="<mailto:u@x>"),
+                msg("h1", "t-human", "Pat <pat@corp.com>", 1, "Lunch?")]
+        items = self._items(rows)
+        self.assertEqual([i["id"] for i in items if i["kind"] == "mail_thread"], ["mail:t-human"])
+        summary = next(i for i in items if i["kind"] == "mail_filtered")
+        self.assertEqual(summary["id"], "mail:filtered:personal")
+        self.assertEqual(summary["score"], 0)
+        self.assertEqual(summary["title"], "1 mail thread filtered (bulk/spam)")
+        entry = summary["context"]["filtered"][0]
+        self.assertIn("has List-Unsubscribe header", entry["reasons"])
+        self.assertEqual(sum(summary["context"]["counts"].values()), 1)
+
+    def test_junk_folder_message_is_filtered(self):
+        rows = [dict(msg("j1", "t-junk", "Pat <pat@corp.com>", 1, "Are you there?"), mailbox="Junk")]
+        items = self._items(rows)
+        self.assertEqual([i["kind"] for i in items], ["mail_filtered"])
+        self.assertEqual(items[0]["context"]["filtered"][0]["verdict"], "spam")
+
+    def test_borderline_message_yields_review(self):
+        rows = [msg("r1", "t-border", "Shop <sales@store.example.com>", 1, "Order now?")]
+        items = self._items(rows)
+        review = [i for i in items if i["kind"] == "mail_review"]
+        self.assertEqual([i["id"] for i in review], ["mail:review:t-border"])
+        self.assertTrue(review[0]["context"]["reasons"])
+        self.assertIn(review[0]["context"]["reasons"][0], review[0]["why"])
+
+    def test_nothing_filtered_means_no_summary(self):
+        items = self._items([msg("h1", "t-human", "Pat <pat@corp.com>", 1, "Lunch?")])
+        self.assertEqual([i["kind"] for i in items], ["mail_thread"])

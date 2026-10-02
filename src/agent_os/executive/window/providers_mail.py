@@ -69,10 +69,33 @@ def mail_items(db_path: Path | None = None, own_addresses: list[str] | None = No
         key = row.get("thread_id") or row.get("id") or row.get("message_id")
         if key and (key not in threads or when > threads[key]["_when"]):
             threads[key] = {**row, "_when": when}
+    from ...mail import spam
+    known = spam.known_correspondents(rows, own)
     items = []
+    review: list[dict[str, Any]] = []
+    filtered: dict[str, list[dict[str, Any]]] = {}
     for key, latest in threads.items():
         sender = latest.get("sender") or ""
-        if own & _addresses(sender) or AUTOMATED.search(sender) or latest["_when"] < cutoff:
+        if own & _addresses(sender) or latest["_when"] < cutoff:
+            continue
+        result = spam.classify(latest, own=own, known=known)
+        verdict, reasons = result["verdict"], result["reasons"]
+        tab = latest.get("_tab", "personal")
+        subject = latest.get("subject") or "(no subject)"
+        if verdict in ("bulk", "spam"):
+            filtered.setdefault(tab, []).append({"subject": subject, "sender": sender, "verdict": verdict,
+                                                 "reasons": list(reasons), "_when": latest["_when"]})
+            continue
+        if verdict == "review":
+            age = max(0, (now - latest["_when"]).days)
+            review.append({
+                "id": f"mail:review:{key}", "tab": tab, "kind": "mail_review", "title": subject,
+                "why": f"borderline, needs operator review: {'; '.join(reasons)}",
+                "source": "mail", "age_days": age, "score": 1,
+                "context": {"thread_id": key, "message_id": latest.get("message_id"), "sender": sender,
+                            "subject": subject, "verdict": verdict, "reasons": list(reasons)},
+                "_when": latest["_when"],
+            })
             continue
         score = _score(latest, own)
         if score < 2:
@@ -86,7 +109,24 @@ def mail_items(db_path: Path | None = None, own_addresses: list[str] | None = No
             "context": {"thread_id": key, "message_id": latest.get("message_id"), "sender": sender, "subject": subject},
             "_when": latest["_when"],
         })
+    items.extend(review)
     items.sort(key=lambda i: (-i["score"], -i["_when"].timestamp()))
+    items = items[:limit]
     for item in items:
         del item["_when"]
-    return items[:limit]
+    for tab, entries in filtered.items():
+        entries.sort(key=lambda e: -e["_when"].timestamp())
+        counts: dict[str, int] = {}
+        for entry in entries:
+            reason = entry["reasons"][0]
+            counts[reason] = counts.get(reason, 0) + 1
+        n = len(entries)
+        items.append({
+            "id": f"mail:filtered:{tab}", "tab": tab, "kind": "mail_filtered",
+            "title": f"{n} mail thread{'s' if n != 1 else ''} filtered (bulk/spam)",
+            "why": "Likely bulk, automated or spam mail kept out of your commitments",
+            "source": "mail", "age_days": 0, "score": 0,
+            "context": {"counts": counts,
+                        "filtered": [{k: e[k] for k in ("subject", "sender", "verdict", "reasons")} for e in entries[:25]]},
+        })
+    return items

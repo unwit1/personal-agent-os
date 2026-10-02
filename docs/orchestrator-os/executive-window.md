@@ -123,3 +123,32 @@ Each is registered in the action registry, so it is both an item option and a mo
 ### Natural-language opening events
 
 Chat messages such as "we closed the opening in X", "a driver quit in Y" or "we have a new opening in Z" map to `county.opening_change` (the chat route invokes it through its alias `openings.event`, which applies to any item). The change goes through gateway methods that call the Dashboard's own openings save functions. The window previews the change and requires Confirm; after Confirm the county's group is refreshed immediately with the latest applicants to review.
+
+## Mail intelligence items and actions
+
+See [mail-intelligence.md](../integrations/mail-intelligence.md) and
+[mail.md](../integrations/mail.md).
+
+### Items
+
+- **`mail_filtered`:** one item per tab with counts per primary reason and up to
+  25 sample subjects/senders/reasons showing which mail was filtered out, so nothing
+  disappears silently.
+- **`mail_review`:** borderline (verdict `review`) threads with their reasons,
+  shown alongside reply items.
+- **`mail_cleanup`:** the organization plan, showing counts per category per
+  account and a per-category Confirm button to move mail.
+
+### Actions
+
+- **`mail.organize_inbox`:** builds and caches an organization plan for each
+  configured scope; dry-run, no moves. Returns `plan_written`, `generated_at`, per-category
+  `counts` and `spam_filtered`; the full plan (sample subjects and target folders)
+  is shown by the `mail_cleanup` item.
+- **`mail.organize_apply`:** applies the plan to one category. Parameters: `account`,
+  `category`. Consequential: preview (dry-run) shows what would move; Confirm
+  executes the reversible IMAP moves and journals them with undo commands.
+
+Accounts need `allow_organize` set by the operator (default off, per account) in
+`.agent-local/mail/accounts.json` before any organize action can move mail. Nothing
+is moved otherwise.
