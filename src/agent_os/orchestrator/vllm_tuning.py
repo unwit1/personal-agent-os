@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .foreman_deploy import MAX_CONTEXT
+
 FP8_KV_GPU_MARKERS = ("H100", "H200", "H20", "L4", "L40", "RTX 4090", "RTX 6000 Ada", "B200", "RTX 5090")
 
 
@@ -53,7 +55,7 @@ def max_num_seqs(
     kv_bytes_per_token_scaled = kv_bytes_per_token * (kv_dtype_bytes / 2)
 
     # Average tokens per sequence: sequences rarely fill the window
-    avg_context = context or 32768  # IMP-0015 MAX_CONTEXT from foreman_deploy
+    avg_context = context or MAX_CONTEXT
     avg_tokens = avg_context // 4
 
     # Bytes per sequence for KV cache
@@ -94,28 +96,34 @@ def throughput_args(
     if chunked_prefill is not False:
         args.append("--enable-chunked-prefill")
 
+    # Resolve effective kv_cache_dtype (override takes precedence)
+    gpu_id = choice.get("gpu_id", "")
+    if "kv_cache_dtype" in overrides:
+        effective_kv_dtype = overrides["kv_cache_dtype"]
+    elif fp8_kv_supported(gpu_id):
+        effective_kv_dtype = "fp8"
+    else:
+        effective_kv_dtype = None
+
     # --max-num-seqs N
     if "max_num_seqs" in overrides:
         max_seqs = overrides["max_num_seqs"]
         if max_seqs is not False and max_seqs is not None:
             args.extend(["--max-num-seqs", str(max_seqs)])
     else:
-        # Compute automatically
-        kv_dtype_bytes = 1 if fp8_kv_supported(choice.get("gpu_id", "")) else 2
+        # Compute automatically: use fp8 scaling only if effective dtype starts with 'fp8'
+        kv_dtype_bytes = 1 if (effective_kv_dtype and effective_kv_dtype.startswith("fp8")) else 2
         max_seqs = max_num_seqs(
             model,
             choice.get("gpu_count", 1),
             choice.get("vram_gb", 0),
             kv_dtype_bytes=kv_dtype_bytes,
+            context=model.get("context"),
         )
         args.extend(["--max-num-seqs", str(max_seqs)])
 
-    # --kv-cache-dtype fp8 (only when fp8 is supported)
-    kv_cache_dtype = overrides.get("kv_cache_dtype", "auto")
-    if kv_cache_dtype == "auto":
-        if fp8_kv_supported(choice.get("gpu_id", "")):
-            args.extend(["--kv-cache-dtype", "fp8"])
-    elif kv_cache_dtype is not False and kv_cache_dtype is not None:
-        args.extend(["--kv-cache-dtype", str(kv_cache_dtype)])
+    # --kv-cache-dtype (only when not False/None)
+    if effective_kv_dtype is not False and effective_kv_dtype is not None:
+        args.extend(["--kv-cache-dtype", str(effective_kv_dtype)])
 
     return args

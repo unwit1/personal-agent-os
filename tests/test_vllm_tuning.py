@@ -265,8 +265,54 @@ class ThroughputArgsTests(unittest.TestCase):
 
         self.assertGreater(h100_seqs, a100_seqs)
 
+    def test_h100_with_kv_cache_dtype_none_override(self) -> None:
+        """H100 with kv_cache_dtype=None override should not use fp8 scaling, matching A100."""
+        model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
+        choice = {"gpu_id": "nvidia-h100-pcie", "gpu_count": 1, "vram_gb": 20.0}
+        # Override to disable fp8, even though H100 supports it
+        args_h100_no_fp8 = vllm_tuning.throughput_args(model, choice, overrides={"kv_cache_dtype": None})
+
+        # Compare with A100 (which also has no fp8)
+        choice_a100 = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 20.0}
+        args_a100 = vllm_tuning.throughput_args(model, choice_a100)
+
+        # Extract max_num_seqs from both
+        seqs_idx_h100 = args_h100_no_fp8.index("--max-num-seqs")
+        h100_seqs = int(args_h100_no_fp8[seqs_idx_h100 + 1])
+
+        seqs_idx_a100 = args_a100.index("--max-num-seqs")
+        a100_seqs = int(args_a100[seqs_idx_a100 + 1])
+
+        # Should be the same
+        self.assertEqual(h100_seqs, a100_seqs)
+        # And kv_cache_dtype should not be in args
+        self.assertNotIn("--kv-cache-dtype", args_h100_no_fp8)
+
 
 class EdgeCasesTests(unittest.TestCase):
+    def test_context_from_model_metadata(self) -> None:
+        """throughput_args should pass model.get('context') to max_num_seqs."""
+        model = {
+            "kv_bytes_per_token": 3200,
+            "weight_gb": 14.0,
+            "context": 8192,  # Smaller context than default 32768
+        }
+        choice = {"gpu_id": "nvidia-a100-pcie", "gpu_count": 1, "vram_gb": 20.0}
+        args = vllm_tuning.throughput_args(model, choice)
+
+        # With smaller context (8192 vs 32768), should get higher max_num_seqs
+        seqs_idx = args.index("--max-num-seqs")
+        seqs_with_custom_context = int(args[seqs_idx + 1])
+
+        # Compare with default context
+        model_default_context = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
+        args_default = vllm_tuning.throughput_args(model_default_context, choice)
+        seqs_idx_default = args_default.index("--max-num-seqs")
+        seqs_with_default_context = int(args_default[seqs_idx_default + 1])
+
+        # Smaller context should allow more concurrent sequences
+        self.assertGreater(seqs_with_custom_context, seqs_with_default_context)
+
     def test_missing_choice_fields_handled(self) -> None:
         model = {"kv_bytes_per_token": 3200, "weight_gb": 14.0}
         choice = {"gpu_id": None}  # Missing gpu_count, vram_gb
