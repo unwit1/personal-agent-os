@@ -30,12 +30,13 @@ import shutil
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Iterator
 
 from ..timestamps import utc_now_iso as now
 from .message import Attachment, ParsedMessage, normalize_message_id, normalize_subject
 
 SCHEMA_VERSION = 2
+LIST_HEADER_COLUMNS = ("list_unsubscribe", "list_id", "precedence", "auto_submitted")
 SNIPPET_CHARS = 400
 MAX_LIMIT = 50
 
@@ -44,7 +45,8 @@ CREATE TABLE IF NOT EXISTS mail_messages (
   id TEXT PRIMARY KEY, rfc_message_id TEXT, subject TEXT, sender TEXT, recipients TEXT, cc TEXT,
   date_header TEXT, date_utc TEXT, in_reply_to TEXT, refs TEXT, thread_key TEXT, thread_id TEXT,
   body TEXT, content_hash TEXT, composite_key TEXT, attachment_count INTEGER DEFAULT 0,
-  created_at TEXT, updated_at TEXT);
+  created_at TEXT, updated_at TEXT,
+  list_unsubscribe TEXT, list_id TEXT, precedence TEXT, auto_submitted TEXT);
 CREATE INDEX IF NOT EXISTS idx_mail_msg_rfc ON mail_messages(rfc_message_id);
 CREATE INDEX IF NOT EXISTS idx_mail_msg_content ON mail_messages(content_hash);
 CREATE INDEX IF NOT EXISTS idx_mail_msg_composite ON mail_messages(composite_key);
@@ -102,6 +104,10 @@ class Store:
         self.conn.execute("PRAGMA journal_mode=WAL")
         self.migration = migrate(self.conn, self.path)
         self.conn.executescript(SCHEMA)
+        present = {row[1] for row in self.conn.execute("PRAGMA table_info(mail_messages)")}
+        for column in LIST_HEADER_COLUMNS:
+            if column not in present:
+                self.conn.execute(f"ALTER TABLE mail_messages ADD COLUMN {column} TEXT")
         try:
             self.conn.execute(FTS)
             self.fts = True
@@ -194,10 +200,11 @@ class Store:
         key = self._thread_key(parsed, message_id)
         stamp = now()
         self.conn.execute(
-            "INSERT INTO mail_messages (id,rfc_message_id,subject,sender,recipients,cc,date_header,date_utc,in_reply_to,refs,thread_key,thread_id,body,content_hash,composite_key,attachment_count,created_at,updated_at) "
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO mail_messages (id,rfc_message_id,subject,sender,recipients,cc,date_header,date_utc,in_reply_to,refs,thread_key,thread_id,body,content_hash,composite_key,attachment_count,created_at,updated_at,list_unsubscribe,list_id,precedence,auto_submitted) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (message_id, parsed.rfc_message_id, parsed.subject, parsed.sender, parsed.to, parsed.cc, parsed.date_header, parsed.date_utc, parsed.in_reply_to,
-             json.dumps(parsed.references), key, thread_id_for(key), parsed.body, parsed.content_hash, parsed.composite_key, len(parsed.attachments), stamp, stamp),
+             json.dumps(parsed.references), key, thread_id_for(key), parsed.body, parsed.content_hash, parsed.composite_key, len(parsed.attachments), stamp, stamp,
+             parsed.list_unsubscribe, parsed.list_id, parsed.precedence, parsed.auto_submitted),
         )
         for attachment in parsed.attachments:
             self._insert_attachment(message_id, attachment)
@@ -343,6 +350,18 @@ class Store:
             rows = self.conn.execute(sql, [*params, limit]).fetchall()
         return [self._summary(row) for row in rows]
 
+    def iter_messages(self, batch: int = 500) -> Iterator[dict[str, Any]]:
+        """Every logical message as a _summary dict, oldest first, no MAX_LIMIT cap."""
+        batch = max(1, int(batch))
+        offset = 0
+        while True:
+            rows = self.conn.execute("SELECT * FROM mail_messages ORDER BY date_utc, rowid LIMIT ? OFFSET ?", (batch, offset)).fetchall()
+            if not rows:
+                return
+            for row in rows:
+                yield self._summary(row)
+            offset += len(rows)
+
     def sources_for(self, message_id: str) -> list[dict[str, Any]]:
         return [dict(row) for row in self.conn.execute(
             "SELECT id, source_kind, provider, account_id, mailbox, uidvalidity, uid, archive_id, record_key, flags, state, legacy, first_seen, last_seen FROM mail_sources WHERE message_id=? ORDER BY first_seen",
@@ -368,6 +387,10 @@ class Store:
             "mailbox": primary.get("mailbox"),
             "account_id": primary.get("account_id"),
             "provider": primary.get("provider"),
+            "list_unsubscribe": row["list_unsubscribe"],
+            "list_id": row["list_id"],
+            "precedence": row["precedence"],
+            "auto_submitted": row["auto_submitted"],
         }
 
     def message(self, message_id: str, *, include_body: bool = False, include_sources: bool = True, include_attachments: bool = True) -> dict[str, Any]:
