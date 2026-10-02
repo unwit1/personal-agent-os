@@ -137,7 +137,6 @@ def estimate_cells(outcomes: list[dict[str, Any]], min_samples: int = 5) -> dict
             outcomes_in_cell = by_family_class[family][class_name]
 
             labeled = [o for o in outcomes_in_cell if o.get("cheap_route_passed") is not None]
-            unlabeled = [o for o in outcomes_in_cell if o.get("cheap_route_passed") is None]
 
             n = len(labeled)
             passes = sum(1 for o in labeled if o.get("cheap_route_passed") is True)
@@ -160,15 +159,15 @@ def estimate_cells(outcomes: list[dict[str, Any]], min_samples: int = 5) -> dict
             result[family][class_name] = {
                 "n": n,
                 "passes": passes,
-                "unlabeled": len(unlabeled),
+                "unlabeled": len(outcomes_in_cell) - n,
                 "escalated": escalated_count,
                 "retries": retries_total,
                 "review_required": review_required_count,
                 "p_pass": round(p_pass, 4),
                 "wilson_lower": round(wilson_lower, 4),
                 "sufficient": sufficient,
-                "by_effort": {k: v for k, v in sorted(by_effort.items())},
-                "by_provider": {k: v for k, v in sorted(by_provider.items())},
+                "by_effort": dict(sorted(by_effort.items())),
+                "by_provider": dict(sorted(by_provider.items())),
             }
 
     return result
@@ -181,25 +180,17 @@ def calibrate(cells: dict[str, dict[str, dict[str, Any]]], target: float = 0.9, 
     escalating those that are risky, targeting a minimum pass rate.
     """
     if grid is None:
-        grid = [round(v, 2) for v in [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]]
+        grid = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
+
+    all_cells = [c for fam in cells.values() for c in fam.values()]
+    total_labeled = sum(c["n"] for c in all_cells)
 
     curve: list[dict[str, Any]] = []
 
     for threshold in sorted(grid):
-        keep_cheap_cells = []
-        escalate_early_cells = []
-
-        for family in cells:
-            for class_name in cells[family]:
-                cell = cells[family][class_name]
-                if cell["sufficient"] and cell["wilson_lower"] >= threshold:
-                    keep_cheap_cells.append(cell)
-                else:
-                    escalate_early_cells.append(cell)
+        keep_cheap_cells = [c for c in all_cells if c["sufficient"] and c["wilson_lower"] >= threshold]
 
         labeled_in_keep_cheap = sum(c["n"] for c in keep_cheap_cells)
-        total_labeled = sum(c["n"] for family in cells for class_name in cells[family] for c in [cells[family][class_name]])
-
         cheap_share = labeled_in_keep_cheap / total_labeled if total_labeled > 0 else 0.0
 
         if keep_cheap_cells:
@@ -209,7 +200,7 @@ def calibrate(cells: dict[str, dict[str, dict[str, Any]]], target: float = 0.9, 
         else:
             kept_pass_rate = None
 
-        escalations_avoided = sum(c["escalated"] for c in escalate_early_cells)
+        escalations_avoided = sum(c["escalated"] for c in all_cells if not (c["sufficient"] and c["wilson_lower"] >= threshold))
 
         curve.append({
             "threshold": round(threshold, 2),
