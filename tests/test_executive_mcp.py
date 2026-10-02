@@ -14,7 +14,9 @@ from agent_os.executive import applicants as ex
 
 FUTURE = datetime.now().replace(microsecond=0) + timedelta(days=3)
 ROWS = [{"agent_ref": "ref-a", "name": "Ann", "position": "Tech", "submitted": "2026-09-20",
-         "status": "New", "county": "Kent", "city": "Dover"}]
+         "status": "New", "county": "Kent", "city": "Dover"},
+        {"agent_ref": "ref-b", "name": "Bob", "position": "Tech", "submitted": "2026-09-21",
+         "status": "Interested", "county": "Kent", "city": "Dover"}]
 TOOLS = ("executive.needs_action", "executive.suggestions", "executive.plan",
          "executive.batch", "executive.approve", "executive.send")
 
@@ -55,7 +57,11 @@ class FakeGateway:
         return "email-1"
 
     def ranked(self, min_score=0):
-        return []
+        applicant = {"applicant_ref": "ref-a", "name": "Ann", "position": "Tech",
+                     "submitted": "2026-09-20", "status": "New", "county": "Kent", "city": "Dover"}
+        review = {"score": 88, "recommendation": "interview",
+                  "result_json": {"summary": "Strong fit", "strengths": ["EE degree"], "concerns": [], "criteria": []}}
+        return [(applicant, review)]
 
 
 def call(name, **arguments):
@@ -103,6 +109,12 @@ class ExecutiveMcpTests(unittest.TestCase):
         self.assertEqual(out["count"], 1)
         err, out = call("executive.suggestions", opening="Tech")
         self.assertFalse(err, out)
+        self.assertEqual(out["label"], ex.ADVISORY_LABEL)
+        self.assertEqual(out["count"], 1)
+        self.assertEqual(out["suggestions"][0]["applicant_ref"], "ref-a")
+        self.assertEqual(out["suggestions"][0]["score"], 88)
+        self.assertEqual(out["suggestions"][0]["label"], ex.ADVISORY_LABEL)
+        self.assertEqual(out["unreviewed_matching_count"], 1)
 
     def test_plan_inspect_approve_and_send_gate(self):
         batch_id = self.plan()
