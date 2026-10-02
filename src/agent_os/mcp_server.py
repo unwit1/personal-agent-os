@@ -621,6 +621,118 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 
 TOOL_SCHEMAS.update(ORCHESTRATE_TOOL_SCHEMAS)
 
+EXECUTIVE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "executive.needs_action": {
+        "description": "Applicant Executive: applicants needing administrative action, grouped by reason with age and next step. Deterministic; no AI review is requested.",
+        "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "minimum": 1, "maximum": 500, "default": 100}}, "additionalProperties": False},
+    },
+    "executive.suggestions": {
+        "description": "Applicant Executive: existing Dashboard AI reviews for applicants matching an opening, best first. Advisory; the operator decides. Never triggers new reviews.",
+        "inputSchema": {"type": "object", "properties": {"opening": {"type": "string"}}, "required": ["opening"], "additionalProperties": False},
+    },
+    "executive.plan": {
+        "description": "Applicant Executive: propose interview slots and draft outreach into one PENDING_APPROVAL batch. Writes only the local outbox; sends nothing.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "applicant_refs": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+                "opening": {"type": "string"},
+                "interview_type": {"type": "string"},
+                "location": {"type": "string"},
+                "duration_minutes": {"type": "integer", "minimum": 1},
+            },
+            "required": ["applicant_refs", "opening", "interview_type", "location", "duration_minutes"],
+            "additionalProperties": False,
+        },
+    },
+    "executive.batch": {
+        "description": "Applicant Executive: inspect one outreach batch (state, per-item subject and offered slots). Read-only.",
+        "inputSchema": {"type": "object", "properties": {"batch_id": {"type": "string"}}, "required": ["batch_id"], "additionalProperties": False},
+    },
+    "executive.approve": {
+        "description": "Applicant Executive: record the operator's per-item choices and move the batch to APPROVED. choices maps every applicant_ref to 'confirm', 'drop', or a list of ISO slot datetimes. Approval does not authorize sending.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "batch_id": {"type": "string"},
+                "choices": {"type": "object", "additionalProperties": {"oneOf": [{"type": "string", "enum": ["confirm", "drop"]}, {"type": "array", "items": {"type": "string"}}]}},
+            },
+            "required": ["batch_id", "choices"],
+            "additionalProperties": False,
+        },
+    },
+    "executive.send": {
+        "description": "Applicant Executive: send an APPROVED batch through the Dashboard. Dry-run preview unless confirm_send=true, which requires the operator's explicit authorization to send in this request.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"batch_id": {"type": "string"}, "confirm_send": {"type": "boolean", "default": False}},
+            "required": ["batch_id"],
+            "additionalProperties": False,
+        },
+    },
+}
+
+TOOL_SCHEMAS.update(EXECUTIVE_TOOL_SCHEMAS)
+
+
+def _executive_gateway() -> Any:
+    from .executive.gateway import LocalDashboardGateway
+
+    return LocalDashboardGateway()
+
+
+def _executive_store() -> Any:
+    from .executive.outbox import OutboxStore
+
+    return OutboxStore()
+
+
+def _executive_needs_action(limit: int = 100) -> dict[str, Any]:
+    from .executive import applicants
+
+    return applicants.needs_action(limit=limit)
+
+
+def _executive_suggestions(opening: str) -> dict[str, Any]:
+    from .executive import applicants
+
+    return applicants.suggestions(opening, gateway=_executive_gateway())
+
+
+def _executive_plan(applicant_refs: list[str], opening: str, interview_type: str, location: str, duration_minutes: int) -> dict[str, Any]:
+    from .executive import applicants
+
+    return applicants.plan_outreach(
+        applicant_refs, opening, interview_type, location, duration_minutes,
+        gateway=_executive_gateway(), store=_executive_store(),
+    )
+
+
+def _executive_batch(batch_id: str) -> dict[str, Any]:
+    from .executive import applicants
+    from .executive.brain import batch_status
+
+    batch = _executive_store().load(batch_id)
+    status = batch_status(batch)
+    status["items"] = [{**applicants._preview(item), "state": item.get("state")} for item in batch.get("items", [])]
+    return status
+
+
+def _executive_approve(batch_id: str, choices: dict[str, Any]) -> dict[str, Any]:
+    from .executive import applicants
+
+    return applicants.approve_batch(batch_id, choices, gateway=_executive_gateway(), store=_executive_store())
+
+
+def _executive_send(batch_id: str, confirm_send: bool = False) -> dict[str, Any]:
+    """Dry-run unless confirm_send is exactly true; approval never authorizes delivery."""
+    from .executive import applicants
+
+    store = _executive_store()
+    if confirm_send is not True:
+        return applicants.send_batch(batch_id, confirm=False, store=store)
+    return applicants.send_batch(batch_id, confirm=True, gateway=_executive_gateway(), store=store)
+
 
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
@@ -731,6 +843,16 @@ def methods() -> dict[str, Callable[..., Any]]:
         "connector.import_candidates": connector_import_candidates,
         "connector.import": import_connector_candidate,
         "connector.register": register_connector,
+        }
+    )
+    available.update(
+        {
+            "executive.needs_action": _executive_needs_action,
+            "executive.suggestions": _executive_suggestions,
+            "executive.plan": _executive_plan,
+            "executive.batch": _executive_batch,
+            "executive.approve": _executive_approve,
+            "executive.send": _executive_send,
         }
     )
     available.update(orchestrate_methods())
