@@ -84,5 +84,80 @@ class DeployThreadingTests(Base):
         self.assertEqual(state["weight_volume"], "vol9")
 
 
+def _metrics_text(running: int, waiting: int, kv: float, hits: int = 0, queries: int = 0) -> str:
+    lines = [f"vllm:num_requests_running {running}", f"vllm:num_requests_waiting {waiting}", f"vllm:gpu_cache_usage_perc {kv}",
+             f"vllm:prefix_cache_hits_total {hits}", f"vllm:prefix_cache_queries_total {queries}", ""]
+    return chr(10).join(lines)
+
+
+class _Text:
+    status = 200
+
+    def __init__(self, text: str) -> None:
+        self.text = text
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc) -> None:
+        return None
+
+    def read(self) -> bytes:
+        return self.text.encode()
+
+
+class AdaptiveConcurrencySampleTests(Base):
+    def setUp(self) -> None:
+        super().setUp()
+        self.texts: list[str] = []
+        self.retunes: list[int] = []
+        self.manager_ = self.manager(opener=lambda request, timeout=None: _Text(self.texts.pop(0)),
+                                     retune=lambda state, limit: self.retunes.append(limit))
+        self.state = {"id": "FMN-C", "kind": "huggingface", "status": "ready", "pod_id": "p", "provider_id": "foreman-x", "registered": True,
+                      "base_url": "http://pod", "hourly_usd": 1.0, "cap_usd": 2.0, "spent_usd": 0.0}
+        fd._save_state(self.state, self.foreman_home)
+
+    def sample(self, text: str) -> dict:
+        self.texts.append(text)
+        self.state = self.manager_._sample(self.state)
+        return self.state
+
+    def test_limit_rises_with_spare_kv_then_falls_on_queueing(self) -> None:
+        self.sample(_metrics_text(4, 0, 0.3, 5, 10))
+        self.assertEqual(self.retunes, [])  # hysteresis: one sample is not enough
+        state = self.sample(_metrics_text(4, 0, 0.3, 8, 20))
+        self.assertEqual(self.retunes, [6])
+        self.assertEqual(state["concurrency"]["limit"], 6)
+        state = self.sample(_metrics_text(6, 3, 0.5))
+        self.assertEqual(self.retunes, [6, 4])
+        self.assertEqual(state["concurrency"]["limit"], 4)
+
+    def test_retune_only_on_change_and_history_recorded(self) -> None:
+        for _ in range(3):
+            self.sample(_metrics_text(1, 0, 0.5))  # not near the limit: hold
+        self.assertEqual(self.retunes, [])
+        self.assertFalse(self.state["concurrency"].get("history"))
+        self.sample(_metrics_text(4, 0, 0.95))
+        history = self.state["concurrency"]["history"]
+        self.assertEqual([(h["from"], h["to"], h["reason"]) for h in history], [(4, 2, "backoff_kv")])
+
+    def test_history_is_capped_and_usage_extended(self) -> None:
+        for index in range(60):
+            self.sample(_metrics_text(4, 0, 0.99) if index % 2 == 0 else _metrics_text(2, 0, 0.1))
+        self.assertLessEqual(len(self.state["concurrency"]["history"]), 50)
+        usage = self.state["usage"]
+        self.assertIn("prev", usage)
+        self.assertEqual(usage["kv_usage"], 0.1)
+        self.sample(_metrics_text(1, 0, 0.2, 7, 9))
+        self.sample(_metrics_text(1, 0, 0.2, 3, 4))
+        self.assertEqual((self.state["usage"]["prefix_hits"], self.state["usage"]["prefix_queries"]), (7, 9))
+        self.assertEqual(self.state["usage"]["prev"]["prefix_hits"], 3)
+
+    def test_parse_metrics_delegates(self) -> None:
+        parsed = fd.parse_metrics(_metrics_text(2, 1, 0.4, 3, 6))
+        self.assertEqual((parsed["running"], parsed["kv_usage"], parsed["prefix_queries"]), (2, 0.4, 6))
+        self.assertIs(fd.METRICS, fd.vllm_metrics_parser.METRICS)
+
+
 if __name__ == "__main__":
     unittest.main()

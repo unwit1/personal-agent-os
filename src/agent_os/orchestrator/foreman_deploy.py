@@ -66,7 +66,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
-from . import budget, vllm_tuning, weight_cache
+from . import adaptive_concurrency, budget, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
 
 RUNPOD_REST = "https://rest.runpod.io/v1"
 HF_API = "https://huggingface.co/api/models"
@@ -423,24 +423,12 @@ class RunPod:
         return True
 
 
-METRICS = {"vllm:num_requests_running": "running", "vllm:num_requests_waiting": "waiting", "vllm:prompt_tokens_total": "prompt_tokens",
-           "vllm:generation_tokens_total": "generation_tokens", "vllm:request_success_total": "requests"}
+METRICS = vllm_metrics_parser.METRICS  # compatibility alias
 
 
 def parse_metrics(text: str) -> dict[str, float]:
-    """Sum the vLLM Prometheus series we use (labels ignored)."""
-    out: dict[str, float] = {}
-    for line in (text or "").splitlines():
-        if not line or line.startswith("#"):
-            continue
-        name = line.split("{", 1)[0].split(" ", 1)[0]
-        key = METRICS.get(name)
-        if key:
-            try:
-                out[key] = out.get(key, 0.0) + float(line.rsplit(" ", 1)[1])
-            except (IndexError, ValueError):
-                continue
-    return out
+    """Sum the vLLM Prometheus series we use (labels ignored); see vllm_metrics.parse."""
+    return vllm_metrics_parser.parse(text)
 
 
 def vllm_metrics(base_url: str, opener=None) -> dict[str, float] | None:
@@ -675,7 +663,7 @@ class ForemanManager:
 
     def __init__(self, *, base: Path | None = None, budget_home: Path | None = None, opener=None, resolve=None,
                  store_secret=None, register=None, unregister=None, run_loader=None, clock: Callable[[], float] = time.time,
-                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None) -> None:
+                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None, retune=None) -> None:
         from . import secret_refs
 
         self.registry = registry
@@ -686,6 +674,7 @@ class ForemanManager:
         self.store_secret = store_secret or secret_refs.store
         self.register = register or _register_provider
         self.unregister = unregister or _unregister_provider
+        self.retune = retune or _retune_provider
         self.run_loader = run_loader or _load_run
         self.clock = clock
         self.sleep = sleep
@@ -1060,7 +1049,23 @@ class ForemanManager:
             usage["busy_ticks"] = usage.get("busy_ticks", 0) + 1
         for key in ("prompt_tokens", "generation_tokens", "requests"):
             usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
-        return self._update(state, usage=usage)
+        for key in ("prefix_hits", "prefix_queries"):
+            usage[key] = max(usage.get(key, 0.0), metrics.get(key, 0.0))
+        if "kv_usage" in metrics:
+            usage["kv_usage"] = metrics["kv_usage"]
+        usage["prev"] = dict(metrics)
+        concurrency = dict(state.get("concurrency") or {"limit": 4, "memory": {}})
+        current = int(concurrency.get("limit") or 4)
+        limit, memory, decision = adaptive_concurrency.next_limit(current, metrics, concurrency.get("memory") or {})
+        concurrency["memory"] = memory
+        if limit != current:
+            self.retune(state, limit)
+            concurrency["limit"] = limit
+            history = list(concurrency.get("history") or [])
+            history.append({**decision, "at": self.clock()})
+            concurrency["history"] = history[-50:]
+        concurrency.setdefault("limit", current)
+        return self._update(state, usage=usage, concurrency=concurrency)
 
     def _watch(self, state: dict[str, Any]) -> None:
         while not self._stop.is_set():
@@ -1185,7 +1190,7 @@ def _register_provider(state: dict[str, Any]) -> None:
                            open_weights=None if (local or api) else True, license=model.get("license"), revision=model.get("sha"),
                            context_window=model.get("context") if api else None if local else context_for(model),
                            secret_ref=state.get("secret_ref") if (local or api) else ENDPOINT_SECRET,
-                           cost=0.05 if api else 0.25, max_concurrency=4 if not local else 2, roles=["planner", "inline"])
+                           cost=0.05 if api else 0.25, max_concurrency=2 if local else int((state.get("concurrency") or {}).get("limit") or 4), roles=["planner", "inline"])
     if api:
         entry["options"]["request_timeout"] = 600
     entry["options"]["request_timeout"] = 900
@@ -1196,6 +1201,17 @@ def _register_provider(state: dict[str, Any]) -> None:
     agent = agent_entry(state)
     if agent:
         add_model_endpoint(agent, write=True, force=True)
+
+
+def _retune_provider(state: dict[str, Any], limit: int) -> None:
+    """Rewrite max_concurrency on the registered provider entry and its agent entry."""
+    from ..capabilities import load_providers
+    from .service import add_model_endpoint
+
+    ours = {state["provider_id"], state["provider_id"] + AGENT_SUFFIX}
+    for entry in load_providers().get("providers") or []:
+        if isinstance(entry, dict) and entry.get("id") in ours:
+            add_model_endpoint({**entry, "max_concurrency": limit}, write=True, force=True)
 
 
 def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:
@@ -1214,7 +1230,7 @@ def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:
         "models": {"fast": model["repo"], "balanced": model["repo"]},
         "costs": {"fast": 0.1, "balanced": 0.3},
         "roles": ["implementer", "test_author", "repairer"],
-        "max_concurrency": 4,
+        "max_concurrency": int((state.get("concurrency") or {}).get("limit") or 4),
         "options": {
             "use_user_config": False,
             "extra_config": {"model_provider": name, f"model_providers.{name}.name": "Agent OS GPU",
