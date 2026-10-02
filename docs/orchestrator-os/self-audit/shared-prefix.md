@@ -394,3 +394,19 @@ The EVR must state these limits:
   adapter. That adapter change is a follow-up and is outside Phase 1. Until live
   telemetry shows a higher `cache_read_share` for flag-on runs, evidence says
   "cacheable", not "cached".
+
+## Default decision
+
+Date: 2026-10-02
+
+Command: `python -m unittest discover -s tests -p "test_orchestrator_*.py"`
+
+Results:
+- Ran 217 tests in 290.648s
+- FAILED (errors=1, skipped=1)
+- Failing test: `test_context_selection_is_recorded_for_registered_projects`
+  - Error: KeyError: 'candidate_tokens_estimate' when flag=True
+
+Resulting default: **False**
+
+Rationale: The test `test_orchestrator_telemetry.EngineTelemetryTests.test_context_selection_is_recorded_for_registered_projects` fails with the shared_prefix flag set to True because the context telemetry measurement object is missing `candidate_tokens_estimate` when the shared prefix is enabled. This indicates the feature is not yet compatible with existing tests. The flag remains defaulted to False until the implementation is complete and all tests pass with the flag enabled.
