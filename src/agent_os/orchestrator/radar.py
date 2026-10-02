@@ -61,6 +61,23 @@ QUANT_TAGS = ("gguf", "awq", "gptq", "exl2", "mlx", "fp8", "int4", "int8", "2-bi
 SUITES_BY_MODALITY = {"text": ["EVS-CAPABILITY-CLASSIFICATION", "EVS-CONTEXT"], "code": ["EVS-TEST-SELECTION"], "vision": [], "image": [], "audio": [], "embedding": []}
 
 
+def _queue_entries(home: Path | None, fetched_at: str, items: list[tuple[dict[str, Any], str]]) -> list[str]:
+	"""Create and append eval queue entries from (model, reason) pairs.
+
+	Returns list of model_ids queued."""
+	queued = []
+	target = queue_path(home)
+	target.parent.mkdir(parents=True, exist_ok=True)
+	with target.open("a", encoding="utf-8") as handle:
+		for model, reason in items:
+			suites = sorted({suite for modality in model["modalities"] for suite in SUITES_BY_MODALITY.get(modality, [])})
+			entry = {"at": fetched_at, "model_id": model["model_id"], "revision": model.get("revision"), "reason": reason,
+					 "modalities": model["modalities"], "suggested_suites": suites, "status": "queued"}
+			handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
+			queued.append(model["model_id"])
+	return queued
+
+
 def catalog_path(home: Path | None = None) -> Path:
     return Path(home or orchestrator_home()) / "model-catalog.json"
 
@@ -176,19 +193,13 @@ def scan(scans: list[dict[str, Any]] | None = None, *, home: Path | None = None,
     write_json(path, catalog)
     queued = []
     if queue:
-        target = queue_path(home)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with target.open("a", encoding="utf-8") as handle:
-            for model_id in [*new, *revised]:
-                model = models[model_id]
-                reason = eval_candidate(model, min_downloads)
-                if not reason:
-                    continue
-                suites = sorted({suite for modality in model["modalities"] for suite in SUITES_BY_MODALITY.get(modality, [])})
-                entry = {"at": fetched_at, "model_id": model_id, "revision": model.get("revision"), "reason": reason,
-                         "modalities": model["modalities"], "suggested_suites": suites, "status": "queued"}
-                handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
-                queued.append(model_id)
+        items = []
+        for model_id in [*new, *revised]:
+            model = models[model_id]
+            reason = eval_candidate(model, min_downloads)
+            if reason:
+                items.append((model, reason))
+        queued = _queue_entries(home, fetched_at, items)
     return {"catalog": str(path), "models_seen": seen, "catalog_size": len(models), "new": new, "new_revisions": revised,
             "queued_for_eval": queued, "errors": errors}
 
@@ -253,12 +264,11 @@ def merge_free_catalog(snapshot: dict[str, Any], *, home: Path | None = None) ->
             output_mods = item["modalities"].get("output", []) or []
             modalities = sorted(set(input_mods + output_mods))
 
-        # Build radar catalog entry for free model
-        model = {
+        # Build fresh snapshot fields (excluding capabilities to preserve enrichment)
+        fresh = {
             "model_id": model_id,
             "revision": item.get("canonical_slug") or item.get("revision"),
             "modalities": modalities,
-            "capabilities": [],
             "context_length": item.get("context_length"),
             "supports_tools": item.get("supports_tools", False),
             "supports_structured_output": item.get("supports_structured_output", False),
@@ -273,11 +283,17 @@ def merge_free_catalog(snapshot: dict[str, Any], *, home: Path | None = None) ->
             "last_verified": fetched_at,
         }
 
-        # Preserve first_seen from existing entry
         if model_id in models:
+            # Overlay fresh fields on existing entry, preserving capabilities and other enrichment
+            model = {**models[model_id], **fresh}
             model["first_seen"] = models[model_id].get("first_seen", fetched_at)
+            # Pop availability flags when model reappears
+            model.pop("available", None)
+            model.pop("unavailable_since", None)
         else:
+            model = fresh
             model["first_seen"] = fetched_at
+            model["capabilities"] = []
             new.append(model_id)
 
         models[model_id] = model
@@ -300,27 +316,8 @@ def merge_free_catalog(snapshot: dict[str, Any], *, home: Path | None = None) ->
     # Queue newly added free models for evaluation
     queued = []
     if new:
-        target = queue_path(home)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with target.open("a", encoding="utf-8") as handle:
-            for model_id in new:
-                model = models[model_id]
-                reason = f"free tier OpenRouter model, context_length {model.get('context_length')}"
-                suites = sorted({
-                    suite for modality in model["modalities"]
-                    for suite in SUITES_BY_MODALITY.get(modality, [])
-                })
-                entry = {
-                    "at": fetched_at,
-                    "model_id": model_id,
-                    "revision": model.get("revision"),
-                    "reason": reason,
-                    "modalities": model["modalities"],
-                    "suggested_suites": suites,
-                    "status": "queued"
-                }
-                handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
-                queued.append(model_id)
+        items = [(models[model_id], f"free tier OpenRouter model, context_length {models[model_id].get('context_length')}") for model_id in new]
+        queued = _queue_entries(home, fetched_at, items)
 
     return {
         "catalog": str(path),

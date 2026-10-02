@@ -404,6 +404,42 @@ class MergeFreeRadarTests(unittest.TestCase):
         # Free model should not have been added
         self.assertEqual(len(result["new"]), 0)
 
+    def test_merge_preserves_enriched_fields_on_re_merge(self) -> None:
+        """Capabilities and other enriched fields added post-merge survive re-merge."""
+        v1_payload = load_fixture("openrouter-models-v1.json")
+        v1_snapshot = fake_discover(v1_payload)
+
+        result1 = radar.merge_free_catalog(v1_snapshot, home=self.home)
+        catalog1 = self._catalog()
+
+        model_id = result1["new"][0] if result1["new"] else None
+        self.assertIsNotNone(model_id)
+
+        # Simulate eval enrichment: add capabilities to the model
+        model_before = catalog1["models"][model_id]
+        self.assertEqual(model_before["capabilities"], [])
+        model_before["capabilities"] = ["reasoning", "long_context"]
+        model_before["eval_status"] = "in_progress"
+
+        # Write the enriched catalog back
+        catalog_path = radar.catalog_path(self.home)
+        catalog1["updated_at"] = "2026-10-01T15:00:00Z"
+        catalog_path.write_text(json.dumps(catalog1), encoding="utf-8")
+
+        # Re-merge with new timestamp
+        v1_snapshot["fetched_at"] = "2026-10-02T00:00:00Z"
+        result2 = radar.merge_free_catalog(v1_snapshot, home=self.home)
+        catalog2 = self._catalog()
+
+        # Enriched fields should be preserved
+        model_after = catalog2["models"][model_id]
+        self.assertEqual(model_after["capabilities"], ["reasoning", "long_context"])
+        self.assertEqual(model_after["eval_status"], "in_progress")
+        # But metadata should be updated
+        self.assertEqual(model_after["last_seen"], "2026-10-02T00:00:00Z")
+        # Model should not be marked as new on re-merge
+        self.assertEqual(len(result2["new"]), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
