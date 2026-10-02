@@ -12,6 +12,8 @@ import time
 from pathlib import Path
 from typing import Any
 
+from ..storage import write_json
+
 
 class FakeProvider:
     """Fake compute provider for testing and development. Instance lifecycle is in-memory;
@@ -23,39 +25,54 @@ class FakeProvider:
 
         Args:
             hourly_usd: Cost per hour of runtime (default 1.0).
-            clock: Time function returning epoch seconds (default time.monotonic).
+            clock: Time function returning epoch seconds (default time.time for persistent state, time.monotonic for tests).
             fail_launch: If True, the next launch() creates the instance then raises.
             state_path: Optional path for persistent state (for CLI/MCP). Tests use memory only.
         """
         self.hourly_usd = float(hourly_usd)
-        self.clock = clock or time.monotonic
+        if clock is None:
+            self.clock = time.time if state_path else time.monotonic
+        else:
+            self.clock = clock
         self.fail_launch = fail_launch
-        self.state_path = state_path
+        self.state_path = Path(state_path) if state_path else None
         self.launches = 0
         self.instances: dict[str, dict[str, Any]] = {}
         self.launch_names: dict[str, str] = {}
 
     def _load_state(self) -> None:
-        """Load persisted state if state_path is set."""
-        if self.state_path and self.state_path.exists():
+        """Load persisted state if state_path is set. Raises on corrupt JSON."""
+        if self.state_path:
             try:
                 data = json.loads(self.state_path.read_text(encoding="utf-8"))
                 self.instances = data.get("instances", {})
                 self.launch_names = data.get("launch_names", {})
                 self.launches = data.get("launches", 0)
-            except (OSError, ValueError):
+            except FileNotFoundError:
                 pass
 
     def _save_state(self) -> None:
-        """Persist state if state_path is set."""
+        """Persist state atomically if state_path is set."""
         if self.state_path:
-            self.state_path.parent.mkdir(parents=True, exist_ok=True)
             state = {
                 "instances": self.instances,
                 "launch_names": self.launch_names,
                 "launches": self.launches,
             }
-            self.state_path.write_text(json.dumps(state, indent=2), encoding="utf-8")
+            write_json(self.state_path, state)
+
+    def _settle(self, instance: dict[str, Any], now: float) -> None:
+        """Apply max_runtime deadline to instance. If deadline has passed, stop it."""
+        if instance["state"] != "running":
+            return
+        max_runtime = instance.get("max_runtime_seconds")
+        if max_runtime is None:
+            return
+        started_at = instance["started_at"]
+        deadline = started_at + max_runtime
+        if now >= deadline:
+            instance["state"] = "stopped"
+            instance["stopped_at"] = deadline
 
     def launch(self, spec: dict[str, Any]) -> dict[str, str]:
         """Launch an instance from spec. Idempotent by spec['name'].
@@ -112,15 +129,9 @@ class FakeProvider:
 
         instance = self.instances[instance_id]
         now = self.clock()
+        self._settle(instance, now)
 
-        if instance["state"] == "running":
-            runtime = now - instance["started_at"]
-            max_runtime = instance.get("max_runtime_seconds")
-            if max_runtime is not None and runtime >= max_runtime:
-                instance["state"] = "stopped"
-                instance["stopped_at"] = instance["started_at"] + max_runtime
-                self._save_state()
-        elif instance["state"] == "stopped" and instance["stopped_at"] is None:
+        if instance["state"] == "stopped" and instance["stopped_at"] is None:
             instance["stopped_at"] = now
             self._save_state()
 
@@ -142,7 +153,7 @@ class FakeProvider:
         }
 
     def stop(self, instance_id: str) -> None:
-        """Stop an instance. Idempotent.
+        """Stop an instance. Idempotent. Respects max_runtime deadline.
 
         Args:
             instance_id: Instance identifier from launch().
@@ -155,13 +166,16 @@ class FakeProvider:
             raise KeyError(f"unknown instance {instance_id}")
 
         instance = self.instances[instance_id]
+        now = self.clock()
+        self._settle(instance, now)
+
         if instance["state"] == "running":
-            instance["stopped_at"] = self.clock()
+            instance["stopped_at"] = now
             instance["state"] = "stopped"
             self._save_state()
 
     def terminate(self, instance_id: str) -> None:
-        """Terminate an instance. Idempotent.
+        """Terminate an instance. Idempotent. Respects max_runtime deadline.
 
         Args:
             instance_id: Instance identifier from launch().
@@ -174,9 +188,12 @@ class FakeProvider:
             raise KeyError(f"unknown instance {instance_id}")
 
         instance = self.instances[instance_id]
+        now = self.clock()
+        self._settle(instance, now)
+
         if instance["state"] != "terminated":
             if instance["state"] == "running" and instance["stopped_at"] is None:
-                instance["stopped_at"] = self.clock()
-            instance["terminated_at"] = self.clock()
+                instance["stopped_at"] = now
+            instance["terminated_at"] = now
             instance["state"] = "terminated"
             self._save_state()

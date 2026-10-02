@@ -184,6 +184,32 @@ class FakeProviderTests(unittest.TestCase):
         self.assertAlmostEqual(status["runtime_seconds"], 3600.0)
         self.assertAlmostEqual(status["cost_usd"], 1.0)
 
+    def test_stop_after_deadline_without_poll(self) -> None:
+        spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0, "max_runtime_seconds": 3600}
+        result = self.provider.launch(spec)
+        instance_id = result["instance_id"]
+
+        self.clock.advance(5400.0)
+        self.provider.stop(instance_id)
+
+        status = self.provider.poll(instance_id)
+        self.assertEqual(status["state"], "stopped")
+        self.assertAlmostEqual(status["runtime_seconds"], 3600.0)
+        self.assertAlmostEqual(status["cost_usd"], 1.0)
+
+    def test_terminate_after_deadline_without_poll(self) -> None:
+        spec = {"name": "job-1", "gpu": "A100", "hourly_usd": 1.0, "max_runtime_seconds": 3600}
+        result = self.provider.launch(spec)
+        instance_id = result["instance_id"]
+
+        self.clock.advance(5400.0)
+        self.provider.terminate(instance_id)
+
+        status = self.provider.poll(instance_id)
+        self.assertEqual(status["state"], "terminated")
+        self.assertAlmostEqual(status["runtime_seconds"], 3600.0)
+        self.assertAlmostEqual(status["cost_usd"], 1.0)
+
     def test_state_persistence(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             state_path = Path(tmp) / "fake.json"
