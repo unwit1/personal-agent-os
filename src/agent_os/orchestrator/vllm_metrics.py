@@ -33,8 +33,6 @@ def parse(text: str) -> dict[str, float]:
     - Skips malformed lines silently
     """
     out: dict[str, float] = {}
-    # Track per-label values for gauge metrics
-    gauge_values: dict[str, list[float]] = {}
 
     for line in (text or "").splitlines():
         if not line or line.startswith("#"):
@@ -53,16 +51,9 @@ def parse(text: str) -> dict[str, float]:
             continue
 
         if key in GAUGE_KEYS:
-            if key not in gauge_values:
-                gauge_values[key] = []
-            gauge_values[key].append(value)
+            out[key] = max(out.get(key, value), value)
         else:
             out[key] = out.get(key, 0.0) + value
-
-    # Set gauge values as max
-    for key, values in gauge_values.items():
-        if values:
-            out[key] = max(values)
 
     return out
 
