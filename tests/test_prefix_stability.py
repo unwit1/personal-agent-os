@@ -367,6 +367,68 @@ class PrefixStabilityTests(unittest.TestCase):
 
         self.assertEqual(result[0]["content"][0]["text"], "Be brief\nBe briefly helpful")
 
+    def test_stabilize_list_content_does_not_mutate_text_block(self) -> None:
+        """List content with text block is not mutated during stabilization."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "text", "text": "Original text"}
+            ]}
+        ]
+        original_content = [dict(b) if isinstance(b, dict) else b for b in messages[0]["content"]]
+        original_text = original_content[0]["text"]
+
+        result = prefix_stability.stabilize(messages, prefix)
+
+        # Original message's content should be unchanged
+        self.assertEqual(messages[0]["content"][0]["text"], "Original text")
+        self.assertEqual(messages[0]["content"][0]["text"], original_text)
+        # Result should have the prefix
+        self.assertEqual(result[0]["content"][0]["text"], "shared prefixOriginal text")
+
+    def test_stabilize_list_content_does_not_mutate_non_text_first_block(self) -> None:
+        """List content with non-text first block is not mutated during insertion."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "image_url", "image_url": {"url": "http://example.com"}}
+            ]}
+        ]
+        original_len = len(messages[0]["content"])
+
+        result = prefix_stability.stabilize(messages, prefix)
+
+        # Original message's content length should be unchanged
+        self.assertEqual(len(messages[0]["content"]), original_len)
+        self.assertEqual(messages[0]["content"][0]["type"], "image_url")
+        # Result should have the prefix inserted
+        self.assertEqual(len(result[0]["content"]), 2)
+        self.assertEqual(result[0]["content"][0]["type"], "text")
+
+    def test_stabilize_list_content_does_not_mutate_multi_block(self) -> None:
+        """List content with multiple blocks is not mutated during modification."""
+        prefix = "shared prefix"
+        messages = [
+            {"role": "system", "content": [
+                {"type": "text", "text": "First text"},
+                {"type": "image_url", "image_url": {"url": "http://example.com"}},
+                {"type": "text", "text": "Second text"}
+            ]}
+        ]
+        original_text_1 = messages[0]["content"][0]["text"]
+        original_text_2 = messages[0]["content"][2]["text"]
+        original_len = len(messages[0]["content"])
+
+        result = prefix_stability.stabilize(messages, prefix)
+
+        # Original should be unchanged
+        self.assertEqual(messages[0]["content"][0]["text"], original_text_1)
+        self.assertEqual(messages[0]["content"][2]["text"], original_text_2)
+        self.assertEqual(len(messages[0]["content"]), original_len)
+        # Result should have modified first block
+        self.assertEqual(result[0]["content"][0]["text"], "shared prefixFirst text")
+        self.assertEqual(result[0]["content"][2]["text"], "Second text")
+
 
 if __name__ == "__main__":
     unittest.main()
