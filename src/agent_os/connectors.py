@@ -625,6 +625,101 @@ def unregister_connector(
     }
 
 
+def prune_stale_registrations(
+    connector_id: str | None = None,
+    *,
+    confirm_write: bool = False,
+) -> dict[str, Any]:
+    """Preview or remove registrations for surfaces that no longer exist.
+
+    A registration is stale when its surface_id is not among the ids returned by surfaces().
+    Strictly read-only in preview mode; write mode removes only stale registrations and
+    preserves connectors even if they have no remaining registrations.
+    """
+    from .surfaces import surfaces
+
+    if connector_id is not None:
+        _identifier(connector_id, "connector id")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+
+    registry = load_connector_registry()
+    known_surface_ids = {s["id"] for s in surfaces()}
+
+    def find_stale() -> list[dict[str, Any]]:
+        stale: list[dict[str, Any]] = []
+        for connector in registry["connectors"]:
+            cid = connector["id"]
+            if connector_id is not None and cid != connector_id:
+                continue
+            for registration in connector["registrations"]:
+                if registration["surface_id"] not in known_surface_ids:
+                    stale.append({
+                        "connector_id": cid,
+                        "surface_id": registration["surface_id"],
+                        "state": registration["state"],
+                    })
+        return sorted(stale, key=lambda item: (item["connector_id"], item["surface_id"]))
+
+    stale = find_stale()
+
+    if not confirm_write:
+        return {
+            "schema": "personal-agent/connector-prune-stale/v1",
+            "written": False,
+            "confirmation_required": True,
+            "connector_id": connector_id,
+            "stale": stale,
+            "count": len(stale),
+        }
+
+    with _registry_write_lock():
+        registry = load_connector_registry()
+        known_surface_ids = {s["id"] for s in surfaces()}
+        stale = find_stale()
+
+        if not stale:
+            return {
+                "schema": "personal-agent/connector-prune-stale/v1",
+                "written": False,
+                "idempotent": True,
+                "connector_id": connector_id,
+                "removed": [],
+                "count": 0,
+            }
+
+        affected_connectors: dict[str, dict[str, Any]] = {}
+        for item in stale:
+            affected_connectors.setdefault(item["connector_id"], None)
+
+        for connector in registry["connectors"]:
+            if connector["id"] in affected_connectors:
+                original_count = len(connector["registrations"])
+                connector["registrations"] = [
+                    r for r in connector["registrations"]
+                    if r["surface_id"] in known_surface_ids
+                ]
+                if len(connector["registrations"]) < original_count:
+                    affected_connectors[connector["id"]] = connector
+
+        write_json(REGISTRY_PATH, registry)
+
+        events_recorded = 0
+        for connector in registry["connectors"]:
+            if affected_connectors.get(connector["id"]) is not None:
+                event_recorded = _append_connector_event("connector.updated", connector)
+                events_recorded += int(event_recorded)
+
+        return {
+            "schema": "personal-agent/connector-prune-stale/v1",
+            "written": True,
+            "connector_id": connector_id,
+            "removed": stale,
+            "count": len(stale),
+            "events_recorded": events_recorded,
+        }
+
+
 @contextmanager
 def _registry_write_lock() -> Iterator[None]:
     """Serialize registry read/modify/write across MCP and CLI processes."""
