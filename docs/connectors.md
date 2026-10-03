@@ -92,8 +92,12 @@ The result includes the following fields:
 - `read_only`: always `true`
 - `count`: total number of conflicts found
 - `kind_counts`: breakdown of conflict counts by kind
-- `conflicts`: array of conflict records, each with the conflict `kind`,
-  `connector_ids` involved, and `details`
+- `conflicts`: array of conflict records, each with the conflict `kind` and
+  `connector_ids` involved, plus per-kind fields:
+  - For `duplicate_provider_surface`: `provider_id` and `surface_id`
+  - For `native_server_name_collision`: `surface_id` and `server_name`
+  - For `shared_credential_reference`: `backend` (the credential store kind
+    only, never the reference value)
 
 The CLI equivalent is:
 
