@@ -499,7 +499,7 @@ def connector_events(limit: int = 50, connector_id: str | None = None, after_seq
             "latest_seq": 0,
             "has_more": False,
             "next_after_seq": 0,
-            "cursor_reset": False,
+            "cursor_reset": after_seq is not None and after_seq > 0,
             "count": 0,
             "malformed": 0,
             "items": [],
@@ -544,15 +544,10 @@ def connector_events(limit: int = 50, connector_id: str | None = None, after_seq
         next_after_seq = latest_seq
     else:
         # Cursor mode: return first limit items with seq > after_seq
-        if cursor_reset:
-            selected_items = []
-        else:
-            selected_items = [item for item in items_with_seq if item[0] > after_seq][:limit]
-        has_more = len(selected_items) == limit and len([item for item in items_with_seq if item[0] > after_seq]) > limit
-        if selected_items:
-            next_after_seq = selected_items[-1][0] if has_more else latest_seq
-        else:
-            next_after_seq = latest_seq
+        after = [i for i in items_with_seq if i[0] > after_seq]
+        selected_items = after[:limit]
+        has_more = len(after) > limit
+        next_after_seq = selected_items[-1][0] if (has_more and selected_items) else latest_seq
 
     items = [
         {**item, "seq": seq}

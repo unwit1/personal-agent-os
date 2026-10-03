@@ -98,6 +98,27 @@ class ConnectorEventTests(unittest.TestCase):
             self.assertEqual(result["items"], [])
             self.assertEqual(result["malformed"], 0)
 
+    def test_connector_events_cursor_reset_on_missing_file(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                # after_seq=None should not trigger cursor_reset
+                result_none = connector_events(after_seq=None)
+                self.assertEqual(result_none["cursor_reset"], False)
+
+                # after_seq=0 should not trigger cursor_reset (0 is not > latest_seq which is 0)
+                result_zero = connector_events(after_seq=0)
+                self.assertEqual(result_zero["cursor_reset"], False)
+
+                # after_seq=1 should trigger cursor_reset (1 > latest_seq which is 0)
+                result_one = connector_events(after_seq=1)
+                self.assertEqual(result_one["cursor_reset"], True)
+
+                # after_seq=100 should trigger cursor_reset (100 > latest_seq which is 0)
+                result_hundred = connector_events(after_seq=100)
+                self.assertEqual(result_hundred["cursor_reset"], True)
+
     def test_connector_events_rejects_invalid_limit(self) -> None:
         for limit in ("50", True, 0, 501, -1):
             with self.subTest(limit=limit):
