@@ -32,6 +32,20 @@ declared), or `unknown_surface`. The result always has `applied: false`,
 reports whether a credential reference is configured (never its value), and
 writes nothing. It resolves no credentials and contacts no providers.
 
+## Bridge vs native registrations
+
+A connector counts as registered on a surface when its provider is reachable
+through that surface's Agent OS bridge. A registration may set the optional
+`server_name` (pattern: `^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$`) to request a
+native client MCP entry as well. That entry is provisioned only where the
+surface's local config can be inspected and changed (surfaces that report
+`provision_local_config` capability).
+
+`connector.reconcile_plan` reports `native_server_name` and
+`native_entry_requested` for each registration without applying anything.
+Any future client-config change will be preview-first and requires an explicit
+`confirm_write` flag.
+
 The read-only MCP tool `connector.credential_status` and CLI equivalent
 `python agent.py connector-credential-status [--surface <id>]` report whether
 a credential is configured for each registered connector. For `env:` backend

@@ -30,6 +30,7 @@ _SECRET_REF = re.compile(
     r"^(?:keyring|windows-credential|macos-keychain|secret-service|env):"
     r"[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
 )
+_SERVER_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}")
 _HEALTH_STATES = {"unknown", "healthy", "degraded", "unavailable"}
 _REGISTRATION_STATES = {"desired", "registered", "disabled", "unsupported", "error"}
 _REGISTRY_KEYS = {"schema", "version", "connectors"}
@@ -149,6 +150,8 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
                 "action": action,
                 "reason": reason,
                 "credential_reference_configured": connector["secret_ref"] is not None,
+                "native_server_name": registration.get("server_name"),
+                "native_entry_requested": registration.get("server_name") is not None,
             })
 
     items.sort(key=lambda item: (item["connector_id"], item["surface_id"]))
@@ -600,14 +603,18 @@ def _validate_connector(connector: Any) -> None:
         raise ValueError("connector registrations must be an array of at most 64 entries")
     seen_surfaces: set[str] = set()
     for registration in registrations:
-        if not isinstance(registration, dict) or set(registration) != {"surface_id", "state"}:
-            raise ValueError("connector registration must contain only surface_id and state")
+        if not isinstance(registration, dict) or set(registration) not in ({"surface_id", "state"}, {"surface_id", "state", "server_name"}):
+            raise ValueError("connector registration must contain only surface_id, state, and optional server_name")
         _identifier(registration["surface_id"], "surface id")
         if registration["surface_id"] in seen_surfaces:
             raise ValueError("connector registrations contain duplicate surface IDs")
         seen_surfaces.add(registration["surface_id"])
         if registration["state"] not in _REGISTRATION_STATES:
             raise ValueError("connector registration state is invalid")
+        if "server_name" in registration:
+            server_name = registration["server_name"]
+            if not isinstance(server_name, str) or not _SERVER_NAME.fullmatch(server_name):
+                raise ValueError("connector registration server_name is invalid")
 
     secret_ref = connector["secret_ref"]
     if secret_ref is not None and (not isinstance(secret_ref, str) or not _SECRET_REF.fullmatch(secret_ref)):
