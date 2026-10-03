@@ -14,7 +14,9 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector, unregister_connector
+from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector
+from . import connectors as _connectors
+from .storage import write_json as _write_json
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -38,6 +40,32 @@ from ingester_engine.cache import cache_status_safe
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
+def unregister_connector(connector_id: str, confirm_write: bool = False) -> dict[str, Any]:
+    """Preview or explicitly remove a connector's desired metadata; never revokes credentials."""
+    if not isinstance(connector_id, str) or not _connectors._IDENTIFIER.fullmatch(connector_id):
+        raise ValueError("connector_id must be a valid identifier")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+    if not confirm_write:
+        registry = _connectors.load_connector_registry()
+        found = any(item["id"] == connector_id for item in registry["connectors"])
+        return {"written": False, "confirmation_required": True, "connector_id": connector_id, "found": found}
+    with _connectors._registry_write_lock():
+        registry = _connectors.load_connector_registry()
+        index = next((i for i, item in enumerate(registry["connectors"]) if item["id"] == connector_id), None)
+        if index is None:
+            return {"written": False, "not_found": True, "connector_id": connector_id}
+        removed = registry["connectors"].pop(index)
+        _write_json(_connectors.REGISTRY_PATH, registry)
+        event_recorded = _connectors._append_connector_event("connector.removed", removed)
+    return {
+        "written": True,
+        "connector_id": connector_id,
+        "count": len(registry["connectors"]),
+        "event_recorded": event_recorded,
+    }
+
+
 def _mail_scoped(function, account_arg: bool = False):
     """Mail tools take ``project`` and see only that project's mail scope
     (work or personal, from ``mail_scope`` in the project registry)."""
