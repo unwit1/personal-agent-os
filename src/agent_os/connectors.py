@@ -391,11 +391,15 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
         if surface_id:
             relevant_registrations = [r for r in relevant_registrations if r["surface_id"] == surface_id]
 
-        # Track shared credential references (across all considered connectors, not just filtered)
+        # Track shared credential references (only for connectors with relevant registrations when surface_id is set)
         if secret_ref is not None:
-            if secret_ref not in secret_ref_map:
-                secret_ref_map[secret_ref] = []
-            secret_ref_map[secret_ref].append(connector_id)
+            if surface_id and not relevant_registrations:
+                # When surface_id is given, skip connectors with no registration on that surface
+                pass
+            else:
+                if secret_ref not in secret_ref_map:
+                    secret_ref_map[secret_ref] = []
+                secret_ref_map[secret_ref].append(connector_id)
 
         # Process registrations for provider/surface and server_name conflicts
         for registration in relevant_registrations:
@@ -419,8 +423,8 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
 
     # Detect (a) duplicate_provider_surface conflicts
     for (provider_id, reg_surface_id), items in provider_surface_map.items():
-        if len(items) > 1:
-            connector_ids = sorted(set(cid for cid, _ in items))
+        connector_ids = sorted(set(cid for cid, _ in items))
+        if len(connector_ids) > 1:
             conflicts.append({
                 "kind": "duplicate_provider_surface",
                 "provider_id": provider_id,
@@ -430,8 +434,8 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
 
     # Detect (b) native_server_name_collision conflicts
     for (reg_surface_id, server_name), connector_ids in server_name_map.items():
-        if len(connector_ids) > 1:
-            unique_ids = sorted(set(connector_ids))
+        unique_ids = sorted(set(connector_ids))
+        if len(unique_ids) > 1:
             conflicts.append({
                 "kind": "native_server_name_collision",
                 "surface_id": reg_surface_id,

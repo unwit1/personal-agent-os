@@ -200,8 +200,8 @@ class ConnectorConflictsTests(unittest.TestCase):
         self.assertEqual(conflict["kind"], "duplicate_provider_surface")
         self.assertEqual(conflict["surface_id"], "agent-os-mcp")
 
-    def test_surface_filter_includes_shared_credential_reference(self) -> None:
-        # Shared credential references are global, not per-surface
+    def test_surface_filter_excludes_connectors_without_registration_on_surface(self) -> None:
+        # When surface_id is given, shared credential references only count connectors registered on that surface
         secret_ref = "env:SHARED"
         connectors = [
             valid_connector("conn-a", "google-drive", "agent-os-mcp", secret_ref=secret_ref),
@@ -210,9 +210,23 @@ class ConnectorConflictsTests(unittest.TestCase):
         with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry(connectors)):
             result = connector_conflicts("agent-os-mcp")
 
+        self.assertEqual(result["count"], 0)
+        self.assertEqual(result["conflicts"], [])
+
+    def test_surface_filter_includes_shared_credential_reference_on_same_surface(self) -> None:
+        # When surface_id is given and both connectors are on that surface, shared_credential_reference conflict is reported
+        secret_ref = "env:SHARED"
+        connectors = [
+            valid_connector("conn-a", "google-drive", "agent-os-mcp", secret_ref=secret_ref),
+            valid_connector("conn-b", "dropbox", "agent-os-mcp", secret_ref=secret_ref),
+        ]
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry(connectors)):
+            result = connector_conflicts("agent-os-mcp")
+
         self.assertEqual(result["count"], 1)
         conflict = result["conflicts"][0]
         self.assertEqual(conflict["kind"], "shared_credential_reference")
+        self.assertEqual(sorted(conflict["connector_ids"]), ["conn-a", "conn-b"])
 
     def test_multiple_conflicts_different_kinds(self) -> None:
         connectors = [
@@ -379,6 +393,48 @@ class ConnectorConflictsTests(unittest.TestCase):
         self.assertEqual(result["count"], 1)
         conflict = result["conflicts"][0]
         self.assertEqual(len(conflict["connector_ids"]), 3)
+
+    def test_single_connector_with_multiple_same_surface_registrations_no_conflict(self) -> None:
+        # A single connector with multiple registrations on the same surface should not be a conflict
+        connector = {
+            "id": "multi-reg-conn",
+            "provider": {"id": "google-drive", "name": "Google Drive"},
+            "capabilities": ["files.search"],
+            "scopes": ["drive.readonly"],
+            "health": {"status": "unknown", "checked_at": None},
+            "privacy_domain": "work",
+            "registrations": [
+                {"surface_id": "agent-os-mcp", "state": "desired"},
+                {"surface_id": "agent-os-mcp", "state": "desired"},
+            ],
+            "secret_ref": None,
+        }
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
+            result = connector_conflicts()
+
+        self.assertEqual(result["count"], 0)
+        self.assertEqual(result["conflicts"], [])
+
+    def test_single_connector_with_multiple_same_surface_same_server_name_no_conflict(self) -> None:
+        # A single connector with multiple registrations on the same surface with the same server_name should not be a conflict
+        connector = {
+            "id": "multi-reg-conn",
+            "provider": {"id": "google-drive", "name": "Google Drive"},
+            "capabilities": ["files.search"],
+            "scopes": ["drive.readonly"],
+            "health": {"status": "unknown", "checked_at": None},
+            "privacy_domain": "work",
+            "registrations": [
+                {"surface_id": "agent-os-mcp", "state": "desired", "server_name": "my-server"},
+                {"surface_id": "agent-os-mcp", "state": "desired", "server_name": "my-server"},
+            ],
+            "secret_ref": None,
+        }
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
+            result = connector_conflicts()
+
+        self.assertEqual(result["count"], 0)
+        self.assertEqual(result["conflicts"], [])
 
 
 if __name__ == "__main__":
