@@ -46,6 +46,18 @@ surface's local config can be inspected and changed (surfaces that report
 Any future client-config change will be preview-first and requires an explicit
 `confirm_write` flag.
 
+`connector.reconcile_plan` also reports `native_entry_status` for each
+registration, indicating whether the requested native client entry is already
+present. The possible status values are: `not_requested` (no `server_name` set),
+`unknown_surface` (surface not found in registry), `not_inspectable` (surface
+declares no capability to inspect local config), `unreadable` (no declared client
+config file exists or the file cannot be parsed), `present` (a server with that
+name, matched case-insensitively, already exists in the client config), and
+`absent` (no matching server found in the client config). The result includes a
+top-level `native_entry_status_counts` field that aggregates the status counts
+across all registrations. This check reads only server names, returns no file
+paths, commands, arguments, or environment variables, and writes nothing.
+
 The read-only MCP tool `connector.credential_status` and CLI equivalent
 `python agent.py connector-credential-status [--surface <id>]` report whether
 a credential is configured for each registered connector. For `env:` backend
