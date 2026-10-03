@@ -73,12 +73,13 @@ def _is_checkout(path: Path) -> bool:
 
 
 def _is_canonical_checkout(path: Path) -> bool:
-    canonical = _canonical_checkout()
-    if path == canonical:
+    canonical = _canonical_checkout().resolve()
+    resolved = path.resolve()
+    if resolved == canonical:
         return True
     try:
-        canonical.relative_to(path)
-        return _is_checkout(path)
+        canonical.relative_to(resolved)
+        return True
     except ValueError:
         return False
 
@@ -333,27 +334,17 @@ def _connector_event_summary() -> dict[str, Any]:
             "reason": "connector event log unreadable",
         }
 
-    counts_by_event: dict[str, int] = {}
-    for item in result["items"]:
-        event_type = item.get("event")
-        if event_type:
-            counts_by_event[event_type] = counts_by_event.get(event_type, 0) + 1
-
+    counts = {k: 0 for k in ("connector.added", "connector.updated", "connector.removed")}
     changed_connector_ids: set[str] = set()
-    last_event_at: str | None = None
-    if result["items"]:
-        for item in result["items"]:
-            connector_id = item.get("connector_id")
-            if connector_id and isinstance(connector_id, str) and connector_id.strip():
-                changed_connector_ids.add(connector_id)
-        last_item = result["items"][-1]
-        last_event_at = last_item.get("at")
+    for item in result["items"]:
+        event = item.get("event")
+        if event in counts:
+            counts[event] += 1
+        connector_id = item.get("connector_id")
+        if connector_id and isinstance(connector_id, str) and connector_id.strip():
+            changed_connector_ids.add(connector_id)
 
-    event_counts = {
-        "connector.added": counts_by_event.get("connector.added", 0),
-        "connector.updated": counts_by_event.get("connector.updated", 0),
-        "connector.removed": counts_by_event.get("connector.removed", 0),
-    }
+    last_event_at = result["items"][-1].get("at") if result["items"] else None
 
     return {
         "schema": "personal-agent/connector-event-summary/v1",
@@ -361,7 +352,7 @@ def _connector_event_summary() -> dict[str, Any]:
         "latest_seq": result["latest_seq"],
         "window": result["count"],
         "malformed": result["malformed"],
-        "counts_by_event": event_counts,
+        "counts_by_event": counts,
         "last_event_at": last_event_at,
         "changed_connector_ids": sorted(changed_connector_ids),
         "read_only": True,
