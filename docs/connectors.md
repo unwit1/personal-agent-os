@@ -111,6 +111,64 @@ secret references, and does not deduplicate or repair conflicts automatically.
 Conflict resolution must be handled separately through `connector.register` or
 `connector.unregister`.
 
+## Provisioning readiness
+
+The read-only MCP tool `connector.provisioning_readiness` and CLI equivalent
+`python agent.py connector-provisioning-readiness [--surface <id>]` combine the
+results of `connector.reconcile_plan`, `connector.credential_status`, and
+`connector.conflicts` to report whether each registered connector is ready for
+provisioning on each surface. The result is a unified readiness report that
+lists blockers preventing automatic provisioning.
+
+The result includes one item per registered connector per surface, with the
+following fields:
+
+- `connector_id`: the connector identifier
+- `surface_id`: the surface identifier for this registration
+- `state`: the registration state (`desired`, `registered`, `error`, or `disabled`)
+- `action`: the provisioning action required—one of `none`, `investigate`,
+  `provision_local_config`, `manual_host_setup`, `undetermined`, or `unknown_surface`
+- `credential_status`: whether a credential is configured for this connector
+  (`present`, `missing`, `unchecked`, or `not_configured`)
+- `readiness`: overall readiness state—one of `ready` (no blockers), `blocked`
+  (provisioning is prevented), or `no_action` (no provisioning required)
+- `blockers`: list of reasons preventing provisioning, which may include:
+  - `unknown_surface`: the surface is not in the surface registry
+  - `registration_error`: the registration is in an error state
+  - `manual_host_setup`: the host owns its settings and manual setup is required
+  - `surface_capability_undetermined`: the surface did not declare whether it can
+    inspect or change local configuration
+  - `credential_missing`: a configured credential is absent or empty
+  - `credential_unchecked`: a configured credential backend is unavailable for
+    presence checks
+  - `native_entry_absent`: a requested native client entry is not present in the
+    local config
+  - `native_entry_unverifiable`: the surface cannot inspect local configuration
+  - `conflict:<kind>`: a conflict of the specified kind prevents provisioning
+    (e.g., `conflict:duplicate_provider_surface`)
+
+The result includes top-level fields:
+
+- `schema`: version identifier (personal-agent/connector-provisioning-readiness/v1)
+- `surface_filter`: the surface ID passed on the command line, or `null` if no
+  filter was applied
+- `read_only`: always `true`
+- `readiness_counts`: breakdown of item counts by readiness state
+- `blocker_counts`: breakdown of blocker counts by kind
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-provisioning-readiness
+python agent.py connector-provisioning-readiness --surface codex-cli
+```
+
+This operation is read-only: it writes nothing and applies no changes. `ready`
+means only that the declared state shows no blockers; nothing is applied, no
+credentials are resolved, and no providers are contacted. Native entry absence
+cannot yet be fixed automatically because writing native client configuration is
+waiting on a design decision.
+
 `connector.register` validates a metadata descriptor and previews it by default.
 It writes only when the caller sets `confirm_write: true`. New entries must
 start with provider health `unknown` and client registrations `desired`; only
