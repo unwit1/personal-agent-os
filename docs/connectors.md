@@ -32,6 +32,15 @@ declared), or `unknown_surface`. The result always has `applied: false`,
 reports whether a credential reference is configured (never its value), and
 writes nothing. It resolves no credentials and contacts no providers.
 
+The read-only MCP tool `connector.credential_status` and CLI equivalent
+`python agent.py connector-credential-status [--surface <id>]` report whether
+a credential is configured for each registered connector. For `env:` backend
+references, the status is `present` if the environment variable is non-empty,
+or `missing` if absent or empty. Other backends (keyring, windows-credential,
+macos-keychain, secret-service) report `unchecked`. Connectors without a
+credential reference report `not_configured`. Output never includes credential
+values or reference names, and no provider APIs are contacted.
+
 `connector.register` validates a metadata descriptor and previews it by default.
 It writes only when the caller sets `confirm_write: true`. New entries must
 start with provider health `unknown` and client registrations `desired`; only
@@ -48,6 +57,8 @@ python agent.py connector-import-candidates
 python agent.py connector-import-candidates --surface codex-cli
 python agent.py connector-reconcile-plan
 python agent.py connector-reconcile-plan --surface codex-cli
+python agent.py connector-credential-status
+python agent.py connector-credential-status --surface codex-cli
 ```
 
 Registering metadata from a reviewed JSON descriptor also previews by default:
@@ -86,6 +97,9 @@ tools across surfaces.
 Host limitations and unsupported registration states must remain explicit.
 Do not treat a discovered registration or a `declared_ready_unverified` result
 as proof that a provider is connected through Agent OS.
+
+Presence checks for keyring-family backends (keyring, windows-credential,
+macos-keychain, secret-service) and actual credential resolution remain open.
 
 The next implementation steps are provider adapter registration and execution,
 scoped credential resolution inside the adapter boundary, read-only import
