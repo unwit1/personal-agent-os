@@ -14,7 +14,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector, unregister_connector
+from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -333,10 +333,6 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "connector.events": {
         "description": "Read-only list of recent local connector change events (connector.added, connector.updated, connector.removed) with connector id, provider id, capabilities, and surfaces; never returns credentials, secret references, or scopes.",
         "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "minimum": 1, "maximum": 500}, "connector_id": {"type": ["string", "null"]}}},
-    },
-    "connector.unregister": {
-        "description": "Preview or explicitly remove a connector's desired metadata from the registry. Removal requires confirm_write=true, records a connector.removed event, and never revokes credentials or edits client configuration.",
-        "inputSchema": {"type": "object", "properties": {"connector_id": {"type": "string"}, "confirm_write": {"type": "boolean"}}, "required": ["connector_id"], "additionalProperties": False},
     },
     "connector.import": {
         "description": "Attach explicitly reviewed provider and scope metadata to a currently discovered local MCP candidate. Does not copy credentials or client configuration; persistence requires reviewed=true and confirm_write=true.",
@@ -943,7 +939,6 @@ def methods() -> dict[str, Callable[..., Any]]:
         "connector.reconcile_plan": connector_reconcile_plan,
         "connector.credential_status": connector_credential_status,
         "connector.events": connector_events,
-        "connector.unregister": unregister_connector,
         "connector.import": import_connector_candidate,
         "connector.register": register_connector,
         }
@@ -983,7 +978,6 @@ INSTRUCTIONS = (
     " Use connector.events for a read-only feed of connector additions, updates, and removals."
     " Use connector.import to attach explicitly reviewed provider/scopes to a current candidate; it never copies credentials and writes only when reviewed=true and confirm_write=true."
     " connector.register previews metadata by default and writes only when confirm_write=true; credentials and unverified health states are rejected."
-    " connector.unregister previews by default and removes metadata only when confirm_write=true; it never revokes credentials."
 )
 
 
