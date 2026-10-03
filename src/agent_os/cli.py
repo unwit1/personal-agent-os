@@ -20,7 +20,7 @@ from .browser_bridge_server import (
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
-from .connectors import connector_credential_status, connector_import_candidates, connector_reconcile_plan, import_connector_candidate, register_connector
+from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, import_connector_candidate, register_connector, unregister_connector
 from .creator_profiles import (
     list_profiles as creator_list_profiles,
     pending_discovery as creator_pending_discovery,
@@ -267,6 +267,18 @@ def parser() -> argparse.ArgumentParser:
         help="read-only, presence-only check of connector credential references; never prints values",
     )
     connector_creds.add_argument("--surface")
+    connector_events_p = commands.add_parser(
+        "connector-events",
+        help="read-only list of recent connector change events; never prints credentials",
+    )
+    connector_events_p.add_argument("--limit", type=int, default=50)
+    connector_events_p.add_argument("--connector", dest="connector_id", default=None)
+    connector_unregister = commands.add_parser(
+        "connector-unregister",
+        help="preview or remove a connector's registry metadata; never revokes credentials",
+    )
+    connector_unregister.add_argument("connector_id")
+    connector_unregister.add_argument("--confirm-write", action="store_true")
     connector_register = commands.add_parser(
         "connector-register",
         help="preview or explicitly write provider-neutral connector metadata from a JSON file",
@@ -596,6 +608,10 @@ def main(argv: list[str] | None = None) -> int:
             _print(connector_reconcile_plan(args.surface))
         elif args.command == "connector-credential-status":
             _print(connector_credential_status(args.surface))
+        elif args.command == "connector-events":
+            _print(connector_events(args.limit, args.connector_id))
+        elif args.command == "connector-unregister":
+            _print(unregister_connector(args.connector_id, confirm_write=args.confirm_write))
         elif args.command == "connector-register":
             _print(
                 register_connector(
