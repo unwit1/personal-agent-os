@@ -72,6 +72,17 @@ def _is_checkout(path: Path) -> bool:
     return (path / "agent.py").is_file() and (path / "src" / "agent_os").is_dir()
 
 
+def _is_canonical_checkout(path: Path) -> bool:
+    canonical = _canonical_checkout()
+    if path == canonical:
+        return True
+    try:
+        canonical.relative_to(path)
+        return _is_checkout(path)
+    except ValueError:
+        return False
+
+
 def _json_registration(data: Any, server_keys: tuple[str, ...]) -> dict[str, Any] | None:
     """Find an Agent OS server entry anywhere in a client configuration tree."""
     if isinstance(data, dict):
@@ -191,7 +202,7 @@ def _probe_invocation(surface: dict[str, Any]) -> dict[str, Any]:
         result["checkout"] = str(checkout) if checkout else None
         if checkout and _is_checkout(checkout):
             result["reachable"] = True
-            result["canonical_checkout"] = checkout == _canonical_checkout()
+            result["canonical_checkout"] = _is_canonical_checkout(checkout)
         break
     return result
 
