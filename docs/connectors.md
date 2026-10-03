@@ -72,6 +72,45 @@ password) or `missing` if not found, or `unchecked` if the probe is unavailable.
 credential reference report `not_configured`. Output never includes credential
 values or reference names, and no provider APIs are contacted.
 
+The read-only MCP tool `connector.conflicts` and CLI equivalent
+`python agent.py connector-conflicts [--surface <id>]` report conflicts that could
+prevent successful connector provisioning. It checks for three kinds of conflicts:
+
+- **`duplicate_provider_surface`**: A provider appears more than once across
+  registrations marked `desired`, `registered`, or `error` for the same surface.
+- **`native_server_name_collision`**: Two or more connectors request the same
+  `server_name` (native client MCP entry name) for the same surface.
+- **`shared_credential_reference`**: Two or more connectors reference the same
+  credential store entry; the backend kind is reported only, never the reference
+  value.
+
+The result includes the following fields:
+
+- `schema`: version identifier (personal-agent/connector-conflicts/v1)
+- `surface_filter`: the surface ID passed on the command line, or `null` if no
+  filter was applied
+- `read_only`: always `true`
+- `count`: total number of conflicts found
+- `kind_counts`: breakdown of conflict counts by kind
+- `conflicts`: array of conflict records, each with the conflict `kind` and
+  `connector_ids` involved, plus per-kind fields:
+  - For `duplicate_provider_surface`: `provider_id` and `surface_id`
+  - For `native_server_name_collision`: `surface_id` and `server_name`
+  - For `shared_credential_reference`: `backend` (the credential store kind
+    only, never the reference value)
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-conflicts
+python agent.py connector-conflicts --surface codex-cli
+```
+
+This operation is read-only: it writes nothing, appends no events, never returns
+secret references, and does not deduplicate or repair conflicts automatically.
+Conflict resolution must be handled separately through `connector.register` or
+`connector.unregister`.
+
 `connector.register` validates a metadata descriptor and previews it by default.
 It writes only when the caller sets `confirm_write: true`. New entries must
 start with provider health `unknown` and client registrations `desired`; only
