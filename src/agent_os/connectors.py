@@ -502,18 +502,14 @@ def unregister_connector(
             (item for item in registry["connectors"] if item["id"] == connector_id),
             None,
         )
-        if connector is None:
-            return {
-                "written": False,
-                "confirmation_required": True,
-                "connector_id": connector_id,
-                "removed": False,
-            }
+        # The preview names what would be removed without echoing the record:
+        # it carries the secret_ref, which connector outputs never return.
         return {
             "written": False,
             "confirmation_required": True,
             "connector_id": connector_id,
-            "connector": connector,
+            "found": connector is not None,
+            "provider_id": connector["provider"]["id"] if connector else None,
         }
 
     with _registry_write_lock():
@@ -523,7 +519,7 @@ def unregister_connector(
             None,
         )
         if existing_index is None:
-            raise KeyError(f"connector not found: {connector_id}")
+            return {"written": False, "not_found": True, "connector_id": connector_id}
 
         connector = registry["connectors"][existing_index]
         registry["connectors"].pop(existing_index)
