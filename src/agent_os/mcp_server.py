@@ -335,8 +335,8 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
     },
     "connector.events": {
-        "description": "Read-only list of recent local connector change events (connector.added, connector.updated, connector.removed) with connector id, provider id, capabilities, and surfaces; never returns credentials, secret references, or scopes.",
-        "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "minimum": 1, "maximum": 500}, "connector_id": {"type": ["string", "null"]}}},
+        "description": "Read-only list of recent local connector change events (connector.added, connector.updated, connector.removed) with connector id, provider id, capabilities, and surfaces; never returns credentials, secret references, or scopes. Pass after_seq (the previous response's next_after_seq) to page forward through changes since a cursor, and each item carries a stable seq.",
+        "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "minimum": 1, "maximum": 500}, "connector_id": {"type": ["string", "null"]}, "after_seq": {"type": ["integer", "null"], "minimum": 0}}},
     },
     "connector.unregister": {
         "description": "Preview or explicitly remove a connector's desired metadata from the registry. Removal requires confirm_write=true, records a connector.removed event, and never revokes credentials or edits client configuration.",
