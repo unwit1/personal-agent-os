@@ -10,6 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import surfaces as surface_module
+from agent_os import machine
 from agent_os.cli import parser
 from agent_os.launcher import LAUNCHER_PATH
 from agent_os.machine import resolve_user_path
@@ -275,7 +276,16 @@ class CaptureCapabilityTests(unittest.TestCase):
 
 class IntegrationHealthReportTests(unittest.TestCase):
     def setUp(self) -> None:
+        self.original_local_config = machine.local_config
+        main_checkout = ROOT.parent.parent.parent.parent.parent
+        machine.local_config = lambda: {
+            "project_paths": {"personal-agent-os": str(main_checkout)},
+            "search_roots": [],
+        }
         self.report = health()
+
+    def tearDown(self) -> None:
+        machine.local_config = self.original_local_config
 
     def test_report_covers_every_registered_surface(self) -> None:
         self.assertEqual([item["id"] for item in self.report["surfaces"]], [item["id"] for item in surfaces()])
