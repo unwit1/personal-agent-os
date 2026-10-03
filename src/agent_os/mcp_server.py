@@ -14,7 +14,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, prune_stale_registrations, register_connector, unregister_connector
+from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_provisioning_readiness, connector_reconcile_plan, connector_status, import_connector_candidate, prune_stale_registrations, register_connector, unregister_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -332,6 +332,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
     "connector.conflicts": {
         "description": "Read-only report of duplicate or conflicting connector registrations: same provider active twice on one surface, colliding native server names on one surface, and credential references shared between connectors (backend kind only). Never returns secret references, never writes, never contacts providers.",
+        "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
+    },
+    "connector.provisioning_readiness": {
+        "description": "Read-only per-registration provisioning readiness combining the reconcile plan, credential presence and conflicts into ready/blocked/no_action with named blockers. Never returns secret references, never writes, never resolves credentials, never contacts providers.",
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
     },
     "connector.events": {
@@ -951,6 +955,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "connector.reconcile_plan": connector_reconcile_plan,
         "connector.credential_status": connector_credential_status,
         "connector.conflicts": connector_conflicts,
+        "connector.provisioning_readiness": connector_provisioning_readiness,
         "connector.events": connector_events,
         "connector.unregister": unregister_connector,
         "connector.prune_stale": prune_stale_registrations,
@@ -991,6 +996,7 @@ INSTRUCTIONS = (
     " Use connector.reconcile_plan for a read-only per-surface action plan; it applies nothing."
     " Use connector.credential_status for a presence-only credential check; values are never returned."
     " Use connector.conflicts for a read-only report of duplicate or conflicting connector registrations."
+    " Use connector.provisioning_readiness for a read-only ready/blocked verdict per connector registration; it applies nothing."
     " Use connector.events for a read-only feed of connector additions, updates, and removals."
     " connector.unregister previews by default and removes metadata only when confirm_write=true; it never revokes credentials."
     " connector.prune_stale previews by default and removes only registrations for undeclared surfaces when confirm_write=true."
