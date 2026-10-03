@@ -285,7 +285,7 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
                 result = connector_reconcile_plan()
 
         item = result["items"][0]
-        expected_keys = {"connector_id", "surface_id", "state", "action", "reason", "credential_reference_configured"}
+        expected_keys = {"connector_id", "surface_id", "state", "action", "reason", "credential_reference_configured", "native_server_name", "native_entry_requested"}
         self.assertEqual(set(item.keys()), expected_keys)
 
     def test_multiple_registrations_per_connector(self) -> None:
@@ -301,6 +301,28 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
         self.assertEqual(result["count"], 2)
         self.assertEqual(result["items"][0]["action"], "provision_local_config")
         self.assertEqual(result["items"][1]["action"], "none")
+
+    def test_native_server_name_when_present(self) -> None:
+        connector = valid_connector()
+        connector["registrations"] = [{"surface_id": "agent-os-mcp", "state": "desired", "server_name": "my-server"}]
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
+            with patch("agent_os.surfaces.surfaces", return_value=mock_surfaces()):
+                result = connector_reconcile_plan()
+
+        item = result["items"][0]
+        self.assertEqual(item["native_server_name"], "my-server")
+        self.assertTrue(item["native_entry_requested"])
+
+    def test_native_server_name_when_absent(self) -> None:
+        connector = valid_connector()
+        connector["registrations"] = [{"surface_id": "agent-os-mcp", "state": "desired"}]
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
+            with patch("agent_os.surfaces.surfaces", return_value=mock_surfaces()):
+                result = connector_reconcile_plan()
+
+        item = result["items"][0]
+        self.assertIsNone(item["native_server_name"])
+        self.assertFalse(item["native_entry_requested"])
 
 
 if __name__ == "__main__":

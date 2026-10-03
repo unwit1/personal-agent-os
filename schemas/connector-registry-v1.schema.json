@@ -51,7 +51,8 @@
             "required": ["surface_id", "state"],
             "properties": {
               "surface_id": {"$ref": "#/$defs/identifier"},
-              "state": {"enum": ["desired", "registered", "disabled", "unsupported", "error"]}
+              "state": {"enum": ["desired", "registered", "disabled", "unsupported", "error"]},
+              "server_name": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"}
             }
           }
         },

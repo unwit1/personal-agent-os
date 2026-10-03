@@ -126,6 +126,52 @@ class ConnectorRegistryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "only schema"):
             validate_connector_registry(registry)
 
+    def test_accepts_registration_with_valid_server_name(self) -> None:
+        registry = valid_registry()
+        registry["connectors"][0]["registrations"][0]["server_name"] = "agent-os"
+        validate_connector_registry(registry)
+
+    def test_accepts_registration_without_server_name(self) -> None:
+        registry = valid_registry()
+        self.assertNotIn("server_name", registry["connectors"][0]["registrations"][0])
+        validate_connector_registry(registry)
+
+    def test_rejects_empty_server_name(self) -> None:
+        registry = valid_registry()
+        registry["connectors"][0]["registrations"][0]["server_name"] = ""
+        with self.assertRaisesRegex(ValueError, "server_name is invalid"):
+            validate_connector_registry(registry)
+
+    def test_rejects_server_name_with_spaces(self) -> None:
+        registry = valid_registry()
+        registry["connectors"][0]["registrations"][0]["server_name"] = "bad name"
+        with self.assertRaisesRegex(ValueError, "server_name is invalid"):
+            validate_connector_registry(registry)
+
+    def test_rejects_server_name_starting_with_dash(self) -> None:
+        registry = valid_registry()
+        registry["connectors"][0]["registrations"][0]["server_name"] = "-x"
+        with self.assertRaisesRegex(ValueError, "server_name is invalid"):
+            validate_connector_registry(registry)
+
+    def test_rejects_non_string_server_name(self) -> None:
+        registry = valid_registry()
+        registry["connectors"][0]["registrations"][0]["server_name"] = 123
+        with self.assertRaisesRegex(ValueError, "server_name is invalid"):
+            validate_connector_registry(registry)
+
+    def test_rejects_server_name_exceeding_63_characters(self) -> None:
+        registry = valid_registry()
+        registry["connectors"][0]["registrations"][0]["server_name"] = "a" * 65
+        with self.assertRaisesRegex(ValueError, "server_name is invalid"):
+            validate_connector_registry(registry)
+
+    def test_rejects_registration_with_unknown_keys(self) -> None:
+        registry = valid_registry()
+        registry["connectors"][0]["registrations"][0]["unknown_field"] = "value"
+        with self.assertRaisesRegex(ValueError, "surface_id, state, and optional server_name"):
+            validate_connector_registry(registry)
+
     def test_status_redacts_secret_store_reference_and_filters_by_surface(self) -> None:
         with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry()):
             status = connector_status()
