@@ -277,9 +277,10 @@ class CaptureCapabilityTests(unittest.TestCase):
 
 class IntegrationHealthReportTests(unittest.TestCase):
     def setUp(self) -> None:
-        main_checkout = ROOT.parent.parent.parent.parent.parent
+        # The checkout under test is the canonical one, wherever it lives
+        # (main checkout or an orchestrator worktree).
         mock_config = {
-            "project_paths": {"personal-agent-os": str(main_checkout)},
+            "project_paths": {"personal-agent-os": str(ROOT)},
             "search_roots": [],
         }
         with mock.patch.object(machine, "local_config", return_value=mock_config):
