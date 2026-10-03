@@ -278,6 +278,7 @@ def parser() -> argparse.ArgumentParser:
     )
     connector_events_p.add_argument("--limit", type=int, default=50)
     connector_events_p.add_argument("--connector", dest="connector_id", default=None)
+    connector_events_p.add_argument("--after-seq", dest="after_seq", type=int, default=None)
     connector_unregister = commands.add_parser(
         "connector-unregister",
         help="preview or remove a connector's registry metadata; never revokes credentials",
@@ -622,7 +623,7 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "connector-conflicts":
             _print(connector_conflicts(args.surface))
         elif args.command == "connector-events":
-            _print(connector_events(args.limit, args.connector_id))
+            _print(connector_events(args.limit, args.connector_id, args.after_seq))
         elif args.command == "connector-unregister":
             _print(unregister_connector(args.connector_id, confirm_write=args.confirm_write))
         elif args.command == "connector-prune-stale":

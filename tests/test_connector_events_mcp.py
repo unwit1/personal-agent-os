@@ -19,6 +19,16 @@ class ConnectorEventsMcpTests(unittest.TestCase):
         names = {item["name"] for item in listing["result"]["tools"]}
         self.assertIn("connector.events", names)
 
+    def test_connector_events_input_schema_has_after_seq(self) -> None:
+        available = methods()
+        listing = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "tools/list"}, available)
+        tools = {item["name"]: item for item in listing["result"]["tools"]}
+        schema = tools["connector.events"]["inputSchema"]
+        self.assertIn("after_seq", schema["properties"])
+        after_seq_schema = schema["properties"]["after_seq"]
+        self.assertEqual(after_seq_schema["type"], ["integer", "null"])
+        self.assertEqual(after_seq_schema["minimum"], 0)
+
     def test_connector_unregister_is_discoverable(self) -> None:
         available = methods()
         listing = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "tools/list"}, available)
@@ -121,6 +131,35 @@ class ConnectorEventsMcpTests(unittest.TestCase):
         self.assertEqual(payload["schema"], "personal-agent/connector-events/v1")
         self.assertEqual(payload["connector_filter"], "test-1")
         self.assertEqual(len(payload["items"]), 2)
+
+    def test_mcp_connector_events_with_after_seq_pagination(self) -> None:
+        available = methods()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_file = Path(tmpdir) / "events.jsonl"
+            events = [
+                {"schema": "personal-agent/connector-event/v1", "event": "connector.added", "connector_id": "test-1", "provider_id": "p1", "capabilities": ["cap1"], "surfaces": ["s1"], "at": "2026-10-03T00:00:00Z"},
+                {"schema": "personal-agent/connector-event/v1", "event": "connector.added", "connector_id": "test-2", "provider_id": "p2", "capabilities": ["cap2"], "surfaces": ["s2"], "at": "2026-10-03T00:01:00Z"},
+                {"schema": "personal-agent/connector-event/v1", "event": "connector.added", "connector_id": "test-3", "provider_id": "p3", "capabilities": ["cap3"], "surfaces": ["s3"], "at": "2026-10-03T00:02:00Z"},
+            ]
+            events_file.write_text("\n".join(json.dumps(e) for e in events) + "\n")
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_file):
+                response = _handle_mcp(
+                    {
+                        "jsonrpc": "2.0",
+                        "id": 8,
+                        "method": "tools/call",
+                        "params": {"name": "connector.events", "arguments": {"after_seq": 1}},
+                    },
+                    available,
+                )
+        payload = json.loads(response["result"]["content"][0]["text"])
+        self.assertEqual(payload["schema"], "personal-agent/connector-events/v1")
+        self.assertEqual(len(payload["items"]), 2)
+        self.assertEqual(payload["items"][0]["seq"], 2)
+        self.assertEqual(payload["items"][1]["seq"], 3)
+        self.assertEqual(payload["next_after_seq"], 3)
+        self.assertFalse(payload["has_more"])
 
     def test_mcp_connector_unregister_preview_absent(self) -> None:
         available = methods()
