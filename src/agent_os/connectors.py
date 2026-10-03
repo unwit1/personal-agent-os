@@ -365,6 +365,116 @@ def connector_credential_status(surface_id: str | None = None) -> dict[str, Any]
     }
 
 
+def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
+    """Detect conflicts in connector registry: duplicate providers, server name collisions, shared credentials.
+
+    Read-only analysis only. Never writes, reads credentials, or contacts providers.
+    """
+    registry = load_connector_registry()
+    conflicts: list[dict[str, Any]] = []
+
+    # Build indexes for conflict detection
+    # For duplicate_provider_surface: (provider_id, surface_id) -> [(connector_id, state)]
+    provider_surface_map: dict[tuple[str, str], list[tuple[str, str]]] = {}
+    # For native_server_name_collision: (surface_id, server_name) -> [connector_id]
+    server_name_map: dict[tuple[str, str], list[str]] = {}
+    # For shared_credential_reference: secret_ref -> [connector_id]
+    secret_ref_map: dict[str, list[str]] = {}
+
+    for connector in registry["connectors"]:
+        connector_id = connector["id"]
+        provider_id = connector["provider"]["id"]
+        secret_ref = connector["secret_ref"]
+
+        # Only consider connectors with registrations matching the filter
+        relevant_registrations = connector["registrations"]
+        if surface_id:
+            relevant_registrations = [r for r in relevant_registrations if r["surface_id"] == surface_id]
+
+        # Track shared credential references (across all considered connectors, not just filtered)
+        if secret_ref is not None:
+            if secret_ref not in secret_ref_map:
+                secret_ref_map[secret_ref] = []
+            secret_ref_map[secret_ref].append(connector_id)
+
+        # Process registrations for provider/surface and server_name conflicts
+        for registration in relevant_registrations:
+            reg_surface_id = registration["surface_id"]
+            state = registration["state"]
+
+            # (a) duplicate_provider_surface: only track desired/registered/error states
+            if state in {"desired", "registered", "error"}:
+                key = (provider_id, reg_surface_id)
+                if key not in provider_surface_map:
+                    provider_surface_map[key] = []
+                provider_surface_map[key].append((connector_id, state))
+
+            # (b) native_server_name_collision: track all server_name registrations
+            server_name = registration.get("server_name")
+            if server_name is not None:
+                key = (reg_surface_id, server_name)
+                if key not in server_name_map:
+                    server_name_map[key] = []
+                server_name_map[key].append(connector_id)
+
+    # Detect (a) duplicate_provider_surface conflicts
+    for (provider_id, reg_surface_id), items in provider_surface_map.items():
+        if len(items) > 1:
+            connector_ids = sorted(set(cid for cid, _ in items))
+            conflicts.append({
+                "kind": "duplicate_provider_surface",
+                "provider_id": provider_id,
+                "surface_id": reg_surface_id,
+                "connector_ids": connector_ids,
+            })
+
+    # Detect (b) native_server_name_collision conflicts
+    for (reg_surface_id, server_name), connector_ids in server_name_map.items():
+        if len(connector_ids) > 1:
+            unique_ids = sorted(set(connector_ids))
+            conflicts.append({
+                "kind": "native_server_name_collision",
+                "surface_id": reg_surface_id,
+                "server_name": server_name,
+                "connector_ids": unique_ids,
+            })
+
+    # Detect (c) shared_credential_reference conflicts
+    for secret_ref, connector_ids in secret_ref_map.items():
+        if len(connector_ids) > 1:
+            backend = secret_ref.split(":", 1)[0]
+            unique_ids = sorted(set(connector_ids))
+            conflicts.append({
+                "kind": "shared_credential_reference",
+                "backend": backend,
+                "connector_ids": unique_ids,
+            })
+
+    # Sort conflicts by (kind, surface_id or '', connector_ids)
+    def conflict_sort_key(conflict: dict[str, Any]) -> tuple:
+        kind = conflict["kind"]
+        surf_id = conflict.get("surface_id", "")
+        conn_ids = tuple(conflict["connector_ids"])
+        return (kind, surf_id, conn_ids)
+
+    conflicts.sort(key=conflict_sort_key)
+
+    # Build kind_counts
+    kind_counts: dict[str, int] = {}
+    for conflict in conflicts:
+        kind = conflict["kind"]
+        kind_counts[kind] = kind_counts.get(kind, 0) + 1
+
+    return {
+        "schema": "personal-agent/connector-conflicts/v1",
+        "surface_filter": surface_id,
+        "read_only": True,
+        "count": len(conflicts),
+        "kind_counts": kind_counts,
+        "conflicts": conflicts,
+    }
+
+
 _EVENT_FIELDS = ("schema", "event", "connector_id", "provider_id", "capabilities", "surfaces", "at")
 
 
