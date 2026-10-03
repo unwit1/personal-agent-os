@@ -19,10 +19,8 @@ class ConnectorEventSummaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             events_path = Path(tmpdir) / "connector-events.jsonl"
 
-            with patch("agent_os.surfaces._connector_event_summary") as mock_summary:
-                # First, let's test the actual implementation with a missing file
-                with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
-                    result = _connector_event_summary()
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                result = _connector_event_summary()
 
             self.assertTrue(result["available"])
             self.assertEqual(result["latest_seq"], 0)
