@@ -169,6 +169,8 @@ credentials are resolved, and no providers are contacted. Native entry absence
 cannot yet be fixed automatically because writing native client configuration is
 waiting on a design decision.
 
+## Registering and managing connectors
+
 `connector.register` validates a metadata descriptor and previews it by default.
 It writes only when the caller sets `confirm_write: true`. New entries must
 start with provider health `unknown` and client registrations `desired`; only
