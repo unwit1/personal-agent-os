@@ -12,12 +12,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.connectors import (
     EVENT_SCHEMA,
-    _CONNECTOR_EVENTS_PATH,
     _append_connector_event,
     connector_events,
     register_connector,
 )
-from agent_os.paths import ROOT
 
 
 def valid_connector() -> dict:
@@ -237,6 +235,42 @@ class ConnectorEventTests(unittest.TestCase):
             line = events_path.read_text(encoding="utf-8").strip()
             record = json.loads(line)
             self.assertEqual(record["event"], "connector.updated")
+
+    def test_register_connector_reports_failed_event_append(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path), \
+                 patch("agent_os.connectors.REGISTRY_PATH", Path(tmpdir) / "registry.json"), \
+                 patch("agent_os.connectors.load_connector_registry") as mock_load, \
+                 patch("agent_os.connectors._append_connector_event", return_value=False):
+
+                mock_load.return_value = {"schema": "personal-agent/connector-registry/v1", "version": 1, "connectors": []}
+                result = register_connector(valid_connector(), confirm_write=True)
+
+            self.assertTrue(result["written"])
+            self.assertFalse(result["event_recorded"])
+            self.assertFalse(events_path.exists())
+
+    def test_connector_events_projects_documented_fields_only(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+            record = {
+                "schema": EVENT_SCHEMA,
+                "event": "connector.added",
+                "connector_id": "x",
+                "provider_id": "p",
+                "capabilities": [],
+                "surfaces": [],
+                "at": "2026-01-01T00:00:00Z",
+                "secret_ref": "keyring:leak",
+            }
+            events_path.write_text(json.dumps(record) + "\n", encoding="utf-8")
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                result = connector_events()
+
+            self.assertNotIn("secret_ref", result["items"][0])
+            self.assertEqual(result["items"][0]["connector_id"], "x")
 
     def test_register_connector_no_event_on_preview(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

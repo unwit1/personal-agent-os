@@ -365,6 +365,9 @@ def connector_credential_status(surface_id: str | None = None) -> dict[str, Any]
     }
 
 
+_EVENT_FIELDS = ("schema", "event", "connector_id", "provider_id", "capabilities", "surfaces", "at")
+
+
 def connector_events(limit: int = 50, connector_id: str | None = None) -> dict[str, Any]:
     """Read the connector change event log with optional filtering and limit.
 
@@ -415,7 +418,7 @@ def connector_events(limit: int = 50, connector_id: str | None = None) -> dict[s
         if connector_id is not None and record.get("connector_id") != connector_id:
             continue
 
-        items.append(record)
+        items.append({key: record[key] for key in _EVENT_FIELDS if key in record})
 
     # Keep only the last limit items in chronological order
     items = items[-limit:]
