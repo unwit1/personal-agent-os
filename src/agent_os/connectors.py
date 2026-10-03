@@ -456,6 +456,93 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
     }
 
 
+def connector_provisioning_readiness(surface_id: str | None = None) -> dict[str, Any]:
+    """Composite readiness status for connector provisioning.
+
+    Strictly read-only: integrates reconciliation plan, credential status, and
+    conflict detection to determine per-connector per-surface provisioning readiness.
+    """
+    plan = connector_reconcile_plan(surface_id)
+    credential_status = connector_credential_status(surface_id)
+    conflicts = connector_conflicts(surface_id)
+
+    cred_by_id = {item["connector_id"]: item["status"] for item in credential_status["items"]}
+
+    conflict_by_connector_surface: dict[tuple[str, str], set[str]] = defaultdict(set)
+    conflict_by_connector: dict[str, set[str]] = defaultdict(set)
+
+    for conflict in conflicts["conflicts"]:
+        kind = conflict["kind"]
+        if "surface_id" in conflict:
+            for cid in conflict["connector_ids"]:
+                conflict_by_connector_surface[(cid, conflict["surface_id"])].add(kind)
+        else:
+            for cid in conflict["connector_ids"]:
+                conflict_by_connector[cid].add(kind)
+
+    items = []
+    for plan_item in plan["items"]:
+        connector_id = plan_item["connector_id"]
+        surface_id_val = plan_item["surface_id"]
+        state = plan_item["state"]
+        action = plan_item["action"]
+        native_entry_status = plan_item["native_entry_status"]
+
+        credential_status_val = cred_by_id.get(connector_id)
+
+        blockers: list[str] = []
+
+        if action == "unknown_surface":
+            blockers.append("unknown_surface")
+        elif action == "investigate":
+            blockers.append("registration_error")
+        elif action == "manual_host_setup":
+            blockers.append("manual_host_setup")
+        elif action == "undetermined":
+            blockers.append("surface_capability_undetermined")
+
+        if credential_status_val == "missing":
+            blockers.append("credential_missing")
+        elif credential_status_val == "unchecked":
+            blockers.append("credential_unchecked")
+
+        if native_entry_status == "absent":
+            blockers.append("native_entry_absent")
+        elif native_entry_status in ("not_inspectable", "unreadable"):
+            blockers.append("native_entry_unverifiable")
+
+        surface_conflicts = sorted(conflict_by_connector_surface.get((connector_id, surface_id_val), set()))
+        connector_conflicts_set = conflict_by_connector.get(connector_id, set())
+        all_conflicts = sorted(set(surface_conflicts) | connector_conflicts_set)
+        for conflict_kind in all_conflicts:
+            blockers.append(f"conflict:{conflict_kind}")
+
+        if action == "none":
+            readiness = "no_action"
+        elif blockers:
+            readiness = "blocked"
+        else:
+            readiness = "ready"
+
+        items.append({
+            "connector_id": connector_id,
+            "surface_id": surface_id_val,
+            "state": state,
+            "action": action,
+            "credential_status": credential_status_val,
+            "readiness": readiness,
+            "blockers": blockers,
+        })
+
+    return {
+        "schema": "personal-agent/connector-provisioning-readiness/v1",
+        "surface_filter": surface_id,
+        "read_only": True,
+        "count": len(items),
+        "items": items,
+    }
+
+
 _EVENT_FIELDS = ("schema", "event", "connector_id", "provider_id", "capabilities", "surfaces", "at")
 
 
