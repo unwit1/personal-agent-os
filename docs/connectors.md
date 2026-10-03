@@ -20,7 +20,15 @@ review; each has a stable ID for the server/executable pair and combines the
 surfaces where it appears. They are not imported or written to the canonical
 registry.
 `integration-health` reports each connector under `connector_providers`,
-separately from whether each client surface reaches Agent OS.
+separately from whether each client surface reaches Agent OS. It also reads the
+connector change event log and reports `connector_providers.events` (schema
+personal-agent/connector-event-summary/v1). That object holds `latest_seq`, a
+window of up to 500 most recent events, `malformed`, `counts_by_event` for
+`connector.added`/`updated`/`removed`, `last_event_at`, and `changed_connector_ids`.
+The summary is read-only and secret-free: it carries connector IDs only, not
+capabilities, surfaces, credential references, or file paths. If the event log
+is unreadable, it reports `available: false` with a generic reason. Callers that
+need incremental polling should continue using `connector.events` with `after_seq`.
 
 The read-only MCP tool `connector.reconcile_plan` and CLI equivalent
 `python agent.py connector-reconcile-plan [--surface <id>]` generate a
