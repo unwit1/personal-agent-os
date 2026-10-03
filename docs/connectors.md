@@ -119,6 +119,59 @@ The registry's health is declared metadata. Integration health does not contact
 provider APIs. The readiness report omits credential references and never
 resolves them.
 
+## Change events and removal
+
+Agent OS maintains a local append-only event log at `.agent-local/connector-events.jsonl`
+(not committed to Git) that records all confirmed registry changes. Each line is a
+JSON record with the following fields:
+
+- `schema`: version identifier for the event record format
+- `event`: kind of change—one of `connector.added`, `connector.updated`, or `connector.removed`
+- `connector_id`: unique connector identifier
+- `provider_id`: provider identifier
+- `capabilities`: list of connector capabilities
+- `surfaces`: list of surface registrations at the time of change
+- `at`: ISO 8601 timestamp with timezone
+
+The event log never includes `secret_ref`, `scopes`, `server_name`, or credential values.
+Events are written only when a registry change is explicitly confirmed (i.e., when
+`confirm_write: true` is passed to `connector.register` or `connector.unregister`).
+
+### Reading connector events
+
+The read-only MCP tool `connector.events` returns a list of recorded connector change
+events. It accepts optional parameters:
+
+- `limit`: number of recent events to return (1–500, default 500)
+- `connector_id`: filter to events for a specific connector (optional)
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-events
+python agent.py connector-events --limit 50
+python agent.py connector-events --connector google-drive-work
+python agent.py connector-events --limit 100 --connector rtec-applicants
+```
+
+### Removing connectors
+
+`connector.unregister` removes a connector from the registry and records a
+`connector.removed` event. The operation previews by default and writes only when
+the caller sets `confirm_write: true`. Identical repeats are idempotent; removing
+a connector that does not exist succeeds with no change.
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-unregister google-drive-work
+python agent.py connector-unregister google-drive-work --confirm-write
+```
+
+The unregister operation removes only registry metadata. It does not revoke
+credentials, delete secret store entries, edit client configuration, or contact
+providers. Credential cleanup must be handled separately.
+
 ## Not implemented yet
 
 The current broker slice does not import connector settings from client
