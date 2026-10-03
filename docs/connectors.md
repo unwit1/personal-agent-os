@@ -234,7 +234,7 @@ JSON record with the following fields:
 
 The event log never includes `secret_ref`, `scopes`, `server_name`, or credential values.
 Events are written only when a registry change is explicitly confirmed (i.e., when
-`confirm_write: true` is passed to `connector.register`, `connector.unregister`, or `connector.prune_stale`).
+`confirm_write: true` is passed to `connector.register`, `connector.unregister`, `connector.prune_stale`, or `connector.set_registration_state`).
 
 ### Reading connector events
 
@@ -305,6 +305,27 @@ python agent.py connector-prune-stale google-drive-work --confirm-write
 The prune operation is read-only by default. Output never includes secret
 references, and the command never revokes credentials, edits client configuration,
 or contacts providers.
+
+### Enabling and disabling registrations
+
+`connector.set_registration_state` (MCP) and `connector-set-registration-state` (CLI)
+change a registration's state between `desired` and `disabled` under the registry lock.
+The operation previews by default and writes only when the caller sets `confirm_write: true`.
+The state change affects only one registration; the registration's `server_name` and other
+fields are preserved. Disabling is allowed from any current state. Re-enabling is allowed
+only from `disabled`. The registered, error, and unsupported states cannot be set because
+they require adapter verification. A `connector.updated` event is recorded on confirmed changes.
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-set-registration-state google-drive-work agent-os-mcp disabled
+python agent.py connector-set-registration-state google-drive-work agent-os-mcp disabled --confirm-write
+```
+
+The first form previews the change without applying it; the second form applies it.
+Credentials are never revoked, client configuration is never edited, providers are never
+contacted, and output never includes secret references.
 
 ## Not implemented yet
 
