@@ -323,7 +323,7 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
     },
     "connector.reconcile_plan": {
-        "description": "Read-only plan comparing desired connector registrations with each client surface's declared connector capabilities. Never writes configuration, reads credentials, or contacts providers.",
+        "description": "Read-only plan comparing desired connector registrations with each client surface's declared connector capabilities. Also reports whether the requested native client entry is already present. Never writes configuration, reads credentials, or contacts providers.",
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
     },
     "connector.credential_status": {
