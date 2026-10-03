@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import ctypes
 import hashlib
 import json
 import os
 import re
+import shutil
+import subprocess
+import sys
 import tomllib
 from contextlib import contextmanager
 from datetime import datetime
@@ -164,6 +168,59 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
     }
 
 
+def _windows_credential_present(name: str) -> bool | None:
+    """Check Windows Credential Manager for a generic credential without reading its secret."""
+    if sys.platform != "win32":
+        return None
+    try:
+        from ctypes import wintypes
+
+        advapi32 = ctypes.WinDLL("advapi32", use_last_error=True)
+        cred_read = advapi32.CredReadW
+        cred_read.argtypes = [
+            wintypes.LPCWSTR,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            ctypes.POINTER(ctypes.c_void_p),
+        ]
+        cred_read.restype = wintypes.BOOL
+        cred_free = advapi32.CredFree
+        cred_free.argtypes = [ctypes.c_void_p]
+        cred_free.restype = None
+
+        ptr = ctypes.c_void_p()
+        if cred_read(name, 1, 0, ctypes.byref(ptr)):
+            cred_free(ptr)
+            return True
+        if ctypes.get_last_error() == 1168:
+            return False
+        return None
+    except (OSError, AttributeError):
+        return None
+
+
+def _macos_keychain_present(name: str) -> bool | None:
+    """Check the macOS keychain for a generic password item without requesting its value."""
+    if sys.platform != "darwin" or not shutil.which("security"):
+        return None
+    try:
+        result = subprocess.run(
+            ["security", "find-generic-password", "-s", name],
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=5,
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if result.returncode == 0:
+        return True
+    if result.returncode == 44:
+        return False
+    return None
+
+
 def connector_credential_status(surface_id: str | None = None) -> dict[str, Any]:
     """Report credential presence status for registered connectors without exposing secrets.
 
@@ -199,6 +256,20 @@ def connector_credential_status(surface_id: str | None = None) -> dict[str, Any]
                 else:
                     status = "missing"
                     reason = "environment variable is not set or empty"
+            elif backend in ("windows-credential", "macos-keychain"):
+                if backend == "windows-credential":
+                    present = _windows_credential_present(name)
+                else:
+                    present = _macos_keychain_present(name)
+                if present is True:
+                    status = "present"
+                    reason = "credential store entry exists"
+                elif present is False:
+                    status = "missing"
+                    reason = "credential store entry was not found"
+                else:
+                    status = "unchecked"
+                    reason = f"{backend} presence check is unavailable on this host"
             else:
                 status = "unchecked"
                 reason = f"presence checks for the {backend} backend are not implemented yet"
