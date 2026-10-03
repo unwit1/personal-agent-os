@@ -98,6 +98,27 @@ class ConnectorEventTests(unittest.TestCase):
             self.assertEqual(result["items"], [])
             self.assertEqual(result["malformed"], 0)
 
+    def test_connector_events_cursor_reset_on_missing_file(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                # after_seq=None should not trigger cursor_reset
+                result_none = connector_events(after_seq=None)
+                self.assertEqual(result_none["cursor_reset"], False)
+
+                # after_seq=0 should not trigger cursor_reset (0 is not > latest_seq which is 0)
+                result_zero = connector_events(after_seq=0)
+                self.assertEqual(result_zero["cursor_reset"], False)
+
+                # after_seq=1 should trigger cursor_reset (1 > latest_seq which is 0)
+                result_one = connector_events(after_seq=1)
+                self.assertEqual(result_one["cursor_reset"], True)
+
+                # after_seq=100 should trigger cursor_reset (100 > latest_seq which is 0)
+                result_hundred = connector_events(after_seq=100)
+                self.assertEqual(result_hundred["cursor_reset"], True)
+
     def test_connector_events_rejects_invalid_limit(self) -> None:
         for limit in ("50", True, 0, 501, -1):
             with self.subTest(limit=limit):
@@ -271,6 +292,8 @@ class ConnectorEventTests(unittest.TestCase):
 
             self.assertNotIn("secret_ref", result["items"][0])
             self.assertEqual(result["items"][0]["connector_id"], "x")
+            self.assertIn("seq", result["items"][0])
+            self.assertEqual(result["items"][0]["seq"], 1)
 
     def test_register_connector_no_event_on_preview(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -356,6 +379,192 @@ class ConnectorEventTests(unittest.TestCase):
             self.assertEqual(record1["event"], "connector.added")
             self.assertEqual(record2["connector_id"], "connector-2")
             self.assertEqual(record2["event"], "connector.updated")
+
+    def test_connector_events_rejects_invalid_after_seq(self) -> None:
+        for after_seq in ("0", True, -1):
+            with self.subTest(after_seq=after_seq):
+                with self.assertRaises(ValueError):
+                    connector_events(after_seq=after_seq)
+
+    def test_connector_events_accepts_valid_after_seq(self) -> None:
+        for after_seq in (None, 0, 1, 100):
+            with self.subTest(after_seq=after_seq):
+                with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", Path("/nonexistent")):
+                    result = connector_events(after_seq=after_seq)
+                self.assertEqual(result["after_seq"], after_seq)
+
+    def test_connector_events_adds_seq_to_items(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            records = []
+            for i in range(5):
+                records.append({
+                    "schema": EVENT_SCHEMA,
+                    "event": "connector.added",
+                    "connector_id": f"connector-{i}",
+                    "provider_id": "google-drive",
+                    "capabilities": [],
+                    "surfaces": [],
+                    "at": "2026-09-23T12:00:00Z",
+                })
+
+            events_path.write_text("\n".join(json.dumps(r, sort_keys=True) for r in records), encoding="utf-8")
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                result = connector_events()
+
+            for i, item in enumerate(result["items"]):
+                self.assertIn("seq", item)
+                self.assertEqual(item["seq"], i + 1)
+
+    def test_connector_events_cursor_forward_pagination(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            records = []
+            for i in range(10):
+                records.append({
+                    "schema": EVENT_SCHEMA,
+                    "event": "connector.added",
+                    "connector_id": f"connector-{i}",
+                    "provider_id": "google-drive",
+                    "capabilities": [],
+                    "surfaces": [],
+                    "at": "2026-09-23T12:00:00Z",
+                })
+
+            events_path.write_text("\n".join(json.dumps(r, sort_keys=True) for r in records), encoding="utf-8")
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                # First page (backward compat: last 3 items)
+                result1 = connector_events(limit=3, after_seq=None)
+                self.assertEqual(result1["count"], 3)
+                self.assertEqual(result1["after_seq"], None)
+                self.assertEqual(result1["latest_seq"], 10)
+                self.assertEqual(result1["has_more"], False)
+                self.assertEqual(result1["next_after_seq"], 10)
+                self.assertEqual(result1["cursor_reset"], False)
+                # Last 3 items (seq 8, 9, 10)
+                self.assertEqual([item["seq"] for item in result1["items"]], [8, 9, 10])
+
+                # Cursor-based page 1
+                result2 = connector_events(limit=3, after_seq=0)
+                self.assertEqual(result2["count"], 3)
+                self.assertEqual(result2["after_seq"], 0)
+                self.assertEqual(result2["latest_seq"], 10)
+                self.assertEqual(result2["has_more"], True)
+                self.assertEqual(result2["next_after_seq"], 3)
+                self.assertEqual(result2["cursor_reset"], False)
+                self.assertEqual([item["seq"] for item in result2["items"]], [1, 2, 3])
+
+                # Cursor-based page 2
+                result3 = connector_events(limit=3, after_seq=3)
+                self.assertEqual(result3["count"], 3)
+                self.assertEqual(result3["after_seq"], 3)
+                self.assertEqual(result3["has_more"], True)
+                self.assertEqual(result3["next_after_seq"], 6)
+                self.assertEqual([item["seq"] for item in result3["items"]], [4, 5, 6])
+
+                # Cursor-based page 3 (more items exist after)
+                result4 = connector_events(limit=3, after_seq=6)
+                self.assertEqual(result4["count"], 3)
+                self.assertEqual(result4["after_seq"], 6)
+                self.assertEqual(result4["has_more"], True)
+                self.assertEqual(result4["next_after_seq"], 9)
+                self.assertEqual([item["seq"] for item in result4["items"]], [7, 8, 9])
+
+                # Cursor-based page 4 (final page)
+                result5 = connector_events(limit=3, after_seq=9)
+                self.assertEqual(result5["count"], 1)
+                self.assertEqual(result5["after_seq"], 9)
+                self.assertEqual(result5["has_more"], False)
+                self.assertEqual(result5["next_after_seq"], 10)
+                self.assertEqual([item["seq"] for item in result5["items"]], [10])
+
+    def test_connector_events_cursor_reset_on_invalid_cursor(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            records = []
+            for i in range(5):
+                records.append({
+                    "schema": EVENT_SCHEMA,
+                    "event": "connector.added",
+                    "connector_id": f"connector-{i}",
+                    "provider_id": "google-drive",
+                    "capabilities": [],
+                    "surfaces": [],
+                    "at": "2026-09-23T12:00:00Z",
+                })
+
+            events_path.write_text("\n".join(json.dumps(r, sort_keys=True) for r in records), encoding="utf-8")
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                result = connector_events(limit=10, after_seq=100)
+
+            self.assertEqual(result["count"], 0)
+            self.assertEqual(result["has_more"], False)
+            self.assertEqual(result["next_after_seq"], 5)
+            self.assertEqual(result["cursor_reset"], True)
+            self.assertEqual(result["items"], [])
+
+    def test_connector_events_cursor_with_connector_id_filter(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            records = []
+            for i in range(10):
+                records.append({
+                    "schema": EVENT_SCHEMA,
+                    "event": "connector.added",
+                    "connector_id": "connector-1" if i % 2 == 0 else "connector-2",
+                    "provider_id": "google-drive",
+                    "capabilities": [],
+                    "surfaces": [],
+                    "at": "2026-09-23T12:00:00Z",
+                })
+
+            events_path.write_text("\n".join(json.dumps(r, sort_keys=True) for r in records), encoding="utf-8")
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                # Backward compat: last 2 items with filter
+                # connector-1 appears at lines: 1, 3, 5, 7, 9
+                result1 = connector_events(limit=2, connector_id="connector-1", after_seq=None)
+                self.assertEqual(result1["count"], 2)
+                self.assertEqual(result1["has_more"], False)
+                self.assertEqual([item["connector_id"] for item in result1["items"]], ["connector-1", "connector-1"])
+                # Last 2 items with connector-1 are at seq 7, 9
+                self.assertEqual([item["seq"] for item in result1["items"]], [7, 9])
+
+                # Cursor-based with filter: first 2 items for connector-2
+                # connector-2 appears at lines: 2, 4, 6, 8, 10
+                result2 = connector_events(limit=2, connector_id="connector-2", after_seq=0)
+                self.assertEqual(result2["count"], 2)
+                self.assertEqual(result2["has_more"], True)
+                self.assertEqual([item["connector_id"] for item in result2["items"]], ["connector-2", "connector-2"])
+                self.assertEqual([item["seq"] for item in result2["items"]], [2, 4])
+
+    def test_connector_events_cursor_with_malformed_lines(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+
+            content = "\n".join([
+                json.dumps({"schema": EVENT_SCHEMA, "event": "connector.added", "connector_id": "valid-1", "provider_id": "p1", "capabilities": [], "surfaces": [], "at": "2026-09-23T12:00:00Z"}, sort_keys=True),
+                "{invalid json",
+                "",
+                json.dumps({"schema": EVENT_SCHEMA, "event": "connector.added", "connector_id": "valid-2", "provider_id": "p2", "capabilities": [], "surfaces": [], "at": "2026-09-23T12:00:00Z"}, sort_keys=True),
+            ])
+            events_path.write_text(content, encoding="utf-8")
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path):
+                result = connector_events(limit=10, after_seq=0)
+
+            self.assertEqual(result["latest_seq"], 4)
+            self.assertEqual(result["malformed"], 2)
+            self.assertEqual(result["count"], 2)
+            # seq values should be from the actual lines in the file (1, 4)
+            self.assertEqual([item["seq"] for item in result["items"]], [1, 4])
 
 
 if __name__ == "__main__":

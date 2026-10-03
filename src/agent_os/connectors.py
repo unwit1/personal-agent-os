@@ -459,16 +459,33 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
 _EVENT_FIELDS = ("schema", "event", "connector_id", "provider_id", "capabilities", "surfaces", "at")
 
 
-def connector_events(limit: int = 50, connector_id: str | None = None) -> dict[str, Any]:
-    """Read the connector change event log with optional filtering and limit.
+def connector_events(limit: int = 50, connector_id: str | None = None, after_seq: int | None = None) -> dict[str, Any]:
+    """Read the connector change event log with optional filtering, limit, and cursor support.
 
     Returns empty results if the events file is missing.
     Skips malformed or non-matching records and counts them.
+
+    Args:
+        limit: Number of items to return (1-500).
+        connector_id: Optional filter by connector ID.
+        after_seq: Optional cursor for pagination. When None, returns the last `limit` matching items
+                   in chronological order. When an int >= 0, returns the first `limit` matching items
+                   with seq > after_seq in chronological order, enabling forward pagination.
+
+    Returns:
+        Dict with schema, filters, pagination info (after_seq, latest_seq, has_more, next_after_seq,
+        cursor_reset), and items with seq field added to each. Every item includes seq (1-based line number).
     """
     if type(limit) is bool or not isinstance(limit, int):
         raise ValueError("limit must be an integer")
     if limit < 1 or limit > 500:
         raise ValueError("limit must be between 1 and 500")
+
+    if after_seq is not None:
+        if type(after_seq) is bool or not isinstance(after_seq, int):
+            raise ValueError("after_seq must be a non-negative integer")
+        if after_seq < 0:
+            raise ValueError("after_seq must be a non-negative integer")
 
     if connector_id is not None:
         _identifier(connector_id, "connector id")
@@ -478,12 +495,17 @@ def connector_events(limit: int = 50, connector_id: str | None = None) -> dict[s
             "schema": "personal-agent/connector-events/v1",
             "connector_filter": connector_id,
             "limit": limit,
+            "after_seq": after_seq,
+            "latest_seq": 0,
+            "has_more": False,
+            "next_after_seq": 0,
+            "cursor_reset": after_seq is not None and after_seq > 0,
             "count": 0,
             "malformed": 0,
             "items": [],
         }
 
-    items = []
+    items_with_seq = []
     malformed = 0
 
     try:
@@ -491,7 +513,9 @@ def connector_events(limit: int = 50, connector_id: str | None = None) -> dict[s
     except (OSError, UnicodeError):
         lines = []
 
-    for line in lines:
+    latest_seq = len(lines)
+
+    for seq, line in enumerate(lines, start=1):
         if not line.strip():
             malformed += 1
             continue
@@ -509,15 +533,36 @@ def connector_events(limit: int = 50, connector_id: str | None = None) -> dict[s
         if connector_id is not None and record.get("connector_id") != connector_id:
             continue
 
-        items.append({key: record[key] for key in _EVENT_FIELDS if key in record})
+        items_with_seq.append((seq, {key: record[key] for key in _EVENT_FIELDS if key in record}))
 
-    # Keep only the last limit items in chronological order
-    items = items[-limit:]
+    cursor_reset = after_seq is not None and after_seq > latest_seq
+
+    if after_seq is None:
+        # Backward compatibility: return last limit items
+        selected_items = items_with_seq[-limit:]
+        has_more = False
+        next_after_seq = latest_seq
+    else:
+        # Cursor mode: return first limit items with seq > after_seq
+        after = [i for i in items_with_seq if i[0] > after_seq]
+        selected_items = after[:limit]
+        has_more = len(after) > limit
+        next_after_seq = selected_items[-1][0] if (has_more and selected_items) else latest_seq
+
+    items = [
+        {**item, "seq": seq}
+        for seq, item in selected_items
+    ]
 
     return {
         "schema": "personal-agent/connector-events/v1",
         "connector_filter": connector_id,
         "limit": limit,
+        "after_seq": after_seq,
+        "latest_seq": latest_seq,
+        "has_more": has_more,
+        "next_after_seq": next_after_seq,
+        "cursor_reset": cursor_reset,
         "count": len(items),
         "malformed": malformed,
         "items": items,
