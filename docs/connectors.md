@@ -142,7 +142,7 @@ Events are written only when a registry change is explicitly confirmed (i.e., wh
 The read-only MCP tool `connector.events` returns a list of recorded connector change
 events. It accepts optional parameters:
 
-- `limit`: number of recent events to return (1–500, default 500)
+- `limit`: number of recent events to return (1–500, default 50)
 - `connector_id`: filter to events for a specific connector (optional)
 
 The CLI equivalent is:
