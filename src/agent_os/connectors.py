@@ -99,6 +99,40 @@ def connector_status(surface_id: str | None = None) -> dict[str, Any]:
     }
 
 
+def _surface_server_names(surface: dict) -> set[str] | None:
+    """Collect MCP server names from a surface's registration files.
+
+    Returns the set of server names (casefolded) found in parsed files,
+    None if no files exist or none could be parsed successfully.
+    """
+    from .machine import resolve_user_path
+
+    server_names: set[str] = set()
+    found_any_file = False
+    parsed_any = False
+
+    for location in surface.get("invocation", {}).get("registrations", []):
+        path = resolve_user_path(location)
+        if not path.is_file():
+            continue
+
+        found_any_file = True
+        try:
+            raw = path.read_text(encoding="utf-8-sig")
+            if path.suffix.casefold() == ".toml":
+                document = tomllib.loads(raw)
+            else:
+                document = json.loads(raw)
+        except (OSError, UnicodeError, json.JSONDecodeError, tomllib.TOMLDecodeError):
+            continue
+
+        parsed_any = True
+        for name, _ in _walk_mcp_servers(document):
+            server_names.add(str(name).casefold())
+
+    return server_names if found_any_file and parsed_any else None
+
+
 def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
     """Analyze desired connector registrations and plan provisioning steps.
 
@@ -112,6 +146,8 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
     known = {s["id"]: s for s in surfaces()}
 
     items = []
+    surface_names_cache: dict[str, set[str] | None] = {}
+
     for connector in registry["connectors"]:
         connector_id = connector["id"]
         for registration in connector["registrations"]:
@@ -122,16 +158,20 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
             state = registration["state"]
             action: str
             reason: str
+            native_entry_status: str
 
             if reg_surface_id not in known:
                 action = "unknown_surface"
                 reason = "surface is not declared in the surface registry"
+                native_entry_status = "unknown_surface"
             elif state in {"registered", "disabled", "unsupported"}:
                 action = "none"
                 reason = f"registration is already {state}"
+                native_entry_status = "unknown_surface"
             elif state == "error":
                 action = "investigate"
                 reason = "registration reported an error; an adapter must re-verify it"
+                native_entry_status = "unknown_surface"
             else:
                 cap = _connector_capabilities(known[reg_surface_id]).get("mutate_local_config", {})
                 available = cap.get("available")
@@ -142,6 +182,25 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
                     action = "manual_host_setup"
                 else:
                     action = "undetermined"
+                native_entry_status = "unknown_surface"
+
+            server_name = registration.get("server_name")
+            if server_name is None:
+                native_entry_status = "not_requested"
+            elif reg_surface_id in known:
+                inspect_cap = _connector_capabilities(known[reg_surface_id]).get("inspect_local_config", {})
+                if inspect_cap.get("available") is not True:
+                    native_entry_status = "not_inspectable"
+                else:
+                    if reg_surface_id not in surface_names_cache:
+                        surface_names_cache[reg_surface_id] = _surface_server_names(known[reg_surface_id])
+                    cached_names = surface_names_cache[reg_surface_id]
+                    if cached_names is None:
+                        native_entry_status = "unreadable"
+                    elif server_name.casefold() in cached_names:
+                        native_entry_status = "present"
+                    else:
+                        native_entry_status = "absent"
 
             items.append({
                 "connector_id": connector_id,
@@ -152,14 +211,18 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
                 "credential_reference_configured": connector["secret_ref"] is not None,
                 "native_server_name": registration.get("server_name"),
                 "native_entry_requested": registration.get("server_name") is not None,
+                "native_entry_status": native_entry_status,
             })
 
     items.sort(key=lambda item: (item["connector_id"], item["surface_id"]))
 
     action_counts: dict[str, int] = {}
+    native_entry_status_counts: dict[str, int] = {}
     for item in items:
         action = item["action"]
         action_counts[action] = action_counts.get(action, 0) + 1
+        status = item["native_entry_status"]
+        native_entry_status_counts[status] = native_entry_status_counts.get(status, 0) + 1
 
     return {
         "schema": "personal-agent/connector-reconcile-plan/v1",
@@ -167,6 +230,7 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
         "surface_filter": surface_id,
         "count": len(items),
         "action_counts": action_counts,
+        "native_entry_status_counts": native_entry_status_counts,
         "items": items,
     }
 
