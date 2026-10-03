@@ -40,7 +40,7 @@ def connector_with_server_name() -> dict:
     return c
 
 
-class PruneStalRegistrationsTests(unittest.TestCase):
+class PruneStaleRegistrationsTests(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = Path(tempfile.mkdtemp())
         self.registry_path = self.tmp / "registry.json"
