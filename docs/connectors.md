@@ -179,10 +179,22 @@ Events are written only when a registry change is explicitly confirmed (i.e., wh
 ### Reading connector events
 
 The read-only MCP tool `connector.events` returns a list of recorded connector change
-events. It accepts optional parameters:
+events. Each event carries a stable `seq` field containing its 1-based line number in the
+append-only event log. It accepts optional parameters:
 
 - `limit`: number of recent events to return (1–500, default 50)
 - `connector_id`: filter to events for a specific connector (optional)
+- `after_seq`: return only events after this sequence number (optional). A subscriber such as orchestration or the Personal Executive passes the previous response's `next_after_seq` to receive only newer events, oldest first, up to `limit`.
+
+The response includes the following fields:
+
+- `latest_seq`: the sequence number of the most recent event in the log
+- `next_after_seq`: the sequence number to pass as `after_seq` in the next call to continue receiving events
+- `has_more`: `true` if more events exist beyond the current result
+- `cursor_reset`: `true` when `after_seq` exceeds the log length (e.g. after the local log was reset); the subscriber should then restart from sequence 0
+- `events`: the list of matching connector change events
+
+The feed is still poll-based; Agent OS does not push events to subscribers.
 
 The CLI equivalent is:
 
@@ -191,6 +203,7 @@ python agent.py connector-events
 python agent.py connector-events --limit 50
 python agent.py connector-events --connector google-drive-work
 python agent.py connector-events --limit 100 --connector rtec-applicants
+python agent.py connector-events --after-seq 12
 ```
 
 ### Removing connectors
