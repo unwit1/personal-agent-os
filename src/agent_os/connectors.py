@@ -965,6 +965,154 @@ def set_registration_state(
     }
 
 
+def verify_native_registrations(
+    connector_id: str | None = None,
+    *,
+    confirm_write: bool = False,
+) -> dict[str, Any]:
+    """Preview or reconcile connector registrations against native client configuration.
+
+    Compares desired/registered state with observed native entry presence and
+    automatically transitions between these states. Strictly read-only in preview mode.
+    Write mode uses registry lock and records connector.updated events.
+
+    State transitions:
+    - desired + present -> registered
+    - registered + absent -> desired
+    - all other combinations produce no change
+    - registrations in disabled/error/unsupported are never touched
+    - bridge-only registrations without server_name are never touched
+    """
+    from .surfaces import surfaces, _connector_capabilities
+
+    if connector_id is not None:
+        _identifier(connector_id, "connector id")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+
+    def compute_changes() -> tuple[list[dict[str, Any]], dict[str, int]]:
+        registry = load_connector_registry()
+        known = {s["id"]: s for s in surfaces()}
+        surface_names_cache: dict[str, set[str] | None] = {}
+        changes: list[dict[str, Any]] = []
+        unchanged_counts: dict[str, int] = {}
+
+        for connector in registry["connectors"]:
+            cid = connector["id"]
+            if connector_id is not None and cid != connector_id:
+                continue
+
+            for registration in connector["registrations"]:
+                reg_surface_id = registration["surface_id"]
+                state = registration["state"]
+                server_name = registration.get("server_name")
+
+                observation: str
+                if server_name is None:
+                    observation = "not_requested"
+                elif reg_surface_id not in known:
+                    observation = "unknown_surface"
+                else:
+                    inspect_cap = _connector_capabilities(known[reg_surface_id]).get("inspect_local_config", {})
+                    if inspect_cap.get("available") is not True:
+                        observation = "not_inspectable"
+                    else:
+                        if reg_surface_id not in surface_names_cache:
+                            surface_names_cache[reg_surface_id] = _surface_server_names(known[reg_surface_id])
+                        cached_names = surface_names_cache[reg_surface_id]
+                        if cached_names is None:
+                            observation = "unreadable"
+                        elif server_name.casefold() in cached_names:
+                            observation = "present"
+                        else:
+                            observation = "absent"
+
+                to_state = state
+                if state == "desired" and observation == "present":
+                    to_state = "registered"
+                elif state == "registered" and observation == "absent":
+                    to_state = "desired"
+
+                if to_state != state:
+                    changes.append({
+                        "connector_id": cid,
+                        "surface_id": reg_surface_id,
+                        "from_state": state,
+                        "to_state": to_state,
+                        "native_entry_status": observation,
+                    })
+                else:
+                    unchanged_counts[observation] = unchanged_counts.get(observation, 0) + 1
+
+        changes.sort(key=lambda item: (item["connector_id"], item["surface_id"]))
+        return changes, unchanged_counts
+
+    changes, unchanged_counts = compute_changes()
+
+    if not confirm_write:
+        return {
+            "schema": "personal-agent/connector-verify-native/v1",
+            "written": False,
+            "confirmation_required": True,
+            "connector_id": connector_id,
+            "changes": changes,
+            "count": len(changes),
+            "unchanged_counts": unchanged_counts,
+            "verification": "client_config_entry_observed",
+        }
+
+    with _registry_write_lock():
+        registry = load_connector_registry()
+        known = {s["id"]: s for s in surfaces()}
+        surface_names_cache: dict[str, set[str] | None] = {}
+        changes, unchanged_counts = compute_changes()
+
+        if not changes:
+            return {
+                "schema": "personal-agent/connector-verify-native/v1",
+                "written": False,
+                "idempotent": True,
+                "connector_id": connector_id,
+                "applied": [],
+                "count": 0,
+            }
+
+        affected_connectors: dict[str, dict[str, Any]] = {}
+        for change in changes:
+            affected_connectors.setdefault(change["connector_id"], None)
+
+        for connector in registry["connectors"]:
+            cid = connector["id"]
+            if connector_id is not None and cid != connector_id:
+                continue
+            if cid not in affected_connectors:
+                continue
+
+            for registration in connector["registrations"]:
+                for change in changes:
+                    if (change["connector_id"] == cid and
+                        change["surface_id"] == registration["surface_id"]):
+                        registration["state"] = change["to_state"]
+                        break
+
+        write_json(REGISTRY_PATH, registry)
+
+        events_recorded = 0
+        for connector in registry["connectors"]:
+            if connector["id"] in affected_connectors:
+                event_recorded = _append_connector_event("connector.updated", connector)
+                events_recorded += int(event_recorded)
+
+    return {
+        "schema": "personal-agent/connector-verify-native/v1",
+        "written": True,
+        "connector_id": connector_id,
+        "applied": changes,
+        "count": len(changes),
+        "events_recorded": events_recorded,
+    }
+
+
 @contextmanager
 def _registry_write_lock() -> Iterator[None]:
     """Serialize registry read/modify/write across MCP and CLI processes."""
