@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -67,6 +69,35 @@ def mock_surfaces() -> list[dict]:
             },
         },
     ]
+
+
+def _inspectable_surface(path: str, kind: str = "json") -> dict:
+    """Create a surface with inspect_local_config capability and registration file path."""
+    return {
+        "id": "agent-os-mcp",
+        "name": "Agent OS MCP",
+        "vendor": "Anthropic",
+        "mechanism": "MCP",
+        "summary": "Direct Agent OS MCP integration",
+        "expected_tier": "routed",
+        "invocation": {"kind": kind, "registrations": [path]},
+        "instruction": {"kind": "none"},
+        "capture": {"kind": "none"},
+        "connector_capabilities": {
+            "inspect_local_config": {"available": True, "reason": None},
+            "mutate_local_config": {"available": True, "reason": None},
+            "transfer_credentials": {"available": False, "reason": "not supported"},
+            "agent_os_bridge": {"available": True, "reason": None},
+        },
+    }
+
+
+def _run_reconcile_with_surface(surfaces: list[dict], connectors: list[dict]) -> dict:
+    """Run connector_reconcile_plan with patched surfaces and registry."""
+    with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry(connectors)):
+        with patch("agent_os.surfaces.surfaces", return_value=surfaces):
+            with patch("agent_os.machine.resolve_user_path", side_effect=lambda p: Path(p)):
+                return connector_reconcile_plan()
 
 
 class ConnectorReconcilePlanTests(unittest.TestCase):
@@ -359,9 +390,6 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
         self.assertIn("unknown_surface", result["native_entry_status_counts"])
 
     def test_native_entry_status_present_in_json_file(self) -> None:
-        import tempfile
-        import json as json_module
-
         connector = valid_connector()
         connector["registrations"] = [{"surface_id": "agent-os-mcp", "state": "desired", "server_name": "test-server"}]
 
@@ -373,41 +401,15 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
                     "other-server": {"command": "python other.py"},
                 }
             }
-            config_file.write_text(json_module.dumps(config_data), encoding="utf-8")
+            config_file.write_text(json.dumps(config_data), encoding="utf-8")
 
-            surfaces_data = [
-                {
-                    "id": "agent-os-mcp",
-                    "name": "Agent OS MCP",
-                    "vendor": "Anthropic",
-                    "mechanism": "MCP",
-                    "summary": "Direct Agent OS MCP integration",
-                    "expected_tier": "routed",
-                    "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                    "instruction": {"kind": "none"},
-                    "capture": {"kind": "none"},
-                    "connector_capabilities": {
-                        "inspect_local_config": {"available": True, "reason": None},
-                        "mutate_local_config": {"available": True, "reason": None},
-                        "transfer_credentials": {"available": False, "reason": "not supported"},
-                        "agent_os_bridge": {"available": True, "reason": None},
-                    },
-                },
-            ]
-
-            with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
-                with patch("agent_os.surfaces.surfaces", return_value=surfaces_data):
-                    with patch("agent_os.machine.resolve_user_path", side_effect=lambda p: Path(p)):
-                        result = connector_reconcile_plan()
+            result = _run_reconcile_with_surface([_inspectable_surface(str(config_file), "json")], [connector])
 
             item = result["items"][0]
             self.assertEqual(item["native_entry_status"], "present")
             self.assertEqual(result["native_entry_status_counts"]["present"], 1)
 
     def test_native_entry_status_absent_in_json_file(self) -> None:
-        import tempfile
-        import json as json_module
-
         connector = valid_connector()
         connector["registrations"] = [{"surface_id": "agent-os-mcp", "state": "desired", "server_name": "missing-server"}]
 
@@ -419,40 +421,15 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
                     "other-server": {"command": "python other.py"},
                 }
             }
-            config_file.write_text(json_module.dumps(config_data), encoding="utf-8")
+            config_file.write_text(json.dumps(config_data), encoding="utf-8")
 
-            surfaces_data = [
-                {
-                    "id": "agent-os-mcp",
-                    "name": "Agent OS MCP",
-                    "vendor": "Anthropic",
-                    "mechanism": "MCP",
-                    "summary": "Direct Agent OS MCP integration",
-                    "expected_tier": "routed",
-                    "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                    "instruction": {"kind": "none"},
-                    "capture": {"kind": "none"},
-                    "connector_capabilities": {
-                        "inspect_local_config": {"available": True, "reason": None},
-                        "mutate_local_config": {"available": True, "reason": None},
-                        "transfer_credentials": {"available": False, "reason": "not supported"},
-                        "agent_os_bridge": {"available": True, "reason": None},
-                    },
-                },
-            ]
-
-            with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
-                with patch("agent_os.surfaces.surfaces", return_value=surfaces_data):
-                    with patch("agent_os.machine.resolve_user_path", side_effect=lambda p: Path(p)):
-                        result = connector_reconcile_plan()
+            result = _run_reconcile_with_surface([_inspectable_surface(str(config_file), "json")], [connector])
 
             item = result["items"][0]
             self.assertEqual(item["native_entry_status"], "absent")
             self.assertEqual(result["native_entry_status_counts"]["absent"], 1)
 
     def test_native_entry_status_unreadable_malformed_file(self) -> None:
-        import tempfile
-
         connector = valid_connector()
         connector["registrations"] = [{"surface_id": "agent-os-mcp", "state": "desired", "server_name": "test-server"}]
 
@@ -460,30 +437,7 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
             config_file = Path(tmpdir) / "config.json"
             config_file.write_text("{ invalid json }", encoding="utf-8")
 
-            surfaces_data = [
-                {
-                    "id": "agent-os-mcp",
-                    "name": "Agent OS MCP",
-                    "vendor": "Anthropic",
-                    "mechanism": "MCP",
-                    "summary": "Direct Agent OS MCP integration",
-                    "expected_tier": "routed",
-                    "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                    "instruction": {"kind": "none"},
-                    "capture": {"kind": "none"},
-                    "connector_capabilities": {
-                        "inspect_local_config": {"available": True, "reason": None},
-                        "mutate_local_config": {"available": True, "reason": None},
-                        "transfer_credentials": {"available": False, "reason": "not supported"},
-                        "agent_os_bridge": {"available": True, "reason": None},
-                    },
-                },
-            ]
-
-            with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
-                with patch("agent_os.surfaces.surfaces", return_value=surfaces_data):
-                    with patch("agent_os.machine.resolve_user_path", side_effect=lambda p: Path(p)):
-                        result = connector_reconcile_plan()
+            result = _run_reconcile_with_surface([_inspectable_surface(str(config_file), "json")], [connector])
 
             item = result["items"][0]
             self.assertEqual(item["native_entry_status"], "unreadable")
@@ -508,8 +462,6 @@ class ConnectorReconcilePlanTests(unittest.TestCase):
         self.assertEqual(result["native_entry_status_counts"]["not_requested"], 1)
 
     def test_native_entry_status_present_in_toml_file(self) -> None:
-        import tempfile
-
         connector = valid_connector()
         connector["registrations"] = [{"surface_id": "agent-os-mcp", "state": "desired", "server_name": "test-server"}]
 
@@ -524,30 +476,7 @@ command = "python other.py"
 """
             config_file.write_text(toml_content, encoding="utf-8")
 
-            surfaces_data = [
-                {
-                    "id": "agent-os-mcp",
-                    "name": "Agent OS MCP",
-                    "vendor": "Anthropic",
-                    "mechanism": "MCP",
-                    "summary": "Direct Agent OS MCP integration",
-                    "expected_tier": "routed",
-                    "invocation": {"kind": "toml", "registrations": [str(config_file)]},
-                    "instruction": {"kind": "none"},
-                    "capture": {"kind": "none"},
-                    "connector_capabilities": {
-                        "inspect_local_config": {"available": True, "reason": None},
-                        "mutate_local_config": {"available": True, "reason": None},
-                        "transfer_credentials": {"available": False, "reason": "not supported"},
-                        "agent_os_bridge": {"available": True, "reason": None},
-                    },
-                },
-            ]
-
-            with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
-                with patch("agent_os.surfaces.surfaces", return_value=surfaces_data):
-                    with patch("agent_os.machine.resolve_user_path", side_effect=lambda p: Path(p)):
-                        result = connector_reconcile_plan()
+            result = _run_reconcile_with_surface([_inspectable_surface(str(config_file), "toml")], [connector])
 
             item = result["items"][0]
             self.assertEqual(item["native_entry_status"], "present")
