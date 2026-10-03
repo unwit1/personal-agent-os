@@ -164,6 +164,71 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
     }
 
 
+def connector_credential_status(surface_id: str | None = None) -> dict[str, Any]:
+    """Report credential presence status for registered connectors without exposing secrets.
+
+    Read-only credential presence checks only. Never transfers, reads, or stores credentials.
+    """
+    registry = load_connector_registry()
+    items = []
+
+    for connector in registry["connectors"]:
+        connector_id = connector["id"]
+        registrations = connector["registrations"]
+
+        if surface_id and not any(item["surface_id"] == surface_id for item in registrations):
+            continue
+
+        secret_ref = connector["secret_ref"]
+
+        if secret_ref is None:
+            item = {
+                "connector_id": connector_id,
+                "backend": None,
+                "status": "not_configured",
+                "reason": "no credential reference is declared",
+            }
+        else:
+            backend, name = secret_ref.split(":", 1)
+
+            if backend == "env":
+                value = os.environ.get(name, "").strip()
+                if value:
+                    status = "present"
+                    reason = "environment variable is set"
+                else:
+                    status = "missing"
+                    reason = "environment variable is not set or empty"
+            else:
+                status = "unchecked"
+                reason = f"presence checks for the {backend} backend are not implemented yet"
+
+            item = {
+                "connector_id": connector_id,
+                "backend": backend,
+                "status": status,
+                "reason": reason,
+            }
+
+        items.append(item)
+
+    items.sort(key=lambda item: item["connector_id"])
+
+    status_counts: dict[str, int] = {}
+    for item in items:
+        status = item["status"]
+        status_counts[status] = status_counts.get(status, 0) + 1
+
+    return {
+        "schema": "personal-agent/connector-credential-status/v1",
+        "values_returned": False,
+        "surface_filter": surface_id,
+        "count": len(items),
+        "status_counts": status_counts,
+        "items": items,
+    }
+
+
 def register_connector(
     connector: Any,
     *,
