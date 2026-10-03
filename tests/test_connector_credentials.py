@@ -153,24 +153,59 @@ class ConnectorCredentialStatusTests(unittest.TestCase):
         self.assertEqual(item["status"], "unchecked")
         self.assertIn("presence checks for the keyring backend are not implemented yet", item["reason"])
 
-    def test_windows_credential_backend_returns_unchecked(self) -> None:
-        connector = valid_connector(secret_ref="windows-credential:agent-os/drive")
+    def _status_with(self, secret_ref: str, helper: str, value) -> dict:
+        connector = valid_connector(secret_ref=secret_ref)
         with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
-            result = connector_credential_status()
+            with patch(f"agent_os.connectors.{helper}", return_value=value):
+                return connector_credential_status()["items"][0]
 
-        item = result["items"][0]
-        self.assertEqual(item["backend"], "windows-credential")
-        self.assertEqual(item["status"], "unchecked")
-        self.assertIn("presence checks for the windows-credential backend", item["reason"])
+    def test_windows_credential_backend_states(self) -> None:
+        ref = "windows-credential:agent-os/drive"
+        for value, status, reason in [
+            (True, "present", "credential store entry exists"),
+            (False, "missing", "credential store entry was not found"),
+            (None, "unchecked", "windows-credential presence check is unavailable on this host"),
+        ]:
+            item = self._status_with(ref, "_windows_credential_present", value)
+            self.assertEqual(item["backend"], "windows-credential")
+            self.assertEqual(item["status"], status)
+            self.assertEqual(item["reason"], reason)
+            self.assertEqual(set(item), {"connector_id", "backend", "status", "reason"})
 
-    def test_macos_keychain_backend_returns_unchecked(self) -> None:
-        connector = valid_connector(secret_ref="macos-keychain:agent-os/drive")
-        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry([connector])):
-            result = connector_credential_status()
+    def test_macos_keychain_backend_states(self) -> None:
+        ref = "macos-keychain:agent-os/drive"
+        for value, status, reason in [
+            (True, "present", "credential store entry exists"),
+            (False, "missing", "credential store entry was not found"),
+            (None, "unchecked", "macos-keychain presence check is unavailable on this host"),
+        ]:
+            item = self._status_with(ref, "_macos_keychain_present", value)
+            self.assertEqual(item["backend"], "macos-keychain")
+            self.assertEqual(item["status"], status)
+            self.assertEqual(item["reason"], reason)
 
-        item = result["items"][0]
-        self.assertEqual(item["backend"], "macos-keychain")
-        self.assertEqual(item["status"], "unchecked")
+    def test_windows_helper_returns_none_off_windows(self) -> None:
+        from agent_os.connectors import _windows_credential_present
+
+        with patch("agent_os.connectors.sys.platform", "linux"):
+            self.assertIsNone(_windows_credential_present("x"))
+
+    def test_macos_helper_return_codes(self) -> None:
+        from types import SimpleNamespace
+
+        from agent_os.connectors import _macos_keychain_present
+
+        with patch("agent_os.connectors.sys.platform", "linux"):
+            self.assertIsNone(_macos_keychain_present("x"))
+        with patch("agent_os.connectors.sys.platform", "darwin"),                 patch("agent_os.connectors.shutil.which", return_value="/usr/bin/security"):
+            for code, expected in [(0, True), (44, False), (1, None)]:
+                with patch("agent_os.connectors.subprocess.run", return_value=SimpleNamespace(returncode=code)) as run:
+                    self.assertIs(_macos_keychain_present("svc"), expected)
+                    cmd = run.call_args.args[0]
+                    self.assertNotIn("-w", cmd)
+                    self.assertNotIn("-g", cmd)
+            with patch("agent_os.connectors.subprocess.run", side_effect=OSError):
+                self.assertIsNone(_macos_keychain_present("svc"))
 
     def test_secret_service_backend_returns_unchecked(self) -> None:
         connector = valid_connector(secret_ref="secret-service:agent-os/drive")

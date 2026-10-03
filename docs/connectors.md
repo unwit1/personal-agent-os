@@ -36,8 +36,13 @@ The read-only MCP tool `connector.credential_status` and CLI equivalent
 `python agent.py connector-credential-status [--surface <id>]` report whether
 a credential is configured for each registered connector. For `env:` backend
 references, the status is `present` if the environment variable is non-empty,
-or `missing` if absent or empty. Other backends (keyring, windows-credential,
-macos-keychain, secret-service) report `unchecked`. Connectors without a
+or `missing` if absent or empty. For `windows-credential` references, the
+status is `present` if the credential exists in Windows Credential Manager
+(generic credentials) or `missing` if not found, or `unchecked` if the probe
+is unavailable on the host. For `macos-keychain` references, the status is
+`present` if found via `security find-generic-password` (without retrieving the
+password) or `missing` if not found, or `unchecked` if the probe is unavailable.
+`keyring` and `secret-service` backends report `unchecked`. Connectors without a
 credential reference report `not_configured`. Output never includes credential
 values or reference names, and no provider APIs are contacted.
 
@@ -98,8 +103,8 @@ Host limitations and unsupported registration states must remain explicit.
 Do not treat a discovered registration or a `declared_ready_unverified` result
 as proof that a provider is connected through Agent OS.
 
-Presence checks for keyring-family backends (keyring, windows-credential,
-macos-keychain, secret-service) and actual credential resolution remain open.
+Presence checks for `keyring` and `secret-service` backends and actual
+credential resolution remain open.
 
 The next implementation steps are provider adapter registration and execution,
 scoped credential resolution inside the adapter boundary, read-only import
