@@ -20,7 +20,7 @@ from .browser_bridge_server import (
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
-from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_provisioning_readiness, connector_reconcile_plan, import_connector_candidate, prune_stale_registrations, register_connector, unregister_connector
+from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_provisioning_readiness, connector_reconcile_plan, import_connector_candidate, prune_stale_registrations, register_connector, set_registration_state, unregister_connector
 from .creator_profiles import (
     list_profiles as creator_list_profiles,
     pending_discovery as creator_pending_discovery,
@@ -296,6 +296,14 @@ def parser() -> argparse.ArgumentParser:
     )
     connector_prune_stale.add_argument("connector_id", nargs="?", default=None)
     connector_prune_stale.add_argument("--confirm-write", action="store_true")
+    connector_set_registration_state = commands.add_parser(
+        "connector-set-registration-state",
+        help="preview or update a connector's registration state for a surface; previews by default",
+    )
+    connector_set_registration_state.add_argument("connector_id")
+    connector_set_registration_state.add_argument("surface_id")
+    connector_set_registration_state.add_argument("state", choices=["desired", "disabled"])
+    connector_set_registration_state.add_argument("--confirm-write", action="store_true")
     connector_register = commands.add_parser(
         "connector-register",
         help="preview or explicitly write provider-neutral connector metadata from a JSON file",
@@ -635,6 +643,8 @@ def main(argv: list[str] | None = None) -> int:
             _print(unregister_connector(args.connector_id, confirm_write=args.confirm_write))
         elif args.command == "connector-prune-stale":
             _print(prune_stale_registrations(args.connector_id, confirm_write=args.confirm_write))
+        elif args.command == "connector-set-registration-state":
+            _print(set_registration_state(args.connector_id, args.surface_id, args.state, confirm_write=args.confirm_write))
         elif args.command == "connector-register":
             _print(
                 register_connector(

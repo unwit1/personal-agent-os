@@ -852,6 +852,119 @@ def prune_stale_registrations(
         }
 
 
+def set_registration_state(
+    connector_id: str,
+    surface_id: str,
+    state: str,
+    *,
+    confirm_write: bool = False,
+) -> dict[str, Any]:
+    """Preview or update the state of a connector registration on a surface.
+
+    State transitions:
+    - "desired": request activation; only allowed from "disabled" or "desired" states.
+    - "disabled": deactivate; allowed from any current state.
+    - "registered", "error", "unsupported": cannot be set here; adapters own these.
+
+    Strictly read-only in preview mode. Write mode uses registry lock and
+    records a connector.updated event.
+    """
+    _identifier(connector_id, "connector id")
+    _identifier(surface_id, "surface id")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+    if state not in ("desired", "disabled"):
+        raise ValueError("state must be 'desired' or 'disabled'")
+
+    if not confirm_write:
+        registry = load_connector_registry()
+        connector = next(
+            (item for item in registry["connectors"] if item["id"] == connector_id),
+            None,
+        )
+        registration = None
+        if connector is not None:
+            registration = next(
+                (item for item in connector["registrations"] if item["surface_id"] == surface_id),
+                None,
+            )
+
+        current_state = registration["state"] if registration else None
+        found = connector is not None and registration is not None
+
+        # Validate re-enabling rule in preview
+        if state == "desired" and current_state is not None and current_state not in ("disabled", "desired"):
+            raise ValueError("only a disabled registration can be re-enabled")
+
+        return {
+            "schema": "personal-agent/connector-registration-state/v1",
+            "written": False,
+            "confirmation_required": True,
+            "connector_id": connector_id,
+            "surface_id": surface_id,
+            "found": found,
+            "current_state": current_state,
+            "requested_state": state,
+            "would_change": found and current_state != state,
+        }
+
+    with _registry_write_lock():
+        registry = load_connector_registry()
+        connector = next(
+            (item for item in registry["connectors"] if item["id"] == connector_id),
+            None,
+        )
+        registration = None
+        if connector is not None:
+            registration = next(
+                (item for item in connector["registrations"] if item["surface_id"] == surface_id),
+                None,
+            )
+
+        if connector is None or registration is None:
+            return {
+                "schema": "personal-agent/connector-registration-state/v1",
+                "written": False,
+                "not_found": True,
+                "connector_id": connector_id,
+                "surface_id": surface_id,
+            }
+
+        current_state = registration["state"]
+
+        # Check idempotency
+        if current_state == state:
+            return {
+                "schema": "personal-agent/connector-registration-state/v1",
+                "written": False,
+                "idempotent": True,
+                "connector_id": connector_id,
+                "surface_id": surface_id,
+                "state": state,
+            }
+
+        # Validate re-enabling rule in write mode
+        if state == "desired" and current_state not in ("disabled", "desired"):
+            raise ValueError("only a disabled registration can be re-enabled")
+
+        # Update the registration state
+        registration["state"] = state
+
+        # Write the registry and record the event
+        write_json(REGISTRY_PATH, registry)
+        event_recorded = _append_connector_event("connector.updated", connector)
+
+    return {
+        "schema": "personal-agent/connector-registration-state/v1",
+        "written": True,
+        "connector_id": connector_id,
+        "surface_id": surface_id,
+        "previous_state": current_state,
+        "state": state,
+        "event_recorded": event_recorded,
+    }
+
+
 @contextmanager
 def _registry_write_lock() -> Iterator[None]:
     """Serialize registry read/modify/write across MCP and CLI processes."""
