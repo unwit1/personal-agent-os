@@ -990,8 +990,7 @@ def verify_native_registrations(
     if type(confirm_write) is not bool:
         raise ValueError("confirm_write must be a boolean")
 
-    def compute_changes() -> tuple[list[dict[str, Any]], dict[str, int]]:
-        registry = load_connector_registry()
+    def compute_changes(registry: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
         known = {s["id"]: s for s in surfaces()}
         surface_names_cache: dict[str, set[str] | None] = {}
         changes: list[dict[str, Any]] = []
@@ -1047,7 +1046,8 @@ def verify_native_registrations(
         changes.sort(key=lambda item: (item["connector_id"], item["surface_id"]))
         return changes, unchanged_counts
 
-    changes, unchanged_counts = compute_changes()
+    registry = load_connector_registry()
+    changes, unchanged_counts = compute_changes(registry)
 
     if not confirm_write:
         return {
@@ -1063,9 +1063,7 @@ def verify_native_registrations(
 
     with _registry_write_lock():
         registry = load_connector_registry()
-        known = {s["id"]: s for s in surfaces()}
-        surface_names_cache: dict[str, set[str] | None] = {}
-        changes, unchanged_counts = compute_changes()
+        changes, unchanged_counts = compute_changes(registry)
 
         if not changes:
             return {
