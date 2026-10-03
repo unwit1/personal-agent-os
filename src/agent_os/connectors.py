@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import sys
 import tomllib
+from collections import Counter, defaultdict
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -373,13 +374,10 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
     registry = load_connector_registry()
     conflicts: list[dict[str, Any]] = []
 
-    # Build indexes for conflict detection
-    # For duplicate_provider_surface: (provider_id, surface_id) -> [(connector_id, state)]
-    provider_surface_map: dict[tuple[str, str], list[tuple[str, str]]] = {}
-    # For native_server_name_collision: (surface_id, server_name) -> [connector_id]
-    server_name_map: dict[tuple[str, str], list[str]] = {}
-    # For shared_credential_reference: secret_ref -> [connector_id]
-    secret_ref_map: dict[str, list[str]] = {}
+    # Build indexes for conflict detection using defaultdict
+    provider_surface_map: dict[tuple[str, str], list[tuple[str, str]]] = defaultdict(list)
+    server_name_map: dict[tuple[str, str], list[str]] = defaultdict(list)
+    secret_ref_map: dict[str, list[str]] = defaultdict(list)
 
     for connector in registry["connectors"]:
         connector_id = connector["id"]
@@ -392,14 +390,8 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
             relevant_registrations = [r for r in relevant_registrations if r["surface_id"] == surface_id]
 
         # Track shared credential references (only for connectors with relevant registrations when surface_id is set)
-        if secret_ref is not None:
-            if surface_id and not relevant_registrations:
-                # When surface_id is given, skip connectors with no registration on that surface
-                pass
-            else:
-                if secret_ref not in secret_ref_map:
-                    secret_ref_map[secret_ref] = []
-                secret_ref_map[secret_ref].append(connector_id)
+        if secret_ref is not None and (not surface_id or relevant_registrations):
+            secret_ref_map[secret_ref].append(connector_id)
 
         # Process registrations for provider/surface and server_name conflicts
         for registration in relevant_registrations:
@@ -408,18 +400,12 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
 
             # (a) duplicate_provider_surface: only track desired/registered/error states
             if state in {"desired", "registered", "error"}:
-                key = (provider_id, reg_surface_id)
-                if key not in provider_surface_map:
-                    provider_surface_map[key] = []
-                provider_surface_map[key].append((connector_id, state))
+                provider_surface_map[(provider_id, reg_surface_id)].append((connector_id, state))
 
             # (b) native_server_name_collision: track all server_name registrations
             server_name = registration.get("server_name")
             if server_name is not None:
-                key = (reg_surface_id, server_name)
-                if key not in server_name_map:
-                    server_name_map[key] = []
-                server_name_map[key].append(connector_id)
+                server_name_map[(reg_surface_id, server_name)].append(connector_id)
 
     # Detect (a) duplicate_provider_surface conflicts
     for (provider_id, reg_surface_id), items in provider_surface_map.items():
@@ -455,19 +441,10 @@ def connector_conflicts(surface_id: str | None = None) -> dict[str, Any]:
             })
 
     # Sort conflicts by (kind, surface_id or '', connector_ids)
-    def conflict_sort_key(conflict: dict[str, Any]) -> tuple:
-        kind = conflict["kind"]
-        surf_id = conflict.get("surface_id", "")
-        conn_ids = tuple(conflict["connector_ids"])
-        return (kind, surf_id, conn_ids)
-
-    conflicts.sort(key=conflict_sort_key)
+    conflicts.sort(key=lambda c: (c["kind"], c.get("surface_id", ""), tuple(c["connector_ids"])))
 
     # Build kind_counts
-    kind_counts: dict[str, int] = {}
-    for conflict in conflicts:
-        kind = conflict["kind"]
-        kind_counts[kind] = kind_counts.get(kind, 0) + 1
+    kind_counts = dict(Counter(c["kind"] for c in conflicts))
 
     return {
         "schema": "personal-agent/connector-conflicts/v1",
