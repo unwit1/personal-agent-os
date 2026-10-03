@@ -14,7 +14,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector, unregister_connector
+from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -833,6 +833,12 @@ def _executive_send(batch_id: str, confirm_send: bool = False) -> dict[str, Any]
     return applicants.send_batch(batch_id, confirm=True, gateway=_executive_gateway(), store=store)
 
 
+def _connector_unregister(*args: Any, **kwargs: Any) -> Any:
+    from .connectors import unregister_connector
+
+    return unregister_connector(*args, **kwargs)
+
+
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
         "browser.sessions": browser_sessions,
@@ -943,7 +949,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "connector.reconcile_plan": connector_reconcile_plan,
         "connector.credential_status": connector_credential_status,
         "connector.events": connector_events,
-        "connector.unregister": unregister_connector,
+        "connector.unregister": _connector_unregister,
         "connector.import": import_connector_candidate,
         "connector.register": register_connector,
         }

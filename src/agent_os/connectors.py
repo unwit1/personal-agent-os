@@ -486,49 +486,6 @@ def register_connector(
     }
 
 
-def unregister_connector(
-    connector_id: str,
-    *,
-    confirm_write: bool = False,
-) -> dict[str, Any]:
-    """Preview or explicitly remove a connector's desired metadata from the registry."""
-    _identifier(connector_id, "connector id")
-    if type(confirm_write) is not bool:
-        raise ValueError("confirm_write must be a boolean")
-
-    if not confirm_write:
-        return {
-            "written": False,
-            "confirmation_required": True,
-            "connector_id": connector_id,
-        }
-
-    with _registry_write_lock():
-        registry = load_connector_registry()
-        existing_index = next(
-            (index for index, item in enumerate(registry["connectors"]) if item["id"] == connector_id),
-            None,
-        )
-        if existing_index is None:
-            return {
-                "written": False,
-                "not_found": True,
-                "connector_id": connector_id,
-                "count": len(registry["connectors"]),
-            }
-
-        removed_connector = registry["connectors"].pop(existing_index)
-        write_json(REGISTRY_PATH, registry)
-        event_recorded = _append_connector_event("connector.removed", removed_connector)
-
-    return {
-        "written": True,
-        "connector_id": connector_id,
-        "count": len(registry["connectors"]),
-        "event_recorded": event_recorded,
-    }
-
-
 @contextmanager
 def _registry_write_lock() -> Iterator[None]:
     """Serialize registry read/modify/write across MCP and CLI processes."""
