@@ -14,7 +14,9 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_credential_status, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector
+from .connectors import connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector
+from . import connectors as _connectors
+from .storage import write_json as _write_json
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -38,6 +40,32 @@ from ingester_engine.cache import cache_status_safe
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
+def unregister_connector(connector_id: str, confirm_write: bool = False) -> dict[str, Any]:
+    """Preview or explicitly remove a connector's desired metadata; never revokes credentials."""
+    if not isinstance(connector_id, str) or not _connectors._IDENTIFIER.fullmatch(connector_id):
+        raise ValueError("connector_id must be a valid identifier")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+    if not confirm_write:
+        registry = _connectors.load_connector_registry()
+        found = any(item["id"] == connector_id for item in registry["connectors"])
+        return {"written": False, "confirmation_required": True, "connector_id": connector_id, "found": found}
+    with _connectors._registry_write_lock():
+        registry = _connectors.load_connector_registry()
+        index = next((i for i, item in enumerate(registry["connectors"]) if item["id"] == connector_id), None)
+        if index is None:
+            return {"written": False, "not_found": True, "connector_id": connector_id}
+        removed = registry["connectors"].pop(index)
+        _write_json(_connectors.REGISTRY_PATH, registry)
+        event_recorded = _connectors._append_connector_event("connector.removed", removed)
+    return {
+        "written": True,
+        "connector_id": connector_id,
+        "count": len(registry["connectors"]),
+        "event_recorded": event_recorded,
+    }
+
+
 def _mail_scoped(function, account_arg: bool = False):
     """Mail tools take ``project`` and see only that project's mail scope
     (work or personal, from ``mail_scope`` in the project registry)."""
@@ -329,6 +357,14 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "connector.credential_status": {
         "description": "Read-only, presence-only check of each connector's declared credential reference. Returns backend kind and present/missing/unchecked/not_configured status; never returns credential values or reference names, never writes, never contacts providers.",
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
+    },
+    "connector.events": {
+        "description": "Read-only list of recent local connector change events (connector.added, connector.updated, connector.removed) with connector id, provider id, capabilities, and surfaces; never returns credentials, secret references, or scopes.",
+        "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "minimum": 1, "maximum": 500}, "connector_id": {"type": ["string", "null"]}}},
+    },
+    "connector.unregister": {
+        "description": "Preview or explicitly remove a connector's desired metadata from the registry. Removal requires confirm_write=true, records a connector.removed event, and never revokes credentials or edits client configuration.",
+        "inputSchema": {"type": "object", "properties": {"connector_id": {"type": "string"}, "confirm_write": {"type": "boolean"}}, "required": ["connector_id"], "additionalProperties": False},
     },
     "connector.import": {
         "description": "Attach explicitly reviewed provider and scope metadata to a currently discovered local MCP candidate. Does not copy credentials or client configuration; persistence requires reviewed=true and confirm_write=true.",
@@ -934,6 +970,8 @@ def methods() -> dict[str, Callable[..., Any]]:
         "connector.import_candidates": connector_import_candidates,
         "connector.reconcile_plan": connector_reconcile_plan,
         "connector.credential_status": connector_credential_status,
+        "connector.events": connector_events,
+        "connector.unregister": unregister_connector,
         "connector.import": import_connector_candidate,
         "connector.register": register_connector,
         }
@@ -970,6 +1008,8 @@ INSTRUCTIONS = (
     " Use connector.import_candidates for a read-only, privacy-filtered inventory of client MCP registrations."
     " Use connector.reconcile_plan for a read-only per-surface action plan; it applies nothing."
     " Use connector.credential_status for a presence-only credential check; values are never returned."
+    " Use connector.events for a read-only feed of connector additions, updates, and removals."
+    " connector.unregister previews by default and removes metadata only when confirm_write=true; it never revokes credentials."
     " Use connector.import to attach explicitly reviewed provider/scopes to a current candidate; it never copies credentials and writes only when reviewed=true and confirm_write=true."
     " connector.register previews metadata by default and writes only when confirm_write=true; credentials and unverified health states are rejected."
 )

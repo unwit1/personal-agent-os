@@ -12,7 +12,7 @@ import subprocess
 import sys
 import tomllib
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -24,6 +24,8 @@ from .storage import write_json
 REGISTRY_SCHEMA = "personal-agent/connector-registry/v1"
 REGISTRY_VERSION = 1
 REGISTRY_PATH = ROOT / "connectors" / "registry.json"
+_CONNECTOR_EVENTS_PATH = ROOT / ".agent-local" / "connector-events.jsonl"
+EVENT_SCHEMA = "personal-agent/connector-event/v1"
 _IDENTIFIER = re.compile(r"^[a-z][a-z0-9._-]{0,63}$")
 _CANDIDATE_ID = re.compile(r"^[a-f0-9]{20}$")
 _SECRET_REF = re.compile(
@@ -363,6 +365,74 @@ def connector_credential_status(surface_id: str | None = None) -> dict[str, Any]
     }
 
 
+_EVENT_FIELDS = ("schema", "event", "connector_id", "provider_id", "capabilities", "surfaces", "at")
+
+
+def connector_events(limit: int = 50, connector_id: str | None = None) -> dict[str, Any]:
+    """Read the connector change event log with optional filtering and limit.
+
+    Returns empty results if the events file is missing.
+    Skips malformed or non-matching records and counts them.
+    """
+    if type(limit) is bool or not isinstance(limit, int):
+        raise ValueError("limit must be an integer")
+    if limit < 1 or limit > 500:
+        raise ValueError("limit must be between 1 and 500")
+
+    if connector_id is not None:
+        _identifier(connector_id, "connector id")
+
+    if not _CONNECTOR_EVENTS_PATH.is_file():
+        return {
+            "schema": "personal-agent/connector-events/v1",
+            "connector_filter": connector_id,
+            "limit": limit,
+            "count": 0,
+            "malformed": 0,
+            "items": [],
+        }
+
+    items = []
+    malformed = 0
+
+    try:
+        lines = _CONNECTOR_EVENTS_PATH.read_text(encoding="utf-8").splitlines()
+    except (OSError, UnicodeError):
+        lines = []
+
+    for line in lines:
+        if not line.strip():
+            malformed += 1
+            continue
+
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            malformed += 1
+            continue
+
+        if not isinstance(record, dict) or record.get("schema") != EVENT_SCHEMA:
+            malformed += 1
+            continue
+
+        if connector_id is not None and record.get("connector_id") != connector_id:
+            continue
+
+        items.append({key: record[key] for key in _EVENT_FIELDS if key in record})
+
+    # Keep only the last limit items in chronological order
+    items = items[-limit:]
+
+    return {
+        "schema": "personal-agent/connector-events/v1",
+        "connector_filter": connector_id,
+        "limit": limit,
+        "count": len(items),
+        "malformed": malformed,
+        "items": items,
+    }
+
+
 def register_connector(
     connector: Any,
     *,
@@ -406,11 +476,65 @@ def register_connector(
 
         registry["connectors"].sort(key=lambda item: item["id"])
         write_json(REGISTRY_PATH, registry)
+        event_recorded = _append_connector_event("connector.updated" if existing_index is not None else "connector.added", connector)
     return {
         "written": True,
         "replaced": existing_index is not None,
         "connector_id": connector_id,
         "count": len(registry["connectors"]),
+        "event_recorded": event_recorded,
+    }
+
+
+def unregister_connector(
+    connector_id: str,
+    *,
+    confirm_write: bool = False,
+) -> dict[str, Any]:
+    """Preview or remove a connector's registry metadata without revoking credentials."""
+    _identifier(connector_id, "connector id")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+
+    if not confirm_write:
+        registry = load_connector_registry()
+        connector = next(
+            (item for item in registry["connectors"] if item["id"] == connector_id),
+            None,
+        )
+        if connector is None:
+            return {
+                "written": False,
+                "confirmation_required": True,
+                "connector_id": connector_id,
+                "removed": False,
+            }
+        return {
+            "written": False,
+            "confirmation_required": True,
+            "connector_id": connector_id,
+            "connector": connector,
+        }
+
+    with _registry_write_lock():
+        registry = load_connector_registry()
+        existing_index = next(
+            (index for index, item in enumerate(registry["connectors"]) if item["id"] == connector_id),
+            None,
+        )
+        if existing_index is None:
+            raise KeyError(f"connector not found: {connector_id}")
+
+        connector = registry["connectors"][existing_index]
+        registry["connectors"].pop(existing_index)
+        write_json(REGISTRY_PATH, registry)
+        event_recorded = _append_connector_event("connector.removed", connector)
+
+    return {
+        "written": True,
+        "connector_id": connector_id,
+        "count": len(registry["connectors"]),
+        "event_recorded": event_recorded,
     }
 
 
@@ -441,6 +565,30 @@ def _registry_write_lock() -> Iterator[None]:
                 yield
             finally:
                 fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+
+
+def _append_connector_event(event: str, connector: dict) -> bool:
+    """Append a connector change event to the append-only log.
+
+    Returns True on success, False on OSError (includes mkdir failures).
+    Never includes secret_ref, scopes, server_name, or privacy_domain.
+    """
+    try:
+        record = {
+            "schema": EVENT_SCHEMA,
+            "event": event,
+            "connector_id": connector["id"],
+            "provider_id": connector["provider"]["id"],
+            "capabilities": sorted(connector["capabilities"]),
+            "surfaces": sorted(r["surface_id"] for r in connector["registrations"]),
+            "at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        }
+        _CONNECTOR_EVENTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with _CONNECTOR_EVENTS_PATH.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(record, sort_keys=True) + "\n")
+        return True
+    except OSError:
+        return False
 
 
 def connector_import_candidates(surface_id: str | None = None) -> dict[str, Any]:
