@@ -158,20 +158,16 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
             state = registration["state"]
             action: str
             reason: str
-            native_entry_status: str
 
             if reg_surface_id not in known:
                 action = "unknown_surface"
                 reason = "surface is not declared in the surface registry"
-                native_entry_status = "unknown_surface"
             elif state in {"registered", "disabled", "unsupported"}:
                 action = "none"
                 reason = f"registration is already {state}"
-                native_entry_status = "unknown_surface"
             elif state == "error":
                 action = "investigate"
                 reason = "registration reported an error; an adapter must re-verify it"
-                native_entry_status = "unknown_surface"
             else:
                 cap = _connector_capabilities(known[reg_surface_id]).get("mutate_local_config", {})
                 available = cap.get("available")
@@ -182,8 +178,8 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
                     action = "manual_host_setup"
                 else:
                     action = "undetermined"
-                native_entry_status = "unknown_surface"
 
+            native_entry_status = "unknown_surface"
             server_name = registration.get("server_name")
             if server_name is None:
                 native_entry_status = "not_requested"
