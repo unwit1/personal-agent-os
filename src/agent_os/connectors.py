@@ -680,6 +680,44 @@ def import_connector_candidate(
     }
 
 
+def unregister_connector(connector_id: str, *, confirm_write: bool = False) -> dict[str, Any]:
+    """Preview or explicitly remove a connector's desired metadata; never revokes credentials."""
+    if not isinstance(connector_id, str) or not _IDENTIFIER.fullmatch(connector_id):
+        raise ValueError("connector_id must be a valid identifier")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+
+    if not confirm_write:
+        registry = load_connector_registry()
+        found = any(item["id"] == connector_id for item in registry["connectors"])
+        return {
+            "written": False,
+            "confirmation_required": True,
+            "connector_id": connector_id,
+            "found": found,
+        }
+
+    with _registry_write_lock():
+        registry = load_connector_registry()
+        existing_index = next(
+            (index for index, item in enumerate(registry["connectors"]) if item["id"] == connector_id),
+            None,
+        )
+        if existing_index is None:
+            return {"written": False, "not_found": True, "connector_id": connector_id}
+
+        removed_connector = registry["connectors"].pop(existing_index)
+        write_json(REGISTRY_PATH, registry)
+        event_recorded = _append_connector_event("connector.removed", removed_connector)
+
+    return {
+        "written": True,
+        "connector_id": connector_id,
+        "count": len(registry["connectors"]),
+        "event_recorded": event_recorded,
+    }
+
+
 def _walk_mcp_servers(document: Any) -> Iterator[tuple[str, Any]]:
     if isinstance(document, dict):
         for key, value in document.items():
