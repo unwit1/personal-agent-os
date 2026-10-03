@@ -14,7 +14,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, register_connector, unregister_connector
+from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, connector_status, import_connector_candidate, prune_stale_registrations, register_connector, unregister_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -341,6 +341,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "connector.unregister": {
         "description": "Preview or explicitly remove a connector's desired metadata from the registry. Removal requires confirm_write=true, records a connector.removed event, and never revokes credentials or edits client configuration.",
         "inputSchema": {"type": "object", "properties": {"connector_id": {"type": "string"}, "confirm_write": {"type": "boolean"}}, "required": ["connector_id"], "additionalProperties": False},
+    },
+    "connector.prune_stale": {
+        "description": "Preview or explicitly remove connector registrations whose surface is no longer declared in the surface registry. Removal requires confirm_write=true, records connector.updated events, keeps the connector itself, and never revokes credentials or edits client configuration.",
+        "inputSchema": {"type": "object", "properties": {"connector_id": {"type": ["string", "null"]}, "confirm_write": {"type": "boolean"}}, "additionalProperties": False},
     },
     "connector.import": {
         "description": "Attach explicitly reviewed provider and scope metadata to a currently discovered local MCP candidate. Does not copy credentials or client configuration; persistence requires reviewed=true and confirm_write=true.",
@@ -949,6 +953,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "connector.conflicts": connector_conflicts,
         "connector.events": connector_events,
         "connector.unregister": unregister_connector,
+        "connector.prune_stale": prune_stale_registrations,
         "connector.import": import_connector_candidate,
         "connector.register": register_connector,
         }
@@ -988,6 +993,7 @@ INSTRUCTIONS = (
     " Use connector.conflicts for a read-only report of duplicate or conflicting connector registrations."
     " Use connector.events for a read-only feed of connector additions, updates, and removals."
     " connector.unregister previews by default and removes metadata only when confirm_write=true; it never revokes credentials."
+    " connector.prune_stale previews by default and removes only registrations for undeclared surfaces when confirm_write=true."
     " Use connector.import to attach explicitly reviewed provider/scopes to a current candidate; it never copies credentials and writes only when reviewed=true and confirm_write=true."
     " connector.register previews metadata by default and writes only when confirm_write=true; credentials and unverified health states are rejected."
 )
