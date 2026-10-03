@@ -192,7 +192,7 @@ The response includes the following fields:
 - `next_after_seq`: the sequence number to pass as `after_seq` in the next call to continue receiving events
 - `has_more`: `true` if more events exist beyond the current result
 - `cursor_reset`: `true` when `after_seq` exceeds the log length (e.g. after the local log was reset); the subscriber should then restart from sequence 0
-- `events`: the list of matching connector change events
+- `items`: the list of matching connector change events, each with a `seq` field
 
 The feed is still poll-based; Agent OS does not push events to subscribers.
 
