@@ -174,7 +174,7 @@ JSON record with the following fields:
 
 The event log never includes `secret_ref`, `scopes`, `server_name`, or credential values.
 Events are written only when a registry change is explicitly confirmed (i.e., when
-`confirm_write: true` is passed to `connector.register` or `connector.unregister`).
+`confirm_write: true` is passed to `connector.register`, `connector.unregister`, or `connector.prune_stale`).
 
 ### Reading connector events
 
@@ -210,6 +210,28 @@ python agent.py connector-unregister google-drive-work --confirm-write
 The unregister operation removes only registry metadata. It does not revoke
 credentials, delete secret store entries, edit client configuration, or contact
 providers. Credential cleanup must be handled separately.
+
+### Pruning stale registrations
+
+`connector.prune_stale` (MCP) and `connector-prune-stale` (CLI) identify and
+remove registrations whose `surface_id` is no longer declared in the surface
+registry. A registration becomes stale when the surface it references is removed
+from the surface registry; this is the same condition that `connector.reconcile_plan`
+reports as `unknown_surface`. The operation previews by default and writes nothing.
+With `confirm_write`, only the stale registration entries are removed under the
+registry lock. The connector itself is kept even if no registrations remain. One
+`connector.updated` event is recorded per changed connector.
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-prune-stale
+python agent.py connector-prune-stale google-drive-work --confirm-write
+```
+
+The prune operation is read-only by default. Output never includes secret
+references, and the command never revokes credentials, edits client configuration,
+or contacts providers.
 
 ## Not implemented yet
 
