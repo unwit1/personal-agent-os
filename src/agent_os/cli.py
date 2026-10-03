@@ -20,7 +20,7 @@ from .browser_bridge_server import (
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
-from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, import_connector_candidate, register_connector, unregister_connector
+from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_reconcile_plan, import_connector_candidate, prune_stale_registrations, register_connector, unregister_connector
 from .creator_profiles import (
     list_profiles as creator_list_profiles,
     pending_discovery as creator_pending_discovery,
@@ -284,6 +284,12 @@ def parser() -> argparse.ArgumentParser:
     )
     connector_unregister.add_argument("connector_id")
     connector_unregister.add_argument("--confirm-write", action="store_true")
+    connector_prune_stale = commands.add_parser(
+        "connector-prune-stale",
+        help="Preview or remove registrations for surfaces no longer in the surface registry",
+    )
+    connector_prune_stale.add_argument("connector_id", nargs="?", default=None)
+    connector_prune_stale.add_argument("--confirm-write", action="store_true")
     connector_register = commands.add_parser(
         "connector-register",
         help="preview or explicitly write provider-neutral connector metadata from a JSON file",
@@ -619,6 +625,8 @@ def main(argv: list[str] | None = None) -> int:
             _print(connector_events(args.limit, args.connector_id))
         elif args.command == "connector-unregister":
             _print(unregister_connector(args.connector_id, confirm_write=args.confirm_write))
+        elif args.command == "connector-prune-stale":
+            _print(prune_stale_registrations(args.connector_id, confirm_write=args.confirm_write))
         elif args.command == "connector-register":
             _print(
                 register_connector(
