@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from .connectors import REGISTRY_SCHEMA as CONNECTOR_REGISTRY_SCHEMA
+from .connectors import connector_events
 from .connectors import load_connector_registry
 from .launcher import LAUNCHER_PATH
 from .launcher import status as launcher_status
@@ -309,6 +310,53 @@ def _missing(
     return gaps
 
 
+def _connector_event_summary() -> dict[str, Any]:
+    """Read connector change event log and return a summary."""
+    try:
+        result = connector_events(limit=500)
+    except (OSError, ValueError):
+        return {
+            "schema": "personal-agent/connector-event-summary/v1",
+            "available": False,
+            "read_only": True,
+            "reason": "connector event log unreadable",
+        }
+
+    counts_by_event: dict[str, int] = {}
+    for item in result["items"]:
+        event_type = item.get("event")
+        if event_type:
+            counts_by_event[event_type] = counts_by_event.get(event_type, 0) + 1
+
+    changed_connector_ids: set[str] = set()
+    last_event_at: str | None = None
+    if result["items"]:
+        for item in result["items"]:
+            connector_id = item.get("connector_id")
+            if connector_id and isinstance(connector_id, str) and connector_id.strip():
+                changed_connector_ids.add(connector_id)
+        last_item = result["items"][-1]
+        last_event_at = last_item.get("at")
+
+    event_counts = {
+        "connector.added": counts_by_event.get("connector.added", 0),
+        "connector.updated": counts_by_event.get("connector.updated", 0),
+        "connector.removed": counts_by_event.get("connector.removed", 0),
+    }
+
+    return {
+        "schema": "personal-agent/connector-event-summary/v1",
+        "available": True,
+        "latest_seq": result["latest_seq"],
+        "window": result["count"],
+        "malformed": result["malformed"],
+        "counts_by_event": event_counts,
+        "last_event_at": last_event_at,
+        "changed_connector_ids": sorted(changed_connector_ids),
+        "read_only": True,
+    }
+
+
 def health(surface_id: str | None = None) -> dict[str, Any]:
     """Report which client surfaces are fully routed, bridged, or not yet integrated."""
     selected = surfaces()
@@ -406,5 +454,6 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
             "schema": CONNECTOR_REGISTRY_SCHEMA,
             "count": len(connector_reports),
             "connectors": connector_reports,
+            "events": _connector_event_summary(),
         },
     }
