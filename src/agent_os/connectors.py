@@ -503,7 +503,12 @@ def unregister_connector(
             None,
         )
         if connector is None:
-            raise KeyError(f"connector not found: {connector_id}")
+            return {
+                "written": False,
+                "confirmation_required": True,
+                "connector_id": connector_id,
+                "removed": False,
+            }
         return {
             "written": False,
             "confirmation_required": True,
