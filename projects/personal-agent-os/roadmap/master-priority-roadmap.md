@@ -519,7 +519,7 @@ Add deterministic validators wherever possible so expensive escalation is trigge
 
 The staged orchestrator in P0.1 should use this policy when selecting how each stage runs.
 
-Current bounded implementation (2026-09-22): manifests may declare
+Current bounded implementation (2026-09-22, updated 2026-10-04): manifests may declare
 `available_execution_paths`; the orchestrator deterministically selects and
 persists the cheapest candidate in the economy order, while preserving the
 backward-compatible single `preferred_execution_path` form. A bounded local
@@ -534,11 +534,15 @@ obey the run budget and review policy. Cache and skill routes remain outside
 the orchestrator until their invocation adapters are reviewed. Task plans may
 declare deterministic and model as available routes; the orchestrator chooses
 the deterministic command first and preserves model as an evidence-triggered
-fallback. The document-page cache adapter remains workflow-stage-specific: it
-returns hit metadata without cached text, which is enough for its typed
-document-processing stage but cannot satisfy arbitrary coding tasks. A task
-cache route needs an explicit expected-output binding before it may skip a
-worker.
+fallback. A task cache route now exists behind run policy `task_cache_enabled`
+(default off). Its key binds the normalized goal, sorted scope, in-scope base
+blob hashes, validators, role and policy version. It stores only
+reviewer-approved, scope-limited patches with validator evidence, and a hit
+skips the worker and review only after a clean apply and passing validators,
+otherwise falling back to model with a recorded miss reason (contract:
+docs/orchestrator-os/task-cache-route.md). Remaining: enabling the cache by
+default and a reviewed skill invocation adapter, both pending operator
+decisions.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.
