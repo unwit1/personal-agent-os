@@ -214,26 +214,78 @@ def aggregate_report(events: Iterable[TelemetryEvent | Mapping[str, Any]]) -> di
     categories, providers, models, and all other per-event fields. ``None``
     means the source did not expose a metric and is counted as ``unknown``;
     it is never converted into a guessed value.
+
+    New aggregates:
+    - capability_class_counts: Counter of event.capability_class or 'unknown'
+    - retry_total: sum of event.retries (None not counted)
+    - escalation_total: sum of event.escalations (None not counted)
+    - events_with_retries: count of events with retries > 0
+    - events_with_escalations: count of events with escalations > 0
+    - retry_unknown_count: count of events where retries is None
+    - escalation_unknown_count: count of events where escalations is None
+    - deterministic_path_model_class_counts: Counter of capability_class for events with
+      execution_path in ('deterministic', 'cache') and capability_class set and not 'deterministic'
     """
 
     execution_paths: Counter[str] = Counter()
     validator_outcomes: Counter[str] = Counter()
+    capability_classes: Counter[str] = Counter()
+    deterministic_path_classes: Counter[str] = Counter()
     total = 0
+    retry_total = 0
+    escalation_total = 0
+    events_with_retries = 0
+    events_with_escalations = 0
+    retry_unknown_count = 0
+    escalation_unknown_count = 0
+
     for item in events:
         event = item if isinstance(item, TelemetryEvent) else TelemetryEvent.from_mapping(item)
         total += 1
         execution_paths[event.execution_path or "unknown"] += 1
+        capability_classes[event.capability_class or "unknown"] += 1
+
         if event.validator_passed is True:
             validator_outcomes["passed"] += 1
         elif event.validator_passed is False:
             validator_outcomes["failed"] += 1
         else:
             validator_outcomes["unknown"] += 1
+
+        if event.retries is not None:
+            retry_total += event.retries
+            if event.retries > 0:
+                events_with_retries += 1
+        else:
+            retry_unknown_count += 1
+
+        if event.escalations is not None:
+            escalation_total += event.escalations
+            if event.escalations > 0:
+                events_with_escalations += 1
+        else:
+            escalation_unknown_count += 1
+
+        if (
+            event.execution_path in ("deterministic", "cache")
+            and event.capability_class is not None
+            and event.capability_class != "deterministic"
+        ):
+            deterministic_path_classes[event.capability_class] += 1
+
     return {
         "schema": REPORT_SCHEMA,
         "event_count": total,
         "execution_path_counts": dict(sorted(execution_paths.items())),
         "validator_outcome_counts": dict(sorted(validator_outcomes.items())),
+        "capability_class_counts": dict(sorted(capability_classes.items())),
+        "retry_total": retry_total,
+        "escalation_total": escalation_total,
+        "events_with_retries": events_with_retries,
+        "events_with_escalations": events_with_escalations,
+        "retry_unknown_count": retry_unknown_count,
+        "escalation_unknown_count": escalation_unknown_count,
+        "deterministic_path_model_class_counts": dict(sorted(deterministic_path_classes.items())),
     }
 
 

@@ -187,6 +187,74 @@ class TelemetryStoreTests(unittest.TestCase):
         self.assertNotIn("event-cli", output.getvalue())
         self.assertNotIn("fixture-project", output.getvalue())
 
+    def test_aggregate_report_includes_new_retry_and_escalation_counts(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-a",
+                capability_class="reasoning",
+                execution_path="deterministic",
+                retries=0,
+                escalations=0,
+                validator_passed=True,
+            ),
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-b",
+                capability_class="deterministic",
+                execution_path="cache",
+                retries=2,
+                escalations=1,
+                validator_passed=True,
+            ),
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-c",
+                capability_class="reasoning",
+                execution_path="skill",
+                retries=None,
+                escalations=None,
+                validator_passed=False,
+            ),
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-d",
+                capability_class="planning",
+                execution_path="cache",
+                retries=1,
+                escalations=None,
+                validator_passed=True,
+            ),
+        ]
+
+        report = aggregate_report(events)
+
+        self.assertEqual(report["event_count"], 4)
+        self.assertEqual(
+            report["capability_class_counts"],
+            {"deterministic": 1, "planning": 1, "reasoning": 2},
+        )
+        self.assertEqual(report["retry_total"], 3)
+        self.assertEqual(report["escalation_total"], 1)
+        self.assertEqual(report["events_with_retries"], 2)
+        self.assertEqual(report["events_with_escalations"], 1)
+        self.assertEqual(report["retry_unknown_count"], 1)
+        self.assertEqual(report["escalation_unknown_count"], 2)
+        self.assertEqual(
+            report["deterministic_path_model_class_counts"],
+            {"planning": 1, "reasoning": 1},
+        )
+        serialized = str(report)
+        self.assertNotIn("event-a", serialized)
+        self.assertNotIn("event-b", serialized)
+        self.assertNotIn("event-c", serialized)
+        self.assertNotIn("event-d", serialized)
+        self.assertNotIn("fixture-project", serialized)
+
 
 if __name__ == "__main__":
     unittest.main()
