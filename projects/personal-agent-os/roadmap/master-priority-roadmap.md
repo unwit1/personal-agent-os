@@ -931,6 +931,16 @@ Success signal:
 
 ### P1.3 — Optional API delegation
 
+Status: **in progress** (2026-10-04).
+
+Current: Direct Anthropic/OpenAI HTTP adapters (src/agent_os/orchestrator/adapters/http_api.py) are implemented and disabled until their keys are configured. API keys are stored via `orchestrate api-key set anthropic|openai` using the OS keyring (environment variable or `agent-os` service), never written to files or registry. One-shot read-only contract-validated delegation is available via `orchestrate delegate --role inline` (delegate.py), which routes prompts that carry their own context through the same provider/model selection infrastructure. The separate operator-approved API spend budget is stored in api-budget.json (history in api-budget-history.jsonl) and per-call costs are appended to the api-spend.jsonl ledger. The budget is controlled with `orchestrate api-budget show|set` and blocks API delegation with `budget_blocked` status when unset or exhausted, metering cost per call and maintaining separation from host-plan subscription usage and the GPU compute budget.
+
+Open:
+- Pre-call cost estimation against the per-call cap
+- Period (e.g. monthly) budgets
+- Automatic 'when advantageous' routing of Agent-OS-owned subtasks to API workers inside engine runs (engine coding roles still never select inline API workers)
+- Host-plan usage budget accounting
+
 Only after local/deterministic/context savings are functioning.
 
 Use OpenAI/Anthropic APIs for bounded Agent-OS-owned subtasks when doing so is advantageous. Treat API spend and host-plan usage as separate budgets. Never require both providers.
