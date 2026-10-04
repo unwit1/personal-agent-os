@@ -271,16 +271,19 @@ def make_handler(api: Api, token: str, allowed_hosts: set[str]):
             self._call(api.get, url.path, parse_qs(url.query))
 
         def do_POST(self) -> None:
-            if not self._host_ok():
-                self._send(HTTPStatus.FORBIDDEN, {"error": "unexpected Host header"})
-                return
             url = urlparse(self.path)
             length = int(self.headers.get("Content-Length") or 0)
             if length > MAX_BODY:
                 self.close_connection = True
                 self._send(HTTPStatus.REQUEST_ENTITY_TOO_LARGE, {"error": "request too large"})
                 return
+            # Read the body before any rejection: replying and closing with unread
+            # request bytes lets Windows reset the connection, so the client sees
+            # an error instead of the 403.
             raw = self.rfile.read(length) if length else b""
+            if not self._host_ok():
+                self._send(HTTPStatus.FORBIDDEN, {"error": "unexpected Host header"})
+                return
             # Token only from the header for writes: a cross-site form cannot set it.
             if not self._authorized():
                 self._send(HTTPStatus.FORBIDDEN, {"error": "missing or invalid session token"})
