@@ -16,7 +16,7 @@ from agent_os import capabilities, workflows
 from agent_os.compiler import compile_context
 from ingester_engine.cache import DocumentCache, PageKey, extract_page
 from agent_os.paths import ROOT
-from agent_os.telemetry import LocalTelemetryStore
+from agent_os.telemetry import LocalTelemetryStore, TelemetryPrivacyError
 
 
 MANIFEST = {
@@ -523,6 +523,82 @@ class TelemetryIntegrationTests(WorkflowFixture):
             raw = store.path.read_text(encoding="utf-8")
             self.assertNotIn("token budget pruning", raw)
             self.assertNotIn("recommendation", raw)
+
+    def test_complete_stage_with_caller_reported_token_usage(self) -> None:
+        """Caller-reported token usage for complete_stage records all values."""
+        workflows.start("fixture-sweep", run_id="telemetry-usage")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            workflows.run_stage("fixture-sweep", "telemetry-usage", "cheap-check", telemetry_store=store)
+            self.assertEqual(len(store.read_events()), 1)
+
+            result = workflows.complete_stage(
+                "fixture-sweep",
+                "telemetry-usage",
+                "think",
+                outputs=["recommendation"],
+                telemetry_store=store,
+                input_tokens=120,
+                output_tokens=30,
+                provider="synthetic-provider",
+                model="synthetic-model",
+            )
+
+            self.assertTrue(result["completed_stage"]["validation"]["passed"])
+            events = store.read_events()
+            self.assertEqual(len(events), 2)
+
+            event = events[1]
+            self.assertEqual(event.project_id, "personal-agent-os")
+            self.assertEqual(event.task_category, "workflow-stage")
+            self.assertEqual(event.input_tokens, 120)
+            self.assertEqual(event.output_tokens, 30)
+            self.assertEqual(event.provider, "synthetic-provider")
+            self.assertEqual(event.model, "synthetic-model")
+            self.assertIsNone(event.cached_tokens)
+            self.assertIsNone(event.reasoning_tokens)
+
+    def test_complete_stage_with_negative_tokens_raises_error(self) -> None:
+        """Passing invalid token counts raises TelemetryPrivacyError."""
+        workflows.start("fixture-sweep", run_id="telemetry-negative")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            workflows.run_stage("fixture-sweep", "telemetry-negative", "cheap-check", telemetry_store=store)
+
+            with self.assertRaises(TelemetryPrivacyError):
+                workflows.complete_stage(
+                    "fixture-sweep",
+                    "telemetry-negative",
+                    "think",
+                    outputs=["recommendation"],
+                    telemetry_store=store,
+                    input_tokens=-1,
+                )
+
+            record = workflows.load_run("personal-agent-os", "telemetry-negative")
+            state = record["stages"]["think"]
+            self.assertEqual(state["status"], "pending")
+            self.assertEqual(state["attempts"], 0)
+
+    def test_complete_stage_without_telemetry_store_ignores_token_usage(self) -> None:
+        """Passing token usage without a telemetry_store writes no event."""
+        workflows.start("fixture-sweep", run_id="telemetry-no-store")
+        workflows.run_stage("fixture-sweep", "telemetry-no-store", "cheap-check")
+
+        result = workflows.complete_stage(
+            "fixture-sweep",
+            "telemetry-no-store",
+            "think",
+            outputs=["recommendation"],
+            input_tokens=120,
+            output_tokens=30,
+            provider="synthetic-provider",
+            model="synthetic-model",
+        )
+
+        self.assertTrue(result["completed_stage"]["validation"]["passed"])
 
 
 class StageContextTests(WorkflowFixture):

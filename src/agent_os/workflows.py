@@ -587,6 +587,13 @@ def _record_stage_telemetry(
     validation: dict[str, Any],
     execution_path: str,
     capability_class: str | None = None,
+    *,
+    provider: str | None = None,
+    model: str | None = None,
+    input_tokens: int | None = None,
+    cached_tokens: int | None = None,
+    reasoning_tokens: int | None = None,
+    output_tokens: int | None = None,
 ) -> None:
     """Record one countable stage outcome when explicitly enabled."""
 
@@ -603,6 +610,12 @@ def _record_stage_telemetry(
             retries=max(int(state["attempts"]) - 1, 0),
             validator_passed=bool(validation["passed"]),
             escalations=int(state["escalations"]),
+            provider=provider,
+            model=model,
+            input_tokens=input_tokens,
+            cached_tokens=cached_tokens,
+            reasoning_tokens=reasoning_tokens,
+            output_tokens=output_tokens,
         )
     )
 
@@ -763,6 +776,12 @@ def complete_stage(
     detail: str | None = None,
     *,
     telemetry_store: LocalTelemetryStore | None = None,
+    provider: str | None = None,
+    model: str | None = None,
+    input_tokens: int | None = None,
+    cached_tokens: int | None = None,
+    reasoning_tokens: int | None = None,
+    output_tokens: int | None = None,
 ) -> dict[str, Any]:
     """Record an agent-run stage's outcome and validate it deterministically.
 
@@ -785,6 +804,17 @@ def complete_stage(
             "reason": "stage already completed; idempotent no-op",
             "run_status": record["status"],
         }
+    if telemetry_store is not None and any(v is not None for v in [provider, model, input_tokens, cached_tokens, reasoning_tokens, output_tokens]):
+        TelemetryEvent(
+            project_id=manifest["project"],
+            task_category="workflow-stage",
+            provider=provider,
+            model=model,
+            input_tokens=input_tokens,
+            cached_tokens=cached_tokens,
+            reasoning_tokens=reasoning_tokens,
+            output_tokens=output_tokens,
+        )
     ran_class = state["capability_class"]
     state["attempts"] += 1
     # Partial work survives a failure: reported outputs are merged, never lost.
@@ -807,7 +837,7 @@ def complete_stage(
         _escalate(record, stage_id, f"validator failed: {validation.get('detail') or 'no detail'}")
     _finish_if_done(manifest, record)
     _save(record)
-    _record_stage_telemetry(telemetry_store, manifest, state, validation, state["execution_path"], capability_class=ran_class)
+    _record_stage_telemetry(telemetry_store, manifest, state, validation, state["execution_path"], capability_class=ran_class, provider=provider, model=model, input_tokens=input_tokens, cached_tokens=cached_tokens, reasoning_tokens=reasoning_tokens, output_tokens=output_tokens)
     return _completion_packet(manifest, record, stage_id, validation)
 
 
