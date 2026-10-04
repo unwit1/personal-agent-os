@@ -262,9 +262,10 @@ the following flags (all omitted values stay unknown and are never estimated):
 --usage-format      format of provider usage (anthropic, openai-chat, openai-responses, normalized)
 ```
 
-Privacy validation rejects invalid labels (lowercase, alphanumeric with optional dots/dashes,
-max 63 chars) and canonical repository paths. The `--usage-file` and `--usage-format` must
-be provided together and cannot be combined with explicit token flags. Example:
+Privacy validation rejects invalid labels and canonical repository paths. Labels must start
+with a letter or digit, then contain only letters, digits, underscores, dots, and dashes, up to
+64 characters total. The `--usage-file` and `--usage-format` must be provided together and
+cannot be combined with explicit token flags. Example:
 
 ```powershell
 agent-os telemetry-record \
