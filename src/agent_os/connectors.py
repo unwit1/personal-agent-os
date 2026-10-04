@@ -136,6 +136,43 @@ def _surface_server_names(surface: dict) -> set[str] | None:
     return server_names if found_any_file and parsed_any else None
 
 
+def _native_entry_status(
+    registration: dict[str, Any],
+    known: dict[str, Any],
+    surface_names_cache: dict[str, set[str] | None],
+) -> str:
+    """Compute native entry status observation for a registration.
+
+    Returns one of: not_requested, unknown_surface, not_inspectable, unreadable, present, absent.
+    """
+    from .surfaces import _connector_capabilities
+
+    server_name = registration.get("server_name")
+    reg_surface_id = registration["surface_id"]
+
+    if server_name is None:
+        return "not_requested"
+
+    if reg_surface_id not in known:
+        return "unknown_surface"
+
+    inspect_cap = _connector_capabilities(known[reg_surface_id]).get("inspect_local_config", {})
+    if inspect_cap.get("available") is not True:
+        return "not_inspectable"
+
+    if reg_surface_id not in surface_names_cache:
+        surface_names_cache[reg_surface_id] = _surface_server_names(known[reg_surface_id])
+
+    cached_names = surface_names_cache[reg_surface_id]
+    if cached_names is None:
+        return "unreadable"
+
+    if server_name.casefold() in cached_names:
+        return "present"
+
+    return "absent"
+
+
 def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
     """Analyze desired connector registrations and plan provisioning steps.
 
@@ -182,24 +219,7 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
                 else:
                     action = "undetermined"
 
-            native_entry_status = "unknown_surface"
-            server_name = registration.get("server_name")
-            if server_name is None:
-                native_entry_status = "not_requested"
-            elif reg_surface_id in known:
-                inspect_cap = _connector_capabilities(known[reg_surface_id]).get("inspect_local_config", {})
-                if inspect_cap.get("available") is not True:
-                    native_entry_status = "not_inspectable"
-                else:
-                    if reg_surface_id not in surface_names_cache:
-                        surface_names_cache[reg_surface_id] = _surface_server_names(known[reg_surface_id])
-                    cached_names = surface_names_cache[reg_surface_id]
-                    if cached_names is None:
-                        native_entry_status = "unreadable"
-                    elif server_name.casefold() in cached_names:
-                        native_entry_status = "present"
-                    else:
-                        native_entry_status = "absent"
+            native_entry_status = _native_entry_status(registration, known, surface_names_cache)
 
             items.append({
                 "connector_id": connector_id,
@@ -1004,27 +1024,8 @@ def verify_native_registrations(
             for registration in connector["registrations"]:
                 reg_surface_id = registration["surface_id"]
                 state = registration["state"]
-                server_name = registration.get("server_name")
 
-                observation: str
-                if server_name is None:
-                    observation = "not_requested"
-                elif reg_surface_id not in known:
-                    observation = "unknown_surface"
-                else:
-                    inspect_cap = _connector_capabilities(known[reg_surface_id]).get("inspect_local_config", {})
-                    if inspect_cap.get("available") is not True:
-                        observation = "not_inspectable"
-                    else:
-                        if reg_surface_id not in surface_names_cache:
-                            surface_names_cache[reg_surface_id] = _surface_server_names(known[reg_surface_id])
-                        cached_names = surface_names_cache[reg_surface_id]
-                        if cached_names is None:
-                            observation = "unreadable"
-                        elif server_name.casefold() in cached_names:
-                            observation = "present"
-                        else:
-                            observation = "absent"
+                observation = _native_entry_status(registration, known, surface_names_cache)
 
                 to_state = state
                 if state == "desired" and observation == "present":
