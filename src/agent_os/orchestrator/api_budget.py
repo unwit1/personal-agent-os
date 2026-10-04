@@ -82,7 +82,12 @@ def api_remaining(home: Path | None = None) -> float | None:
     """Remaining API budget; None when no budget set, else max(total_usd - spent, 0)."""
     budget = load(home)
     total = budget.get("total_usd")
-    return None if total is None else round(max(float(total) - api_spent(home), 0.0), 6)
+    if total is None:
+        return None
+    try:
+        return round(max(float(total) - api_spent(home), 0.0), 6)
+    except (TypeError, ValueError):
+        return None
 
 
 def check(home: Path | None = None) -> dict[str, Any]:
@@ -95,6 +100,14 @@ def check(home: Path | None = None) -> dict[str, Any]:
         return {
             "allowed": False,
             "reason": "no API budget set; run: agent-os orchestrate api-budget set --total-usd N --call-cap-usd M",
+            "remaining_usd": remaining,
+            "call_cap_usd": call_cap,
+        }
+
+    if budget.get("approved") and remaining is None:
+        return {
+            "allowed": False,
+            "reason": "API budget invalid; re-run api-budget set",
             "remaining_usd": remaining,
             "call_cap_usd": call_cap,
         }

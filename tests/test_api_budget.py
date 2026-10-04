@@ -201,6 +201,31 @@ class ApibudgetTests(unittest.TestCase):
         self.assertEqual(result["remaining_usd"], 35.0)
         self.assertEqual(result["call_cap_usd"], 5.0)
 
+    def test_api_remaining_returns_none_on_non_numeric_total_usd(self) -> None:
+        budget_path = api_budget.api_budget_path(self.home)
+        budget_path.parent.mkdir(parents=True, exist_ok=True)
+        budget_path.write_text('{"total_usd": "invalid", "call_cap_usd": 10.0, "approved": true}', encoding="utf-8")
+        remaining = api_budget.api_remaining(self.home)
+        self.assertIsNone(remaining)
+
+    def test_check_rejects_corrupt_budget_with_non_numeric_total_usd(self) -> None:
+        budget_path = api_budget.api_budget_path(self.home)
+        budget_path.parent.mkdir(parents=True, exist_ok=True)
+        budget_path.write_text('{"total_usd": "invalid", "call_cap_usd": 10.0, "approved": true}', encoding="utf-8")
+        result = api_budget.check(self.home)
+        self.assertFalse(result["allowed"])
+        self.assertEqual(result["reason"], "API budget invalid; re-run api-budget set")
+        self.assertIsNone(result["remaining_usd"])
+
+    def test_check_rejects_corrupt_budget_with_missing_total_usd(self) -> None:
+        budget_path = api_budget.api_budget_path(self.home)
+        budget_path.parent.mkdir(parents=True, exist_ok=True)
+        budget_path.write_text('{"call_cap_usd": 10.0, "approved": true}', encoding="utf-8")
+        result = api_budget.check(self.home)
+        self.assertFalse(result["allowed"])
+        self.assertEqual(result["reason"], "API budget invalid; re-run api-budget set")
+        self.assertIsNone(result["remaining_usd"])
+
 
 if __name__ == "__main__":
     unittest.main()
