@@ -103,11 +103,11 @@ class WorkflowCliTelemetryTests(WorkflowFixture):
         events = store.read_events()
         self.assertEqual(len(events), 1)
 
-        # Second run without telemetry path on a different stage
-        unused_telemetry_path = Path(self.tmp.name) / "unused.jsonl"
+        # Second run without telemetry path on the same deterministic stage with a new run id
+        workflows.start("fixture-sweep", run_id="cli-tel-2b")
 
         code, result = self._run_cli(
-            "workflow-run", "fixture-sweep", "--run-id", "cli-tel-2", "--stage", "think"
+            "workflow-run", "fixture-sweep", "--run-id", "cli-tel-2b", "--stage", "cheap-check"
         )
         self.assertEqual(code, 0)
 
@@ -115,8 +115,9 @@ class WorkflowCliTelemetryTests(WorkflowFixture):
         events_after = store.read_events()
         self.assertEqual(len(events_after), 1)
 
-        # Verify unused path does not exist
-        self.assertFalse(unused_telemetry_path.exists())
+        # Verify no additional .jsonl files were created in the temp directory
+        jsonl_files = sorted(p.name for p in Path(self.tmp.name).glob("*.jsonl"))
+        self.assertEqual(jsonl_files, ["events.jsonl"])
 
     def test_workflow_complete_records_provider_and_tokens(self) -> None:
         from agent_os import workflows
