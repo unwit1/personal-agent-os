@@ -71,10 +71,11 @@ assumed.
 
 ## Targeted field-region OCR
 
-The field-region extraction API is implemented in the Ingester Engine and
-exposed through `src/agent_os/ingester_bridge.py`. A `FieldRegion` specifies
-normalized rectangle coordinates (0–1 in both axes) on a page; regions are
-validated before any OCR runs. The `extract_field_region()` API accepts a `PageKey`
+The field-region extraction API lives in the Ingester Engine as
+`ingester_engine.cache.FieldRegion` and `extract_field_region`;
+`src/agent_os/ingester_bridge.py` makes that package importable from Agent OS.
+A `FieldRegion` specifies normalized rectangle coordinates (0–1 in both axes) on a page;
+regions are validated before any OCR runs. The `extract_field_region()` API accepts a `PageKey`
 (`file_hash` and `page_index`), a region, and callables for `render_page`,
 `crop_region`, and `ocr`, along with an optional `dpi` parameter.
 
