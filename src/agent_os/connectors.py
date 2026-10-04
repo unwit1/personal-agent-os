@@ -827,6 +827,112 @@ def connector_subscriber_ack(subscriber_id: str, seq: int, confirm_write: bool =
     }
 
 
+def connector_subscriber_status() -> dict[str, Any]:
+    """Report subscriber status including lag and catch-up status, read-only.
+
+    Never writes any file or takes the registry lock.
+    """
+    cursors, malformed = _load_cursor_store()
+    latest_seq = connector_events(limit=1)["latest_seq"]
+
+    subscribers = []
+    for subscriber_id in sorted(cursors.keys()):
+        seq = cursors[subscriber_id]
+        lag = max(latest_seq - seq, 0)
+        subscribers.append({
+            "subscriber_id": subscriber_id,
+            "after_seq": seq,
+            "lag": lag,
+            "caught_up": seq == latest_seq,
+            "cursor_ahead": seq > latest_seq,
+        })
+
+    caught_up_count = sum(1 for s in subscribers if s["caught_up"])
+    behind_count = sum(1 for s in subscribers if s["lag"] > 0)
+    cursor_ahead_count = sum(1 for s in subscribers if s["cursor_ahead"])
+
+    return {
+        "schema": "personal-agent/connector-subscriber-status/v1",
+        "read_only": True,
+        "latest_seq": latest_seq,
+        "cursor_store_malformed": malformed,
+        "count": len(subscribers),
+        "counts": {
+            "caught_up": caught_up_count,
+            "behind": behind_count,
+            "cursor_ahead": cursor_ahead_count,
+        },
+        "subscribers": subscribers,
+    }
+
+
+def connector_subscriber_remove(subscriber_id: str, confirm_write: bool = False) -> dict[str, Any]:
+    """Preview or remove a subscriber from the cursor store.
+
+    Validates subscriber_id. In preview mode (confirm_write=False), returns
+    what would be removed without modifying files. In write mode, removes the
+    subscriber cursor from the store inside the registry write lock.
+    """
+    _identifier(subscriber_id, "subscriber id")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+
+    cursors, _ = _load_cursor_store()
+    previous_seq = cursors.get(subscriber_id)
+    existed = subscriber_id in cursors
+
+    if not confirm_write:
+        return {
+            "schema": "personal-agent/connector-subscriber-remove/v1",
+            "subscriber_id": subscriber_id,
+            "existed": existed,
+            "previous_after_seq": previous_seq,
+            "preview": True,
+            "written": False,
+        }
+
+    with _registry_write_lock():
+        cursors, cursor_malformed = _load_cursor_store()
+
+        if cursor_malformed:
+            raise ValueError("cursor store is malformed")
+
+        previous_seq = cursors.get(subscriber_id)
+        existed = subscriber_id in cursors
+
+        if not existed:
+            return {
+                "schema": "personal-agent/connector-subscriber-remove/v1",
+                "subscriber_id": subscriber_id,
+                "existed": False,
+                "previous_after_seq": None,
+                "preview": False,
+                "written": False,
+                "not_found": True,
+            }
+
+        # Remove the subscriber
+        del cursors[subscriber_id]
+
+        subscribers_dict = {sub_id: {"after_seq": after_seq_val} for sub_id, after_seq_val in cursors.items()}
+
+        cursor_store: dict[str, Any] = {
+            "schema": CURSOR_STORE_SCHEMA,
+            "subscribers": subscribers_dict,
+        }
+
+        write_json(_CONNECTOR_CURSORS_PATH, cursor_store)
+
+    return {
+        "schema": "personal-agent/connector-subscriber-remove/v1",
+        "subscriber_id": subscriber_id,
+        "existed": True,
+        "previous_after_seq": previous_seq,
+        "preview": False,
+        "written": True,
+    }
+
+
 def register_connector(
     connector: Any,
     *,
