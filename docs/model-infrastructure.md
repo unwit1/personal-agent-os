@@ -703,9 +703,11 @@ Each API call's usage `cost_usd` is appended to `~/.agent-os/api-spend.jsonl` wi
 - `accuracy`: "exact" when the price is known, "unknown" otherwise
 - `note`: optional annotation
 
-The per-call cap (`--call-cap-usd M`) is checked **after the call completes**
-(outcome flag `api_call_cap_exceeded`), not pre-estimated, so a single call's cost
-is recorded even if it exceeds the per-call cap. Host-plan calls are never written
+Before an API call, `delegate()` makes a worst-case estimate (prompt characters / 4 as input tokens,
+plus the provider's `max_tokens` option, default 8192, as output tokens, priced from model_value price evidence)
+and blocks the call with status `budget_blocked` when that estimate exceeds the per-call cap or the remaining budget.
+The estimate is recorded as `api_estimated_cost_usd`. When a model's price is unknown, no estimate is made,
+and the after-call `api_call_cap_exceeded` flag still applies. Host-plan calls are never written
 to `api-spend.jsonl` and the GPU compute budget is untouched.
 
 ## 14. FreeComputeBroker (OpenRouter free pool)

@@ -90,7 +90,7 @@ def api_remaining(home: Path | None = None) -> float | None:
         return None
 
 
-def check(home: Path | None = None) -> dict[str, Any]:
+def check(home: Path | None = None, *, estimated_cost_usd: float | None = None) -> dict[str, Any]:
     """Check if API delegation is allowed under the current budget."""
     budget = load(home)
     call_cap = budget.get("call_cap_usd")
@@ -102,6 +102,7 @@ def check(home: Path | None = None) -> dict[str, Any]:
             "reason": "no API budget set; run: agent-os orchestrate api-budget set --total-usd N --call-cap-usd M",
             "remaining_usd": remaining,
             "call_cap_usd": call_cap,
+            "estimated_cost_usd": estimated_cost_usd,
         }
 
     if budget.get("approved") and remaining is None:
@@ -110,6 +111,7 @@ def check(home: Path | None = None) -> dict[str, Any]:
             "reason": "API budget invalid; re-run api-budget set",
             "remaining_usd": remaining,
             "call_cap_usd": call_cap,
+            "estimated_cost_usd": estimated_cost_usd,
         }
 
     if remaining is not None and remaining <= 0:
@@ -118,13 +120,33 @@ def check(home: Path | None = None) -> dict[str, Any]:
             "reason": "API budget exhausted",
             "remaining_usd": remaining,
             "call_cap_usd": call_cap,
+            "estimated_cost_usd": estimated_cost_usd,
         }
+
+    if estimated_cost_usd is not None:
+        if call_cap is not None and estimated_cost_usd > float(call_cap):
+            return {
+                "allowed": False,
+                "reason": f"estimated call cost ${estimated_cost_usd:.4f} exceeds per-call cap ${float(call_cap):.4f}",
+                "remaining_usd": remaining,
+                "call_cap_usd": call_cap,
+                "estimated_cost_usd": estimated_cost_usd,
+            }
+        if remaining is not None and estimated_cost_usd > remaining:
+            return {
+                "allowed": False,
+                "reason": f"estimated call cost ${estimated_cost_usd:.4f} exceeds remaining API budget ${remaining:.4f}",
+                "remaining_usd": remaining,
+                "call_cap_usd": call_cap,
+                "estimated_cost_usd": estimated_cost_usd,
+            }
 
     return {
         "allowed": True,
         "reason": "within API budget",
         "remaining_usd": remaining,
         "call_cap_usd": call_cap,
+        "estimated_cost_usd": estimated_cost_usd,
     }
 
 

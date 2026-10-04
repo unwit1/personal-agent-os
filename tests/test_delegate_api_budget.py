@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -79,6 +80,34 @@ class DelegateApiBudgetTests(unittest.TestCase):
         self.assertEqual(outcome["status"], "passed")
         self.assertEqual(outcome["billing"], "host_plan")
         self.assertFalse((self.budget / "api-spend.jsonl").exists())
+
+    def test_precall_estimate_blocks_per_call_cap(self) -> None:
+        """Test (a): budget 1.0, cap 0.5, estimate 0.9 -> status budget_blocked."""
+        api_budget.set_api_budget(1.0, 0.5, home=self.budget)
+        with mock.patch.object(delegate_module, "estimate_cost", return_value=0.9):
+            outcome = self._run("api")
+        self.assertEqual(outcome["status"], "budget_blocked")
+        self.assertEqual(self.calls, 0)
+        self.assertIn("per-call cap", outcome["errors"][0])
+        self.assertEqual(api_budget.api_spent(self.budget), 0.0)
+
+    def test_precall_estimate_recorded_when_allowed(self) -> None:
+        """Test (b): estimate 0.1 -> status passed, outcome['api_estimated_cost_usd'] == 0.1."""
+        api_budget.set_api_budget(1.0, 0.5, home=self.budget)
+        with mock.patch.object(delegate_module, "estimate_cost", return_value=0.1):
+            outcome = self._run("api")
+        self.assertEqual(outcome["status"], "passed")
+        self.assertEqual(outcome["api_estimated_cost_usd"], 0.1)
+        self.assertEqual(self.calls, 1)
+
+    def test_precall_estimate_none_allows_call(self) -> None:
+        """Test (c): estimate None -> passed."""
+        api_budget.set_api_budget(1.0, 0.5, home=self.budget)
+        with mock.patch.object(delegate_module, "estimate_cost", return_value=None):
+            outcome = self._run("api")
+        self.assertEqual(outcome["status"], "passed")
+        self.assertIsNone(outcome["api_estimated_cost_usd"])
+        self.assertEqual(self.calls, 1)
 
 
 if __name__ == "__main__":
