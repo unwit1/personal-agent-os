@@ -34,7 +34,9 @@ def connector_with_server_name(
     }
 
 
-def mock_surface_inspectable() -> dict:
+def mock_surface_inspectable(registrations: list[str] | None = None) -> dict:
+    if registrations is None:
+        registrations = ["~/.config/test.json"]
     return {
         "id": "agent-os-mcp",
         "name": "Agent OS MCP",
@@ -42,7 +44,7 @@ def mock_surface_inspectable() -> dict:
         "mechanism": "MCP",
         "summary": "Direct Agent OS MCP integration",
         "expected_tier": "routed",
-        "invocation": {"kind": "json", "registrations": ["~/.config/test.json"]},
+        "invocation": {"kind": "json", "registrations": registrations},
         "instruction": {"kind": "none"},
         "capture": {"kind": "none"},
         "connector_capabilities": {
@@ -103,6 +105,28 @@ class VerifyNativeRegistrationsTests(unittest.TestCase):
         loader.start()
         self.addCleanup(loader.stop)
 
+    def _use_config(self, server_names: dict[str, dict[str, str]]) -> Path:
+        """Write a config file with the given server names and patch surfaces/machine."""
+        config_file = Path(tempfile.mkdtemp()) / "config.json"
+        config_data = {"mcpServers": server_names}
+        config_file.write_text(json.dumps(config_data), encoding="utf-8")
+
+        surfaces_patcher = patch(
+            "agent_os.surfaces.surfaces",
+            return_value=[mock_surface_inspectable([str(config_file)])],
+        )
+        surfaces_patcher.start()
+        self.addCleanup(surfaces_patcher.stop)
+
+        machine_patcher = patch(
+            "agent_os.machine.resolve_user_path",
+            side_effect=lambda p: Path(p),
+        )
+        machine_patcher.start()
+        self.addCleanup(machine_patcher.stop)
+
+        return config_file
+
     def test_preview_with_no_registrations(self) -> None:
         self.registry["connectors"] = []
 
@@ -140,112 +164,34 @@ class VerifyNativeRegistrationsTests(unittest.TestCase):
         connector = connector_with_server_name(state="desired", server_name="test-server")
         self.registry["connectors"] = [connector]
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "test-server": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({"test-server": {"command": "python test.py"}})
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
-            )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
+        result = connectors.verify_native_registrations()
+        self.assertEqual(result["written"], False)
+        self.assertTrue(result["confirmation_required"])
+        self.assertEqual(len(result["changes"]), 1)
 
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
-            )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations()
-            self.assertEqual(result["written"], False)
-            self.assertTrue(result["confirmation_required"])
-            self.assertEqual(len(result["changes"]), 1)
-
-            change = result["changes"][0]
-            self.assertEqual(change["connector_id"], "test-connector")
-            self.assertEqual(change["from_state"], "desired")
-            self.assertEqual(change["to_state"], "registered")
-            self.assertEqual(change["native_entry_status"], "present")
+        change = result["changes"][0]
+        self.assertEqual(change["connector_id"], "test-connector")
+        self.assertEqual(change["from_state"], "desired")
+        self.assertEqual(change["to_state"], "registered")
+        self.assertEqual(change["native_entry_status"], "present")
 
     def test_preview_transition_registered_to_desired(self) -> None:
         connector = connector_with_server_name(state="registered", server_name="missing-server")
         self.registry["connectors"] = [connector]
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "test-server": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({"test-server": {"command": "python test.py"}})
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
-            )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
+        result = connectors.verify_native_registrations()
+        self.assertEqual(result["written"], False)
+        self.assertEqual(len(result["changes"]), 1)
 
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
-            )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations()
-            self.assertEqual(result["written"], False)
-            self.assertEqual(len(result["changes"]), 1)
-
-            change = result["changes"][0]
-            self.assertEqual(change["connector_id"], "test-connector")
-            self.assertEqual(change["from_state"], "registered")
-            self.assertEqual(change["to_state"], "desired")
-            self.assertEqual(change["native_entry_status"], "absent")
+        change = result["changes"][0]
+        self.assertEqual(change["connector_id"], "test-connector")
+        self.assertEqual(change["from_state"], "registered")
+        self.assertEqual(change["to_state"], "desired")
+        self.assertEqual(change["native_entry_status"], "absent")
 
     def test_preview_no_transition_when_disabled(self) -> None:
         connector = connector_with_server_name(state="disabled", server_name="test-server")
@@ -337,52 +283,15 @@ class VerifyNativeRegistrationsTests(unittest.TestCase):
         )
         self.registry["connectors"] = [conn1, conn2]
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "server-1": {"command": "python test.py"},
-                    "server-2": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({
+            "server-1": {"command": "python test.py"},
+            "server-2": {"command": "python test.py"},
+        })
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
-            )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
-
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
-            )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations("connector-1")
-            self.assertEqual(result["connector_id"], "connector-1")
-            self.assertEqual(result["written"], False)
-            self.assertEqual([c["connector_id"] for c in result["changes"]], ["connector-1"])
+        result = connectors.verify_native_registrations("connector-1")
+        self.assertEqual(result["connector_id"], "connector-1")
+        self.assertEqual(result["written"], False)
+        self.assertEqual([c["connector_id"] for c in result["changes"]], ["connector-1"])
 
     def test_preview_unreadable_observation(self) -> None:
         connector = connector_with_server_name(state="desired", server_name="test-server")
@@ -408,209 +317,53 @@ class VerifyNativeRegistrationsTests(unittest.TestCase):
         connector = connector_with_server_name(state="registered", server_name="missing-server")
         self.registry["connectors"] = [connector]
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "test-server": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({"test-server": {"command": "python test.py"}})
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
-            )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
+        result = connectors.verify_native_registrations(confirm_write=True)
+        self.assertEqual(result["written"], True)
+        self.assertEqual(result["count"], 1)
+        self.assertGreater(result["events_recorded"], 0)
 
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
-            )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations(confirm_write=True)
-            self.assertEqual(result["written"], True)
-            self.assertEqual(result["count"], 1)
-            self.assertGreater(result["events_recorded"], 0)
-
-            written = json.loads(self.registry_path.read_text(encoding="utf-8"))
-            connector = written["connectors"][0]
-            self.assertEqual(connector["registrations"][0]["state"], "desired")
+        written = json.loads(self.registry_path.read_text(encoding="utf-8"))
+        connector = written["connectors"][0]
+        self.assertEqual(connector["registrations"][0]["state"], "desired")
 
     def test_preview_no_change_registered_present(self) -> None:
         connector = connector_with_server_name(state="registered", server_name="test-server")
         self.registry["connectors"] = [connector]
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "test-server": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({"test-server": {"command": "python test.py"}})
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
-            )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
-
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
-            )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations()
-            self.assertEqual(result["written"], False)
-            self.assertEqual(result["changes"], [])
-            self.assertIn("present", result["unchanged_counts"])
+        result = connectors.verify_native_registrations()
+        self.assertEqual(result["written"], False)
+        self.assertEqual(result["changes"], [])
+        self.assertIn("present", result["unchanged_counts"])
 
     def test_preview_no_change_desired_absent(self) -> None:
         connector = connector_with_server_name(state="desired", server_name="missing-server")
         self.registry["connectors"] = [connector]
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "test-server": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({"test-server": {"command": "python test.py"}})
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
-            )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
-
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
-            )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations()
-            self.assertEqual(result["written"], False)
-            self.assertEqual(result["changes"], [])
-            self.assertIn("absent", result["unchanged_counts"])
+        result = connectors.verify_native_registrations()
+        self.assertEqual(result["written"], False)
+        self.assertEqual(result["changes"], [])
+        self.assertIn("absent", result["unchanged_counts"])
 
     def test_confirm_applies_changes_to_desired_registered(self) -> None:
         connector = connector_with_server_name(state="desired", server_name="test-server")
         self.registry["connectors"] = [connector]
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "test-server": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({"test-server": {"command": "python test.py"}})
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
-            )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
+        result = connectors.verify_native_registrations(confirm_write=True)
+        self.assertEqual(result["written"], True)
+        self.assertEqual(result["count"], 1)
+        self.assertGreater(result["events_recorded"], 0)
 
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
-            )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations(confirm_write=True)
-            self.assertEqual(result["written"], True)
-            self.assertEqual(result["count"], 1)
-            self.assertGreater(result["events_recorded"], 0)
-
-            written = json.loads(self.registry_path.read_text(encoding="utf-8"))
-            connector = written["connectors"][0]
-            self.assertEqual(connector["registrations"][0]["state"], "registered")
+        written = json.loads(self.registry_path.read_text(encoding="utf-8"))
+        connector = written["connectors"][0]
+        self.assertEqual(connector["registrations"][0]["state"], "registered")
 
     def test_confirm_idempotent_when_no_changes(self) -> None:
         connector = valid_connector()
@@ -645,60 +398,23 @@ class VerifyNativeRegistrationsTests(unittest.TestCase):
         ]
         self.registry["connectors"] = connectors_list
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config_file = Path(tmpdir) / "config.json"
-            config_data = {
-                "mcpServers": {
-                    "server-z": {"command": "python test.py"},
-                    "server-a": {"command": "python test.py"},
-                }
-            }
-            config_file.write_text(json.dumps(config_data), encoding="utf-8")
+        self._use_config({
+            "server-z": {"command": "python test.py"},
+            "server-a": {"command": "python test.py"},
+        })
 
-            surfaces_patcher = patch(
-                "agent_os.surfaces.surfaces",
-                return_value=[
-                    {
-                        "id": "agent-os-mcp",
-                        "name": "Agent OS MCP",
-                        "vendor": "Anthropic",
-                        "mechanism": "MCP",
-                        "summary": "Direct Agent OS MCP integration",
-                        "expected_tier": "routed",
-                        "invocation": {"kind": "json", "registrations": [str(config_file)]},
-                        "instruction": {"kind": "none"},
-                        "capture": {"kind": "none"},
-                        "connector_capabilities": {
-                            "inspect_local_config": {"available": True, "reason": None},
-                            "mutate_local_config": {"available": True, "reason": None},
-                            "transfer_credentials": {"available": False, "reason": "not supported"},
-                            "agent_os_bridge": {"available": True, "reason": None},
-                        },
-                    }
-                ],
+        result = connectors.verify_native_registrations()
+        self.assertEqual([c["connector_id"] for c in result["changes"]], ["a-connector", "z-connector"])
+        for i in range(len(result["changes"]) - 1):
+            current = (
+                result["changes"][i]["connector_id"],
+                result["changes"][i]["surface_id"],
             )
-            surfaces_patcher.start()
-            self.addCleanup(surfaces_patcher.stop)
-
-            machine_patcher = patch(
-                "agent_os.machine.resolve_user_path",
-                side_effect=lambda p: Path(p),
+            next_item = (
+                result["changes"][i + 1]["connector_id"],
+                result["changes"][i + 1]["surface_id"],
             )
-            machine_patcher.start()
-            self.addCleanup(machine_patcher.stop)
-
-            result = connectors.verify_native_registrations()
-            self.assertEqual([c["connector_id"] for c in result["changes"]], ["a-connector", "z-connector"])
-            for i in range(len(result["changes"]) - 1):
-                current = (
-                    result["changes"][i]["connector_id"],
-                    result["changes"][i]["surface_id"],
-                )
-                next_item = (
-                    result["changes"][i + 1]["connector_id"],
-                    result["changes"][i + 1]["surface_id"],
-                )
-                self.assertLess(current, next_item)
+            self.assertLess(current, next_item)
 
     def test_invalid_connector_id_raises_error(self) -> None:
         with self.assertRaises(ValueError):

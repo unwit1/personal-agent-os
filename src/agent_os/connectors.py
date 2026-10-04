@@ -1075,29 +1075,22 @@ def verify_native_registrations(
                 "count": 0,
             }
 
-        affected_connectors: dict[str, dict[str, Any]] = {}
-        for change in changes:
-            affected_connectors.setdefault(change["connector_id"], None)
+        targets = {(c["connector_id"], c["surface_id"]): c["to_state"] for c in changes}
+        affected = {c["connector_id"] for c in changes}
 
         for connector in registry["connectors"]:
-            cid = connector["id"]
-            if connector_id is not None and cid != connector_id:
+            if connector["id"] not in affected:
                 continue
-            if cid not in affected_connectors:
-                continue
-
             for registration in connector["registrations"]:
-                for change in changes:
-                    if (change["connector_id"] == cid and
-                        change["surface_id"] == registration["surface_id"]):
-                        registration["state"] = change["to_state"]
-                        break
+                key = (connector["id"], registration["surface_id"])
+                if key in targets:
+                    registration["state"] = targets[key]
 
         write_json(REGISTRY_PATH, registry)
 
         events_recorded = 0
         for connector in registry["connectors"]:
-            if connector["id"] in affected_connectors:
+            if connector["id"] in affected:
                 event_recorded = _append_connector_event("connector.updated", connector)
                 events_recorded += int(event_recorded)
 
