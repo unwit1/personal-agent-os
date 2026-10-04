@@ -394,12 +394,17 @@ class TestFieldRegionContract(unittest.TestCase):
 
         self.assertTrue(result.get("cached"), "Result should be marked as cached")
         result_str = str(result)
-        cache_path_str = str(self.cache_root)
-        self.assertNotIn(
-            cache_path_str,
-            result_str,
-            "Cached result should not contain absolute cache path",
-        )
+        # Check all path forms to ensure cache path doesn't leak (accounts for Windows backslashes)
+        for path_form in (
+            str(self.cache_root),
+            repr(str(self.cache_root))[1:-1],
+            self.cache_root.as_posix(),
+        ):
+            self.assertNotIn(
+                path_form,
+                result_str,
+                f"Cached result should not contain absolute cache path: {path_form}",
+            )
 
 
 if __name__ == "__main__":
