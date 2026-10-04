@@ -274,6 +274,64 @@ python agent.py connector-events --limit 100 --connector rtec-applicants
 python agent.py connector-events --after-seq 12
 ```
 
+### Subscriber cursors
+
+The read-only MCP tool `connector.subscriber_poll` returns connector change events
+recorded after a subscriber's stored cursor position. It accepts required and optional parameters:
+
+- `subscriber_id`: unique identifier for this subscriber (required)
+- `limit`: number of events to return (1–500, default 50) (optional)
+
+The response includes the following fields:
+
+- `stored_after_seq`: the sequence number from which polling resumed (the stored cursor value)
+- `next_after_seq`: the sequence number to pass in the next call to `connector.subscriber_ack` and `connector.subscriber_poll` to continue receiving new events
+- `has_more`: `true` if more events exist beyond the current result
+- `cursor_reset`: `true` when the stored cursor points beyond the log length (e.g., after the local log was reset); the subscriber should then restart from sequence 0
+- `cursor_store_malformed`: `true` if the cursor storage file exists but cannot be parsed (indicates a corruption issue)
+- `items`: the list of connector change events
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-subscriber-poll my-subscriber
+python agent.py connector-subscriber-poll my-subscriber --limit 100
+```
+
+`connector.subscriber_ack` records a subscriber's progress through the event log by
+storing its cursor position. It accepts required parameters:
+
+- `subscriber_id`: unique identifier for this subscriber (required)
+- `seq`: sequence number to store (required); must be between 0 and `latest_seq`, and rewinding is allowed
+
+The cursor is stored in `.agent-local/connector-event-cursors.json` under the registry lock
+(schema personal-agent/connector-event-cursors/v1). The operation previews by default and
+writes only when the caller sets `confirm_write: true`.
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-subscriber-ack my-subscriber --seq 42
+python agent.py connector-subscriber-ack my-subscriber --seq 42 --confirm-write
+```
+
+A typical subscriber loop polls for events, processes them, and acknowledges progress:
+
+```powershell
+# Poll for up to 50 new events
+python agent.py connector-subscriber-poll my-subscriber --limit 50
+
+# Process the events...
+
+# Acknowledge progress up to next_after_seq (stores the cursor)
+python agent.py connector-subscriber-ack my-subscriber --seq <next_after_seq> --confirm-write
+```
+
+When `connector.subscriber_ack` is called without `confirm_write`, it previews the
+intended cursor position without storing it. Nothing is pushed to subscribers; this is
+a pull-based, durable cursor mechanism. No secrets, registry metadata, or client
+configuration are touched by these operations.
+
 ### Removing connectors
 
 `connector.unregister` removes a connector from the registry and records a
@@ -376,6 +434,10 @@ as proof that a provider is connected through Agent OS.
 Live invocation of provider APIs and provider-health verification remain open.
 Presence checks for `keyring` and `secret-service` backends and actual
 credential resolution remain open.
+
+Push delivery and wiring of specific orchestration and Personal Executive
+consumers to subscriber cursors remain open; pull-based, durable cursor
+storage is implemented.
 
 The next implementation steps are provider adapter registration and execution,
 scoped credential resolution inside the adapter boundary, read-only import
