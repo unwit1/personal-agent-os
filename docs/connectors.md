@@ -242,7 +242,7 @@ JSON record with the following fields:
 
 The event log never includes `secret_ref`, `scopes`, `server_name`, or credential values.
 Events are written only when a registry change is explicitly confirmed (i.e., when
-`confirm_write: true` is passed to `connector.register`, `connector.unregister`, `connector.prune_stale`, or `connector.set_registration_state`).
+`confirm_write: true` is passed to `connector.register`, `connector.unregister`, `connector.prune_stale`, `connector.verify_native`, or `connector.set_registration_state`).
 
 ### Reading connector events
 
@@ -314,6 +314,34 @@ The prune operation is read-only by default. Output never includes secret
 references, and the command never revokes credentials, edits client configuration,
 or contacts providers.
 
+### Verifying native registrations
+
+`connector.verify_native` (MCP) and `connector-verify-native` (CLI) reconcile
+native client MCP server entries in registered connectors with their current
+presence in inspectable surfaces. For each registered connector with a requested
+`server_name`, this operation checks whether that entry appears in the surface's
+client configuration. If the entry is found, the registration is promoted from
+`desired` to `registered`. If the entry is not found, a previously `registered`
+entry reverts to `desired`. Bridge-only registrations (those without a
+`server_name`), and registrations in `disabled`, `error`, or `unsupported` states
+are never changed. The operation is config-level verification only: it inspects
+only server names for presence, does not make provider API calls, does not execute
+connector tools, and does not edit or output configuration paths, commands,
+environment variables, or secrets. The operation previews by default and writes
+only when the caller sets `confirm_write: true`. Changes are recorded as
+`connector.updated` events.
+
+The CLI equivalent is:
+
+```powershell
+python agent.py connector-verify-native
+python agent.py connector-verify-native google-drive-work --confirm-write
+```
+
+The first form previews the verification without applying changes; the second form
+applies the verification and records updated registrations. Output never includes
+secret references, surface names, file paths, or client configuration details.
+
 ### Enabling and disabling registrations
 
 `connector.set_registration_state` (MCP) and `connector-set-registration-state` (CLI)
@@ -345,6 +373,7 @@ Host limitations and unsupported registration states must remain explicit.
 Do not treat a discovered registration or a `declared_ready_unverified` result
 as proof that a provider is connected through Agent OS.
 
+Live invocation of provider APIs and provider-health verification remain open.
 Presence checks for `keyring` and `secret-service` backends and actual
 credential resolution remain open.
 
