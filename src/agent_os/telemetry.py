@@ -92,7 +92,14 @@ class TelemetryPrivacyError(ValueError):
 
 
 REPORT_SCHEMA = "personal-agent/telemetry-report/v1"
-REPORT_GROUP_FIELDS = {"project": "project_id", "category": "task_category"}
+REPORT_GROUP_FIELDS = {
+    "project": "project_id",
+    "category": "task_category",
+    "provider": "provider",
+    "model": "model",
+    "capability": "capability_class",
+    "path": "execution_path",
+}
 
 
 def _check_string(field_name: str, value: str, *, event_id: bool = False) -> str:
@@ -234,6 +241,11 @@ def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
     events_with_escalations = 0
     retry_unknown_count = 0
     escalation_unknown_count = 0
+    duration_ms_total = 0
+    duration_unknown_count = 0
+    items_processed_total = 0
+    items_processed_unknown_count = 0
+    correction_or_override_counts = {"false": 0, "true": 0, "unknown": 0}
 
     for event in events:
         total += 1
@@ -261,6 +273,23 @@ def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
         else:
             escalation_unknown_count += 1
 
+        if event.duration_ms is not None:
+            duration_ms_total += event.duration_ms
+        else:
+            duration_unknown_count += 1
+
+        if event.items_processed is not None:
+            items_processed_total += event.items_processed
+        else:
+            items_processed_unknown_count += 1
+
+        if event.correction_or_override is True:
+            correction_or_override_counts["true"] += 1
+        elif event.correction_or_override is False:
+            correction_or_override_counts["false"] += 1
+        else:
+            correction_or_override_counts["unknown"] += 1
+
         for token_field in ("input_tokens", "cached_tokens", "reasoning_tokens", "output_tokens"):
             value = getattr(event, token_field)
             if value is not None:
@@ -287,6 +316,11 @@ def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
         "events_with_escalations": events_with_escalations,
         "retry_unknown_count": retry_unknown_count,
         "escalation_unknown_count": escalation_unknown_count,
+        "duration_ms_total": duration_ms_total,
+        "duration_unknown_count": duration_unknown_count,
+        "items_processed_total": items_processed_total,
+        "items_processed_unknown_count": items_processed_unknown_count,
+        "correction_or_override_counts": correction_or_override_counts,
         "deterministic_path_model_class_counts": dict(sorted(deterministic_path_classes.items())),
         "token_totals": token_totals,
         "token_unknown_counts": token_unknown_counts,
@@ -316,6 +350,11 @@ def aggregate_report(
     - events_with_escalations: count of events with escalations > 0
     - retry_unknown_count: count of events where retries is None
     - escalation_unknown_count: count of events where escalations is None
+    - duration_ms_total: sum of event.duration_ms (None not counted, 0 when none)
+    - duration_unknown_count: count of events where duration_ms is None
+    - items_processed_total: sum of event.items_processed (None not counted)
+    - items_processed_unknown_count: count of events where items_processed is None
+    - correction_or_override_counts: dict with keys 'false', 'true', 'unknown' counting event.correction_or_override values
     - deterministic_path_model_class_counts: Counter of capability_class for events with
       execution_path in ('deterministic', 'cache') and capability_class set and not 'deterministic'
     - token_totals: dict of field -> int (sum of non-None values, 0 when nothing reported)
@@ -334,9 +373,9 @@ def aggregate_report(
         raise ValueError(f"unsupported telemetry report grouping: {group_by}")
 
     field_name = REPORT_GROUP_FIELDS[group_by]
-    groups_dict: dict[str, list[TelemetryEvent]] = {}
+    groups_dict: dict[str | None, list[TelemetryEvent]] = {}
     for event in validated_events:
-        label = getattr(event, field_name)
+        label = getattr(event, field_name) or "unknown"
         if label not in groups_dict:
             groups_dict[label] = []
         groups_dict[label].append(event)

@@ -485,6 +485,173 @@ class TelemetryStoreTests(unittest.TestCase):
 
         self.assertIn("unsupported telemetry report grouping", str(ctx.exception))
 
+    def test_aggregate_report_includes_duration_items_and_correction_counts(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-a",
+                duration_ms=100,
+                items_processed=5,
+                correction_or_override=True,
+            ),
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-b",
+                duration_ms=50,
+                items_processed=3,
+                correction_or_override=False,
+            ),
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-c",
+                duration_ms=None,
+                items_processed=None,
+                correction_or_override=None,
+            ),
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-d",
+                duration_ms=200,
+                items_processed=2,
+            ),
+        ]
+
+        report = aggregate_report(events)
+
+        self.assertEqual(report["event_count"], 4)
+        self.assertEqual(report["duration_ms_total"], 350)
+        self.assertEqual(report["duration_unknown_count"], 1)
+        self.assertEqual(report["items_processed_total"], 10)
+        self.assertEqual(report["items_processed_unknown_count"], 1)
+        self.assertEqual(report["correction_or_override_counts"], {"true": 1, "false": 1, "unknown": 2})
+
+    def test_aggregate_report_empty_store_has_zero_duration_items_and_correction_counts(self) -> None:
+        report = aggregate_report([])
+
+        self.assertEqual(report["event_count"], 0)
+        self.assertEqual(report["duration_ms_total"], 0)
+        self.assertEqual(report["duration_unknown_count"], 0)
+        self.assertEqual(report["items_processed_total"], 0)
+        self.assertEqual(report["items_processed_unknown_count"], 0)
+        self.assertEqual(report["correction_or_override_counts"], {"false": 0, "true": 0, "unknown": 0})
+
+    def test_aggregate_report_group_by_project_includes_new_counts(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                duration_ms=100,
+                items_processed=5,
+                correction_or_override=True,
+            ),
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                duration_ms=50,
+                items_processed=3,
+                correction_or_override=False,
+            ),
+            TelemetryEvent(
+                project_id="project-b",
+                task_category="stage",
+                duration_ms=200,
+                items_processed=2,
+                correction_or_override=None,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project")
+
+        self.assertEqual(report["group_by"], "project")
+        self.assertEqual(report["event_count"], 3)
+        self.assertEqual(report["duration_ms_total"], 350)
+        self.assertEqual(report["items_processed_total"], 10)
+        self.assertEqual(report["correction_or_override_counts"], {"true": 1, "false": 1, "unknown": 1})
+        self.assertIn("project-a", report["groups"])
+        self.assertIn("project-b", report["groups"])
+        self.assertEqual(report["groups"]["project-a"]["event_count"], 2)
+        self.assertEqual(report["groups"]["project-a"]["duration_ms_total"], 150)
+        self.assertEqual(report["groups"]["project-a"]["items_processed_total"], 8)
+        self.assertEqual(report["groups"]["project-a"]["correction_or_override_counts"], {"true": 1, "false": 1, "unknown": 0})
+        self.assertEqual(report["groups"]["project-b"]["event_count"], 1)
+        self.assertEqual(report["groups"]["project-b"]["duration_ms_total"], 200)
+        self.assertEqual(report["groups"]["project-b"]["items_processed_total"], 2)
+        self.assertEqual(report["groups"]["project-b"]["correction_or_override_counts"], {"true": 0, "false": 0, "unknown": 1})
+
+    def test_aggregate_report_group_by_provider_model_capability_path(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                provider="openai",
+                model="gpt-4",
+                capability_class="reasoning",
+                execution_path="agent",
+            ),
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                provider="anthropic",
+                model="claude-3",
+                capability_class="planning",
+                execution_path="deterministic",
+            ),
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                provider=None,
+                model="local-model",
+                capability_class="deterministic",
+                execution_path="cache",
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="provider")
+        self.assertEqual(report["group_by"], "provider")
+        self.assertIn("groups", report)
+        self.assertIn("unknown", report["groups"])
+        self.assertEqual(report["event_count"], 3)
+
+        for group_field in ("model", "capability", "path"):
+            report = aggregate_report(events, group_by=group_field)
+            self.assertEqual(report["group_by"], group_field)
+            self.assertIn("groups", report)
+            self.assertEqual(report["event_count"], 3)
+
+    def test_aggregate_report_group_by_provider_includes_unknown_group(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                provider="openai",
+            ),
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                provider="anthropic",
+            ),
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                provider=None,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="provider")
+
+        self.assertEqual(report["group_by"], "provider")
+        self.assertIn("groups", report)
+        self.assertIn("openai", report["groups"])
+        self.assertIn("anthropic", report["groups"])
+        self.assertIn("unknown", report["groups"])
+        self.assertEqual(report["groups"]["openai"]["event_count"], 1)
+        self.assertEqual(report["groups"]["anthropic"]["event_count"], 1)
+        self.assertEqual(report["groups"]["unknown"]["event_count"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

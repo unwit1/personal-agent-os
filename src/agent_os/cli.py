@@ -66,7 +66,7 @@ from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .surfaces import health as integration_health
-from .telemetry import LocalTelemetryStore
+from .telemetry import LocalTelemetryStore, REPORT_GROUP_FIELDS
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
@@ -433,7 +433,7 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
-    telemetry_report.add_argument("--group-by", choices=["project", "category"], default=None)
+    telemetry_report.add_argument("--group-by", choices=sorted(REPORT_GROUP_FIELDS), default=None)
     commands.add_parser("document-cache-status")
     commands.add_parser("document-cache-clear")
     cache_prune = commands.add_parser("document-cache-prune")
