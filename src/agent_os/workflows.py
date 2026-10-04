@@ -41,7 +41,7 @@ from .execution import cache_lookup_problems, lookup_document_page
 from .paths import ROOT
 from .registry import get_project, identify_project
 from .storage import load_json, write_json
-from .telemetry import LocalTelemetryStore, TelemetryEvent, TelemetryPrivacyError
+from .telemetry import LocalTelemetryStore, TelemetryEvent
 from .timestamps import utc_now_iso as _now
 
 
