@@ -136,6 +136,43 @@ def _surface_server_names(surface: dict) -> set[str] | None:
     return server_names if found_any_file and parsed_any else None
 
 
+def _native_entry_status(
+    registration: dict[str, Any],
+    known: dict[str, Any],
+    surface_names_cache: dict[str, set[str] | None],
+) -> str:
+    """Compute native entry status observation for a registration.
+
+    Returns one of: not_requested, unknown_surface, not_inspectable, unreadable, present, absent.
+    """
+    from .surfaces import _connector_capabilities
+
+    server_name = registration.get("server_name")
+    reg_surface_id = registration["surface_id"]
+
+    if server_name is None:
+        return "not_requested"
+
+    if reg_surface_id not in known:
+        return "unknown_surface"
+
+    inspect_cap = _connector_capabilities(known[reg_surface_id]).get("inspect_local_config", {})
+    if inspect_cap.get("available") is not True:
+        return "not_inspectable"
+
+    if reg_surface_id not in surface_names_cache:
+        surface_names_cache[reg_surface_id] = _surface_server_names(known[reg_surface_id])
+
+    cached_names = surface_names_cache[reg_surface_id]
+    if cached_names is None:
+        return "unreadable"
+
+    if server_name.casefold() in cached_names:
+        return "present"
+
+    return "absent"
+
+
 def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
     """Analyze desired connector registrations and plan provisioning steps.
 
@@ -182,24 +219,7 @@ def connector_reconcile_plan(surface_id: str | None = None) -> dict[str, Any]:
                 else:
                     action = "undetermined"
 
-            native_entry_status = "unknown_surface"
-            server_name = registration.get("server_name")
-            if server_name is None:
-                native_entry_status = "not_requested"
-            elif reg_surface_id in known:
-                inspect_cap = _connector_capabilities(known[reg_surface_id]).get("inspect_local_config", {})
-                if inspect_cap.get("available") is not True:
-                    native_entry_status = "not_inspectable"
-                else:
-                    if reg_surface_id not in surface_names_cache:
-                        surface_names_cache[reg_surface_id] = _surface_server_names(known[reg_surface_id])
-                    cached_names = surface_names_cache[reg_surface_id]
-                    if cached_names is None:
-                        native_entry_status = "unreadable"
-                    elif server_name.casefold() in cached_names:
-                        native_entry_status = "present"
-                    else:
-                        native_entry_status = "absent"
+            native_entry_status = _native_entry_status(registration, known, surface_names_cache)
 
             items.append({
                 "connector_id": connector_id,
@@ -962,6 +982,126 @@ def set_registration_state(
         "previous_state": current_state,
         "state": state,
         "event_recorded": event_recorded,
+    }
+
+
+def verify_native_registrations(
+    connector_id: str | None = None,
+    *,
+    confirm_write: bool = False,
+) -> dict[str, Any]:
+    """Preview or reconcile connector registrations against native client configuration.
+
+    Compares desired/registered state with observed native entry presence and
+    automatically transitions between these states. Strictly read-only in preview mode.
+    Write mode uses registry lock and records connector.updated events.
+
+    State transitions:
+    - desired + present -> registered
+    - registered + absent -> desired
+    - all other combinations produce no change
+    - registrations in disabled/error/unsupported are never touched
+    - bridge-only registrations without server_name are never touched
+    """
+    from .surfaces import surfaces, _connector_capabilities
+
+    if connector_id is not None:
+        _identifier(connector_id, "connector id")
+    if type(confirm_write) is not bool:
+        raise ValueError("confirm_write must be a boolean")
+
+    def compute_changes(registry: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
+        known = {s["id"]: s for s in surfaces()}
+        surface_names_cache: dict[str, set[str] | None] = {}
+        changes: list[dict[str, Any]] = []
+        unchanged_counts: dict[str, int] = {}
+
+        for connector in registry["connectors"]:
+            cid = connector["id"]
+            if connector_id is not None and cid != connector_id:
+                continue
+
+            for registration in connector["registrations"]:
+                reg_surface_id = registration["surface_id"]
+                state = registration["state"]
+
+                observation = _native_entry_status(registration, known, surface_names_cache)
+
+                to_state = state
+                if state == "desired" and observation == "present":
+                    to_state = "registered"
+                elif state == "registered" and observation == "absent":
+                    to_state = "desired"
+
+                if to_state != state:
+                    changes.append({
+                        "connector_id": cid,
+                        "surface_id": reg_surface_id,
+                        "from_state": state,
+                        "to_state": to_state,
+                        "native_entry_status": observation,
+                    })
+                else:
+                    unchanged_counts[observation] = unchanged_counts.get(observation, 0) + 1
+
+        changes.sort(key=lambda item: (item["connector_id"], item["surface_id"]))
+        return changes, unchanged_counts
+
+    registry = load_connector_registry()
+    changes, unchanged_counts = compute_changes(registry)
+
+    if not confirm_write:
+        return {
+            "schema": "personal-agent/connector-verify-native/v1",
+            "written": False,
+            "confirmation_required": True,
+            "connector_id": connector_id,
+            "changes": changes,
+            "count": len(changes),
+            "unchanged_counts": unchanged_counts,
+            "verification": "client_config_entry_observed",
+        }
+
+    with _registry_write_lock():
+        registry = load_connector_registry()
+        changes, unchanged_counts = compute_changes(registry)
+
+        if not changes:
+            return {
+                "schema": "personal-agent/connector-verify-native/v1",
+                "written": False,
+                "idempotent": True,
+                "connector_id": connector_id,
+                "applied": [],
+                "count": 0,
+            }
+
+        targets = {(c["connector_id"], c["surface_id"]): c["to_state"] for c in changes}
+        affected = {c["connector_id"] for c in changes}
+
+        for connector in registry["connectors"]:
+            if connector["id"] not in affected:
+                continue
+            for registration in connector["registrations"]:
+                key = (connector["id"], registration["surface_id"])
+                if key in targets:
+                    registration["state"] = targets[key]
+
+        write_json(REGISTRY_PATH, registry)
+
+        events_recorded = 0
+        for connector in registry["connectors"]:
+            if connector["id"] in affected:
+                event_recorded = _append_connector_event("connector.updated", connector)
+                events_recorded += int(event_recorded)
+
+    return {
+        "schema": "personal-agent/connector-verify-native/v1",
+        "written": True,
+        "connector_id": connector_id,
+        "applied": changes,
+        "count": len(changes),
+        "events_recorded": events_recorded,
     }
 
 
