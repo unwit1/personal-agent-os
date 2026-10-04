@@ -66,7 +66,7 @@ from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .surfaces import health as integration_health
-from .telemetry import LocalTelemetryStore, REPORT_GROUP_FIELDS, PROVIDER_USAGE_FORMATS, token_counts_from_provider_usage
+from .telemetry import LocalTelemetryStore, REPORT_GROUP_FIELDS, PROVIDER_USAGE_FORMATS, TelemetryEvent, token_counts_from_provider_usage
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
@@ -434,6 +434,28 @@ def parser() -> argparse.ArgumentParser:
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
     telemetry_report.add_argument("--group-by", choices=sorted(REPORT_GROUP_FIELDS), default=None)
+    telemetry_record = commands.add_parser("telemetry-record")
+    telemetry_record.add_argument("--path", default=None, help="store path; None means LocalTelemetryStore default")
+    telemetry_record.add_argument("--project", required=True, help="maps to project_id")
+    telemetry_record.add_argument("--category", required=True, help="maps to task_category")
+    telemetry_record.add_argument("--capability", default=None, help="maps to capability_class")
+    telemetry_record.add_argument("--execution-path", default=None, help="maps to execution_path")
+    telemetry_record.add_argument("--provider", type=str, default=None)
+    telemetry_record.add_argument("--model", type=str, default=None)
+    telemetry_record.add_argument("--input-tokens", type=int, default=None)
+    telemetry_record.add_argument("--cached-tokens", type=int, default=None)
+    telemetry_record.add_argument("--reasoning-tokens", type=int, default=None)
+    telemetry_record.add_argument("--output-tokens", type=int, default=None)
+    telemetry_record.add_argument("--duration-ms", type=int, default=None)
+    telemetry_record.add_argument("--items-processed", type=int, default=None)
+    telemetry_record.add_argument("--retries", type=int, default=None)
+    telemetry_record.add_argument("--escalations", type=int, default=None)
+    validator_group = telemetry_record.add_mutually_exclusive_group()
+    validator_group.add_argument("--validator-passed", action="store_true", dest="validator_passed_flag")
+    validator_group.add_argument("--validator-failed", action="store_true", dest="validator_failed_flag")
+    telemetry_record.add_argument("--override", action="store_true", default=None, help="the operator corrected or overrode this event's output")
+    telemetry_record.add_argument("--usage-file", default=None, help="path to a JSON file holding a provider usage block or full provider response")
+    telemetry_record.add_argument("--usage-format", choices=list(PROVIDER_USAGE_FORMATS), default=None, help="format of the provider usage in --usage-file")
     commands.add_parser("document-cache-status")
     commands.add_parser("document-cache-clear")
     cache_prune = commands.add_parser("document-cache-prune")
@@ -764,6 +786,62 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "telemetry-report":
             store = LocalTelemetryStore(Path(args.path) if args.path else None)
             _print(store.aggregate_report(group_by=args.group_by))
+        elif args.command == "telemetry-record":
+            # Validate --usage-file and --usage-format pairing
+            if bool(args.usage_file) != bool(args.usage_format):
+                raise ValueError("--usage-file and --usage-format must be provided together")
+
+            # Validate --usage-file is not combined with explicit token flags
+            if args.usage_file and any([
+                args.input_tokens is not None,
+                args.cached_tokens is not None,
+                args.reasoning_tokens is not None,
+                args.output_tokens is not None,
+            ]):
+                raise ValueError("use either --usage-file or explicit token flags")
+
+            input_tokens = args.input_tokens
+            cached_tokens = args.cached_tokens
+            reasoning_tokens = args.reasoning_tokens
+            output_tokens = args.output_tokens
+
+            if args.usage_file:
+                payload = json.loads(Path(args.usage_file).read_text(encoding="utf-8"))
+                counts = token_counts_from_provider_usage(payload, args.usage_format)
+                input_tokens = counts["input_tokens"]
+                cached_tokens = counts["cached_tokens"]
+                reasoning_tokens = counts["reasoning_tokens"]
+                output_tokens = counts["output_tokens"]
+
+            # Determine validator_passed value from mutually exclusive flags
+            validator_passed = None
+            if args.validator_passed_flag:
+                validator_passed = True
+            elif args.validator_failed_flag:
+                validator_passed = False
+
+            event = TelemetryEvent(
+                project_id=args.project,
+                task_category=args.category,
+                capability_class=args.capability,
+                execution_path=args.execution_path,
+                provider=args.provider,
+                model=args.model,
+                input_tokens=input_tokens,
+                cached_tokens=cached_tokens,
+                reasoning_tokens=reasoning_tokens,
+                output_tokens=output_tokens,
+                duration_ms=args.duration_ms,
+                items_processed=args.items_processed,
+                retries=args.retries,
+                escalations=args.escalations,
+                validator_passed=validator_passed,
+                correction_or_override=args.override if args.override else None,
+            )
+
+            store = LocalTelemetryStore(Path(args.path) if args.path else None)
+            store.record(event)
+            _print(event.as_dict())
         elif args.command == "document-cache-status":
             _print(DocumentCache().stats())
         elif args.command == "document-cache-clear":
