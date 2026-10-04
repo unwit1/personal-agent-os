@@ -40,6 +40,8 @@ DocumentCache(root=ROOT / "forms" / "cache")   # raises CachePrivacyError
 no cache file is tracked. Only counts and sanitized structure cross the
 boundary; `cache_status_safe()` deliberately omits even the absolute path.
 
+The privacy refusal, path-free status, interpretation-key exclusion, and corrupt-entry-as-miss guarantees are now checked from Agent OS by `tests/test_document_cache_privacy_contract.py`.
+
 ### Extraction is cached; interpretation is not
 
 The cache key covers only what determines the extracted bytes:
@@ -116,6 +118,8 @@ agent-os document-cache-clear
 ```
 
 Over MCP: `document.cache_status` — counts only, never contents, never a path.
+
+These CLI commands are covered by `tests/test_document_cache_cli.py` (with the cache mocked so tests never clear the real cache), and the `cache_lookup` helpers in `src/agent_os/execution.py` are covered by `tests/test_document_cache_lookup.py`.
 
 ## Measured behaviour
 
