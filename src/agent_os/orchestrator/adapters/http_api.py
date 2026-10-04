@@ -24,6 +24,7 @@ heavy dependency (prior art PA-litellm); the needed subset is small.
 from __future__ import annotations
 
 import json
+import math
 import os
 import threading
 import time
@@ -38,6 +39,7 @@ from ..usage import unavailable
 from .base import AgentLaunchRequest, AgentProcessStatus, AgentResult, InvocationPlan, ProviderStatus, RunningAgent, extract_structured
 
 KEYRING_SERVICE = "agent-os"
+DEFAULT_MAX_TOKENS = 8192
 _LIVE: dict[str, dict[str, Any]] = {}
 _LOCK = threading.Lock()
 
@@ -74,6 +76,12 @@ def _price_cost(model: str, input_tokens: int | None, cached: int | None, output
         return round(((input_tokens - cached) * price["input"] + cached * cached_rate + output_tokens * price["output"]) / 1_000_000, 6)
     except Exception:
         return None
+
+
+def estimate_cost(model: str, prompt_chars: int, max_output_tokens: int) -> float | None:
+    """Estimate USD cost for a given model and prompt, assuming full max_output_tokens generation."""
+    input_tokens = math.ceil(prompt_chars / 4)
+    return _price_cost(model, input_tokens, 0, max_output_tokens)
 
 
 class HttpApiAdapter:
@@ -202,7 +210,7 @@ class AnthropicApiAdapter(HttpApiAdapter):
     default_base_url = "https://api.anthropic.com"
 
     def request_body(self, request: AgentLaunchRequest, prompt: str) -> tuple[str, dict[str, Any], dict[str, str]]:
-        body: dict[str, Any] = {"model": request.model, "max_tokens": int(self.options.get("max_tokens", 8192)),
+        body: dict[str, Any] = {"model": request.model, "max_tokens": int(self.options.get("max_tokens", DEFAULT_MAX_TOKENS)),
                                 "messages": [{"role": "user", "content": prompt}]}
         system = self.options.get("system")
         if system:
