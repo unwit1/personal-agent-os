@@ -209,5 +209,29 @@ class ShortWorktreeLayoutTests(unittest.TestCase):
         self.assertEqual(legacy.path_for("node").parent.name, "run-x")
 
 
+class TaskCacheContractTests(unittest.TestCase):
+    """The task cache route contract pins the operator decision; code must follow it."""
+
+    def test_contract_pins_the_operator_decision(self) -> None:
+        text = (Path(__file__).resolve().parents[1] / "docs" / "orchestrator-os" / "task-cache-route.md").read_text(encoding="utf-8")
+        for pinned in (
+            "TASK_CACHE_POLICY_VERSION = 1",
+            '"policy_version"', '"goal"', '"scope"', '"base_files"', '"validators"', '"role"',
+            "git diff <base> <node head> -- <scope...>",
+            '"run_id"', '"node_id"', '"created_at"',
+            "`implementer` or `test_author`",
+            "`git apply --check`",
+            "task-cache/<key>.json",
+            "os.replace",
+            "`task_cache_enabled`",
+            "what='task patch'",
+            "category='task_cache'",
+            "model_calls_avoided",
+        ):
+            self.assertIn(pinned, text)
+        for reason in ("absent", "apply_failed", "validator_failed", "ineligible"):
+            self.assertIn(f"| `{reason}` |", text)
+
+
 if __name__ == "__main__":
     unittest.main()
