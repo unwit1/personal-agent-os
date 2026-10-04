@@ -152,15 +152,16 @@ behavior.
 Tasks may declare `available_execution_paths: ["deterministic", "model"]` to
 let the orchestrator select the approved command first and retain model as the
 evidence-triggered fallback. `execution_path` remains the preferred path and
-defaults to `model` for backward compatibility. Only deterministic and model
-routes are wired into the orchestrator today; cache and skill execution remain
-outside this task runner.
-
-The existing document-page cache adapter intentionally returns hit metadata
-without cached text. That result can complete its typed document-processing
-stage, but it cannot satisfy an arbitrary code-editing task. Add a task cache
-route only with an explicit output binding that proves which expected outputs a
-hit satisfies and preserves the data boundary.
+defaults to `model` for backward compatibility. Task plans still declare only
+deterministic and model routes; when run policy `task_cache_enabled` is true
+(default false), implementer and test_author model nodes first consult a
+content-addressed task cache whose key binds the normalized goal, sorted scope,
+in-scope base blob hashes, validators, role and policy version. A hit reapplies
+a previously reviewer-approved, scope-limited patch and skips the worker and
+review only if it applies cleanly and every validator passes, otherwise it falls
+back to the model route with a recorded miss reason. Skill execution remains
+caller-owned. See [docs/orchestrator-os/task-cache-route.md](docs/orchestrator-os/task-cache-route.md)
+for the task cache contract.
 
 A task may carry a **ladder**: the escalation steps to take when its
 validators fail, cheapest first. Without one, the default raises effort on the

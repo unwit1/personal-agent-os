@@ -194,7 +194,9 @@ than claiming a reduction that does not exist.
   delegation is deliberately out of scope for P0.1.
 - The local `cache` path can complete approved `document_page` lookups; cache
   misses persist the next declared route. `skill` paths are selected and
-  persisted but remain caller-owned.
+  persisted but remain caller-owned. The document-page cache stays
+  workflow-stage-specific; the task cache is separate and covers coding tasks
+  when `task_cache_enabled` is true. See [docs/orchestrator-os/task-cache-route.md](docs/orchestrator-os/task-cache-route.md).
 - No approved skill currently exposes a deterministic invocation interface:
   canonical skills are instruction-only `SKILL.md` files, and discovery/match
   returns metadata rather than an executable adapter. A skill path must not be
