@@ -273,7 +273,9 @@ def build_goal(project: str | None, stage: dict[str, Any], roadmap_rel: str, han
         "Do the next bounded slice of this stage that can be finished and validated now; skip anything the status says is done.",
         f"The roadmap section is quoted below and is authoritative: do not re-read {roadmap_rel} to find it.",
         "If the remaining work needs a human design decision, report status needs_decision with the question instead of guessing.",
-        f"The last task must update this stage's Status/Current text in {roadmap_rel} to say what is now complete.",
+        # Every worker reads this goal as "Overall goal"; phrased as a plan rule
+        # so implementers do not edit the roadmap outside their scope.
+        f"Plan the update of this stage's Status/Current text in {roadmap_rel} (what is now complete) as its own final task; only that task may edit {roadmap_rel}, and no other task should mention or edit it.",
     ]
     if remaining:
         lines += ["", "Open items from the latest handoff:", *[f"- {item}" for item in remaining]]

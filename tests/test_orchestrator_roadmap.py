@@ -93,6 +93,12 @@ class RoadmapParsingTests(unittest.TestCase):
         self.assertEqual(skipped[0]["stage"], "P0.2")
         self.assertIsNone(roadmap.choose_stage(stages, {}, skip={"P0.2", "P0.3"})[0])
 
+    def test_goal_reserves_the_roadmap_edit_for_one_final_task(self) -> None:
+        # Workers read the run goal; it must not tell each of them to edit the roadmap.
+        goal = roadmap.build_goal("demo", roadmap.parse(ROADMAP)[1], "ROADMAP.md", None)
+        self.assertIn("only that task may edit ROADMAP.md", goal)
+        self.assertNotIn("The last task must update", goal)
+
     def test_goal_quotes_only_the_stage(self) -> None:
         stage = roadmap.parse(ROADMAP)[1]
         goal = roadmap.build_goal("demo", stage, "ROADMAP.md", {"remaining": ["P0.2: finish the thing"]})
