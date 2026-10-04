@@ -109,6 +109,78 @@ class DelegateApiBudgetTests(unittest.TestCase):
         self.assertIsNone(outcome["api_estimated_cost_usd"])
         self.assertEqual(self.calls, 1)
 
+    def test_monthly_budget_previous_month_not_counted(self) -> None:
+        """Test: Monthly budget excludes spend from previous UTC month.
+
+        With a monthly API budget and an api-spend.jsonl entry dated in the previous
+        UTC month whose amount exceeds the total, delegate() is not budget_blocked.
+        """
+        from datetime import datetime, timezone, timedelta
+        import json
+
+        # Set a monthly budget: $1.00 total, $0.50 per-call cap
+        api_budget.set_api_budget(1.0, 0.5, period="monthly", home=self.budget)
+
+        # Create a ledger entry from the previous UTC month with amount exceeding budget
+        now = datetime.now(timezone.utc)
+        prev_month = now - timedelta(days=now.day)  # First day of previous month
+        prev_month_iso = prev_month.replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
+
+        ledger_path = self.budget / "api-spend.jsonl"
+        ledger_path.parent.mkdir(parents=True, exist_ok=True)
+        entry = {
+            "at": prev_month_iso,
+            "call_id": "OLD-123",
+            "provider": "anthropic",
+            "model": "claude-3-sonnet",
+            "amount_usd": 2.0,
+            "accuracy": "exact",
+            "note": "previous month"
+        }
+        with ledger_path.open("w", encoding="utf-8") as handle:
+            handle.write(json.dumps(entry) + "\n")
+
+        # Delegate should succeed despite the previous month's overspend
+        outcome = self._run("api")
+        self.assertEqual(outcome["status"], "passed")
+        self.assertEqual(self.calls, 1)
+
+    def test_monthly_budget_today_entry_is_counted(self) -> None:
+        """Test: Monthly budget includes spend from today.
+
+        With a monthly API budget and an api-spend.jsonl entry dated today
+        whose amount equals the total, delegate() returns status 'budget_blocked'.
+        """
+        from datetime import datetime, timezone
+        import json
+
+        # Set a monthly budget: $1.00 total, $0.50 per-call cap
+        api_budget.set_api_budget(1.0, 0.5, period="monthly", home=self.budget)
+
+        # Create a ledger entry from today that exhausts the budget
+        now = datetime.now(timezone.utc)
+        today_iso = now.isoformat()
+
+        ledger_path = self.budget / "api-spend.jsonl"
+        ledger_path.parent.mkdir(parents=True, exist_ok=True)
+        entry = {
+            "at": today_iso,
+            "call_id": "TODAY-456",
+            "provider": "anthropic",
+            "model": "claude-3-sonnet",
+            "amount_usd": 1.0,
+            "accuracy": "exact",
+            "note": "today"
+        }
+        with ledger_path.open("w", encoding="utf-8") as handle:
+            handle.write(json.dumps(entry) + "\n")
+
+        # Delegate should be blocked because today's spend exhausts the monthly budget
+        outcome = self._run("api")
+        self.assertEqual(outcome["status"], "budget_blocked")
+        self.assertEqual(self.calls, 0)
+        self.assertIn("exhausted", outcome["errors"][0].lower())
+
 
 if __name__ == "__main__":
     unittest.main()
