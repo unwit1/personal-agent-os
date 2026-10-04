@@ -652,14 +652,14 @@ per-run efficiency telemetry with normalized provider token usage (P1.2C), and
 aggregate it across runs by role, tier, provider/model and origin, with
 coverage and overhead share (P1.2D, `docs/simple-mode.md`). (2026-10-04): staged
 workflows now record opt-in local telemetry for every completion path
-(deterministic, cache hit, agent-reported model stage via complete_stage),
-enabled with `--telemetry-path` on `workflow-run`/`workflow-complete`. The CLI
-now really wires `--telemetry-path` into `workflow-run`/`workflow-complete` (the
-earlier text claimed this before it existed). `workflow-complete` records
-caller-reported token usage and provider/model labels. `telemetry-report` reports
-token totals and unknown counts and supports opt-in `--group-by project|category`
-(docs/staged-workflows.md).
-Chat-session telemetry and live provider usage adapters remain open.
+(deterministic, cache hit, agent-reported model stage via complete_stage)
+when the caller passes a `telemetry_store`; `complete_stage` also records
+caller-reported token usage and provider/model labels. `telemetry-report`
+reports token totals and unknown counts and supports opt-in
+`--group-by project|category` (docs/staged-workflows.md). Still open: a
+`--telemetry-path` option on the `workflow-run`/`workflow-complete` CLI commands
+(today telemetry is enabled from Python only), chat-session telemetry, and live
+provider usage adapters.
 `src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
