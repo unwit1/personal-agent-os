@@ -22,6 +22,7 @@ from typing import Any
 
 from .connectors import REGISTRY_SCHEMA as CONNECTOR_REGISTRY_SCHEMA
 from .connectors import connector_events
+from .connectors import connector_subscriber_status
 from .connectors import load_connector_registry
 from .launcher import LAUNCHER_PATH
 from .launcher import status as launcher_status
@@ -347,6 +348,24 @@ def _connector_event_summary() -> dict[str, Any]:
     }
 
 
+def _connector_subscriber_summary() -> dict[str, Any]:
+    """Read connector subscriber status and return a summary."""
+    try:
+        result = connector_subscriber_status()
+    except (OSError, ValueError):
+        return {
+            "schema": "personal-agent/connector-subscriber-status/v1",
+            "available": False,
+            "read_only": True,
+            "reason": "connector subscriber cursors unreadable",
+        }
+
+    return {
+        **result,
+        "available": True,
+    }
+
+
 def health(surface_id: str | None = None) -> dict[str, Any]:
     """Report which client surfaces are fully routed, bridged, or not yet integrated."""
     selected = surfaces()
@@ -445,5 +464,6 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
             "count": len(connector_reports),
             "connectors": connector_reports,
             "events": _connector_event_summary(),
+            "subscribers": _connector_subscriber_summary(),
         },
     }
