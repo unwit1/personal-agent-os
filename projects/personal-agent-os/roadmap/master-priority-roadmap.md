@@ -506,6 +506,13 @@ plain IMAP UID/UIDNEXT cursors remain deferred.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 
+Status: **complete for now** (2026-10-04). Deterministic-first selection with evidence-triggered model
+fallback, the document-page cache route, and the reviewed-patch task cache (opt-in via run policy
+`task_cache_enabled`, default off until hit/miss evidence justifies a default) are implemented; the skill
+route is closed while every approved skill is instruction-only (a skill opts in by declaring a deterministic
+command under the approved-skill rules in docs/orchestrator-os/task-cache-route.md). Reopen to flip the cache
+default or when a skill declares a command.
+
 Make the default execution preference operational, not just documented:
 
 1. existing deterministic utility;
