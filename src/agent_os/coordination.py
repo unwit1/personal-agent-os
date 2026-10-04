@@ -36,13 +36,13 @@ this machine that chose to announce themselves. It is a courtesy protocol.
 from __future__ import annotations
 
 import fnmatch
-import hashlib
 import json
 import os
 import tempfile
 from pathlib import Path
 from typing import Any
 
+from .fingerprints import nul_joined_sha256
 from .machine import CONFIG_DIR
 from .timestamps import utc_now_iso
 
@@ -175,7 +175,7 @@ def active_claims(project: str | None = None, path: Path | None = None) -> list[
 
 
 def _claim_id(agent: str, project: str, created: str) -> str:
-    return "WC-" + hashlib.sha256(f"{agent}\0{project}\0{created}".encode("utf-8")).hexdigest()[:10]
+    return "WC-" + nul_joined_sha256([agent, project, created], 10)
 
 
 def claim(
@@ -304,8 +304,7 @@ def note(project: str, text: str, sender: str, about: str | None = None,
     location = claims_path(path)
     data = _load(location)
     entry = {
-        "note_id": "WN-" + hashlib.sha256(
-            f"{project}\0{sender}\0{utc_now_iso()}".encode("utf-8")).hexdigest()[:10],
+        "note_id": "WN-" + nul_joined_sha256([project, sender, utc_now_iso()], 10),
         "project": project,
         "from": sender,
         "about": about,
@@ -345,9 +344,7 @@ def acknowledge(note_id: str, agent: str, reply: str | None = None,
 
 
 def _task_id(project: str, task_key: str) -> str:
-    return "WT-" + hashlib.sha256(
-        f"{project.strip().casefold()}\0{task_key.strip().casefold()}".encode("utf-8")
-    ).hexdigest()[:12]
+    return "WT-" + nul_joined_sha256([project.strip().casefold(), task_key.strip().casefold()], 12)
 
 
 def _task_text(value: str, label: str, limit: int) -> str:
@@ -589,9 +586,7 @@ def complete_task(
 
 
 def _review_id(project: str, review_key: str, link: str) -> str:
-    return "WR-" + hashlib.sha256(
-        f"{project.strip().casefold()}\0{review_key.strip().casefold()}\0{link}".encode("utf-8")
-    ).hexdigest()[:12]
+    return "WR-" + nul_joined_sha256([project.strip().casefold(), review_key.strip().casefold(), link], 12)
 
 
 def _review_findings(values: list[str] | None) -> list[str]:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import sys
@@ -10,7 +11,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import coordination
+from agent_os.fingerprints import nul_joined_sha256
 from agent_os.paths import ROOT
+from agent_os.timestamps import utc_now_iso
 
 
 class ClaimFixture(unittest.TestCase):
@@ -591,6 +594,67 @@ class PreflightTests(ClaimFixture):
             self.skipTest("router did not resolve this project on this machine")
         self.assertIn("active_work", result)
         self.assertEqual(result["active_work"]["claims"][0]["agent"], "codex")
+
+
+class IDGenerationTests(unittest.TestCase):
+    """Verify that nul_joined_sha256 produces the same IDs as the old hashlib formulas."""
+
+    def test_claim_id_matches_old_formula(self) -> None:
+        """_claim_id should produce identical results with nul_joined_sha256."""
+        agent = "test-agent"
+        project = "test-project"
+        created = "2026-10-04T12:34:56Z"
+
+        # Old formula
+        old_result = "WC-" + hashlib.sha256(f"{agent}\0{project}\0{created}".encode("utf-8")).hexdigest()[:10]
+        # New formula
+        new_result = coordination._claim_id(agent, project, created)
+
+        self.assertEqual(new_result, old_result)
+
+    def test_task_id_matches_old_formula(self) -> None:
+        """_task_id should produce identical results with nul_joined_sha256."""
+        # Test with spaces and mixed case to verify casefold() and strip() behavior
+        project = "  Proj "
+        task_key = "Key"
+
+        # Old formula
+        old_result = "WT-" + hashlib.sha256(
+            f"{project.strip().casefold()}\0{task_key.strip().casefold()}".encode("utf-8")
+        ).hexdigest()[:12]
+        # New formula
+        new_result = coordination._task_id(project, task_key)
+
+        self.assertEqual(new_result, old_result)
+
+    def test_review_id_matches_old_formula(self) -> None:
+        """_review_id should produce identical results with nul_joined_sha256."""
+        project = "Proj"
+        review_key = "Key"
+        link = "http://x"
+
+        # Old formula
+        old_result = "WR-" + hashlib.sha256(
+            f"{project.strip().casefold()}\0{review_key.strip().casefold()}\0{link}".encode("utf-8")
+        ).hexdigest()[:12]
+        # New formula
+        new_result = coordination._review_id(project, review_key, link)
+
+        self.assertEqual(new_result, old_result)
+
+    def test_note_id_matches_old_formula(self) -> None:
+        """note_id construction should match old formula."""
+        project = "test-project"
+        sender = "test-sender"
+        timestamp = "2026-10-04T12:34:56Z"
+
+        # Old formula
+        old_result = "WN-" + hashlib.sha256(
+            f"{project}\0{sender}\0{timestamp}".encode("utf-8")).hexdigest()[:10]
+        # New formula
+        new_result = "WN-" + nul_joined_sha256([project, sender, timestamp], 10)
+
+        self.assertEqual(new_result, old_result)
 
 
 if __name__ == "__main__":
