@@ -715,6 +715,7 @@ The router should:
 - select the cheapest path likely to satisfy validation;
 - escalate on concrete failure/ambiguity signals;
 - record an observable route explanation;
+- never claim to hot-swap the model already running inside ChatGPT/Claude.
 
 Deterministic features delivered:
 - provider-neutral capability classes and cheapest-path selection
@@ -735,8 +736,6 @@ The next safe deterministic roadmap stage is P2.1, Automation Miner.
 
 Open:
 - Provider/model delegation is moved to P1.3 and is not implemented by P1.2.
-- The router never claims to hot-swap the model already running inside
-  ChatGPT/Claude.
 
 ### P1.2A — Multi-agent coding orchestrator + control GUI
 
