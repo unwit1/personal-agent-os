@@ -726,7 +726,8 @@ Deterministic features delivered:
   src/agent_os/orchestrator/free_routing.py);
 - observable route explanations (`explain_execution_path`, exposed as
   `execution_path_explanation` in workflow packets);
-- bounded delegation helpers (src/agent_os/orchestrator/delegate.py).
+- contract checks, attachment fencing, and bounded subtask delegation
+  (src/agent_os/orchestrator/delegate.py).
 
 Current deterministic slice (2026-10-04): workflow packets expose the
 provider-neutral selected execution path, declared candidates, and a compact
@@ -735,7 +736,8 @@ route explanation. All execution path selection is deterministic and testable.
 The next safe deterministic roadmap stage is P2.1, Automation Miner.
 
 Open:
-- Provider/model delegation is moved to P1.3 and is not implemented by P1.2.
+- Provider/model selection policy is moved to P1.3 and is not implemented by
+  P1.2. The bounded subtask delegation infrastructure is delivered.
 
 ### P1.2A — Multi-agent coding orchestrator + control GUI
 
