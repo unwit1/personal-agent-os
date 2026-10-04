@@ -664,6 +664,242 @@ class TelemetryStoreTests(unittest.TestCase):
         self.assertEqual(report["groups"]["anthropic"]["event_count"], 1)
         self.assertEqual(report["groups"]["unknown"]["event_count"], 1)
 
+    def test_group_rankings_model_tokens_ordering_by_value_then_label(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=100,
+                output_tokens=50,
+                reasoning_tokens=0,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                input_tokens=50,
+                output_tokens=50,
+                reasoning_tokens=0,
+            ),
+            TelemetryEvent(
+                project_id="proj-c",
+                task_category="stage",
+                input_tokens=100,
+                output_tokens=0,
+                reasoning_tokens=0,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project")
+
+        self.assertIn("group_rankings", report)
+        self.assertIn("model_tokens", report["group_rankings"])
+        model_tokens = report["group_rankings"]["model_tokens"]
+        self.assertEqual(len(model_tokens), 3)
+        self.assertEqual(model_tokens[0]["group"], "proj-a")
+        self.assertEqual(model_tokens[0]["value"], 150)
+        self.assertEqual(model_tokens[1]["group"], "proj-b")
+        self.assertEqual(model_tokens[1]["value"], 100)
+        self.assertEqual(model_tokens[2]["group"], "proj-c")
+        self.assertEqual(model_tokens[2]["value"], 100)
+
+    def test_group_rankings_excludes_zero_value_groups(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=100,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project")
+
+        self.assertIn("group_rankings", report)
+        model_tokens = report["group_rankings"]["model_tokens"]
+        self.assertEqual(len(model_tokens), 1)
+        self.assertEqual(model_tokens[0]["group"], "proj-a")
+        self.assertEqual(model_tokens[0]["value"], 100)
+
+    def test_group_rankings_retries_and_escalations(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                retries=2,
+                escalations=1,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                retries=0,
+                escalations=0,
+            ),
+            TelemetryEvent(
+                project_id="proj-c",
+                task_category="stage",
+                retries=2,
+                escalations=2,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project")
+
+        self.assertIn("group_rankings", report)
+        self.assertIn("retries_and_escalations", report["group_rankings"])
+        ret_esc = report["group_rankings"]["retries_and_escalations"]
+        self.assertEqual(len(ret_esc), 2)
+        self.assertEqual(ret_esc[0]["group"], "proj-c")
+        self.assertEqual(ret_esc[0]["value"], 4)
+        self.assertEqual(ret_esc[1]["group"], "proj-a")
+        self.assertEqual(ret_esc[1]["value"], 3)
+
+    def test_group_rankings_model_path_events(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                execution_path="model",
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                execution_path="model",
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                execution_path="model",
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                execution_path="cache",
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project")
+
+        self.assertIn("group_rankings", report)
+        self.assertIn("model_path_events", report["group_rankings"])
+        model_path = report["group_rankings"]["model_path_events"]
+        self.assertEqual(len(model_path), 2)
+        self.assertEqual(model_path[0]["group"], "proj-a")
+        self.assertEqual(model_path[0]["value"], 2)
+        self.assertEqual(model_path[1]["group"], "proj-b")
+        self.assertEqual(model_path[1]["value"], 1)
+
+    def test_ungrouped_report_has_no_group_rankings(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=100,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                input_tokens=50,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by=None)
+
+        self.assertNotIn("group_rankings", report)
+
+    def test_aggregate_report_includes_input_tokens_max(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=100,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=250,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=150,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+            ),
+        ]
+
+        report = aggregate_report(events)
+
+        self.assertEqual(report["input_tokens_max"], 250)
+
+    def test_aggregate_report_input_tokens_max_is_none_when_no_tokens(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+            ),
+        ]
+
+        report = aggregate_report(events)
+
+        self.assertIsNone(report["input_tokens_max"])
+
+    def test_aggregate_report_oversized_input_tokens_validation(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+            ),
+        ]
+
+        with self.assertRaises(ValueError) as ctx:
+            aggregate_report(events, oversized_input_tokens=0)
+        self.assertIn("oversized_input_tokens must be >= 1", str(ctx.exception))
+
+        with self.assertRaises(ValueError) as ctx:
+            aggregate_report(events, oversized_input_tokens=-1)
+        self.assertIn("oversized_input_tokens must be >= 1", str(ctx.exception))
+
+        with self.assertRaises(ValueError) as ctx:
+            aggregate_report(events, oversized_input_tokens=True)
+        self.assertIn("oversized_input_tokens must be an int, not bool", str(ctx.exception))
+
+    def test_group_rankings_works_with_provider_grouping(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                provider="anthropic",
+                input_tokens=100,
+                output_tokens=50,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                provider="openai",
+                input_tokens=200,
+                output_tokens=100,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="provider")
+
+        self.assertIn("group_rankings", report)
+        model_tokens = report["group_rankings"]["model_tokens"]
+        self.assertEqual(len(model_tokens), 2)
+        self.assertEqual(model_tokens[0]["group"], "openai")
+        self.assertEqual(model_tokens[0]["value"], 300)
+        self.assertEqual(model_tokens[1]["group"], "anthropic")
+        self.assertEqual(model_tokens[1]["value"], 150)
+
 
 if __name__ == "__main__":
     unittest.main()
