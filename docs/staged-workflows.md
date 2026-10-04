@@ -320,6 +320,33 @@ Grouped reports include a top-level `group_by` field and a `groups` object with
 one report per label; raw per-event records, event IDs, and timestamp information 
 are never included in any report.
 
+#### Group rankings
+
+When `--group-by` is specified, the report also includes a `group_rankings` object with 
+per-group metrics ranked by value. This helps identify where tokens are consumed, where 
+retries and escalations occur, and which groups repeatedly use the model path (indicating 
+cache candidates). The rankings are:
+
+- `model_tokens`: sum of input, reasoning, and output tokens per group (cached tokens excluded), 
+  ranked by total descending;
+- `retries_and_escalations`: sum of retries and escalations per group, ranked by total descending;
+- `model_path_events`: count of events with `execution_path == "model"` per group, ranked by count descending.
+
+Each ranking is sorted by value descending, then by group label ascending. Groups with a 
+value of zero are omitted from all rankings. The report also includes `input_tokens_max`, 
+the largest non-None `input_tokens` value reported across all events, or `null` if all 
+input token values are unknown.
+
+Example:
+
+```powershell
+agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl --group-by category
+```
+
+Unknown values are never fabricated: a `null` or missing count means the source did not 
+report the metric. All workflow-stage events share `task_category: 'workflow-stage'`, 
+making `--group-by category` useful for separating workflow stages from other event types.
+
 ### Enabling telemetry via Python API
 
 A Python caller enables telemetry by providing a `LocalTelemetryStore` to the 
