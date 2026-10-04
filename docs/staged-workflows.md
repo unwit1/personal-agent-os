@@ -233,6 +233,60 @@ agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage tria
 The `--usage-format` must be one of `anthropic`, `openai-chat`, `openai-responses`, 
 or `normalized`.
 
+### Explicit telemetry record via CLI
+
+For scripts and hooks outside orchestrated and workflow paths, use `agent-os
+telemetry-record` to record metadata-only telemetry explicitly. The command accepts
+the following flags (all omitted values stay unknown and are never estimated):
+
+```
+--path              path to JSONL store; defaults to .agent-local/telemetry/events.jsonl
+--project           project identifier (required; maps to project_id)
+--category          task category (required; maps to task_category)
+--capability        capability class (optional; fast, balanced, reasoning, frontier, etc.)
+--execution-path    execution path (optional; deterministic, cache, skill, model, etc.)
+--provider          provider name (optional)
+--model             model name (optional)
+--input-tokens      input token count (optional; integer)
+--cached-tokens     cached token count (optional; integer)
+--reasoning-tokens  reasoning token count (optional; integer)
+--output-tokens     output token count (optional; integer)
+--duration-ms       duration in milliseconds (optional; integer)
+--items-processed   items processed count (optional; integer)
+--retries           retry count (optional; integer)
+--escalations       escalation count (optional; integer)
+--validator-passed  marks validator passed (mutually exclusive with --validator-failed)
+--validator-failed  marks validator failed (mutually exclusive with --validator-passed)
+--override          marks output as operator-corrected or overridden
+--usage-file        path to JSON file with provider usage data
+--usage-format      format of provider usage (anthropic, openai-chat, openai-responses, normalized)
+```
+
+Privacy validation rejects invalid labels (lowercase, alphanumeric with optional dots/dashes,
+max 63 chars) and canonical repository paths. The `--usage-file` and `--usage-format` must
+be provided together and cannot be combined with explicit token flags. Example:
+
+```powershell
+agent-os telemetry-record \
+  --project personal-agent-os \
+  --category script-hook \
+  --provider openai \
+  --model gpt-4-turbo \
+  --input-tokens 500 \
+  --output-tokens 200 \
+  --duration-ms 3000
+```
+
+Alternatively, supply provider usage via JSON file:
+
+```powershell
+agent-os telemetry-record \
+  --project personal-agent-os \
+  --category script-hook \
+  --usage-file ./response.json \
+  --usage-format openai-chat
+```
+
 ### Reporting aggregate telemetry
 
 Use `agent-os telemetry-report --path <file>` to view aggregate counts across
