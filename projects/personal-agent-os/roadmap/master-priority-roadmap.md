@@ -646,6 +646,8 @@ Build after or alongside the P0 primitives so optimization is measured against r
 
 ### P1.1 — Privacy-safe usage telemetry
 
+Status: **on hold** (2026-10-04), awaiting an operator decision on chat-session telemetry capture (whether and how Claude/ChatGPT/Codex sessions may be recorded as metadata-only events, and any automatic capture hooks). Decided by the supervisor: model-path counts are sufficient for repeat-work cache-candidate detection for now. Buildable without input when resumed: per-workflow identity in workflow-stage telemetry.
+
 Current bounded implementation (2026-09-23): orchestrated runs record
 per-run efficiency telemetry with normalized provider token usage (P1.2C), and
 `agent-os orchestrate usage-report` / the GUI's "Model usage across all runs"
