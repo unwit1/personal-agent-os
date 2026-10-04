@@ -261,6 +261,34 @@ class TaskCacheStoreTests(unittest.TestCase):
         result = self.store.lookup(key)
         self.assertIsNone(result)
 
+    def test_lookup_returns_none_for_non_dict_entry(self) -> None:
+        """lookup returns None when JSON is valid but not a dict."""
+        key = "test_key"
+        (self.root / f"{key}.json").write_text('["this", "is", "a", "list"]', encoding="utf-8")
+        result = self.store.lookup(key)
+        self.assertIsNone(result)
+
+        key2 = "test_key2"
+        (self.root / f"{key2}.json").write_text('"just a string"', encoding="utf-8")
+        result = self.store.lookup(key2)
+        self.assertIsNone(result)
+
+    def test_lookup_returns_none_for_mismatched_key(self) -> None:
+        """lookup returns None when entry key doesn't match the requested key."""
+        key = "test_key"
+        wrong_key = "wrong_key"
+        entry = {
+            "schema": "personal-agent/orchestrator-task-cache/v1",
+            "policy_version": task_cache.TASK_CACHE_POLICY_VERSION,
+            "key": wrong_key,
+            "patch": "test patch",
+            "validator_evidence": [],
+            "metadata": {},
+        }
+        (self.root / f"{key}.json").write_text(json.dumps(entry), encoding="utf-8")
+        result = self.store.lookup(key)
+        self.assertIsNone(result)
+
     def test_lookup_returns_none_for_wrong_policy_version(self) -> None:
         """lookup returns None when policy_version doesn't match."""
         key = "test_key"
@@ -332,6 +360,42 @@ class TaskCacheStoreTests(unittest.TestCase):
 
         self.assertEqual(first_entry["patch"], first_patch)
         self.assertEqual(second_entry["patch"], first_patch)
+
+    def test_record_overwrites_corrupt_entry(self) -> None:
+        """record() replaces corrupt entries instead of skipping."""
+        key = "corrupt_key"
+        (self.root / f"{key}.json").write_text("{invalid json}", encoding="utf-8")
+
+        patch = "valid patch"
+        evidence = []
+        meta = {}
+
+        path = self.store.record(key, patch, evidence, meta)
+        entry = self.store.lookup(key)
+
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["patch"], patch)
+
+    def test_record_overwrites_wrong_policy_version(self) -> None:
+        """record() replaces entries with wrong policy_version."""
+        key = "policy_key"
+        old_entry = {
+            "schema": "personal-agent/orchestrator-task-cache/v1",
+            "policy_version": 999,
+            "key": key,
+            "patch": "old patch",
+            "validator_evidence": [],
+            "metadata": {},
+        }
+        (self.root / f"{key}.json").write_text(json.dumps(old_entry), encoding="utf-8")
+
+        new_patch = "new patch"
+        path = self.store.record(key, new_patch, [], {})
+        entry = self.store.lookup(key)
+
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry["patch"], new_patch)
+        self.assertEqual(entry["policy_version"], task_cache.TASK_CACHE_POLICY_VERSION)
 
     def test_multiple_entries_coexist(self) -> None:
         """Multiple different keys can be stored and retrieved independently."""

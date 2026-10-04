@@ -127,15 +127,15 @@ class TaskCacheStore:
         """
         path = self.root / f"{key}.json"
 
-        if not path.exists():
-            return None
-
         try:
             entry = json.loads(path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
+        except (json.JSONDecodeError, ValueError, OSError):
             return None
 
-        if entry.get("policy_version") != TASK_CACHE_POLICY_VERSION:
+        if not isinstance(entry, dict) or entry.get("policy_version") != TASK_CACHE_POLICY_VERSION:
+            return None
+
+        if entry.get("key") != key:
             return None
 
         return entry
@@ -145,7 +145,7 @@ class TaskCacheStore:
 
         Writes the entry to a temp file in the same directory, then uses
         os.replace to atomically move it to the final location. Does not
-        overwrite an existing entry for the same key.
+        overwrite an existing valid entry for the same key.
 
         Args:
             key: The cache key (hex sha256)
@@ -158,7 +158,7 @@ class TaskCacheStore:
         """
         path = self.root / f"{key}.json"
 
-        if path.exists():
+        if self.lookup(key) is not None:
             return path
 
         entry = {
