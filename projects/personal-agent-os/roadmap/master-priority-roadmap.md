@@ -371,13 +371,12 @@ Detailed design:
 
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
-Status: **foundation complete; field-region OCR seam started** (2026-09-24).
+Status: **foundation complete; field-region OCR seam pinned by Agent OS contract tests** (2026-10-04).
 The cache/extraction foundation was implemented in `src/agent_os/documents.py` and
 moved on 2026-10-01 to the Ingester Engine (`ingester_engine.cache`, shared per-user
 cache, unchanged keys); this roadmap item continues there. It was
 exposed through CLI and MCP, enforced by `agent.py validate`, and covered by 40
-regression tests. The new field-region seam is a library API awaiting project
-integration and focused regression coverage.
+regression tests. The field-region seam is now covered from Agent OS by tests/test_field_region_contract.py (validation, cache reuse, re-OCR for a new region, count-only telemetry) and documented in docs/document-intelligence.md, while tests inside the ingester-engine repo and HR-GUI branch review are still open.
 
 Delivered:
 1. persistent exact-page cache keyed by content hash — **done**;
@@ -389,8 +388,7 @@ Delivered:
    pending (the current registry is empty);
 4. targeted field-region OCR — shared `FieldRegion` validation and cached
    `extract_field_region` API are implemented, with count-only telemetry for
-   region requests, OCR calls, and cache hits; focused regression coverage
-   remains;
+   region requests, OCR calls, and cache hits; Agent OS consumer contract coverage done (tests/test_field_region_contract.py); in-repo ingester-engine tests and HR-GUI branch review/merge remain;
 5. bounded concurrency — **not started**, and correctly gated behind measuring
    the earlier steps.
 

@@ -330,11 +330,16 @@ class RandomSequenceInvariantTests(unittest.TestCase):
     def test_harness_detects_a_planted_duplicate_merge(self) -> None:
         harness = Harness()
         try:
-            for op in ["start"] + ["step"] * 12:
-                harness.apply(op)
-            record = harness.engine.load(harness.run_id)
+            # Step until something integrates rather than a fixed count: under
+            # machine load a transient failure can cost a retry cycle.
+            harness.apply("start")
+            for _ in range(60):
+                harness.apply("step")
+                record = harness.engine.load(harness.run_id)
+                integrated = [node_id for node_id, node in record["nodes"].items() if node["integrated"]]
+                if integrated or record["state"] in TERMINAL:
+                    break
             branch = record["integration"]["branch"]
-            integrated = [node_id for node_id, node in record["nodes"].items() if node["integrated"]]
             self.assertTrue(branch and integrated, "setup did not integrate anything")
             # Plant with plumbing: the integration worktree may already be
             # cleaned up, but the branch remains.
