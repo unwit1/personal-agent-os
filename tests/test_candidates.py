@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import tempfile
 import unittest
 from pathlib import Path
 
+from agent_os import candidates
 from agent_os.candidates import load_candidates_incremental
 
 
@@ -93,6 +95,14 @@ class IncrementalCandidateImportTests(unittest.TestCase):
         self.assertGreater(second_checkpoint["sequence"], first_checkpoint["sequence"])
         self.assertEqual(second_checkpoint["cursor"], "candidate-b.json")
         self.assertEqual(second["stats"]["skipped"], 2)
+
+
+class FingerprintTests(unittest.TestCase):
+    def test_fingerprint_matches_nul_joined_sha256(self) -> None:
+        """_fingerprint equals nul_joined_sha256 of [project_id, kind, normalised_statement]."""
+        result = candidates._fingerprint('proj', 'decision', '  Hello World ')
+        expected = hashlib.sha256(('proj\0decision\0' + candidates._normalise('  Hello World ')).encode('utf-8')).hexdigest()
+        self.assertEqual(result, expected)
 
 
 if __name__ == "__main__":
