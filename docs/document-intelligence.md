@@ -69,6 +69,27 @@ page; neither crashes the run.
 The route taken is reported per page, so cost can be measured rather than
 assumed.
 
+## Targeted field-region OCR
+
+The field-region extraction API is implemented in the Ingester Engine and
+exposed through `src/agent_os/ingester_bridge.py`. A `FieldRegion` specifies
+normalized rectangle coordinates (0–1 in both axes) on a page; regions are
+validated before any OCR runs. The `extract_field_region()` API accepts a `PageKey`
+(`file_hash` and `page_index`), a region, and callables for `render_page`,
+`crop_region`, and `ocr`, along with an optional `dpi` parameter.
+
+Results are cached by page and region geometry. A repeat request for the same
+page and region reuses the cached result without calling OCR; a different region
+on the same page triggers extraction again. The cache works with or without it —
+OCR runs if the cache is absent, unwritable, or corrupt.
+
+Telemetry is strictly count-only: `field_region_pages`, `field_region_ocr_pages`,
+and `field_region_cache_hits`. It never contains OCR text or region details.
+
+Zone definitions and OCR text results remain private to the consuming project.
+For example, HR-GUI defines its own zones and keeps extracted text local. The
+shared consumer contract is pinned by `tests/test_field_region_contract.py`.
+
 ## Template signatures
 
 `structural_fingerprint()` builds a signature from an **allowlisted form
