@@ -406,6 +406,137 @@ class TestFieldRegionContract(unittest.TestCase):
                 f"Cached result should not contain absolute cache path: {path_form}",
             )
 
+    def test_ocr_failure_degrades_without_crash(self) -> None:
+        """OCR failure returns degraded result instead of raising."""
+        cache = DocumentCache(root=self.cache_root)
+        render_page, crop_region = self._make_render_and_crop()
+
+        def failing_ocr(image) -> str:
+            raise RuntimeError("synthetic failure")
+
+        key = PageKey(file_hash="e" * 64, page_index=0)
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First call with failing OCR should not raise
+        result = extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=failing_ocr,
+            cache=cache,
+        )
+
+        # Verify result marks the failure
+        self.assertEqual(result["text"], "", "Failed OCR should return empty text")
+        self.assertTrue(result.get("blank"), "Failed OCR should mark result as blank")
+        self.assertFalse(result.get("cached"), "Failed OCR result should not be marked cached on first call")
+
+        # Call again with working OCR and verify failure result is cached (blank result cached, not re-run)
+        ocr, get_count = self._make_ocr()
+        result2 = extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 0, "Failed blank result is cached, OCR should not run again")
+        self.assertEqual(result2["text"], "", "Cached failure should still return empty text")
+        self.assertTrue(result2.get("blank"), "Cached failure should still be marked as blank")
+        self.assertTrue(result2.get("cached"), "Second call should be marked as cached")
+
+    def test_same_region_different_dpi_runs_ocr(self) -> None:
+        """Same region at different DPI values runs OCR for each."""
+        cache = DocumentCache(root=self.cache_root)
+        ocr, get_count = self._make_ocr()
+        render_page, crop_region = self._make_render_and_crop()
+
+        key = PageKey(file_hash="f" * 64, page_index=0)
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First DPI
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            dpi=200,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 1, "First DPI should run OCR")
+
+        # Different DPI
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            dpi=300,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 2, "Different DPI should run OCR again")
+
+        # Repeat first DPI
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            dpi=200,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 2, "Repeat of first DPI should use cache")
+
+    def test_same_region_different_rotation_runs_ocr(self) -> None:
+        """Same region at different rotation values runs OCR for each."""
+        cache = DocumentCache(root=self.cache_root)
+        ocr, get_count = self._make_ocr()
+        render_page, crop_region = self._make_render_and_crop()
+
+        key = PageKey(file_hash="g" * 64, page_index=0)
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First rotation
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            rotation=0,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 1, "First rotation should run OCR")
+
+        # Different rotation
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            rotation=90,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 2, "Different rotation should run OCR again")
+
+        # Repeat first rotation
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            rotation=0,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 2, "Repeat of first rotation should use cache")
+
 
 if __name__ == "__main__":
     unittest.main()
