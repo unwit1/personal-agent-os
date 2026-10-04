@@ -433,7 +433,7 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
-    telemetry_report.add_argument("--group-by")
+    telemetry_report.add_argument("--group-by", choices=["project", "category"], default=None)
     commands.add_parser("document-cache-status")
     commands.add_parser("document-cache-clear")
     cache_prune = commands.add_parser("document-cache-prune")

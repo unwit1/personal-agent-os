@@ -187,6 +187,64 @@ class TelemetryStoreTests(unittest.TestCase):
         self.assertNotIn("event-cli", output.getvalue())
         self.assertNotIn("fixture-project", output.getvalue())
 
+    def test_cli_telemetry_report_with_group_by_project(self) -> None:
+        self.store.record(
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                event_id="event-a",
+                input_tokens=10,
+            )
+        )
+        self.store.record(
+            TelemetryEvent(
+                project_id="project-b",
+                task_category="stage",
+                event_id="event-b",
+                input_tokens=5,
+            )
+        )
+        output = io.StringIO()
+
+        with contextlib.redirect_stdout(output):
+            exit_code = main(["telemetry-report", "--path", str(self.store.path), "--group-by", "project"])
+
+        self.assertEqual(exit_code, 0)
+        report = json.loads(output.getvalue())
+        self.assertEqual(report["group_by"], "project")
+        self.assertIn("groups", report)
+        self.assertIn("project-a", report["groups"])
+        self.assertIn("project-b", report["groups"])
+        self.assertEqual(report["groups"]["project-a"]["event_count"], 1)
+        self.assertEqual(report["groups"]["project-b"]["event_count"], 1)
+        self.assertNotIn("event-a", output.getvalue())
+        self.assertNotIn("event-b", output.getvalue())
+
+    def test_cli_telemetry_report_without_group_by(self) -> None:
+        self.store.record(
+            TelemetryEvent(
+                project_id="project-a",
+                task_category="stage",
+                event_id="event-a",
+            )
+        )
+        self.store.record(
+            TelemetryEvent(
+                project_id="project-b",
+                task_category="stage",
+                event_id="event-b",
+            )
+        )
+        output = io.StringIO()
+
+        with contextlib.redirect_stdout(output):
+            exit_code = main(["telemetry-report", "--path", str(self.store.path)])
+
+        self.assertEqual(exit_code, 0)
+        report = json.loads(output.getvalue())
+        self.assertNotIn("groups", report)
+        self.assertNotIn("group_by", report)
+
     def test_aggregate_report_includes_new_retry_and_escalation_counts(self) -> None:
         events = [
             TelemetryEvent(
