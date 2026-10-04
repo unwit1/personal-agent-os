@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -265,13 +266,19 @@ class TelemetryRecordCliTests(unittest.TestCase):
 
     def test_uses_default_path_when_path_not_specified(self) -> None:
         # Record to default location (will be under .agent-local)
-        code, result = self._run(
-            "telemetry-record",
-            "--project", "test-project",
-            "--category", "workflow-stage"
-        )
-        self.assertEqual(code, 0)
-        self.assertEqual(result["project_id"], "test-project")
+        default_path = Path(self.tmp.name) / "default_events.jsonl"
+        with mock.patch.object(
+            __import__("agent_os.telemetry", fromlist=["DEFAULT_PATH"]),
+            "DEFAULT_PATH",
+            default_path,
+        ):
+            code, result = self._run(
+                "telemetry-record",
+                "--project", "test-project",
+                "--category", "workflow-stage"
+            )
+            self.assertEqual(code, 0)
+            self.assertEqual(result["project_id"], "test-project")
 
     def test_multiple_records_to_same_store(self) -> None:
         for i in range(3):
