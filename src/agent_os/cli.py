@@ -433,6 +433,7 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
+    telemetry_report.add_argument("--group-by", choices=["project", "category"], default=None)
     commands.add_parser("document-cache-status")
     commands.add_parser("document-cache-clear")
     cache_prune = commands.add_parser("document-cache-prune")
@@ -746,7 +747,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result["ok"] else 1
         elif args.command == "telemetry-report":
             store = LocalTelemetryStore(Path(args.path) if args.path else None)
-            _print(store.aggregate_report())
+            _print(store.aggregate_report(group_by=args.group_by))
         elif args.command == "document-cache-status":
             _print(DocumentCache().stats())
         elif args.command == "document-cache-clear":
