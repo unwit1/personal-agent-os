@@ -91,6 +91,8 @@ class TelemetryPrivacyError(ValueError):
     """Raised when an event is not representable as safe metadata."""
 
 
+PROVIDER_USAGE_FORMATS = ("anthropic", "openai-chat", "openai-responses", "normalized")
+
 REPORT_SCHEMA = "personal-agent/telemetry-report/v1"
 REPORT_GROUP_FIELDS = {
     "project": "project_id",
@@ -100,6 +102,128 @@ REPORT_GROUP_FIELDS = {
     "capability": "capability_class",
     "path": "execution_path",
 }
+
+
+def token_counts_from_provider_usage(
+    usage: Mapping[str, Any] | None, usage_format: str
+) -> dict[str, int | None]:
+    """Extract and normalize token counts from provider usage data.
+
+    Extracts token counts from provider-specific usage dictionaries and normalizes
+    them to a standard schema. Returns a dict with exactly the keys:
+    input_tokens, cached_tokens, reasoning_tokens, output_tokens.
+
+    Args:
+        usage: Provider usage dict, or None. If it contains a "usage" key with a
+            Mapping value, that inner dict is used and all other keys are ignored.
+        usage_format: One of PROVIDER_USAGE_FORMATS. Determines the mapping rules.
+
+    Returns:
+        Dict with keys: input_tokens, cached_tokens, reasoning_tokens, output_tokens.
+        Values are non-negative integers or None. Missing, invalid, boolean, or
+        negative values become None. The function never estimates.
+
+    Raises:
+        TelemetryPrivacyError: If usage_format is not in PROVIDER_USAGE_FORMATS.
+    """
+    if usage_format not in PROVIDER_USAGE_FORMATS:
+        raise TelemetryPrivacyError(
+            f"unsupported provider usage format {usage_format!r}; "
+            f"must be one of {', '.join(PROVIDER_USAGE_FORMATS)}"
+        )
+
+    if not usage or not isinstance(usage, Mapping):
+        return {
+            "input_tokens": None,
+            "cached_tokens": None,
+            "reasoning_tokens": None,
+            "output_tokens": None,
+        }
+
+    def _valid_int(value: Any) -> int | None:
+        return value if isinstance(value, int) and not isinstance(value, bool) and value >= 0 else None
+
+    payload = usage
+    if isinstance(usage.get("usage"), Mapping):
+        payload = usage["usage"]
+
+    if usage_format == "normalized":
+        if payload.get("accuracy") != "exact":
+            return {
+                "input_tokens": None,
+                "cached_tokens": None,
+                "reasoning_tokens": None,
+                "output_tokens": None,
+            }
+
+        cached = _valid_int(payload.get("cache_read_tokens"))
+        if cached is None:
+            cached = _valid_int(payload.get("cached_tokens"))
+
+        return {
+            "input_tokens": _valid_int(payload.get("input_tokens")),
+            "cached_tokens": cached,
+            "reasoning_tokens": _valid_int(payload.get("reasoning_tokens")),
+            "output_tokens": _valid_int(payload.get("output_tokens")),
+        }
+
+    if usage_format == "anthropic":
+        base = _valid_int(payload.get("input_tokens"))
+        if base is None:
+            input_tokens = None
+            cached_tokens = None
+        else:
+            cache_read = _valid_int(payload.get("cache_read_input_tokens")) or 0
+            cache_creation = _valid_int(payload.get("cache_creation_input_tokens")) or 0
+            input_tokens = base + cache_read + cache_creation
+            cached = _valid_int(payload.get("cache_read_input_tokens"))
+            cached_tokens = cached if cached is not None else 0
+
+        return {
+            "input_tokens": input_tokens,
+            "cached_tokens": cached_tokens,
+            "reasoning_tokens": None,
+            "output_tokens": _valid_int(payload.get("output_tokens")),
+        }
+
+    if usage_format == "openai-chat":
+        return {
+            "input_tokens": _valid_int(payload.get("prompt_tokens")),
+            "cached_tokens": _valid_int(
+                payload.get("prompt_tokens_details", {}).get("cached_tokens")
+                if isinstance(payload.get("prompt_tokens_details"), Mapping)
+                else None
+            ),
+            "reasoning_tokens": _valid_int(
+                payload.get("completion_tokens_details", {}).get("reasoning_tokens")
+                if isinstance(payload.get("completion_tokens_details"), Mapping)
+                else None
+            ),
+            "output_tokens": _valid_int(payload.get("completion_tokens")),
+        }
+
+    if usage_format == "openai-responses":
+        return {
+            "input_tokens": _valid_int(payload.get("input_tokens")),
+            "cached_tokens": _valid_int(
+                payload.get("input_tokens_details", {}).get("cached_tokens")
+                if isinstance(payload.get("input_tokens_details"), Mapping)
+                else None
+            ),
+            "reasoning_tokens": _valid_int(
+                payload.get("output_tokens_details", {}).get("reasoning_tokens")
+                if isinstance(payload.get("output_tokens_details"), Mapping)
+                else None
+            ),
+            "output_tokens": _valid_int(payload.get("output_tokens")),
+        }
+
+    return {
+        "input_tokens": None,
+        "cached_tokens": None,
+        "reasoning_tokens": None,
+        "output_tokens": None,
+    }
 
 
 def _check_string(field_name: str, value: str, *, event_id: bool = False) -> str:
