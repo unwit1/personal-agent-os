@@ -145,19 +145,64 @@ class WorkflowCliTelemetryTests(WorkflowFixture):
         from agent_os import workflows
         telemetry_path = Path(self.tmp.name) / "events.jsonl"
 
-        workflows.start("fixture-sweep", run_id="cli-tel-4")
-        workflows.run_stage("fixture-sweep", "cli-tel-4")
+        workflows.start("fixture-sweep", run_id="cli-tel-5")
+        workflows.run_stage("fixture-sweep", "cli-tel-5")
 
-        code, _ = self._run_cli(
-            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-4", "--stage", "think",
-            "--output", "recommendation", "--telemetry-path", str(telemetry_path),
-            "--duration-ms", "1500", "--items-processed", "7", "--override",
+        code, result = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-5", "--stage", "think",
+            "--output", "recommendation",
+            "--telemetry-path", str(telemetry_path),
+            "--duration-ms", "5000", "--items-processed", "42", "--override"
         )
         self.assertEqual(code, 0)
-        report = LocalTelemetryStore(telemetry_path).aggregate_report()
-        self.assertEqual(report["duration_ms_total"], 1500)
-        self.assertEqual(report["items_processed_total"], 7)
-        self.assertEqual(report["correction_or_override_counts"]["true"], 1)
+
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].duration_ms, 5000)
+        self.assertEqual(events[0].items_processed, 42)
+        self.assertIs(events[0].correction_or_override, True)
+
+    def test_workflow_complete_with_only_duration_ms_leaves_others_unknown(self) -> None:
+        from agent_os import workflows
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
+
+        workflows.start("fixture-sweep", run_id="cli-tel-6")
+        workflows.run_stage("fixture-sweep", "cli-tel-6")
+
+        code, result = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-6", "--stage", "think",
+            "--output", "recommendation",
+            "--telemetry-path", str(telemetry_path),
+            "--duration-ms", "10"
+        )
+        self.assertEqual(code, 0)
+
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].duration_ms, 10)
+        self.assertIsNone(events[0].items_processed)
+        self.assertIsNone(events[0].correction_or_override)
+
+    def test_workflow_complete_with_negative_items_processed_fails(self) -> None:
+        from agent_os import workflows
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
+
+        workflows.start("fixture-sweep", run_id="cli-tel-7")
+        workflows.run_stage("fixture-sweep", "cli-tel-7")
+
+        code, result = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-7", "--stage", "think",
+            "--output", "recommendation",
+            "--telemetry-path", str(telemetry_path),
+            "--items-processed", "-1"
+        )
+        self.assertNotEqual(code, 0)
+
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 0)
 
     def test_telemetry_path_in_canonical_repo_fails_with_exit_code_2(self) -> None:
         from agent_os import workflows

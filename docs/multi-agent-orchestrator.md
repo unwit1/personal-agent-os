@@ -497,8 +497,11 @@ orchestration code.
 - Worker prompts and raw CLI output stay in local `workers/<node>-<attempt>/`
   files. The run record holds only a short, redacted summary.
 - Telemetry goes through the existing metadata-only `TelemetryEvent`:
-  provider, model, capability, execution path, tokens, duration, retries,
-  escalations, validator outcome and whether an override was used.
+  provider, model, capability, execution path, tokens (input, cached
+  (cache-read), reasoning, output — recorded only when the provider
+  reported exact usage; estimated or unavailable usage is recorded as
+  unknown, never as a guessed count), duration, retries, escalations,
+  validator outcome and whether an override was used.
 - Editing workers are announced through `work-claim`, scoped to their editable
   paths, and the claim is released on integration. Other agents therefore see
   orchestrated workers exactly as they see each other.

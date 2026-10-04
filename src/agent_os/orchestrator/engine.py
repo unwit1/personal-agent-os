@@ -75,6 +75,38 @@ def _label(value: Any) -> str | None:
     return text or None
 
 
+def _telemetry_token_counts(usage: dict | None) -> dict[str, int | None]:
+    """Extract token counts from usage dict, validating accuracy and values.
+
+    Returns a dict with keys: input_tokens, cached_tokens, reasoning_tokens,
+    output_tokens. Values are non-negative ints or None.
+
+    If usage is falsy or accuracy != "exact", all values are None because
+    telemetry must never record estimated counts as measured.
+    """
+    if not usage or usage.get("accuracy") != "exact":
+        return {
+            "input_tokens": None,
+            "cached_tokens": None,
+            "reasoning_tokens": None,
+            "output_tokens": None,
+        }
+
+    def _valid_int(value: Any) -> int | None:
+        return value if isinstance(value, int) and not isinstance(value, bool) and value >= 0 else None
+
+    cached = _valid_int(usage.get("cache_read_tokens"))
+    if cached is None:
+        cached = _valid_int(usage.get("cached_tokens"))
+
+    return {
+        "input_tokens": _valid_int(usage.get("input_tokens")),
+        "cached_tokens": cached,
+        "reasoning_tokens": _valid_int(usage.get("reasoning_tokens")),
+        "output_tokens": _valid_int(usage.get("output_tokens")),
+    }
+
+
 class Orchestrator:
     def __init__(
         self,
@@ -2662,9 +2694,7 @@ class Orchestrator:
                     execution_path="deterministic" if node["execution_path"] == "deterministic" else "model",
                     provider=_label(selection.get("provider")),
                     model=_label(selection.get("model")),
-                    input_tokens=(result.usage or {}).get("input_tokens"),
-                    cached_tokens=(result.usage or {}).get("cached_tokens"),
-                    output_tokens=(result.usage or {}).get("output_tokens"),
+                    **_telemetry_token_counts(result.usage),
                     duration_ms=result.duration_ms,
                     retries=node["retries"],
                     validator_passed=validator_passed,
