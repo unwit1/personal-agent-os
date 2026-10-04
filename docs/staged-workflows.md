@@ -320,6 +320,17 @@ Grouped reports include a top-level `group_by` field and a `groups` object with
 one report per label; raw per-event records, event IDs, and timestamp information 
 are never included in any report.
 
+Add `--oversized-input-tokens N` (where N >= 1) to identify sessions with large input 
+contexts. When enabled, the report includes `oversized_input_tokens_threshold` (the N 
+value) and `oversized_input_event_count` (count of events with reported input_tokens >= N; 
+events with unknown input_tokens are not counted as oversized). When used with `--group-by`, 
+the report also includes the `group_rankings.oversized_input_events` ranking, which identifies 
+which groups most frequently process large inputs, helping diagnose where context is largest:
+
+```powershell
+agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl --group-by category --oversized-input-tokens 5000
+```
+
 #### Group rankings
 
 When `--group-by` is specified, the report also includes a `group_rankings` object with 
@@ -330,7 +341,8 @@ cache candidates). The rankings are:
 - `model_tokens`: sum of input, reasoning, and output tokens per group (cached tokens excluded), 
   ranked by total descending;
 - `retries_and_escalations`: sum of retries and escalations per group, ranked by total descending;
-- `model_path_events`: count of events with `execution_path == "model"` per group, ranked by count descending.
+- `model_path_events`: count of events with `execution_path == "model"` per group, ranked by count descending;
+- `oversized_input_events`: count of events with `input_tokens >= oversized_input_tokens_threshold` per group, ranked by count descending (only present when `--oversized-input-tokens` is specified).
 
 Each ranking is sorted by value descending, then by group label ascending. Groups with a 
 value of zero are omitted from all rankings. The report also includes `input_tokens_max`, 
