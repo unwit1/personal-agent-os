@@ -259,6 +259,153 @@ class TestFieldRegionContract(unittest.TestCase):
                         cache=cache,
                     )
 
+    def test_field_region_cache_persists_across_cache_instances(self) -> None:
+        """Cache persists across different DocumentCache instances with same root."""
+        ocr, get_count = self._make_ocr()
+        render_page, crop_region = self._make_render_and_crop()
+
+        key = PageKey(file_hash="a" * 64, page_index=0)
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First cache instance
+        cache1 = DocumentCache(root=self.cache_root)
+        result1 = extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache1,
+        )
+        self.assertEqual(get_count(), 1, "First call should run OCR")
+        self.assertEqual(result1["text"], "SYNTHETIC FIELD")
+
+        # Second cache instance with same root
+        cache2 = DocumentCache(root=self.cache_root)
+        result2 = extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache2,
+        )
+        self.assertEqual(get_count(), 1, "OCR call count should stay 1 (cached from disk)")
+        self.assertEqual(result2["text"], "SYNTHETIC FIELD")
+        self.assertTrue(result2.get("cached"), "Result should indicate it was cached")
+        self.assertEqual(
+            cache2.telemetry.field_region_cache_hits,
+            1,
+            "Second cache should report 1 cache hit",
+        )
+
+    def test_same_region_different_page_index_runs_ocr(self) -> None:
+        """Same region on different page indices runs OCR for each."""
+        cache = DocumentCache(root=self.cache_root)
+        ocr, get_count = self._make_ocr()
+        render_page, crop_region = self._make_render_and_crop()
+
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First page
+        key1 = PageKey(file_hash="a" * 64, page_index=0)
+        extract_field_region(
+            key1,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 1)
+
+        # Different page index, same file hash
+        key2 = PageKey(file_hash="a" * 64, page_index=1)
+        extract_field_region(
+            key2,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 2, "Different page index should trigger OCR again")
+
+    def test_same_region_different_file_hash_runs_ocr(self) -> None:
+        """Same region on different file hashes runs OCR for each."""
+        cache = DocumentCache(root=self.cache_root)
+        ocr, get_count = self._make_ocr()
+        render_page, crop_region = self._make_render_and_crop()
+
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First file hash
+        key1 = PageKey(file_hash="a" * 64, page_index=0)
+        extract_field_region(
+            key1,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 1)
+
+        # Different file hash, same page index
+        key2 = PageKey(file_hash="b" * 64, page_index=0)
+        extract_field_region(
+            key2,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 2, "Different file hash should trigger OCR again")
+
+    def test_cached_result_contains_no_absolute_cache_path(self) -> None:
+        """Cached result should not contain absolute cache path."""
+        cache = DocumentCache(root=self.cache_root)
+        ocr, _ = self._make_ocr()
+        render_page, crop_region = self._make_render_and_crop()
+
+        key = PageKey(file_hash="a" * 64, page_index=0)
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First call to populate cache
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+
+        # Second call to get cached result
+        result = extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+
+        self.assertTrue(result.get("cached"), "Result should be marked as cached")
+        result_str = str(result)
+        # Check all path forms to ensure cache path doesn't leak (accounts for Windows backslashes)
+        for path_form in (
+            str(self.cache_root),
+            repr(str(self.cache_root))[1:-1],
+            self.cache_root.as_posix(),
+        ):
+            self.assertNotIn(
+                path_form,
+                result_str,
+                f"Cached result should not contain absolute cache path: {path_form}",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
