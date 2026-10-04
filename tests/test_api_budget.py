@@ -226,6 +226,40 @@ class ApibudgetTests(unittest.TestCase):
         self.assertEqual(result["reason"], "API budget invalid; re-run api-budget set")
         self.assertIsNone(result["remaining_usd"])
 
+    def test_estimated_cost_below_cap_is_allowed(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        result = api_budget.check(self.home, estimated_cost_usd=5.0)
+        self.assertTrue(result["allowed"])
+        self.assertEqual(result["reason"], "within API budget")
+        self.assertEqual(result["estimated_cost_usd"], 5.0)
+
+    def test_estimated_cost_above_cap_is_blocked(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        result = api_budget.check(self.home, estimated_cost_usd=15.0)
+        self.assertFalse(result["allowed"])
+        self.assertIn("per-call cap", result["reason"])
+        self.assertEqual(result["estimated_cost_usd"], 15.0)
+
+    def test_estimated_cost_above_remaining_budget_is_blocked(self) -> None:
+        api_budget.set_api_budget(1.0, 0.5, home=self.home)
+        api_budget.record_api_spend(0.8, call_id="call1", provider="anthropic", home=self.home)
+        result = api_budget.check(self.home, estimated_cost_usd=0.3)
+        self.assertFalse(result["allowed"])
+        self.assertIn("remaining", result["reason"])
+        self.assertEqual(result["estimated_cost_usd"], 0.3)
+
+    def test_check_without_estimate_returns_none(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        result = api_budget.check(self.home)
+        self.assertTrue(result["allowed"])
+        self.assertIsNone(result["estimated_cost_usd"])
+
+    def test_check_without_budget_includes_estimated_cost_key(self) -> None:
+        result = api_budget.check(self.home, estimated_cost_usd=5.0)
+        self.assertFalse(result["allowed"])
+        self.assertIn("no API budget set", result["reason"])
+        self.assertEqual(result["estimated_cost_usd"], 5.0)
+
 
 if __name__ == "__main__":
     unittest.main()
