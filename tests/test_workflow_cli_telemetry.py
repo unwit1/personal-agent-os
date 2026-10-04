@@ -86,15 +86,37 @@ class WorkflowCliTelemetryTests(WorkflowFixture):
         self.assertEqual(events[0].validator_passed, True)
 
     def test_workflow_run_without_telemetry_path_creates_no_file(self) -> None:
-        telemetry_path = Path(self.tmp.name) / "events.jsonl"
         from agent_os import workflows
+
+        # First run with telemetry path
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
         workflows.start("fixture-sweep", run_id="cli-tel-2")
 
         code, result = self._run_cli(
-            "workflow-run", "fixture-sweep", "--run-id", "cli-tel-2", "--stage", "cheap-check"
+            "workflow-run", "fixture-sweep", "--run-id", "cli-tel-2", "--stage", "cheap-check",
+            "--telemetry-path", str(telemetry_path)
         )
         self.assertEqual(code, 0)
-        self.assertFalse(telemetry_path.exists())
+
+        # Verify first file was created with 1 event
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 1)
+
+        # Second run without telemetry path on a different stage
+        unused_telemetry_path = Path(self.tmp.name) / "unused.jsonl"
+
+        code, result = self._run_cli(
+            "workflow-run", "fixture-sweep", "--run-id", "cli-tel-2", "--stage", "think"
+        )
+        self.assertEqual(code, 0)
+
+        # Verify first file still has 1 event
+        events_after = store.read_events()
+        self.assertEqual(len(events_after), 1)
+
+        # Verify unused path does not exist
+        self.assertFalse(unused_telemetry_path.exists())
 
     def test_workflow_complete_records_provider_and_tokens(self) -> None:
         from agent_os import workflows
