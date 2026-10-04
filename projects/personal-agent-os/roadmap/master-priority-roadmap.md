@@ -702,28 +702,32 @@ Initial reports should answer:
 
 ### P1.2 — Adaptive router
 
-Status: **deterministic foundation complete** (2026-09-22). Provider-neutral
-capability classes, cheapest-path selection, persisted fallback, validator-
-driven one-rung escalation, bounded escalation, and observable route
-explanations are implemented and regression-covered. No concrete deterministic
-gap remains in the current scope; provider/model delegation remains outside
-this foundation and P1.3.
+Status: **complete** (2026-10-04). Provider-neutral capability classes,
+cheapest-path selection, persisted fallback, validator-driven bounded
+escalation, and observable route explanations are implemented and
+regression-covered.
 
-Current deterministic slice (2026-09-22): workflow packets expose the
+Deterministic features delivered:
+- provider-neutral capability classes and cheapest-path selection
+  (`select_execution_path` in src/agent_os/capabilities.py);
+- persisted per-stage execution_path and fallback (src/agent_os/workflows.py);
+- validator-driven bounded escalation (`max_escalations`, `escalation_reason`
+  in src/agent_os/workflows.py; `escalate` in
+  src/agent_os/orchestrator/free_routing.py);
+- observable route explanations (`explain_execution_path`, exposed as
+  `execution_path_explanation` in workflow packets);
+- bounded delegation helpers (src/agent_os/orchestrator/delegate.py).
+
+Current deterministic slice (2026-10-04): workflow packets expose the
 provider-neutral selected execution path, declared candidates, and a compact
-route explanation. Provider/model delegation remains outside this slice.
+route explanation. All execution path selection is deterministic and testable.
 
 The next safe deterministic roadmap stage is P2.1, Automation Miner.
 
-Implement provider-neutral capability classes and validator-driven escalation.
-
-The router should:
-- pre-route before expensive work begins;
-- delegate bounded subtasks when useful;
-- select the cheapest path likely to satisfy validation;
-- escalate on concrete failure/ambiguity signals;
-- record an observable route explanation;
-- never claim to hot-swap the model already running inside ChatGPT/Claude.
+Open:
+- Provider/model delegation is moved to P1.3 and is not implemented by P1.2.
+- The router never claims to hot-swap the model already running inside
+  ChatGPT/Claude.
 
 ### P1.2A — Multi-agent coding orchestrator + control GUI
 
