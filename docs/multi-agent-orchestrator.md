@@ -159,8 +159,7 @@ content-addressed task cache whose key binds the normalized goal, sorted scope,
 in-scope base blob hashes, validators, role and policy version. A hit reapplies
 a previously reviewer-approved, scope-limited patch and skips the worker and
 review only if it applies cleanly and every validator passes, otherwise it falls
-back to the model route with a recorded miss reason. Skill execution remains
-caller-owned. See [docs/orchestrator-os/task-cache-route.md](docs/orchestrator-os/task-cache-route.md)
+back to the model route with a recorded miss reason. The cache stays opt-in (default false) until real-run hit/miss evidence justifies a default change. Skill execution stays caller-owned: approved skills are instruction-only, so there is no skill task route; a future skill opts in by shipping a command that passes the approved-command gate above and being declared as a task's deterministic route. See [docs/orchestrator-os/task-cache-route.md](docs/orchestrator-os/task-cache-route.md)
 for the task cache contract.
 
 A task may carry a **ladder**: the escalation steps to take when its
