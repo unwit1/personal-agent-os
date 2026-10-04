@@ -92,6 +92,7 @@ class TelemetryPrivacyError(ValueError):
 
 
 REPORT_SCHEMA = "personal-agent/telemetry-report/v1"
+REPORT_GROUP_FIELDS = {"project": "project_id", "category": "task_category"}
 
 
 def _check_string(field_name: str, value: str, *, event_id: bool = False) -> str:
@@ -207,30 +208,25 @@ class TelemetryEvent:
         return payload
 
 
-def aggregate_report(events: Iterable[TelemetryEvent | Mapping[str, Any]]) -> dict[str, Any]:
-    """Return count-only usage findings from validated metadata events.
-
-    The report intentionally excludes event IDs, timestamps, projects,
-    categories, providers, models, and all other per-event fields. ``None``
-    means the source did not expose a metric and is counted as ``unknown``;
-    it is never converted into a guessed value.
-
-    New aggregates:
-    - capability_class_counts: Counter of event.capability_class or 'unknown'
-    - retry_total: sum of event.retries (None not counted)
-    - escalation_total: sum of event.escalations (None not counted)
-    - events_with_retries: count of events with retries > 0
-    - events_with_escalations: count of events with escalations > 0
-    - retry_unknown_count: count of events where retries is None
-    - escalation_unknown_count: count of events where escalations is None
-    - deterministic_path_model_class_counts: Counter of capability_class for events with
-      execution_path in ('deterministic', 'cache') and capability_class set and not 'deterministic'
-    """
+def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
+    """Compute ungrouped aggregates from validated events."""
 
     execution_paths: Counter[str] = Counter()
     validator_outcomes: Counter[str] = Counter()
     capability_classes: Counter[str] = Counter()
     deterministic_path_classes: Counter[str] = Counter()
+    token_totals = {
+        "input_tokens": 0,
+        "cached_tokens": 0,
+        "reasoning_tokens": 0,
+        "output_tokens": 0,
+    }
+    token_unknown_counts = {
+        "input_tokens": 0,
+        "cached_tokens": 0,
+        "reasoning_tokens": 0,
+        "output_tokens": 0,
+    }
     total = 0
     retry_total = 0
     escalation_total = 0
@@ -239,8 +235,7 @@ def aggregate_report(events: Iterable[TelemetryEvent | Mapping[str, Any]]) -> di
     retry_unknown_count = 0
     escalation_unknown_count = 0
 
-    for item in events:
-        event = item if isinstance(item, TelemetryEvent) else TelemetryEvent.from_mapping(item)
+    for event in events:
         total += 1
         execution_paths[event.execution_path or "unknown"] += 1
         capability_classes[event.capability_class or "unknown"] += 1
@@ -266,6 +261,13 @@ def aggregate_report(events: Iterable[TelemetryEvent | Mapping[str, Any]]) -> di
         else:
             escalation_unknown_count += 1
 
+        for token_field in ("input_tokens", "cached_tokens", "reasoning_tokens", "output_tokens"):
+            value = getattr(event, token_field)
+            if value is not None:
+                token_totals[token_field] += value
+            else:
+                token_unknown_counts[token_field] += 1
+
         if (
             event.execution_path in ("deterministic", "cache")
             and event.capability_class is not None
@@ -286,7 +288,71 @@ def aggregate_report(events: Iterable[TelemetryEvent | Mapping[str, Any]]) -> di
         "retry_unknown_count": retry_unknown_count,
         "escalation_unknown_count": escalation_unknown_count,
         "deterministic_path_model_class_counts": dict(sorted(deterministic_path_classes.items())),
+        "token_totals": token_totals,
+        "token_unknown_counts": token_unknown_counts,
     }
+
+
+def aggregate_report(
+    events: Iterable[TelemetryEvent | Mapping[str, Any]], group_by: str | None = None
+) -> dict[str, Any]:
+    """Return count-only usage findings from validated metadata events.
+
+    The report intentionally excludes event IDs, timestamps, projects,
+    categories, providers, models, and all other per-event fields. ``None``
+    means the source did not expose a metric and is counted as ``unknown``;
+    it is never converted into a guessed value.
+
+    Args:
+        events: Validated metadata events to aggregate.
+        group_by: Optional grouping field. None for ungrouped report. Must be
+            a key of REPORT_GROUP_FIELDS if provided.
+
+    New aggregates:
+    - capability_class_counts: Counter of event.capability_class or 'unknown'
+    - retry_total: sum of event.retries (None not counted)
+    - escalation_total: sum of event.escalations (None not counted)
+    - events_with_retries: count of events with retries > 0
+    - events_with_escalations: count of events with escalations > 0
+    - retry_unknown_count: count of events where retries is None
+    - escalation_unknown_count: count of events where escalations is None
+    - deterministic_path_model_class_counts: Counter of capability_class for events with
+      execution_path in ('deterministic', 'cache') and capability_class set and not 'deterministic'
+    - token_totals: dict of field -> int (sum of non-None values, 0 when nothing reported)
+    - token_unknown_counts: dict of field -> int (count of None values)
+    """
+
+    validated_events: list[TelemetryEvent] = []
+    for item in events:
+        event = item if isinstance(item, TelemetryEvent) else TelemetryEvent.from_mapping(item)
+        validated_events.append(event)
+
+    if group_by is None:
+        return _aggregate(validated_events)
+
+    if group_by not in REPORT_GROUP_FIELDS:
+        raise ValueError(f"unsupported telemetry report grouping: {group_by}")
+
+    field_name = REPORT_GROUP_FIELDS[group_by]
+    groups_dict: dict[str, list[TelemetryEvent]] = {}
+    for event in validated_events:
+        label = getattr(event, field_name)
+        if label not in groups_dict:
+            groups_dict[label] = []
+        groups_dict[label].append(event)
+
+    top_level_report = _aggregate(validated_events)
+    groups_report = {}
+    for label in sorted(groups_dict.keys()):
+        group_events = groups_dict[label]
+        group_aggregate = _aggregate(group_events)
+        group_aggregate.pop("schema", None)
+        groups_report[label] = group_aggregate
+
+    top_level_report["group_by"] = group_by
+    top_level_report["groups"] = groups_report
+
+    return top_level_report
 
 
 def assert_private_location(path: Path) -> None:
@@ -324,7 +390,7 @@ class LocalTelemetryStore:
                 events.append(TelemetryEvent.from_mapping(json.loads(line)))
         return events
 
-    def aggregate_report(self) -> dict[str, Any]:
+    def aggregate_report(self, group_by: str | None = None) -> dict[str, Any]:
         """Summarize local events without exposing the underlying records."""
 
-        return aggregate_report(self.read_events())
+        return aggregate_report(self.read_events(), group_by=group_by)
