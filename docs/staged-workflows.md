@@ -164,6 +164,46 @@ The same operations are exposed over MCP as `workflow.list`, `workflow.start`,
 `workflow.complete_stage`, and `workflow.runs`, so every routed surface from
 P0.0 can drive a staged run.
 
+## Local usage telemetry (opt-in)
+
+Stage telemetry is recorded only when a caller passes a `LocalTelemetryStore` 
+(via `telemetry_store=...`) to the `run_stage()` and `complete_stage()` functions 
+in `src/agent_os/workflows.py`. The workflow-run and workflow-complete CLI 
+commands do not enable telemetry yet; that remains a future enhancement. When 
+enabled, the orchestrator records metadata-only events in a local JSONL file 
+under `.agent-local/telemetry`. The telemetry captures one event per executed 
+stage (deterministic, cache hit, or agent-reported model stage) with:
+- execution path (deterministic, cache, skill, or model);
+- capability class;
+- retry and escalation counts;
+- validator outcome.
+
+Prompts, outputs, token counts, and other details are never recorded; unavailable
+metrics are never fabricated. Raw telemetry stays local and is never committed.
+
+Use `agent-os telemetry-report --path <file>` to view aggregate counts across
+events, including capability_class_counts, retry/escalation totals, and
+deterministic_path_model_class_counts. The report exposes only aggregate
+statistics without exposing per-event records.
+
+Example: An API caller enables telemetry by providing a store, then reports the
+events:
+
+```python
+from agent_os.telemetry import LocalTelemetryStore
+from agent_os.workflows import run_stage, complete_stage
+
+store = LocalTelemetryStore(".agent-local/telemetry/sweep-1.jsonl")
+run_stage("repository-health-sweep", "sweep-1", telemetry_store=store)
+complete_stage("repository-health-sweep", "sweep-1", "triage", telemetry_store=store)
+```
+
+Then aggregate the results:
+
+```powershell
+agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl
+```
+
 ## Measured behaviour
 
 Measured on `repository-health-sweep` in this repository:
