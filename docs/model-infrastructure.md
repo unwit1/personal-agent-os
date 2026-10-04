@@ -687,8 +687,11 @@ via `agent-os orchestrate delegate --role inline`) are blocked with status
 
 ```powershell
 agent-os orchestrate api-budget set --total-usd N --call-cap-usd M
+agent-os orchestrate api-budget set --total-usd N --call-cap-usd M --period monthly
 agent-os orchestrate api-budget show    # spent and remaining
 ```
+
+The `--period` option controls budget rollover: `total` (default; all spend ever recorded counts) or `monthly` (only spend since the start of the current UTC calendar month counts toward spent/remaining). Budgets saved before this change behave as `total`; `api-budget show` reports the active `period` and `period_start` timestamp.
 
 This is a separate budget from host-plan (Claude Code / Codex subscription) usage
 and from the GPU compute budget (`orchestrate budget`, budget.json/spend.jsonl).
