@@ -14,7 +14,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_provisioning_readiness, connector_reconcile_plan, connector_status, import_connector_candidate, prune_stale_registrations, register_connector, set_registration_state, unregister_connector
+from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_provisioning_readiness, connector_reconcile_plan, connector_status, import_connector_candidate, prune_stale_registrations, register_connector, set_registration_state, unregister_connector, verify_native_registrations
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -353,6 +353,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "connector.set_registration_state": {
         "description": "Preview or explicitly enable/disable one connector registration on a surface (state desired or disabled). Writing requires confirm_write=true, records a connector.updated event, and never marks registrations verified, revokes credentials, or edits client configuration.",
         "inputSchema": {"type": "object", "properties": {"connector_id": {"type": "string"}, "surface_id": {"type": "string"}, "state": {"enum": ["desired", "disabled"]}, "confirm_write": {"type": "boolean"}}, "required": ["connector_id", "surface_id", "state"], "additionalProperties": False},
+    },
+    "connector.verify_native": {
+        "description": "Preview or explicitly verify native client registrations by observing requested server_name entries in inspectable client config files: promotes desired to registered when present and returns registered to desired when absent. Writing requires confirm_write=true and records connector.updated events; this is config-level verification only and never invokes connectors, contacts providers, edits client configuration, or returns paths, commands, env, or secrets.",
+        "inputSchema": {"type": "object", "properties": {"connector_id": {"type": ["string", "null"]}, "confirm_write": {"type": "boolean"}}, "additionalProperties": False},
     },
     "connector.import": {
         "description": "Attach explicitly reviewed provider and scope metadata to a currently discovered local MCP candidate. Does not copy credentials or client configuration; persistence requires reviewed=true and confirm_write=true.",
@@ -963,6 +967,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "connector.events": connector_events,
         "connector.unregister": unregister_connector,
         "connector.prune_stale": prune_stale_registrations,
+        "connector.verify_native": verify_native_registrations,
         "connector.set_registration_state": set_registration_state,
         "connector.import": import_connector_candidate,
         "connector.register": register_connector,
@@ -1005,6 +1010,7 @@ INSTRUCTIONS = (
     " Use connector.events for a read-only feed of connector additions, updates, and removals."
     " connector.unregister previews by default and removes metadata only when confirm_write=true; it never revokes credentials."
     " connector.prune_stale previews by default and removes only registrations for undeclared surfaces when confirm_write=true."
+    " connector.verify_native previews by default and reconciles connector state against native client configuration when confirm_write=true."
     " connector.set_registration_state previews by default and changes only one registration between desired and disabled when confirm_write=true."
     " Use connector.import to attach explicitly reviewed provider/scopes to a current candidate; it never copies credentials and writes only when reviewed=true and confirm_write=true."
     " connector.register previews metadata by default and writes only when confirm_write=true; credentials and unverified health states are rejected."
