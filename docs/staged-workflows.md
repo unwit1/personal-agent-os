@@ -166,12 +166,10 @@ P0.0 can drive a staged run.
 
 ## Local usage telemetry (opt-in)
 
-Pass `--telemetry-path <file>` to `workflow-run` or `workflow-complete` to
-record metadata-only events for usage analysis. The file should be located under
-`.agent-local` or outside the repository to keep sensitive analysis local.
-
-For each executed stage (deterministic, cache hit, or agent-reported model stage),
-one event is appended with:
+The orchestrator records metadata-only events for usage analysis in a local
+JSONL file under `.agent-local/telemetry` when configured. The telemetry
+captures one event per executed stage (deterministic, cache hit, or
+agent-reported model stage) with:
 - execution path (deterministic, cache, skill, or model);
 - capability class;
 - retry and escalation counts;
@@ -188,8 +186,6 @@ statistics without exposing per-event records.
 Example:
 
 ```powershell
-agent-os workflow-run repository-health-sweep --run-id sweep-1 --telemetry-path .agent-local/telemetry/sweep-1.jsonl
-agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage --output "..." --telemetry-path .agent-local/telemetry/sweep-1.jsonl
 agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl
 ```
 
