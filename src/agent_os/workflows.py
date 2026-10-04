@@ -586,12 +586,14 @@ def _record_stage_telemetry(
     state: dict[str, Any],
     validation: dict[str, Any],
     execution_path: str,
+    capability_class: str | None = None,
 ) -> None:
     """Record one countable stage outcome when explicitly enabled."""
 
     if telemetry_store is None:
         return
-    capability_class = "deterministic" if execution_path in ("deterministic", "cache") else state["capability_class"]
+    if capability_class is None:
+        capability_class = "deterministic" if execution_path in ("deterministic", "cache") else state["capability_class"]
     telemetry_store.record(
         TelemetryEvent(
             project_id=manifest["project"],
@@ -783,6 +785,7 @@ def complete_stage(
             "reason": "stage already completed; idempotent no-op",
             "run_status": record["status"],
         }
+    ran_class = state["capability_class"]
     state["attempts"] += 1
     # Partial work survives a failure: reported outputs are merged, never lost.
     state["outputs"] = list(dict.fromkeys([*state["outputs"], *(outputs or [])]))
@@ -804,7 +807,7 @@ def complete_stage(
         _escalate(record, stage_id, f"validator failed: {validation.get('detail') or 'no detail'}")
     _finish_if_done(manifest, record)
     _save(record)
-    _record_stage_telemetry(telemetry_store, manifest, state, validation, state["execution_path"])
+    _record_stage_telemetry(telemetry_store, manifest, state, validation, state["execution_path"], capability_class=ran_class)
     return _completion_packet(manifest, record, stage_id, validation)
 
 

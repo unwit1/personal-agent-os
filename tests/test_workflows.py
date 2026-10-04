@@ -442,7 +442,7 @@ class TelemetryIntegrationTests(WorkflowFixture):
             self.assertEqual(event.task_category, "workflow-stage")
             self.assertEqual(event.execution_path, "model")
             self.assertFalse(event.validator_passed)
-            self.assertEqual(event.capability_class, "balanced")
+            self.assertEqual(event.capability_class, "fast")
             self.assertEqual(event.retries, 0)
             self.assertEqual(event.escalations, 1)
 
