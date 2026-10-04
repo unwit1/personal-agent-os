@@ -650,8 +650,15 @@ Current bounded implementation (2026-09-23): orchestrated runs record
 per-run efficiency telemetry with normalized provider token usage (P1.2C), and
 `agent-os orchestrate usage-report` / the GUI's "Model usage across all runs"
 aggregate it across runs by role, tier, provider/model and origin, with
-coverage and overhead share (P1.2D, `docs/simple-mode.md`). Telemetry from
-non-orchestrator surfaces (chat sessions, staged workflows) remains open.
+coverage and overhead share (P1.2D, `docs/simple-mode.md`). (2026-10-04): staged
+workflows now record opt-in local telemetry for every completion path
+(deterministic, cache hit, agent-reported model stage via complete_stage),
+enabled with `--telemetry-path` on `workflow-run`/`workflow-complete`. The
+count-only `telemetry-report` now also reports capability-class counts,
+retry/escalation totals and concentration, and strong-class-on-deterministic-path
+counts (docs/staged-workflows.md). Chat-session telemetry, caller-reported token
+usage for workflow-complete, per-project/category report grouping, and live
+provider usage adapters remain open.
 `src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
