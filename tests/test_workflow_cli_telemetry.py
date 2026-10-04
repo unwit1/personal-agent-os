@@ -141,6 +141,24 @@ class WorkflowCliTelemetryTests(WorkflowFixture):
         self.assertEqual(report["token_totals"]["output_tokens"], 200)
         self.assertEqual(report["token_unknown_counts"]["cached_tokens"], 1)
 
+    def test_workflow_complete_records_duration_items_and_override(self) -> None:
+        from agent_os import workflows
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
+
+        workflows.start("fixture-sweep", run_id="cli-tel-4")
+        workflows.run_stage("fixture-sweep", "cli-tel-4")
+
+        code, _ = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-4", "--stage", "think",
+            "--output", "recommendation", "--telemetry-path", str(telemetry_path),
+            "--duration-ms", "1500", "--items-processed", "7", "--override",
+        )
+        self.assertEqual(code, 0)
+        report = LocalTelemetryStore(telemetry_path).aggregate_report()
+        self.assertEqual(report["duration_ms_total"], 1500)
+        self.assertEqual(report["items_processed_total"], 7)
+        self.assertEqual(report["correction_or_override_counts"]["true"], 1)
+
     def test_telemetry_path_in_canonical_repo_fails_with_exit_code_2(self) -> None:
         from agent_os import workflows
         from agent_os.paths import ROOT
