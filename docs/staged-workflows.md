@@ -213,6 +213,26 @@ agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage tria
   --override
 ```
 
+Alternatively, `workflow-complete` accepts `--usage-file PATH --usage-format` to 
+extract token counts from a provider's raw usage block or full response. The file 
+may contain either format; the function extracts only the four token counts from 
+its `usage` object (input, cached, reasoning, output). Only exact counts are 
+recorded; estimated or invalid values stay unknown. The two approaches are 
+mutually exclusive — `--usage-file` cannot be combined with explicit token flags 
+like `--input-tokens`. The mapping is `agent_os.telemetry.token_counts_from_provider_usage`, 
+which the orchestrator also uses for exact-only token counts across runs.
+
+```powershell
+agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage \
+  --output "..." \
+  --telemetry-path .agent-local/telemetry/sweep-1.jsonl \
+  --usage-file ./response-usage.json \
+  --usage-format openai-chat
+```
+
+The `--usage-format` must be one of `anthropic`, `openai-chat`, `openai-responses`, 
+or `normalized`.
+
 ### Reporting aggregate telemetry
 
 Use `agent-os telemetry-report --path <file>` to view aggregate counts across
