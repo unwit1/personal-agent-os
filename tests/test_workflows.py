@@ -600,6 +600,101 @@ class TelemetryIntegrationTests(WorkflowFixture):
 
         self.assertTrue(result["completed_stage"]["validation"]["passed"])
 
+    def test_deterministic_stage_records_duration_ms(self) -> None:
+        """A deterministic stage run with telemetry_store records duration_ms >= 0."""
+        workflows.start("fixture-sweep", run_id="telemetry-duration")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+            result = workflows.run_stage(
+                "fixture-sweep",
+                "telemetry-duration",
+                "cheap-check",
+                telemetry_store=store,
+            )
+
+            self.assertEqual(result["completed_stage"]["status"], "complete")
+            events = store.read_events()
+            self.assertEqual(len(events), 1)
+            event = events[0]
+            self.assertIsNotNone(event.duration_ms)
+            self.assertIsInstance(event.duration_ms, int)
+            self.assertGreaterEqual(event.duration_ms, 0)
+
+    def test_complete_stage_with_duration_items_override(self) -> None:
+        """complete_stage with duration_ms, items_processed, correction_or_override records those values."""
+        workflows.start("fixture-sweep", run_id="telemetry-override")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            workflows.run_stage("fixture-sweep", "telemetry-override", "cheap-check", telemetry_store=store)
+
+            result = workflows.complete_stage(
+                "fixture-sweep",
+                "telemetry-override",
+                "think",
+                outputs=["recommendation"],
+                telemetry_store=store,
+                duration_ms=1200,
+                items_processed=3,
+                correction_or_override=True,
+            )
+
+            self.assertTrue(result["completed_stage"]["validation"]["passed"])
+            events = store.read_events()
+            self.assertEqual(len(events), 2)
+            event = events[1]
+            self.assertEqual(event.duration_ms, 1200)
+            self.assertEqual(event.items_processed, 3)
+            self.assertTrue(event.correction_or_override)
+
+    def test_complete_stage_without_optional_telemetry_fields_omits_them(self) -> None:
+        """complete_stage without duration_ms, items_processed, correction_or_override omits those keys."""
+        workflows.start("fixture-sweep", run_id="telemetry-omit")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            workflows.run_stage("fixture-sweep", "telemetry-omit", "cheap-check", telemetry_store=store)
+
+            result = workflows.complete_stage(
+                "fixture-sweep",
+                "telemetry-omit",
+                "think",
+                outputs=["recommendation"],
+                telemetry_store=store,
+            )
+
+            self.assertTrue(result["completed_stage"]["validation"]["passed"])
+            events = store.read_events()
+            self.assertEqual(len(events), 2)
+            event = events[1]
+            event_dict = event.as_dict()
+            self.assertNotIn("duration_ms", event_dict)
+            self.assertNotIn("items_processed", event_dict)
+            self.assertNotIn("correction_or_override", event_dict)
+
+    def test_complete_stage_with_negative_items_processed_raises_error(self) -> None:
+        """complete_stage with items_processed=-1 raises TelemetryPrivacyError and leaves attempts unchanged."""
+        workflows.start("fixture-sweep", run_id="telemetry-neg-items")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            workflows.run_stage("fixture-sweep", "telemetry-neg-items", "cheap-check", telemetry_store=store)
+
+            with self.assertRaises(TelemetryPrivacyError):
+                workflows.complete_stage(
+                    "fixture-sweep",
+                    "telemetry-neg-items",
+                    "think",
+                    outputs=["recommendation"],
+                    telemetry_store=store,
+                    items_processed=-1,
+                )
+
+            record = workflows.load_run("personal-agent-os", "telemetry-neg-items")
+            state = record["stages"]["think"]
+            self.assertEqual(state["status"], "pending")
+            self.assertEqual(state["attempts"], 0)
+
 
 class StageContextTests(WorkflowFixture):
     def test_each_stage_compiles_its_own_budgeted_context(self) -> None:

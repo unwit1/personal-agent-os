@@ -659,7 +659,12 @@ reports token totals and unknown counts and supports opt-in
 `--group-by project|category` (docs/staged-workflows.md). (2026-10-04): `workflow-run`
 and `workflow-complete` now accept `--telemetry-path`; `workflow-complete` also
 accepts `--provider/--model/--input-tokens/--cached-tokens/--reasoning-tokens/--output-tokens`
-(docs/staged-workflows.md), with omitted values left unknown. Still open: chat-session
+(docs/staged-workflows.md), with omitted values left unknown. (2026-10-04): deterministic
+workflow stages record duration_ms. `workflow-complete` accepts
+`--duration-ms/--items-processed/--override` (omitted values stay unknown).
+telemetry-report adds duration, items-processed and correction/override
+aggregates and `--group-by provider|model|capability|path`
+(docs/staged-workflows.md). Still open: chat-session
 telemetry and live provider usage adapters.
 `src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
