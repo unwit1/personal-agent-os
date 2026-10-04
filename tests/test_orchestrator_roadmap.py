@@ -98,6 +98,7 @@ class RoadmapParsingTests(unittest.TestCase):
         goal = roadmap.build_goal("demo", roadmap.parse(ROADMAP)[1], "ROADMAP.md", None)
         self.assertIn("only that task may edit ROADMAP.md", goal)
         self.assertNotIn("The last task must update", goal)
+        self.assertIn("only behaviour present in the run's integrated code", goal)
 
     def test_goal_quotes_only_the_stage(self) -> None:
         stage = roadmap.parse(ROADMAP)[1]

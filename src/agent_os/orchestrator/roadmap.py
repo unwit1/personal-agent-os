@@ -275,7 +275,8 @@ def build_goal(project: str | None, stage: dict[str, Any], roadmap_rel: str, han
         "If the remaining work needs a human design decision, report status needs_decision with the question instead of guessing.",
         # Every worker reads this goal as "Overall goal"; phrased as a plan rule
         # so implementers do not edit the roadmap outside their scope.
-        f"Plan the update of this stage's Status/Current text in {roadmap_rel} (what is now complete) as its own final task; only that task may edit {roadmap_rel}, and no other task should mention or edit it.",
+        f"Plan the update of this stage's Status/Current text in {roadmap_rel} (what is now complete) as its own final task; only that task may edit {roadmap_rel}, and no other task should mention or edit it. "
+        "That update must describe only behaviour present in the run's integrated code (check flags and functions exist); list anything still missing as open.",
     ]
     if remaining:
         lines += ["", "Open items from the latest handoff:", *[f"- {item}" for item in remaining]]
