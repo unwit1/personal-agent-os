@@ -664,7 +664,7 @@ workflow stages record duration_ms. `workflow-complete` accepts
 `--duration-ms/--items-processed/--override` (omitted values stay unknown).
 telemetry-report adds duration, items-processed and correction/override
 aggregates and `--group-by provider|model|capability|path`
-(docs/staged-workflows.md). (2026-10-04): the CLI `workflow-complete` now actually wires `--duration-ms/--items-processed/--override` through to telemetry (omitted values stay unknown), and orchestrator telemetry now records reasoning tokens and records token counts only when provider usage is exact; estimated or unavailable usage stays unknown (docs/multi-agent-orchestrator.md). (2026-10-04): a provider usage adapter (`token_counts_from_provider_usage`) maps Anthropic Messages, OpenAI chat-completions, OpenAI Responses, and normalized orchestrator usage to exact token counts, with missing values left unknown; the orchestrator uses it, and `workflow-complete --usage-file/--usage-format` records caller-supplied provider usage (docs/staged-workflows.md). Still open: chat-session telemetry (needs a design decision on session capture) and automatic live capture outside orchestrated/workflow paths.
+(docs/staged-workflows.md). (2026-10-04): the CLI `workflow-complete` now actually wires `--duration-ms/--items-processed/--override` through to telemetry (omitted values stay unknown), and orchestrator telemetry now records reasoning tokens and records token counts only when provider usage is exact; estimated or unavailable usage stays unknown (docs/multi-agent-orchestrator.md). (2026-10-04): a provider usage adapter (`token_counts_from_provider_usage`) maps Anthropic Messages, OpenAI chat-completions, OpenAI Responses, and normalized orchestrator usage to exact token counts, with missing values left unknown; the orchestrator uses it, and `workflow-complete --usage-file/--usage-format` records caller-supplied provider usage (docs/staged-workflows.md). (2026-10-04): `telemetry-record` CLI subcommand now records explicit metadata-only telemetry outside orchestrated/workflow paths, accepting `--usage-file/--usage-format` for provider usage extraction or explicit token/metric flags, with all omitted values left unknown (docs/staged-workflows.md). Still open: chat-session telemetry (needs a design decision on session capture) and automatic integration hooks for live telemetry capture outside explicit `telemetry-record` invocations.
 `src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
@@ -688,8 +688,6 @@ Record, when exposed:
 - validator/test outcome;
 - escalation count;
 - correction/override.
-
-(2026-10-04): `telemetry-record` CLI subcommand now records explicit metadata-only telemetry outside orchestrated/workflow paths, accepting `--usage-file/--usage-format` for provider usage extraction or explicit token/metric flags, with all omitted values left unknown (docs/staged-workflows.md). Still open: time-range filtering (--since/--until not yet implemented), chat-session telemetry (needs a design decision on session capture), and automatic integration hooks for live telemetry capture outside explicit `telemetry-record` invocations.
 
 Keep raw telemetry local. Git may contain only reviewed aggregate findings/policies.
 
