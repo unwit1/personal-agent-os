@@ -174,7 +174,10 @@ stage (deterministic, cache hit, or agent-reported model stage) with:
 - capability class;
 - retry and escalation counts;
 - validator outcome;
-- input, cached, reasoning, and output token counts (when reported).
+- input, cached, reasoning, and output token counts (when reported);
+- duration in milliseconds (when reported);
+- items processed count (when reported);
+- correction or override applied (when reported).
 
 Prompts, outputs, and other raw content are never recorded; unavailable metrics 
 are never fabricated. Raw telemetry stays local and is never committed.
@@ -190,10 +193,10 @@ agent-os workflow-run repository-health-sweep --run-id sweep-1 --telemetry-path 
 agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage --output "..." --telemetry-path .agent-local/telemetry/sweep-1.jsonl
 ```
 
-`workflow-complete` accepts optional caller-reported token usage and model 
-information. These are recorded only when telemetry is enabled, validated 
-before the run record changes, and omitted values stay unknown and are never 
-estimated:
+`workflow-complete` accepts optional caller-reported token usage, model 
+information, execution metrics, and correction flags. These are recorded only 
+when telemetry is enabled, validated before the run record changes, and omitted 
+values stay unknown and are never estimated:
 
 ```powershell
 agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage \
@@ -204,7 +207,10 @@ agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage tria
   --input-tokens 500 \
   --cached-tokens 100 \
   --reasoning-tokens 50 \
-  --output-tokens 200
+  --output-tokens 200 \
+  --duration-ms 5000 \
+  --items-processed 42 \
+  --override
 ```
 
 ### Reporting aggregate telemetry
@@ -216,16 +222,23 @@ events. The report includes:
 - `capability_class_counts`: distribution of capability classes;
 - `token_totals`: sum of input, cached, reasoning, and output tokens;
 - `token_unknown_counts`: count of events with unknown (unreported) token values;
+- `duration_ms_total`: sum of reported durations;
+- `duration_unknown_count`: count of events with unknown duration;
+- `items_processed_total`: sum of reported item counts;
+- `items_processed_unknown_count`: count of events with unknown item count;
+- `correction_or_override_counts`: count of events with reported corrections or overrides;
 - `retry_total`, `escalation_total`, `events_with_retries`, `events_with_escalations`: retry and escalation metrics;
 - `deterministic_path_model_class_counts`: model classes executed on deterministic paths;
 - `validator_outcome_counts`: distribution of validator pass/fail.
 
 The report exposes only aggregate statistics without exposing per-event records,
-provider information, event IDs, or timestamps. Add `--group-by project` or 
-`--group-by category` to break down the report by project ID or task category:
+provider information, event IDs, or timestamps. Add `--group-by` to break down 
+the report by a specific field. Supported grouping options are `project`, 
+`category`, `provider`, `model`, `capability`, and `path`; events missing the 
+grouping field are grouped under `unknown`:
 
 ```powershell
-agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl --group-by project
+agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl --group-by provider
 ```
 
 Grouped reports include a top-level `group_by` field and a `groups` object with 
@@ -254,6 +267,9 @@ complete_stage(
     cached_tokens=100,
     reasoning_tokens=50,
     output_tokens=200,
+    duration_ms=5000,
+    items_processed=42,
+    correction_or_override=True,
 )
 ```
 
