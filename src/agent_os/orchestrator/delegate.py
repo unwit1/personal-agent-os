@@ -26,6 +26,7 @@ from ..timestamps import utc_now_iso
 from . import api_budget, capability, model_profile
 from .adapters import ADAPTERS
 from .adapters.base import AgentLaunchRequest, AgentResult, extract_structured
+from .adapters.http_api import DEFAULT_MAX_TOKENS, estimate_cost
 from .router import ProviderRegistry, select
 from .store import orchestrator_home
 
@@ -209,6 +210,16 @@ def delegate(
         prompt = prompt + block
         outcome["attachments"] = attached
     prompt_path.write_text(prompt + RESULT_INSTRUCTIONS.format(contract=json.dumps(contract or {"<any>": "object"})), encoding="utf-8")
+    if is_api:
+        final_prompt = prompt_path.read_text(encoding="utf-8")
+        max_tokens = int((entry.get("options") or {}).get("max_tokens", DEFAULT_MAX_TOKENS))
+        estimate = estimate_cost(choice["model"], len(final_prompt), max_tokens)
+        outcome["api_estimated_cost_usd"] = estimate
+        if estimate is not None:
+            gate = api_budget.check(home=budget_home, estimated_cost_usd=estimate)
+            if not gate["allowed"]:
+                outcome.update(status="budget_blocked", errors=[gate["reason"]], budget=gate, result=None)
+                return _finish(outcome, root, record, home)
     adapter = ADAPTERS[choice["adapter"]](entry)
     request = AgentLaunchRequest(
         run_id=call_id, node_id="delegate", role="planner", cwd=str(Path(cwd).resolve()), prompt_path=str(prompt_path),
