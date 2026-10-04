@@ -224,6 +224,12 @@ def register(commands: argparse._SubParsersAction) -> None:
     bud.add_argument("--job-cap-usd", type=float)
     bud.add_argument("--note")
 
+    api = actions.add_parser('api-budget', help='operator API-delegation budget (Anthropic/OpenAI per-token spend; separate from host-plan usage and the compute budget): show, or set total and per-call cap')
+    api.add_argument('action', choices=['show', 'set'])
+    api.add_argument('--total-usd', type=float)
+    api.add_argument('--call-cap-usd', type=float)
+    api.add_argument('--note')
+
     cmp_ = actions.add_parser("compute", help="GPU inventory, pricing, and gated compute provisioning (provision is gated by budget/approval; only the fake provider launches)")
     cmp_.add_argument("action", choices=["inventory", "provision", "status", "stop", "destroy", "reconcile", "jobs"])
     cmp_.add_argument("--provider", default=None)
@@ -729,6 +735,21 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             return 2
         emit(budget.set_budget(args.project_usd, args.job_cap_usd, note=args.note))
         return 0
+    if action == "api-budget":
+        from . import api_budget
+
+        if args.action == "show":
+            emit(api_budget.show())
+            return 0
+        if args.total_usd is None or args.call_cap_usd is None:
+            emit({"error": "set needs --total-usd and --call-cap-usd"})
+            return 2
+        try:
+            emit(api_budget.set_api_budget(args.total_usd, args.call_cap_usd, note=args.note))
+            return 0
+        except ValueError as exc:
+            emit({"error": str(exc)})
+            return 2
     if action == "compute":
         from . import compute, provision
 
