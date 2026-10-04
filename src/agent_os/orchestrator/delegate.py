@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import Any
 
 from ..timestamps import utc_now_iso
-from . import capability
+from . import api_budget, capability, model_profile
 from .adapters import ADAPTERS
 from .adapters.base import AgentLaunchRequest, AgentResult, extract_structured
 from .router import ProviderRegistry, select
@@ -167,6 +167,7 @@ def delegate(
     attachments: list[str] | None = None,
     attach_mode: str = "datamark",
     requirements: dict[str, Any] | None = None,
+    budget_home: Path | None = None,
 ) -> dict[str, Any]:
     """Route, run, validate and record one read-only task. ``role='inline'``
     marks a self-contained prompt, which direct API workers may serve. Never raises for a
@@ -187,6 +188,17 @@ def delegate(
         reason = choice.get("reason") or "no provider"
         outcome.update(status="unroutable", errors=[reason + (f"; deferred by provider cooldown until {cooling}" if cooling else "")], deferred_until=cooling or None, result=None)
         return _finish(outcome, root, record, home)
+    entry = registry.get(choice["provider"]) or {}
+    is_api = api_budget.is_api_provider(entry)
+    gate: dict[str, Any] = {}
+    if is_api:
+        outcome["billing"] = "api"
+        gate = api_budget.check(home=budget_home)
+        if not gate["allowed"]:
+            outcome.update(status="budget_blocked", errors=[gate["reason"]], budget=gate, result=None)
+            return _finish(outcome, root, record, home)
+    elif model_profile.normalize_profile(entry.get("profile"), entry.get("adapter"), entry.get("options")).get("deployment") == "subscription":
+        outcome["billing"] = "host_plan"
     prompt_path = root / "prompt.md"
     if attachments:
         try:
@@ -197,7 +209,6 @@ def delegate(
         prompt = prompt + block
         outcome["attachments"] = attached
     prompt_path.write_text(prompt + RESULT_INSTRUCTIONS.format(contract=json.dumps(contract or {"<any>": "object"})), encoding="utf-8")
-    entry = registry.get(choice["provider"]) or {}
     adapter = ADAPTERS[choice["adapter"]](entry)
     request = AgentLaunchRequest(
         run_id=call_id, node_id="delegate", role="planner", cwd=str(Path(cwd).resolve()), prompt_path=str(prompt_path),
@@ -216,6 +227,16 @@ def delegate(
     except Exception as exc:  # provider/environment failure is data, not a crash
         result = AgentResult(outcome="failed", failure_kind="unavailable", detail=f"{type(exc).__name__}: {exc}"[:400])
     seconds = round(time.monotonic() - started, 2)
+    if is_api and result.usage is not None:
+        cost = result.usage.get("cost_usd")
+        api_budget.record_api_spend(
+            cost or 0.0, call_id=call_id, provider=choice["provider"],
+            model=(result.usage.get("model_resolved") or choice["model"]),
+            accuracy="exact" if cost is not None else "unknown", home=budget_home,
+        )
+        outcome["api_spend_usd"] = cost
+        if cost is not None and gate.get("call_cap_usd") is not None and cost > gate["call_cap_usd"]:
+            outcome["api_call_cap_exceeded"] = True
     structured = result.structured
     if structured is None and result.outcome == "completed":
         full = handle.result_path and Path(handle.result_path).exists() and Path(handle.result_path).read_text(encoding="utf-8", errors="replace")
@@ -260,7 +281,7 @@ def _finish(outcome: dict[str, Any], root: Path, record: bool, home: Path | None
     outcome["finished_at"] = utc_now_iso()
     summary = {key: value for key, value in outcome.items() if key != "result"}
     (root / "outcome.json").write_text(json.dumps(summary, indent=1), encoding="utf-8")
-    if record:
+    if record and outcome["status"] != "budget_blocked":
         selection = outcome.get("selection") or {}
         usage = outcome.get("usage") or {}
         capability.record_observation({
