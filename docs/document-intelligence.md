@@ -141,12 +141,9 @@ Of the roadmap's five-step HR-GUI optimization path, this implements steps 1–3
 1. ✅ persistent exact-page cache keyed by content hash
 2. ✅ dependency/version-aware invalidation
 3. ✅ template-level structural signatures (privacy-safe, person-independent)
-4. ⬜ targeted field-zone OCR
+4. ✅ targeted field-region OCR (shared FieldRegion + cached extract_field_region in ingester_engine.cache; Agent OS contract pinned by tests/test_field_region_contract.py)
 5. ⬜ bounded concurrency
 
-Steps 4 and 5 need the real scanner, real documents, and measurement on this
-machine. They are recorded as debt rather than guessed at, and the roadmap is
-explicit that concurrency comes only after measuring the earlier steps.
+Step 5 still needs measurement with the real scanner and real documents on this machine, and concurrency comes only after that measurement.
 
-HR-GUI is a separate repository and was not modified. Wiring its scanner to
-this layer is the next concrete step.
+HR-GUI's shared-cache adapter is on its origin/main; its zone OCR calls the shared field-region API on branch fix/cache-source-change, with the local render/crop/OCR path as fallback; that branch still needs synthetic regression review before merge; tests inside the ingester-engine repo are also still open.
