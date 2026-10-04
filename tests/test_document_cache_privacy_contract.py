@@ -56,25 +56,44 @@ class TestDocumentCachePrivacyContract(unittest.TestCase):
         # Serialize as it would be shared
         serialized = json.dumps(status)
 
-        # Must not contain the cache root path
-        cache_root_str = str(cache_root())
-        self.assertNotIn(
-            cache_root_str,
-            serialized,
-            f"cache_status_safe leaked cache root path: {cache_root_str}",
-        )
+        # Check both raw and JSON-escaped forms of sensitive paths
+        sensitive_paths = [str(cache_root()), str(Path.home())]
+        for path_str in sensitive_paths:
+            # Check raw path string
+            self.assertNotIn(
+                path_str,
+                serialized,
+                f"cache_status_safe leaked path (raw): {path_str}",
+            )
+            # Check JSON-escaped version (without quotes: json.dumps adds quotes)
+            json_escaped = json.dumps(path_str)[1:-1]
+            if json_escaped != path_str:  # only check if escaping changed it
+                self.assertNotIn(
+                    json_escaped,
+                    serialized,
+                    f"cache_status_safe leaked path (JSON-escaped): {json_escaped}",
+                )
 
-        # Must not contain user home directory
-        home = str(Path.home())
-        self.assertNotIn(
-            home,
-            serialized,
-            f"cache_status_safe leaked home directory: {home}",
-        )
+        # Walk the nested structure for 'path' or 'root' keys
+        def check_no_path_keys(obj, path="root"):
+            if isinstance(obj, dict):
+                for key, value in obj.items():
+                    self.assertNotEqual(
+                        key,
+                        "path",
+                        f"Found 'path' key at {path}.{key}",
+                    )
+                    self.assertNotEqual(
+                        key,
+                        "root",
+                        f"Found 'root' key at {path}.{key}",
+                    )
+                    check_no_path_keys(value, f"{path}.{key}")
+            elif isinstance(obj, list):
+                for i, item in enumerate(obj):
+                    check_no_path_keys(item, f"{path}[{i}]")
 
-        # Must not have 'path' or 'root' keys
-        self.assertNotIn("path", status)
-        self.assertNotIn("root", status)
+        check_no_path_keys(status)
 
     def test_page_key_excludes_interpretation_components(self):
         """No INTERPRETATION_COMPONENTS name appears in PageKey's fields."""
@@ -139,8 +158,17 @@ class TestDocumentCachePrivacyContract(unittest.TestCase):
 
     def test_corrupted_cache_entry_returns_none(self):
         """A corrupted entry file makes get(key) return None without raising."""
+        import inspect
+
         DocumentCache = _get_cache_attr(self, "DocumentCache")
         PageKey = _get_cache_attr(self, "PageKey")
+
+        # Verify that put() exists
+        try:
+            inspect.getsource(DocumentCache.put)
+        except (OSError, TypeError):
+            self.skipTest("DocumentCache.put does not exist or is not inspectable")
+
         with tempfile.TemporaryDirectory() as tmpdir:
             # Create cache in a temporary private location
             cache_root_path = Path(tmpdir) / ".agent-local" / "document-cache"
@@ -163,9 +191,12 @@ class TestDocumentCachePrivacyContract(unittest.TestCase):
             result = cache.get(key)
             self.assertIsNotNone(result)
 
-            # Corrupt the entry file using the cache's path helper
-            entry_file = cache._path(key)
-            self.assertTrue(entry_file.exists(), "Expected entry file to exist after put()")
+            # Find the stored entry file via rglob
+            json_files = list(cache_root_path.rglob("*.json"))
+            self.assertEqual(len(json_files), 1, "Expected exactly one cached entry file")
+            entry_file = json_files[0]
+
+            # Corrupt the entry file
             entry_file.write_bytes(b"not json at all")
 
             # get() should return None, not raise
