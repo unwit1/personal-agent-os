@@ -347,9 +347,6 @@ Unknown values are never fabricated: a `null` or missing count means the source 
 report the metric. All workflow-stage events share `task_category: 'workflow-stage'`, 
 making `--group-by category` useful for separating workflow stages from other event types.
 
-**Not yet:** The optional `--oversized-input-tokens N` flag and corresponding 
-`oversized_input_events` ranking are planned but not yet implemented.
-
 ### Enabling telemetry via Python API
 
 A Python caller enables telemetry by providing a `LocalTelemetryStore` to the 
