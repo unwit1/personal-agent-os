@@ -656,10 +656,11 @@ workflows now record opt-in local telemetry for every completion path
 when the caller passes a `telemetry_store`; `complete_stage` also records
 caller-reported token usage and provider/model labels. `telemetry-report`
 reports token totals and unknown counts and supports opt-in
-`--group-by project|category` (docs/staged-workflows.md). Still open: a
-`--telemetry-path` option on the `workflow-run`/`workflow-complete` CLI commands
-(today telemetry is enabled from Python only), chat-session telemetry, and live
-provider usage adapters.
+`--group-by project|category` (docs/staged-workflows.md). (2026-10-04): `workflow-run`
+and `workflow-complete` now accept `--telemetry-path`; `workflow-complete` also
+accepts `--provider/--model/--input-tokens/--cached-tokens/--reasoning-tokens/--output-tokens`
+(docs/staged-workflows.md), with omitted values left unknown. Still open: chat-session
+telemetry and live provider usage adapters.
 `src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
