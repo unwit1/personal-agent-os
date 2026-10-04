@@ -707,6 +707,15 @@ cheapest-path selection, persisted fallback, validator-driven bounded
 escalation, and observable route explanations are implemented and
 regression-covered.
 
+Implement provider-neutral capability classes and validator-driven escalation.
+
+The router should:
+- pre-route before expensive work begins;
+- delegate bounded subtasks when useful;
+- select the cheapest path likely to satisfy validation;
+- escalate on concrete failure/ambiguity signals;
+- record an observable route explanation;
+
 Deterministic features delivered:
 - provider-neutral capability classes and cheapest-path selection
   (`select_execution_path` in src/agent_os/capabilities.py);
