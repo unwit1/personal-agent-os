@@ -414,6 +414,70 @@ class TelemetryIntegrationTests(WorkflowFixture):
             self.assertNotIn("check result", raw)
             self.assertNotIn("raise SystemExit", raw)
 
+    def test_agent_stage_completion_records_model_path_event(self) -> None:
+        """Agent-run stage completion records one event with model execution path."""
+        workflows.start("fixture-sweep", run_id="telemetry-model")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            workflows.run_stage("fixture-sweep", "telemetry-model", "cheap-check", telemetry_store=store)
+            self.assertEqual(len(store.read_events()), 1)
+
+            result = workflows.complete_stage(
+                "fixture-sweep",
+                "telemetry-model",
+                "think",
+                outputs=["partial recommendation"],
+                passed=False,
+                detail="ran out of tokens",
+                telemetry_store=store,
+            )
+
+            self.assertFalse(result["completed_stage"]["validation"]["passed"])
+            events = store.read_events()
+            self.assertEqual(len(events), 2)
+
+            event = events[1]
+            self.assertEqual(event.project_id, "personal-agent-os")
+            self.assertEqual(event.task_category, "workflow-stage")
+            self.assertEqual(event.execution_path, "model")
+            self.assertFalse(event.validator_passed)
+            self.assertEqual(event.capability_class, "balanced")
+            self.assertEqual(event.retries, 0)
+            self.assertEqual(event.escalations, 1)
+
+            raw = store.path.read_text(encoding="utf-8")
+            self.assertNotIn("ran out of tokens", raw)
+            self.assertNotIn("partial recommendation", raw)
+            self.assertNotIn("token budget pruning", raw)
+
+    def test_idempotent_stage_completion_records_no_event(self) -> None:
+        """Completing an already-completed stage is idempotent and records no event."""
+        workflows.start("fixture-sweep", run_id="telemetry-idempotent")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            workflows.run_stage("fixture-sweep", "telemetry-idempotent", "cheap-check", telemetry_store=store)
+            workflows.complete_stage(
+                "fixture-sweep",
+                "telemetry-idempotent",
+                "think",
+                outputs=["recommendation"],
+                telemetry_store=store,
+            )
+            self.assertEqual(len(store.read_events()), 2)
+
+            repeat = workflows.complete_stage(
+                "fixture-sweep",
+                "telemetry-idempotent",
+                "think",
+                outputs=["recommendation"],
+                telemetry_store=store,
+            )
+
+            self.assertTrue(repeat["skipped"])
+            self.assertEqual(len(store.read_events()), 2)
+
 
 class StageContextTests(WorkflowFixture):
     def test_each_stage_compiles_its_own_budgeted_context(self) -> None:

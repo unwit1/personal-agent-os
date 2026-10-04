@@ -580,22 +580,24 @@ def _fallback_execution_path(stage: dict[str, Any], current: str) -> str | None:
     return min(remaining, key=EXECUTION_PATHS.index)
 
 
-def _record_deterministic_telemetry(
+def _record_stage_telemetry(
     telemetry_store: LocalTelemetryStore | None,
     manifest: dict[str, Any],
     state: dict[str, Any],
     validation: dict[str, Any],
+    execution_path: str,
 ) -> None:
-    """Record one countable deterministic stage outcome when explicitly enabled."""
+    """Record one countable stage outcome when explicitly enabled."""
 
     if telemetry_store is None:
         return
+    capability_class = "deterministic" if execution_path in ("deterministic", "cache") else state["capability_class"]
     telemetry_store.record(
         TelemetryEvent(
             project_id=manifest["project"],
             task_category="workflow-stage",
-            capability_class="deterministic",
-            execution_path="deterministic",
+            capability_class=capability_class,
+            execution_path=execution_path,
             retries=max(int(state["attempts"]) - 1, 0),
             validator_passed=bool(validation["passed"]),
             escalations=int(state["escalations"]),
@@ -604,7 +606,13 @@ def _record_deterministic_telemetry(
 
 
 def _complete_from_cache(
-    manifest: dict[str, Any], record: dict[str, Any], stage_id: str, stage: dict[str, Any], detail: str
+    manifest: dict[str, Any],
+    record: dict[str, Any],
+    stage_id: str,
+    stage: dict[str, Any],
+    detail: str,
+    *,
+    telemetry_store: LocalTelemetryStore | None = None,
 ) -> dict[str, Any]:
     state = record["stages"][stage_id]
     state["attempts"] += 1
@@ -617,6 +625,7 @@ def _complete_from_cache(
     state["completed_at"] = _now()
     _finish_if_done(manifest, record)
     _save(record)
+    _record_stage_telemetry(telemetry_store, manifest, state, validation, "cache")
     return _completion_packet(manifest, record, stage_id, validation)
 
 
@@ -695,7 +704,7 @@ def run_stage(
                 project_root = candidate
         lookup = lookup_document_page(stage["cache_lookup"], project_root)
         if lookup.hit:
-            return _complete_from_cache(manifest, record, target, stage, lookup.reason)
+            return _complete_from_cache(manifest, record, target, stage, lookup.reason, telemetry_store=telemetry_store)
         fallback = _fallback_execution_path(stage, execution_path)
         if fallback is None:
             validation = {"kind": "cache_lookup", "passed": False, "detail": lookup.reason}
@@ -738,7 +747,7 @@ def run_stage(
         _escalate(record, target, f"validator failed: {validation.get('detail') or 'no detail'}")
     _finish_if_done(manifest, record)
     _save(record)
-    _record_deterministic_telemetry(telemetry_store, manifest, state, validation)
+    _record_stage_telemetry(telemetry_store, manifest, state, validation, "deterministic")
     return _completion_packet(manifest, record, target, validation)
 
 
@@ -750,6 +759,8 @@ def complete_stage(
     checkpoint: str | None = None,
     passed: bool | None = None,
     detail: str | None = None,
+    *,
+    telemetry_store: LocalTelemetryStore | None = None,
 ) -> dict[str, Any]:
     """Record an agent-run stage's outcome and validate it deterministically.
 
@@ -793,6 +804,7 @@ def complete_stage(
         _escalate(record, stage_id, f"validator failed: {validation.get('detail') or 'no detail'}")
     _finish_if_done(manifest, record)
     _save(record)
+    _record_stage_telemetry(telemetry_store, manifest, state, validation, state["execution_path"])
     return _completion_packet(manifest, record, stage_id, validation)
 
 
