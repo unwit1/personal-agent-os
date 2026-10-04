@@ -646,7 +646,7 @@ Build after or alongside the P0 primitives so optimization is measured against r
 
 ### P1.1 — Privacy-safe usage telemetry
 
-Current bounded implementation (2026-10-04): orchestrated runs record
+Current bounded implementation (2026-09-23): orchestrated runs record
 per-run efficiency telemetry with normalized provider token usage (P1.2C), and
 `agent-os orchestrate usage-report` / the GUI's "Model usage across all runs"
 aggregate it across runs by role, tier, provider/model and origin, with
@@ -656,10 +656,7 @@ non-orchestrator surfaces (chat sessions, staged workflows) remains open.
 defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
 labels/counts round-trip, canonical repository paths are rejected, and raw
-prompt/document/secret-like fields and free-form labels fail closed. All three
-workflow-stage execution paths are now covered by telemetry integration tests:
-deterministic, cache-hit, and model paths (deterministic/cache paths use
-capability_class='deterministic'). Provider
+prompt/document/secret-like fields and free-form labels fail closed. Provider
 usage adapters and live integrations remain future slices. Its count-only
 aggregate report covers execution paths and validator outcomes without exposing
 per-event records; the deterministic fixture workflow can opt into one local
