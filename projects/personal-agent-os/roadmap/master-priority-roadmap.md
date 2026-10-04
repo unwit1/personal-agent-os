@@ -432,7 +432,7 @@ Detailed design:
 - `projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md` — shared document intelligence, HR-GUI optimization, scanner learning loop.
 
 ### P0.4 — Resumable/checkpointed ingestion everywhere
-Status: implemented in the P0.4 recovery foundation (`agent_os.recovery`), with
+Status: **on hold** (2026-10-04), awaiting operator decisions: every safe local/fixture seam is already wired to the ingestion ledger; the remaining text-message, feed and Discord adapters need (1) where to build them (ingester-engine vs agent_os.ingester_bridge), (2) each source's stable item ID, and (3) whether edited messages/updated entries are reprocessed under the same ID. Earlier: implemented in the P0.4 recovery foundation (`agent_os.recovery`), with
 local compact checkpoints, Git fingerprints, cross-agent continuation, and a
 generic incremental ledger. Ledger failure records now discard caller-supplied
 error text to keep imported content, paths, and credentials out of runtime
