@@ -193,10 +193,9 @@ agent-os workflow-run repository-health-sweep --run-id sweep-1 --telemetry-path 
 agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage --output "..." --telemetry-path .agent-local/telemetry/sweep-1.jsonl
 ```
 
-`workflow-complete` accepts optional caller-reported token usage, model 
-information, execution metrics, and correction flags. These are recorded only 
-when telemetry is enabled, validated before the run record changes, and omitted 
-values stay unknown and are never estimated:
+`workflow-complete` accepts optional caller-reported token usage and model 
+information. These are recorded only when telemetry is enabled, validated before 
+the run record changes, and omitted values stay unknown and are never estimated:
 
 ```powershell
 agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage \
@@ -207,14 +206,8 @@ agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage tria
   --input-tokens 500 \
   --cached-tokens 100 \
   --reasoning-tokens 50 \
-  --output-tokens 200 \
-  --duration-ms 5000 \
-  --items-processed 42 \
-  --override
+  --output-tokens 200
 ```
-
-Omitting `--override` records the correction or override state as unknown, not false. 
-Only include the flag when a correction or override has been explicitly applied.
 
 ### Reporting aggregate telemetry
 
