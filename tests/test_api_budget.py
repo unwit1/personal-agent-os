@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import datetime
 import json
 import sys
 import tempfile
 import unittest
+from datetime import timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
@@ -259,6 +261,128 @@ class ApibudgetTests(unittest.TestCase):
         self.assertFalse(result["allowed"])
         self.assertIn("no API budget set", result["reason"])
         self.assertEqual(result["estimated_cost_usd"], 5.0)
+
+    def test_set_budget_without_period_defaults_to_total(self) -> None:
+        result = api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        self.assertEqual(result["period"], "total")
+        loaded = api_budget.load(self.home)
+        self.assertEqual(loaded["period"], "total")
+
+    def test_set_budget_with_monthly_period(self) -> None:
+        result = api_budget.set_api_budget(100.0, 10.0, period="monthly", home=self.home)
+        self.assertEqual(result["period"], "monthly")
+        self.assertIsNotNone(result["period_start"])
+        loaded = api_budget.load(self.home)
+        self.assertEqual(loaded["period"], "monthly")
+
+    def test_set_budget_rejects_invalid_period(self) -> None:
+        with self.assertRaises(ValueError) as cm:
+            api_budget.set_api_budget(100.0, 10.0, period="invalid", home=self.home)
+        self.assertIn("period must be one of", str(cm.exception))
+
+    def test_period_start_returns_none_for_total(self) -> None:
+        budget = {"period": "total"}
+        ps = api_budget.period_start(budget)
+        self.assertIsNone(ps)
+
+    def test_period_start_returns_first_of_month_for_monthly(self) -> None:
+        budget = {"period": "monthly"}
+        test_date = datetime.datetime(2026, 5, 15, 12, 30, 45, tzinfo=timezone.utc)
+        ps = api_budget.period_start(budget, now=test_date)
+        self.assertEqual(ps, "2026-05-01T00:00:00+00:00")
+
+    def test_period_start_defaults_to_total_when_missing(self) -> None:
+        budget = {}
+        ps = api_budget.period_start(budget)
+        self.assertIsNone(ps)
+
+    def test_api_spent_without_period_sums_all_spend(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        api_budget.record_api_spend(2.5, call_id="call1", provider="anthropic", home=self.home)
+        api_budget.record_api_spend(3.75, call_id="call2", provider="openai", home=self.home)
+        total = api_budget.api_spent(self.home)
+        self.assertAlmostEqual(total, 6.25, places=6)
+
+    def test_api_spent_with_monthly_period_excludes_previous_month(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, period="monthly", home=self.home)
+
+        spend_path = self.home / "api-spend.jsonl"
+        spend_path.parent.mkdir(parents=True, exist_ok=True)
+
+        previous_month = datetime.datetime(2026, 9, 15, 10, 0, 0, tzinfo=timezone.utc)
+        current_month = datetime.datetime(2026, 10, 1, 10, 0, 0, tzinfo=timezone.utc)
+
+        with spend_path.open("w", encoding="utf-8") as f:
+            f.write(json.dumps({"at": previous_month.isoformat(), "call_id": "call1", "provider": "anthropic", "amount_usd": 5.0}) + "\n")
+            f.write(json.dumps({"at": current_month.isoformat(), "call_id": "call2", "provider": "openai", "amount_usd": 3.0}) + "\n")
+
+        period_start_str = api_budget.period_start({"period": "monthly"}, now=current_month)
+        total = api_budget.api_spent(self.home, since=period_start_str)
+        self.assertAlmostEqual(total, 3.0, places=6)
+
+    def test_api_remaining_with_monthly_period(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, period="monthly", home=self.home)
+
+        spend_path = self.home / "api-spend.jsonl"
+        spend_path.parent.mkdir(parents=True, exist_ok=True)
+
+        previous_month = datetime.datetime(2026, 9, 15, 10, 0, 0, tzinfo=timezone.utc)
+        current_month = datetime.datetime(2026, 10, 1, 10, 0, 0, tzinfo=timezone.utc)
+
+        with spend_path.open("w", encoding="utf-8") as f:
+            f.write(json.dumps({"at": previous_month.isoformat(), "call_id": "call1", "provider": "anthropic", "amount_usd": 50.0}) + "\n")
+            f.write(json.dumps({"at": current_month.isoformat(), "call_id": "call2", "provider": "openai", "amount_usd": 25.0}) + "\n")
+
+        remaining = api_budget.api_remaining(self.home, now=current_month)
+        self.assertAlmostEqual(remaining, 75.0, places=6)
+
+    def test_check_with_monthly_period_includes_period(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, period="monthly", home=self.home)
+        result = api_budget.check(self.home)
+        self.assertEqual(result["period"], "monthly")
+
+    def test_check_with_exhausted_monthly_budget_says_this_month(self) -> None:
+        api_budget.set_api_budget(10.0, 5.0, period="monthly", home=self.home)
+        current_month = datetime.datetime(2026, 10, 1, 10, 0, 0, tzinfo=timezone.utc)
+
+        spend_path = self.home / "api-spend.jsonl"
+        spend_path.parent.mkdir(parents=True, exist_ok=True)
+        with spend_path.open("w", encoding="utf-8") as f:
+            f.write(json.dumps({"at": current_month.isoformat(), "call_id": "call1", "provider": "anthropic", "amount_usd": 10.0}) + "\n")
+
+        result = api_budget.check(self.home, now=current_month)
+        self.assertFalse(result["allowed"])
+        self.assertEqual(result["reason"], "API budget exhausted for this month")
+
+    def test_api_spent_skips_entries_with_missing_at(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        spend_path = self.home / "api-spend.jsonl"
+        spend_path.parent.mkdir(parents=True, exist_ok=True)
+
+        current_month = datetime.datetime(2026, 10, 1, 10, 0, 0, tzinfo=timezone.utc)
+        period_start_str = api_budget.period_start({"period": "monthly"}, now=current_month)
+
+        with spend_path.open("w", encoding="utf-8") as f:
+            f.write(json.dumps({"call_id": "call1", "provider": "anthropic", "amount_usd": 5.0}) + "\n")
+            f.write(json.dumps({"at": current_month.isoformat(), "call_id": "call2", "provider": "openai", "amount_usd": 3.0}) + "\n")
+
+        total = api_budget.api_spent(self.home, since=period_start_str)
+        self.assertAlmostEqual(total, 3.0, places=6)
+
+    def test_api_spent_skips_entries_with_unparseable_at(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        spend_path = self.home / "api-spend.jsonl"
+        spend_path.parent.mkdir(parents=True, exist_ok=True)
+
+        current_month = datetime.datetime(2026, 10, 1, 10, 0, 0, tzinfo=timezone.utc)
+        period_start_str = api_budget.period_start({"period": "monthly"}, now=current_month)
+
+        with spend_path.open("w", encoding="utf-8") as f:
+            f.write(json.dumps({"at": "not-a-date", "call_id": "call1", "provider": "anthropic", "amount_usd": 5.0}) + "\n")
+            f.write(json.dumps({"at": current_month.isoformat(), "call_id": "call2", "provider": "openai", "amount_usd": 3.0}) + "\n")
+
+        total = api_budget.api_spent(self.home, since=period_start_str)
+        self.assertAlmostEqual(total, 3.0, places=6)
 
 
 if __name__ == "__main__":
