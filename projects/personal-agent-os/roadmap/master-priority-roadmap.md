@@ -371,12 +371,12 @@ Detailed design:
 
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
-Status: **foundation complete; field-region OCR contract extended (cross-instance persistence, page identity, no-path results) and docs refreshed** (2026-10-04).
+Status: **foundation complete; field-region contract adds OCR-failure and render-setting (dpi/rotation) coverage; docs reflect the HR-GUI merge** (2026-10-04).
 The cache/extraction foundation was implemented in `src/agent_os/documents.py` and
 moved on 2026-10-01 to the Ingester Engine (`ingester_engine.cache`, shared per-user
 cache, unchanged keys); this roadmap item continues there. It was
 exposed through CLI and MCP, enforced by `agent.py validate`, and covered by 40
-regression tests. The field-region seam is now covered from Agent OS by tests/test_field_region_contract.py (validation, cache reuse, re-OCR for a new region, count-only telemetry, persistence across cache instances, re-OCR for a different page or file hash, no cache path in results) and documented in docs/document-intelligence.md, while tests inside the ingester-engine repo and HR-GUI branch review are still open.
+regression tests. The field-region seam is now covered from Agent OS by tests/test_field_region_contract.py (validation, cache reuse, re-OCR for a new region, count-only telemetry, persistence across cache instances, re-OCR for a different page or file hash, no cache path in results, OCR-failure handling, re-OCR when dpi/rotation change) and documented in docs/document-intelligence.md, while HR-GUI branch review is complete (merged 0dbe36e); tests inside the ingester-engine repo (blocked on the deploy-key secret), approved registry content, and bounded concurrency remain open.
 
 Delivered:
 1. persistent exact-page cache keyed by content hash — **done**;
