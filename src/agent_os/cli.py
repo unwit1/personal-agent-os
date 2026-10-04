@@ -66,7 +66,7 @@ from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .surfaces import health as integration_health
-from .telemetry import LocalTelemetryStore, REPORT_GROUP_FIELDS
+from .telemetry import LocalTelemetryStore, REPORT_GROUP_FIELDS, PROVIDER_USAGE_FORMATS, token_counts_from_provider_usage
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
@@ -495,6 +495,10 @@ def parser() -> argparse.ArgumentParser:
     workflow_complete.add_argument("--items-processed", type=int, default=None)
     workflow_complete.add_argument("--override", action="store_true", default=None,
                                    help="the operator corrected or overrode this stage's output")
+    workflow_complete.add_argument("--usage-file", default=None,
+                                   help="path to a JSON file holding a provider usage block or full provider response")
+    workflow_complete.add_argument("--usage-format", choices=list(PROVIDER_USAGE_FORMATS), default=None,
+                                   help="format of the provider usage in --usage-file")
     commands.add_parser("mcp")
     commands.add_parser("machine-status")
     local_path = commands.add_parser("set-local-path")
@@ -794,6 +798,33 @@ def main(argv: list[str] | None = None) -> int:
             _print(run_stage(args.workflow, args.run_id, args.stage, telemetry_store=store))
         elif args.command == "workflow-complete":
             store = LocalTelemetryStore(Path(args.telemetry_path)) if args.telemetry_path else None
+
+            # Validate --usage-file and --usage-format pairing
+            if bool(args.usage_file) != bool(args.usage_format):
+                raise ValueError("--usage-file and --usage-format must be provided together")
+
+            # Validate --usage-file is not combined with explicit token flags
+            if args.usage_file and any([
+                args.input_tokens is not None,
+                args.cached_tokens is not None,
+                args.reasoning_tokens is not None,
+                args.output_tokens is not None,
+            ]):
+                raise ValueError("use either --usage-file or explicit token flags")
+
+            input_tokens = args.input_tokens
+            cached_tokens = args.cached_tokens
+            reasoning_tokens = args.reasoning_tokens
+            output_tokens = args.output_tokens
+
+            if args.usage_file:
+                payload = json.loads(Path(args.usage_file).read_text(encoding="utf-8"))
+                counts = token_counts_from_provider_usage(payload, args.usage_format)
+                input_tokens = counts["input_tokens"]
+                cached_tokens = counts["cached_tokens"]
+                reasoning_tokens = counts["reasoning_tokens"]
+                output_tokens = counts["output_tokens"]
+
             _print(
                 complete_stage(
                     args.workflow,
@@ -806,10 +837,10 @@ def main(argv: list[str] | None = None) -> int:
                     telemetry_store=store,
                     provider=args.provider,
                     model=args.model,
-                    input_tokens=args.input_tokens,
-                    cached_tokens=args.cached_tokens,
-                    reasoning_tokens=args.reasoning_tokens,
-                    output_tokens=args.output_tokens,
+                    input_tokens=input_tokens,
+                    cached_tokens=cached_tokens,
+                    reasoning_tokens=reasoning_tokens,
+                    output_tokens=output_tokens,
                     duration_ms=args.duration_ms,
                     items_processed=args.items_processed,
                     correction_or_override=args.override,

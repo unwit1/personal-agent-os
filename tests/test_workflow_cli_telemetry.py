@@ -220,6 +220,123 @@ class WorkflowCliTelemetryTests(WorkflowFixture):
         self.assertIn("error", result)
         self.assertFalse(telemetry_path.exists())
 
+    def test_workflow_complete_with_openai_chat_usage_file_records_counts(self) -> None:
+        from agent_os import workflows
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
+        usage_file = Path(self.tmp.name) / "usage.json"
+
+        usage_file.write_text(json.dumps({
+            "prompt_tokens": 100,
+            "prompt_tokens_details": {"cached_tokens": 40},
+            "completion_tokens": 20,
+            "completion_tokens_details": {"reasoning_tokens": 5},
+        }), encoding="utf-8")
+
+        workflows.start("fixture-sweep", run_id="cli-tel-8")
+        workflows.run_stage("fixture-sweep", "cli-tel-8")
+
+        code, result = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-8", "--stage", "think",
+            "--output", "recommendation",
+            "--telemetry-path", str(telemetry_path),
+            "--usage-file", str(usage_file),
+            "--usage-format", "openai-chat"
+        )
+        self.assertEqual(code, 0)
+
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].input_tokens, 100)
+        self.assertEqual(events[0].cached_tokens, 40)
+        self.assertEqual(events[0].reasoning_tokens, 5)
+        self.assertEqual(events[0].output_tokens, 20)
+
+    def test_workflow_complete_with_anthropic_usage_file_extracts_only_counts(self) -> None:
+        from agent_os import workflows
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
+        usage_file = Path(self.tmp.name) / "usage.json"
+
+        usage_file.write_text(json.dumps({
+            "input_tokens": 150,
+            "output_tokens": 75,
+            "content": [{"type": "text", "text": "This is a response"}],
+        }), encoding="utf-8")
+
+        workflows.start("fixture-sweep", run_id="cli-tel-9")
+        workflows.run_stage("fixture-sweep", "cli-tel-9")
+
+        code, result = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-9", "--stage", "think",
+            "--output", "recommendation",
+            "--telemetry-path", str(telemetry_path),
+            "--usage-file", str(usage_file),
+            "--usage-format", "anthropic"
+        )
+        self.assertEqual(code, 0)
+
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].input_tokens, 150)
+        self.assertEqual(events[0].output_tokens, 75)
+
+        # Verify the content text is not in the recorded event
+        event_jsonl = telemetry_path.read_text(encoding="utf-8")
+        self.assertNotIn("This is a response", event_jsonl)
+
+    def test_workflow_complete_with_usage_file_and_input_tokens_fails(self) -> None:
+        from agent_os import workflows
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
+        usage_file = Path(self.tmp.name) / "usage.json"
+
+        usage_file.write_text(json.dumps({
+            "prompt_tokens": 100,
+            "completion_tokens": 20,
+        }), encoding="utf-8")
+
+        workflows.start("fixture-sweep", run_id="cli-tel-10")
+        workflows.run_stage("fixture-sweep", "cli-tel-10")
+
+        code, result = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-10", "--stage", "think",
+            "--output", "recommendation",
+            "--telemetry-path", str(telemetry_path),
+            "--usage-file", str(usage_file),
+            "--usage-format", "openai-chat",
+            "--input-tokens", "500"
+        )
+        self.assertEqual(code, 2)
+
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 0)
+
+    def test_workflow_complete_with_usage_file_without_format_fails(self) -> None:
+        from agent_os import workflows
+        telemetry_path = Path(self.tmp.name) / "events.jsonl"
+        usage_file = Path(self.tmp.name) / "usage.json"
+
+        usage_file.write_text(json.dumps({
+            "prompt_tokens": 100,
+            "completion_tokens": 20,
+        }), encoding="utf-8")
+
+        workflows.start("fixture-sweep", run_id="cli-tel-11")
+        workflows.run_stage("fixture-sweep", "cli-tel-11")
+
+        code, result = self._run_cli(
+            "workflow-complete", "fixture-sweep", "--run-id", "cli-tel-11", "--stage", "think",
+            "--output", "recommendation",
+            "--telemetry-path", str(telemetry_path),
+            "--usage-file", str(usage_file)
+        )
+        self.assertEqual(code, 2)
+
+        store = LocalTelemetryStore(telemetry_path)
+        events = store.read_events()
+        self.assertEqual(len(events), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
