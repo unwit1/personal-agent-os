@@ -540,9 +540,7 @@ blob hashes, validators, role and policy version. It stores only
 reviewer-approved, scope-limited patches with validator evidence, and a hit
 skips the worker and review only after a clean apply and passing validators,
 otherwise falling back to model with a recorded miss reason (contract:
-docs/orchestrator-os/task-cache-route.md). Remaining: enabling the cache by
-default and a reviewed skill invocation adapter, both pending operator
-decisions.
+docs/orchestrator-os/task-cache-route.md). Operator decisions (2026-10-04) close the remaining items: `task_cache_enabled` stays default-off as a per-run opt-in until real-run hit/miss/fallback evidence justifies a default change (no policy version bump), and the skill route is closed as caller-owned because approved skills are instruction-only; a future skill opts in by shipping an approved deterministic command used through the deterministic route (docs/orchestrator-os/task-cache-route.md section 9). P0.5 is complete for this phase; revisit the cache default once run evidence exists.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.

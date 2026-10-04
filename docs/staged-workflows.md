@@ -197,9 +197,6 @@ than claiming a reduction that does not exist.
   persisted but remain caller-owned. The document-page cache stays
   workflow-stage-specific; the task cache is separate and covers coding tasks
   when `task_cache_enabled` is true. See [docs/orchestrator-os/task-cache-route.md](docs/orchestrator-os/task-cache-route.md).
-- No approved skill currently exposes a deterministic invocation interface:
-  canonical skills are instruction-only `SKILL.md` files, and discovery/match
-  returns metadata rather than an executable adapter. A skill path must not be
-  treated as code until a reviewed runner contract exists.
+- skill paths remain caller-owned by operator decision because canonical skills are instruction-only `SKILL.md` files and discovery/match returns metadata, not an executable adapter; a skill becomes executable only by shipping an approved deterministic command used through the deterministic route (see docs/orchestrator-os/task-cache-route.md section 9).
 - Stage ordering is linear: explicit `next_stage` links or declaration order.
   There is no parallel or conditional branching yet.

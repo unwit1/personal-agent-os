@@ -102,7 +102,7 @@ never fails the node.
 
 ## 6. Policy
 
-Run policy key `task_cache_enabled`, boolean, default `False` in this slice.
+Run policy key `task_cache_enabled`, boolean, default `False` (see section 9).
 When false the orchestrator neither looks up nor records entries and emits no
 task cache telemetry, so existing runs are unchanged.
 
@@ -133,3 +133,27 @@ Entries hold only in-scope repository diff text and validator command/pass
 data plus the run/node/time metadata above. They never hold prompts, model
 output or transcripts, context packets, goal text, provider identities,
 credentials, or secrets. Telemetry carries the key prefix and reason only.
+
+## 9. Operator decisions
+
+### Default
+
+Run policy `task_cache_enabled` stays default `False` and is a per-run opt-in.
+The default will only change once hit/miss/fallback ledger evidence (`cache_hit`,
+`work_avoided`, `fallback` with `task_cache_miss`) from real runs justifies it.
+`TASK_CACHE_POLICY_VERSION` is not bumped by this decision.
+
+### Skill route
+
+All approved skills are instruction-only `SKILL.md` files, so skill execution
+stays caller-owned and the orchestrator has no `skill` task route; this closes
+the skill-route roadmap item. 
+
+A skill that wants orchestrator execution must ship a runnable command that
+passes the existing approved-command gate (equals a project `validation_commands`
+entry or fully matches a policy `approved_commands` pattern, no shell
+metacharacters, run as an argument list), and a task uses it by declaring
+`available_execution_paths: ["deterministic", "model"]` with that command as its
+deterministic step, so it runs through the existing deterministic route with
+model as the evidence-triggered fallback; no separate skill route or adapter is
+added.
