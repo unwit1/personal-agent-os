@@ -208,15 +208,10 @@ class ProviderUsageAdapterTests(unittest.TestCase):
             "output_tokens": 50,
         }
         result = token_counts_from_provider_usage(usage, "anthropic")
-        self.assertEqual(
-            result,
-            {
-                "input_tokens": None,
-                "cached_tokens": None,
-                "reasoning_tokens": None,
-                "output_tokens": None,
-            },
-        )
+        self.assertEqual(result["input_tokens"], None)
+        self.assertEqual(result["cached_tokens"], None)
+        self.assertEqual(result["reasoning_tokens"], None)
+        self.assertEqual(result["output_tokens"], 50)
 
     def test_anthropic_format_invalid_cache_fields_treated_as_zero(self) -> None:
         usage = {

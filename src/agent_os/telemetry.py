@@ -168,25 +168,20 @@ def token_counts_from_provider_usage(
         }
 
     if usage_format == "anthropic":
-        input_tokens_base = _valid_int(payload.get("input_tokens"))
-        if input_tokens_base is None:
-            return {
-                "input_tokens": None,
-                "cached_tokens": None,
-                "reasoning_tokens": None,
-                "output_tokens": None,
-            }
-
-        cache_read = _valid_int(payload.get("cache_read_input_tokens")) or 0
-        cache_creation = _valid_int(payload.get("cache_creation_input_tokens")) or 0
-
-        cached = _valid_int(payload.get("cache_read_input_tokens"))
-        if cached is None:
-            cached = 0
+        base = _valid_int(payload.get("input_tokens"))
+        if base is None:
+            input_tokens = None
+            cached_tokens = None
+        else:
+            cache_read = _valid_int(payload.get("cache_read_input_tokens")) or 0
+            cache_creation = _valid_int(payload.get("cache_creation_input_tokens")) or 0
+            input_tokens = base + cache_read + cache_creation
+            cached = _valid_int(payload.get("cache_read_input_tokens"))
+            cached_tokens = cached if cached is not None else 0
 
         return {
-            "input_tokens": input_tokens_base + cache_read + cache_creation,
-            "cached_tokens": cached,
+            "input_tokens": input_tokens,
+            "cached_tokens": cached_tokens,
             "reasoning_tokens": None,
             "output_tokens": _valid_int(payload.get("output_tokens")),
         }
