@@ -128,13 +128,6 @@ def check(home: Path | None = None) -> dict[str, Any]:
     }
 
 
-def show(home: Path | None = None) -> dict[str, Any]:
-    """Show the current API budget status."""
-    machine = load(home)
-    return {**(machine or {"approved": False, "note": "no API budget set; run: agent-os orchestrate api-budget set --total-usd N --call-cap-usd M"}),
-            "spent_usd": api_spent(home), "remaining_usd": api_remaining(home), "path": str(api_budget_path(home))}
-
-
 def is_api_provider(provider: dict[str, Any]) -> bool:
     """Check if a provider uses API deployment (Anthropic/OpenAI style)."""
     from . import model_profile

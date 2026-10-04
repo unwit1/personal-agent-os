@@ -739,7 +739,10 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from . import api_budget
 
         if args.action == "show":
-            emit(api_budget.show())
+            machine = api_budget.load()
+            emit({**(machine or {"approved": False, "note": "no API budget set; run: agent-os orchestrate api-budget set --total-usd N --call-cap-usd M"}),
+                  "spent_usd": api_budget.api_spent(), "remaining_usd": api_budget.api_remaining(),
+                  "path": str(api_budget.api_budget_path())})
             return 0
         if args.total_usd is None or args.call_cap_usd is None:
             emit({"error": "set needs --total-usd and --call-cap-usd"})
