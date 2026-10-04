@@ -339,8 +339,16 @@ class TelemetryEvent:
         return payload
 
 
-def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
+def _aggregate(
+    events: list[TelemetryEvent], *, oversized_input_tokens: int | None = None
+) -> dict[str, Any]:
     """Compute ungrouped aggregates from validated events."""
+
+    if oversized_input_tokens is not None:
+        if not isinstance(oversized_input_tokens, int) or isinstance(oversized_input_tokens, bool):
+            raise ValueError("oversized_input_tokens must be an int, not bool")
+        if oversized_input_tokens < 1:
+            raise ValueError("oversized_input_tokens must be >= 1")
 
     execution_paths: Counter[str] = Counter()
     validator_outcomes: Counter[str] = Counter()
@@ -370,6 +378,7 @@ def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
     items_processed_total = 0
     items_processed_unknown_count = 0
     correction_or_override_counts = {"false": 0, "true": 0, "unknown": 0}
+    input_tokens_max: int | None = None
 
     for event in events:
         total += 1
@@ -421,6 +430,10 @@ def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
             else:
                 token_unknown_counts[token_field] += 1
 
+        if event.input_tokens is not None:
+            if input_tokens_max is None or event.input_tokens > input_tokens_max:
+                input_tokens_max = event.input_tokens
+
         if (
             event.execution_path in ("deterministic", "cache")
             and event.capability_class is not None
@@ -448,11 +461,15 @@ def _aggregate(events: list[TelemetryEvent]) -> dict[str, Any]:
         "deterministic_path_model_class_counts": dict(sorted(deterministic_path_classes.items())),
         "token_totals": token_totals,
         "token_unknown_counts": token_unknown_counts,
+        "input_tokens_max": input_tokens_max,
     }
 
 
 def aggregate_report(
-    events: Iterable[TelemetryEvent | Mapping[str, Any]], group_by: str | None = None
+    events: Iterable[TelemetryEvent | Mapping[str, Any]],
+    group_by: str | None = None,
+    *,
+    oversized_input_tokens: int | None = None,
 ) -> dict[str, Any]:
     """Return count-only usage findings from validated metadata events.
 
@@ -465,6 +482,8 @@ def aggregate_report(
         events: Validated metadata events to aggregate.
         group_by: Optional grouping field. None for ungrouped report. Must be
             a key of REPORT_GROUP_FIELDS if provided.
+        oversized_input_tokens: Optional validation threshold. Must be an int >= 1
+            if provided. Raises ValueError if not an int or if < 1.
 
     New aggregates:
     - capability_class_counts: Counter of event.capability_class or 'unknown'
@@ -483,6 +502,12 @@ def aggregate_report(
       execution_path in ('deterministic', 'cache') and capability_class set and not 'deterministic'
     - token_totals: dict of field -> int (sum of non-None values, 0 when nothing reported)
     - token_unknown_counts: dict of field -> int (count of None values)
+    - input_tokens_max: largest non-None input_tokens value, or None
+    - group_rankings: (only when group_by is not None) dict with three keys:
+      - model_tokens: list of {group, value} dicts sorted by value desc, then label asc
+      - retries_and_escalations: list of {group, value} dicts sorted by value desc, then label asc
+      - model_path_events: list of {group, value} dicts sorted by value desc, then label asc
+      Groups with value 0 are excluded.
     """
 
     validated_events: list[TelemetryEvent] = []
@@ -491,7 +516,7 @@ def aggregate_report(
         validated_events.append(event)
 
     if group_by is None:
-        return _aggregate(validated_events)
+        return _aggregate(validated_events, oversized_input_tokens=oversized_input_tokens)
 
     if group_by not in REPORT_GROUP_FIELDS:
         raise ValueError(f"unsupported telemetry report grouping: {group_by}")
@@ -504,16 +529,49 @@ def aggregate_report(
             groups_dict[label] = []
         groups_dict[label].append(event)
 
-    top_level_report = _aggregate(validated_events)
+    top_level_report = _aggregate(validated_events, oversized_input_tokens=oversized_input_tokens)
     groups_report = {}
+    group_rankings_data = {
+        "model_tokens": {},
+        "retries_and_escalations": {},
+        "model_path_events": {},
+    }
+
     for label in sorted(groups_dict.keys()):
         group_events = groups_dict[label]
-        group_aggregate = _aggregate(group_events)
+        group_aggregate = _aggregate(group_events, oversized_input_tokens=oversized_input_tokens)
         group_aggregate.pop("schema", None)
         groups_report[label] = group_aggregate
 
+        # Compute ranking metrics
+        model_tokens = (
+            group_aggregate["token_totals"]["input_tokens"]
+            + group_aggregate["token_totals"]["reasoning_tokens"]
+            + group_aggregate["token_totals"]["output_tokens"]
+        )
+        if model_tokens > 0:
+            group_rankings_data["model_tokens"][label] = model_tokens
+
+        retries_and_escalations = (
+            group_aggregate["retry_total"] + group_aggregate["escalation_total"]
+        )
+        if retries_and_escalations > 0:
+            group_rankings_data["retries_and_escalations"][label] = retries_and_escalations
+
+        model_path_events = group_aggregate["execution_path_counts"].get("model", 0)
+        if model_path_events > 0:
+            group_rankings_data["model_path_events"][label] = model_path_events
+
+    # Sort rankings
+    group_rankings = {}
+    for key in ("model_tokens", "retries_and_escalations", "model_path_events"):
+        items = group_rankings_data[key]
+        sorted_items = sorted(items.items(), key=lambda x: (-x[1], x[0]))
+        group_rankings[key] = [{"group": label, "value": value} for label, value in sorted_items]
+
     top_level_report["group_by"] = group_by
     top_level_report["groups"] = groups_report
+    top_level_report["group_rankings"] = group_rankings
 
     return top_level_report
 
@@ -553,7 +611,11 @@ class LocalTelemetryStore:
                 events.append(TelemetryEvent.from_mapping(json.loads(line)))
         return events
 
-    def aggregate_report(self, group_by: str | None = None) -> dict[str, Any]:
+    def aggregate_report(
+        self, group_by: str | None = None, *, oversized_input_tokens: int | None = None
+    ) -> dict[str, Any]:
         """Summarize local events without exposing the underlying records."""
 
-        return aggregate_report(self.read_events(), group_by=group_by)
+        return aggregate_report(
+            self.read_events(), group_by=group_by, oversized_input_tokens=oversized_input_tokens
+        )
