@@ -232,6 +232,18 @@ class TaskCacheContractTests(unittest.TestCase):
         for reason in ("absent", "apply_failed", "validator_failed", "ineligible"):
             self.assertIn(f"| `{reason}` |", text)
 
+    def test_contract_records_default_and_skill_decisions(self) -> None:
+        text = (Path(__file__).resolve().parents[1] / "docs" / "orchestrator-os" / "task-cache-route.md").read_text(encoding="utf-8")
+        for required in (
+            "## 9. Operator decisions",
+            "### Default",
+            "### Skill route",
+            "caller-owned",
+            "approved_commands",
+            "available_execution_paths",
+        ):
+            self.assertIn(required, text)
+
 
 if __name__ == "__main__":
     unittest.main()
