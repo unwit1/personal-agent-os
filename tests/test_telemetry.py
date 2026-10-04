@@ -900,6 +900,139 @@ class TelemetryStoreTests(unittest.TestCase):
         self.assertEqual(model_tokens[1]["group"], "anthropic")
         self.assertEqual(model_tokens[1]["value"], 150)
 
+    def test_aggregate_report_oversized_input_tokens_threshold_and_count(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=50,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=100,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=250,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+            ),
+        ]
+
+        report = aggregate_report(events, oversized_input_tokens=100)
+
+        self.assertEqual(report["oversized_input_tokens_threshold"], 100)
+        self.assertEqual(report["oversized_input_event_count"], 2)
+
+    def test_aggregate_report_without_threshold_has_no_oversized_keys(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=50,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=250,
+            ),
+        ]
+
+        report = aggregate_report(events)
+
+        self.assertNotIn("oversized_input_tokens_threshold", report)
+        self.assertNotIn("oversized_input_event_count", report)
+
+    def test_aggregate_report_group_by_project_with_oversized_threshold(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=50,
+            ),
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=150,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                input_tokens=120,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                input_tokens=60,
+            ),
+            TelemetryEvent(
+                project_id="proj-c",
+                task_category="stage",
+                input_tokens=50,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project", oversized_input_tokens=100)
+
+        self.assertEqual(report["group_by"], "project")
+        self.assertIn("group_rankings", report)
+        self.assertIn("oversized_input_events", report["group_rankings"])
+        oversized_events = report["group_rankings"]["oversized_input_events"]
+        self.assertEqual(len(oversized_events), 2)
+        self.assertEqual(oversized_events[0]["group"], "proj-a")
+        self.assertEqual(oversized_events[0]["value"], 1)
+        self.assertEqual(oversized_events[1]["group"], "proj-b")
+        self.assertEqual(oversized_events[1]["value"], 1)
+
+    def test_aggregate_report_group_by_project_without_threshold_no_oversized_ranking(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="stage",
+                input_tokens=150,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="stage",
+                input_tokens=120,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project")
+
+        self.assertIn("group_rankings", report)
+        self.assertNotIn("oversized_input_events", report["group_rankings"])
+        self.assertIn("model_tokens", report["group_rankings"])
+        self.assertIn("retries_and_escalations", report["group_rankings"])
+        self.assertIn("model_path_events", report["group_rankings"])
+
+    def test_oversized_input_report_excludes_event_ids_and_categories(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="proj-a",
+                task_category="secret-stage",
+                event_id="event-secret-1",
+                input_tokens=150,
+            ),
+            TelemetryEvent(
+                project_id="proj-b",
+                task_category="secret-stage",
+                event_id="event-secret-2",
+                input_tokens=120,
+            ),
+        ]
+
+        report = aggregate_report(events, group_by="project", oversized_input_tokens=100)
+        serialized = json.dumps(report)
+
+        self.assertNotIn("event-secret-1", serialized)
+        self.assertNotIn("event-secret-2", serialized)
+        self.assertNotIn("secret-stage", serialized)
+
 
 if __name__ == "__main__":
     unittest.main()

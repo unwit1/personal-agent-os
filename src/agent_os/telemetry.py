@@ -379,6 +379,7 @@ def _aggregate(
     items_processed_unknown_count = 0
     correction_or_override_counts = {"false": 0, "true": 0, "unknown": 0}
     input_tokens_max: int | None = None
+    oversized_input_event_count = 0
 
     for event in events:
         total += 1
@@ -433,6 +434,8 @@ def _aggregate(
         if event.input_tokens is not None:
             if input_tokens_max is None or event.input_tokens > input_tokens_max:
                 input_tokens_max = event.input_tokens
+            if oversized_input_tokens is not None and event.input_tokens >= oversized_input_tokens:
+                oversized_input_event_count += 1
 
         if (
             event.execution_path in ("deterministic", "cache")
@@ -441,7 +444,7 @@ def _aggregate(
         ):
             deterministic_path_classes[event.capability_class] += 1
 
-    return {
+    result = {
         "schema": REPORT_SCHEMA,
         "event_count": total,
         "execution_path_counts": dict(sorted(execution_paths.items())),
@@ -463,6 +466,12 @@ def _aggregate(
         "token_unknown_counts": token_unknown_counts,
         "input_tokens_max": input_tokens_max,
     }
+
+    if oversized_input_tokens is not None:
+        result["oversized_input_tokens_threshold"] = oversized_input_tokens
+        result["oversized_input_event_count"] = oversized_input_event_count
+
+    return result
 
 
 def aggregate_report(
@@ -503,10 +512,13 @@ def aggregate_report(
     - token_totals: dict of field -> int (sum of non-None values, 0 when nothing reported)
     - token_unknown_counts: dict of field -> int (count of None values)
     - input_tokens_max: largest non-None input_tokens value, or None
-    - group_rankings: (only when group_by is not None) dict with three keys:
+    - oversized_input_tokens_threshold: (only when oversized_input_tokens is not None) the threshold value
+    - oversized_input_event_count: (only when oversized_input_tokens is not None) count of events with input_tokens >= threshold
+    - group_rankings: (only when group_by is not None) dict with keys:
       - model_tokens: list of {group, value} dicts sorted by value desc, then label asc
       - retries_and_escalations: list of {group, value} dicts sorted by value desc, then label asc
       - model_path_events: list of {group, value} dicts sorted by value desc, then label asc
+      - oversized_input_events: (only when oversized_input_tokens is not None) list of {group, value} dicts sorted by value desc, then label asc
       Groups with value 0 are excluded.
     """
 
@@ -536,6 +548,8 @@ def aggregate_report(
         "retries_and_escalations": {},
         "model_path_events": {},
     }
+    if oversized_input_tokens is not None:
+        group_rankings_data["oversized_input_events"] = {}
 
     for label in sorted(groups_dict.keys()):
         group_events = groups_dict[label]
@@ -562,9 +576,18 @@ def aggregate_report(
         if model_path_events > 0:
             group_rankings_data["model_path_events"][label] = model_path_events
 
+        if oversized_input_tokens is not None:
+            oversized_count = group_aggregate["oversized_input_event_count"]
+            if oversized_count > 0:
+                group_rankings_data["oversized_input_events"][label] = oversized_count
+
     # Sort rankings
     group_rankings = {}
-    for key in ("model_tokens", "retries_and_escalations", "model_path_events"):
+    ranking_keys = ["model_tokens", "retries_and_escalations", "model_path_events"]
+    if oversized_input_tokens is not None:
+        ranking_keys.append("oversized_input_events")
+
+    for key in ranking_keys:
         items = group_rankings_data[key]
         sorted_items = sorted(items.items(), key=lambda x: (-x[1], x[0]))
         group_rankings[key] = [{"group": label, "value": value} for label, value in sorted_items]
