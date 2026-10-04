@@ -213,6 +213,9 @@ agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage tria
   --override
 ```
 
+Omitting `--override` records the correction or override state as unknown, not false. 
+Only include the flag when a correction or override has been explicitly applied.
+
 ### Reporting aggregate telemetry
 
 Use `agent-os telemetry-report --path <file>` to view aggregate counts across
@@ -226,24 +229,24 @@ events. The report includes:
 - `duration_unknown_count`: count of events with unknown duration;
 - `items_processed_total`: sum of reported item counts;
 - `items_processed_unknown_count`: count of events with unknown item count;
-- `correction_or_override_counts`: count of events with reported corrections or overrides;
+- `correction_or_override_counts`: counts of events with `true`, `false`, or unknown (unreported) correction or override;
 - `retry_total`, `escalation_total`, `events_with_retries`, `events_with_escalations`: retry and escalation metrics;
 - `deterministic_path_model_class_counts`: model classes executed on deterministic paths;
 - `validator_outcome_counts`: distribution of validator pass/fail.
 
-The report exposes only aggregate statistics without exposing per-event records,
-provider information, event IDs, or timestamps. Add `--group-by` to break down 
-the report by a specific field. Supported grouping options are `project`, 
-`category`, `provider`, `model`, `capability`, and `path`; events missing the 
-grouping field are grouped under `unknown`:
+The report exposes only aggregate statistics without exposing raw per-event records,
+event IDs, or timestamps. Provider and model labels appear only as group keys when
+explicitly requested. Add `--group-by` to break down the report by a specific field. 
+Supported grouping options are `project`, `category`, `provider`, `model`, `capability`, 
+and `path`; events missing the grouping field are grouped under `unknown`:
 
 ```powershell
 agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl --group-by provider
 ```
 
 Grouped reports include a top-level `group_by` field and a `groups` object with 
-one report per label; provider, model, event ID, and timestamp information is 
-never included in any report.
+one report per label; raw per-event records, event IDs, and timestamp information 
+are never included in any report.
 
 ### Enabling telemetry via Python API
 
