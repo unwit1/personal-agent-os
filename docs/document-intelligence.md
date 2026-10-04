@@ -80,8 +80,7 @@ validated before any OCR runs. The `extract_field_region()` API accepts a `PageK
 
 Results are cached by page and region geometry. A repeat request for the same
 page and region reuses the cached result without calling OCR; a different region
-on the same page triggers extraction again. The cache works with or without it —
-OCR runs if the cache is absent, unwritable, or corrupt.
+on the same page triggers extraction again.
 
 Telemetry is strictly count-only: `field_region_pages`, `field_region_ocr_pages`,
 and `field_region_cache_hits`. It never contains OCR text or region details.
