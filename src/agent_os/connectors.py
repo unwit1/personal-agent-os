@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import ctypes
-import hashlib
 import json
 import os
 import re
@@ -17,6 +16,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
+from .fingerprints import nul_joined_sha256
 from .paths import ROOT
 from .privacy import privacy_findings
 from .storage import write_json
@@ -1471,7 +1471,7 @@ def connector_import_candidates(surface_id: str | None = None) -> dict[str, Any]
                     privacy_filtered += 1
                     continue
                 key = (record["server_name"].casefold(), record["command"].casefold())
-                candidate_id = hashlib.sha256((key[0] + "\0" + key[1]).encode("utf-8")).hexdigest()[:20]
+                candidate_id = nul_joined_sha256(key, 20)
                 candidate = grouped.setdefault(
                     key,
                     {
