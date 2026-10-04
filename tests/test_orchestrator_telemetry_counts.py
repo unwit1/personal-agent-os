@@ -151,6 +151,24 @@ class TelemetryTokenCountsTests(unittest.TestCase):
         self.assertEqual(result["reasoning_tokens"], 0)
         self.assertEqual(result["output_tokens"], 0)
 
+    def test_float_becomes_none(self) -> None:
+        """R1-1: A float (3.7) should become None (not coerced to 3)."""
+        usage_dict = {
+            "accuracy": "exact",
+            "input_tokens": 3.7,
+        }
+        result = _telemetry_token_counts(usage_dict)
+        self.assertIsNone(result["input_tokens"])
+
+    def test_numeric_string_becomes_none(self) -> None:
+        """R1-1: A numeric string ('5') should become None (not coerced to 5)."""
+        usage_dict = {
+            "accuracy": "exact",
+            "input_tokens": "5",
+        }
+        result = _telemetry_token_counts(usage_dict)
+        self.assertIsNone(result["input_tokens"])
+
 
 if __name__ == "__main__":
     unittest.main()

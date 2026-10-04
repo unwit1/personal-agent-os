@@ -93,13 +93,7 @@ def _telemetry_token_counts(usage: dict | None) -> dict[str, int | None]:
         }
 
     def _valid_int(value: Any) -> int | None:
-        if value is None or isinstance(value, bool):
-            return None
-        try:
-            int_value = int(value)
-            return int_value if int_value >= 0 else None
-        except (TypeError, ValueError):
-            return None
+        return value if isinstance(value, int) and not isinstance(value, bool) and value >= 0 else None
 
     cached = _valid_int(usage.get("cache_read_tokens"))
     if cached is None:
