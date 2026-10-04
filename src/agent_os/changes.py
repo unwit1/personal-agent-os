@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import re
 from pathlib import Path
 from typing import Any, Callable, Iterable
@@ -13,6 +12,7 @@ from .privacy import privacy_findings, require_private_safe
 from .registry import get_project
 from .storage import load_json, write_json
 from .timestamps import utc_now_iso as _now
+from .fingerprints import nul_joined_sha256
 
 
 CHANGE_TYPES = {"bug", "feature", "refactor", "workflow", "performance", "security", "test", "documentation", "architecture", "other"}
@@ -59,7 +59,7 @@ def load_changes_incremental(
 
 def _fingerprint(project_id: str, change_type: str, title: str, request_summary: str, components: Iterable[str], files: Iterable[str]) -> str:
     parts = [project_id, change_type, _normalise(title), _normalise(request_summary), *sorted(_normalise(item) for item in components), *sorted(_normalise(item) for item in files)]
-    return hashlib.sha256("\0".join(parts).encode("utf-8")).hexdigest()
+    return nul_joined_sha256(parts)
 
 
 def _index(project_id: str) -> list[dict[str, Any]]:
@@ -234,7 +234,7 @@ def google_safe_projection(project: str, change_id: str) -> dict[str, Any]:
     source_kind = record.get("source_refs", [{}])[0].get("kind", "manual")
     projection = {
         "projection_version": 1,
-        "external_key": hashlib.sha256(f"google\0{change_id}".encode("utf-8")).hexdigest()[:24],
+        "external_key": nul_joined_sha256(["google", change_id], 24),
         "change_id": change_id,
         "captured_at": record["created_at"],
         "updated_at": record["updated_at"],
