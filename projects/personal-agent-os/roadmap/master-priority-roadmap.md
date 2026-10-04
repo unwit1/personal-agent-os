@@ -398,12 +398,13 @@ engine upgrade correctly re-extracts.
 
 HR-GUI is a separate repository. Its shared-cache adapter is on
 `origin/main` (`cffccbb`); source-change invalidation and OCR-rotation fixes
-are on the pushed `fix/cache-source-change` branch (`4118188`, `06ef9f5`) and
-still need focused synthetic regression review before merge. Its local zone
+were merged into HR-GUI `main` on 2026-10-04 (`0dbe36e`, pushed) after focused
+synthetic regression tests (`b17e811`: mid-run source rewrite, rotation round-trip,
+invalid rotation refusal, field-region fallback); 639 HR-GUI tests and all 63
+scanner regressions pass. Its local zone
 OCR now calls the shared field-region API on that branch (`91a1baf`), with the
 existing local render/crop/OCR path as fallback. The shared API (`103f0b52`)
-is merged into Agent OS `main` (2026-09-24); the HR-GUI branch still needs
-synthetic regression review and merge before this integration is available on
+is merged into Agent OS `main` (2026-09-24); the HR-GUI integration is now on
 the normal HR-GUI checkout. Zone definitions and OCR text remain local. Remaining debt is
 recorded in
 `projects/personal-agent-os/roadmap/technical-debt.md`.
