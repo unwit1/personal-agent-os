@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import tempfile
@@ -27,6 +28,14 @@ IMPERSONAL_TASKS = (
     "add a null check to the parser",
     "what is the time complexity of a binary search",
 )
+
+
+class FactIdTests(unittest.TestCase):
+    def test_fact_id_uses_nul_joined_sha256(self) -> None:
+        """Verify that _fact_id produces the expected hash."""
+        result = profile._fact_id('manual', 'a/b.json')
+        expected = "PF-" + hashlib.sha256('manual\0a/b.json'.encode('utf-8')).hexdigest()[:12]
+        self.assertEqual(result, expected)
 
 
 class IndexTests(unittest.TestCase):

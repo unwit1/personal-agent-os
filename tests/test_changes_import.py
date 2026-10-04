@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import tempfile
@@ -8,7 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os.changes import load_changes_incremental
+from agent_os.changes import load_changes_incremental, _fingerprint, _normalise
+from agent_os.fingerprints import nul_joined_sha256
 
 
 class IncrementalChangeImportTests(unittest.TestCase):
@@ -102,6 +104,42 @@ class IncrementalChangeImportTests(unittest.TestCase):
         self.assertGreater(second_checkpoint["sequence"], first_checkpoint["sequence"])
         self.assertEqual(second_checkpoint["cursor"], "CR-0002.json")
         self.assertEqual(second["stats"]["skipped"], 2)
+
+
+class FingerprintMigrationTests(unittest.TestCase):
+    def test_fingerprint_matches_old_formula(self) -> None:
+        """_fingerprint produces byte-identical output to the old hashlib formula."""
+        project = "p"
+        change_type = "feature"
+        title = "T"
+        request_summary = "S"
+        components = ["b", "a"]
+        files = ["y", "x"]
+
+        result = _fingerprint(project, change_type, title, request_summary, components, files)
+
+        old_formula = hashlib.sha256(
+            "\0".join([
+                project,
+                change_type,
+                _normalise(title),
+                _normalise(request_summary),
+                *sorted(_normalise(item) for item in components),
+                *sorted(_normalise(item) for item in files),
+            ]).encode("utf-8")
+        ).hexdigest()
+
+        self.assertEqual(result, old_formula)
+
+    def test_google_projection_hash_matches_old_formula(self) -> None:
+        """nul_joined_sha256 with length=24 matches old hashlib formula."""
+        change_id = "CH-1"
+
+        result = nul_joined_sha256(["google", change_id], 24)
+
+        old_formula = hashlib.sha256(f"google\0{change_id}".encode("utf-8")).hexdigest()[:24]
+
+        self.assertEqual(result, old_formula)
 
 
 if __name__ == "__main__":

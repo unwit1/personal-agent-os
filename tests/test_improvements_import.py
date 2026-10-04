@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import tempfile
@@ -8,7 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os.improvements import load_improvements_incremental
+from agent_os.improvements import load_improvements_incremental, _dedupe_key
+from agent_os.normalization import normalise_text as _normalise
 
 
 class IncrementalImprovementImportTests(unittest.TestCase):
@@ -105,6 +107,56 @@ class IncrementalImprovementImportTests(unittest.TestCase):
         self.assertGreater(second_checkpoint["sequence"], first_checkpoint["sequence"])
         self.assertEqual(second_checkpoint["cursor"], "IMP-0002.json")
         self.assertEqual(second["stats"]["skipped"], 2)
+
+
+class FingerprintBranchTests(unittest.TestCase):
+    def test_dedupe_key_with_supplied_matches_old_formula(self) -> None:
+        """Test that supplied branch of _dedupe_key matches the old inline hashlib formula."""
+        project_id = "test-project"
+        category = "bug"
+        subsystem = "parser"
+        title = "Parser fails on empty input"
+        observation = "The parser crashes"
+        supplied = "custom-dedupe-key-123"
+
+        result = _dedupe_key(project_id, category, subsystem, title, observation, supplied)
+
+        expected_source = f"{project_id}\0{_normalise(supplied)}"
+        expected = hashlib.sha256(expected_source.encode("utf-8")).hexdigest()
+
+        self.assertEqual(result, expected)
+
+    def test_dedupe_key_without_supplied_matches_old_formula(self) -> None:
+        """Test that non-supplied branch of _dedupe_key matches the old inline hashlib formula."""
+        project_id = "test-project"
+        category = "bug"
+        subsystem = "parser"
+        title = "Parser fails on empty input"
+        observation = "The parser crashes"
+        supplied = None
+
+        result = _dedupe_key(project_id, category, subsystem, title, observation, supplied)
+
+        expected_source = f"{project_id}\0{category}\0{_normalise(subsystem or '')}\0{_normalise(title)}\0{_normalise(observation)}"
+        expected = hashlib.sha256(expected_source.encode("utf-8")).hexdigest()
+
+        self.assertEqual(result, expected)
+
+    def test_dedupe_key_without_supplied_with_none_subsystem_matches_old_formula(self) -> None:
+        """Test that non-supplied branch with None subsystem matches the old inline hashlib formula."""
+        project_id = "test-project"
+        category = "performance"
+        subsystem = None
+        title = "Request latency is high"
+        observation = "API responses are slow"
+        supplied = None
+
+        result = _dedupe_key(project_id, category, subsystem, title, observation, supplied)
+
+        expected_source = f"{project_id}\0{category}\0{_normalise(subsystem or '')}\0{_normalise(title)}\0{_normalise(observation)}"
+        expected = hashlib.sha256(expected_source.encode("utf-8")).hexdigest()
+
+        self.assertEqual(result, expected)
 
 
 if __name__ == "__main__":

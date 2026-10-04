@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import hashlib
 import re
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from ingester_engine.ledger import load_json_records_incremental, read_json_record
+from .fingerprints import nul_joined_sha256
 from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .privacy import require_private_safe
@@ -58,10 +58,9 @@ def load_improvements_incremental(
 
 def _dedupe_key(project_id: str, category: str, subsystem: str | None, title: str, observation: str, supplied: str | None) -> str:
     if supplied:
-        source = f"{project_id}\0{_normalise(supplied)}"
+        return nul_joined_sha256([project_id, _normalise(supplied)])
     else:
-        source = f"{project_id}\0{category}\0{_normalise(subsystem or '')}\0{_normalise(title)}\0{_normalise(observation)}"
-    return hashlib.sha256(source.encode("utf-8")).hexdigest()
+        return nul_joined_sha256([project_id, category, _normalise(subsystem or ""), _normalise(title), _normalise(observation)])
 
 
 def _allocate_id() -> str:

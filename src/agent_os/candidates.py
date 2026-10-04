@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from ingester_engine.ledger import IngestionLedger, empty_record_import_stats, stable_stage_id, stable_work_id
+from .fingerprints import nul_joined_sha256
 from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .registry import get_project
@@ -37,8 +37,7 @@ CANDIDATE_PROCESSOR_VERSION = "candidate-records@1"
 
 
 def _fingerprint(project_id: str, kind: str, statement: str) -> str:
-    source = f"{project_id}\0{kind}\0{_normalise(statement)}"
-    return hashlib.sha256(source.encode("utf-8")).hexdigest()
+    return nul_joined_sha256([project_id, kind, _normalise(statement)])
 
 
 def load_candidates_incremental(

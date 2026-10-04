@@ -23,13 +23,13 @@ Three rules shape everything here:
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from ingester_engine.ledger import IngestionLedger, stable_item_id, stable_stage_id, stable_work_id
+from .fingerprints import nul_joined_sha256
 from .paths import ROOT
 from .privacy import privacy_findings
 from .storage import load_json, write_json
@@ -143,7 +143,7 @@ def _walk(node: Any, source: str, domain: str, path: str, facts: list[dict[str, 
 
 
 def _fact_id(source: str, path: str) -> str:
-    return "PF-" + hashlib.sha256(f"{source}\0{path}".encode("utf-8")).hexdigest()[:12]
+    return "PF-" + nul_joined_sha256([source, path], 12)
 
 
 def _facts_from_data(path: Path, data: dict[str, Any]) -> list[dict[str, Any]]:

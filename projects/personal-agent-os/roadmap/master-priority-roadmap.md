@@ -959,6 +959,15 @@ caller-specific policies and interfaces intact and do not infer automation from
 unvalidated behavior. Larger repeated import-loop structures remain outside
 this bounded foundation because extracting them would require an architectural
 design decision.
+(2026-10-04): The NUL-joined SHA-256 identity/fingerprint seam was extracted into
+`agent_os.fingerprints.nul_joined_sha256` with byte-identical ID regression tests
+covering single-part, multi-part, empty, non-ASCII, and truncation cases. Migrated
+callers: `candidates._fingerprint`, `improvements._dedupe_key`, `changes._fingerprint`,
+`changes` external_key for Google, `coordination._claim_id`, `coordination._note_id`,
+`coordination._task_id`, `coordination._review_id`, and `profile._fact_id`.
+Still open: hash sites over JSON, raw bytes or other separators (orchestrator, mail,
+recovery, artifacts, forms, watching, connectors, browser bridge), plus the larger
+import-loop extraction that needs an architectural decision.
 
 Prioritize normal code for repeated deterministic tasks such as:
 - hashing/fingerprinting;
