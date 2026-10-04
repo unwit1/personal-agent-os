@@ -164,6 +164,35 @@ The same operations are exposed over MCP as `workflow.list`, `workflow.start`,
 `workflow.complete_stage`, and `workflow.runs`, so every routed surface from
 P0.0 can drive a staged run.
 
+## Local usage telemetry (opt-in)
+
+Pass `--telemetry-path <file>` to `workflow-run` or `workflow-complete` to
+record metadata-only events for usage analysis. The file should be located under
+`.agent-local` or outside the repository to keep sensitive analysis local.
+
+For each executed stage (deterministic, cache hit, or agent-reported model stage),
+one event is appended with:
+- execution path (deterministic, cache, skill, or model);
+- capability class;
+- retry and escalation counts;
+- validator outcome.
+
+Prompts, outputs, token counts, and other details are never recorded; unavailable
+metrics are never fabricated. Raw telemetry stays local and is never committed.
+
+Use `agent-os telemetry-report --path <file>` to view aggregate counts across
+events, including capability_class_counts, retry/escalation totals, and
+deterministic_path_model_class_counts. The report exposes only aggregate
+statistics without exposing per-event records.
+
+Example:
+
+```powershell
+agent-os workflow-run repository-health-sweep --run-id sweep-1 --telemetry-path .agent-local/telemetry/sweep-1.jsonl
+agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage --output "..." --telemetry-path .agent-local/telemetry/sweep-1.jsonl
+agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl
+```
+
 ## Measured behaviour
 
 Measured on `repository-health-sweep` in this repository:
