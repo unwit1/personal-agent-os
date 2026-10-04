@@ -475,6 +475,7 @@ def parser() -> argparse.ArgumentParser:
     workflow_run.add_argument("workflow")
     workflow_run.add_argument("--run-id", required=True)
     workflow_run.add_argument("--stage")
+    workflow_run.add_argument("--telemetry-path", default=None)
     workflow_complete = commands.add_parser("workflow-complete")
     workflow_complete.add_argument("workflow")
     workflow_complete.add_argument("--run-id", required=True)
@@ -483,6 +484,13 @@ def parser() -> argparse.ArgumentParser:
     workflow_complete.add_argument("--checkpoint")
     workflow_complete.add_argument("--failed", action="store_true")
     workflow_complete.add_argument("--detail")
+    workflow_complete.add_argument("--telemetry-path", default=None)
+    workflow_complete.add_argument("--provider", default=None)
+    workflow_complete.add_argument("--model", default=None)
+    workflow_complete.add_argument("--input-tokens", type=int, default=None)
+    workflow_complete.add_argument("--cached-tokens", type=int, default=None)
+    workflow_complete.add_argument("--reasoning-tokens", type=int, default=None)
+    workflow_complete.add_argument("--output-tokens", type=int, default=None)
     commands.add_parser("mcp")
     commands.add_parser("machine-status")
     local_path = commands.add_parser("set-local-path")
@@ -778,8 +786,10 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "workflow-stage":
             _print(prepare_stage(args.workflow, args.run_id, args.stage))
         elif args.command == "workflow-run":
-            _print(run_stage(args.workflow, args.run_id, args.stage))
+            store = LocalTelemetryStore(Path(args.telemetry_path)) if args.telemetry_path else None
+            _print(run_stage(args.workflow, args.run_id, args.stage, telemetry_store=store))
         elif args.command == "workflow-complete":
+            store = LocalTelemetryStore(Path(args.telemetry_path)) if args.telemetry_path else None
             _print(
                 complete_stage(
                     args.workflow,
@@ -789,6 +799,13 @@ def main(argv: list[str] | None = None) -> int:
                     checkpoint=args.checkpoint,
                     passed=False if args.failed else None,
                     detail=args.detail,
+                    telemetry_store=store,
+                    provider=args.provider,
+                    model=args.model,
+                    input_tokens=args.input_tokens,
+                    cached_tokens=args.cached_tokens,
+                    reasoning_tokens=args.reasoning_tokens,
+                    output_tokens=args.output_tokens,
                 )
             )
         elif args.command == "mcp":
