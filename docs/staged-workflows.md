@@ -193,9 +193,10 @@ agent-os workflow-run repository-health-sweep --run-id sweep-1 --telemetry-path 
 agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage --output "..." --telemetry-path .agent-local/telemetry/sweep-1.jsonl
 ```
 
-`workflow-complete` accepts optional caller-reported token usage and model 
-information. These are recorded only when telemetry is enabled, validated before 
-the run record changes, and omitted values stay unknown and are never estimated:
+`workflow-complete` accepts optional caller-reported token usage, execution metrics, 
+and model information. These are recorded only when telemetry is enabled, validated before 
+the run record changes, and omitted values stay unknown and are never estimated. Leaving out 
+`--override` means unknown, not false:
 
 ```powershell
 agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage \
@@ -206,7 +207,10 @@ agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage tria
   --input-tokens 500 \
   --cached-tokens 100 \
   --reasoning-tokens 50 \
-  --output-tokens 200
+  --output-tokens 200 \
+  --duration-ms 5000 \
+  --items-processed 42 \
+  --override
 ```
 
 ### Reporting aggregate telemetry
@@ -268,10 +272,6 @@ complete_stage(
     correction_or_override=True,
 )
 ```
-
-`duration_ms`, `items_processed`, and `correction_or_override` are available
-through the Python API only; the `workflow-complete` CLI does not expose them, so
-they stay unknown there (unknown is not false).
 
 Then aggregate the results:
 
