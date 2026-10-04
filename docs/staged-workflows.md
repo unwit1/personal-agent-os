@@ -166,28 +166,76 @@ P0.0 can drive a staged run.
 
 ## Local usage telemetry (opt-in)
 
-Stage telemetry is recorded only when a caller passes a `LocalTelemetryStore` 
-(via `telemetry_store=...`) to the `run_stage()` and `complete_stage()` functions 
-in `src/agent_os/workflows.py`. The workflow-run and workflow-complete CLI 
-commands do not enable telemetry yet; that remains a future enhancement. When 
-enabled, the orchestrator records metadata-only events in a local JSONL file 
-under `.agent-local/telemetry`. The telemetry captures one event per executed 
+Stage telemetry is recorded only when a caller explicitly enables it. The
+orchestrator records metadata-only events in a local JSONL file under 
+`.agent-local/telemetry`. The telemetry captures one event per executed 
 stage (deterministic, cache hit, or agent-reported model stage) with:
 - execution path (deterministic, cache, skill, or model);
 - capability class;
 - retry and escalation counts;
-- validator outcome.
+- validator outcome;
+- input, cached, reasoning, and output token counts (when reported).
 
-Prompts, outputs, token counts, and other details are never recorded; unavailable
-metrics are never fabricated. Raw telemetry stays local and is never committed.
+Prompts, outputs, and other raw content are never recorded; unavailable metrics 
+are never fabricated. Raw telemetry stays local and is never committed.
+
+### Enabling telemetry via CLI
+
+Pass `--telemetry-path <file>` to `workflow-run` or `workflow-complete` to 
+record one local event per executed stage. The path must be under `.agent-local` 
+or outside the repository:
+
+```powershell
+agent-os workflow-run repository-health-sweep --run-id sweep-1 --telemetry-path .agent-local/telemetry/sweep-1.jsonl
+agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage --output "..." --telemetry-path .agent-local/telemetry/sweep-1.jsonl
+```
+
+`workflow-complete` accepts optional caller-reported token usage and model 
+information. These are recorded only when telemetry is enabled, validated 
+before the run record changes, and omitted values stay unknown and are never 
+estimated:
+
+```powershell
+agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage \
+  --output "..." \
+  --telemetry-path .agent-local/telemetry/sweep-1.jsonl \
+  --provider openai \
+  --model gpt-4-turbo \
+  --input-tokens 500 \
+  --cached-tokens 100 \
+  --reasoning-tokens 50 \
+  --output-tokens 200
+```
+
+### Reporting aggregate telemetry
 
 Use `agent-os telemetry-report --path <file>` to view aggregate counts across
-events, including capability_class_counts, retry/escalation totals, and
-deterministic_path_model_class_counts. The report exposes only aggregate
-statistics without exposing per-event records.
+events. The report includes:
+- `event_count`: total events;
+- `execution_path_counts`: distribution of execution paths;
+- `capability_class_counts`: distribution of capability classes;
+- `token_totals`: sum of input, cached, reasoning, and output tokens;
+- `token_unknown_counts`: count of events with unknown (unreported) token values;
+- `retry_total`, `escalation_total`, `events_with_retries`, `events_with_escalations`: retry and escalation metrics;
+- `deterministic_path_model_class_counts`: model classes executed on deterministic paths;
+- `validator_outcome_counts`: distribution of validator pass/fail.
 
-Example: An API caller enables telemetry by providing a store, then reports the
-events:
+The report exposes only aggregate statistics without exposing per-event records,
+provider information, event IDs, or timestamps. Add `--group-by project` or 
+`--group-by category` to break down the report by project ID or task category:
+
+```powershell
+agent-os telemetry-report --path .agent-local/telemetry/sweep-1.jsonl --group-by project
+```
+
+Grouped reports include a top-level `group_by` field and a `groups` object with 
+one report per label; provider, model, event ID, and timestamp information is 
+never included in any report.
+
+### Enabling telemetry via Python API
+
+A Python caller enables telemetry by providing a `LocalTelemetryStore` to the 
+`run_stage()` and `complete_stage()` functions in `src/agent_os/workflows.py`:
 
 ```python
 from agent_os.telemetry import LocalTelemetryStore
@@ -195,7 +243,18 @@ from agent_os.workflows import run_stage, complete_stage
 
 store = LocalTelemetryStore(".agent-local/telemetry/sweep-1.jsonl")
 run_stage("repository-health-sweep", "sweep-1", telemetry_store=store)
-complete_stage("repository-health-sweep", "sweep-1", "triage", telemetry_store=store)
+complete_stage(
+    "repository-health-sweep", 
+    "sweep-1", 
+    "triage", 
+    telemetry_store=store,
+    provider="openai",
+    model="gpt-4-turbo",
+    input_tokens=500,
+    cached_tokens=100,
+    reasoning_tokens=50,
+    output_tokens=200,
+)
 ```
 
 Then aggregate the results:
