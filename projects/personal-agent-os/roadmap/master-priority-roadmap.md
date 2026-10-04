@@ -371,7 +371,7 @@ Detailed design:
 
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
-Status: **foundation complete; Agent OS now has tests for the page-cache lookup helpers, the cache privacy and key-exclusion rules, and the document-cache CLI commands, in addition to field-region contract coverage** (2026-10-04).
+Status: **on hold here** (2026-10-04): the Agent OS side is complete and covered by consumer-contract tests; the remaining work lives in the ingester-engine repository (bounded concurrency, then page-level template reuse once the form registry has approved content) and needs a run targeting that repository. Earlier: **foundation complete; Agent OS now has tests for the page-cache lookup helpers, the cache privacy and key-exclusion rules, and the document-cache CLI commands, in addition to field-region contract coverage** (2026-10-04).
 The cache/extraction foundation was implemented in `src/agent_os/documents.py` and
 moved on 2026-10-01 to the Ingester Engine (`ingester_engine.cache`, shared per-user
 cache, unchanged keys); this roadmap item continues there. It was
