@@ -775,9 +775,8 @@ def connector_subscriber_ack(subscriber_id: str, seq: int, confirm_write: bool =
     if seq > latest_seq:
         raise ValueError(f"seq must be <= {latest_seq} (the latest sequence number)")
 
-    cursors, cursor_malformed = _load_cursor_store()
+    cursors, _ = _load_cursor_store()
     previous_seq = cursors.get(subscriber_id, 0)
-    subscriber_existed = subscriber_id in cursors
 
     if not confirm_write:
         return {
@@ -791,10 +790,13 @@ def connector_subscriber_ack(subscriber_id: str, seq: int, confirm_write: bool =
 
     with _registry_write_lock():
         cursors, cursor_malformed = _load_cursor_store()
-        previous_seq = cursors.get(subscriber_id, 0)
-        subscriber_existed_now = subscriber_id in cursors
 
-        if subscriber_existed_now and previous_seq == seq:
+        if cursor_malformed:
+            raise ValueError("cursor store is malformed")
+
+        previous_seq = cursors.get(subscriber_id, 0)
+
+        if subscriber_id in cursors and previous_seq == seq:
             return {
                 "schema": "personal-agent/connector-subscriber-ack/v1",
                 "subscriber_id": subscriber_id,
@@ -805,10 +807,7 @@ def connector_subscriber_ack(subscriber_id: str, seq: int, confirm_write: bool =
                 "idempotent": True,
             }
 
-        subscribers_dict: dict[str, dict[str, int]] = {}
-        for sub_id, after_seq_val in cursors.items():
-            subscribers_dict[sub_id] = {"after_seq": after_seq_val}
-
+        subscribers_dict = {sub_id: {"after_seq": after_seq_val} for sub_id, after_seq_val in cursors.items()}
         subscribers_dict[subscriber_id] = {"after_seq": seq}
 
         cursor_store: dict[str, Any] = {

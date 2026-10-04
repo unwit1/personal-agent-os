@@ -424,6 +424,33 @@ class ConnectorSubscriberTests(unittest.TestCase):
                 self.assertEqual(result2["written"], False)
                 self.assertEqual(result2.get("idempotent"), True)
 
+    def test_connector_subscriber_ack_malformed_cursor_store_raises_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            events_path = Path(tmpdir) / "connector-events.jsonl"
+            cursors_path = Path(tmpdir) / "connector-event-cursors.json"
+
+            records = []
+            for i in range(5):
+                records.append({
+                    "schema": EVENT_SCHEMA,
+                    "event": "connector.added",
+                    "connector_id": f"connector-{i}",
+                    "provider_id": "google-drive",
+                    "capabilities": [],
+                    "surfaces": [],
+                    "at": "2026-09-23T12:00:00Z",
+                })
+
+            events_path.write_text("\n".join(json.dumps(r, sort_keys=True) for r in records), encoding="utf-8")
+            cursors_path.write_text("{invalid json", encoding="utf-8")
+
+            with patch("agent_os.connectors._CONNECTOR_EVENTS_PATH", events_path), \
+                 patch("agent_os.connectors._CONNECTOR_CURSORS_PATH", cursors_path):
+                with self.assertRaises(ValueError) as ctx:
+                    connector_subscriber_ack("my-subscriber", 3, confirm_write=True)
+
+                self.assertIn("malformed", str(ctx.exception).lower())
+
 
 if __name__ == "__main__":
     unittest.main()
