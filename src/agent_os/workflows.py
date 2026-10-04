@@ -23,6 +23,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -41,7 +42,7 @@ from .execution import cache_lookup_problems, lookup_document_page
 from .paths import ROOT
 from .registry import get_project, identify_project
 from .storage import load_json, write_json
-from .telemetry import LocalTelemetryStore, TelemetryEvent
+from .telemetry import LocalTelemetryStore, TelemetryEvent, TelemetryPrivacyError
 from .timestamps import utc_now_iso as _now
 
 
@@ -594,6 +595,9 @@ def _record_stage_telemetry(
     cached_tokens: int | None = None,
     reasoning_tokens: int | None = None,
     output_tokens: int | None = None,
+    duration_ms: int | None = None,
+    items_processed: int | None = None,
+    correction_or_override: bool | None = None,
 ) -> None:
     """Record one countable stage outcome when explicitly enabled."""
 
@@ -616,6 +620,9 @@ def _record_stage_telemetry(
             cached_tokens=cached_tokens,
             reasoning_tokens=reasoning_tokens,
             output_tokens=output_tokens,
+            duration_ms=duration_ms,
+            items_processed=items_processed,
+            correction_or_override=correction_or_override,
         )
     )
 
@@ -748,7 +755,10 @@ def run_stage(
         return packet
 
     state["attempts"] += 1
+    start = time.monotonic()
     validation = _validate_stage(stage, state, ROOT)
+    end = time.monotonic()
+    duration_ms = int((end - start) * 1000)
     state["validation"] = validation
     if validation["passed"]:
         state["status"] = "complete"
@@ -762,7 +772,7 @@ def run_stage(
         _escalate(record, target, f"validator failed: {validation.get('detail') or 'no detail'}")
     _finish_if_done(manifest, record)
     _save(record)
-    _record_stage_telemetry(telemetry_store, manifest, state, validation, "deterministic")
+    _record_stage_telemetry(telemetry_store, manifest, state, validation, "deterministic", duration_ms=duration_ms)
     return _completion_packet(manifest, record, target, validation)
 
 
@@ -782,6 +792,9 @@ def complete_stage(
     cached_tokens: int | None = None,
     reasoning_tokens: int | None = None,
     output_tokens: int | None = None,
+    duration_ms: int | None = None,
+    items_processed: int | None = None,
+    correction_or_override: bool | None = None,
 ) -> dict[str, Any]:
     """Record an agent-run stage's outcome and validate it deterministically.
 
@@ -804,7 +817,7 @@ def complete_stage(
             "reason": "stage already completed; idempotent no-op",
             "run_status": record["status"],
         }
-    if telemetry_store is not None and any(v is not None for v in [provider, model, input_tokens, cached_tokens, reasoning_tokens, output_tokens]):
+    if telemetry_store is not None and any(v is not None for v in [provider, model, input_tokens, cached_tokens, reasoning_tokens, output_tokens, duration_ms, items_processed, correction_or_override]):
         TelemetryEvent(
             project_id=manifest["project"],
             task_category="workflow-stage",
@@ -814,6 +827,9 @@ def complete_stage(
             cached_tokens=cached_tokens,
             reasoning_tokens=reasoning_tokens,
             output_tokens=output_tokens,
+            duration_ms=duration_ms,
+            items_processed=items_processed,
+            correction_or_override=correction_or_override,
         )
     ran_class = state["capability_class"]
     state["attempts"] += 1
@@ -837,7 +853,7 @@ def complete_stage(
         _escalate(record, stage_id, f"validator failed: {validation.get('detail') or 'no detail'}")
     _finish_if_done(manifest, record)
     _save(record)
-    _record_stage_telemetry(telemetry_store, manifest, state, validation, state["execution_path"], capability_class=ran_class, provider=provider, model=model, input_tokens=input_tokens, cached_tokens=cached_tokens, reasoning_tokens=reasoning_tokens, output_tokens=output_tokens)
+    _record_stage_telemetry(telemetry_store, manifest, state, validation, state["execution_path"], capability_class=ran_class, provider=provider, model=model, input_tokens=input_tokens, cached_tokens=cached_tokens, reasoning_tokens=reasoning_tokens, output_tokens=output_tokens, duration_ms=duration_ms, items_processed=items_processed, correction_or_override=correction_or_override)
     return _completion_packet(manifest, record, stage_id, validation)
 
 
