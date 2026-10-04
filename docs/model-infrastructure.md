@@ -679,6 +679,35 @@ The run policy key is `allow_paid_spend` (default `false`).
 This switch only controls routing. Renting a GPU is still its own operator
 action (Deploy as Foreman), gated by the job budget.
 
+### API delegation budget (separate from host-plan usage)
+
+Providers with deployment `api` (adapters `anthropic_api` and `openai_api` serving
+via `agent-os orchestrate delegate --role inline`) are blocked with status
+`budget_blocked` until the operator sets an API budget. Use:
+
+```powershell
+agent-os orchestrate api-budget set --total-usd N --call-cap-usd M
+agent-os orchestrate api-budget show    # spent and remaining
+```
+
+This is a separate budget from host-plan (Claude Code / Codex subscription) usage
+and from the GPU compute budget (`orchestrate budget`, budget.json/spend.jsonl).
+Either provider alone is sufficient (set keys via `orchestrate api-key set anthropic|openai`).
+
+Each API call's usage `cost_usd` is appended to `~/.agent-os/api-spend.jsonl` with these fields:
+- `at`: timestamp (ISO-8601 UTC)
+- `call_id`: unique call identifier
+- `provider`: "anthropic" or "openai"
+- `model`: the model used
+- `amount_usd`: the call's usage cost (rounded to 6 decimals)
+- `accuracy`: "exact" when the price is known, "unknown" otherwise
+- `note`: optional annotation
+
+The per-call cap (`--call-cap-usd M`) is checked **after the call completes**
+(outcome flag `api_call_cap_exceeded`), not pre-estimated, so a single call's cost
+is recorded even if it exceeds the per-call cap. Host-plan calls are never written
+to `api-spend.jsonl` and the GPU compute budget is untouched.
+
 ## 14. FreeComputeBroker (OpenRouter free pool)
 
 See `docs/free-compute-broker.md` for the design, data shapes, test plan, and
