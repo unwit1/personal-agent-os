@@ -20,7 +20,7 @@ from .browser_bridge_server import (
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
-from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_provisioning_readiness, connector_reconcile_plan, import_connector_candidate, prune_stale_registrations, register_connector, set_registration_state, unregister_connector, verify_native_registrations
+from .connectors import connector_conflicts, connector_credential_status, connector_events, connector_import_candidates, connector_provisioning_readiness, connector_reconcile_plan, connector_subscriber_ack, connector_subscriber_poll, import_connector_candidate, prune_stale_registrations, register_connector, set_registration_state, unregister_connector, verify_native_registrations
 from .creator_profiles import (
     list_profiles as creator_list_profiles,
     pending_discovery as creator_pending_discovery,
@@ -284,6 +284,19 @@ def parser() -> argparse.ArgumentParser:
     connector_events_p.add_argument("--limit", type=int, default=50)
     connector_events_p.add_argument("--connector", dest="connector_id", default=None)
     connector_events_p.add_argument("--after-seq", dest="after_seq", type=int, default=None)
+    connector_subscriber_poll_p = commands.add_parser(
+        "connector-subscriber-poll",
+        help="read-only poll for queued events for a subscriber",
+    )
+    connector_subscriber_poll_p.add_argument("subscriber_id")
+    connector_subscriber_poll_p.add_argument("--limit", type=int, default=50)
+    connector_subscriber_ack_p = commands.add_parser(
+        "connector-subscriber-ack",
+        help="acknowledge a connector event for a subscriber",
+    )
+    connector_subscriber_ack_p.add_argument("subscriber_id")
+    connector_subscriber_ack_p.add_argument("--seq", type=int, required=True)
+    connector_subscriber_ack_p.add_argument("--confirm-write", action="store_true", dest="confirm_write")
     connector_unregister = commands.add_parser(
         "connector-unregister",
         help="preview or remove a connector's registry metadata; never revokes credentials",
@@ -645,6 +658,10 @@ def main(argv: list[str] | None = None) -> int:
             _print(connector_provisioning_readiness(args.surface))
         elif args.command == "connector-events":
             _print(connector_events(args.limit, args.connector_id, args.after_seq))
+        elif args.command == "connector-subscriber-poll":
+            _print(connector_subscriber_poll(args.subscriber_id, args.limit))
+        elif args.command == "connector-subscriber-ack":
+            _print(connector_subscriber_ack(args.subscriber_id, args.seq, confirm_write=args.confirm_write))
         elif args.command == "connector-unregister":
             _print(unregister_connector(args.connector_id, confirm_write=args.confirm_write))
         elif args.command == "connector-prune-stale":
