@@ -1,6 +1,6 @@
 # Shared document intelligence and local extraction cache
 
-Status: foundation implemented (P0.3, steps 1–3)
+Status: foundation implemented (P0.3, steps 1–4; step 5 gated on measurement)
 
 ## Why this layer exists
 
@@ -88,7 +88,7 @@ and `field_region_cache_hits`. It never contains OCR text or region details.
 
 Zone definitions and OCR text results remain private to the consuming project.
 For example, HR-GUI defines its own zones and keeps extracted text local. The
-shared consumer contract is pinned by `tests/test_field_region_contract.py`.
+shared consumer contract is pinned by `tests/test_field_region_contract.py`. The contract covers validation, cache reuse across calls and cache instances, re-OCR when the region, page, file hash or render settings change, OCR-failure handling, count-only telemetry, and no cache path in results.
 
 ## Template signatures
 
@@ -136,7 +136,7 @@ The absolute numbers scale with real engine cost; the ratios are the point.
 
 ## Scope actually delivered
 
-Of the roadmap's five-step HR-GUI optimization path, this implements steps 1–3:
+Of the roadmap's five-step HR-GUI optimization path, this implements steps 1–4:
 
 1. ✅ persistent exact-page cache keyed by content hash
 2. ✅ dependency/version-aware invalidation
@@ -146,4 +146,4 @@ Of the roadmap's five-step HR-GUI optimization path, this implements steps 1–3
 
 Step 5 still needs measurement with the real scanner and real documents on this machine, and concurrency comes only after that measurement.
 
-HR-GUI's shared-cache adapter is on its origin/main; its zone OCR calls the shared field-region API on branch fix/cache-source-change, with the local render/crop/OCR path as fallback; that branch still needs synthetic regression review before merge; tests inside the ingester-engine repo are also still open.
+HR-GUI's shared-cache adapter is on its origin/main (cffccbb); its zone OCR calls the shared field-region API, with the local render/crop/OCR path as fallback. The source-change invalidation and OCR-rotation fixes were merged into HR-GUI main on 2026-10-04 (0dbe36e) after synthetic regression tests (b17e811). Tests inside the ingester-engine repository are still open.

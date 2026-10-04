@@ -363,6 +363,39 @@ class TestFieldRegionContract(unittest.TestCase):
         )
         self.assertEqual(get_count(), 2, "Different file hash should trigger OCR again")
 
+    def test_extract_field_region_different_dpi_runs_ocr_again(self) -> None:
+        """Different DPI on same region and page runs OCR again."""
+        cache = DocumentCache(root=self.cache_root)
+        ocr, get_count = self._make_ocr()
+        render_page, crop_region = self._make_render_and_crop()
+
+        key = PageKey(file_hash="a" * 64, page_index=0)
+        region = FieldRegion(left=0.1, top=0.1, right=0.9, bottom=0.9)
+
+        # First call with default DPI (72)
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            dpi=72,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 1, "First call with DPI 72 should run OCR")
+
+        # Second call with different DPI
+        extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            dpi=96,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 2, "Different DPI should trigger OCR again")
+
     def test_cached_result_contains_no_absolute_cache_path(self) -> None:
         """Cached result should not contain absolute cache path."""
         cache = DocumentCache(root=self.cache_root)
