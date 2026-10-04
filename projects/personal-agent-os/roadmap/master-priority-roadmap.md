@@ -651,13 +651,12 @@ per-run efficiency telemetry with normalized provider token usage (P1.2C), and
 `agent-os orchestrate usage-report` / the GUI's "Model usage across all runs"
 aggregate it across runs by role, tier, provider/model and origin, with
 coverage and overhead share (P1.2D, `docs/simple-mode.md`). (2026-10-04): the
-underlying `workflow-complete()` and `run_stage()` functions record caller-reported
-token usage and provider/model labels when a telemetry_store is passed; the
-`telemetry-report` command supports `--path` and `--group-by project|category`,
-reporting token totals, unknown counts, capability-class counts, retry/escalation
+`telemetry-report` command now supports `--path` and `--group-by project|category`,
+reporting token totals and unknown counts, capability-class counts, retry/escalation
 totals and concentration, and strong-class-on-deterministic-path counts
-(docs/staged-workflows.md). CLI wiring of `--telemetry-path` into
-`workflow-run`/`workflow-complete` remains a future slice.
+(docs/staged-workflows.md). CLI wiring of `--telemetry-path`, caller-reported token
+usage, and provider/model labels into `workflow-run`/`workflow-complete` remain
+future slices.
 Chat-session telemetry and live provider usage adapters remain open.
 `src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
