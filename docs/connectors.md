@@ -287,7 +287,7 @@ The response includes the following fields:
 - `stored_after_seq`: the sequence number from which polling resumed (the stored cursor value)
 - `next_after_seq`: the sequence number to pass in the next call to `connector.subscriber_ack` and `connector.subscriber_poll` to continue receiving new events
 - `has_more`: `true` if more events exist beyond the current result
-- `cursor_reset`: `true` when the stored cursor points beyond the log length (e.g., after the local log was reset); the subscriber should then restart from sequence 0
+- `cursor_reset`: `true` when the stored cursor is beyond latest_seq (for example after the log was reset); no events are returned, and acking next_after_seq (latest_seq) realigns the cursor. Ack 0 only to deliberately replay.
 - `cursor_store_malformed`: `true` if the cursor storage file exists but cannot be parsed (indicates a corruption issue)
 - `items`: the list of connector change events
 
