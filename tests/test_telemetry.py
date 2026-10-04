@@ -610,17 +610,29 @@ class TelemetryStoreTests(unittest.TestCase):
             ),
         ]
 
-        report = aggregate_report(events, group_by="provider")
-        self.assertEqual(report["group_by"], "provider")
-        self.assertIn("groups", report)
-        self.assertIn("unknown", report["groups"])
+        report = aggregate_report(events, group_by="model")
+        self.assertEqual(report["group_by"], "model")
+        self.assertEqual(sorted(report["groups"].keys()), ["claude-3", "gpt-4", "local-model"])
+        self.assertEqual(report["groups"]["gpt-4"]["event_count"], 1)
+        self.assertEqual(report["groups"]["claude-3"]["event_count"], 1)
+        self.assertEqual(report["groups"]["local-model"]["event_count"], 1)
         self.assertEqual(report["event_count"], 3)
 
-        for group_field in ("model", "capability", "path"):
-            report = aggregate_report(events, group_by=group_field)
-            self.assertEqual(report["group_by"], group_field)
-            self.assertIn("groups", report)
-            self.assertEqual(report["event_count"], 3)
+        report = aggregate_report(events, group_by="capability")
+        self.assertEqual(report["group_by"], "capability")
+        self.assertEqual(sorted(report["groups"].keys()), ["deterministic", "planning", "reasoning"])
+        self.assertEqual(report["groups"]["reasoning"]["event_count"], 1)
+        self.assertEqual(report["groups"]["planning"]["event_count"], 1)
+        self.assertEqual(report["groups"]["deterministic"]["event_count"], 1)
+        self.assertEqual(report["event_count"], 3)
+
+        report = aggregate_report(events, group_by="path")
+        self.assertEqual(report["group_by"], "path")
+        self.assertEqual(sorted(report["groups"].keys()), ["agent", "cache", "deterministic"])
+        self.assertEqual(report["groups"]["agent"]["event_count"], 1)
+        self.assertEqual(report["groups"]["cache"]["event_count"], 1)
+        self.assertEqual(report["groups"]["deterministic"]["event_count"], 1)
+        self.assertEqual(report["event_count"], 3)
 
     def test_aggregate_report_group_by_provider_includes_unknown_group(self) -> None:
         events = [
