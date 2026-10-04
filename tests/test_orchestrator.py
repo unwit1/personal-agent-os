@@ -16,6 +16,7 @@ import sys
 import tempfile
 import time
 import unittest
+from concurrent import futures
 from pathlib import Path
 from unittest import mock
 
@@ -104,13 +105,21 @@ class OrchestratorFixture(unittest.TestCase):
         return ProviderRegistry(providers=[provider(name) for name in self.providers])
 
     def make_engine(self, registry: ProviderRegistry | None = None) -> Orchestrator:
-        return Orchestrator(
+        def settle(seconds: float) -> None:
+            # Validators run as background subprocesses; waiting for them at a
+            # poll keeps max_ticks budgets independent of machine load.
+            pending = list(engine.__dict__.get("_validations", {}).values())
+            if pending:
+                futures.wait(pending, timeout=120)
+
+        engine = Orchestrator(
             RunStore(self.tmp / "home"),
             registry=registry or self.registry(),
             telemetry_store=LocalTelemetryStore(self.telemetry_path),
             claims_path=self.claims,
-            sleep=lambda seconds: None,
+            sleep=settle,
         )
+        return engine
 
     def policy(self, **overrides) -> dict:
         base = {"auto_continue": True, "poll_interval_seconds": 0, "announce_claims": False}
