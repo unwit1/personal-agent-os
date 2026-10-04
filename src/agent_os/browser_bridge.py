@@ -8,7 +8,6 @@ stored events without generating noisy Git commits.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 import sqlite3
@@ -16,6 +15,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
+from .fingerprints import text_sha256
 from .paths import INDEX_DIR
 
 
@@ -27,7 +27,7 @@ def _canonical_json(value: Any) -> str:
 
 
 def _payload_hash(payload_json: str) -> str:
-    return hashlib.sha256(payload_json.encode("utf-8")).hexdigest()
+    return text_sha256(payload_json)
 
 
 class BridgeStore:
