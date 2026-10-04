@@ -27,6 +27,8 @@ REGISTRY_VERSION = 1
 REGISTRY_PATH = ROOT / "connectors" / "registry.json"
 _CONNECTOR_EVENTS_PATH = ROOT / ".agent-local" / "connector-events.jsonl"
 EVENT_SCHEMA = "personal-agent/connector-event/v1"
+_CONNECTOR_CURSORS_PATH = ROOT / ".agent-local" / "connector-event-cursors.json"
+CURSOR_STORE_SCHEMA = "personal-agent/connector-event-cursors/v1"
 _IDENTIFIER = re.compile(r"^[a-z][a-z0-9._-]{0,63}$")
 _CANDIDATE_ID = re.compile(r"^[a-f0-9]{20}$")
 _SECRET_REF = re.compile(
@@ -673,6 +675,155 @@ def connector_events(limit: int = 50, connector_id: str | None = None, after_seq
         "count": len(items),
         "malformed": malformed,
         "items": items,
+    }
+
+
+def _load_cursor_store() -> tuple[dict[str, int], bool]:
+    """Load subscriber cursors from the cursor store file.
+
+    Returns ({subscriber_id: after_seq}, malformed).
+    Returns ({}, False) when the file is missing.
+    Returns ({}, True) when the file cannot be read, parsed, has wrong schema,
+    or subscribers is not a dict. Skips entries with invalid keys or seq values,
+    setting malformed=True if any are skipped.
+    Never raises.
+    """
+    if not _CONNECTOR_CURSORS_PATH.is_file():
+        return {}, False
+
+    try:
+        content = _CONNECTOR_CURSORS_PATH.read_text(encoding="utf-8")
+        data = json.loads(content)
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return {}, True
+
+    if not isinstance(data, dict):
+        return {}, True
+
+    if data.get("schema") != CURSOR_STORE_SCHEMA:
+        return {}, True
+
+    subscribers = data.get("subscribers")
+    if not isinstance(subscribers, dict):
+        return {}, True
+
+    cursors: dict[str, int] = {}
+    malformed = False
+
+    for sub_id, entry in subscribers.items():
+        if not isinstance(sub_id, str) or not _IDENTIFIER.fullmatch(sub_id):
+            malformed = True
+            continue
+
+        if not isinstance(entry, dict):
+            malformed = True
+            continue
+
+        after_seq = entry.get("after_seq")
+        if type(after_seq) is bool or not isinstance(after_seq, int) or after_seq < 0:
+            malformed = True
+            continue
+
+        cursors[sub_id] = after_seq
+
+    return cursors, malformed
+
+
+def connector_subscriber_poll(subscriber_id: str, limit: int = 50) -> dict[str, Any]:
+    """Poll for connector events with a named subscriber cursor, read-only.
+
+    Validates subscriber_id, loads the stored cursor (default 0), and returns
+    events since that cursor. Never writes any file.
+    """
+    _identifier(subscriber_id, "subscriber id")
+
+    cursors, cursor_malformed = _load_cursor_store()
+    stored_seq = cursors.get(subscriber_id, 0)
+
+    events_result = connector_events(limit=limit, after_seq=stored_seq)
+
+    result = {
+        "schema": "personal-agent/connector-subscriber-poll/v1",
+        "subscriber_id": subscriber_id,
+        "stored_after_seq": stored_seq,
+        "cursor_store_malformed": cursor_malformed,
+    }
+    for key, value in events_result.items():
+        if key != "schema":
+            result[key] = value
+    return result
+
+
+def connector_subscriber_ack(subscriber_id: str, seq: int, confirm_write: bool = False) -> dict[str, Any]:
+    """Acknowledge connector events up to a sequence number, optionally persisting cursor.
+
+    Validates subscriber_id and seq. In preview mode (confirm_write=False), returns
+    what would be written without modifying files. In write mode, updates the cursor
+    store inside the registry write lock.
+    """
+    _identifier(subscriber_id, "subscriber id")
+
+    if type(seq) is bool or not isinstance(seq, int):
+        raise ValueError("seq must be a non-negative integer")
+
+    if seq < 0:
+        raise ValueError("seq must be a non-negative integer")
+
+    events_info = connector_events(limit=1)
+    latest_seq = events_info["latest_seq"]
+
+    if seq > latest_seq:
+        raise ValueError(f"seq must be <= {latest_seq} (the latest sequence number)")
+
+    cursors, _ = _load_cursor_store()
+    previous_seq = cursors.get(subscriber_id, 0)
+
+    if not confirm_write:
+        return {
+            "schema": "personal-agent/connector-subscriber-ack/v1",
+            "subscriber_id": subscriber_id,
+            "previous_after_seq": previous_seq,
+            "after_seq": seq,
+            "preview": True,
+            "written": False,
+        }
+
+    with _registry_write_lock():
+        cursors, cursor_malformed = _load_cursor_store()
+
+        if cursor_malformed:
+            raise ValueError("cursor store is malformed")
+
+        previous_seq = cursors.get(subscriber_id, 0)
+
+        if subscriber_id in cursors and previous_seq == seq:
+            return {
+                "schema": "personal-agent/connector-subscriber-ack/v1",
+                "subscriber_id": subscriber_id,
+                "previous_after_seq": previous_seq,
+                "after_seq": seq,
+                "preview": False,
+                "written": False,
+                "idempotent": True,
+            }
+
+        subscribers_dict = {sub_id: {"after_seq": after_seq_val} for sub_id, after_seq_val in cursors.items()}
+        subscribers_dict[subscriber_id] = {"after_seq": seq}
+
+        cursor_store: dict[str, Any] = {
+            "schema": CURSOR_STORE_SCHEMA,
+            "subscribers": subscribers_dict,
+        }
+
+        write_json(_CONNECTOR_CURSORS_PATH, cursor_store)
+
+    return {
+        "schema": "personal-agent/connector-subscriber-ack/v1",
+        "subscriber_id": subscriber_id,
+        "previous_after_seq": previous_seq,
+        "after_seq": seq,
+        "preview": False,
+        "written": True,
     }
 
 
