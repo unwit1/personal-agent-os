@@ -98,7 +98,12 @@ Success signal:
 
 ### P0.0A — Unified Connector Broker + cross-surface auto-provisioning
 
-Status: **in progress** (2026-09-23). Added the v1 provider-neutral connector
+Status: **on hold** (2026-10-04), awaiting operator decisions: the launch command written into native
+client MCP entries, whether Agent OS may write client configuration (preview-first, confirm_write, backup),
+credential value resolution, and live provider health checks. Fifteen no-input slices landed 2026-10-02..04
+(reconcile plan, credential presence, native server names, change events and cursors, unregister,
+conflicts, stale pruning, readiness, enable/disable, config-level native verification, subscribers).
+Set back to in progress once those are decided. Earlier: (2026-09-23) Added the v1 provider-neutral connector
 registry schema, empty canonical registry, strict privacy-checked loader, and
 read-only `connector.list` MCP discovery with secret-reference redaction.
 `connector.register` now previews metadata by default and supports an explicit,
