@@ -51,6 +51,70 @@ class TelemetryReportCliTests(unittest.TestCase):
         self.assertNotIn("groups", report)
         self.assertEqual(report["event_count"], 0)
 
+    def test_oversized_input_tokens_flag_records_threshold_and_count(self) -> None:
+        for event_id, tokens in (("e1", 50), ("e2", 500)):
+            self.store.record(
+                TelemetryEvent(
+                    project_id="proj-test",
+                    task_category="stage",
+                    event_id=event_id,
+                    execution_path="deterministic",
+                    input_tokens=tokens,
+                )
+            )
+        report = self._run("--oversized-input-tokens", "100")
+        self.assertEqual(report["oversized_input_tokens_threshold"], 100)
+        self.assertEqual(report["oversized_input_event_count"], 1)
+
+    def test_without_oversized_input_tokens_flag_no_threshold_or_count(self) -> None:
+        for event_id, tokens in (("e1", 50), ("e2", 500)):
+            self.store.record(
+                TelemetryEvent(
+                    project_id="proj-test",
+                    task_category="stage",
+                    event_id=event_id,
+                    execution_path="deterministic",
+                    input_tokens=tokens,
+                )
+            )
+        report = self._run()
+        self.assertNotIn("oversized_input_tokens_threshold", report)
+        self.assertNotIn("oversized_input_event_count", report)
+
+    def test_oversized_input_tokens_with_group_by_project_includes_group_rankings(self) -> None:
+        for event_id, project, tokens in (
+            ("e1", "proj-a", 50),
+            ("e2", "proj-a", 500),
+            ("e3", "proj-b", 200),
+        ):
+            self.store.record(
+                TelemetryEvent(
+                    project_id=project,
+                    task_category="stage",
+                    event_id=event_id,
+                    execution_path="deterministic",
+                    input_tokens=tokens,
+                )
+            )
+        report = self._run("--oversized-input-tokens", "100", "--group-by", "project")
+        self.assertIn("group_rankings", report)
+        self.assertIn("oversized_input_events", report["group_rankings"])
+
+    def test_oversized_input_tokens_zero_fails(self) -> None:
+        self.store.record(
+            TelemetryEvent(
+                project_id="proj-test",
+                task_category="stage",
+                event_id="e1",
+                execution_path="deterministic",
+                input_tokens=100,
+            )
+        )
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            code = main(["telemetry-report", "--path", str(self.store.path), "--oversized-input-tokens", "0"])
+        self.assertNotEqual(code, 0)
+
 
 class WorkflowCliTelemetryTests(WorkflowFixture):
     def setUp(self) -> None:

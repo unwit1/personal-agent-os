@@ -434,6 +434,7 @@ def parser() -> argparse.ArgumentParser:
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
     telemetry_report.add_argument("--group-by", choices=sorted(REPORT_GROUP_FIELDS), default=None)
+    telemetry_report.add_argument("--oversized-input-tokens", type=int, default=None)
     telemetry_record = commands.add_parser("telemetry-record")
     telemetry_record.add_argument("--path", default=None, help="store path; None means LocalTelemetryStore default")
     telemetry_record.add_argument("--project", required=True, help="maps to project_id")
@@ -785,7 +786,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result["ok"] else 1
         elif args.command == "telemetry-report":
             store = LocalTelemetryStore(Path(args.path) if args.path else None)
-            _print(store.aggregate_report(group_by=args.group_by))
+            _print(store.aggregate_report(group_by=args.group_by, oversized_input_tokens=args.oversized_input_tokens))
         elif args.command == "telemetry-record":
             # Validate --usage-file and --usage-format pairing
             if bool(args.usage_file) != bool(args.usage_format):
