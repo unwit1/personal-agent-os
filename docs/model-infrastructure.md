@@ -694,11 +694,14 @@ This is a separate budget from host-plan (Claude Code / Codex subscription) usag
 and from the GPU compute budget (`orchestrate budget`, budget.json/spend.jsonl).
 Either provider alone is sufficient (set keys via `orchestrate api-key set anthropic|openai`).
 
-Each API call's usage `cost_usd` is appended to `~/.agent-os/api-spend.jsonl` with:
+Each API call's usage `cost_usd` is appended to `~/.agent-os/api-spend.jsonl` with these fields:
+- `at`: timestamp (ISO-8601 UTC)
+- `call_id`: unique call identifier
 - `provider`: "anthropic" or "openai"
 - `model`: the model used
-- `accuracy`: "exact" when the price is known, "unknown" (or 0 when price is not available) otherwise
-- `call_id`: unique call identifier
+- `amount_usd`: the call's usage cost (rounded to 6 decimals)
+- `accuracy`: "exact" when the price is known, "unknown" otherwise
+- `note`: optional annotation
 
 The per-call cap (`--call-cap-usd M`) is checked **after the call completes**
 (outcome flag `api_call_cap_exceeded`), not pre-estimated, so a single call's cost
