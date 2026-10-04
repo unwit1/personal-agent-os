@@ -175,7 +175,7 @@ stage (deterministic, cache hit, or agent-reported model stage) with:
 - retry and escalation counts;
 - validator outcome;
 - input, cached, reasoning, and output token counts (when reported);
-- duration in milliseconds (when reported);
+- duration in milliseconds (recorded for deterministic stages; otherwise when reported);
 - items processed count (when reported);
 - correction or override applied (when reported).
 
@@ -268,6 +268,10 @@ complete_stage(
     correction_or_override=True,
 )
 ```
+
+`duration_ms`, `items_processed`, and `correction_or_override` are available
+through the Python API only; the `workflow-complete` CLI does not expose them, so
+they stay unknown there (unknown is not false).
 
 Then aggregate the results:
 

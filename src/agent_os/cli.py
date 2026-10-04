@@ -491,9 +491,6 @@ def parser() -> argparse.ArgumentParser:
     workflow_complete.add_argument("--cached-tokens", type=int, default=None)
     workflow_complete.add_argument("--reasoning-tokens", type=int, default=None)
     workflow_complete.add_argument("--output-tokens", type=int, default=None)
-    workflow_complete.add_argument("--duration-ms", type=int, default=None)
-    workflow_complete.add_argument("--items-processed", type=int, default=None)
-    workflow_complete.add_argument("--override", action="store_true")
     commands.add_parser("mcp")
     commands.add_parser("machine-status")
     local_path = commands.add_parser("set-local-path")
@@ -809,9 +806,6 @@ def main(argv: list[str] | None = None) -> int:
                     cached_tokens=args.cached_tokens,
                     reasoning_tokens=args.reasoning_tokens,
                     output_tokens=args.output_tokens,
-                    duration_ms=args.duration_ms,
-                    items_processed=args.items_processed,
-                    correction_or_override=True if args.override else None,
                 )
             )
         elif args.command == "mcp":
