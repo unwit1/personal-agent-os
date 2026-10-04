@@ -17,6 +17,8 @@ Evaluate execution paths in this order:
 6. reasoning capability;
 7. frontier/high-reasoning capability only when justified.
 
+Skills are instruction-only today, so the caller applies a matched skill; the orchestrator never executes one. A skill becomes orchestrator-executable only by shipping a command that passes the approved-command gate and being declared as a task's deterministic route (docs/orchestrator-os/task-cache-route.md section 9).
+
 Rules:
 
 - Do not use an LLM when deterministic code can satisfy the validator with comparable or better reliability.
