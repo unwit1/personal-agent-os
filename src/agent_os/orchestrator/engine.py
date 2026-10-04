@@ -22,6 +22,7 @@ from __future__ import annotations
 import hashlib
 import os
 import re
+import tempfile
 import threading
 import json
 import time
@@ -33,7 +34,7 @@ from typing import Any, Callable
 from ..capabilities import next_class
 from ..telemetry import LocalTelemetryStore, TelemetryEvent, TelemetryPrivacyError
 from ..timestamps import utc_now_iso as now
-from . import planner, prompts
+from . import planner, prompts, task_cache
 from . import usage as usage_lib
 from .adapters import AgentLaunchRequest, AgentResult, RunningAgent, get_adapter
 from .adapters.base import kill_tree
@@ -56,7 +57,7 @@ from .router import ProviderRegistry, load_key, select
 from .store import RunStore, pid_alive, redact
 from .stall import repeated_command
 from .validators import run_all
-from .worktrees import GitError, WorktreeManager, current_branch, head_commit, is_dirty, repository_root
+from .worktrees import GitError, WorktreeManager, current_branch, git, head_commit, is_dirty, repository_root
 
 
 MAX_FAILURES_KEPT = 10
@@ -1901,8 +1902,11 @@ class Orchestrator:
                 self._fail(record, node, "process_error", f"worktree creation failed: {exc}")
                 return False
             node["worktree"] = dict(created, owned_by=node["id"])
+            node["base"] = integration["head"]
             node["state"] = "CLAIMED"
             self.store.append_event(record["run_id"], "worktree.created", node["id"], node["worktree"]["branch"])
+        if self._try_task_cache(record, node):
+            return True
         if node["execution_path"] == "deterministic":
             return self._run_deterministic(record, node)
         subject = record["nodes"].get(node.get("subject") or "")
@@ -2139,6 +2143,7 @@ class Orchestrator:
                 self._release_claim(record, node, "integrated")
                 self.store.append_event(record["run_id"], "integration.merged", node_id, outcome["commit"][:12])
                 self.ledger.emit(record["run_id"], "commit_created", node_id, commit=outcome["commit"][:12], branch=record["integration"]["branch"])
+                self._record_task_cache(record, node)
                 if record["policy"]["cleanup_worktrees"]:
                     cleanup = manager.remove(node["worktree"]["path"], node["worktree"]["branch"])
                     node["worktree"]["removed"] = cleanup["removed"]
@@ -2153,6 +2158,131 @@ class Orchestrator:
                     + "; approve to redo this node on top of the current integration branch, reject to stop",
                     node_id,
                 )
+
+    def _task_cache_store(self, record: dict[str, Any]) -> task_cache.TaskCacheStore:
+        return task_cache.TaskCacheStore(self.store.home / "task-cache")
+
+    def _task_cache_key(self, record: dict[str, Any], node: dict[str, Any], base: str) -> str:
+        cwd = record["integration"]["path"]
+        base_files: dict[str, str | None] = {}
+        for path in node["scope"]:
+            found = git(["rev-parse", f"{base}:{path}"], cwd, check=False)
+            base_files[path] = found.stdout.strip() if found.returncode == 0 and found.stdout.strip() else None
+        return task_cache.task_cache_key(node["goal"], list(node["scope"]), base_files, node.get("validators") or [], node["role"])
+
+    def _try_task_cache(self, record: dict[str, Any], node: dict[str, Any]) -> bool:
+        """Task cache hit: apply a reviewed patch and re-prove it instead of
+        calling a worker. Every miss resets the worktree and returns False so
+        the node continues on the model route."""
+        if (
+            not record["policy"].get("task_cache_enabled", False)
+            or node["role"] not in {"implementer", "test_author"}
+            or node["execution_path"] != "model"
+            or not node.get("worktree")
+            or not node.get("base")
+            or node.get("task_cache")
+        ):
+            return False
+        worktree = node["worktree"]
+        cwd = worktree["path"]
+        key = self._task_cache_key(record, node, node["base"])
+        node["task_cache"] = {"key": key[:12], "hit": False}
+
+        def miss(reason: str) -> bool:
+            node["task_cache"]["miss"] = reason
+            git(["reset", "--hard", worktree["base_commit"]], cwd, check=False)
+            git(["clean", "-fdq"], cwd, check=False)
+            self.store.append_event(record["run_id"], "task_cache.miss", node["id"], f"{key[:12]}: {reason}")
+            self.ledger.emit(record["run_id"], "fallback", node["id"], from_path="task_cache", to_path="model", reason=reason, task_cache_miss=reason, key=key[:12])
+            return False
+
+        try:
+            store = self._task_cache_store(record)
+            entry = store.lookup(key)
+            if entry is None:
+                return miss("ineligible" if (store.root / f"{key}.json").exists() else "absent")
+            patch = entry.get("patch")
+            if not isinstance(patch, str) or not patch.strip():
+                return miss("ineligible")
+            with tempfile.TemporaryDirectory(prefix="agent-os-task-cache-") as scratch:
+                patch_file = Path(scratch) / "task.patch"
+                patch_file.write_bytes(patch.encode("utf-8"))
+                stat = git(["apply", "--numstat", str(patch_file)], cwd, check=False)
+                if stat.returncode != 0:
+                    return miss("apply_failed")
+                paths = [line.split("\t", 2)[2] for line in stat.stdout.splitlines() if line.count("\t") >= 2]
+                inside = lambda name: any(name == entry or name.startswith(entry.rstrip("/") + "/") for entry in node["scope"])  # noqa: E731
+                if not paths or not all(inside(path) for path in paths):
+                    return miss("ineligible")
+                if git(["apply", "--check", str(patch_file)], cwd, check=False).returncode != 0:
+                    return miss("apply_failed")
+                if git(["apply", str(patch_file)], cwd, check=False).returncode != 0:
+                    return miss("apply_failed")
+            node["attempts"] += 1
+            self._checkpoint(record, node, "task cache patch")
+            changed = self._manager(record).changed_files(cwd, worktree["base_commit"])
+            validators = node["validators"] or record["policy"]["default_validators"]
+            if record["policy"].get("node_validation", "affected") == "affected":
+                validators = _without_full_suite(record, validators)
+            validation = self._validate(record, node, validators, cwd, changed=changed, scope=node["scope"])
+            if not validation["passed"]:
+                return miss("validator_failed")
+        except Exception as exc:  # a broken cache must never fail the node
+            self.store.append_event(record["run_id"], "task_cache.lookup_failed", node["id"], redact(exc, 300))
+            return miss("ineligible")
+        source = entry.get("metadata") or {}
+        calls = 2 if self._review_required(record, node) else 1
+        validation["changed_files"] = changed[:50]
+        node["validation"] = validation
+        node["review_required"] = False
+        node["review"]["cached_from"] = {"run_id": source.get("run_id"), "node_id": source.get("node_id")}
+        node["task_cache"]["hit"] = True
+        node["selection"] = {"resolved": True, "provider": None, "model": None, "capability_class": "deterministic", "effort": "none", "provider_effort": None, "reason": "task cache hit", "overridden": False, "notes": [], "at": now()}
+        node["state"] = "PASSED"
+        node["completed_at"] = now()
+        self.store.append_event(record["run_id"], "task_cache.hit", node["id"], f"{key[:12]} from {source.get('run_id')}/{source.get('node_id')}")
+        self.ledger.emit(record["run_id"], "cache_hit", node["id"], what="task patch", key=key[:12])
+        self.ledger.emit(record["run_id"], "work_avoided", node["id"], category="task_cache", model_calls_avoided=calls, reason="a reviewed patch from an earlier run was re-proven on this tree", key=key[:12])
+        return True
+
+    def _record_task_cache(self, record: dict[str, Any], node: dict[str, Any]) -> None:
+        """Store the approved, integrated patch of a model-written node; never fails the run."""
+        if not record["policy"].get("task_cache_enabled", False):
+            return
+        try:
+            base = node.get("base")
+            reviewers = (node.get("review") or {}).get("reviewers") or []
+            if not base or not reviewers or not node.get("worktree"):
+                return
+            last = reviewers[-1]
+            open_material = material(
+                [item for item in node["review"]["findings"] if item["round"] == last["round"]],
+                record["policy"]["material_severities"],
+            )
+            review = {
+                "verdict": last["verdict"],
+                "findings": [{"severity": "material", "state": "open"} for _ in open_material],
+            }
+            cwd = record["integration"]["path"]
+            branch = node["worktree"]["branch"]
+            scope = list(node["scope"])
+            names = git(["diff", "--name-only", base, branch, "--", *scope], cwd).stdout.split()
+            # eligible_for_record compares exact scope entries; a scope entry
+            # may be a directory, so report each changed file as its entry.
+            covering = lambda name: next((entry for entry in scope if name == entry or name.startswith(entry.rstrip("/") + "/")), name)  # noqa: E731
+            if not task_cache.eligible_for_record(node, review, [covering(name) for name in names]):
+                return
+            patch = git(["diff", base, branch, "--", *scope], cwd).stdout
+            evidence = [
+                {"command": item.get("command") or item.get("name"), "passed": bool(item.get("passed"))}
+                for item in (node.get("validation") or {}).get("evidence", [])
+                if item.get("kind") == "command"
+            ]
+            key = self._task_cache_key(record, node, base)
+            self._task_cache_store(record).record(key, patch, evidence, {"run_id": record["run_id"], "node_id": node["id"], "created_at": now()})
+            self.store.append_event(record["run_id"], "task_cache.recorded", node["id"], key[:12])
+        except Exception as exc:  # recording is best-effort
+            self.store.append_event(record["run_id"], "task_cache.record_failed", node["id"], redact(exc, 300))
 
     def _integration_refusal(self, record: dict[str, Any], node: dict[str, Any]) -> str | None:
         validation = node.get("validation") or {}
