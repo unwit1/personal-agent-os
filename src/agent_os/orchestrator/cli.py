@@ -229,6 +229,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     api.add_argument('--total-usd', type=float)
     api.add_argument('--call-cap-usd', type=float)
     api.add_argument('--note')
+    api.add_argument('--period', choices=['total', 'monthly'], help='budget period (total or monthly)')
 
     cmp_ = actions.add_parser("compute", help="GPU inventory, pricing, and gated compute provisioning (provision is gated by budget/approval; only the fake provider launches)")
     cmp_.add_argument("action", choices=["inventory", "provision", "status", "stop", "destroy", "reconcile", "jobs"])
@@ -740,15 +741,19 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         if args.action == "show":
             machine = api_budget.load()
+            period = (machine or {}).get("period") or "total"
+            period_start = api_budget.period_start(machine)
+            spent = api_budget.api_spent(since=period_start)
             emit({**(machine or {"approved": False, "note": "no API budget set; run: agent-os orchestrate api-budget set --total-usd N --call-cap-usd M"}),
-                  "spent_usd": api_budget.api_spent(), "remaining_usd": api_budget.api_remaining(),
+                  "spent_usd": spent, "remaining_usd": api_budget.api_remaining(),
+                  "period": period, "period_start": period_start,
                   "path": str(api_budget.api_budget_path())})
             return 0
         if args.total_usd is None or args.call_cap_usd is None:
             emit({"error": "set needs --total-usd and --call-cap-usd"})
             return 2
         try:
-            emit(api_budget.set_api_budget(args.total_usd, args.call_cap_usd, note=args.note))
+            emit(api_budget.set_api_budget(args.total_usd, args.call_cap_usd, note=args.note, period=args.period or "total"))
             return 0
         except ValueError as exc:
             emit({"error": str(exc)})

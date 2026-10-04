@@ -78,6 +78,33 @@ class ApiBudgetCliTests(unittest.TestCase):
         self.assertIn("error", output)
         self.assertIn("per-call cap cannot exceed the total budget", output["error"])
 
+    def test_api_budget_set_with_monthly_period(self) -> None:
+        exit_code, output = self._call_cli("api-budget", "set", "--total-usd", "10", "--call-cap-usd", "1", "--period", "monthly")
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(output["period"], "monthly")
+        self.assertIsNotNone(output.get("period_start"))
+
+        exit_code, output = self._call_cli("api-budget", "show")
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(output["period"], "monthly")
+        self.assertIsNotNone(output.get("period_start"))
+        self.assertTrue(output["period_start"].endswith("-01T00:00:00+00:00"))
+
+    def test_api_budget_set_without_period_defaults_to_total(self) -> None:
+        exit_code, output = self._call_cli("api-budget", "set", "--total-usd", "10", "--call-cap-usd", "1")
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(output["period"], "total")
+        self.assertIsNone(output.get("period_start"))
+
+        exit_code, output = self._call_cli("api-budget", "show")
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(output["period"], "total")
+        self.assertIsNone(output.get("period_start"))
+
+    def test_api_budget_set_with_invalid_period(self) -> None:
+        with self.assertRaises(SystemExit):
+            self._call_cli("api-budget", "set", "--total-usd", "10", "--call-cap-usd", "1", "--period", "weekly")
+
 
 if __name__ == "__main__":
     unittest.main()
