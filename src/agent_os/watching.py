@@ -7,13 +7,13 @@ future search workers, RSS readers, APIs, and agents can all use the same model.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .fingerprints import text_sha256
 from .paths import ROOT
 
 WATCH_DIR = ROOT / "knowledge" / "personal" / "watching"
@@ -54,7 +54,7 @@ def add_target(target: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("watch target requires source_id, url, or title")
 
     identity = source_id or url or f"{target_type}:{title.lower()}"
-    watch_id = "watch-" + hashlib.sha256(identity.encode("utf-8")).hexdigest()[:16]
+    watch_id = "watch-" + text_sha256(identity, 16)
     data = _load()
     existing = next((x for x in data["targets"] if x.get("watch_id") == watch_id), None)
     record = {
