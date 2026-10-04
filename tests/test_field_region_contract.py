@@ -407,7 +407,7 @@ class TestFieldRegionContract(unittest.TestCase):
             )
 
     def test_ocr_failure_degrades_without_crash(self) -> None:
-        """OCR failure returns degraded result instead of raising."""
+        """OCR failure does not cache; subsequent call with working OCR reruns and succeeds."""
         cache = DocumentCache(root=self.cache_root)
         render_page, crop_region = self._make_render_and_crop()
 
@@ -428,11 +428,10 @@ class TestFieldRegionContract(unittest.TestCase):
         )
 
         # Verify result marks the failure
-        self.assertEqual(result["text"], "", "Failed OCR should return empty text")
-        self.assertTrue(result.get("blank"), "Failed OCR should mark result as blank")
-        self.assertFalse(result.get("cached"), "Failed OCR result should not be marked cached on first call")
+        self.assertTrue(result.get("ocr_failed"), "Failed OCR should set ocr_failed=True")
+        self.assertFalse(result.get("cached"), "Failed OCR result should not be marked cached")
 
-        # Call again with working OCR and verify failure result is cached (blank result cached, not re-run)
+        # Call again with working OCR: failure was not cached, so OCR runs (count 1)
         ocr, get_count = self._make_ocr()
         result2 = extract_field_region(
             key,
@@ -442,10 +441,22 @@ class TestFieldRegionContract(unittest.TestCase):
             ocr=ocr,
             cache=cache,
         )
-        self.assertEqual(get_count(), 0, "Failed blank result is cached, OCR should not run again")
-        self.assertEqual(result2["text"], "", "Cached failure should still return empty text")
-        self.assertTrue(result2.get("blank"), "Cached failure should still be marked as blank")
-        self.assertTrue(result2.get("cached"), "Second call should be marked as cached")
+        self.assertEqual(get_count(), 1, "Failure was not cached; OCR should run on second call")
+        self.assertEqual(result2["text"], "SYNTHETIC FIELD", "Second call with working OCR should return text")
+        self.assertFalse(result2.get("ocr_failed"), "Second result should not have ocr_failed flag")
+
+        # Call again with same working OCR: now it should use cache (count stays 1)
+        result3 = extract_field_region(
+            key,
+            region,
+            render_page=render_page,
+            crop_region=crop_region,
+            ocr=ocr,
+            cache=cache,
+        )
+        self.assertEqual(get_count(), 1, "Third call should use cache from successful second call")
+        self.assertEqual(result3["text"], "SYNTHETIC FIELD", "Cached result should still have the text")
+        self.assertTrue(result3.get("cached"), "Third call should be marked as cached")
 
     def test_same_region_different_dpi_runs_ocr(self) -> None:
         """Same region at different DPI values runs OCR for each."""
