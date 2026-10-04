@@ -379,6 +379,19 @@ class EscalationTests(WorkflowFixture):
 
 
 class TelemetryIntegrationTests(WorkflowFixture):
+    def _cache_manifest(self, available: list[str]) -> tuple[dict, PageKey]:
+        manifest = copy.deepcopy(MANIFEST)
+        key = PageKey(file_hash="a" * 64, page_index=0)
+        manifest["stages"][1]["available_execution_paths"] = available
+        manifest["stages"][1]["cache_lookup"] = {"kind": "document_page", "key": key.as_dict()}
+        manifest["stages"][1]["checkpoint"] = "projects/personal-agent-os/workflows"
+        self.write_manifest(manifest)
+        return manifest, key
+
+    def _seed_cache(self, key: PageKey) -> None:
+        cache = DocumentCache(root=self.temporary / ".agent-local" / "document-cache")
+        extract_page(key, embedded_text=lambda: "synthetic cached document text with enough words", cache=cache)
+
     def test_deterministic_fixture_stage_records_one_countable_local_event(self) -> None:
         workflows.start("fixture-sweep", run_id="telemetry-fixture")
         with tempfile.TemporaryDirectory() as telemetry_dir:
@@ -477,6 +490,39 @@ class TelemetryIntegrationTests(WorkflowFixture):
 
             self.assertTrue(repeat["skipped"])
             self.assertEqual(len(store.read_events()), 2)
+
+    def test_cache_hit_records_cache_path_event(self) -> None:
+        """Cache hit execution records one event with execution_path='cache' and capability_class='deterministic'."""
+        _, key = self._cache_manifest(["cache", "model"])
+        self._seed_cache(key)
+        workflows.start("fixture-sweep", run_id="telemetry-cache-hit")
+
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+
+            # Run the cheap-check stage (deterministic)
+            workflows.run_stage("fixture-sweep", "telemetry-cache-hit", "cheap-check", telemetry_store=store)
+            self.assertEqual(len(store.read_events()), 1)
+
+            # Run the think stage with cache hit
+            result = workflows.run_stage("fixture-sweep", "telemetry-cache-hit", "think", telemetry_store=store)
+
+            self.assertEqual(result["completed_stage"]["status"], "complete")
+            events = store.read_events()
+            self.assertEqual(len(events), 2)
+
+            cache_event = events[1]
+            self.assertEqual(cache_event.project_id, "personal-agent-os")
+            self.assertEqual(cache_event.task_category, "workflow-stage")
+            self.assertEqual(cache_event.execution_path, "cache")
+            self.assertEqual(cache_event.capability_class, "deterministic")
+            self.assertTrue(cache_event.validator_passed)
+            self.assertEqual(cache_event.retries, 0)
+            self.assertEqual(cache_event.escalations, 0)
+
+            raw = store.path.read_text(encoding="utf-8")
+            self.assertNotIn("token budget pruning", raw)
+            self.assertNotIn("recommendation", raw)
 
 
 class StageContextTests(WorkflowFixture):
