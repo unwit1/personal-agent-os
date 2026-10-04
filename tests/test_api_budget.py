@@ -89,6 +89,28 @@ class ApibudgetTests(unittest.TestCase):
         total = api_budget.api_spent(self.home)
         self.assertAlmostEqual(total, 6.25, places=6)
 
+    def test_api_spent_skips_non_dict_entries(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        api_budget.record_api_spend(2.5, call_id="call1", provider="anthropic", home=self.home)
+        spend_path = self.home / "api-spend.jsonl"
+        with spend_path.open("a", encoding="utf-8") as f:
+            f.write("[]\n")
+            f.write("null\n")
+        api_budget.record_api_spend(3.75, call_id="call2", provider="openai", home=self.home)
+        total = api_budget.api_spent(self.home)
+        self.assertAlmostEqual(total, 6.25, places=6)
+
+    def test_api_spent_skips_non_numeric_amount(self) -> None:
+        api_budget.set_api_budget(100.0, 10.0, home=self.home)
+        api_budget.record_api_spend(2.5, call_id="call1", provider="anthropic", home=self.home)
+        spend_path = self.home / "api-spend.jsonl"
+        with spend_path.open("a", encoding="utf-8") as f:
+            f.write('{"amount_usd": "invalid"}\n')
+            f.write('{"amount_usd": null}\n')
+        api_budget.record_api_spend(3.75, call_id="call2", provider="openai", home=self.home)
+        total = api_budget.api_spent(self.home)
+        self.assertAlmostEqual(total, 6.25, places=6)
+
     def test_api_remaining_returns_none_when_no_budget(self) -> None:
         remaining = api_budget.api_remaining(self.home)
         self.assertIsNone(remaining)

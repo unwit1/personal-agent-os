@@ -17,16 +17,7 @@ from typing import Any
 
 from ..timestamps import utc_now_iso
 from ..storage import write_json
-
-
-def _home(home: Path | None) -> Path:
-    """Machine-wide, next to the provider registry (~/.agent-os), not the
-    per-checkout orchestrator home: one budget for every clone and worktree."""
-    if home:
-        return Path(home)
-    from ..capabilities import registry_path
-
-    return registry_path().parent
+from .budget import _home
 
 
 def api_budget_path(home: Path | None = None) -> Path:
@@ -78,10 +69,12 @@ def api_spent(home: Path | None = None) -> float:
         for line in path.read_text(encoding="utf-8").splitlines():
             try:
                 entry = json.loads(line)
-            except ValueError:
+                if not isinstance(entry, dict):
+                    continue
+                amount = float(entry.get("amount_usd") or 0)
+                total += amount
+            except (ValueError, TypeError):
                 continue
-            amount = float(entry.get("amount_usd") or 0)
-            total += amount
     return round(total, 6)
 
 

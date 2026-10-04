@@ -931,6 +931,8 @@ Success signal:
 
 ### P1.3 — Optional API delegation
 
+Status: **api_budget module complete** (2026-10-04). `src/agent_os/orchestrator/api_budget.py` implements per-token API delegation budget and spend ledger for Anthropic/OpenAI providers, kept separate from subscription (host-plan) and compute budgets. Functions: `api_budget_path`, `load`, `set_api_budget` (operator-gated), `record_api_spend`, `api_spent` (with robust malformed-entry handling), `api_remaining`, `check` (approval and exhaustion gates), `is_api_provider`. Storage: `api-budget.json`, `api-budget-history.jsonl`, `api-spend.jsonl` in machine-wide ~/.agent-os. Review findings fixed: R1-1 (api_spent now validates JSON structure and amount type), R1-2 (_home imported from budget.py, not duplicated). All 23 tests pass including edge cases (non-dict entries, non-numeric amounts). Open: operator CLI for budget setting, integration with delegation decisions.
+
 Only after local/deterministic/context savings are functioning.
 
 Use OpenAI/Anthropic APIs for bounded Agent-OS-owned subtasks when doing so is advantageous. Treat API spend and host-plan usage as separate budgets. Never require both providers.
