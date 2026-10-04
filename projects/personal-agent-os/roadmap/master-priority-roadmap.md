@@ -689,6 +689,8 @@ Record, when exposed:
 - escalation count;
 - correction/override.
 
+(2026-10-04): `telemetry-record` CLI subcommand now records explicit metadata-only telemetry outside orchestrated/workflow paths, accepting `--usage-file/--usage-format` for provider usage extraction or explicit token/metric flags, with all omitted values left unknown (docs/staged-workflows.md). Still open: time-range filtering (--since/--until not yet implemented), chat-session telemetry (needs a design decision on session capture), and automatic integration hooks for live telemetry capture outside explicit `telemetry-record` invocations.
+
 Keep raw telemetry local. Git may contain only reviewed aggregate findings/policies.
 
 Initial reports should answer:
