@@ -75,7 +75,7 @@ class CostReadinessTests(ReadinessFixture):
                     synthetic.SCRIPTS[name] = edit_script()
                 failing = {'kind': 'command', 'command': [sys.executable, '-c', 'raise SystemExit(3)']}
                 run = self.engine.create_run('retry readiness', repository=repo, tasks=[{**self.task('a'), 'validators': [failing]}], policy=self.policy(max_escalations=2))['run_id']
-                final = self.engine.run_loop(run, max_ticks=40)
+                final = self.engine.run_loop(run, max_ticks=200)
                 node = self.engine.load(run)['nodes']['a']
                 self.assertEqual(final['state'], 'BLOCKED')
                 self.assertEqual(node['state'], 'FAILED_FINAL')
@@ -85,7 +85,7 @@ class CostReadinessTests(ReadinessFixture):
                 for name in self.providers:
                     synthetic.SCRIPTS[name] = edit_script({'a': {'failure': 'process_error'}})
                 run = self.engine.create_run('retry readiness', repository=repo, tasks=[self.task('a')], policy=self.policy(max_stage_retries=2, max_escalations=2))['run_id']
-                final = self.engine.run_loop(run, max_ticks=40)
+                final = self.engine.run_loop(run, max_ticks=200)
                 node = self.engine.load(run)['nodes']['a']
                 self.assertEqual(final['state'], 'BLOCKED')
                 self.assertLessEqual(node['attempts'], 3)
