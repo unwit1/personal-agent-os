@@ -12,6 +12,7 @@ from . import (
     providers_applicants,
     providers_mail,
     providers_orchestrator,
+    providers_projects,
     registry,
 )
 from ..event_bus import EventBus, DEFAULT_DIR
@@ -34,6 +35,7 @@ def default_registry() -> registry.Registry:
         registry.register_provider("mail", providers_mail.mail_items)
         registry.register_provider("counties", providers_applicants.county_items)
         registry.register_provider("mail_cleanup", actions_mail_organize.mail_cleanup_items)
+        registry.register_provider("projects", providers_projects.project_items)
 
         # Register actions
         actions_applicant_compose.register(registry.REGISTRY)
