@@ -1018,10 +1018,14 @@ against a saved bench report per metric (compiler, per-role prompt,
 cacheable-prefix, handoff tokens and the within-budget flag), and
 `--fail-on-regression` exits non-zero on worsened metrics, so prompt-template/
 retrieval-query changes can be gated offline (`docs/economy-regressions.md`,
-"Baseline comparison"). Retrieval for implementers/reviewers, handoff
-compaction beyond filtering, telemetry-driven capability selection, and
-actually applying bench-gated prompt-template/retrieval-query changes remain
-open.
+"Baseline comparison"). On 2026-10-05, handoff compaction now goes beyond key
+filtering with lossless value compaction (whitespace normalization, empty and
+duplicate item removal, empty-key omission) used by the compiled context packet
+and measured by `agent-os orchestrate context-bench`
+(`docs/economy-regressions.md`, "Handoff value compaction"). Retrieval for
+implementers/reviewers, lossy handoff limits (truncation/caps, needs a design
+decision), telemetry-driven capability selection, and actually applying
+bench-gated prompt-template/retrieval-query changes remain open.
 
 Next safe deterministic stage: begin with synthetic prompt/context measurement
 over the existing compiler, skill-selection, telemetry, and handoff fixtures;
