@@ -64,3 +64,18 @@ all-within-budget flag. Its `regressions` list names worsened metrics.
 `--fail-on-regression` exits with status 1 when that list is nonempty. A
 baseline with a different schema is rejected. The comparison makes no model
 call.
+
+### Handoff value compaction
+
+`_compact_handoff` keeps only `created_at`, `completed`, `decisions`,
+`remaining`, and `validation`. It normalizes whitespace in string values and
+string list items, drops empty items and exact duplicates (keeping the first
+occurrence and preserving order), and omits keys left empty. This applies to
+the compiled context packet's latest handoff and the `handoffs` section of
+`agent-os orchestrate context-bench`; save a baseline before the change and
+rerun `context-bench --baseline <file>` to see `handoffs.compacted_tokens`
+reported as improved.
+
+Compaction never truncates text, caps list length, or moves items between
+keys. Lossy limits such as truncation, per-key caps, and dropping `remaining`
+items already completed are not implemented.
