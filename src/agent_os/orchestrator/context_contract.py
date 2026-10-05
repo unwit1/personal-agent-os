@@ -27,9 +27,10 @@ beyond a character budget -- never silently: every omission is listed in
 
 from __future__ import annotations
 
-import hashlib
 import json
 from typing import Any
+
+from ..fingerprints import json_sha256
 
 SCHEMA = "personal-agent/task-context-contract/v1"
 DEFAULT_INPUT_BUDGET = 60_000
@@ -101,7 +102,7 @@ def build(
 def digest(contract: dict[str, Any]) -> str:
     """Stable id of the semantic content (ignores the digest field itself)."""
     body = {key: value for key, value in contract.items() if key != "digest"}
-    return hashlib.sha256(json.dumps(body, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+    return json_sha256(body, 16, ensure_ascii=False)
 
 
 def render(contract: dict[str, Any]) -> str:

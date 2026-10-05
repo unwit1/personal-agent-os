@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import sys
 import threading
+import unittest
 import urllib.error
 import urllib.request
 from pathlib import Path
 
-from agent_os.browser_bridge import BridgeStore
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from agent_os.browser_bridge import BridgeStore, _payload_hash
 from agent_os.browser_bridge_server import build_server
 import agent_os.creator_profiles as creator_profiles
 import agent_os.watching as watching
@@ -352,3 +357,42 @@ def test_browser_control_http_poll_and_result(tmp_path: Path) -> None:
         server.shutdown()
         server.server_close()
         thread.join(timeout=5)
+
+
+class PayloadHashTests(unittest.TestCase):
+    def test_equals_text_sha256_for_empty_json(self) -> None:
+        """_payload_hash('{}') equals text_sha256('{}')."""
+        payload = "{}"
+        result = _payload_hash(payload)
+        expected = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        self.assertEqual(result, expected)
+        self.assertEqual(len(result), 64)
+
+    def test_equals_hashlib_for_simple_json(self) -> None:
+        """_payload_hash returns full 64-char SHA256 digest."""
+        payload = '{"key":"value"}'
+        result = _payload_hash(payload)
+        expected = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        self.assertEqual(result, expected)
+        self.assertEqual(len(result), 64)
+
+    def test_canonical_json_input(self) -> None:
+        """_payload_hash with canonical JSON produces correct digest."""
+        payload = '{"a":1,"b":2}'
+        result = _payload_hash(payload)
+        expected = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        self.assertEqual(result, expected)
+
+    def test_non_ascii_payload(self) -> None:
+        """_payload_hash handles non-ASCII JSON correctly."""
+        payload = '{"text":"世界"}'
+        result = _payload_hash(payload)
+        expected = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        self.assertEqual(result, expected)
+
+    def test_full_digest_returned(self) -> None:
+        """_payload_hash returns the full 64-character digest."""
+        payload = '{"test":true}'
+        result = _payload_hash(payload)
+        self.assertEqual(len(result), 64)
+        self.assertTrue(all(c in "0123456789abcdef" for c in result))

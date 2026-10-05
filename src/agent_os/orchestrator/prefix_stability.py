@@ -9,8 +9,9 @@ Feature-detecting: shared_prefix may not be present in all records yet.
 
 from __future__ import annotations
 
-import hashlib
 from typing import Any
+
+from ..fingerprints import text_sha256
 
 # Fixed bytes between the shared prefix and per-request text. Without them
 # request text fused onto the prefix, so the bytes after it varied per request.
@@ -123,4 +124,4 @@ def _stabilize_list_content(msg: dict[str, Any], prefix: str) -> None:
 
 def prefix_fingerprint(prefix: str) -> str:
     """SHA256 hex digest of prefix's UTF-8 bytes for telemetry."""
-    return hashlib.sha256(prefix.encode("utf-8")).hexdigest()
+    return text_sha256(prefix)

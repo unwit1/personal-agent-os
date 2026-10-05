@@ -14,10 +14,10 @@ corrupted or swapped checkpoint.
 from __future__ import annotations
 
 import hashlib
-import json
 from pathlib import Path
 from typing import Any
 
+from ..fingerprints import json_sha256
 from ..timestamps import utc_now_iso
 
 SCHEMA = "personal-agent/artifact-manifest/v1"
@@ -54,14 +54,14 @@ def build(
         raise ValueError(f"{kind} manifests need base_model and base_revision to be reproducible")
     if sha256 is not None and (len(sha256) != 64 or any(c not in "0123456789abcdef" for c in sha256.lower())):
         raise ValueError("sha256 must be 64 hex characters")
-    config_digest = hashlib.sha256(json.dumps(training_config, sort_keys=True).encode()).hexdigest()[:16] if training_config else None
+    config_digest = json_sha256(training_config, 16) if training_config else None
     manifest = {
         "schema": SCHEMA, "kind": kind, "uri": uri, "sha256": sha256.lower() if sha256 else None, "size_bytes": size_bytes,
         "base_model": base_model, "base_revision": base_revision, "parent": parent, "training_config": training_config,
         "training_config_digest": config_digest, "license": license, "job_id": job_id, "step": step, "created_at": utc_now_iso(),
     }
     identity = {key: manifest[key] for key in ("kind", "uri", "sha256", "base_model", "base_revision", "parent", "training_config_digest", "step")}
-    manifest["id"] = "ART-" + hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()[:12]
+    manifest["id"] = "ART-" + json_sha256(identity, 12)
     return manifest
 
 

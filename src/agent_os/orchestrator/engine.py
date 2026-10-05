@@ -32,6 +32,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ..capabilities import next_class
+from ..fingerprints import json_sha256
 from ..telemetry import LocalTelemetryStore, TelemetryEvent, TelemetryPrivacyError, token_counts_from_provider_usage
 from ..timestamps import utc_now_iso as now
 from . import planner, prompts, task_cache
@@ -3055,10 +3056,7 @@ def _tree_hash(cwd: str | Path) -> str | None:
 
 
 def _validation_key(tree: str, validators: list[dict[str, Any]]) -> str:
-    import hashlib
-    import json
-
-    return hashlib.sha256(json.dumps([tree, validators], sort_keys=True, default=str).encode("utf-8")).hexdigest()[:24]
+    return json_sha256([tree, validators], 24, default=str)
 
 
 def _test_totals(evidence: list[dict[str, Any]]) -> dict[str, int | None]:
