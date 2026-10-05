@@ -1057,9 +1057,9 @@ Success signal:
 
 ## P3 — Executive Core
 
-Status: **in progress** (2026-10-05). EXEC-0 entity, event, and queue-item schemas and contracts are present, with deterministic validation, stable IDs, and local-only enforcement for sensitive/secret data. The append-only local Event Bus log supports publishing, deduplication, listing, and lookup, with per-consumer acknowledgement cursors. Deterministic event routing supports ignore/defer/process/delegate/surface dispositions, a default per-type table, per-call overrides, and local-only events are never delegated.
+Status: **in progress** (2026-10-05). EXEC-0 entity, event, and queue-item schemas and contracts are present, with deterministic validation, stable IDs, and local-only enforcement for sensitive/secret data. The append-only local Event Bus log supports publishing, deduplication, listing, and lookup, with per-consumer acknowledgement cursors. Deterministic event routing supports ignore/defer/process/delegate/surface dispositions, a default per-type table, per-call overrides, and local-only events are never delegated. Idempotent routing dispatch of pending Event Bus events per consumer; persisted per-event route reasons (payload-free) queryable by event id; `agent-os executive route` / `route-reason` CLI.
 
-Current: Open work: idempotent routing dispatch and persisted per-event route reasons queryable by event id; EXEC-1 Next Action Engine; Executive Queue behavior beyond its schema; user-facing explainability and provenance “why” surfaces beyond stored route reasons; `agent-os exec next/capture/explain` CLI and MCP exposure (including routing); and selective-retrieval integration.
+Current: Open work: EXEC-1 Next Action Engine; Executive Queue behavior beyond its schema; user-facing explainability and provenance “why” surfaces beyond stored route reasons; `agent-os exec next/capture/explain` CLI and MCP exposure (including routing over MCP); and selective-retrieval integration.
 
 Once the economy layer is dependable, build the core personal-executive features on top of it.
 
