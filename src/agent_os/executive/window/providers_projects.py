@@ -1,4 +1,4 @@
-"""Project state as outstanding items: decisions needed, stalled projects, and no-next-action flags."""
+"""Project state as outstanding items, including vague next actions."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ def project_items(
 
     For each active project (status == "active"), derive next action, blockers,
     and flags via project_next_action(); emit items for decisions_needed, stalled,
-    and no_next_action flags, in that priority order per project.
+    no_next_action, and vague_next_action flags, in that priority order per project.
 
     Args:
         load_projects: Callable returning list of (registry_entry, state) tuples.
@@ -103,6 +103,28 @@ def project_items(
                     "kind": "project_no_next_action",
                     "title": f"{name} has no next action",
                     "why": "No next action or current priority recorded in state.json",
+                    "score": 1,
+                    "tab": tab,
+                    "source": f"Project {pid}",
+                    "context": {"project": pid},
+                    **({"age_days": age_days} if isinstance(age_days, int) else {}),
+                }
+            )
+
+        # Vague next action item (score 1).
+        if "vague_next_action" in flags:
+            suggested = result.get("suggested_next_action")
+            why = (
+                f"Next action '{result['next_action']}' is vague; suggested: {suggested}"
+                if isinstance(suggested, str) and suggested
+                else f"Next action '{result['next_action']}' is vague; record a concrete next step in state.json"
+            )
+            items.append(
+                {
+                    "id": f"project:{pid}:vague-next-action",
+                    "kind": "project_vague_next_action",
+                    "title": f"{name} next action is vague",
+                    "why": why,
                     "score": 1,
                     "tab": tab,
                     "source": f"Project {pid}",
