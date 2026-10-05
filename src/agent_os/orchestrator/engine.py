@@ -2005,7 +2005,22 @@ class Orchestrator:
                 )
             except Exception as exc:  # the planner still works without a map
                 self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
-        prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd),
+        scope_text = None
+        if node["role"] in {"implementer", "test_author", "repairer"} and policy.get("worker_scope_map") and node.get("scope"):
+            from .repomap import scope_map
+
+            try:
+                mapped = scope_map(cwd, list(node["scope"]))
+                scope_text = mapped["text"]
+                stats = mapped["stats"]
+                self.ledger.emit(
+                    record["run_id"], "context_selected", node["id"], method="local scope map for the worker (no model call)",
+                    candidate_items=stats["scope"], selected_items=stats["listed"],
+                    selected_tokens_estimate=usage_lib.estimate_tokens(stats["chars"]),
+                )
+            except Exception as exc:  # the worker still runs without a map
+                self.ledger.emit(record["run_id"], "note", node["id"], text=f"scope map unavailable: {type(exc).__name__}")
+        prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, scope_map=scope_text, cwd=str(cwd),
                                                   prefix=self._run_prefix(record, node))
         prompt += _prior_attempts(node, policy["material_severities"])
         if policy.get("share_run_history") and node["role"] in {"planner", "implementer", "test_author", "reviewer"}:

@@ -147,6 +147,52 @@ def build(repo: Path | str, goal: str, *, max_files: int = 12, max_chars: int = 
                                     "candidates_scored": len(scored), "listed": len(chosen), "related": len(related), "terms": words[:12], "chars": len(text)}}
 
 
+def scope_map(repo: Path | str, scope: list[str], *, max_chars: int = 2500) -> dict:
+    """Return a compact repository map for explicitly named paths."""
+    repo = Path(repo)
+    entries = list(dict.fromkeys(item[2:] if item.startswith("./") else item for item in scope))
+    if not entries:
+        return {"text": "", "stats": {"scope": 0, "listed": 0, "new_files": 0, "related": 0, "chars": 0}}
+    tracked = [line for line in git(["ls-files"], repo).stdout.splitlines() if line.strip()]
+    tracked_set = set(tracked)
+    lines = ["Files in your scope (local map; lines, top-level names):"]
+    listed_paths: list[str] = []
+    new_files = 0
+    listed = 0
+    for name in entries:
+        path = repo / name
+        if name in tracked_set:
+            listed_paths.append(name)
+            try:
+                raw = path.read_text(encoding="utf-8", errors="ignore") if path.stat().st_size <= MAX_FILE_BYTES else ""
+            except OSError:
+                raw = ""
+            detail = f"- {name} ({raw.count(chr(10)) + 1 if raw else 0} lines)"
+            defs = _DEF.findall(raw)[:10] if path.suffix.lower() == ".py" else []
+            if defs:
+                detail += ": " + ", ".join(defs)
+            test = _test_for(name, tracked_set)
+            if test:
+                detail += f" [tests: {test}]"
+        elif "*" in name or path.is_dir():
+            detail = f"- {name} (directory)"
+        elif not path.exists():
+            detail = f"- {name} (new file)"
+            new_files += 1
+        else:
+            continue
+        lines.append(detail)
+        listed += 1
+    related = companions(listed_paths, tracked, bulk=set())
+    if related:
+        lines.append("Related by name: " + ", ".join(related))
+    text = "\n".join(lines)
+    if len(text) > max_chars:
+        text = text[:max_chars].rsplit("\n", 1)[0]
+    return {"text": text, "stats": {"scope": len(entries), "listed": listed, "new_files": new_files,
+                                      "related": len(related), "chars": len(text)}}
+
+
 def companions(chosen: list[str], tracked: list[str], bulk: set[str], limit: int = 8) -> list[str]:
     """Files elsewhere whose names share the stem of the top-ranked source
     files: ``workflows.py`` -> ``schemas/workflow-manifest-v1.schema.json``."""
