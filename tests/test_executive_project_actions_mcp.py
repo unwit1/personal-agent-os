@@ -240,6 +240,66 @@ class ProjectActionsMcpTests(unittest.TestCase):
                 # Verify we have 3 projects in results
                 self.assertEqual(len(result["projects"]), 3)
 
+    def test_projects_next_with_vague_action(self):
+        synthetic_state = {
+            "project": "test-proj",
+            "status": "active",
+            "goal": "Test goal",
+            "next_action": "TBD",
+            "current_priorities": ["Write unit tests", "Review docs"],
+            "updated_at": "2026-10-01T00:00:00Z"
+        }
+
+        def mock_get_project(project_id):
+            return {"id": "test-proj", "name": "Test Project", "state_file": "test_state.json"}
+
+        def mock_load_state(project):
+            return synthetic_state
+
+        with patch.object(mcp_server, "get_project", side_effect=mock_get_project):
+            with patch.object(mcp_server, "load_state", side_effect=mock_load_state):
+                result = self.call("executive_projects.next", {"project": "test-proj"})
+                self.assertEqual(result["project"], "test-proj")
+                self.assertEqual(result["next_action"], "TBD")
+                self.assertIn("vague_next_action", result["flags"])
+                self.assertEqual(result["suggested_next_action"], "Write unit tests")
+
+    def test_projects_scan_with_vague_next_action(self):
+        proj_vague = {
+            "project": "vague-proj",
+            "status": "active",
+            "next_action": "Work on project X",
+            "current_priorities": [],
+            "delegable_work": ["Write tests", "Review code"],
+            "updated_at": "2026-10-05T00:00:00Z"
+        }
+        proj_specific = {
+            "project": "specific-proj",
+            "status": "active",
+            "next_action": "Write tests",
+            "updated_at": "2026-10-05T00:00:00Z"
+        }
+
+        def mock_canonical_projects():
+            return [
+                {"id": "vague-proj", "name": "Vague Project", "state_file": "vague_proj.json"},
+                {"id": "specific-proj", "name": "Specific Project", "state_file": "specific_proj.json"}
+            ]
+
+        def mock_load_state(project):
+            if project.get("id") == "vague-proj":
+                return proj_vague
+            elif project.get("id") == "specific-proj":
+                return proj_specific
+            raise ValueError(f"Unknown project: {project}")
+
+        with patch.object(mcp_server, "canonical_projects", side_effect=mock_canonical_projects):
+            with patch.object(mcp_server, "load_state", side_effect=mock_load_state):
+                result = self.call("executive_projects.scan", {})
+                self.assertIn("vague_next_action", result)
+                self.assertEqual(result["vague_next_action"], ["vague-proj"])
+                self.assertEqual(len(result["projects"]), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

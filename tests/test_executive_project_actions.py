@@ -9,7 +9,114 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os.executive.project_actions import STALE_DAYS_DEFAULT, project_next_action, scan
+from agent_os.executive.project_actions import STALE_DAYS_DEFAULT, is_vague_action, project_next_action, scan
+
+
+class TestIsVagueAction(unittest.TestCase):
+    def test_is_vague_action_tbd(self):
+        self.assertTrue(is_vague_action("TBD"))
+
+    def test_is_vague_action_todo(self):
+        self.assertTrue(is_vague_action("todo"))
+
+    def test_is_vague_action_none(self):
+        self.assertTrue(is_vague_action("none"))
+
+    def test_is_vague_action_continue(self):
+        self.assertTrue(is_vague_action("continue"))
+
+    def test_is_vague_action_continue_with_period(self):
+        self.assertTrue(is_vague_action("continue."))
+
+    def test_is_vague_action_keep_going(self):
+        self.assertTrue(is_vague_action("keep going"))
+
+    def test_is_vague_action_progress(self):
+        self.assertTrue(is_vague_action("progress"))
+
+    def test_is_vague_action_misc(self):
+        self.assertTrue(is_vague_action("misc"))
+
+    def test_is_vague_action_various(self):
+        self.assertTrue(is_vague_action("various"))
+
+    def test_is_vague_action_next_steps(self):
+        self.assertTrue(is_vague_action("next steps"))
+
+    def test_is_vague_action_work_on_it(self):
+        self.assertTrue(is_vague_action("work on it"))
+
+    def test_is_vague_action_n_a(self):
+        self.assertTrue(is_vague_action("n/a"))
+
+    def test_is_vague_action_work_on_prefix(self):
+        self.assertTrue(is_vague_action("Work on project X"))
+
+    def test_is_vague_action_continue_working_on_prefix(self):
+        self.assertTrue(is_vague_action("continue working on the database schema"))
+
+    def test_is_vague_action_continue_with_prefix(self):
+        self.assertTrue(is_vague_action("continue with migration"))
+
+    def test_is_vague_action_look_into_prefix(self):
+        self.assertTrue(is_vague_action("look into performance issues"))
+
+    def test_is_vague_action_think_about_prefix(self):
+        self.assertTrue(is_vague_action("think about architecture"))
+
+    def test_is_vague_action_make_progress_prefix(self):
+        self.assertTrue(is_vague_action("make progress on refactor"))
+
+    def test_is_vague_action_keep_working_on_prefix(self):
+        self.assertTrue(is_vague_action("keep working on tests"))
+
+    def test_is_vague_action_progress_on_prefix(self):
+        self.assertTrue(is_vague_action("progress on deployment"))
+
+    def test_is_vague_action_continue_on_prefix(self):
+        self.assertTrue(is_vague_action("continue on cleanup"))
+
+    def test_is_vague_action_work_on_with_three_words(self):
+        self.assertTrue(is_vague_action("work on the release notes"))
+
+    def test_is_vague_action_work_on_with_exclamation(self):
+        self.assertTrue(is_vague_action("Work on project X!"))
+
+    def test_is_vague_action_work_on_with_question(self):
+        self.assertTrue(is_vague_action("Work on project X?"))
+
+    def test_is_vague_action_write_unit_tests_false(self):
+        self.assertFalse(is_vague_action("Write unit tests for scan()"))
+
+    def test_is_vague_action_work_on_too_many_words_false(self):
+        self.assertFalse(is_vague_action("Work on the release notes draft for v2 launch"))
+
+    def test_is_vague_action_code_false(self):
+        self.assertFalse(is_vague_action("Code"))
+
+    def test_is_vague_action_empty_string_false(self):
+        self.assertFalse(is_vague_action(""))
+
+    def test_is_vague_action_whitespace_only_false(self):
+        self.assertFalse(is_vague_action("   "))
+
+    def test_is_vague_action_none_type_false(self):
+        self.assertFalse(is_vague_action(None))
+
+    def test_is_vague_action_int_false(self):
+        self.assertFalse(is_vague_action(123))
+
+    def test_is_vague_action_list_false(self):
+        self.assertFalse(is_vague_action([]))
+
+    def test_is_vague_action_case_insensitive(self):
+        self.assertTrue(is_vague_action("TODO"))
+        self.assertTrue(is_vague_action("TbD"))
+        self.assertTrue(is_vague_action("WORK ON project X"))
+
+    def test_is_vague_action_collapse_internal_whitespace(self):
+        self.assertTrue(is_vague_action("work  on   project   X"))
+        self.assertTrue(is_vague_action("continue  ."))
 
 
 class TestProjectNextActionBasic(unittest.TestCase):
@@ -29,6 +136,7 @@ class TestProjectNextActionBasic(unittest.TestCase):
         self.assertIsNone(result["updated_at"])
         self.assertIsNone(result["age_days"])
         self.assertEqual(result["flags"], ["no_next_action", "unknown_age"])
+        self.assertIsNone(result["suggested_next_action"])
 
     def test_project_next_action_non_dict_raises_type_error(self):
         with self.assertRaises(TypeError):
@@ -377,6 +485,122 @@ class TestFlagsGeneration(unittest.TestCase):
         self.assertEqual(result["flags"], expected_flags)
 
 
+class TestVagueNextAction(unittest.TestCase):
+    def test_vague_next_action_flag_set_for_tbd(self):
+        state = {"project": "p1", "next_action": "TBD"}
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertIn("vague_next_action", result["flags"])
+
+    def test_vague_next_action_flag_set_for_work_on_prefix(self):
+        state = {"project": "p1", "next_action": "Work on project X"}
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertIn("vague_next_action", result["flags"])
+
+    def test_vague_next_action_flag_not_set_for_specific_action(self):
+        state = {"project": "p1", "next_action": "Write unit tests for scan()"}
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertNotIn("vague_next_action", result["flags"])
+
+    def test_vague_next_action_flag_not_set_when_no_next_action(self):
+        state = {"project": "p1"}
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertNotIn("vague_next_action", result["flags"])
+
+    def test_suggested_next_action_none_when_not_vague(self):
+        state = {"project": "p1", "next_action": "Write tests"}
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertIsNone(result["suggested_next_action"])
+
+    def test_suggested_next_action_from_current_priorities(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": ["Write tests", "Review docs"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertEqual(result["suggested_next_action"], "Write tests")
+
+    def test_suggested_next_action_skips_vague_in_priorities(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": ["continue", "Write tests", "Review docs"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertEqual(result["suggested_next_action"], "Write tests")
+
+    def test_suggested_next_action_skips_entry_equal_to_next_action(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": ["TBD", "Write tests", "Review docs"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertEqual(result["suggested_next_action"], "Write tests")
+
+    def test_suggested_next_action_skips_empty_priorities(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": ["", "Write tests", "Review docs"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertEqual(result["suggested_next_action"], "Write tests")
+
+    def test_suggested_next_action_from_delegable_work(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": [],
+            "delegable_work": ["Unit tests", "Code review"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertEqual(result["suggested_next_action"], "Unit tests")
+
+    def test_suggested_next_action_from_delegable_work_skips_vague(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": [],
+            "delegable_work": ["work on it", "Code review"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertEqual(result["suggested_next_action"], "Code review")
+
+    def test_suggested_next_action_none_when_all_vague(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": ["continue", "todo"],
+            "delegable_work": ["progress", "work on it"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertIsNone(result["suggested_next_action"])
+
+    def test_suggested_next_action_none_when_empty_priorities_and_work(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "current_priorities": [],
+            "delegable_work": []
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertIsNone(result["suggested_next_action"])
+
+    def test_vague_next_action_flag_with_multiple_other_flags(self):
+        state = {
+            "project": "p1",
+            "next_action": "TBD",
+            "decisions_needed": ["Choose tech"],
+            "blockers": ["Issue"]
+        }
+        result = project_next_action(state, today=date(2026, 10, 5))
+        self.assertIn("vague_next_action", result["flags"])
+        self.assertIn("blocked", result["flags"])
+        self.assertIn("needs_decision", result["flags"])
+        self.assertEqual(result["flags"], sorted(result["flags"]))
+
+
 class TestScanBasic(unittest.TestCase):
     def test_scan_empty_list(self):
         result = scan([], today=date(2026, 10, 5))
@@ -471,6 +695,23 @@ class TestScanBasic(unittest.TestCase):
         self.assertEqual(project["project"], "p1")
         self.assertEqual(project["goal"], "Complete feature")
         self.assertEqual(project["age_days"], 4)
+
+    def test_scan_vague_next_action_list(self):
+        states = [
+            {"project": "p1", "status": "active", "next_action": "TBD"},
+            {"project": "p2", "status": "active", "next_action": "Write tests"},
+            {"project": "p3", "status": "active", "next_action": "Work on project X"},
+        ]
+        result = scan(states, today=date(2026, 10, 5))
+        self.assertEqual(set(result["vague_next_action"]), {"p1", "p3"})
+
+    def test_scan_vague_next_action_empty_when_none(self):
+        states = [
+            {"project": "p1", "status": "active", "next_action": "Write tests"},
+            {"project": "p2", "status": "active", "next_action": "Review code"},
+        ]
+        result = scan(states, today=date(2026, 10, 5))
+        self.assertEqual(result["vague_next_action"], [])
 
 
 class TestScanEdgeCases(unittest.TestCase):

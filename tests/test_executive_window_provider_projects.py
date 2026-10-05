@@ -122,6 +122,40 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertIn("has no next action", item["title"])
         self.assertEqual(item["score"], 1)
 
+    def test_vague_next_action_suggests_concrete_priority(self):
+        entry = self._make_registry_entry("p-vague")
+        state = self._make_state(
+            project="p-vague",
+            next_action="Work on project X",
+            current_priorities=["Work on project X", "Write release notes"],
+        )
+        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["id"], "project:p-vague:vague-next-action")
+        self.assertEqual(items[0]["score"], 1)
+        self.assertEqual(items[0]["kind"], "project_vague_next_action")
+        self.assertIn("Write release notes", items[0]["why"])
+
+    def test_vague_next_action_without_alternative_requests_concrete_step(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="Work on project X")
+        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+        vague_item = next(i for i in items if i["kind"] == "project_vague_next_action")
+        self.assertIn("record a concrete next step", vague_item["why"])
+
+    def test_concrete_next_action_has_no_vague_item(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="Write release notes")
+        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+        self.assertFalse(any(i["kind"] == "project_vague_next_action" for i in items))
+
+    def test_vague_next_action_respects_personal_tab(self):
+        entry = self._make_registry_entry(tab="personal")
+        state = self._make_state(next_action="Work on project X")
+        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+        vague_item = next(i for i in items if i["kind"] == "project_vague_next_action")
+        self.assertEqual(vague_item["tab"], "personal")
+
     def test_project_with_current_priorities_is_not_stalled(self):
         """A project with current_priorities (fallback to next_action) is not flagged no_next_action."""
         entry = self._make_registry_entry()
