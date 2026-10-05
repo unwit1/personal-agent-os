@@ -24,6 +24,7 @@ Project state (typically from `projects/*/state.json`) contains these optional f
 - **current_state** is extracted as a single string. Whitespace-only values are treated as None.
 - **next_action** is extracted from the `next_action` field. If not present or empty, the function uses the first non-empty entry from `current_priorities`.
 - **next_action_source** indicates where `next_action` came from: `"next_action"`, `"current_priorities"`, or None if neither is available.
+- **suggested_next_action**: None unless `next_action` is vague; otherwise the first concrete (non-vague) entry from `current_priorities`, then `delegable_work`.
 - List fields (**blockers**, **waiting_on**, **decisions_needed**, **delegable_work**) are filtered to remove non-strings and whitespace-only entries.
 - **age_days** is calculated from `updated_at` as the number of days since that date (relative to `today`). Non-parseable dates result in None.
 
@@ -41,6 +42,7 @@ Flags are generated based on the extracted state and are always sorted alphabeti
 - **unknown_age**: Set if `age_days` is None (missing or unparseable `updated_at` date).
 - **blocked**: Set if either `blockers` or `waiting_on` is non-empty. Indicates active blockers or dependencies.
 - **needs_decision**: Set if `decisions_needed` is non-empty. Indicates decisions awaiting the project owner/user.
+- **vague_next_action**: Set when the chosen `next_action` is a placeholder in `VAGUE_ACTIONS` or a short “work on / continue with / look into ... X” phrase (prefix plus at most 3 words), as decided by `is_vague_action()`.
 
 ## Decisions vs. Delegable Work
 
@@ -58,9 +60,12 @@ A project with items in `delegable_work` but no `decisions_needed` is unblocked 
 - **stalled**: List of project ids with the `stalled` flag set.
 - **no_next_action**: List of project ids with the `no_next_action` flag set.
 - **needs_decision**: List of project ids with the `needs_decision` flag set.
+- **vague_next_action**: List of project ids with the `vague_next_action` flag set.
 - **stale_days**: The threshold used for staleness detection.
 
 The scan result allows quick identification of projects in specific conditions (e.g., all stalled projects, all projects awaiting decisions).
+
+The Executive window projects provider emits a score-1 `project_vague_next_action` item for projects flagged with `vague_next_action`.
 
 ## Default Constant
 
@@ -104,5 +109,4 @@ Scan projects and return aggregated status.
 
 Not yet implemented:
 
-- **Repeated-deferral detection**: Tracking and alerting when a project is repeatedly deferred without progress (no update for multiple scan cycles).
-- **Vague work to concrete action**: Heuristics to convert high-level goals or vague work items into concrete, measurable next actions.
+- **Repeated-deferral detection**: Tracking and alerting when a project is repeatedly deferred without progress (no update for multiple scan cycles). This needs a deferral-history source (for example routed `defer` events or a state field), which is not yet decided.

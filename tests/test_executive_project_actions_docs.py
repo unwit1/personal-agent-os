@@ -63,6 +63,20 @@ class TestExecutiveProjectActionsDocumentation(unittest.TestCase):
         content = EXEC_PROJECT_ACTIONS_DOC.read_text(encoding="utf-8")
         self.assertIn("delegable_work", content)
 
+    def test_doc_describes_vague_next_action(self):
+        """The documentation should describe vague action detection and suggestions."""
+        content = EXEC_PROJECT_ACTIONS_DOC.read_text(encoding="utf-8")
+        self.assertIn("vague_next_action", content)
+        self.assertIn("suggested_next_action", content)
+        self.assertIn("is_vague_action", content)
+
+    def test_open_section_keeps_repeated_deferral(self):
+        """Repeated deferral remains open and identifies its undecided data source."""
+        content = EXEC_PROJECT_ACTIONS_DOC.read_text(encoding="utf-8")
+        open_section = content.split("## Open", 1)[1]
+        self.assertIn("Repeated-deferral", open_section)
+        self.assertIn("deferral-history source", open_section)
+
     def test_executive_window_links_to_project_actions_doc(self):
         """executive-window.md should link to executive-project-actions.md."""
         content = EXEC_WINDOW_DOC.read_text(encoding="utf-8")
