@@ -64,3 +64,31 @@ def route_event(event: dict, rules: dict[str, str] | None = None) -> dict:
         "rule": rule,
         "reason": reason,
     }
+
+
+def dispatch_pending(
+    bus, consumer: str = "router", rules: dict[str, str] | None = None,
+    log=None, routed_at: str | None = None,
+) -> list[dict]:
+    """Persist and acknowledge each pending event's route, recovering prior writes."""
+    from .route_log import RouteLog
+
+    if log is None:
+        log = RouteLog(bus.directory)
+    results = []
+    for event in bus.pending(consumer):
+        record = log.get(event["id"])
+        if record is None:
+            record, _ = log.record(route_event(event, rules), routed_at=routed_at)
+        bus.acknowledge(consumer, event["id"])
+        results.append(record)
+    return results
+
+
+def route_reason(event_id: str, log=None, bus=None) -> dict | None:
+    """Look up a persisted route decision by event id."""
+    from .route_log import RouteLog
+
+    if log is None:
+        log = RouteLog(bus.directory) if bus is not None else RouteLog()
+    return log.get(event_id)
