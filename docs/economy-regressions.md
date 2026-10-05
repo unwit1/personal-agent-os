@@ -49,3 +49,18 @@ compaction measured by `agent_os.economy.handoff_compaction_report`; and
 optional telemetry coverage from `context_economy`. The bench makes no model
 or provider call. Its report contains only integers, labels, and case IDs. Use
 it as the baseline when comparing future prompt and context changes.
+
+### Baseline comparison
+
+Save a baseline with `agent-os orchestrate context-bench --out baseline.json`.
+After a prompt-template or retrieval-query change, run
+`agent-os orchestrate context-bench --baseline baseline.json` and optionally
+add `--fail-on-regression`. The report gains a `comparison` object with schema
+`personal-agent/orchestrator-context-bench-compare/v1`; its `metrics` list
+records baseline, current, delta, and status for compiler selective tokens and
+tokens avoided, total prompt tokens overall and per role, cacheable prefix
+tokens, handoff compacted tokens and tokens avoided, and the compiler
+all-within-budget flag. Its `regressions` list names worsened metrics.
+`--fail-on-regression` exits with status 1 when that list is nonempty. A
+baseline with a different schema is rejected. The comparison makes no model
+call.
