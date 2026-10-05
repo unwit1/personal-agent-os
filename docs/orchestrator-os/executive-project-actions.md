@@ -76,26 +76,17 @@ Arguments:
 - `<project>`: Project identifier (e.g., `personal-agent-os`).
 
 Options:
-- `--stale-days N`: Threshold for staleness detection (default: 30). Overrides the default.
-- `--today YYYY-MM-DD`: Reference date for age calculation (default: today). Useful for testing or replaying analysis.
-
-Output: JSON dict with goal, current_state, next_action, next_action_source, blockers, waiting_on, decisions_needed, delegable_work, updated_at, age_days, and flags.
+- `--stale-days`: Staleness threshold.
+- `--today`: Reference date for age calculation.
 
 ### `agent-os executive project-scan [--all]`
 
-Scan all active projects (or all projects with `--all`) and return aggregated status flags and rankings.
+Scan all active projects (or all projects with `--all`) and return aggregated status.
 
 Options:
-- `--all`: Include inactive projects (status != "active"). Without this, only active projects are scanned.
-- `--stale-days N`: Threshold for staleness detection (default: 30).
-- `--today YYYY-MM-DD`: Reference date for age calculation (default: today).
-
-Output: JSON dict with:
-- `projects`: Sorted list of all scanned projects with their next action metadata.
-- `stalled`: Project ids flagged as stalled.
-- `no_next_action`: Project ids with no next action.
-- `needs_decision`: Project ids awaiting user decisions.
-- `stale_days`: The threshold used.
+- `--all`: Include inactive projects.
+- `--stale-days`: Staleness threshold.
+- `--today`: Reference date for age calculation.
 
 ## MCP Tools
 
@@ -103,40 +94,11 @@ The per-project Next Action Engine is exposed to Claude models through read-only
 
 ### `executive_projects.next`
 
-**Description:** Get the next action and full synthesized metadata for a specific project.
-
-**Input schema:**
-```json
-{
-  "project": "string (required) — project identifier",
-  "stale_days": "integer (optional) — staleness threshold (default 30)",
-  "today": "string (optional) — reference date YYYY-MM-DD (default today)"
-}
-```
-
-**Output:** JSON dict with goal, current_state, next_action, next_action_source, blockers, waiting_on, decisions_needed, delegable_work, updated_at, age_days, and flags. Local-only, never leaves the machine.
+Get the next action and full synthesized metadata for a specific project.
 
 ### `executive_projects.scan`
 
-**Description:** Scan all active or all projects and return aggregated status with per-category project lists.
-
-**Input schema:**
-```json
-{
-  "include_all": "boolean (optional) — include inactive projects (default false)",
-  "stale_days": "integer (optional) — staleness threshold (default 30)",
-  "today": "string (optional) — reference date YYYY-MM-DD (default today)"
-}
-```
-
-**Output:** JSON dict with:
-- `projects`: Sorted list of all scanned projects with their next action metadata.
-- `stalled`: Project ids flagged as stalled.
-- `no_next_action`: Project ids with no next action.
-- `needs_decision`: Project ids awaiting user decisions.
-- `stale_days`: The threshold used.
-
-Local-only, never leaves the machine.
+Scan projects and return aggregated status.
 
 ## Open
 
