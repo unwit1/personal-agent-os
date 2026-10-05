@@ -445,6 +445,16 @@ mode had no permission denials and read ~30k input tokens per review (was
 ~42k). Codex had hit its ChatGPT usage limit, so both runs also exercised
 provider failover to Claude.
 
+### Worker scope map
+
+The opt-in run policy `worker_scope_map` (default `false`) gives implementer,
+`test_author`, and repairer prompts a local map built by `repomap.scope_map`,
+with no model call. It lists scoped files with line counts, top-level names and
+matching test files; marks new files and directories; and lists related-by-name
+companions. The map is capped at 2,500 characters and appears as per-node text
+outside the shared prompt prefix. The engine records a `context_selected`
+ledger event for it; if map building fails, the worker runs without the map.
+Reviewer-specific retrieval is not covered.
 ### Model catalog (keeping models current)
 
 `orchestrator/models.py`; catalog at `.agent-local/orchestrator/models/catalog.json`.
