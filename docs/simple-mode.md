@@ -454,7 +454,14 @@ matching test files; marks new files and directories; and lists related-by-name
 companions. The map is capped at 2,500 characters and appears as per-node text
 outside the shared prompt prefix. The engine records a `context_selected`
 ledger event for it; if map building fails, the worker runs without the map.
-Reviewer-specific retrieval is not covered.
+The opt-in run policy `reviewer_scope_map` (default `false`) gives reviewer
+prompts the same `repomap.scope_map` map built from the reviewed task's scope,
+with no model call. The map appears under the heading "Map of the reviewed task's
+scope files" as per-node text outside the shared prompt prefix, placed before the
+diff. The engine logs a `context_selected` event with method "local scope map for
+the reviewer (no model call)" and continues without the map if building fails.
+Both maps are off by default pending measurement.
+
 ### Model catalog (keeping models current)
 
 `orchestrator/models.py`; catalog at `.agent-local/orchestrator/models/catalog.json`.

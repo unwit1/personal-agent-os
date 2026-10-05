@@ -1027,11 +1027,14 @@ implementer/test_author/repairer retrieval: opt-in run policy `worker_scope_map`
 adds a local scope map (files in scope with line counts, top-level names,
 matching tests and related-by-name companions; no model call) to worker prompts
 outside the shared prefix, logged as a `context_selected` event
-(`docs/simple-mode.md`, "Worker scope map"). Reviewer-specific retrieval and
-making worker scope maps default-on (it needs measurement), lossy handoff limits
-(truncation/caps, needs a design decision), telemetry-driven capability
-selection, and actually applying bench-gated prompt-template/retrieval-query
-changes remain open.
+(`docs/simple-mode.md`, "Worker scope map"). On 2026-10-05, reviewer-specific
+retrieval: opt-in run policy `reviewer_scope_map` adds a local scope map (files
+in the reviewed task's scope with line counts, top-level names; no model call)
+to reviewer prompts outside the shared prefix, logged as a `context_selected`
+event (`docs/simple-mode.md`, "Worker scope map"). Making worker/reviewer scope
+maps default-on (it needs measurement), lossy handoff limits (truncation/caps,
+needs a design decision), telemetry-driven capability selection, and actually
+applying bench-gated prompt-template/retrieval-query changes remain open.
 
 Next safe deterministic stage: begin with synthetic prompt/context measurement
 over the existing compiler, skill-selection, telemetry, and handoff fixtures;
