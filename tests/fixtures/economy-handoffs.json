@@ -28,5 +28,14 @@
     "transcript_excerpt": "FAKE_TRANSCRIPT_SECRETLESS_GAMMA lorem ipsum repeated narrative",
     "files_touched": ["fake/path/four.py", "fake/path/five.py"],
     "notes": "FAKE_BULKY_NOTE_GAMMA with obviously synthetic filler"
+  },
+  {
+    "created_at": "2026-01-04T00:00:00Z",
+    "completed": ["fake completed item delta", "fake completed item delta", "  fake   completed item delta  "],
+    "decisions": ["keep  synthetic   delta", ""],
+    "remaining": ["finish delta", "finish delta"],
+    "validation": ["python -m unittest"],
+    "transcript_excerpt": "FAKE_TRANSCRIPT_SECRETLESS_DELTA synthetic filler repeated narrative",
+    "notes": "FAKE_BULKY_NOTE_DELTA synthetic filler repeated narrative"
   }
 ]

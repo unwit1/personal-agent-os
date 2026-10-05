@@ -15,7 +15,7 @@ class HandoffEconomyTests(unittest.TestCase):
         fixture_path = Path(__file__).resolve().parent / "fixtures" / "economy-handoffs.json"
         handoffs = json.loads(fixture_path.read_text(encoding="utf-8"))
         report = handoff_compaction_report(handoffs)
-        self.assertEqual(report["handoffs"], 3)
+        self.assertEqual(report["handoffs"], 4)
         self.assertLess(report["compacted_tokens"], report["raw_tokens"])
         self.assertEqual(report["tokens_avoided"], report["raw_tokens"] - report["compacted_tokens"])
         self.assertIn("transcript_excerpt", report["dropped_keys"])
@@ -24,6 +24,15 @@ class HandoffEconomyTests(unittest.TestCase):
         for handoff in handoffs:
             for value in handoff.values():
                 self.assertNotIn(str(value), serialized_report)
+
+    def test_value_compaction_saves_tokens_beyond_key_filtering(self) -> None:
+        fixture_path = Path(__file__).resolve().parent / "fixtures" / "economy-handoffs.json"
+        handoffs = json.loads(fixture_path.read_text(encoding="utf-8"))
+        handoff = handoffs[3]
+        key_filtered = {k: handoff[k] for k in ("created_at", "completed", "decisions", "remaining", "validation") if k in handoff}
+        key_filtered_tokens = (len(json.dumps(key_filtered, sort_keys=True, ensure_ascii=False)) + 3) // 4
+
+        self.assertLess(handoff_compaction_report([handoff])["compacted_tokens"], key_filtered_tokens)
 
     def test_empty_input_has_zero_counts_and_no_ratio(self) -> None:
         report = handoff_compaction_report([])
