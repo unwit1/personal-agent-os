@@ -66,11 +66,81 @@ The scan result allows quick identification of projects in specific conditions (
 
 **STALE_DAYS_DEFAULT**: 30 days. Projects not updated within this period are flagged as stalled.
 
+## CLI Commands
+
+### `agent-os executive project-next <project>`
+
+Get the next action and full synthesized metadata for a specific project.
+
+Arguments:
+- `<project>`: Project identifier (e.g., `personal-agent-os`).
+
+Options:
+- `--stale-days N`: Threshold for staleness detection (default: 30). Overrides the default.
+- `--today YYYY-MM-DD`: Reference date for age calculation (default: today). Useful for testing or replaying analysis.
+
+Output: JSON dict with goal, current_state, next_action, next_action_source, blockers, waiting_on, decisions_needed, delegable_work, updated_at, age_days, and flags.
+
+### `agent-os executive project-scan [--all]`
+
+Scan all active projects (or all projects with `--all`) and return aggregated status flags and rankings.
+
+Options:
+- `--all`: Include inactive projects (status != "active"). Without this, only active projects are scanned.
+- `--stale-days N`: Threshold for staleness detection (default: 30).
+- `--today YYYY-MM-DD`: Reference date for age calculation (default: today).
+
+Output: JSON dict with:
+- `projects`: Sorted list of all scanned projects with their next action metadata.
+- `stalled`: Project ids flagged as stalled.
+- `no_next_action`: Project ids with no next action.
+- `needs_decision`: Project ids awaiting user decisions.
+- `stale_days`: The threshold used.
+
+## MCP Tools
+
+The per-project Next Action Engine is exposed to Claude models through read-only MCP tools.
+
+### `executive_projects.next`
+
+**Description:** Get the next action and full synthesized metadata for a specific project.
+
+**Input schema:**
+```json
+{
+  "project": "string (required) — project identifier",
+  "stale_days": "integer (optional) — staleness threshold (default 30)",
+  "today": "string (optional) — reference date YYYY-MM-DD (default today)"
+}
+```
+
+**Output:** JSON dict with goal, current_state, next_action, next_action_source, blockers, waiting_on, decisions_needed, delegable_work, updated_at, age_days, and flags. Local-only, never leaves the machine.
+
+### `executive_projects.scan`
+
+**Description:** Scan all active or all projects and return aggregated status with per-category project lists.
+
+**Input schema:**
+```json
+{
+  "include_all": "boolean (optional) — include inactive projects (default false)",
+  "stale_days": "integer (optional) — staleness threshold (default 30)",
+  "today": "string (optional) — reference date YYYY-MM-DD (default today)"
+}
+```
+
+**Output:** JSON dict with:
+- `projects`: Sorted list of all scanned projects with their next action metadata.
+- `stalled`: Project ids flagged as stalled.
+- `no_next_action`: Project ids with no next action.
+- `needs_decision`: Project ids awaiting user decisions.
+- `stale_days`: The threshold used.
+
+Local-only, never leaves the machine.
+
 ## Open
 
 Not yet implemented:
 
-- **CLI commands**: `agent-os executive project-next <project>` and `agent-os executive project-scan [--all]` with `--stale-days` and `--today` options.
-- **MCP tools**: `executive_projects.next` and `executive_projects.scan` (read-only tools for Claude).
-- **Repeated-deferral detection**: Tracking and alerting when a project is repeatedly deferred without progress.
+- **Repeated-deferral detection**: Tracking and alerting when a project is repeatedly deferred without progress (no update for multiple scan cycles).
 - **Vague work to concrete action**: Heuristics to convert high-level goals or vague work items into concrete, measurable next actions.
