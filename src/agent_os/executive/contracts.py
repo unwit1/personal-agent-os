@@ -107,10 +107,55 @@ def _check_enum_value(value: Any, valid_set: set, field_name: str, label: str) -
     return None
 
 
+def _common(data: Any, label: str, errors: list[str]) -> None:
+    """Validate common fields: source, domain, sensitivity, local_only, optional-provenance."""
+    # Validate source and domain
+    if not isinstance(data.get("source"), str) or not data.get("source"):
+        errors.append(f"{label}: source must be non-empty string")
+    if not isinstance(data.get("domain"), str) or not data.get("domain"):
+        errors.append(f"{label}: domain must be non-empty string")
+
+    # Validate sensitivity
+    err = _check_enum_value(data.get("sensitivity"), SENSITIVITIES, "sensitivity", label)
+    if err:
+        errors.append(err)
+
+    # Validate local_only requirement for sensitive/secret
+    if requires_local_only(data.get("sensitivity", "")):
+        if data.get("local_only") is not True:
+            errors.append(f"{label}: sensitivity {data.get('sensitivity')!r} requires local_only=true")
+
+    # Validate provenance (optional, but if present should be list of strings)
+    if "provenance" in data:
+        provenance = data.get("provenance", [])
+        if not isinstance(provenance, list):
+            errors.append(f"{label}: provenance must be a list")
+        elif provenance and not all(isinstance(item, str) for item in provenance):
+            errors.append(f"{label}: provenance must be a list of strings")
+
+
+def _number(data: Any, key: str, label: str, lo: int | float, hi: int | float | None = None) -> str | None:
+    """Validate a number field within range [lo, hi] (or >= lo if hi is None). Return error string or None."""
+    value = data.get(key)
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        if hi is not None:
+            return f"{label}: {key} must be in [{lo}, {hi}] or None"
+        else:
+            return f"{label}: {key} must be >= {lo} or None"
+    if value < lo:
+        if hi is not None:
+            return f"{label}: {key} must be in [{lo}, {hi}] or None"
+        else:
+            return f"{label}: {key} must be >= {lo} or None"
+    if hi is not None and value > hi:
+        return f"{label}: {key} must be in [{lo}, {hi}] or None"
+    return None
+
+
 def _parse_timestamp(ts: Any) -> tuple[bool, str | None]:
-    """Parse ISO 8601 timestamp, return (success, error_msg)."""
-    if ts is None:
-        return True, None
+    """Parse ISO 8601 timestamp, return (success, error_msg). Rejects None."""
     if not isinstance(ts, str):
         return False, f"timestamp is not a string: {type(ts).__name__}"
     try:
@@ -161,28 +206,23 @@ def validate_entity(data: Any, label: str = "entity") -> list[str]:
     if err:
         errors.append(err)
 
-    # Validate timestamps
-    for ts_field in ["created_at", "updated_at", "last_confirmed", "expires_at"]:
+    # Validate required timestamps (must not be None)
+    for ts_field in ["created_at", "updated_at"]:
+        success, error_msg = _parse_timestamp(data.get(ts_field))
+        if not success:
+            errors.append(f"{label}: {ts_field} {error_msg}")
+
+    # Validate optional timestamps (skip if None)
+    for ts_field in ["last_confirmed", "expires_at"]:
         if ts_field in data and data[ts_field] is not None:
             success, error_msg = _parse_timestamp(data[ts_field])
             if not success:
                 errors.append(f"{label}: {ts_field} {error_msg}")
 
-    err = _check_enum_value(data.get("sensitivity"), SENSITIVITIES, "sensitivity", label)
+    # Validate confidence
+    err = _number(data, "confidence", label, 0, 1)
     if err:
         errors.append(err)
-
-    # Validate source and domain
-    if not isinstance(data.get("source"), str) or not data.get("source"):
-        errors.append(f"{label}: source must be non-empty string")
-    if not isinstance(data.get("domain"), str) or not data.get("domain"):
-        errors.append(f"{label}: domain must be non-empty string")
-
-    # Validate confidence in [0, 1] or None
-    confidence = data.get("confidence")
-    if confidence is not None:
-        if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or confidence < 0 or confidence > 1:
-            errors.append(f"{label}: confidence must be in [0, 1] or None")
 
     # Validate provenance (non-empty list of strings)
     provenance = data.get("provenance", [])
@@ -198,10 +238,8 @@ def validate_entity(data: Any, label: str = "entity") -> list[str]:
         if not isinstance(data.get("superseded_by"), str) or not data.get("superseded_by"):
             errors.append(f"{label}: status 'superseded' requires non-empty superseded_by")
 
-    # Validate local_only requirement for sensitive/secret
-    if requires_local_only(data.get("sensitivity", "")):
-        if data.get("local_only") is not True:
-            errors.append(f"{label}: sensitivity {data.get('sensitivity')!r} requires local_only=true")
+    # Common validation: source, domain, sensitivity, local_only, optional-provenance
+    _common(data, label, errors)
 
     return errors
 
@@ -230,20 +268,10 @@ def validate_event(data: Any, label: str = "event") -> list[str]:
     if err:
         errors.append(err)
 
-    # Validate timestamps
+    # Validate required timestamp
     success, error_msg = _parse_timestamp(data.get("occurred_at"))
     if not success:
         errors.append(f"{label}: occurred_at {error_msg}")
-
-    err = _check_enum_value(data.get("sensitivity"), SENSITIVITIES, "sensitivity", label)
-    if err:
-        errors.append(err)
-
-    # Validate source and domain
-    if not isinstance(data.get("source"), str) or not data.get("source"):
-        errors.append(f"{label}: source must be non-empty string")
-    if not isinstance(data.get("domain"), str) or not data.get("domain"):
-        errors.append(f"{label}: domain must be non-empty string")
 
     # Validate dedup_key
     if not isinstance(data.get("dedup_key"), str) or not data.get("dedup_key"):
@@ -253,18 +281,8 @@ def validate_event(data: Any, label: str = "event") -> list[str]:
     if not isinstance(data.get("payload"), dict):
         errors.append(f"{label}: payload must be a JSON object")
 
-    # Validate provenance (optional, but if present should be list of strings)
-    if "provenance" in data:
-        provenance = data.get("provenance", [])
-        if not isinstance(provenance, list):
-            errors.append(f"{label}: provenance must be a list")
-        elif provenance and not all(isinstance(item, str) for item in provenance):
-            errors.append(f"{label}: provenance must be a list of strings")
-
-    # Validate local_only requirement for sensitive/secret
-    if requires_local_only(data.get("sensitivity", "")):
-        if data.get("local_only") is not True:
-            errors.append(f"{label}: sensitivity {data.get('sensitivity')!r} requires local_only=true")
+    # Common validation: source, domain, sensitivity, local_only, optional-provenance
+    _common(data, label, errors)
 
     return errors
 
@@ -294,45 +312,33 @@ def validate_queue_item(data: Any, label: str = "queue_item") -> list[str]:
     if not _ENTITY_ID.match(str(entity_id_str)):
         errors.append(f"{label}: invalid entity_id {entity_id_str!r}")
 
-    # Validate timestamp
+    # Validate required timestamp
     success, error_msg = _parse_timestamp(data.get("queued_at"))
     if not success:
         errors.append(f"{label}: queued_at {error_msg}")
 
-    err = _check_enum_value(data.get("sensitivity"), SENSITIVITIES, "sensitivity", label)
+    # Validate optional deadline timestamp
+    if "deadline" in data and data["deadline"] is not None:
+        success, error_msg = _parse_timestamp(data["deadline"])
+        if not success:
+            errors.append(f"{label}: deadline {error_msg}")
+
+    # Validate number ranges
+    err = _number(data, "priority", label, 0)
     if err:
         errors.append(err)
 
-    # Validate source and domain
-    if not isinstance(data.get("source"), str) or not data.get("source"):
-        errors.append(f"{label}: source must be non-empty string")
-    if not isinstance(data.get("domain"), str) or not data.get("domain"):
-        errors.append(f"{label}: domain must be non-empty string")
+    err = _number(data, "importance", label, 0, 1)
+    if err:
+        errors.append(err)
 
-    # Validate optional timestamps
-    for ts_field in ["deadline"]:
-        if ts_field in data and data[ts_field] is not None:
-            success, error_msg = _parse_timestamp(data[ts_field])
-            if not success:
-                errors.append(f"{label}: {ts_field} {error_msg}")
+    err = _number(data, "blocking_impact", label, 0, 1)
+    if err:
+        errors.append(err)
 
-    # Validate priority (optional, but if present should be >= 0)
-    priority = data.get("priority")
-    if priority is not None:
-        if isinstance(priority, bool) or not isinstance(priority, (int, float)) or priority < 0:
-            errors.append(f"{label}: priority must be >= 0 or None")
-
-    # Validate importance in [0, 1] or None
-    importance = data.get("importance")
-    if importance is not None:
-        if isinstance(importance, bool) or not isinstance(importance, (int, float)) or importance < 0 or importance > 1:
-            errors.append(f"{label}: importance must be in [0, 1] or None")
-
-    # Validate blocking_impact in [0, 1] or None
-    blocking_impact = data.get("blocking_impact")
-    if blocking_impact is not None:
-        if isinstance(blocking_impact, bool) or not isinstance(blocking_impact, (int, float)) or blocking_impact < 0 or blocking_impact > 1:
-            errors.append(f"{label}: blocking_impact must be in [0, 1] or None")
+    err = _number(data, "interruption_cost", label, 0)
+    if err:
+        errors.append(err)
 
     # Validate urgency enum (optional)
     if "urgency" in data:
@@ -355,30 +361,13 @@ def validate_queue_item(data: Any, label: str = "queue_item") -> list[str]:
             if not isinstance(repeated_deferrals, int) or repeated_deferrals < 0:
                 errors.append(f"{label}: repeated_deferrals must be >= 0 or None")
 
-    # Validate interruption_cost (optional, >= 0 if present)
-    if "interruption_cost" in data:
-        interruption_cost = data.get("interruption_cost")
-        if interruption_cost is not None:
-            if isinstance(interruption_cost, bool) or not isinstance(interruption_cost, (int, float)) or interruption_cost < 0:
-                errors.append(f"{label}: interruption_cost must be >= 0 or None")
-
     # Validate status enum (optional)
     if "status" in data:
         err = _check_enum_value(data.get("status"), QUEUE_STATUSES, "status", label)
         if err:
             errors.append(err)
 
-    # Validate provenance (optional)
-    if "provenance" in data:
-        provenance = data.get("provenance", [])
-        if not isinstance(provenance, list):
-            errors.append(f"{label}: provenance must be a list")
-        elif provenance and not all(isinstance(item, str) for item in provenance):
-            errors.append(f"{label}: provenance must be a list of strings")
-
-    # Validate local_only requirement for sensitive/secret
-    if requires_local_only(data.get("sensitivity", "")):
-        if data.get("local_only") is not True:
-            errors.append(f"{label}: sensitivity {data.get('sensitivity')!r} requires local_only=true")
+    # Common validation: source, domain, sensitivity, local_only, optional-provenance
+    _common(data, label, errors)
 
     return errors

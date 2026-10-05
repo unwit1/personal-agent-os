@@ -181,6 +181,18 @@ class TestValidateEntity(unittest.TestCase):
         # Should not have created_at error
         self.assertFalse(any("created_at" in e and "invalid" in e for e in errors))
 
+    def test_created_at_null(self):
+        data = self._valid_entity()
+        data["created_at"] = None
+        errors = validate_entity(data)
+        self.assertTrue(any("created_at" in e and "not a string" in e for e in errors))
+
+    def test_updated_at_null(self):
+        data = self._valid_entity()
+        data["updated_at"] = None
+        errors = validate_entity(data)
+        self.assertTrue(any("updated_at" in e and "not a string" in e for e in errors))
+
     def test_unknown_sensitivity(self):
         data = self._valid_entity()
         data["sensitivity"] = "unknown_sensitivity"
@@ -442,6 +454,12 @@ class TestValidateEvent(unittest.TestCase):
         errors = validate_event(data)
         self.assertTrue(any("dedup_key must be non-empty string" in e for e in errors))
 
+    def test_occurred_at_null(self):
+        data = self._valid_event()
+        data["occurred_at"] = None
+        errors = validate_event(data)
+        self.assertTrue(any("occurred_at" in e and "not a string" in e for e in errors))
+
 
 class TestValidateQueueItem(unittest.TestCase):
     def _valid_queue_item(self) -> dict:
@@ -645,6 +663,12 @@ class TestValidateQueueItem(unittest.TestCase):
         data["interruption_cost"] = True
         errors = validate_queue_item(data)
         self.assertTrue(any("interruption_cost must be >= 0" in e for e in errors))
+
+    def test_queued_at_null(self):
+        data = self._valid_queue_item()
+        data["queued_at"] = None
+        errors = validate_queue_item(data)
+        self.assertTrue(any("queued_at" in e and "not a string" in e for e in errors))
 
 
 class TestConstants(unittest.TestCase):
