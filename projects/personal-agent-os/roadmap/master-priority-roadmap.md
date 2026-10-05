@@ -1057,6 +1057,10 @@ Success signal:
 
 ## P3 — Executive Core
 
+Status: **in progress** (2026-10-05). EXEC-0 entity, event, and queue-item schemas and contracts are present, with deterministic validation, stable IDs, and local-only enforcement for sensitive/secret data. The append-only local Event Bus log supports publishing, deduplication, listing, and lookup.
+
+Current: Open work: Event Bus consumers and routing (ignore/defer/process/delegate/surface); EXEC-1 Next Action Engine; Executive Queue behavior beyond its schema; explainability and provenance “why” surfaces; `agent-os exec next/capture/explain` CLI and MCP exposure; and selective-retrieval integration.
+
 Once the economy layer is dependable, build the core personal-executive features on top of it.
 
 Order:
