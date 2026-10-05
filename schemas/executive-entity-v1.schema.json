@@ -1,6 +1,5 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "personal-agent/executive-entity/v1",
   "title": "Agent OS Executive Entity",
   "type": "object",
   "required": ["schema", "id", "kind", "title", "status", "created_at", "updated_at", "source", "domain", "sensitivity", "provenance"],

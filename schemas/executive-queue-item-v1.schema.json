@@ -1,6 +1,5 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "personal-agent/executive-queue-item/v1",
   "title": "Agent OS Executive Queue Item",
   "type": "object",
   "required": ["schema", "id", "entity_id", "queued_at", "source", "domain", "sensitivity"],

@@ -1,6 +1,5 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "personal-agent/executive-event/v1",
   "title": "Agent OS Executive Event",
   "type": "object",
   "required": ["schema", "id", "type", "occurred_at", "source", "domain", "sensitivity", "dedup_key", "payload"],
