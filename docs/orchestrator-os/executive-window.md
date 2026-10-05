@@ -77,6 +77,18 @@ The window's outstanding list is the Executive Queue (roadmap P3). `Registry.out
 
 MCP tools `executive_window.next` and `executive_window.explain` return the same data, read-only and local-only. Provider errors are returned in the `errors` field. Hidden items are excluded just as in the outstanding list.
 
+### Project next actions and rank
+
+The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, registered in `builtin.default_registry()`) emits items for active projects from `projects/<id>/state.json`. For each project, it derives next action and flags via the per-project Next Action Engine, then emits up to three queue items per project:
+
+- `project_decision` (score 3): decision(s) needed for the project
+- `project_stalled` (score 2): project has not been updated in the configured stale-days threshold
+- `project_no_next_action` (score 1): project has no next action or current priority recorded
+
+Each item's `why` field contains the reason. Items appear on the work tab by default; a registry entry with `"tab": "personal"` places them on the personal tab instead.
+
+`Registry.outstanding()` adds a `rank` field to each queued item showing its position in the sorted Executive Queue: `rank = { position: <1-based rank>, of: <total ranked items>, ranking: <algorithm> }`. The window displays this rank next to the `why` context line (as `item-rank`), helping the operator see the item's priority at a glance.
+
 ## Safety model and audit
 
 **Consequential actions** (email send, outreach, approvals) never execute on the model's say-so:
