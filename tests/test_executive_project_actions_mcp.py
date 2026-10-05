@@ -186,6 +186,60 @@ class ProjectActionsMcpTests(unittest.TestCase):
                 self.assertEqual(len(result["errors"]), 1)
                 self.assertEqual(result["errors"][0]["project"], "proj2")
 
+    def test_projects_scan_stalled_and_flags_with_stale_days(self):
+        # Test with an old updated_at and custom stale_days to verify stalled flag
+        # and that stale_days is passed through correctly
+        proj_stale = {
+            "project": "stale-proj",
+            "status": "active",
+            "goal": "Old goal",
+            "updated_at": "2026-09-01T00:00:00Z"  # 34 days old (relative to 2026-10-05)
+        }
+        proj_with_decisions = {
+            "project": "decision-proj",
+            "status": "active",
+            "goal": "Goal needing decisions",
+            "next_action": "Need to decide on approach",
+            "decisions_needed": ["Decide on approach", "Choose implementation path"],
+            "updated_at": "2026-10-01T00:00:00Z"
+        }
+        proj_no_next_action = {
+            "project": "no-action-proj",
+            "status": "active",
+            "goal": "Goal without next action",
+            "updated_at": "2026-10-03T00:00:00Z"
+        }
+
+        def mock_canonical_projects():
+            return [
+                {"id": "stale-proj", "name": "Stale Project", "state_file": "stale_proj.json"},
+                {"id": "decision-proj", "name": "Decision Project", "state_file": "decision_proj.json"},
+                {"id": "no-action-proj", "name": "No Action Project", "state_file": "no_action_proj.json"}
+            ]
+
+        def mock_load_state(project):
+            if project.get("id") == "stale-proj":
+                return proj_stale
+            elif project.get("id") == "decision-proj":
+                return proj_with_decisions
+            elif project.get("id") == "no-action-proj":
+                return proj_no_next_action
+            raise ValueError(f"Unknown project: {project}")
+
+        with patch.object(mcp_server, "canonical_projects", side_effect=mock_canonical_projects):
+            with patch.object(mcp_server, "load_state", side_effect=mock_load_state):
+                result = self.call("executive_projects.scan", {"stale_days": 20})
+                # Verify stale_days is passed through
+                self.assertEqual(result["stale_days"], 20)
+                # Verify stalled list contains the old project
+                self.assertIn("stale-proj", result["stalled"])
+                # Verify needs_decision list contains the project with decisions
+                self.assertIn("decision-proj", result["needs_decision"])
+                # Verify no_next_action list contains the project without next action
+                self.assertIn("no-action-proj", result["no_next_action"])
+                # Verify we have 3 projects in results
+                self.assertEqual(len(result["projects"]), 3)
+
 
 if __name__ == "__main__":
     unittest.main()
