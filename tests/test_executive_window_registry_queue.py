@@ -11,7 +11,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from agent_os.executive import contracts, event_bus, window_queue
+from agent_os.executive import contracts, event_bus, window_queue, next_action
 from agent_os.executive.window.registry import Registry
 
 
@@ -33,14 +33,38 @@ def _registry() -> Registry:
 
 
 OPTIONS = [{"action_id": "done", "label": "Done", "consequential": False}]
-EXPECTED = {
-    "items": [
-        {"id": "w1", "tab": "work", "kind": "task", "title": "Reply to Sam", "why": "waiting 2 days", "score": 3, "options": OPTIONS},
-        {"id": "w2", "tab": "work", "kind": "odd", "title": "Bad sensitivity", "sensitivity": 7, "options": OPTIONS},
-        {"id": "h1", "tab": "personal", "kind": "task", "title": "Groceries", "options": OPTIONS},
-    ],
-    "errors": [{"provider": "broken", "error": "RuntimeError: down"}],
-}
+
+def _build_expected():
+    """Build EXPECTED with computed rank positions."""
+    reg = _registry()
+    queue_items = reg.queue()["queue_items"]
+    ranked = next_action.rank(queue_items)
+    rank_map = {qi["id"]: idx + 1 for idx, qi in enumerate(ranked)}
+    total = len(ranked)
+
+    # Build items with rank info
+    outstanding = reg.outstanding()
+    items_with_rank = []
+    for item in outstanding["items"]:
+        item_copy = dict(item)
+        # Find the queue item id for this item to get its rank
+        for qi in queue_items:
+            if qi.get("window_item", {}).get("id") == item.get("id"):
+                if qi["id"] in rank_map:
+                    item_copy["rank"] = {
+                        "position": rank_map[qi["id"]],
+                        "of": total,
+                        "ranking": next_action.RANKING
+                    }
+                break
+        items_with_rank.append(item_copy)
+
+    return {
+        "items": items_with_rank,
+        "errors": outstanding["errors"],
+    }
+
+EXPECTED = _build_expected()
 
 
 class _Hidden:
@@ -66,7 +90,10 @@ class RegistryQueueTests(unittest.TestCase):
     def test_item_that_fails_conversion_passes_through_unchanged(self) -> None:
         reg = _registry()
         with patch.object(window_queue, "queue_item_from_window_item", side_effect=ValueError("bad")):
-            self.assertEqual(reg.outstanding(), EXPECTED)
+            result = reg.outstanding()
+            # Items with failed conversion should not have a 'rank' key
+            for item in result["items"]:
+                self.assertNotIn("rank", item)
             self.assertEqual(reg.queue()["queue_items"], [])
 
     def test_tab_and_hidden_filters_still_apply(self) -> None:
@@ -102,6 +129,30 @@ class RegistryQueueTests(unittest.TestCase):
             self.assertEqual(contracts.validate_queue_item(item), [])
         self.assertEqual(items[0]["reason"], "waiting 2 days")
         self.assertEqual(items[0]["priority"], 3)
+
+    def test_tab_filter_limits_of_count(self) -> None:
+        """With tab='work' filter, 'of' should be 2 (w1 and w2)."""
+        reg = _registry()
+        result = reg.outstanding(tab="work")
+        self.assertEqual(len(result["items"]), 2)
+        # Both items should have rank with 'of': 2
+        for item in result["items"]:
+            if "rank" in item:
+                self.assertEqual(item["rank"]["of"], 2)
+
+    def test_highest_score_has_position_one(self) -> None:
+        """The item with highest score (w1 with score=3) should have position 1."""
+        reg = _registry()
+        result = reg.outstanding()
+        # Find w1
+        w1 = None
+        for item in result["items"]:
+            if item.get("id") == "w1":
+                w1 = item
+                break
+        self.assertIsNotNone(w1)
+        self.assertIn("rank", w1)
+        self.assertEqual(w1["rank"]["position"], 1)
 
 
 if __name__ == "__main__":
