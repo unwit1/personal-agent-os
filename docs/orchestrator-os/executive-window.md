@@ -168,3 +168,7 @@ See [mail-intelligence.md](../integrations/mail-intelligence.md) and
 Accounts need `allow_organize` set by the operator (default off, per account) in
 `.agent-local/mail/accounts.json` before any organize action can move mail. Nothing
 is moved otherwise.
+
+## Per-project Next Action Engine
+
+See [executive-project-actions.md](executive-project-actions.md) for the EXEC-1 per-project Next Action Engine.

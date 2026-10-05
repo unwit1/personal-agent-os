@@ -9,7 +9,16 @@
     "status": {"enum": ["active", "supporting", "candidate", "archived"]},
     "summary": {"type": "string", "minLength": 1},
     "context_files": {"type": "array", "items": {"type": "string"}},
-    "validation_commands": {"type": "array", "items": {"type": "string"}}
+    "validation_commands": {"type": "array", "items": {"type": "string"}},
+    "goal": {"type": "string"},
+    "current_state": {"type": "string"},
+    "next_action": {"type": "string"},
+    "current_priorities": {"type": "array", "items": {"type": "string"}},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "waiting_on": {"type": "array", "items": {"type": "string"}},
+    "decisions_needed": {"type": "array", "items": {"type": "string"}},
+    "delegable_work": {"type": "array", "items": {"type": "string"}},
+    "updated_at": {"type": "string"}
   },
   "additionalProperties": true
 }

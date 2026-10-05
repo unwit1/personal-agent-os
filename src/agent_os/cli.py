@@ -163,6 +163,14 @@ def _register_executive(commands) -> None:
     explain = sub.add_parser("explain")
     explain.add_argument("item_id")
     explain.add_argument("--tab", choices=["work", "personal"], default=None)
+    project_next = sub.add_parser("project-next")
+    project_next.add_argument("project")
+    project_next.add_argument("--stale-days", type=int, default=None)
+    project_next.add_argument("--today", type=str, default=None)
+    project_scan = sub.add_parser("project-scan")
+    project_scan.add_argument("--stale-days", type=int, default=None)
+    project_scan.add_argument("--today", type=str, default=None)
+    project_scan.add_argument("--all", action="store_true")
 
 
 def _approval_state(batch: dict) -> dict:
@@ -239,6 +247,40 @@ def _dispatch_executive(args) -> int:
         q = _executive_window_queue(args.tab)
         explanation = next_action.explain(q["queue_items"], args.item_id)
         _print({"item_id": args.item_id, "explanation": explanation, "errors": q["errors"]})
+    elif cmd == "project-next":
+        from . import registry
+        from .executive import project_actions
+        from datetime import date
+
+        try:
+            project = registry.get_project(args.project)
+        except KeyError:
+            raise ValueError(f"unknown project: {args.project}") from None
+
+        state = registry.load_state(project)
+        today = date.fromisoformat(args.today) if args.today else date.today()
+        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        _print(project_actions.project_next_action(state, today=today, stale_days=stale_days))
+    elif cmd == "project-scan":
+        from . import registry
+        from .executive import project_actions
+        from datetime import date
+
+        states = []
+        errors = []
+        for proj in registry.canonical_projects():
+            if "state_file" not in proj:
+                continue
+            try:
+                state = registry.load_state(proj)
+                states.append(state)
+            except Exception as exc:
+                errors.append({"project": proj.get("id"), "error": str(exc)})
+
+        today = date.fromisoformat(args.today) if args.today else date.today()
+        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        result = project_actions.scan(states, today=today, stale_days=stale_days, include_inactive=args.all)
+        _print({**result, "errors": errors})
     return 0
 
 
