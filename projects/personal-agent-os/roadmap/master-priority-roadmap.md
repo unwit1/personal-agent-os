@@ -949,7 +949,7 @@ Use OpenAI/Anthropic APIs for bounded Agent-OS-owned subtasks when doing so is a
 
 ### P2.1 — Automation Miner
 
-Status: **deterministic foundation complete** (2026-09-22).
+Status: **on hold** (2026-10-05), awaiting the operator: the second hash-site slice (run-20261004T214405Z-0b334c, JSON/byte hashing via a `json_sha256` helper) is unlanded because one task edited the protected `orchestrator/eval.py`, which needs an operator grant; the import-loop extraction still needs an architectural decision. Earlier: **deterministic foundation complete** (2026-09-22).
 
 Completion evidence: five repository-evidenced repeated deterministic seams were
 extracted into normal reusable code with synthetic or existing regression
