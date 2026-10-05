@@ -146,6 +146,8 @@ DEFAULT_POLICY: dict[str, Any] = {
     "planner_read_budget": 8,
     # P2.3 opt-in, implementer/test_author/repairer prompts get a local map of their scope files (no model call).
     "worker_scope_map": False,
+    # P2.3 opt-in, reviewer prompts get a local map of the reviewed task's scope files (no model call).
+    "reviewer_scope_map": False,
     # Operator-only grant of protected control/evaluation-plane paths
     # (orchestrator/control_plane.py). Planners cannot set run policy.
     "protected_paths_allowed": [],
@@ -227,6 +229,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "planner_repo_map",
         "shared_prefix",
         "worker_scope_map",
+        "reviewer_scope_map",
         "allow_worker_publication",
         "allow_paid_spend",
         "share_run_history",
