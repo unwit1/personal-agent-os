@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any, Iterable
 
-from .compiler import compile_context
+from .compiler import _compact_handoff, compile_context
 from .skills import Skill, match
 
 
@@ -32,6 +33,31 @@ def context_economy_report(project_id: str, task: str, token_budget: int = 1200)
 
 
 CAPABILITY_ORDER = ("deterministic", "fast", "balanced", "reasoning", "frontier")
+
+
+def handoff_compaction_report(handoffs: Iterable[dict[str, Any]]) -> dict[str, Any]:
+    """Measure handoff compaction without exposing handoff contents."""
+    count = 0
+    raw_tokens = 0
+    compacted_tokens = 0
+    dropped_keys: set[str] = set()
+    for handoff in handoffs:
+        count += 1
+        raw_tokens += (len(json.dumps(handoff, sort_keys=True, ensure_ascii=False)) + 3) // 4
+        compacted = _compact_handoff(handoff)
+        if compacted is None:
+            compacted = {}
+        compacted_tokens += (len(json.dumps(compacted, sort_keys=True, ensure_ascii=False)) + 3) // 4
+        dropped_keys.update(key for key in handoff if key not in compacted)
+    return {
+        "handoffs": count,
+        "raw_tokens": raw_tokens,
+        "compacted_tokens": compacted_tokens,
+        "tokens_avoided": raw_tokens - compacted_tokens,
+        "ratio": round(compacted_tokens / raw_tokens, 4) if raw_tokens else None,
+        "dropped_keys": sorted(dropped_keys),
+        "model_calls": 0,
+    }
 
 
 def evaluate_skill_corpus(cases: Iterable[dict[str, Any]], skills: list[Skill], minimum_score: int = 2) -> list[dict[str, Any]]:
