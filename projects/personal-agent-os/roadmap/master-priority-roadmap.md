@@ -1061,6 +1061,8 @@ Status: **in progress** (2026-10-05). EXEC-0 entity, event, and queue-item schem
 
 Current: Open work: EXEC-1 Next Action Engine; Executive Queue behavior beyond its schema; user-facing explainability and provenance “why” surfaces beyond stored route reasons; `agent-os exec next/capture/explain` CLI and MCP exposure (including routing over MCP); and selective-retrieval integration.
 
+Operator constraint (2026-10-05): the Executive Core is the existing Executive window (`src/agent_os/executive/window`), not a parallel system. The Executive Queue is the window's outstanding items: window providers (`registry.register_provider`, items with id/tab/kind/title/why/source/age_days/score) publish their items as EXEC-0 events/queue items, and the window reads its outstanding list through the queue (the item `why` maps to the queue `reason`). The Next Action Engine ranks those same items for the window; "why" explanations appear on window items; new executive actions register through the window registry and its preview/Confirm flow. Do not add a second queue store, item list, approval flow or UI. Next slice: wire the existing providers and the window's outstanding list through the contracts/Event Bus without changing what the window shows.
+
 Once the economy layer is dependable, build the core personal-executive features on top of it.
 
 Order:
