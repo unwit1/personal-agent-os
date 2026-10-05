@@ -79,3 +79,25 @@ reported as improved.
 Compaction never truncates text, caps list length, or moves items between
 keys. Lossy limits such as truncation, per-key caps, and dropping `remaining`
 items already completed are not implemented.
+
+### Scope map measurement
+
+Run `agent-os orchestrate context-bench --scope-repo <checkout>` to measure
+implementer and reviewer prompts with and without local scope maps. For each
+corpus case in `tests/fixtures/economy-corpus.json` that lists a `scope`, the
+tool builds a local scope map (repomap.scope_map, no model call) from the
+checkout and includes it in worker and reviewer context. The report gains a
+`scope_maps` object with schema matching `personal-agent/orchestrator-context-bench/v1`:
+`cases` (count of corpus cases with a scope), `map_tokens` (total tokens in
+generated maps), `prompt_tokens_without` (total prompt tokens without maps),
+`prompt_tokens_with` (total prompt tokens with maps included), `overhead_tokens`
+(the difference; positive means maps increase context), and
+`cacheable_prefix_tokens_with` (cacheable shared-prefix tokens when maps are
+included).
+
+With `--baseline` comparison, `scope_maps.overhead_tokens` is included in the
+metrics list (lower is better; status is "missing" when either report lacks
+this measurement). The measurement informs whether the opt-in run policies
+`worker_scope_map` and `reviewer_scope_map` should become default-on. They
+remain opt-in (default False) until measurement demonstrates that overhead is
+justified by improved completeness or reduced rework.

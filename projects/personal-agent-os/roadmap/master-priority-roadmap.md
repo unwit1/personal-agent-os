@@ -1031,7 +1031,7 @@ outside the shared prefix, logged as a `context_selected` event
 retrieval: opt-in run policy `reviewer_scope_map` adds a local scope map (files
 in the reviewed task's scope with line counts, top-level names; no model call)
 to reviewer prompts outside the shared prefix, logged as a `context_selected`
-event (`docs/simple-mode.md`, "Worker scope map"). Making worker/reviewer scope
+event (`docs/simple-mode.md`, "Worker scope map"). On 2026-10-05, `agent-os orchestrate context-bench --scope-repo <checkout>` measures worker/reviewer prompts with and without local scope maps for corpus cases listing a scope (scope_maps: map, overhead and cacheable-prefix tokens; no model call), and `--baseline` gates `scope_maps.overhead_tokens` (`docs/economy-regressions.md`, "Scope map measurement"). Making worker/reviewer scope
 maps default-on (it needs measurement), lossy handoff limits (truncation/caps,
 needs a design decision), telemetry-driven capability selection, and actually
 applying bench-gated prompt-template/retrieval-query changes remain open.

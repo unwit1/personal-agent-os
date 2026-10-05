@@ -9,6 +9,8 @@ from typing import Any, Iterable
 from agent_os import economy
 
 from . import context_economy, prompt_measure
+from .repomap import scope_map
+from .usage import estimate_tokens
 
 
 SCHEMA = "personal-agent/orchestrator-context-bench/v1"
@@ -45,6 +47,7 @@ def compare(baseline: dict, current: dict) -> dict:
         ("prompts.totals.cacheable_prefix_tokens", "higher_is_better"),
         ("handoffs.tokens_avoided", "higher_is_better"),
         ("compiler.totals.tokens_avoided", "higher_is_better"),
+        ("scope_maps.overhead_tokens", "lower_is_better"),
     ])
 
     metrics: list[dict[str, Any]] = []
@@ -102,6 +105,7 @@ def build(
     project: str = "personal-agent-os",
     token_budget: int = 1200,
     run_dirs: Iterable[Path] = (),
+    scope_repo: Path | None = None,
 ) -> dict[str, Any]:
     """Measure fixed corpus, synthetic prompts, handoffs, and optional coverage."""
     cases = json.loads(Path(corpus_path).read_text(encoding="utf-8"))
@@ -148,12 +152,41 @@ def build(
                 "validators": [],
             })
 
+    scope_maps_dict: dict[str, str] | None = None
+    scope_maps_data: dict[str, int] = {"cases": 0, "map_tokens": 0}
+    if scope_repo is not None:
+        scope_maps_dict = {}
+        for index, case in enumerate(cases):
+            scope = case.get("scope", [])
+            if scope:
+                map_result = scope_map(scope_repo, scope)
+                scope_maps_dict[f"implementer-{index}"] = map_result["text"]
+                scope_maps_dict[f"reviewer-{index}"] = map_result["text"]
+                scope_maps_data["cases"] += 1
+                scope_maps_data["map_tokens"] += estimate_tokens(map_result["text"])
+
     directories = tuple(run_dirs)
-    return {
+    prompts = prompt_measure.measure(run, nodes)
+    report = {
         "schema": SCHEMA,
         "model_calls": 0,
         "compiler": compiler,
-        "prompts": prompt_measure.measure(run, nodes),
+        "prompts": prompts,
         "handoffs": economy.handoff_compaction_report(handoffs),
         "telemetry": context_economy.build(directories)["coverage"] if directories else None,
     }
+
+    if scope_repo is not None:
+        with_maps = prompt_measure.measure(run, nodes, scope_maps=scope_maps_dict)
+        report["scope_maps"] = {
+            "cases": scope_maps_data["cases"],
+            "map_tokens": scope_maps_data["map_tokens"],
+            "prompt_tokens_without": prompts["totals"]["total_tokens"],
+            "prompt_tokens_with": with_maps["totals"]["total_tokens"],
+            "overhead_tokens": with_maps["totals"]["total_tokens"] - prompts["totals"]["total_tokens"],
+            "cacheable_prefix_tokens_with": with_maps["totals"]["cacheable_prefix_tokens"],
+        }
+    else:
+        report["scope_maps"] = None
+
+    return report
