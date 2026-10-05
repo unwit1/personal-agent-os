@@ -1000,6 +1000,8 @@ No generated skill may silently self-promote.
 
 ### P2.3 — Prompt/context optimization
 
+Status: **complete for now** (2026-10-05). The offline measurement and gating tools, lossless handoff compaction and opt-in worker/reviewer scope maps are in place. Awaiting the operator: whether to turn scope maps on by default (needs measured run outcomes, not only token counts) and whether lossy handoff limits (truncation/caps) are acceptable. Telemetry-driven capability selection and applying bench-gated prompt-template changes remain open for a later pass.
+
 Current bounded implementation (2026-09-23): the orchestrator planner now gets
 a local goal-focused repository map (with companion files), an exploration
 budget, medium effort, tool-restricted read-only mode and an explicit working
