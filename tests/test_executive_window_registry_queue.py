@@ -34,85 +34,78 @@ def _registry() -> Registry:
 
 OPTIONS = [{"action_id": "done", "label": "Done", "consequential": False}]
 
-# Hard-coded EXPECTED items with rank positions computed from next_action.rank
-# on reg.queue()['queue_items']
-def _build_expected():
-    """Build EXPECTED with hard-coded items and computed positions for w2/h1."""
+# Literal EXPECTED items WITHOUT rank keys (the items as they appear, unranked)
+EXPECTED_UNRANKED = {
+    "items": [
+        {
+            "id": "w1",
+            "tab": "work",
+            "kind": "task",
+            "title": "Reply to Sam",
+            "why": "waiting 2 days",
+            "score": 3,
+            "options": OPTIONS,
+        },
+        {
+            "id": "w2",
+            "tab": "work",
+            "kind": "odd",
+            "title": "Bad sensitivity",
+            "sensitivity": 7,
+            "options": OPTIONS,
+        },
+        {
+            "id": "h1",
+            "tab": "personal",
+            "kind": "task",
+            "title": "Groceries",
+            "options": OPTIONS,
+        },
+    ],
+    "errors": [{"provider": "broken", "error": "RuntimeError: down"}],
+}
+
+
+def _build_expected_with_ranks():
+    """Compute EXPECTED with rank info using next_action.rank()."""
     reg = _registry()
     queue_items = reg.queue()["queue_items"]
     ranked = next_action.rank(queue_items)
 
-    # Create rank map: queue_item id -> position
+    # Build position map: queue_item id -> 1-based position
     rank_map = {qi["id"]: idx + 1 for idx, qi in enumerate(ranked)}
     total = len(ranked)
 
-    # Create a mapping from window item id to queue item id
+    # Build window item id -> queue item id mapping
     window_to_qi = {}
     for qi in queue_items:
         window_item = qi.get("window_item", {})
         if isinstance(window_item, dict):
             window_to_qi[window_item.get("id")] = qi["id"]
 
-    # Hard-code EXPECTED items with rank info computed from the ranking
+    # Add rank info to items
     items = []
-
-    # w1: hard-coded position 1 (has score=3, highest priority)
-    w1_qi_id = window_to_qi.get("w1")
-    items.append({
-        "id": "w1",
-        "tab": "work",
-        "kind": "task",
-        "title": "Reply to Sam",
-        "why": "waiting 2 days",
-        "score": 3,
-        "options": OPTIONS,
-        "rank": {
-            "position": rank_map.get(w1_qi_id, 1),
-            "of": total,
-            "ranking": next_action.RANKING
-        }
-    })
-
-    # w2: compute position from ranking
-    w2_qi_id = window_to_qi.get("w2")
-    items.append({
-        "id": "w2",
-        "tab": "work",
-        "kind": "odd",
-        "title": "Bad sensitivity",
-        "sensitivity": 7,
-        "options": OPTIONS,
-        "rank": {
-            "position": rank_map.get(w2_qi_id, 3),
-            "of": total,
-            "ranking": next_action.RANKING
-        }
-    })
-
-    # h1: compute position from ranking
-    h1_qi_id = window_to_qi.get("h1")
-    items.append({
-        "id": "h1",
-        "tab": "personal",
-        "kind": "task",
-        "title": "Groceries",
-        "options": OPTIONS,
-        "rank": {
-            "position": rank_map.get(h1_qi_id, 2),
-            "of": total,
-            "ranking": next_action.RANKING
-        }
-    })
-
-    # Get errors from the registry
-    errors = reg.outstanding()["errors"]
+    for unranked_item in EXPECTED_UNRANKED["items"]:
+        item = dict(unranked_item)
+        window_id = item["id"]
+        qi_id = window_to_qi.get(window_id)
+        if qi_id is not None:
+            position = rank_map.get(qi_id)
+            if position is not None:
+                item["rank"] = {
+                    "position": position,
+                    "of": total,
+                    "ranking": next_action.RANKING
+                }
+        items.append(item)
 
     return {
         "items": items,
-        "errors": errors,
+        "errors": EXPECTED_UNRANKED["errors"],
     }
 
-EXPECTED = _build_expected()
+
+EXPECTED = _build_expected_with_ranks()
 
 
 class _Hidden:
@@ -139,9 +132,8 @@ class RegistryQueueTests(unittest.TestCase):
         reg = _registry()
         with patch.object(window_queue, "queue_item_from_window_item", side_effect=ValueError("bad")):
             result = reg.outstanding()
-            # Items with failed conversion should not have a 'rank' key
-            for item in result["items"]:
-                self.assertNotIn("rank", item)
+            # Items with failed conversion should be present and unchanged, with no 'rank' key
+            self.assertEqual(result, EXPECTED_UNRANKED)
             self.assertEqual(reg.queue()["queue_items"], [])
 
     def test_tab_and_hidden_filters_still_apply(self) -> None:
