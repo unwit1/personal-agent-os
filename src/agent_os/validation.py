@@ -285,7 +285,7 @@ def validate() -> dict[str, Any]:
         if unknown:
             errors.append(f"{label}: run records stages absent from the manifest: {', '.join(sorted(unknown))}")
 
-    required_schemas = {"change-packet.schema.json", "connector-registry-v1.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json", "workflow-manifest-v1.schema.json"}
+    required_schemas = {"change-packet.schema.json", "connector-registry-v1.schema.json", "executive-entity-v1.schema.json", "executive-event-v1.schema.json", "executive-queue-item-v1.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json", "workflow-manifest-v1.schema.json"}
     for schema_name in required_schemas:
         checked += 1
         if not (ROOT / "schemas" / schema_name).exists():
