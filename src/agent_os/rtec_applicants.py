@@ -950,16 +950,7 @@ def sync_status() -> dict[str, Any]:
         health["status"] = "unavailable"
         health["outbox"] = {"pending_count": 0, "oldest_pending_at": None, "newest_pending_at": None}
         _audit_health("applicant.sync_status", {"status": health["status"]})
-        _audit_health(
-        "applicant.sync_status",
-        {
-            "status": health.get("status"),
-            "database_present": bool(health.get("database_present")),
-            "agent_ref_schema_ready": bool(health.get("agent_ref_schema_ready")),
-            "pending_event_count": int((health.get("outbox") or {}).get("pending_count") or 0),
-        },
-    )
-    return health
+        return health
 
     try:
         conn = _connect_readonly()
@@ -1006,6 +997,15 @@ def sync_status() -> dict[str, Any]:
     except sqlite3.Error:
         health["status"] = "degraded"
         health["database_read_error"] = True
+    _audit_health(
+        "applicant.sync_status",
+        {
+            "status": health.get("status"),
+            "database_present": bool(health.get("database_present")),
+            "agent_ref_schema_ready": bool(health.get("agent_ref_schema_ready")),
+            "pending_event_count": int((health.get("outbox") or {}).get("pending_count") or 0),
+        },
+    )
     return health
 
 
