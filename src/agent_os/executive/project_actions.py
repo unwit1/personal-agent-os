@@ -6,10 +6,43 @@ and rank project action planning metadata.
 
 from __future__ import annotations
 
+import re
 from datetime import date
 from typing import Any
 
 STALE_DAYS_DEFAULT = 30
+VAGUE_ACTIONS = frozenset({'tbd', 'todo', 'n/a', 'none', 'continue', 'keep going', 'next steps', 'work on it', 'progress', 'misc', 'various'})
+_VAGUE_PREFIX = re.compile(r'^(work on|continue working on|continue with|continue on|keep working on|make progress on|progress on|look into|think about)\s+\S+(\s+\S+){0,2}$')
+
+
+def is_vague_action(text: str) -> bool:
+    """Check if text represents a vague action.
+
+    Returns False for non-str or empty text. Otherwise normalizes the text:
+    strip, lowercase, strip trailing '.!?', and collapse internal whitespace.
+    Returns True if the normalized text is in VAGUE_ACTIONS or fully matches
+    _VAGUE_PREFIX, else False.
+
+    Args:
+        text: Text to check
+
+    Returns:
+        True if text is a vague action, False otherwise
+    """
+    if not isinstance(text, str) or not text:
+        return False
+
+    normalized = text.strip().lower()
+    normalized = normalized.rstrip('.!?')
+    normalized = ' '.join(normalized.split())
+
+    if normalized in VAGUE_ACTIONS:
+        return True
+
+    if _VAGUE_PREFIX.fullmatch(normalized):
+        return True
+
+    return False
 
 
 def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAYS_DEFAULT) -> dict:
@@ -24,7 +57,8 @@ def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAY
 
     Returns:
         Dict with project, status, goal, current_state, next_action, next_action_source,
-        blockers, waiting_on, decisions_needed, delegable_work, updated_at, age_days, flags.
+        blockers, waiting_on, decisions_needed, delegable_work, updated_at, age_days, flags,
+        and suggested_next_action (when vague_next_action flag is set).
 
     Raises:
         TypeError: if state is not a dict
@@ -93,6 +127,21 @@ def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAY
     if decisions_needed:
         flags.append("needs_decision")
 
+    suggested_next_action = None
+    if next_action is not None and is_vague_action(next_action):
+        flags.append("vague_next_action")
+        current_priorities = state.get("current_priorities", [])
+        if isinstance(current_priorities, list):
+            for priority in current_priorities:
+                if isinstance(priority, str) and priority.strip() and priority != next_action and not is_vague_action(priority):
+                    suggested_next_action = priority
+                    break
+        if suggested_next_action is None:
+            for item in delegable_work:
+                if item and not is_vague_action(item):
+                    suggested_next_action = item
+                    break
+
     flags.sort()
 
     return {
@@ -109,6 +158,7 @@ def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAY
         "updated_at": updated_at,
         "age_days": age_days,
         "flags": flags,
+        "suggested_next_action": suggested_next_action,
     }
 
 
@@ -132,6 +182,7 @@ def scan(
         'stalled' (list of project ids flagged stalled),
         'no_next_action' (list of project ids flagged no_next_action),
         'needs_decision' (list of project ids flagged needs_decision),
+        'vague_next_action' (list of project ids flagged vague_next_action),
         'stale_days' (threshold used)
     """
     projects_to_scan = []
@@ -152,11 +203,13 @@ def scan(
     stalled = [p["project"] for p in project_results if "stalled" in p["flags"]]
     no_next_action = [p["project"] for p in project_results if "no_next_action" in p["flags"]]
     needs_decision = [p["project"] for p in project_results if "needs_decision" in p["flags"]]
+    vague_next_action = [p["project"] for p in project_results if "vague_next_action" in p["flags"]]
 
     return {
         "projects": project_results,
         "stalled": stalled,
         "no_next_action": no_next_action,
         "needs_decision": needs_decision,
+        "vague_next_action": vague_next_action,
         "stale_days": stale_days,
     }
