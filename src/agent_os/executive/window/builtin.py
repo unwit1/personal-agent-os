@@ -14,6 +14,7 @@ from . import (
     providers_orchestrator,
     registry,
 )
+from ..event_bus import EventBus, DEFAULT_DIR
 
 _initialized = False
 
@@ -42,6 +43,9 @@ def default_registry() -> registry.Registry:
         actions_executive.register(registry.REGISTRY)
         actions_items.register(registry.REGISTRY)
         actions_mail_organize.register(registry.REGISTRY)
+
+        # Attach the shared local Event Bus
+        registry.REGISTRY.attach_event_bus(EventBus(DEFAULT_DIR))
 
         _initialized = True
 
