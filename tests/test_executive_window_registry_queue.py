@@ -10,6 +10,7 @@ from agent_os.executive.event_bus import EventBus
 from agent_os.executive.window.confirm import ItemState
 from agent_os.executive.window.registry import Registry
 from agent_os.executive import contracts
+from agent_os.executive import window_queue
 
 
 def item(i, tab="work", kind="note", why=None, score=None):
@@ -468,6 +469,97 @@ class RegistryQueueTests(unittest.TestCase):
         # Bus should have received exactly 2 events (one per valid item)
         events = bus.events("task.created")
         self.assertEqual(len(events), 2)
+
+
+    def test_queue_item_conversion_failure_recorded_as_error(self):
+        """queue() records item conversion failures as errors and skips the item."""
+        import unittest.mock as mock
+
+        reg = Registry()
+        reg.register_provider("p", lambda: [
+            item("a", why="valid"),
+            item("b", why="invalid")
+        ])
+
+        # Mock queue_item_from_window_item to fail on item "b"
+        original_convert = window_queue.queue_item_from_window_item
+        def selective_convert(raw, provider):
+            if raw.get("id") == "b":
+                raise ValueError("Item b has invalid structure")
+            return original_convert(raw, provider)
+
+        with mock.patch("agent_os.executive.window.registry.window_queue.queue_item_from_window_item", selective_convert):
+            result = reg.queue()
+
+        # Item "a" should be in queue, item "b" should not
+        self.assertEqual(len(result["queue_items"]), 1)
+        self.assertEqual(result["queue_items"][0]["window_item"]["id"], "a")
+
+        # Error for item "b" should be recorded
+        self.assertEqual(len(result["errors"]), 1)
+        self.assertEqual(result["errors"][0]["provider"], "p")
+        self.assertIn("ValueError", result["errors"][0]["error"])
+        self.assertIn("invalid structure", result["errors"][0]["error"])
+
+    def test_outstanding_with_conversion_failure_unchanged(self):
+        """outstanding() output is unchanged when conversion fails on some items."""
+        import unittest.mock as mock
+
+        reg = Registry()
+        reg.register_provider("p1", lambda: [
+            item("good", tab="work", why="valid")
+        ])
+        reg.register_provider("p2", lambda: [
+            item("bad", tab="personal", why="will fail")
+        ])
+        reg.register_action("act1", "Action 1", "*", lambda i, p, *, confirm: {}, False)
+
+        original_convert = window_queue.queue_item_from_window_item
+        def selective_convert(raw, provider):
+            if raw.get("id") == "bad":
+                raise ValueError("Conversion rejected")
+            return original_convert(raw, provider)
+
+        with mock.patch("agent_os.executive.window.registry.window_queue.queue_item_from_window_item", selective_convert):
+            out = reg.outstanding()
+
+        # Only "good" item should be in output
+        self.assertEqual(len(out["items"]), 1)
+        self.assertEqual(out["items"][0]["id"], "good")
+        self.assertEqual(out["items"][0]["why"], "valid")
+        self.assertIn("options", out["items"][0])
+
+        # Error should be recorded
+        self.assertEqual(len(out["errors"]), 1)
+        self.assertEqual(out["errors"][0]["provider"], "p2")
+
+    def test_multiple_providers_some_with_conversion_failure(self):
+        """queue() correctly handles multiple providers when some have conversion failures."""
+        import unittest.mock as mock
+
+        reg = Registry()
+        reg.register_provider("p1", lambda: [item("a")])
+        reg.register_provider("p2", lambda: [item("b")])
+        reg.register_provider("p3", lambda: [item("c")])
+
+        original_convert = window_queue.queue_item_from_window_item
+        def selective_convert(raw, provider):
+            if raw.get("id") == "b":
+                raise RuntimeError("p2 item cannot be converted")
+            return original_convert(raw, provider)
+
+        with mock.patch("agent_os.executive.window.registry.window_queue.queue_item_from_window_item", selective_convert):
+            result = reg.queue()
+
+        # Should have items "a" and "c", but not "b"
+        ids = [qi["window_item"]["id"] for qi in result["queue_items"]]
+        self.assertEqual(ids, ["a", "c"])
+
+        # Should have error for "b"
+        self.assertEqual(len(result["errors"]), 1)
+        self.assertEqual(result["errors"][0]["provider"], "p2")
+        self.assertIn("RuntimeError", result["errors"][0]["error"])
+        self.assertIn("cannot be converted", result["errors"][0]["error"])
 
 
 if __name__ == "__main__":
