@@ -11,7 +11,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from agent_os.executive import contracts, event_bus, window_queue
+from agent_os.executive import contracts, event_bus, window_queue, next_action
 from agent_os.executive.window.registry import Registry
 
 
@@ -33,14 +33,79 @@ def _registry() -> Registry:
 
 
 OPTIONS = [{"action_id": "done", "label": "Done", "consequential": False}]
-EXPECTED = {
+
+# Literal EXPECTED items WITHOUT rank keys (the items as they appear, unranked)
+EXPECTED_UNRANKED = {
     "items": [
-        {"id": "w1", "tab": "work", "kind": "task", "title": "Reply to Sam", "why": "waiting 2 days", "score": 3, "options": OPTIONS},
-        {"id": "w2", "tab": "work", "kind": "odd", "title": "Bad sensitivity", "sensitivity": 7, "options": OPTIONS},
-        {"id": "h1", "tab": "personal", "kind": "task", "title": "Groceries", "options": OPTIONS},
+        {
+            "id": "w1",
+            "tab": "work",
+            "kind": "task",
+            "title": "Reply to Sam",
+            "why": "waiting 2 days",
+            "score": 3,
+            "options": OPTIONS,
+        },
+        {
+            "id": "w2",
+            "tab": "work",
+            "kind": "odd",
+            "title": "Bad sensitivity",
+            "sensitivity": 7,
+            "options": OPTIONS,
+        },
+        {
+            "id": "h1",
+            "tab": "personal",
+            "kind": "task",
+            "title": "Groceries",
+            "options": OPTIONS,
+        },
     ],
     "errors": [{"provider": "broken", "error": "RuntimeError: down"}],
 }
+
+
+def _build_expected_with_ranks():
+    """Compute EXPECTED with rank info using next_action.rank()."""
+    reg = _registry()
+    queue_items = reg.queue()["queue_items"]
+    ranked = next_action.rank(queue_items)
+
+    # Build position map: queue_item id -> 1-based position
+    rank_map = {qi["id"]: idx + 1 for idx, qi in enumerate(ranked)}
+    total = len(ranked)
+
+    # Build window item id -> queue item id mapping
+    window_to_qi = {}
+    for qi in queue_items:
+        window_item = qi.get("window_item", {})
+        if isinstance(window_item, dict):
+            window_to_qi[window_item.get("id")] = qi["id"]
+
+    # Add rank info to items
+    items = []
+    for unranked_item in EXPECTED_UNRANKED["items"]:
+        item = dict(unranked_item)
+        window_id = item["id"]
+        qi_id = window_to_qi.get(window_id)
+        if qi_id is not None:
+            position = rank_map.get(qi_id)
+            if position is not None:
+                item["rank"] = {
+                    "position": position,
+                    "of": total,
+                    "ranking": next_action.RANKING
+                }
+        items.append(item)
+
+    return {
+        "items": items,
+        "errors": EXPECTED_UNRANKED["errors"],
+    }
+
+
+EXPECTED = _build_expected_with_ranks()
 
 
 class _Hidden:
@@ -66,7 +131,9 @@ class RegistryQueueTests(unittest.TestCase):
     def test_item_that_fails_conversion_passes_through_unchanged(self) -> None:
         reg = _registry()
         with patch.object(window_queue, "queue_item_from_window_item", side_effect=ValueError("bad")):
-            self.assertEqual(reg.outstanding(), EXPECTED)
+            result = reg.outstanding()
+            # Items with failed conversion should be present and unchanged, with no 'rank' key
+            self.assertEqual(result, EXPECTED_UNRANKED)
             self.assertEqual(reg.queue()["queue_items"], [])
 
     def test_tab_and_hidden_filters_still_apply(self) -> None:
@@ -102,6 +169,30 @@ class RegistryQueueTests(unittest.TestCase):
             self.assertEqual(contracts.validate_queue_item(item), [])
         self.assertEqual(items[0]["reason"], "waiting 2 days")
         self.assertEqual(items[0]["priority"], 3)
+
+    def test_tab_filter_limits_of_count(self) -> None:
+        """With tab='work' filter, 'of' should be 2 (w1 and w2)."""
+        reg = _registry()
+        result = reg.outstanding(tab="work")
+        self.assertEqual(len(result["items"]), 2)
+        # Both items should have rank with 'of': 2
+        for item in result["items"]:
+            self.assertIn("rank", item)
+            self.assertEqual(item["rank"]["of"], 2)
+
+    def test_highest_score_has_position_one(self) -> None:
+        """The item with highest score (w1 with score=3) should have position 1."""
+        reg = _registry()
+        result = reg.outstanding()
+        # Find w1
+        w1 = None
+        for item in result["items"]:
+            if item.get("id") == "w1":
+                w1 = item
+                break
+        self.assertIsNotNone(w1)
+        self.assertIn("rank", w1)
+        self.assertEqual(w1["rank"]["position"], 1)
 
 
 if __name__ == "__main__":

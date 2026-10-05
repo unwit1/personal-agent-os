@@ -471,6 +471,13 @@ const Executive = (() => {
       card.appendChild(why);
     }
 
+    if (item.rank && item.rank.position) {
+      const rank = document.createElement('div');
+      rank.className = 'item-rank';
+      rank.textContent = 'Rank ' + item.rank.position + ' of ' + item.rank.of + (item.rank.ranking ? ' — ' + item.rank.ranking : '');
+      card.appendChild(rank);
+    }
+
     const meta = document.createElement('div');
     meta.className = 'item-meta';
     if (item.source) {
