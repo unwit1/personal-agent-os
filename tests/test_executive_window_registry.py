@@ -11,6 +11,25 @@ from agent_os.executive.window.confirm import ItemState, PendingStore
 from agent_os.executive.window.registry import REGISTRY, Registry, register_action, register_provider
 
 
+def setUpModule():
+    """Keep these tests out of the repository's real Executive Event Bus log."""
+    global _BUS_DIR, _PREVIOUS_BUS
+    from agent_os.executive.event_bus import EventBus
+    from agent_os.executive.window import builtin as _builtin, registry as _registry
+
+    _builtin.default_registry()
+    _BUS_DIR = tempfile.TemporaryDirectory()
+    _PREVIOUS_BUS = _registry.REGISTRY.event_bus
+    _registry.REGISTRY.attach_event_bus(EventBus(_BUS_DIR.name))
+
+
+def tearDownModule():
+    from agent_os.executive.window import registry as _registry
+
+    _registry.REGISTRY.attach_event_bus(_PREVIOUS_BUS)
+    _BUS_DIR.cleanup()
+
+
 def item(i, tab="work", kind="note"):
     return {"id": i, "tab": tab, "kind": kind, "title": i, "why": "w", "source": "s", "context": {}}
 

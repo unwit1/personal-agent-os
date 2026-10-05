@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import sys
+import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -570,12 +572,31 @@ class TestPublishWindowItem(unittest.TestCase):
         self.assertIn("item_id", payload)
         self.assertIn("kind", payload)
         self.assertIn("tab", payload)
-        self.assertIn("title", payload)
 
         self.assertEqual(payload["provider"], "mail")
         self.assertEqual(payload["item_id"], "test-1")
         self.assertEqual(payload["kind"], "task")
-        self.assertEqual(payload["title"], "Test Task")
+
+    def test_publish_payload_holds_no_item_text(self) -> None:
+        """The persisted payload never carries title, why or the window item."""
+        window_item = {"id": "t-2", "kind": "task", "tab": "work", "title": "Jane Doe - Tech", "why": "waiting 3 days"}
+
+        event, _ = window_queue.publish_window_item(self.bus, window_item, "applicants")
+
+        self.assertEqual(
+            sorted(event["payload"]),
+            ["entity_id", "item_id", "kind", "provider", "queue_item_id", "tab"],
+        )
+        self.assertNotIn("Jane Doe", json.dumps(event))
+        self.assertNotIn("waiting 3 days", json.dumps(event))
+
+    def test_publish_reuses_a_prebuilt_queue_item(self) -> None:
+        window_item = {"id": "t-3", "kind": "task", "tab": "work", "title": "x"}
+        qi = window_queue.queue_item_from_window_item(window_item, "mail")
+        with patch.object(window_queue, "queue_item_from_window_item", side_effect=AssertionError("converted twice")):
+            event, created = window_queue.publish_window_item(self.bus, window_item, "mail", qi)
+        self.assertTrue(created)
+        self.assertEqual(event["payload"]["queue_item_id"], qi["id"])
 
     def test_publish_returns_created_true_on_first_publish(self) -> None:
         """First publish of an item returns created=True."""

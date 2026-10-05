@@ -15,6 +15,10 @@ class Registry:
         self._actions: dict[str, dict[str, Any]] = {}
         self.event_bus: Any = None
 
+    def attach_event_bus(self, bus: Any) -> None:
+        """Publish every provider item to this Event Bus as an EXEC-0 queue item."""
+        self.event_bus = bus
+
     def register_provider(self, name: str, fn: Callable[[], list[dict[str, Any]]]) -> None:
         self._providers[name] = fn
 
@@ -39,37 +43,6 @@ class Registry:
             "params_schema": params_schema,
         }
 
-    def attach_event_bus(self, bus: Any) -> None:
-        self.event_bus = bus
-
-    def queue(self, tab: str | None = None, state: Any = None) -> dict[str, Any]:
-        queue_items: list[dict[str, Any]] = []
-        errors: list[dict[str, str]] = []
-        for name, fn in list(self._providers.items()):
-            try:
-                produced = list(fn() or [])
-            except Exception as exc:
-                errors.append({"provider": name, "error": f"{type(exc).__name__}: {exc}"})
-                continue
-            for raw in produced:
-                if not isinstance(raw, dict):
-                    continue
-                if self.event_bus is not None:
-                    try:
-                        window_queue.publish_window_item(self.event_bus, raw, name)
-                    except Exception:
-                        pass
-                if tab is not None and raw.get("tab") != tab:
-                    continue
-                if state is not None and state.is_hidden(str(raw.get("id"))):
-                    continue
-                try:
-                    queue_item = window_queue.queue_item_from_window_item(raw, name)
-                    queue_items.append(queue_item)
-                except Exception as exc:
-                    errors.append({"provider": name, "error": f"{type(exc).__name__}: {exc}"})
-        return {"queue_items": queue_items, "errors": errors}
-
     def actions(self) -> list[dict[str, Any]]:
         return [
             {k: v for k, v in action.items() if k != "handler"}
@@ -81,18 +54,54 @@ class Registry:
         applies = action["applies_to"]
         return applies == "*" or "*" in applies or kind in applies
 
+    def _collect(self, tab: str | None, state: Any) -> tuple[list[tuple[dict[str, Any], dict[str, Any] | None]], list[dict[str, str]]]:
+        """Provider items paired with their EXEC-0 queue item (None when an item
+        does not convert). Each item is converted once and published to the
+        attached Event Bus; neither step can change what the window shows."""
+        pairs: list[tuple[dict[str, Any], dict[str, Any] | None]] = []
+        errors: list[dict[str, str]] = []
+        for name, fn in list(self._providers.items()):
+            try:
+                produced = list(fn() or [])
+            except Exception as exc:  # one provider must not break the others
+                errors.append({"provider": name, "error": f"{type(exc).__name__}: {exc}"})
+                continue
+            for raw in produced:
+                if not isinstance(raw, dict):
+                    continue
+                try:
+                    queue_item: dict[str, Any] | None = window_queue.queue_item_from_window_item(raw, name)
+                except Exception:
+                    queue_item = None  # shown unchanged, just not queued
+                if queue_item is not None and self.event_bus is not None:
+                    try:
+                        window_queue.publish_window_item(self.event_bus, raw, name, queue_item)
+                    except Exception:
+                        pass  # the event log is best-effort; the window never depends on it
+                if tab is not None and raw.get("tab") != tab:
+                    continue
+                if state is not None and state.is_hidden(str(raw.get("id"))):
+                    continue
+                pairs.append((raw, queue_item))
+        return pairs, errors
+
+    def queue(self, tab: str | None = None, state: Any = None) -> dict[str, Any]:
+        """The Executive Queue: the window's outstanding items as EXEC-0 queue items."""
+        pairs, errors = self._collect(tab, state)
+        return {"queue_items": [qi for _, qi in pairs if qi is not None], "errors": errors}
+
     def outstanding(self, tab: str | None = None, state: Any = None) -> dict[str, Any]:
-        result = self.queue(tab, state)
+        pairs, errors = self._collect(tab, state)
         items: list[dict[str, Any]] = []
-        for qi in result["queue_items"]:
-            item = window_queue.window_item_from_queue_item(qi)
+        for raw, queue_item in pairs:
+            item = window_queue.window_item_from_queue_item(queue_item) if queue_item is not None else dict(raw)
             item["options"] = [
                 {"action_id": a["id"], "label": a["label"], "consequential": a["consequential"]}
                 for a in self._actions.values()
                 if self._applies(a, item.get("kind"))
             ]
             items.append(item)
-        return {"items": items, "errors": result["errors"]}
+        return {"items": items, "errors": errors}
 
     def _get(self, action_id: str) -> dict[str, Any]:
         try:

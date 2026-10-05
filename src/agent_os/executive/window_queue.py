@@ -84,19 +84,24 @@ def window_item_from_queue_item(queue_item: dict) -> dict:
 
 
 def publish_window_item(
-    bus: Any, item: dict, provider: str
+    bus: Any, item: dict, provider: str, queue_item: dict | None = None
 ) -> tuple[dict[str, Any], bool]:
     """Publish a window item as a task.created event with queue item payload.
+
+    The event log persists on disk, so the payload carries identifiers only:
+    never the item's title, why or other text, which can hold applicant names
+    or mail subjects.
 
     Args:
         bus: EventBus instance with publish method
         item: window item dict
         provider: provider name
+        queue_item: the item's already-built queue item, to avoid converting twice
 
     Returns:
         Tuple of (event dict, created bool) from bus.publish()
     """
-    qi = queue_item_from_window_item(item, provider)
+    qi = queue_item if queue_item is not None else queue_item_from_window_item(item, provider)
 
     event, created = bus.publish(
         "task.created",
@@ -109,7 +114,6 @@ def publish_window_item(
             "item_id": str(item.get("id")),
             "kind": item.get("kind"),
             "tab": item.get("tab"),
-            "title": item.get("title"),
         },
         domain=qi["domain"],
         sensitivity=qi["sensitivity"],

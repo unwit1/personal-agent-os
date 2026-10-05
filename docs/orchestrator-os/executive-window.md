@@ -61,6 +61,12 @@ Once registered, the action:
 - Appears as a button option on matching items in the UI.
 - Is exposed to the model as an MCP tool (`executive_window.run`).
 
+## Executive Queue and Event Bus
+
+The window's outstanding list is the Executive Queue (roadmap P3). `Registry.outstanding()` converts each provider item once with `agent_os.executive.window_queue.queue_item_from_window_item` into an EXEC-0 queue item (entity kind `task`, source `window:<provider>`, domain `executive-window`; the item's `why` becomes the queue `reason`, a non-negative numeric `score` becomes `priority`) and renders it back with `window_item_from_queue_item`, so the window shows exactly what the providers produced. An item that does not convert is shown unchanged; it is just not queued. `Registry.queue()` returns the same items as queue items.
+
+`builtin.default_registry()` attaches the local Event Bus (`.agent-local/executive/events`, the log `agent-os executive route` reads). Each item is published once as a `task.created` event, deduplicated by provider and item id. The persisted payload holds identifiers only (queue item id, entity id, provider, item id, kind, tab), never titles, reasons or item text, which can contain applicant names or mail subjects. Publishing is best-effort: a failing Event Bus never changes the window.
+
 ## Safety model and audit
 
 **Consequential actions** (email send, outreach, approvals) never execute on the model's say-so:
