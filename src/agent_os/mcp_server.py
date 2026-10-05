@@ -68,7 +68,7 @@ from .mail import account_status as mail_account_status, get_message as mail_get
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .profile import compact_profile as profile_retrieve, profile_status
 from .recovery import get_checkpoint, inspect_recovery, latest_checkpoint, list_checkpoints, resume_recovery
-from .registry import get_project, git_status, identify_project, load_state, projects
+from .registry import canonical_projects, get_project, git_status, identify_project, load_state, projects
 from .rtec_applicants import (
     acknowledge_event as applicant_acknowledge_event,
     audit_status as applicant_audit_status,
@@ -774,6 +774,34 @@ WINDOW_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 WINDOW_RUN_TOOL = "executive_window.run"
 WINDOW_TOOL_NAMES = frozenset([*WINDOW_TOOL_SCHEMAS, WINDOW_RUN_TOOL])
 
+PROJECT_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "executive_projects.next": {
+        "description": "Executive projects: the next action for one project (goal, blockers, decisions needed). Read-only; uses local project state only.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "project": {"type": "string", "description": "Project id, name, or alias"},
+                "stale_days": {"type": "integer", "description": "Threshold for stalled flag"}
+            },
+            "required": ["project"],
+            "additionalProperties": False
+        }
+    },
+    "executive_projects.scan": {
+        "description": "Executive projects: scan all projects and return next actions with activity summary. Read-only; uses local project states only.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "stale_days": {"type": "integer", "description": "Threshold for stalled flag"},
+                "include_inactive": {"type": "boolean", "default": False, "description": "Include inactive projects"}
+            },
+            "additionalProperties": False
+        }
+    }
+}
+
+PROJECT_TOOL_NAMES = frozenset(PROJECT_TOOL_SCHEMAS.keys())
+
 
 def _window_tool_schemas() -> dict[str, dict[str, Any]]:
     """Window tool schemas; the run schema is built from the live registry on every call."""
@@ -828,6 +856,51 @@ def _window_run(action_id: str, item_id: str, params: dict[str, Any] | None = No
     if action_id not in {option.get("action_id") for option in item.get("options", [])}:
         raise ValueError(f"action {action_id} is not an option for item {item_id}")
     return registry.invoke(action_id, item, params, PendingStore(home))
+
+
+def _projects_next(project: str, stale_days: int | None = None) -> dict[str, Any]:
+    from .executive import project_actions
+    from datetime import date
+
+    try:
+        proj = get_project(project)
+    except KeyError as e:
+        raise ValueError(f"Unknown project: {project}") from e
+
+    if "state_file" not in proj:
+        raise ValueError(f"Project {project} has no state file")
+
+    state = load_state(proj)
+    kwargs = {"today": date.today()}
+    if stale_days is not None:
+        kwargs["stale_days"] = stale_days
+    return project_actions.project_next_action(state, **kwargs)
+
+
+def _projects_scan(stale_days: int | None = None, include_inactive: bool = False) -> dict[str, Any]:
+    from .executive import project_actions
+    from datetime import date
+
+    states = []
+    errors = []
+
+    for proj in canonical_projects():
+        if "state_file" not in proj:
+            continue
+        try:
+            state = load_state(proj)
+            states.append(state)
+        except Exception as e:
+            errors.append({"project": proj.get("id"), "error": str(e)})
+
+    kwargs = {"today": date.today()}
+    if stale_days is not None:
+        kwargs["stale_days"] = stale_days
+    kwargs["include_inactive"] = include_inactive
+
+    result = project_actions.scan(states, **kwargs)
+    result["errors"] = errors
+    return result
 
 
 def _executive_gateway() -> Any:
@@ -1024,6 +1097,8 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive_window.next": _window_next,
             "executive_window.explain": _window_explain,
             "executive_window.run": _window_run,
+            "executive_projects.next": _projects_next,
+            "executive_projects.scan": _projects_scan,
         }
     )
     available.update(orchestrate_methods())
@@ -1104,12 +1179,12 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
     if method == "ping":
         return _ok(request_id, {})
     if method == "tools/list":
-        listed = {**TOOL_SCHEMAS, **_window_tool_schemas()}
+        listed = {**TOOL_SCHEMAS, **_window_tool_schemas(), **PROJECT_TOOL_SCHEMAS}
         return _ok(request_id, {"tools": [{"name": name, **schema} for name, schema in listed.items()]})
     if method == "tools/call":
         params = request.get("params", {})
         name = params.get("name") if isinstance(params, dict) else None
-        if (name not in TOOL_SCHEMAS and name not in WINDOW_TOOL_NAMES) or name not in available:
+        if (name not in TOOL_SCHEMAS and name not in WINDOW_TOOL_NAMES and name not in PROJECT_TOOL_NAMES) or name not in available:
             return _ok(request_id, _mcp_result({"error": f"Unknown tool: {name}"}, error=True))
         try:
             arguments = params.get("arguments", {})
