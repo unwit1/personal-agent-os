@@ -282,6 +282,8 @@ def register(commands: argparse._SubParsersAction) -> None:
     ctxbench.add_argument("--budget", type=int, default=1200)
     ctxbench.add_argument("--run-dir", action="append")
     ctxbench.add_argument("--out", type=Path, help="write report JSON to this path")
+    ctxbench.add_argument("--baseline", type=Path, help="compare against a previously saved context-bench report JSON")
+    ctxbench.add_argument("--fail-on-regression", action="store_true", help="exit 1 when --baseline comparison reports a regression")
 
     rot = actions.add_parser("rotation-advisor", help="IMP-0019 shadow: would-rotate advice per worker from run telemetry (aggregates only, advice only, no model call)")
     rot.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
@@ -655,11 +657,16 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         report = context_bench.build(Path(args.corpus), Path(args.handoffs), project=args.project,
                                      token_budget=args.budget, run_dirs=[Path(p) for p in args.run_dir or []])
+        comparison = None
+        if args.baseline:
+            baseline = json.loads(args.baseline.read_text(encoding="utf-8"))
+            comparison = context_bench.compare(baseline, report)
+            report = dict(report, comparison=comparison)
         if args.out:
             args.out.parent.mkdir(parents=True, exist_ok=True)
             args.out.write_text(json.dumps(report, indent=2), encoding="utf-8")
         emit(report)
-        return 0
+        return 1 if args.fail_on_regression and comparison and comparison["regressed"] is True else 0
     if action == "rotation-advisor":
         from . import rotation_advisor
         from .store import orchestrator_home
