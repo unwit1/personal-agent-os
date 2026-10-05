@@ -4,7 +4,7 @@ import json
 import sys
 import tempfile
 import unittest
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
@@ -21,7 +21,9 @@ ROWS = [
     for ref, name in (("ref-a", "Ann"), ("ref-b", "Bo"), ("ref-c", "Cy"))
 ]
 EMAILS = {"ref-a": "ann@example.test", "ref-b": "bo@example.test", "ref-c": "cy@example.test"}
-SLOTS = [(datetime(2026, 10, 5, 9), "free"), (datetime(2026, 10, 5, 13), "free")]
+# Offered slots must stay in the future: the send path rejects past slots against the real clock.
+_SLOT_DAY = (datetime.now() + timedelta(days=4)).replace(hour=0, minute=0, second=0, microsecond=0)
+SLOTS = [(_SLOT_DAY.replace(hour=9), "free"), (_SLOT_DAY.replace(hour=13), "free")]
 TECH = {"match": "Tech", "pending": False, "alternates": [], "reasons": []}
 
 
