@@ -67,6 +67,16 @@ The window's outstanding list is the Executive Queue (roadmap P3). `Registry.out
 
 `builtin.default_registry()` attaches the local Event Bus (`.agent-local/executive/events`, the log `agent-os executive route` reads). Each item is published once as a `task.created` event, deduplicated by provider and item id. The persisted payload holds identifiers only (queue item id, entity id, provider, item id, kind, tab), never titles, reasons or item text, which can contain applicant names or mail subjects. Publishing is best-effort: a failing Event Bus never changes the window.
 
+### Next item and explain
+
+`agent_os.executive.next_action` ranks the Executive Queue by priority (descending), then age_days (descending), then queue item id (ascending).
+
+`agent-os executive next [--tab work|personal]` prints the top queue item with its full explanation.
+
+`agent-os executive explain <item_id> [--tab work|personal]` prints the rank, position (of), priority, age_days, reason, provider, source, kind, and tab for a given queue item id; returns None for unknown ids.
+
+MCP tools `executive_window.next` and `executive_window.explain` return the same data, read-only and local-only. Provider errors are returned in the `errors` field. Hidden items are excluded just as in the outstanding list.
+
 ## Safety model and audit
 
 **Consequential actions** (email send, outreach, approvals) never execute on the model's say-so:
