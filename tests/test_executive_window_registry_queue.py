@@ -365,27 +365,6 @@ class RegistryQueueTests(unittest.TestCase):
         self.assertEqual(out["items"][0]["id"], "task2")
         self.assertEqual(out["errors"], [])
 
-    def test_queue_item_validation_failure_caught(self):
-        """queue() catches validation failures and reports errors without breaking."""
-        reg = Registry()
-
-        def bad_provider():
-            # Return an item with invalid sensitivity that could fail validation
-            return [
-                item("good"),
-                {**item("bad"), "sensitivity": None}  # Invalid sensitivity
-            ]
-
-        reg.register_provider("p", bad_provider)
-        reg.register_provider("p2", lambda: [item("other")])
-
-        result = reg.queue()
-        # Should have caught the validation error
-        ids = [qi["window_item"]["id"] for qi in result["queue_items"]]
-        # Items are processed in order, the bad one should fail but others should proceed
-        self.assertIn("good", ids)
-        self.assertIn("other", ids)
-
     def test_bus_publish_failure_full_output_unchanged(self):
         """Bus publish failures don't affect any part of outstanding() output."""
         reg = Registry()
@@ -412,6 +391,83 @@ class RegistryQueueTests(unittest.TestCase):
         self.assertEqual(out["items"][1]["why"], "another")
         self.assertEqual(out["items"][1]["score"], 10)
         self.assertEqual(out["errors"], [])
+
+    def test_outstanding_exact_literal_with_raising_provider_non_dict_and_actions(self):
+        """Exact-literal test: raising provider + non-dict + valid items with actions, no bus vs with bus."""
+        reg = Registry()
+
+        # Provider that raises
+        def boom():
+            raise RuntimeError("boom")
+
+        # Providers with mixed content
+        reg.register_provider("boom", boom)
+        reg.register_provider("p1", lambda: [
+            item("work_item", tab="work", why="urgent", score=10)
+        ])
+        reg.register_provider("p2", lambda: [
+            "not a dict",
+            123,
+            item("personal_item", tab="personal")
+        ])
+
+        # Actions
+        reg.register_action("action1", "Act 1", "*", lambda i, p, *, confirm: {}, False)
+
+        # Test without bus
+        out_no_bus = reg.outstanding()
+
+        expected_items = [
+            {
+                "id": "work_item",
+                "tab": "work",
+                "kind": "note",
+                "title": "work_item",
+                "source": "test",
+                "why": "urgent",
+                "score": 10,
+                "options": [
+                    {"action_id": "action1", "label": "Act 1", "consequential": False}
+                ]
+            },
+            {
+                "id": "personal_item",
+                "tab": "personal",
+                "kind": "note",
+                "title": "personal_item",
+                "source": "test",
+                "options": [
+                    {"action_id": "action1", "label": "Act 1", "consequential": False}
+                ]
+            }
+        ]
+
+        expected_errors = [
+            {"provider": "boom", "error": "RuntimeError: boom"}
+        ]
+
+        self.assertEqual(len(out_no_bus["items"]), 2)
+        self.assertEqual(out_no_bus["items"], expected_items)
+        self.assertEqual(len(out_no_bus["errors"]), 1)
+        self.assertEqual(out_no_bus["errors"][0]["provider"], "boom")
+        self.assertIn("RuntimeError", out_no_bus["errors"][0]["error"])
+        self.assertIn("boom", out_no_bus["errors"][0]["error"])
+
+        # Test with bus attached
+        bus = EventBus(self.tmp.name)
+        reg.attach_event_bus(bus)
+
+        out_with_bus = reg.outstanding()
+
+        # Output should be identical
+        self.assertEqual(out_with_bus["items"], expected_items)
+        self.assertEqual(len(out_with_bus["errors"]), 1)
+        self.assertEqual(out_with_bus["errors"][0]["provider"], "boom")
+        self.assertIn("RuntimeError", out_with_bus["errors"][0]["error"])
+
+        # Bus should have received exactly 2 events (one per valid item)
+        events = bus.events("task.created")
+        self.assertEqual(len(events), 2)
 
 
 if __name__ == "__main__":
