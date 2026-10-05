@@ -113,9 +113,20 @@ def _executive_store():
     return outbox.OutboxStore()
 
 
+def _executive_event_bus():
+    from .executive.event_bus import EventBus
+
+    return EventBus()
+
+
 def _register_executive(commands) -> None:
     executive = commands.add_parser("executive")
     sub = executive.add_subparsers(dest="executive_command", required=True)
+    route = sub.add_parser("route")
+    route.add_argument("--consumer", default="router")
+    route.add_argument("--rules", help="JSON object mapping event types to dispositions, inline or a file path")
+    route_reason = sub.add_parser("route-reason")
+    route_reason.add_argument("event_id")
     needs = sub.add_parser("needs-action")
     needs.add_argument("--limit", type=int, default=100)
     suggest = sub.add_parser("suggestions")
@@ -158,7 +169,20 @@ def _dispatch_executive(args) -> int:
     from .executive import applicants as ex
 
     cmd = args.executive_command
-    if cmd == "needs-action":
+    if cmd == "route":
+        from .executive import routing
+
+        bus = _executive_event_bus()
+        rules = _json_input(args.rules) if args.rules is not None else None
+        if rules is not None and not isinstance(rules, dict):
+            raise ValueError("--rules must be a JSON object")
+        records = routing.dispatch_pending(bus, consumer=args.consumer, rules=rules)
+        _print({"consumer": args.consumer, "dispatched": records})
+    elif cmd == "route-reason":
+        from .executive import routing
+
+        _print({"event_id": args.event_id, "route": routing.route_reason(args.event_id, bus=_executive_event_bus())})
+    elif cmd == "needs-action":
         _print(ex.needs_action(limit=args.limit))
     elif cmd == "suggestions":
         _print(ex.suggestions(args.opening, gateway=_executive_gateway()))
