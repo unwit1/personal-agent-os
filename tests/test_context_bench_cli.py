@@ -78,6 +78,28 @@ class ContextBenchCLITests(unittest.TestCase):
             comparison = json.loads(cur.read_text(encoding="utf-8"))["comparison"]
             self.assertTrue(comparison["regressed"])
 
+    def test_scope_repo_flag_builds_scope_maps(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out_file = Path(tmp) / "r.json"
+            scope_repo = Path(__file__).resolve().parents[1]
+
+            result = self._run("--scope-repo", str(scope_repo), "--out", str(out_file))
+            self.assertEqual(result.returncode, 0, f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}")
+
+            output_data = json.loads(out_file.read_text(encoding="utf-8"))
+            self.assertIsNotNone(output_data.get("scope_maps"))
+            self.assertGreaterEqual(output_data["scope_maps"]["cases"], 1)
+
+    def test_without_scope_repo_flag_scope_maps_null(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out_file = Path(tmp) / "r.json"
+
+            result = self._run("--out", str(out_file))
+            self.assertEqual(result.returncode, 0, f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}")
+
+            output_data = json.loads(out_file.read_text(encoding="utf-8"))
+            self.assertIsNone(output_data.get("scope_maps"))
+
 
 if __name__ == "__main__":
     unittest.main()
