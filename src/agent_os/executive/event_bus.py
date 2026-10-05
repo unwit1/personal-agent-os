@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 import json
-import os
-import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -129,8 +127,11 @@ class EventBus:
         if since is not None:
             try:
                 since_dt = datetime.fromisoformat(since.replace("Z", "+00:00"))
-            except (ValueError, AttributeError):
-                since_dt = None
+            except (ValueError, AttributeError) as e:
+                raise ValueError(f"invalid since: {e}")
+            # Normalize naive datetime to UTC
+            if since_dt.tzinfo is None:
+                since_dt = since_dt.replace(tzinfo=timezone.utc)
 
         with open(self.path, "r", encoding="utf-8") as f:
             for line in f:
@@ -152,6 +153,9 @@ class EventBus:
                     try:
                         occurred_at_str = event.get("occurred_at", "")
                         occurred_at = datetime.fromisoformat(occurred_at_str.replace("Z", "+00:00"))
+                        # Normalize naive datetime to UTC
+                        if occurred_at.tzinfo is None:
+                            occurred_at = occurred_at.replace(tzinfo=timezone.utc)
                         if occurred_at < since_dt:
                             continue
                     except (ValueError, AttributeError):
@@ -188,28 +192,5 @@ class EventBus:
     def _append_line(self, event: dict[str, Any]) -> None:
         """Append one JSON line to the log, creating directory if needed."""
         self.directory.mkdir(parents=True, exist_ok=True)
-
-        # Atomic append using temp file
-        fd, tmp = tempfile.mkstemp(
-            dir=self.directory,
-            prefix=".tmp-",
-            suffix=".jsonl",
-        )
-        try:
-            with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
-                handle.write(json.dumps(event, sort_keys=True))
-                handle.write("\n")
-                handle.flush()
-                os.fsync(handle.fileno())
-
-            # Append temp file to main log
-            with open(self.path, "ab") as f_main:
-                with open(tmp, "rb") as f_tmp:
-                    f_main.write(f_tmp.read())
-                f_main.flush()
-                os.fsync(f_main.fileno())
-        finally:
-            try:
-                os.unlink(tmp)
-            except OSError:
-                pass
+        with open(self.path, "a", encoding="utf-8", newline="\n") as f:
+            f.write(json.dumps(event, sort_keys=True) + "\n")

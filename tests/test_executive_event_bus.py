@@ -334,6 +334,42 @@ class EventBusTests(unittest.TestCase):
 
         self.assertEqual(event.get("provenance"), ["agent-id-1", "agent-id-2"])
 
+    def test_events_filters_by_naive_since(self) -> None:
+        """events() with naive since (no timezone) works correctly."""
+        self.bus.publish(
+            event_type="task.created",
+            source="test-agent",
+            dedup_key="k1",
+            payload={},
+            occurred_at="2025-01-01T10:00:00+00:00",
+        )
+        self.bus.publish(
+            event_type="task.created",
+            source="test-agent",
+            dedup_key="k2",
+            payload={},
+            occurred_at="2025-01-02T10:00:00+00:00",
+        )
+
+        # Use naive since (no timezone)
+        result = self.bus.events(since="2025-01-02T00:00:00")
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["dedup_key"], "k2")
+
+    def test_events_invalid_since_raises_value_error(self) -> None:
+        """events() with unparseable since raises ValueError."""
+        self.bus.publish(
+            event_type="task.created",
+            source="test-agent",
+            dedup_key="k1",
+            payload={},
+        )
+
+        with self.assertRaises(ValueError) as ctx:
+            self.bus.events(since="not-a-valid-timestamp")
+
+        self.assertIn("invalid since", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
