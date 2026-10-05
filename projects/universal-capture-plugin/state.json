@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "project": "universal-capture-plugin",
-  "status": "active",
+  "status": "maintenance",
   "updated_at": "2026-10-05",
-  "summary": "Public, sanitized distribution repository for the Agent OS Universal Capture Tampermonkey userscript and Firefox extension; the private development copy lives in personal-agent-os browser/userscripts.",
+  "summary": "Public, sanitized distribution repository for the Agent OS Universal Capture Tampermonkey userscript and Firefox extension; the private development copy lives in personal-agent-os browser/userscripts. Maintenance mirror: changes originate in personal-agent-os and are synced here, so it has no independent next action.",
   "context_files": [
     "README.md",
     "PRIVACY.md"

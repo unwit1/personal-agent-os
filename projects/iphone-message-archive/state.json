@@ -16,5 +16,13 @@
     "Coverage claims are scoped to each source; backup success never implies all-time completeness."
   ],
   "skill_roots": [],
-  "current_priorities": []
+  "current_priorities": [
+    "Validate the foreground watch workflow on a trusted physical iPhone and confirm incremental backup behavior.",
+    "Add schema-generation fixtures and validate attributedBody decoding against real iOS samples.",
+    "Expand attachment metadata extraction and contact-card resolution."
+  ],
+  "next_action": "Validate the foreground watch workflow on a trusted physical iPhone (needs the operator's phone).",
+  "waiting_on": [
+    "Operator with the physical iPhone for the real-device watch test"
+  ]
 }
