@@ -45,6 +45,47 @@ class PromptMeasureTests(unittest.TestCase):
         self.assertGreater(result["totals"]["cacheable_prefix_tokens"], 0)
         self.assertGreater(result["roles"]["implementer"]["prefix_tokens"], 0)
 
+    def test_scope_maps_adds_tokens_to_relevant_roles(self) -> None:
+        scope_maps = {
+            "node-implementer-1": "Files in your scope (local map; lines, top-level names):\n- src/x.py (10 lines)"
+        }
+        result_without = measure(self.run, self.nodes, repo_map="synthetic map", diff="synthetic diff")
+        result_with = measure(self.run, self.nodes, repo_map="synthetic map", diff="synthetic diff", scope_maps=scope_maps)
+
+        self.assertGreater(
+            result_with["roles"]["implementer"]["total_tokens"],
+            result_without["roles"]["implementer"]["total_tokens"]
+        )
+        self.assertGreater(result_with["roles"]["implementer"]["scope_map_tokens"], 0)
+        self.assertEqual(result_without["roles"]["implementer"]["scope_map_tokens"], 0)
+
+    def test_scope_maps_with_shared_prefix_preserves_prefix_tokens(self) -> None:
+        self.run["policy"]["shared_prefix"] = True
+        scope_maps = {
+            "node-implementer-1": "Files in your scope (local map; lines, top-level names):\n- src/x.py (10 lines)"
+        }
+        result_without = measure(self.run, self.nodes, repo_map="synthetic map", diff="synthetic diff")
+        result_with = measure(self.run, self.nodes, repo_map="synthetic map", diff="synthetic diff", scope_maps=scope_maps)
+
+        self.assertEqual(
+            result_without["roles"]["implementer"]["prefix_tokens"],
+            result_with["roles"]["implementer"]["prefix_tokens"]
+        )
+        self.assertGreater(result_with["roles"]["implementer"]["scope_map_tokens"], 0)
+
+    def test_scope_maps_ignored_for_planner(self) -> None:
+        scope_maps = {
+            "node-planner": "Files in your scope (local map; lines, top-level names):\n- src/x.py (10 lines)"
+        }
+        result = measure(self.run, self.nodes, repo_map="synthetic map", diff="synthetic diff", scope_maps=scope_maps)
+        self.assertEqual(result["roles"]["planner"]["scope_map_tokens"], 0)
+
+    def test_scope_map_tokens_zero_without_scope_maps(self) -> None:
+        result = measure(self.run, self.nodes, repo_map="synthetic map", diff="synthetic diff")
+        for role, stats in result["roles"].items():
+            self.assertEqual(stats["scope_map_tokens"], 0)
+        self.assertEqual(result["totals"]["scope_map_tokens"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()
