@@ -153,9 +153,9 @@ def build(
             })
 
     scope_maps_dict: dict[str, str] | None = None
+    scope_maps_data: dict[str, int] = {"cases": 0, "map_tokens": 0}
     if scope_repo is not None:
         scope_maps_dict = {}
-        scope_maps_data = {"cases": 0, "map_tokens": 0}
         for index, case in enumerate(cases):
             scope = case.get("scope", [])
             if scope:
@@ -166,29 +166,26 @@ def build(
                 scope_maps_data["map_tokens"] += estimate_tokens(map_result["text"])
 
     directories = tuple(run_dirs)
-    prompts_result = prompt_measure.measure(run, nodes, scope_maps=scope_maps_dict)
+    prompts = prompt_measure.measure(run, nodes)
     report = {
         "schema": SCHEMA,
         "model_calls": 0,
         "compiler": compiler,
-        "prompts": prompts_result,
+        "prompts": prompts,
         "handoffs": economy.handoff_compaction_report(handoffs),
         "telemetry": context_economy.build(directories)["coverage"] if directories else None,
     }
 
     if scope_repo is not None:
+        with_maps = prompt_measure.measure(run, nodes, scope_maps=scope_maps_dict)
         report["scope_maps"] = {
             "cases": scope_maps_data["cases"],
             "map_tokens": scope_maps_data["map_tokens"],
-            "prompt_tokens_without": 0,
-            "prompt_tokens_with": prompts_result["totals"]["total_tokens"],
-            "overhead_tokens": 0,
-            "cacheable_prefix_tokens_with": prompts_result["totals"]["cacheable_prefix_tokens"],
+            "prompt_tokens_without": prompts["totals"]["total_tokens"],
+            "prompt_tokens_with": with_maps["totals"]["total_tokens"],
+            "overhead_tokens": with_maps["totals"]["total_tokens"] - prompts["totals"]["total_tokens"],
+            "cacheable_prefix_tokens_with": with_maps["totals"]["cacheable_prefix_tokens"],
         }
-        # We need to do a measurement without scope_maps to get the comparison
-        prompts_without = prompt_measure.measure(run, nodes, scope_maps=None)
-        report["scope_maps"]["prompt_tokens_without"] = prompts_without["totals"]["total_tokens"]
-        report["scope_maps"]["overhead_tokens"] = prompts_result["totals"]["total_tokens"] - prompts_without["totals"]["total_tokens"]
     else:
         report["scope_maps"] = None
 
