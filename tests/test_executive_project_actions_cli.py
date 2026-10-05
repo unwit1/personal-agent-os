@@ -251,6 +251,33 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
                 self.assertEqual(output["no_next_action"], ["proj2"])
                 self.assertIn("errors", output)
 
+    def test_project_scan_output_contains_vague_next_action_list(self):
+        mock_projects = [
+            {"id": "proj1", "state_file": "state1.json"},
+            {"id": "proj2", "state_file": "state2.json"},
+            {"id": "proj3", "state_file": "state3.json"},
+        ]
+        # proj1: vague_next_action (TBD), proj2: specific action, proj3: no next_action
+        mock_states = [
+            {"project": "proj1", "status": "active", "next_action": "TBD", "updated_at": "2026-10-05"},
+            {"project": "proj2", "status": "active", "next_action": "Write tests", "updated_at": "2026-10-05"},
+            {"project": "proj3", "status": "active", "updated_at": "2026-10-05"},
+        ]
+
+        with patch("agent_os.registry.canonical_projects", return_value=mock_projects), \
+             patch("agent_os.registry.load_state", side_effect=mock_states):
+
+            args = cli.parser().parse_args(["executive", "project-scan", "--today", "2026-10-05"])
+            with patch("builtins.print") as mock_print:
+                cli._dispatch_executive(args)
+
+                call_args = mock_print.call_args[0][0]
+                import json
+                output = json.loads(call_args)
+
+                self.assertEqual(output["vague_next_action"], ["proj1"])
+                self.assertIn("errors", output)
+
 
 if __name__ == "__main__":
     unittest.main()
