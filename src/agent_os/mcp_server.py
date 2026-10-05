@@ -761,6 +761,14 @@ WINDOW_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Executive window: list registered actions (id, label, applies_to, consequential, description).",
         "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
     },
+    "executive_window.next": {
+        "description": "Executive window: the single next queue item (ranked by priority, then age, then id) with why it ranks first. Read-only; local data only.",
+        "inputSchema": {"type": "object", "properties": {"tab": {"type": "string", "enum": ["work", "personal"]}}, "additionalProperties": False},
+    },
+    "executive_window.explain": {
+        "description": "Executive window: why an outstanding item ranks where it does (rank, priority, age, reason, provider/source). Read-only; local data only.",
+        "inputSchema": {"type": "object", "properties": {"item_id": {"type": "string"}, "tab": {"type": "string", "enum": ["work", "personal"]}}, "required": ["item_id"], "additionalProperties": False},
+    },
 }
 
 WINDOW_RUN_TOOL = "executive_window.run"
@@ -781,6 +789,26 @@ def _window_outstanding(tab: str | None = None) -> dict[str, Any]:
     from .executive.window.confirm import ItemState, window_home
 
     return _window_registry().outstanding(tab, state=ItemState(window_home()))
+
+
+def _window_queue(tab: str | None = None) -> dict[str, Any]:
+    from .executive.window.confirm import ItemState, window_home
+
+    return _window_registry().queue(tab, state=ItemState(window_home()))
+
+
+def _window_next(tab: str | None = None) -> dict[str, Any]:
+    from .executive import next_action
+
+    q = _window_queue(tab)
+    return {**next_action.next_item(q['queue_items']), 'errors': q['errors']}
+
+
+def _window_explain(item_id: str, tab: str | None = None) -> dict[str, Any]:
+    from .executive import next_action
+
+    q = _window_queue(tab)
+    return {'item_id': item_id, 'explanation': next_action.explain(q['queue_items'], item_id), 'errors': q['errors']}
 
 
 def _window_actions() -> dict[str, Any]:
@@ -993,6 +1021,8 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive.send": _executive_send,
             "executive_window.outstanding": _window_outstanding,
             "executive_window.actions": _window_actions,
+            "executive_window.next": _window_next,
+            "executive_window.explain": _window_explain,
             "executive_window.run": _window_run,
         }
     )
