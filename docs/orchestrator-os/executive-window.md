@@ -79,9 +79,9 @@ MCP tools `executive_window.next` and `executive_window.explain` return the same
 
 ### Project next actions and rank
 
-The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, registered in `builtin.default_registry()`) emits items for active projects from `projects/<id>/state.json`. For each project, it derives next action and flags via the per-project Next Action Engine, then emits up to three queue items per project:
+The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, registered in `builtin.default_registry()`) emits items for active projects from `projects/<id>/state.json`. For each project, it derives next action and flags via the per-project Next Action Engine, then emits one project_decision item per decision needed, plus at most one project_stalled and one project_no_next_action item per project:
 
-- `project_decision` (score 3): decision(s) needed for the project
+- `project_decision` (score 3): decision needed for the project
 - `project_stalled` (score 2): project has not been updated in the configured stale-days threshold
 - `project_no_next_action` (score 1): project has no next action or current priority recorded
 
