@@ -38,7 +38,7 @@ class ContextBenchTests(unittest.TestCase):
 
         self.assertFalse(compared["regressed"])
         self.assertEqual(compared["regressions"], [])
-        self.assertTrue(all(item["status"] == "unchanged" for item in compared["metrics"]))
+        self.assertTrue(all(item["status"] in ("unchanged", "missing") for item in compared["metrics"]))
 
     def test_compare_reports_regressions_and_missing_values(self) -> None:
         baseline = {
@@ -69,6 +69,43 @@ class ContextBenchTests(unittest.TestCase):
     def test_compare_requires_baseline_schema(self) -> None:
         with self.assertRaisesRegex(ValueError, SCHEMA):
             compare({"schema": "wrong"}, {})
+
+    def test_build_without_scope_repo_has_scope_maps_none(self) -> None:
+        fixtures = Path(__file__).resolve().parent / "fixtures"
+        result = build(fixtures / "economy-corpus.json", fixtures / "economy-handoffs.json")
+        self.assertIsNone(result["scope_maps"])
+
+    def test_build_with_scope_repo_has_scope_maps(self) -> None:
+        fixtures = Path(__file__).resolve().parent / "fixtures"
+        repo_root = Path(__file__).resolve().parents[1]
+        result = build(fixtures / "economy-corpus.json", fixtures / "economy-handoffs.json", scope_repo=repo_root)
+
+        self.assertIsNotNone(result["scope_maps"])
+        self.assertGreaterEqual(result["scope_maps"]["cases"], 1)
+        self.assertGreater(result["scope_maps"]["map_tokens"], 0)
+        self.assertGreater(result["scope_maps"]["overhead_tokens"], 0)
+        self.assertEqual(result["scope_maps"]["cacheable_prefix_tokens_with"], result["prompts"]["totals"]["cacheable_prefix_tokens"])
+
+    def test_compare_with_missing_scope_maps_reports_missing(self) -> None:
+        baseline = {
+            "schema": SCHEMA,
+            "compiler": {"totals": {"selective_tokens": 10, "tokens_avoided": 5, "all_within_budget": True}},
+            "prompts": {"totals": {"total_tokens": 20, "cacheable_prefix_tokens": 4}, "roles": {}},
+            "handoffs": {"compacted_tokens": 3, "tokens_avoided": 2},
+        }
+        current = {
+            "schema": SCHEMA,
+            "compiler": {"totals": {"selective_tokens": 10, "tokens_avoided": 5, "all_within_budget": True}},
+            "prompts": {"totals": {"total_tokens": 20, "cacheable_prefix_tokens": 4}, "roles": {}},
+            "handoffs": {"compacted_tokens": 3, "tokens_avoided": 2},
+            "scope_maps": {"overhead_tokens": 100},
+        }
+
+        compared = compare(baseline, current)
+
+        scope_maps_metric = next((m for m in compared["metrics"] if m["metric"] == "scope_maps.overhead_tokens"), None)
+        self.assertIsNotNone(scope_maps_metric)
+        self.assertEqual(scope_maps_metric["status"], "missing")
 
 
 if __name__ == "__main__":
