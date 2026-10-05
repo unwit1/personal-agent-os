@@ -64,6 +64,21 @@ class ExecutiveWindowGUITests(unittest.TestCase):
         before_handler = js.split("sendBtn.addEventListener('click'")[0]
         self.assertNotIn("'/api/send'", before_handler)
 
+    def test_executive_js_rank_display(self) -> None:
+        """Test that rank display is implemented and positioned after why."""
+        gui_dir = Path(__file__).resolve().parents[1] / 'gui'
+        js_file = gui_dir / 'executive.js'
+        js_content = js_file.read_text(encoding='utf-8')
+
+        self.assertIn('item-rank', js_content, "JS does not contain 'item-rank'")
+        self.assertIn('item.rank.position', js_content, "JS does not contain 'item.rank.position'")
+
+        why_pos = js_content.find('item-why')
+        rank_pos = js_content.find('item-rank')
+        self.assertGreater(why_pos, -1, "'item-why' not found in JS")
+        self.assertGreater(rank_pos, -1, "'item-rank' not found in JS")
+        self.assertGreater(rank_pos, why_pos, "'item-rank' should appear after 'item-why' in the file")
+
 
 if __name__ == '__main__':
     unittest.main()
