@@ -104,7 +104,39 @@ def _compact_handoff(handoff: dict[str, Any] | None) -> dict[str, Any] | None:
     if not handoff:
         return None
     keys = ("created_at", "completed", "decisions", "remaining", "validation")
-    return {key: handoff[key] for key in keys if key in handoff}
+    compacted: dict[str, Any] = {}
+    for key in keys:
+        if key not in handoff:
+            continue
+        value = _compact_handoff_value(handoff[key])
+        if value is None or value == "" or value == []:
+            continue
+        compacted[key] = value
+    return compacted
+
+
+def _compact_handoff_value(value: Any) -> Any:
+    if isinstance(value, str):
+        return " ".join(value.split())
+    if isinstance(value, list):
+        compacted: list[Any] = []
+        seen: set[str] = set()
+        for item in value:
+            if isinstance(item, str):
+                item = " ".join(item.split())
+                if not item:
+                    continue
+                identity = item
+            elif item is None:
+                continue
+            else:
+                identity = json.dumps(item, sort_keys=True, ensure_ascii=False)
+            if identity in seen:
+                continue
+            seen.add(identity)
+            compacted.append(item)
+        return compacted
+    return value
 
 
 def _freshness(project: dict[str, Any], state: dict[str, Any], git: dict[str, Any]) -> dict[str, str]:
