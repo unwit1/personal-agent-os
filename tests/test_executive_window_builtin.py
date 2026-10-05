@@ -40,7 +40,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         reg = builtin.default_registry()
         provider_names = set(reg._providers.keys())
 
-        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup"}
+        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects"}
         self.assertEqual(provider_names, expected_providers)
 
     def test_default_registry_registers_actions(self):
