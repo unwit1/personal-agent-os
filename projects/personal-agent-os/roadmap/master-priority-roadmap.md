@@ -949,7 +949,7 @@ Use OpenAI/Anthropic APIs for bounded Agent-OS-owned subtasks when doing so is a
 
 ### P2.1 — Automation Miner
 
-Status: **on hold** (2026-10-05), awaiting the operator: the second hash-site slice (run-20261004T214405Z-0b334c, JSON/byte hashing via a `json_sha256` helper) is unlanded because one task edited the protected `orchestrator/eval.py`, which needs an operator grant; the import-loop extraction still needs an architectural decision. Earlier: **deterministic foundation complete** (2026-09-22).
+Status: **complete for now** (2026-10-05); the larger import-loop extraction is on hold for an architectural decision. Earlier: **deterministic foundation complete** (2026-09-22).
 
 Completion evidence: five repository-evidenced repeated deterministic seams were
 extracted into normal reusable code with synthetic or existing regression
@@ -965,9 +965,15 @@ covering single-part, multi-part, empty, non-ASCII, and truncation cases. Migrat
 callers: `candidates._fingerprint`, `improvements._dedupe_key`, `changes._fingerprint`,
 `changes` external_key for Google, `coordination._claim_id`, `coordination._note_id`,
 `coordination._task_id`, `coordination._review_id`, and `profile._fact_id`.
-Still open: hash sites over JSON, raw bytes or other separators (orchestrator, mail,
-recovery, artifacts, forms, watching, connectors, browser bridge), plus the larger
-import-loop extraction that needs an architectural decision.
+(2026-10-05): `agent_os.fingerprints` gained `text_sha256` and `json_sha256` (sort_keys,
+ensure_ascii and default options, optional truncation) with byte-identical regression tests.
+Migrated callers: `browser_bridge` payload hash, `connectors` MCP candidate ID,
+`orchestrator.artifacts` config digest and artifact ID, `orchestrator.capability.cap_id`,
+`orchestrator.context_contract` digest, `orchestrator.engine._tree_hash`,
+`orchestrator.eval` test-selection trace digest (operator-granted protected file),
+`orchestrator.prefix_stability` prefix hash, and `watching` watch IDs.
+Still open: remaining hash sites in mail, recovery, forms and other modules that hash raw
+bytes or files, plus the larger import-loop extraction that needs an architectural decision.
 
 Prioritize normal code for repeated deterministic tasks such as:
 - hashing/fingerprinting;
