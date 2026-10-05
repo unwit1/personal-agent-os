@@ -267,6 +267,54 @@ class TestValidateEntity(unittest.TestCase):
         errors = validate_entity(data)
         self.assertTrue(any("requires local_only=true" in e for e in errors))
 
+    def test_kind_as_list(self):
+        data = self._valid_entity()
+        data["kind"] = ["task"]
+        errors = validate_entity(data)
+        self.assertTrue(any("kind is not a string" in e for e in errors))
+
+    def test_kind_as_dict(self):
+        data = self._valid_entity()
+        data["kind"] = {"name": "task"}
+        errors = validate_entity(data)
+        self.assertTrue(any("kind is not a string" in e for e in errors))
+
+    def test_status_as_list(self):
+        data = self._valid_entity()
+        data["status"] = ["open"]
+        errors = validate_entity(data)
+        self.assertTrue(any("status is not a string" in e for e in errors))
+
+    def test_sensitivity_as_list(self):
+        data = self._valid_entity()
+        data["sensitivity"] = ["public"]
+        errors = validate_entity(data)
+        self.assertTrue(any("sensitivity is not a string" in e for e in errors))
+
+    def test_title_as_list(self):
+        data = self._valid_entity()
+        data["title"] = ["Test"]
+        errors = validate_entity(data)
+        self.assertTrue(any("title must be non-empty string" in e for e in errors))
+
+    def test_source_as_list(self):
+        data = self._valid_entity()
+        data["source"] = ["test-source"]
+        errors = validate_entity(data)
+        self.assertTrue(any("source must be non-empty string" in e for e in errors))
+
+    def test_domain_as_list(self):
+        data = self._valid_entity()
+        data["domain"] = ["test-domain"]
+        errors = validate_entity(data)
+        self.assertTrue(any("domain must be non-empty string" in e for e in errors))
+
+    def test_confidence_as_bool(self):
+        data = self._valid_entity()
+        data["confidence"] = True
+        errors = validate_entity(data)
+        self.assertTrue(any("confidence must be in [0, 1]" in e for e in errors))
+
 
 class TestValidateEvent(unittest.TestCase):
     def _valid_event(self) -> dict:
@@ -364,6 +412,36 @@ class TestValidateEvent(unittest.TestCase):
         errors = validate_event(data)
         self.assertFalse(any("requires local_only=true" in e for e in errors))
 
+    def test_type_as_list(self):
+        data = self._valid_event()
+        data["type"] = ["task.created"]
+        errors = validate_event(data)
+        self.assertTrue(any("type is not a string" in e for e in errors))
+
+    def test_sensitivity_as_list(self):
+        data = self._valid_event()
+        data["sensitivity"] = ["public"]
+        errors = validate_event(data)
+        self.assertTrue(any("sensitivity is not a string" in e for e in errors))
+
+    def test_source_as_list(self):
+        data = self._valid_event()
+        data["source"] = ["test-source"]
+        errors = validate_event(data)
+        self.assertTrue(any("source must be non-empty string" in e for e in errors))
+
+    def test_domain_as_list(self):
+        data = self._valid_event()
+        data["domain"] = ["test-domain"]
+        errors = validate_event(data)
+        self.assertTrue(any("domain must be non-empty string" in e for e in errors))
+
+    def test_dedup_key_as_list(self):
+        data = self._valid_event()
+        data["dedup_key"] = ["test-dedup"]
+        errors = validate_event(data)
+        self.assertTrue(any("dedup_key must be non-empty string" in e for e in errors))
+
 
 class TestValidateQueueItem(unittest.TestCase):
     def _valid_queue_item(self) -> dict:
@@ -380,6 +458,12 @@ class TestValidateQueueItem(unittest.TestCase):
 
     def test_valid_queue_item(self):
         errors = validate_queue_item(self._valid_queue_item())
+        self.assertEqual(errors, [])
+
+    def test_valid_queue_item_without_status(self):
+        data = self._valid_queue_item()
+        del data["status"]
+        errors = validate_queue_item(data)
         self.assertEqual(errors, [])
 
     def test_not_dict(self):
@@ -507,6 +591,60 @@ class TestValidateQueueItem(unittest.TestCase):
         data["local_only"] = True
         errors = validate_queue_item(data)
         self.assertFalse(any("requires local_only=true" in e for e in errors))
+
+    def test_sensitivity_as_list(self):
+        data = self._valid_queue_item()
+        data["sensitivity"] = ["public"]
+        errors = validate_queue_item(data)
+        self.assertTrue(any("sensitivity is not a string" in e for e in errors))
+
+    def test_source_as_list(self):
+        data = self._valid_queue_item()
+        data["source"] = ["test-source"]
+        errors = validate_queue_item(data)
+        self.assertTrue(any("source must be non-empty string" in e for e in errors))
+
+    def test_domain_as_list(self):
+        data = self._valid_queue_item()
+        data["domain"] = ["test-domain"]
+        errors = validate_queue_item(data)
+        self.assertTrue(any("domain must be non-empty string" in e for e in errors))
+
+    def test_urgency_as_list(self):
+        data = self._valid_queue_item()
+        data["urgency"] = ["high"]
+        errors = validate_queue_item(data)
+        self.assertTrue(any("urgency is not a string" in e for e in errors))
+
+    def test_status_as_list(self):
+        data = self._valid_queue_item()
+        data["status"] = ["queued"]
+        errors = validate_queue_item(data)
+        self.assertTrue(any("status is not a string" in e for e in errors))
+
+    def test_importance_as_bool(self):
+        data = self._valid_queue_item()
+        data["importance"] = True
+        errors = validate_queue_item(data)
+        self.assertTrue(any("importance must be in [0, 1]" in e for e in errors))
+
+    def test_priority_as_bool(self):
+        data = self._valid_queue_item()
+        data["priority"] = True
+        errors = validate_queue_item(data)
+        self.assertTrue(any("priority must be >= 0" in e for e in errors))
+
+    def test_blocking_impact_as_bool(self):
+        data = self._valid_queue_item()
+        data["blocking_impact"] = True
+        errors = validate_queue_item(data)
+        self.assertTrue(any("blocking_impact must be in [0, 1]" in e for e in errors))
+
+    def test_interruption_cost_as_bool(self):
+        data = self._valid_queue_item()
+        data["interruption_cost"] = True
+        errors = validate_queue_item(data)
+        self.assertTrue(any("interruption_cost must be >= 0" in e for e in errors))
 
 
 class TestConstants(unittest.TestCase):

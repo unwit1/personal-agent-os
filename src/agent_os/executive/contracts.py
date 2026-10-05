@@ -93,7 +93,18 @@ def queue_item_id(entity_id_val: str) -> str:
 
 def requires_local_only(sensitivity: str) -> bool:
     """Check if sensitivity level requires local_only=true."""
+    if not isinstance(sensitivity, str):
+        return False
     return sensitivity in {"sensitive", "secret"}
+
+
+def _check_enum_value(value: Any, valid_set: set, field_name: str, label: str) -> str | None:
+    """Check enum membership, guarding against non-string types. Return error string or None."""
+    if not isinstance(value, str):
+        return f"{label}: {field_name} is not a string: {type(value).__name__}"
+    if value not in valid_set:
+        return f"{label}: unknown {field_name} {value!r}"
+    return None
 
 
 def _parse_timestamp(ts: Any) -> tuple[bool, str | None]:
@@ -138,14 +149,17 @@ def validate_entity(data: Any, label: str = "entity") -> list[str]:
             if id_kind != data.get("kind"):
                 errors.append(f"{label}: id kind segment {id_kind!r} does not match kind {data.get('kind')!r}")
 
-    if data.get("kind") not in ENTITY_KINDS:
-        errors.append(f"{label}: unknown kind {data.get('kind')!r}")
+    kind = data.get("kind")
+    err = _check_enum_value(kind, ENTITY_KINDS, "kind", label)
+    if err:
+        errors.append(err)
 
-    if not data.get("title"):
-        errors.append(f"{label}: title must be non-empty")
+    if not isinstance(data.get("title"), str) or not data.get("title"):
+        errors.append(f"{label}: title must be non-empty string")
 
-    if data.get("status") not in ENTITY_STATUSES:
-        errors.append(f"{label}: unknown status {data.get('status')!r}")
+    err = _check_enum_value(data.get("status"), ENTITY_STATUSES, "status", label)
+    if err:
+        errors.append(err)
 
     # Validate timestamps
     for ts_field in ["created_at", "updated_at", "last_confirmed", "expires_at"]:
@@ -154,19 +168,20 @@ def validate_entity(data: Any, label: str = "entity") -> list[str]:
             if not success:
                 errors.append(f"{label}: {ts_field} {error_msg}")
 
-    if data.get("sensitivity") not in SENSITIVITIES:
-        errors.append(f"{label}: unknown sensitivity {data.get('sensitivity')!r}")
+    err = _check_enum_value(data.get("sensitivity"), SENSITIVITIES, "sensitivity", label)
+    if err:
+        errors.append(err)
 
     # Validate source and domain
-    if not data.get("source"):
-        errors.append(f"{label}: source must be non-empty")
-    if not data.get("domain"):
-        errors.append(f"{label}: domain must be non-empty")
+    if not isinstance(data.get("source"), str) or not data.get("source"):
+        errors.append(f"{label}: source must be non-empty string")
+    if not isinstance(data.get("domain"), str) or not data.get("domain"):
+        errors.append(f"{label}: domain must be non-empty string")
 
     # Validate confidence in [0, 1] or None
     confidence = data.get("confidence")
     if confidence is not None:
-        if not isinstance(confidence, (int, float)) or confidence < 0 or confidence > 1:
+        if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or confidence < 0 or confidence > 1:
             errors.append(f"{label}: confidence must be in [0, 1] or None")
 
     # Validate provenance (non-empty list of strings)
@@ -180,12 +195,12 @@ def validate_entity(data: Any, label: str = "entity") -> list[str]:
 
     # Validate superseded_by when status is superseded
     if data.get("status") == "superseded":
-        if not data.get("superseded_by"):
+        if not isinstance(data.get("superseded_by"), str) or not data.get("superseded_by"):
             errors.append(f"{label}: status 'superseded' requires non-empty superseded_by")
 
     # Validate local_only requirement for sensitive/secret
     if requires_local_only(data.get("sensitivity", "")):
-        if not data.get("local_only"):
+        if data.get("local_only") is not True:
             errors.append(f"{label}: sensitivity {data.get('sensitivity')!r} requires local_only=true")
 
     return errors
@@ -211,26 +226,28 @@ def validate_event(data: Any, label: str = "event") -> list[str]:
     if not _EVENT_ID.match(str(event_id_str)):
         errors.append(f"{label}: invalid id {event_id_str!r}")
 
-    if data.get("type") not in EVENT_TYPES:
-        errors.append(f"{label}: unknown type {data.get('type')!r}")
+    err = _check_enum_value(data.get("type"), EVENT_TYPES, "type", label)
+    if err:
+        errors.append(err)
 
     # Validate timestamps
     success, error_msg = _parse_timestamp(data.get("occurred_at"))
     if not success:
         errors.append(f"{label}: occurred_at {error_msg}")
 
-    if data.get("sensitivity") not in SENSITIVITIES:
-        errors.append(f"{label}: unknown sensitivity {data.get('sensitivity')!r}")
+    err = _check_enum_value(data.get("sensitivity"), SENSITIVITIES, "sensitivity", label)
+    if err:
+        errors.append(err)
 
     # Validate source and domain
-    if not data.get("source"):
-        errors.append(f"{label}: source must be non-empty")
-    if not data.get("domain"):
-        errors.append(f"{label}: domain must be non-empty")
+    if not isinstance(data.get("source"), str) or not data.get("source"):
+        errors.append(f"{label}: source must be non-empty string")
+    if not isinstance(data.get("domain"), str) or not data.get("domain"):
+        errors.append(f"{label}: domain must be non-empty string")
 
     # Validate dedup_key
-    if not data.get("dedup_key"):
-        errors.append(f"{label}: dedup_key must be non-empty")
+    if not isinstance(data.get("dedup_key"), str) or not data.get("dedup_key"):
+        errors.append(f"{label}: dedup_key must be non-empty string")
 
     # Validate payload is a dict
     if not isinstance(data.get("payload"), dict):
@@ -246,7 +263,7 @@ def validate_event(data: Any, label: str = "event") -> list[str]:
 
     # Validate local_only requirement for sensitive/secret
     if requires_local_only(data.get("sensitivity", "")):
-        if not data.get("local_only"):
+        if data.get("local_only") is not True:
             errors.append(f"{label}: sensitivity {data.get('sensitivity')!r} requires local_only=true")
 
     return errors
@@ -282,14 +299,15 @@ def validate_queue_item(data: Any, label: str = "queue_item") -> list[str]:
     if not success:
         errors.append(f"{label}: queued_at {error_msg}")
 
-    if data.get("sensitivity") not in SENSITIVITIES:
-        errors.append(f"{label}: unknown sensitivity {data.get('sensitivity')!r}")
+    err = _check_enum_value(data.get("sensitivity"), SENSITIVITIES, "sensitivity", label)
+    if err:
+        errors.append(err)
 
     # Validate source and domain
-    if not data.get("source"):
-        errors.append(f"{label}: source must be non-empty")
-    if not data.get("domain"):
-        errors.append(f"{label}: domain must be non-empty")
+    if not isinstance(data.get("source"), str) or not data.get("source"):
+        errors.append(f"{label}: source must be non-empty string")
+    if not isinstance(data.get("domain"), str) or not data.get("domain"):
+        errors.append(f"{label}: domain must be non-empty string")
 
     # Validate optional timestamps
     for ts_field in ["deadline"]:
@@ -301,26 +319,28 @@ def validate_queue_item(data: Any, label: str = "queue_item") -> list[str]:
     # Validate priority (optional, but if present should be >= 0)
     priority = data.get("priority")
     if priority is not None:
-        if not isinstance(priority, (int, float)) or priority < 0:
+        if isinstance(priority, bool) or not isinstance(priority, (int, float)) or priority < 0:
             errors.append(f"{label}: priority must be >= 0 or None")
 
     # Validate importance in [0, 1] or None
     importance = data.get("importance")
     if importance is not None:
-        if not isinstance(importance, (int, float)) or importance < 0 or importance > 1:
+        if isinstance(importance, bool) or not isinstance(importance, (int, float)) or importance < 0 or importance > 1:
             errors.append(f"{label}: importance must be in [0, 1] or None")
 
     # Validate blocking_impact in [0, 1] or None
     blocking_impact = data.get("blocking_impact")
     if blocking_impact is not None:
-        if not isinstance(blocking_impact, (int, float)) or blocking_impact < 0 or blocking_impact > 1:
+        if isinstance(blocking_impact, bool) or not isinstance(blocking_impact, (int, float)) or blocking_impact < 0 or blocking_impact > 1:
             errors.append(f"{label}: blocking_impact must be in [0, 1] or None")
 
     # Validate urgency enum (optional)
     if "urgency" in data:
         urgency = data.get("urgency")
-        if urgency is not None and urgency not in {"critical", "high", "normal", "low"}:
-            errors.append(f"{label}: unknown urgency {urgency!r}")
+        if urgency is not None:
+            err = _check_enum_value(urgency, {"critical", "high", "normal", "low"}, "urgency", label)
+            if err:
+                errors.append(err)
 
     # Validate estimated_effort (optional string)
     if "estimated_effort" in data:
@@ -339,12 +359,14 @@ def validate_queue_item(data: Any, label: str = "queue_item") -> list[str]:
     if "interruption_cost" in data:
         interruption_cost = data.get("interruption_cost")
         if interruption_cost is not None:
-            if not isinstance(interruption_cost, (int, float)) or interruption_cost < 0:
+            if isinstance(interruption_cost, bool) or not isinstance(interruption_cost, (int, float)) or interruption_cost < 0:
                 errors.append(f"{label}: interruption_cost must be >= 0 or None")
 
-    # Validate status enum
-    if data.get("status") not in QUEUE_STATUSES:
-        errors.append(f"{label}: unknown status {data.get('status')!r}")
+    # Validate status enum (optional)
+    if "status" in data:
+        err = _check_enum_value(data.get("status"), QUEUE_STATUSES, "status", label)
+        if err:
+            errors.append(err)
 
     # Validate provenance (optional)
     if "provenance" in data:
@@ -356,7 +378,7 @@ def validate_queue_item(data: Any, label: str = "queue_item") -> list[str]:
 
     # Validate local_only requirement for sensitive/secret
     if requires_local_only(data.get("sensitivity", "")):
-        if not data.get("local_only"):
+        if data.get("local_only") is not True:
             errors.append(f"{label}: sensitivity {data.get('sensitivity')!r} requires local_only=true")
 
     return errors
