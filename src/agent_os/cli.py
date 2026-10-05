@@ -119,6 +119,13 @@ def _executive_event_bus():
     return EventBus()
 
 
+def _executive_window_queue(tab: str | None = None):
+    from .executive.window.builtin import default_registry
+    from .executive.window.confirm import ItemState, window_home
+
+    return default_registry().queue(tab, state=ItemState(window_home()))
+
+
 def _register_executive(commands) -> None:
     executive = commands.add_parser("executive")
     sub = executive.add_subparsers(dest="executive_command", required=True)
@@ -151,6 +158,11 @@ def _register_executive(commands) -> None:
     window = sub.add_parser("window")
     window.add_argument("--port", type=int, default=8770)
     window.add_argument("--no-open", action="store_true")
+    next_action = sub.add_parser("next")
+    next_action.add_argument("--tab", choices=["work", "personal"], default=None)
+    explain = sub.add_parser("explain")
+    explain.add_argument("item_id")
+    explain.add_argument("--tab", choices=["work", "personal"], default=None)
 
 
 def _approval_state(batch: dict) -> dict:
@@ -215,6 +227,18 @@ def _dispatch_executive(args) -> int:
     elif cmd == "window":
         from .executive.window import server
         return server.serve(port=args.port, open_window=not args.no_open)
+    elif cmd == "next":
+        from .executive import next_action
+
+        q = _executive_window_queue(args.tab)
+        result = next_action.next_item(q["queue_items"])
+        _print({**result, "errors": q["errors"]})
+    elif cmd == "explain":
+        from .executive import next_action
+
+        q = _executive_window_queue(args.tab)
+        explanation = next_action.explain(q["queue_items"], args.item_id)
+        _print({"item_id": args.item_id, "explanation": explanation, "errors": q["errors"]})
     return 0
 
 
