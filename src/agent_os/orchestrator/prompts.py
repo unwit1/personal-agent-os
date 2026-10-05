@@ -204,10 +204,16 @@ def shared_prefix(run: dict[str, Any], family: str) -> str:
     return "\n".join([*lines, ""])
 
 
-def _node_blocks(run: dict[str, Any], node: dict[str, Any], diff: str | None, findings: list[dict[str, Any]] | None, repo_map: str | None) -> list[str]:
+def _node_blocks(run: dict[str, Any], node: dict[str, Any], diff: str | None, findings: list[dict[str, Any]] | None, repo_map: str | None, scope_map: str | None) -> list[str]:
     """Role-specific per-node blocks: reviewer diff and findings, repairer findings, planner instructions."""
     role = node["role"]
     lines: list[str] = []
+    if scope_map and FAMILIES.get(role) == "worker":
+        lines += [
+            "Map of the files in your scope (built locally, no need to re-list them; open only what you need):",
+            scope_map,
+            "",
+        ]
     if role == "reviewer":
         lines += [
             *_sibling_lines(run, node),
@@ -242,6 +248,7 @@ def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None,
 def build_measured(
     run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None, findings: list[dict[str, Any]] | None = None,
     repo_map: str | None = None,
+    scope_map: str | None = None,
     cwd: str | None = None,
     prefix: str | None = None,
 ) -> tuple[str, dict[str, Any] | None]:
@@ -264,7 +271,7 @@ def build_measured(
             lines += ["Rules:", _WORKER_RULES_HEAD, _scope_line(node), *_WORKER_RULES_TAIL, *_validator_lines(node), ""]
         elif fam == "reviewer":
             lines += [*_REVIEWER_RULES, ""]
-    lines += _node_blocks(run, node, diff, findings, repo_map)
+    lines += _node_blocks(run, node, diff, findings, repo_map, scope_map)
     context, measurement = _context_packet(run.get("project"), node["goal"], int(node.get("context_budget", 1200)))
     if context:
         lines += ["Project context:", context, ""]
