@@ -34,34 +34,82 @@ def _registry() -> Registry:
 
 OPTIONS = [{"action_id": "done", "label": "Done", "consequential": False}]
 
+# Hard-coded EXPECTED items with rank positions computed from next_action.rank
+# on reg.queue()['queue_items']
 def _build_expected():
-    """Build EXPECTED with computed rank positions."""
+    """Build EXPECTED with hard-coded items and computed positions for w2/h1."""
     reg = _registry()
     queue_items = reg.queue()["queue_items"]
     ranked = next_action.rank(queue_items)
+
+    # Create rank map: queue_item id -> position
     rank_map = {qi["id"]: idx + 1 for idx, qi in enumerate(ranked)}
     total = len(ranked)
 
-    # Build items with rank info
-    outstanding = reg.outstanding()
-    items_with_rank = []
-    for item in outstanding["items"]:
-        item_copy = dict(item)
-        # Find the queue item id for this item to get its rank
-        for qi in queue_items:
-            if qi.get("window_item", {}).get("id") == item.get("id"):
-                if qi["id"] in rank_map:
-                    item_copy["rank"] = {
-                        "position": rank_map[qi["id"]],
-                        "of": total,
-                        "ranking": next_action.RANKING
-                    }
-                break
-        items_with_rank.append(item_copy)
+    # Create a mapping from window item id to queue item id
+    window_to_qi = {}
+    for qi in queue_items:
+        window_item = qi.get("window_item", {})
+        if isinstance(window_item, dict):
+            window_to_qi[window_item.get("id")] = qi["id"]
+
+    # Hard-code EXPECTED items with rank info computed from the ranking
+    items = []
+
+    # w1: hard-coded position 1 (has score=3, highest priority)
+    w1_qi_id = window_to_qi.get("w1")
+    items.append({
+        "id": "w1",
+        "tab": "work",
+        "kind": "task",
+        "title": "Reply to Sam",
+        "why": "waiting 2 days",
+        "score": 3,
+        "options": OPTIONS,
+        "rank": {
+            "position": rank_map.get(w1_qi_id, 1),
+            "of": total,
+            "ranking": next_action.RANKING
+        }
+    })
+
+    # w2: compute position from ranking
+    w2_qi_id = window_to_qi.get("w2")
+    items.append({
+        "id": "w2",
+        "tab": "work",
+        "kind": "odd",
+        "title": "Bad sensitivity",
+        "sensitivity": 7,
+        "options": OPTIONS,
+        "rank": {
+            "position": rank_map.get(w2_qi_id, 3),
+            "of": total,
+            "ranking": next_action.RANKING
+        }
+    })
+
+    # h1: compute position from ranking
+    h1_qi_id = window_to_qi.get("h1")
+    items.append({
+        "id": "h1",
+        "tab": "personal",
+        "kind": "task",
+        "title": "Groceries",
+        "options": OPTIONS,
+        "rank": {
+            "position": rank_map.get(h1_qi_id, 2),
+            "of": total,
+            "ranking": next_action.RANKING
+        }
+    })
+
+    # Get errors from the registry
+    errors = reg.outstanding()["errors"]
 
     return {
-        "items": items_with_rank,
-        "errors": outstanding["errors"],
+        "items": items,
+        "errors": errors,
     }
 
 EXPECTED = _build_expected()
@@ -137,8 +185,8 @@ class RegistryQueueTests(unittest.TestCase):
         self.assertEqual(len(result["items"]), 2)
         # Both items should have rank with 'of': 2
         for item in result["items"]:
-            if "rank" in item:
-                self.assertEqual(item["rank"]["of"], 2)
+            self.assertIn("rank", item)
+            self.assertEqual(item["rank"]["of"], 2)
 
     def test_highest_score_has_position_one(self) -> None:
         """The item with highest score (w1 with score=3) should have position 1."""
