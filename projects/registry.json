@@ -230,6 +230,38 @@
         "novelty check",
         "INGESTER.yaml"
       ]
+    },
+    {
+      "id": "iphone-message-archive",
+      "name": "iPhone Message Archive",
+      "directory": "iphone-message-archive",
+      "classification": "active",
+      "state_file": "projects/iphone-message-archive/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Message databases, iPhone backups, exports and everything under the archive's data root are private local data; never read, index, summarize, commit or upload message content. Agent OS consumes only explicit Agent OS JSONL exports the operator chooses to import.",
+      "routing_terms": [
+        "iphone message archive",
+        "imessage",
+        "sms archive",
+        "iphone backup",
+        "message export"
+      ]
+    },
+    {
+      "id": "universal-capture-plugin",
+      "name": "Agent OS Universal Capture (public userscript)",
+      "directory": "universal-capture-plugin",
+      "repository": "https://github.com/unwit1/universal-capture-plugin.git",
+      "classification": "active",
+      "state_file": "projects/universal-capture-plugin/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Public distribution repository: only sanitized browser code and documentation. Never add captures, browsing history, endpoint credentials, device tokens, API keys, personal or HR data.",
+      "routing_terms": [
+        "universal capture plugin",
+        "tampermonkey userscript",
+        "capture userscript",
+        "firefox capture extension"
+      ]
     }
   ],
   "path_resolution": "Canonical entries are machine independent. Effective checkout locations are resolved locally from .agent-local/machine.json, ~/.agent-os/config.json, repository identity, or discovery across registered search roots."

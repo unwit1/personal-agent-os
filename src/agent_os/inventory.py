@@ -57,7 +57,8 @@ def _normalize_remote(value: str | None) -> str | None:
     return value.strip().removesuffix(".git").rstrip("/").casefold()
 
 
-def _describe(path: Path, registered: dict[Path, str], by_remote: dict[str, str]) -> dict[str, Any] | None:
+def _describe(path: Path, registered: dict[Path, str], by_remote: dict[str, str],
+              by_directory: dict[str, str] | None = None) -> dict[str, Any] | None:
     try:
         names = {item.name for item in path.iterdir() if item.is_file()}
     except OSError:
@@ -70,6 +71,11 @@ def _describe(path: Path, registered: dict[Path, str], by_remote: dict[str, str]
         # A second clone of a registered repository is the same project, not an
         # unregistered one. Identity follows the repository, not the directory.
         registered_as = by_remote.get(_normalize_remote(remote) or "")
+        if not registered_as and remote is None and not (path / ".git").exists():
+            # A plain (non-Git) folder carrying a project's registered directory
+            # name, such as a launcher or runtime folder, belongs to that
+            # project; resolve_path discovers projects by the same name.
+            registered_as = (by_directory or {}).get(path.name.casefold())
         alternate = bool(registered_as)
     return {
         "name": path.name,
@@ -95,6 +101,11 @@ def scan(projects_root: Path | None = None) -> dict[str, Any]:
         for item in known
         if (normalized := _normalize_remote(item.get("repository")))
     }
+    by_directory = {
+        str(item["directory"]).casefold(): item["id"]
+        for item in known
+        if item.get("directory")
+    }
     roots = [projects_root.resolve()] if projects_root is not None else _scan_roots(registered)
     found: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -108,7 +119,7 @@ def scan(projects_root: Path | None = None) -> dict[str, Any]:
             if key in seen:
                 continue
             seen.add(key)
-            described = _describe(path, registered, by_remote)
+            described = _describe(path, registered, by_remote, by_directory)
             if described:
                 found.append(described)
     missing = sorted(str(path) for path, _ in registered.items() if not path.is_dir())

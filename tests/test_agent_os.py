@@ -33,15 +33,21 @@ class AgentOSTests(unittest.TestCase):
         self.assertEqual(load_state(project)["project"], "hr-gui")
         self.assertEqual(identify_project(Path(project["path"]))["id"], "hr-gui")
         self.assertEqual(identify_project(Path(__file__).resolve())["id"], "personal-agent-os")
-        self.assertEqual(len({item["id"] for item in projects()}), 7)
+        registered = projects()
+        self.assertEqual(len({item["id"] for item in registered}), len(registered))
 
     def test_project_inventory_is_fully_registered(self) -> None:
         inventory = scan()
         self.assertEqual(inventory["unregistered"], [])
-        dashboard = next(item for item in inventory["projects"] if item["registered_as"] == "job-applicant-dashboard")
-        self.assertIn("dashboard.db", dashboard["sensitive_markers"])
+        dashboards = [item for item in inventory["projects"] if item["registered_as"] == "job-applicant-dashboard"]
+        self.assertTrue(dashboards)
+        for dashboard in dashboards:
+            # Markers are filenames only, and a database in the folder is always flagged.
+            if (Path(dashboard["path"]) / "dashboard.db").is_file():
+                self.assertIn("dashboard.db", dashboard["sensitive_markers"])
 
-    def test_machine_resolution_uses_repository_clone_name_fallback(self) -> None:
+    @patch("agent_os.machine.local_config", return_value={"project_paths": {}, "search_roots": []})
+    def test_machine_resolution_uses_repository_clone_name_fallback(self, _config) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             clone = root / "job-applicant-dashboard"
@@ -56,7 +62,8 @@ class AgentOSTests(unittest.TestCase):
             self.assertEqual(resolved, clone)
             self.assertEqual(source, "discovered_repository")
 
-    def test_machine_resolution_prefers_registered_directory_name(self) -> None:
+    @patch("agent_os.machine.local_config", return_value={"project_paths": {}, "search_roots": []})
+    def test_machine_resolution_prefers_registered_directory_name(self, _config) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             friendly = root / "Job Applicant Dashboard"

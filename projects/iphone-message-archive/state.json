@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "project": "iphone-message-archive",
+  "status": "active",
+  "updated_at": "2026-10-05",
+  "summary": "Local-first archive and normalization service for messages recovered from iPhone backups, with append-only history and Agent OS JSONL exports. Agent OS is an optional client.",
+  "context_files": [
+    "README.md",
+    "PROJECT_STATUS.json"
+  ],
+  "validation_commands": [
+    "python -m pytest tests -q"
+  ],
+  "constraints": [
+    "Never read or commit message content, backups or the data root.",
+    "Coverage claims are scoped to each source; backup success never implies all-time completeness."
+  ],
+  "skill_roots": [],
+  "current_priorities": []
+}
