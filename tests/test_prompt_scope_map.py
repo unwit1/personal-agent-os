@@ -27,6 +27,29 @@ class PromptScopeMapTests(unittest.TestCase):
         prompt, _ = prompts.build_measured(self.run, node, scope_map="- a.py (3 lines): f")
         self.assertNotIn("Map of the files in your scope", prompt)
 
+    def test_reviewer_gets_scope_map_before_change(self):
+        node = {"id": "t1", "role": "reviewer", "goal": "g"}
+        heading = "Map of the reviewed task's scope files (built locally, no model call; open only what you need to check the change):"
+        scope_map = "- a.py (3 lines): f"
+        prompt, _ = prompts.build_measured(self.run, node, diff="+x", scope_map=scope_map)
+        self.assertIn(heading, prompt)
+        self.assertIn(scope_map, prompt)
+        self.assertLess(prompt.index(scope_map), prompt.index("Change under review:"))
+        self.assertNotIn("Map of the files in your scope", prompt)
+
+    def test_reviewer_scope_map_is_per_node_with_shared_prefix(self):
+        run = {**self.run, "policy": {"shared_prefix": True}}
+        node = {"id": "t1", "role": "reviewer", "goal": "g"}
+        scope_map = "- a.py (3 lines): f"
+        prompt, _ = prompts.build_measured(run, node, scope_map=scope_map)
+        self.assertNotIn(scope_map, prompts.shared_prefix(run, "reviewer"))
+        self.assertIn(scope_map, prompt)
+
+    def test_implementer_does_not_get_reviewer_scope_map_heading(self):
+        node = {"id": "t1", "role": "implementer", "goal": "g", "scope": ["a.py"]}
+        prompt, _ = prompts.build_measured(self.run, node, scope_map="- a.py (3 lines): f")
+        self.assertNotIn("Map of the reviewed task's scope files", prompt)
+
     def test_scope_map_is_per_node_with_shared_prefix(self):
         run = {**self.run, "policy": {"shared_prefix": True}}
         node = {"id": "t1", "role": "implementer", "goal": "g", "scope": ["a.py"], "context_budget": 1200}

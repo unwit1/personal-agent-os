@@ -215,6 +215,12 @@ def _node_blocks(run: dict[str, Any], node: dict[str, Any], diff: str | None, fi
             "",
         ]
     if role == "reviewer":
+        if scope_map:
+            lines += [
+                "Map of the reviewed task's scope files (built locally, no model call; open only what you need to check the change):",
+                scope_map,
+                "",
+            ]
         lines += [
             *_sibling_lines(run, node),
             "Change under review:",
