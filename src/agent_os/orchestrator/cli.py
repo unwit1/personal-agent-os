@@ -284,6 +284,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     ctxbench.add_argument("--out", type=Path, help="write report JSON to this path")
     ctxbench.add_argument("--baseline", type=Path, help="compare against a previously saved context-bench report JSON")
     ctxbench.add_argument("--fail-on-regression", action="store_true", help="exit 1 when --baseline comparison reports a regression")
+    ctxbench.add_argument("--scope-repo", type=Path, help="measure worker/reviewer prompts with local scope maps built from this checkout for corpus cases that list a scope (no model call)")
 
     rot = actions.add_parser("rotation-advisor", help="IMP-0019 shadow: would-rotate advice per worker from run telemetry (aggregates only, advice only, no model call)")
     rot.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
@@ -656,7 +657,8 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from . import context_bench
 
         report = context_bench.build(Path(args.corpus), Path(args.handoffs), project=args.project,
-                                     token_budget=args.budget, run_dirs=[Path(p) for p in args.run_dir or []])
+                                     token_budget=args.budget, run_dirs=[Path(p) for p in args.run_dir or []],
+                                     scope_repo=args.scope_repo)
         comparison = None
         if args.baseline:
             baseline = json.loads(args.baseline.read_text(encoding="utf-8"))
