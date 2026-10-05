@@ -238,17 +238,32 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertGreater(len(items), 0)
 
     def test_default_stale_days(self):
-        """When stale_days=None, uses project_actions.STALE_DAYS_DEFAULT."""
-        entry = self._make_registry_entry()
+        """When stale_days=None, uses project_actions.STALE_DAYS_DEFAULT and flags stalled."""
+        from datetime import timedelta
         from agent_os.executive.project_actions import STALE_DAYS_DEFAULT
 
+        entry = self._make_registry_entry()
+        today_date = date(2026, 10, 5)
+
+        # Project updated STALE_DAYS_DEFAULT + 1 days ago should be flagged stalled.
+        stale_date = today_date - timedelta(days=STALE_DAYS_DEFAULT + 1)
         state = self._make_state(
-            updated_at=f"2026-{10 - (STALE_DAYS_DEFAULT + 1) // 30:02d}-"
-            f"{1 + ((10 - 1) * 30 - (STALE_DAYS_DEFAULT + 1) % 30) % 30:02d}T10:00:00Z"
+            updated_at=f"{stale_date.isoformat()}T10:00:00Z",
+            next_action="Do something",
         )
-        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
-        # Should produce at least a stalled item if old enough
-        self.assertGreater(len(items), 0)
+        items = project_items(lambda: [(entry, state)], today=today_date)
+        stalled_items = [i for i in items if i["kind"] == "project_stalled"]
+        self.assertEqual(len(stalled_items), 1, "Project older than STALE_DAYS_DEFAULT should be stalled")
+
+        # Project updated exactly STALE_DAYS_DEFAULT days ago should NOT be stalled.
+        edge_date = today_date - timedelta(days=STALE_DAYS_DEFAULT)
+        state_edge = self._make_state(
+            updated_at=f"{edge_date.isoformat()}T10:00:00Z",
+            next_action="Do something",
+        )
+        items_edge = project_items(lambda: [(entry, state_edge)], today=today_date)
+        stalled_items_edge = [i for i in items_edge if i["kind"] == "project_stalled"]
+        self.assertEqual(len(stalled_items_edge), 0, "Project exactly STALE_DAYS_DEFAULT days old should not be stalled")
 
     def test_context_has_project_key(self):
         """Every item context has 'project' key with the project id."""
