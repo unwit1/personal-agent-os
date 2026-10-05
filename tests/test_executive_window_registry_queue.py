@@ -276,6 +276,143 @@ class RegistryQueueTests(unittest.TestCase):
         self.assertIn("note_action", options_ids)
         self.assertIn("all_action", options_ids)
 
+    def test_outstanding_exact_output_no_bus(self):
+        """outstanding() without bus returns exact expected structure."""
+        reg = Registry()
+        reg.register_provider("p1", lambda: [
+            item("task1", tab="work", kind="task", why="urgent", score=10)
+        ])
+        reg.register_action("do_it", "Do It", "*", lambda i, p, *, confirm: {}, False)
+
+        out = reg.outstanding()
+
+        self.assertEqual(len(out["items"]), 1)
+        self.assertEqual(out["errors"], [])
+
+        task = out["items"][0]
+        self.assertEqual(task["id"], "task1")
+        self.assertEqual(task["tab"], "work")
+        self.assertEqual(task["kind"], "task")
+        self.assertEqual(task["title"], "task1")
+        self.assertEqual(task["source"], "test")
+        self.assertEqual(task["why"], "urgent")
+        self.assertEqual(task["score"], 10)
+        self.assertEqual(len(task["options"]), 1)
+        self.assertEqual(task["options"][0]["action_id"], "do_it")
+        self.assertEqual(task["options"][0]["label"], "Do It")
+        self.assertEqual(task["options"][0]["consequential"], False)
+
+    def test_outstanding_exact_output_with_bus(self):
+        """outstanding() with bus returns exact expected structure."""
+        reg = Registry()
+        reg.register_provider("p1", lambda: [
+            item("task1", tab="work", kind="task", why="urgent", score=10)
+        ])
+        reg.register_action("do_it", "Do It", "*", lambda i, p, *, confirm: {}, False)
+
+        bus = EventBus(self.tmp.name)
+        reg.attach_event_bus(bus)
+
+        out = reg.outstanding()
+
+        self.assertEqual(len(out["items"]), 1)
+        self.assertEqual(out["errors"], [])
+
+        task = out["items"][0]
+        self.assertEqual(task["id"], "task1")
+        self.assertEqual(task["tab"], "work")
+        self.assertEqual(task["why"], "urgent")
+
+        # Verify bus received the event
+        events = bus.events("task.created")
+        self.assertEqual(len(events), 1)
+
+    def test_outstanding_exact_output_tab_filtering(self):
+        """outstanding(tab=...) returns exact expected structure with correct filtering."""
+        reg = Registry()
+        reg.register_provider("p1", lambda: [
+            item("task1", tab="work", why="work item"),
+            item("task2", tab="personal", why="personal item")
+        ])
+        reg.register_action("do_it", "Do It", "*", lambda i, p, *, confirm: {}, False)
+
+        out_work = reg.outstanding(tab="work")
+        self.assertEqual(len(out_work["items"]), 1)
+        self.assertEqual(out_work["items"][0]["id"], "task1")
+        self.assertEqual(out_work["items"][0]["why"], "work item")
+        self.assertEqual(out_work["errors"], [])
+
+        out_personal = reg.outstanding(tab="personal")
+        self.assertEqual(len(out_personal["items"]), 1)
+        self.assertEqual(out_personal["items"][0]["id"], "task2")
+        self.assertEqual(out_personal["items"][0]["why"], "personal item")
+        self.assertEqual(out_personal["errors"], [])
+
+    def test_outstanding_exact_output_state_hiding(self):
+        """outstanding(state=...) returns exact expected structure with correct hiding."""
+        reg = Registry()
+        reg.register_provider("p1", lambda: [
+            item("task1"),
+            item("task2")
+        ])
+        reg.register_action("do_it", "Do It", "*", lambda i, p, *, confirm: {}, False)
+
+        state = ItemState(self.tmp.name)
+        state.dismiss("task1")
+
+        out = reg.outstanding(state=state)
+        self.assertEqual(len(out["items"]), 1)
+        self.assertEqual(out["items"][0]["id"], "task2")
+        self.assertEqual(out["errors"], [])
+
+    def test_queue_item_validation_failure_caught(self):
+        """queue() catches validation failures and reports errors without breaking."""
+        reg = Registry()
+
+        def bad_provider():
+            # Return an item with invalid sensitivity that could fail validation
+            return [
+                item("good"),
+                {**item("bad"), "sensitivity": None}  # Invalid sensitivity
+            ]
+
+        reg.register_provider("p", bad_provider)
+        reg.register_provider("p2", lambda: [item("other")])
+
+        result = reg.queue()
+        # Should have caught the validation error
+        ids = [qi["window_item"]["id"] for qi in result["queue_items"]]
+        # Items are processed in order, the bad one should fail but others should proceed
+        self.assertIn("good", ids)
+        self.assertIn("other", ids)
+
+    def test_bus_publish_failure_full_output_unchanged(self):
+        """Bus publish failures don't affect any part of outstanding() output."""
+        reg = Registry()
+        reg.register_provider("p1", lambda: [
+            item("task1", why="test", score=5),
+            item("task2", why="another", score=10)
+        ])
+        reg.register_action("act1", "Action 1", "*", lambda i, p, *, confirm: {}, False)
+
+        class FailingBus:
+            def publish(self, *args, **kwargs):
+                raise RuntimeError("bus broken")
+
+        reg.attach_event_bus(FailingBus())
+
+        out = reg.outstanding()
+
+        # Full output should be identical to no-bus case
+        self.assertEqual(len(out["items"]), 2)
+        self.assertEqual(out["items"][0]["id"], "task1")
+        self.assertEqual(out["items"][0]["why"], "test")
+        self.assertEqual(out["items"][0]["score"], 5)
+        self.assertEqual(out["items"][1]["id"], "task2")
+        self.assertEqual(out["items"][1]["why"], "another")
+        self.assertEqual(out["items"][1]["score"], 10)
+        self.assertEqual(out["errors"], [])
+
 
 if __name__ == "__main__":
     unittest.main()

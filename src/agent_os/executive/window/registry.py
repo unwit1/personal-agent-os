@@ -63,8 +63,11 @@ class Registry:
                     continue
                 if state is not None and state.is_hidden(str(raw.get("id"))):
                     continue
-                queue_item = window_queue.queue_item_from_window_item(raw, name)
-                queue_items.append(queue_item)
+                try:
+                    queue_item = window_queue.queue_item_from_window_item(raw, name)
+                    queue_items.append(queue_item)
+                except Exception as exc:
+                    errors.append({"provider": name, "error": f"{type(exc).__name__}: {exc}"})
         return {"queue_items": queue_items, "errors": errors}
 
     def actions(self) -> list[dict[str, Any]]:
