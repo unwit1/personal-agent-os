@@ -275,6 +275,14 @@ def register(commands: argparse._SubParsersAction) -> None:
     econ.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
     econ.add_argument("--out", type=Path, help="write report JSON to this path")
 
+    ctxbench = actions.add_parser("context-bench", help="P2.3 synthetic prompt/context measurement over compiler, skill-selection, prompt, handoff and optional telemetry fixtures (no model call)")
+    ctxbench.add_argument("--corpus", default="tests/fixtures/economy-corpus.json")
+    ctxbench.add_argument("--handoffs", default="tests/fixtures/economy-handoffs.json")
+    ctxbench.add_argument("--project", default="personal-agent-os")
+    ctxbench.add_argument("--budget", type=int, default=1200)
+    ctxbench.add_argument("--run-dir", action="append")
+    ctxbench.add_argument("--out", type=Path, help="write report JSON to this path")
+
     rot = actions.add_parser("rotation-advisor", help="IMP-0019 shadow: would-rotate advice per worker from run telemetry (aggregates only, advice only, no model call)")
     rot.add_argument("--home", type=Path, help="orchestrator home directory (default: orchestrator_home())")
     rot.add_argument("--out", type=Path, help="write advice JSON to this path")
@@ -641,6 +649,16 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         home = args.home if args.home else orchestrator_home()
         emit(context_economy.report(home, args.out))
+        return 0
+    if action == "context-bench":
+        from . import context_bench
+
+        report = context_bench.build(Path(args.corpus), Path(args.handoffs), project=args.project,
+                                     token_budget=args.budget, run_dirs=[Path(p) for p in args.run_dir or []])
+        if args.out:
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            args.out.write_text(json.dumps(report, indent=2), encoding="utf-8")
+        emit(report)
         return 0
     if action == "rotation-advisor":
         from . import rotation_advisor

@@ -1,0 +1,32 @@
+[
+  {
+    "created_at": "2026-01-01T00:00:00Z",
+    "completed": ["fake completed item alpha"],
+    "decisions": ["keep the synthetic fixture small"],
+    "remaining": ["check compact handoff output"],
+    "validation": ["python -m unittest"],
+    "transcript_excerpt": "FAKE_TRANSCRIPT_SECRETLESS_ALPHA lorem ipsum repeated narrative",
+    "files_touched": ["fake/path/one.py", "fake/path/two.py"],
+    "notes": "FAKE_BULKY_NOTE_ALPHA with obviously synthetic filler"
+  },
+  {
+    "created_at": "2026-01-02T00:00:00Z",
+    "completed": ["fake completed item beta"],
+    "decisions": ["use deterministic token estimate"],
+    "remaining": ["review report key names"],
+    "validation": ["fixture assertions pass"],
+    "transcript_excerpt": "FAKE_TRANSCRIPT_SECRETLESS_BETA lorem ipsum repeated narrative",
+    "files_touched": ["fake/path/three.py"],
+    "notes": "FAKE_BULKY_NOTE_BETA with obviously synthetic filler"
+  },
+  {
+    "created_at": "2026-01-03T00:00:00Z",
+    "completed": ["fake completed item gamma"],
+    "decisions": ["preserve remaining actions"],
+    "remaining": ["finish synthetic measurement"],
+    "validation": ["no providers used"],
+    "transcript_excerpt": "FAKE_TRANSCRIPT_SECRETLESS_GAMMA lorem ipsum repeated narrative",
+    "files_touched": ["fake/path/four.py", "fake/path/five.py"],
+    "notes": "FAKE_BULKY_NOTE_GAMMA with obviously synthetic filler"
+  }
+]
