@@ -1012,10 +1012,16 @@ telemetry-driven capability selection remain open. On 2026-10-05,
 `agent-os orchestrate context-bench` adds a deterministic, offline synthetic
 baseline covering compiler/skill-selection context per corpus task, per-role
 prompt sizes with cacheable shared-prefix tokens, handoff compaction savings,
-and optional telemetry coverage (`docs/economy-regressions.md`). Retrieval for
-implementers/reviewers, handoff compaction beyond filtering, telemetry-driven
-capability selection, and using the bench to drive prompt-template/retrieval-
-query changes remain open.
+and optional telemetry coverage (`docs/economy-regressions.md`). On 2026-10-05,
+`agent-os orchestrate context-bench --baseline <report.json>` compares a run
+against a saved bench report per metric (compiler, per-role prompt,
+cacheable-prefix, handoff tokens and the within-budget flag), and
+`--fail-on-regression` exits non-zero on worsened metrics, so prompt-template/
+retrieval-query changes can be gated offline (`docs/economy-regressions.md`,
+"Baseline comparison"). Retrieval for implementers/reviewers, handoff
+compaction beyond filtering, telemetry-driven capability selection, and
+actually applying bench-gated prompt-template/retrieval-query changes remain
+open.
 
 Next safe deterministic stage: begin with synthetic prompt/context measurement
 over the existing compiler, skill-selection, telemetry, and handoff fixtures;
