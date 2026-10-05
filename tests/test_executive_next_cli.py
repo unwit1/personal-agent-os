@@ -4,7 +4,6 @@ import contextlib
 import io
 import json
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -13,7 +12,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import cli
 from agent_os.executive.window import registry
-from agent_os.executive.window.confirm import ItemState, window_home
 
 
 def run(*argv):
@@ -36,7 +34,7 @@ class ExecutiveNextCli(unittest.TestCase):
         reg.register_provider("test", provider)
 
         def mock_queue(tab):
-            return reg.queue(tab, state=ItemState(window_home()))
+            return reg.queue(tab)
 
         with patch.object(cli, "_executive_window_queue", side_effect=mock_queue):
             code, output = run("next")
@@ -58,7 +56,7 @@ class ExecutiveNextCli(unittest.TestCase):
         reg.register_provider("test", provider)
 
         def mock_queue(tab):
-            return reg.queue(tab, state=ItemState(window_home()))
+            return reg.queue(tab)
 
         with patch.object(cli, "_executive_window_queue", side_effect=mock_queue):
             code, output = run("next", "--tab", "personal")
@@ -79,7 +77,7 @@ class ExecutiveNextCli(unittest.TestCase):
         reg.register_provider("test", provider)
 
         def mock_queue(tab):
-            return reg.queue(tab, state=ItemState(window_home()))
+            return reg.queue(tab)
 
         with patch.object(cli, "_executive_window_queue", side_effect=mock_queue):
             code, output = run("explain", "item-personal")
@@ -100,7 +98,7 @@ class ExecutiveNextCli(unittest.TestCase):
         reg.register_provider("test", provider)
 
         def mock_queue(tab):
-            return reg.queue(tab, state=ItemState(window_home()))
+            return reg.queue(tab)
 
         with patch.object(cli, "_executive_window_queue", side_effect=mock_queue):
             code, output = run("explain", "missing-id")
@@ -116,7 +114,7 @@ class ExecutiveNextCli(unittest.TestCase):
         reg.register_provider("failing", failing_provider)
 
         def mock_queue(tab):
-            return reg.queue(tab, state=ItemState(window_home()))
+            return reg.queue(tab)
 
         with patch.object(cli, "_executive_window_queue", side_effect=mock_queue):
             code, output = run("next")
@@ -137,7 +135,7 @@ class ExecutiveNextCli(unittest.TestCase):
         reg.register_provider("test", provider)
 
         def mock_queue(tab):
-            return reg.queue(tab, state=ItemState(window_home()))
+            return reg.queue(tab)
 
         with patch.object(cli, "_executive_window_queue", side_effect=mock_queue):
             code, output = run("explain", "item-work", "--tab", "work")
