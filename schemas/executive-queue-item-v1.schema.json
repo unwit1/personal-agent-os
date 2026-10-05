@@ -32,7 +32,7 @@
     "reason": {"type": ["string", "null"]},
     "provenance": {"type": "array", "items": {"type": "string"}},
     "local_only": {"type": "boolean"},
-    "metadata": {"type": "object"},
-    "additionalProperties": true
-  }
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": true
 }

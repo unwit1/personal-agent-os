@@ -22,7 +22,7 @@
     "local_only": {"type": "boolean"},
     "subject": {"type": ["string", "null"]},
     "payload": {"type": "object"},
-    "provenance": {"type": "array", "items": {"type": "string"}},
-    "additionalProperties": true
-  }
+    "provenance": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
 }
