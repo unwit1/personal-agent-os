@@ -17,12 +17,12 @@ clears the family's reliability floor (policy ``routing.reliability_floor``).
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
 from pathlib import Path
 from typing import Any, Iterable
 
+from ..fingerprints import json_sha256
 from ..paths import ROOT
 from ..timestamps import utc_now_iso
 from .store import orchestrator_home
@@ -105,7 +105,7 @@ def _mean(values: Iterable[Any]) -> float | None:
 
 
 def cap_id(key: dict[str, Any]) -> str:
-    digest = hashlib.sha256(json.dumps([key.get(field) for field in KEY_FIELDS]).encode()).hexdigest()[:10]
+    digest = json_sha256([key.get(field) for field in KEY_FIELDS], 10, sort_keys=False)
     return f"CAP-{digest}"
 
 

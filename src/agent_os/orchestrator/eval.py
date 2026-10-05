@@ -25,7 +25,6 @@ the operator passes ``--operator-holdout``.
 from __future__ import annotations
 
 import ast
-import hashlib
 import json
 import os
 import re
@@ -39,6 +38,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
+from ..fingerprints import json_sha256
 from ..paths import ROOT
 from ..timestamps import utc_now_iso
 from . import capability
@@ -564,7 +564,7 @@ def generate_test_selection_cases(base_ref: str = "HEAD", *, limit: int = 40, wo
     for item in commits:
         expected = sorted(module for module, files in trace.items() if set(files) & set(item["changed_files"]))
         cases.append({"id": f"EVC-ATS-{item['commit'][:10]}", "input_ref": item["commit"][:12], "changed_files": item["changed_files"], "expected_tests": expected})
-    digest = hashlib.sha256(json.dumps(trace, sort_keys=True).encode()).hexdigest()[:16]
+    digest = json_sha256(trace, 16)
     case_file = {
         "schema": "personal-agent/eval-cases/v1", "suite": "EVS-TEST-SELECTION", "split": "development", "task_family": ATS_FAMILY,
         "base_commit": base[:12],

@@ -3,11 +3,13 @@ noninferiority verdicts, holdout refusal, append-only EVR records."""
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -91,6 +93,18 @@ class TestSelectionFamilyTests(unittest.TestCase):
         {"id": "C1", "changed_files": ["src/agent_os/timestamps.py"], "expected_tests": ["tests.test_a", "tests.test_b"]},
         {"id": "C2", "changed_files": ["src/agent_os/x.py"], "expected_tests": []},
     ]
+
+    def test_trace_digest_keeps_the_existing_sorted_json_identity(self) -> None:
+        trace = {"tests.test_a": ["src/a.py"], "tests.test_b": ["src/b.py"]}
+        with (
+            patch.object(evaluation, "resolve_commit", return_value="a" * 40),
+            patch.object(evaluation, "Worktree"),
+            patch.object(evaluation, "trace_test_modules", return_value=trace),
+            patch.object(evaluation, "candidate_commits", return_value=[]),
+        ):
+            case_file = evaluation.generate_test_selection_cases(write=False)
+        expected = hashlib.sha256(json.dumps(trace, sort_keys=True).encode()).hexdigest()[:16]
+        self.assertEqual(case_file["trace_digest"], expected)
 
     def test_scoring_requires_full_recall_and_half_precision(self) -> None:
         exact = evaluation.score_test_selection({"items": [{"id": "C1", "tests": ["tests/test_a.py", "tests.test_b"]}, {"id": "C2", "tests": []}]}, self.CASES)
