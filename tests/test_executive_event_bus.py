@@ -225,7 +225,7 @@ class EventBusTests(unittest.TestCase):
 
     def test_append_valid_event(self) -> None:
         """append() writes a valid event."""
-        event = contracts.make_event(
+        event, _ = self.bus.publish(
             event_type="task.created",
             source="test-agent",
             dedup_key="key-1",
@@ -241,7 +241,7 @@ class EventBusTests(unittest.TestCase):
 
     def test_append_deduplicates_by_id(self) -> None:
         """append() skips if event id already exists."""
-        event = contracts.make_event(
+        event, _ = self.bus.publish(
             event_type="task.created",
             source="test-agent",
             dedup_key="key-1",
@@ -259,8 +259,7 @@ class EventBusTests(unittest.TestCase):
     def test_events_skips_blank_lines(self) -> None:
         """events() skips blank lines in the log."""
         # Manually create a log with blank lines
-        self.bus.directory.mkdir(parents=True, exist_ok=True)
-        event = contracts.make_event(
+        event, _ = self.bus.publish(
             event_type="task.created",
             source="test-agent",
             dedup_key="key-1",

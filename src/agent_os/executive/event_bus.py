@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +13,45 @@ from . import contracts
 from ..paths import ROOT
 
 DEFAULT_DIR = ROOT / ".agent-local" / "executive" / "events"
+
+
+def _make_event(
+    event_type: str,
+    source: str,
+    dedup_key: str,
+    payload: dict[str, Any],
+    occurred_at: str | None = None,
+    domain: str = "personal-agent",
+    sensitivity: str = "personal",
+    subject: str | None = None,
+    provenance: list[str] | None = None,
+) -> dict[str, Any]:
+    """Create an event dict."""
+    if occurred_at is None:
+        occurred_at = datetime.now(timezone.utc).isoformat()
+
+    event: dict[str, Any] = {
+        "schema": contracts.EVENT_SCHEMA,
+        "id": contracts.event_id(event_type, source, dedup_key),
+        "type": event_type,
+        "occurred_at": occurred_at,
+        "source": source,
+        "domain": domain,
+        "sensitivity": sensitivity,
+        "dedup_key": dedup_key,
+        "payload": payload,
+    }
+
+    if subject is not None:
+        event["subject"] = subject
+
+    if provenance is not None:
+        event["provenance"] = provenance
+
+    if contracts.requires_local_only(sensitivity):
+        event["local_only"] = True
+
+    return event
 
 
 class EventBus:
@@ -32,13 +71,13 @@ class EventBus:
     ) -> tuple[dict[str, Any], bool]:
         """Publish an event, returning (event, created) tuple.
 
-        kwargs are passed to contracts.make_event (occurred_at, domain, sensitivity,
+        kwargs are passed to _make_event (occurred_at, domain, sensitivity,
         subject, provenance).
 
         If event with same id already exists, returns (existing_event, False).
         Otherwise appends and returns (event, True).
         """
-        event = contracts.make_event(event_type, source, dedup_key, payload, **kwargs)
+        event = _make_event(event_type, source, dedup_key, payload, **kwargs)
 
         # Validate before checking dedup or writing
         errors = contracts.validate_event(event)

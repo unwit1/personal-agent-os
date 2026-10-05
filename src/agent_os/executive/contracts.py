@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Any
 
 ENTITY_SCHEMA = "personal-agent/executive-entity/v1"
@@ -371,42 +371,3 @@ def validate_queue_item(data: Any, label: str = "queue_item") -> list[str]:
     _common(data, label, errors)
 
     return errors
-
-
-def make_event(
-    event_type: str,
-    source: str,
-    dedup_key: str,
-    payload: dict[str, Any],
-    occurred_at: str | None = None,
-    domain: str = "personal-agent",
-    sensitivity: str = "personal",
-    subject: str | None = None,
-    provenance: list[str] | None = None,
-) -> dict[str, Any]:
-    """Create an event dict."""
-    if occurred_at is None:
-        occurred_at = datetime.now(timezone.utc).isoformat()
-
-    event: dict[str, Any] = {
-        "schema": EVENT_SCHEMA,
-        "id": event_id(event_type, source, dedup_key),
-        "type": event_type,
-        "occurred_at": occurred_at,
-        "source": source,
-        "domain": domain,
-        "sensitivity": sensitivity,
-        "dedup_key": dedup_key,
-        "payload": payload,
-    }
-
-    if subject is not None:
-        event["subject"] = subject
-
-    if provenance is not None:
-        event["provenance"] = provenance
-
-    if requires_local_only(sensitivity):
-        event["local_only"] = True
-
-    return event
