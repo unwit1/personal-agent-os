@@ -2020,6 +2020,20 @@ class Orchestrator:
                 )
             except Exception as exc:  # the worker still runs without a map
                 self.ledger.emit(record["run_id"], "note", node["id"], text=f"scope map unavailable: {type(exc).__name__}")
+        if node["role"] == "reviewer" and policy.get("reviewer_scope_map") and subject and subject.get("scope"):
+            from .repomap import scope_map
+
+            try:
+                mapped = scope_map(cwd, list(subject["scope"]))
+                scope_text = mapped["text"]
+                stats = mapped["stats"]
+                self.ledger.emit(
+                    record["run_id"], "context_selected", node["id"], method="local scope map for the reviewer (no model call)",
+                    candidate_items=stats["scope"], selected_items=stats["listed"],
+                    selected_tokens_estimate=usage_lib.estimate_tokens(stats["chars"]),
+                )
+            except Exception as exc:  # the reviewer still runs without a map
+                self.ledger.emit(record["run_id"], "note", node["id"], text=f"reviewer scope map unavailable: {type(exc).__name__}")
         prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, scope_map=scope_text, cwd=str(cwd),
                                                   prefix=self._run_prefix(record, node))
         prompt += _prior_attempts(node, policy["material_severities"])
