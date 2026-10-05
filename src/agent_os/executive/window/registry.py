@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
-from .. import window_queue
+from .. import window_queue, next_action
 
 TABS = ("work", "personal")
 
@@ -93,6 +93,13 @@ class Registry:
     def outstanding(self, tab: str | None = None, state: Any = None) -> dict[str, Any]:
         pairs, errors = self._collect(tab, state)
         items: list[dict[str, Any]] = []
+
+        # Build rank map for queue items that are not None
+        queue_items_for_ranking = [qi for _, qi in pairs if qi is not None]
+        ranked = next_action.rank(queue_items_for_ranking)
+        rank_map: dict[Any, int] = {qi["id"]: idx + 1 for idx, qi in enumerate(ranked)}
+        total_ranked = len(ranked)
+
         for raw, queue_item in pairs:
             item = window_queue.window_item_from_queue_item(queue_item) if queue_item is not None else dict(raw)
             item["options"] = [
@@ -100,6 +107,15 @@ class Registry:
                 for a in self._actions.values()
                 if self._applies(a, item.get("kind"))
             ]
+            # Add rank information if queue_item is not None
+            if queue_item is not None:
+                position = rank_map.get(queue_item["id"])
+                if position is not None:
+                    item["rank"] = {
+                        "position": position,
+                        "of": total_ranked,
+                        "ranking": next_action.RANKING
+                    }
             items.append(item)
         return {"items": items, "errors": errors}
 
