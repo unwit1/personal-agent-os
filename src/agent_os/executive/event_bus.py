@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,7 @@ from . import contracts
 from ..paths import ROOT
 
 DEFAULT_DIR = ROOT / ".agent-local" / "executive" / "events"
+_CONSUMER_NAME = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 
 
 def _make_event(
@@ -188,6 +190,58 @@ class EventBus:
                     continue
 
         return None
+
+    def _consumer_path(self, consumer: str) -> Path:
+        """Return the acknowledgement log path for a valid consumer name."""
+        if not _CONSUMER_NAME.fullmatch(consumer):
+            raise ValueError(f"invalid consumer name: {consumer!r}")
+        return self.directory / "consumers" / f"{consumer}.jsonl"
+
+    def acknowledged(self, consumer: str) -> set[str]:
+        """Return event ids acknowledged by a consumer."""
+        path = self._consumer_path(consumer)
+        if not path.exists():
+            return set()
+        result: set[str] = set()
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    record = json.loads(line)
+                except (json.JSONDecodeError, ValueError):
+                    continue
+                if isinstance(record, dict) and isinstance(record.get("event_id"), str):
+                    result.add(record["event_id"])
+        return result
+
+    def acknowledge(
+        self, consumer: str, event_id: str, acknowledged_at: str | None = None
+    ) -> bool:
+        """Append an acknowledgement once for an existing event."""
+        path = self._consumer_path(consumer)
+        if self.get(event_id) is None:
+            raise ValueError(f"unknown event id: {event_id!r}")
+        if event_id in self.acknowledged(consumer):
+            return False
+        if acknowledged_at is None:
+            acknowledged_at = datetime.now(timezone.utc).isoformat()
+        record = {"event_id": event_id, "acknowledged_at": acknowledged_at}
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "a", encoding="utf-8", newline="\n") as f:
+            f.write(json.dumps(record, sort_keys=True) + "\n")
+        return True
+
+    def pending(
+        self, consumer: str, event_type: str | None = None
+    ) -> list[dict[str, Any]]:
+        """Return unacknowledged events in event log order."""
+        acknowledged = self.acknowledged(consumer)
+        return [
+            event for event in self.events(event_type=event_type)
+            if event.get("id") not in acknowledged
+        ]
 
     def _append_line(self, event: dict[str, Any]) -> None:
         """Append one JSON line to the log, creating directory if needed."""
