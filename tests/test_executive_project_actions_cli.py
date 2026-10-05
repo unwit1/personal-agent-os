@@ -114,52 +114,36 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
             {"id": "proj2", "state_file": "state2.json"},
         ]
         mock_states = [
-            {"project": "proj1", "status": "active", "next_action": "Do something"},
-            {"project": "proj2", "status": "active", "next_action": "Do other"},
+            {"project": "proj1", "status": "active", "next_action": "Do something", "updated_at": "2026-10-05"},
+            {"project": "proj2", "status": "active", "next_action": "Do other", "updated_at": "2026-10-05"},
         ]
 
         with patch("agent_os.registry.canonical_projects", return_value=mock_projects), \
-             patch("agent_os.registry.load_state", side_effect=mock_states), \
-             patch("agent_os.executive.project_actions.scan", return_value={
-                 "projects": mock_states,
-                 "stalled": [],
-                 "no_next_action": [],
-                 "needs_decision": [],
-                 "stale_days": 30,
-             }) as mock_scan:
+             patch("agent_os.registry.load_state", side_effect=mock_states):
 
             args = cli.parser().parse_args(["executive", "project-scan", "--today", "2026-10-05"])
             with patch("builtins.print") as mock_print:
                 code = cli._dispatch_executive(args)
 
                 self.assertEqual(code, 0)
-                mock_scan.assert_called_once()
-                call_kwargs = mock_scan.call_args[1]
-                self.assertEqual(call_kwargs["today"], date(2026, 10, 5))
 
-                # Verify print was called with JSON including errors
+                # Verify print was called with JSON including errors and projects
                 call_args = mock_print.call_args[0][0]
                 import json
                 output = json.loads(call_args)
                 self.assertIn("errors", output)
                 self.assertIn("projects", output)
+                self.assertEqual(len(output["projects"]), 2)
 
     def test_project_scan_skips_entries_without_state_file(self):
         mock_projects = [
             {"id": "proj1", "state_file": "state1.json"},
             {"id": "proj2"},  # No state_file
         ]
-        mock_state = {"project": "proj1", "status": "active"}
+        mock_state = {"project": "proj1", "status": "active", "next_action": "Work"}
 
         with patch("agent_os.registry.canonical_projects", return_value=mock_projects), \
-             patch("agent_os.registry.load_state", return_value=mock_state) as mock_load, \
-             patch("agent_os.executive.project_actions.scan", return_value={
-                 "projects": [mock_state],
-                 "stalled": [],
-                 "no_next_action": [],
-                 "needs_decision": [],
-                 "stale_days": 30,
-             }):
+             patch("agent_os.registry.load_state", return_value=mock_state) as mock_load:
 
             args = cli.parser().parse_args(["executive", "project-scan"])
             with patch("builtins.print"):
@@ -181,14 +165,7 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
             raise IOError("File not found")
 
         with patch("agent_os.registry.canonical_projects", return_value=mock_projects), \
-             patch("agent_os.registry.load_state", side_effect=side_effect), \
-             patch("agent_os.executive.project_actions.scan", return_value={
-                 "projects": [mock_state_good],
-                 "stalled": [],
-                 "no_next_action": [],
-                 "needs_decision": [],
-                 "stale_days": 30,
-             }):
+             patch("agent_os.registry.load_state", side_effect=side_effect):
 
             args = cli.parser().parse_args(["executive", "project-scan"])
             with patch("builtins.print") as mock_print:
@@ -204,75 +181,65 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
                 self.assertEqual(output["errors"][0]["project"], "proj2")
                 self.assertIn("File not found", output["errors"][0]["error"])
 
-    def test_project_scan_with_all_flag_passes_include_inactive(self):
+    def test_project_scan_with_all_flag_includes_inactive(self):
         mock_projects = [
             {"id": "proj1", "state_file": "state1.json"},
         ]
-        mock_state = {"project": "proj1", "status": "inactive"}
+        mock_state = {"project": "proj1", "status": "inactive", "next_action": "Work"}
 
         with patch("agent_os.registry.canonical_projects", return_value=mock_projects), \
-             patch("agent_os.registry.load_state", return_value=mock_state), \
-             patch("agent_os.executive.project_actions.scan", return_value={
-                 "projects": [mock_state],
-                 "stalled": [],
-                 "no_next_action": [],
-                 "needs_decision": [],
-                 "stale_days": 30,
-             }) as mock_scan:
+             patch("agent_os.registry.load_state", return_value=mock_state):
 
             args = cli.parser().parse_args(["executive", "project-scan", "--all"])
-            with patch("builtins.print"):
+            with patch("builtins.print") as mock_print:
                 cli._dispatch_executive(args)
 
-            call_kwargs = mock_scan.call_args[1]
-            self.assertTrue(call_kwargs["include_inactive"])
+                call_args = mock_print.call_args[0][0]
+                import json
+                output = json.loads(call_args)
+                # With --all, inactive projects should be included
+                self.assertEqual(len(output["projects"]), 1)
+                self.assertEqual(output["projects"][0]["project"], "proj1")
 
-    def test_project_scan_without_all_flag_passes_include_inactive_false(self):
+    def test_project_scan_without_all_flag_excludes_inactive(self):
         mock_projects = [
             {"id": "proj1", "state_file": "state1.json"},
+            {"id": "proj2", "state_file": "state2.json"},
         ]
-        mock_state = {"project": "proj1", "status": "active"}
+        mock_states = [
+            {"project": "proj1", "status": "active", "next_action": "Work"},
+            {"project": "proj2", "status": "inactive", "next_action": "Work"},
+        ]
 
         with patch("agent_os.registry.canonical_projects", return_value=mock_projects), \
-             patch("agent_os.registry.load_state", return_value=mock_state), \
-             patch("agent_os.executive.project_actions.scan", return_value={
-                 "projects": [mock_state],
-                 "stalled": [],
-                 "no_next_action": [],
-                 "needs_decision": [],
-                 "stale_days": 30,
-            }) as mock_scan:
+             patch("agent_os.registry.load_state", side_effect=mock_states):
 
             args = cli.parser().parse_args(["executive", "project-scan"])
-            with patch("builtins.print"):
+            with patch("builtins.print") as mock_print:
                 cli._dispatch_executive(args)
 
-            call_kwargs = mock_scan.call_args[1]
-            self.assertFalse(call_kwargs["include_inactive"])
+                call_args = mock_print.call_args[0][0]
+                import json
+                output = json.loads(call_args)
+                # Without --all, only active projects should be included
+                self.assertEqual(len(output["projects"]), 1)
+                self.assertEqual(output["projects"][0]["project"], "proj1")
 
     def test_project_scan_output_contains_stalled_and_no_next_action_lists(self):
         mock_projects = [
             {"id": "proj1", "state_file": "state1.json"},
             {"id": "proj2", "state_file": "state2.json"},
         ]
+        # proj1: stalled (updated_at > 30 days ago), proj2: no_next_action (no next_action)
         mock_states = [
-            {"project": "proj1", "status": "active"},
-            {"project": "proj2", "status": "active"},
+            {"project": "proj1", "status": "active", "next_action": "Work", "updated_at": "2026-09-01"},
+            {"project": "proj2", "status": "active", "updated_at": "2026-10-05"},
         ]
 
-        scan_result = {
-            "projects": mock_states,
-            "stalled": ["proj1"],
-            "no_next_action": ["proj2"],
-            "needs_decision": [],
-            "stale_days": 30,
-        }
-
         with patch("agent_os.registry.canonical_projects", return_value=mock_projects), \
-             patch("agent_os.registry.load_state", side_effect=mock_states), \
-             patch("agent_os.executive.project_actions.scan", return_value=scan_result):
+             patch("agent_os.registry.load_state", side_effect=mock_states):
 
-            args = cli.parser().parse_args(["executive", "project-scan"])
+            args = cli.parser().parse_args(["executive", "project-scan", "--today", "2026-10-05"])
             with patch("builtins.print") as mock_print:
                 cli._dispatch_executive(args)
 
