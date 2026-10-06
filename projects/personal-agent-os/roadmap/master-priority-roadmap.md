@@ -1083,9 +1083,10 @@ Detailed design:
 
 Status: **in progress** (2026-10-06). Deterministic rule-based brain-dump
 processing emits typed records, deduplicates repeated and already-captured
-items, and flags project-reference clarifications. Knowledge gaps are scored
-and selected within a budget with explanations; answers become staged memory
-candidates and are not promoted. Rescue Mode selects one concrete action, and
+items, and flags project-reference clarifications; brain-dump records can be
+staged with `--stage-candidates`. Knowledge gaps are scored and selected within
+a budget with explanations; `answer_to_candidate` can convert an answer to a
+candidate dict, but no CLI command calls it yet. Rescue Mode selects one concrete action, and
 compact project-resumption packets are available. The `executive brain-dump`,
 `gaps`, `rescue`, and `resume` CLI commands are implemented, including
 `--stage-candidates`.
@@ -1093,8 +1094,9 @@ compact project-resumption packets are available. The `executive brain-dump`,
 Current: The deterministic capture, gap selection, one-action rescue, compact
 resumption, and CLI slices are implemented. MCP exposure of these commands,
 calendar/commitment and voice inputs for rescue or brain dumps, model-assisted
-extraction, a persistent knowledge-gap queue, and candidate review/promotion
-UX remain open. Candidate memories are staged only; they are not promoted.
+extraction, a persistent knowledge-gap queue, staging gap answers via CLI, and
+candidate review/promotion UX remain open. Brain-dump candidate memories are
+staged only; they are not promoted.
 
 Implement:
 - EXEC-2 Knowledge-Gap / Interview Engine;
