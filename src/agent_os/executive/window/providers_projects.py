@@ -72,7 +72,7 @@ def project_items(
                         "score": 3,
                         "tab": tab,
                         "source": f"Project {pid}",
-                        "context": {"project": pid},
+                        "context": {"project": pid, "decision": decision_text},
                         **({"age_days": age_days} if isinstance(age_days, int) else {}),
                     }
                 )
@@ -158,3 +158,5 @@ def _load_projects() -> list[tuple[dict, dict]]:
         except Exception:
             continue
     return projects
+
+
