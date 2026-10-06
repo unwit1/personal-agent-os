@@ -5,16 +5,40 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from ... import candidates, registry as project_registry
+from .. import brain_dump
 from . import brain_dump_store
 from . import registry
 
 STORE_FACTORY: Callable[[], Any] | None = None
 PROJECT_EXISTS: Callable[[str], bool] | None = None
 STAGE: Callable[..., dict[str, Any]] | None = None
+KNOWN_PROJECTS: Callable[[], list[dict[str, Any]]] | None = None
 
 
 def _store() -> Any:
     return STORE_FACTORY() if STORE_FACTORY is not None else brain_dump_store.BrainDumpStore()
+
+
+def _known_projects() -> list[dict[str, Any]]:
+    if KNOWN_PROJECTS is not None:
+        return KNOWN_PROJECTS()
+    return [{"id": p.get("id"), "aliases": p.get("aliases", [])} for p in project_registry.canonical_projects()]
+
+
+def _capture(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
+    text = params.get("text")
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError("text is required")
+    tab = params.get("tab") or "work"
+    if tab not in {"work", "personal"}:
+        raise ValueError("tab must be work or personal")
+    store = _store()
+    result = brain_dump.process(text, known_projects=_known_projects(), existing_ids=store.existing_ids())
+    if not confirm:
+        return {"text": text, "tab": tab, **result,
+                "note": "Adds records to the Executive window on Confirm; nothing is staged or promoted."}
+    added = store.add(result, tab=tab)
+    return {**result, "tab": tab, "added": added}
 
 
 def _project_exists(project: str) -> bool:
@@ -73,6 +97,12 @@ def _stage_candidate(item: dict[str, Any], params: dict[str, Any], *, confirm: b
 
 
 def register(reg: registry.Registry) -> None:
+    reg.register_action(
+        "brain_dump.capture", "Capture brain dump", ["brain_dump_capture"], _capture,
+        consequential=True,
+        description="Add brain-dump records to the Executive window (preview first; writes only on Confirm)",
+        params_schema={"text": {"type": "string"}, "tab": {"type": "string", "enum": ["work", "personal"]}},
+    )
     reg.register_action(
         "brain_dump.clarify", "Set project", ["brain_dump_clarification"], _clarify,
         consequential=False,
