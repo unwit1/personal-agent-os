@@ -832,7 +832,7 @@ CAPTURE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         }, "required": ["project"], "additionalProperties": False},
     },
     "executive_capture.brain_dump": {
-        "description": "Executive brain dump: segment text into typed records (task, idea, reminder, ...) with duplicates and project clarifications. Read-only: nothing is saved or staged; use agent.capture_candidates to stage reviewed records.",
+        "description": "Executive brain dump: segment text into typed records (task, idea, reminder, ...) with duplicates and project clarifications. Read-only; use executive_capture.brain_dump_capture to add records to the Executive window.",
         "inputSchema": {"type": "object", "properties": {
             "text": {"type": "string"}, "captured_ids": {"type": "array", "items": {"type": "string"}},
         }, "required": ["text"], "additionalProperties": False},
@@ -844,6 +844,22 @@ CAPTURE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
             "budget": {"type": "integer", "minimum": 0, "default": 1},
             "min_score": {"type": "number", "default": 0.2},
             "asked_ids": {"type": "array", "items": {"type": "string"}},
+        }, "required": ["gaps"], "additionalProperties": False},
+    },
+    "executive_capture.brain_dump_capture": {
+        "description": "Preview adding brain-dump records to the Executive window. Returns status needs_confirmation with a preview; only the operator's Confirm click in the Executive window writes anything.",
+        "inputSchema": {"type": "object", "properties": {
+            "text": {"type": "string"},
+            "tab": {"type": "string", "enum": ["work", "personal"], "default": "work"},
+        }, "required": ["text"], "additionalProperties": False},
+    },
+    "executive_capture.gaps_enqueue": {
+        "description": "Preview enqueuing knowledge gaps in the Executive window. Returns status needs_confirmation with a preview; only the operator's Confirm click in the Executive window writes anything.",
+        "inputSchema": {"type": "object", "properties": {
+            "gaps": {"type": "array", "items": {"type": "object"}},
+            "tab": {"type": "string", "enum": ["work", "personal"], "default": "personal"},
+            "budget": {"type": "integer", "minimum": 0, "default": 1},
+            "min_score": {"type": "number", "default": 0.2},
         }, "required": ["gaps"], "additionalProperties": False},
     },
 }
@@ -912,6 +928,21 @@ def _capture_gaps(gaps: list, budget: int = 1, min_score: float = 0.2, asked_ids
     from .executive import knowledge_gaps
 
     return knowledge_gaps.select_questions(gaps, budget=budget, min_score=min_score, asked_ids=asked_ids or [])
+
+
+def _capture_brain_dump_capture(text: str, tab: str = "work") -> dict[str, Any]:
+    from .executive.window.confirm import PendingStore, window_home
+
+    item = {"id": "brain-dump-capture", "kind": "brain_dump_capture", "title": "Brain dump capture (MCP)"}
+    return _window_registry().invoke("brain_dump.capture", item, {"text": text, "tab": tab}, PendingStore(window_home()))
+
+
+def _capture_gaps_enqueue(gaps: list, tab: str = "personal", budget: int = 1, min_score: float = 0.2) -> dict[str, Any]:
+    from .executive.window.confirm import PendingStore, window_home
+
+    item = {"id": "knowledge-gap-enqueue", "kind": "knowledge_gap_enqueue", "title": "Enqueue knowledge gaps (MCP)"}
+    params = {"gaps": gaps, "tab": tab, "budget": budget, "min_score": min_score}
+    return _window_registry().invoke("knowledge_gap.enqueue", item, params, PendingStore(window_home()))
 
 
 def _window_next(tab: str | None = None) -> dict[str, Any]:
@@ -1214,6 +1245,8 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive_capture.resume": _capture_resume,
             "executive_capture.brain_dump": _capture_brain_dump,
             "executive_capture.gaps": _capture_gaps,
+            "executive_capture.brain_dump_capture": _capture_brain_dump_capture,
+            "executive_capture.gaps_enqueue": _capture_gaps_enqueue,
         }
     )
     available.update(orchestrate_methods())

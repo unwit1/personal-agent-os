@@ -30,6 +30,29 @@ def _stage(project: str, source: str, items: list[dict[str, Any]]) -> dict[str, 
     return candidates.stage_candidates(project, source, items)
 
 
+def _enqueue(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
+    gaps = params.get("gaps")
+    if not isinstance(gaps, list) or not gaps or any(not isinstance(gap, dict) for gap in gaps):
+        raise ValueError("gaps must be a non-empty JSON list of objects")
+    tab = params.get("tab") or "personal"
+    if tab not in ("work", "personal"):
+        raise ValueError("tab must be work or personal")
+    budget = int(params.get("budget", 1))
+    min_score = float(params.get("min_score", 0.2))
+    store = _store()
+    selection = knowledge_gaps.select_questions(
+        gaps, budget=budget, min_score=min_score, asked_ids=sorted(store.answered_ids())
+    )
+    if not confirm:
+        return {
+            "gaps": gaps,
+            "tab": tab,
+            "selection": selection,
+            "note": "Adds these questions to the Executive window on Confirm; nothing is staged or promoted.",
+        }
+    return {"enqueued": store.add(gaps, tab=tab), "tab": tab, "selection": selection}
+
+
 def _gap_id(item: dict[str, Any]) -> str:
     gap_id = (item.get("context") or {}).get("gap_id")
     if not gap_id:
@@ -78,6 +101,12 @@ def answer_gap(
 
 
 def register(reg: registry.Registry) -> None:
+    reg.register_action(
+        "knowledge_gap.enqueue", "Enqueue knowledge gaps", ["knowledge_gap_enqueue"], _enqueue,
+        consequential=True,
+        description="Add knowledge-gap questions to the Executive window (preview first; writes only on Confirm)",
+        params_schema={"gaps": {"type": "array"}, "tab": {"type": "string", "enum": ["work", "personal"]}, "budget": {"type": "integer"}, "min_score": {"type": "number"}},
+    )
     reg.register_action(
         "knowledge_gap.answer", "Answer", ["knowledge_gap_question"], _answer,
         consequential=True,
