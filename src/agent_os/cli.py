@@ -171,6 +171,24 @@ def _register_executive(commands) -> None:
     project_scan.add_argument("--stale-days", type=int, default=None)
     project_scan.add_argument("--today", type=str, default=None)
     project_scan.add_argument("--all", action="store_true")
+    rescue = sub.add_parser("rescue")
+    rescue.add_argument("--tab", choices=["work", "personal"], default=None)
+    rescue.add_argument("--today", type=str, default=None)
+    rescue.add_argument("--stale-days", type=int, default=None)
+    rescue.add_argument("--horizon-days", type=int, default=1)
+    resume = sub.add_parser("resume")
+    resume.add_argument("project")
+    resume.add_argument("--today", type=str, default=None)
+    resume.add_argument("--stale-days", type=int, default=None)
+    brain_dump = sub.add_parser("brain-dump")
+    brain_dump.add_argument("text", nargs="?", default=None)
+    brain_dump.add_argument("--file", type=Path, default=None)
+    brain_dump.add_argument("--stage-candidates", default=None)
+    gaps = sub.add_parser("gaps")
+    gaps.add_argument("gaps_json", help="JSON list of knowledge gaps, inline or a file path")
+    gaps.add_argument("--budget", type=int, default=1)
+    gaps.add_argument("--min-score", type=float, default=0.2)
+    gaps.add_argument("--asked-id", action="append", default=[])
 
 
 def _approval_state(batch: dict) -> dict:
@@ -281,6 +299,68 @@ def _dispatch_executive(args) -> int:
         stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
         result = project_actions.scan(states, today=today, stale_days=stale_days, include_inactive=args.all)
         _print({**result, "errors": errors})
+    elif cmd == "rescue":
+        from datetime import date
+        from . import registry
+        from .executive import project_actions, rescue as rescue_mode
+
+        q = _executive_window_queue(args.tab)
+        results = []
+        errors = []
+        today = date.fromisoformat(args.today) if args.today else date.today()
+        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        for proj in registry.canonical_projects():
+            if "state_file" not in proj:
+                continue
+            try:
+                state = registry.load_state(proj)
+                results.append(project_actions.project_next_action(state, today=today, stale_days=stale_days))
+            except Exception as exc:
+                errors.append({"project": proj.get("id"), "error": str(exc)})
+
+        _print({**rescue_mode.rescue(q["queue_items"], results, today=today, horizon_days=args.horizon_days),
+                "errors": q["errors"] + errors})
+    elif cmd == "resume":
+        from datetime import date
+        from . import registry
+        from .executive import project_actions, resumption
+
+        try:
+            project = registry.get_project(args.project)
+        except KeyError:
+            raise ValueError(f"unknown project: {args.project}") from None
+        state = registry.load_state(project)
+        today = date.fromisoformat(args.today) if args.today else date.today()
+        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        _print(resumption.resumption_packet(state, today=today, stale_days=stale_days))
+    elif cmd == "brain-dump":
+        from . import registry
+        from .executive import brain_dump
+
+        if args.file is None and args.text is None:
+            raise ValueError("provide text or --file")
+        text = args.file.read_text(encoding="utf-8") if args.file is not None else args.text
+        known_projects = [{"id": p.get("id"), "aliases": p.get("aliases", [])} for p in registry.canonical_projects()]
+        result = brain_dump.process(text, known_projects=known_projects)
+        if args.stage_candidates:
+            from . import candidates
+
+            staged = candidates.stage_candidates(
+                args.stage_candidates, "Executive brain dump",
+                [{"kind": "preference_candidate", "statement": record["text"],
+                  "evidence": ["executive:brain-dump"], "confidence": record["confidence"]}
+                 for record in result["records"]],
+            )
+            result["staging"] = staged
+        _print(result)
+    elif cmd == "gaps":
+        from .executive import knowledge_gaps
+
+        values = _json_input(args.gaps_json)
+        if not isinstance(values, list):
+            raise ValueError("gaps must be a JSON list")
+        _print(knowledge_gaps.select_questions(values, budget=args.budget, min_score=args.min_score,
+                                               asked_ids=args.asked_id))
     return 0
 
 
