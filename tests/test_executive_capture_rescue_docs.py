@@ -41,6 +41,13 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         self.assertIn("answer_to_candidate", content)
         self.assertIn("--enqueue", content)
 
+    def test_doc_mentions_project_state_knowledge_gaps(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        section = content.split("## Knowledge gaps from project state", 1)[1].split("\n## ", 1)[0]
+        for term in ("executive project-gaps", "project-gap:<project>:<field>", "--enqueue"):
+            with self.subTest(term=term):
+                self.assertIn(term, section)
+
     def test_doc_mentions_rescue_window_view(self):
         content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
         self.assertIn("/api/rescue", content)

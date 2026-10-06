@@ -28,6 +28,14 @@ Results include `ask`, `deferred`, `discarded`, and `budget`. Eligible questions
 
 `agent-os executive gap-answer GAP_ID --answer TEXT [--project ID] [--confirm]` answers a persisted knowledge gap. Without `--confirm`, it prints a dry-run preview of the `answer_to_candidate` candidate and stages nothing. With `--confirm`, it stages the candidate through the same path as `knowledge_gap.answer` and marks the gap answered. The project defaults to the gap's `project`; unknown or already-answered gaps are rejected. Nothing is promoted.
 
+## Knowledge gaps from project state
+
+`agent-os executive project-gaps [--all] [--budget N] [--min-score SCORE] [--enqueue] [--tab work|personal]` loads every registered project's state file and reports load errors per project. Generation is deterministic and makes no model call. By default it considers active projects only; `--all` includes inactive projects too.
+
+The command emits a question when a project's goal and summary are both empty, its `next_action` is empty and it has no non-empty `current_priorities` entry, or its state has no `blockers` key. An empty blockers list is present data and does not create a gap. The gap IDs are `project-gap:<project>:<field>`, where the field is `goal`, `next_action`, or `blockers`.
+
+Output contains `gaps`, the `select_questions` result (`ask`, `deferred`, `discarded`, and `budget`), and `errors`. `--enqueue` adds generated gaps to `knowledge-gaps.json` through the gap store, skipping IDs already stored. Enqueued questions appear as `knowledge_gap_question` Executive window items and can be answered through `knowledge_gap.answer` or `agent-os executive gap-answer`. Generating or enqueueing gaps does not stage or promote memory candidates.
+
 ## Rescue mode
 
 `agent-os executive rescue [--tab work|personal] [--today DATE] [--stale-days N] [--horizon-days N]` considers executive queue items and project next-action results. Its basis order is:
@@ -71,5 +79,6 @@ The read-only `executive_capture.resume` tool accepts `project`, `today`, and `s
 ## Not yet implemented
 
 - Writes over MCP: brain-dump candidate staging and knowledge-gap enqueueing are CLI/window only.
+- MCP write paths for project-state knowledge-gap generation and enqueueing are not implemented.
 - Calendar or voice input.
 - Model-based extraction; brain-dump segmentation, classification, and project resolution use deterministic rules.

@@ -100,6 +100,48 @@ class ExecutiveCaptureCli(unittest.TestCase):
             self.assertEqual(output["enqueued"], ["g1"])
             self.assertEqual(store.get("g1")["status"], "open")
 
+    def test_project_gaps_dispatch_selects_questions(self):
+        with patch("agent_os.registry.canonical_projects", return_value=[{"id": "alpha", "state_file": "x"}]), \
+             patch("agent_os.registry.load_state", return_value={"project": "alpha", "status": "active"}), \
+             patch("builtins.print") as printed:
+            args = cli.parser().parse_args(["executive", "project-gaps"])
+            self.assertEqual(cli._dispatch_executive(args), 0)
+        output = json.loads(printed.call_args.args[0])
+        self.assertEqual([gap["id"] for gap in output["gaps"]], [
+            "project-gap:alpha:goal", "project-gap:alpha:next_action", "project-gap:alpha:blockers",
+        ])
+        self.assertIn("ask", output)
+        self.assertEqual(output["errors"], [])
+        self.assertNotIn("enqueued", output)
+
+    def test_project_gaps_enqueue_is_idempotent(self):
+        from agent_os.executive.window.gap_store import GapStore
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            store = GapStore(temp_dir)
+            with patch("agent_os.registry.canonical_projects", return_value=[{"id": "alpha", "state_file": "x"}]), \
+                 patch("agent_os.registry.load_state", return_value={"project": "alpha", "status": "active"}), \
+                 patch("agent_os.executive.window.gap_store.GapStore", side_effect=lambda: store), \
+                 patch("builtins.print") as printed:
+                args = cli.parser().parse_args(["executive", "project-gaps", "--enqueue"])
+                self.assertEqual(cli._dispatch_executive(args), 0)
+                first = json.loads(printed.call_args.args[0])
+                self.assertEqual(cli._dispatch_executive(args), 0)
+                second = json.loads(printed.call_args.args[0])
+            ids = ["project-gap:alpha:goal", "project-gap:alpha:next_action", "project-gap:alpha:blockers"]
+            self.assertEqual(first["enqueued"], ids)
+            self.assertEqual(store.get("project-gap:alpha:goal")["status"], "open")
+            self.assertEqual(second["enqueued"], [])
+
+    def test_project_gaps_reports_load_errors(self):
+        with patch("agent_os.registry.canonical_projects", return_value=[{"id": "alpha", "state_file": "x"}]), \
+             patch("agent_os.registry.load_state", side_effect=ValueError("bad state")), \
+             patch("builtins.print") as printed:
+            args = cli.parser().parse_args(["executive", "project-gaps"])
+            self.assertEqual(cli._dispatch_executive(args), 0)
+        output = json.loads(printed.call_args.args[0])
+        self.assertEqual(output["errors"], [{"project": "alpha", "error": "bad state"}])
+
 
 if __name__ == "__main__":
     unittest.main()
