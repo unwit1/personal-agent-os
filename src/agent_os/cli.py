@@ -172,6 +172,9 @@ def _register_executive(commands) -> None:
     explain = sub.add_parser("explain")
     explain.add_argument("item_id")
     explain.add_argument("--tab", choices=["work", "personal"], default=None)
+    history = sub.add_parser("history")
+    history.add_argument("item_id")
+    history.add_argument("--tab", choices=["work", "personal"], default=None)
     project_next = sub.add_parser("project-next")
     project_next.add_argument("project")
     project_next.add_argument("--stale-days", type=int, default=None)
@@ -287,6 +290,12 @@ def _dispatch_executive(args) -> int:
         q = _executive_window_queue(args.tab)
         explanation = next_action.explain(q["queue_items"], args.item_id)
         _print({"item_id": args.item_id, "explanation": explanation, "errors": q["errors"]})
+    elif cmd == "history":
+        from .executive import window_queue
+
+        q = _executive_window_queue(args.tab)
+        provenance = window_queue.item_provenance(q["queue_items"], _executive_event_bus(), args.item_id)
+        _print({"item_id": args.item_id, "provenance": provenance, "errors": q["errors"]})
     elif cmd == "project-next":
         from . import registry
         from .executive import project_actions
