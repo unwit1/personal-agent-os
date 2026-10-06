@@ -27,7 +27,7 @@ class TestResumptionPacket(unittest.TestCase):
         self.assertEqual(packet['next_action_source'], 'next_action')
         self.assertEqual(packet['open_loops'], {'blockers': ['B'], 'waiting_on': ['W'], 'decisions_needed': ['D']})
         self.assertEqual(packet['age_days'], 1)
-        self.assertEqual(packet['flags'], [])
+        self.assertEqual(packet['flags'], ['blocked', 'needs_decision'])
         self.assertFalse(packet['truncated'])
 
     def test_vague_action_uses_suggestion(self):
