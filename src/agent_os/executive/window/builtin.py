@@ -5,6 +5,7 @@ from . import (
     actions_applicant_compose,
     actions_applicant_decisions,
     actions_brain_dump,
+    actions_candidates,
     actions_email,
     actions_knowledge_gaps,
     actions_projects,
@@ -14,6 +15,7 @@ from . import (
     actions_mail_organize,
     providers_applicants,
     providers_brain_dump,
+    providers_candidates,
     providers_knowledge_gaps,
     providers_mail,
     providers_orchestrator,
@@ -43,6 +45,7 @@ def default_registry() -> registry.Registry:
         registry.register_provider("projects", providers_projects.project_items)
         registry.register_provider("brain_dump", providers_brain_dump.brain_dump_items)
         registry.register_provider("knowledge_gaps", providers_knowledge_gaps.knowledge_gap_items)
+        registry.register_provider("memory_candidates", providers_candidates.candidate_items)
 
         # Register actions
         actions_applicant_compose.register(registry.REGISTRY)
@@ -54,6 +57,7 @@ def default_registry() -> registry.Registry:
         actions_mail_organize.register(registry.REGISTRY)
         actions_brain_dump.register(registry.REGISTRY)
         actions_knowledge_gaps.register(registry.REGISTRY)
+        actions_candidates.register(registry.REGISTRY)
         actions_projects.register(registry.REGISTRY)
 
         # Attach the shared local Event Bus
