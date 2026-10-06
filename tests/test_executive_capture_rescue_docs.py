@@ -5,6 +5,8 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
+from agent_os.mcp_server import CAPTURE_TOOL_SCHEMAS
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EXEC_CAPTURE_RESCUE_DOC = PROJECT_ROOT / "docs" / "orchestrator-os" / "executive-capture-rescue.md"
 
@@ -51,6 +53,24 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
     def test_doc_mentions_cli_gap_answer_staging_limitation(self):
         content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
         self.assertIn("Staging knowledge-gap answers directly from the CLI", content)
+
+    def test_doc_mcp_tools_match_capture_tool_schemas(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        tool_names = (
+            "executive_capture.brain_dump",
+            "executive_capture.gaps",
+            "executive_capture.rescue",
+            "executive_capture.resume",
+        )
+        for tool_name in tool_names:
+            with self.subTest(tool_name=tool_name):
+                self.assertIn(tool_name, content)
+                self.assertIn(tool_name, CAPTURE_TOOL_SCHEMAS)
+
+        mentioned_tools = {
+            name for name in CAPTURE_TOOL_SCHEMAS if name in content
+        }
+        self.assertEqual(mentioned_tools, set(tool_names))
 
 
 if __name__ == "__main__":
