@@ -30,6 +30,12 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         self.assertIn("brain_dump.stage_candidate", content)
         self.assertIn("Confirm", content)
 
+    def test_doc_mentions_knowledge_gap_window_flow(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        self.assertIn("knowledge_gap.answer", content)
+        self.assertIn("answer_to_candidate", content)
+        self.assertIn("--enqueue", content)
+
 
 if __name__ == "__main__":
     unittest.main()
