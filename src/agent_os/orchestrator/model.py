@@ -49,6 +49,11 @@ NODE_STATES = (
 )
 
 # Auto Continue keeps driving until the run reaches one of these.
+# A planned task's goal is the worker's whole specification. Planners write
+# detailed specs, so the cap is generous; a longer goal fails planning (so the
+# task is split) instead of being cut off mid-sentence. Goals are never
+# truncated: a 2000-character cut used to leave workers guessing.
+MAX_GOAL_CHARS = 8000
 STOP_STATES = frozenset({"COMPLETE", "PAUSED", "APPROVAL_REQUIRED", "BLOCKED", "FAILED"})
 ACTIVE_NODE_STATES = frozenset({"CLAIMED", "LAUNCHING", "RUNNING", "WAITING_FOR_RESULT", "VALIDATING"})
 DISPATCHABLE_NODE_STATES = frozenset({"PENDING", "RUNNABLE", "FAILED_RETRYABLE"})
@@ -391,11 +396,12 @@ def new_node(
             raise PlanError(f"node {node_id}: approval_gate.kind must be one of {APPROVAL_GATES}")
     if not isinstance(context_budget, int) or context_budget < 250:
         raise PlanError(f"node {node_id}: context_budget must be an integer >= 250")
+    goal_text = str(goal).strip()
     rungs = check_ladder(node_id, ladder, capability_class, effort) if ladder else default_ladder(capability_class, effort, execution_path)
     stamp = now()
     return {
         "id": node_id,
-        "goal": str(goal).strip()[:2000],
+        "goal": goal_text,
         "role": role,
         "origin": origin,
         "subject": subject,

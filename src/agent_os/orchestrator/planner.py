@@ -23,7 +23,7 @@ import re
 import shlex
 from typing import Any
 
-from .model import EDITING_ROLES, PlanError, new_node, path_in_scope
+from .model import EDITING_ROLES, MAX_GOAL_CHARS, PlanError, new_node, path_in_scope
 
 
 PLANNER_ID = "plan"
@@ -57,9 +57,12 @@ def node_from_task(task: dict[str, Any], *, extra_depends: list[str] | None = No
     has_model_route = "model" in route_candidates
     has_deterministic_route = "deterministic" in route_candidates
     has_model_fallback = has_model_route and has_deterministic_route
+    goal = str(task.get("goal") or "").strip()
+    if len(goal) > MAX_GOAL_CHARS:
+        raise PlanError(f"task {task.get('id')}: goal is {len(goal)} characters (max {MAX_GOAL_CHARS}); split it into smaller tasks")
     return new_node(
         str(task.get("id") or ""),
-        str(task.get("goal") or ""),
+        goal,
         role,
         depends_on=[*(extra_depends or []), *list(task.get("depends_on") or [])],
         scope=task.get("scope"),
