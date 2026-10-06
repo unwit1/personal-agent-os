@@ -7,6 +7,7 @@ from . import (
     actions_brain_dump,
     actions_email,
     actions_knowledge_gaps,
+    actions_projects,
     actions_openings,
     actions_executive,
     actions_items,
@@ -53,6 +54,7 @@ def default_registry() -> registry.Registry:
         actions_mail_organize.register(registry.REGISTRY)
         actions_brain_dump.register(registry.REGISTRY)
         actions_knowledge_gaps.register(registry.REGISTRY)
+        actions_projects.register(registry.REGISTRY)
 
         # Attach the shared local Event Bus
         registry.REGISTRY.attach_event_bus(EventBus(DEFAULT_DIR))
