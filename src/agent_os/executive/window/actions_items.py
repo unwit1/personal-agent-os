@@ -5,6 +5,7 @@ from typing import Any
 
 from agent_os.orchestrator import service
 
+from . import registry as _registry
 from .confirm import ItemState, window_home
 
 DECIDE = service.decide
@@ -77,6 +78,10 @@ def _snooze_item(item: dict[str, Any], params: dict[str, Any], *, confirm: bool)
 
     state = ItemState(window_home())
     state.snooze(item_id, until_iso)
+    try:
+        _registry.REGISTRY.record_deferral(str(item_id), until_iso)
+    except Exception:
+        pass
     return {"snoozed_until": until_iso}
 
 
