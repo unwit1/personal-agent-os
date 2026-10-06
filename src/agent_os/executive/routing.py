@@ -85,6 +85,21 @@ def dispatch_pending(
     return results
 
 
+def preview_pending(
+    bus, consumer: str = "router", rules: dict[str, str] | None = None, log=None
+) -> list[dict]:
+    """Route pending events without persisting or acknowledging them."""
+    from .route_log import RouteLog
+
+    if log is None:
+        log = RouteLog(bus.directory)
+    results = []
+    for event in bus.pending(consumer):
+        record = log.get(event["id"])
+        results.append(record if record is not None else route_event(event, rules))
+    return results
+
+
 def route_reason(event_id: str, log=None, bus=None) -> dict | None:
     """Look up a persisted route decision by event id."""
     from .route_log import RouteLog
