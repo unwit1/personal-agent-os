@@ -40,6 +40,11 @@
           <input id="chat-input" placeholder="Message the model" autocomplete="off">
           <button id="chat-send" class="primary">Send</button>
         </div>
+        <div class="brain-dump-compose">
+          <label for="brain-dump-input">Brain dump</label>
+          <textarea id="brain-dump-input" placeholder="Brain dump: one thought per line"></textarea>
+          <button id="brain-dump-send" type="button">Capture</button>
+        </div>
       </div>
     </div>
 
@@ -144,6 +149,14 @@
     .chat-compose input {
       flex: 1;
     }
+    .brain-dump-compose {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px 8px;
+      margin-top: 8px;
+    }
+    .brain-dump-compose label { grid-column: 1 / -1; font-size: 12px; color: var(--muted); }
+    .brain-dump-compose textarea { min-height: 56px; resize: vertical; }
     .pending-previews {
       position: fixed;
       bottom: 20px;

@@ -24,6 +24,12 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         self.assertIn("clarification", content)
         self.assertIn("stage_candidates", content)
 
+    def test_doc_mentions_executive_window_brain_dump_flow(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        self.assertIn("/api/brain-dump", content)
+        self.assertIn("brain_dump.stage_candidate", content)
+        self.assertIn("Confirm", content)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -46,6 +46,12 @@ def _first(body: dict[str, Any], *keys: str) -> Any:
     return None
 
 
+def _known_projects() -> list[dict]:
+    from agent_os.registry import canonical_projects
+
+    return [{"id": p.get("id"), "aliases": p.get("aliases", [])} for p in canonical_projects()]
+
+
 class Api:
     def __init__(self, registry: Any, bridge: Any, home: Path, transport: Any = None,
                  gateway_factory: Any = None) -> None:
@@ -126,6 +132,20 @@ class Api:
         raise KeyError(path)
 
     def post(self, path: str, body: dict[str, Any]) -> Any:
+        if path == "/api/brain-dump":
+            text = str(_first(body, "text", "message") or "").strip()
+            if not text:
+                raise ValueError("text is required")
+            tab = body.get("tab") if body.get("tab") in ("work", "personal") else "work"
+            from .brain_dump_store import BrainDumpStore
+
+            store = BrainDumpStore(self.home)
+            from agent_os.executive import brain_dump
+
+            result = brain_dump.process(text, known_projects=_known_projects(), existing_ids=store.existing_ids())
+            added = store.add(result, tab=tab)
+            return {**result, "added": added, "refresh": True,
+                    "message": f"Captured {len(added)} item(s); {len(result['clarifications'])} need a project; {len(result['duplicates'])} duplicate(s)."}
         if path == "/api/pending":
             return self._pending_view()
         if path == "/api/act":
