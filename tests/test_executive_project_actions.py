@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os.executive.project_actions import STALE_DAYS_DEFAULT, is_vague_action, project_next_action, scan
+from agent_os.executive.project_actions import REPEATED_DEFERRAL_THRESHOLD, STALE_DAYS_DEFAULT, is_vague_action, project_next_action, scan
 
 
 class TestIsVagueAction(unittest.TestCase):
@@ -389,6 +389,20 @@ class TestAgeDaysCalculation(unittest.TestCase):
 
 
 class TestFlagsGeneration(unittest.TestCase):
+    def test_deferral_threshold_flags_and_sorts(self):
+        state = {"project": "p1", "decisions_needed": ["Choice"]}
+        default = project_next_action(state, today=date(2026, 10, 5))
+        self.assertEqual(default["deferrals"], 0)
+        self.assertNotIn("repeatedly_deferred", default["flags"])
+
+        below = project_next_action(state, today=date(2026, 10, 5), deferrals=2)
+        self.assertNotIn("repeatedly_deferred", below["flags"])
+
+        at_threshold = project_next_action(state, today=date(2026, 10, 5), deferrals=3)
+        self.assertIn("repeatedly_deferred", at_threshold["flags"])
+        self.assertEqual(at_threshold["flags"], sorted(at_threshold["flags"]))
+        self.assertEqual(REPEATED_DEFERRAL_THRESHOLD, 3)
+
     def test_flag_no_next_action(self):
         state = {"project": "p1"}
         result = project_next_action(state, today=date(2026, 10, 5))
@@ -602,6 +616,20 @@ class TestVagueNextAction(unittest.TestCase):
 
 
 class TestScanBasic(unittest.TestCase):
+    def test_scan_repeated_deferrals(self):
+        states = [
+            {"project": "a", "status": "active"},
+            {"project": "b", "status": "active"},
+        ]
+        result = scan(states, today=date(2026, 10, 5), deferrals={"a": 3, "b": 1})
+        self.assertEqual(result["repeatedly_deferred"], ["a"])
+        projects = {p["project"]: p for p in result["projects"]}
+        self.assertEqual(projects["b"]["deferrals"], 1)
+
+    def test_scan_without_deferrals_has_no_repeatedly_deferred_projects(self):
+        result = scan([{"project": "a", "status": "active"}], today=date(2026, 10, 5))
+        self.assertEqual(result["repeatedly_deferred"], [])
+
     def test_scan_empty_list(self):
         result = scan([], today=date(2026, 10, 5))
         self.assertEqual(result["projects"], [])
