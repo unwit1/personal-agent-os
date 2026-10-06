@@ -78,6 +78,12 @@ class RoadmapParsingTests(unittest.TestCase):
         self.assertEqual(roadmap.classify("text\nCurrent bounded implementation (2026): x")[0], "in_progress")
         self.assertEqual(roadmap.classify("no status here"), ("not_started", None))
 
+    def test_classify_reads_the_bold_status_not_the_description(self) -> None:
+        self.assertEqual(roadmap.classify("Status: **in progress** (x). Repeated-deferral detection is done.")[0], "in_progress")
+        self.assertEqual(roadmap.classify("Status: **complete for now** (x); the import-loop work is on hold.")[0], "complete")
+        self.assertEqual(roadmap.classify("Status: **on hold** (x); the parser part is complete.")[0], "deferred")
+        self.assertEqual(roadmap.classify("Status: in progress, deferred work listed below")[0], "deferred")
+
     def test_parse_stages_in_order(self) -> None:
         stages = roadmap.parse(ROADMAP + "\n## P1 — Leaf section\n\nNothing yet.\n")
         self.assertEqual([stage["id"] for stage in stages], ["P0.1", "P0.2", "P0.3", "P0.4", "P1"])
