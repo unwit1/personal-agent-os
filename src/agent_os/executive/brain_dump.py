@@ -18,7 +18,7 @@ def split_segments(text: str) -> list[str]:
         return []
     segments: list[str] = []
     for line in text.splitlines():
-        line = re.sub(r"^\s*(?:(?:[-*•])\s+|(?:\d+[.)])\s*)", "", line)
+        line = re.sub(r"^\s*(?:(?:[-*•])\s+|(?:\d+[.)])\s+)", "", line)
         for segment in re.split(r"[.;!?] ", line):
             segment = segment.strip().rstrip(".").strip()
             if segment:

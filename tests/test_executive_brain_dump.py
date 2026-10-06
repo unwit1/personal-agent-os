@@ -9,6 +9,7 @@ class BrainDumpTests(unittest.TestCase):
     def test_split_and_classify(self):
         self.assertEqual(split_segments("- Remind me to call.\n2) Compare plans; maybe we could wait!"),
                          ["Remind me to call", "Compare plans", "maybe we could wait!"])
+        self.assertEqual(split_segments("2.5 hours on report"), ["2.5 hours on report"])
         self.assertEqual(classify("Remind me about the doctor"), "reminder")
         self.assertEqual(classify("Call with Pat at 3pm"), "appointment")
         self.assertEqual(set(RECORD_TYPES), {"task", "idea", "reminder", "appointment", "decision", "project_update", "research_request", "follow_up"})
