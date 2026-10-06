@@ -47,8 +47,13 @@ The window shows only the selected item, with its normal options and preview/Con
 
 `agent-os executive resume PROJECT [--today DATE] [--stale-days N]` resolves and loads the project state and returns a compact packet with schema `resumption-packet@1` (`agent-os/resumption-packet@1`). The packet fields are `schema`, `project`, `status`, `goal`, `where_you_left_off`, `next_action`, `next_action_source`, `open_loops`, `age_days`, `flags`, and `truncated`. `open_loops` contains `blockers`, `waiting_on`, and `decisions_needed`. Text is limited to 280 characters by default, each open-loop list to three items; `truncated` reports when content was shortened or omitted. A suggested action is surfaced when project analysis marks the stored next action as vague.
 
+## Resumption packets in the Executive window
+
+Project items from the `projects` provider with kinds `project_decision`, `project_stalled`, `project_no_next_action`, and `project_vague_next_action` offer the `project.resume` (Resume) option. This action is read-only and not consequential, so it has no preview/Confirm step. It is implemented in `agent_os.executive.window.actions_projects`. The action loads the project's state and returns `{project, packet}`, where `packet` is the same `resumption-packet@1` produced by `agent-os executive resume`. The window shows a summary of the goal, where you left off, the next action and its source, any non-empty open loops, the age, and whether the packet was truncated.
+
 ## Not yet implemented
 
 - MCP exposure for these capture and rescue commands.
 - Calendar or voice input.
 - Model-based extraction; brain-dump segmentation, classification, and project resolution use deterministic rules.
+- Staging knowledge-gap answers directly from the CLI; answers are staged only through the window `knowledge_gap.answer` action.
