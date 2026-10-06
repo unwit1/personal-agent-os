@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import unittest
 from pathlib import Path
+import sys
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from agent_os.mcp_server import CAPTURE_TOOL_SCHEMAS
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
 EXEC_CAPTURE_RESCUE_DOC = PROJECT_ROOT / "docs" / "orchestrator-os" / "executive-capture-rescue.md"
 
 
