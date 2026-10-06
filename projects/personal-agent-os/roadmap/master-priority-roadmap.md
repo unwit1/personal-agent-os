@@ -1,4 +1,4 @@
-# Personal Agent OS — Master Priority Roadmap
+﻿# Personal Agent OS — Master Priority Roadmap
 
 Status: active / canonical priority order  
 Owner: Personal Agent OS  
@@ -1082,21 +1082,23 @@ Detailed design:
 ## P4 — Capture, memory refinement, and Rescue Mode
 
 Status: **in progress** (2026-10-06). Deterministic rule-based brain-dump
-processing emits typed records, deduplicates repeated and already-captured
-items, and flags project-reference clarifications; brain-dump records can be
-staged with `--stage-candidates`. Knowledge gaps are scored and selected within
-a budget with explanations; `answer_to_candidate` can convert an answer to a
-candidate dict, but no CLI command calls it yet. Rescue Mode selects one concrete action, and
-compact project-resumption packets are available. The `executive brain-dump`,
-`gaps`, `rescue`, and `resume` CLI commands are implemented, including
-`--stage-candidates`.
+processing is available in the Executive window: brain dumps can be entered and
+become window items, with project clarification and stage-as-candidate actions
+through registry preview/Confirm. Candidates are staged only, never promoted.
+Knowledge gaps are scored and selected within a budget with explanations;
+`answer_to_candidate` can convert an answer to a candidate dict. Rescue Mode
+selects one concrete action, and compact project-resumption packets are
+available. The `executive brain-dump`, `gaps`, `rescue`, and `resume` CLI
+commands are implemented, including `--stage-candidates`.
 
-Current: The deterministic capture, gap selection, one-action rescue, compact
-resumption, and CLI slices are implemented. MCP exposure of these commands,
-calendar/commitment and voice inputs for rescue or brain dumps, model-assisted
-extraction, a persistent knowledge-gap queue, staging gap answers via CLI, and
-candidate review/promotion UX remain open. Brain-dump candidate memories are
-staged only; they are not promoted.
+Current: Executive-window brain-dump entry, window items, project clarification,
+and stage-as-candidate through preview/Confirm are implemented. Gap questions
+as window items with an answer action using `answer_to_candidate`, Rescue Mode
+as a window view, opening resumption packets from project items, and MCP tools
+remain open. A persistent knowledge-gap queue, staging gap answers via CLI,
+calendar/commitment and voice inputs, model-assisted extraction, and candidate
+review/promotion UX also remain open. Candidates are staged only, never
+promoted.
 
 Operator constraint (2026-10-05, as for P3): P4 builds on the Executive window, not a parallel UI or store. Next, in order: (1) brain dumps are entered in the window (a 'Brain dump' input next to chat) and their records appear as window items with clarification and stage-as-candidate actions through the registry preview/Confirm flow; (2) selected knowledge-gap questions appear as window items with an answer action that stages the answer as a candidate (answer_to_candidate); (3) Rescue Mode is a window view/filter of the same ranked queue showing the one concrete action; (4) a project item can open its resumption packet; (5) MCP tools for the same functions. Candidates are staged only, never promoted automatically.
 
@@ -1395,3 +1397,4 @@ borrow its prompt-cache and footprint rules. Do not adopt its multi-agent board
 as a runtime: the orchestrator's worktree, validator and review gates stay.
 Phases H1-H6 each carry their own test; promotion follows the usual
 noninferior-validation rule.
+
