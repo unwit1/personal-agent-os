@@ -91,6 +91,10 @@ Dismiss (`item.dismiss`) publishes an identifiers-only `task.cancelled` event. A
 
 MCP tools `executive_window.next` and `executive_window.explain` return the same data, read-only and local-only. Provider errors are returned in the `errors` field. Hidden items are excluded just as in the outstanding list.
 
+### Provenance in explain
+
+`agent-os executive explain <item_id>` / `next` and the MCP tools `executive_window.explain` / `executive_window.next` include a `provenance` object with `provider`, `source`, `entity_id`, `created_event_id` (the identifiers-only `task.created` Event Bus event that produced the item), and `event_ids` (all lifecycle events for the entity, in log order). No payload text is copied. `executive history` / `executive_window.history` still give the full per-event history with route decisions.
+
 MCP tool `executive_routing.dispatch` routes pending Event Bus events for a consumer (default `router`), with optional event type disposition overrides in `rules`. By default, it previews routes via `routing.preview_pending` without persisting decisions or acknowledging events. With `confirm_write=true`, it behaves like `agent-os executive route`, persisting payload-free route reasons and advancing the consumer cursor. `executive_routing.reason` takes an `event_id` and is read-only; it returns the persisted route decision, matching `agent-os executive route-reason`.
 
 ### Project next actions and rank

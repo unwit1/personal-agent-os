@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os.executive import window_queue
+from agent_os.executive import event_bus, window_queue
 from agent_os.executive.next_action import RANKING, explain, next_item, rank
 
 
@@ -347,6 +348,34 @@ class TestWithRealQueueItems(unittest.TestCase):
         self.assertEqual(result["priority"], 8)
         self.assertEqual(result["age_days"], 1)
         self.assertNotIn("Important task", str(result))  # title never included
+
+    def test_explain_provenance_from_event_bus(self):
+        with tempfile.TemporaryDirectory() as directory:
+            bus = event_bus.EventBus(directory)
+            item = {"id": "item-provenance", "title": "Private title", "kind": "task", "score": 8}
+            qi = window_queue.queue_item_from_window_item(item, "test")
+            created, _ = window_queue.publish_window_item(bus, item, "test", qi)
+            deferred, _ = window_queue.publish_deferral(bus, qi["entity_id"], item["id"])
+
+            other_item = {"id": "other-item", "title": "Other private title", "kind": "task"}
+            other_qi = window_queue.queue_item_from_window_item(other_item, "test")
+            other_created, _ = window_queue.publish_window_item(bus, other_item, "test", other_qi)
+
+            without_bus = explain([qi], qi["id"])
+            self.assertEqual(without_bus["provenance"]["event_ids"], [])
+            self.assertIsNone(without_bus["provenance"]["created_event_id"])
+
+            with_bus = explain([qi], qi["id"], bus)
+            self.assertEqual(with_bus["provenance"]["created_event_id"], created["id"])
+            self.assertEqual(with_bus["provenance"]["event_ids"], [created["id"], deferred["id"]])
+            self.assertEqual(with_bus["provenance"]["provider"], qi["provider"])
+            self.assertEqual(with_bus["provenance"]["source"], qi["source"])
+            self.assertEqual(with_bus["provenance"]["entity_id"], qi["entity_id"])
+            self.assertNotIn("Private title", str(with_bus))
+
+            selected = next_item([qi], bus)
+            self.assertEqual(selected["why"]["provenance"]["event_ids"], [created["id"], deferred["id"]])
+            self.assertNotIn(other_created["id"], with_bus["provenance"]["event_ids"])
 
 
 if __name__ == "__main__":
