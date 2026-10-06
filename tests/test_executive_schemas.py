@@ -115,7 +115,7 @@ class ExecutiveEventSchemaTest(unittest.TestCase):
         """Test that type enum contains exactly the expected event types."""
         expected_types = [
             "conversation.completed", "idea.captured", "task.created",
-            "task.completed", "task.deferred", "project.modified",
+            "task.completed", "task.cancelled", "task.deferred", "project.modified",
             "project.stalled", "decision.required", "decision.made",
             "agent.blocked", "agent.completed", "appointment.created",
             "appointment.approaching", "communication.received",

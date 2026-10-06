@@ -8,7 +8,7 @@
     "id": {"type": "string", "pattern": "^evt-[0-9a-f]{16}$"},
     "type": {
       "type": "string",
-      "enum": ["conversation.completed", "idea.captured", "task.created", "task.completed", "task.deferred", "project.modified", "project.stalled", "decision.required", "decision.made", "agent.blocked", "agent.completed", "appointment.created", "appointment.approaching", "communication.received", "communication.needs_response", "preference.observed", "skill.used", "skill.failed", "outcome.recorded", "context.changed"]
+      "enum": ["conversation.completed", "idea.captured", "task.created", "task.completed", "task.cancelled", "task.deferred", "project.modified", "project.stalled", "decision.required", "decision.made", "agent.blocked", "agent.completed", "appointment.created", "appointment.approaching", "communication.received", "communication.needs_response", "preference.observed", "skill.used", "skill.failed", "outcome.recorded", "context.changed"]
     },
     "occurred_at": {"type": "string"},
     "source": {"type": "string", "minLength": 1},
