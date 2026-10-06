@@ -814,6 +814,41 @@ ROUTING_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 }
 ROUTING_TOOL_NAMES = frozenset(ROUTING_TOOL_SCHEMAS)
 
+CAPTURE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "executive_capture.rescue": {
+        "description": "Executive Rescue Mode: one concrete next action (deadline, project, or queue basis) with why, then, and suppressed count. Read-only; local data only.",
+        "inputSchema": {"type": "object", "properties": {
+            "tab": {"type": "string", "enum": ["work", "personal"]},
+            "today": {"type": "string", "format": "date"},
+            "stale_days": {"type": "integer"},
+            "horizon_days": {"type": "integer", "default": 1},
+        }, "additionalProperties": False},
+    },
+    "executive_capture.resume": {
+        "description": "Executive: compact resumption-packet@1 for one project (goal, where you left off, next action, open loops). Read-only; local project state only.",
+        "inputSchema": {"type": "object", "properties": {
+            "project": {"type": "string"}, "today": {"type": "string", "format": "date"},
+            "stale_days": {"type": "integer"},
+        }, "required": ["project"], "additionalProperties": False},
+    },
+    "executive_capture.brain_dump": {
+        "description": "Executive brain dump: segment text into typed records (task, idea, reminder, ...) with duplicates and project clarifications. Read-only: nothing is saved or staged; use agent.capture_candidates to stage reviewed records.",
+        "inputSchema": {"type": "object", "properties": {
+            "text": {"type": "string"}, "captured_ids": {"type": "array", "items": {"type": "string"}},
+        }, "required": ["text"], "additionalProperties": False},
+    },
+    "executive_capture.gaps": {
+        "description": "Executive knowledge gaps: score and select questions within a budget, with why. Read-only; nothing is enqueued.",
+        "inputSchema": {"type": "object", "properties": {
+            "gaps": {"type": "array", "items": {"type": "object"}},
+            "budget": {"type": "integer", "minimum": 0, "default": 1},
+            "min_score": {"type": "number", "default": 0.2},
+            "asked_ids": {"type": "array", "items": {"type": "string"}},
+        }, "required": ["gaps"], "additionalProperties": False},
+    },
+}
+CAPTURE_TOOL_NAMES = frozenset(CAPTURE_TOOL_SCHEMAS)
+
 
 def _window_tool_schemas() -> dict[str, dict[str, Any]]:
     """Window tool schemas; the run schema is built from the live registry on every call."""
@@ -835,6 +870,48 @@ def _window_queue(tab: str | None = None) -> dict[str, Any]:
     from .executive.window.confirm import ItemState, window_home
 
     return _window_registry().queue(tab, state=ItemState(window_home()))
+
+
+def _capture_rescue(tab: str | None = None, today: str | None = None, stale_days: int | None = None, horizon_days: int = 1) -> dict[str, Any]:
+    from datetime import date
+    from .executive import rescue as rescue_mode
+    from .executive.window import rescue_view
+
+    q = _window_queue(tab)
+    day = date.fromisoformat(today) if today else date.today()
+    results, errors = rescue_view.project_results(day, stale_days)
+    return {**rescue_mode.rescue(q['queue_items'], results, today=day, horizon_days=horizon_days), 'errors': q['errors'] + errors}
+
+
+def _capture_resume(project: str, today: str | None = None, stale_days: int | None = None) -> dict[str, Any]:
+    from datetime import date
+    from .executive import project_actions, resumption
+
+    try:
+        proj = get_project(project)
+    except KeyError as e:
+        raise ValueError(f"unknown project: {project}") from e
+    state = load_state(proj)
+    day = date.fromisoformat(today) if today else date.today()
+    stale = stale_days if stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+    return resumption.resumption_packet(state, today=day, stale_days=stale)
+
+
+def _capture_brain_dump(text: str, captured_ids: list[str] | None = None) -> dict[str, Any]:
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError('text must be a non-empty string')
+    from .executive import brain_dump
+
+    known_projects = [{'id': p.get('id'), 'aliases': p.get('aliases', [])} for p in canonical_projects()]
+    return brain_dump.process(text, known_projects=known_projects, existing_ids=captured_ids or [])
+
+
+def _capture_gaps(gaps: list, budget: int = 1, min_score: float = 0.2, asked_ids: list[str] | None = None) -> dict[str, Any]:
+    if not isinstance(gaps, list):
+        raise ValueError('gaps must be a JSON list')
+    from .executive import knowledge_gaps
+
+    return knowledge_gaps.select_questions(gaps, budget=budget, min_score=min_score, asked_ids=asked_ids or [])
 
 
 def _window_next(tab: str | None = None) -> dict[str, Any]:
@@ -1133,6 +1210,10 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive_projects.scan": _projects_scan,
             "executive_routing.reason": _routing_reason,
             "executive_routing.dispatch": _routing_dispatch,
+            "executive_capture.rescue": _capture_rescue,
+            "executive_capture.resume": _capture_resume,
+            "executive_capture.brain_dump": _capture_brain_dump,
+            "executive_capture.gaps": _capture_gaps,
         }
     )
     available.update(orchestrate_methods())
@@ -1213,12 +1294,12 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
     if method == "ping":
         return _ok(request_id, {})
     if method == "tools/list":
-        listed = {**TOOL_SCHEMAS, **_window_tool_schemas(), **PROJECT_TOOL_SCHEMAS, **ROUTING_TOOL_SCHEMAS}
+        listed = {**TOOL_SCHEMAS, **_window_tool_schemas(), **PROJECT_TOOL_SCHEMAS, **ROUTING_TOOL_SCHEMAS, **CAPTURE_TOOL_SCHEMAS}
         return _ok(request_id, {"tools": [{"name": name, **schema} for name, schema in listed.items()]})
     if method == "tools/call":
         params = request.get("params", {})
         name = params.get("name") if isinstance(params, dict) else None
-        if (name not in TOOL_SCHEMAS and name not in WINDOW_TOOL_NAMES and name not in PROJECT_TOOL_NAMES and name not in ROUTING_TOOL_NAMES) or name not in available:
+        if (name not in TOOL_SCHEMAS and name not in WINDOW_TOOL_NAMES and name not in PROJECT_TOOL_NAMES and name not in ROUTING_TOOL_NAMES and name not in CAPTURE_TOOL_NAMES) or name not in available:
             return _ok(request_id, _mcp_result({"error": f"Unknown tool: {name}"}, error=True))
         try:
             arguments = params.get("arguments", {})
