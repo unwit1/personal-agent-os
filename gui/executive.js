@@ -1,5 +1,6 @@
 const Executive = (() => {
   let conversationId = null;
+  let rescueMode = false;
   let token = null;
   let pendingPolling = null;
   let chatInFlight = false;
@@ -673,9 +674,9 @@ const Executive = (() => {
     const send = document.getElementById('brain-dump-send');
     const text = input.value.trim();
     if (!text) return;
-    const activeTab = document.getElementById('tab-personal').getAttribute('aria-selected') === 'true' ? 'personal' : 'work';
+    const tab = activeTab();
     send.disabled = true;
-    apiCall('POST', '/api/brain-dump', { text: text, tab: activeTab })
+    apiCall('POST', '/api/brain-dump', { text: text, tab: tab })
       .then(response => {
         if (response.message) addChatMessage('agent', response.message);
         input.value = '';
@@ -809,8 +810,45 @@ const Executive = (() => {
     pendingPolling = setInterval(pollPending, 3000);
   }
 
+  function activeTab() {
+    return document.getElementById('tab-personal').getAttribute('aria-selected') === 'true' ? 'personal' : 'work';
+  }
+
+  function renderRescue(result, items) {
+    const panel = document.getElementById('rescue-panel');
+    panel.textContent = '';
+    panel.classList.remove('hidden');
+    const action = result.action;
+    const title = action ? (typeof action === 'string' ? action : action.title || action.label || action.action || 'Rescue action') : 'Nothing to rescue right now';
+    panel.appendChild(textEl('div', 'item-title', title));
+    const project = (action && typeof action === 'object' && action.project) || result.project;
+    const due = (action && typeof action === 'object' && action.due) || result.due;
+    if (project) panel.appendChild(textEl('div', 'item-meta', 'Project: ' + project));
+    if (due) panel.appendChild(textEl('div', 'item-meta', 'Due: ' + due));
+    if (result.why) panel.appendChild(textEl('div', 'item-why', result.why));
+    if (result.then) panel.appendChild(textEl('div', 'item-why', result.then));
+    panel.appendChild(textEl('div', 'muted', `${result.suppressed || 0} other item(s) hidden`));
+    if (result.item_id !== undefined && result.item_id !== null) {
+      renderItems(items.filter(i => String(i.id) === String(result.item_id)));
+    } else {
+      renderItems([]);
+    }
+    if (result.errors && [].concat(result.errors).length) showError(result.errors);
+  }
+
   function loadItems() {
     showBusy(true);
+    if (rescueMode) {
+      Promise.all([
+        apiCall('GET', '/api/items'),
+        apiCall('GET', '/api/rescue?tab=' + encodeURIComponent(activeTab())),
+      ]).then(([itemsResponse, result]) => {
+        showBusy(false);
+        renderRescue(result, itemsResponse.items || []);
+      }).catch(() => { showBusy(false); });
+      return;
+    }
+    document.getElementById('rescue-panel').classList.add('hidden');
     apiCall('GET', '/api/items')
       .then(response => {
         showBusy(false);
@@ -833,6 +871,13 @@ const Executive = (() => {
     const tabPersonal = document.getElementById('tab-personal');
     const workTab = document.getElementById('work-tab');
     const personalTab = document.getElementById('personal-tab');
+    const rescueToggle = document.getElementById('rescue-toggle');
+    rescueToggle.addEventListener('click', () => {
+      rescueMode = !rescueMode;
+      rescueToggle.setAttribute('aria-pressed', String(rescueMode));
+      rescueToggle.classList.toggle('on', rescueMode);
+      loadItems();
+    });
 
     tabWork.addEventListener('click', () => {
       tabWork.classList.add('on');
@@ -841,6 +886,7 @@ const Executive = (() => {
       tabPersonal.setAttribute('aria-selected', 'false');
       workTab.classList.add('on');
       personalTab.classList.remove('on');
+      if (rescueMode) loadItems();
     });
 
     tabPersonal.addEventListener('click', () => {
@@ -850,6 +896,7 @@ const Executive = (() => {
       tabWork.setAttribute('aria-selected', 'false');
       personalTab.classList.add('on');
       workTab.classList.remove('on');
+      if (rescueMode) loadItems();
     });
   }
 
