@@ -119,6 +119,15 @@ def _executive_event_bus():
     return EventBus()
 
 
+def _project_deferral_counts() -> dict:
+    try:
+        from .executive import window_queue
+
+        return window_queue.project_deferral_counts(_executive_event_bus())
+    except Exception:
+        return {}
+
+
 def _executive_window_queue(tab: str | None = None):
     from .executive.window.builtin import default_registry
     from .executive.window.confirm import ItemState, window_home
@@ -291,7 +300,9 @@ def _dispatch_executive(args) -> int:
         state = registry.load_state(project)
         today = date.fromisoformat(args.today) if args.today else date.today()
         stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
-        _print(project_actions.project_next_action(state, today=today, stale_days=stale_days))
+        project_id = state.get("project") or args.project
+        deferrals = _project_deferral_counts().get(project_id, 0)
+        _print(project_actions.project_next_action(state, today=today, stale_days=stale_days, deferrals=deferrals))
     elif cmd == "project-scan":
         from . import registry
         from .executive import project_actions
@@ -310,7 +321,10 @@ def _dispatch_executive(args) -> int:
 
         today = date.fromisoformat(args.today) if args.today else date.today()
         stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
-        result = project_actions.scan(states, today=today, stale_days=stale_days, include_inactive=args.all)
+        result = project_actions.scan(
+            states, today=today, stale_days=stale_days, include_inactive=args.all,
+            deferrals=_project_deferral_counts(),
+        )
         _print({**result, "errors": errors})
     elif cmd == "rescue":
         from datetime import date

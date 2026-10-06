@@ -13,6 +13,42 @@ from agent_os import cli
 
 
 class ExecutiveProjectActionsCli(unittest.TestCase):
+    def test_project_next_includes_deferral_count_and_flag(self):
+        mock_project = {"id": "test-project", "state_file": "state.json"}
+        mock_state = {"project": "test-project", "status": "active", "next_action": "Write code"}
+        with patch("agent_os.registry.get_project", return_value=mock_project), \
+             patch("agent_os.registry.load_state", return_value=mock_state), \
+             patch.object(cli, "_project_deferral_counts", return_value={"test-project": 3}):
+            args = cli.parser().parse_args(["executive", "project-next", "test-project"])
+            with patch("builtins.print") as mock_print:
+                self.assertEqual(cli._dispatch_executive(args), 0)
+            import json
+            output = json.loads(mock_print.call_args[0][0])
+            self.assertEqual(output["deferrals"], 3)
+            self.assertIn("repeatedly_deferred", output["flags"])
+
+    def test_project_scan_includes_repeatedly_deferred_projects(self):
+        with patch("agent_os.registry.canonical_projects", return_value=[{"id": "proj1", "state_file": "state.json"}]), \
+             patch("agent_os.registry.load_state", return_value={"project": "proj1", "status": "active", "next_action": "Write code"}), \
+             patch.object(cli, "_project_deferral_counts", return_value={"proj1": 3}):
+            args = cli.parser().parse_args(["executive", "project-scan"])
+            with patch("builtins.print") as mock_print:
+                self.assertEqual(cli._dispatch_executive(args), 0)
+            import json
+            output = json.loads(mock_print.call_args[0][0])
+            self.assertIn("proj1", output["repeatedly_deferred"])
+
+    def test_project_scan_survives_event_bus_failure(self):
+        with patch("agent_os.registry.canonical_projects", return_value=[{"id": "proj1", "state_file": "state.json"}]), \
+             patch("agent_os.registry.load_state", return_value={"project": "proj1", "status": "active", "next_action": "Write code"}), \
+             patch.object(cli, "_executive_event_bus", side_effect=OSError("unreadable log")):
+            args = cli.parser().parse_args(["executive", "project-scan"])
+            with patch("builtins.print") as mock_print:
+                self.assertEqual(cli._dispatch_executive(args), 0)
+            import json
+            output = json.loads(mock_print.call_args[0][0])
+            self.assertEqual(output["repeatedly_deferred"], [])
+
     def test_project_next_parser_accepts_project_and_flags(self):
         args = cli.parser().parse_args(["executive", "project-next", "myproject", "--stale-days", "45", "--today", "2026-10-05"])
         self.assertEqual(args.command, "executive")
