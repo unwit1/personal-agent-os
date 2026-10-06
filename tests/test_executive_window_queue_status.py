@@ -93,6 +93,31 @@ class TestExecutiveWindowQueueStatus(unittest.TestCase):
             {"expired": "queued", "future": "deferred"},
         )
 
+    def test_naive_and_unparseable_deferral_deadlines(self) -> None:
+        for entity_id, until in (
+            ("naive-expired", "2026-10-05T12:30:00"),
+            ("invalid", "not-a-date"),
+            ("missing", None),
+        ):
+            window_queue.publish_deferral(
+                self.bus,
+                entity_id,
+                "item-1",
+                deferred_at="2026-10-05T12:00:00+00:00",
+                until=until,
+            )
+
+        self.assertEqual(
+            window_queue.queue_statuses(
+                self.bus, now=datetime(2026, 10, 5, 13, 0, tzinfo=timezone.utc)
+            ),
+            {
+                "naive-expired": "queued",
+                "invalid": "deferred",
+                "missing": "deferred",
+            },
+        )
+
     def test_none_bus_has_no_statuses(self) -> None:
         self.assertEqual(window_queue.queue_statuses(None), {})
 
