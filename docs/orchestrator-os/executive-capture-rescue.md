@@ -76,6 +76,10 @@ The read-only `executive_capture.rescue` tool accepts `tab`, `today`, `stale_day
 
 The read-only `executive_capture.resume` tool accepts `project`, `today`, and `stale_days`, and returns a `resumption-packet@1`.
 
+## Preview-only MCP write tools
+
+`executive_capture.brain_dump_capture` accepts `text` and `tab`; it uses the `brain_dump.capture` window action. `executive_capture.gaps_enqueue` accepts `gaps`, `tab`, `budget`, and `min_score`; it uses the `knowledge_gap.enqueue` window action. Both tools return `needs_confirmation` with a preview and create a pending record in the Executive window. Only the operator's Confirm in the Executive window writes to the brain-dump or gap store. No MCP tool confirms these actions, and these tools do not stage or promote candidates.
+
 ## Not yet implemented
 
 - Writes over MCP: brain-dump candidate staging and knowledge-gap enqueueing are CLI/window only.

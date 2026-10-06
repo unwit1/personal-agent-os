@@ -89,6 +89,18 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         }
         self.assertEqual(mentioned_tools, set(tool_names))
 
+    def test_doc_mentions_preview_only_mcp_write_tools(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        for term in (
+            "executive_capture.brain_dump_capture",
+            "executive_capture.gaps_enqueue",
+            "brain_dump.capture",
+            "knowledge_gap.enqueue",
+            "Confirm",
+        ):
+            with self.subTest(term=term):
+                self.assertIn(term, content)
+
 
 if __name__ == "__main__":
     unittest.main()
