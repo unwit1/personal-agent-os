@@ -71,6 +71,10 @@ The window's outstanding list is the Executive Queue (roadmap P3). `Registry.out
 
 Snoozing an item (`item.snooze`) publishes a `task.deferred` event to the local Event Bus. Its subject is the item's queue entity id, and its identifiers-only payload contains `entity_id`, `item_id`, `deferred_at`, and `until`; it contains no titles. `Registry.record_deferral` resolves the entity from the last outstanding or queue listing, and publishing is best-effort. The count of `task.deferred` events per entity supplies the queue item's `repeated_deferrals`, which is set only when the count is above 0. Items deferred at least `window_queue.DEFERRAL_THRESHOLD` (3) times show `deferrals: N` and a `why` prefixed with `Deferred N times`.
 
+### Queue status transitions
+
+Dismiss (`item.dismiss`) publishes an identifiers-only `task.cancelled` event. A successful Confirm of a consequential action publishes `task.completed`. Snooze publishes `task.deferred` as described above; its deferral payload is unchanged. Each event payload is `{entity_id, item_id, status, changed_at}`, and its subject is the queue item's entity id. `window_queue.queue_statuses` gives each queue item its current `status`: the latest event wins, and an expired snooze returns to `queued`. Events are recorded only for items the window has collected in this session (best effort). The window's outstanding list is unchanged.
+
 ### Next item and explain
 
 `agent_os.executive.next_action` ranks the Executive Queue by priority (descending), then age_days (descending), then queue item id (ascending).

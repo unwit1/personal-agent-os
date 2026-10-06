@@ -1,4 +1,4 @@
-# Personal Agent OS — Master Priority Roadmap
+﻿# Personal Agent OS â€” Master Priority Roadmap
 
 Status: active / canonical priority order  
 Owner: Personal Agent OS  
@@ -31,11 +31,11 @@ Use these rules when deciding what to implement next:
 
 ---
 
-## P0 — Agent-first execution and immediate usage reduction
+## P0 â€” Agent-first execution and immediate usage reduction
 
 This is the highest-priority work. P0.0 and P0.1 must be treated as the first implementation targets unless an urgent correctness/privacy bug intervenes.
 
-### P0.0 — Universal Agent OS routing for chats and work projects
+### P0.0 â€” Universal Agent OS routing for chats and work projects
 
 Status: **complete** (2026-09-21). All acceptance criteria met and covered by
 regression tests; `validate` reports 0 errors and 0 warnings, and
@@ -73,13 +73,13 @@ Goal:
 Required execution path:
 
 client/chat/work task
-→ Agent OS preflight
-→ project/domain resolution
-→ selective context + skills + policy retrieval
-→ workflow/stage routing
-→ model/tool execution
-→ validation/checkpoint
-→ candidate durable update/handoff
+â†’ Agent OS preflight
+â†’ project/domain resolution
+â†’ selective context + skills + policy retrieval
+â†’ workflow/stage routing
+â†’ model/tool execution
+â†’ validation/checkpoint
+â†’ candidate durable update/handoff
 
 Client-support requirement:
 - where a client can call Agent OS directly through MCP/plugin/app/API integration, use Agent OS automatically as the default gateway;
@@ -96,7 +96,7 @@ Acceptance criteria:
 Success signal:
 - project continuity and Agent OS context become the default behavior rather than an opt-in prompt convention.
 
-### P0.0A — Unified Connector Broker + cross-surface auto-provisioning
+### P0.0A â€” Unified Connector Broker + cross-surface auto-provisioning
 
 Status: **on hold** (2026-10-04), awaiting operator decisions: the launch command written into native
 client MCP entries, whether Agent OS may write client configuration (preview-first, confirm_write, backup),
@@ -196,22 +196,22 @@ Architecture:
 Required workflows:
 
 configure/import connector on any supported surface
-→ normalize provider + capabilities
-→ store/resolve credentials in approved secret store
-→ update Agent OS Connector Registry
-→ reconcile all registered client surfaces
-→ expose provider through stable Agent OS MCP/plugin/API
-→ verify tool discovery + least-privilege access
-→ report per-surface availability and any host-imposed limitation
+â†’ normalize provider + capabilities
+â†’ store/resolve credentials in approved secret store
+â†’ update Agent OS Connector Registry
+â†’ reconcile all registered client surfaces
+â†’ expose provider through stable Agent OS MCP/plugin/API
+â†’ verify tool discovery + least-privilege access
+â†’ report per-surface availability and any host-imposed limitation
 
 On startup and periodically/on configuration change:
 
 discover local/client connector state
-→ compare with canonical desired state
-→ deduplicate equivalent registrations
-→ repair stale registrations where authorized
-→ health-check provider + Agent OS bridge
-→ surface conflicts, expired auth, or unsupported host behavior
+â†’ compare with canonical desired state
+â†’ deduplicate equivalent registrations
+â†’ repair stale registrations where authorized
+â†’ health-check provider + Agent OS bridge
+â†’ surface conflicts, expired auth, or unsupported host behavior
 
 Acceptance criteria:
 - adding a supported connector once makes its tools discoverable from Claude,
@@ -232,7 +232,7 @@ Acceptance criteria:
   another client merely to achieve portability;
 - host limitations are represented as explicit capability constraints rather
   than silently breaking the configure-once expectation;
-- regression tests cover Claude → Agent OS → ChatGPT availability, ChatGPT/
+- regression tests cover Claude â†’ Agent OS â†’ ChatGPT availability, ChatGPT/
   external-host import where APIs permit it, unsupported-host fallback through
   the Agent OS bridge, revocation, deduplication, stale registration repair,
   credential isolation, and fresh-machine recovery.
@@ -243,12 +243,12 @@ Success signal:
   client."
 
 Concrete high-priority provider adapter:
-- [RTEC Applicant Pipeline / Agent OS Integration](rtec-applicant-pipeline.md) —
+- [RTEC Applicant Pipeline / Agent OS Integration](rtec-applicant-pipeline.md) â€”
   Fillout remains upstream through the existing Google bridge; Agent OS attaches
   to the Applicant Dashboard's normalized/restricted workflow layer, with an
   EEO/self-ID firewall and approval-gated consequential actions.
 
-### P0.1 — Staged Workflow Orchestrator + next-prompt/model handoffs
+### P0.1 â€” Staged Workflow Orchestrator + next-prompt/model handoffs
 
 Status: **complete** (2026-09-21). Manifest schema, stage lifecycle, persisted
 run state, evidence-driven escalation, next-prompt generation, and CLI + MCP
@@ -267,7 +267,7 @@ Acceptance criteria met:
 Measured on `repository-health-sweep`: 2 of 4 stages need no model at all, and
 per-stage context stays inside each stage's own budget (549/553/1167/856
 tokens). Staged context totals 3125 tokens against 2536 for a single unstaged
-pass — staging costs somewhat more raw context and buys model-free stages,
+pass â€” staging costs somewhat more raw context and buys model-free stages,
 transcript-free resumption, and bounded per-stage packets. It is not a raw
 context reduction, and the tests assert a bound rather than a saving.
 
@@ -302,14 +302,14 @@ Each workflow should be decomposable into machine-readable stages with fields su
 Stage lifecycle:
 
 resolve workflow
-→ run cheapest appropriate stage
-→ validate
-→ persist outputs/checkpoint
-→ stop at the configured boundary
-→ emit completion summary
-→ emit exact next stage
-→ emit recommended capability/model/effort
-→ emit a ready-to-paste next prompt or machine-runnable handoff
+â†’ run cheapest appropriate stage
+â†’ validate
+â†’ persist outputs/checkpoint
+â†’ stop at the configured boundary
+â†’ emit completion summary
+â†’ emit exact next stage
+â†’ emit recommended capability/model/effort
+â†’ emit a ready-to-paste next prompt or machine-runnable handoff
 
 Requirements:
 - model recommendations should prefer provider-neutral capability classes; concrete model names are resolved from currently available/configured providers at execution time;
@@ -331,7 +331,7 @@ Acceptance criteria:
 Success signal:
 - expensive models spend time primarily on the stages that actually require them.
 
-### P0.2 — Selective context and profile retrieval
+### P0.2 â€” Selective context and profile retrieval
 
 Status: **complete** (2026-09-21). EXEC-0.5 is implemented in
 `src/agent_os/profile.py`, merged into the context compiler, exposed through
@@ -367,9 +367,9 @@ Success signal:
 
 Detailed design:
 - `projects/personal-agent-os/roadmap/personal-executive.md`
-- `projects/personal-agent-os/roadmap/personal-message-archive.md` — EXEC-0.5.
+- `projects/personal-agent-os/roadmap/personal-message-archive.md` â€” EXEC-0.5.
 
-### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
+### P0.3 â€” Shared document intelligence + local persistent extraction/OCR cache
 
 Status: **on hold here** (2026-10-04): the Agent OS side is complete and covered by consumer-contract tests; the remaining work lives in the ingester-engine repository (bounded concurrency, then page-level template reuse once the form registry has approved content) and needs a run targeting that repository. Earlier: **foundation complete; Agent OS now has tests for the page-cache lookup helpers, the cache privacy and key-exclusion rules, and the document-cache CLI commands, in addition to field-region contract coverage** (2026-10-04).
 The cache/extraction foundation was implemented in `src/agent_os/documents.py` and
@@ -379,17 +379,17 @@ exposed through CLI and MCP, enforced by `agent.py validate`, and covered by 40
 regression tests. The field-region seam is now covered from Agent OS by tests/test_field_region_contract.py (validation, cache reuse, re-OCR for a new region, count-only telemetry, persistence across cache instances, re-OCR for a different page or file hash, no cache path in results, OCR-failure handling, re-OCR when dpi/rotation change) and documented in docs/document-intelligence.md. Additional Agent OS-side tests cover the cache layer: tests/test_document_cache_lookup.py, tests/test_document_cache_privacy_contract.py, and tests/test_document_cache_cli.py. While HR-GUI branch review is complete (merged 0dbe36e); tests inside the ingester-engine repo (blocked on the deploy-key secret), approved registry content, and bounded concurrency remain open.
 
 Delivered:
-1. persistent exact-page cache keyed by content hash — **done**;
+1. persistent exact-page cache keyed by content hash â€” **done**;
 2. dependency/version-aware invalidation, so interpretation changes reuse
-   OCR — **done**, and asserted structurally by test;
-3. person-independent structural signatures — **done**. The sanitized form
+   OCR â€” **done**, and asserted structurally by test;
+3. person-independent structural signatures â€” **done**. The sanitized form
    matcher now abstains when top registry scores are within 0.05; approved
    registry content, scanner integration, and page-level template reuse remain
    pending (the current registry is empty);
-4. targeted field-region OCR — **done**. Shared `FieldRegion` validation and cached
+4. targeted field-region OCR â€” **done**. Shared `FieldRegion` validation and cached
    `extract_field_region` API are implemented, with count-only telemetry for
    region requests, OCR calls, and cache hits; Agent OS consumer contract coverage done (tests/test_field_region_contract.py, verified in docs/document-intelligence.md 'Scope actually delivered'); in-repo ingester-engine tests and HR-GUI branch review/merge remain;
-5. bounded concurrency — **not started**, and correctly gated behind measuring
+5. bounded concurrency â€” **not started**, and correctly gated behind measuring
    the earlier steps.
 
 Measured (40 pages, simulated OCR at 20ms/page): cold 0.65s, warm 0.14s
@@ -429,9 +429,9 @@ Success signal:
 - repeated scans and classifier-development passes perform progressively less OCR and less model-assisted analysis.
 
 Detailed design:
-- `projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md` — shared document intelligence, HR-GUI optimization, scanner learning loop.
+- `projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md` â€” shared document intelligence, HR-GUI optimization, scanner learning loop.
 
-### P0.4 — Resumable/checkpointed ingestion everywhere
+### P0.4 â€” Resumable/checkpointed ingestion everywhere
 Status: **on hold** (2026-10-04), awaiting operator decisions: every safe local/fixture seam is already wired to the ingestion ledger; the remaining text-message, feed and Discord adapters need (1) where to build them (ingester-engine vs agent_os.ingester_bridge), (2) each source's stable item ID, and (3) whether edited messages/updated entries are reprocessed under the same ID. Earlier: implemented in the P0.4 recovery foundation (`agent_os.recovery`), with
 local compact checkpoints, Git fingerprints, cross-agent continuation, and a
 generic incremental ledger. Ledger failure records now discard caller-supplied
@@ -504,7 +504,7 @@ text-message, feed, or future provider-specific adapter integration and
 requires source identity plus changed-content semantics before implementation;
 plain IMAP UID/UIDNEXT cursors remain deferred.
 
-### P0.5 — Deterministic/cache/skill-first execution policy
+### P0.5 â€” Deterministic/cache/skill-first execution policy
 
 Status: **complete for now** (2026-10-04). Deterministic-first selection with evidence-triggered model
 fallback, the document-page cache route, and the reviewed-patch task cache (opt-in via run policy
@@ -553,7 +553,7 @@ Success signal:
 - repeated structured work increasingly bypasses LLM calls.
 
 
-### P0.6 — Skill/Economy Regression Test Suite
+### P0.6 â€” Skill/Economy Regression Test Suite
 Status: implemented with a deterministic, privacy-safe fixed corpus, context
 budget safeguards, workflow-route regression coverage, and synthetic A/B
 comparison. See `docs/economy-regressions.md`.
@@ -640,11 +640,11 @@ Success signal:
 
 ---
 
-## P1 — Usage telemetry and adaptive routing
+## P1 â€” Usage telemetry and adaptive routing
 
 Build after or alongside the P0 primitives so optimization is measured against real workflows.
 
-### P1.1 — Privacy-safe usage telemetry
+### P1.1 â€” Privacy-safe usage telemetry
 
 Status: **on hold** (2026-10-04), awaiting an operator decision on chat-session telemetry capture (whether and how Claude/ChatGPT/Codex sessions may be recorded as metadata-only events, and any automatic capture hooks). Decided by the supervisor: model-path counts are sufficient for repeat-work cache-candidate detection for now. Buildable without input when resumed: per-workflow identity in workflow-stage telemetry.
 
@@ -700,7 +700,7 @@ Initial reports should answer:
 - where a strong model is used for deterministic work;
 - where retries/escalations are concentrated.
 
-### P1.2 — Adaptive router
+### P1.2 â€” Adaptive router
 
 Status: **complete** (2026-10-04). Provider-neutral capability classes,
 cheapest-path selection, persisted fallback, validator-driven bounded
@@ -739,7 +739,7 @@ Open:
 - Provider/model selection policy is moved to P1.3 and is not implemented by
   P1.2. The bounded subtask delegation infrastructure is delivered.
 
-### P1.2A — Multi-agent coding orchestrator + control GUI
+### P1.2A â€” Multi-agent coding orchestrator + control GUI
 
 Status: **implemented, first release** (2026-09-22, merged to `main`; see
 `docs/multi-agent-orchestrator.md`). Implemented:
@@ -763,7 +763,7 @@ implements, Codex reviews) that reached COMPLETE. Remaining limits:
 - the GUI is dependency-free web UI rather than Tauri, because no Rust
   toolchain is installed.
 
-**P1.2B — token-economy routing (2026-09-22, branch
+**P1.2B â€” token-economy routing (2026-09-22, branch
 `p1.2b-orchestrator-routing`).** Changes:
 - **Routing:** providers refresh their models from local discovery (the Codex
   model catalog, Claude tier aliases). The router picks the cheapest provider
@@ -784,7 +784,7 @@ implements, Codex reviews) that reached COMPLETE. Remaining limits:
   restart, and MCP/GUI-created Auto Continue runs get a detached background
   driver.
 
-**P1.2C — Simple Mode, Continue Roadmap, efficiency telemetry (2026-09-22).**
+**P1.2C â€” Simple Mode, Continue Roadmap, efficiency telemetry (2026-09-22).**
 See `docs/simple-mode.md`. Changes:
 - **Simple Mode GUI (default):** Continue Roadmap, Tell Me What To Press,
   plain-English steps/agents/activity, beginner-friendly problem cards with
@@ -805,13 +805,13 @@ See `docs/simple-mode.md`. Changes:
   selection is therefore a small lever; the next economy work is per-call
   CLI overhead and avoiding calls (see P2.3).
 
-**P1.2D — per-call CLI overhead (2026-09-23).** Adapters now send lean
+**P1.2D â€” per-call CLI overhead (2026-09-23).** Adapters now send lean
 worker invocations: Claude Code with a 6-tool set and skills disabled, Codex
 with `--ignore-user-config` (carrying over `windows.sandbox`). Measured with
-`agent-os orchestrate overhead`: fixed cost per Claude call 25,177 → 14,331
-input tokens, per Codex call 19,007 → 14,022 (uncached ~15k → 3k). Live A/B on
+`agent-os orchestrate overhead`: fixed cost per Claude call 25,177 â†’ 14,331
+input tokens, per Codex call 19,007 â†’ 14,022 (uncached ~15k â†’ 3k). Live A/B on
 a small code change (3 runs each, delivery verified): median task input
-161,847 → 100,513 tokens; review calls ~84.6k → ~41.8k. Also fixed: a worker
+161,847 â†’ 100,513 tokens; review calls ~84.6k â†’ ~41.8k. Also fixed: a worker
 reporting "done" with no changes was accepted (now a failed attempt unless it
 reports `already_done`).
 
@@ -929,7 +929,7 @@ Success signal:
   drives the task to validated completion with human intervention only at
   meaningful approval gates.
 
-### P1.3 — Optional API delegation
+### P1.3 â€” Optional API delegation
 
 Status: **on hold** (2026-10-04), awaiting operator decisions: whether engine runs may route Agent-OS-owned subtasks to paid Anthropic/OpenAI API workers automatically (and with which budget), and how host-plan (subscription) usage should be accounted. The API budget gate, ledger, pre-call estimate and monthly periods are done; paid delegation stays blocked until a budget is set.
 
@@ -945,9 +945,9 @@ Use OpenAI/Anthropic APIs for bounded Agent-OS-owned subtasks when doing so is a
 
 ---
 
-## P2 — Turn repeated usage into reusable machinery
+## P2 â€” Turn repeated usage into reusable machinery
 
-### P2.1 — Automation Miner
+### P2.1 â€” Automation Miner
 
 Status: **complete for now** (2026-10-05); the larger import-loop extraction is on hold for an architectural decision. Earlier: **deterministic foundation complete** (2026-09-22).
 
@@ -985,7 +985,7 @@ Prioritize normal code for repeated deterministic tasks such as:
 - exact/regex extraction;
 - straightforward file transformations.
 
-### P2.2 — Skill Miner
+### P2.2 â€” Skill Miner
 
 Status: **deferred** pending a reviewed deterministic skill-runner contract and
 validated replay traces. Canonical approved skills remain instruction-only
@@ -994,11 +994,11 @@ validated replay traces. Canonical approved skills remain instruction-only
 Detect repeated model/tool workflows and create candidate reusable skills.
 
 Lifecycle:
-observed pattern → candidate → replay/evaluation → review → approved/rejected.
+observed pattern â†’ candidate â†’ replay/evaluation â†’ review â†’ approved/rejected.
 
 No generated skill may silently self-promote.
 
-### P2.3 — Prompt/context optimization
+### P2.3 â€” Prompt/context optimization
 
 Status: **complete for now** (2026-10-05). The offline measurement and gating tools, lossless handoff compaction and opt-in worker/reviewer scope maps are in place. Awaiting the operator: whether to turn scope maps on by default (needs measured run outcomes, not only token counts) and whether lossy handoff limits (truncation/caps) are acceptable. Telemetry-driven capability selection and applying bench-gated prompt-template changes remain open for a later pass.
 
@@ -1055,11 +1055,11 @@ Success signal:
 
 ---
 
-## P3 — Executive Core
+## P3 â€” Executive Core
 
-Status: **in progress** (2026-10-05). EXEC-0 entity, event, and queue-item schemas and contracts are present, with deterministic validation, stable IDs, and local-only enforcement for sensitive/secret data. The append-only local Event Bus log supports publishing, deduplication, listing, and lookup, with per-consumer acknowledgement cursors. Deterministic event routing supports ignore/defer/process/delegate/surface dispositions, a default per-type table, per-call overrides, and local-only events are never delegated. Idempotent routing dispatch of pending Event Bus events per consumer; persisted per-event route reasons (payload-free) queryable by event id; `agent-os executive route` / `route-reason` CLI. Event routing is available over MCP: `executive_routing.dispatch` previews pending routes by default (`routing.preview_pending`, no persistence or acknowledgement) and persists/acknowledges only with confirm_write=true; `executive_routing.reason` returns the persisted payload-free route for an event id. The Executive window's outstanding list now goes through the queue: `Registry.outstanding()`/`queue()` convert provider items to EXEC-0 queue items (`agent_os.executive.window_queue`), the default window registry publishes them once each to the local Event Bus with an identifiers-only payload, and the window output is unchanged (`docs/orchestrator-os/executive-window.md`, “Executive Queue and Event Bus”). The Executive Queue now has a deterministic next item: `agent_os.executive.next_action` ranks queue items by priority, then age, then id; `agent-os executive next` / `explain` CLI and the read-only MCP tools `executive_window.next` / `executive_window.explain` expose the ranking and ranked position of any item. EXEC-1 per-project Next Action Engine (`src/agent_os/executive/project_actions.py`) derives goal, current state, next action, blockers, waiting-on, decisions needed, and delegable work from projects/<id>/state.json; it flags stalled/no-next-action/blocked/needs-decision projects; and it is exposed via `agent-os project-next` / `project-scan` CLI and `executive_projects.next` / `executive_projects.scan` MCP tools. Per-project next actions now appear in the Executive window via the `projects` provider (`src/agent_os/executive/window/providers_projects.py`): owed decisions (score 3), stalled projects (score 2), and projects with no next action (score 1) appear as window items with their reason as `why`, on the work tab unless the registry entry sets `”tab”: “personal”`, and outstanding window items carry a rank explanation (`rank` with position/of/ranking) which the window shows next to the `why`. EXEC-1 now flags vague next actions (placeholder or short “work on X” phrasing) deterministically via `is_vague_action`, suggests a concrete next action from `current_priorities`/`delegable_work`, lists them in `project-scan`/`executive_projects.scan` output, and surfaces them as score-1 Executive window items. Executive window snoozes (`item.snooze`) now publish identifiers-only `task.deferred` Event Bus events for the item queue entity. Per-entity counts populate the queue item's `repeated_deferrals`; items deferred 3 or more times (`window_queue.DEFERRAL_THRESHOLD`) are flagged in the window with `deferrals` and a `Deferred N times` why (`docs/orchestrator-os/executive-window.md`, "Repeated deferrals").
+Status: **in progress** (2026-10-06). EXEC-0 entity, event, and queue-item schemas and contracts are present, with deterministic validation, stable IDs, and local-only enforcement for sensitive/secret data. The append-only local Event Bus log supports publishing, deduplication, listing, and lookup, with per-consumer acknowledgement cursors. Deterministic event routing supports ignore/defer/process/delegate/surface dispositions, a default per-type table, per-call overrides, and local-only events are never delegated. Idempotent routing dispatch of pending Event Bus events per consumer; persisted per-event route reasons (payload-free) queryable by event id; `agent-os executive route` / `route-reason` CLI. Event routing is available over MCP: `executive_routing.dispatch` previews pending routes by default (`routing.preview_pending`, no persistence or acknowledgement) and persists/acknowledges only with confirm_write=true; `executive_routing.reason` returns the persisted payload-free route for an event id. The Executive window's outstanding list now goes through the queue: `Registry.outstanding()`/`queue()` convert provider items to EXEC-0 queue items (`agent_os.executive.window_queue`), the default window registry publishes them once each to the local Event Bus with an identifiers-only payload, and the window output is unchanged (`docs/orchestrator-os/executive-window.md`, â€œExecutive Queue and Event Busâ€). The Executive Queue now has a deterministic next item: `agent_os.executive.next_action` ranks queue items by priority, then age, then id; `agent-os executive next` / `explain` CLI and the read-only MCP tools `executive_window.next` / `executive_window.explain` expose the ranking and ranked position of any item. EXEC-1 per-project Next Action Engine (`src/agent_os/executive/project_actions.py`) derives goal, current state, next action, blockers, waiting-on, decisions needed, and delegable work from projects/<id>/state.json; it flags stalled/no-next-action/blocked/needs-decision projects; and it is exposed via `agent-os project-next` / `project-scan` CLI and `executive_projects.next` / `executive_projects.scan` MCP tools. Per-project next actions now appear in the Executive window via the `projects` provider (`src/agent_os/executive/window/providers_projects.py`): owed decisions (score 3), stalled projects (score 2), and projects with no next action (score 1) appear as window items with their reason as `why`, on the work tab unless the registry entry sets `â€tabâ€: â€œpersonalâ€`, and outstanding window items carry a rank explanation (`rank` with position/of/ranking) which the window shows next to the `why`. EXEC-1 now flags vague next actions (placeholder or short â€œwork on Xâ€ phrasing) deterministically via `is_vague_action`, suggests a concrete next action from `current_priorities`/`delegable_work`, lists them in `project-scan`/`executive_projects.scan` output, and surfaces them as score-1 Executive window items. Executive window snoozes (`item.snooze`) now publish identifiers-only `task.deferred` Event Bus events for the item queue entity. Per-entity counts populate the queue item's `repeated_deferrals`; items deferred 3 or more times (`window_queue.DEFERRAL_THRESHOLD`) are flagged in the window with `deferrals` and a `Deferred N times` why (`docs/orchestrator-os/executive-window.md`, "Repeated deferrals"). Executive Queue status transitions are recorded — Dismiss publishes `task.cancelled` (new EXEC-0 event type), a confirmed consequential action publishes `task.completed`, Snooze publishes `task.deferred`, all identifiers-only, and queue items carry their current `status` via `window_queue.queue_statuses` (`docs/orchestrator-os/executive-window.md`, "Queue status transitions").
 
-Current (2026-10-05, supervisor): done — EXEC-0, Event Bus and routing (CLI/MCP), window queue with ranked next/explain, per-project next actions with stalled/no-next-action/decision/vague flags in the window, and repeated-deferral flags from Snooze. Open, in order: (1) Executive Queue status transitions: the window's existing dismiss/snooze/complete actions record queue status changes (deferred/completed/cancelled) as identifiers-only Event Bus events, and queue items carry their current status; (2) window actions on project items through the registry preview/Confirm flow: record a project's next action and resolve a decision it owes (writes that project's state.json in this repository); (3) provenance in explain: which provider, source and Event Bus event ids produced an item and its rank; (4) populate goal/next_action/blockers/waiting_on in the registered projects' state.json files from each project's own docs (no invented content); (5) selective retrieval: executive actions that need project context use the compiled context packet, not broad reads. `agent-os exec capture` (brain dumps) belongs to P4 (EXEC-3).
+Current (2026-10-06, supervisor): done — EXEC-0, Event Bus and routing (CLI/MCP), window queue with ranked next/explain, per-project next actions with stalled/no-next-action/decision/vague flags in the window, and repeated-deferral flags from Snooze, and queue status transitions. Open, in order: (1) window actions on project items through the registry preview/Confirm flow: record a project's next action and resolve a decision it owes (writes that project's state.json in this repository); (2) provenance in explain: which provider, source and Event Bus event ids produced an item and its rank; (3) populate goal/next_action/blockers/waiting_on in the registered projects' state.json files from each project's own docs (no invented content); (4) selective retrieval: executive actions that need project context use the compiled context packet, not broad reads. `agent-os exec capture` (brain dumps) belongs to P4 (EXEC-3).
 
 Operator constraint (2026-10-05): the Executive Core is the existing Executive window (`src/agent_os/executive/window`), not a parallel system. The Executive Queue is the window's outstanding items: window providers (`registry.register_provider`, items with id/tab/kind/title/why/source/age_days/score) publish their items as EXEC-0 events/queue items, and the window reads its outstanding list through the queue (the item `why` maps to the queue `reason`). The Next Action Engine ranks those same items for the window; "why" explanations appear on window items; new executive actions register through the window registry and its preview/Confirm flow. Do not add a second queue store, item list, approval flow or UI. Done 2026-10-05: providers and the outstanding list go through the contracts/Event Bus. Done 2026-10-05: the window queue has a ranked next item and explain (CLI/MCP), per-project next actions exist (CLI/MCP), and per-project next actions now surface in the Executive window through a `projects` provider (stalled projects, projects with no next action, and decisions the user owes appear as window items with their reason as `why`, on the work tab unless the registry entry sets `"tab": "personal"`), and each item's rank explanation (position/of/ranking) appears in the window next to its `why`. Open: no project carries a personal-tab marker yet (all project items show on work tab), and new executive actions for project items (e.g. record a next action, resolve a decision) through the window registry preview/Confirm flow remain open.
 
@@ -1079,7 +1079,7 @@ Detailed design:
 
 ---
 
-## P4 — Capture, memory refinement, and Rescue Mode
+## P4 â€” Capture, memory refinement, and Rescue Mode
 
 Status: **complete for now** (2026-10-06); remaining inputs belong to later stages (calendar/commitments P6, voice P7, model-assisted extraction after the P1.3 routing decision). Earlier: **in progress** (2026-10-06). Deterministic rule-based brain-dump
 processing emits typed records, deduplicates repeated and already-captured
@@ -1134,7 +1134,7 @@ make it cheap and easy to recover forgotten commitments, project state, and one 
 
 ---
 
-## P5 — Attention, delegation, and daily brief
+## P5 â€” Attention, delegation, and daily brief
 
 Implement:
 - EXEC-4 Executive Prioritizer;
@@ -1147,7 +1147,7 @@ Outcome learning should feed P1/P2 so the system learns both **what helps the us
 
 ---
 
-## P6 — Life and communication integrations
+## P6 â€” Life and communication integrations
 
 Build on the same incremental/checkpointed local ingestion foundation.
 
@@ -1155,16 +1155,16 @@ Order:
 1. finish/solidify iCloud Mail ingestion and MCP/Agent-OS bridge;
 2. EXEC-11 Communication Intelligence;
 3. calendar intelligence;
-4. Personal Message Archive / Text Intelligence (`projects/personal-agent-os/roadmap/personal-message-archive.md`) — free/local iPhone/iMessage/SMS/RCS ingestion, SQLite/FTS5 retrieval, incremental refresh, and evidence-backed profile/commitment/project/relationship integration;
+4. Personal Message Archive / Text Intelligence (`projects/personal-agent-os/roadmap/personal-message-archive.md`) â€” free/local iPhone/iMessage/SMS/RCS ingestion, SQLite/FTS5 retrieval, incremental refresh, and evidence-backed profile/commitment/project/relationship integration;
 5. Discord authorized archive/API ingestion;
 6. Universal Following Feed core;
 7. additional content adapters.
 
-Raw personal communications remain local by default. Durable Git state receives sanitized derived facts, schemas, subscriptions, routing rules, and approved memories—not credentials or raw archives.
+Raw personal communications remain local by default. Durable Git state receives sanitized derived facts, schemas, subscriptions, routing rules, and approved memoriesâ€”not credentials or raw archives.
 
 ---
 
-## P7 — Proactivity and voice
+## P7 â€” Proactivity and voice
 
 Implement after the event, retrieval, routing, and attention layers are mature:
 - EXEC-12 Proactive Executive;
@@ -1174,7 +1174,7 @@ Proactivity should batch low-value events and avoid model calls merely to decide
 
 ---
 
-## P8 — Controlled autonomy
+## P8 â€” Controlled autonomy
 
 Implement EXEC-14 only after sufficient outcome history, auditing, idempotency, approval policy, and kill-switch support exist.
 
@@ -1182,7 +1182,7 @@ Autonomy should reduce user labor, not create uncontrolled background usage. Per
 
 ---
 
-## P9 — Knowledge libraries and creative intelligence
+## P9 â€” Knowledge libraries and creative intelligence
 
 Lower implementation priority than the economy/executive foundation, but design them to reuse it.
 
@@ -1200,7 +1200,7 @@ Create a generic evidence/provenance-backed library architecture that can suppor
 
 It must use incremental ingestion, persistent local indexes, selective retrieval, and compact evidence packets so large libraries do not become prompt bloat.
 
-### EXEC-15 — Lorekeeper / Creative Intelligence
+### EXEC-15 â€” Lorekeeper / Creative Intelligence
 
 Dream Eater and other writing projects should reuse the same selective/evidence-backed architecture for lore, provenance, canon state, contradictions, wiki generation, knowledge-gap questions, critique, and eventual live-writing observation.
 
@@ -1325,7 +1325,7 @@ Design principle:
 
 ## Operator-priority: Model Infrastructure Manager / Compute Broker
 
-**Priority: HIGH — requested 2026-09-29.** Canonical detailed specification:
+**Priority: HIGH â€” requested 2026-09-29.** Canonical detailed specification:
 [model-infrastructure-manager.md](model-infrastructure-manager.md) (IMP-0015).
 
 This is the provider-neutral, plug-and-play model and cloud-compute layer for
@@ -1348,7 +1348,7 @@ only when Agent OS EVR/CAP evidence shows noninferior validation and material
 improvement in cost per verified successful task, utilization, reliability,
 latency, or useful development throughput.
 
-**2026-10-01 ASAP expansion — OpenRouter free-compute maximization:** before
+**2026-10-01 ASAP expansion â€” OpenRouter free-compute maximization:** before
 spending substantial effort or money on additional paid inference capacity,
 implement the FreeComputeBroker slice in the detailed roadmap. Dynamically
 discover current OpenRouter free models, empirically specialize them by task
@@ -1374,7 +1374,7 @@ telemetry, CAP/EVR, validation, budget, and Research Radar primitives.
 
 ## Operator-priority: Context Efficiency & Token Amplification
 
-**Priority: HIGH — requested 2026-09-29.** Canonical specification:
+**Priority: HIGH â€” requested 2026-09-29.** Canonical specification:
 [context-efficiency-token-amplification.md](context-efficiency-token-amplification.md) (IMP-0018).
 
 Measure cumulative context growth across long-running and multi-agent workflows,
@@ -1389,7 +1389,7 @@ accuracy) make this a high-value area for immediate testing.
 
 ## Operator-priority: Episodic Agent Rotation
 
-**Priority: HIGH experimental track — requested 2026-09-29.** Canonical
+**Priority: HIGH experimental track â€” requested 2026-09-29.** Canonical
 specification: [episodic-agent-rotation.md](episodic-agent-rotation.md)
 (IMP-0019).
 
@@ -1405,7 +1405,7 @@ diminishing returns.
 
 ## Operator-priority: Hermes Agent integration
 
-**Priority: HIGH — requested 2026-10-01.** Evaluation:
+**Priority: HIGH â€” requested 2026-10-01.** Evaluation:
 [hermes-agent-evaluation.md](../research/hermes-agent-evaluation.md) (IMP-0020,
 PA-hermes-agent).
 
