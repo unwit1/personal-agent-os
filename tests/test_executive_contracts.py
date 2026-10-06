@@ -676,7 +676,10 @@ class TestConstants(unittest.TestCase):
         self.assertEqual(len(ENTITY_KINDS), 13)
 
     def test_event_types_count(self):
-        self.assertEqual(len(EVENT_TYPES), 20)
+        self.assertEqual(len(EVENT_TYPES), 21)
+
+    def test_task_cancelled_event_type(self):
+        self.assertIn("task.cancelled", EVENT_TYPES)
 
     def test_autonomy_levels(self):
         self.assertEqual(AUTONOMY_LEVELS, {"OBSERVE", "SUGGEST", "PREPARE", "ASK_THEN_ACT", "AUTO_ACT"})

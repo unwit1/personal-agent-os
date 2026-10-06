@@ -18,6 +18,7 @@ DEFAULT_ROUTES: dict[str, str] = {
     "idea.captured": "process",
     "task.created": "process",
     "task.completed": "process",
+    "task.cancelled": "process",
     "project.modified": "process",
     "decision.made": "process",
     "agent.completed": "process",
