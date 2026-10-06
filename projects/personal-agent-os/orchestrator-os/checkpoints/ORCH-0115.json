@@ -1,0 +1,168 @@
+{
+  "schema": "personal-agent/orchestrator-checkpoint/v1",
+  "id": "ORCH-0115",
+  "previous": "ORCH-0114",
+  "created_at": "2026-10-06T11:35:10.243819+00:00",
+  "git": {
+    "branch": "land/7f5ac4",
+    "commit": "62e84170a",
+    "dirty": false
+  },
+  "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
+  "completed": [
+    "Credential setup via masked pop-ups into Windows Credential Manager: orchestrate secrets setup / set --gui; radar sends an optional HF token (DEC-0040)",
+    "Operator-approved compute budget $10 project / $5 per-job hard cap (machine-wide ~/.agent-os/budget.json, history + spend ledger, orchestrate budget show|set); quote gate enforces it (DEC-0041)",
+    "Operator raised the per-job hard cap to $10 (project budget $10) on 2026-09-29; recorded in ~/.agent-os/budget-history.jsonl",
+    "IMP-0015 slice 10: OpenRouter FreeComputeBroker (free-first routing, dynamic model discovery, versioned cached catalog, per-task empirical specialization, quota/account visibility, fan-out backfill with checkpoints, validator-gated escalation, useful-progress metrics, operator-alert-only top-up recommendation) \u2014 modules: free_catalog, free_quota, free_routing, free_specialization, free_swarm, free_metrics, openrouter_account; tests: 95 pass; CLI: orchestrate free-compute (landed); read-only account visibility with secrets://openrouter/default awareness; docs: free-compute-broker.md",
+    "IMP-0015 slice 2: gated compute provisioning interface (compute.provision/status/stop/destroy/reconcile) against fake provider only: budget-gated with write-ahead spend reservation, mandatory max-runtime auto-stop derived from budget cap, reconcile with actual-vs-estimate variance tracking, persisted lifecycle state machine, idempotent resumable operations, secrets only via secrets:// refs; exposed through `orchestrate compute` CLI and MCP tools; 0 paid compute (DEC-0042, src/agent_os/orchestrator/provision.py, compute_fake.py)",
+    "IMP-0018 Phase 0: context-economy measurement harness (src/agent_os/orchestrator/context_economy.py, CLI `orchestrate context-economy`, synthetic-fixture tests, EVR-0018, EXP-0010) - deterministic, offline, aggregates only. Baseline over 20 real runs / 666 calls (98% exact usage): pooled input amplification 104.8x (implementer median 141x, reviewer 11.7x); median cache-read share 0.84; duplicated fixed per-worker overhead 253.4M of 255.8M worker input (share 0.99, upper bound); checkpoint-resume overhead share 0.17 of run input.",
+    "IMP-0015 provisioning review fixes (run-20261002T062418Z-2e1e10, findings from run-20261002T001408Z-c3bb9e): FakeProvider launch is idempotent launch-or-lookup by spec name (also after a raised call that created the instance) with per-instance hourly rates; fake provider state is file-backed at <home>/compute-providers/fake.json and survives new processes; provision() looks up an existing instance before launching; MCP in-memory _FAKE_PROVIDERS cache removed; CLI AGENT_OS_BUDGET_HOME env var removed (budget home resolved via the standard provider-registry path); each fix covered by a test that fails without it; 0 paid compute",
+    "IMP-0019 shadow phase: deterministic rotation advisor (src/agent_os/orchestrator/rotation_advisor.py, CLI `orchestrate rotation-advisor`, synthetic-fixture tests, DEC-0044, EXP-0011, EVR-0019); advice only, dispatch unchanged; real-telemetry evaluation pending host run of `orchestrate rotation-advisor --out docs/orchestrator-os/self-audit/rotation-advisor-baseline.json`",
+    "IMP-0018 Phase 1: shared run-level prompt prefix compiled once per run, byte-stable across workers (prompts.shared_prefix, engine cache, run policy shared_prefix default False per docs/orchestrator-os/self-audit/shared-prefix.md); parity test proves unchanged rule lines; synthetic before/after via context_economy (EVR-0021, EXP-0012)",
+    "IMP-0015 third-party optimization track (measurement-first): RouteLLM-style shadow route calibrator (src/agent_os/orchestrator/route_calibration.py, CLI `orchestrate route-calibration --home --out`, synthetic-fixture tests, design docs/orchestrator-os/self-audit/route-calibration.md, prior art PA-routellm BORROW); advice only, routing unchanged; real-telemetry evaluation pending supervisor run of `orchestrate route-calibration --out docs/orchestrator-os/self-audit/route-calibration-baseline.json`",
+    "Executive window applicant workflow (run-20261002T170546Z-ece407): editable compose panel with To/Subject/Body and Send (no send without a Send click; direct SMTP+IMAP Sent-copy transport per operator change, FakeTransport for tests; failures surface as NOT SENT), counties-with-openings groups replacing Human review pending, applicant review panel with one-click decisions (applicant.reach_out/invite_interview/email_manager/decline/hold), manager email, natural-language opening events (county.opening_change, alias openings.event for the chat route; preview + Confirm, immediate county refresh), county.refresh, registered as actions and model tools; legacy senders email.send and executive.reach_out unregistered after landing (compose + POST /api/send is the only send path); docs: docs/orchestrator-os/executive-window.md, executive-applicant-workflow.md",
+    "Executive mail intelligence (run-20261002T170547Z-f7dd30): deterministic spam/bulk classifier (server junk folder, List-Unsubscribe/List-Id, Precedence bulk/list, marketing/notification sender patterns, promotional subjects, first-contact vs known correspondent, operator's own sent mail) so Commitments and Work/Personal mail items include only likely-human mail needing a reply; every filtered item carries a reason; precision/recall reported on a synthetic labeled set; operator-review queue for borderline cases; filtered counts shown in the window so nothing disappears silently. Whole-index categorizer (action needed, waiting on others, receipts/finance, newsletters/promotions, notifications, HR/applicants, personal, spam, archive-old) producing an ORGANIZATION PLAN (counts per category per account, sample subjects, target folder per category). Apply is IMAP-only per operator change (no Outlook/COM): MOVE, or COPY plus flag when MOVE is unsupported (refused unless PERMANENTFLAGS allows the keyword); identity verified before moving via the index's own Message-ID normalization, else (account_id, mailbox, UIDVALIDITY, UID), unverifiable messages skipped and reported; reversible moves only, never delete or expunge; every move journaled with an undo command; dry-run is the default; per-category operator Confirm and per-account allow_organize setting (default off). Window: 'Organize inbox' action and mail-cleanup group showing the plan with per-category Confirm buttons. Tests: tests/test_mail_organize.py (synthetic data and fakes only). Pending operator actions: (1) enable allow_organize (allow_moves) per account from the window, accounts are read_only today; (2) review the target folder names per category; (3) header backfill by resync so List-Unsubscribe/List-Id/Precedence signals exist for already-indexed mail."
+  ],
+  "active_objective": "Continue IMP-0015 integration: wire free-first routing (free_routing.decide) into engine dispatch behind opt-in run policy flag, then execute measurement-first third-party optimization (SkyPilot/RunPod, vLLM, TensorZero, etc.) and parallel IMP-0018/IMP-0019 experiments.",
+  "latest_evidence": [
+    {
+      "id": "EVR-0022",
+      "type": "EVR",
+      "title": "RouteLLM-style shadow route calibration on real run telemetry (offline, advice only)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0022.json",
+      "updated_at": "2026-10-02T15:45:00+00:00"
+    },
+    {
+      "id": "EVR-0020",
+      "type": "EVR",
+      "title": "IMP-0019 shadow rotation advisor on real local run telemetry (offline, advice only)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0020.json",
+      "updated_at": "2026-10-02T11:50:00+00:00"
+    },
+    {
+      "id": "EVR-0021",
+      "type": "EVR",
+      "title": "IMP-0018 Phase 1: shared run-level prompt prefix, synthetic before/after",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0021.json",
+      "updated_at": "2026-10-02T10:30:00+00:00"
+    },
+    {
+      "id": "EXP-0012",
+      "type": "EXP",
+      "title": "Phase 1 shared run-level prompt prefix: can a byte-stable family prefix make 25% of uncached worker input tokens cacheab",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0012.json",
+      "updated_at": "2026-10-02T10:30:00+00:00"
+    },
+    {
+      "id": "DEC-0044",
+      "type": "DEC",
+      "title": "Shadow rotation advisor (IMP-0019 phase 1): deterministic continue-vs-rotate cost model over existing telemetry, advice ",
+      "path": "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0044.json",
+      "updated_at": "2026-10-02T08:45:00+00:00"
+    },
+    {
+      "id": "EVR-0018",
+      "type": "EVR",
+      "title": "Context-economy baseline over real orchestrator runs (IMP-0018 Phase 0)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0018.json",
+      "updated_at": "2026-10-02T08:00:00+00:00"
+    },
+    {
+      "id": "EVR-0019",
+      "type": "EVR",
+      "title": "Shadow rotation advisor validated on synthetic fixtures (IMP-0019 shadow phase)",
+      "path": "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0019.json",
+      "updated_at": "2026-10-02T08:00:00+00:00"
+    },
+    {
+      "id": "EXP-0010",
+      "type": "EXP",
+      "title": "Phase 0 context-economy measurement: do fan-out fixed overhead and retries dominate amplification?",
+      "path": "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0010.json",
+      "updated_at": "2026-10-02T08:00:00+00:00"
+    }
+  ],
+  "open_blockers": [
+    "IMP-0015 slice 3: before any real RunPod launch, operator must provide a write-enabled RunPod API key and confirm the first launch (not yet received; slice 2 uses fake provider only)"
+  ],
+  "active_experiments": [
+    "HYP-0003 (monitoring): affected_tests_first always vs retries",
+    "IMP-0019: episodic agent rotation / context-pressure break-even benchmark (shadow first)",
+    "IMP-0015 third-party optimization track: SkyPilot/native RunPod, vLLM vs SGLang, LMCache, PydanticAI-style isolated delegation, AgentScope patterns, TensorZero, RouteLLM, optional isolated LiteLLM, then AIBrix/llm-d when scale justifies them"
+  ],
+  "recent_decisions": [
+    "DEC-0039",
+    "DEC-0040",
+    "DEC-0041",
+    "DEC-0042",
+    "DEC-0043",
+    "DEC-0044"
+  ],
+  "next_action": {
+    "summary": "Wire free_routing.decide into engine dispatch behind an opt-in run policy flag ('free_routing_enabled' per task context). IMP-0015 slices 1 (SkyPilot spike: no wrap, native RunPod lifecycle, DEC-0042) and 2 (gated provisioning interface on a fake provider, DEC-0043) are complete. Remaining: (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. Parallel high-priority: IMP-0018 Phase 0 context-economy measurement (input/output amplification, long-session growth, worker fan-out, checkpoint resume) and IMP-0019 episodic rotation shadow advisor (bootstrap, handoff, retrieval, retries/reviews). Promotion gate: held-out noninferior validation + lower cost per verified task. Never purchase credits or auto-recharge without explicit approval. IMP-0018 Phase 0 is complete (EVR-0018: fixed per-worker overhead is the largest measured share). Next for IMP-0018, Phase 1: dedupe that overhead by compiling the shared prefix once per run, cache-stable, and re-measure with `orchestrate context-economy`.",
+    "prior_art": "third-party model routing/delegation/inference efficiency (TensorZero, AgentScope, PydanticAI subagents, RouteLLM, LiteLLM); cloud GPU brokers (SkyPilot/native RunPod); inference runtimes/caching/schedulers (vLLM, SGLang, LMCache, AIBrix, llm-d); shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
+    "worker_class": "reasoning",
+    "effort": "medium",
+    "why_this_class": "cross-cutting contracts and evaluation design; implementation is deterministic stdlib code",
+    "context_refs": [
+      "src/agent_os/orchestrator/free_routing.py",
+      "src/agent_os/orchestrator/free_catalog.py",
+      "src/agent_os/orchestrator/free_quota.py",
+      "src/agent_os/orchestrator/free_specialization.py",
+      "src/agent_os/orchestrator/free_swarm.py",
+      "src/agent_os/orchestrator/free_metrics.py",
+      "projects/personal-agent-os/improvements/IMP-0019.json",
+      "projects/personal-agent-os/roadmap/episodic-agent-rotation.md",
+      "projects/personal-agent-os/improvements/IMP-0018.json",
+      "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
+      "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+      "docs/model-infrastructure.md",
+      "src/agent_os/orchestrator/budget.py",
+      "src/agent_os/orchestrator/compute.py",
+      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0041.json",
+      "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0018.json",
+      "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0010.json",
+      "docs/orchestrator-os/self-audit/context-economy.md"
+    ],
+    "stop_conditions": [
+      "a slice is implemented, tested, recorded and merged",
+      "0 paid compute; model calls only when the operator has configured a foreman provider",
+      "any paid provisioning/training reaches the budget/approval gate",
+      "no OpenRouter credit purchase or auto-recharge without explicit operator approval"
+    ]
+  },
+  "context_refs": [
+    "src/agent_os/orchestrator/free_routing.py",
+    "src/agent_os/orchestrator/free_catalog.py",
+    "src/agent_os/orchestrator/free_quota.py",
+    "src/agent_os/orchestrator/free_specialization.py",
+    "src/agent_os/orchestrator/free_swarm.py",
+    "src/agent_os/orchestrator/free_metrics.py",
+    "projects/personal-agent-os/improvements/IMP-0019.json",
+    "projects/personal-agent-os/roadmap/episodic-agent-rotation.md",
+    "projects/personal-agent-os/improvements/IMP-0018.json",
+    "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
+    "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
+    "docs/model-infrastructure.md",
+    "src/agent_os/orchestrator/budget.py",
+    "src/agent_os/orchestrator/compute.py",
+    "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0041.json",
+    "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0018.json",
+    "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0010.json",
+    "docs/orchestrator-os/self-audit/context-economy.md"
+  ],
+  "stopping_conditions": [
+    "a slice is implemented, tested, recorded and merged",
+    "0 paid compute; model calls only when the operator has configured a foreman provider",
+    "any paid provisioning/training reaches the budget/approval gate",
+    "no OpenRouter credit purchase or auto-recharge without explicit operator approval"
+  ],
+  "approval_conditions": [
+    "Operator decision requested: which EVS-SECURITY adversarial cases move to a protected holdout (DEC-0017)",
+    "Operator-invoked: run the live AgentDojo injection eval (DEC-0025 operator_command); autonomous runs avoid driving live attacks per FND-0013",
+    "Operator decision still open: which EVS-SECURITY adversarial cases move to a protected holdout",
+    "IMP-0015: budget approved ($10 project, $10 per-job cap after operator raise; DEC-0041). Operator provided a RunPod key and asked to try the abliterated foreman on a pod (2026-09-29). RunPod account balance was $2.77 at that time, the practical ceiling.",
+    "IMP-0015 FreeComputeBroker slice 10 remaining items: (a) Live allowance verification with a real secrets://openrouter/default key (read-only account/quota/credit awareness for operator-alert-only top-up recommendations); (b) Operator decision on which free-endpoint data policies are acceptable for repository code (determines whether free-model responses can be included in training data, logs, or other downstream use)."
+  ],
+  "next_prompt": "Use the Personal Agent OS repository's canonical Orchestrator development workflow (docs/orchestrator-os/ENTRYPOINT.md) and resume from checkpoint ORCH-0115 (projects/personal-agent-os/orchestrator-os/checkpoints/ORCH-0115.json).\n\nCurrent objective: Continue IMP-0015 integration: wire free-first routing (free_routing.decide) into engine dispatch behind opt-in run policy flag, then execute measurement-first third-party optimization (SkyPilot/RunPod, vLLM, TensorZero, etc.) and parallel IMP-0018/IMP-0019 experiments.\n\nNext action: Wire free_routing.decide into engine dispatch behind an opt-in run policy flag ('free_routing_enabled' per task context). IMP-0015 slices 1 (SkyPilot spike: no wrap, native RunPod lifecycle, DEC-0042) and 2 (gated provisioning interface on a fake provider, DEC-0043) are complete. Remaining: (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. Parallel high-priority: IMP-0018 Phase 0 context-economy measurement (input/output amplification, long-session growth, worker fan-out, checkpoint resume) and IMP-0019 episodic rotation shadow advisor (bootstrap, handoff, retrieval, retries/reviews). Promotion gate: held-out noninferior validation + lower cost per verified task. Never purchase credits or auto-recharge without explicit approval. IMP-0018 Phase 0 is complete (EVR-0018: fixed per-worker overhead is the largest measured share). Next for IMP-0018, Phase 1: dedupe that overhead by compiling the shared prefix once per run, cache-stable, and re-measure with `orchestrate context-economy`.\n\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"third-party model routing/delegation/inference efficiency (TensorZero, AgentScope, PydanticAI subagents, RouteLLM, LiteLLM); cloud GPU brokers (SkyPilot/native RunPod); inference runtimes/caching/schedulers (vLLM, SGLang, LMCache, AIBrix, llm-d); shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries\"`) and refresh task-specific candidates if the matching entries are stale.\n\nRetrieve only the context referenced by the checkpoint (`agent-os orchestrate checkpoint --show`); load more lazily if needed. Recommended worker class: reasoning / effort medium. Delegate cheap read-only work with `agent-os orchestrate delegate` and use the cheapest reliable route under policy/orchestrator-os.policy.json. Baseline before changing behavior, keep protected control-plane paths untouched unless I grant them, and stop at: a slice is implemented, tested, recorded and merged; 0 paid compute; model calls only when the operator has configured a foreman provider; any paid provisioning/training reaches the budget/approval gate; no OpenRouter credit purchase or auto-recharge without explicit operator approval.\n\nFinish by updating projects/personal-agent-os/orchestrator-os/status.json and running `agent-os orchestrate checkpoint --write`, then give me the new next prompt.\n"
+}
