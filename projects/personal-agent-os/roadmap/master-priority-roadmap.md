@@ -1093,7 +1093,11 @@ in the Executive window and become window items, with project clarification and
 stage-as-candidate through registry preview/Confirm (step 1). Knowledge-gap
 questions can be persisted with `executive gaps --enqueue`, appear as Executive
 window items, and can be answered with `knowledge_gap.answer`, which stages
-`answer_to_candidate` output through preview/Confirm (step 2). Rescue Mode is
+`answer_to_candidate` output through preview/Confirm (step 2). Knowledge-gap
+answers can be staged directly from the CLI with
+`executive gap-answer GAP_ID --answer TEXT [--project ID] [--confirm]` (dry-run
+preview by default; `--confirm` stages via `answer_to_candidate` and marks the
+gap answered; already-answered gaps are rejected) (step 6). Rescue Mode is
 available as an Executive window view: the Rescue toggle filters the same ranked
 queue to one concrete action via `GET /api/rescue`, showing why/then and the
 suppressed count (step 3). Project items in the Executive window offer a read-only Resume option (`project.resume`) that opens the same `resumption-packet@1` as `executive resume` (step 4). Read-only MCP tools `executive_capture.brain_dump`, `executive_capture.gaps`, `executive_capture.rescue`, and `executive_capture.resume` are exposed (step 5). Candidates are staged only, never promoted.
@@ -1101,8 +1105,9 @@ suppressed count (step 3). Project items in the Executive window offer a read-on
 Current: Brain-dump capture in the Executive window, project clarification, and
  stage-as-candidate through preview/Confirm are complete. Knowledge-gap questions
  as window items and answering through `knowledge_gap.answer` with candidate
- staging via preview/Confirm are complete (step 2). Rescue Mode as a window view
- is complete (step 3). Opening resumption packets from project items is complete (step 4). Read-only MCP tools `executive_capture.brain_dump`, `executive_capture.gaps`, `executive_capture.rescue`, and `executive_capture.resume` are complete (step 5). Open: MCP write paths (brain-dump staging, gap enqueueing), staging gap answers directly from the CLI, automatic gap generation, calendar/commitment and voice inputs for rescue or brain dumps, model-assisted extraction, and candidate review/promotion UX.
+  staging via preview/Confirm are complete (step 2). CLI gap-answer staging is
+  complete (step 6). Rescue Mode as a window view
+  is complete (step 3). Opening resumption packets from project items is complete (step 4). Read-only MCP tools `executive_capture.brain_dump`, `executive_capture.gaps`, `executive_capture.rescue`, and `executive_capture.resume` are complete (step 5). Open: MCP write paths (brain-dump staging, gap enqueueing), automatic gap generation, calendar/commitment and voice inputs for rescue or brain dumps, model-assisted extraction, and candidate review/promotion UX.
 Candidates are staged only, never promoted.
 
 Operator constraint (2026-10-05, as for P3): P4 builds on the Executive window, not a parallel UI or store. Next, in order: (1) brain dumps are entered in the window (a 'Brain dump' input next to chat) and their records appear as window items with clarification and stage-as-candidate actions through the registry preview/Confirm flow; (2) selected knowledge-gap questions appear as window items with an answer action that stages the answer as a candidate (answer_to_candidate); (3) Rescue Mode is a window view/filter of the same ranked queue showing the one concrete action; (4) a project item can open its resumption packet; (5) MCP tools for the same functions. Candidates are staged only, never promoted automatically.
