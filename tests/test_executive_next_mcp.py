@@ -11,6 +11,8 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import mcp_server
+from agent_os.executive.event_bus import EventBus
+from agent_os.executive import window_queue
 from agent_os.executive.window import registry as window_registry
 
 
@@ -49,6 +51,10 @@ class NextActionMcpTests(unittest.TestCase):
         patcher = patch.object(mcp_server, "_window_registry", lambda: self.reg)
         patcher.start()
         self.addCleanup(patcher.stop)
+        bus = EventBus(Path(self.tmp.name) / "events")
+        bus_patcher = patch.object(mcp_server, "_routing_event_bus", return_value=bus)
+        bus_patcher.start()
+        self.addCleanup(bus_patcher.stop)
         self.available = mcp_server.methods()
 
     def rpc(self, method, params=None):
@@ -96,6 +102,23 @@ class NextActionMcpTests(unittest.TestCase):
         self.assertIsNotNone(out["explanation"])
         self.assertEqual(out["explanation"]["rank"], 1)
         self.assertEqual(out["explanation"]["of"], 2)
+
+    def test_explain_includes_created_event_provenance(self):
+        item = {
+            "id": "item-high",
+            "tab": "work",
+            "kind": "test",
+            "title": "High Priority Item",
+            "why": "high priority reason",
+            "source": "test_high",
+            "score": 100,
+            "age_days": 5,
+        }
+        event, _ = window_queue.publish_window_item(mcp_server._routing_event_bus(), item, "test_high")
+        out = self.call("executive_window.explain", {"item_id": item["id"], "tab": "work"})
+        provenance = out["explanation"]["provenance"]
+        self.assertEqual(provenance["created_event_id"], event["id"])
+        self.assertIn(event["id"], provenance["event_ids"])
 
     def test_explain_unknown_id_returns_null_explanation(self):
         out = self.call("executive_window.explain", {"item_id": "unknown-id", "tab": "work"})
