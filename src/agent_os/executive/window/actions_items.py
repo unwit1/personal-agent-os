@@ -65,6 +65,10 @@ def _dismiss_item(item: dict[str, Any], params: dict[str, Any], *, confirm: bool
 
     state = ItemState(window_home())
     state.dismiss(item_id)
+    try:
+        _registry.REGISTRY.record_status(str(item_id), "cancelled")
+    except Exception:
+        pass
     return {"dismissed": True}
 
 
