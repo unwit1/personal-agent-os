@@ -1098,6 +1098,8 @@ extraction, a persistent knowledge-gap queue, staging gap answers via CLI, and
 candidate review/promotion UX remain open. Brain-dump candidate memories are
 staged only; they are not promoted.
 
+Operator constraint (2026-10-05, as for P3): P4 builds on the Executive window, not a parallel UI or store. Next, in order: (1) brain dumps are entered in the window (a 'Brain dump' input next to chat) and their records appear as window items with clarification and stage-as-candidate actions through the registry preview/Confirm flow; (2) selected knowledge-gap questions appear as window items with an answer action that stages the answer as a candidate (answer_to_candidate); (3) Rescue Mode is a window view/filter of the same ranked queue showing the one concrete action; (4) a project item can open its resumption packet; (5) MCP tools for the same functions. Candidates are staged only, never promoted automatically.
+
 Implement:
 - EXEC-2 Knowledge-Gap / Interview Engine;
 - EXEC-3 Brain Dump Processor;
