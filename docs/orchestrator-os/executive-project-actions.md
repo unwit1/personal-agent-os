@@ -13,6 +13,7 @@ Project state (typically from `projects/*/state.json`) contains these optional f
 - **blockers**: List of blocking issues preventing progress (e.g., "Waiting for API review").
 - **waiting_on**: List of external dependencies (e.g., "Design approval", "Budget sign-off").
 - **decisions_needed**: List of decisions the project owner/user must make. Requires user involvement.
+- **decisions_resolved**: Optional list of resolved decisions, each recorded with its decision text, resolution, and resolution date.
 - **delegable_work**: List of work agents can execute without user input (e.g., "Write unit tests", "Update documentation").
 - **updated_at**: ISO 8601 timestamp of last state update. Used to calculate age and detect staleness.
 - **deferrals**: Number of times Executive window items for this project have been snoozed.
@@ -109,6 +110,14 @@ Get the next action and full synthesized metadata for a specific project.
 ### `executive_projects.scan`
 
 Scan projects and return aggregated status.
+
+## Executive Window Actions
+
+Project actions in the Executive window are available through the window registry's preview/Confirm flow. Both state-changing actions below write only through this flow.
+
+- **`project.resume`**: Returns a read-only resumption packet for the project.
+- **`project.set_next_action`**: Available for `stalled`, `no_next_action`, and `vague_next_action` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
+- **`project.resolve_decision`**: Available for `project_decision` items whose context carries the project and decision text. Takes the `resolution` parameter. Confirm removes that decision from `decisions_needed`, appends `{decision, resolution, resolved_on}` to the optional `decisions_resolved` state field, and sets `updated_at`. The action errors if the decision is no longer open.
 
 ## Repeated Deferrals
 
