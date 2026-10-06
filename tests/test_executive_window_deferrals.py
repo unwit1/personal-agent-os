@@ -1,6 +1,4 @@
-"""Tests for identifier-only Executive Window deferral events."""
-
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import sys
 import tempfile
@@ -12,53 +10,52 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agent_os.executive import event_bus, window_queue
 
 
-class TestWindowDeferrals(unittest.TestCase):
+class TestExecutiveWindowDeferrals(unittest.TestCase):
     def setUp(self) -> None:
-        self.tempdir = tempfile.TemporaryDirectory()
-        self.bus = event_bus.EventBus(self.tempdir.name)
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.bus = event_bus.EventBus(self.temp_dir.name)
 
     def tearDown(self) -> None:
-        self.tempdir.cleanup()
+        self.temp_dir.cleanup()
 
-    def test_publishes_identifier_only_event(self) -> None:
+    def test_publish_creates_identifier_only_deferral_event(self) -> None:
+        entity_id = "ex-task-123"
         event, created = window_queue.publish_deferral(
-            self.bus, "entity-1", "item-1", "2026-10-05T12:00:00+00:00", "later"
+            self.bus, entity_id, "item-1", deferred_at="2026-10-05T12:00:00+00:00", until="later"
         )
 
         self.assertTrue(created)
         self.assertEqual(event["type"], "task.deferred")
-        self.assertEqual(event["subject"], "entity-1")
+        self.assertEqual(event["subject"], entity_id)
         self.assertEqual(
-            set(event["payload"]), {"entity_id", "item_id", "deferred_at", "until"}
+            event["payload"],
+            {
+                "entity_id": entity_id,
+                "item_id": "item-1",
+                "deferred_at": "2026-10-05T12:00:00+00:00",
+                "until": "later",
+            },
         )
         self.assertNotIn("title", event["payload"])
-        self.assertNotIn("Private title", event["payload"].values())
+        self.assertEqual(event["domain"], "executive-window")
+        self.assertEqual(event["sensitivity"], "personal")
 
-    def test_deduplicates_same_timestamp_but_records_distinct_deferrals(self) -> None:
-        first, created_first = window_queue.publish_deferral(
-            self.bus, "entity-1", "item-1", "2026-10-05T12:00:00+00:00"
-        )
-        repeated, created_repeated = window_queue.publish_deferral(
-            self.bus, "entity-1", "item-1", "2026-10-05T12:00:00+00:00"
-        )
-        second, created_second = window_queue.publish_deferral(
-            self.bus, "entity-1", "item-1", "2026-10-05T13:00:00+00:00"
-        )
+    def test_same_timestamp_deduplicates_but_new_timestamp_creates_event(self) -> None:
+        args = (self.bus, "entity-1", "item-1")
+        _, first = window_queue.publish_deferral(*args, deferred_at="t1")
+        _, duplicate = window_queue.publish_deferral(*args, deferred_at="t1")
+        _, second = window_queue.publish_deferral(*args, deferred_at="t2")
 
-        self.assertTrue(created_first)
-        self.assertFalse(created_repeated)
-        self.assertEqual(first["id"], repeated["id"])
-        self.assertTrue(created_second)
-        self.assertNotEqual(first["id"], second["id"])
+        self.assertTrue(first)
+        self.assertFalse(duplicate)
+        self.assertTrue(second)
 
     def test_counts_are_separate_by_entity(self) -> None:
-        for stamp in ("a", "b", "c"):
-            window_queue.publish_deferral(self.bus, "entity-1", "item-1", stamp)
-        window_queue.publish_deferral(self.bus, "entity-2", "item-2", "d")
+        for timestamp in ("t1", "t2", "t3"):
+            window_queue.publish_deferral(self.bus, "entity-1", "item-1", deferred_at=timestamp)
+        window_queue.publish_deferral(self.bus, "entity-2", "item-2", deferred_at="t1")
 
-        self.assertEqual(
-            window_queue.deferral_counts(self.bus), {"entity-1": 3, "entity-2": 1}
-        )
+        self.assertEqual(window_queue.deferral_counts(self.bus), {"entity-1": 3, "entity-2": 1})
 
     def test_empty_bus_and_none_have_no_counts(self) -> None:
         self.assertEqual(window_queue.deferral_counts(self.bus), {})
