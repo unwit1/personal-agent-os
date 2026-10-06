@@ -65,6 +65,25 @@ class KnowledgeGapActionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "pass project to stage the answer"):
             mod._answer({"context": {"gap_id": "gap-2"}}, {"answer": "M2"}, confirm=False)
 
+    def test_public_answer_gap_preview_uses_gap_project(self):
+        result = mod.answer_gap("gap-1", "October 20")
+        self.assertEqual(result["project"], "alpha")
+        self.assertEqual(result["gap_id"], "gap-1")
+        self.assertEqual(self.staged, [])
+
+    def test_public_answer_gap_confirms_once(self):
+        result = mod.answer_gap("gap-1", "October 20", confirm=True)
+        self.assertEqual(result["project"], "alpha")
+        self.assertEqual(len(self.staged), 1)
+        self.assertEqual(self.store.get("gap-1")["status"], "answered")
+        with self.assertRaisesRegex(ValueError, "already answered"):
+            mod.answer_gap("gap-1", "October 20", confirm=True)
+        self.assertEqual(len(self.staged), 1)
+
+    def test_public_answer_gap_unknown_id(self):
+        with self.assertRaisesRegex(ValueError, "unknown knowledge gap: nope"):
+            mod.answer_gap("nope", "x")
+
 
 if __name__ == "__main__":
     unittest.main()
