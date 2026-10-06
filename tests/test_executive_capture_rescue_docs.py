@@ -1,4 +1,4 @@
-﻿"""Tests for executive capture and rescue documentation."""
+"""Tests for executive capture and rescue documentation."""
 
 from __future__ import annotations
 
@@ -59,6 +59,11 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         self.assertIn("--confirm", content)
         self.assertNotIn("Staging knowledge-gap answers directly from the CLI", content)
 
+    def test_doc_mentions_candidate_review_window_flow(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        for term in ("memory_candidates", "memory_candidate", "candidate.accept", "candidate.reject", "curate_candidates"):
+            with self.subTest(term=term):
+                self.assertIn(term, content)
     def test_doc_mcp_tools_match_capture_tool_schemas(self):
         content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
         tool_names = (

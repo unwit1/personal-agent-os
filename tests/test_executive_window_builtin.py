@@ -40,7 +40,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         reg = builtin.default_registry()
         provider_names = set(reg._providers.keys())
 
-        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects", "brain_dump", "knowledge_gaps"}
+        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects", "brain_dump", "knowledge_gaps", "memory_candidates"}
         self.assertEqual(provider_names, expected_providers)
 
     def test_default_registry_registers_actions(self):
@@ -70,6 +70,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "brain_dump.clarify",
             "brain_dump.stage_candidate",
             "knowledge_gap.answer",
+            "candidate.accept",
+            "candidate.reject",
             "project.resume",
         }
         self.assertEqual(action_ids, expected_actions)
@@ -123,6 +125,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "applicant.decline",
             "county.opening_change",
             "knowledge_gap.answer",
+            "candidate.accept",
+            "candidate.reject",
         }
         # The old direct senders are gone: every email goes through compose.
         self.assertNotIn("email.send", reg._actions)
