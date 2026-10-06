@@ -44,16 +44,17 @@ def rank(queue_items: list[Any]) -> list[dict]:
     return sorted(items, key=sort_key)
 
 
-def explain(queue_items: list[Any], item_id: Any) -> dict | None:
+def explain(queue_items: list[Any], item_id: Any, bus: Any = None) -> dict | None:
     """Explain the ranking position of a queue item.
 
     Args:
         queue_items: list of queue items to rank
         item_id: queue item id or window item id to find
+        bus: optional EventBus used to add payload-free entity event provenance
 
     Returns:
         Dict with queue_item_id, entity_id, item_id, provider, source, kind, tab,
-        reason, priority, age_days, rank, of, ranking; or None if not found.
+        reason, priority, age_days, rank, of, ranking, and provenance; or None if not found.
     """
     ranked = rank(queue_items)
     item_id_str = str(item_id)
@@ -88,6 +89,13 @@ def explain(queue_items: list[Any], item_id: Any) -> dict | None:
     if not isinstance(age_days, (int, float)) or isinstance(age_days, bool):
         age_days = None
 
+    entity_id = found_item.get("entity_id")
+    events = bus.events(subject=entity_id) if bus is not None and entity_id else []
+    created_event_id = next(
+        (event.get("id") for event in events if event.get("type") == "task.created"),
+        None,
+    )
+
     return {
         "queue_item_id": found_item.get("id"),
         "entity_id": found_item.get("entity_id"),
@@ -102,14 +110,22 @@ def explain(queue_items: list[Any], item_id: Any) -> dict | None:
         "rank": found_index + 1,
         "of": len(ranked),
         "ranking": RANKING,
+        "provenance": {
+            "provider": found_item.get("provider"),
+            "source": found_item.get("source"),
+            "entity_id": entity_id,
+            "created_event_id": created_event_id,
+            "event_ids": [event.get("id") for event in events],
+        },
     }
 
 
-def next_item(queue_items: list[Any]) -> dict:
+def next_item(queue_items: list[Any], bus: Any = None) -> dict:
     """Get the top-ranked next action with context.
 
     Args:
         queue_items: list of queue items
+        bus: optional EventBus passed through to the explanation
 
     Returns:
         Dict with 'next' (top item or None), 'considered' (count of ranked items),
@@ -122,7 +138,7 @@ def next_item(queue_items: list[Any]) -> dict:
     if top_item and isinstance(top_item, dict):
         top_id = top_item.get("id")
         if top_id:
-            why = explain(queue_items, top_id)
+            why = explain(queue_items, top_id, bus)
 
     return {
         "next": top_item,
