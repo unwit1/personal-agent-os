@@ -1079,7 +1079,31 @@ Detailed design:
 
 ---
 
-Status: **in progress** (2026-10-06). Brain dumps can be entered in the Executive`r`n  window and become window items, with project clarification and stage-as-candidate`r`n  actions through registry preview/Confirm (step 1). Candidates are staged only,`r`n  never promoted. Knowledge gaps are scored and selected within a budget with`r`n  explanations; `answer_to_candidate` can convert an answer to a candidate dict.`r`n  Current: Brain dumps can be entered in the Executive window and become window`r`n  items, with project clarification and stage-as-candidate through preview/Confirm`r`n  implemented. Open: gap questions as window items with an answer action using`r`n  `answer_to_candidate` (step 2), Rescue Mode as a window view (step 3), opening`r`n  resumption packets from project items (step 4), and MCP tools (step 5); a persistent`r`n  knowledge-gap queue; staging gap answers via CLI; calendar/commitment and voice`r`n  inputs; model-assisted extraction; and candidate review/promotion UX. Candidates`r`n  are staged only, never promoted.`r`n  Operator constraint (2026-10-05, as for P3): P4 builds on the Executive window, not a parallel UI or store. Next, in order: (1) brain dumps are entered in the window (a 'Brain dump' input next to chat) and their records appear as window items with clarification and stage-as-candidate actions through the registry preview/Confirm flow; (2) selected knowledge-gap questions appear as window items with an answer action that stages the answer as a candidate (answer_to_candidate); (3) Rescue Mode is a window view/filter of the same ranked queue showing the one concrete action; (4) a project item can open its resumption packet; (5) MCP tools for the same functions. Candidates are staged only, never promoted automatically.
+## P4 — Capture, memory refinement, and Rescue Mode
+
+Status: **in progress** (2026-10-06). Deterministic rule-based brain-dump
+processing emits typed records, deduplicates repeated and already-captured
+items, and flags project-reference clarifications; brain-dump records can be
+staged with `--stage-candidates`. Knowledge gaps are scored and selected within
+a budget with explanations; `answer_to_candidate` can convert an answer to a
+candidate dict, but no CLI command calls it yet. Rescue Mode selects one concrete
+action, and compact project-resumption packets are available. The `executive
+brain-dump`, `gaps`, `rescue`, and `resume` CLI commands are implemented,
+including `--stage-candidates`. Brain dumps can be entered in the Executive
+window and become window items, with project clarification and stage-as-candidate
+through registry preview/Confirm (step 1). Candidates are staged only, never
+promoted.
+
+Current: Brain-dump capture in the Executive window, project clarification, and
+stage-as-candidate through preview/Confirm are complete. Open: gap questions as
+window items with an answer action using `answer_to_candidate` (step 2), Rescue
+Mode as a window view (step 3), opening resumption packets from project items
+(step 4), and MCP tools for the same functions (step 5); a persistent
+knowledge-gap queue; staging gap answers via CLI; calendar/commitment and voice
+inputs for rescue or brain dumps; model-assisted extraction; and candidate
+review/promotion UX. Candidates are staged only, never promoted.
+
+Operator constraint (2026-10-05, as for P3): P4 builds on the Executive window, not a parallel UI or store. Next, in order: (1) brain dumps are entered in the window (a 'Brain dump' input next to chat) and their records appear as window items with clarification and stage-as-candidate actions through the registry preview/Confirm flow; (2) selected knowledge-gap questions appear as window items with an answer action that stages the answer as a candidate (answer_to_candidate); (3) Rescue Mode is a window view/filter of the same ranked queue showing the one concrete action; (4) a project item can open its resumption packet; (5) MCP tools for the same functions. Candidates are staged only, never promoted automatically.
 
 Implement:
 - EXEC-2 Knowledge-Gap / Interview Engine;
