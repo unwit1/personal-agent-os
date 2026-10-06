@@ -300,6 +300,38 @@ class ProjectActionsMcpTests(unittest.TestCase):
                 self.assertEqual(result["vague_next_action"], ["vague-proj"])
                 self.assertEqual(len(result["projects"]), 2)
 
+    def test_projects_scan_reports_repeated_deferrals(self):
+        state = {"project": "deferred-proj", "status": "active", "next_action": "Write tests"}
+        with (
+            patch.object(mcp_server, "canonical_projects", return_value=[{"id": "deferred-proj", "state_file": "state.json"}]),
+            patch.object(mcp_server, "load_state", return_value=state),
+            patch.object(mcp_server, "_routing_event_bus", return_value=object()),
+            patch("agent_os.executive.window_queue.project_deferral_counts", return_value={"deferred-proj": 3}),
+        ):
+            result = self.call("executive_projects.scan", {})
+        self.assertEqual(result["repeatedly_deferred"], ["deferred-proj"])
+
+    def test_projects_next_reports_repeated_deferrals(self):
+        state = {"project": "deferred-proj", "status": "active", "next_action": "Write tests"}
+        with (
+            patch.object(mcp_server, "get_project", return_value={"id": "deferred-proj", "state_file": "state.json"}),
+            patch.object(mcp_server, "load_state", return_value=state),
+            patch.object(mcp_server, "_routing_event_bus", return_value=object()),
+            patch("agent_os.executive.window_queue.project_deferral_counts", return_value={"deferred-proj": 3}),
+        ):
+            result = self.call("executive_projects.next", {"project": "deferred-proj"})
+        self.assertEqual(result["deferrals"], 3)
+        self.assertIn("repeatedly_deferred", result["flags"])
+
+    def test_project_deferral_count_failure_defaults_to_empty(self):
+        with (
+            patch.object(mcp_server, "canonical_projects", return_value=[{"id": "deferred-proj", "state_file": "state.json"}]),
+            patch.object(mcp_server, "load_state", return_value={"project": "deferred-proj", "status": "active"}),
+            patch.object(mcp_server, "_routing_event_bus", side_effect=RuntimeError("unavailable")),
+        ):
+            result = self.call("executive_projects.scan", {})
+        self.assertEqual(result["repeatedly_deferred"], [])
+
 
 if __name__ == "__main__":
     unittest.main()
