@@ -51,9 +51,19 @@ The window shows only the selected item, with its normal options and preview/Con
 
 Project items from the `projects` provider with kinds `project_decision`, `project_stalled`, `project_no_next_action`, and `project_vague_next_action` offer the `project.resume` (Resume) option. This action is read-only and not consequential, so it has no preview/Confirm step. It is implemented in `agent_os.executive.window.actions_projects`. The action loads the project's state and returns `{project, packet}`, where `packet` is the same `resumption-packet@1` produced by `agent-os executive resume`. The window shows a summary of the goal, where you left off, the next action and its source, any non-empty open loops, the age, and whether the packet was truncated.
 
+## MCP tools
+
+The read-only `executive_capture.brain_dump` tool accepts `text` and optional `captured_ids`, and returns `records`, `duplicates`, and `clarifications`. It never saves or stages records; reviewed records can be staged through `agent.capture_candidates`.
+
+The read-only `executive_capture.gaps` tool accepts `gaps`, `budget`, `min_score`, and `asked_ids`. It uses the same selection as `agent-os executive gaps` and never enqueues questions.
+
+The read-only `executive_capture.rescue` tool accepts `tab`, `today`, `stale_days`, and `horizon_days`, and returns the same result as `agent-os executive rescue`.
+
+The read-only `executive_capture.resume` tool accepts `project`, `today`, and `stale_days`, and returns a `resumption-packet@1`.
+
 ## Not yet implemented
 
-- MCP exposure for these capture and rescue commands.
+- Writes over MCP: brain-dump candidate staging and knowledge-gap enqueueing are CLI/window only.
 - Calendar or voice input.
 - Model-based extraction; brain-dump segmentation, classification, and project resolution use deterministic rules.
 - Staging knowledge-gap answers directly from the CLI; answers are staged only through the window `knowledge_gap.answer` action.
