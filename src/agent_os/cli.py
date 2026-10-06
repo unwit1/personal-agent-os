@@ -303,22 +303,12 @@ def _dispatch_executive(args) -> int:
         _print({**result, "errors": errors})
     elif cmd == "rescue":
         from datetime import date
-        from . import registry
-        from .executive import project_actions, rescue as rescue_mode
+        from .executive import rescue as rescue_mode
+        from .executive.window import rescue_view
 
         q = _executive_window_queue(args.tab)
-        results = []
-        errors = []
         today = date.fromisoformat(args.today) if args.today else date.today()
-        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
-        for proj in registry.canonical_projects():
-            if "state_file" not in proj:
-                continue
-            try:
-                state = registry.load_state(proj)
-                results.append(project_actions.project_next_action(state, today=today, stale_days=stale_days))
-            except Exception as exc:
-                errors.append({"project": proj.get("id"), "error": str(exc)})
+        results, errors = rescue_view.project_results(today, args.stale_days)
 
         _print({**rescue_mode.rescue(q["queue_items"], results, today=today, horizon_days=args.horizon_days),
                 "errors": q["errors"] + errors})
