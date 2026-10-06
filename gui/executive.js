@@ -544,7 +544,7 @@ const Executive = (() => {
         btn.className = option.consequential ? 'option-consequential' : '';
         btn.textContent = option.label;
         btn.addEventListener('click', () => {
-          if (option.action_id === 'brain_dump.stage_candidate') {
+          if (option.action_id === 'brain_dump.stage_candidate' || option.action_id === 'project.resume') {
             runAction(item, option.action_id, {}).then(loadItems).catch(() => { /* error already shown */ });
           } else {
             handleOptionClick(item, option);

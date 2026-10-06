@@ -12,6 +12,7 @@ class ExecutiveWindowResumeTests(unittest.TestCase):
         js = (GUI / 'executive.js').read_text(encoding='utf-8')
         for needle in ('project.resume', 'renderResume', 'where_you_left_off', 'open_loops', 'next_action_source'):
             self.assertIn(needle, js)
+        self.assertIn("option.action_id === 'project.resume'", js)
         self.assertNotIn('auto-confirm', js.lower())
 
 
