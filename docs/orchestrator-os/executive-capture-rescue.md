@@ -12,6 +12,10 @@ Repeated normalized type/text within the same dump yields a duplicate with reaso
 
 With `--stage-candidates PROJECT`, each emitted record is represented as a `preference_candidate` and passed to `agent_os.candidates.stage_candidates`. Staging is reviewable and deduplicated; it never promotes a candidate. Promotion requires curator action.
 
+## Brain dumps in the Executive window
+
+The window's Brain dump box posts text to `/api/brain-dump`. Records are saved in `<window home>/brain-dump.json`; repeats found in the existing capture store are reported as `already_captured`. Open records appear as `brain_dump_record` or `brain_dump_clarification` window items from the `brain_dump` provider. The `brain_dump.clarify` action sets the record's project. The `brain_dump.stage_candidate` action previews a `preference_candidate`; it stages that candidate only after the operator selects Confirm. Nothing is promoted automatically.
+
 ## Knowledge gaps
 
 `agent-os executive gaps GAPS_JSON [--budget N] [--min-score SCORE] [--asked-id ID]` accepts a JSON list inline or from a file path. The score is the weighted sum of factors clamped to 0–1: utility 0.35, recurrence 0.20, confidence_gap 0.25, and urgency 0.20; interruption_cost and sensitivity each subtract up to 0.50. Missing or invalid factors contribute zero. Scores are rounded to four decimals.
