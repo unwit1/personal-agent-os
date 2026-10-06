@@ -53,9 +53,11 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         self.assertIn("project.resume", content)
         self.assertIn("actions_projects", content)
 
-    def test_doc_mentions_cli_gap_answer_staging_limitation(self):
+    def test_doc_mentions_cli_gap_answer_flow(self):
         content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
-        self.assertIn("Staging knowledge-gap answers directly from the CLI", content)
+        self.assertIn("gap-answer", content)
+        self.assertIn("--confirm", content)
+        self.assertNotIn("Staging knowledge-gap answers directly from the CLI", content)
 
     def test_doc_mcp_tools_match_capture_tool_schemas(self):
         content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")

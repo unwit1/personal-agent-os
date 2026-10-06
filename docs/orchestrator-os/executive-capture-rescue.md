@@ -26,6 +26,8 @@ Results include `ask`, `deferred`, `discarded`, and `budget`. Eligible questions
 
 `agent-os executive gaps <json> --enqueue [--tab work|personal]` persists gaps to `knowledge-gaps.json` in the window home. The `knowledge_gaps` provider displays up to three selected questions (`select_questions`), excluding already-answered gaps, as `knowledge_gap_question` items. The `knowledge_gap.answer` action accepts `answer` and `project`, previews the candidate built by `answer_to_candidate`, and stages it only after Confirm. The gap is then marked answered; nothing is promoted.
 
+`agent-os executive gap-answer GAP_ID --answer TEXT [--project ID] [--confirm]` answers a persisted knowledge gap. Without `--confirm`, it prints a dry-run preview of the `answer_to_candidate` candidate and stages nothing. With `--confirm`, it stages the candidate through the same path as `knowledge_gap.answer` and marks the gap answered. The project defaults to the gap's `project`; unknown or already-answered gaps are rejected. Nothing is promoted.
+
 ## Rescue mode
 
 `agent-os executive rescue [--tab work|personal] [--today DATE] [--stale-days N] [--horizon-days N]` considers executive queue items and project next-action results. Its basis order is:
@@ -66,4 +68,3 @@ The read-only `executive_capture.resume` tool accepts `project`, `today`, and `s
 - Writes over MCP: brain-dump candidate staging and knowledge-gap enqueueing are CLI/window only.
 - Calendar or voice input.
 - Model-based extraction; brain-dump segmentation, classification, and project resolution use deterministic rules.
-- Staging knowledge-gap answers directly from the CLI; answers are staged only through the window `knowledge_gap.answer` action.
