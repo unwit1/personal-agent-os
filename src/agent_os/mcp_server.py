@@ -992,6 +992,7 @@ def _projects_next(project: str, stale_days: int | None = None) -> dict[str, Any
 
     state = load_state(proj)
     kwargs = {"today": date.today()}
+    kwargs["deferrals"] = _project_deferral_counts().get(state.get("project") or project, 0)
     if stale_days is not None:
         kwargs["stale_days"] = stale_days
     return project_actions.project_next_action(state, **kwargs)
@@ -1014,6 +1015,7 @@ def _projects_scan(stale_days: int | None = None, include_inactive: bool = False
             errors.append({"project": proj.get("id"), "error": str(e)})
 
     kwargs = {"today": date.today()}
+    kwargs["deferrals"] = _project_deferral_counts()
     if stale_days is not None:
         kwargs["stale_days"] = stale_days
     kwargs["include_inactive"] = include_inactive
@@ -1026,6 +1028,14 @@ def _projects_scan(stale_days: int | None = None, include_inactive: bool = False
 def _routing_event_bus():
     from .executive.event_bus import EventBus
     return EventBus()
+
+
+def _project_deferral_counts() -> dict[str, int]:
+    try:
+        from .executive import window_queue
+        return window_queue.project_deferral_counts(_routing_event_bus())
+    except Exception:
+        return {}
 
 
 def _routing_reason(event_id: str) -> dict[str, Any]:
