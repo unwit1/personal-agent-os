@@ -1,4 +1,4 @@
-﻿# Personal Agent OS — Master Priority Roadmap
+# Personal Agent OS — Master Priority Roadmap
 
 Status: active / canonical priority order  
 Owner: Personal Agent OS  
@@ -1102,8 +1102,7 @@ Current: Brain-dump capture in the Executive window, project clarification, and
  stage-as-candidate through preview/Confirm are complete. Knowledge-gap questions
  as window items and answering through `knowledge_gap.answer` with candidate
  staging via preview/Confirm are complete (step 2). Rescue Mode as a window view
- is complete (step 3). Project items can open read-only resumption packets (step
- 4). Open: MCP tools for the same functions (step 5), staging gap answers
+ is complete (step 3). opening resumption packets from project items is complete (step 4). Open: MCP tools for the same functions (step 5), staging gap answers
  directly from the CLI, automatic gap generation, calendar/commitment and voice
  inputs for rescue or brain dumps, model-assisted extraction, and candidate
  review/promotion UX.
