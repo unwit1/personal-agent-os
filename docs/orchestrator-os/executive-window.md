@@ -77,6 +77,8 @@ The window's outstanding list is the Executive Queue (roadmap P3). `Registry.out
 
 MCP tools `executive_window.next` and `executive_window.explain` return the same data, read-only and local-only. Provider errors are returned in the `errors` field. Hidden items are excluded just as in the outstanding list.
 
+MCP tool `executive_routing.dispatch` routes pending Event Bus events for a consumer (default `router`), with optional event type disposition overrides in `rules`. By default, it previews routes via `routing.preview_pending` without persisting decisions or acknowledging events. With `confirm_write=true`, it behaves like `agent-os executive route`, persisting payload-free route reasons and advancing the consumer cursor. `executive_routing.reason` takes an `event_id` and is read-only; it returns the persisted route decision, matching `agent-os executive route-reason`.
+
 ### Project next actions and rank
 
 The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, registered in `builtin.default_registry()`) emits items for active projects from `projects/<id>/state.json`. For each project, it derives next action and flags via the per-project Next Action Engine, then emits one project_decision item per decision needed, plus at most one project_stalled and one project_no_next_action item per project:
