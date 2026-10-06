@@ -423,6 +423,32 @@ const Executive = (() => {
     return group;
   }
 
+  function renderBrainDumpClarification(item) {
+    const group = document.createElement('div');
+    group.className = 'item-options';
+    const candidates = (item.context && item.context.candidates) || [];
+    candidates.forEach(candidate => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = candidate;
+      button.addEventListener('click', () => runAction(item, 'brain_dump.clarify', { project: candidate }).then(loadItems));
+      group.appendChild(button);
+    });
+    const projectInput = document.createElement('input');
+    projectInput.type = 'text';
+    projectInput.placeholder = 'Project name';
+    const setProject = document.createElement('button');
+    setProject.type = 'button';
+    setProject.textContent = 'Set project';
+    setProject.addEventListener('click', () => {
+      const project = projectInput.value.trim();
+      if (project) runAction(item, 'brain_dump.clarify', { project }).then(loadItems);
+    });
+    group.appendChild(projectInput);
+    group.appendChild(setProject);
+    return group;
+  }
+
   function handleMailOrganizeApply(item, account, category, btn) {
     const payload = {
       item_id: item.id,
@@ -500,6 +526,8 @@ const Executive = (() => {
       card.appendChild(renderMailCleanup(item));
     } else if (item.kind === 'mail_filtered') {
       card.appendChild(renderMailFiltered(item));
+    } else if (item.kind === 'brain_dump_clarification') {
+      card.appendChild(renderBrainDumpClarification(item));
     }
 
     if (item.options && item.options.length > 0) {
@@ -509,10 +537,17 @@ const Executive = (() => {
         if (item.kind === 'mail_cleanup' && option.action_id === 'mail.organize_apply') {
           return;
         }
+        if (option.action_id === 'brain_dump.clarify') return;
         const btn = document.createElement('button');
         btn.className = option.consequential ? 'option-consequential' : '';
         btn.textContent = option.label;
-        btn.addEventListener('click', () => handleOptionClick(item, option));
+        btn.addEventListener('click', () => {
+          if (option.action_id === 'brain_dump.stage_candidate') {
+            runAction(item, option.action_id, {}).then(loadItems).catch(() => { /* error already shown */ });
+          } else {
+            handleOptionClick(item, option);
+          }
+        });
         optionsDiv.appendChild(btn);
       });
       card.appendChild(optionsDiv);
@@ -631,6 +666,23 @@ const Executive = (() => {
         showBusy(false);
         input.focus();
       });
+  }
+
+  function handleBrainDumpSend() {
+    const input = document.getElementById('brain-dump-input');
+    const send = document.getElementById('brain-dump-send');
+    const text = input.value.trim();
+    if (!text) return;
+    const activeTab = document.getElementById('tab-personal').getAttribute('aria-selected') === 'true' ? 'personal' : 'work';
+    send.disabled = true;
+    apiCall('POST', '/api/brain-dump', { text: text, tab: activeTab })
+      .then(response => {
+        if (response.message) addChatMessage('agent', response.message);
+        input.value = '';
+        loadItems();
+      })
+      .catch(() => { /* error already shown */ })
+      .finally(() => { send.disabled = false; });
   }
 
   function showPreview(preview, actionId) {
@@ -806,6 +858,7 @@ const Executive = (() => {
     const chatSend = document.getElementById('chat-send');
 
     chatSend.addEventListener('click', handleChatSend);
+    document.getElementById('brain-dump-send').addEventListener('click', handleBrainDumpSend);
     chatInput.addEventListener('keypress', event => {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
