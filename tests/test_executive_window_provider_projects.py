@@ -74,6 +74,16 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertEqual(decision_item["source"], "Project p1")
         self.assertIn("project", decision_item["context"])
 
+    def test_decision_text_is_in_context(self):
+        """Decision items expose their decision text in context."""
+        entry = self._make_registry_entry(project_id="db-project")
+        state = self._make_state(project="db-project", decisions_needed=["Pick a database"])
+        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+        decision_item = next(item for item in items if item["kind"] == "project_decision")
+        self.assertEqual(
+            decision_item["context"],
+            {"project": "db-project", "decision": "Pick a database"},
+        )
     def test_multiple_decisions_produce_multiple_items(self):
         """A project with two decisions produces two decision items (plus no_next_action if applicable)."""
         entry = self._make_registry_entry()
@@ -409,3 +419,4 @@ class ProjectItemsTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
