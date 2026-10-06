@@ -831,7 +831,8 @@ const Executive = (() => {
     addField('Where you left off: ', packet.where_you_left_off);
     if (packet.next_action !== null && packet.next_action !== undefined && packet.next_action !== '') {
       const source = packet.next_action_source;
-      lines.push('Next action: ' + packet.next_action + (source ? ' [' + source + ']' : ''));
+      const hasSource = source !== null && source !== undefined && source !== '';
+      lines.push('Next action: ' + packet.next_action + (hasSource ? ' [' + source + ']' : ''));
     }
     const loops = packet.open_loops || {};
     [['blockers', 'Blockers: '], ['waiting_on', 'Waiting on: '], ['decisions_needed', 'Decisions: ']].forEach(([key, label]) => {
