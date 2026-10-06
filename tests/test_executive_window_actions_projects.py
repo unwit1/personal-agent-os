@@ -44,8 +44,20 @@ class TestProjectActions(TestCase):
 
     def test_action_kinds_and_consequential_flag(self):
         action = self.reg._actions["project.resume"]
-        self.assertEqual(action["applies_to"], ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action"])
+        self.assertEqual(action["applies_to"], ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred"])
         self.assertFalse(action["consequential"])
+
+    def test_repeatedly_deferred_actions(self):
+        fresh = registry.Registry()
+        actions_projects.register(fresh)
+        item = {"id": "p1", "kind": "project_repeatedly_deferred", "context": {"project": "p1"}}
+        offered = {
+            action["id"] for action in fresh.actions()
+            if fresh._applies(fresh._actions[action["id"]], item["kind"])
+        }
+        self.assertIn("project.resume", offered)
+        self.assertIn("project.set_next_action", offered)
+        self.assertNotIn("project.resolve_decision", offered)
 
     def test_unknown_project_raises_value_error(self):
         actions_projects.LOAD_STATE = None
@@ -69,6 +81,23 @@ class TestProjectActions(TestCase):
         self.assertEqual(writes[0][1]["next_action"], params["next_action"])
         self.assertEqual(writes[0][1]["updated_at"], "2026-10-06")
 
+    def test_repeatedly_deferred_set_next_action_preview_then_confirm_writes_once(self):
+        writes = []
+        actions_projects.WRITE_STATE = lambda pid, state: writes.append((pid, state))
+        item = {"id": "p1", "kind": "project_repeatedly_deferred", "context": {"project": "p1"}}
+        params = {"next_action": "Send the draft to Maya"}
+        with tempfile.TemporaryDirectory() as directory:
+            pending = PendingStore(directory)
+            preview = self.reg.invoke("project.set_next_action", item, params, pending)
+            self.assertEqual(preview["status"], "needs_confirmation")
+            self.assertEqual(preview["preview"]["after"], params["next_action"])
+            self.assertEqual(writes, [])
+            self.reg.confirm(preview["confirm_token"], pending)
+        self.assertEqual(len(writes), 1)
+        self.assertEqual(writes[0][0], "p1")
+        self.assertEqual(writes[0][1]["next_action"], params["next_action"])
+        self.assertEqual(writes[0][1]["updated_at"], "2026-10-06")
+
     def test_set_next_action_rejects_vague_and_empty_values(self):
         item = {"context": {"project": "demo"}}
         with self.assertRaisesRegex(ValueError, "too vague"):
@@ -79,7 +108,7 @@ class TestProjectActions(TestCase):
     def test_set_next_action_action_metadata(self):
         action = self.reg._actions["project.set_next_action"]
         self.assertTrue(action["consequential"])
-        self.assertEqual(action["applies_to"], ["project_stalled", "project_no_next_action", "project_vague_next_action"])
+        self.assertEqual(action["applies_to"], ["project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred"])
 
     def test_resolve_decision_preview_then_confirm_writes_resolution(self):
         writes = []
