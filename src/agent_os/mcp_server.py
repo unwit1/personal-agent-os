@@ -769,6 +769,10 @@ WINDOW_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Executive window: why an outstanding item ranks where it does (rank, priority, age, reason, provider/source). Read-only; local data only.",
         "inputSchema": {"type": "object", "properties": {"item_id": {"type": "string"}, "tab": {"type": "string", "enum": ["work", "personal"]}}, "required": ["item_id"], "additionalProperties": False},
     },
+    "executive_window.history": {
+        "description": "Executive window: provenance history of an outstanding item — identifiers-only Event Bus lifecycle events (created, deferred, completed, cancelled) with persisted route decisions, current status and deferral count. Read-only; local data only.",
+        "inputSchema": {"type": "object", "properties": {"item_id": {"type": "string"}, "tab": {"type": "string", "enum": ["work", "personal"]}}, "required": ["item_id"], "additionalProperties": False},
+    },
 }
 
 WINDOW_RUN_TOOL = "executive_window.run"
@@ -957,6 +961,13 @@ def _window_explain(item_id: str, tab: str | None = None) -> dict[str, Any]:
 
     q = _window_queue(tab)
     return {'item_id': item_id, 'explanation': next_action.explain(q['queue_items'], item_id), 'errors': q['errors']}
+
+
+def _window_history(item_id: str, tab: str | None = None) -> dict[str, Any]:
+    from .executive import window_queue
+
+    q = _window_queue(tab)
+    return {'item_id': item_id, 'provenance': window_queue.item_provenance(q['queue_items'], _routing_event_bus(), item_id), 'errors': q['errors']}
 
 
 def _window_actions() -> dict[str, Any]:
@@ -1246,6 +1257,7 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive_window.actions": _window_actions,
             "executive_window.next": _window_next,
             "executive_window.explain": _window_explain,
+            "executive_window.history": _window_history,
             "executive_window.run": _window_run,
             "executive_projects.next": _projects_next,
             "executive_projects.scan": _projects_scan,
