@@ -41,6 +41,8 @@ def _answer(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> d
     gap_id = _gap_id(item)
     store = _store()
     gap = store.get(gap_id)
+    if gap.get("status", "open") != "open":
+        raise ValueError(f"knowledge gap already answered: {gap_id}")
     answer = params.get("answer")
     project = params.get("project") or gap.get("project")
     if not project:
@@ -60,6 +62,19 @@ def _answer(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> d
     staged = _stage(project, "Executive knowledge gap", [candidate])
     store.mark_answered(gap_id, answer, staged)
     return {"gap_id": gap_id, "project": project, "staging": staged}
+
+
+def answer_gap(
+    gap_id: str, answer: Any, *, project: str | None = None, confirm: bool = False
+) -> dict[str, Any]:
+    item = {"context": {"gap_id": gap_id}}
+    params = {"answer": answer}
+    if project:
+        params["project"] = project
+    try:
+        return _answer(item, params, confirm=confirm)
+    except KeyError as exc:
+        raise ValueError(f"unknown knowledge gap: {gap_id}") from exc
 
 
 def register(reg: registry.Registry) -> None:
