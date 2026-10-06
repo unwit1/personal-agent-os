@@ -30,6 +30,29 @@ class BrainDumpTests(unittest.TestCase):
         existing = record_id("task", "Ship alpha")
         self.assertEqual(process("Ship alpha", known_projects=[{"id": "alpha"}], existing_ids=[existing])["duplicates"][0]["reason"], "already_captured")
 
+    def test_classify_each_record_type(self):
+        examples = {
+            "Remind me to renew the license": "reminder",
+            "Dentist appointment Tuesday": "appointment",
+            "Follow up with the vendor": "follow_up",
+            "Research standing desks": "research_request",
+            "We decided to keep the old router": "decision",
+            "Shipped the new form": "project_update",
+            "What if we batch the invoices": "idea",
+            "Clean the garage": "task",
+        }
+        self.assertEqual(set(examples.values()), set(RECORD_TYPES))
+        for text, expected in examples.items():
+            with self.subTest(text=text):
+                self.assertEqual(classify(text), expected)
+
+    def test_process_ambiguous_project_lists_candidates(self):
+        result = process("Merge alpha into beta", known_projects=[{"id": "alpha"}, {"id": "beta"}])
+        self.assertIsNone(result["records"][0]["project"])
+        clarification = result["clarifications"][0]
+        self.assertEqual(clarification["reason"], "ambiguous_project")
+        self.assertEqual(clarification["candidates"], ["alpha", "beta"])
+
     def test_process_reuses_one_shot_project_iterable(self):
         projects = (project for project in [{"id": "alpha"}])
         result = process("Ship alpha. Review alpha", known_projects=projects)

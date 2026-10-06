@@ -103,8 +103,6 @@ def project_next_action(
                     next_action = priority
                     next_action_source = "current_priorities"
                     break
-        if next_action is None:
-            next_action_source = None
 
     def extract_list_field(field_name: str) -> list:
         field = state.get(field_name, [])
@@ -123,7 +121,7 @@ def project_next_action(
         try:
             updated_date = date.fromisoformat(updated_at[:10])
             age_days = (today - updated_date).days
-        except (ValueError, IndexError):
+        except ValueError:
             age_days = None
 
     flags = []

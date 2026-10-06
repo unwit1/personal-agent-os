@@ -17,28 +17,10 @@ class RouteLog:
         self.directory = Path(directory) if directory is not None else DEFAULT_DIR
         self.path = self.directory / "routes.jsonl"
 
-    def get(self, event_id: str) -> dict | None:
-        """Return the first route for an event id, or None if absent."""
+    def _iter_records(self):
+        """Yield valid route records in file order, skipping malformed lines."""
         if not self.path.exists():
-            return None
-        with open(self.path, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    record = json.loads(line)
-                except (json.JSONDecodeError, ValueError):
-                    continue
-                if isinstance(record, dict) and record.get("event_id") == event_id:
-                    return record
-        return None
-
-    def records(self) -> list[dict]:
-        """Return valid route records in file order."""
-        if not self.path.exists():
-            return []
-        result = []
+            return
         with open(self.path, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
@@ -49,8 +31,15 @@ class RouteLog:
                 except (json.JSONDecodeError, ValueError):
                     continue
                 if isinstance(record, dict):
-                    result.append(record)
-        return result
+                    yield record
+
+    def get(self, event_id: str) -> dict | None:
+        """Return the first route for an event id, or None if absent."""
+        return next((r for r in self._iter_records() if r.get("event_id") == event_id), None)
+
+    def records(self) -> list[dict]:
+        """Return valid route records in file order."""
+        return list(self._iter_records())
 
     def record(self, route: dict, routed_at: str | None = None) -> tuple[dict, bool]:
         """Validate and append a route once per event id."""

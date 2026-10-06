@@ -62,7 +62,10 @@ def _project_matches(segment: str, known_projects: Iterable[dict]) -> list[str]:
 
 def resolve_project(segment: str, known_projects: Iterable[dict]) -> tuple[str | None, str | None]:
     """Resolve a project by whole-word id or alias, reporting ambiguity."""
-    matches = _project_matches(segment, known_projects)
+    return _resolve(segment, _project_matches(segment, known_projects))
+
+
+def _resolve(segment: str, matches: list[str]) -> tuple[str | None, str | None]:
     if len(matches) == 1:
         return matches[0], None
     if len(matches) > 1:
@@ -88,7 +91,6 @@ def process(text: str, *, known_projects=(), existing_ids=()) -> dict:
     for segment in split_segments(text):
         type_ = classify(segment)
         identifier = record_id(type_, segment)
-        project, reason = resolve_project(segment, known_projects)
         if identifier in seen:
             duplicates.append({"id": identifier, "text": segment, "reason": "repeated_in_dump"})
             continue
@@ -96,9 +98,11 @@ def process(text: str, *, known_projects=(), existing_ids=()) -> dict:
         if identifier in existing:
             duplicates.append({"id": identifier, "text": segment, "reason": "already_captured"})
             continue
+        matches = _project_matches(segment, known_projects)
+        project, reason = _resolve(segment, matches)
         records.append({"id": identifier, "type": type_, "text": segment, "project": project,
                         "confidence": 0.9 if project is not None else 0.5})
         if reason is not None:
             clarifications.append({"record_id": identifier, "text": segment, "reason": reason,
-                                   "candidates": _project_matches(segment, known_projects)})
+                                   "candidates": matches})
     return {"records": records, "duplicates": duplicates, "clarifications": clarifications}

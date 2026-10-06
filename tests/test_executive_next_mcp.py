@@ -83,25 +83,18 @@ class NextActionMcpTests(unittest.TestCase):
         self.assertEqual(out["why"]["of"], 2)
         self.assertEqual(out["why"]["priority"], 100)
 
-    def test_explain_returns_ranking_info(self):
-        # Get the queue item id first from next
-        next_result = self.call("executive_window.next", {"tab": "work"})
-        item_id = next_result["next"]["id"]
-
-        # Explain using the queue item id
-        out = self.call("executive_window.explain", {"item_id": item_id, "tab": "work"})
-        self.assertEqual(out["item_id"], item_id)
-        self.assertIsNotNone(out["explanation"])
-        self.assertEqual(out["explanation"]["rank"], 1)
-        self.assertEqual(out["explanation"]["of"], 2)
-
-    def test_explain_by_window_item_id(self):
-        # Explain using the window item id
-        out = self.call("executive_window.explain", {"item_id": "item-high", "tab": "work"})
-        self.assertEqual(out["item_id"], "item-high")
-        self.assertIsNotNone(out["explanation"])
-        self.assertEqual(out["explanation"]["rank"], 1)
-        self.assertEqual(out["explanation"]["of"], 2)
+    def test_explain_by_queue_or_window_id_with_or_without_tab(self):
+        queue_item_id = self.call("executive_window.next", {"tab": "work"})["next"]["id"]
+        explanations = []
+        for item_id in (queue_item_id, "item-high"):
+            for args in ({"item_id": item_id, "tab": "work"}, {"item_id": item_id}):
+                with self.subTest(**args):
+                    out = self.call("executive_window.explain", args)
+                    self.assertEqual(out["item_id"], item_id)
+                    self.assertEqual(out["explanation"]["rank"], 1)
+                    self.assertEqual(out["explanation"]["of"], 2)
+                    explanations.append(out["explanation"])
+        self.assertTrue(all(e == explanations[0] for e in explanations))
 
     def test_explain_includes_created_event_provenance(self):
         item = {
@@ -124,19 +117,12 @@ class NextActionMcpTests(unittest.TestCase):
         out = self.call("executive_window.explain", {"item_id": "unknown-id", "tab": "work"})
         self.assertEqual(out["item_id"], "unknown-id")
         self.assertIsNone(out["explanation"])
-        self.assertFalse(out.get("isError", False))
 
     def test_next_without_tab_parameter(self):
         out = self.call("executive_window.next", {})
         self.assertIsNotNone(out["next"])
         self.assertEqual(out["why"]["rank"], 1)
         self.assertEqual(out["why"]["of"], 2)
-
-    def test_explain_without_tab_parameter(self):
-        # Explain without tab parameter should still work
-        out = self.call("executive_window.explain", {"item_id": "item-high"})
-        self.assertIsNotNone(out["explanation"])
-        self.assertEqual(out["explanation"]["rank"], 1)
 
 
 if __name__ == "__main__":

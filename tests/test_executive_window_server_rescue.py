@@ -70,6 +70,18 @@ class RescueServerTest(unittest.TestCase):
         self.assertEqual(status, 400)
         self.assertIn("tab must be work or personal", payload["error"])
 
+    def test_invalid_horizon_days_is_bad_request(self):
+        status, payload = self.get("/api/rescue?horizon_days=x")
+        self.assertEqual(status, 400)
+        self.assertIn("horizon_days must be an integer", payload["error"])
+
+    @patch("agent_os.executive.window.rescue_view.project_results", return_value=([], []))
+    def test_horizon_days_is_passed_through(self, _project_results):
+        with patch("agent_os.executive.window.server.rescue_view", return_value={}) as view:
+            status, _ = self.get("/api/rescue?horizon_days=7")
+        self.assertEqual(status, 200)
+        self.assertEqual(view.call_args.kwargs["horizon_days"], 7)
+
 
 if __name__ == "__main__":
     unittest.main()

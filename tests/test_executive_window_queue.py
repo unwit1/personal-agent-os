@@ -70,220 +70,42 @@ class TestQueueItemFromWindowItem(unittest.TestCase):
         errors = contracts.validate_queue_item(qi)
         self.assertEqual(errors, [])
 
-    def test_with_why_converts_to_reason(self) -> None:
-        """Window item 'why' field converts to queue item 'reason'."""
-        window_item = {
-            "id": "gate-123",
-            "kind": "orchestrator_gate",
-            "tab": "work",
-            "title": "Approval needed",
-            "why": "Operator approval required for next step",
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "orchestrator")
-
-        self.assertEqual(qi["reason"], "Operator approval required for next step")
-
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_non_string_why_is_omitted(self) -> None:
-        """Non-string 'why' field is omitted from queue item."""
-        window_item = {
-            "id": "test-2",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test",
-            "why": 123,
-        }
+    def _convert(self, **fields) -> dict:
+        window_item = {"id": "test", "kind": "task", "tab": "work", "title": "Test", **fields}
         qi = window_queue.queue_item_from_window_item(window_item, "mail")
+        self.assertEqual(contracts.validate_queue_item(qi), [])
+        return qi
 
-        self.assertNotIn("reason", qi)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
+    def test_why_converts_to_reason_only_when_a_string(self) -> None:
+        """Window item 'why' becomes queue item 'reason'; non-strings are omitted."""
+        qi = self._convert(why="Operator approval required for next step")
+        self.assertEqual(qi["reason"], "Operator approval required for next step")
+        self.assertNotIn("reason", self._convert(why=123))
 
     def test_score_converts_to_priority(self) -> None:
-        """Window item 'score' (int/float) converts to queue item 'priority'."""
-        window_item = {
-            "id": "test-3",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test with score",
-            "score": 42,
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
+        """Non-negative int/float scores become priority; others are omitted."""
+        for score, priority in ((42, 42), (3.14, 3.14), (0, 0)):
+            with self.subTest(score=score):
+                self.assertEqual(self._convert(score=score)["priority"], priority)
+        for score in (-5, True, "high"):
+            with self.subTest(score=score):
+                self.assertNotIn("priority", self._convert(score=score))
 
-        self.assertEqual(qi["priority"], 42)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_float_score_converts_to_priority(self) -> None:
-        """Float score converts to priority."""
-        window_item = {
-            "id": "test-4",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test with float score",
-            "score": 3.14,
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["priority"], 3.14)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_negative_score_is_omitted(self) -> None:
-        """Negative score is omitted (not a valid priority)."""
-        window_item = {
-            "id": "test-5",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test with negative score",
-            "score": -5,
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertNotIn("priority", qi)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_zero_score_is_included(self) -> None:
-        """Zero score is included as priority (valid, >= 0)."""
-        window_item = {
-            "id": "test-6",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test with zero score",
-            "score": 0,
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["priority"], 0)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_bool_score_is_omitted(self) -> None:
-        """Boolean score (which is technically int in Python) is omitted."""
-        window_item = {
-            "id": "test-7",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test with bool score",
-            "score": True,
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertNotIn("priority", qi)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_non_numeric_score_is_omitted(self) -> None:
-        """Non-numeric score is omitted."""
-        window_item = {
-            "id": "test-8",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test with string score",
-            "score": "high",
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertNotIn("priority", qi)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_sensitivity_personal(self) -> None:
-        """Valid 'personal' sensitivity is preserved."""
-        window_item = {
-            "id": "test-9",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test",
-            "sensitivity": "personal",
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["sensitivity"], "personal")
-        self.assertNotIn("local_only", qi)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_sensitivity_public(self) -> None:
-        """Valid 'public' sensitivity is preserved."""
-        window_item = {
-            "id": "test-10",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test",
-            "sensitivity": "public",
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["sensitivity"], "public")
-        self.assertNotIn("local_only", qi)
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_sensitivity_sensitive_requires_local_only(self) -> None:
-        """'sensitive' sensitivity requires local_only=true."""
-        window_item = {
-            "id": "test-11",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test",
-            "sensitivity": "sensitive",
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["sensitivity"], "sensitive")
-        self.assertTrue(qi["local_only"])
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_sensitivity_secret_requires_local_only(self) -> None:
-        """'secret' sensitivity requires local_only=true."""
-        window_item = {
-            "id": "test-12",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test",
-            "sensitivity": "secret",
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["sensitivity"], "secret")
-        self.assertTrue(qi["local_only"])
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_invalid_sensitivity_defaults_to_personal(self) -> None:
-        """Invalid sensitivity defaults to 'personal'."""
-        window_item = {
-            "id": "test-13",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test",
-            "sensitivity": "unknown",
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["sensitivity"], "personal")
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
-
-    def test_non_string_sensitivity_defaults_to_personal(self) -> None:
-        """Non-string sensitivity defaults to 'personal'."""
-        window_item = {
-            "id": "test-14",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test",
-            "sensitivity": 123,
-        }
-        qi = window_queue.queue_item_from_window_item(window_item, "mail")
-
-        self.assertEqual(qi["sensitivity"], "personal")
-        errors = contracts.validate_queue_item(qi)
-        self.assertEqual(errors, [])
+    def test_sensitivity(self) -> None:
+        """Valid sensitivities are kept, sensitive/secret are local-only, others become personal."""
+        cases = (
+            ("personal", "personal", False),
+            ("public", "public", False),
+            ("sensitive", "sensitive", True),
+            ("secret", "secret", True),
+            ("unknown", "personal", False),
+            (123, "personal", False),
+        )
+        for given, expected, local_only in cases:
+            with self.subTest(sensitivity=given):
+                qi = self._convert(sensitivity=given)
+                self.assertEqual(qi["sensitivity"], expected)
+                self.assertEqual(qi.get("local_only", False), local_only)
 
     def test_window_item_is_deep_copied(self) -> None:
         """Original window item is not modified."""
@@ -409,52 +231,17 @@ class TestQueueItemFromWindowItem(unittest.TestCase):
 class TestWindowItemFromQueueItem(unittest.TestCase):
     """Tests for window_item_from_queue_item conversion."""
 
-    def test_basic_round_trip(self) -> None:
-        """Window item round-trips through queue item conversion."""
-        original = {
-            "id": "test-1",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test Task",
-        }
+    def test_round_trip(self) -> None:
+        """Window items round-trip through queue item conversion, with or without 'why'."""
+        base = {"id": "test-1", "kind": "task", "tab": "work", "title": "Test Task"}
+        for extra in ({}, {"why": "This is why"}, {"why": None}):
+            with self.subTest(**extra):
+                original = {**base, **extra}
+                qi = window_queue.queue_item_from_window_item(original, "mail")
+                self.assertEqual(window_queue.window_item_from_queue_item(qi), original)
 
-        qi = window_queue.queue_item_from_window_item(original, "mail")
-        recovered = window_queue.window_item_from_queue_item(qi)
-
-        self.assertEqual(recovered, original)
-
-    def test_round_trip_with_why(self) -> None:
-        """Window item with 'why' round-trips correctly."""
-        original = {
-            "id": "test-2",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test Task",
-            "why": "This is why",
-        }
-
-        qi = window_queue.queue_item_from_window_item(original, "mail")
-        recovered = window_queue.window_item_from_queue_item(qi)
-
-        self.assertEqual(recovered, original)
-
-    def test_round_trip_with_none_why(self) -> None:
-        """Window item with why=None round-trips correctly."""
-        original = {
-            "id": "test-3",
-            "kind": "task",
-            "tab": "work",
-            "title": "Test Task",
-            "why": None,
-        }
-
-        qi = window_queue.queue_item_from_window_item(original, "mail")
-        recovered = window_queue.window_item_from_queue_item(qi)
-
-        self.assertEqual(recovered, original)
-
-    def test_reason_maps_to_why(self) -> None:
-        """Queue item 'reason' becomes window item 'why'."""
+    def test_reason_maps_to_why_only_when_set(self) -> None:
+        """Queue item 'reason' becomes window item 'why'; absent or None adds no why."""
         qi = {
             "id": "qi-abc123def456abc1",
             "entity_id": "ex-task-abc123def456abc1",
@@ -465,68 +252,14 @@ class TestWindowItemFromQueueItem(unittest.TestCase):
             "schema": contracts.QUEUE_ITEM_SCHEMA,
             "status": "queued",
             "provider": "mail",
-            "reason": "Important reason",
-            "window_item": {
-                "id": "mail-1",
-                "kind": "email",
-                "tab": "work",
-                "title": "Check email",
-            },
+            "window_item": {"id": "mail-1", "kind": "email", "tab": "work", "title": "Check email"},
         }
-
-        recovered = window_queue.window_item_from_queue_item(qi)
-
+        recovered = window_queue.window_item_from_queue_item({**qi, "reason": "Important reason"})
         self.assertEqual(recovered["why"], "Important reason")
         self.assertEqual(recovered["id"], "mail-1")
-
-    def test_no_reason_no_why(self) -> None:
-        """Queue item without reason doesn't add why."""
-        qi = {
-            "id": "qi-abc123def456abc1",
-            "entity_id": "ex-task-abc123def456abc1",
-            "queued_at": "2026-01-15T10:00:00+00:00",
-            "source": "window:mail",
-            "domain": "executive-window",
-            "sensitivity": "personal",
-            "schema": contracts.QUEUE_ITEM_SCHEMA,
-            "status": "queued",
-            "provider": "mail",
-            "window_item": {
-                "id": "mail-1",
-                "kind": "email",
-                "tab": "work",
-                "title": "Check email",
-            },
-        }
-
-        recovered = window_queue.window_item_from_queue_item(qi)
-
-        self.assertNotIn("why", recovered)
-
-    def test_reason_none_no_why(self) -> None:
-        """Queue item with reason=None doesn't add why."""
-        qi = {
-            "id": "qi-abc123def456abc1",
-            "entity_id": "ex-task-abc123def456abc1",
-            "queued_at": "2026-01-15T10:00:00+00:00",
-            "source": "window:mail",
-            "domain": "executive-window",
-            "sensitivity": "personal",
-            "schema": contracts.QUEUE_ITEM_SCHEMA,
-            "status": "queued",
-            "provider": "mail",
-            "reason": None,
-            "window_item": {
-                "id": "mail-1",
-                "kind": "email",
-                "tab": "work",
-                "title": "Check email",
-            },
-        }
-
-        recovered = window_queue.window_item_from_queue_item(qi)
-
-        self.assertNotIn("why", recovered)
+        for extra in ({}, {"reason": None}):
+            with self.subTest(**extra):
+                self.assertNotIn("why", window_queue.window_item_from_queue_item({**qi, **extra}))
 
     def test_missing_window_item_returns_empty_dict(self) -> None:
         """Queue item without window_item returns empty dict."""

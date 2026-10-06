@@ -89,6 +89,8 @@ def select_questions(gaps, *, budget=1, min_score=0.2, asked_ids=()):
 
 def answer_to_candidate(gap, answer, *, source):
     """Represent a non-empty answer as a candidate preference memory."""
+    if not isinstance(gap, dict) or not all(isinstance(gap.get(k), str) and gap[k].strip() for k in ("id", "question")):
+        raise ValueError("gap must have a non-empty id and question")
     if not isinstance(answer, str) or not answer.strip():
         raise ValueError("answer must be non-empty")
     if not isinstance(source, str) or not source.strip():

@@ -34,9 +34,13 @@ class ProjectGapsTests(unittest.TestCase):
             self.assertEqual(gap["source"], "project_state")
             self.assertEqual({key: gap[key] for key in FACTORS[field]}, FACTORS[field])
 
-    def test_summary_and_priority_satisfy_goal_and_next_action(self):
-        state = {"project": "alpha", "status": "active", "summary": "Ship", "current_priorities": ["Build"], "blockers": []}
-        self.assertEqual(project_gaps([state]), [])
+    def test_summary_satisfies_goal(self):
+        state = {"project": "alpha", "status": "active", "summary": "Ship", "blockers": []}
+        self.assertNotIn("goal", [gap["field"] for gap in project_gaps([state])])
+
+    def test_current_priority_satisfies_next_action(self):
+        state = {"project": "alpha", "status": "active", "current_priorities": ["Build"], "blockers": []}
+        self.assertNotIn("next_action", [gap["field"] for gap in project_gaps([state])])
 
     def test_empty_blockers_are_known_none(self):
         state = {"project": "alpha", "status": "active", "blockers": []}

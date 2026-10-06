@@ -54,16 +54,16 @@ class KnowledgeGapProviderTests(unittest.TestCase):
     def test_budget_and_highest_score_first(self):
         gaps = [
             self.gap(f"gap-{index}", f"Question {index}?", utility)
-            for index, utility in enumerate((0.3, 1.0, 0.6, 0.8, 0.5))
+            for index, utility in enumerate((0.7, 1.0, 0.6, 0.8, 0.9))
         ]
         self.store.add(gaps)
 
         items = knowledge_gap_items(self.store)
 
-        self.assertLessEqual(len(items), BUDGET)
+        self.assertEqual(len(items), BUDGET)
         self.assertEqual(
             [item["context"]["gap_id"] for item in items],
-            ["gap-1", "gap-3", "gap-2"],
+            ["gap-1", "gap-4", "gap-3"],
         )
         self.assertEqual(
             [item["score"] for item in items],

@@ -8,6 +8,15 @@ from typing import Any
 from agent_os.executive.next_action import rank
 
 
+def _queue_action(item: dict, window: dict) -> dict:
+    return {
+        "title": window.get("title") or window.get("summary") or window.get("subject") or item.get("id"),
+        "project": window.get("project"),
+        "queue_item_id": item.get("id"),
+        "due": window.get("due"),
+    }
+
+
 def rescue(
     queue_items: list[Any],
     project_results: list[Any],
@@ -44,13 +53,8 @@ def rescue(
         except ValueError:
             continue
         if due_date <= deadline_limit:
-            title = window.get("title") or window.get("summary") or window.get("subject") or item.get("id")
-            return result("deadline", {
-                "title": title,
-                "project": window.get("project"),
-                "queue_item_id": item.get("id"),
-                "due": due,
-            }, "A ranked queue item has a deadline within the rescue horizon.")
+            return result("deadline", _queue_action(item, window),
+                          "A ranked queue item has a deadline within the rescue horizon.")
 
     eligible = []
     for project in projects:
@@ -83,12 +87,6 @@ def rescue(
         item = ranked[0]
         window = item.get("window_item")
         window = window if isinstance(window, dict) else {}
-        title = window.get("title") or window.get("summary") or window.get("subject") or item.get("id")
-        return result("queue", {
-            "title": title,
-            "project": window.get("project"),
-            "queue_item_id": item.get("id"),
-            "due": window.get("due"),
-        }, "No near deadline or ready project step took priority, so take the top ranked queue item.")
+        return result("queue", _queue_action(item, window), "No near deadline or ready project step took priority, so take the top ranked queue item.")
 
     return result(None, None, "There is no deadline, project step, or queue item to resume.")

@@ -17,6 +17,10 @@ class ExecutiveWindowBrainDumpTests(unittest.TestCase):
         for needle in ('/api/brain-dump', 'brain_dump.clarify', 'brain_dump.stage_candidate', 'brain_dump_clarification'):
             self.assertIn(needle, js)
         self.assertNotIn('auto-confirm', js.lower())
+        self.assertIn("getElementById('brain-dump-send').addEventListener('click', handleBrainDumpSend)", js)
+        self.assertIn("option.action_id === 'brain_dump.stage_candidate'", js)
+        self.assertIn('runAction(item, option.action_id, {})', js)
+        self.assertEqual(js.count("runAction(item, 'brain_dump.clarify'"), 2)
 
 
 if __name__ == '__main__':

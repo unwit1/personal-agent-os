@@ -372,11 +372,6 @@ class TestAgeDaysCalculation(unittest.TestCase):
         result = project_next_action(state, today=date(2026, 10, 5))
         self.assertIsNone(result["age_days"])
 
-    def test_age_days_parses_only_first_10_chars(self):
-        state = {"project": "p1", "updated_at": "2026-10-01T10:00:00Z"}
-        result = project_next_action(state, today=date(2026, 10, 5))
-        self.assertEqual(result["age_days"], 4)
-
     def test_age_days_none_when_updated_at_too_short(self):
         state = {"project": "p1", "updated_at": "2026-10"}
         result = project_next_action(state, today=date(2026, 10, 5))
@@ -423,10 +418,16 @@ class TestFlagsGeneration(unittest.TestCase):
         result = project_next_action(state, today=date(2026, 10, 5), stale_days=10)
         self.assertNotIn("stalled", result["flags"])
 
-    def test_flag_stalled_threshold_boundary(self):
+    def test_flag_stalled_one_day_over_threshold(self):
         state = {"project": "p1", "updated_at": "2026-09-04T00:00:00Z"}
         result = project_next_action(state, today=date(2026, 10, 5), stale_days=30)
         self.assertIn("stalled", result["flags"])
+
+    def test_flag_not_stalled_at_exact_threshold(self):
+        state = {"project": "p1", "updated_at": "2026-09-05T00:00:00Z"}
+        result = project_next_action(state, today=date(2026, 10, 5), stale_days=30)
+        self.assertEqual(result["age_days"], 30)
+        self.assertNotIn("stalled", result["flags"])
 
     def test_flag_stalled_just_under_threshold(self):
         state = {"project": "p1", "updated_at": "2026-09-06T00:00:00Z"}

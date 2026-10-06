@@ -34,7 +34,7 @@ def _registry() -> Registry:
 
 OPTIONS = [{"action_id": "done", "label": "Done", "consequential": False}]
 
-# Literal EXPECTED items WITHOUT rank keys (the items as they appear, unranked)
+# The outstanding items as providers return them, before ranks are added.
 EXPECTED_UNRANKED = {
     "items": [
         {
@@ -66,46 +66,16 @@ EXPECTED_UNRANKED = {
 }
 
 
-def _build_expected_with_ranks():
-    """Compute EXPECTED with rank info using next_action.rank()."""
-    reg = _registry()
-    queue_items = reg.queue()["queue_items"]
-    ranked = next_action.rank(queue_items)
-
-    # Build position map: queue_item id -> 1-based position
-    rank_map = {qi["id"]: idx + 1 for idx, qi in enumerate(ranked)}
-    total = len(ranked)
-
-    # Build window item id -> queue item id mapping
-    window_to_qi = {}
-    for qi in queue_items:
-        window_item = qi.get("window_item", {})
-        if isinstance(window_item, dict):
-            window_to_qi[window_item.get("id")] = qi["id"]
-
-    # Add rank info to items
-    items = []
-    for unranked_item in EXPECTED_UNRANKED["items"]:
-        item = dict(unranked_item)
-        window_id = item["id"]
-        qi_id = window_to_qi.get(window_id)
-        if qi_id is not None:
-            position = rank_map.get(qi_id)
-            if position is not None:
-                item["rank"] = {
-                    "position": position,
-                    "of": total,
-                    "ranking": next_action.RANKING
-                }
-        items.append(item)
-
+def _with_ranks(unranked: dict, positions: dict[str, int]) -> dict:
+    """Return the unranked expectation with each item's rank added."""
+    total = len(positions)
     return {
-        "items": items,
-        "errors": EXPECTED_UNRANKED["errors"],
+        "items": [
+            {**item, "rank": {"position": positions[item["id"]], "of": total, "ranking": next_action.RANKING}}
+            for item in unranked["items"]
+        ],
+        "errors": unranked["errors"],
     }
-
-
-EXPECTED = _build_expected_with_ranks()
 
 
 class _Hidden:
@@ -122,11 +92,20 @@ class RegistryQueueTests(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.bus = event_bus.EventBus(self.tmp.name)
 
+    @classmethod
+    def setUpClass(cls) -> None:
+        # w1 is the only scored item, so it ranks first; the unscored w2 and h1
+        # tie on priority and age and are ordered by queue item id.
+        ids = {qi["window_item"]["id"]: qi["id"] for qi in _registry().queue()["queue_items"]}
+        w2_first = ids["w2"] < ids["h1"]
+        positions = {"w1": 1, "w2": 2 if w2_first else 3, "h1": 3 if w2_first else 2}
+        cls.expected = _with_ranks(EXPECTED_UNRANKED, positions)
+
     def test_outstanding_is_unchanged_with_and_without_a_bus(self) -> None:
-        self.assertEqual(_registry().outstanding(), EXPECTED)
+        self.assertEqual(_registry().outstanding(), self.expected)
         reg = _registry()
         reg.attach_event_bus(self.bus)
-        self.assertEqual(reg.outstanding(), EXPECTED)
+        self.assertEqual(reg.outstanding(), self.expected)
 
     def test_item_that_fails_conversion_passes_through_unchanged(self) -> None:
         reg = _registry()
@@ -153,7 +132,7 @@ class RegistryQueueTests(unittest.TestCase):
                 raise RuntimeError("disk full")
 
         reg.attach_event_bus(Failing())
-        self.assertEqual(reg.outstanding(), EXPECTED)
+        self.assertEqual(reg.outstanding(), self.expected)
 
     def test_each_item_is_converted_once_per_call(self) -> None:
         reg = _registry()

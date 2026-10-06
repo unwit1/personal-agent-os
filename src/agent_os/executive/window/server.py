@@ -25,6 +25,7 @@ from urllib.parse import parse_qs, urlparse
 from ...paths import ROOT
 from . import actions_openings, model_bridge
 from .confirm import ItemState, PendingStore, window_home
+from .rescue_view import rescue_view
 
 GUI_DIR = ROOT / "gui"
 STATIC_FILES = {
@@ -130,15 +131,13 @@ class Api:
         if path == "/api/pending":
             return self._pending_view()
         if path == "/api/rescue":
-            tab = (query.get('tab') or [None])[0] or None
-            if tab is not None and tab not in ('work', 'personal'):
-                raise ValueError('tab must be work or personal')
+            tab = (query.get("tab") or [None])[0] or None
+            if tab is not None and tab not in ("work", "personal"):
+                raise ValueError("tab must be work or personal")
             try:
-                horizon_days = int((query.get('horizon_days') or ['1'])[0])
-            except (TypeError, ValueError):
-                raise ValueError('horizon_days must be an integer')
-            from .rescue_view import rescue_view
-
+                horizon_days = int((query.get("horizon_days") or ["1"])[0])
+            except ValueError:
+                raise ValueError("horizon_days must be an integer") from None
             return rescue_view(self.registry, tab, state=self.state, horizon_days=horizon_days)
         raise KeyError(path)
 

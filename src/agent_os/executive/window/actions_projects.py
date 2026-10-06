@@ -21,7 +21,10 @@ def _load_state(project: str) -> dict:
         entry = project_registry.get_project(project)
     except KeyError:
         raise ValueError(f"unknown project: {project}") from None
-    return project_registry.load_state(entry)
+    try:
+        return project_registry.load_state(entry)
+    except OSError:
+        raise ValueError(f"no state for project: {project}") from None
 
 
 def _today() -> date:

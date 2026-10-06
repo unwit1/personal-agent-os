@@ -29,12 +29,8 @@ def resumption_packet(
         return value
 
     loops = {}
-    for key, source in (
-        ('blockers', 'blockers'),
-        ('waiting_on', 'waiting_on'),
-        ('decisions_needed', 'decisions_needed'),
-    ):
-        items = result[source]
+    for key in ('blockers', 'waiting_on', 'decisions_needed'):
+        items = result[key]
         if len(items) > max_items:
             truncated = True
         loops[key] = [compact(item) for item in items[:max_items]]

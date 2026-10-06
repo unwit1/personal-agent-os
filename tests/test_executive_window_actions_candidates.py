@@ -69,6 +69,11 @@ class CandidateActionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "^unknown candidate: missing$"):
             mod._accept({"context": {"project": "alpha", "candidate_id": "missing"}}, {}, confirm=False)
 
+    def test_missing_candidate_context_raises(self):
+        for context in (None, {}, {"project": "alpha"}, {"candidate_id": "candidate-1"}):
+            with self.subTest(context=context), self.assertRaisesRegex(ValueError, "^missing candidate context$"):
+                mod._accept({"context": context}, {}, confirm=False)
+
 
 if __name__ == "__main__":
     unittest.main()

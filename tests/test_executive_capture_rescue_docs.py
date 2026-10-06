@@ -9,6 +9,7 @@ import sys
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
+from agent_os.executive.resumption import PACKET_SCHEMA
 from agent_os.mcp_server import CAPTURE_TOOL_SCHEMAS
 
 EXEC_CAPTURE_RESCUE_DOC = PROJECT_ROOT / "docs" / "orchestrator-os" / "executive-capture-rescue.md"
@@ -25,7 +26,7 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         for command in ("brain-dump", "gaps", "rescue", "resume"):
             with self.subTest(command=command):
                 self.assertIn(command, content)
-        self.assertIn("resumption-packet@1", content)
+        self.assertIn(PACKET_SCHEMA, content)
         self.assertIn("clarification", content)
         self.assertIn("stage_candidates", content)
 
@@ -71,6 +72,7 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         for term in ("memory_candidates", "memory_candidate", "candidate.accept", "candidate.reject", "curate_candidates"):
             with self.subTest(term=term):
                 self.assertIn(term, content)
+
     def test_doc_mcp_tools_match_capture_tool_schemas(self):
         content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
         tool_names = (
@@ -84,7 +86,6 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         for tool_name in tool_names:
             with self.subTest(tool_name=tool_name):
                 self.assertIn(tool_name, content)
-                self.assertIn(tool_name, CAPTURE_TOOL_SCHEMAS)
 
         mentioned_tools = {
             name for name in CAPTURE_TOOL_SCHEMAS if name in content

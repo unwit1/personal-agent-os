@@ -433,7 +433,7 @@ const Executive = (() => {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = candidate;
-      button.addEventListener('click', () => runAction(item, 'brain_dump.clarify', { project: candidate }).then(loadItems));
+      button.addEventListener('click', () => runAction(item, 'brain_dump.clarify', { project: candidate }).then(loadItems).catch(() => { /* error already shown */ }));
       group.appendChild(button);
     });
     const projectInput = document.createElement('input');
@@ -444,7 +444,7 @@ const Executive = (() => {
     setProject.textContent = 'Set project';
     setProject.addEventListener('click', () => {
       const project = projectInput.value.trim();
-      if (project) runAction(item, 'brain_dump.clarify', { project }).then(loadItems);
+      if (project) runAction(item, 'brain_dump.clarify', { project }).then(loadItems).catch(() => { /* error already shown */ });
     });
     group.appendChild(projectInput);
     group.appendChild(setProject);
@@ -849,12 +849,9 @@ const Executive = (() => {
     panel.textContent = '';
     panel.classList.remove('hidden');
     const action = result.action;
-    const title = action ? (typeof action === 'string' ? action : action.title || action.label || action.action || 'Rescue action') : 'Nothing to rescue right now';
-    panel.appendChild(textEl('div', 'item-title', title));
-    const project = (action && typeof action === 'object' && action.project) || result.project;
-    const due = (action && typeof action === 'object' && action.due) || result.due;
-    if (project) panel.appendChild(textEl('div', 'item-meta', 'Project: ' + project));
-    if (due) panel.appendChild(textEl('div', 'item-meta', 'Due: ' + due));
+    panel.appendChild(textEl('div', 'item-title', action ? action.title : 'Nothing to rescue right now'));
+    if (action && action.project) panel.appendChild(textEl('div', 'item-meta', 'Project: ' + action.project));
+    if (action && action.due) panel.appendChild(textEl('div', 'item-meta', 'Due: ' + action.due));
     if (result.why) panel.appendChild(textEl('div', 'item-why', result.why));
     if (result.then) panel.appendChild(textEl('div', 'item-why', result.then));
     panel.appendChild(textEl('div', 'muted', `${result.suppressed || 0} other item(s) hidden`));

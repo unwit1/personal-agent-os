@@ -95,9 +95,10 @@ def answer_gap(
     if project:
         params["project"] = project
     try:
-        return _answer(item, params, confirm=confirm)
+        _store().get(gap_id)
     except KeyError as exc:
         raise ValueError(f"unknown knowledge gap: {gap_id}") from exc
+    return _answer(item, params, confirm=confirm)
 
 
 def register(reg: registry.Registry) -> None:

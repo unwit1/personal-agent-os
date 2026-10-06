@@ -6,11 +6,13 @@ import hashlib
 from datetime import date
 from typing import Any, Callable
 
+from agent_os.executive import project_actions
+
 
 def project_items(
     load_projects: Callable[[], list[tuple[dict, dict]]] | None = None,
     today: date | None = None,
-    stale_days: int | None = None,
+    stale_days: int = project_actions.STALE_DAYS_DEFAULT,
     deferral_counts: Callable[[], dict[str, int]] | None = None,
 ) -> list[dict[str, Any]]:
     """Return outstanding items for active projects with flags.
@@ -33,14 +35,10 @@ def project_items(
         List of dicts (project queue items) with id, kind, title, why, score, tab,
         source, context, and age_days (if int), sorted by project id.
     """
-    from agent_os.executive import project_actions
-
     if load_projects is None:
         load_projects = _load_projects
     if today is None:
         today = date.today()
-    if stale_days is None:
-        stale_days = project_actions.STALE_DAYS_DEFAULT
     if deferral_counts is None:
         deferral_counts = _default_deferral_counts
     try:
@@ -72,6 +70,11 @@ def project_items(
         )
         flags = result.get("flags", [])
         age_days = result.get("age_days")
+        base = {
+            "tab": tab,
+            "source": f"Project {pid}",
+            **({"age_days": age_days} if isinstance(age_days, int) else {}),
+        }
 
         # Decisions needed items (score 3).
         if "needs_decision" in flags:
@@ -79,15 +82,13 @@ def project_items(
                 decision_id = hashlib.sha1(decision_text.encode("utf-8")).hexdigest()[:10]
                 items.append(
                     {
+                        **base,
                         "id": f"project:{pid}:decision:{decision_id}",
                         "kind": "project_decision",
                         "title": decision_text,
                         "why": f"Decision needed for {name}",
                         "score": 3,
-                        "tab": tab,
-                        "source": f"Project {pid}",
                         "context": {"project": pid, "decision": decision_text},
-                        **({"age_days": age_days} if isinstance(age_days, int) else {}),
                     }
                 )
 
@@ -95,17 +96,13 @@ def project_items(
         if "stalled" in flags:
             items.append(
                 {
+                    **base,
                     "id": f"project:{pid}:stalled",
                     "kind": "project_stalled",
                     "title": f"{name} is stalled",
-                    "why": f"No update in {age_days} days (stalled after {stale_days})"
-                    if isinstance(age_days, int)
-                    else f"Stalled after {stale_days} days",
+                    "why": f"No update in {age_days} days (stalled after {stale_days})",
                     "score": 2,
-                    "tab": tab,
-                    "source": f"Project {pid}",
                     "context": {"project": pid},
-                    **({"age_days": age_days} if isinstance(age_days, int) else {}),
                 }
             )
 
@@ -114,15 +111,13 @@ def project_items(
             n = result.get("deferrals")
             items.append(
                 {
+                    **base,
                     "id": f"project:{pid}:repeatedly-deferred",
                     "kind": "project_repeatedly_deferred",
                     "title": f"{name} keeps getting deferred",
                     "why": f"Deferred {n} times; record a concrete next step or drop it",
                     "score": 2,
-                    "tab": tab,
-                    "source": f"Project {pid}",
                     "context": {"project": pid},
-                    **({"age_days": age_days} if isinstance(age_days, int) else {}),
                 }
             )
 
@@ -130,15 +125,13 @@ def project_items(
         if "no_next_action" in flags:
             items.append(
                 {
+                    **base,
                     "id": f"project:{pid}:no-next-action",
                     "kind": "project_no_next_action",
                     "title": f"{name} has no next action",
                     "why": "No next action or current priority recorded in state.json",
                     "score": 1,
-                    "tab": tab,
-                    "source": f"Project {pid}",
                     "context": {"project": pid},
-                    **({"age_days": age_days} if isinstance(age_days, int) else {}),
                 }
             )
 
@@ -152,15 +145,13 @@ def project_items(
             )
             items.append(
                 {
+                    **base,
                     "id": f"project:{pid}:vague-next-action",
                     "kind": "project_vague_next_action",
                     "title": f"{name} next action is vague",
                     "why": why,
                     "score": 1,
-                    "tab": tab,
-                    "source": f"Project {pid}",
                     "context": {"project": pid},
-                    **({"age_days": age_days} if isinstance(age_days, int) else {}),
                 }
             )
 

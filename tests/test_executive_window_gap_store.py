@@ -28,6 +28,8 @@ class GapStoreTests(unittest.TestCase):
         ], tab='other'), ['a'])
         self.assertEqual(self.store.get('a')['tab'], 'personal')
         self.assertEqual(self.store.add([{'id': 'a', 'question': 'Duplicate'}]), [])
+        self.store.add([{'id': 'w', 'question': 'Work question'}], tab='work')
+        self.assertEqual(self.store.get('w')['tab'], 'work')
 
     def test_gaps_sort_and_filter_and_mark_answered(self):
         self.store.add([

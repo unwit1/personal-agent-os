@@ -119,15 +119,11 @@ class TestRank(unittest.TestCase):
 
     def test_rank_with_window_queue_generated_items(self):
         # Test with real queue items from window_queue.queue_item_from_window_item
-        w1 = {"id": "w1", "title": "First", "kind": "task", "tab": "inbox", "score": 10}
-        w2 = {"id": "w2", "title": "Second", "kind": "task", "tab": "inbox", "score": 5}
+        w1 = {"id": "w1", "title": "First", "kind": "task", "tab": "inbox", "score": 10, "age_days": 5}
+        w2 = {"id": "w2", "title": "Second", "kind": "task", "tab": "inbox", "score": 5, "age_days": 3}
 
         qi1 = window_queue.queue_item_from_window_item(w1, "provider1", "2026-10-05T00:00:00+00:00")
         qi2 = window_queue.queue_item_from_window_item(w2, "provider1", "2026-10-05T00:00:00+00:00")
-
-        # Set age_days for ranking test
-        qi1["window_item"]["age_days"] = 5
-        qi2["window_item"]["age_days"] = 3
 
         result = rank([qi2, qi1])
         self.assertEqual(result[0]["id"], qi1["id"])
@@ -319,15 +315,11 @@ class TestRankingConstant(unittest.TestCase):
 class TestWithRealQueueItems(unittest.TestCase):
     def test_rank_with_real_queue_items(self):
         # Create real queue items using window_queue
-        w1 = {"id": "item1", "title": "High priority", "kind": "task", "tab": "inbox", "score": 10}
-        w2 = {"id": "item2", "title": "Low priority", "kind": "task", "tab": "inbox", "score": 5}
+        w1 = {"id": "item1", "title": "High priority", "kind": "task", "tab": "inbox", "score": 10, "age_days": 2}
+        w2 = {"id": "item2", "title": "Low priority", "kind": "task", "tab": "inbox", "score": 5, "age_days": 5}
 
         qi1 = window_queue.queue_item_from_window_item(w1, "provider1", "2026-10-05T00:00:00+00:00")
         qi2 = window_queue.queue_item_from_window_item(w2, "provider2", "2026-10-05T00:00:00+00:00")
-
-        # Set age_days
-        qi1["window_item"]["age_days"] = 2
-        qi2["window_item"]["age_days"] = 5
 
         result = rank([qi2, qi1])
         # qi1 has higher priority (10 vs 5), so comes first despite lower age_days
@@ -335,10 +327,9 @@ class TestWithRealQueueItems(unittest.TestCase):
         self.assertEqual(result[0]["provider"], "provider1")
 
     def test_explain_with_real_queue_items(self):
-        w1 = {"id": "item1", "title": "Important task", "kind": "decision", "tab": "today", "score": 8}
+        w1 = {"id": "item1", "title": "Important task", "kind": "decision", "tab": "today", "score": 8, "age_days": 1}
 
         qi1 = window_queue.queue_item_from_window_item(w1, "test_provider", "2026-10-05T10:00:00+00:00")
-        qi1["window_item"]["age_days"] = 1
 
         result = explain([qi1], qi1["id"])
         self.assertIsNotNone(result)
@@ -348,6 +339,30 @@ class TestWithRealQueueItems(unittest.TestCase):
         self.assertEqual(result["priority"], 8)
         self.assertEqual(result["age_days"], 1)
         self.assertNotIn("Important task", str(result))  # title never included
+
+    def test_explain_by_window_id_equals_explain_by_queue_id(self):
+        w1 = {"id": "item1", "title": "A", "kind": "task", "score": 8, "age_days": 1}
+        w2 = {"id": "item2", "title": "B", "kind": "task", "score": 3}
+        qi1 = window_queue.queue_item_from_window_item(w1, "p", "2026-10-05T10:00:00+00:00")
+        qi2 = window_queue.queue_item_from_window_item(w2, "p", "2026-10-05T10:00:00+00:00")
+        for qi, window_id in ((qi1, "item1"), (qi2, "item2")):
+            with self.subTest(window_id=window_id):
+                self.assertEqual(explain([qi1, qi2], qi["id"]), explain([qi1, qi2], window_id))
+
+    def test_window_item_without_score_ranks_as_zero_priority(self):
+        scored = window_queue.queue_item_from_window_item(
+            {"id": "scored", "title": "A", "kind": "task", "score": 1}, "p", "2026-10-05T10:00:00+00:00"
+        )
+        unscored = window_queue.queue_item_from_window_item(
+            {"id": "unscored", "title": "B", "kind": "task", "age_days": 99}, "p", "2026-10-05T10:00:00+00:00"
+        )
+        self.assertEqual([qi["id"] for qi in rank([unscored, scored])], [scored["id"], unscored["id"]])
+        self.assertIsNone(explain([unscored], "unscored")["priority"])
+
+    def test_window_item_without_id_does_not_match_none(self):
+        items = [{"id": "qi-1", "window_item": {"kind": "task"}}]
+        self.assertIsNone(explain(items, "None"))
+        self.assertIsNone(explain(items, None))
 
     def test_explain_provenance_from_event_bus(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -368,6 +383,7 @@ class TestWithRealQueueItems(unittest.TestCase):
             with_bus = explain([qi], qi["id"], bus)
             self.assertEqual(with_bus["provenance"]["created_event_id"], created["id"])
             self.assertEqual(with_bus["provenance"]["event_ids"], [created["id"], deferred["id"]])
+            self.assertNotIn(other_created["id"], with_bus["provenance"]["event_ids"])
             self.assertEqual(with_bus["provenance"]["provider"], qi["provider"])
             self.assertEqual(with_bus["provenance"]["source"], qi["source"])
             self.assertEqual(with_bus["provenance"]["entity_id"], qi["entity_id"])
@@ -375,7 +391,6 @@ class TestWithRealQueueItems(unittest.TestCase):
 
             selected = next_item([qi], bus)
             self.assertEqual(selected["why"]["provenance"]["event_ids"], [created["id"], deferred["id"]])
-            self.assertNotIn(other_created["id"], with_bus["provenance"]["event_ids"])
 
 
 if __name__ == "__main__":

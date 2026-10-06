@@ -6,6 +6,7 @@ import sys
 import unittest
 from datetime import date
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -84,6 +85,7 @@ class ProjectItemsTests(unittest.TestCase):
             decision_item["context"],
             {"project": "db-project", "decision": "Pick a database"},
         )
+
     def test_multiple_decisions_produce_multiple_items(self):
         """A project with two decisions produces two decision items (plus no_next_action if applicable)."""
         entry = self._make_registry_entry()
@@ -300,11 +302,11 @@ class ProjectItemsTests(unittest.TestCase):
             decisions_needed=["Decision A"],
         )
         items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5), stale_days=30)
-        self.assertGreaterEqual(len(items), 2)
-        scores = [item["score"] for item in items]
-        # Scores should be in descending order within the project items
-        for i in range(len(scores) - 1):
-            self.assertGreaterEqual(scores[i], scores[i + 1])
+        self.assertEqual(
+            [item["kind"] for item in items],
+            ["project_decision", "project_stalled", "project_no_next_action"],
+        )
+        self.assertEqual([item["score"] for item in items], [3, 2, 1])
 
     def test_required_fields_present(self):
         """Every item has id, kind, title, why, score, tab, source, context."""
@@ -324,7 +326,7 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertGreater(len(items), 0)
 
     def test_default_stale_days(self):
-        """When stale_days=None, uses project_actions.STALE_DAYS_DEFAULT and flags stalled."""
+        """When stale_days is omitted, uses project_actions.STALE_DAYS_DEFAULT and flags stalled."""
         from datetime import timedelta
         from agent_os.executive.project_actions import STALE_DAYS_DEFAULT
 
@@ -363,63 +365,25 @@ class ProjectItemsTests(unittest.TestCase):
     def test_entries_without_state_file_skipped_by_default_loader(self):
         """_load_projects skips entries without state_file."""
         from agent_os.executive.window.providers_projects import _load_projects
-        from unittest.mock import Mock
 
-        # Mock registry functions
-        def mock_canonical():
-            return [
-                {"id": "p1", "state_file": "path/state.json"},
-                {"id": "p2"},  # No state_file
-            ]
-
-        def mock_load_state(entry):
-            return {"status": "active", "project": entry["id"]}
-
-        # Patch the registry module
-        import agent_os.registry
-
-        original_canonical = agent_os.registry.canonical_projects
-        original_load_state = agent_os.registry.load_state
-
-        try:
-            agent_os.registry.canonical_projects = mock_canonical
-            agent_os.registry.load_state = mock_load_state
+        entries = [{"id": "p1", "state_file": "path/state.json"}, {"id": "p2"}]
+        with patch("agent_os.registry.canonical_projects", return_value=entries),                 patch("agent_os.registry.load_state", side_effect=lambda e: {"status": "active", "project": e["id"]}):
             projects = _load_projects()
-            self.assertEqual(len(projects), 1)
-            self.assertEqual(projects[0][0]["id"], "p1")
-        finally:
-            agent_os.registry.canonical_projects = original_canonical
-            agent_os.registry.load_state = original_load_state
+        self.assertEqual([entry["id"] for entry, _ in projects], ["p1"])
 
     def test_entries_with_load_exception_skipped_by_default_loader(self):
         """_load_projects silently skips entries whose load_state raises."""
         from agent_os.executive.window.providers_projects import _load_projects
 
-        def mock_canonical():
-            return [
-                {"id": "p1", "state_file": "path/state.json"},
-                {"id": "p2", "state_file": "bad/state.json"},
-            ]
-
-        def mock_load_state(entry):
+        def load_state(entry):
             if entry["id"] == "p2":
                 raise OSError("File not found")
             return {"status": "active", "project": entry["id"]}
 
-        import agent_os.registry
-
-        original_canonical = agent_os.registry.canonical_projects
-        original_load_state = agent_os.registry.load_state
-
-        try:
-            agent_os.registry.canonical_projects = mock_canonical
-            agent_os.registry.load_state = mock_load_state
+        entries = [{"id": "p1", "state_file": "path/state.json"}, {"id": "p2", "state_file": "bad/state.json"}]
+        with patch("agent_os.registry.canonical_projects", return_value=entries),                 patch("agent_os.registry.load_state", side_effect=load_state):
             projects = _load_projects()
-            self.assertEqual(len(projects), 1)
-            self.assertEqual(projects[0][0]["id"], "p1")
-        finally:
-            agent_os.registry.canonical_projects = original_canonical
-            agent_os.registry.load_state = original_load_state
+        self.assertEqual([entry["id"] for entry, _ in projects], ["p1"])
 
     def test_stalled_why_message_with_age_days(self):
         """Stalled item why message includes age_days when available."""

@@ -60,25 +60,19 @@ def explain(queue_items: list[Any], item_id: Any, bus: Any = None) -> dict | Non
     item_id_str = str(item_id)
 
     # Find the item by queue_item id or window_item id
-    found_item = None
-    found_index = None
     for idx, item in enumerate(ranked):
-        if not isinstance(item, dict):
-            continue
         if item.get("id") == item_id_str:
-            found_item = item
-            found_index = idx
-            break
-        window_item = item.get("window_item", {})
-        if isinstance(window_item, dict) and str(window_item.get("id")) == item_id_str:
-            found_item = item
-            found_index = idx
-            break
+            return _explain_ranked(ranked, idx, bus)
+        window_item = item.get("window_item")
+        if isinstance(window_item, dict) and "id" in window_item and str(window_item["id"]) == item_id_str:
+            return _explain_ranked(ranked, idx, bus)
+    return None
 
-    if found_item is None or found_index is None:
-        return None
 
-    window_item = found_item.get("window_item", {}) if isinstance(found_item.get("window_item"), dict) else {}
+def _explain_ranked(ranked: list[dict], index: int, bus: Any = None) -> dict:
+    """Explain the item at ``index`` of an already ranked list."""
+    found_item = ranked[index]
+    window_item = found_item.get("window_item") if isinstance(found_item.get("window_item"), dict) else {}
 
     # Extract numeric fields, defaulting to None if absent or non-numeric
     priority = found_item.get("priority")
@@ -107,7 +101,7 @@ def explain(queue_items: list[Any], item_id: Any, bus: Any = None) -> dict | Non
         "reason": found_item.get("reason"),
         "priority": priority,
         "age_days": age_days,
-        "rank": found_index + 1,
+        "rank": index + 1,
         "of": len(ranked),
         "ranking": RANKING,
         "provenance": {
@@ -133,15 +127,8 @@ def next_item(queue_items: list[Any], bus: Any = None) -> dict:
     """
     ranked = rank(queue_items)
 
-    top_item = ranked[0] if ranked else None
-    why = None
-    if top_item and isinstance(top_item, dict):
-        top_id = top_item.get("id")
-        if top_id:
-            why = explain(queue_items, top_id, bus)
-
     return {
-        "next": top_item,
+        "next": ranked[0] if ranked else None,
         "considered": len(ranked),
-        "why": why,
+        "why": _explain_ranked(ranked, 0, bus) if ranked else None,
     }

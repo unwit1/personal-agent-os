@@ -42,6 +42,10 @@ class KnowledgeGapEnqueueActionTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "gaps must be a non-empty JSON list of objects"):
                     mod._enqueue(self.item, {"gaps": gaps}, confirm=False)
 
+    def test_invalid_tab_raises(self):
+        with self.assertRaisesRegex(ValueError, "tab must be work or personal"):
+            mod._enqueue(self.item, {"gaps": self.gaps, "tab": "other"}, confirm=False)
+
 
 if __name__ == "__main__":
     unittest.main()

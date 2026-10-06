@@ -6,6 +6,7 @@ from datetime import date
 
 from agent_os import registry as project_registry
 from agent_os.executive import project_actions
+from agent_os.executive.rescue import rescue
 
 
 def project_results(today: date, stale_days: int | None = None) -> tuple[list[dict], list[dict]]:
@@ -39,8 +40,6 @@ def rescue_view(
         projects, project_errors = project_results(today, stale_days)
     else:
         project_errors = []
-    from agent_os.executive.rescue import rescue
-
     result = rescue(q["queue_items"], projects, today=today, horizon_days=horizon_days)
     item_id = None
     action = result.get("action")

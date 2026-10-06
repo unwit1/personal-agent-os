@@ -4,7 +4,7 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from agent_os.executive.knowledge_gaps import answer_to_candidate, score, select_questions
+from agent_os.executive.knowledge_gaps import answer_to_candidate, score, select_questions, why
 
 
 def gap(gap_id, **values):
@@ -46,6 +46,31 @@ class KnowledgeGapTests(unittest.TestCase):
             "evidence": ["knowledge-gap:style", "interview"],
             "confidence": 0.7,
         })
+
+
+    def test_already_asked_gaps_discarded(self):
+        result = select_questions([gap("seen", utility=1)], asked_ids=["seen"])
+        self.assertEqual(result["ask"], [])
+        self.assertEqual(result["discarded"][0]["reason"], "already_asked")
+
+    def test_factors_are_clamped_and_non_numbers_count_as_zero(self):
+        self.assertEqual(score(gap("x", utility=5)), score(gap("x", utility=1)))
+        for value in (True, "high", None):
+            with self.subTest(utility=value):
+                self.assertEqual(score(gap("x", utility=value)), 0.0)
+
+    def test_why_names_penalties(self):
+        self.assertIn("penalised by sensitivity 1.00", why(gap("x", utility=1, sensitivity=1)))
+        self.assertNotIn("penalised", why(gap("x", utility=1)))
+
+    def test_answer_to_candidate_rejects_bad_input(self):
+        for args, kwargs in (
+            ((gap("x"), "  "), {"source": "s"}),
+            ((gap("x"), "answer"), {"source": " "}),
+            (({"id": "x"}, "answer"), {"source": "s"}),
+        ):
+            with self.subTest(args=args, kwargs=kwargs), self.assertRaises(ValueError):
+                answer_to_candidate(*args, **kwargs)
 
 
 if __name__ == "__main__":

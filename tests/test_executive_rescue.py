@@ -56,6 +56,14 @@ class RescueTests(unittest.TestCase):
         self.assertEqual(got["action"]["queue_item_id"], "9")
         self.assertEqual(got["suppressed"], 9)
 
+    def test_far_or_malformed_due_falls_through_to_queue(self):
+        for due in ("2026-12-01", "garbage"):
+            with self.subTest(due=due):
+                items = [{"id": "q1", "priority": 1, "window_item": {"due": due, "title": "Later"}}]
+                got = rescue(items, [], today=TODAY)
+                self.assertEqual(got["basis"], "queue")
+                self.assertEqual(got["action"]["due"], due)
+
     def test_empty_inputs(self):
         got = rescue([], [], today=TODAY)
         self.assertIsNone(got["basis"])

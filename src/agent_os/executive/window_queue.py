@@ -259,7 +259,10 @@ def entity_history(bus: Any, entity_id: str, log=None) -> list[dict]:
         return []
 
     from . import routing
+    from .route_log import RouteLog
 
+    if log is None and hasattr(bus, "directory"):
+        log = RouteLog(bus.directory)
     history = []
     for event in bus.events(subject=entity_id):
         entry = {

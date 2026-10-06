@@ -1,11 +1,10 @@
 from __future__ import annotations
 
+import json
 import sys
 import unittest
-from datetime import date
-from io import StringIO
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -22,7 +21,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
             args = cli.parser().parse_args(["executive", "project-next", "test-project"])
             with patch("builtins.print") as mock_print:
                 self.assertEqual(cli._dispatch_executive(args), 0)
-            import json
             output = json.loads(mock_print.call_args[0][0])
             self.assertEqual(output["deferrals"], 3)
             self.assertIn("repeatedly_deferred", output["flags"])
@@ -34,7 +32,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
             args = cli.parser().parse_args(["executive", "project-scan"])
             with patch("builtins.print") as mock_print:
                 self.assertEqual(cli._dispatch_executive(args), 0)
-            import json
             output = json.loads(mock_print.call_args[0][0])
             self.assertIn("proj1", output["repeatedly_deferred"])
 
@@ -45,7 +42,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
             args = cli.parser().parse_args(["executive", "project-scan"])
             with patch("builtins.print") as mock_print:
                 self.assertEqual(cli._dispatch_executive(args), 0)
-            import json
             output = json.loads(mock_print.call_args[0][0])
             self.assertEqual(output["repeatedly_deferred"], [])
 
@@ -90,14 +86,13 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
                 # Verify print was called with JSON containing the expected keys
                 call_args = mock_print.call_args[0][0]
                 self.assertIsInstance(call_args, str)
-                import json
                 output = json.loads(call_args)
                 self.assertIn("project", output)
                 self.assertIn("next_action", output)
                 self.assertIn("flags", output)
 
     def test_project_next_unknown_project_raises_error(self):
-        with patch("agent_os.registry.get_project", side_effect=KeyError("Unknown project")) as mock_get_project:
+        with patch("agent_os.registry.get_project", side_effect=KeyError("Unknown project")):
             args = cli.parser().parse_args(["executive", "project-next", "unknown-project"])
 
             with self.assertRaises(ValueError) as context:
@@ -105,7 +100,7 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
 
             self.assertIn("unknown project", str(context.exception))
 
-    def test_project_next_with_fixed_today(self):
+    def test_project_next_with_fixed_today_and_stale_days(self):
         mock_project = {"id": "test-project", "state_file": "state.json"}
         mock_state = {
             "project": "test-project",
@@ -114,21 +109,16 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
             "next_action": "Code",
             "updated_at": "2026-09-01",
         }
-
-        with patch("agent_os.registry.get_project", return_value=mock_project), \
-             patch("agent_os.registry.load_state", return_value=mock_state), \
-             patch("agent_os.executive.project_actions.project_next_action", wraps=lambda state, **kw: {
-                 "project": "test-project", "age_days": 34, "next_action": "Code", "flags": ["stalled"]
-             }) as mock_pna:
-
-            args = cli.parser().parse_args(["executive", "project-next", "test-project", "--today", "2026-10-05"])
-            with patch("builtins.print"):
-                cli._dispatch_executive(args)
-
-            # Verify that today was passed as a date object
-            mock_pna.assert_called_once()
-            call_kwargs = mock_pna.call_args[1]
-            self.assertEqual(call_kwargs["today"], date(2026, 10, 5))
+        for extra, stalled in (([], True), (["--stale-days", "60"], False)):
+            with self.subTest(extra=extra),                     patch("agent_os.registry.get_project", return_value=mock_project),                     patch("agent_os.registry.load_state", return_value=mock_state),                     patch.object(cli, "_project_deferral_counts", return_value={}):
+                args = cli.parser().parse_args(
+                    ["executive", "project-next", "test-project", "--today", "2026-10-05", *extra]
+                )
+                with patch("builtins.print") as mock_print:
+                    self.assertEqual(cli._dispatch_executive(args), 0)
+                output = json.loads(mock_print.call_args[0][0])
+                self.assertEqual(output["age_days"], 34)
+                self.assertEqual("stalled" in output["flags"], stalled)
 
     def test_project_scan_parser_accepts_flags(self):
         args = cli.parser().parse_args(["executive", "project-scan", "--stale-days", "60", "--today", "2026-10-05", "--all"])
@@ -165,7 +155,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
 
                 # Verify print was called with JSON including errors and projects
                 call_args = mock_print.call_args[0][0]
-                import json
                 output = json.loads(call_args)
                 self.assertIn("errors", output)
                 self.assertIn("projects", output)
@@ -209,7 +198,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
 
                 self.assertEqual(code, 0)
                 call_args = mock_print.call_args[0][0]
-                import json
                 output = json.loads(call_args)
 
                 # Should have one error for proj2
@@ -231,7 +219,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
                 cli._dispatch_executive(args)
 
                 call_args = mock_print.call_args[0][0]
-                import json
                 output = json.loads(call_args)
                 # With --all, inactive projects should be included
                 self.assertEqual(len(output["projects"]), 1)
@@ -255,7 +242,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
                 cli._dispatch_executive(args)
 
                 call_args = mock_print.call_args[0][0]
-                import json
                 output = json.loads(call_args)
                 # Without --all, only active projects should be included
                 self.assertEqual(len(output["projects"]), 1)
@@ -280,7 +266,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
                 cli._dispatch_executive(args)
 
                 call_args = mock_print.call_args[0][0]
-                import json
                 output = json.loads(call_args)
 
                 self.assertEqual(output["stalled"], ["proj1"])
@@ -308,7 +293,6 @@ class ExecutiveProjectActionsCli(unittest.TestCase):
                 cli._dispatch_executive(args)
 
                 call_args = mock_print.call_args[0][0]
-                import json
                 output = json.loads(call_args)
 
                 self.assertEqual(output["vague_next_action"], ["proj1"])

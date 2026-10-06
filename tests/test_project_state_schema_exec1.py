@@ -6,7 +6,7 @@ from pathlib import Path
 class TestProjectStateSchemaExec1(unittest.TestCase):
     def setUp(self):
         schema_path = Path(__file__).parent.parent / "schemas" / "project-state.schema.json"
-        with open(schema_path, "r") as f:
+        with open(schema_path, "r", encoding="utf-8") as f:
             self.schema = json.load(f)
 
     def test_new_properties_exist_in_schema(self):
@@ -78,7 +78,7 @@ class TestProjectStateSchemaExec1(unittest.TestCase):
 
         for state_file in state_files:
             with self.subTest(state_file=state_file.relative_to(projects_dir.parent)):
-                with open(state_file, "r") as f:
+                with open(state_file, "r", encoding="utf-8") as f:
                     state = json.load(f)
 
                 # Check string properties
