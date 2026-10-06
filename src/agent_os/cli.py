@@ -282,13 +282,13 @@ def _dispatch_executive(args) -> int:
         from .executive import next_action
 
         q = _executive_window_queue(args.tab)
-        result = next_action.next_item(q["queue_items"])
+        result = next_action.next_item(q["queue_items"], _executive_event_bus())
         _print({**result, "errors": q["errors"]})
     elif cmd == "explain":
         from .executive import next_action
 
         q = _executive_window_queue(args.tab)
-        explanation = next_action.explain(q["queue_items"], args.item_id)
+        explanation = next_action.explain(q["queue_items"], args.item_id, _executive_event_bus())
         _print({"item_id": args.item_id, "explanation": explanation, "errors": q["errors"]})
     elif cmd == "history":
         from .executive import window_queue

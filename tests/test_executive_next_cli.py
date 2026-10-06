@@ -4,6 +4,7 @@ import contextlib
 import io
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -11,6 +12,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import cli
+from agent_os.executive import event_bus, window_queue
 from agent_os.executive.window import registry
 
 
@@ -22,6 +24,14 @@ def run(*argv):
 
 
 class ExecutiveNextCli(unittest.TestCase):
+    def setUp(self):
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp_dir.cleanup)
+        self.bus = event_bus.EventBus(self.temp_dir.name)
+        self.bus_patch = patch.object(cli, "_executive_event_bus", return_value=self.bus)
+        self.bus_patch.start()
+        self.addCleanup(self.bus_patch.stop)
+
     def test_next_returns_highest_score_item_with_rank(self):
         reg = registry.Registry()
 
@@ -43,6 +53,7 @@ class ExecutiveNextCli(unittest.TestCase):
             self.assertEqual(output["next"]["window_item"]["id"], "item-work")
             self.assertEqual(output["why"]["rank"], 1)
             self.assertEqual(output["considered"], 2)
+            self.assertIsInstance(output["why"]["provenance"]["event_ids"], list)
 
     def test_next_with_tab_filter_returns_only_tab_items(self):
         reg = registry.Registry()
@@ -143,6 +154,21 @@ class ExecutiveNextCli(unittest.TestCase):
             self.assertEqual(output["explanation"]["item_id"], "item-work")
             self.assertEqual(output["explanation"]["rank"], 1)
             self.assertEqual(output["explanation"]["of"], 1)
+
+    def test_explain_includes_created_event_provenance(self):
+        reg = registry.Registry()
+        item = {"id": "item-work", "tab": "work", "title": "Work Item", "kind": "task", "score": 100}
+        reg.register_provider("test", lambda: [item])
+        queue_item = reg.queue()["queue_items"][0]
+        event, _ = window_queue.publish_window_item(self.bus, item, "test", queue_item)
+
+        with patch.object(cli, "_executive_window_queue", return_value=reg.queue()):
+            code, output = run("explain", "item-work")
+
+        self.assertEqual(code, 0)
+        provenance = output["explanation"]["provenance"]
+        self.assertEqual(provenance["created_event_id"], event["id"])
+        self.assertEqual(provenance["provider"], "test")
 
 
 if __name__ == "__main__":
