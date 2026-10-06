@@ -78,6 +78,8 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
             "executive_capture.gaps",
             "executive_capture.rescue",
             "executive_capture.resume",
+            "executive_capture.brain_dump_capture",
+            "executive_capture.gaps_enqueue",
         )
         for tool_name in tool_names:
             with self.subTest(tool_name=tool_name):
