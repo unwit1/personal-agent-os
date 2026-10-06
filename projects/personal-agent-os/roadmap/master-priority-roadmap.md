@@ -1093,17 +1093,20 @@ in the Executive window and become window items, with project clarification and
 stage-as-candidate through registry preview/Confirm (step 1). Knowledge-gap
 questions can be persisted with `executive gaps --enqueue`, appear as Executive
 window items, and can be answered with `knowledge_gap.answer`, which stages
-`answer_to_candidate` output through preview/Confirm (step 2). Candidates are
-staged only, never promoted.
+`answer_to_candidate` output through preview/Confirm (step 2). Rescue Mode is
+available as an Executive window view: the Rescue toggle filters the same ranked
+queue to one concrete action via `GET /api/rescue`, showing why/then and the
+suppressed count (step 3). Candidates are staged only, never promoted.
 
 Current: Brain-dump capture in the Executive window, project clarification, and
 stage-as-candidate through preview/Confirm are complete. Knowledge-gap questions
 as window items and answering through `knowledge_gap.answer` with candidate
-staging via preview/Confirm are complete (step 2). Open: Rescue Mode as a window
-view (step 3), opening resumption packets from project items (step 4), and MCP
-tools for the same functions (step 5); staging gap answers directly from the
-CLI; automatic gap generation; calendar/commitment and voice inputs for rescue
-or brain dumps; model-assisted extraction; and candidate review/promotion UX.
+staging via preview/Confirm are complete (step 2). Rescue Mode as a window view
+is complete (step 3). Open: opening resumption packets from project items
+(step 4), MCP tools for the same functions (step 5), staging gap answers
+directly from the CLI, automatic gap generation, calendar/commitment and voice
+inputs for rescue or brain dumps, model-assisted extraction, and candidate
+review/promotion UX.
 Candidates are staged only, never promoted.
 
 Operator constraint (2026-10-05, as for P3): P4 builds on the Executive window, not a parallel UI or store. Next, in order: (1) brain dumps are entered in the window (a 'Brain dump' input next to chat) and their records appear as window items with clarification and stage-as-candidate actions through the registry preview/Confirm flow; (2) selected knowledge-gap questions appear as window items with an answer action that stages the answer as a candidate (answer_to_candidate); (3) Rescue Mode is a window view/filter of the same ranked queue showing the one concrete action; (4) a project item can open its resumption packet; (5) MCP tools for the same functions. Candidates are staged only, never promoted automatically.
