@@ -1,4 +1,4 @@
-﻿# Executive capture and rescue
+# Executive capture and rescue
 
 This guide describes the deterministic capture, knowledge-gap, rescue, and project-resumption flows exposed by `agent-os executive`.
 
@@ -53,6 +53,11 @@ The window shows only the selected item, with its normal options and preview/Con
 
 Project items from the `projects` provider with kinds `project_decision`, `project_stalled`, `project_no_next_action`, and `project_vague_next_action` offer the `project.resume` (Resume) option. This action is read-only and not consequential, so it has no preview/Confirm step. It is implemented in `agent_os.executive.window.actions_projects`. The action loads the project's state and returns `{project, packet}`, where `packet` is the same `resumption-packet@1` produced by `agent-os executive resume`. The window shows a summary of the goal, where you left off, the next action and its source, any non-empty open loops, the age, and whether the packet was truncated.
 
+## Candidate review in the Executive window
+
+The `memory_candidates` provider (`agent_os.executive.window.providers_candidates`) lists staged candidates with status `candidate` for each registered project, using `candidates.candidate_status`, as `memory_candidate` items. Each item's `why` names the candidate kind and its source summary.
+
+The `candidate.accept` and `candidate.reject` actions (`agent_os.executive.window.actions_candidates`) are consequential. They preview the candidate and call `candidates.curate_candidates` with `promote` or `reject` only after the operator selects Confirm. Accept applies the curator checks: evidence is required, confidence must be at least 0.7, and material kinds return `review_required`. A candidate may therefore return `not_promoted` or `review_required` rather than being promoted. Already-resolved candidates are rejected. The operator's Confirm is the only path to promotion.
 ## MCP tools
 
 The read-only `executive_capture.brain_dump` tool accepts `text` and optional `captured_ids`, and returns `records`, `duplicates`, and `clarifications`. It never saves or stages records; reviewed records can be staged through `agent.capture_candidates`.
