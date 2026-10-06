@@ -4,12 +4,14 @@ from __future__ import annotations
 from . import (
     actions_applicant_compose,
     actions_applicant_decisions,
+    actions_brain_dump,
     actions_email,
     actions_openings,
     actions_executive,
     actions_items,
     actions_mail_organize,
     providers_applicants,
+    providers_brain_dump,
     providers_mail,
     providers_orchestrator,
     providers_projects,
@@ -36,6 +38,7 @@ def default_registry() -> registry.Registry:
         registry.register_provider("counties", providers_applicants.county_items)
         registry.register_provider("mail_cleanup", actions_mail_organize.mail_cleanup_items)
         registry.register_provider("projects", providers_projects.project_items)
+        registry.register_provider("brain_dump", providers_brain_dump.brain_dump_items)
 
         # Register actions
         actions_applicant_compose.register(registry.REGISTRY)
@@ -45,6 +48,7 @@ def default_registry() -> registry.Registry:
         actions_executive.register(registry.REGISTRY)
         actions_items.register(registry.REGISTRY)
         actions_mail_organize.register(registry.REGISTRY)
+        actions_brain_dump.register(registry.REGISTRY)
 
         # Attach the shared local Event Bus
         registry.REGISTRY.attach_event_bus(EventBus(DEFAULT_DIR))
