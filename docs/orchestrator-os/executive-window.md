@@ -67,6 +67,10 @@ The window's outstanding list is the Executive Queue (roadmap P3). `Registry.out
 
 `builtin.default_registry()` attaches the local Event Bus (`.agent-local/executive/events`, the log `agent-os executive route` reads). Each item is published once as a `task.created` event, deduplicated by provider and item id. The persisted payload holds identifiers only (queue item id, entity id, provider, item id, kind, tab), never titles, reasons or item text, which can contain applicant names or mail subjects. Publishing is best-effort: a failing Event Bus never changes the window.
 
+### Repeated deferrals
+
+Snoozing an item (`item.snooze`) publishes a `task.deferred` event to the local Event Bus. Its subject is the item's queue entity id, and its identifiers-only payload contains `entity_id`, `item_id`, `deferred_at`, and `until`; it contains no titles. `Registry.record_deferral` resolves the entity from the last outstanding or queue listing, and publishing is best-effort. The count of `task.deferred` events per entity supplies the queue item's `repeated_deferrals`, which is set only when the count is above 0. Items deferred at least `window_queue.DEFERRAL_THRESHOLD` (3) times show `deferrals: N` and a `why` prefixed with `Deferred N times`.
+
 ### Next item and explain
 
 `agent_os.executive.next_action` ranks the Executive Queue by priority (descending), then age_days (descending), then queue item id (ascending).
