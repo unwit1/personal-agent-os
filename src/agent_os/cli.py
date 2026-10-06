@@ -189,6 +189,8 @@ def _register_executive(commands) -> None:
     gaps.add_argument("--budget", type=int, default=1)
     gaps.add_argument("--min-score", type=float, default=0.2)
     gaps.add_argument("--asked-id", action="append", default=[])
+    gaps.add_argument("--enqueue", action="store_true")
+    gaps.add_argument("--tab", choices=["work", "personal"], default="personal")
 
 
 def _approval_state(batch: dict) -> dict:
@@ -359,8 +361,13 @@ def _dispatch_executive(args) -> int:
         values = _json_input(args.gaps_json)
         if not isinstance(values, list):
             raise ValueError("gaps must be a JSON list")
-        _print(knowledge_gaps.select_questions(values, budget=args.budget, min_score=args.min_score,
-                                               asked_ids=args.asked_id))
+        result = knowledge_gaps.select_questions(values, budget=args.budget, min_score=args.min_score,
+                                                 asked_ids=args.asked_id)
+        if args.enqueue:
+            from .executive.window.gap_store import GapStore
+
+            result["enqueued"] = GapStore().add(values, tab=args.tab)
+        _print(result)
     return 0
 
 
