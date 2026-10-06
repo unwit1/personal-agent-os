@@ -75,6 +75,12 @@ Snoozing an item (`item.snooze`) publishes a `task.deferred` event to the local 
 
 Dismiss (`item.dismiss`) publishes an identifiers-only `task.cancelled` event. A successful Confirm of a consequential action publishes `task.completed`. Snooze publishes `task.deferred` as described above; its deferral payload is unchanged. Each event payload is `{entity_id, item_id, status, changed_at}`, and its subject is the queue item's entity id. `window_queue.queue_statuses` gives each queue item its current `status`: the latest event wins, and an expired snooze returns to `queued`. Events are recorded only for items the window has collected in this session (best effort). The window's outstanding list is unchanged.
 
+### Queue item provenance
+
+`window_queue.item_provenance(queue_items, bus, item_id)` and `entity_history(bus, entity_id)` return an identifiers-only timeline of the item's Event Bus events in log order: `task.created`, `task.deferred` (including `until`), and `task.completed` / `task.cancelled` (including `status`). Each event includes `event_id`, `type`, `occurred_at`, `source`, and its persisted route decision (`route`, null until routed). The result also includes `queue_item_id`, `entity_id`, `provider`, `source`, current `status`, and `repeated_deferrals`. Titles and `why` text are never included.
+
+`agent-os executive history <item_id> [--tab work|personal]` and the read-only MCP tool `executive_window.history` (with `item_id` and optional `tab`) expose this history. It complements `executive explain`, which gives the ranking, by answering where an item came from and what has happened to it.
+
 ### Next item and explain
 
 `agent_os.executive.next_action` ranks the Executive Queue by priority (descending), then age_days (descending), then queue item id (ascending).
