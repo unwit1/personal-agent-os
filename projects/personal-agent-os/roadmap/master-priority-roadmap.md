@@ -1081,7 +1081,7 @@ Detailed design:
 
 ## P4 — Capture, memory refinement, and Rescue Mode
 
-Status: **in progress** (2026-10-06). Deterministic rule-based brain-dump
+Status: **complete for now** (2026-10-06); remaining inputs belong to later stages (calendar/commitments P6, voice P7, model-assisted extraction after the P1.3 routing decision). Earlier: **in progress** (2026-10-06). Deterministic rule-based brain-dump
 processing emits typed records, deduplicates repeated and already-captured
 items, and flags project-reference clarifications; brain-dump records can be
 staged with `--stage-candidates`. Knowledge gaps are scored and selected within
