@@ -695,7 +695,7 @@ class ContextFitTests(OrchestratorFixture):
         for _ in range(20):
             self.engine.step(small)
         self.assertEqual(self.engine.load(small)["nodes"]["a"]["selection"]["provider"], "tiny")  # fits: cheapest wins
-        big = self.create([self.task("b", goal="work on b. " + "Details that must be read carefully. " * 250, review_required=False)])
+        big = self.create([self.task("b", goal="work on b. " + "Details that must be read carefully. " * 150, review_required=False)])
         self.engine.start(big)
         for _ in range(20):
             self.engine.step(big)
