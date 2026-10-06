@@ -766,7 +766,7 @@ WINDOW_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": {"type": "object", "properties": {"tab": {"type": "string", "enum": ["work", "personal"]}}, "additionalProperties": False},
     },
     "executive_window.explain": {
-        "description": "Executive window: why an outstanding item ranks where it does (rank, priority, age, reason, provider/source). Read-only; local data only.",
+        "description": "Executive window: why an outstanding item ranks where it does (rank, priority, age, reason) and its provenance (provider, source, entity and identifiers-only Event Bus event ids, including the task.created event). Read-only; local data only.",
         "inputSchema": {"type": "object", "properties": {"item_id": {"type": "string"}, "tab": {"type": "string", "enum": ["work", "personal"]}}, "required": ["item_id"], "additionalProperties": False},
     },
     "executive_window.history": {
@@ -953,14 +953,14 @@ def _window_next(tab: str | None = None) -> dict[str, Any]:
     from .executive import next_action
 
     q = _window_queue(tab)
-    return {**next_action.next_item(q['queue_items']), 'errors': q['errors']}
+    return {**next_action.next_item(q['queue_items'], _routing_event_bus()), 'errors': q['errors']}
 
 
 def _window_explain(item_id: str, tab: str | None = None) -> dict[str, Any]:
     from .executive import next_action
 
     q = _window_queue(tab)
-    return {'item_id': item_id, 'explanation': next_action.explain(q['queue_items'], item_id), 'errors': q['errors']}
+    return {'item_id': item_id, 'explanation': next_action.explain(q['queue_items'], item_id, _routing_event_bus()), 'errors': q['errors']}
 
 
 def _window_history(item_id: str, tab: str | None = None) -> dict[str, Any]:
