@@ -75,6 +75,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "candidate.accept",
             "candidate.reject",
             "project.resume",
+            "project.set_next_action",
+            "project.resolve_decision",
         }
         self.assertEqual(action_ids, expected_actions)
 
