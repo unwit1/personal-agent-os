@@ -1081,6 +1081,21 @@ Detailed design:
 
 ## P4 — Capture, memory refinement, and Rescue Mode
 
+Status: **in progress** (2026-10-06). Deterministic rule-based brain-dump
+processing emits typed records, deduplicates repeated and already-captured
+items, and flags project-reference clarifications. Knowledge gaps are scored
+and selected within a budget with explanations; answers become staged memory
+candidates and are not promoted. Rescue Mode selects one concrete action, and
+compact project-resumption packets are available. The `executive brain-dump`,
+`gaps`, `rescue`, and `resume` CLI commands are implemented, including
+`--stage-candidates`.
+
+Current: The deterministic capture, gap selection, one-action rescue, compact
+resumption, and CLI slices are implemented. MCP exposure of these commands,
+calendar/commitment and voice inputs for rescue or brain dumps, model-assisted
+extraction, a persistent knowledge-gap queue, and candidate review/promotion
+UX remain open. Candidate memories are staged only; they are not promoted.
+
 Implement:
 - EXEC-2 Knowledge-Gap / Interview Engine;
 - EXEC-3 Brain Dump Processor;
