@@ -269,6 +269,22 @@ class ActionsItemsTests(unittest.TestCase):
             result = actions_items._snooze_item({"id": "p1"}, {"until": "2030-01-01T00:00:00+00:00"}, confirm=False)
         self.assertEqual(result, {"snoozed_until": "2030-01-01T00:00:00+00:00"})
 
+    def test_dismiss_records_cancelled_status(self):
+        registry = mock.Mock()
+        with mock.patch.object(window_registry, "REGISTRY", registry):
+            result = actions_items._dismiss_item({"id": "p1"}, {}, confirm=False)
+        self.assertEqual(result, {"dismissed": True})
+        registry.record_status.assert_called_once_with("p1", "cancelled")
+
+    def test_dismiss_succeeds_when_status_recording_fails(self):
+        registry = mock.Mock()
+        registry.record_status.side_effect = RuntimeError("event bus unavailable")
+        item_id = "dismiss-failure-item"
+        with mock.patch.object(window_registry, "REGISTRY", registry):
+            result = actions_items._dismiss_item({"id": item_id}, {}, confirm=False)
+        self.assertEqual(result, {"dismissed": True})
+        self.assertTrue(ItemState(self.tmp.name).is_hidden(item_id))
+
     def test_actions_are_registered(self):
         """All expected actions must be registered."""
         actions = {a["id"] for a in self.registry.actions()}
