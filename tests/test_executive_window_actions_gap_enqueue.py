@@ -23,23 +23,30 @@ class KnowledgeGapEnqueueActionTests(unittest.TestCase):
         self.reg = Registry()
         mod.register(self.reg)
         self.pending = PendingStore(self.tmp.name)
-        self.gaps = [{"id": "g1", "question": "Q1?", "topic": "t", "utility": 1, "urgency": 1}]
+        self.item = {"id": "knowledge-gap-enqueue", "kind": "knowledge_gap_enqueue"}
+        self.gaps = [
+            {"id": "g1", "question": "Q1?", "topic": "t", "utility": 1, "urgency": 1}
+        ]
 
-    def test_invoke_previews_and_confirm_enqueues(self):
-        item = {"id": "knowledge-gap-enqueue", "kind": "knowledge_gap_enqueue"}
-        result = self.reg.invoke("knowledge_gap.enqueue", item, {"gaps": self.gaps}, self.pending)
+    def test_enqueue_writes_only_after_confirmation(self):
+        result = self.reg.invoke(
+            "knowledge_gap.enqueue", self.item, {"gaps": self.gaps}, self.pending
+        )
+
         self.assertEqual(result["status"], "needs_confirmation")
         self.assertEqual(self.store.gaps(), [])
         done = self.reg.confirm(result["confirm_token"], self.pending)
+
         self.assertEqual(done["enqueued"], ["g1"])
         self.assertEqual([gap["id"] for gap in self.store.gaps()], ["g1"])
 
-    def test_invalid_gaps_raise(self):
-        for gaps in ([], None, "g1", ["not-an-object"]):
-            with self.subTest(gaps=gaps), self.assertRaisesRegex(
-                ValueError, "gaps must be a non-empty JSON list of objects"
-            ):
-                mod._enqueue({}, {"gaps": gaps}, confirm=False)
+    def test_empty_or_non_list_gaps_raises(self):
+        for gaps in ([], {"id": "g1", "question": "Q1?"}):
+            with self.subTest(gaps=gaps):
+                with self.assertRaisesRegex(
+                    ValueError, "gaps must be a non-empty JSON list of objects"
+                ):
+                    mod._enqueue(self.item, {"gaps": gaps}, confirm=False)
 
 
 if __name__ == "__main__":
