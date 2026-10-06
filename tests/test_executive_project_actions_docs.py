@@ -58,6 +58,12 @@ class TestExecutiveProjectActionsDocumentation(unittest.TestCase):
         content = EXEC_PROJECT_ACTIONS_DOC.read_text(encoding="utf-8")
         self.assertIn("decisions_needed", content)
 
+    def test_doc_describes_executive_window_actions(self):
+        """The documentation describes project window actions and confirmed writes."""
+        content = EXEC_PROJECT_ACTIONS_DOC.read_text(encoding="utf-8")
+        for term in ("project.set_next_action", "project.resolve_decision", "decisions_resolved", "Confirm"):
+            self.assertIn(term, content)
+
     def test_doc_contains_delegable_work(self):
         """The documentation should mention delegable_work field."""
         content = EXEC_PROJECT_ACTIONS_DOC.read_text(encoding="utf-8")
