@@ -15,6 +15,7 @@ Project state (typically from `projects/*/state.json`) contains these optional f
 - **decisions_needed**: List of decisions the project owner/user must make. Requires user involvement.
 - **delegable_work**: List of work agents can execute without user input (e.g., "Write unit tests", "Update documentation").
 - **updated_at**: ISO 8601 timestamp of last state update. Used to calculate age and detect staleness.
+- **deferrals**: Number of times Executive window items for this project have been snoozed.
 
 ## Next Action Synthesis
 
@@ -27,6 +28,7 @@ Project state (typically from `projects/*/state.json`) contains these optional f
 - **suggested_next_action**: None unless `next_action` is vague; otherwise the first concrete (non-vague) entry from `current_priorities`, then `delegable_work`.
 - List fields (**blockers**, **waiting_on**, **decisions_needed**, **delegable_work**) are filtered to remove non-strings and whitespace-only entries.
 - **age_days** is calculated from `updated_at` as the number of days since that date (relative to `today`). Non-parseable dates result in None.
+- **deferrals** is the project snooze count, supplied as an input by the project integration and defaulting to 0 when unavailable; it is included in the synthesized result.
 
 ### Fallback Rules
 
@@ -43,6 +45,7 @@ Flags are generated based on the extracted state and are always sorted alphabeti
 - **blocked**: Set if either `blockers` or `waiting_on` is non-empty. Indicates active blockers or dependencies.
 - **needs_decision**: Set if `decisions_needed` is non-empty. Indicates decisions awaiting the project owner/user.
 - **vague_next_action**: Set when the chosen `next_action` is a placeholder in `VAGUE_ACTIONS` or a short “work on / continue with / look into ... X” phrase (prefix plus at most 3 words), as decided by `is_vague_action()`.
+- **repeatedly_deferred**: Set when the project's `deferrals` count is greater than or equal to `REPEATED_DEFERRAL_THRESHOLD` (3).
 
 ## Decisions vs. Delegable Work
 
@@ -53,14 +56,16 @@ A project with items in `delegable_work` but no `decisions_needed` is unblocked 
 
 ## Scanning Projects
 
-`scan(states, *, today, stale_days=30, include_inactive=False)` scans a list of project states and returns aggregated results:
+`scan(states, *, today, stale_days=30, include_inactive=False, deferrals=None)` scans a list of project states and returns aggregated results:
 
 - **include_inactive**: If False (default), only projects with `status == "active"` are scanned. If True, all projects are included.
+- **deferrals**: Optional mapping of project ids to snooze counts; missing ids default to 0.
 - **projects**: List of results from `project_next_action` for each scanned project, sorted by project id.
 - **stalled**: List of project ids with the `stalled` flag set.
 - **no_next_action**: List of project ids with the `no_next_action` flag set.
 - **needs_decision**: List of project ids with the `needs_decision` flag set.
 - **vague_next_action**: List of project ids with the `vague_next_action` flag set.
+- **repeatedly_deferred**: List of project ids with the `repeatedly_deferred` flag set.
 - **stale_days**: The threshold used for staleness detection.
 
 The scan result allows quick identification of projects in specific conditions (e.g., all stalled projects, all projects awaiting decisions).
@@ -105,8 +110,6 @@ Get the next action and full synthesized metadata for a specific project.
 
 Scan projects and return aggregated status.
 
-## Open
+## Repeated Deferrals
 
-Not yet implemented:
-
-- **Repeated-deferral detection**: Tracking and alerting when a project is repeatedly deferred without progress (no update for multiple scan cycles). This needs a deferral-history source (for example routed `defer` events or a state field), which is not yet decided.
+Deferral counts come from identifiers-only `task.deferred` Event Bus events published when Executive window items are snoozed. `window_queue.project_deferral_counts` sums these events per project using window item ids of the form `project:<pid>:...`. The `project-next` and `project-scan` CLI commands and the `executive_projects.next` and `executive_projects.scan` MCP tools apply these counts automatically, falling back to 0 when the event log is unavailable.

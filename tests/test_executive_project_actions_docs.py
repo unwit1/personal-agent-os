@@ -70,12 +70,11 @@ class TestExecutiveProjectActionsDocumentation(unittest.TestCase):
         self.assertIn("suggested_next_action", content)
         self.assertIn("is_vague_action", content)
 
-    def test_open_section_keeps_repeated_deferral(self):
-        """Repeated deferral remains open and identifies its undecided data source."""
+    def test_doc_describes_repeated_deferrals(self):
+        """The documentation explains repeated deferral counts and their source."""
         content = EXEC_PROJECT_ACTIONS_DOC.read_text(encoding="utf-8")
-        open_section = content.split("## Open", 1)[1]
-        self.assertIn("Repeated-deferral", open_section)
-        self.assertIn("deferral-history source", open_section)
+        for term in ("repeatedly_deferred", "REPEATED_DEFERRAL_THRESHOLD", "project_deferral_counts", "task.deferred"):
+            self.assertIn(term, content)
 
     def test_executive_window_links_to_project_actions_doc(self):
         """executive-window.md should link to executive-project-actions.md."""

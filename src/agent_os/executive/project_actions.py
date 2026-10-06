@@ -11,6 +11,7 @@ from datetime import date
 from typing import Any
 
 STALE_DAYS_DEFAULT = 30
+REPEATED_DEFERRAL_THRESHOLD = 3
 VAGUE_ACTIONS = frozenset({'tbd', 'todo', 'n/a', 'none', 'continue', 'keep going', 'next steps', 'work on it', 'progress', 'misc', 'various'})
 _VAGUE_PREFIX = re.compile(r'^(work on|continue working on|continue with|continue on|keep working on|make progress on|progress on|look into|think about)\s+\S+(\s+\S+){0,2}$')
 
@@ -45,7 +46,13 @@ def is_vague_action(text: str) -> bool:
     return False
 
 
-def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAYS_DEFAULT) -> dict:
+def project_next_action(
+    state: dict,
+    *,
+    today: date,
+    stale_days: int = STALE_DAYS_DEFAULT,
+    deferrals: int = 0,
+) -> dict:
     """Extract and synthesize next action metadata from project state.
 
     Args:
@@ -54,17 +61,21 @@ def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAY
             delegable_work, updated_at
         today: Reference date for age_days calculation
         stale_days: Threshold for stalled flag
+        deferrals: Number of times the project has been deferred; invalid values become 0
 
     Returns:
         Dict with project, status, goal, current_state, next_action, next_action_source,
         blockers, waiting_on, decisions_needed, delegable_work, updated_at, age_days, flags,
-        and suggested_next_action (when vague_next_action flag is set).
+        suggested_next_action (when vague_next_action flag is set), and deferrals.
 
     Raises:
         TypeError: if state is not a dict
     """
     if not isinstance(state, dict):
         raise TypeError(f"state must be dict, got {type(state).__name__}")
+
+    if isinstance(deferrals, bool) or not isinstance(deferrals, int) or deferrals < 0:
+        deferrals = 0
 
     project = state.get("project")
     status = state.get("status")
@@ -126,6 +137,8 @@ def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAY
         flags.append("blocked")
     if decisions_needed:
         flags.append("needs_decision")
+    if deferrals >= REPEATED_DEFERRAL_THRESHOLD:
+        flags.append("repeatedly_deferred")
 
     suggested_next_action = None
     if next_action is not None and is_vague_action(next_action):
@@ -158,6 +171,7 @@ def project_next_action(state: dict, *, today: date, stale_days: int = STALE_DAY
         "updated_at": updated_at,
         "age_days": age_days,
         "flags": flags,
+        "deferrals": deferrals,
         "suggested_next_action": suggested_next_action,
     }
 
@@ -168,6 +182,7 @@ def scan(
     today: date,
     stale_days: int = STALE_DAYS_DEFAULT,
     include_inactive: bool = False,
+    deferrals: dict | None = None,
 ) -> dict:
     """Scan project states and return summary with activity flags.
 
@@ -176,6 +191,7 @@ def scan(
         today: Reference date for age_days calculation
         stale_days: Threshold for stalled flag
         include_inactive: If False, filter to status == 'active' only
+        deferrals: Optional mapping of project ids to deferral counts
 
     Returns:
         Dict with 'projects' (sorted list of project_next_action results),
@@ -183,6 +199,7 @@ def scan(
         'no_next_action' (list of project ids flagged no_next_action),
         'needs_decision' (list of project ids flagged needs_decision),
         'vague_next_action' (list of project ids flagged vague_next_action),
+        'repeatedly_deferred' (list of project ids flagged repeatedly_deferred),
         'stale_days' (threshold used)
     """
     projects_to_scan = []
@@ -194,7 +211,12 @@ def scan(
         projects_to_scan.append(state)
 
     project_results = [
-        project_next_action(state, today=today, stale_days=stale_days)
+        project_next_action(
+            state,
+            today=today,
+            stale_days=stale_days,
+            deferrals=(deferrals or {}).get(state.get("project"), 0),
+        )
         for state in projects_to_scan
     ]
 
@@ -204,6 +226,7 @@ def scan(
     no_next_action = [p["project"] for p in project_results if "no_next_action" in p["flags"]]
     needs_decision = [p["project"] for p in project_results if "needs_decision" in p["flags"]]
     vague_next_action = [p["project"] for p in project_results if "vague_next_action" in p["flags"]]
+    repeatedly_deferred = [p["project"] for p in project_results if "repeatedly_deferred" in p["flags"]]
 
     return {
         "projects": project_results,
@@ -211,5 +234,6 @@ def scan(
         "no_next_action": no_next_action,
         "needs_decision": needs_decision,
         "vague_next_action": vague_next_action,
+        "repeatedly_deferred": repeatedly_deferred,
         "stale_days": stale_days,
     }

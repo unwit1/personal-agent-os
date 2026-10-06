@@ -15,6 +15,35 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agent_os.executive import contracts, event_bus, window_queue
 
 
+class TestProjectDeferralCounts(unittest.TestCase):
+    """Tests for counting deferrals by project item id."""
+
+    class FakeBus:
+        def __init__(self, events: list[dict]) -> None:
+            self._events = events
+
+        def events(self, event_type: str | None = None) -> list[dict]:
+            if event_type is None:
+                return list(self._events)
+            return [event for event in self._events if event.get("type") == event_type]
+
+    def test_none_bus_returns_empty(self) -> None:
+        self.assertEqual(window_queue.project_deferral_counts(None), {})
+
+    def test_counts_project_item_deferrals_and_ignores_other_events(self) -> None:
+        bus = self.FakeBus([
+            {"type": "task.deferred", "payload": {"item_id": "project:alpha:stalled"}},
+            {"type": "task.deferred", "payload": {"item_id": "project:alpha:stalled"}},
+            {"type": "task.deferred", "payload": {"item_id": "project:alpha:decision:abc123"}},
+            {"type": "task.deferred", "payload": {"item_id": "mail:xyz"}},
+            {"type": "task.deferred", "payload": {"item_id": "project:"}},
+            {"type": "task.deferred", "payload": None},
+            {"type": "task.cancelled", "payload": {"item_id": "project:alpha:stalled"}},
+        ])
+
+        self.assertEqual(window_queue.project_deferral_counts(bus), {"alpha": 3})
+
+
 class TestQueueItemFromWindowItem(unittest.TestCase):
     """Tests for queue_item_from_window_item conversion."""
 

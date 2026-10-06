@@ -227,3 +227,23 @@ def deferral_counts(bus: Any) -> dict[str, int]:
         if isinstance(subject, str) and subject:
             counts[subject] = counts.get(subject, 0) + 1
     return counts
+
+
+def project_deferral_counts(bus: Any) -> dict[str, int]:
+    """Count task deferrals by project id from project window item ids."""
+    if bus is None:
+        return {}
+
+    counts: dict[str, int] = {}
+    for event in bus.events(event_type="task.deferred"):
+        payload = event.get("payload", {})
+        if not isinstance(payload, dict):
+            continue
+        item_id = payload.get("item_id")
+        if not isinstance(item_id, str):
+            continue
+        parts = item_id.split(":", 2)
+        if len(parts) != 3 or parts[0] != "project" or not parts[1]:
+            continue
+        counts[parts[1]] = counts.get(parts[1], 0) + 1
+    return counts
