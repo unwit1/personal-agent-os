@@ -126,6 +126,7 @@ const Executive = (() => {
   function handleActResult(response, actionId) {
     if (!response) return;
     if (response.message) addChatMessage('agent', response.message);
+    if (actionId === 'project.resume' && response.result && response.result.packet) renderResume(response.result.packet);
     const compose = findCompose(response);
     if (compose) showCompose(compose);
     const preview = findPreview(response);
@@ -543,7 +544,7 @@ const Executive = (() => {
         btn.className = option.consequential ? 'option-consequential' : '';
         btn.textContent = option.label;
         btn.addEventListener('click', () => {
-          if (option.action_id === 'brain_dump.stage_candidate') {
+          if (option.action_id === 'brain_dump.stage_candidate' || option.action_id === 'project.resume') {
             runAction(item, option.action_id, {}).then(loadItems).catch(() => { /* error already shown */ });
           } else {
             handleOptionClick(item, option);
@@ -812,6 +813,35 @@ const Executive = (() => {
 
   function activeTab() {
     return document.getElementById('tab-personal').getAttribute('aria-selected') === 'true' ? 'personal' : 'work';
+  }
+
+  function renderResume(packet) {
+    const lines = [];
+    const addField = (label, value) => {
+      if (value !== null && value !== undefined && value !== '') lines.push(label + value);
+    };
+    const project = packet.project;
+    const status = packet.status;
+    if (project !== null && project !== undefined && project !== '' && status !== null && status !== undefined && status !== '') {
+      lines.push('Resume ' + project + ' (' + status + ')');
+    } else if (project !== null && project !== undefined && project !== '') {
+      lines.push('Resume ' + project);
+    }
+    addField('Goal: ', packet.goal);
+    addField('Where you left off: ', packet.where_you_left_off);
+    if (packet.next_action !== null && packet.next_action !== undefined && packet.next_action !== '') {
+      const source = packet.next_action_source;
+      const hasSource = source !== null && source !== undefined && source !== '';
+      lines.push('Next action: ' + packet.next_action + (hasSource ? ' [' + source + ']' : ''));
+    }
+    const loops = packet.open_loops || {};
+    [['blockers', 'Blockers: '], ['waiting_on', 'Waiting on: '], ['decisions_needed', 'Decisions: ']].forEach(([key, label]) => {
+      const values = Array.isArray(loops[key]) ? loops[key].filter(value => value !== null && value !== undefined && value !== '') : [];
+      if (values.length) lines.push(label + values.join('; '));
+    });
+    if (typeof packet.age_days === 'number') lines.push('Age: ' + packet.age_days + ' days');
+    if (packet.truncated === true) lines.push('(truncated)');
+    if (lines.length) addChatMessage('agent', lines.join('\n'));
   }
 
   function renderRescue(result, items) {
