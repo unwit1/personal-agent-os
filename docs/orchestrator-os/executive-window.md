@@ -103,6 +103,7 @@ The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, 
 
 - `project_decision` (score 3): decision needed for the project
 - `project_stalled` (score 2): project has not been updated in the configured stale-days threshold
+- `project_repeatedly_deferred` (score 2): project items have been snoozed at least 3 times (`project_actions.REPEATED_DEFERRAL_THRESHOLD`), counted per project from identifiers-only `task.deferred` events via `window_queue.project_deferral_counts`. The provider reads the attached Event Bus on a best-effort basis and treats an unavailable log as 0 deferrals; it emits at most one such item per project.
 - `project_no_next_action` (score 1): project has no next action or current priority recorded
 
 Each item's `why` field contains the reason. Items appear on the work tab by default; a registry entry with `"tab": "personal"` places them on the personal tab instead.

@@ -87,6 +87,12 @@ class TestExecutiveProjectActionsDocumentation(unittest.TestCase):
         content = EXEC_WINDOW_DOC.read_text(encoding="utf-8")
         self.assertIn("executive-project-actions.md", content)
 
+    def test_both_docs_describe_repeatedly_deferred_window_item(self):
+        """Both documents should describe the repeatedly deferred project item."""
+        for doc in (EXEC_WINDOW_DOC, EXEC_PROJECT_ACTIONS_DOC):
+            content = doc.read_text(encoding="utf-8")
+            self.assertIn("project_repeatedly_deferred", content)
+
 
 if __name__ == "__main__":
     unittest.main()
