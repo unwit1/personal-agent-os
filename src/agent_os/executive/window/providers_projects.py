@@ -11,12 +11,14 @@ def project_items(
     load_projects: Callable[[], list[tuple[dict, dict]]] | None = None,
     today: date | None = None,
     stale_days: int | None = None,
+    deferral_counts: Callable[[], dict[str, int]] | None = None,
 ) -> list[dict[str, Any]]:
     """Return outstanding items for active projects with flags.
 
     For each active project (status == "active"), derive next action, blockers,
     and flags via project_next_action(); emit items for decisions_needed, stalled,
-    no_next_action, and vague_next_action flags, in that priority order per project.
+    no_next_action, vague_next_action, and repeatedly_deferred flags. Deferral
+    counts may be provided by deferral_counts; repeated deferrals emit a project item.
 
     Args:
         load_projects: Callable returning list of (registry_entry, state) tuples.
@@ -24,6 +26,8 @@ def project_items(
             loads state_file for each, and skips any entry whose load raises.
         today: Reference date for age_days calculation. Defaults to date.today().
         stale_days: Threshold for stalled flag. Defaults to STALE_DAYS_DEFAULT.
+        deferral_counts: Callable returning project deferral counts. Defaults to
+            counts from the local Event Bus, with failures treated as no counts.
 
     Returns:
         List of dicts (project queue items) with id, kind, title, why, score, tab,
@@ -37,6 +41,14 @@ def project_items(
         today = date.today()
     if stale_days is None:
         stale_days = project_actions.STALE_DAYS_DEFAULT
+    if deferral_counts is None:
+        deferral_counts = _default_deferral_counts
+    try:
+        counts = deferral_counts()
+        if not isinstance(counts, dict):
+            counts = {}
+    except Exception:
+        counts = {}
 
     items: list[dict[str, Any]] = []
     projects_by_pid: dict[str, tuple[dict, dict]] = {}
@@ -55,7 +67,9 @@ def project_items(
         name = registry_entry.get("name") or pid
         tab = "personal" if registry_entry.get("tab") == "personal" else "work"
 
-        result = project_actions.project_next_action(state, today=today, stale_days=stale_days)
+        result = project_actions.project_next_action(
+            state, today=today, stale_days=stale_days, deferrals=counts.get(pid, 0)
+        )
         flags = result.get("flags", [])
         age_days = result.get("age_days")
 
@@ -87,6 +101,23 @@ def project_items(
                     "why": f"No update in {age_days} days (stalled after {stale_days})"
                     if isinstance(age_days, int)
                     else f"Stalled after {stale_days} days",
+                    "score": 2,
+                    "tab": tab,
+                    "source": f"Project {pid}",
+                    "context": {"project": pid},
+                    **({"age_days": age_days} if isinstance(age_days, int) else {}),
+                }
+            )
+
+        # Repeatedly deferred project item (score 2).
+        if "repeatedly_deferred" in flags:
+            n = result.get("deferrals")
+            items.append(
+                {
+                    "id": f"project:{pid}:repeatedly-deferred",
+                    "kind": "project_repeatedly_deferred",
+                    "title": f"{name} keeps getting deferred",
+                    "why": f"Deferred {n} times; record a concrete next step or drop it",
                     "score": 2,
                     "tab": tab,
                     "source": f"Project {pid}",
@@ -136,6 +167,17 @@ def project_items(
     return items
 
 
+def _default_deferral_counts() -> dict[str, int]:
+    """Return per-project deferral counts from the local Event Bus, if available."""
+    try:
+        from agent_os.executive import window_queue
+        from agent_os.executive.window import registry
+
+        return window_queue.project_deferral_counts(registry.REGISTRY.event_bus)
+    except Exception:
+        return {}
+
+
 def _load_projects() -> list[tuple[dict, dict]]:
     """Default load_projects: canonical projects with loaded state.
 
@@ -158,5 +200,4 @@ def _load_projects() -> list[tuple[dict, dict]]:
         except Exception:
             continue
     return projects
-
 

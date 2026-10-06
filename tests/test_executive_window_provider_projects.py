@@ -159,6 +159,48 @@ class ProjectItemsTests(unittest.TestCase):
         items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
         self.assertFalse(any(i["kind"] == "project_vague_next_action" for i in items))
 
+    def test_repeatedly_deferred_project_emits_item_at_threshold(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="Write release notes")
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {"p1": 3},
+        )
+        deferred = [i for i in items if i["kind"] == "project_repeatedly_deferred"]
+        self.assertEqual(len(deferred), 1)
+        self.assertEqual(deferred[0]["score"], 2)
+        self.assertTrue(deferred[0]["why"].startswith("Deferred 3 times"))
+
+    def test_repeatedly_deferred_below_threshold_emits_no_item(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="Write release notes")
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {"p1": 2},
+        )
+        self.assertFalse(any(i["kind"] == "project_repeatedly_deferred" for i in items))
+
+    def test_failing_deferral_counts_matches_no_deferrals(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="Write release notes")
+        load = lambda: [(entry, state)]
+        expected = project_items(load, today=date(2026, 10, 5), deferral_counts=lambda: {})
+
+        def fail():
+            raise RuntimeError("event bus unavailable")
+
+        actual = project_items(load, today=date(2026, 10, 5), deferral_counts=fail)
+        self.assertEqual(actual, expected)
+
+    def test_deferrals_for_other_project_do_not_affect_project(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="Write release notes")
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {"other": 3},
+        )
+        self.assertFalse(any(i["kind"] == "project_repeatedly_deferred" for i in items))
+
     def test_vague_next_action_respects_personal_tab(self):
         entry = self._make_registry_entry(tab="personal")
         state = self._make_state(next_action="Work on project X")
@@ -419,4 +461,3 @@ class ProjectItemsTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
