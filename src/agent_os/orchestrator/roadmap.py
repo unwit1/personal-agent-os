@@ -80,7 +80,11 @@ def classify(section: str) -> tuple[str, str | None]:
             status_line = line.strip()
             break
     if status_line:
-        text = status_line.casefold()
+        # The bold phrase is the status ("**in progress**", "**on hold**");
+        # the rest of the line is description, which may mention words like
+        # "deferral" or "complete" about parts of the stage.
+        bold = re.search(r"\*\*(.+?)\*\*", status_line)
+        text = (bold.group(1) if bold else status_line).casefold()
         if "deferred" in text or "on hold" in text:
             return "deferred", status_line
         if "foundation" in text or "partial" in text or "steps " in text:
