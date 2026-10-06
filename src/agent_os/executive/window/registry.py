@@ -14,33 +14,38 @@ class Registry:
         self._providers: dict[str, Callable[[], list[dict[str, Any]]]] = {}
         self._actions: dict[str, dict[str, Any]] = {}
         self.event_bus: Any = None
-        self._entity_ids: dict[str, str] = {}
+        # Window item id -> queue entity ids. Item ids are the window's identity
+        # (dismiss/snooze state is keyed by them), so an id two providers both
+        # emit maps to both entities and lifecycle events are recorded for each.
+        self._entity_ids: dict[str, list[str]] = {}
 
     def attach_event_bus(self, bus: Any) -> None:
         """Publish every provider item to this Event Bus as an EXEC-0 queue item."""
         self.event_bus = bus
 
     def record_deferral(self, item_id: str, until: str | None = None) -> dict[str, Any] | None:
-        """Record a deferral for a window item seen during collection."""
+        """Record a deferral for a window item seen during collection.
+
+        Returns the first published event, or None if the item is unknown."""
         if self.event_bus is None:
             return None
-        entity_id = self._entity_ids.get(str(item_id))
-        if entity_id is None:
-            return None
-        event, _ = window_queue.publish_deferral(self.event_bus, entity_id, str(item_id), until=until)
-        return event
+        events = [
+            window_queue.publish_deferral(self.event_bus, entity_id, str(item_id), until=until)[0]
+            for entity_id in self._entity_ids.get(str(item_id), [])
+        ]
+        return events[0] if events else None
 
     def record_status(self, item_id: str, status: str) -> dict[str, Any] | None:
-        """Record a completion or cancellation for a collected window item."""
+        """Record a completion or cancellation for a collected window item.
+
+        Returns the first published event, or None if the item is unknown."""
         if self.event_bus is None:
             return None
-        entity_id = self._entity_ids.get(str(item_id))
-        if entity_id is None:
-            return None
-        event, _ = window_queue.publish_status_change(
-            self.event_bus, entity_id, str(item_id), status
-        )
-        return event
+        events = [
+            window_queue.publish_status_change(self.event_bus, entity_id, str(item_id), status)[0]
+            for entity_id in self._entity_ids.get(str(item_id), [])
+        ]
+        return events[0] if events else None
 
     def register_provider(self, name: str, fn: Callable[[], list[dict[str, Any]]]) -> None:
         self._providers[name] = fn
@@ -106,7 +111,9 @@ class Registry:
                     queue_item = None  # shown unchanged, just not queued
                 if queue_item is not None:
                     item_id = str(raw.get("id"))
-                    self._entity_ids.setdefault(item_id, queue_item["entity_id"])
+                    entity_ids = self._entity_ids.setdefault(item_id, [])
+                    if queue_item["entity_id"] not in entity_ids:
+                        entity_ids.append(queue_item["entity_id"])
                     count = counts.get(queue_item["entity_id"], 0)
                     if count > 0:
                         queue_item["repeated_deferrals"] = count

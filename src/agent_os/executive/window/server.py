@@ -146,14 +146,12 @@ class Api:
             text = str(_first(body, "text", "message") or "").strip()
             if not text:
                 raise ValueError("text is required")
-            tab = body.get("tab") if body.get("tab") in ("work", "personal") else "work"
             from .brain_dump_store import BrainDumpStore
-
-            store = BrainDumpStore(self.home)
             from agent_os.executive import brain_dump
 
+            store = BrainDumpStore(self.home)
             result = brain_dump.process(text, known_projects=_known_projects(), existing_ids=store.existing_ids())
-            added = store.add(result, tab=tab)
+            added = store.add(result, tab=body.get("tab"))  # the store falls back to "work"
             return {**result, "added": added, "refresh": True,
                     "message": f"Captured {len(added)} item(s); {len(result['clarifications'])} need a project; {len(result['duplicates'])} duplicate(s)."}
         if path == "/api/pending":

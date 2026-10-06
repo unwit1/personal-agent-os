@@ -61,6 +61,18 @@ class RegistryDeferralTests(unittest.TestCase):
         self.assertEqual(item["deferrals"], 3)
         self.assertTrue(item["why"].startswith("Deferred 3 times; waiting on review"))
 
+    def test_same_item_id_from_two_providers_defers_both_entities(self) -> None:
+        reg = Registry()
+        reg.register_provider("a", lambda: [{"id": "dup", "kind": "task", "title": "A"}])
+        reg.register_provider("b", lambda: [{"id": "dup", "kind": "task", "title": "B"}])
+        reg.attach_event_bus(self.bus)
+        entity_ids = {qi["entity_id"] for qi in reg.queue()["queue_items"]}
+        self.assertEqual(len(entity_ids), 2)
+        reg.record_deferral("dup")
+        reg.record_status("dup", "cancelled")
+        self.assertEqual(window_queue.deferral_counts(self.bus), {entity_id: 1 for entity_id in entity_ids})
+        self.assertEqual(window_queue.queue_statuses(self.bus), {entity_id: "cancelled" for entity_id in entity_ids})
+
     def test_record_deferral_without_bus_returns_none(self) -> None:
         reg = Registry()
         reg.register_provider("work", lambda: [{"id": "x1", "kind": "task", "title": "Do task"}])

@@ -1,6 +1,6 @@
 # EXEC-1 Per-Project Next Action Engine
 
-The per-project Next Action Engine synthesizes next action metadata from project state, ranking and scanning projects by goal, priorities, blockers, and decisional status.
+The per-project Next Action Engine (`src/agent_os/executive/project_actions.py`) derives next-action metadata and status flags from each project's state, and scans all registered projects to list those that are stalled, blocked, waiting on a decision, or missing a concrete next action.
 
 ## Project State Fields
 
@@ -16,7 +16,8 @@ Project state (typically from `projects/*/state.json`) contains these optional f
 - **decisions_resolved**: Optional list of resolved decisions, each recorded with its decision text, resolution, and resolution date.
 - **delegable_work**: List of work agents can execute without user input (e.g., "Write unit tests", "Update documentation").
 - **updated_at**: ISO 8601 timestamp of last state update. Used to calculate age and detect staleness.
-- **deferrals**: Number of times Executive window items for this project have been snoozed.
+
+The project's snooze count (`deferrals`) is not a state field: callers pass it in, derived from Event Bus events (see Repeated Deferrals).
 
 ## Next Action Synthesis
 
@@ -26,10 +27,14 @@ Project state (typically from `projects/*/state.json`) contains these optional f
 - **current_state** is extracted as a single string. Whitespace-only values are treated as None.
 - **next_action** is extracted from the `next_action` field. If not present or empty, the function uses the first non-empty entry from `current_priorities`.
 - **next_action_source** indicates where `next_action` came from: `"next_action"`, `"current_priorities"`, or None if neither is available.
-- **suggested_next_action**: None unless `next_action` is vague; otherwise the first concrete (non-vague) entry from `current_priorities`, then `delegable_work`.
+- **suggested_next_action**: see Suggested Next Action below.
 - List fields (**blockers**, **waiting_on**, **decisions_needed**, **delegable_work**) are filtered to remove non-strings and whitespace-only entries.
-- **age_days** is calculated from `updated_at` as the number of days since that date (relative to `today`). Non-parseable dates result in None.
+- **age_days** is calculated from the first 10 characters of `updated_at` (`YYYY-MM-DD`, so a bare date is accepted) as the number of days since that date, relative to `today`. Non-parseable dates result in None; a future date gives a negative value.
 - **deferrals** is the project snooze count, supplied as an input by the project integration and defaulting to 0 when unavailable; it is included in the synthesized result.
+
+### Suggested Next Action
+
+`suggested_next_action` is None unless the chosen `next_action` is vague (see `vague_next_action` below). For a vague next action it is the first concrete (non-vague) entry from `current_priorities`, then from `delegable_work`, or None if neither has one. The suggestion is reported only; nothing writes it to state.
 
 ### Fallback Rules
 
@@ -53,13 +58,13 @@ Flags are generated based on the extracted state and are always sorted alphabeti
 - **decisions_needed**: Items requiring user decision-making. The project is waiting on the user to make a choice (e.g., "Should we rewrite the API?" or "Which platform should we target?").
 - **delegable_work**: Work agents can execute autonomously without user involvement (e.g., "Write unit tests", "Refactor logging").
 
-A project with items in `delegable_work` but no `decisions_needed` is unblocked for agent execution. A project with `decisions_needed` is waiting for user input.
+`delegable_work` is reported as recorded; the engine does not compute whether a project can proceed without the user. A project with `decisions_needed` gets the `needs_decision` flag.
 
 ## Scanning Projects
 
 `scan(states, *, today, stale_days=30, include_inactive=False, deferrals=None)` scans a list of project states and returns aggregated results:
 
-- **include_inactive**: If False (default), only projects with `status == "active"` are scanned. If True, all projects are included.
+- **include_inactive**: If False (default), only projects with `status == "active"` are scanned. If True, all projects are included. Entries that are not dicts are skipped.
 - **deferrals**: Optional mapping of project ids to snooze counts; missing ids default to 0.
 - **projects**: List of results from `project_next_action` for each scanned project, sorted by project id.
 - **stalled**: List of project ids with the `stalled` flag set.
@@ -87,8 +92,10 @@ Arguments:
 - `<project>`: Project identifier (e.g., `personal-agent-os`).
 
 Options:
-- `--stale-days`: Staleness threshold.
-- `--today`: Reference date for age calculation.
+- `--stale-days N`: Staleness threshold in days (default 30, `STALE_DAYS_DEFAULT`).
+- `--today YYYY-MM-DD`: Reference date for age calculation (default: today).
+
+Prints the `project_next_action` result as JSON, including the project's deferral count.
 
 ### `agent-os executive project-scan [--all]`
 
@@ -96,8 +103,10 @@ Scan all active projects (or all projects with `--all`) and return aggregated st
 
 Options:
 - `--all`: Include inactive projects.
-- `--stale-days`: Staleness threshold.
-- `--today`: Reference date for age calculation.
+- `--stale-days N`: Staleness threshold in days (default 30).
+- `--today YYYY-MM-DD`: Reference date for age calculation (default: today).
+
+Prints the `scan` result plus `errors` for projects whose state could not be loaded. Registry entries without a `state_file` are skipped.
 
 ## MCP Tools
 
@@ -105,18 +114,18 @@ The per-project Next Action Engine is exposed to Claude models through read-only
 
 ### `executive_projects.next`
 
-Get the next action and full synthesized metadata for a specific project.
+Parameters: `project` (required), optional `stale_days`. Returns the same result as `project-next`, for today's date. An unknown project or one without a state file is an error.
 
 ### `executive_projects.scan`
 
-Scan projects and return aggregated status.
+Parameters: optional `stale_days` and `include_inactive`. Returns the same result as `project-scan`, including `errors`, for today's date.
 
 ## Executive Window Actions
 
 Project actions in the Executive window are available through the window registry's preview/Confirm flow. Both state-changing actions below write only through this flow.
 
-- **`project.resume`**: Returns a read-only resumption packet for the project; available for `stalled`, `no_next_action`, `vague_next_action`, and `repeatedly_deferred` items.
-- **`project.set_next_action`**: Available for `stalled`, `no_next_action`, `vague_next_action`, and `repeatedly_deferred` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
+- **`project.resume`**: Returns a read-only resumption packet for the project; available for all project items: `project_decision`, `project_stalled`, `project_no_next_action`, `project_vague_next_action`, and `project_repeatedly_deferred`.
+- **`project.set_next_action`**: Available for `project_stalled`, `project_no_next_action`, `project_vague_next_action`, and `project_repeatedly_deferred` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
 - **`project.resolve_decision`**: Available for `project_decision` items whose context carries the project and decision text. Takes the `resolution` parameter. Confirm removes that decision from `decisions_needed`, appends `{decision, resolution, resolved_on}` to the optional `decisions_resolved` state field, and sets `updated_at`. The action errors if the decision is no longer open.
 
 ## Repeated Deferrals

@@ -49,18 +49,20 @@ def project_items(
         counts = {}
 
     items: list[dict[str, Any]] = []
-    projects_by_pid: dict[str, tuple[dict, dict]] = {}
 
-    # Load and collect active projects.
+    # One entry per project id, in project-id order. Window item ids are built
+    # from the project id, so a second registry entry for the same project (for
+    # example an alternate checkout) is skipped rather than duplicating items;
+    # the first entry in registry order wins.
+    projects_by_pid: dict[str, tuple[dict, dict]] = {}
     for registry_entry, state in load_projects():
         if state.get("status") != "active":
             continue
         pid = state.get("project") or registry_entry.get("id")
         if pid:
-            projects_by_pid[pid] = (registry_entry, state)
+            projects_by_pid.setdefault(pid, (registry_entry, state))
 
-    # Sort by project id and emit items for each.
-    for pid in sorted(projects_by_pid.keys()):
+    for pid in sorted(projects_by_pid):
         registry_entry, state = projects_by_pid[pid]
         name = registry_entry.get("name") or pid
         tab = "personal" if registry_entry.get("tab") == "personal" else "work"

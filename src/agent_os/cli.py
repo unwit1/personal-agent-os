@@ -128,6 +128,16 @@ def _project_deferral_counts() -> dict:
         return {}
 
 
+def _executive_today_and_stale_days(args):
+    """Resolve the --today and --stale-days options shared by executive commands."""
+    from datetime import date
+    from .executive import project_actions
+
+    today = date.fromisoformat(args.today) if args.today else date.today()
+    stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+    return today, stale_days
+
+
 def _executive_window_queue(tab: str | None = None):
     from .executive.window.builtin import default_registry
     from .executive.window.confirm import ItemState, window_home
@@ -299,7 +309,6 @@ def _dispatch_executive(args) -> int:
     elif cmd == "project-next":
         from . import registry
         from .executive import project_actions
-        from datetime import date
 
         try:
             project = registry.get_project(args.project)
@@ -307,15 +316,13 @@ def _dispatch_executive(args) -> int:
             raise ValueError(f"unknown project: {args.project}") from None
 
         state = registry.load_state(project)
-        today = date.fromisoformat(args.today) if args.today else date.today()
-        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        today, stale_days = _executive_today_and_stale_days(args)
         project_id = state.get("project") or args.project
         deferrals = _project_deferral_counts().get(project_id, 0)
         _print(project_actions.project_next_action(state, today=today, stale_days=stale_days, deferrals=deferrals))
     elif cmd == "project-scan":
         from . import registry
         from .executive import project_actions
-        from datetime import date
 
         states = []
         errors = []
@@ -328,8 +335,7 @@ def _dispatch_executive(args) -> int:
             except Exception as exc:
                 errors.append({"project": proj.get("id"), "error": str(exc)})
 
-        today = date.fromisoformat(args.today) if args.today else date.today()
-        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        today, stale_days = _executive_today_and_stale_days(args)
         result = project_actions.scan(
             states, today=today, stale_days=stale_days, include_inactive=args.all,
             deferrals=_project_deferral_counts(),
@@ -347,17 +353,15 @@ def _dispatch_executive(args) -> int:
         _print({**rescue_mode.rescue(q["queue_items"], results, today=today, horizon_days=args.horizon_days),
                 "errors": q["errors"] + errors})
     elif cmd == "resume":
-        from datetime import date
         from . import registry
-        from .executive import project_actions, resumption
+        from .executive import resumption
 
         try:
             project = registry.get_project(args.project)
         except KeyError:
             raise ValueError(f"unknown project: {args.project}") from None
         state = registry.load_state(project)
-        today = date.fromisoformat(args.today) if args.today else date.today()
-        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        today, stale_days = _executive_today_and_stale_days(args)
         _print(resumption.resumption_packet(state, today=today, stale_days=stale_days))
     elif cmd == "brain-dump":
         from . import registry

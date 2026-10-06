@@ -8,7 +8,7 @@ This guide describes the deterministic capture, knowledge-gap, rescue, and proje
 
 Record types are `task`, `idea`, `reminder`, `appointment`, `decision`, `project_update`, `research_request`, and `follow_up`. Classification uses ordered phrase rules. Records carry a stable `bd-…` id, type, text, resolved project (or null), and confidence: 0.9 when the project resolves and 0.5 otherwise.
 
-Repeated normalized type/text within the same dump yields a duplicate with reason `repeated_in_dump`; IDs supplied as previously captured yield `already_captured`. The first matching occurrence is retained as a record. When project resolution reports `ambiguous_project` or `unknown_reference`, the record is retained and a `clarification` entry describes its `record_id`, text, reason, and matching project candidates. No clarification is emitted merely because a segment has no project reference.
+Repeated normalized type/text within the same dump yields a duplicate with reason `repeated_in_dump`; `already_captured` applies only when a caller passes previously captured record IDs as `existing_ids` to `brain_dump.process` (the Executive window does this from its brain-dump store, and the MCP tool accepts `captured_ids`); the CLI does not expose it. The first matching occurrence is retained as a record. When project resolution reports `ambiguous_project` or `unknown_reference`, the record is retained and a `clarification` entry describes its `record_id`, text, reason, and matching project candidates. No clarification is emitted merely because a segment has no project reference.
 
 With `--stage-candidates PROJECT`, each emitted record is represented as a `preference_candidate` and passed to `agent_os.candidates.stage_candidates`. Staging is reviewable and deduplicated; it never promotes a candidate. Promotion requires curator action.
 
@@ -18,7 +18,7 @@ The window's Brain dump box posts text to `/api/brain-dump`. Records are saved i
 
 ## Knowledge gaps
 
-`agent-os executive gaps GAPS_JSON [--budget N] [--min-score SCORE] [--asked-id ID]` accepts a JSON list inline or from a file path. The score is the weighted sum of factors clamped to 0–1: utility 0.35, recurrence 0.20, confidence_gap 0.25, and urgency 0.20; interruption_cost and sensitivity each subtract up to 0.50. Missing or invalid factors contribute zero. Scores are rounded to four decimals.
+`agent-os executive gaps GAPS_JSON [--budget N] [--min-score SCORE] [--asked-id ID]` (defaults: `--budget 1`, `--min-score 0.2`) accepts a JSON list inline or from a file path. The score is the weighted sum of factors clamped to 0–1: utility 0.35, recurrence 0.20, confidence_gap 0.25, and urgency 0.20; interruption_cost and sensitivity each subtract up to 0.50. Missing or invalid factors contribute zero. Scores are rounded to four decimals.
 
 Results include `ask`, `deferred`, `discarded`, and `budget`. Eligible questions sort by descending score and then ID. `budget` caps `ask`; eligible overflow is deferred with reason `over_budget`. Previously asked IDs are discarded as `already_asked`, and scores below `min-score` as `low_value`. Each result item includes `id`, `question`, `topic`, `score`, `why`, and `reason`. The `why` field shows the score and up to three strongest positive raw factor values, plus any applied penalties.
 
@@ -30,15 +30,15 @@ Results include `ask`, `deferred`, `discarded`, and `budget`. Eligible questions
 
 ## Knowledge gaps from project state
 
-`agent-os executive project-gaps [--all] [--budget N] [--min-score SCORE] [--enqueue] [--tab work|personal]` loads every registered project's state file and reports load errors per project. Generation is deterministic and makes no model call. By default it considers active projects only; `--all` includes inactive projects too.
+`agent-os executive project-gaps [--all] [--budget N] [--min-score SCORE] [--enqueue] [--tab work|personal]` (defaults: `--budget 3`, `--min-score 0.2`, `--tab personal`) loads every registered project's state file and reports load errors per project. Generation is deterministic and makes no model call. By default it considers active projects only; `--all` includes inactive projects too.
 
-The command emits a question when a project's goal and summary are both empty, its `next_action` is empty and it has no non-empty `current_priorities` entry, or its state has no `blockers` key. An empty blockers list is present data and does not create a gap. The gap IDs are `project-gap:<project>:<field>`, where the field is `goal`, `next_action`, or `blockers`.
+The command emits a question when a project's goal and summary are both empty, its `next_action` is empty and it has no non-empty `current_priorities` entry, or its `blockers` is missing or not a list. An empty blockers list is present data and does not create a gap. The gap IDs are `project-gap:<project>:<field>`, where the field is `goal`, `next_action`, or `blockers`.
 
 Output contains `gaps`, the `select_questions` result (`ask`, `deferred`, `discarded`, and `budget`), and `errors`. `--enqueue` adds generated gaps to `knowledge-gaps.json` through the gap store, skipping IDs already stored. Enqueued questions appear as `knowledge_gap_question` Executive window items and can be answered through `knowledge_gap.answer` or `agent-os executive gap-answer`. Generating or enqueueing gaps does not stage or promote memory candidates.
 
 ## Rescue mode
 
-`agent-os executive rescue [--tab work|personal] [--today DATE] [--stale-days N] [--horizon-days N]` considers executive queue items and project next-action results. Its basis order is:
+`agent-os executive rescue [--tab work|personal] [--today DATE] [--stale-days N] [--horizon-days N]` (defaults: all tabs, today's date, 30 stale days, `--horizon-days 1`) considers executive queue items and project next-action results. Its basis order is:
 
 1. `deadline`: highest-ranked queue item with a due date on or before today plus the horizon.
 2. `project`: an active, unblocked project with a concrete next step (or suggested step for a vague action). Projects needing a decision sort after other eligible projects; older state sorts first, then project ID.
@@ -55,7 +55,7 @@ The window shows only the selected item, with its normal options and preview/Con
 
 ## Project resumption packet
 
-`agent-os executive resume PROJECT [--today DATE] [--stale-days N]` resolves and loads the project state and returns a compact packet with schema `resumption-packet@1` (`agent-os/resumption-packet@1`). The packet fields are `schema`, `project`, `status`, `goal`, `where_you_left_off`, `next_action`, `next_action_source`, `open_loops`, `age_days`, `flags`, and `truncated`. `open_loops` contains `blockers`, `waiting_on`, and `decisions_needed`. Text is limited to 280 characters by default, each open-loop list to three items; `truncated` reports when content was shortened or omitted. A suggested action is surfaced when project analysis marks the stored next action as vague.
+`agent-os executive resume PROJECT [--today DATE] [--stale-days N]` (defaults: today's date, 30 stale days) resolves and loads the project state and returns a compact packet with schema `resumption-packet@1` (`agent-os/resumption-packet@1`). The packet fields are `schema`, `project`, `status`, `goal`, `where_you_left_off`, `next_action`, `next_action_source`, `open_loops`, `age_days`, `flags`, and `truncated`. `open_loops` contains `blockers`, `waiting_on`, and `decisions_needed`. Text is limited to 280 characters by default, each open-loop list to three items; `truncated` reports when content was shortened or omitted. A suggested action is surfaced when project analysis marks the stored next action as vague.
 
 ## Resumption packets in the Executive window
 
@@ -66,6 +66,7 @@ Project items from the `projects` provider with kinds `project_decision`, `proje
 The `memory_candidates` provider (`agent_os.executive.window.providers_candidates`) lists staged candidates with status `candidate` for each registered project, using `candidates.candidate_status`, as `memory_candidate` items. Each item's `why` names the candidate kind and its source summary.
 
 The `candidate.accept` and `candidate.reject` actions (`agent_os.executive.window.actions_candidates`) are consequential. They preview the candidate and call `candidates.curate_candidates` with `promote` or `reject` only after the operator selects Confirm. Accept applies the curator checks: evidence is required, confidence must be at least 0.7, and material kinds return `review_required`. A candidate may therefore return `not_promoted` or `review_required` rather than being promoted. Already-resolved candidates are rejected. The operator's Confirm is the only path to promotion.
+
 ## MCP tools
 
 The read-only `executive_capture.brain_dump` tool accepts `text` and optional `captured_ids`, and returns `records`, `duplicates`, and `clarifications`. It never saves or stages records; reviewed records can be staged through `agent.capture_candidates`.
@@ -82,7 +83,7 @@ The read-only `executive_capture.resume` tool accepts `project`, `today`, and `s
 
 ## Not yet implemented
 
-- Writes over MCP: brain-dump candidate staging and knowledge-gap enqueueing are CLI/window only.
+- Confirmed writes over MCP: MCP tools only preview; confirming brain-dump capture or gap enqueueing, and staging brain-dump records as candidates, happen in the CLI or the Executive window.
 - MCP write paths for project-state knowledge-gap generation and enqueueing are not implemented.
 - Calendar or voice input.
 - Model-based extraction; brain-dump segmentation, classification, and project resolution use deterministic rules.

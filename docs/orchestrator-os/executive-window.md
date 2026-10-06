@@ -63,13 +63,13 @@ Once registered, the action:
 
 ## Executive Queue and Event Bus
 
-The window's outstanding list is the Executive Queue (roadmap P3). `Registry.outstanding()` converts each provider item once with `agent_os.executive.window_queue.queue_item_from_window_item` into an EXEC-0 queue item (entity kind `task`, source `window:<provider>`, domain `executive-window`; the item's `why` becomes the queue `reason`, a non-negative numeric `score` becomes `priority`) and renders it back with `window_item_from_queue_item`, so the window shows exactly what the providers produced. An item that does not convert is shown unchanged; it is just not queued. `Registry.queue()` returns the same items as queue items.
+The window's outstanding list is the Executive Queue (roadmap P3). `Registry.outstanding()` converts each provider item once with `agent_os.executive.window_queue.queue_item_from_window_item` into an EXEC-0 queue item (entity kind `task`, source `window:<provider>`, domain `executive-window`; the item's `why` becomes the queue `reason`, a non-negative numeric `score` becomes `priority`) and renders it back with `window_item_from_queue_item`, so the window shows what the providers produced, plus the `rank` and repeated-deferral fields described below. An item that does not convert is shown unchanged and adds no error; it is just not queued and has no `rank`. `Registry.queue()` returns the converted items as queue items, with provider errors in `errors`.
 
-`builtin.default_registry()` attaches the local Event Bus (`.agent-local/executive/events`, the log `agent-os executive route` reads). Each item is published once as a `task.created` event, deduplicated by provider and item id. The persisted payload holds identifiers only (queue item id, entity id, provider, item id, kind, tab), never titles, reasons or item text, which can contain applicant names or mail subjects. Publishing is best-effort: a failing Event Bus never changes the window.
+`builtin.default_registry()` attaches the local Event Bus (`.agent-local/executive/events`, the log `agent-os executive route` reads). When a bus is attached, every `outstanding()` or `queue()` call also publishes each converted item as a `task.created` event; the bus deduplicates by provider and item id, so each item is logged once. The persisted payload holds identifiers only (queue item id, entity id, provider, item id, kind, tab), never titles, reasons or item text, which can contain applicant names or mail subjects. Publishing is best-effort: a failing Event Bus never changes the window.
 
 ### Repeated deferrals
 
-Snoozing an item (`item.snooze`) publishes a `task.deferred` event to the local Event Bus. Its subject is the item's queue entity id, and its identifiers-only payload contains `entity_id`, `item_id`, `deferred_at`, and `until`; it contains no titles. `Registry.record_deferral` resolves the entity from the last outstanding or queue listing, and publishing is best-effort. The count of `task.deferred` events per entity supplies the queue item's `repeated_deferrals`, which is set only when the count is above 0. Items deferred at least `window_queue.DEFERRAL_THRESHOLD` (3) times show `deferrals: N` and a `why` prefixed with `Deferred N times`.
+Snoozing an item (`item.snooze`) publishes a `task.deferred` event to the local Event Bus. Its subject is the item's queue entity id, and its identifiers-only payload contains `entity_id`, `item_id`, `deferred_at`, and `until`; it contains no titles. `Registry.record_deferral` resolves the entity from items collected by earlier outstanding or queue listings, and publishing is best-effort. Item ids are the window's identity (dismiss and snooze state is keyed by them), so if two providers emit the same item id, the deferral is recorded for both entities. The count of `task.deferred` events per entity supplies the queue item's `repeated_deferrals`, which is set only when the count is above 0. Items deferred at least `window_queue.DEFERRAL_THRESHOLD` (3) times show `deferrals: N` and a `why` prefixed with `Deferred N times`.
 
 ### Queue status transitions
 
@@ -85,9 +85,9 @@ Dismiss (`item.dismiss`) publishes an identifiers-only `task.cancelled` event. A
 
 `agent_os.executive.next_action` ranks the Executive Queue by priority (descending), then age_days (descending), then queue item id (ascending).
 
-`agent-os executive next [--tab work|personal]` prints the top queue item with its full explanation.
+`agent-os executive next [--tab work|personal]` prints `{next, considered, why, errors}`: the top queue item, the number of ranked items, and its explanation (`null` when the queue is empty).
 
-`agent-os executive explain <item_id> [--tab work|personal]` prints the rank, position (of), priority, age_days, reason, provider, source, kind, and tab for a given queue item id; returns None for unknown ids.
+`agent-os executive explain <item_id> [--tab work|personal]` takes a queue item id or a provider (window) item id and prints `{item_id, explanation, errors}`. The explanation has `queue_item_id`, `entity_id`, `item_id`, `provider`, `source`, `kind`, `tab`, `reason`, `priority`, `age_days`, `rank`, `of`, `ranking`, and `provenance`; it is `null` for unknown ids.
 
 MCP tools `executive_window.next` and `executive_window.explain` return the same data, read-only and local-only. Provider errors are returned in the `errors` field. Hidden items are excluded just as in the outstanding list.
 
@@ -95,16 +95,19 @@ MCP tools `executive_window.next` and `executive_window.explain` return the same
 
 `agent-os executive explain <item_id>` / `next` and the MCP tools `executive_window.explain` / `executive_window.next` include a `provenance` object with `provider`, `source`, `entity_id`, `created_event_id` (the identifiers-only `task.created` Event Bus event that produced the item), and `event_ids` (all lifecycle events for the entity, in log order). No payload text is copied. `executive history` / `executive_window.history` still give the full per-event history with route decisions.
 
+### Event routing over MCP
+
 MCP tool `executive_routing.dispatch` routes pending Event Bus events for a consumer (default `router`), with optional event type disposition overrides in `rules`. By default, it previews routes via `routing.preview_pending` without persisting decisions or acknowledging events. With `confirm_write=true`, it behaves like `agent-os executive route`, persisting payload-free route reasons and advancing the consumer cursor. `executive_routing.reason` takes an `event_id` and is read-only; it returns the persisted route decision, matching `agent-os executive route-reason`.
 
 ### Project next actions and rank
 
-The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, registered in `builtin.default_registry()`) emits items for active projects from `projects/<id>/state.json`. For each project, it derives next action and flags via the per-project Next Action Engine, then emits one project_decision item per decision needed, plus at most one project_stalled and one project_no_next_action item per project:
+The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, registered in `builtin.default_registry()`) emits items for active projects from `projects/<id>/state.json`. For each project, it derives next action and flags via the per-project Next Action Engine, then emits one `project_decision` item per decision needed, plus at most one item of each other kind per project. If two registry entries resolve to the same project id, only the first (in registry order) is used, since item ids are built from the project id:
 
 - `project_decision` (score 3): decision needed for the project
 - `project_stalled` (score 2): project has not been updated in the configured stale-days threshold
 - `project_repeatedly_deferred` (score 2): project items have been snoozed at least 3 times (`project_actions.REPEATED_DEFERRAL_THRESHOLD`), counted per project from identifiers-only `task.deferred` events via `window_queue.project_deferral_counts`. The provider reads the attached Event Bus on a best-effort basis and treats an unavailable log as 0 deferrals; it emits at most one such item per project.
 - `project_no_next_action` (score 1): project has no next action or current priority recorded
+- `project_vague_next_action` (score 1): the recorded next action is vague (placeholder or short "work on X" phrasing); the `why` gives the suggested concrete next action when one exists
 
 Each item's `why` field contains the reason. Items appear on the work tab by default; a registry entry with `"tab": "personal"` places them on the personal tab instead.
 

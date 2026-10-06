@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import date
 from pathlib import Path
 from typing import Any, Callable
 
@@ -893,18 +894,16 @@ def _window_queue(tab: str | None = None) -> dict[str, Any]:
 
 
 def _capture_rescue(tab: str | None = None, today: str | None = None, stale_days: int | None = None, horizon_days: int = 1) -> dict[str, Any]:
-    from datetime import date
     from .executive import rescue as rescue_mode
     from .executive.window import rescue_view
 
     q = _window_queue(tab)
     day = date.fromisoformat(today) if today else date.today()
     results, errors = rescue_view.project_results(day, stale_days)
-    return {**rescue_mode.rescue(q['queue_items'], results, today=day, horizon_days=horizon_days), 'errors': q['errors'] + errors}
+    return {**rescue_mode.rescue(q["queue_items"], results, today=day, horizon_days=horizon_days), "errors": q["errors"] + errors}
 
 
 def _capture_resume(project: str, today: str | None = None, stale_days: int | None = None) -> dict[str, Any]:
-    from datetime import date
     from .executive import project_actions, resumption
 
     try:
@@ -919,16 +918,16 @@ def _capture_resume(project: str, today: str | None = None, stale_days: int | No
 
 def _capture_brain_dump(text: str, captured_ids: list[str] | None = None) -> dict[str, Any]:
     if not isinstance(text, str) or not text.strip():
-        raise ValueError('text must be a non-empty string')
+        raise ValueError("text must be a non-empty string")
     from .executive import brain_dump
 
-    known_projects = [{'id': p.get('id'), 'aliases': p.get('aliases', [])} for p in canonical_projects()]
+    known_projects = [{"id": p.get("id"), "aliases": p.get("aliases", [])} for p in canonical_projects()]
     return brain_dump.process(text, known_projects=known_projects, existing_ids=captured_ids or [])
 
 
 def _capture_gaps(gaps: list, budget: int = 1, min_score: float = 0.2, asked_ids: list[str] | None = None) -> dict[str, Any]:
     if not isinstance(gaps, list):
-        raise ValueError('gaps must be a JSON list')
+        raise ValueError("gaps must be a JSON list")
     from .executive import knowledge_gaps
 
     return knowledge_gaps.select_questions(gaps, budget=budget, min_score=min_score, asked_ids=asked_ids or [])
@@ -953,21 +952,21 @@ def _window_next(tab: str | None = None) -> dict[str, Any]:
     from .executive import next_action
 
     q = _window_queue(tab)
-    return {**next_action.next_item(q['queue_items'], _routing_event_bus()), 'errors': q['errors']}
+    return {**next_action.next_item(q["queue_items"], _routing_event_bus()), "errors": q["errors"]}
 
 
 def _window_explain(item_id: str, tab: str | None = None) -> dict[str, Any]:
     from .executive import next_action
 
     q = _window_queue(tab)
-    return {'item_id': item_id, 'explanation': next_action.explain(q['queue_items'], item_id, _routing_event_bus()), 'errors': q['errors']}
+    return {"item_id": item_id, "explanation": next_action.explain(q["queue_items"], item_id, _routing_event_bus()), "errors": q["errors"]}
 
 
 def _window_history(item_id: str, tab: str | None = None) -> dict[str, Any]:
     from .executive import window_queue
 
     q = _window_queue(tab)
-    return {'item_id': item_id, 'provenance': window_queue.item_provenance(q['queue_items'], _routing_event_bus(), item_id), 'errors': q['errors']}
+    return {"item_id": item_id, "provenance": window_queue.item_provenance(q["queue_items"], _routing_event_bus(), item_id), "errors": q["errors"]}
 
 
 def _window_actions() -> dict[str, Any]:
@@ -991,7 +990,6 @@ def _window_run(action_id: str, item_id: str, params: dict[str, Any] | None = No
 
 def _projects_next(project: str, stale_days: int | None = None) -> dict[str, Any]:
     from .executive import project_actions
-    from datetime import date
 
     try:
         proj = get_project(project)
@@ -1002,16 +1000,13 @@ def _projects_next(project: str, stale_days: int | None = None) -> dict[str, Any
         raise ValueError(f"Project {project} has no state file")
 
     state = load_state(proj)
-    kwargs = {"today": date.today()}
-    kwargs["deferrals"] = _project_deferral_counts().get(state.get("project") or project, 0)
-    if stale_days is not None:
-        kwargs["stale_days"] = stale_days
-    return project_actions.project_next_action(state, **kwargs)
+    extra = {} if stale_days is None else {"stale_days": stale_days}
+    deferrals = _project_deferral_counts().get(state.get("project") or project, 0)
+    return project_actions.project_next_action(state, today=date.today(), deferrals=deferrals, **extra)
 
 
 def _projects_scan(stale_days: int | None = None, include_inactive: bool = False) -> dict[str, Any]:
     from .executive import project_actions
-    from datetime import date
 
     states = []
     errors = []
@@ -1025,13 +1020,10 @@ def _projects_scan(stale_days: int | None = None, include_inactive: bool = False
         except Exception as e:
             errors.append({"project": proj.get("id"), "error": str(e)})
 
-    kwargs = {"today": date.today()}
-    kwargs["deferrals"] = _project_deferral_counts()
-    if stale_days is not None:
-        kwargs["stale_days"] = stale_days
-    kwargs["include_inactive"] = include_inactive
-
-    result = project_actions.scan(states, **kwargs)
+    extra = {} if stale_days is None else {"stale_days": stale_days}
+    result = project_actions.scan(
+        states, today=date.today(), deferrals=_project_deferral_counts(), include_inactive=include_inactive, **extra
+    )
     result["errors"] = errors
     return result
 

@@ -280,6 +280,13 @@ class ProjectItemsTests(unittest.TestCase):
         projects_in_order = [item["context"]["project"] for item in items]
         self.assertEqual(projects_in_order, ["a-project", "m-project", "z-project"])
 
+    def test_duplicate_project_ids_keep_first_registry_entry(self):
+        first = self._make_registry_entry(name="First")
+        second = self._make_registry_entry(name="Second")
+        state = self._make_state()
+        items = project_items(lambda: [(first, state), (second, state)], today=date(2026, 10, 5))
+        self.assertEqual([item["title"] for item in items], ["First has no next action"])
+
     def test_project_id_from_entry_when_state_missing(self):
         """Project id uses entry['id'] if state['project'] is missing."""
         entry = self._make_registry_entry("entry-id")
