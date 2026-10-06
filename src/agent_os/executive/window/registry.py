@@ -14,10 +14,21 @@ class Registry:
         self._providers: dict[str, Callable[[], list[dict[str, Any]]]] = {}
         self._actions: dict[str, dict[str, Any]] = {}
         self.event_bus: Any = None
+        self._entity_ids: dict[str, str] = {}
 
     def attach_event_bus(self, bus: Any) -> None:
         """Publish every provider item to this Event Bus as an EXEC-0 queue item."""
         self.event_bus = bus
+
+    def record_deferral(self, item_id: str, until: str | None = None) -> dict[str, Any] | None:
+        """Record a deferral for a window item seen during collection."""
+        if self.event_bus is None:
+            return None
+        entity_id = self._entity_ids.get(str(item_id))
+        if entity_id is None:
+            return None
+        event, _ = window_queue.publish_deferral(self.event_bus, entity_id, str(item_id), until=until)
+        return event
 
     def register_provider(self, name: str, fn: Callable[[], list[dict[str, Any]]]) -> None:
         self._providers[name] = fn
@@ -60,6 +71,10 @@ class Registry:
         attached Event Bus; neither step can change what the window shows."""
         pairs: list[tuple[dict[str, Any], dict[str, Any] | None]] = []
         errors: list[dict[str, str]] = []
+        try:
+            counts = window_queue.deferral_counts(self.event_bus) if self.event_bus is not None else {}
+        except Exception:
+            counts = {}
         for name, fn in list(self._providers.items()):
             try:
                 produced = list(fn() or [])
@@ -73,6 +88,12 @@ class Registry:
                     queue_item: dict[str, Any] | None = window_queue.queue_item_from_window_item(raw, name)
                 except Exception:
                     queue_item = None  # shown unchanged, just not queued
+                if queue_item is not None:
+                    item_id = str(raw.get("id"))
+                    self._entity_ids.setdefault(item_id, queue_item["entity_id"])
+                    count = counts.get(queue_item["entity_id"], 0)
+                    if count > 0:
+                        queue_item["repeated_deferrals"] = count
                 if queue_item is not None and self.event_bus is not None:
                     try:
                         window_queue.publish_window_item(self.event_bus, raw, name, queue_item)
@@ -102,6 +123,11 @@ class Registry:
 
         for raw, queue_item in pairs:
             item = window_queue.window_item_from_queue_item(queue_item) if queue_item is not None else dict(raw)
+            if queue_item is not None and queue_item.get("repeated_deferrals", 0) >= window_queue.DEFERRAL_THRESHOLD:
+                count = queue_item["repeated_deferrals"]
+                item["deferrals"] = count
+                why = item.get("why")
+                item["why"] = f"Deferred {count} times" + (f"; {why}" if isinstance(why, str) and why else "")
             item["options"] = [
                 {"action_id": a["id"], "label": a["label"], "consequential": a["consequential"]}
                 for a in self._actions.values()
