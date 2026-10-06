@@ -152,6 +152,70 @@ def publish_deferral(
     )
 
 
+def publish_status_change(
+    bus: Any,
+    entity_id: str,
+    item_id: str,
+    status: str,
+    changed_at: str | None = None,
+) -> tuple[dict[str, Any], bool]:
+    """Publish an identifier-only completion or cancellation event."""
+    if status not in ("completed", "cancelled"):
+        raise ValueError("status must be 'completed' or 'cancelled'")
+    if changed_at is None:
+        changed_at = datetime.now(timezone.utc).isoformat()
+
+    return bus.publish(
+        f"task.{status}",
+        "window:status",
+        f"{entity_id}:{status}:{changed_at}",
+        payload={
+            "entity_id": entity_id,
+            "item_id": item_id,
+            "status": status,
+            "changed_at": changed_at,
+        },
+        domain="executive-window",
+        sensitivity="personal",
+        subject=entity_id,
+    )
+
+
+def queue_statuses(bus: Any, now: datetime | None = None) -> dict[str, str]:
+    """Return the latest deferred/completed/cancelled status per entity."""
+    if bus is None:
+        return {}
+    if now is None:
+        now = datetime.now(timezone.utc)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
+
+    statuses: dict[str, str] = {}
+    event_statuses = {
+        "task.deferred": "deferred",
+        "task.completed": "completed",
+        "task.cancelled": "cancelled",
+    }
+    for event in bus.events():
+        status = event_statuses.get(event.get("type"))
+        subject = event.get("subject")
+        if status is None or not isinstance(subject, str) or not subject:
+            continue
+        if status == "deferred":
+            until = event.get("payload", {}).get("until")
+            if isinstance(until, str):
+                try:
+                    until_dt = datetime.fromisoformat(until)
+                    if until_dt.tzinfo is None:
+                        until_dt = until_dt.replace(tzinfo=timezone.utc)
+                    if until_dt <= now:
+                        status = "queued"
+                except ValueError:
+                    pass
+        statuses[subject] = status
+    return statuses
+
+
 def deferral_counts(bus: Any) -> dict[str, int]:
     """Count task deferrals by non-empty event subject."""
     if bus is None:
