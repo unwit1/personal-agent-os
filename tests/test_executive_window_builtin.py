@@ -70,6 +70,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "brain_dump.capture",
             "brain_dump.clarify",
             "brain_dump.stage_candidate",
+            "knowledge_gap.enqueue",
             "knowledge_gap.answer",
             "candidate.accept",
             "candidate.reject",
@@ -127,6 +128,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "applicant.decline",
             "county.opening_change",
             "knowledge_gap.answer",
+            "knowledge_gap.enqueue",
             "candidate.accept",
             "candidate.reject",
         }
