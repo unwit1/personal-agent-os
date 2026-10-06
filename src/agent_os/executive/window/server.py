@@ -129,6 +129,17 @@ class Api:
             return {"actions": self.registry.actions()}
         if path == "/api/pending":
             return self._pending_view()
+        if path == "/api/rescue":
+            tab = (query.get('tab') or [None])[0] or None
+            if tab is not None and tab not in ('work', 'personal'):
+                raise ValueError('tab must be work or personal')
+            try:
+                horizon_days = int((query.get('horizon_days') or ['1'])[0])
+            except (TypeError, ValueError):
+                raise ValueError('horizon_days must be an integer')
+            from .rescue_view import rescue_view
+
+            return rescue_view(self.registry, tab, state=self.state, horizon_days=horizon_days)
         raise KeyError(path)
 
     def post(self, path: str, body: dict[str, Any]) -> Any:

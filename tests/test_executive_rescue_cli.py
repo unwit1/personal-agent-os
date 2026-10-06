@@ -51,6 +51,18 @@ class ExecutiveRescueCli(unittest.TestCase):
         self.assertEqual(output["action"]["project"], "test-project")
         self.assertEqual(output["action"]["title"], "Write the plan")
 
+    def test_rescue_dispatch_reports_project_load_error(self):
+        project = {"id": "test-project", "state_file": "state.json"}
+        with patch("agent_os.cli._executive_window_queue", return_value={"queue_items": [], "errors": []}), \
+             patch("agent_os.registry.canonical_projects", return_value=[project]), \
+             patch("agent_os.registry.load_state", side_effect=RuntimeError("boom")), \
+             patch("builtins.print") as printed:
+            args = cli.parser().parse_args(["executive", "rescue", "--today", "2026-10-05"])
+            self.assertEqual(cli._dispatch_executive(args), 0)
+        output = json.loads(printed.call_args.args[0])
+        self.assertIn({"project": "test-project", "error": "boom"}, output["errors"])
+        self.assertIsNone(output["action"])
+
     def test_resume_dispatch_prints_packet(self):
         project = {"id": "test-project", "state_file": "state.json"}
         state = {"project": "test-project", "status": "active", "next_action": "Write the plan",

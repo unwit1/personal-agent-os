@@ -21,8 +21,10 @@
       <div class="tabs" role="tablist">
         <button id="tab-work" class="tab on" role="tab" aria-selected="true">Work</button>
         <button id="tab-personal" class="tab" role="tab" aria-selected="false">Personal</button>
+        <button id="rescue-toggle" type="button" class="tab" aria-pressed="false">Rescue</button>
       </div>
 
+      <div id="rescue-panel" class="rescue-panel hidden" aria-live="polite"></div>
       <div id="items-panel" class="items-panel">
         <div id="work-tab" class="tab-content on">
           <div id="work-items" class="items-list"></div>
@@ -157,6 +159,7 @@
     }
     .brain-dump-compose label { grid-column: 1 / -1; font-size: 12px; color: var(--muted); }
     .brain-dump-compose textarea { min-height: 56px; resize: vertical; }
+    .rescue-panel { padding: 10px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
     .pending-previews {
       position: fixed;
       bottom: 20px;
