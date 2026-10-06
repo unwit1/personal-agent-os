@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -31,7 +32,24 @@ class ExecutiveCaptureCli(unittest.TestCase):
         args = cli.parser().parse_args(["executive", "gaps", '[{"id":"g1","question":"Q?","utility":1}]'])
         with patch("builtins.print") as printed:
             self.assertEqual(cli._dispatch_executive(args), 0)
-        self.assertEqual(json.loads(printed.call_args.args[0])["ask"][0]["id"], "g1")
+        output = json.loads(printed.call_args.args[0])
+        self.assertEqual(output["ask"][0]["id"], "g1")
+        self.assertNotIn("enqueued", output)
+
+    def test_gaps_enqueue_stores_open_question(self):
+        from agent_os.executive.window.gap_store import GapStore
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            store = GapStore(temp_dir)
+            args = cli.parser().parse_args([
+                "executive", "gaps", '[{"id":"g1","question":"Q?","utility":1}]', "--enqueue",
+            ])
+            with patch("agent_os.executive.window.gap_store.GapStore", side_effect=lambda: store), \
+                 patch("builtins.print") as printed:
+                self.assertEqual(cli._dispatch_executive(args), 0)
+            output = json.loads(printed.call_args.args[0])
+            self.assertEqual(output["enqueued"], ["g1"])
+            self.assertEqual(store.get("g1")["status"], "open")
 
 
 if __name__ == "__main__":
