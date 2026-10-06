@@ -70,6 +70,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "brain_dump.clarify",
             "brain_dump.stage_candidate",
             "knowledge_gap.answer",
+            "project.resume",
         }
         self.assertEqual(action_ids, expected_actions)
 
@@ -142,6 +143,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "item.dismiss",
             "item.snooze",
             "mail.organize_inbox",
+            "project.resume",
         }
 
         for action_id in non_consequential_actions:
