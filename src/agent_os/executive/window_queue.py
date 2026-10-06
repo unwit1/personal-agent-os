@@ -8,6 +8,8 @@ from typing import Any
 
 from . import contracts
 
+DEFERRAL_THRESHOLD = 3
+
 
 def queue_item_from_window_item(
     item: dict, provider: str, queued_at: str | None = None
@@ -121,3 +123,43 @@ def publish_window_item(
     )
 
     return event, created
+
+
+def publish_deferral(
+    bus: Any,
+    entity_id: str,
+    item_id: str,
+    deferred_at: str | None = None,
+    until: str | None = None,
+) -> tuple[dict[str, Any], bool]:
+    """Publish an identifier-only task deferral event."""
+    if deferred_at is None:
+        deferred_at = datetime.now(timezone.utc).isoformat()
+
+    return bus.publish(
+        "task.deferred",
+        "window:snooze",
+        f"{entity_id}:{deferred_at}",
+        payload={
+            "entity_id": entity_id,
+            "item_id": item_id,
+            "deferred_at": deferred_at,
+            "until": until,
+        },
+        domain="executive-window",
+        sensitivity="personal",
+        subject=entity_id,
+    )
+
+
+def deferral_counts(bus: Any) -> dict[str, int]:
+    """Count task deferrals by non-empty event subject."""
+    if bus is None:
+        return {}
+
+    counts: dict[str, int] = {}
+    for event in bus.events(event_type="task.deferred"):
+        subject = event.get("subject")
+        if isinstance(subject, str) and subject:
+            counts[subject] = counts.get(subject, 0) + 1
+    return counts
