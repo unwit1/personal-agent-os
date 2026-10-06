@@ -37,6 +37,12 @@ Results include `ask`, `deferred`, `discarded`, and `budget`. Eligible questions
 
 The result includes `mode`, `basis`, one `action` (title, project, queue item ID, due date), a short `why`, the number of `suppressed` alternatives, and a `then` instruction to finish one step and run rescue again. Queue and project loading errors are reported alongside the result.
 
+## Rescue mode in the Executive window
+
+The window's Rescue toggle (`rescue-toggle`) calls `GET /api/rescue?tab=work|personal[&horizon_days=N]`. The route runs `rescue_view.rescue_view` over the same window queue (`registry.queue`) and canonical project next actions (`rescue_view.project_results`), which is also used by `agent-os executive rescue`. The response contains the rescue result plus `item_id`, `tab`, and `errors`. `item_id` identifies the window item for a deadline or queue action; it is null for a project action or when there is no action.
+
+The window shows only the selected item, with its normal options and preview/Confirm flow, alongside the `why` and `then` text and the count of suppressed alternatives. The route is read-only.
+
 ## Project resumption packet
 
 `agent-os executive resume PROJECT [--today DATE] [--stale-days N]` resolves and loads the project state and returns a compact packet with schema `resumption-packet@1` (`agent-os/resumption-packet@1`). The packet fields are `schema`, `project`, `status`, `goal`, `where_you_left_off`, `next_action`, `next_action_source`, `open_loops`, `age_days`, `flags`, and `truncated`. `open_loops` contains `blockers`, `waiting_on`, and `decisions_needed`. Text is limited to 280 characters by default, each open-loop list to three items; `truncated` reports when content was shortened or omitted. A suggested action is surfaced when project analysis marks the stored next action as vague.

@@ -36,6 +36,12 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         self.assertIn("answer_to_candidate", content)
         self.assertIn("--enqueue", content)
 
+    def test_doc_mentions_rescue_window_view(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        self.assertIn("/api/rescue", content)
+        self.assertIn("item_id", content)
+        self.assertIn("Rescue mode in the Executive window", content)
+
 
 if __name__ == "__main__":
     unittest.main()
