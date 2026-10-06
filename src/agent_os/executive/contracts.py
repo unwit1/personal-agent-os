@@ -36,6 +36,7 @@ EVENT_TYPES = {
     "idea.captured",
     "task.created",
     "task.completed",
+    "task.cancelled",
     "task.deferred",
     "project.modified",
     "project.stalled",

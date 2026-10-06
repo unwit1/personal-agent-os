@@ -30,6 +30,18 @@ class Registry:
         event, _ = window_queue.publish_deferral(self.event_bus, entity_id, str(item_id), until=until)
         return event
 
+    def record_status(self, item_id: str, status: str) -> dict[str, Any] | None:
+        """Record a completion or cancellation for a collected window item."""
+        if self.event_bus is None:
+            return None
+        entity_id = self._entity_ids.get(str(item_id))
+        if entity_id is None:
+            return None
+        event, _ = window_queue.publish_status_change(
+            self.event_bus, entity_id, str(item_id), status
+        )
+        return event
+
     def register_provider(self, name: str, fn: Callable[[], list[dict[str, Any]]]) -> None:
         self._providers[name] = fn
 
@@ -75,6 +87,10 @@ class Registry:
             counts = window_queue.deferral_counts(self.event_bus) if self.event_bus is not None else {}
         except Exception:
             counts = {}
+        try:
+            statuses = window_queue.queue_statuses(self.event_bus) if self.event_bus is not None else {}
+        except Exception:
+            statuses = {}
         for name, fn in list(self._providers.items()):
             try:
                 produced = list(fn() or [])
@@ -94,6 +110,8 @@ class Registry:
                     count = counts.get(queue_item["entity_id"], 0)
                     if count > 0:
                         queue_item["repeated_deferrals"] = count
+                    if queue_item["entity_id"] in statuses:
+                        queue_item["status"] = statuses[queue_item["entity_id"]]
                 if queue_item is not None and self.event_bus is not None:
                     try:
                         window_queue.publish_window_item(self.event_bus, raw, name, queue_item)
@@ -173,6 +191,11 @@ class Registry:
             pending.audit({**event, "error": f"{type(exc).__name__}: {exc}"})
             raise
         pending.audit({**event, "result": result})
+        if item.get("id"):
+            try:
+                self.record_status(str(item.get("id")), "completed")
+            except Exception:
+                pass
         return result
 
 
