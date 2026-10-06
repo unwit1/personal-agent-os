@@ -196,6 +196,12 @@ def _register_executive(commands) -> None:
     gap_answer.add_argument("--answer", required=True)
     gap_answer.add_argument("--project", default=None)
     gap_answer.add_argument("--confirm", action="store_true")
+    project_gaps = sub.add_parser("project-gaps")
+    project_gaps.add_argument("--all", action="store_true")
+    project_gaps.add_argument("--budget", type=int, default=3)
+    project_gaps.add_argument("--min-score", type=float, default=0.2)
+    project_gaps.add_argument("--enqueue", action="store_true")
+    project_gaps.add_argument("--tab", choices=["work", "personal"], default="personal")
 
 
 def _approval_state(batch: dict) -> dict:
@@ -370,6 +376,29 @@ def _dispatch_executive(args) -> int:
             args.gap_id, args.answer, project=args.project, confirm=args.confirm
         )
         _print({"dry_run": not args.confirm, **result})
+    elif cmd == "project-gaps":
+        from . import registry
+        from .executive import project_gaps, knowledge_gaps
+
+        states = []
+        errors = []
+        for proj in registry.canonical_projects():
+            if "state_file" not in proj:
+                continue
+            try:
+                states.append(registry.load_state(proj))
+            except Exception as exc:
+                errors.append({"project": proj.get("id"), "error": str(exc)})
+
+        gaps = project_gaps.project_gaps(states, include_inactive=args.all)
+        result = {"gaps": gaps, **knowledge_gaps.select_questions(
+            gaps, budget=args.budget, min_score=args.min_score
+        ), "errors": errors}
+        if args.enqueue:
+            from .executive.window.gap_store import GapStore
+
+            result["enqueued"] = GapStore().add(gaps, tab=args.tab)
+        _print(result)
     return 0
 
 
