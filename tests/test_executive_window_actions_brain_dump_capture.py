@@ -22,33 +22,34 @@ class BrainDumpCaptureActionTests(unittest.TestCase):
         mod.KNOWN_PROJECTS = lambda: []
         self.addCleanup(setattr, mod, "STORE_FACTORY", None)
         self.addCleanup(setattr, mod, "KNOWN_PROJECTS", None)
-        self.reg = Registry()
-        mod.register(self.reg)
-        self.pending = PendingStore(self.tmp.name)
 
-    def test_preview_then_confirm_writes_records_only_on_confirm(self):
-        result = self.reg.invoke(
-            "brain_dump.capture",
-            {"id": "brain-dump-capture", "kind": "brain_dump_capture"},
-            {"text": "Call the plumber tomorrow."},
-            self.pending,
+    def test_preview_then_confirm_adds_records_to_window(self):
+        reg = Registry()
+        mod.register(reg)
+        item = {"id": "brain-dump-capture", "kind": "brain_dump_capture"}
+        pending = PendingStore(self.tmp.name)
+
+        result = reg.invoke(
+            "brain_dump.capture", item,
+            {"text": "Call the plumber tomorrow."}, pending,
         )
+
         self.assertEqual(result["status"], "needs_confirmation")
         self.assertTrue(result["confirm_token"])
         self.assertTrue(result["preview"]["records"])
         self.assertEqual(self.store.records(), [])
 
-        done = self.reg.confirm(result["confirm_token"], self.pending)
+        done = reg.confirm(result["confirm_token"], pending)
         self.assertTrue(done["added"])
         self.assertTrue(self.store.records())
 
-    def test_text_must_be_non_empty(self):
+    def test_capture_requires_nonempty_text(self):
         with self.assertRaisesRegex(ValueError, "text is required"):
             mod._capture({}, {"text": "  "}, confirm=False)
 
-    def test_tab_must_be_supported(self):
+    def test_capture_rejects_unknown_tab(self):
         with self.assertRaisesRegex(ValueError, "tab must be work or personal"):
-            mod._capture({}, {"text": "Do a thing", "tab": "bogus"}, confirm=False)
+            mod._capture({}, {"text": "Call the plumber", "tab": "bogus"}, confirm=False)
 
 
 if __name__ == "__main__":
