@@ -171,6 +171,15 @@ def _register_executive(commands) -> None:
     project_scan.add_argument("--stale-days", type=int, default=None)
     project_scan.add_argument("--today", type=str, default=None)
     project_scan.add_argument("--all", action="store_true")
+    rescue = sub.add_parser("rescue")
+    rescue.add_argument("--tab", choices=["work", "personal"], default=None)
+    rescue.add_argument("--today", type=str, default=None)
+    rescue.add_argument("--stale-days", type=int, default=None)
+    rescue.add_argument("--horizon-days", type=int, default=1)
+    resume = sub.add_parser("resume")
+    resume.add_argument("project")
+    resume.add_argument("--today", type=str, default=None)
+    resume.add_argument("--stale-days", type=int, default=None)
 
 
 def _approval_state(batch: dict) -> dict:
@@ -281,6 +290,40 @@ def _dispatch_executive(args) -> int:
         stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
         result = project_actions.scan(states, today=today, stale_days=stale_days, include_inactive=args.all)
         _print({**result, "errors": errors})
+    elif cmd == "rescue":
+        from datetime import date
+        from . import registry
+        from .executive import project_actions, rescue as rescue_mode
+
+        q = _executive_window_queue(args.tab)
+        results = []
+        errors = []
+        today = date.fromisoformat(args.today) if args.today else date.today()
+        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        for proj in registry.canonical_projects():
+            if "state_file" not in proj:
+                continue
+            try:
+                state = registry.load_state(proj)
+                results.append(project_actions.project_next_action(state, today=today, stale_days=stale_days))
+            except Exception as exc:
+                errors.append({"project": proj.get("id"), "error": str(exc)})
+
+        _print({**rescue_mode.rescue(q["queue_items"], results, today=today, horizon_days=args.horizon_days),
+                "errors": q["errors"] + errors})
+    elif cmd == "resume":
+        from datetime import date
+        from . import registry
+        from .executive import project_actions, resumption
+
+        try:
+            project = registry.get_project(args.project)
+        except KeyError:
+            raise ValueError(f"unknown project: {args.project}") from None
+        state = registry.load_state(project)
+        today = date.fromisoformat(args.today) if args.today else date.today()
+        stale_days = args.stale_days if args.stale_days is not None else project_actions.STALE_DAYS_DEFAULT
+        _print(resumption.resumption_packet(state, today=today, stale_days=stale_days))
     return 0
 
 
