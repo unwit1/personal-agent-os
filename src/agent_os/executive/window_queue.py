@@ -247,3 +247,72 @@ def project_deferral_counts(bus: Any) -> dict[str, int]:
             continue
         counts[parts[1]] = counts.get(parts[1], 0) + 1
     return counts
+
+
+def entity_history(bus: Any, entity_id: str, log=None) -> list[dict]:
+    """Return a payload-minimized history for one queue entity.
+
+    Only routing metadata and the explicitly permitted status/defer fields are
+    exposed; event payload text is never copied.
+    """
+    if bus is None or not entity_id:
+        return []
+
+    from . import routing
+
+    history = []
+    for event in bus.events(subject=entity_id):
+        entry = {
+            "event_id": event.get("id"),
+            "type": event.get("type"),
+            "occurred_at": event.get("occurred_at"),
+            "source": event.get("source"),
+        }
+        payload = event.get("payload", {})
+        if not isinstance(payload, dict):
+            payload = {}
+        if event.get("type") in ("task.completed", "task.cancelled"):
+            if "status" in payload:
+                entry["status"] = payload["status"]
+        elif event.get("type") == "task.deferred" and isinstance(payload.get("until"), str):
+            entry["until"] = payload["until"]
+        try:
+            entry["route"] = routing.route_reason(event.get("id"), log=log, bus=bus)
+        except Exception:
+            entry["route"] = None
+        history.append(entry)
+    return history
+
+
+def item_provenance(queue_items: list, bus: Any, item_id: Any, log=None) -> dict | None:
+    """Return identifiers and safe event history for a matching queue item."""
+    item_id_str = str(item_id)
+    found = None
+    for qi in queue_items:
+        if not isinstance(qi, dict):
+            continue
+        if qi.get("id") == item_id_str:
+            found = qi
+            break
+        window_item = qi.get("window_item", {})
+        if isinstance(window_item, dict) and str(window_item.get("id", "")) == item_id_str:
+            found = qi
+            break
+    if found is None:
+        return None
+
+    entity_id = found.get("entity_id")
+    history = entity_history(bus, entity_id, log)
+    window_item = found.get("window_item", {})
+    if not isinstance(window_item, dict):
+        window_item = {}
+    return {
+        "queue_item_id": found.get("id"),
+        "entity_id": entity_id,
+        "item_id": str(window_item.get("id", "")),
+        "provider": found.get("provider"),
+        "source": found.get("source"),
+        "status": found.get("status"),
+        "repeated_deferrals": sum(1 for event in history if event.get("type") == "task.deferred"),
+        "history": history,
+    }
