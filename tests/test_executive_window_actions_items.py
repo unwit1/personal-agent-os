@@ -11,6 +11,9 @@ from unittest import mock
 
 import agent_os.executive.window.actions_items as actions_items
 from agent_os.executive.window.confirm import ItemState, ENV_HOME
+from agent_os.executive import contracts
+from agent_os.executive.event_bus import EventBus
+from agent_os.executive.window import registry as window_registry
 from agent_os.executive.window.registry import Registry
 
 
@@ -244,6 +247,27 @@ class ActionsItemsTests(unittest.TestCase):
         state = ItemState(self.tmp.name)
         result = self.registry.outstanding(state=state)
         self.assertEqual(len(result["items"]), 0)
+
+    def test_snooze_records_event_bus_deferral(self):
+        registry = Registry()
+        bus = EventBus(Path(self.tmp.name) / "events")
+        registry.attach_event_bus(bus)
+        registry.register_provider("provider", lambda: [regular_item("p1")])
+        with mock.patch.object(window_registry, "REGISTRY", registry):
+            registry.outstanding()
+            result = actions_items._snooze_item({"id": "p1"}, {"hours": 1}, confirm=False)
+
+        deferred = bus.events(event_type="task.deferred")
+        self.assertEqual(result.keys(), {"snoozed_until"})
+        self.assertEqual(len(deferred), 1)
+        self.assertEqual(deferred[0]["subject"], contracts.entity_id("task", "window:provider", "p1"))
+
+    def test_snooze_succeeds_when_deferral_recording_fails(self):
+        registry = mock.Mock()
+        registry.record_deferral.side_effect = RuntimeError("event bus unavailable")
+        with mock.patch.object(window_registry, "REGISTRY", registry):
+            result = actions_items._snooze_item({"id": "p1"}, {"until": "2030-01-01T00:00:00+00:00"}, confirm=False)
+        self.assertEqual(result, {"snoozed_until": "2030-01-01T00:00:00+00:00"})
 
     def test_actions_are_registered(self):
         """All expected actions must be registered."""
