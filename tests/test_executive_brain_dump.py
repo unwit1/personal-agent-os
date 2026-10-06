@@ -30,6 +30,11 @@ class BrainDumpTests(unittest.TestCase):
         existing = record_id("task", "Ship alpha")
         self.assertEqual(process("Ship alpha", known_projects=[{"id": "alpha"}], existing_ids=[existing])["duplicates"][0]["reason"], "already_captured")
 
+    def test_process_reuses_one_shot_project_iterable(self):
+        projects = (project for project in [{"id": "alpha"}])
+        result = process("Ship alpha. Review alpha", known_projects=projects)
+        self.assertEqual([record["project"] for record in result["records"]], ["alpha", "alpha"])
+
 
 if __name__ == "__main__":
     unittest.main()

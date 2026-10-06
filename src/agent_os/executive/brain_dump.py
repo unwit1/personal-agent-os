@@ -81,6 +81,7 @@ def record_id(type_: str, text: str) -> str:
 
 def process(text: str, *, known_projects=(), existing_ids=()) -> dict:
     """Turn a dump into records, duplicate notices, and project clarifications."""
+    known_projects = list(known_projects)
     records, duplicates, clarifications = [], [], []
     seen: set[str] = set()
     existing = set(existing_ids)
