@@ -40,7 +40,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         reg = builtin.default_registry()
         provider_names = set(reg._providers.keys())
 
-        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects"}
+        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects", "brain_dump"}
         self.assertEqual(provider_names, expected_providers)
 
     def test_default_registry_registers_actions(self):
@@ -67,6 +67,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "openings.event",
             "mail.organize_inbox",
             "mail.organize_apply",
+            "brain_dump.clarify",
+            "brain_dump.stage_candidate",
         }
         self.assertEqual(action_ids, expected_actions)
 
