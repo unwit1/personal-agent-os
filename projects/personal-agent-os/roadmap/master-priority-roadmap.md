@@ -1,4 +1,4 @@
-# Personal Agent OS — Master Priority Roadmap
+﻿# Personal Agent OS — Master Priority Roadmap
 
 Status: active / canonical priority order  
 Owner: Personal Agent OS  
@@ -1096,17 +1096,17 @@ window items, and can be answered with `knowledge_gap.answer`, which stages
 `answer_to_candidate` output through preview/Confirm (step 2). Rescue Mode is
 available as an Executive window view: the Rescue toggle filters the same ranked
 queue to one concrete action via `GET /api/rescue`, showing why/then and the
-suppressed count (step 3). Candidates are staged only, never promoted.
+suppressed count (step 3). Project items in the Executive window offer a read-only Resume option (`project.resume`) that opens the same `resumption-packet@1` as `executive resume` (step 4). Candidates are staged only, never promoted.
 
 Current: Brain-dump capture in the Executive window, project clarification, and
-stage-as-candidate through preview/Confirm are complete. Knowledge-gap questions
-as window items and answering through `knowledge_gap.answer` with candidate
-staging via preview/Confirm are complete (step 2). Rescue Mode as a window view
-is complete (step 3). Open: opening resumption packets from project items
-(step 4), MCP tools for the same functions (step 5), staging gap answers
-directly from the CLI, automatic gap generation, calendar/commitment and voice
-inputs for rescue or brain dumps, model-assisted extraction, and candidate
-review/promotion UX.
+ stage-as-candidate through preview/Confirm are complete. Knowledge-gap questions
+ as window items and answering through `knowledge_gap.answer` with candidate
+ staging via preview/Confirm are complete (step 2). Rescue Mode as a window view
+ is complete (step 3). Project items can open read-only resumption packets (step
+ 4). Open: MCP tools for the same functions (step 5), staging gap answers
+ directly from the CLI, automatic gap generation, calendar/commitment and voice
+ inputs for rescue or brain dumps, model-assisted extraction, and candidate
+ review/promotion UX.
 Candidates are staged only, never promoted.
 
 Operator constraint (2026-10-05, as for P3): P4 builds on the Executive window, not a parallel UI or store. Next, in order: (1) brain dumps are entered in the window (a 'Brain dump' input next to chat) and their records appear as window items with clarification and stage-as-candidate actions through the registry preview/Confirm flow; (2) selected knowledge-gap questions appear as window items with an answer action that stages the answer as a candidate (answer_to_candidate); (3) Rescue Mode is a window view/filter of the same ranked queue showing the one concrete action; (4) a project item can open its resumption packet; (5) MCP tools for the same functions. Candidates are staged only, never promoted automatically.
