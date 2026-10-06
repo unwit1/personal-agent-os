@@ -42,6 +42,16 @@ class TestExecutiveCaptureRescueDocumentation(unittest.TestCase):
         self.assertIn("item_id", content)
         self.assertIn("Rescue mode in the Executive window", content)
 
+    def test_doc_mentions_resumption_packets_in_executive_window(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        self.assertIn("Resumption packets in the Executive window", content)
+        self.assertIn("project.resume", content)
+        self.assertIn("actions_projects", content)
+
+    def test_doc_mentions_cli_gap_answer_staging_limitation(self):
+        content = EXEC_CAPTURE_RESCUE_DOC.read_text(encoding="utf-8")
+        self.assertIn("Staging knowledge-gap answers directly from the CLI", content)
+
 
 if __name__ == "__main__":
     unittest.main()
