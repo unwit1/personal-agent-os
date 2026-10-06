@@ -191,6 +191,11 @@ def _register_executive(commands) -> None:
     gaps.add_argument("--asked-id", action="append", default=[])
     gaps.add_argument("--enqueue", action="store_true")
     gaps.add_argument("--tab", choices=["work", "personal"], default="personal")
+    gap_answer = sub.add_parser("gap-answer")
+    gap_answer.add_argument("gap_id")
+    gap_answer.add_argument("--answer", required=True)
+    gap_answer.add_argument("--project", default=None)
+    gap_answer.add_argument("--confirm", action="store_true")
 
 
 def _approval_state(batch: dict) -> dict:
@@ -358,6 +363,13 @@ def _dispatch_executive(args) -> int:
 
             result["enqueued"] = GapStore().add(values, tab=args.tab)
         _print(result)
+    elif cmd == "gap-answer":
+        from .executive.window import actions_knowledge_gaps
+
+        result = actions_knowledge_gaps.answer_gap(
+            args.gap_id, args.answer, project=args.project, confirm=args.confirm
+        )
+        _print({"dry_run": not args.confirm, **result})
     return 0
 
 
