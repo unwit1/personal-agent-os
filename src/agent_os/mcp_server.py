@@ -802,6 +802,18 @@ PROJECT_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 
 PROJECT_TOOL_NAMES = frozenset(PROJECT_TOOL_SCHEMAS.keys())
 
+ROUTING_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "executive_routing.reason": {
+        "description": "Executive routing: the persisted route decision (disposition, rule, reason) for one event id, or null if not routed. Read-only; payload-free; local data only.",
+        "inputSchema": {"type": "object", "properties": {"event_id": {"type": "string"}}, "required": ["event_id"], "additionalProperties": False},
+    },
+    "executive_routing.dispatch": {
+        "description": "Executive routing: route pending Event Bus events for a consumer. Previews by default (nothing persisted or acknowledged); persists route reasons and acknowledges events only when confirm_write=true. Payload-free; local data only.",
+        "inputSchema": {"type": "object", "properties": {"consumer": {"type": "string", "default": "router"}, "rules": {"type": "object", "description": "Event type to disposition overrides"}, "confirm_write": {"type": "boolean", "default": False}}, "additionalProperties": False},
+    },
+}
+ROUTING_TOOL_NAMES = frozenset(ROUTING_TOOL_SCHEMAS)
+
 
 def _window_tool_schemas() -> dict[str, dict[str, Any]]:
     """Window tool schemas; the run schema is built from the live registry on every call."""
@@ -901,6 +913,26 @@ def _projects_scan(stale_days: int | None = None, include_inactive: bool = False
     result = project_actions.scan(states, **kwargs)
     result["errors"] = errors
     return result
+
+
+def _routing_event_bus():
+    from .executive.event_bus import EventBus
+    return EventBus()
+
+
+def _routing_reason(event_id: str) -> dict[str, Any]:
+    from .executive import routing
+    return {"event_id": event_id, "route": routing.route_reason(event_id, bus=_routing_event_bus())}
+
+
+def _routing_dispatch(consumer: str = "router", rules: dict | None = None, confirm_write: bool = False) -> dict[str, Any]:
+    if rules is not None and not isinstance(rules, dict):
+        raise ValueError("rules must be a JSON object")
+    from .executive import routing
+    bus = _routing_event_bus()
+    confirmed = bool(confirm_write)
+    records = routing.dispatch_pending(bus, consumer=consumer, rules=rules) if confirmed else routing.preview_pending(bus, consumer=consumer, rules=rules)
+    return {"consumer": consumer, "confirm_write": confirmed, "dispatched" if confirmed else "preview": records}
 
 
 def _executive_gateway() -> Any:
@@ -1099,6 +1131,8 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive_window.run": _window_run,
             "executive_projects.next": _projects_next,
             "executive_projects.scan": _projects_scan,
+            "executive_routing.reason": _routing_reason,
+            "executive_routing.dispatch": _routing_dispatch,
         }
     )
     available.update(orchestrate_methods())
@@ -1179,12 +1213,12 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
     if method == "ping":
         return _ok(request_id, {})
     if method == "tools/list":
-        listed = {**TOOL_SCHEMAS, **_window_tool_schemas(), **PROJECT_TOOL_SCHEMAS}
+        listed = {**TOOL_SCHEMAS, **_window_tool_schemas(), **PROJECT_TOOL_SCHEMAS, **ROUTING_TOOL_SCHEMAS}
         return _ok(request_id, {"tools": [{"name": name, **schema} for name, schema in listed.items()]})
     if method == "tools/call":
         params = request.get("params", {})
         name = params.get("name") if isinstance(params, dict) else None
-        if (name not in TOOL_SCHEMAS and name not in WINDOW_TOOL_NAMES and name not in PROJECT_TOOL_NAMES) or name not in available:
+        if (name not in TOOL_SCHEMAS and name not in WINDOW_TOOL_NAMES and name not in PROJECT_TOOL_NAMES and name not in ROUTING_TOOL_NAMES) or name not in available:
             return _ok(request_id, _mcp_result({"error": f"Unknown tool: {name}"}, error=True))
         try:
             arguments = params.get("arguments", {})
