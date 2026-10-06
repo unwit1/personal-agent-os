@@ -115,10 +115,12 @@ Scan projects and return aggregated status.
 
 Project actions in the Executive window are available through the window registry's preview/Confirm flow. Both state-changing actions below write only through this flow.
 
-- **`project.resume`**: Returns a read-only resumption packet for the project.
-- **`project.set_next_action`**: Available for `stalled`, `no_next_action`, and `vague_next_action` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
+- **`project.resume`**: Returns a read-only resumption packet for the project; available for `stalled`, `no_next_action`, `vague_next_action`, and `repeatedly_deferred` items.
+- **`project.set_next_action`**: Available for `stalled`, `no_next_action`, `vague_next_action`, and `repeatedly_deferred` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
 - **`project.resolve_decision`**: Available for `project_decision` items whose context carries the project and decision text. Takes the `resolution` parameter. Confirm removes that decision from `decisions_needed`, appends `{decision, resolution, resolved_on}` to the optional `decisions_resolved` state field, and sets `updated_at`. The action errors if the decision is no longer open.
 
 ## Repeated Deferrals
 
 Deferral counts come from identifiers-only `task.deferred` Event Bus events published when Executive window items are snoozed. `window_queue.project_deferral_counts` sums these events per project using window item ids of the form `project:<pid>:...`. The `project-next` and `project-scan` CLI commands and the `executive_projects.next` and `executive_projects.scan` MCP tools apply these counts automatically, falling back to 0 when the event log is unavailable.
+
+The Executive window `projects` provider applies the same counts and emits a score-2 `project_repeatedly_deferred` item.
