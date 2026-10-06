@@ -22,6 +22,10 @@ The window's Brain dump box posts text to `/api/brain-dump`. Records are saved i
 
 Results include `ask`, `deferred`, `discarded`, and `budget`. Eligible questions sort by descending score and then ID. `budget` caps `ask`; eligible overflow is deferred with reason `over_budget`. Previously asked IDs are discarded as `already_asked`, and scores below `min-score` as `low_value`. Each result item includes `id`, `question`, `topic`, `score`, `why`, and `reason`. The `why` field shows the score and up to three strongest positive raw factor values, plus any applied penalties.
 
+## Knowledge gaps in the Executive window
+
+`agent-os executive gaps <json> --enqueue [--tab work|personal]` persists gaps to `knowledge-gaps.json` in the window home. The `knowledge_gaps` provider displays up to three selected questions (`select_questions`), excluding already-answered gaps, as `knowledge_gap_question` items. The `knowledge_gap.answer` action accepts `answer` and `project`, previews the candidate built by `answer_to_candidate`, and stages it only after Confirm. The gap is then marked answered; nothing is promoted.
+
 ## Rescue mode
 
 `agent-os executive rescue [--tab work|personal] [--today DATE] [--stale-days N] [--horizon-days N]` considers executive queue items and project next-action results. Its basis order is:
