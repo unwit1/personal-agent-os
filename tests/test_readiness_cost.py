@@ -91,10 +91,10 @@ class CostReadinessTests(ReadinessFixture):
                 self.assertLessEqual(node['attempts'], 3)
                 self.assertLessEqual(node['escalations'], 2)
 
-    def test_CC5_unknown_money_cap_is_rejected(self):
-        self.assertFalse(any(any(part in key for part in ('usd', 'token', 'cost', 'money')) for key in DEFAULT_POLICY))
-        with self.assertRaises(PolicyError):
-            merge_policy({'max_usd': 1})
+    def test_CC5_cap_defaults_are_available(self):
+        self.assertIsNone(DEFAULT_POLICY['max_usd'])
+        self.assertIsNone(DEFAULT_POLICY['max_tokens'])
+        self.assertEqual(DEFAULT_POLICY['max_same_provider_review_rounds'], 2)
 
     def test_CC6_synthetic_registry_only(self):
         for entry in self.engine.registry().providers:
