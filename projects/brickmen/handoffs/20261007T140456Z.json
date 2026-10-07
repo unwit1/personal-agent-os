@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "brickmen",
+  "created_at": "2026-10-07T14:04:56.895198+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main",
+    "error": ""
+  },
+  "completed": [
+    "Pushed 02ecdd9; 375/744 direct first reviews, 1659 annotations; brief v2 allowed-edit/input protection; evaluator v4 native size checks and actual brick failure evidence."
+  ],
+  "decisions": [
+    "Keep failed outputs and exact reviewed bytes. Never repin mutable media or treat unpaired uncertainty as an observed translation failure. Deduplicate exact critic IDs without removing provenance links. Reuse CAD for exact fixed geometry/palette; do not normalize away failed native size constraints."
+  ],
+  "remaining": [
+    "Finish batch0016 from local work/fortnite-first-review-0016: 50 exact images verified, decisions-part-00.json contains 3 reviews; next pair index3. 369 first-review pairs; independent review/adjudication; broader generation evidence and physical calibration remain."
+  ],
+  "validation": [
+    "706 full local tests incl real LDView, repository integrity and state sync passed. Current hosted runs recorded in state. Actual brick fails silhouette/color/native size; positive control is CAD byte identity only. Batch15 UI refused changed live bytes; all 50 originals recovered offline.",
+    "02ecdd9 hosted Validate Brickmen run37633522654 and LEGO Knowledge Tool Tests run37633522661 completed successfully."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

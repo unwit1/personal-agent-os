@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "project": "brickmen",
+  "status": "active",
+  "updated_at": "2026-10-07",
+  "summary": "Pushed 02ecdd9: 375/744 first-reviewed with 1659 annotations. Brief v2 enforces requested edit scope and preserves inputs. Evaluator v4 checks native decoded RGBA and exact image size; retained head/brick outputs fail required constraints. Hard-case queue v2 avoids unpaired uncertainty and duplicate inflation. 706 full local tests passed.",
+  "context_files": [
+    "AUTONOMOUS_STATE.md",
+    "data/autonomous-state.json",
+    "knowledge/libraries/lego-minifigure-customs/generation-workflow.md"
+  ],
+  "validation_commands": [
+    "python tools/knowledge/sync_autonomous_state.py --check",
+    "python tools/validate_repo.py",
+    "python -m pytest tests -q"
+  ],
+  "constraints": [
+    "Keep high-volume reference media outside Git.",
+    "Preserve source provenance and unknowns; do not equate rendered geometry with physically validated fit."
+  ],
+  "skill_roots": [],
+  "current_priorities": [
+    "Finish first-review batch 0016: 50 exact images verified; decisions-part-00.json holds first 3 direct reviews; resume pair index 3. 369 frozen-cohort pairs remain.",
+    "Obtain genuinely independent exact-byte second reviews and explicit adjudication; first reviews remain noncanonical.",
+    "Expand actual output tests across appearance, decoration and multiple views; prefer unlit CAD for exact geometry and flat color.",
+    "Complete reviewer live-browser integration when navigation is available; retain unchanged hashes and archived bytes.",
+    "Continue curved UV accuracy and physical calibration evidence."
+  ],
+  "validation_evidence": {
+    "date": "2026-10-07",
+    "tests_passed": 706,
+    "integrity": "passed",
+    "checkpoint": "02ecdd917494bc83cd05346d807ac84063f2b8a7",
+    "github_verified_previous_checkpoint": "223cfd5d335d86fa958e4591cc8c392e450d89aa",
+    "latest_github_checks": [
+      {
+        "name": "Validate Brickmen",
+        "id": 37633522654,
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "LEGO Knowledge Tool Tests",
+        "id": 37633522661,
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "limitations": "Two parts, one view each, three retained outputs; not general-model or physical validation. Required constraints failed. Semantic labels require independent review/adjudication. Live-browser navigation remains unverified. Hosted batch15 live-media build refused changed bytes; all 50 originals recovered offline.",
+    "github_validation": {
+      "checkpoint": "223cfd5d335d86fa958e4591cc8c392e450d89aa",
+      "local_tests_passed": 693,
+      "current_local_tests_passed": 706,
+      "github_runs": [
+        {
+          "name": "LEGO Knowledge Tool Tests",
+          "id": 37632635067,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate Brickmen",
+          "id": 37632634989,
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "status": "passed"
+    }
+  },
+  "execution_constraint": "Work active in this user-authorized continuation; goal scheduler usageLimited is historical, and work is not complete.",
+  "local_review_media": {
+    "batch": "0015",
+    "archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-batch15-exact-media.zip",
+    "sha256": "2656d64d4ee06f41d81cff9e92ea16e28eb9d9fe21d5c4b7046f5fb4853352cd",
+    "semantic_labels_included": false,
+    "recovered_ui_archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-batch15-reviewer-v2.zip",
+    "recovered_ui_sha256": "a75dc712ceca4413097085f4861996d19e991b5c2db2c8a38146bd245d70c571"
+  },
+  "generation_experiment_evidence": {
+    "archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-head-accuracy-evidence.zip",
+    "sha256": "08b17cbfac1fef7de40eba89c62a96a67e188e701b38e049d51184653515ea27",
+    "constraint_status": "both failed; original outputs retained"
+  },
+  "native_color_regression": {
+    "record": "knowledge/libraries/lego-minifigure-customs/data/generation-accuracy-head-native-color-regression-v1.json",
+    "status": "both_retained_outputs_technical_checks_failed",
+    "native_roi_px": [
+      515,
+      405,
+      734,
+      514
+    ],
+    "sampled_pixels_each": 23871,
+    "exact_opaque_target_pixels_each": 0,
+    "unique_rgba_values": [
+      236,
+      103
+    ],
+    "evidence_archive": {
+      "archive": "brickmen-head-native-color-evidence.zip",
+      "sha256": "0c1f8288bf94164da88e469e4c6fc25a23e0bf46f95c4373cbf862dc5273e12d",
+      "bytes": 1438003
+    }
+  },
+  "semantic_hardcase_priority": {
+    "processor_version": "fortnite-semantic-critic-hardcase-queue/v2",
+    "unique_critic_items": 1287,
+    "unpaired_uncertainty_items": 99,
+    "duplicates_ignored": 0,
+    "queue_sha256": "71e756001a79b03328664132823a2602192e5fcd1be5f63aa3f4fd52e18fa02f",
+    "policy": "Unpaired uncertainty retained without translation-priority score; identical critic IDs count once, conflicts fail; no eligibility promotion."
+  },
+  "actual_brick_output_experiment": {
+    "record": "knowledge/libraries/lego-minifigure-customs/data/generation-accuracy-brick-experiment-v1.json",
+    "part_namespace": "ldraw",
+    "part_id": "3001",
+    "view": "elevated_front_right",
+    "actual_outputs": 1,
+    "silhouette_iou": 0.9816192467287141,
+    "native_dimensions_px": [
+      1254,
+      1254
+    ],
+    "required_dimensions_px": [
+      512,
+      512
+    ],
+    "interior_pixels_exact_opaque_gray": 0,
+    "sampled_interior_pixels": 31974,
+    "status": "technical_checks_failed",
+    "evaluator": "brickmen-generation-evaluation/v4",
+    "archive": {
+      "filename": "brickmen-brick-accuracy-evidence.zip",
+      "sha256": "9851685a89f083cee3b3dcfcb4686c3444f31ab316412dc0da833e9ceae0e912",
+      "bytes": 509296,
+      "original_images_unchanged": true,
+      "source_dependencies_included": true
+    }
+  },
+  "active_local_review": {
+    "batch": 16,
+    "verified_images": 50,
+    "reviewed_pairs": 3,
+    "next_pair_index": 3,
+    "workspace": "C:/Users/HR.RTEC/Documents/Codex/2026-10-05/plea/work/fortnite-first-review-0016"
+  }
+}
