@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "project": "lore-cosmere",
+  "status": "active",
+  "updated_at": "2026-10-07",
+  "summary": "Private Cosmere lore, continuity and craft-analysis repository; most mature fiction downstream of Ingester Engine (plan §3.6).",
+  "context_files": [
+    "README.md"
+  ],
+  "validation_commands": [],
+  "constraints": [],
+  "skill_roots": [],
+  "current_priorities": []
+}

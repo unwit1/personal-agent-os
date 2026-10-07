@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "project": "mtgBot",
+  "status": "active",
+  "updated_at": "2026-10-07",
+  "summary": "Provenance-aware Magic: The Gathering strategy and coaching system with continuous source ingestion.",
+  "context_files": [
+    "README.md"
+  ],
+  "validation_commands": [
+    "pytest"
+  ],
+  "constraints": [],
+  "skill_roots": [],
+  "current_priorities": []
+}

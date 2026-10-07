@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "project": "bobblemen",
+  "status": "candidate",
+  "updated_at": "2026-10-07",
+  "summary": "Research notes for a later visual-catalog template (Ingester plan P6.2).",
+  "context_files": [
+    "RESEARCH_STATE.md",
+    "ROADMAP.md"
+  ],
+  "validation_commands": [],
+  "constraints": [],
+  "skill_roots": [],
+  "current_priorities": []
+}

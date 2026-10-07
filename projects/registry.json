@@ -262,6 +262,125 @@
         "capture userscript",
         "firefox capture extension"
       ]
+    },
+    {
+      "id": "knowledge-tes",
+      "name": "Elder Scrolls Knowledge Library",
+      "directory": "knowledge-tes",
+      "repository": "https://github.com/unwit1/knowledge-tes.git",
+      "classification": "active",
+      "state_file": "projects/knowledge-tes/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Index documentation and structured lore metadata; do not load bulk source batches by default.",
+      "routing_terms": [
+        "elder scrolls lore",
+        "tes lore",
+        "lorekeeper",
+        "uesp",
+        "continuity"
+      ]
+    },
+    {
+      "id": "sse-modforge",
+      "name": "SSE ModForge",
+      "directory": "sse-modforge",
+      "repository": "https://github.com/unwit1/sse-modforge.git",
+      "classification": "active",
+      "state_file": "projects/sse-modforge/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Index tooling and documentation; do not load game assets or plugin binaries.",
+      "routing_terms": [
+        "skyrim modding",
+        "mod factory",
+        "xedit",
+        "papyrus",
+        "simonrim"
+      ]
+    },
+    {
+      "id": "lorereader",
+      "name": "LoreReader",
+      "directory": "lorereader",
+      "repository": "https://github.com/unwit1/lorereader.git",
+      "classification": "active",
+      "state_file": "projects/lorereader/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Index source and docs only; no user library data.",
+      "routing_terms": [
+        "lorereader",
+        "lore reader"
+      ]
+    },
+    {
+      "id": "lore-cosmere",
+      "name": "Cosmere Knowledge Repository",
+      "directory": "lore-cosmere",
+      "repository": "https://github.com/unwit1/lore-cosmere.git",
+      "classification": "active",
+      "state_file": "projects/lore-cosmere/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Private. Do not load the full-text corpus or craft quotes by default; index docs and structured metadata only.",
+      "routing_terms": [
+        "cosmere",
+        "sanderson",
+        "coppermind"
+      ]
+    },
+    {
+      "id": "mtgBot",
+      "name": "mtgBot",
+      "directory": "mtgBot",
+      "repository": "https://github.com/unwit1/mtgBot.git",
+      "classification": "active",
+      "state_file": "projects/mtgBot/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Index code and docs; no account data or logs.",
+      "routing_terms": [
+        "mtg",
+        "magic the gathering",
+        "mtgbot"
+      ]
+    },
+    {
+      "id": "media-intake-prototype",
+      "name": "Media Intake prototype",
+      "directory": "media-intake-prototype",
+      "repository": "https://github.com/unwit1/media-intake-prototype.git",
+      "classification": "active",
+      "state_file": "projects/media-intake-prototype/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Index code and docs; no downloaded media, credentials or queues.",
+      "routing_terms": [
+        "media intake",
+        "ebook acquisition",
+        "calibre"
+      ]
+    },
+    {
+      "id": "bobblemen",
+      "name": "Bobblemen",
+      "directory": "bobblemen",
+      "repository": "https://github.com/unwit1/bobblemen.git",
+      "classification": "candidate",
+      "state_file": "projects/bobblemen/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Research notes only.",
+      "routing_terms": [
+        "bobblemen"
+      ]
+    },
+    {
+      "id": "knowledge-library",
+      "name": "Knowledge Library",
+      "directory": "knowledge-library",
+      "repository": "https://github.com/unwit1/knowledge-library.git",
+      "classification": "candidate",
+      "state_file": "projects/knowledge-library/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Empty.",
+      "routing_terms": [
+        "knowledge-library"
+      ]
     }
   ],
   "path_resolution": "Canonical entries are machine independent. Effective checkout locations are resolved locally from .agent-local/machine.json, ~/.agent-os/config.json, repository identity, or discovery across registered search roots."

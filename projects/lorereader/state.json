@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "project": "lorereader",
+  "status": "active",
+  "updated_at": "2026-10-07",
+  "summary": "Local-first desktop library and reader for Elder Scrolls lore (TypeScript/Electron); fourth ESP/ESM/ESL parser.",
+  "context_files": [
+    "README.md"
+  ],
+  "validation_commands": [
+    "npm run test:portable"
+  ],
+  "constraints": [],
+  "skill_roots": [],
+  "current_priorities": []
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "project": "media-intake-prototype",
+  "status": "active",
+  "updated_at": "2026-10-07",
+  "summary": "Ebook and media acquisition worker (catalog search, identifiers, EPUB conversion, Calibre import). Download paths stay here and are not part of Ingester Engine.",
+  "context_files": [
+    "README.md"
+  ],
+  "validation_commands": [
+    "python -m unittest discover -s tests"
+  ],
+  "constraints": [],
+  "skill_roots": [],
+  "current_priorities": []
+}

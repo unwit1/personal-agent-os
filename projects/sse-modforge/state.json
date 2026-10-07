@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "project": "sse-modforge",
+  "status": "active",
+  "updated_at": "2026-10-07",
+  "summary": "Canonical Skyrim Special Edition modding knowledge and Mod Factory tooling, including the Simonrim balancer and xEdit/Papyrus/CommonLibSSE extractors moved from Agent OS 2026-10-07.",
+  "context_files": [
+    "README.md"
+  ],
+  "validation_commands": [
+    "python -m unittest discover -s tools/skyrim_mod_factory/tests -p test_*.py"
+  ],
+  "constraints": [],
+  "skill_roots": [],
+  "current_priorities": []
+}

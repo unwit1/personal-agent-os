@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "project": "knowledge-tes",
+  "status": "active",
+  "updated_at": "2026-10-07",
+  "summary": "Canonical Elder Scrolls lore library (games, books, dialogue, mod continuities, entities, claims). Sole home of TES lore; the former Agent OS Lorekeeper copy was retired here 2026-10-07.",
+  "context_files": [
+    "README.md"
+  ],
+  "validation_commands": [],
+  "constraints": [],
+  "skill_roots": [],
+  "current_priorities": []
+}

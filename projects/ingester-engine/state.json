@@ -29,8 +29,7 @@
     "tests/"
   ],
   "validation_commands": [
-    "python -m pytest tests",
-    "python tools/validate_repo.py <downstream-repo>"
+    "python -m pytest tests"
   ],
   "downstream": [
     "RTEC-HR (hr-v1)"
