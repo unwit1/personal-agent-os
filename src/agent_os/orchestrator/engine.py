@@ -448,6 +448,8 @@ class Orchestrator:
             "worktree_layout": "short",
             "launches": 0,
             "launch_budget": run_policy["max_launches"],
+            "usd_cap": run_policy.get("max_usd"),
+            "token_cap": run_policy.get("max_tokens"),
             "integration": {"branch": None, "path": None, "head": None, "merged": []},
             "final": {"validation": None, "repairs": 0, "landed": None, "summary": None},
             "usage": usage_lib.empty_totals(),
@@ -633,6 +635,12 @@ class Orchestrator:
             self.store.save(record)
         self._apply_decision(record, gate, approve, gate["note"])
         self._derive_state(record)
+        if not approve and gate["kind"] == "budget_exhausted":
+            decline_reasons = {
+                "usd": "money cap reached; user declined more",
+                "tokens": "token cap reached; user declined more",
+            }
+            record["state_reason"] = decline_reasons.get(gate.get("cap"), "launch budget exhausted; user declined more")
         self.store.save(record)
         self.store.append_event(run_id, f"gate.{gate['status']}", gate.get("node"), f"{gate['kind']}: {gate['reason']}")
         from .simple import GATE_CARDS
@@ -940,6 +948,60 @@ class Orchestrator:
         if best is None:
             return None
         return f"{USAGE_RESET_WAIT} {best[1]} at {best[0].isoformat()[:16].replace('T', ' ')} UTC (cheaper than {selection['provider']}; resets soon)"
+
+    def _independent_reviewer_reset_soon(self, record: dict[str, Any], node: dict[str, Any], selection: dict[str, Any]) -> str | None:
+        policy = record["policy"]
+        if node.get("role") != "reviewer" or not policy.get("require_distinct_review_provider"):
+            return None
+        subject = record["nodes"].get(node.get("subject")) or {}
+        author = ((subject.get("selection") or {}).get("provider"))
+        if not author or selection.get("provider") != author:
+            return None
+        limit = int(policy.get("wait_for_reset_seconds") or 0)
+        if limit <= 0:
+            return None
+        blocked = set(node.get("excluded_providers") or []) | set(self._paid_blocked(record))
+        capability = selection.get("capability_class")
+        moment = datetime.now(timezone.utc)
+        best = None
+        for pid, entry in _read_cooldowns(self.store.home).items():
+            provider = self.registry().get(pid)
+            if not provider or pid == author or not provider.get("enabled", True) or pid in blocked or not (provider.get("models") or {}).get(capability):
+                continue
+            try:
+                until = datetime.fromisoformat(str((entry or {}).get("until")))
+            except (TypeError, ValueError):
+                continue
+            remaining = (until - moment).total_seconds()
+            if 0 < remaining <= limit and (best is None or until < best[0]):
+                best = (until, pid)
+        if best is None:
+            return None
+        return f"{USAGE_RESET_WAIT} {best[1]} at {best[0].isoformat()[:16].replace('T', ' ')} UTC (independent reviewer; resets soon)"
+
+    def _spend_cap_reason(self, record: dict[str, Any]) -> tuple[str, str] | None:
+        usage = record.get("usage") or {}
+        usd_cap = record.get("usd_cap", record["policy"].get("max_usd"))
+        token_cap = record.get("token_cap", record["policy"].get("max_tokens"))
+        used_usd = float(usage.get("cost_usd") or 0)
+        used_tokens = int(usage.get("input_tokens") or 0) + int(usage.get("output_tokens") or 0)
+        usd_estimates = []
+        token_estimates = []
+        for node in record["nodes"].values():
+            call = ((node.get("result") or {}).get("usage") or {})
+            cost = call.get("cost_usd")
+            if cost is not None:
+                usd_estimates.append(float(cost))
+            input_tokens, output_tokens = call.get("input_tokens"), call.get("output_tokens")
+            if isinstance(input_tokens, int) or isinstance(output_tokens, int):
+                token_estimates.append((int(input_tokens or 0) + int(output_tokens or 0)))
+        est_usd = sum(usd_estimates) / len(usd_estimates) if usd_estimates else 0.0
+        est_tokens = sum(token_estimates) / len(token_estimates) if token_estimates else 0
+        if usd_cap is not None and used_usd + est_usd > usd_cap:
+            return "usd", f"money cap of ${usd_cap:.2f} would be exceeded: ${used_usd:.2f} used + ~${est_usd:.2f} next (cost_usd is an API-equivalent estimate, not cash)"
+        if token_cap is not None and used_tokens + est_tokens > token_cap:
+            return "tokens", f"token cap of {token_cap} would be exceeded: {used_tokens} used + ~{est_tokens:.0f} next"
+        return None
 
     def _loop_check_due(self, key: tuple[str, str], interval: float = 60.0) -> bool:
         """Read a worker's event stream for loops at most once a minute."""
@@ -1506,12 +1568,30 @@ class Orchestrator:
                 # ones that still apply; the older entries are superseded.
                 item["disposition"] = "superseded"
         blocking = material(this_round, record["policy"]["material_severities"])
+        independent = bool(author and provider != author)
+        same_rounds = sum(1 for item in subject["review"]["reviewers"] if not item.get("independent_provider"))
+        cap = int(record["policy"].get("max_same_provider_review_rounds", 2))
+        demoted = 0
+        if not independent and same_rounds >= cap:
+            for item in this_round:
+                if item.get("severity") in {"low", "info"} and item.get("disposition") in {"open", "accepted"}:
+                    item["disposition"] = "follow_up"
+                    demoted += 1
+                    subject["review"].setdefault("follow_ups", []).append({key: item[key] for key in ("id", "severity", "summary", "round") if key in item} | {"reviewer": provider})
+            blocking = material(this_round, record["policy"]["material_severities"])
         self.store.append_event(record["run_id"], "review.completed", subject["id"], f"{parsed['verdict']}; {len(blocking)} material finding(s)")
         self.ledger.emit(
             record["run_id"], "review_completed", reviewer["id"], subject=subject["id"], provider=provider,
             verdict=parsed["verdict"], findings=len(parsed["findings"]), material_findings=len(blocking),
             independent_provider=bool(author and provider != author), round=round_number,
         )
+        if not independent and same_rounds >= cap and not blocking and (demoted > 0 or parsed["verdict"] != "blocked"):
+            subject["state"] = "PASSED"
+            subject["completed_at"] = now()
+            reason = f"same-provider review cap ({cap}) reached; low severity findings recorded as follow-ups"
+            self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="same_provider_review_cap", reason=reason)
+            self.store.append_event(record["run_id"], "review.follow_ups", subject["id"], reason)
+            return
         if not blocking and parsed["verdict"] != "blocked":
             subject["state"] = "PASSED"
             subject["completed_at"] = now()
@@ -1793,6 +1873,15 @@ class Orchestrator:
             if node["execution_path"] == "model" and record["launches"] >= record["launch_budget"]:
                 self._open_gate(record, "budget_exhausted", f"launch budget of {record['launch_budget']} worker(s) is used up", None)
                 return
+            if node["execution_path"] == "model":
+                cap = self._spend_cap_reason(record)
+                if cap:
+                    existing = next((gate for gate in self._open_gates(record) if gate["kind"] == "budget_exhausted"), None)
+                    if existing:
+                        return
+                    gate = self._open_gate(record, "budget_exhausted", cap[1], None)
+                    gate["cap"] = cap[0]
+                    return
             launched = self._launch(record, node, running)
             if launched and editing:
                 editors += 1
@@ -1964,6 +2053,8 @@ class Orchestrator:
             self.store.append_event(record["run_id"], "node.unroutable", node["id"], selection["reason"])
             return False
         wait = None if selection.get("overridden") else self._cheaper_reset_soon(record, node, selection)
+        if wait is None and not selection.get("overridden"):
+            wait = self._independent_reviewer_reset_soon(record, node, selection)
         if wait:
             if node.get("wait_reason") != wait:
                 self.store.append_event(record["run_id"], "node.waiting", node["id"], wait)
@@ -2541,9 +2632,14 @@ class Orchestrator:
         node = record["nodes"].get(gate.get("node") or "")
         if kind == "budget_exhausted":
             if approve:
-                record["launch_budget"] += max(record["policy"]["max_launches"] // 2, 5)
-            else:
-                record["state_reason"] = "launch budget exhausted; user declined more"
+                if gate.get("cap") == "usd":
+                    current = record.get("usd_cap", record["policy"].get("max_usd"))
+                    record["usd_cap"] = current + record["policy"]["max_usd"] / 2
+                elif gate.get("cap") == "tokens":
+                    current = record.get("token_cap", record["policy"].get("max_tokens"))
+                    record["token_cap"] = current + max(record["policy"]["max_tokens"] // 2, 1)
+                else:
+                    record["launch_budget"] += max(record["policy"]["max_launches"] // 2, 5)
             return
         if kind == "consequential_repository_write":
             if approve:
@@ -2787,6 +2883,8 @@ class Orchestrator:
             "progress": {"passed": passed, "total": total, "integrated": len(record["integration"]["merged"])},
             "launches": record["launches"],
             "launch_budget": record["launch_budget"],
+            "usd_cap": record.get("usd_cap", record["policy"].get("max_usd")),
+            "token_cap": record.get("token_cap", record["policy"].get("max_tokens")),
             "usage": record["usage"],
             "preflight": record["preflight"],
             "overrides": record["overrides"],

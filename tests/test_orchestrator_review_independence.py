@@ -1,0 +1,77 @@
+from __future__ import annotations
+
+from datetime import datetime, timedelta, timezone
+
+from tests.test_orchestrator import OrchestratorFixture, synthetic
+
+
+class ReviewIndependenceTests(OrchestratorFixture):
+    def script(self, verdict="approved", severity=None):
+        def run(request, call):
+            if request.role == "reviewer":
+                findings = [] if severity is None else [{"id": "finding", "severity": severity, "summary": "finding", "path": "a/file.txt"}]
+                return {"structured": {"status": "done", "verdict": verdict, "findings": findings}}
+            return {"edits": {"a/file.txt": "change\n"}, "structured": {"status": "done"}}
+        return run
+
+    def cool_beta(self, seconds):
+        from agent_os.orchestrator import engine as engine_mod
+        until = (datetime.now(timezone.utc) + timedelta(seconds=seconds)).isoformat(timespec="seconds")
+        engine_mod._write_cooldown(self.engine.store.home, "beta", until, "quota: test")
+        self.engine._availability = {"alpha": True, "beta": True}
+
+    def test_waits_for_soon_independent_provider(self):
+        self.cool_beta(60)
+        synthetic.SCRIPTS["alpha"] = self.script()
+        run_id = self.create([self.task("a")], wait_for_reset_seconds=300)
+        self.engine.start(run_id)
+        for _ in range(8):
+            self.engine.step(run_id)
+            node = self.node(run_id, "a")
+            if node["state"] == "WAITING_FOR_REVIEW":
+                break
+        reviewer = next(n for n in self.engine.load(run_id)["nodes"].values() if n["role"] == "reviewer")
+        self.engine.step(run_id)
+        reviewer = self.engine.load(run_id)["nodes"][reviewer["id"]]
+        self.assertEqual(reviewer["state"], "RUNNABLE")
+        self.assertIn("independent reviewer", reviewer["wait_reason"])
+        self.assertNotEqual((reviewer.get("selection") or {}).get("provider"), "alpha")
+
+    def test_far_reset_allows_same_provider_review(self):
+        self.cool_beta(7200)
+        synthetic.SCRIPTS["alpha"] = self.script()
+        run_id = self.create([self.task("a")], wait_for_reset_seconds=300)
+        final = self.engine.run_loop(run_id, max_ticks=60)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+        review = self.engine.load(run_id)["nodes"]["a"]["review"]["reviewers"]
+        self.assertFalse(review[0]["independent_provider"])
+
+    def test_same_provider_low_finding_becomes_follow_up_at_cap(self):
+        self.cool_beta(7200)
+        synthetic.SCRIPTS["alpha"] = self.script("changes_requested", "low")
+        run_id = self.create([self.task("a")], max_same_provider_review_rounds=1, wait_for_reset_seconds=300)
+        final = self.engine.run_loop(run_id, max_ticks=60)
+        node = self.engine.load(run_id)["nodes"]["a"]
+        self.assertEqual(node["state"], "PASSED")
+        self.assertEqual(len(node["review"]["follow_ups"]), 1)
+        self.assertFalse(any(n["role"] == "repairer" for n in self.engine.load(run_id)["nodes"].values()))
+        self.assertFalse(any(g["kind"] == "unresolved_review_findings" for g in final["gates"]))
+
+    def test_medium_same_provider_finding_still_repairs(self):
+        self.cool_beta(7200)
+        synthetic.SCRIPTS["alpha"] = self.script("changes_requested", "medium")
+        run_id = self.create([self.task("a")], max_same_provider_review_rounds=1, wait_for_reset_seconds=300)
+        self.engine.run_loop(run_id, max_ticks=20)
+        record = self.engine.load(run_id)
+        self.assertNotEqual(record["nodes"]["a"]["state"], "PASSED")
+        self.assertTrue(any(n["role"] == "repairer" for n in record["nodes"].values()))
+
+    def test_independent_low_finding_behaviour_is_unchanged(self):
+        synthetic.SCRIPTS["alpha"] = self.script("approved")
+        synthetic.SCRIPTS["beta"] = self.script("blocked", "low")
+        run_id = self.create([self.task("a")], max_same_provider_review_rounds=1)
+        self.engine.run_loop(run_id, max_ticks=20)
+        record = self.engine.load(run_id)
+        self.assertTrue(record["nodes"]["a"]["review"]["reviewers"][0]["independent_provider"])
+        self.assertEqual(record["nodes"]["a"]["review"].get("follow_ups", []), [])
+        self.assertTrue(any(n["role"] == "repairer" for n in record["nodes"].values()))
