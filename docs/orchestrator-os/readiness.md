@@ -36,7 +36,7 @@ This checkpoint synthesizes the seven [readiness evidence files](readiness/) and
 | CC-2 | Record documented usage-total fields. | Pass | Pass | PASS | [Cost](readiness/cost.md) |
 | CC-3 | Bound all-provider quota exhaustion. | Pass | Pass | PASS | [Cost](readiness/cost.md) |
 | CC-4 | Bound validator retries, escalation, and provider errors. | Pass | Pass | PASS | [Cost](readiness/cost.md) |
-| CC-5 | Enforce a token or money cap. | N/A | N/A | GAP | [Cost](readiness/cost.md) |
+| CC-5 | Enforce a token or money cap. | Pass | Pass | PASS | [Cost](readiness/cost.md) |
 | CC-6 | Use synthetic adapters for fixture runs. | Pass | Pass | PASS | [Cost](readiness/cost.md) |
 | RG-1 | Repair material review findings and review again. | Pass | Pass | PASS | [Review](readiness/review.md) |
 | RG-2 | Reject malformed reviewer approval. | Pass | Pass | PASS | [Review](readiness/review.md) |
@@ -70,7 +70,7 @@ The [worktree](readiness/worktree.md), [privacy](readiness/privacy.md), [validat
 - **PR-1:** Transcript refusal and tested secret patterns passed, but `redact("sk-test-123456")` returns that generic token unchanged on both fixtures ([privacy](readiness/privacy.md)).
 - **PR-5:** With `share_run_history=True` and no fixture `.gitignore`, `.agent-local` entries appear in fixture `git status` and the integration branch on both fixtures ([privacy](readiness/privacy.md)).
 - **VD-1:** Unregistered Python and JavaScript runs have empty default and node validator lists; JavaScript does not infer npm tests. Explicit commands work. Node's default child-process test isolation initially failed with `spawn EPERM` in this Windows worker; `NODE_OPTIONS=--test-isolation=none` let `node --test` pass ([validators](readiness/validators.md)).
-- **CC-5:** An unknown `max_usd` policy key is rejected. Defaults have `max_launches` but no token or money cap; usage totals are accounting only ([cost](readiness/cost.md)).
+- **CC-5:** `max_usd` and `max_tokens` (default null = no cap) are validated policy keys. Before each model launch, recorded usage plus the next-launch estimate (the average of this run's earlier calls) is checked, and a `budget_exhausted` gate is opened instead of launching. Approval raises the cap by half, like CC-1. `cost_usd` is an API-equivalent estimate reported by the provider, not cash. Subscription providers count it, and calls that report no `cost_usd` (for example Codex) count toward `max_tokens` only. Evidence: [spend cap](../../tests/test_orchestrator_spend_cap.py) and [policy caps](../../tests/test_orchestrator_policy_caps.py).
 - **NR-6:** Unregistered run creation records no initial approval gate. This is observed behavior, not a failing assertion; whether explicit consent should be required is a policy decision ([unregistered](readiness/unregistered.md)).
 - **DL-3/DL-4:** Large-repository map and run checks used only the Python fixture. Their timings are machine-specific ([dirty and large](readiness/dirty-large.md)).
 - **RG source inspection:** The targeted scan found no quoted `push` token in the checked run-engine Python files; it does not prove that dynamically assembled push arguments are impossible. `repos.py` has a separate `gh repo create --push` path outside that run path ([review](readiness/review.md)).
