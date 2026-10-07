@@ -3,7 +3,7 @@
   "project": "brickmen",
   "status": "active",
   "updated_at": "2026-10-07",
-  "summary": "Pushed 02ecdd9: 375/744 first-reviewed with 1659 annotations. Brief v2 enforces requested edit scope and preserves inputs. Evaluator v4 checks native decoded RGBA and exact image size; retained head/brick outputs fail required constraints. Hard-case queue v2 avoids unpaired uncertainty and duplicate inflation. 706 full local tests passed.",
+  "summary": "Pushed 9835b1e: 400/744 first-reviewed with 1800 annotations. Brief v2 enforces requested edit scope and preserves inputs. Evaluator v5 preserves linked evidence, rejects animated masks and checks native decoded RGBA and exact image size; retained head/brick outputs fail required constraints. Hard-case queue v2 avoids unpaired uncertainty and duplicate inflation. 722 full local tests passed.",
   "context_files": [
     "AUTONOMOUS_STATE.md",
     "data/autonomous-state.json",
@@ -20,7 +20,7 @@
   ],
   "skill_roots": [],
   "current_priorities": [
-    "Finish first-review batch 0016: 50 exact images verified; decisions-part-00.json holds first 3 direct reviews; resume pair index 3. 369 frozen-cohort pairs remain.",
+    "Continue batch 0017: 50 exact images verified, 3/25 reviews saved locally; compile only after all25. Remaining frozen-cohort counts are in canonical state.",
     "Obtain genuinely independent exact-byte second reviews and explicit adjudication; first reviews remain noncanonical.",
     "Expand actual output tests across appearance, decoration and multiple views; prefer unlit CAD for exact geometry and flat color.",
     "Complete reviewer live-browser integration when navigation is available; retain unchanged hashes and archived bytes.",
@@ -28,39 +28,39 @@
   ],
   "validation_evidence": {
     "date": "2026-10-07",
-    "tests_passed": 706,
+    "tests_passed": 722,
     "integrity": "passed",
-    "checkpoint": "02ecdd917494bc83cd05346d807ac84063f2b8a7",
-    "github_verified_previous_checkpoint": "223cfd5d335d86fa958e4591cc8c392e450d89aa",
+    "checkpoint": "9835b1e94c7926ab8eab44afbc77105aa437ff26",
+    "github_verified_previous_checkpoint": "9148f7a5b0e8c8801099779929e2505c83409d16",
     "latest_github_checks": [
       {
         "name": "Validate Brickmen",
-        "id": 37633522654,
+        "id": 37636420411,
         "status": "completed",
         "conclusion": "success"
       },
       {
         "name": "LEGO Knowledge Tool Tests",
-        "id": 37633522661,
+        "id": 37636420417,
         "status": "completed",
         "conclusion": "success"
       }
     ],
-    "limitations": "Two parts, one view each, three retained outputs; not general-model or physical validation. Required constraints failed. Semantic labels require independent review/adjudication. Live-browser navigation remains unverified. Hosted batch15 live-media build refused changed bytes; all 50 originals recovered offline.",
+    "limitations": "Two parts, one view each, three retained outputs; not general-model or physical validation. Required constraints failed. Semantic labels require independent review/adjudication. Live-browser navigation remains unverified. Hosted batch16 live-media build refused changed bytes; all 50 originals recovered offline.",
     "github_validation": {
-      "checkpoint": "223cfd5d335d86fa958e4591cc8c392e450d89aa",
-      "local_tests_passed": 693,
-      "current_local_tests_passed": 706,
+      "checkpoint": "9148f7a5b0e8c8801099779929e2505c83409d16",
+      "local_tests_passed": 722,
+      "current_local_tests_passed": 722,
       "github_runs": [
         {
-          "name": "LEGO Knowledge Tool Tests",
-          "id": 37632635067,
+          "name": "Validate Brickmen",
+          "id": 37636012915,
           "status": "completed",
           "conclusion": "success"
         },
         {
-          "name": "Validate Brickmen",
-          "id": 37632634989,
+          "name": "LEGO Knowledge Tool Tests",
+          "id": 37636013090,
           "status": "completed",
           "conclusion": "success"
         }
@@ -70,12 +70,12 @@
   },
   "execution_constraint": "Work active in this user-authorized continuation; goal scheduler usageLimited is historical, and work is not complete.",
   "local_review_media": {
-    "batch": "0015",
-    "archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-batch15-exact-media.zip",
-    "sha256": "2656d64d4ee06f41d81cff9e92ea16e28eb9d9fe21d5c4b7046f5fb4853352cd",
+    "batch": "0016",
+    "archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-batch16-exact-media.zip",
+    "sha256": "67cb9151c4d48da6ed31029e8c630294481f3a39ea4ec9c57e8dbe9401649745",
     "semantic_labels_included": false,
-    "recovered_ui_archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-batch15-reviewer-v2.zip",
-    "recovered_ui_sha256": "a75dc712ceca4413097085f4861996d19e991b5c2db2c8a38146bd245d70c571"
+    "recovered_ui_archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-batch16-reviewer-v2.zip",
+    "recovered_ui_sha256": "f3eb6ff264a8c3ba697c38ff69190858859cd82a0ee93eba47f1044c0456fc06"
   },
   "generation_experiment_evidence": {
     "archive": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\outputs\\brickmen-head-accuracy-evidence.zip",
@@ -105,10 +105,10 @@
   },
   "semantic_hardcase_priority": {
     "processor_version": "fortnite-semantic-critic-hardcase-queue/v2",
-    "unique_critic_items": 1287,
-    "unpaired_uncertainty_items": 99,
+    "unique_critic_items": 1529,
+    "unpaired_uncertainty_items": 157,
     "duplicates_ignored": 0,
-    "queue_sha256": "71e756001a79b03328664132823a2602192e5fcd1be5f63aa3f4fd52e18fa02f",
+    "queue_sha256": "9f8b27156bb701decfe9dedafedba16287ae1bffd404eba2ce192523ffcd33ba",
     "policy": "Unpaired uncertainty retained without translation-priority score; identical critic IDs count once, conflicts fail; no eligibility promotion."
   },
   "actual_brick_output_experiment": {
@@ -139,10 +139,10 @@
     }
   },
   "active_local_review": {
-    "batch": 16,
+    "batch": 17,
     "verified_images": 50,
     "reviewed_pairs": 3,
     "next_pair_index": 3,
-    "workspace": "C:/Users/HR.RTEC/Documents/Codex/2026-10-05/plea/work/fortnite-first-review-0016"
+    "workspace": "C:\\Users\\HR.RTEC\\Documents\\Codex\\2026-10-05\\plea\\work\\fortnite-first-review-0017"
   }
 }
