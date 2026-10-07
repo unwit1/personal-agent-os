@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 from tests.test_orchestrator import OrchestratorFixture, synthetic
+from agent_os.orchestrator.engine import _node_view
 
 
 class ReviewIndependenceTests(OrchestratorFixture):
@@ -75,3 +76,24 @@ class ReviewIndependenceTests(OrchestratorFixture):
         self.assertTrue(record["nodes"]["a"]["review"]["reviewers"][0]["independent_provider"])
         self.assertEqual(record["nodes"]["a"]["review"].get("follow_ups", []), [])
         self.assertTrue(any(n["role"] == "repairer" for n in record["nodes"].values()))
+
+    def test_status_summary_reports_independent_review(self):
+        synthetic.SCRIPTS["alpha"] = self.script()
+        synthetic.SCRIPTS["beta"] = self.script()
+        run_id = self.create([self.task("a")])
+        final = self.engine.run_loop(run_id, max_ticks=60)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+        task_view = next(node for node in self.engine.summary(self.engine.load(run_id))["nodes"] if node["id"] == "a")
+        self.assertEqual(task_view["review_summary"]["rounds"], 1)
+        self.assertEqual(len(task_view["review_summary"]["reviews"]), 1)
+        self.assertTrue(task_view["review_summary"]["reviews"][0]["independent"])
+
+    def test_node_view_accepts_old_review_shape(self):
+        synthetic.SCRIPTS["alpha"] = self.script()
+        run_id = self.create([self.task("a")])
+        node = self.engine.load(run_id)["nodes"]["a"]
+        node["review"] = {"rounds": 0, "findings": [], "reviewers": []}
+        view = _node_view(node)
+        self.assertEqual(view["review_summary"], {
+            "rounds": 0, "reviews": [], "same_provider_rounds": 0, "follow_ups": 0,
+        })

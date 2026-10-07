@@ -3282,6 +3282,8 @@ def _prior_attempts(node: dict[str, Any], severities: list[str] | None = None) -
 def _node_view(node: dict[str, Any]) -> dict[str, Any]:
     selection = node.get("selection") or {}
     worktree = node.get("worktree") or {}
+    review = node.get("review") or {}
+    reviewers = review.get("reviewers", [])
     return {
         "id": node["id"],
         "role": node["role"],
@@ -3314,6 +3316,20 @@ def _node_view(node: dict[str, Any]) -> dict[str, Any]:
         "failures": node["failures"][-3:],
         "validation": node.get("validation"),
         "review": node["review"],
+        "review_summary": {
+            "rounds": review.get("rounds", 0),
+            "reviews": [
+                {
+                    "round": reviewer.get("round"),
+                    "provider": reviewer.get("provider"),
+                    "independent": bool(reviewer.get("independent_provider")),
+                    "verdict": reviewer.get("verdict"),
+                }
+                for reviewer in reviewers
+            ],
+            "same_provider_rounds": sum(1 for reviewer in reviewers if not reviewer.get("independent_provider")),
+            "follow_ups": len(review.get("follow_ups", [])),
+        },
         "integrated": node["integrated"],
         "checkpoint": node.get("checkpoint"),
         "result": node.get("result"),
