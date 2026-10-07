@@ -10,39 +10,14 @@ LEGO customs and custom-minifigure knowledge extraction tooling is canonical in 
 
 Agent OS should route LEGO/custom-minifigure ingestion and research jobs to Brickmen rather than maintaining duplicate local tool copies or canonical LEGO datasets here. Cross-project orchestration may reference Brickmen outputs through stable repository paths/provenance.
 
-## Skyrim Knowledge Extraction
+## Elder Scrolls / Skyrim integration
 
-### rebuild_skyrim_terminology_index.py
-Scans the repository's terminology modules and regenerates counts/index links.
+Elder Scrolls content does not live in Agent OS (operator decision, 2026-10-07):
 
-### extract_papyrus_api.py
-Input: a PSC source tree such as vanilla, SKSE, po3 Papyrus Extender, PapyrusUtil, or another framework.
+- Lore (continuities, books, claims, entities) is canonical in `unwit1/knowledge-tes`. The former `projects/lorekeeper/` copy was retired; knowledge-tes holds every file it had.
+- Skyrim/SSE modding knowledge and tooling is canonical in `unwit1/sse-modforge`. That includes the xEdit, Papyrus and CommonLibSSE extractors formerly here (`capture_xedit_schema.py`, `extract_xedit_schema.py`, `extract_papyrus_api.py`, `extract_commonlib_symbols.py`), the Mod Factory validators, and `projects/simonrim-balancer/`. See its `MIGRATION.md` and `integration/migrated-from-personal-agent-os-2026-10-07.json`.
 
-Output:
-- structured JSON;
-- reviewable Markdown signatures;
-- ScriptName/parent/declaration source line provenance.
-
-Run one source family at a time so a function's provider remains explicit.
-
-### extract_commonlib_symbols.py
-Input: Doxygen XML generated from an exact CommonLibSSE-NG checkout.
-
-Output:
-- classes/structs/namespaces/files;
-- functions, variables, enums and typedefs;
-- source file/line locations.
-
-### capture_xedit_schema.py
-Preferred xEdit schema acquisition path. Invokes xEdit's own xDump/xExport definition exporter in RAW or UESPWIKI mode and records executable hash, exact command and upstream provenance.
-
-### extract_xedit_schema.py
-Input: exact xEdit/TES5Edit source checkout.
-
-Output:
-- lexical candidate inventory of record signatures and source locations.
-
-It is intentionally conservative and is not itself a plugin parser/writer.
+Agent OS routes Elder Scrolls ingestion and research jobs to those repositories rather than keeping local copies.
 
 ## Provenance requirements
 
