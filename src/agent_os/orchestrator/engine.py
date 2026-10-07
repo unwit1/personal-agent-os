@@ -636,7 +636,11 @@ class Orchestrator:
         self._apply_decision(record, gate, approve, gate["note"])
         self._derive_state(record)
         if not approve and gate["kind"] == "budget_exhausted":
-            record["state_reason"] = ("money cap reached; user declined more" if gate.get("cap") == "usd" else "token cap reached; user declined more" if gate.get("cap") == "tokens" else "launch budget exhausted; user declined more")
+            decline_reasons = {
+                "usd": "money cap reached; user declined more",
+                "tokens": "token cap reached; user declined more",
+            }
+            record["state_reason"] = decline_reasons.get(gate.get("cap"), "launch budget exhausted; user declined more")
         self.store.save(record)
         self.store.append_event(run_id, f"gate.{gate['status']}", gate.get("node"), f"{gate['kind']}: {gate['reason']}")
         from .simple import GATE_CARDS
@@ -1567,25 +1571,27 @@ class Orchestrator:
         independent = bool(author and provider != author)
         same_rounds = sum(1 for item in subject["review"]["reviewers"] if not item.get("independent_provider"))
         cap = int(record["policy"].get("max_same_provider_review_rounds", 2))
+        demoted = 0
         if not independent and same_rounds >= cap:
             for item in this_round:
                 if item.get("severity") in {"low", "info"} and item.get("disposition") in {"open", "accepted"}:
                     item["disposition"] = "follow_up"
+                    demoted += 1
                     subject["review"].setdefault("follow_ups", []).append({key: item[key] for key in ("id", "severity", "summary", "round") if key in item} | {"reviewer": provider})
             blocking = material(this_round, record["policy"]["material_severities"])
-            if not blocking:
-                subject["state"] = "PASSED"
-                subject["completed_at"] = now()
-                reason = f"same-provider review cap ({cap}) reached; low severity findings recorded as follow-ups"
-                self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="same_provider_review_cap", reason=reason)
-                self.store.append_event(record["run_id"], "review.follow_ups", subject["id"], reason)
-                return
         self.store.append_event(record["run_id"], "review.completed", subject["id"], f"{parsed['verdict']}; {len(blocking)} material finding(s)")
         self.ledger.emit(
             record["run_id"], "review_completed", reviewer["id"], subject=subject["id"], provider=provider,
             verdict=parsed["verdict"], findings=len(parsed["findings"]), material_findings=len(blocking),
             independent_provider=bool(author and provider != author), round=round_number,
         )
+        if not independent and same_rounds >= cap and not blocking and (demoted > 0 or parsed["verdict"] != "blocked"):
+            subject["state"] = "PASSED"
+            subject["completed_at"] = now()
+            reason = f"same-provider review cap ({cap}) reached; low severity findings recorded as follow-ups"
+            self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="same_provider_review_cap", reason=reason)
+            self.store.append_event(record["run_id"], "review.follow_ups", subject["id"], reason)
+            return
         if not blocking and parsed["verdict"] != "blocked":
             subject["state"] = "PASSED"
             subject["completed_at"] = now()
@@ -2634,8 +2640,6 @@ class Orchestrator:
                     record["token_cap"] = current + max(record["policy"]["max_tokens"] // 2, 1)
                 else:
                     record["launch_budget"] += max(record["policy"]["max_launches"] // 2, 5)
-            else:
-                record["state_reason"] = ("money cap reached; user declined more" if gate.get("cap") == "usd" else "token cap reached; user declined more" if gate.get("cap") == "tokens" else "launch budget exhausted; user declined more")
             return
         if kind == "consequential_repository_write":
             if approve:
