@@ -84,9 +84,14 @@ def classify(section: str) -> tuple[str, str | None]:
         # the rest of the line is description, which may mention words like
         # "deferral" or "complete" about parts of the stage.
         bold = re.search(r"\*\*(.+?)\*\*", status_line)
-        text = (bold.group(1) if bold else status_line).casefold()
+        text = bold.group(1) if bold else re.sub(r"^status:", "", status_line, flags=re.IGNORECASE).strip()
+        if not bold:
+            text = re.split(r"(?:\.\s+|;\s+|!\s+|\?\s+|[\u2014\u2013]| - |\s+\()", text, maxsplit=1)[0]
+        text = text.casefold()
         if "deferred" in text or "on hold" in text:
             return "deferred", status_line
+        if "not started" in text or "not yet started" in text or "planned" in text:
+            return "not_started", status_line
         if "foundation" in text or "partial" in text or "steps " in text:
             return "partial", status_line
         if "complete" in text or "implemented" in text or "done" in text:
@@ -280,6 +285,7 @@ def build_goal(project: str | None, stage: dict[str, Any], roadmap_rel: str, han
         # Every worker reads this goal as "Overall goal"; phrased as a plan rule
         # so implementers do not edit the roadmap outside their scope.
         f"Plan the update of this stage's Status/Current text in {roadmap_rel} (what is now complete) as its own final task; only that task may edit {roadmap_rel}, and no other task should mention or edit it. "
+        "The status task must write the stage's status line as `Status: **<complete|partial|in progress>**. <one-sentence description>` (the bold phrase is the state; the description follows after the period). "
         "That update must describe only behaviour present in the run's integrated code (check flags and functions exist); list anything still missing as open.",
     ]
     if remaining:

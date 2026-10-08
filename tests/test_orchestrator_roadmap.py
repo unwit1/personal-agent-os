@@ -84,6 +84,20 @@ class RoadmapParsingTests(unittest.TestCase):
         self.assertEqual(roadmap.classify("Status: **on hold** (x); the parser part is complete.")[0], "deferred")
         self.assertEqual(roadmap.classify("Status: in progress, deferred work listed below")[0], "deferred")
 
+    def test_classify_planned_and_not_started_bold_statuses(self) -> None:
+        self.assertEqual(roadmap.classify("Status: **planned**")[0], "not_started")
+        self.assertEqual(roadmap.classify("Status: **not started**")[0], "not_started")
+
+    def test_classify_unbolded_status_uses_only_the_first_sentence(self) -> None:
+        self.assertEqual(roadmap.classify("Status: Complete. Batch 3 partial (17) remains open.")[0], "complete")
+        self.assertEqual(roadmap.classify("Status: In progress; foundation done")[0], "in_progress")
+        self.assertEqual(roadmap.classify("Status: Partial. Steps 1-2 complete.")[0], "partial")
+
+    def test_goal_specifies_status_line_format(self) -> None:
+        stage = roadmap.parse(ROADMAP)[1]
+        goal = roadmap.build_goal(None, stage, "ROADMAP.md", None)
+        self.assertIn("Status: **<complete|partial|in progress>**.", goal)
+
     def test_parse_stages_in_order(self) -> None:
         stages = roadmap.parse(ROADMAP + "\n## P1 — Leaf section\n\nNothing yet.\n")
         self.assertEqual([stage["id"] for stage in stages], ["P0.1", "P0.2", "P0.3", "P0.4", "P1"])

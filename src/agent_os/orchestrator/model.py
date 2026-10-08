@@ -123,6 +123,12 @@ DEFAULT_POLICY: dict[str, Any] = {
     "max_stage_retries": 2,
     "max_escalations": 2,
     "max_review_rounds": 2,
+    # CC-5: cap recorded API-equivalent estimated cost; subscriptions count too.
+    "max_usd": None,
+    # CC-5: cap recorded input plus output tokens.
+    "max_tokens": None,
+    # IMP-0023: same-provider review rounds before low findings become follow-ups.
+    "max_same_provider_review_rounds": 2,
     "max_final_repairs": 1,
     "material_severities": ["critical", "high", "medium"],
     "approval_gates": list(APPROVAL_GATES),
@@ -249,14 +255,26 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "max_stage_retries",
         "max_escalations",
         "max_review_rounds",
+        "max_same_provider_review_rounds",
         "max_final_repairs",
         "max_planned_tasks",
         "max_launches",
         "worker_timeout_seconds",
         "planner_read_budget",
     ):
-        if not isinstance(policy[key], int) or isinstance(policy[key], bool) or policy[key] < 0:
+        value = policy.get(key, DEFAULT_POLICY[key]) if key == "max_same_provider_review_rounds" else policy[key]
+        if not isinstance(value, int) or isinstance(value, bool) or value < 0:
             raise PolicyError(f"{key} must be a non-negative integer")
+    max_usd = policy.get("max_usd")
+    if max_usd is not None and (
+        not isinstance(max_usd, (int, float)) or isinstance(max_usd, bool) or max_usd <= 0
+    ):
+        raise PolicyError("max_usd must be null or a positive number")
+    max_tokens = policy.get("max_tokens")
+    if max_tokens is not None and (
+        not isinstance(max_tokens, int) or isinstance(max_tokens, bool) or max_tokens <= 0
+    ):
+        raise PolicyError("max_tokens must be null or a positive integer")
     if policy["max_parallel_editors"] < 1:
         raise PolicyError("max_parallel_editors must be at least 1")
     if not policy["require_isolated_worktrees"]:
