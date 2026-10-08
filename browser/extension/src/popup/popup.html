@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Agent OS</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="../icons/icon.svg" alt="" width="22" height="22">
+    <strong>Agent OS</strong>
+    <span id="version" class="muted"></span>
+    <span class="spacer"></span>
+    <span id="bridge-dot" class="dot" title="Bridge status"></span>
+    <span id="bridge-label" class="muted small"></span>
+  </header>
+
+  <section id="page">
+    <div class="row">
+      <span id="page-summary">This page has no filterable items.</span>
+    </div>
+    <div class="row" id="page-controls" hidden>
+      <label class="switch"><input type="checkbox" id="site-enabled"> <span id="site-label">Filter this site</span></label>
+      <button id="reveal" type="button">Show hidden</button>
+    </div>
+    <ul id="reasons" class="reasons"></ul>
+  </section>
+
+  <section class="actions">
+    <button id="save" type="button" class="primary">Save page to Agent OS</button>
+    <button id="manage" type="button">Manage filters</button>
+  </section>
+
+  <section>
+    <label class="switch"><input type="checkbox" id="global-enabled"> Content filters on</label>
+    <label class="switch"><input type="checkbox" id="old-reddit"> Always use old Reddit</label>
+  </section>
+
+  <details id="tasks">
+    <summary>Scheduled tasks</summary>
+    <div id="task-list" class="commands"><span class="muted small">Loading…</span></div>
+    <button id="new-task" type="button" class="small-button">New scheduled task from this page</button>
+  </details>
+
+  <details id="routines">
+    <summary>AI routines</summary>
+    <div id="routine-list" class="commands"><span class="muted small">Loading…</span></div>
+    <button id="new-routine" type="button" class="small-button">New routine from this page</button>
+    <button id="adp-login" type="button" class="small-button">ADP sign-in…</button>
+  </details>
+
+  <details id="tools">
+    <summary>Capture tools</summary>
+    <div id="commands" class="commands"><span class="muted small">Open a normal web page to use capture tools.</span></div>
+  </details>
+
+  <footer id="bridge-footer" hidden>
+    <span id="bridge-detail" class="small"></span>
+    <button id="pair" type="button">Pair with Agent OS</button>
+  </footer>
+
+  <script src="../lib/filter-core.js"></script>
+  <script src="../lib/task-core.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

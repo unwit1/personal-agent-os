@@ -1,0 +1,15 @@
+:root { color-scheme: light dark; --bg: #f6f7f9; --fg: #1f2329; --muted: #5d6670; --line: #d5d9de; --accent: #2d6cdf; --ok: #2f855a; --warn: #b7791f; --bad: #c53030; }
+@media (prefers-color-scheme: dark) { :root { --bg: #1f2329; --fg: #eef1f4; --muted: #9aa4ae; --line: #3a414b; } }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { padding: 18px 20px; max-width: 420px; }
+h1 { font-size: 17px; margin: 0 0 6px; }
+h2 { font-size: 14px; margin: 18px 0 4px; }
+.muted { color: var(--muted); font-size: 12px; }
+label { display: block; margin: 10px 0; font-weight: 600; }
+input { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: inherit; font: inherit; }
+.row { display: flex; gap: 8px; margin-top: 12px; }
+button { padding: 7px 12px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; font: inherit; cursor: pointer; }
+button#test { background: transparent; color: var(--accent); }
+.result[data-status="signed_in"] { color: var(--ok); }
+.result[data-status="needs_code"], .result[data-status="timeout"] { color: var(--warn); }
+.result[data-status="rejected"], .result[data-status="error"], .result[data-status="no_credentials"] { color: var(--bad); }

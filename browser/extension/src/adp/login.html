@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Agent OS · ADP sign-in</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <main>
+    <h1>ADP sign-in for Agent OS</h1>
+    <p class="muted">Saved in Windows Credential Manager on this computer. Agent OS uses it only on ADP's own sign-in page, in the tab it opens for ADP work.</p>
+    <form id="form" autocomplete="off">
+      <label>ADP user ID <input id="username" autocomplete="off" spellcheck="false"></label>
+      <label>Password <input id="password" type="password" autocomplete="new-password"></label>
+      <div class="row">
+        <button type="submit">Save and test sign-in</button>
+        <button type="button" id="test">Test sign-in again</button>
+      </div>
+    </form>
+    <p id="saved" class="muted"></p>
+    <h2>Last test</h2>
+    <p id="result" class="result">Not run yet.</p>
+  </main>
+  <script src="login.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "agent-os-firefox",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Agent OS Firefox extension (build: python tools/build.py)",
+  "scripts": {
+    "build": "python tools/build.py",
+    "test": "python tools/build.py && node --test \"tests/*.test.js\"",
+    "lint": "npx --yes web-ext@8 lint --self-hosted --source-dir dist/agent-os-firefox"
+  },
+  "devDependencies": {
+    "jsdom": "^26.0.0"
+  }
+}

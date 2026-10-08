@@ -1,0 +1,61 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1d232b;
+  --muted: #687482;
+  --line: #e2e6ea;
+  --accent: #2d6cdf;
+  --accent-fg: #ffffff;
+  --button: #f1f3f5;
+  --ok: #2e9d57;
+  --warn: #d18b1f;
+  --bad: #d9534f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c2127;
+    --fg: #e8ecf0;
+    --muted: #97a3af;
+    --line: #313942;
+    --button: #2a3139;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  width: 340px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+header, section, details, footer { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+header { display: flex; align-items: center; gap: 8px; }
+.spacer { flex: 1; }
+.muted { color: var(--muted); }
+.small { font-size: 11px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); display: inline-block; }
+.dot.ok { background: var(--ok); }
+.dot.warn { background: var(--warn); }
+.dot.bad { background: var(--bad); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 2px 0 6px; }
+button {
+  font: inherit;
+  color: var(--fg);
+  background: var(--button);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.switch { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.reasons { list-style: none; margin: 0; padding: 0; max-height: 120px; overflow: auto; }
+.reasons li { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; padding: 1px 0; }
+summary { cursor: pointer; font-weight: 600; }
+.commands { display: grid; gap: 4px; margin-top: 8px; max-height: 260px; overflow: auto; }
+.commands button { text-align: left; padding: 4px 8px; font-size: 12px; }
+.small-button { margin-top: 8px; font-size: 12px; padding: 4px 8px; }
+.routine-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 12px; }
+.routine-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+footer { display: grid; gap: 6px; border-bottom: 0; }

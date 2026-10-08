@@ -1,0 +1,128 @@
+{
+  "manifest_version": 2,
+  "name": "Agent OS",
+  "version": "1.0.29",
+  "description": "Personal Agent OS in one extension: capture pages to Agent OS, hide subreddits, Nexus mods, AO3 works, forum threads and more, and let Agent OS operate tabs through the local bridge.",
+  "author": "unwit1",
+  "homepage_url": "https://github.com/unwit1/personal-agent-os",
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "menus",
+    "alarms",
+    "notifications",
+    "clipboardWrite",
+    "nativeMessaging",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": [
+      "lib/filter-core.js",
+      "lib/sites.js",
+      "lib/task-core.js",
+      "background.js",
+      "background-tasks.js"
+    ],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content/marker.js",
+        "lib/filter-core.js",
+        "lib/sites.js",
+        "content/filter.js"
+      ],
+      "css": [
+        "content/filter.css"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content/gm-shim.js",
+        "content/capture.generated.js",
+        "content/executor.js",
+        "lib/task-core.js",
+        "content/tasks.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://*.3cx.us/*",
+        "https://*.3cx.com/*",
+        "https://*.3cx.eu/*",
+        "https://*.3cx.co.uk/*",
+        "https://*.3cx.ca/*",
+        "https://*.3cx.com.au/*"
+      ],
+      "js": [
+        "lib/threecx-core.js",
+        "content/threecx.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://online.adp.com/*",
+        "https://workforcenow.adp.com/*"
+      ],
+      "js": [
+        "content/adp.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Agent OS",
+    "default_icon": "icons/icon.svg"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "toggle-reveal": {
+      "suggested_key": {
+        "default": "Alt+Shift+H"
+      },
+      "description": "Show or re-hide filtered items on this page"
+    },
+    "save-page": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "Save this page to Agent OS"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "agent-os@unwit1.local",
+      "update_url": "https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/firefox/updates.json",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "browsingActivity",
+          "websiteContent"
+        ]
+      }
+    }
+  }
+}

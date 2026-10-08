@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent OS settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <nav>
+    <div class="brand"><img src="../icons/icon.svg" alt="" width="26" height="26"> Agent OS <span id="version" class="muted"></span></div>
+    <a href="#welcome">Overview</a>
+    <a href="#rules">Hide rules</a>
+    <a href="#tasks">Scheduled tasks</a>
+    <a href="#routines">AI routines</a>
+    <a href="#sites">Sites</a>
+    <a href="#import">Import / export</a>
+    <a href="#agent">Agent OS &amp; capture</a>
+  </nav>
+
+  <main>
+    <section id="welcome" class="panel">
+      <h1>Agent OS for Firefox</h1>
+      <p>One extension for capture, content filtering and letting Agent OS operate your tabs.</p>
+      <div class="cards">
+        <div class="card"><h3>Hide things</h3><p>Hover any post, mod, work or thread and click <b>⊘</b>, or right-click it and choose <b>Agent OS → Hide…</b>. The pill in the bottom-left corner shows what was hidden; click it to peek.</p></div>
+        <div class="card"><h3>Capture</h3><p>Everything from the Universal Capture userscript is built in: per-item save buttons, the browser journal, Discord indexing and Amazon cart import. Use the toolbar button for the full menu.</p></div>
+        <div class="card"><h3>Agent OS bridge</h3><p>The extension pairs with <code>agent-os browser-bridge</code> automatically through the native helper, keeps the bridge running and registers each tab so <code>browser.execute</code> works.</p></div>
+      </div>
+      <h2>Setup checklist</h2>
+      <ul id="checklist" class="checklist"></ul>
+      <p class="muted small">If you still have the Tampermonkey copy of <i>Agent OS Universal Capture</i> or the <i>Reddit Subreddit Hider</i> add-on enabled, turn them off; this extension replaces both and running them together duplicates captures.</p>
+    </section>
+
+    <section id="rules" class="panel">
+      <h1>Hide rules</h1>
+      <form id="add-rule" class="add-rule">
+        <select id="rule-scope" aria-label="Site"></select>
+        <select id="rule-field" aria-label="Field"></select>
+        <input id="rule-value" placeholder="Value, e.g. pics, Skyrim*, /regex/" required aria-label="Value">
+        <input id="rule-host" placeholder="Only on host (optional)" aria-label="Host">
+        <button type="submit" class="primary">Add rule</button>
+      </form>
+      <p class="muted small">Values match the whole name; <code>*</code> is a wildcard and <code>/…/</code> is a regular expression. Keywords match words in titles and summaries. Rules for "All sites" apply wherever that field exists.</p>
+      <div class="toolbar">
+        <input id="rule-search" type="search" placeholder="Search rules" aria-label="Search rules">
+        <select id="rule-filter-scope" aria-label="Filter by site"><option value="">All sites</option></select>
+        <span id="rule-count" class="muted"></span>
+      </div>
+      <table class="rules">
+        <thead><tr><th>On</th><th>Site</th><th>Field</th><th>Value</th><th>Host</th><th>Added</th><th></th></tr></thead>
+        <tbody id="rule-rows"></tbody>
+      </table>
+      <p id="no-rules" class="muted" hidden>No rules yet. Hover an item on Reddit, Nexus, AO3 or a forum and click ⊘ to add one.</p>
+    </section>
+
+    <section id="tasks" class="panel">
+      <h1>Scheduled tasks</h1>
+      <p>Record a sequence of clicks, form entries and a sign-in once, and Firefox repeats it at the times you choose. Passwords are never recorded: a login you save here is kept in Windows Credential Manager and filled only when the task runs. Tasks run while Firefox is open; one missed while it was closed runs when Firefox starts (within 6 hours).</p>
+      <p id="task-status" class="status" hidden></p>
+      <table class="rules">
+        <thead><tr><th>Task</th><th>When</th><th>Steps</th><th>Last run</th><th>Next run</th><th></th></tr></thead>
+        <tbody id="task-rows"></tbody>
+      </table>
+      <p id="no-tasks" class="muted" hidden>No scheduled tasks yet.</p>
+
+      <h2 id="task-form-title">New scheduled task</h2>
+      <form id="task-form" class="routine-form" autocomplete="off">
+        <input type="hidden" id="task-id">
+        <label>Name <input id="task-name" required placeholder="Clock in"></label>
+        <label>Start URL <input id="task-url" type="url" required placeholder="https://example.com/login"></label>
+        <fieldset class="wide task-fieldset">
+          <legend>When to run</legend>
+          <div class="schedule-row">
+            <label class="switch"><input type="radio" name="task-kind" value="weekly" checked> On</label>
+            <span id="task-days" class="days"></span>
+            <span>at</span> <input type="time" id="task-time" value="08:00">
+          </div>
+          <div class="schedule-row">
+            <label class="switch"><input type="radio" name="task-kind" value="once"> Once on</label>
+            <input type="datetime-local" id="task-at">
+          </div>
+          <div class="schedule-row">
+            <label class="switch"><input type="radio" name="task-kind" value="interval"> Every</label>
+            <input type="number" id="task-minutes" min="5" value="60" class="narrow"> <span>minutes</span>
+          </div>
+          <div class="schedule-row">
+            <label class="switch"><input type="radio" name="task-kind" value="manual"> Only when I click Run now</label>
+          </div>
+          <div class="schedule-row">
+            <label class="switch"><input type="checkbox" id="task-variance"> Random variance: run at a random moment 0–6 minutes after the set time</label>
+          </div>
+        </fieldset>
+        <fieldset class="wide task-fieldset">
+          <legend>Login (optional)</legend>
+          <div class="schedule-row">
+            <label>Username <input id="task-username" autocomplete="off"></label>
+            <label>Password <input id="task-password" type="password" autocomplete="new-password"></label>
+          </div>
+          <div class="schedule-row">
+            <span id="task-login-state" class="muted small"></span>
+            <button type="button" id="task-clear-login" class="link" hidden>Remove saved login</button>
+          </div>
+        </fieldset>
+        <label class="switch"><input type="checkbox" id="task-window"> Run in its own window</label>
+        <label class="switch"><input type="checkbox" id="task-keep"> Keep the tab open after a successful run</label>
+        <label class="switch"><input type="checkbox" id="task-enabled" checked> Enabled</label>
+        <div class="toolbar wide">
+          <button type="submit" id="task-submit" class="primary">Save task</button>
+          <button type="button" id="task-record">Save &amp; record steps</button>
+          <button type="button" id="task-cancel">Clear</button>
+          <span id="task-result" class="muted"></span>
+        </div>
+      </form>
+
+      <div id="task-steps-box" hidden>
+        <h2>Recorded steps</h2>
+        <p class="muted small">Re-record to replace them, or adjust here: reorder, remove, add waits, or switch a field between typed text and your saved login.</p>
+        <ol id="task-steps" class="steps"></ol>
+        <div class="toolbar">
+          <button type="button" id="task-add-wait">Add a 2s wait at the end</button>
+          <button type="button" id="task-save-steps" class="primary">Save step changes</button>
+          <span id="task-steps-result" class="muted"></span>
+        </div>
+      </div>
+
+      <h2>Recent runs</h2>
+      <table class="rules">
+        <thead><tr><th>When</th><th>Task</th><th>Result</th><th>Details</th></tr></thead>
+        <tbody id="task-run-rows"></tbody>
+      </table>
+    </section>
+
+    <section id="routines" class="panel">
+      <h1>AI browser routines</h1>
+      <p>Describe a routine task in plain words. An AI model (Claude, through Agent OS) carries it out in a background tab, on demand or on a schedule. It can only act in its own tab and on the sites you allow. Anything consequential (submit, send, buy, delete…) waits for your approval in the Agent OS Executive window. Passwords and payment details are never typed.</p>
+      <p id="routine-status" class="status" hidden></p>
+      <table class="rules">
+        <thead><tr><th>Routine</th><th>Schedule</th><th>Last run</th><th>Next run</th><th></th></tr></thead>
+        <tbody id="routine-rows"></tbody>
+      </table>
+      <p id="no-routines" class="muted" hidden>No routines yet.</p>
+
+      <h2 id="routine-form-title">New routine</h2>
+      <form id="routine-form" class="routine-form">
+        <input type="hidden" id="routine-id">
+        <label>Name <input id="routine-name" required placeholder="Nexus: new mods digest"></label>
+        <label>Start page <input id="routine-url" type="url" required placeholder="https://www.nexusmods.com/games/skyrimspecialedition/mods"></label>
+        <label class="wide">What should it do?
+          <textarea id="routine-instructions" rows="5" required placeholder="List the 10 newest mods with their categories and tell me about any from authors I follow."></textarea>
+        </label>
+        <label>Schedule
+          <input id="routine-schedule" list="schedule-presets" placeholder="manual">
+          <datalist id="schedule-presets">
+            <option value="manual"></option><option value="hourly"></option><option value="every 30m"></option>
+            <option value="daily 08:00"></option><option value="weekdays 09:00"></option><option value="weekends 10:00"></option>
+            <option value="mon,thu 18:30"></option>
+          </datalist>
+        </label>
+        <label>Also allowed sites <input id="routine-domains" placeholder="cdn.example.com, help.example.com"></label>
+        <label>Model
+          <select id="routine-model"><option value="sonnet">Sonnet (balanced)</option><option value="haiku">Haiku (fast, cheap)</option><option value="opus">Opus (hardest tasks)</option></select>
+        </label>
+        <label>Tell me about results
+          <select id="routine-notify"><option value="auto">When something needs attention</option><option value="always">Every run</option><option value="never">Only problems</option></select>
+        </label>
+        <label>Executive tab
+          <select id="routine-tab"><option value="personal">Personal</option><option value="work">Work</option></select>
+        </label>
+        <label class="switch"><input type="checkbox" id="routine-enabled" checked> Enabled</label>
+        <div class="toolbar wide">
+          <button type="submit" class="primary">Save routine</button>
+          <button type="button" id="routine-cancel">Clear</button>
+          <span id="routine-result" class="muted"></span>
+        </div>
+      </form>
+
+      <h2>Recent runs</h2>
+      <table class="rules">
+        <thead><tr><th>When</th><th>Routine</th><th>Status</th><th>Summary</th></tr></thead>
+        <tbody id="run-rows"></tbody>
+      </table>
+    </section>
+
+    <section id="sites" class="panel">
+      <h1>Sites</h1>
+      <h2>General</h2>
+      <div class="grid">
+        <label class="switch"><input type="checkbox" data-global="enabled"> Content filters on</label>
+        <label class="switch"><input type="checkbox" data-global="showInlineButtons"> Show ⊘ buttons on items</label>
+        <label class="switch"><input type="checkbox" data-global="showCounter"> Show the hidden-items counter</label>
+        <label class="switch"><input type="checkbox" data-redirect="oldReddit"> Always open Reddit on old.reddit.com</label>
+        <label class="switch"><input type="checkbox" data-global="syncToAgentOs"> Sync rules to Agent OS as a preference snapshot</label>
+        <label>Hidden items
+          <select data-global="hiddenStyle">
+            <option value="remove">Remove completely</option>
+            <option value="collapse">Collapse to a thin bar</option>
+          </select>
+        </label>
+      </div>
+      <div id="site-settings"></div>
+
+      <h2>Custom sites</h2>
+      <p class="muted small">Add any other site by giving a CSS selector for its list items. Title, author and tag selectors are optional and are evaluated inside each item.</p>
+      <table class="custom">
+        <thead><tr><th>Host</th><th>Item selector</th><th>Title</th><th>Author</th><th>Tags</th><th></th></tr></thead>
+        <tbody id="custom-rows"></tbody>
+      </table>
+      <form id="add-custom" class="add-custom">
+        <input id="custom-host" placeholder="example.com" required>
+        <input id="custom-item" placeholder=".post-card" required>
+        <input id="custom-title" placeholder="h2 a">
+        <input id="custom-author" placeholder=".author">
+        <input id="custom-tags" placeholder=".tag">
+        <button type="submit">Add site</button>
+      </form>
+    </section>
+
+    <section id="import" class="panel">
+      <h1>Import / export</h1>
+      <p>Paste an Agent OS export, a Reddit Subreddit Hider list, or plain names separated by commas or new lines.</p>
+      <div class="toolbar">
+        <label>Plain names are <select id="import-scope"></select> <select id="import-field"></select></label>
+      </div>
+      <textarea id="import-text" rows="10" placeholder="skyrimmods, pics, funny"></textarea>
+      <div class="toolbar">
+        <button id="import-btn" type="button" class="primary">Import</button>
+        <button id="export-btn" type="button">Export to box</button>
+        <button id="download-btn" type="button">Download JSON</button>
+        <span id="import-result" class="muted"></span>
+      </div>
+    </section>
+
+    <section id="agent" class="panel">
+      <h1>Agent OS &amp; capture</h1>
+      <h2>Local bridge</h2>
+      <p id="bridge-status" class="status"></p>
+      <div class="grid">
+        <label class="switch"><input type="checkbox" data-capture="bridgeEnabled"> Sync with the local Agent OS bridge</label>
+        <label>Bridge batch endpoint <input data-capture="bridgeEndpoint" type="url"></label>
+        <label>Bridge token <input data-capture="bridgeToken" type="password" autocomplete="off"></label>
+        <label>Journal sync interval (seconds) <input data-capture="bridgeSyncSeconds" type="number" min="10"></label>
+      </div>
+      <div class="toolbar"><button id="pair-btn" type="button">Pair automatically</button><span id="pair-result" class="muted"></span></div>
+
+      <h2>Capture</h2>
+      <div class="grid">
+        <label>Device label <input data-capture="device"></label>
+        <label>Default intent
+          <select data-capture="defaultIntent">
+            <option value="save">save</option>
+            <option value="read-later">read-later</option>
+            <option value="research">research</option>
+            <option value="watch">watch</option>
+          </select>
+        </label>
+        <label class="switch"><input type="checkbox" data-capture="showFloatingButton"> Floating "+ Agent OS" button</label>
+        <label class="switch"><input type="checkbox" data-capture="browserJournalEnabled"> Browser journal</label>
+        <label class="switch"><input type="checkbox" data-capture="discordPassiveIndexing"> Discord passive indexing</label>
+        <label class="switch"><input type="checkbox" data-capture="sheetMirrorEnabled"> Record saved links in the Google Sheet (one tab per kind of link)</label>
+        <label>Google Sheet receiver (Apps Script /exec URL) <input data-capture="sheetEndpoint" type="url" placeholder="https://script.google.com/macros/s/…/exec"></label>
+        <label>Remote capture endpoint (optional) <input data-capture="endpoint" type="url" placeholder="Apps Script URL"></label>
+        <label>Remote capture token <input data-capture="token" type="password" autocomplete="off"></label>
+      </div>
+      <p class="muted small">Tokens are stored only in this Firefox profile's extension storage.</p>
+    </section>
+  </main>
+
+  <script src="../lib/filter-core.js"></script>
+  <script src="../lib/task-core.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
