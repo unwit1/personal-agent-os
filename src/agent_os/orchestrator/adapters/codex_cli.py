@@ -41,6 +41,7 @@ _SLUG = re.compile(r"^gpt-(?P<version>\d+(?:\.\d+)*)-(?P<family>[a-z]+)$")
 # Logged by the Windows restricted-token sandbox when it cannot confine
 # commands to the workspace (for example, a workspace nested inside %TEMP%).
 WIN_SANDBOX_SHIM = Path(__file__).resolve().parent / "win_sandbox"
+PYTEST_TMP_PLUGIN = "agent_os_pytest_tmp"
 
 SANDBOX_REFUSAL = "cannot enforce split writable root sets"
 # `codex exec --json` item types that are tool invocations, counted per worker.
@@ -94,6 +95,9 @@ class CodexCliAdapter(SubprocessAdapter):
             # Python's owner-only temp folders are unwritable inside the
             # Windows sandbox; win_sandbox/sitecustomize.py fixes tempfile.
             env["PYTHONPATH"] = os.pathsep.join(item for item in (str(WIN_SANDBOX_SHIM), env.get("PYTHONPATH")) if item)
+            # pytest's tmp_path folders have the same owner-only ACL problem.
+            plugins = [item for item in env.get("PYTEST_PLUGINS", "").split(",") if item.strip()]
+            env["PYTEST_PLUGINS"] = ",".join(dict.fromkeys([*plugins, PYTEST_TMP_PLUGIN]))
         secret_env = options.get("secret_env") or {}
         if secret_env:
             from ..secret_refs import resolve
