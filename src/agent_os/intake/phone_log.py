@@ -85,6 +85,31 @@ def missed_call_emails(mail_db: Path = MAIL_DB) -> list[dict]:
     return out
 
 
+_VM_FROM = re.compile(r"voice ?mail from\s+(.+?)\s*(?:[(:<]\s*(\+?[\d ()-]{3,})\)?.*)?$", re.IGNORECASE)
+
+
+def voicemail_emails(mail_db: Path = MAIL_DB) -> list[dict]:
+    """3CX voicemail notifications (enable "send voicemail to email" in the 3CX web client):
+    caller, number, the transcription in the body and the audio attachment's name."""
+    if not mail_db.exists():
+        return []
+    out = []
+    with _ro(mail_db) as conn:
+        rows = conn.execute("SELECT id, subject, date_utc, body, sender FROM mail_messages "
+                            "WHERE lower(subject) LIKE '%voicemail%' OR lower(subject) LIKE '%voice mail%'").fetchall()
+        for mid, subject, date, body, sender in rows:
+            if "3cx" not in (sender or "").lower():
+                continue
+            m = _VM_FROM.search(subject or "")
+            audio = [r[0] for r in conn.execute(
+                "SELECT filename FROM mail_attachments WHERE message_id=? AND (lower(filename) LIKE '%.wav' "
+                "OR lower(filename) LIKE '%.mp3')", (mid,))]
+            out.append({"at": _at(date), "name": (m.group(1).strip() if m else None),
+                        "number": re.sub(r"\D", "", m.group(2) or "") if m and m.group(2) else "",
+                        "text": " ".join((body or "").split())[:2000], "audio": audio, "message_id": mid})
+    return [v for v in out if v["at"]]
+
+
 def phonebook(emails: list[dict], roster: list[dict]) -> dict[str, dict]:
     """number/extension -> {"name", "source", "person_key"?}."""
     book: dict[str, dict] = {}
@@ -219,6 +244,12 @@ def build(conf: dict[str, Any]) -> dict[str, Any]:
             capture = json.loads(doc.read_text(encoding="utf-8")).get("capture") or {}
             call["transcript"] = [(seg.get("at", "")[11:19], seg.get("display") or seg.get("person") or "?", seg.get("text", ""))
                                   for seg in capture.get("segments") or []]
+    for vm in voicemail_emails():
+        calls.append({"id": f"voicemail-{vm['message_id'][4:16]}", "at": vm["at"], "direction": "inbound",
+                      "number": vm["number"], "name": vm["name"], "who": vm["name"] or vm["number"] or "Voicemail",
+                      "who_source": "voicemail email", "status": "voicemail", "inferred": False,
+                      "transcript": [("", "Voicemail", vm["text"])],
+                      "audio": ", ".join(vm["audio"]) or None})
     for vm in sorted(VOICEMAILS.glob("*.json")) if VOICEMAILS.exists() else []:
         meta = json.loads(vm.read_text(encoding="utf-8"))
         at = _at(meta.get("received_at") or meta.get("time") or meta.get("date"))
