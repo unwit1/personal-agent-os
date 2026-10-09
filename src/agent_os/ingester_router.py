@@ -87,26 +87,52 @@ def _single_text_concept(request: dict[str, Any]) -> str | None:
     return concept_id if "text" in ((schema or {}).get("properties") or {}) else None
 
 
+def _draft_text(draft: Any) -> str:
+    if isinstance(draft, str):
+        return draft
+    if not isinstance(draft, dict):
+        return ""
+    value = draft.get("value")
+    if isinstance(value, dict):
+        value = value.get("text")
+    if isinstance(value, str):
+        return value
+    return draft.get("text") if isinstance(draft.get("text"), str) else ""
+
+
 def to_drafts(reply: str, request: dict[str, Any]) -> list[dict[str, Any]]:
-    """Drafts from the model reply: its JSON when it gave JSON, else (for a one-text-concept
-    request such as replication.generate) the reply itself as that concept's text."""
+    """Drafts from the model reply.
+
+    For a one-text-concept request (such as replication.generate) the result is always that
+    concept's text: taken from the reply's JSON drafts whatever concept id or shape the model
+    used, else the reply itself. Other requests pass the model's JSON drafts through.
+    """
     text = reply.strip()
-    candidates = [text] + [m.group(1) for m in _FENCE.finditer(text)]
-    for candidate in candidates:
+    parsed = None
+    for candidate in [text] + [m.group(1) for m in _FENCE.finditer(text)]:
         try:
             obj = json.loads(candidate)
         except (json.JSONDecodeError, ValueError):
             continue
         if isinstance(obj, dict) and isinstance(obj.get("drafts"), list):
-            return obj["drafts"]
-        if isinstance(obj, list):
-            return obj
+            parsed = obj["drafts"]
+        elif isinstance(obj, list):
+            parsed = obj
+        elif isinstance(obj, dict) and isinstance(obj.get("text"), str):
+            parsed = [obj]
+        if parsed is not None:
+            break
     concept = _single_text_concept(request)
-    if concept and text:
-        spans = request.get("spans") or []
-        evidence = [{"span_id": spans[0]["span_id"]}] if spans and spans[0].get("span_id") else []
-        return [{"concept_id": concept, "key": "sample", "value": {"text": text}, "evidence": evidence}]
-    raise RouterError("model reply was not JSON drafts and the request has no single text concept to fill")
+    if concept is None:
+        if parsed is not None:
+            return parsed
+        raise RouterError("model reply was not JSON drafts and the request has no single text concept to fill")
+    sample = "\n\n".join(t.strip() for t in map(_draft_text, parsed) if t.strip()) if parsed is not None else text
+    if not sample.strip():
+        raise RouterError("model returned no text for the requested sample")
+    spans = request.get("spans") or []
+    evidence = [{"span_id": spans[0]["span_id"]}] if spans and spans[0].get("span_id") else []
+    return [{"concept_id": concept, "key": "sample", "value": {"text": sample.strip()}, "evidence": evidence}]
 
 
 def handle(envelope: dict[str, Any], provider: str | None = None, runner: Runner | None = None,

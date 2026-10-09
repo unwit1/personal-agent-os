@@ -42,6 +42,20 @@ class RouterTests(unittest.TestCase):
                                 provider="claude-code", runner=self.fake(reply, {}))
             self.assertEqual(out["drafts"], drafts)
 
+    def test_json_with_another_concept_id_still_fills_the_sample(self):
+        # The engine prompt asks for JSON drafts; models sometimes pick their own concept id or shape.
+        for reply in (json.dumps({"drafts": [{"concept_id": "replication.generate", "value": {"text": "Rain fell."}}]}),
+                      json.dumps({"drafts": [{"concept_id": "sample", "value": "Rain fell."}]}),
+                      json.dumps({"text": "Rain fell."})):
+            out = router.handle(envelope(), provider="claude-code", runner=self.fake(reply, {}))
+            self.assertEqual(out["drafts"][0]["concept_id"], "replication.sample")
+            self.assertEqual(out["drafts"][0]["value"]["text"], "Rain fell.")
+
+    def test_empty_sample_is_an_error_not_an_empty_generation(self):
+        for reply in ("", json.dumps({"drafts": []}), json.dumps({"drafts": [{"concept_id": "x", "value": {}}]})):
+            with self.assertRaises(router.RouterError):
+                router.handle(envelope(), provider="claude-code", runner=self.fake(reply, {}))
+
     def test_non_json_reply_without_a_text_concept_is_an_error(self):
         with self.assertRaises(router.RouterError):
             router.handle(envelope(request={"output_schema": {"concepts": {"x": {}, "y": {}}}}),
