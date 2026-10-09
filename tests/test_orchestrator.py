@@ -176,6 +176,16 @@ class WorktreeIsolationTests(OrchestratorFixture):
         b_base = self.node(run_id, "b")["worktree"]["base_commit"]
         self.assertEqual(b_base, a_commit)
 
+    def test_dependent_with_leftover_worktree_does_not_block_its_dependency(self) -> None:
+        # IMP-0047: a dependent that kept a worktree from an earlier attempt must not
+        # serialize the step it depends on (each would wait for the other forever).
+        run_id = self.create([self.task("a", ["x"]), self.task("b", ["x"], depends_on=["a"]), self.task("c", ["x"])])
+        record = self.engine.load(run_id)
+        for node_id in ("b", "c"):
+            record["nodes"][node_id]["worktree"] = {"path": str(self.tmp / node_id), "branch": node_id, "base_commit": "0" * 40}
+        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["a"]), ["c"])  # c is independent: still blocks
+        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["b"]), ["c"])
+
     def test_scope_overlap_rules(self) -> None:
         self.assertTrue(scopes_overlap(["src"], ["src/a.py"]))
         self.assertTrue(scopes_overlap([], ["docs"]))

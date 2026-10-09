@@ -1894,7 +1894,9 @@ class Orchestrator:
             if other["role"] not in {"implementer", "test_author"}:
                 continue
             holds = other["worktree"] is not None and not other["integrated"] and other["state"] not in {"CANCELLED"}
-            if holds and scopes_overlap(_hard_scope(node), _hard_scope(other)):
+            # A step that depends on this one cannot run before it passes, so its
+            # leftover worktree (from an earlier attempt) must not hold this one back.
+            if holds and not _depends_on(record, other["id"], node["id"]) and scopes_overlap(_hard_scope(node), _hard_scope(other)):
                 blockers.append(other["id"])
         return blockers
 
@@ -2969,6 +2971,19 @@ class Orchestrator:
 # ----------------------------------------------------------------------
 # Module helpers
 # ----------------------------------------------------------------------
+
+
+def _depends_on(record: dict[str, Any], node_id: str, target: str) -> bool:
+    """Whether node_id depends on target, directly or through other steps."""
+    nodes, seen, stack = record["nodes"], set(), list((record["nodes"].get(node_id) or {}).get("depends_on") or [])
+    while stack:
+        dep = stack.pop()
+        if dep == target:
+            return True
+        if dep not in seen:
+            seen.add(dep)
+            stack.extend((nodes.get(dep) or {}).get("depends_on") or [])
+    return False
 
 
 def _hard_scope(node: dict[str, Any]) -> list[str]:
