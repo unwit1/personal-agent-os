@@ -61,6 +61,7 @@ from .orchestrator.cli import register as register_orchestrate
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .recovery import get_checkpoint, inspect_recovery, list_checkpoints, resume_recovery
+from .intake import cli as intake_cli
 from .mail import cli as mail_cli
 from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
@@ -768,6 +769,7 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("launcher-status")
     commands.add_parser("launcher-verify")
     mail_cli.register(commands)
+    intake_cli.register(commands)
     maintenance = commands.add_parser("maintenance")
     maintenance.add_argument("--event", default="scheduled")
     maintenance.add_argument("--project")
@@ -1176,6 +1178,8 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result["ok"] else 1
         elif args.command == "mail":
             return mail_cli.dispatch(args, _print)
+        elif args.command == "intake":
+            return intake_cli.dispatch(args, _print)
         elif args.command == "maintenance":
             _print(run_maintenance(args.event, args.project))
         elif args.command == "capture-candidates":

@@ -16,9 +16,12 @@ from . import (
     providers_applicants,
     providers_brain_dump,
     providers_candidates,
+    providers_intake,
     providers_knowledge_gaps,
+    providers_browser_routines,
     providers_mail,
     providers_orchestrator,
+    providers_phone,
     providers_projects,
     registry,
 )
@@ -46,6 +49,9 @@ def default_registry() -> registry.Registry:
         registry.register_provider("brain_dump", providers_brain_dump.brain_dump_items)
         registry.register_provider("knowledge_gaps", providers_knowledge_gaps.knowledge_gap_items)
         registry.register_provider("memory_candidates", providers_candidates.candidate_items)
+        registry.register_provider("browser_routines", providers_browser_routines.browser_routine_items)
+        registry.register_provider("phone", providers_phone.phone_items)
+        registry.register_provider("intake", providers_intake.intake_items)
 
         # Register actions
         actions_applicant_compose.register(registry.REGISTRY)
@@ -59,6 +65,8 @@ def default_registry() -> registry.Registry:
         actions_knowledge_gaps.register(registry.REGISTRY)
         actions_candidates.register(registry.REGISTRY)
         actions_projects.register(registry.REGISTRY)
+        providers_browser_routines.register(registry.REGISTRY)
+        providers_phone.register(registry.REGISTRY)
 
         # Attach the shared local Event Bus
         registry.REGISTRY.attach_event_bus(EventBus(DEFAULT_DIR))

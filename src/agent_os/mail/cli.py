@@ -82,6 +82,8 @@ def register(commands: argparse._SubParsersAction) -> None:
     pst = sub.add_parser("import-pst", help="import Outlook PST/OST backups (a file or a folder) into the work index")
     pst.add_argument("path")
     pst.add_argument("--no-ost", action="store_true", help="skip .ost files")
+    files_parser = sub.add_parser("import-files", help="import .eml/.msg files, zip exports of them, and Thunderbird/mbox stores (a file or a folder) into the work index")
+    files_parser.add_argument("path")
     attach = sub.add_parser("attachments", help="save attachments to Downloads\Mail Attachments (named Date - Sender - Name)")
     attach.add_argument("--enable", action="store_true", help="save attachments from now on (sync and PST import)")
     attach.add_argument("--disable", action="store_true")
@@ -164,6 +166,12 @@ def dispatch(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
         finally:
             if exporter is not None:
                 exporter.close()
+    elif command == "import-files":
+        from pathlib import Path
+
+        from . import files
+
+        emit(files.import_path(Path(args.path), progress=lambda event: print(json.dumps(event), file=sys.stderr, flush=True)))
     elif command == "attachments":
         from . import attachments
 

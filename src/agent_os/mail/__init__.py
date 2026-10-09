@@ -46,7 +46,7 @@ def _target(scope: str | None, db_path: Path | None) -> Path:
         return Path(db_path)
     if scope:
         return config.db_for(scope)
-    if DB.exists():
+    if DB.exists() and not any(config.db_for(name).exists() for name in config.SCOPES):
         return DB
     raise ValueError("choose a mail scope: work or personal")
 
@@ -405,8 +405,8 @@ def status(account_id: str | None = None, db_path: Path | None = None, *, scope:
     if account_id:
         return account_status(account_id, db_path)
     configured = [item for item in accounts_lib.load_accounts() if scope is None or item.mail_scope == scope]
-    if db_path or DB.exists():
-        targets = {"all": Path(db_path or DB)}
+    if db_path or (DB.exists() and not any(config.db_for(name).exists() for name in config.SCOPES)):
+        targets = {"all": Path(db_path or DB)}  # the older combined index, only before the scope split
     else:
         targets = {name: config.db_for(name) for name in ([scope] if scope else config.SCOPES)}
     counts = {"logical_messages": 0, "source_observations": 0, "observations_by_account": {}}
