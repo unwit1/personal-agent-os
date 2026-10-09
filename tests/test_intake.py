@@ -119,3 +119,40 @@ def test_promote_screen_rejects_pii_and_former_staff():
     assert screen("John Roe handled the claim.", current, others) == "names a person who is not current staff"
     assert screen("Call 606-555-1234 for COBRA.", current, others) is not None
     assert screen("Send forms to hr@example.org.", current, others) is not None
+
+
+def test_phone_log_folds_missed_call_emails_and_names_applicants(tmp_path, monkeypatch):
+    import sqlite3
+
+    from agent_os.intake import phone_log
+
+    mail = tmp_path / "mail.sqlite3"
+    with sqlite3.connect(mail) as conn:
+        conn.execute("CREATE TABLE mail_messages (subject TEXT, date_utc TEXT, body TEXT)")
+        conn.executemany("INSERT INTO mail_messages VALUES (?,?,?)", [
+            ("New missed call from SEXTON ALLEN:Main Number 6065550100", "2026-10-06T14:00:30+00:00",
+             'Ringing: "00:21"'),
+            ("New missed call from Pat Doe Ext.244", "2026-10-07T12:00:00+00:00", 'Ringing: "00:12"'),
+            ("New missed call from WIRELESS CALLER:Main Number 6065550199", "2026-10-08T12:00:00+00:00", "")])
+    ambient = tmp_path / "ambient.sqlite3"
+    with sqlite3.connect(ambient) as conn:
+        conn.execute("CREATE TABLE call_sessions (session_id TEXT, ringing_at TEXT, dialing_at TEXT, "
+                     "created_at TEXT, direction TEXT, remote_number TEXT, remote_name TEXT, status TEXT, "
+                     "source_system TEXT, reconciliation_confidence REAL)")
+        conn.execute("INSERT INTO call_sessions VALUES ('s1','2026-10-06T14:00:00+00:00',NULL,'x','inbound',"
+                     "'6065550100',NULL,'failed','3cx',NULL)")
+    emails = phone_log.missed_call_emails(mail)
+    assert [(e["name"], e["internal"], e["ring_s"]) for e in emails] == [
+        ("Sexton Allen", False, 21), ("Pat Doe", True, 12), (None, False, None)]
+    monkeypatch.setattr(phone_log, "AMBIENT_DB", ambient)
+    monkeypatch.setattr(phone_log, "CALL_DOCS", tmp_path / "none")
+    monkeypatch.setattr(phone_log, "VOICEMAILS", tmp_path / "none")
+    monkeypatch.setattr(phone_log, "missed_call_emails", lambda: emails)
+    monkeypatch.setattr(phone_log, "applicants", lambda: [
+        {"key": "A1", "name": "Allen Sexton", "status": "Offered", "position": "Transit Driver", "phone": ""}])
+    conf = {"scopes": {"work": {"correspondence_dir": str(tmp_path / "HR" / "Correspondence")}}}
+    result = phone_log.build(conf)
+    assert result["calls"] == 3                       # the logged call and its missed-call email are one call
+    assert result["applicants"] == 1                  # caller ID "SEXTON ALLEN" is applicant Allen Sexton
+    day = (tmp_path / "HR" / "Phone Log" / "2026-10-06.md").read_text(encoding="utf-8")
+    assert "Allen Sexton (applicant: Offered, Transit Driver)" in day and "missed (rang 21s)" in day

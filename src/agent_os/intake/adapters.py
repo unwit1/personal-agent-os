@@ -14,7 +14,7 @@ from contextlib import closing
 from pathlib import Path
 from typing import Any, Iterator
 
-from ..paths import INDEX_DIR, ROOT
+from ..paths import ROOT
 from . import Item, adapter
 
 TEXT_SUFFIXES = {".md", ".txt", ".csv", ".json", ".jsonl", ".html", ".htm", ".xml", ".pdf", ".docx", ".doc", ".xlsx", ".xls",
@@ -54,28 +54,18 @@ def mail_items(conf: dict[str, Any]) -> Iterator[Item]:
 
 @adapter("3cx")
 def phone_items(conf: dict[str, Any]) -> Iterator[Item]:
-    """3CX voicemails (audio + metadata) and the daily call log: work scope."""
-    base = INDEX_DIR / "intake" / "3cx"
-    for meta in sorted((base / "voicemails").glob("*.json")) if (base / "voicemails").exists() else []:
-        audio = meta.with_suffix(".wav")
-        target = audio if audio.exists() else meta
-        yield Item(source="3cx", kind="voicemail", scope="work", ref=meta.stem, path=str(target),
-                   content_hash=file_hash(target), title=meta.stem, occurred_at=meta.stem[:10], flag="work")
-    log = base / "phone-log.jsonl"
-    if not log.exists() or not log.stat().st_size:
-        return
-    days: dict[str, list[dict]] = {}
-    for line in log.read_text(encoding="utf-8").splitlines():
-        if line.strip():
-            call = json.loads(line)
-            stamp = str(call.get("start") or call.get("time") or call.get("date") or "")
-            days.setdefault(stamp[:10] or "undated", []).append(call)
+    """The stitched phone log (intake/phone_log.py): one item per day and per call with a
+    transcript or voicemail: work scope."""
+    from .phone_log import build
+
+    result = build(conf)
     folder = Path(conf["scopes"]["work"]["correspondence_dir"]).parent / "Phone Log"
-    for day, calls in days.items():
-        lines = [f"# Calls {day}", ""] + [f"- {json.dumps(c, ensure_ascii=False)}" for c in calls]
-        path = folder / f"{day}.md"
+    for day, path, digest, count in result["days"]:
         yield Item(source="3cx", kind="call_log", scope="work", ref=f"day:{day}", path=str(path),
-                   content_hash=_write_if_changed(path, "\n".join(lines) + "\n"), title=f"Calls {day}", occurred_at=day, flag="work")
+                   content_hash=digest, title=f"Phone log {day} ({count} calls)", occurred_at=day, flag="work")
+    for path in sorted((folder / "Calls").glob("*.md")) if (folder / "Calls").exists() else []:
+        yield Item(source="3cx", kind="call", scope="work", ref=f"call:{path.stem}", path=str(path),
+                   content_hash=file_hash(path), title=path.stem, occurred_at=path.stem[:10], flag="work")
 
 
 @adapter("ambient")

@@ -18,7 +18,10 @@ Work and personal never share a directory, a queue or a knowledge base. The sche
 2. Rebuild each scope's correspondence directory (`agent_os.mail.directory`): one Markdown file per
    distinct message, `index.csv`, `search.html`, `Flagged.md`, `COVERAGE.md`, `People/`, `people.json`,
    `manifest.jsonl`. Only changed files are rewritten.
-3. Rebuild HR GUI dossiers (their **Correspondence** section reads `people.json`).
+3. Rebuild HR GUI dossiers (their **Correspondence** section reads `people.json`), then
+   `hrgui.core.personnel_files reorganize` + `sync`: employee folders under Personnel Documents\Active / Inactive
+   (Inactive named `<separation date> - Last, First`) with `Correspondence\<year>.zip` copies of their emails,
+   recording transcripts and calls.
 4. `collect`: every adapter records its items in the scope's queue. New or changed content is queued again.
 5. `classify` (`intake/classify.py`): up to `classify_batch` undecided mail per scope (flag `review`, plus work mail
    from personal-address senders who are not employees) goes to the model (Claude Code CLI on the subscription,
@@ -57,8 +60,8 @@ for model review. Flags never delete or move mail; spam and bulk get an explicit
 | Adapter | Scope | Items |
 |---|---|---|
 | `mail` | per account | one per distinct message (manifest of the correspondence directory) |
-| `3cx` | work | voicemails (audio) and one call-log file per day |
-| `ambient` | `ambient_scope` (default personal; a capture may carry its own `scope`) | one transcript file per recording |
+| `3cx` | work | the stitched phone log (`intake/phone_log.py`): PBX call log + call transcripts from Ambient Capture + 3CX missed-call emails + voicemails; callers named from the HR roster, applicants (phone on their application PDF, or caller-ID name) and the extension directory. `Documents/HR/Phone Log/<day>.md`, `Calls/*.md`, `people.json` (employees), `applicants.json` |
+| `ambient` | work by default (the office microphone); a capture may carry its own `scope` | one transcript file per recording in `Documents/HR/Recordings`, speakers named by voice; `Recordings/people.json` links employees |
 | `iphone` | personal | one file per conversation per day |
 | `folders` | per folder | every readable file in a connected folder (`agent-os intake connect-folder NAME PATH --scope work`) |
 
