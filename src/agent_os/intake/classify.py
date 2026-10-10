@@ -65,12 +65,15 @@ def prompt_for(scope: str, rows: list[dict[str, Any]]) -> str:
         flags = ("work: real work correspondence of an HR office at a rural public transit agency (RTEC), including applicants, "
                  "employees, vendors, insurers, government agencies; automated: work-relevant system or vendor notifications "
                  "(benefits, payroll, HR systems, job boards, receipts); bulk: newsletters, webinars, marketing from known "
-                 "organisations; spam: unsolicited junk, scams, phishing; not_work: personal, non-work mail that landed in a work mailbox")
+                 "organisations; spam: unsolicited junk, scams, phishing; not_work: personal, non-work mail that landed in a work mailbox. "
+                 "A person emailing photos or documents to HR is work even with no subject or text (applicants and employees "
+                 "send paperwork from their phones)")
     else:
         flags = ("personal: real personal correspondence; automated: receipts, accounts, deliveries, notifications; "
                  "bulk: newsletters and marketing; spam: unsolicited junk, scams, phishing")
     items = "\n".join(json.dumps({"id": r["id"], "from": r["from"][:120], "to": r["to"][:160], "subject": r["subject"][:200],
-                                  "snippet": mask(r["snippet"])[:400]}, ensure_ascii=False) for r in rows)
+                                  "snippet": mask(r["snippet"])[:400], "attachments": r.get("attachments", [])},
+                                 ensure_ascii=False) for r in rows)
     return ("Classify each email by one flag. Flags: " + flags + ".\n"
             "Answer ONLY a JSON array of objects {\"id\": ..., \"flag\": ..., \"reason\": \"<= 8 words\"}, one per email, same ids.\n\n"
             + items)
@@ -105,8 +108,15 @@ def _rows(scope: str, message_ids: list[str]) -> list[dict[str, Any]]:
     marks = ",".join("?" * len(message_ids))
     with closing(sqlite3.connect(f"file:{mail_config.db_for(scope).as_posix()}?mode=ro", uri=True)) as conn:
         conn.row_factory = sqlite3.Row
+        kinds: dict[str, list[str]] = {}
+        has_attachments = conn.execute("SELECT 1 FROM sqlite_master WHERE name = 'mail_attachments'").fetchone()
+        for a in conn.execute(f"SELECT message_id, filename, mime_type FROM mail_attachments WHERE message_id IN ({marks})",
+                              message_ids) if has_attachments else []:
+            # Only the file type: attachment names can carry personal details.
+            name = str(a["filename"] or "")
+            kinds.setdefault(a["message_id"], []).append(name.rsplit(".", 1)[-1].lower()[:8] if "." in name else str(a["mime_type"] or "?"))
         return [{"id": r["id"], "from": r["sender"] or "", "to": r["recipients"] or "", "subject": r["subject"] or "",
-                 "snippet": " ".join((r["body"] or "").split())[:600]}
+                 "snippet": " ".join((r["body"] or "").split())[:600], "attachments": kinds.get(r["id"], [])[:10]}
                 for r in conn.execute(f"SELECT id, sender, recipients, subject, body FROM mail_messages WHERE id IN ({marks})", message_ids)]
 
 

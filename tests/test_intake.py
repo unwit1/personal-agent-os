@@ -194,3 +194,28 @@ def test_model_budget_is_larger_outside_office_hours():
     assert budget(conf, "promote_batches", datetime(2026, 10, 7, 19, 0)) == 4  # Wednesday evening
     assert budget(conf, "promote_batches", datetime(2026, 10, 10, 11, 0)) == 4  # Saturday
     assert budget({"promote_batches": 2}, "promote_batches", datetime(2026, 10, 10, 11, 0)) == 2
+
+
+def test_intake_run_is_exclusive_and_always_logged(tmp_path, monkeypatch):
+    import json
+
+    import agent_os.intake as intake
+
+    monkeypatch.setattr(intake, "LOCAL", tmp_path)
+    (tmp_path / "run.lock").write_text(str(__import__("os").getpid()))
+    assert intake.run()["skipped"]
+
+    (tmp_path / "run.lock").unlink()
+
+    def boom(log, **_):
+        log["collect"] = {}
+        raise RuntimeError("source broke")
+
+    monkeypatch.setattr(intake, "_run_steps", boom)
+    import pytest
+
+    with pytest.raises(RuntimeError):
+        intake.run()
+    lines = [json.loads(line) for line in (tmp_path / "runs.jsonl").read_text().splitlines()]
+    assert lines[0]["skipped"] and lines[1]["error"] == "RuntimeError: source broke" and "finished_at" in lines[1]
+    assert not (tmp_path / "run.lock").exists()

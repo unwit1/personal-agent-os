@@ -69,6 +69,33 @@ def _display(sender: str) -> str:
     return name or spam._address(sender) or "unknown"
 
 
+# Attachments people send HR from a phone or home PC: photos of IDs, transcripts, signed forms.
+PAPERWORK = {"jpg", "jpeg", "png", "heic", "heif", "gif", "bmp", "tif", "tiff", "pdf", "doc", "docx", "rtf", "txt",
+             "odt", "xls", "xlsx", "csv", "pages"}
+
+
+def sent_paperwork(attachments: Iterable[Any]) -> bool:
+    """True when a message carries document or photo attachments (not just a signature logo)."""
+    for a in attachments:
+        name = str(a["filename"] or "").lower()
+        ext = name.rsplit(".", 1)[-1] if "." in name else str(a["mime_type"] or "").rsplit("/", 1)[-1].lower()
+        if ext in PAPERWORK and int(a["size"] or 0) >= 20_000:
+            return True
+    return False
+
+
+def keep_paperwork(flag: str, reason: str, m: Any, attachments: list[Any]) -> tuple[str, str]:
+    """The model may not bury paperwork: a person's message with documents or photos that it called
+    spam (or not work only because it was blank) stays work. Applicants and employees often email
+    HR a photo with no subject or text (HR, 2026-10-10)."""
+    if not reason.startswith("model") or flag not in ("spam", "not_work") or not sent_paperwork(attachments):
+        return flag, reason
+    blank = not re.sub(r"[\W_]+", "", m["subject"] or "") or not (m["body"] or "").strip()
+    if flag == "spam" or blank:
+        return "work", "documents sent to HR (model said " + flag + ")"
+    return flag, reason
+
+
 FREEMAIL = {"gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "me.com", "live.com", "msn.com",
             "comcast.net", "att.net", "windstream.net", "bellsouth.net", "ymail.com", "protonmail.com", "mail.com"}
 JUNK_TLDS = {"blog", "shop", "xyz", "top", "click", "online", "site", "store", "icu", "buzz", "rest", "bond", "cfd", "sbs",
@@ -299,6 +326,7 @@ def export(scope: str, out_dir: Path, *, datastore: Path | None = None, db_path:
         decided = overrides.get(m["id"])
         if decided:
             flag, reason = decided["flag"], f"model: {decided.get('reason') or decided['flag']}"
+            flag, reason = keep_paperwork(flag, reason, m, attachments[m["id"]])
         sender = spam._address(m["sender"])
         screen = (scope == "work" and flag == "work" and not decided and _domain(sender) in FREEMAIL
                   and sender not in employee_emails and sender not in own)

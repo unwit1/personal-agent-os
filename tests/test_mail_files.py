@@ -78,3 +78,26 @@ def test_near_duplicate_export_copy_merges_into_original(tmp_path):
     result = dedupe.merge_near_duplicates("work", db_path=db)
     assert result["merged"] == 1
     assert _counts(db) == (2, 3)  # the copy's source now belongs to the original; the different text stays separate
+
+
+def test_model_cannot_bury_paperwork_sent_to_hr():
+    from agent_os.mail.directory import keep_paperwork
+
+    photo = [{"filename": "image_67160833.JPG", "mime_type": "image/heic", "size": 3_697_720}]
+    logo = [{"filename": "image001.png", "mime_type": "image/png", "size": 4_000}]
+    blank = {"subject": "\x01\x01", "body": ""}
+    recipes = {"subject": "recipes", "body": "here you go"}
+    assert keep_paperwork("spam", "model: Suspicious blank subject", blank, photo)[0] == "work"
+    assert keep_paperwork("not_work", "model: Empty message from employee", blank, photo)[0] == "work"
+    assert keep_paperwork("not_work", "model: Personal recipe email", recipes, photo)[0] == "not_work"
+    assert keep_paperwork("spam", "model: junk", blank, logo)[0] == "spam"
+    assert keep_paperwork("spam", "throwaway domain", blank, photo)[0] == "spam"  # rule decisions are not second-guessed
+    assert keep_paperwork("bulk", "model: newsletter", blank, photo)[0] == "bulk"
+
+
+def test_classifier_sees_attachment_types_not_names():
+    from agent_os.intake.classify import prompt_for
+
+    text = prompt_for("work", [{"id": "m1", "from": "a@gmail.com", "to": "hr@4rtec.com", "subject": "", "snippet": "",
+                                "attachments": ["jpeg", "pdf"]}])
+    assert '"attachments": ["jpeg", "pdf"]' in text and "paperwork" in text

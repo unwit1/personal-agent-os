@@ -390,13 +390,37 @@ def _stage(scope: str, row: sqlite3.Row) -> Path:
 
 
 def run(*, sync: bool = True, drain: bool = True, drain_limit: int | None = None, classify_limit: int | None = None) -> dict[str, Any]:
-    """Pull new mail, refresh the correspondence directories and dossiers, queue everything, feed the Engine."""
+    """Pull new mail, refresh the correspondence directories and dossiers, queue everything, feed the Engine.
+    One run at a time; every run (finished, failed or skipped) leaves a line in runs.jsonl."""
+    import traceback
+
+    log: dict[str, Any] = {"started_at": now()}
+    lock = _acquire(LOCAL / "run.lock")
+    try:
+        if lock is None:
+            log["skipped"] = "another intake run is in progress"
+        else:
+            _run_steps(log, sync=sync, drain=drain, drain_limit=drain_limit, classify_limit=classify_limit)
+    except BaseException as exc:
+        log["error"] = f"{type(exc).__name__}: {exc}"
+        log["traceback"] = traceback.format_exc()[-2000:]
+        raise
+    finally:
+        if lock is not None:
+            lock.unlink(missing_ok=True)
+        log["finished_at"] = now()
+        LOCAL.mkdir(parents=True, exist_ok=True)
+        with (LOCAL / "runs.jsonl").open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(log, default=str) + "\n")
+    return log
+
+
+def _run_steps(log: dict[str, Any], *, sync: bool, drain: bool, drain_limit: int | None, classify_limit: int | None) -> None:
     from ..mail import config as mail_config
     from ..mail import directory, sync as mail_sync
 
     conf = settings()
     classify_limit = conf.get("classify_batch", 200) if classify_limit is None else classify_limit
-    log: dict[str, Any] = {"started_at": now()}
     if sync:
         try:
             log["mail_sync"] = {k: mail_sync().get(k) for k in ("indexed_new", "errors", "complete")}
@@ -435,11 +459,6 @@ def run(*, sync: bool = True, drain: bool = True, drain_limit: int | None = None
             log["promote"] = {"error": f"{type(exc).__name__}: {exc}"}
     if drain:
         log["engine"] = {scope: drain_engine(scope, drain_limit) for scope in SCOPES}
-    log["finished_at"] = now()
-    LOCAL.mkdir(parents=True, exist_ok=True)
-    with (LOCAL / "runs.jsonl").open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(log, default=str) + "\n")
-    return log
 
 
 def _refresh_dossiers() -> dict[str, Any]:
