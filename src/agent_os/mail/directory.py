@@ -70,22 +70,22 @@ def _display(sender: str) -> str:
 
 
 # Attachments people send HR from a phone or home PC: photos of IDs, transcripts, signed forms.
-PAPERWORK = {"jpg", "jpeg", "png", "heic", "heif", "gif", "bmp", "tif", "tiff", "pdf", "doc", "docx", "rtf", "txt",
-             "odt", "xls", "xlsx", "csv", "pages"}
+IMAGES = {"jpg", "jpeg", "png", "heic", "heif", "gif", "bmp", "tif", "tiff"}
+PAPERWORK = IMAGES | {"pdf", "doc", "docx", "rtf", "txt", "odt", "xls", "xlsx", "csv", "pages", "ics"}
 
 
-# Doctor's excuses, sick/COVID notices, appointments, jury duty, funerals: attendance and leave records.
+# Doctor's excuses, sick/COVID notices, appointments, jury duty, deaths, accidents: attendance and leave records.
 _ATTENDANCE = re.compile(r"\b(excuse[ds]?|doctor|dr\.|covid|quarantine|appointment|medical|dental|dentist|hospital|clinic|"
-                         r"sick|illness|fmla|leave|jury|court|funeral|bereavement|obituary|memorial|surgery|urgent care)\b",
-                         re.IGNORECASE)
+                         r"sick|illness|fmla|leave|jury|court|funeral|bereavement|obituary|memorial|death|passed away|"
+                         r"certificate|surgery|urgent care|accident|wreck)\b", re.IGNORECASE)
 
 
 def sent_paperwork(attachments: Iterable[Any]) -> bool:
-    """True when a message carries document or photo attachments (not just a signature logo)."""
+    """True when a message carries document or photo attachments (small images are signature logos)."""
     for a in attachments:
         name = str(a["filename"] or "").lower()
         ext = name.rsplit(".", 1)[-1] if "." in name else str(a["mime_type"] or "").rsplit("/", 1)[-1].lower()
-        if ext in PAPERWORK and int(a["size"] or 0) >= 20_000:
+        if ext in PAPERWORK and (ext not in IMAGES or int(a["size"] or 0) >= 20_000):
             return True
     return False
 
