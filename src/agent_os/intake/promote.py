@@ -25,7 +25,7 @@ from typing import Any, Callable
 
 from ..mail import config as mail_config
 from . import LOCAL, Queue, settings
-from .classify import _run_claude, mask
+from .classify import _run_claude, mask, usage_limited
 
 BATCH = 25
 CATEGORIES = ("policy", "procedure", "system", "vendor", "benefit", "compliance", "form", "role", "organization", "schedule")
@@ -106,6 +106,9 @@ def promote(limit_batches: int = 1, runner: Callable[[str], str] | None = None) 
                 text = runner(prompt_for(rows))
                 found = json.loads(text[text.find("["):text.rfind("]") + 1] or "[]")
             except Exception as exc:  # noqa: BLE001
+                if usage_limited(exc):  # out of subscription usage: resume next run, items untouched
+                    result["paused"] = "usage limit"
+                    break
                 q.finish(list(ids.values()), "promote", "failed", {"error": str(exc)[:200]})
                 result["errors"].append(str(exc)[:200])
                 continue

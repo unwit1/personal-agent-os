@@ -156,3 +156,29 @@ def test_phone_log_folds_missed_call_emails_and_names_applicants(tmp_path, monke
     assert result["applicants"] == 1                  # caller ID "SEXTON ALLEN" is applicant Allen Sexton
     day = (tmp_path / "HR" / "Phone Log" / "2026-10-06.md").read_text(encoding="utf-8")
     assert "Allen Sexton (applicant: Offered, Transit Driver)" in day and "missed (rang 21s)" in day
+
+
+def test_usage_limit_pauses_classification_without_using_up_attempts(tmp_path, monkeypatch):
+    import sqlite3
+
+    from agent_os.intake import classify
+    from agent_os.mail import config as mail_config
+
+    monkeypatch.setattr(mail_config, "LOCAL_DIR", tmp_path / "mail")
+    db = mail_config.db_for("work")
+    db.parent.mkdir(parents=True)
+    with sqlite3.connect(db) as conn:
+        conn.execute("CREATE TABLE mail_messages (id TEXT, sender TEXT, recipients TEXT, subject TEXT, body TEXT)")
+        conn.execute("INSERT INTO mail_messages VALUES ('msg_1','a@x.org','hr@x.org','Hi','body')")
+    monkeypatch.setattr(classify, "Queue", lambda scope: Queue(scope, tmp_path / "q.sqlite3"))
+    with Queue("work", tmp_path / "q.sqlite3") as q:
+        q.upsert(Item(source="mail", kind="email", scope="work", ref="msg_1", path="x.md", content_hash="h", flag="review"))
+
+    def limited(prompt):
+        raise RuntimeError('{"api_error_status":429,"result":"You\'ve hit your session limit"}')
+
+    result = classify.classify("work", runner=limited)
+    assert result["paused"] == "usage limit"
+    with Queue("work", tmp_path / "q.sqlite3") as q:
+        row = q.conn.execute("SELECT state, attempts FROM deliveries WHERE consumer='classify'").fetchone()
+    assert tuple(row) == ("pending", 0)

@@ -39,6 +39,12 @@ _MASKS = (
 )
 
 
+def usage_limited(exc: Exception) -> bool:
+    """The CLI answered "usage limit reached" (HTTP 429): nothing is wrong with the items."""
+    text = str(exc).lower()
+    return "429" in text or "hit your" in text or "usage limit" in text or "rate limit" in text
+
+
 def overrides_path(scope: str) -> Path:
     return mail_config.scope_dir(scope) / "flag-overrides.json"
 
@@ -120,6 +126,9 @@ def classify(scope: str, limit: int = 200, runner: Callable[[str], str] | None =
             try:
                 decided = _parse(runner(prompt_for(scope, rows)), allowed, set(by_message))
             except Exception as exc:  # noqa: BLE001 -- retried on the next run (attempts cap at 3)
+                if usage_limited(exc):  # the subscription is out of usage: try again next run
+                    result["paused"] = "usage limit"
+                    break
                 q.finish(list(by_message.values()), "classify", "failed", {"error": str(exc)[:200]})
                 result["errors"].append(str(exc)[:200])
                 continue
