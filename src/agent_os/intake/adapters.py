@@ -95,7 +95,9 @@ def ambient_items(conf: dict[str, Any]) -> Iterator[Item]:
             speaker = seg.get("speaker") or seg.get("speaker_id") or ""
             said = (seg.get("text") or "").strip()
             text.append(said)
-            lines.append(f"**{names.get(speaker) or speaker or '?'}** [{seg.get('start', '')}]: {said}")
+            ms = int(seg.get("start_ms") or 0)
+            who = seg.get("person") or names.get(speaker) or speaker or "?"
+            lines.append(f"**{who}** [{ms // 60000}:{ms // 1000 % 60:02d}]: {said}")
         rel = f"{started[:10] or 'undated'} {started[11:16].replace(':', '')} {path.stem[:8]}.md"
         out = folder_by_scope[scope] / rel
         digest = _write_if_changed(out, "\n".join(lines) + "\n")
