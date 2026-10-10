@@ -118,3 +118,12 @@ def test_padded_subject_is_not_spam_from_an_established_vendor():
     flagger = Flagger("work", rows, {"hr@4rtec.com"}, {"4rtec.com"}, set())
     assert flagger(rows[1])[0] != "spam"
     assert flagger(rows[2])[0] == "spam"
+
+
+def test_attendance_paperwork_is_work_not_personal():
+    from agent_os.mail.directory import keep_paperwork
+
+    excuse = [{"filename": "scan.pdf", "mime_type": "application/pdf", "size": 200_000}]
+    assert keep_paperwork("not_work", "model: Personal email no content", {"subject": "Excuse", "body": "see attached"}, excuse)[0] == "work"
+    assert keep_paperwork("not_work", "model: Personal non-work health message", {"subject": "Covid", "body": "positive"}, excuse)[0] == "work"
+    assert keep_paperwork("not_work", "model: Personal item sharing", {"subject": "mobile home sale", "body": "pics"}, excuse)[0] == "not_work"

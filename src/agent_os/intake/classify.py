@@ -67,7 +67,8 @@ def prompt_for(scope: str, rows: list[dict[str, Any]]) -> str:
                  "(benefits, payroll, HR systems, job boards, receipts); bulk: newsletters, webinars, marketing from known "
                  "organisations; spam: unsolicited junk, scams, phishing; not_work: personal, non-work mail that landed in a work mailbox. "
                  "A person emailing photos or documents to HR is work even with no subject or text (applicants and employees "
-                 "send paperwork from their phones)")
+                 "send paperwork from their phones); an employee's doctor's excuse, sick or COVID notice, appointment, jury duty or "
+                 "funeral notice is work (attendance and leave)")
     else:
         flags = ("personal: real personal correspondence; automated: receipts, accounts, deliveries, notifications; "
                  "bulk: newsletters and marketing; spam: unsolicited junk, scams, phishing")

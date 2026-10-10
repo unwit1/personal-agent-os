@@ -74,6 +74,12 @@ PAPERWORK = {"jpg", "jpeg", "png", "heic", "heif", "gif", "bmp", "tif", "tiff", 
              "odt", "xls", "xlsx", "csv", "pages"}
 
 
+# Doctor's excuses, sick/COVID notices, appointments, jury duty, funerals: attendance and leave records.
+_ATTENDANCE = re.compile(r"\b(excuse[ds]?|doctor|dr\.|covid|quarantine|appointment|medical|dental|dentist|hospital|clinic|"
+                         r"sick|illness|fmla|leave|jury|court|funeral|bereavement|obituary|memorial|surgery|urgent care)\b",
+                         re.IGNORECASE)
+
+
 def sent_paperwork(attachments: Iterable[Any]) -> bool:
     """True when a message carries document or photo attachments (not just a signature logo)."""
     for a in attachments:
@@ -91,7 +97,7 @@ def keep_paperwork(flag: str, reason: str, m: Any, attachments: list[Any]) -> tu
     if not reason.startswith("model") or flag not in ("spam", "not_work") or not sent_paperwork(attachments):
         return flag, reason
     blank = not re.sub(r"[\W_]+", "", m["subject"] or "") or not (m["body"] or "").strip()
-    if flag == "spam" or blank:
+    if flag == "spam" or blank or _ATTENDANCE.search(f"{m['subject'] or ''} {m['body'] or ''}"[:2000]):
         return "work", "documents sent to HR (model said " + flag + ")"
     return flag, reason
 
