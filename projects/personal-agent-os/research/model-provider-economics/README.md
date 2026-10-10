@@ -14,6 +14,26 @@
 
 Filter these records by project requirements and potential candidates, not by dumping entire catalogs into prompts. Reuse the current Orchestrator capability, evaluator, router, budget gate and FreeComputeBroker instead of implementing duplicate machinery. Source of truth for implementation: [model infrastructure](../../../../docs/model-infrastructure.md), [free broker](../../../../docs/free-compute-broker.md), and the IMP-0015 roadmap.
 
+## Expanded research pass — 2026-10-10
+
+**Research-only, committed in multiple checkpoints.** This expands the earlier reference without changing routing, paying providers, or running new model inference. The new catalog entries are source-backed but remain incomplete relative to the global market.
+
+| New artifact | Scope | Count |
+|---|---|---:|
+| [Open-weight publisher artifacts](open-weight-artifacts-2026-10-10.json) | Exact Hugging Face weight IDs/quantized variants with publisher source and license-check status; **not** hosted API IDs | 77 across 13 families |
+| [Open-weight benchmark evidence](open-weight-benchmark-evidence-2026-10-10.json) | Scores from Gemma 4 official tables, GLM and gpt-oss model cards; publisher claims distinguished from Hub evals | 41 |
+| [Provider official API quotes](provider-official-api-quotes-2026-10-10.json) | Together, Fireworks, Cerebras public listed token input/output rates (runnable API identifiers still unverified) | 31 |
+| [Provider/subscription mechanics](service-commercial-mechanics-2026-10-10.json) | API vs interactive subscription vs GPU billing, eligibility, quota windows, technical caveats | 25 services |
+| [Benchmark suite methods](benchmark-methodologies-2026-10-10.json) | Independent benchmark URLs, comparable harness/version rules, evaluator limitations | 12 |
+| [Continuous Discovery Plan](CONTINUOUS-DISCOVERY-PLAN.md) | No-dependency-first Model Radar ingestion, price+terms refresh, eval/approval gates and testable milestones | One architecture guide |
+| [Paperclip and related orchestration](../prior-art/paperclip-integration-analysis-2026-10-10.md) | Atomic checkouts, heartbeats, agent budgets, scoped skills/goals and optional bridge | 13 repo/data-service candidates in [structured discovery](../prior-art/discovery-paperclip-and-model-data-2026-10-10.json) |
+
+**Source note:** Current Artificial Analysis [Coding Agent Index v1.5 methodology](https://artificialanalysis.ai/methodology/coding-agents-benchmarking) contains DeepSWE v1.1 + Terminal-Bench **4.0** + SWE-Atlas-QnA; the older Terminal-Bench 2.1 and older index values already present elsewhere are not interchangeable. Always record benchmark revision. Pricing examples are dated observations with per-provider endpoints, and model-weight file IDs are not directly routable API strings.
+
+**Next agent:** Use `CONTINUOUS-DISCOVERY-PLAN.md` as IMP-0015 guidance. First implement read-only multi-source ingestion into existing Research Radar, and reconcile the current source snapshot with live OpenRouter endpoints. Never auto-upgrade a subscription or provision a GPU. Separate interactive-coding-only plans from automated production inference. Candidate real benchmarks require the existing EVS/CAP/EVR harness and explicit spend limits.
+
+---
+
 ## Select API price comparisons
 
 Rates in USD per 1 million tokens; discounts and routing can change. They exclude OpenRouter platform fees, taxes, tools, prompt caching, failures and retries.
