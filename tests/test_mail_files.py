@@ -127,6 +127,5 @@ def test_attendance_paperwork_is_work_not_personal():
     assert keep_paperwork("not_work", "model: Personal email no content", {"subject": "Excuse", "body": "see attached"}, excuse)[0] == "work"
     assert keep_paperwork("not_work", "model: Personal non-work health message", {"subject": "Covid", "body": "positive"}, excuse)[0] == "work"
     assert keep_paperwork("not_work", "model: Personal item sharing", {"subject": "mobile home sale", "body": "pics"}, excuse)[0] == "not_work"
-    forwarded = {"subject": "Fwd:", "body": "---------- Forwarded message ---------
-From: office"}
+    forwarded = {"subject": "Fwd:", "body": "---------- Forwarded message ---------\nFrom: office"}
     assert keep_paperwork("not_work", "model: Forwarded personal dental office message", forwarded, excuse)[0] == "work"
