@@ -56,9 +56,24 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "engine_batch": 200,
     "classify_batch": 200,  # model reviews per scope per run (subscription, Haiku)
     "promote_batches": 1,  # 25-message knowledge-distillation batches per run (subscription)
+    "promote_batches_off_hours": 4,  # evenings/weekends, when the operator is not using the subscription
     "disabled_sources": [],
 }
 SKIP_ENGINE_FLAGS = {"spam": "flagged spam", "bulk": "flagged bulk/newsletter", "not_work": "not work related"}
+
+
+def off_hours(at: datetime | None = None) -> bool:
+    """Evenings (18:00-07:00) and weekends, local time: background model work may go faster."""
+    at = at or datetime.now()
+    return at.weekday() >= 5 or at.hour < 7 or at.hour >= 18
+
+
+def budget(conf: dict[str, Any], key: str, at: datetime | None = None) -> int:
+    """A per-run model budget, using ``<key>_off_hours`` outside office hours when set."""
+    value = conf.get(key, DEFAULT_SETTINGS.get(key, 0))
+    if off_hours(at):
+        value = conf.get(f"{key}_off_hours", value)
+    return int(value or 0)
 
 
 def now() -> str:
@@ -411,11 +426,11 @@ def run(*, sync: bool = True, drain: bool = True, drain_limit: int | None = None
                 log["classify"][scope] = classify(scope, classify_limit)
             except Exception as exc:  # noqa: BLE001
                 log["classify"][scope] = {"error": f"{type(exc).__name__}: {exc}"}
-    if conf.get("promote_batches", 1):
+    if budget(conf, "promote_batches"):
         from .promote import promote
 
         try:
-            log["promote"] = promote(conf.get("promote_batches", 1))
+            log["promote"] = promote(budget(conf, "promote_batches"))
         except Exception as exc:  # noqa: BLE001
             log["promote"] = {"error": f"{type(exc).__name__}: {exc}"}
     if drain:

@@ -182,3 +182,15 @@ def test_usage_limit_pauses_classification_without_using_up_attempts(tmp_path, m
     with Queue("work", tmp_path / "q.sqlite3") as q:
         row = q.conn.execute("SELECT state, attempts FROM deliveries WHERE consumer='classify'").fetchone()
     assert tuple(row) == ("pending", 0)
+
+
+def test_model_budget_is_larger_outside_office_hours():
+    from datetime import datetime
+
+    from agent_os.intake import budget
+
+    conf = {"promote_batches": 1, "promote_batches_off_hours": 4}
+    assert budget(conf, "promote_batches", datetime(2026, 10, 7, 10, 0)) == 1  # Wednesday morning
+    assert budget(conf, "promote_batches", datetime(2026, 10, 7, 19, 0)) == 4  # Wednesday evening
+    assert budget(conf, "promote_batches", datetime(2026, 10, 10, 11, 0)) == 4  # Saturday
+    assert budget({"promote_batches": 2}, "promote_batches", datetime(2026, 10, 10, 11, 0)) == 2
