@@ -9,6 +9,8 @@
 | [model-prices-2026-10-10.json](model-prices-2026-10-10.json) | 26 model + provider pairs with exact API IDs, USD per million input/output tokens, context, source and caution notes |
 | [provider-gpu-prices-2026-10-10.json](provider-gpu-prices-2026-10-10.json) | 16 subscription plans with limits and usage eligibility, 24 GPU rental quotes, storage/fees |
 | [published-benchmarks-2026-10-10.json](published-benchmarks-2026-10-10.json) | 19 published coding, reasoning and agentic metrics with model variants, eval config, evidence type; **not** Agent OS measurements |
+| [openrouter-low-refusal-2026-10-10.json](openrouter-low-refusal-2026-10-10.json) | 9 OpenRouter/Venice low-refusal model candidates with exact slugs, price, tool API availability and claim confidence |
+| [openrouter-low-refusal-analysis.md](openrouter-low-refusal-analysis.md) | Research conclusions, GLM vs Heretic A/B design, misadvertised tool support, low-refusal and coding eval methodology |
 
 Filter these records by project requirements and potential candidates, not by dumping entire catalogs into prompts. Reuse the current Orchestrator capability, evaluator, router, budget gate and FreeComputeBroker instead of implementing duplicate machinery. Source of truth for implementation: [model infrastructure](../../../../docs/model-infrastructure.md), [free broker](../../../../docs/free-compute-broker.md), and the IMP-0015 roadmap.
 
