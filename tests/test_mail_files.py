@@ -101,3 +101,20 @@ def test_classifier_sees_attachment_types_not_names():
     text = prompt_for("work", [{"id": "m1", "from": "a@gmail.com", "to": "hr@4rtec.com", "subject": "", "snippet": "",
                                 "attachments": ["jpeg", "pdf"]}])
     assert '"attachments": ["jpeg", "pdf"]' in text and "paperwork" in text
+
+
+def test_padded_subject_is_not_spam_from_an_established_vendor():
+    from agent_os.mail.directory import Flagger
+
+    def row(sender, subject, date):
+        return {"id": date, "sender": sender, "subject": subject, "date": date, "recipients": "hr@4rtec.com",
+                "mailbox": "INBOX", "snippet": "", "list_unsubscribe": None, "list_id": None, "precedence": None,
+                "auto_submitted": None, "thread_id": date}
+
+    padded = "Time Sensitive  Response needed    Claim:   330  Amazon"
+    rows = [row("STD_GROUP_CLAIMS <STD_GROUP_CLAIMS@glic.com>", padded, "2016-03-01T10:00:00"),
+            row("STD_GROUP_CLAIMS <STD_GROUP_CLAIMS@glic.com>", padded, "2024-05-01T10:00:00"),
+            row("Sale <a@mail-x1.nikeshoess.us>", padded, "2024-05-01T10:00:00")]
+    flagger = Flagger("work", rows, {"hr@4rtec.com"}, {"4rtec.com"}, set())
+    assert flagger(rows[1])[0] != "spam"
+    assert flagger(rows[2])[0] == "spam"

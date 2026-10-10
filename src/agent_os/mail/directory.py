@@ -108,6 +108,25 @@ def _domain(address: str) -> str:
     return address.rpartition("@")[2].lower()
 
 
+def established_domains(rows: Iterable[dict], days: int = 180) -> set[str]:
+    """Organisation domains that have written for more than ``days``: throwaway spam domains live
+    days or weeks, real vendors and agencies write to HR for years."""
+    seen: dict[str, list[str]] = defaultdict(list)
+    for row in rows:
+        domain, date = _domain(spam._address(row.get("sender"))), str(row.get("date") or "")[:10]
+        if domain and domain not in FREEMAIL and re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+            seen[domain].append(date)
+    out = set()
+    for domain, dates in seen.items():
+        first, last = min(dates), max(dates)
+        try:
+            if (datetime.fromisoformat(last) - datetime.fromisoformat(first)).days > days:
+                out.add(domain)
+        except ValueError:
+            continue
+    return out
+
+
 class Flagger:
     """Message -> (flag, reason). Spam/bulk rules from ``spam``/``organize`` plus organisation context."""
 
@@ -116,6 +135,7 @@ class Flagger:
         self.known = spam.known_correspondents(rows, own)
         self.work_domains = {d.lower() for d in work_domains} | {_domain(a) for a in own if "@" in a}
         self.known_domains = {_domain(a) for a in self.known} - FREEMAIL
+        self.established = established_domains(rows)
         self.employees = {e.lower() for e in employee_emails}
         self.epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)  # disables the age-based archive_old category
 
@@ -125,7 +145,8 @@ class Flagger:
         if domain.rpartition(".")[2] in JUNK_TLDS:
             return f"throwaway domain (.{domain.rpartition('.')[2]})"
         name = str(sender or "").split("<", 1)[0]
-        if re.search(r"\S {3,}\S", name) or len(re.findall(r"\S {2,}\S", str(subject or ""))) >= 3:
+        padded = re.search(r"\S {3,}\S", name) or len(re.findall(r"\S {2,}\S", str(subject or ""))) >= 3
+        if padded and domain not in self.established:  # e.g. Guardian (glic.com) claim notices pad their subjects
             return "padded display name or subject (spam obfuscation)"
         if _JUNK_NAME.search(name):
             return f'promotional sender name ("{_JUNK_NAME.search(name).group(0)}")'
