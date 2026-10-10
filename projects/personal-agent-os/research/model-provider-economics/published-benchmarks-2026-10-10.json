@@ -1,0 +1,235 @@
+{
+  "schema": "personal-agent-os/model-provider-economics/public-benchmark-snapshot/v1",
+  "observed_on": "2026-10-10",
+  "status": "external_priors_only_no_new_orchestrator_model_executions",
+  "score_isolation_rules": [
+    "Never compare unlike benchmark names, variants, versions or evaluation harness configurations.",
+    "Provider model descriptions and company-produced claims receive lower evidentiary weight than independently evaluated benchmark sets.",
+    "SWE-Pro is not SWE-bench Verified. Terminal-Bench 2 is not Terminal-Bench 2.1.",
+    "Abliterated or low-refusal derivatives have NO documented scores in this snapshot. Do not inherit base-model benchmark scores.",
+    "A model with benchmark scores may perform differently across provider endpoints, tool configurations, sampling and cache setup.",
+    "No benchmark run was executed for this research; these are published priors, not empirical Orchestrator results."
+  ],
+  "published_results": [
+    {
+      "model": "z-ai/glm-4.7-flash",
+      "benchmark": "GPQA Diamond",
+      "score": 58.1,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-4.7-flash",
+      "benchmark": "HLE",
+      "score": 7.6,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-4.7-flash",
+      "benchmark": "IFBench",
+      "score": 60.8,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-4.7-flash",
+      "benchmark": "tau2-Bench Telecom",
+      "score": 98.8,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-5.2",
+      "benchmark": "AA Coding Index",
+      "score": 68.8,
+      "unit": "index",
+      "evaluation_config": "Artificial Analysis max reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-5.2",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-5.2",
+      "benchmark": "AA Agentic Index",
+      "score": 38.4,
+      "unit": "index",
+      "evaluation_config": "Artificial Analysis max reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-5.2",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-5.2",
+      "benchmark": "GPQA Diamond",
+      "score": 89.5,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis max reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-5.2",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-5.2",
+      "benchmark": "Terminal-Bench 2.1",
+      "score": 77.9,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis max reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-5.2",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-5.2",
+      "benchmark": "Terminal-Bench 2.1",
+      "score": 51.7,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis non-reasoning",
+      "source_url": "https://openrouter.ai/z-ai/glm-5.2",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-5.2",
+      "benchmark": "LiveCodeBench",
+      "score": 69.5,
+      "unit": "percent",
+      "evaluation_config": "Vals AI evaluation (configuration not confirmed)",
+      "source_url": "https://openrouter.ai/z-ai/glm-5.2",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-5.2",
+      "benchmark": "SWE-bench",
+      "score": 82.8,
+      "unit": "percent",
+      "evaluation_config": "Vals AI evaluation (variant/harness not confirmed)",
+      "source_url": "https://openrouter.ai/z-ai/glm-5.2",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "benchmark": "AA Intelligence Index",
+      "score": 39.5,
+      "unit": "index",
+      "evaluation_config": "Artificial Analysis reasoning max effort",
+      "source_url": "https://openrouter.ai/deepseek/deepseek-v4.1-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "benchmark": "HLE",
+      "score": 39.2,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis reasoning max effort",
+      "source_url": "https://openrouter.ai/deepseek/deepseek-v4.1-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "benchmark": "SciCode",
+      "score": 51.9,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis reasoning max effort",
+      "source_url": "https://openrouter.ai/deepseek/deepseek-v4.1-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "benchmark": "AA-LCR",
+      "score": 84,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis reasoning max effort",
+      "source_url": "https://openrouter.ai/deepseek/deepseek-v4.1-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "benchmark": "AA Coding Index",
+      "score": 69.1,
+      "unit": "index",
+      "evaluation_config": "Artificial Analysis reasoning max effort",
+      "source_url": "https://openrouter.ai/deepseek/deepseek-v4-flash-0731",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "benchmark": "AA Agentic Index",
+      "score": 41.7,
+      "unit": "index",
+      "evaluation_config": "Artificial Analysis reasoning max effort",
+      "source_url": "https://openrouter.ai/deepseek/deepseek-v4-flash-0731",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "minimax/minimax-m2.7",
+      "benchmark": "SWE-Pro",
+      "score": 56.2,
+      "unit": "percent",
+      "evaluation_config": "Unspecified harness; quoted in vendor model description on OpenRouter",
+      "source_url": "https://openrouter.ai/minimax/minimax-m2.7",
+      "source_type": "vendor_claim_relayed_by_router",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "minimax/minimax-m2.7",
+      "benchmark": "Terminal Bench 2",
+      "score": 57,
+      "unit": "percent",
+      "evaluation_config": "Unspecified harness; quoted in vendor model description on OpenRouter",
+      "source_url": "https://openrouter.ai/minimax/minimax-m2.7",
+      "source_type": "vendor_claim_relayed_by_router",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    }
+  ],
+  "orchestrator_baseline_runs_added": 0,
+  "required_next_local_evals": [
+    "Package small pre-labeled real Orchestrator tasks: repository navigation, bug repair, unit-test repair, tool-call JSON and formatting, task decomposition and error recovery.",
+    "Hold model version, task packet, temperature/thinking, provider routing and tool harness constant per paired trial.",
+    "At least N>=10 non-sensitive cases per task family and >=3 repeated samples per model route for decision-grade evidence; cheaper dry runs first.",
+    "Log wall time, TTFT, output throughput, input/cache/output/reasoning tokens, attempts, refusals (categorized), validator outcomes, full bill and cost per verified accepted task.",
+    "Compare baseline standard GLM 4.7 Flash vs Venice GLM 4.7 Flash Heretic on identical low-risk tasks; do not assume the derivative is stronger.",
+    "Compute API-vs-GPU using actual measured tokens/sec, sustained utilization, cold-start overhead, storage, multiple workers, and operational maintenance.",
+    "Only promote routes after quality floor and budget/authorization gates; archive negative outcomes."
+  ],
+  "source_verification": "Per-record citation URL plus observed_on; retrieve current version before auto-updating routes."
+}
