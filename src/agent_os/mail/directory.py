@@ -97,7 +97,8 @@ def keep_paperwork(flag: str, reason: str, m: Any, attachments: list[Any]) -> tu
     if not reason.startswith("model") or flag not in ("spam", "not_work") or not sent_paperwork(attachments):
         return flag, reason
     blank = not re.sub(r"[\W_]+", "", m["subject"] or "") or not (m["body"] or "").strip()
-    if flag == "spam" or blank or _ATTENDANCE.search(f"{m['subject'] or ''} {m['body'] or ''}"[:2000]):
+    names = " ".join(str(a["filename"] or "") for a in attachments)  # checked locally, never sent to the model
+    if flag == "spam" or blank or _ATTENDANCE.search(f"{m['subject'] or ''} {names} {(m['body'] or '')[:2000]}"):
         return "work", "documents sent to HR (model said " + flag + ")"
     return flag, reason
 
