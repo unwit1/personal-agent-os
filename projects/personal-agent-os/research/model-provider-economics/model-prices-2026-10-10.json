@@ -5,6 +5,7 @@
   "scope": "Selective, source-backed comparison; not exhaustive global provider catalog. Rates can change without notice.",
   "provenance_policy": "Every quote links to its exact publicly accessible provider/router documentation; model IDs and provider pairs are NOT interchangeable.",
   "warnings": [
+    "Detected substantial OpenRouter GLM 5.2 quote drift: direct page 2026-10-10 $0.06/$7 vs older cached search $0.4875/$1.56. Keep historical discrepancy; require live endpoint repricing.",
     "Rates are public quotes, not observed invoice costs; discount and provider route changes can occur anytime.",
     "Cache-read prices apply only when caching is supported and hit; do not apply to uncached input.",
     "A free model still requires eligibility, live availability, rate-limit checks and safety/authorization gate.",
@@ -83,15 +84,15 @@
       "provider": "OpenRouter",
       "model": "GLM 5.2",
       "model_id": "z-ai/glm-5.2",
-      "usd_per_million_input": 0.4875,
-      "usd_per_million_output": 1.56,
+      "usd_per_million_input": 0.06,
+      "usd_per_million_output": 7,
       "context_tokens": 1048576,
       "source_url": "https://openrouter.ai/z-ai/glm-5.2",
       "observed_on": "2026-10-10",
       "quote_type": "public_listed_snapshot",
-      "cache_read_usd_per_million": 0.091,
+      "cache_read_usd_per_million": null,
       "alignment": "standard",
-      "note": "Temporary routing discount listed at observation."
+      "note": "CRITICAL quote volatility/conflict: Oct 10 direct-open page listed $0.06/$7 (Wafer endpoint); search cached 4 weeks earlier showed $0.4875/$1.56. Provider-specific endpoint quoted at $0.06/$7, not a stable route. Do not use in automated model routing without live repricing and sanity checks."
     },
     {
       "provider": "OpenRouter",
