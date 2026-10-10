@@ -219,6 +219,61 @@
       "source_type": "vendor_claim_relayed_by_router",
       "observed_on": "2026-10-10",
       "orchestrator_measured": false
+    },
+    {
+      "model": "nousresearch/hermes-4-405b",
+      "benchmark": "LiveCodeBench",
+      "score": 68.6,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis: Hermes 4 405B (reasoning)",
+      "source_url": "https://openrouter.ai/nousresearch/hermes-4-405b",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "nousresearch/hermes-4-405b",
+      "benchmark": "Terminal-Bench Hard",
+      "score": 11.4,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis: Hermes 4 405B (reasoning)",
+      "source_url": "https://openrouter.ai/nousresearch/hermes-4-405b",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "nousresearch/hermes-4-405b",
+      "benchmark": "GPQA Diamond",
+      "score": 72.7,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis: Hermes 4 405B (reasoning)",
+      "source_url": "https://openrouter.ai/nousresearch/hermes-4-405b",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-4.7-flash",
+      "benchmark": "Terminal-Bench Hard",
+      "score": 22,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis: GLM 4.7 Flash (reasoning)",
+      "source_url": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
+    },
+    {
+      "model": "z-ai/glm-4.7-flash",
+      "benchmark": "Terminal-Bench Hard",
+      "score": 3.8,
+      "unit": "percent",
+      "evaluation_config": "Artificial Analysis: GLM 4.7 Flash (non-reasoning)",
+      "source_url": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "source_type": "third_party_reported_via_openrouter",
+      "observed_on": "2026-10-10",
+      "orchestrator_measured": false
     }
   ],
   "orchestrator_baseline_runs_added": 0,
