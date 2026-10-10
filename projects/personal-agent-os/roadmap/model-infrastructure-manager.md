@@ -197,6 +197,17 @@ A benign atomic task may be retried with a smaller truthful context contract or
 another eligible model. Do not use decomposition to conceal safety-relevant
 facts from a worker that needs them.
 
+### 2026-10-10 model/subscription evidence expansion and Paperclip coordination candidate
+
+**Operator-requested, high priority EXTENSION to IMP-0015, not a new router.** Research artifacts and staged implementation guidance:
+
+- [Model/provider economics research index](../research/model-provider-economics/README.md): full source-linked price/benchmark/availability data, including 77 publisher-weight artifacts, 41 new benchmark entries, 31 additional provider API quotes, 25 commercial subscription/API profiles and 12 benchmark methodologies. All research is observation-only, not measured Orchestrator model outcomes.
+- [Continuous Discovery implementation plan](../research/model-provider-economics/CONTINUOUS-DISCOVERY-PLAN.md): read-only OpenRouter/Models.dev/LiteLLM/Hugging Face catalog adapters; full provenance and quote TTLs; explicit subscription license/automation eligibility; per-task A/B tests before promoting routing. Do not load entire dataset into prompts; select compact candidates.
+- [Paperclip/Gas Town integration evaluation](../research/prior-art/paperclip-integration-analysis-2026-10-10.md): borrow atomic task checkout, scoped heartbeat resume, goal->task lineage, hierarchical budgets and skill versioned testing as gaps warrant; optional future Paperclip UI bridge only after overlap/durability/safety tests. Keep Agent OS canonical task/permission state and avoid parallel orchestrators.
+- [Machine-readable prior-art discovery](../research/prior-art/discovery-paperclip-and-model-data-2026-10-10.json) includes Paperclip, Gas Town, OpenHands, Hatchet, Vibe Kanban, OpenCode and model data/price sources. Reconcile with existing prior-art registry (OpenHands/LangGraph already present), do not duplicate.
+
+**Required P0 followup:** allow automatic metadata discovery and reconciliation but never automatic spending, permission changes, subscription upgrades, GPU provisioning or production route promotion. Strictly distinguish human-interactive coding subscriptions from general-purpose API payg; preserve quota reset windows, concurrency caps, auto-reload policies and service terms. Refresh quotes before spending. Record actual cost per independently verified accepted task; benchmark harness/version pinned and evidence persisted through CAP/EVR, with protected holdouts unchanged.
+
 ## Continuous model research
 
 The Research Radar should continuously discover and re-evaluate:
