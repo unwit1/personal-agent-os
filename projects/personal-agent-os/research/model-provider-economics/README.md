@@ -8,7 +8,7 @@
 |---|---|
 | [model-prices-2026-10-10.json](model-prices-2026-10-10.json) | 26 model + provider pairs with exact API IDs, USD per million input/output tokens, context, source and caution notes |
 | [provider-gpu-prices-2026-10-10.json](provider-gpu-prices-2026-10-10.json) | 16 subscription plans with limits and usage eligibility, 24 GPU rental quotes, storage/fees |
-| [published-benchmarks-2026-10-10.json](published-benchmarks-2026-10-10.json) | 19 published coding, reasoning and agentic metrics with model variants, eval config, evidence type; **not** Agent OS measurements |
+| [published-benchmarks-2026-10-10.json](published-benchmarks-2026-10-10.json) | 24 published coding, reasoning and agentic metrics with model variants, eval config, evidence type; **not** Agent OS measurements |
 | [openrouter-low-refusal-2026-10-10.json](openrouter-low-refusal-2026-10-10.json) | 9 OpenRouter/Venice low-refusal model candidates with exact slugs, price, tool API availability and claim confidence |
 | [openrouter-low-refusal-analysis.md](openrouter-low-refusal-analysis.md) | Research conclusions, GLM vs Heretic A/B design, misadvertised tool support, low-refusal and coding eval methodology |
 
