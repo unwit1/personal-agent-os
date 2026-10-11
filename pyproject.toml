@@ -7,7 +7,7 @@ name = "personal-agent-os"
 version = "0.1.0"
 description = "A Git-backed, vendor-neutral context and memory layer for coding agents"
 requires-python = ">=3.11"
-dependencies = ["keyring>=25,<26"]
+dependencies = ["keyring>=25,<26", "jsonschema>=4.23,<5"]
 # Ingestion primitives (ledger, document cache) live in the Ingester Engine,
 # resolved by agent_os.ingester_bridge from an installed package,
 # INGESTER_ENGINE_ROOT, or the registered sibling checkout. Install it by

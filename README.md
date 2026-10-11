@@ -43,6 +43,7 @@ environment and globally available command, create a venv and run
 - `agent-os maintenance` rebuilds derived context and reports candidate curation for an event trigger.
 - `agent-os change-*` captures, updates, verifies, safely projects, and reviews compact engineering change records.
 - `agent-os improvement-*` deduplicates project improvement candidates and prepares explicit GitHub issue payloads.
+- `agent-os ambient-captures import|watch|list|show` validates and archives local ambient recordings for review; transcript content remains gitignored.
 - `agent-os form-route` matches sanitized form fingerprints; `--persist` writes only to the gitignored local queue.
 
 ## Canonical versus derived data
@@ -50,6 +51,9 @@ environment and globally available command, create a venv and run
 Canonical, reviewed files live under `profile/`, `projects/`, `memory/`,
 `skills/`, `policy/`, and `schemas/`. `.agent-os/index.sqlite` is a local cache.
 Raw conversation history is deliberately outside the default context path.
+Ambient recordings follow the same boundary: imports live in the ignored
+`.agent-local/ambient-captures/` archive, and only an explicit `show` reads a
+transcript. See [the Ambient Capture integration contract](docs/integrations/ambient-capture.md).
 
 Relevant active changes and improvements are scored per task and capped at three
 compact summaries of each kind. Full records and full skill bodies are fetched only

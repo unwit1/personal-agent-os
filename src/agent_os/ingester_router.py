@@ -12,6 +12,11 @@ downstream repository's ``ingester/config.toml``::
 Subscription only: the prompt goes to the local ``claude`` (default) or ``codex`` CLI, and the
 API-key variables are removed from the child environment so neither CLI can fall back to paid
 API billing. Choose the provider with ``AGENT_OS_INGESTER_ROUTER_PROVIDER`` (claude-code | codex).
+
+Optional envelope fields (engine spec/analysis.md, "Router request optional fields"):
+``provider_policy.allowed_providers`` limits dispatch to the listed providers (the configured one
+if allowed, else the first allowed one; an error if none is available), and
+``allowance.max_cost_units`` is honoured trivially: subscription calls cost 0 units, always reported.
 """
 from __future__ import annotations
 
@@ -135,6 +140,15 @@ def to_drafts(reply: str, request: dict[str, Any]) -> list[dict[str, Any]]:
     return [{"concept_id": concept, "key": "sample", "value": {"text": sample.strip()}, "evidence": evidence}]
 
 
+def _allowed(envelope: dict[str, Any]) -> list[str] | None:
+    """Router providers the envelope's provider_policy permits (None: no policy)."""
+    policy = envelope.get("provider_policy")
+    if not isinstance(policy, dict) or policy.get("allowed_providers") is None:
+        return None
+    names = {str(n).strip().removeprefix("agent-os-router/") for n in policy.get("allowed_providers") or []}
+    return [p for p in PROVIDERS if p in names]
+
+
 def handle(envelope: dict[str, Any], provider: str | None = None, runner: Runner | None = None,
            timeout: float = 600.0) -> dict[str, Any]:
     if envelope.get("kind") != "ingester.analysis":
@@ -142,6 +156,19 @@ def handle(envelope: dict[str, Any], provider: str | None = None, runner: Runner
     provider = provider or os.environ.get("AGENT_OS_INGESTER_ROUTER_PROVIDER") or "claude-code"
     if provider not in PROVIDERS:
         raise RouterError(f"unknown provider {provider!r}; expected one of {', '.join(PROVIDERS)}")
+    allowed = _allowed(envelope)
+    if allowed is not None and provider not in allowed:
+        if not allowed:
+            raise RouterError("provider_policy allows none of this router's providers "
+                              f"({', '.join(PROVIDERS)})")
+        provider = allowed[0]
+    allowance = envelope.get("allowance")
+    if isinstance(allowance, dict) and allowance.get("max_cost_units") is not None:
+        try:
+            if float(allowance["max_cost_units"]) < 0:
+                raise RouterError("allowance.max_cost_units is negative")
+        except (TypeError, ValueError) as exc:
+            raise RouterError(f"allowance.max_cost_units is not a number: {exc}") from exc
     model = _model_for(provider, envelope.get("model"))
     prompt = str(envelope.get("prompt") or "")
     reply = call_cli(provider, model, prompt, timeout, runner)

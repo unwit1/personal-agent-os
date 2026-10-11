@@ -17,6 +17,10 @@ from .browser_bridge_server import (
     load_or_create_token as browser_bridge_token,
     serve as serve_browser_bridge,
 )
+from .ambient_captures import import_ready as import_ambient_ready
+from .ambient_captures import list_captures as list_ambient_captures
+from .ambient_captures import show_capture as show_ambient_capture
+from .ambient_captures import watch as watch_ambient_captures
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
@@ -770,6 +774,16 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("launcher-verify")
     mail_cli.register(commands)
     intake_cli.register(commands)
+    ambient = commands.add_parser("ambient-captures", help="import and review local ambient recordings")
+    ambient_commands = ambient.add_subparsers(dest="ambient_command", required=True)
+    ambient_import = ambient_commands.add_parser("import", help="validate, archive, then acknowledge ready exports")
+    ambient_import.add_argument("--ready-dir", type=Path)
+    ambient_commands.add_parser("list", help="list locally archived capture metadata")
+    ambient_show = ambient_commands.add_parser("show", help="read one locally archived transcript")
+    ambient_show.add_argument("capture_id")
+    ambient_watch = ambient_commands.add_parser("watch", help="continuously import new ready exports")
+    ambient_watch.add_argument("--ready-dir", type=Path)
+    ambient_watch.add_argument("--interval", type=int, default=15)
     maintenance = commands.add_parser("maintenance")
     maintenance.add_argument("--event", default="scheduled")
     maintenance.add_argument("--project")
@@ -1180,6 +1194,17 @@ def main(argv: list[str] | None = None) -> int:
             return mail_cli.dispatch(args, _print)
         elif args.command == "intake":
             return intake_cli.dispatch(args, _print)
+        elif args.command == "ambient-captures":
+            if args.ambient_command == "import":
+                result = import_ambient_ready(ready_dir=args.ready_dir)
+                _print(result)
+                return 1 if result["errors"] else 0
+            if args.ambient_command == "list":
+                _print(list_ambient_captures())
+            elif args.ambient_command == "show":
+                _print(show_ambient_capture(args.capture_id))
+            elif args.ambient_command == "watch":
+                watch_ambient_captures(ready_dir=args.ready_dir, interval_seconds=args.interval)
         elif args.command == "maintenance":
             _print(run_maintenance(args.event, args.project))
         elif args.command == "capture-candidates":

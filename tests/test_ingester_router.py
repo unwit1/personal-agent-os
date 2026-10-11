@@ -101,5 +101,44 @@ class RouterTests(unittest.TestCase):
         self.assertEqual(parsed.drafts[0]["value"]["text"], "A passage.")
 
 
+class RouterPolicyTests(unittest.TestCase):
+    """AB-5 optional envelope fields: provider_policy and allowance."""
+
+    def run_with(self, extra, provider="claude-code"):
+        seen = {}
+
+        def runner(argv, prompt, env, timeout):
+            seen["argv"] = argv
+            return "Text."
+        out = router.handle({**envelope(), **extra}, provider=provider, runner=runner)
+        return out, seen
+
+    def test_allowed_provider_is_kept(self):
+        out, _ = self.run_with({"provider_policy": {"allowed_providers": ["claude-code", "codex"]}})
+        self.assertEqual(out["provider"], "agent-os-router/claude-code")
+
+    def test_disallowed_provider_switches_to_first_allowed(self):
+        with mock.patch.object(router, "call_cli", return_value="Text.") as call:
+            out = router.handle({**envelope(), "provider_policy": {"allowed_providers": ["agent-os-router/codex"]}},
+                                provider="claude-code")
+        self.assertEqual(out["provider"], "agent-os-router/codex")
+        self.assertEqual(call.call_args.args[0], "codex")
+
+    def test_no_allowed_provider_is_an_error(self):
+        with self.assertRaises(router.RouterError):
+            self.run_with({"provider_policy": {"allowed_providers": ["paid-api"]}})
+
+    def test_allowance_reports_zero_cost_and_rejects_bad_values(self):
+        out, _ = self.run_with({"allowance": {"max_cost_units": 0}})
+        self.assertEqual(out["usage"]["cost_units"], 0)
+        for bad in (-1, "lots"):
+            with self.assertRaises(router.RouterError):
+                self.run_with({"allowance": {"max_cost_units": bad}})
+
+    def test_envelope_without_optional_fields_is_unchanged(self):
+        out, _ = self.run_with({})
+        self.assertEqual(out["provider"], "agent-os-router/claude-code")
+
+
 if __name__ == "__main__":
     unittest.main()
