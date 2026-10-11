@@ -121,6 +121,28 @@ def test_promote_screen_rejects_pii_and_former_staff():
     assert screen("Send forms to hr@example.org.", current, others) is not None
 
 
+def test_repeated_knowledge_is_merged_not_duplicated(tmp_path):
+    import json
+
+    from agent_os.intake.promote import load_candidates, merge, save_candidates
+
+    path = tmp_path / "knowledge-candidates.jsonl"
+    path.write_text("".join(json.dumps(c) + "\n" for c in [
+        {"statement": "Pat Doe serves as Controller.", "as_of": "2020-01-02", "evidence": ["m1"], "status": "candidate"},
+        {"statement": "Pat Doe is controller", "as_of": "2024-05-06", "evidence": ["m2"], "status": "candidate"},
+        {"statement": "KACo administers workers' compensation claims.", "as_of": None, "evidence": ["m3"]},
+    ]), encoding="utf-8")
+    known = load_candidates(path)
+    assert len(known) == 2
+    assert not merge(known, {"statement": "PAT DOE serves as the Controller", "evidence": ["m4", "m1"]})
+    assert merge(known, {"statement": "Pat Doe serves as Training Coordinator", "evidence": ["m5"]})
+    save_candidates(path, known)
+    lines = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+    assert len(lines) == 3
+    assert lines[0]["evidence"] == ["m1", "m2", "m4"] and lines[0]["seen"] == 3 and lines[0]["as_of"] == "2024-05-06"
+    assert '"status": "candidate"' in path.read_text(encoding="utf-8")  # the executive window counts these
+
+
 def test_phone_log_folds_missed_call_emails_and_names_applicants(tmp_path, monkeypatch):
     import sqlite3
 

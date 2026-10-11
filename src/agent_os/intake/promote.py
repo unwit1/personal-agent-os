@@ -8,9 +8,11 @@ only statements that pass a deterministic PII screen:
 * no email addresses, phone numbers, SSN-like or long ID numbers, street addresses;
 * person names only for current staff (HR datastore, Active roster), never anyone else.
 
-Survivors are appended to ``.agent-local/intake/work/knowledge-candidates.jsonl`` with the
-source message ids as evidence. They are candidates for review; nothing is written
-to RTEC-HR here.
+Survivors go to ``.agent-local/intake/work/knowledge-candidates.jsonl`` with the source
+message ids as evidence. A statement already on file (same words, ignoring case,
+punctuation and filler such as "serves as") is merged into the existing line: its
+evidence grows and ``seen`` counts the repeats, so the file holds each fact once.
+They are candidates for review; nothing is written to RTEC-HR here.
 """
 
 from __future__ import annotations
@@ -33,10 +35,50 @@ _PII = (re.compile(r"[\w.+'-]+@[\w-]+\.[\w.-]+"), re.compile(r"\b\(?\d{3}\)?[-. 
         re.compile(r"\b\d{3}-?\d{2}-?\d{4}\b"), re.compile(r"\b\d{6,}\b"),
         re.compile(r"\b\d{2,5} [A-Z][a-z]+ (Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Drive|Dr|Highway|Hwy)\b"))
 _NAME = re.compile(r"\b([A-Z][a-z]+) ([A-Z][a-z]+)\b")
+_FILLER = {"a", "an", "the", "and", "is", "are", "serves", "as", "of", "for", "to", "rtec", "s"}
 
 
 def candidates_path() -> Path:
     return LOCAL / "work" / "knowledge-candidates.jsonl"
+
+
+def statement_key(statement: str) -> str:
+    return " ".join(w for w in re.findall(r"[a-z0-9]+", statement.lower()) if w not in _FILLER)
+
+
+def merge(merged: dict[str, dict[str, Any]], candidate: dict[str, Any]) -> bool:
+    """Add ``candidate`` to ``merged``; True when it is a new fact, False when it joined an existing one."""
+    key = statement_key(str(candidate.get("statement") or ""))
+    if not key:
+        return False
+    old = merged.get(key)
+    if old is None:
+        merged[key] = candidate
+        return True
+    old["evidence"] = list(dict.fromkeys([*(old.get("evidence") or []), *(candidate.get("evidence") or [])]))
+    dates = [str(d) for d in (old.get("as_of"), candidate.get("as_of")) if d]
+    old["as_of"] = max(dates) if dates else None
+    old["seen"] = int(old.get("seen") or 1) + int(candidate.get("seen") or 1)
+    return False
+
+
+def load_candidates(path: Path) -> dict[str, dict[str, Any]]:
+    merged: dict[str, dict[str, Any]] = {}
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                candidate = json.loads(line)
+            except ValueError:
+                continue
+            if isinstance(candidate, dict):
+                merge(merged, candidate)
+    return merged
+
+
+def save_candidates(path: Path, merged: dict[str, dict[str, Any]]) -> None:
+    tmp = path.with_suffix(".jsonl.tmp")
+    tmp.write_text("".join(json.dumps(c, ensure_ascii=False) + "\n" for c in merged.values()), encoding="utf-8")
+    tmp.replace(path)
 
 
 def staff_names(datastore: Path | None) -> tuple[set[str], set[str]]:
@@ -85,9 +127,10 @@ def promote(limit_batches: int = 1, runner: Callable[[str], str] | None = None) 
     runner = runner or _run_claude
     sc = conf["scopes"]["work"]
     current, others = staff_names(Path(sc["hr_datastore"]) if sc.get("hr_datastore") else None)
-    result = {"batches": 0, "kept": 0, "rejected": 0, "errors": []}
+    result = {"batches": 0, "kept": 0, "merged": 0, "rejected": 0, "errors": []}
     out = candidates_path()
     out.parent.mkdir(parents=True, exist_ok=True)
+    known = load_candidates(out)
     with Queue("work") as q:
         window = q.pending("promote", BATCH * limit_batches * 8)
         pending = [r for r in window if r["source"] == "mail" and r["flag"] == "work"]
@@ -113,19 +156,19 @@ def promote(limit_batches: int = 1, runner: Callable[[str], str] | None = None) 
                 result["errors"].append(str(exc)[:200])
                 continue
             stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
-            with out.open("a", encoding="utf-8") as handle:
-                for c in found if isinstance(found, list) else []:
-                    statement = str(c.get("statement") or "").strip() if isinstance(c, dict) else ""
-                    if not statement:
-                        continue
-                    reason = screen(statement, current, others)
-                    if reason:
-                        result["rejected"] += 1
-                        continue
-                    evidence = [e for e in c.get("evidence") or [] if e in ids]
-                    handle.write(json.dumps({"statement": statement, "category": c.get("category"), "as_of": c.get("as_of"),
-                                             "evidence": evidence, "at": stamp, "status": "candidate"}, ensure_ascii=False) + "\n")
-                    result["kept"] += 1
+            for c in found if isinstance(found, list) else []:
+                statement = str(c.get("statement") or "").strip() if isinstance(c, dict) else ""
+                if not statement:
+                    continue
+                reason = screen(statement, current, others)
+                if reason:
+                    result["rejected"] += 1
+                    continue
+                evidence = [e for e in c.get("evidence") or [] if e in ids]
+                new = merge(known, {"statement": statement, "category": c.get("category"), "as_of": c.get("as_of"),
+                                    "evidence": evidence, "at": stamp, "status": "candidate"})
+                result["kept" if new else "merged"] += 1
+            save_candidates(out, known)
             q.finish(list(ids.values()), "promote", "done", None)
             result["batches"] += 1
     return result
