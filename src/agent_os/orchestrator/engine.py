@@ -1888,6 +1888,8 @@ class Orchestrator:
 
     def _scope_blockers(self, record: dict[str, Any], node: dict[str, Any]) -> list[str]:
         blockers = []
+        order = record["order"]
+        mine = node["worktree"] is not None and not node["integrated"]
         for other in record["nodes"].values():
             if other["id"] == node["id"] or other["id"] == node.get("subject") or other.get("subject") == node["id"]:
                 continue
@@ -1896,6 +1898,10 @@ class Orchestrator:
             holds = other["worktree"] is not None and not other["integrated"] and other["state"] not in {"CANCELLED"}
             # A step that depends on this one cannot run before it passes, so its
             # leftover worktree (from an earlier attempt) must not hold this one back.
+            # Two idle steps that both kept worktrees would each wait for the other
+            # forever (IMP-0053): the one earlier in the run order goes first.
+            if holds and mine and other["state"] not in ACTIVE_NODE_STATES and order.index(other["id"]) > order.index(node["id"]):
+                continue
             if holds and not _depends_on(record, other["id"], node["id"]) and scopes_overlap(_hard_scope(node), _hard_scope(other)):
                 blockers.append(other["id"])
         return blockers

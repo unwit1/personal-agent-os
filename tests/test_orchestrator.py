@@ -184,7 +184,22 @@ class WorktreeIsolationTests(OrchestratorFixture):
         for node_id in ("b", "c"):
             record["nodes"][node_id]["worktree"] = {"path": str(self.tmp / node_id), "branch": node_id, "base_commit": "0" * 40}
         self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["a"]), ["c"])  # c is independent: still blocks
-        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["b"]), ["c"])
+        # b and c both hold worktrees and are idle: the earlier one (b) goes first (IMP-0053).
+        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["b"]), [])
+        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["c"]), ["b"])
+
+    def test_two_idle_worktree_holders_do_not_block_each_other(self) -> None:
+        # IMP-0053: two independent steps that both kept worktrees (for example after
+        # an approval gate) must not serialize each other forever; order breaks the tie.
+        run_id = self.create([self.task("a", ["x"]), self.task("b", ["x"])])
+        record = self.engine.load(run_id)
+        for node_id in ("a", "b"):
+            record["nodes"][node_id]["worktree"] = {"path": str(self.tmp / node_id), "branch": node_id, "base_commit": "0" * 40}
+            record["nodes"][node_id]["state"] = "RUNNABLE"
+        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["a"]), [])
+        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["b"]), ["a"])
+        record["nodes"]["b"]["state"] = "RUNNING"  # a running step still blocks an overlapping one
+        self.assertEqual(self.engine._scope_blockers(record, record["nodes"]["a"]), ["b"])
 
     def test_scope_overlap_rules(self) -> None:
         self.assertTrue(scopes_overlap(["src"], ["src/a.py"]))
