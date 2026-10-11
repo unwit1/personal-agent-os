@@ -218,6 +218,21 @@ class WorktreeIsolationTests(OrchestratorFixture):
         self.assertFalse(scope["passed"])
         self.assertEqual((self.repo / "README.md").read_text(encoding="utf-8"), "fixture\n")
 
+    def test_checkpoint_skips_root_test_output_files(self) -> None:
+        # Sandboxed workers write test output to the repository root; committing it
+        # failed the editable-scope check of otherwise passing steps.
+        manager = WorktreeManager(self.repo, self.tmp / "wt", "artifact-run")
+        base = git(["rev-parse", "HEAD"], self.repo).stdout.strip()
+        info = manager.create("one", base)
+        root = Path(info["path"])
+        for name in ("pytest-result.txt", ".agent-local-test-output.txt", "unit-test-output.txt"):
+            (root / name).write_text("1 passed\n", encoding="utf-8")
+        (root / "README.md").write_text("changed\n", encoding="utf-8")
+        (root / "docs").mkdir(exist_ok=True)
+        (root / "docs" / "pytest-result.txt").write_text("kept: nested files are real changes\n", encoding="utf-8")
+        self.assertIsNotNone(manager.checkpoint(root, "edit"))
+        self.assertEqual(manager.changed_files(root, base), ["README.md", "docs/pytest-result.txt"])
+
     def test_worktree_manager_merge_conflict_is_aborted_cleanly(self) -> None:
         manager = WorktreeManager(self.repo, self.tmp / "wt", "conflict-run")
         base = git(["rev-parse", "HEAD"], self.repo).stdout.strip()

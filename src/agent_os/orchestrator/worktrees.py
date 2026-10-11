@@ -31,6 +31,12 @@ ARTIFACT_EXCLUDES = (
     ":(exclude,glob)**/.pytest_cache/**",
     ":(exclude,glob)**/.mypy_cache/**",
     ":(exclude,glob)**/.ruff_cache/**",
+    # Test-run output that sandboxed workers write to the repository root to read it back
+    # (pytest-result.txt, .agent-local-test-output.txt, ...); root only, never nested files.
+    ":(exclude,glob)pytest-result*.txt",
+    ":(exclude,glob)pytest-output*.txt",
+    ":(exclude,glob)*test-output*.txt",
+    ":(exclude,glob).agent-local-test-output*",
 )
 MAX_DIFF_CHARS = 60_000
 
