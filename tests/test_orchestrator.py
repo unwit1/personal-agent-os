@@ -225,7 +225,9 @@ class WorktreeIsolationTests(OrchestratorFixture):
         base = git(["rev-parse", "HEAD"], self.repo).stdout.strip()
         info = manager.create("one", base)
         root = Path(info["path"])
-        for name in ("pytest-result.txt", ".agent-local-test-output.txt", "unit-test-output.txt"):
+        (root / ".agent-os-scratch").mkdir()
+        for name in ("pytest-result.txt", "pytest-validation.log", ".agent-local-test-output.txt", "unit-test-output.txt",
+                     ".agent-os-scratch/suite.txt"):
             (root / name).write_text("1 passed\n", encoding="utf-8")
         (root / "README.md").write_text("changed\n", encoding="utf-8")
         (root / "docs").mkdir(exist_ok=True)
