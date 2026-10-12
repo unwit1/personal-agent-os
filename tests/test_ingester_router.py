@@ -142,3 +142,26 @@ class RouterPolicyTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RouterStdioTests(unittest.TestCase):
+    def test_main_reads_and_writes_utf8_even_when_the_pipes_default_to_cp1252(self):
+        import io
+        import sys
+
+        prompt = {"model": "opus", "request": {"brief": "“Kaladin’s storm”"}}
+        stdin = io.TextIOWrapper(io.BytesIO(json.dumps(prompt, ensure_ascii=False).encode("utf-8")), encoding="cp1252")
+        out_bytes = io.BytesIO()
+        stdout = io.TextIOWrapper(out_bytes, encoding="cp1252")
+        seen = {}
+
+        def fake_handle(envelope, timeout):
+            seen["brief"] = envelope["request"]["brief"]
+            return {"drafts": ["He said “no” — then left."]}
+
+        with mock.patch.object(router, "handle", fake_handle), \
+                mock.patch.object(sys, "stdin", stdin), mock.patch.object(sys, "stdout", stdout):
+            self.assertEqual(router.main([]), 0)
+            sys.stdout.flush()
+        self.assertEqual(seen["brief"], "“Kaladin’s storm”")
+        self.assertEqual(json.loads(out_bytes.getvalue().decode("utf-8"))["drafts"][0], "He said “no” — then left.")

@@ -182,7 +182,15 @@ def handle(envelope: dict[str, Any], provider: str | None = None, runner: Runner
     }
 
 
+def _utf8_stdio() -> None:
+    """The engine talks UTF-8 over pipes; Windows would otherwise use the ANSI code page (cp1252)."""
+    for stream in (sys.stdin, sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
+    _utf8_stdio()
     timeout = float(os.environ.get("AGENT_OS_INGESTER_ROUTER_TIMEOUT", "600"))
     try:
         envelope = json.loads(sys.stdin.read())
