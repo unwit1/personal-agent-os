@@ -107,3 +107,52 @@ test("web components: inspect, click, extract and the safety gate reach inside s
     assert.match(whole.lines, /a#legacy-link "Legacy report" -> #\/Legacy/);
     dom.window.close();
 });
+
+function comboSetup() {
+    const browser = makeBrowser();
+    const dom = makeDom(`<main><input id="combo" value="Effective as of a given date">
+      <div id="popup" hidden><div role="option">Effective as of a given date</div>
+        <div role="option">Effective within a date range</div></div>
+      <span id="menu-button">Options</span><div id="log"></div></main>`, "https://reports.example/", browser);
+    const doc = dom.window.document;
+    // A Dojo-style widget: it opens on ArrowDown (legacy keyCode 40) and on mousedown, never on a bare click.
+    doc.getElementById("combo").addEventListener("keydown", (e) => {
+        if (e.keyCode === 40) doc.getElementById("popup").hidden = false;
+    });
+    doc.getElementById("menu-button").addEventListener("mousedown", () => { doc.getElementById("log").textContent = "menu opened"; });
+    for (const opt of doc.querySelectorAll("[role=option]")) {
+        opt.getBoundingClientRect = () => (doc.getElementById("popup").hidden ? { left: 0, top: 0, width: 0, height: 0 }
+            : { left: 1, top: 1, width: 100, height: 20 });
+        opt.addEventListener("click", () => { doc.getElementById("combo").value = opt.textContent; doc.getElementById("popup").hidden = true; });
+    }
+    load(dom, ["content/executor.js"]);
+    const exec = (action, approved) => sendToContent(browser, { type: "aos-exec", action, approved });
+    return { dom, exec };
+}
+
+test("select_option opens a keyboard-driven combobox and picks the matching option", async () => {
+    const { exec, dom } = comboSetup();
+    const result = await exec({ op: "select_option", selector: "#combo", text: "date range" });
+    assert.equal(result.ok, true, JSON.stringify(result));
+    assert.equal(dom.window.document.getElementById("combo").value, "Effective within a date range");
+    const miss = await exec({ op: "select_option", selector: "#combo", text: "all records" });
+    assert.equal(miss.ok, false);
+    assert.deepEqual(plain(miss.result.options), ["Effective as of a given date", "Effective within a date range"]);
+});
+
+test("key sends a legacy keyCode and click dispatches mousedown first", async () => {
+    const { exec, dom } = comboSetup();
+    const key = await exec({ op: "key", selector: "#combo", key: "ArrowDown" });
+    assert.equal(key.ok, true);
+    assert.equal(key.result.key_code, 40);
+    assert.equal(dom.window.document.getElementById("popup").hidden, false);
+    const click = await exec({ op: "click", selector: "#menu-button" });
+    assert.equal(click.ok, true);
+    assert.equal(dom.window.document.getElementById("log").textContent, "menu opened");
+});
+
+test("select_option refuses sensitive fields", async () => {
+    const { exec } = setup();
+    const result = await exec({ op: "select_option", selector: "#pw", text: "x" }, true);
+    assert.equal(result.blocked, true);
+});

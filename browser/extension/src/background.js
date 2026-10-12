@@ -398,7 +398,7 @@ async function syncFiltersToAgentOs() {
 
 // -- bridge sessions + command execution -------------------------------------------
 
-var SESSION_OPS = ["inspect", "extract", "wait", "click", "type", "scroll", "navigate", "back", "forward", "reload", "open_tab", "close_tab"];
+var SESSION_OPS = ["inspect", "extract", "wait", "click", "type", "key", "select_option", "scroll", "navigate", "back", "forward", "reload", "open_tab", "close_tab"];
 var lastBeat = new Map();
 var lastPoll = new Map();
 var runningCommands = new Set();
