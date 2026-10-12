@@ -155,7 +155,7 @@ class RouterStdioTests(unittest.TestCase):
         stdout = io.TextIOWrapper(out_bytes, encoding="cp1252")
         seen = {}
 
-        def fake_handle(envelope, timeout):
+        def fake_handle(envelope, timeout, **_):
             seen["brief"] = envelope["request"]["brief"]
             return {"drafts": ["He said “no” — then left."]}
 
@@ -165,3 +165,33 @@ class RouterStdioTests(unittest.TestCase):
             sys.stdout.flush()
         self.assertEqual(seen["brief"], "“Kaladin’s storm”")
         self.assertEqual(json.loads(out_bytes.getvalue().decode("utf-8"))["drafts"][0], "He said “no” — then left.")
+
+
+class RouterOutputLimitTests(unittest.TestCase):
+    def run_with(self, provider, **kw):
+        seen = {}
+
+        def runner(argv, prompt, env, timeout):
+            seen["env"] = env
+            return "Some prose."
+        router.handle(envelope(), provider=provider, runner=runner, **kw)
+        return seen.get("env", {})
+
+    def test_claude_gets_the_enforced_cap(self):
+        env = self.run_with("claude-code", max_output_tokens=3000)
+        self.assertEqual(env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"], "3000")
+
+    def test_envelope_allowance_and_flag_take_the_smaller(self):
+        payload = envelope()
+        payload["allowance"] = {"max_output_tokens": 1200}
+        seen = {}
+        router.handle(payload, provider="claude-code", max_output_tokens=3000,
+                      runner=lambda a, p, env, t: seen.setdefault("env", env) and "x")
+        self.assertEqual(seen["env"]["CLAUDE_CODE_MAX_OUTPUT_TOKENS"], "1200")
+
+    def test_codex_fails_closed_when_a_cap_is_requested(self):
+        with self.assertRaises(router.RouterError):
+            self.run_with("codex", max_output_tokens=3000)
+
+    def test_no_cap_leaves_the_environment_alone(self):
+        self.assertNotIn("CLAUDE_CODE_MAX_OUTPUT_TOKENS", self.run_with("claude-code"))

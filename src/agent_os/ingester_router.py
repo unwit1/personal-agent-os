@@ -67,9 +67,15 @@ def _model_for(provider: str, requested: str | None) -> str:
     return DEFAULT_MODELS[provider]
 
 
-def call_cli(provider: str, model: str, prompt: str, timeout: float, runner: Runner | None = None) -> str:
+def call_cli(provider: str, model: str, prompt: str, timeout: float, runner: Runner | None = None,
+             max_output_tokens: int | None = None) -> str:
+    """One subscription CLI call. ``max_output_tokens`` is enforced or the call is refused (fail closed)."""
     runner = runner or _run
     env = subscription_env()
+    if max_output_tokens is not None:
+        if provider != "claude-code":
+            raise RouterError(f"{provider} cannot enforce an output token limit; refusing the call")
+        env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = str(int(max_output_tokens))
     if provider == "claude-code":
         exe = shutil.which("claude") or "claude"
         return runner([exe, "-p", "--output-format", "text", "--model", model], prompt, env, timeout)
@@ -150,7 +156,7 @@ def _allowed(envelope: dict[str, Any]) -> list[str] | None:
 
 
 def handle(envelope: dict[str, Any], provider: str | None = None, runner: Runner | None = None,
-           timeout: float = 600.0) -> dict[str, Any]:
+           timeout: float = 600.0, max_output_tokens: int | None = None) -> dict[str, Any]:
     if envelope.get("kind") != "ingester.analysis":
         raise RouterError(f"unsupported envelope kind {envelope.get('kind')!r}")
     provider = provider or os.environ.get("AGENT_OS_INGESTER_ROUTER_PROVIDER") or "claude-code"
@@ -169,9 +175,13 @@ def handle(envelope: dict[str, Any], provider: str | None = None, runner: Runner
                 raise RouterError("allowance.max_cost_units is negative")
         except (TypeError, ValueError) as exc:
             raise RouterError(f"allowance.max_cost_units is not a number: {exc}") from exc
+    limit = allowance.get("max_output_tokens") if isinstance(allowance, dict) else None
+    limits = [int(v) for v in (limit, max_output_tokens) if v is not None]
+    if any(v < 1 for v in limits):
+        raise RouterError("max_output_tokens must be positive")
     model = _model_for(provider, envelope.get("model"))
     prompt = str(envelope.get("prompt") or "")
-    reply = call_cli(provider, model, prompt, timeout, runner)
+    reply = call_cli(provider, model, prompt, timeout, runner, max_output_tokens=min(limits) if limits else None)
     drafts = to_drafts(reply, envelope.get("request") or {})
     return {
         "drafts": drafts,
@@ -190,11 +200,17 @@ def _utf8_stdio() -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(prog="python -m agent_os.ingester_router")
+    parser.add_argument("--max-output-tokens", type=int, default=None,
+                        help="enforced per-call output cap (Claude Code only; other providers are refused)")
+    args = parser.parse_args(sys.argv[1:] if argv is None else argv)
     _utf8_stdio()
     timeout = float(os.environ.get("AGENT_OS_INGESTER_ROUTER_TIMEOUT", "600"))
     try:
         envelope = json.loads(sys.stdin.read())
-        result = handle(envelope, timeout=timeout)
+        result = handle(envelope, timeout=timeout, max_output_tokens=args.max_output_tokens)
     except (RouterError, json.JSONDecodeError, subprocess.TimeoutExpired, OSError) as exc:
         print(f"ingester_router: {exc}", file=sys.stderr)
         return 2
