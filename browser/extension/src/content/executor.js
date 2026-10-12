@@ -412,16 +412,29 @@
             return { ok: true, result: { selected: clean(match.text) } };
         }
         var doc = field.ownerDocument;
+        var limit = Math.min(Number(action.timeout_ms || 4000), 15000);
+        async function waitOptions(ms) {
+            var started = Date.now(), found = [];
+            while (Date.now() - started < ms) {
+                await sleep(250);
+                found = Array.prototype.filter.call(
+                    doc.querySelectorAll("[role=option], .dijitMenuItem, .dijitComboBoxMenu li, li[role=menuitem]"), shown);
+                if (found.length) break;
+            }
+            return found;
+        }
         field.focus();
         pressPointer(field);
         pressKey(field, "ArrowDown");
-        var started = Date.now(), options = [];
-        var limit = Math.min(Number(action.timeout_ms || 4000), 15000);
-        while (Date.now() - started < limit) {
-            await sleep(250);
-            options = Array.prototype.filter.call(
-                doc.querySelectorAll("[role=option], .dijitMenuItem, .dijitComboBoxMenu li, li[role=menuitem]"), shown);
-            if (options.length) break;
+        var options = await waitOptions(Math.min(limit, 1500));
+        if (!options.length) {  // widgets like Dojo's FilteringSelect open only from their arrow button
+            var widget = field.closest(".dijitComboBox, [widgetid], [role=combobox]") || field.parentElement;
+            var arrow = widget && widget.querySelector(".dijitArrowButton, [data-dojo-attach-point*='_buttonNode'], button");
+            if (arrow) {
+                pressPointer(arrow);
+                arrow.click();
+                options = await waitOptions(limit);
+            }
         }
         var choice = options.find(function (o) { return optionText(o).toLowerCase().indexOf(wanted) >= 0; });
         if (!choice) {
@@ -429,10 +442,23 @@
             return { ok: false, error: "no option matches: " + action.text,
                 result: { options: options.map(function (o) { return optionText(o).slice(0, 80); }) } };
         }
+        var picked = optionText(choice);
         pressPointer(choice);
         choice.click();
-        await sleep(200);
-        return { ok: true, result: { selected: optionText(choice).slice(0, 120), value: field.value } };
+        await sleep(300);
+        if (clean(field.value).toLowerCase() !== picked.toLowerCase()) {
+            // Some widgets ignore synthetic option clicks but accept the option's exact text, Enter and blur.
+            field.focus();
+            setNativeValue(field, picked);
+            field.dispatchEvent(new Event("input", { bubbles: true }));
+            pressKey(field, "Enter");
+            field.dispatchEvent(new Event("change", { bubbles: true }));
+            field.blur();
+            field.dispatchEvent(new Event("blur"));
+            await sleep(300);
+        }
+        return { ok: clean(field.value).toLowerCase() === picked.toLowerCase() || field.tagName !== "INPUT",
+            result: { selected: picked.slice(0, 120), value: field.value } };
     }
 
     async function runAction(action, approved) {

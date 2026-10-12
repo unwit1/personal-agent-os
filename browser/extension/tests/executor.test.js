@@ -156,3 +156,26 @@ test("select_option refuses sensitive fields", async () => {
     const result = await exec({ op: "select_option", selector: "#pw", text: "x" }, true);
     assert.equal(result.blocked, true);
 });
+
+
+test("select_option falls back to the widget's arrow button and to typing the option text", async () => {
+    const browser = makeBrowser();
+    const dom = makeDom(`<main><div class="dijitComboBox"><span class="dijitArrowButton">v</span>
+      <input id="dojo" value="Effective as of a given date"></div>
+      <div id="menu" hidden><div class="dijitMenuItem">Effective as of a given date</div>
+        <div class="dijitMenuItem">All records</div></div></main>`, "https://reports.example/", browser);
+    const doc = dom.window.document;
+    // Opens only on mousedown of its arrow; option clicks are ignored; Enter commits typed text that matches.
+    doc.querySelector(".dijitArrowButton").addEventListener("mousedown", () => { doc.getElementById("menu").hidden = false; });
+    for (const item of doc.querySelectorAll(".dijitMenuItem")) {
+        item.getBoundingClientRect = () => (doc.getElementById("menu").hidden ? { left: 0, top: 0, width: 0, height: 0 }
+            : { left: 1, top: 1, width: 100, height: 20 });
+    }
+    let committed = "";
+    doc.getElementById("dojo").addEventListener("keydown", (e) => { if (e.keyCode === 13) committed = e.target.value; });
+    load(dom, ["content/executor.js"]);
+    const result = await sendToContent(browser, { type: "aos-exec", action: { op: "select_option", selector: "#dojo", text: "all records" } });
+    assert.equal(result.ok, true, JSON.stringify(result));
+    assert.equal(committed, "All records");
+    assert.equal(doc.getElementById("dojo").value, "All records");
+});

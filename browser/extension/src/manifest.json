@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Agent OS",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "Personal Agent OS in one extension: capture pages to Agent OS, hide subreddits, Nexus mods, AO3 works, forum threads and more, and let Agent OS operate tabs through the local bridge.",
   "author": "unwit1",
   "homepage_url": "https://github.com/unwit1/personal-agent-os",
