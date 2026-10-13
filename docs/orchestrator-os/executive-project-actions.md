@@ -104,6 +104,19 @@ The scan result allows quick identification of projects in specific conditions (
 
 The Executive window projects provider emits a score-1 `project_vague_next_action` item for projects flagged with `vague_next_action`.
 
+### Concrete next-action window items
+
+The provider also emits a `project_next_action` item (score 1) when the synthesized project has a non-empty, concrete `next_action`. A value selected from `current_priorities` qualifies through the same `next_action` fallback. The item is suppressed while any project problem flag is present; `unknown_age` alone is informational and does not suppress it. Problem items retain their existing eligibility, scores, titles, and identifiers.
+
+The item title is the trimmed next-action text. Its stable ID includes the project id and a 10-character SHA-1 prefix of that trimmed action text. Changing the action therefore creates a new queue identity. For example, for project `alpha`:
+
+```text
+next_action = "Review API plan"  -> project:alpha:next-action:<hash of "Review API plan">
+next_action = "Ship API plan"    -> project:alpha:next-action:<different hash>
+```
+
+Project items inherit the registry entry's tab; absent an explicit `tab: "personal"`, they appear on the work tab. The Executive Queue ranks `project_next_action` alongside other queue items using the existing priority, age, and id ordering. These items offer read-only `project.resume` and `project.set_next_action` through the existing preview/Confirm flow; set-next-action preview shows the before and after values, and Confirm writes the new action and `updated_at` to `state.json`.
+
 ## Default Constant
 
 **STALE_DAYS_DEFAULT**: 30 days. Projects not updated within this period are flagged as stalled.
