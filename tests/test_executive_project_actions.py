@@ -634,6 +634,7 @@ class TestScanBasic(unittest.TestCase):
     def test_scan_empty_list(self):
         result = scan([], today=date(2026, 10, 5))
         self.assertEqual(result["projects"], [])
+        self.assertEqual(result["blocked"], [])
         self.assertEqual(result["stalled"], [])
         self.assertEqual(result["no_next_action"], [])
         self.assertEqual(result["needs_decision"], [])
@@ -705,6 +706,30 @@ class TestScanBasic(unittest.TestCase):
         ]
         result = scan(states, today=date(2026, 10, 5))
         self.assertEqual(result["needs_decision"], ["p2"])
+
+    def test_scan_blocked_list_uses_normalized_dependencies_and_order(self):
+        states = [
+            {"project": "z", "status": "active", "waiting_on": ["Review"]},
+            {"project": "c", "status": "active", "blockers": ["Issue"], "waiting_on": ["Approval"]},
+            {"project": "b", "status": "active", "blockers": ["Issue"]},
+            {"project": "a", "status": "active", "blockers": "malformed", "waiting_on": [None, "  "]},
+            {"project": "d", "status": "active", "blockers": [], "waiting_on": []},
+        ]
+        original = [dict(state) for state in states]
+        result = scan(states, today=date(2026, 10, 5))
+        self.assertEqual(result["blocked"], ["b", "c", "z"])
+        self.assertEqual(states, original)
+
+    def test_scan_blocked_respects_inactive_filter(self):
+        states = [
+            {"project": "active", "status": "active", "blockers": ["Issue"]},
+            {"project": "inactive", "status": "inactive", "waiting_on": ["Approval"]},
+        ]
+        self.assertEqual(scan(states, today=date(2026, 10, 5))["blocked"], ["active"])
+        self.assertEqual(
+            scan(states, today=date(2026, 10, 5), include_inactive=True)["blocked"],
+            ["active", "inactive"],
+        )
 
     def test_scan_custom_stale_days(self):
         result = scan([], today=date(2026, 10, 5), stale_days=60)
