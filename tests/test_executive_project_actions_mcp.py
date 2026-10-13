@@ -123,21 +123,23 @@ class ProjectActionsMcpTests(unittest.TestCase):
         }
 
         result = self.with_projects(states, "executive_projects.scan", {})
-        self.assertEqual(
-            result["blocked"],
-            [
-                {"project": "b-blockers", "blockers": ["Build failure"], "waiting_on": []},
-                {"project": "m-both", "blockers": ["Review"], "waiting_on": ["Design approval"]},
-                {"project": "z-waiting", "blockers": [], "waiting_on": ["API access"]},
-            ],
-        )
+        self.assertEqual(result["blocked"], ["b-blockers", "m-both", "z-waiting"])
+        projects_by_id = {project["project"]: project for project in result["projects"]}
+        self.assertEqual(projects_by_id["b-blockers"]["blockers"], ["Build failure"])
+        self.assertEqual(projects_by_id["b-blockers"]["waiting_on"], [])
+        self.assertEqual(projects_by_id["m-both"]["blockers"], ["Review"])
+        self.assertEqual(projects_by_id["m-both"]["waiting_on"], ["Design approval"])
+        self.assertEqual(projects_by_id["z-waiting"]["blockers"], [])
+        self.assertEqual(projects_by_id["z-waiting"]["waiting_on"], ["API access"])
 
         included = self.with_projects(states, "executive_projects.scan", {"include_inactive": True})
         self.assertEqual(
-            [item["project"] for item in included["blocked"]],
+            included["blocked"],
             ["b-blockers", "inactive", "m-both", "z-waiting"],
         )
-        self.assertEqual(included["blocked"][1]["blockers"], ["Paused"])
+        included_by_id = {project["project"]: project for project in included["projects"]}
+        self.assertEqual(included_by_id["inactive"]["blockers"], ["Paused"])
+        self.assertEqual(included_by_id["inactive"]["waiting_on"], [])
 
     def test_projects_scan_blocked_summary_empty_and_errors_preserved(self):
         states = {
