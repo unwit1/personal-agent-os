@@ -180,6 +180,28 @@ def project_items(
                 }
             )
 
+        # A concrete action is useful queue work when no other project issue
+        # needs attention. Unknown age is informational and does not suppress it.
+        action = result.get("next_action")
+        trimmed_action = action.strip() if isinstance(action, str) else ""
+        if (
+            trimmed_action
+            and project_actions.is_vague_action(trimmed_action) is False
+            and set(flags).issubset({"unknown_age"})
+        ):
+            action_id = hashlib.sha1(trimmed_action.encode("utf-8")).hexdigest()[:10]
+            items.append(
+                {
+                    **base,
+                    "id": f"project:{pid}:next-action:{action_id}",
+                    "kind": "project_next_action",
+                    "title": trimmed_action,
+                    "why": f"Next action for {name}",
+                    "score": 1,
+                    "context": {"project": pid},
+                }
+            )
+
     return items
 
 
