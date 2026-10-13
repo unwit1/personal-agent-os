@@ -56,11 +56,12 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertEqual(items, [])
 
     def test_active_project_with_no_flags_produces_no_items(self):
-        """An active project without any flags produces no items."""
+        """A concrete next action is surfaced even without problem flags."""
         entry = self._make_registry_entry()
         state = self._make_state(next_action="Do something")
         items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
-        self.assertEqual(items, [])
+        self.assertEqual([item["kind"] for item in items], ["project_next_action"])
+        self.assertEqual(items[0]["title"], "Do something")
 
     def test_single_decision_produces_decision_item(self):
         """A project with one decision_needed produces a decision item (and no_next_action if no next_action)."""
@@ -311,11 +312,65 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertEqual(vague_item["tab"], "personal")
 
     def test_project_with_current_priorities_is_not_stalled(self):
-        """A project with current_priorities (fallback to next_action) is not flagged no_next_action."""
+        """A current priority fallback is surfaced as the concrete next action."""
         entry = self._make_registry_entry()
         state = self._make_state(current_priorities=["Priority 1"])
         items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
-        self.assertEqual(items, [])
+        self.assertEqual([item["title"] for item in items], ["Priority 1"])
+
+    def test_next_action_identity_trim_tabs_and_queue_payload(self):
+        for tab in ("work", "personal"):
+            entry = self._make_registry_entry("p-action", "Action Project", tab)
+            state = self._make_state(project="p-action", next_action="  Write release notes \t")
+            read = lambda: project_items(lambda: [(entry, state)], today=date(2026, 10, 5), deferral_counts=lambda: {})
+            item = next(i for i in read() if i["kind"] == "project_next_action")
+            repeated = next(i for i in read() if i["kind"] == "project_next_action")
+            suffix = hashlib.sha1(b"Write release notes").hexdigest()[:10]
+            self.assertEqual(item["id"], f"project:p-action:next-action:{suffix}")
+            self.assertEqual(item["id"], repeated["id"])
+            self.assertEqual(item["title"], "Write release notes")
+            self.assertEqual(item["why"], "Next action for Action Project")
+            self.assertEqual(item["score"], 1)
+            self.assertEqual(item["tab"], tab)
+            self.assertEqual(item["context"], {"project": "p-action"})
+            queue_item = queue_item_from_window_item(item, "projects", queued_at="2026-10-05T00:00:00Z")
+            self.assertEqual(queue_item["window_item"]["context"], {"project": "p-action"})
+            self.assertNotIn("Write release notes", str(queue_item["window_item"]["context"]))
+
+    def test_changed_action_gets_fresh_identity(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="First action")
+        load = lambda: [(entry, state)]
+        first = next(i for i in project_items(load, today=date(2026, 10, 5)) if i["kind"] == "project_next_action")
+        state["next_action"] = "Second action"
+        second = next(i for i in project_items(load, today=date(2026, 10, 5)) if i["kind"] == "project_next_action")
+        self.assertNotEqual(first["id"], second["id"])
+
+    def test_next_action_unknown_age_allowed_and_inactive_suppressed(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(updated_at=None, next_action="Write release notes")
+        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+        self.assertEqual([i["kind"] for i in items], ["project_next_action"])
+        inactive = self._make_state(status="inactive", next_action="Write release notes")
+        self.assertEqual(project_items(lambda: [(entry, inactive),], today=date(2026, 10, 5)), [])
+
+    def test_each_problem_flag_suppresses_concrete_action(self):
+        cases = [
+            ("stalled", {"updated_at": "2026-08-01T10:00:00Z"}),
+            ("blocked", {"blockers": ["external"]}),
+            ("needs_decision", {"decisions_needed": ["Choose"]}),
+            ("repeatedly_deferred", {}),
+            ("no_next_action", {"next_action": ""}),
+            ("vague_next_action", {"next_action": "Work on project X"}),
+        ]
+        for flag, overrides in cases:
+            with self.subTest(flag=flag):
+                entry = self._make_registry_entry()
+                state_values = {"next_action": "Write release notes", **overrides}
+                state = self._make_state(**state_values)
+                items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5), stale_days=30,
+                                      deferral_counts=lambda: {"p1": 3})
+                self.assertFalse(any(i["kind"] == "project_next_action" for i in items))
 
     def test_tab_personal_when_entry_tab_is_personal(self):
         """Items inherit tab='personal' from registry entry."""
