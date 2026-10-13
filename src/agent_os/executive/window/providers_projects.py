@@ -19,8 +19,10 @@ def project_items(
 
     For each active project (status == "active"), derive next action, blockers,
     and flags via project_next_action(); emit items for decisions_needed, stalled,
-    no_next_action, vague_next_action, and repeatedly_deferred flags. Deferral
-    counts may be provided by deferral_counts; repeated deferrals emit a project item.
+    blocked, no_next_action, vague_next_action, and repeatedly_deferred flags. A
+    blocked project emits one item with its normalized blockers and waiting-on
+    details. Deferral counts may be provided by deferral_counts; repeated deferrals
+    emit a project item.
 
     Args:
         load_projects: Callable returning list of (registry_entry, state) tuples.
@@ -103,6 +105,27 @@ def project_items(
                     "kind": "project_stalled",
                     "title": f"{name} is stalled",
                     "why": f"No update in {age_days} days (stalled after {stale_days})",
+                    "score": 2,
+                    "context": {"project": pid},
+                }
+            )
+
+        # Blocked project item (score 2), with normalized blocker details.
+        if "blocked" in flags:
+            blockers = result.get("blockers", [])
+            waiting_on = result.get("waiting_on", [])
+            sections = []
+            if blockers:
+                sections.append("Blocked by: " + "; ".join(blockers))
+            if waiting_on:
+                sections.append("Waiting on: " + "; ".join(waiting_on))
+            items.append(
+                {
+                    **base,
+                    "id": f"project:{pid}:blocked",
+                    "kind": "project_blocked",
+                    "title": f"{name} is blocked",
+                    "why": " | ".join(sections),
                     "score": 2,
                     "context": {"project": pid},
                 }
@@ -193,4 +216,3 @@ def _load_projects() -> list[tuple[dict, dict]]:
         except Exception:
             continue
     return projects
-
