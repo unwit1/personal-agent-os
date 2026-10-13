@@ -148,8 +148,9 @@ class TestProjectActions(TestCase):
     def test_ready_project_provider_item_resume_and_set_next_action(self):
         original = {
             "project": "demo", "status": "active", "goal": "Ship the release",
-            "updated_at": "2026-10-05T10:00:00Z", "blockers": ["Waiting for review"],
-            "waiting_on": ["Review team"], "decisions_needed": [],
+            "updated_at": "2026-10-05T10:00:00Z", "created_at": "2026-09-01",
+            "blockers": ["Waiting for review"],
+            "waiting_on": ["Review team"], "decisions_needed": ["Choose a launch date"],
         }
         actions_projects.LOAD_STATE = lambda project: dict(original)
         writes = []
@@ -183,8 +184,11 @@ class TestProjectActions(TestCase):
         self.assertEqual(writes[0][0], "demo")
         self.assertEqual(writes[0][1]["next_action"], params["next_action"])
         self.assertEqual(writes[0][1]["goal"], original["goal"])
+        self.assertEqual(writes[0][1]["status"], original["status"])
+        self.assertEqual(writes[0][1]["created_at"], original["created_at"])
         self.assertEqual(writes[0][1]["blockers"], original["blockers"])
         self.assertEqual(writes[0][1]["waiting_on"], original["waiting_on"])
+        self.assertEqual(writes[0][1]["decisions_needed"], original["decisions_needed"])
 
     def test_resolve_decision_preview_then_confirm_writes_resolution(self):
         writes = []
