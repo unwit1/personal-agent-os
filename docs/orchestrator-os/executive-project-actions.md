@@ -28,7 +28,18 @@ The project's snooze count (`deferrals`) is not a state field: callers pass it i
 - **next_action** is extracted from the `next_action` field. If not present or empty, the function uses the first non-empty entry from `current_priorities`.
 - **next_action_source** indicates where `next_action` came from: `"next_action"`, `"current_priorities"`, or None if neither is available.
 - **suggested_next_action**: see Suggested Next Action below.
-- List fields (**blockers**, **waiting_on**, **decisions_needed**, **delegable_work**) are filtered to remove non-strings and whitespace-only entries.
+- List fields (**blockers**, **waiting_on**, **decisions_needed**, **delegable_work**) are normalized in the synthesized result: whitespace is trimmed; invalid (non-string) and blank entries are ignored; duplicate entries are removed case-sensitively; and the first-occurrence order is preserved. This is a read-time normalization only and does not rewrite `state.json`.
+
+For example, the raw `decisions_needed` list below produces one window item titled `Choose a region`; the whitespace-padded duplicate normalizes to the same text and stable item ID:
+
+```json
+{
+  "state.json": {"decisions_needed": ["  Choose a region  ", "Choose a region", "", 7, "Choose a Region"]},
+  "synthesized": {"decisions_needed": ["Choose a region", "Choose a Region"]}
+}
+```
+
+Deduplication is case-sensitive, so `Choose a Region` remains distinct. The original state is left as recorded. For decision window items, the trimmed decision text is used to derive the stable ID.
 - **age_days** is calculated from the first 10 characters of `updated_at` (`YYYY-MM-DD`, so a bare date is accepted) as the number of days since that date, relative to `today`. Non-parseable dates result in None; a future date gives a negative value.
 - **deferrals** is the project snooze count, supplied as an input by the project integration and defaulting to 0 when unavailable; it is included in the synthesized result.
 
@@ -141,7 +152,7 @@ Project actions in the Executive window are available through the window registr
 
 - **`project.resume`**: Returns a read-only resumption packet for the project; available for all project items: `project_decision`, `project_stalled`, `project_no_next_action`, `project_vague_next_action`, `project_repeatedly_deferred`, and `project_blocked`.
 - **`project.set_next_action`**: Available for `project_stalled`, `project_no_next_action`, `project_vague_next_action`, `project_repeatedly_deferred`, and `project_blocked` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
-- **`project.resolve_decision`**: Available for `project_decision` items whose context carries the project and decision text. Takes the `resolution` parameter. Confirm removes that decision from `decisions_needed`, appends `{decision, resolution, resolved_on}` to the optional `decisions_resolved` state field, and sets `updated_at`. The action errors if the decision is no longer open.
+- **`project.resolve_decision`**: Available for `project_decision` items whose context carries the project and decision text. Takes the `resolution` parameter. Preview shows the proposed change; Confirm removes that decision from `decisions_needed`, appends `{decision, resolution, resolved_on}` to the optional `decisions_resolved` state field, and sets `updated_at`. The action errors if the decision is no longer open.
 
 ## Repeated Deferrals
 
