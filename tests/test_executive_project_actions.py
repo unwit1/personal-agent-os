@@ -337,6 +337,43 @@ class TestListFieldExtraction(unittest.TestCase):
         result = project_next_action(state, today=date(2026, 10, 5))
         self.assertEqual(result["delegable_work"], ["Write docs", "Review code"])
 
+    def test_all_list_fields_are_trimmed_deduplicated_and_preserve_case_and_order(self):
+        state = {
+            "project": "p1",
+            "blockers": [" Issue A ", "Issue B", "Issue A", "issue a", "  Issue B  "],
+            "waiting_on": [" Approval ", "Feedback", "Approval"],
+            "decisions_needed": [" Choose scope ", "Choose scope", "choose scope"],
+            "delegable_work": [" Write docs ", "Review code", "Write docs"],
+        }
+        original = {key: value.copy() if isinstance(value, list) else value for key, value in state.items()}
+
+        result = project_next_action(state, today=date(2026, 10, 5))
+
+        self.assertEqual(result["blockers"], ["Issue A", "Issue B", "issue a"])
+        self.assertEqual(result["waiting_on"], ["Approval", "Feedback"])
+        self.assertEqual(result["decisions_needed"], ["Choose scope", "choose scope"])
+        self.assertEqual(result["delegable_work"], ["Write docs", "Review code"])
+        self.assertEqual(state, original)
+
+    def test_scan_returns_normalized_metadata_and_deduplicated_decisions(self):
+        state = {
+            "project": "p1",
+            "status": "active",
+            "blockers": [" Issue ", "Issue"],
+            "waiting_on": [" Approval ", "Approval"],
+            "decisions_needed": [" Choose ", "Choose"],
+            "delegable_work": [" Docs ", "Docs"],
+        }
+
+        result = scan([state], today=date(2026, 10, 5))
+        project = result["projects"][0]
+
+        self.assertEqual(project["blockers"], ["Issue"])
+        self.assertEqual(project["waiting_on"], ["Approval"])
+        self.assertEqual(project["decisions_needed"], ["Choose"])
+        self.assertEqual(project["delegable_work"], ["Docs"])
+        self.assertEqual(result["needs_decision"], ["p1"])
+
     def test_all_list_fields_missing_returns_empty_lists(self):
         state = {"project": "p1"}
         result = project_next_action(state, today=date(2026, 10, 5))

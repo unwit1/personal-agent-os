@@ -108,7 +108,16 @@ def project_next_action(
         field = state.get(field_name, [])
         if not isinstance(field, list):
             return []
-        return [item for item in field if isinstance(item, str) and item.strip()]
+        normalized = []
+        seen = set()
+        for item in field:
+            if not isinstance(item, str):
+                continue
+            item = item.strip()
+            if item and item not in seen:
+                normalized.append(item)
+                seen.add(item)
+        return normalized
 
     blockers = extract_list_field("blockers")
     waiting_on = extract_list_field("waiting_on")
