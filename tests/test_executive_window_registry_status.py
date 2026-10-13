@@ -96,10 +96,11 @@ class RegistryStatusTests(unittest.TestCase):
             changed_at="2026-10-13T14:00:00+00:00",
         )
         self.assertTrue(created)
-        result = next_item(reg.queue()["queue_items"])
+        queue_items = reg.queue()["queue_items"]
+        result = next_item(queue_items)
         self.assertEqual(result["next"]["window_item"]["id"], "low")
         self.assertEqual(result["considered"], 1)
-        self.assertEqual(reg.queue()["queue_items"][0]["status"], "cancelled")
+        self.assertEqual(next(qi for qi in queue_items if qi["window_item"]["id"] == "high")["status"], "cancelled")
         self.assertEqual(self.bus.get(cancelled["id"]), cancelled)
 
         pending = FakePending()
@@ -109,14 +110,19 @@ class RegistryStatusTests(unittest.TestCase):
         pending.item = high_item
         invoked = reg.invoke("finish", high_item, {}, pending)
         self.assertEqual(reg.confirm(invoked["confirm_token"], pending), {"ok": True})
-        result = next_item(reg.queue()["queue_items"])
+        queue_items = reg.queue()["queue_items"]
+        result = next_item(queue_items)
         self.assertEqual(result["next"]["window_item"]["id"], "low")
         self.assertEqual(result["considered"], 1)
-        self.assertEqual(reg.queue()["queue_items"][0]["status"], "completed")
+        self.assertEqual(next(qi for qi in queue_items if qi["window_item"]["id"] == "high")["status"], "completed")
         self.assertEqual(
             [event["type"] for event in self.bus.events(subject=by_window_id["high"]["entity_id"])],
             ["task.created", "task.cancelled", "task.completed"],
         )
+        reg.record_status("low", "cancelled")
+        all_ineligible = next_item(reg.queue()["queue_items"])
+        self.assertIsNone(all_ineligible["next"])
+        self.assertEqual(all_ineligible["considered"], 0)
 
     def test_deferral_expiry_controls_next_action_selection(self) -> None:
         reg = Registry()
@@ -134,9 +140,10 @@ class RegistryStatusTests(unittest.TestCase):
         )
         real_queue_statuses = window_queue.queue_statuses
         with patch.object(window_queue, "queue_statuses", side_effect=lambda bus: real_queue_statuses(bus, now=now)):
-            result = next_item(reg.queue()["queue_items"])
+            queue_items = reg.queue()["queue_items"]
+            result = next_item(queue_items)
+            self.assertEqual(next(qi for qi in queue_items if qi["window_item"]["id"] == "high")["status"], "deferred")
         self.assertEqual(result["next"]["window_item"]["id"], "low")
-        self.assertEqual(reg.queue()["queue_items"][0]["status"], "deferred")
         self.assertEqual(self.bus.get(future["id"]), future)
 
         expired, _ = window_queue.publish_deferral(
