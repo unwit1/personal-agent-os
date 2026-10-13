@@ -112,6 +112,44 @@ class ProjectActionsMcpTests(unittest.TestCase):
                 self.assertEqual([p["project"] for p in result["projects"]], expected)
                 self.assertEqual(result["errors"], [])
 
+    def test_projects_scan_blocked_summary_preserves_dependencies(self):
+        states = {
+            "z-waiting": {"project": "z-waiting", "status": "active", "waiting_on": ["API access"]},
+            "b-blockers": {"project": "b-blockers", "status": "active", "blockers": ["Build failure"]},
+            "m-both": {"project": "m-both", "status": "active", "blockers": ["Review"],
+                       "waiting_on": ["Design approval"]},
+            "inactive": {"project": "inactive", "status": "inactive", "blockers": ["Paused"]},
+            "clear": {"project": "clear", "status": "active", "blockers": [], "waiting_on": []},
+        }
+
+        result = self.with_projects(states, "executive_projects.scan", {})
+        self.assertEqual(result["blocked"], ["b-blockers", "m-both", "z-waiting"])
+        projects_by_id = {project["project"]: project for project in result["projects"]}
+        self.assertEqual(projects_by_id["b-blockers"]["blockers"], ["Build failure"])
+        self.assertEqual(projects_by_id["b-blockers"]["waiting_on"], [])
+        self.assertEqual(projects_by_id["m-both"]["blockers"], ["Review"])
+        self.assertEqual(projects_by_id["m-both"]["waiting_on"], ["Design approval"])
+        self.assertEqual(projects_by_id["z-waiting"]["blockers"], [])
+        self.assertEqual(projects_by_id["z-waiting"]["waiting_on"], ["API access"])
+
+        included = self.with_projects(states, "executive_projects.scan", {"include_inactive": True})
+        self.assertEqual(
+            included["blocked"],
+            ["b-blockers", "inactive", "m-both", "z-waiting"],
+        )
+        included_by_id = {project["project"]: project for project in included["projects"]}
+        self.assertEqual(included_by_id["inactive"]["blockers"], ["Paused"])
+        self.assertEqual(included_by_id["inactive"]["waiting_on"], [])
+
+    def test_projects_scan_blocked_summary_empty_and_errors_preserved(self):
+        states = {
+            "clear": {"project": "clear", "status": "active", "blockers": [], "waiting_on": []},
+            "load-failure": ValueError("File not found"),
+        }
+        result = self.with_projects(states, "executive_projects.scan", {})
+        self.assertEqual(result["blocked"], [])
+        self.assertEqual(result["errors"], [{"project": "load-failure", "error": "File not found"}])
+
     def test_projects_scan_with_load_error(self):
         states = {
             "proj1": {"project": "proj1", "status": "active", "goal": "Goal 1"},
