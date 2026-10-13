@@ -117,7 +117,7 @@ def _resolve_decision(item: dict, params: dict, *, confirm: bool) -> dict:
 def register(reg: registry.Registry) -> None:
     reg.register_action(
         "project.resume", "Resume",
-        ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked"],
+        ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked", "project_next_action"],
         _resume,
         consequential=False,
         description="Open a compact resumption packet for this project (read-only)",
@@ -125,7 +125,7 @@ def register(reg: registry.Registry) -> None:
     )
     reg.register_action(
         "project.set_next_action", "Set next action",
-        ["project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked"],
+        ["project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked", "project_next_action"],
         _set_next_action,
         consequential=True,
         description="Record this project's next action in its state.json (preview first; writes only on Confirm)",

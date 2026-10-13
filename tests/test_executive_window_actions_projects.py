@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.executive.window import actions_projects, registry
 from agent_os.executive.window.confirm import PendingStore
+from agent_os.executive.window.providers_projects import project_items
 
 
 class TestProjectActions(TestCase):
@@ -45,7 +46,7 @@ class TestProjectActions(TestCase):
 
     def test_action_kinds_and_consequential_flag(self):
         action = self.reg._actions["project.resume"]
-        self.assertEqual(action["applies_to"], ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked"])
+        self.assertEqual(action["applies_to"], ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked", "project_next_action"])
         self.assertFalse(action["consequential"])
 
     def test_repeatedly_deferred_actions(self):
@@ -142,7 +143,48 @@ class TestProjectActions(TestCase):
     def test_set_next_action_action_metadata(self):
         action = self.reg._actions["project.set_next_action"]
         self.assertTrue(action["consequential"])
-        self.assertEqual(action["applies_to"], ["project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked"])
+        self.assertEqual(action["applies_to"], ["project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked", "project_next_action"])
+
+    def test_ready_project_provider_item_resume_and_set_next_action(self):
+        original = {
+            "project": "demo", "status": "active", "goal": "Ship the release",
+            "updated_at": "2026-10-05T10:00:00Z", "blockers": ["Waiting for review"],
+            "waiting_on": ["Review team"], "decisions_needed": [],
+        }
+        actions_projects.LOAD_STATE = lambda project: dict(original)
+        writes = []
+        actions_projects.WRITE_STATE = lambda pid, state: writes.append((pid, state))
+        item = next(item for item in project_items(
+            lambda: [({"id": "demo", "name": "Demo"}, {
+                "project": "demo", "status": "active", "updated_at": "2026-10-05",
+                "next_action": "Email the release notes to the team",
+            })],
+            today=date(2026, 10, 6), deferral_counts=lambda: {},
+        ) if item["kind"] == "project_next_action")
+        self.reg.register_provider("projects", lambda: [item])
+        offered = {option["action_id"] for option in self.reg.outstanding()["items"][0]["options"]}
+        self.assertIn("project.resume", offered)
+        self.assertIn("project.set_next_action", offered)
+        self.assertNotIn("project.resolve_decision", offered)
+
+        resumed = self.reg.invoke("project.resume", item, params=None, pending=None)
+        self.assertEqual(resumed["result"]["project"], "demo")
+        self.assertEqual(resumed["result"]["packet"]["schema"], "agent-os/resumption-packet@1")
+        self.assertEqual(writes, [])
+
+        params = {"next_action": "Publish the release notes"}
+        with tempfile.TemporaryDirectory() as directory:
+            pending = PendingStore(directory)
+            preview = self.reg.invoke("project.set_next_action", item, params, pending)
+            self.assertEqual(preview["status"], "needs_confirmation")
+            self.assertEqual(writes, [])
+            self.reg.confirm(preview["confirm_token"], pending)
+        self.assertEqual(len(writes), 1)
+        self.assertEqual(writes[0][0], "demo")
+        self.assertEqual(writes[0][1]["next_action"], params["next_action"])
+        self.assertEqual(writes[0][1]["goal"], original["goal"])
+        self.assertEqual(writes[0][1]["blockers"], original["blockers"])
+        self.assertEqual(writes[0][1]["waiting_on"], original["waiting_on"])
 
     def test_resolve_decision_preview_then_confirm_writes_resolution(self):
         writes = []
