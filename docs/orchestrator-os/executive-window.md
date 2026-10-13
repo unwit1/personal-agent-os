@@ -105,11 +105,14 @@ The `projects` provider (`src/agent_os/executive/window/providers_projects.py`, 
 
 - `project_decision` (score 3): decision needed for the project
 - `project_stalled` (score 2): project has not been updated in the configured stale-days threshold
+- `project_blocked` (score 2): one item per active project when `blockers` or `waiting_on` contains at least one valid entry (a non-empty string after trimming). Its stable id is `project:<pid>:blocked`, independent of the blocking text. The `why` line has up to two sections: `Blocked by: ...` lists `blockers`, and `Waiting on: ...` lists `waiting_on`; when both are present they are separated by ` | `. It follows the normal tab and rank behavior described below. The item offers **Resume** (`project.resume`) and **Set next action** (`project.set_next_action`). Setting a next action preserves `blockers` and `waiting_on`, so the blocked item remains until those state entries are cleared.
 - `project_repeatedly_deferred` (score 2): project items have been snoozed at least 3 times (`project_actions.REPEATED_DEFERRAL_THRESHOLD`), counted per project from identifiers-only `task.deferred` events via `window_queue.project_deferral_counts`. The provider reads the attached Event Bus on a best-effort basis and treats an unavailable log as 0 deferrals; it emits at most one such item per project.
 - `project_no_next_action` (score 1): project has no next action or current priority recorded
 - `project_vague_next_action` (score 1): the recorded next action is vague (placeholder or short "work on X" phrasing); the `why` gives the suggested concrete next action when one exists
 
 Each item's `why` field contains the reason. Items appear on the work tab by default; a registry entry with `"tab": "personal"` places them on the personal tab instead.
+
+These project details remain provider-local. When a project item is published to the Event Bus, the persisted `task.created` payload contains identifiers only (queue item id, entity id, provider, item id, kind, and tab); it does not include the project's title, `why` text, blocker entries, or `waiting_on` entries.
 
 `Registry.outstanding()` adds a `rank` field to each queued item showing its position in the sorted Executive Queue: `rank = { position: <1-based rank>, of: <total ranked items>, ranking: <algorithm> }`. The window displays this rank next to the `why` context line (as `item-rank`), helping the operator see the item's priority at a glance.
 
