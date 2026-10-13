@@ -85,11 +85,11 @@ Dismiss (`item.dismiss`) publishes an identifiers-only `task.cancelled` event. A
 
 `agent_os.executive.next_action` ranks the Executive Queue by priority (descending), then age_days (descending), then queue item id (ascending).
 
-`agent-os executive next [--tab work|personal]` prints `{next, considered, why, errors}`: the top queue item, the number of ranked items, and its explanation (`null` when the queue is empty).
+`agent-os executive next [--tab work|personal]` prints `{next, considered, why, errors}`. Selection considers eligible queue items only: items with status `completed`, `cancelled`, or currently `deferred` are skipped. An expired snooze is reduced to `queued` by `window_queue.queue_statuses`, so it is eligible again. `considered` is the number of eligible candidates ranked, and `why` explains the selected candidate (`null` when none are eligible). For example, if a higher-priority item is completed and a lower-priority item remains queued, `next` selects the queued item.
 
 `agent-os executive explain <item_id> [--tab work|personal]` takes a queue item id or a provider (window) item id and prints `{item_id, explanation, errors}`. The explanation has `queue_item_id`, `entity_id`, `item_id`, `provider`, `source`, `kind`, `tab`, `reason`, `priority`, `age_days`, `rank`, `of`, `ranking`, and `provenance`; it is `null` for unknown ids.
 
-MCP tools `executive_window.next` and `executive_window.explain` return the same data, read-only and local-only. Provider errors are returned in the `errors` field. Hidden items are excluded just as in the outstanding list.
+MCP tools `executive_window.next` and `executive_window.explain` return the same data, read-only and local-only. Provider errors are returned in the `errors` field. Hidden items are excluded just as in the outstanding list. The eligibility filter applies to next selection only: rank/explain continue to describe the collected queue items, including completed, cancelled, and deferred items; queue status and history retain their existing inspection behavior. Thus `considered` and `why` describe eligible candidates, while rank/explain can still inspect an item excluded from next selection.
 
 ### Provenance in explain
 
