@@ -18,6 +18,8 @@ class Registry:
         # (dismiss/snooze state is keyed by them), so an id two providers both
         # emit maps to both entities and lifecycle events are recorded for each.
         self._entity_ids: dict[str, list[str]] = {}
+        # Queue entity id -> normalized sensitivity captured at conversion time.
+        self._entity_sensitivities: dict[str, str] = {}
 
     def attach_event_bus(self, bus: Any) -> None:
         """Publish every provider item to this Event Bus as an EXEC-0 queue item."""
@@ -30,7 +32,10 @@ class Registry:
         if self.event_bus is None:
             return None
         events = [
-            window_queue.publish_deferral(self.event_bus, entity_id, str(item_id), until=until)[0]
+            window_queue.publish_deferral(
+                self.event_bus, entity_id, str(item_id), until=until,
+                sensitivity=self._entity_sensitivities.get(entity_id, "personal"),
+            )[0]
             for entity_id in self._entity_ids.get(str(item_id), [])
         ]
         return events[0] if events else None
@@ -42,7 +47,10 @@ class Registry:
         if self.event_bus is None:
             return None
         events = [
-            window_queue.publish_status_change(self.event_bus, entity_id, str(item_id), status)[0]
+            window_queue.publish_status_change(
+                self.event_bus, entity_id, str(item_id), status,
+                sensitivity=self._entity_sensitivities.get(entity_id, "personal"),
+            )[0]
             for entity_id in self._entity_ids.get(str(item_id), [])
         ]
         return events[0] if events else None
@@ -114,6 +122,7 @@ class Registry:
                     entity_ids = self._entity_ids.setdefault(item_id, [])
                     if queue_item["entity_id"] not in entity_ids:
                         entity_ids.append(queue_item["entity_id"])
+                    self._entity_sensitivities[queue_item["entity_id"]] = queue_item["sensitivity"]
                     count = counts.get(queue_item["entity_id"], 0)
                     if count > 0:
                         queue_item["repeated_deferrals"] = count
