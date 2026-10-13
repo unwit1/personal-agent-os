@@ -77,6 +77,16 @@ class TestExecutiveProjectActionsDocumentation(unittest.TestCase):
         for content in (self.window_content, self.content):
             self.assertIn("project_repeatedly_deferred", content)
 
+    def test_doc_describes_concrete_next_action_window_items(self):
+        self.assert_terms(self.content, (
+            "`project_next_action` item (score 1)", "non-empty, concrete `next_action`",
+            "suppressed while any project problem flag is present", "`unknown_age` alone",
+            "10-character SHA-1 prefix", "Changing the action therefore creates a new queue identity",
+            "project:alpha:next-action:", '"Review API plan"', '"Ship API plan"',
+            'tab: "personal"', "Executive Queue", "project.resume", "project.set_next_action",
+            "preview/Confirm flow",
+        ))
+
 
 if __name__ == "__main__":
     unittest.main()
