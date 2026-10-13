@@ -19,7 +19,7 @@ def project_items(
 
     For each active project (status == "active"), derive next action, blockers,
     and flags via project_next_action(); emit items for decisions_needed, stalled,
-    no_next_action, vague_next_action, and repeatedly_deferred flags. Deferral
+    blocked, no_next_action, vague_next_action, and repeatedly_deferred flags. Deferral
     counts may be provided by deferral_counts; repeated deferrals emit a project item.
 
     Args:
@@ -108,6 +108,30 @@ def project_items(
                 }
             )
 
+        # Blocked project item (score 2), with normalized blocker details.
+        if "blocked" in flags:
+            blockers = result.get("blockers")
+            waiting_on = result.get("waiting_on")
+            blockers = [v for v in blockers if isinstance(v, str) and v.strip()] if isinstance(blockers, list) else []
+            waiting_on = [v for v in waiting_on if isinstance(v, str) and v.strip()] if isinstance(waiting_on, list) else []
+            sections = []
+            if blockers:
+                sections.append("Blocked by: " + "; ".join(blockers))
+            if waiting_on:
+                sections.append("Waiting on: " + "; ".join(waiting_on))
+            if sections:
+                items.append(
+                    {
+                        **base,
+                        "id": f"project:{pid}:blocked",
+                        "kind": "project_blocked",
+                        "title": f"{name} is blocked",
+                        "why": " | ".join(sections),
+                        "score": 2,
+                        "context": {"project": pid},
+                    }
+                )
+
         # Repeatedly deferred project item (score 2).
         if "repeatedly_deferred" in flags:
             n = result.get("deferrals")
@@ -193,4 +217,3 @@ def _load_projects() -> list[tuple[dict, dict]]:
         except Exception:
             continue
     return projects
-
