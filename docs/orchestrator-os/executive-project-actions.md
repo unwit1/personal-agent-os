@@ -81,8 +81,8 @@ Flags are generated based on the extracted state and are always sorted alphabeti
 {
   "blocked": ["alpha", "beta"],
   "projects": [
-    {"id": "alpha", "blockers": ["API review"], "waiting_on": []},
-    {"id": "beta", "blockers": [], "waiting_on": ["Design approval"]}
+    {"project": "alpha", "blockers": ["API review"], "waiting_on": []},
+    {"project": "beta", "blockers": [], "waiting_on": ["Design approval"]}
   ]
 }
 ```
