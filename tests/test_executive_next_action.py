@@ -306,6 +306,56 @@ class TestNextItem(unittest.TestCase):
         self.assertEqual(result["next"]["id"], "qi-1")
         self.assertEqual(result["considered"], 1)
 
+    def test_next_item_excludes_higher_priority_ineligible_items(self):
+        items = [
+            {"id": "done", "priority": 100, "status": "completed"},
+            {"id": "cancelled", "priority": 90, "status": "cancelled"},
+            {"id": "deferred", "priority": 80, "status": "deferred"},
+            {"id": "ready", "priority": 5},
+        ]
+        result = next_item(items)
+        self.assertEqual(result["next"]["id"], "ready")
+        self.assertEqual(result["considered"], 1)
+
+    def test_next_item_mixed_statuses_and_missing_status(self):
+        items = [
+            {"id": "deferred", "priority": 20, "status": "deferred"},
+            {"id": "active", "priority": 4, "status": "active"},
+            {"id": "legacy", "priority": 3},
+        ]
+        result = next_item(items)
+        self.assertEqual(result["next"]["id"], "active")
+        self.assertEqual(result["considered"], 2)
+
+    def test_next_item_all_excluded(self):
+        items = [{"id": "done", "status": "completed"}, {"id": "later", "status": "deferred"}]
+        self.assertEqual(next_item(items), {"next": None, "considered": 0, "why": None})
+
+    def test_next_item_eligible_ranking_and_provenance(self):
+        items = [
+            {"id": "excluded", "priority": 50, "status": "cancelled"},
+            {"id": "older", "priority": 5, "entity_id": "e-old", "provider": "p-old",
+             "source": "s-old", "window_item": {"id": "w-old", "age_days": 10}},
+            {"id": "winner", "priority": 5, "entity_id": "e-win", "provider": "p-win",
+             "source": "s-win", "window_item": {"id": "w-win", "age_days": 2}},
+        ]
+        result = next_item(items)
+        self.assertEqual(result["next"]["id"], "older")
+        self.assertEqual(result["considered"], 2)
+        self.assertEqual(result["why"]["queue_item_id"], "older")
+        self.assertEqual(result["why"]["provenance"]["provider"], "p-old")
+        self.assertEqual(result["why"]["provenance"]["source"], "s-old")
+        self.assertEqual(result["why"]["provenance"]["entity_id"], "e-old")
+
+    def test_next_item_does_not_mutate_status_or_items(self):
+        items = [
+            {"id": "deferred", "priority": 9, "status": "deferred"},
+            {"id": "ready", "priority": 1},
+        ]
+        original = [item.copy() for item in items]
+        next_item(items)
+        self.assertEqual(items, original)
+
 
 class TestRankingConstant(unittest.TestCase):
     def test_ranking_constant_value(self):
