@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+import hashlib
 import unittest
 from datetime import date
 from pathlib import Path
@@ -11,6 +12,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.executive.window.providers_projects import project_items
+from agent_os.executive.window_queue import queue_item_from_window_item
 
 
 class ProjectItemsTests(unittest.TestCase):
@@ -108,6 +110,62 @@ class ProjectItemsTests(unittest.TestCase):
         items2 = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
         self.assertEqual(items1[0]["id"], items2[0]["id"])
         self.assertTrue(items1[0]["id"].startswith("project:p1:decision:"))
+
+    def test_duplicate_normalized_decisions_have_one_item_and_queue_identity(self):
+        entry = self._make_registry_entry(tab="personal")
+        state = self._make_state(
+            next_action="Write release notes",
+            decisions_needed=["  Choose a database  ", "Choose a database", "  Choose a database\t"],
+        )
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {},
+        )
+        decisions = [item for item in items if item["kind"] == "project_decision"]
+        self.assertEqual(len(decisions), 1)
+        decision = decisions[0]
+        trimmed = "Choose a database"
+        expected_id = f"project:p1:decision:{hashlib.sha1(trimmed.encode('utf-8')).hexdigest()[:10]}"
+        self.assertEqual(decision["id"], expected_id)
+        self.assertEqual(decision["title"], trimmed)
+        self.assertEqual(decision["context"]["decision"], trimmed)
+        self.assertEqual(decision["score"], 3)
+        self.assertEqual(decision["tab"], "personal")
+        queue_items = [queue_item_from_window_item(item, "projects", queued_at="2026-10-05T00:00:00Z") for item in decisions]
+        self.assertEqual(len({item["id"] for item in queue_items}), 1)
+        self.assertEqual(len({item["entity_id"] for item in queue_items}), 1)
+
+    def test_distinct_decisions_keep_order_score_and_project_tab(self):
+        entry = self._make_registry_entry(tab="work")
+        state = self._make_state(
+            next_action="Write release notes",
+            decisions_needed=["First decision", "Second decision", "Third decision"],
+        )
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {},
+        )
+        decisions = [item for item in items if item["kind"] == "project_decision"]
+        self.assertEqual([item["title"] for item in decisions], state["decisions_needed"])
+        self.assertEqual([item["score"] for item in decisions], [3, 3, 3])
+        self.assertEqual([item["tab"] for item in decisions], ["work", "work", "work"])
+
+    def test_repeated_normalized_blockers_and_waiting_on_are_listed_once(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(
+            next_action="Resolve dependency",
+            blockers=[" Vendor ", "Vendor", "Approval", " Approval "],
+            waiting_on=[" Review ", "Review", "Legal", " Legal "],
+        )
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {},
+        )
+        blocked = next(item for item in items if item["kind"] == "project_blocked")
+        self.assertEqual(
+            blocked["why"],
+            "Blocked by: Vendor; Approval | Waiting on: Review; Legal",
+        )
 
     def test_stalled_project_produces_item(self):
         """A project without update for > stale_days produces a stalled item."""
