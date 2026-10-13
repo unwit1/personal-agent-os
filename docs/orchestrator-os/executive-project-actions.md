@@ -70,9 +70,24 @@ Flags are generated based on the extracted state and are always sorted alphabeti
 - **stalled**: List of project ids with the `stalled` flag set.
 - **no_next_action**: List of project ids with the `no_next_action` flag set.
 - **needs_decision**: List of project ids with the `needs_decision` flag set.
+- **blocked**: List of project ids whose normalized `blockers` or `waiting_on` lists are nonempty. It follows project-id ordering and the `include_inactive` filtering above; it is an empty list when no scanned projects qualify.
 - **vague_next_action**: List of project ids with the `vague_next_action` flag set.
 - **repeatedly_deferred**: List of project ids with the `repeatedly_deferred` flag set.
 - **stale_days**: The threshold used for staleness detection.
+
+`project-scan` and `executive_projects.scan` expose this additive `blocked` field through their existing scan-result forwarding. The summary contains project identifiers, while dependency details remain in each entry in `projects`, as in this example:
+
+```json
+{
+  "blocked": ["alpha", "beta"],
+  "projects": [
+    {"id": "alpha", "blockers": ["API review"], "waiting_on": []},
+    {"id": "beta", "blockers": [], "waiting_on": ["Design approval"]}
+  ]
+}
+```
+
+This adds no writes or commands.
 
 The scan result allows quick identification of projects in specific conditions (e.g., all stalled projects, all projects awaiting decisions).
 
