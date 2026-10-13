@@ -18,6 +18,7 @@ class TestProjectActions(TestCase):
         actions_projects.LOAD_STATE = lambda project: {
             "project": "demo", "status": "active", "goal": "G",
             "next_action": "Write the parser tests", "updated": "2026-10-01",
+            "blockers": ["Waiting for API access"], "waiting_on": ["Platform team"],
         }
         actions_projects.TODAY = lambda: date(2026, 10, 6)
         actions_projects.WRITE_STATE = None
@@ -44,7 +45,7 @@ class TestProjectActions(TestCase):
 
     def test_action_kinds_and_consequential_flag(self):
         action = self.reg._actions["project.resume"]
-        self.assertEqual(action["applies_to"], ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred"])
+        self.assertEqual(action["applies_to"], ["project_decision", "project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked"])
         self.assertFalse(action["consequential"])
 
     def test_repeatedly_deferred_actions(self):
@@ -58,6 +59,23 @@ class TestProjectActions(TestCase):
         self.assertIn("project.resume", offered)
         self.assertIn("project.set_next_action", offered)
         self.assertNotIn("project.resolve_decision", offered)
+
+    def test_blocked_provider_item_actions_and_resume_packet(self):
+        writes = []
+        actions_projects.WRITE_STATE = lambda pid, state: writes.append((pid, state))
+        item = {"id": "project:demo:blocked", "kind": "project_blocked",
+                "why": "Waiting for API access", "context": {"project": "demo"}}
+        self.reg.register_provider("fixture", lambda: [item])
+        outstanding = self.reg.outstanding()
+        offered = {option["action_id"] for option in outstanding["items"][0]["options"]}
+        self.assertIn("project.resume", offered)
+        self.assertIn("project.set_next_action", offered)
+        self.assertNotIn("project.resolve_decision", offered)
+        result = self.reg.invoke("project.resume", item, params=None, pending=None)
+        packet = result["result"]["packet"]
+        self.assertEqual(packet["open_loops"]["blockers"], ["Waiting for API access"])
+        self.assertEqual(packet["open_loops"]["waiting_on"], ["Platform team"])
+        self.assertEqual(writes, [])
 
     def test_unknown_project_raises_value_error(self):
         actions_projects.LOAD_STATE = None
@@ -80,6 +98,22 @@ class TestProjectActions(TestCase):
         self.assertEqual(len(writes), 1)
         self.assertEqual(writes[0][1]["next_action"], params["next_action"])
         self.assertEqual(writes[0][1]["updated_at"], "2026-10-06")
+
+    def test_blocked_set_next_action_preserves_blockers_and_waiting_on(self):
+        writes = []
+        actions_projects.WRITE_STATE = lambda pid, state: writes.append((pid, state))
+        item = {"id": "project:demo:blocked", "kind": "project_blocked", "context": {"project": "demo"}}
+        params = {"next_action": "Send the draft to Maya"}
+        with tempfile.TemporaryDirectory() as directory:
+            pending = PendingStore(directory)
+            preview = self.reg.invoke("project.set_next_action", item, params, pending)
+            self.assertEqual(preview["status"], "needs_confirmation")
+            self.assertEqual(writes, [])
+            self.reg.confirm(preview["confirm_token"], pending)
+        self.assertEqual(len(writes), 1)
+        self.assertEqual(writes[0][1]["next_action"], params["next_action"])
+        self.assertEqual(writes[0][1]["blockers"], ["Waiting for API access"])
+        self.assertEqual(writes[0][1]["waiting_on"], ["Platform team"])
 
     def test_repeatedly_deferred_set_next_action_preview_then_confirm_writes_once(self):
         writes = []
@@ -108,7 +142,7 @@ class TestProjectActions(TestCase):
     def test_set_next_action_action_metadata(self):
         action = self.reg._actions["project.set_next_action"]
         self.assertTrue(action["consequential"])
-        self.assertEqual(action["applies_to"], ["project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred"])
+        self.assertEqual(action["applies_to"], ["project_stalled", "project_no_next_action", "project_vague_next_action", "project_repeatedly_deferred", "project_blocked"])
 
     def test_resolve_decision_preview_then_confirm_writes_resolution(self):
         writes = []
