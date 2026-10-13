@@ -61,6 +61,15 @@ class TestExecutiveProjectActionsDocumentation(unittest.TestCase):
             "repeatedly_deferred", "REPEATED_DEFERRAL_THRESHOLD", "project_deferral_counts", "task.deferred",
         ))
 
+    def test_doc_describes_list_normalization_and_decision_identity(self):
+        self.assert_terms(self.content, (
+            "whitespace is trimmed", "non-string", "case-sensitively",
+            "first-occurrence order", "does not rewrite `state.json`",
+            "one window item", "trimmed decision text", "stable ID",
+            '"  Choose a region  "', '"Choose a Region"',
+        ))
+        self.assertIn("Preview shows the proposed change; Confirm", self.content)
+
     def test_executive_window_links_to_project_actions_doc(self):
         self.assertIn("executive-project-actions.md", self.window_content)
 
