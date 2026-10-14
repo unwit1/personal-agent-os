@@ -116,6 +116,10 @@ class Orchestrator:
         self._handles: dict[tuple[str, str], RunningAgent] = {}
         self._adapters: dict[str, Any] = {}
         self._availability: dict[str, bool] | None = None
+        # Plan headroom (headroom.py) reads the operator's real usage, so only
+        # the machine engine tracks it; embedded/test engines do not.
+        self._track_headroom = registry is None and registry_path is None
+        self._headroom: tuple[float, dict[str, dict[str, Any]]] = (0.0, {})
         self._lock = threading.RLock()
         self.ledger = Ledger(self.store.run_dir)
         self._prefixes: dict[tuple[str, str], str] = {}
@@ -1906,6 +1910,33 @@ class Orchestrator:
                 blockers.append(other["id"])
         return blockers
 
+    def headroom(self) -> dict[str, dict[str, Any]]:
+        """Plan allowance state per provider, refreshed at most every 30 s."""
+        if not self._track_headroom:
+            return {}
+        checked, cached = self._headroom
+        if time.time() - checked >= 30:
+            from . import headroom as _headroom
+            from ..capabilities import registry_path
+
+            try:
+                cached = _headroom.for_providers(self.registry().providers, registry_path().parent)
+            except Exception:
+                cached = {}
+            self._headroom = (time.time(), cached)
+        return cached
+
+    def _exhausted(self) -> list[str]:
+        return [provider for provider, plan in self.headroom().items() if plan.get("state") == "exhausted"]
+
+    def _sensitive_blocked(self, record: dict[str, Any]) -> list[str]:
+        """Providers that may not see this run's data, when it is sensitive."""
+        from .model_profile import is_sensitive, sensitive_problem
+
+        if not is_sensitive(record.get("policy") or {}, record.get("repository")):
+            return []
+        return [provider["id"] for provider in self.registry().providers if sensitive_problem(provider)]
+
     def _paid_blocked(self, record: dict[str, Any]) -> list[str]:
         """Providers billed to outside credits, when this run may not spend them."""
         if (record.get("policy") or {}).get("allow_paid_spend"):
@@ -1967,13 +1998,16 @@ class Orchestrator:
         roles = record["overrides"].setdefault("roles", {})
         if info.get("status") == "fallback" or (roles.get("planner") and not info.get("applied")):
             return True
-        unavailable = {provider for provider, ok in self.availability().items() if not ok}
+        # An exhausted plan is unavailable like a cooldown: a backup foreman plans.
+        unavailable = {provider for provider, ok in self.availability().items() if not ok} | set(self._exhausted())
         paid = set(self._paid_blocked(record))
-        hold = planner_hold(record, self._foreman_home, unavailable | paid)
-        if "wait" in hold and paid and "wait" not in planner_hold(record, self._foreman_home, unavailable):
-            # Only paid foremen are left and this run may not spend outside credits:
-            # plan with the normal (subscription) planner instead of waiting.
-            hold = {"fallback": "the session foreman uses paid outside credits, which are off for this run"}
+        sensitive = set(self._sensitive_blocked(record))
+        hold = planner_hold(record, self._foreman_home, unavailable | paid | sensitive)
+        if "wait" in hold and (paid or sensitive) and "wait" not in planner_hold(record, self._foreman_home, unavailable):
+            # Only foremen this run may not use are left (paid outside credits, or
+            # a third-party host for sensitive data): plan with the normal
+            # planner instead of waiting.
+            hold = {"fallback": "the session foreman " + ("may not see this run's sensitive data" if sensitive else "uses paid outside credits, which are off for this run")}
         if "wait" in hold:
             node["state"] = "RUNNABLE"
             node["wait_reason"] = hold["wait"]
@@ -2024,7 +2058,10 @@ class Orchestrator:
         if node["role"] == "reviewer" and subject and subject.get("selection"):
             avoid = [subject["selection"]["provider"]]
         selection = None
-        if policy.get("free_routing_enabled") and node["role"] in {"implementer", "test_author"} and not self._override_for(record, node):
+        sensitive = self._sensitive_blocked(record)
+        # Free providers are third-party hosts or APIs: a sensitive run never routes free-first.
+        if (policy.get("free_routing_enabled") and node["role"] in {"implementer", "test_author"} and not self._override_for(record, node)
+                and not sensitive):
             selection = self._free_hook(record, node, running, node.get("requirements"))
         if selection is None:
             selection = select(
@@ -2034,7 +2071,7 @@ class Orchestrator:
                 role=node["role"],
                 preference=policy["preference"],
                 availability=self.availability(),
-                excluded=node["excluded_providers"] + self._paid_blocked(record),
+                excluded=node["excluded_providers"] + self._paid_blocked(record) + sensitive,
                 excluded_classes=node.get("excluded_classes", {}),
                 avoid=avoid,
                 running=running,
@@ -2043,6 +2080,7 @@ class Orchestrator:
                 # Reviewers and repairers read the subject's work, so they inherit its
                 # workload requirements (e.g. deployment=local for private code).
                 requirements=node.get("requirements") or (subject or {}).get("requirements"),
+                headroom=self.headroom(),
             )
         if not selection.get("resolved"):
             if selection.get("waiting"):

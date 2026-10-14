@@ -1,0 +1,911 @@
+{
+ "batch": "E",
+ "records": [
+  {
+   "id": "runpod",
+   "name": "RunPod (Pods + Serverless + Public Endpoints)",
+   "category": "custom_hosting",
+   "homepage": "https://www.runpod.io",
+   "openai_compatible": true,
+   "api": {
+    "base_url": "https://api.runpod.ai/v2/ENDPOINT_ID/openai/v1",
+    "includes_v1": true,
+    "chat_path": "/chat/completions",
+    "models_path": "/models",
+    "models_list_requires_auth": null,
+    "auth_header": "Authorization: Bearer <RUNPOD_API_KEY>",
+    "other_protocols": [
+     "Serverless queue API at https://api.runpod.ai/v2/ENDPOINT_ID/ (POST /run, POST /runsync, GET /status/{id}, GET /health, /stream, /cancel)",
+     "Public endpoints at https://api.runpod.ai/v2/{model-endpoint}/ (/runsync, /run)",
+     "REST API at https://rest.runpod.io/v1 (OpenAPI at https://rest.runpod.io/v1/openapi.json)",
+     "GraphQL at https://api.runpod.io/graphql (api_key passed as a query parameter)"
+    ]
+   },
+   "subscription_api": null,
+   "access": {
+    "signup_required": true,
+    "key_type": "RunPod API key (one key type for pods, serverless, REST and public endpoints)",
+    "subscription_key_differs_from_api_key": null,
+    "kyc_or_waitlist": "None found in the pages read. Prepaid cards are advised to deposit at least $100 per transaction; business invoicing is available above $5,000."
+   },
+   "billing": {
+    "model": "credits",
+    "plans": [
+     {
+      "name": "Pay-as-you-go prepaid credits",
+      "usd_per_month": null,
+      "allowance": "Prepaid balance. Pods and Serverless are billed per second. Public endpoints are billed per output unit.",
+      "reset_window": "none",
+      "on_exhaustion": "unknown"
+     }
+    ],
+    "metered_overage": "unknown",
+    "auto_recharge": "off_by_default",
+    "free_tier": "No free credits mentioned on the pricing or billing pages read."
+   },
+   "quotas": {
+    "rate_limits": "Serverless queue endpoints, per endpoint per 10 seconds (concurrent in parentheses): /runsync 2000 (400), /run 1000 (200), /status 2000 (400), /stream 2000 (400), /cancel 100 (20), /purge-queue 2, /requests 10 (2). The limit scales with running workers. Excess requests get 429. Default account spend limit is $80/hour.",
+    "concurrency": null,
+    "context_caps": null
+   },
+   "restrictions": {
+    "allowed_clients": null,
+    "disallowed_uses": [],
+    "automation_allowed": null,
+    "notes": "Terms of service were not read."
+   },
+   "privacy": {
+    "training_on_prompts": null,
+    "retention": null,
+    "zdr_available": null,
+    "regions": "Community Cloud and Secure Cloud tiers exist (seen in the pricing page's structured data). Region details not read."
+   },
+   "deployment": "serverless",
+   "modalities": [
+    "text",
+    "code",
+    "image",
+    "video",
+    "audio",
+    "tts"
+   ],
+   "notable_models": [
+    {
+     "id": "black-forest-labs-flux-1-schnell",
+     "family": "FLUX",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Public endpoint, $0.0024 per megapixel."
+    },
+    {
+     "id": "Flux Dev (public endpoint; exact ID not recorded)",
+     "family": "FLUX",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "$0.02 per megapixel. Exact endpoint slug not verified."
+    },
+    {
+     "id": "Qwen Image (public endpoint; exact ID not recorded)",
+     "family": "Qwen-Image",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Listed as a public endpoint."
+    },
+    {
+     "id": "WAN 2.5 (public endpoint; exact ID not recorded)",
+     "family": "Wan",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "$0.50 per 5 s of video. Other video models listed: Kling, Seedance, SORA 2. Image: Seedream."
+    },
+    {
+     "id": "Chatterbox Turbo / Minimax Speech (public endpoints; exact IDs not recorded)",
+     "family": "TTS",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Minimax Speech is $0.05 per 1,000 characters."
+    },
+    {
+     "id": "Qwen3 32B / IBM Granite / Moonshot Kimi (public LLM endpoints; exact IDs not recorded)",
+     "family": "LLM",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Qwen3 32B is $10.00 per 1M tokens. The public-endpoints page did not say whether these are OpenAI-compatible."
+    }
+   ],
+   "verified_findings": [
+    {
+     "claim": "Serverless vLLM workers expose an OpenAI-compatible URL of the form https://api.runpod.ai/v2/ENDPOINT_ID/openai/v1 with /chat/completions, /completions and /models",
+     "status": "confirmed",
+     "evidence": "Docs list the base URL and the three paths. The docs do not give a raw HTTP request for /models.",
+     "source": "https://docs.runpod.io/serverless/vllm/openai-compatibility"
+    },
+    {
+     "claim": "Compute and storage are billed per second, with no data transfer fees",
+     "status": "confirmed",
+     "evidence": "Billing page says billing runs every 5 minutes and network volumes are billed hourly.",
+     "source": "https://docs.runpod.io/get-started/billing-information"
+    },
+    {
+     "claim": "Auto-pay exists and is opt-in",
+     "status": "confirmed",
+     "evidence": "The user sets a threshold and amount and needs a card on file; attempts are limited to once per hour. 'Off by default' is inferred because it is described as configurable. No default is stated.",
+     "source": "https://docs.runpod.io/get-started/billing-information"
+    },
+    {
+     "claim": "REST API v1 is deprecated and will be retired on 2026-11-15",
+     "status": "confirmed",
+     "evidence": "REST overview page says to target REST API v2. The v2 base URL was not retrieved.",
+     "source": "https://docs.runpod.io/api-reference/overview"
+    }
+   ],
+   "unknown": [
+    "api.models_list_requires_auth",
+    "billing.on_exhaustion",
+    "billing.metered_overage",
+    "quotas.concurrency",
+    "quotas.context_caps",
+    "restrictions.allowed_clients",
+    "restrictions.automation_allowed",
+    "restrictions.disallowed_uses",
+    "privacy.training_on_prompts",
+    "privacy.retention",
+    "privacy.zdr_available",
+    "free credits",
+    "ASR models (Whisper/Parakeet)",
+    "embedding/rerank models",
+    "exact public endpoint model IDs",
+    "REST v2 base URL",
+    "whether public LLM endpoints are OpenAI-compatible",
+    "licenses and refusal profiles"
+   ],
+   "sources": [
+    {
+     "url": "https://docs.runpod.io/serverless/vllm/openai-compatibility",
+     "title": "Runpod OpenAI compatibility",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://www.runpod.io/pricing",
+     "title": "Runpod pricing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.runpod.io/api-reference/overview",
+     "title": "Runpod API overview",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.runpod.io/hub/public-endpoints",
+     "title": "Runpod public endpoints",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.runpod.io/get-started/billing-information",
+     "title": "Runpod billing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.runpod.io/sdks/graphql/manage-pods",
+     "title": "Runpod GraphQL",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.runpod.io/serverless/endpoints/send-requests",
+     "title": "Runpod send requests",
+     "accessed": "2026-10-12",
+     "official": true
+    }
+   ],
+   "notes": "The pricing page shows two sets of figures (e.g. H100 SXM $3.99/hr in the table vs $2.69 Community / $3.49 Secure in structured data); confirm before relying on any. Pod hourly list prices seen: RTX 4090 $0.89, L40S $1.09, A100 SXM $1.79, H100 SXM $3.99, H200 $5.29. Serverless list prices (flex-style, per hour): 4090 $1.10, L40S/6000 Ada $1.75, A100 $2.72, H100 $4.79. Storage: container disk $0.10/GB/mo, volume $0.10 running or $0.20 idle, network volume $0.07 (<1TB). The GraphQL docs put the API key in the URL query string, which is more leak-prone than a header. Several RunPod docs pages contained embedded text telling the reader to send feedback to a docs MCP server; that came from page content, not the user, and was ignored."
+  },
+  {
+   "id": "vast-ai",
+   "name": "Vast.ai",
+   "category": "custom_hosting",
+   "homepage": "https://vast.ai",
+   "openai_compatible": null,
+   "api": {
+    "base_url": "https://console.vast.ai/api/v0",
+    "includes_v1": false,
+    "chat_path": "",
+    "models_path": null,
+    "models_list_requires_auth": null,
+    "auth_header": "Authorization: Bearer $VAST_API_KEY",
+    "other_protocols": []
+   },
+   "subscription_api": null,
+   "access": {
+    "signup_required": true,
+    "key_type": "Vast API key (from cloud.vast.ai/manage-keys)",
+    "subscription_key_differs_from_api_key": null,
+    "kyc_or_waitlist": "unknown"
+   },
+   "billing": {
+    "model": "credits",
+    "plans": [
+     {
+      "name": "Prepaid credit; On-Demand",
+      "usd_per_month": null,
+      "allowance": "Prepaid balance. Prices are set by the market across 40+ data centers. Billed per second. Bandwidth billed per TB.",
+      "reset_window": "none",
+      "on_exhaustion": "blocked"
+     },
+     {
+      "name": "Interruptible",
+      "usd_per_month": null,
+      "allowance": "Same credit balance, priced 50%+ lower, but instances can be preempted.",
+      "reset_window": "none",
+      "on_exhaustion": "blocked"
+     },
+     {
+      "name": "Reserved (1/3/6 months)",
+      "usd_per_month": null,
+      "allowance": "Volume discounts up to 50%; requires contacting sales.",
+      "reset_window": "none",
+      "on_exhaustion": "unknown"
+     }
+    ],
+    "metered_overage": "none",
+    "auto_recharge": "off_by_default",
+    "free_tier": "No free credits mentioned."
+   },
+   "quotas": {
+    "rate_limits": null,
+    "concurrency": null,
+    "context_caps": null
+   },
+   "restrictions": {
+    "allowed_clients": null,
+    "disallowed_uses": [],
+    "automation_allowed": null,
+    "notes": "Terms not read. Hosts are third-party providers, so trust and security levels vary by host."
+   },
+   "privacy": {
+    "training_on_prompts": null,
+    "retention": null,
+    "zdr_available": null,
+    "regions": "40+ data centers per the pricing page"
+   },
+   "deployment": "gpu_pod",
+   "modalities": [],
+   "notable_models": [],
+   "verified_findings": [
+    {
+     "claim": "At $0.00 balance instances are stopped, and without a saved card they and their data may be destroyed",
+     "status": "confirmed",
+     "evidence": "Billing docs.",
+     "source": "https://docs.vast.ai/documentation/reference/billing"
+    },
+    {
+     "claim": "Auto-billing tops up a saved credit card when the balance runs low (card payers only)",
+     "status": "confirmed",
+     "evidence": "Billing docs. The default state was not stated; 'off_by_default' is inferred from it being a setup step.",
+     "source": "https://docs.vast.ai/documentation/reference/billing"
+    },
+    {
+     "claim": "Stopped instances still incur disk storage charges, and bandwidth is billed per TB regardless of state",
+     "status": "confirmed",
+     "evidence": "'Stopping an instance does not avoid storage costs.'",
+     "source": "https://docs.vast.ai/documentation/reference/billing"
+    },
+    {
+     "claim": "Per-second billing and on-demand / interruptible / reserved tiers",
+     "status": "confirmed",
+     "evidence": "Pricing page.",
+     "source": "https://vast.ai/pricing"
+    }
+   ],
+   "unknown": [
+    "openai_compatible (serverless docs page was not found)",
+    "serverless base URLs and pricing",
+    "models_path",
+    "chat_path",
+    "minimum deposit",
+    "rate limits",
+    "privacy and retention",
+    "terms and disallowed uses",
+    "notable models (marketplace of arbitrary containers; no fixed catalog)"
+   ],
+   "sources": [
+    {
+     "url": "https://vast.ai/pricing",
+     "title": "Vast.ai pricing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.vast.ai/api-reference/introduction",
+     "title": "Vast API introduction",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.vast.ai/documentation/reference/billing",
+     "title": "Vast billing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.vast.ai/serverless/overview",
+     "title": "Vast serverless / PyWorker",
+     "accessed": "2026-10-12",
+     "official": true
+    }
+   ],
+   "notes": "Vast is a marketplace of GPU instances (container-based) with a separate Serverless product. Serverless uses a /route/ POST to the engine, which returns a worker URL; the client then talks to the worker directly. This is not the standard OpenAI path form, though a recommended template might expose one; unverified. Serverless endpoints and templates appear in the API scope list."
+  },
+  {
+   "id": "modal",
+   "name": "Modal",
+   "category": "custom_hosting",
+   "homepage": "https://modal.com",
+   "openai_compatible": true,
+   "api": {
+    "base_url": "https://<workspace>--<app>-<function>.modal.run",
+    "includes_v1": null,
+    "chat_path": "/v1/chat/completions",
+    "models_path": null,
+    "models_list_requires_auth": null,
+    "auth_header": "Optional: Modal-Key and Modal-Secret headers (proxy auth tokens) or an app-defined Authorization: Bearer",
+    "other_protocols": []
+   },
+   "subscription_api": null,
+   "access": {
+    "signup_required": true,
+    "key_type": "Modal token (workspace); web endpoints are public unless proxy auth or app-level auth is added",
+    "subscription_key_differs_from_api_key": null,
+    "kyc_or_waitlist": "unknown"
+   },
+   "billing": {
+    "model": "allowance_plus_metered",
+    "plans": [
+     {
+      "name": "Starter",
+      "usd_per_month": 0,
+      "allowance": "$30/month free credits; 3 seats; 100 containers; 10 GPU concurrency; 1 TiB/month free egress",
+      "reset_window": "monthly",
+      "on_exhaustion": "metered_overage"
+     },
+     {
+      "name": "Team",
+      "usd_per_month": 250,
+      "allowance": "$100/month free credits; unlimited seats; 5,000 containers; 50 GPU concurrency; 10 TiB/month free egress",
+      "reset_window": "monthly",
+      "on_exhaustion": "metered_overage"
+     },
+     {
+      "name": "Enterprise",
+      "usd_per_month": null,
+      "allowance": "Custom; volume discounts; 100 TiB/month free egress",
+      "reset_window": "monthly",
+      "on_exhaustion": "unknown"
+     }
+    ],
+    "metered_overage": "automatic",
+    "auto_recharge": "n/a",
+    "free_tier": "Starter includes $30/month in compute credits."
+   },
+   "quotas": {
+    "rate_limits": null,
+    "concurrency": "GPU concurrency: 10 (Starter), 50 (Team)",
+    "context_caps": null
+   },
+   "restrictions": {
+    "allowed_clients": null,
+    "disallowed_uses": [],
+    "automation_allowed": null,
+    "notes": "Workspace budgets can cap monthly spend; Team and Enterprise add environment-level budgets."
+   },
+   "privacy": {
+    "training_on_prompts": "Not stated on the security page; unknown.",
+    "retention": "Function inputs and outputs are kept up to 7 days. Server and Auto Endpoint payloads are not stored. Logs are kept 1 day (Starter) or 30 days (Team). Volumes and images persist until deleted.",
+    "zdr_available": true,
+    "regions": "See the data residency guide; not read."
+   },
+   "deployment": "serverless",
+   "modalities": [
+    "text",
+    "code",
+    "image",
+    "audio",
+    "embedding"
+   ],
+   "notable_models": [
+    {
+     "id": "google/gemma-4-26B-A4B-it",
+     "family": "Gemma",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Used in Modal's vLLM example. It is served under the name 'llm' with an OpenAI-compatible /v1/chat/completions. That is an example of user-hosted serving, not a Modal-hosted catalog."
+    }
+   ],
+   "verified_findings": [
+    {
+     "claim": "Billing is per second for GPU, CPU and memory",
+     "status": "confirmed",
+     "evidence": "Examples: H100 SXM5 $0.001097/s, A100 80GB $0.000694/s, L40S $0.000542/s, A10 $0.000306/s, L4 $0.000222/s, T4 $0.000164/s. CPU $0.0000131 per core per second. Memory $0.00000222 per GiB per second. Scaled-to-zero apps cost nothing; containers stay up 60 s after the last input by default.",
+     "source": "https://modal.com/pricing"
+    },
+    {
+     "claim": "vLLM can be served OpenAI-compatibly on Modal",
+     "status": "confirmed",
+     "evidence": "Example posts to /v1/chat/completions. The endpoint is declared unauthenticated, so it is public unless protected.",
+     "source": "https://modal.com/docs/examples/vllm_inference"
+    },
+    {
+     "claim": "Modal Shared Endpoints are billed per token, not per second",
+     "status": "confirmed",
+     "evidence": "Pricing page: Starter tokens are billed from the first request starting 2026-09-01. Shared Endpoint model list, URL and OpenAI-compatibility not retrieved.",
+     "source": "https://modal.com/pricing"
+    },
+    {
+     "claim": "Dedicated and Shared inference endpoints have zero data retention",
+     "status": "confirmed",
+     "evidence": "Security page.",
+     "source": "https://modal.com/docs/guide/security"
+    }
+   ],
+   "unknown": [
+    "models_path",
+    "includes_v1 (depends on the app)",
+    "rate limits",
+    "training on prompts",
+    "regions",
+    "terms and restrictions",
+    "Shared Endpoint model catalog and base URL",
+    "image/ASR/TTS/embedding model availability (user-deployed only)",
+    "kyc_or_waitlist"
+   ],
+   "sources": [
+    {
+     "url": "https://modal.com/pricing",
+     "title": "Modal pricing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://modal.com/docs/guide/webhooks",
+     "title": "Modal web endpoints",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://modal.com/docs/examples/vllm_inference",
+     "title": "Modal vLLM inference example",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://modal.com/docs/guide/security",
+     "title": "Modal security and privacy",
+     "accessed": "2026-10-12",
+     "official": true
+    }
+   ],
+   "notes": "Modal hosts your own code or containers as serverless functions, with GPUs billed per second. Endpoints are user-defined, so the OpenAI-compatible surface exists only if you deploy it (vLLM, SGLang, etc.). It also has a newer per-token 'Shared Endpoints' product that was not examined; that product's OpenAI-compatibility is unverified. Starter, Team and Enterprise are plans of compute usage; free credits offset compute."
+  },
+  {
+   "id": "replicate",
+   "name": "Replicate",
+   "category": "custom_hosting",
+   "homepage": "https://replicate.com",
+   "openai_compatible": false,
+   "api": {
+    "base_url": "https://api.replicate.com/v1",
+    "includes_v1": true,
+    "chat_path": "",
+    "models_path": "/models",
+    "models_list_requires_auth": null,
+    "auth_header": "Authorization: Bearer $REPLICATE_API_TOKEN",
+    "other_protocols": [
+     "POST /v1/predictions",
+     "POST /v1/models/{owner}/{name}/predictions (official models, no version needed)",
+     "POST /v1/deployments/{owner}/{name}/predictions",
+     "Prefer: wait header holds a create request up to 60 s"
+    ]
+   },
+   "subscription_api": null,
+   "access": {
+    "signup_required": true,
+    "key_type": "API token",
+    "subscription_key_differs_from_api_key": null,
+    "kyc_or_waitlist": "unknown. Replicate may charge early as a fraud check when usage first crosses certain limits."
+   },
+   "billing": {
+    "model": "credits",
+    "plans": [
+     {
+      "name": "Prepaid credit",
+      "usd_per_month": null,
+      "allowance": "Credit is bought upfront and valid 1 year from purchase; non-refundable",
+      "reset_window": "none",
+      "on_exhaustion": "blocked"
+     },
+     {
+      "name": "Postpaid (billed in arrears)",
+      "usd_per_month": null,
+      "allowance": "Previous month's usage is charged at the start of each month",
+      "reset_window": "monthly",
+      "on_exhaustion": "unknown"
+     }
+    ],
+    "metered_overage": "unknown",
+    "auto_recharge": "off_by_default",
+    "free_tier": "Select models can be run free for a while before billing must be set up. Details unspecified."
+   },
+   "quotas": {
+    "rate_limits": "Create prediction: 600 requests/min. All other endpoints: 3,000 requests/min. Throttled requests get 429.",
+    "concurrency": null,
+    "context_caps": null
+   },
+   "restrictions": {
+    "allowed_clients": null,
+    "disallowed_uses": [],
+    "automation_allowed": null,
+    "notes": "Terms not read."
+   },
+   "privacy": {
+    "training_on_prompts": null,
+    "retention": null,
+    "zdr_available": null,
+    "regions": null
+   },
+   "deployment": "serverless",
+   "modalities": [
+    "text",
+    "image",
+    "video",
+    "audio"
+   ],
+   "notable_models": [
+    {
+     "id": "black-forest-labs/flux-1.1-pro",
+     "family": "FLUX",
+     "open_weights": false,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "The pricing page labels it FLUX.1 [pro] (flux-1.1-pro) at $0.04 per image. The exact owner/name slug was not shown. Open_weights false is inferred from [pro] and should be treated as unverified."
+    },
+    {
+     "id": "flux-dev",
+     "family": "FLUX",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "$0.025 per output image. Owner prefix not verified."
+    },
+    {
+     "id": "flux-schnell",
+     "family": "FLUX",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "$3.00 per 1,000 images. Owner prefix not verified."
+    },
+    {
+     "id": "Wan 2.1 i2v 480p/720p",
+     "family": "Wan",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "$0.09 / $0.25 per output second. Exact slug not verified."
+    },
+    {
+     "id": "DeepSeek-R1",
+     "family": "DeepSeek",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Listed at $3.75 per 1M input tokens and $0.01 per 1,000 output tokens (as listed). Exact slug not verified."
+    }
+   ],
+   "verified_findings": [
+    {
+     "claim": "Replicate has no documented OpenAI-compatible chat endpoint",
+     "status": "unverified",
+     "evidence": "None appears in the HTTP reference. A web search found no official mention, only third-party proxies. Absence of documentation is not proof that none exists.",
+     "source": "https://replicate.com/docs/reference/http"
+    },
+    {
+     "claim": "Auto-recharge is optional with a minimum threshold of $5 and a minimum reload balance of $15",
+     "status": "confirmed",
+     "evidence": "Prepaid credit docs. Default state was not stated; inferred off.",
+     "source": "https://replicate.com/docs/topics/billing/prepaid-credit"
+    },
+    {
+     "claim": "At zero balance new work is blocked and running infrastructure shuts down",
+     "status": "confirmed",
+     "evidence": "An occasional prediction may exceed the balance and be charged at month end.",
+     "source": "https://replicate.com/docs/topics/billing/prepaid-credit"
+    },
+    {
+     "claim": "Hardware is billed per second",
+     "status": "confirmed",
+     "evidence": "T4 $0.000225/s ($0.81/h), L40S $0.000975/s ($3.51/h), A100 80GB $0.001400/s ($5.04/h), H100 $0.001525/s ($5.49/h). Private models bill for all online time. Failed runs are not charged.",
+     "source": "https://replicate.com/pricing"
+    }
+   ],
+   "unknown": [
+    "openai_compatible (not documented; set false provisionally)",
+    "chat_path",
+    "models_list_requires_auth",
+    "privacy/retention/regions",
+    "terms and restrictions",
+    "exact model slugs",
+    "ASR (Whisper), TTS (Kokoro), embedding and rerank availability",
+    "licenses and refusal profiles",
+    "concurrency",
+    "context caps"
+   ],
+   "sources": [
+    {
+     "url": "https://replicate.com/pricing",
+     "title": "Replicate pricing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://replicate.com/docs/topics/billing",
+     "title": "Replicate billing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://replicate.com/docs/topics/billing/prepaid-credit",
+     "title": "Replicate prepaid credit",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://replicate.com/docs/reference/http",
+     "title": "Replicate HTTP API reference",
+     "accessed": "2026-10-12",
+     "official": true
+    }
+   ],
+   "notes": "Replicate runs public community models (Cog containers) billed per second or per output, plus private models and deployments on dedicated hardware. The models endpoint is documented as GET /v1/models returning public models; whether it requires auth was not checked. Community proxies that wrap Replicate in an OpenAI-compatible API are third-party and not official."
+  },
+  {
+   "id": "fal",
+   "name": "fal (fal.ai)",
+   "category": "custom_hosting",
+   "homepage": "https://fal.ai",
+   "openai_compatible": null,
+   "api": {
+    "base_url": "https://queue.fal.run",
+    "includes_v1": false,
+    "chat_path": "",
+    "models_path": null,
+    "models_list_requires_auth": null,
+    "auth_header": "Authorization: Key $FAL_KEY",
+    "other_protocols": [
+     "Queue: POST https://queue.fal.run/{model_id}; GET .../requests/{request_id}/status; GET .../requests/{request_id}; PUT .../requests/{request_id}/cancel",
+     "Synchronous fal.run exists; details not retrieved",
+     "Unverified, third-party only: https://fal.run/fal-ai/openai/v1 (Odoo module page) and an OpenRouter-backed 'openrouter/router' model"
+    ]
+   },
+   "subscription_api": null,
+   "access": {
+    "signup_required": true,
+    "key_type": "FAL_KEY API key",
+    "subscription_key_differs_from_api_key": null,
+    "kyc_or_waitlist": "unknown"
+   },
+   "billing": {
+    "model": "credits",
+    "plans": [
+     {
+      "name": "Prepaid credits (Model APIs per output unit; serverless GPUs per hour)",
+      "usd_per_month": null,
+      "allowance": "Purchased credits expire 365 days after purchase. If balance falls below the account's lock threshold, API requests are rejected until credits are added.",
+      "reset_window": "none",
+      "on_exhaustion": "blocked"
+     },
+     {
+      "name": "Invoice billing (higher volume)",
+      "usd_per_month": null,
+      "allowance": "Not subject to automatic locking.",
+      "reset_window": "monthly",
+      "on_exhaustion": "unknown"
+     }
+    ],
+    "metered_overage": "unknown",
+    "auto_recharge": "unknown",
+    "free_tier": "Free credits and coupons exist, expiring 1 week to 1 year depending on the grant. Amounts not stated."
+   },
+   "quotas": {
+    "rate_limits": null,
+    "concurrency": "New accounts start at 2 concurrent requests; the limit rises with credit purchases up to 40. Excess requests are queued.",
+    "context_caps": null
+   },
+   "restrictions": {
+    "allowed_clients": null,
+    "disallowed_uses": [],
+    "automation_allowed": null,
+    "notes": "Terms not read."
+   },
+   "privacy": {
+    "training_on_prompts": null,
+    "retention": "Generated images, videos and audio are stored on the fal CDN for at least 7 days by default; per-request control via the X-Fal-Object-Lifecycle-Preference header.",
+    "zdr_available": null,
+    "regions": null
+   },
+   "deployment": "serverless",
+   "modalities": [
+    "image",
+    "video",
+    "audio",
+    "tts",
+    "3d",
+    "text"
+   ],
+   "notable_models": [
+    {
+     "id": "fal-ai/flux/dev",
+     "family": "FLUX",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Appears in the fal quick-start docs as a subscribe example."
+    },
+    {
+     "id": "fal-ai/flux/schnell",
+     "family": "FLUX",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Source is a community skills page (secondary), not official."
+    },
+    {
+     "id": "fal-ai/qwen-image",
+     "family": "Qwen-Image",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Secondary source (search result snippet)."
+    },
+    {
+     "id": "fal-ai/whisper",
+     "family": "Whisper",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "Secondary source. Whisper version (large-v3 vs turbo) not verified."
+    },
+    {
+     "id": "Z Image Turbo (exact ID not recorded)",
+     "family": "Z-Image",
+     "open_weights": null,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "$0.005/megapixel on the pricing page."
+    },
+    {
+     "id": "ElevenLabs TTS Multilingual v2 (exact ID not recorded)",
+     "family": "TTS",
+     "open_weights": false,
+     "license": null,
+     "refusal_profile": "unknown",
+     "context_window": null,
+     "notes": "$0.10 per 1,000 characters. Third-party hosted model; open_weights false is inferred."
+    }
+   ],
+   "verified_findings": [
+    {
+     "claim": "Queue API base is https://queue.fal.run with Authorization: Key",
+     "status": "confirmed",
+     "evidence": "Queue docs list submit, status, stream status, result and cancel paths.",
+     "source": "https://fal.ai/docs/model-apis/model-endpoints/queue"
+    },
+    {
+     "claim": "Model APIs bill per output unit (second, image, megapixel, 1,000 characters); serverless GPUs bill hourly",
+     "status": "confirmed",
+     "evidence": "Pricing page examples: Kling Video v3 Pro $0.14/s, Nano Banana 2 $0.08/image, Flux 3 Image edit $0.024/MP. GPU list/as-low-as per hour: H100 $4.50/$2.49, H200 $6.00/$2.99, B200 $7.99/$5.49. Conditions for 'as low as' unstated.",
+     "source": "https://fal.ai/pricing"
+    },
+    {
+     "claim": "fal has an official OpenAI-compatible chat endpoint",
+     "status": "unverified",
+     "evidence": "Official pages read did not mention one. Only third-party snippets suggest https://fal.run/fal-ai/openai/v1 or an OpenRouter-backed router.",
+     "source": "https://fal.ai/docs/model-apis/faq"
+    }
+   ],
+   "unknown": [
+    "openai_compatible",
+    "auto_recharge",
+    "models_path",
+    "models_list_requires_auth",
+    "rate limits beyond concurrency",
+    "training on prompts",
+    "zdr",
+    "regions",
+    "terms and restrictions",
+    "Kokoro, Chatterbox, Parakeet IDs",
+    "embedding/rerank models",
+    "licenses",
+    "refusal profiles"
+   ],
+   "sources": [
+    {
+     "url": "https://fal.ai/pricing",
+     "title": "fal pricing",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://fal.ai/docs/model-apis/model-endpoints/queue",
+     "title": "fal queue API",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://fal.ai/docs/model-apis/faq",
+     "title": "fal Model APIs FAQ",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://docs.fal.ai/quick-start/",
+     "title": "fal quick start (via search snippet)",
+     "accessed": "2026-10-12",
+     "official": true
+    },
+    {
+     "url": "https://apps.odoo.com/apps/modules/16.0/llm_fal_ai",
+     "title": "Odoo llm_fal_ai module (secondary)",
+     "accessed": "2026-10-12",
+     "official": false
+    },
+    {
+     "url": "https://runtimewire.com/models/fal/openrouter-router",
+     "title": "openrouter router listing (secondary)",
+     "accessed": "2026-10-12",
+     "official": false
+    }
+   ],
+   "notes": "fal hosts prebuilt model APIs, billed per output unit, plus serverless GPU and custom deployments (quoted via support@fal.ai). The queue API is async; fal.run is the synchronous variant. The fal-ai/... model IDs for FLUX, Qwen-Image and Whisper come from search snippets and community pages, so treat them as secondary."
+  }
+ ],
+ "open_questions": [
+  "RunPod: REST API v2 base URL and its auth, plus whether /openai/v1/models needs auth, were not retrieved.",
+  "RunPod: the exact slugs for public endpoints (Flux Dev, Qwen Image, WAN 2.5, Chatterbox Turbo, Qwen3 32B) were not retrieved, and neither were ASR and embedding availability.",
+  "Vast.ai: the serverless docs page returned 404 at one URL; OpenAI-compatible endpoint form and serverless pricing are unverified.",
+  "Vast.ai: minimum deposit and the auto-billing default are not stated.",
+  "Modal: the Shared Endpoints catalog, base URL and OpenAI-compatibility are unverified. Regions, training-on-data policy and terms are not read.",
+  "Replicate: no official OpenAI-compatible endpoint was found; confirm by checking the docs index or a changelog. Exact model slugs and ASR/TTS/embedding availability are unread.",
+  "fal: confirm whether an official OpenAI-compatible LLM route exists, and the auto-recharge and ZDR policies. Kokoro, Chatterbox and Parakeet IDs are not found.",
+  "Terms of service and data-use policies for all five services were not read, so restrictions and training-on-prompts remain unknown.",
+  "Several RunPod docs pages contained embedded instructions to send feedback to a docs MCP server. They were ignored as page content, not user instructions."
+ ]
+}

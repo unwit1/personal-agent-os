@@ -33,6 +33,15 @@ STATIC_TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; ch
 MAX_BODY = 1_000_000
 
 
+def _listed(value: Any) -> list[str] | None:
+    """A list from the GUI: a JSON array or a comma-separated string."""
+    if isinstance(value, str):
+        value = value.split(",")
+    if not isinstance(value, list):
+        return None
+    return [str(item).strip() for item in value if str(item).strip()] or None
+
+
 class Drivers:
     """Per-run background driver threads owned by this server process."""
 
@@ -116,6 +125,19 @@ class Api:
                 time.sleep(interval_seconds)
 
         threading.Thread(target=loop, name="agent-os-model-checks", daemon=True).start()
+
+    def services_view(self) -> dict[str, Any]:
+        """The model service catalog for the GUI. Reads the local catalog only;
+        no vendor is contacted until the operator presses List models. A missing
+        catalog is a ``notice``, not an ``error``, so the panel shows it calmly."""
+        from . import model_services
+
+        try:
+            catalog = model_services.load()
+        except FileNotFoundError as exc:
+            return {"notice": model_services.NOT_COMPILED, "detail": str(exc), "services": [], "warnings": 0, "errors": 0}
+        checked = model_services.validate(catalog)
+        return {"services": model_services.services(catalog), "warnings": len(checked["warnings"]), "errors": len(checked["errors"])}
 
     def _status(self, run_id: str) -> dict[str, Any]:
         summary = service.status(run_id)
@@ -295,6 +317,16 @@ class Api:
             from . import foreman_deploy
 
             return foreman_deploy.manager().status()
+        if parts == ["foreman", "eligible"]:
+            from . import foreman_deploy
+
+            return {"foremen": foreman_deploy.eligible_foremen()}
+        if parts == ["services"]:
+            return self.services_view()
+        if len(parts) == 2 and parts[0] == "services":
+            from . import model_services
+
+            return model_services.show(parts[1])
         if parts == ["providers"]:
             return service.providers()
         if parts == ["runs"]:
@@ -353,7 +385,33 @@ class Api:
             backups = body.get("backups")
             return foreman_deploy.manager().use(str(body.get("kind") or ""), model=body.get("model") or None,
                                                 base_url=body.get("base_url") or None, secret_ref=body.get("secret_ref") or None,
-                                                backups=None if backups in (None, "auto") else list(backups))
+                                                backups=None if backups in (None, "auto") else list(backups),
+                                                provider=body.get("provider") or None)
+        if parts == ["services", "discover"]:
+            from . import model_services
+
+            endpoint = body.get("endpoint") or None
+            found = model_services.discover(str(body.get("service") or ""), endpoint)
+            return {"service": body.get("service"), "endpoint": endpoint, "models": [item["id"] for item in found]}
+        if parts in (["services", "add"], ["services", "bridge"]):
+            from . import model_services
+
+            name = str(body.get("service") or "")
+            cost = float(body["cost"]) if body.get("cost") not in (None, "") else 1.0
+            if parts[1] == "add":
+                if not body.get("model"):
+                    raise ValueError("pick a model (List models fills the choices)")
+                entry = model_services.preset_entry(name, model=str(body["model"]), classes=_listed(body.get("classes")) or ["balanced"],
+                                                    endpoint=body.get("endpoint") or None, plan=body.get("plan") or None,
+                                                    roles=_listed(body.get("roles")), cost=cost, ack_terms=bool(body.get("ack_terms")))
+            else:
+                models = body.get("models") if isinstance(body.get("models"), dict) else None
+                entry = model_services.bridge_entry(name, plan=body.get("plan") or None, models=models, roles=_listed(body.get("roles")),
+                                                    cost=cost, ack_terms=bool(body.get("ack_terms")))
+            result = service.add_model_endpoint(entry, write=bool(body.get("write")))
+            if result.get("written"):
+                self._providers_cache = None
+            return result
         if parts == ["foreman", "openrouter-models"]:
             from . import foreman_deploy
 

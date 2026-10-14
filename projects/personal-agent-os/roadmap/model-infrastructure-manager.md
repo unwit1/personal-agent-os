@@ -5,6 +5,43 @@ Owner: Orchestrator OS / Personal Agent OS
 Tracked improvement: **IMP-0015**  
 Requested: 2026-09-29
 
+## Model services catalog and presets (2026-10-12)
+
+The implemented integration includes the source-backed service catalog schema,
+loader and validator, OpenAI-compatible provider presets, read-only model discovery with
+a local cache, endpoint path styles, billing/allowance and privacy profiles,
+a Claude Code bridge for eligible coding plans, a Model services GUI panel,
+and a registered-provider session foreman in the GUI and CLI. The
+[setup guide](../../../docs/model-services.md) describes the current commands
+and terms checks. Service facts with catalog `unknown` fields or
+`contradicted` findings remain unverified; recheck their cited sources before
+using them for a price, license or terms decision. The compiled catalog
+(`projects/personal-agent-os/research/model-services/catalog.json`, reviewed
+2026-10-12) holds 28 services: 18 preset_ready, 3 preset_restricted (need
+`--ack-terms`), 1 bridge_claude_code, 3 catalog_only and 3 deferred. It also
+holds 20 model candidates and 9 media records, and `services validate` reports
+0 errors. No live key was used: discovery and presets are verified with mocked
+transports only.
+
+The following remain deferred: paid provisioning from the service catalog,
+auto-recharge, multimedia adapters for image, ASR, TTS, embeddings and rerank
+beyond catalog entries, usage metering against allowances, per-service
+allowance counters, and abliterated-versus-base evaluation runs.
+
+Concrete candidates for the modality gaps, drawn from the media research:
+
+| Gap | Candidate and next check |
+|---|---|
+| Image generation | FLUX.2 [dev] via Together or locally; check its non-commercial license and the actual reference-image API before editing support. |
+| Image editing | Qwen-Image-Edit-2509 (open weights); establish a serving endpoint, input-image contract and price. |
+| Transcription | NVIDIA Parakeet TDT 0.6B v3 via Together or self-hosted; verify language and timestamp requirements. |
+| Diarization | Mistral Voxtral transcription API documents a `diarize` flag; confirm pricing and do not assume its open-weight variant diarizes. |
+| Voice synthesis | Qwen3-TTS CustomVoice via Together or self-hosted; verify the vendor endpoint path and distinguish preset voices from the Base variant's cloning claim. |
+| Embeddings | Qwen3-Embedding-8B via Fireworks or self-hosted; obtain the exact hosted model ID. |
+| Reranking | Qwen3-Reranker-8B via Fireworks or self-hosted; obtain the exact hosted model ID and check `/rerank` limitations. |
+
+The candidates are research records, not working Agent OS multimedia routes.
+
 ## Goal
 
 Build one provider-neutral control plane that lets Orchestrator select, acquire,

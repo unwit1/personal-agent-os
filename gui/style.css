@@ -255,3 +255,9 @@ button.small { padding: 4px 10px; font-size: 12px; }
 .bubble-meta { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
 .chat-compose { display: flex; gap: 8px; margin-top: 8px; }
 .chat-compose input { flex: 1; }
+.services .svc-row { cursor: pointer; }
+.services .svc-row.open td { border-bottom-color: transparent; font-weight: 600; }
+.services .badge.stale { margin-left: 6px; color: var(--warn); }
+.svc-panel { padding: 4px 0 8px; }
+.svc-endpoints { margin: 0 0 8px; padding-left: 18px; font-size: 12px; color: var(--muted); }
+.svc-result { max-height: 30vh; }

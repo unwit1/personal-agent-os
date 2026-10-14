@@ -30,8 +30,10 @@ Sources: the session foreman can instead be one of your subscription models
 (``use("claude")`` -> the registered Claude Code provider, ``use("chatgpt")`` ->
 the registered Codex provider, optionally pinned to one model) or a model you
 already serve locally (``use("local", base_url=...)``, any OpenAI-compatible
-server: Ollama, LM Studio, llama.cpp, vLLM). Those need no GPU rental, so no
-budget, metering or teardown applies; they stay the planner until you stop
+server: Ollama, LM Studio, llama.cpp, vLLM), or any eligible provider already
+in the registry (``use("registered", provider=<id>)``, see ``eligible_foremen``;
+paid ones are gated by the run's allow_paid_spend like any paid provider).
+Those need no GPU rental, so no budget, metering or teardown applies; they stay the planner until you stop
 them or pick another foreman. Picking a new foreman replaces the current one
 (a rented pod is deleted first).
 
@@ -72,7 +74,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ..timestamps import utc_now_iso
-from . import adaptive_concurrency, budget, gpu_keep_busy, prefix_stability, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
+from . import adaptive_concurrency, budget, endpoints, gpu_keep_busy, prefix_stability, vllm_metrics as vllm_metrics_parser, vllm_tuning, weight_cache
 from .store import redact
 
 RUNPOD_REST = "https://rest.runpod.io/v1"
@@ -117,7 +119,9 @@ WRAPPER = (
     'cd /tmp/agent-os && exec python3 -m http.server ' + str(PORT)
 )
 ACTIVE = ("planning", "provisioning", "loading", "ready")
-SOURCES = ("claude", "chatgpt", "openrouter", "local", "huggingface")
+SOURCES = ("claude", "chatgpt", "openrouter", "local", "huggingface", "registered")
+NOT_RENTED = ("claude", "chatgpt", "openrouter", "local", "registered")
+FOREMAN_ADAPTERS = ("openai_api", "anthropic_api", "claude_code", "codex_cli")
 OPENROUTER_BASE = "https://openrouter.ai/api"
 OPENROUTER_SECRET = "secrets://openrouter/default"
 OPENROUTER_PROVIDER = "foreman-openrouter"
@@ -625,6 +629,70 @@ def default_backups(primary_provider: str, registry=None) -> list[dict[str, Any]
             for kind, choice in subscription_choices(registry).items() if choice["provider"] != primary_provider]
 
 
+def _probe_available(entry: dict[str, Any]) -> bool:
+    from .adapters import get_adapter
+
+    try:
+        return bool(get_adapter(entry).probe().available)
+    except Exception:
+        return False
+
+
+def _session_foreman_ids(registry) -> set[str]:
+    """Ids the session foreman registered itself (``session_foreman`` key).
+    The normalized registry drops that key, so read the raw file too."""
+    ids = {str(item["id"]) for item in registry.providers if item.get("session_foreman")}
+    path = getattr(registry, "path", None)
+    if path and path != "<inline>":
+        from ..capabilities import load_providers
+
+        raw = load_providers(Path(path))
+        ids |= {str(item.get("id")) for item in raw["providers"] if isinstance(item, dict) and item.get("session_foreman")}
+    return ids
+
+
+def foreman_problem(entry: dict[str, Any], *, session_ids: set[str] = frozenset(),
+                    probe: Callable[[dict[str, Any]], bool] | None = None) -> str | None:
+    """Why a registered provider cannot be the session foreman; None when it can."""
+    if not entry.get("enabled", True):
+        return f"provider {entry['id']} is disabled"
+    if entry.get("adapter") not in FOREMAN_ADAPTERS:
+        return f"provider {entry['id']} uses adapter {entry.get('adapter')!r}; a foreman needs one of {', '.join(FOREMAN_ADAPTERS)}"
+    roles = entry.get("roles")
+    if roles is not None and "planner" not in roles:
+        return f"provider {entry['id']} is not allowed the planner role (roles: {', '.join(roles) or 'none'})"
+    if entry.get("session_foreman") or entry["id"] in session_ids:
+        return f"provider {entry['id']} is a session-foreman entry itself; pick its source instead"
+    if not (probe or _probe_available)(entry):
+        return f"provider {entry['id']} is not available (probe failed: not installed, signed out or missing its key)"
+    return None
+
+
+def eligible_foremen(registry=None, probe: Callable[[dict[str, Any]], bool] | None = None) -> list[dict[str, Any]]:
+    """Registered providers that can be the session foreman as they are: enabled,
+    an API or coding-CLI adapter, allowed to plan, available, and not a
+    session-foreman entry. ``paid`` follows model_profile.is_paid, so the
+    engine's paid gate (allow_paid_spend) applies to them unchanged."""
+    from .model_profile import allowance_summary, is_paid, normalize_profile
+
+    if registry is None:
+        from .router import ProviderRegistry
+
+        registry = ProviderRegistry()
+    session_ids = _session_foreman_ids(registry)
+    out = []
+    for entry in registry.providers:
+        if foreman_problem(entry, session_ids=session_ids, probe=probe):
+            continue
+        profile = entry.get("profile") or normalize_profile(None, entry.get("adapter"), entry.get("options"))
+        billing = profile.get("billing") if isinstance(profile.get("billing"), dict) else None
+        out.append({"provider": entry["id"], "adapter": entry.get("adapter"), "models": dict(entry.get("models") or {}),
+                    "deployment": profile.get("deployment"), "paid": is_paid(entry),
+                    "billing": allowance_summary(profile) or (billing.get("mode") if billing else None),
+                    "refusal_profile": profile.get("refusal_profile")})
+    return out
+
+
 def openrouter_models(opener=None) -> list[dict[str, Any]]:
     """OpenRouter's public model list with per-token prices (USD per million
     tokens), text models only, cheapest input first. No key needed."""
@@ -694,12 +762,20 @@ def rent_or_api(hourly_usd: float, api_per_plan: float | None, plans_per_hour: f
     return result
 
 
-def local_models(base_url: str, key: str | None = None, opener=None) -> list[str]:
-    """Model ids an OpenAI-compatible server lists at /v1/models."""
-    if not str(base_url or "").startswith(("http://", "https://")):
-        raise ValueError(f"the server URL must start with http:// or https://, got {base_url!r}")
+def _agent_api_root(base_url: str | None) -> str:
+    """API root for the Codex agent entry. The entry can be built before the
+    pod's URL is known, so an unset or placeholder URL keeps the plain /v1 form."""
     try:
-        status, payload = _http(opener, "GET", f"{base_url.rstrip('/')}/v1/models", headers={"authorization": f"Bearer {key}"} if key else None, timeout=10)
+        return endpoints.api_root(str(base_url or ""))
+    except ValueError:
+        return f"{base_url or ''}/v1"
+
+
+def local_models(base_url: str, key: str | None = None, opener=None, path_style: str = "auto") -> list[str]:
+    """Model ids listed by an OpenAI-compatible server."""
+    models_url = endpoints.url(base_url, "models", path_style)
+    try:
+        status, payload = _http(opener, "GET", models_url, headers={"authorization": f"Bearer {key}"} if key else None, timeout=10)
     except OSError as exc:
         raise ValueError(f"nothing answered at {base_url}: start your local server (e.g. Ollama or LM Studio) and load a model first") from exc
     if status != 200 or not isinstance(payload, dict):
@@ -717,10 +793,12 @@ class ForemanManager:
 
     def __init__(self, *, base: Path | None = None, budget_home: Path | None = None, opener=None, resolve=None,
                  store_secret=None, register=None, unregister=None, run_loader=None, clock: Callable[[], float] = time.time,
-                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None, retune=None, backfill_loader=None) -> None:
+                 sleep: Callable[[float], None] = time.sleep, inventory=None, registry=None, retune=None, backfill_loader=None,
+                 probe: Callable[[dict[str, Any]], bool] | None = None) -> None:
         from . import secret_refs
 
         self.registry = registry
+        self.probe = probe
         self.base = base
         self.budget_home = budget_home
         self.opener = opener
@@ -836,12 +914,34 @@ class ForemanManager:
                 for kind in backups if kind in choices and choices[kind]["provider"] != primary_provider]
 
     def use(self, kind: str, *, model: str | None = None, base_url: str | None = None, secret_ref: str | None = None,
-            backups: list[str] | None = None) -> dict[str, Any]:
-        """Make a subscription model (claude / chatgpt) or a locally served model
-        the session foreman. No rental, so it is ready at once."""
-        if kind not in ("claude", "chatgpt", "openrouter", "local"):
-            raise ValueError(f"source must be claude, chatgpt, openrouter or local (huggingface uses deploy), got {kind!r}")
-        if kind == "openrouter":
+            backups: list[str] | None = None, provider: str | None = None) -> dict[str, Any]:
+        """Make a subscription model (claude / chatgpt), a locally served model or
+        any eligible registered provider (``registered``, ``provider=<id>``) the
+        session foreman. No rental, so it is ready at once."""
+        if kind not in NOT_RENTED:
+            raise ValueError(f"source must be claude, chatgpt, openrouter, local or registered (huggingface uses deploy), got {kind!r}")
+        if kind == "registered":
+            if not provider:
+                raise ValueError("pick a registered provider id (see GET foreman/eligible, or the GUI's Registered provider list)")
+            registry = self.registry
+            if registry is None:
+                from .router import ProviderRegistry
+
+                registry = ProviderRegistry()
+            entry = registry.get(provider)
+            if entry is None:
+                raise ValueError(f"provider {provider!r} is not registered (see orchestrate providers)")
+            problem = foreman_problem(entry, session_ids=_session_foreman_ids(registry), probe=self.probe)
+            if problem:
+                raise ValueError(problem)
+            models = entry.get("models") or {}
+            offered = list(dict.fromkeys(str(value) for value in models.values() if value))
+            if model and model not in offered:
+                raise ValueError(f"{provider} offers {', '.join(offered) or 'no models'}; got {model!r}")
+            default = models.get("reasoning") or (offered[0] if offered else provider)
+            fields = {"provider_id": provider, "override_model": model, "registered": False,
+                      "model": {"repo": model or default}, "detail": f"registered provider {provider}; no rental"}
+        elif kind == "openrouter":
             if not self.resolve(OPENROUTER_SECRET):
                 raise ValueError("OpenRouter API key missing: orchestrate secrets setup (openrouter.ai > Keys; set a credit limit on the key)")
             if not model:
@@ -955,7 +1055,7 @@ class ForemanManager:
         if state.get("status") == PENDING:
             self._teardown(state, state.get("pending_status") or "stopped", "pod delete retried by the reaper")
             return {**self.status(), "reaped": True}
-        if state.get("status") not in ACTIVE or not state.get("pod_id") or state.get("kind") in ("claude", "chatgpt", "openrouter", "local"):
+        if state.get("status") not in ACTIVE or not state.get("pod_id") or state.get("kind") in NOT_RENTED:
             return {**self.status(), "reaped": False}
         beat = float(state.get("watchdog_epoch") or state.get("pod_created_epoch") or 0)
         silent = self.clock() - beat
@@ -970,7 +1070,7 @@ class ForemanManager:
         if state.get("status") == PENDING:
             self._teardown(state, state.get("pending_status") or "stopped", "pod delete retried after a restart")
             return self.status()
-        if state.get("status") not in ACTIVE or state.get("kind") in ("claude", "chatgpt", "openrouter", "local"):
+        if state.get("status") not in ACTIVE or state.get("kind") in NOT_RENTED:
             return self.status()  # nothing rented: nothing to meter or enforce
         if not state.get("pod_id"):
             # Interrupted between "create pod" and saving its id: delete any pod with our name.
@@ -1371,7 +1471,7 @@ def agent_entry(state: dict[str, Any]) -> dict[str, Any] | None:
         "options": {
             "use_user_config": False,
             "extra_config": {"model_provider": name, f"model_providers.{name}.name": "Agent OS GPU",
-                             f"model_providers.{name}.base_url": f"{state['base_url']}/v1", f"model_providers.{name}.env_key": GPU_KEY_ENV,
+                             f"model_providers.{name}.base_url": _agent_api_root(state.get("base_url")), f"model_providers.{name}.env_key": GPU_KEY_ENV,
                              f"model_providers.{name}.wire_api": "responses"},
             "secret_env": {GPU_KEY_ENV: ENDPOINT_SECRET},
         },

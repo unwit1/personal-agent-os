@@ -34,6 +34,7 @@ from pathlib import Path
 from typing import Any
 
 from ...timestamps import utc_now_iso
+from .. import endpoints
 from ..retry import RetryableError, RetryPolicy, RETRYABLE_STATUS, parse_retry_after
 from ..usage import unavailable
 from .base import AgentLaunchRequest, AgentProcessStatus, AgentResult, InvocationPlan, ProviderStatus, RunningAgent, extract_structured
@@ -168,7 +169,9 @@ class HttpApiAdapter:
                 result = AgentResult(outcome="completed", summary=text[-600:], structured=extract_structured(text), usage=usage,
                                      duration_ms=int((time.monotonic() - started) * 1000)) if text.strip() else AgentResult(outcome="failed", failure_kind="malformed", detail="empty response")
             except RetryableError as exc:
-                kind = "quota" if exc.status == 429 else "unavailable"
+                # A 429 for model overload is capacity, not the account's quota:
+                # it must not bench the provider until a quota reset.
+                kind = "quota" if exc.status == 429 and "overloaded" not in str(exc).lower() else "unavailable"
                 result = AgentResult(outcome="failed", failure_kind=kind, detail=str(exc)[:400])
             except Exception as exc:
                 text = str(exc)
@@ -253,7 +256,7 @@ class OpenAiCompatibleAdapter(HttpApiAdapter):
             body["reasoning_effort"] = request.provider_effort
         key = self.key()
         headers = {"authorization": f"Bearer {key}"} if key else {}
-        return f"{self.base_url()}/v1/chat/completions", body, headers
+        return endpoints.url(self.base_url(), "chat", self.options.get("path_style", "auto"), self.options.get("paths")), body, headers
 
     def parse(self, payload: dict[str, Any], model: str) -> tuple[str, dict[str, Any]]:
         choices = payload.get("choices") or [{}]
