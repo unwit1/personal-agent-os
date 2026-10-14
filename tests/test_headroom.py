@@ -98,7 +98,7 @@ class SourceAndRefreshTests(unittest.TestCase):
     def test_shared_nanogpt_allowance_is_read_once_and_cached(self) -> None:
         options = {"base_url": "https://n/sub/v1", "secret_ref": "secrets://nanogpt/subscription", "catalog": {"service": "nanogpt", "endpoint": "subscription"}}
         providers = [{"id": "nano-a", "adapter": "openai_api", "options": options}, {"id": "nano-b", "adapter": "openai_api", "options": options},
-                     {"id": "codex", "adapter": "codex_cli"}]
+                     {"id": "codex", "adapter": "codex_cli"}, {"id": "nano-off", "adapter": "openai_api", "options": options, "enabled": False}]
         calls = []
 
         def nano(base_url, secret_ref):
@@ -114,6 +114,7 @@ class SourceAndRefreshTests(unittest.TestCase):
             again = headroom.for_providers(providers, Path(tmp), now=NOW + 10, readers={"nanogpt": nano, "codex": codex})
         self.assertEqual(calls, [("codex",), ("nano", "https://n/sub/v1", "secrets://nanogpt/subscription")])
         self.assertEqual((first["nano-a"]["state"], first["nano-b"]["state"], first["codex"]["state"]), ("exhausted", "exhausted", "ok"))
+        self.assertNotIn("nano-off", first)  # disabled entries do not route, so they are not listed
         self.assertEqual(again, first)
 
     def test_failed_read_keeps_last_snapshot(self) -> None:

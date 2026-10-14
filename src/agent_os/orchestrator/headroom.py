@@ -324,7 +324,7 @@ def for_providers(providers: list[dict[str, Any]], home: Path, *, now: float | N
     out: dict[str, dict[str, Any]] = {}
     for provider in providers:
         key = source_key(provider)
-        if key is None:
+        if key is None or provider.get("enabled", True) is False:
             continue
         snapshot = (entries.get(key) or {}).get("snapshot")
         out[provider["id"]] = {**assess(snapshot, now), "source": key.split("|", 1)[0], "windows": (snapshot or {}).get("windows", []),
