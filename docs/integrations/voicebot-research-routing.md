@@ -30,3 +30,9 @@ The [Model Infrastructure Manager](../../projects/personal-agent-os/roadmap/mode
 
 ## Continuous research/watch candidate
 WatchBot can periodically track upstream changes for frontier model families, independent human evaluation, voice-score meta-evals, Runpod costs, security and restrictive licenses. New versions become benchmark *candidates*, not automatic replacement of stable routes. Do not create a subscription task until operator requests it.
+
+## October 14, 2026 — open-source trainer acquisition and Orchestrator jobs
+
+New [Voicebot 39-tool training survey](https://github.com/unwit1/voicebot/blob/main/research/OPEN_SOURCE_VOICE_TRAINING_ECOSYSTEM_2026-10-14.md), [machine-readable source catalog](https://github.com/unwit1/voicebot/blob/main/research/OPEN_SOURCE_TRAINING_COMPONENTS_2026-10-14.json) and [trainer science / experiment handoff](https://github.com/unwit1/voicebot/blob/main/research/VOICE_TRAINING_ENGINEERING_ABLATIONS_AND_ORCHESTRATOR_HANDOFF.md). The [Voicebot Orchestrator workplan](https://github.com/unwit1/voicebot/blob/main/plans/ORCHESTRATOR_RESEARCH_WORKPLAN_2026-10-14.json) now has **18 not_run jobs**, including canonical training dataset, VoxCPM2/Qwen3 trainer adapters, RVC/Applio conversion, checkpoint ablations and preference optimization. This is **research, not deployed code**.
+
+The Agent OS Model Infrastructure Manager stays owner of Runpod/cloud account, model/GPU budgets and worker spawning. Voicebot owns audio preparation, training recipes, acoustic scoring, model-specific adapters and reproduction. Avoid copying the 39-model catalog into Agent OS; link/retrieve relevant source rows only. The user's academic code reuse grant still requires tracking upstream revisions/weights/third-party library conditions; never move personal recordings to another provider without explicit approved scope and spend policy.
