@@ -1,0 +1,1657 @@
+{
+ "schema": "nanogpt-fit/1",
+ "generated_at": "2026-10-14T14:54:23+00:00",
+ "catalog": {
+  "models": 315,
+  "open_weights": 291,
+  "categories": {
+   "More": 170,
+   "Roleplay/storytelling models": 97,
+   "Uncensored": 21,
+   "(none)": 18,
+   "Coding": 9
+  },
+  "uncensored_or_abliterated": [
+   "z-ai/glm-5.3-flash-apex-abliterated",
+   "z-ai/glm-5.3-flash-uncensored",
+   "qwen/qwen3.8-27b-obliterated",
+   "qwen/qwen3.8-27b-obliterated:thinking",
+   "gemma-4-26b-a4b-it-chimeraxheretic",
+   "huihui-ai/Llama-3.3-70B-Instruct-abliterated",
+   "mlabonne/NeuralDaredevil-8B-abliterated",
+   "failspy/Meta-Llama-3-70B-Instruct-abliterated-v3.5",
+   "huihui-ai/DeepSeek-R1-Distill-Qwen-32B-abliterated",
+   "huihui-ai/DeepSeek-R1-Distill-Llama-70B-abliterated",
+   "huihui-ai/Qwen2.5-32B-Instruct-abliterated",
+   "Qwen3.5-27B-Blossom-V6.4-Derestricted",
+   "Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted",
+   "Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted-Lite",
+   "Gemma-4-31B-Gembrain-uncensored-heretic",
+   "Gemma-4-31B-SDFT-Heretic-RP",
+   "Qwen3.5-27B-BlueStar-v3-Derestricted",
+   "Qwen3.5-27B-Queen-Derestricted",
+   "Gemma-4-31B-Cognitive-Unshackled",
+   "GLM-4.6-Derestricted-v5",
+   "venice-uncensored"
+  ]
+ },
+ "allowance": {
+  "weekly_input_units": 60000000,
+  "used": 168281,
+  "remaining": 59831719,
+  "resets_at": "2026-10-19T00:00:00+00:00",
+  "daily_input_units": null,
+  "daily_images": 100,
+  "overage_enabled": false,
+  "period_end": "2026-11-14T13:57:59.000Z"
+ },
+ "families": {
+  "planning": {
+   "description": "foreman / planner: decomposes a goal into a JSON task plan",
+   "eligible": 77,
+   "ranked": [
+    {
+     "id": "deepseek/deepseek-v4-flash",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-04-24",
+     "measured": {
+      "planning": {
+       "cases": 37,
+       "judgement_accuracy": 0.73,
+       "guarded_accuracy": 0.865,
+       "valid_plans": 0.946,
+       "wilson_low": 0.72,
+       "wilson_high": 0.941
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 37,
+        "pass_rate": 0.865,
+        "wilson95": [
+         0.72,
+         0.941
+        ]
+       }
+      ]
+     },
+     "prior": {}
+    },
+    {
+     "id": "z-ai/glm-5.3-flash",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-26",
+     "measured": {
+      "planning": {
+       "cases": 7,
+       "judgement_accuracy": 0.286,
+       "guarded_accuracy": 1.0,
+       "valid_plans": 1.0,
+       "wilson_low": 0.646,
+       "wilson_high": 1.0
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 1.0,
+        "wilson95": [
+         0.646,
+         1.0
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 42,
+      "aa_version": "v4.3",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "z-ai/glm-5.3",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-08-14",
+     "measured": {
+      "planning": {
+       "cases": 7,
+       "judgement_accuracy": 0.286,
+       "guarded_accuracy": 1.0,
+       "valid_plans": 1.0,
+       "wilson_low": 0.646,
+       "wilson_high": 1.0
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 1.0,
+        "wilson95": [
+         0.646,
+         1.0
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": null,
+      "notes": "AA v4.3 names GLM-5.3 a leading open-weights model.",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "xiaomi/mimo-v2.6-pro",
+     "context": 1048576,
+     "capabilities": [
+      "audio_input",
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-21",
+     "measured": {
+      "planning": {
+       "cases": 7,
+       "judgement_accuracy": 0.143,
+       "guarded_accuracy": 0.857,
+       "valid_plans": 0.857,
+       "wilson_low": 0.487,
+       "wilson_high": 0.974
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 46.3,
+      "aa_note": "secondary, unverified",
+      "sources": [
+       "morph"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-pro-0813",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-08-12",
+     "measured": {
+      "planning": {
+       "cases": 7,
+       "judgement_accuracy": 0.429,
+       "guarded_accuracy": 0.857,
+       "valid_plans": 1.0,
+       "wilson_low": 0.487,
+       "wilson_high": 0.974
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 36,
+      "aa_version": "v4.3",
+      "swe_bench_verified": 80.6,
+      "sources": [
+       "aa-v4.3",
+       "vellum"
+      ]
+     }
+    },
+    {
+     "id": "z-ai/glm-5.3-flash-uncensored",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-07-29",
+     "measured": {
+      "planning": {
+       "cases": 7,
+       "judgement_accuracy": 0.286,
+       "guarded_accuracy": 0.857,
+       "valid_plans": 0.857,
+       "wilson_low": 0.487,
+       "wilson_high": 0.974
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "notes": "Uncensored fine-tune, not a documented refusal-direction removal.",
+      "sources": []
+     }
+    },
+    {
+     "id": "openai/gpt-oss-120b",
+     "context": 128000,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-02-03",
+     "measured": {
+      "planning": {
+       "cases": 13,
+       "judgement_accuracy": 0.462,
+       "guarded_accuracy": 0.538,
+       "valid_plans": 0.846,
+       "wilson_low": 0.291,
+       "wilson_high": 0.768
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 13,
+        "pass_rate": 0.538,
+        "wilson95": [
+         0.291,
+         0.768
+        ]
+       }
+      ]
+     },
+     "prior": {}
+    },
+    {
+     "id": "deepseek/deepseek-v4.1-flash",
+     "context": 1000000,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-08",
+     "measured": {
+      "planning": {
+       "cases": 7,
+       "judgement_accuracy": 0.0,
+       "guarded_accuracy": 0.571,
+       "valid_plans": 1.0,
+       "wilson_low": 0.25,
+       "wilson_high": 0.842
+      },
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.571,
+        "wilson95": [
+         0.25,
+         0.842
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 39.5,
+      "aa_note": "secondary, unverified",
+      "livebench_agentic_coding": 77.27,
+      "sources": [
+       "pinggy"
+      ]
+     }
+    }
+   ]
+  },
+  "coding_agent": {
+   "description": "multi-step coding with tools (needs a coding CLI bridge to edit files)",
+   "eligible": 105,
+   "ranked": [
+    {
+     "id": "xiaomi/mimo-v2.6-pro",
+     "context": 1048576,
+     "capabilities": [
+      "audio_input",
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-21",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 46.3,
+      "aa_note": "secondary, unverified",
+      "sources": [
+       "morph"
+      ]
+     }
+    },
+    {
+     "id": "z-ai/glm-5.3-flash",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-26",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 1.0,
+        "wilson95": [
+         0.646,
+         1.0
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 42,
+      "aa_version": "v4.3",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "qwen/qwen3.8-27b",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-16",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.429,
+        "wilson95": [
+         0.158,
+         0.75
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 40,
+      "aa_version": "v4.3",
+      "notes": "AA figure is for Qwen3.8 (family); the 27B size is not separately reported.",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4.1-flash",
+     "context": 1000000,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-08",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.571,
+        "wilson95": [
+         0.25,
+         0.842
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 39.5,
+      "aa_note": "secondary, unverified",
+      "livebench_agentic_coding": 77.27,
+      "sources": [
+       "pinggy"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-pro-0813",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-08-12",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 36,
+      "aa_version": "v4.3",
+      "swe_bench_verified": 80.6,
+      "sources": [
+       "aa-v4.3",
+       "vellum"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-vision-exp-cybersecurity",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-10-13",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-0423",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-10-07",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-0423:thinking",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-10-07",
+     "measured": {},
+     "prior": {}
+    }
+   ]
+  },
+  "long_context": {
+   "description": "reading large inputs: repositories, document sets, transcripts",
+   "eligible": 55,
+   "ranked": [
+    {
+     "id": "xiaomi/mimo-v2.6-pro",
+     "context": 1048576,
+     "capabilities": [
+      "audio_input",
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-21",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 46.3,
+      "aa_note": "secondary, unverified",
+      "sources": [
+       "morph"
+      ]
+     }
+    },
+    {
+     "id": "z-ai/glm-5.3-flash",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-26",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 1.0,
+        "wilson95": [
+         0.646,
+         1.0
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 42,
+      "aa_version": "v4.3",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4.1-flash",
+     "context": 1000000,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-08",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.571,
+        "wilson95": [
+         0.25,
+         0.842
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 39.5,
+      "aa_note": "secondary, unverified",
+      "livebench_agentic_coding": 77.27,
+      "sources": [
+       "pinggy"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-pro-0813",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-08-12",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 36,
+      "aa_version": "v4.3",
+      "swe_bench_verified": 80.6,
+      "sources": [
+       "aa-v4.3",
+       "vellum"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-vision-exp-cybersecurity",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-10-13",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-0423",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-10-07",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-0423:thinking",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-10-07",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "z-ai/glm-5.3-flash-apex",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-10-05",
+     "measured": {},
+     "prior": {}
+    }
+   ]
+  },
+  "extraction": {
+   "description": "schema-bound extraction and structured output",
+   "eligible": 101,
+   "ranked": [
+    {
+     "id": "xiaomi/mimo-v2.6-pro",
+     "context": 1048576,
+     "capabilities": [
+      "audio_input",
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-21",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 46.3,
+      "aa_note": "secondary, unverified",
+      "sources": [
+       "morph"
+      ]
+     }
+    },
+    {
+     "id": "minimax/minimax-m3",
+     "context": 512000,
+     "capabilities": [
+      "batch_api",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-06-01",
+     "measured": {},
+     "prior": {
+      "aa_index": 44,
+      "aa_version": "v4.1",
+      "swe_bench_verified": 80.5,
+      "sources": [
+       "aa-glm52",
+       "vellum"
+      ]
+     }
+    },
+    {
+     "id": "z-ai/glm-5.3-flash",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-26",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 1.0,
+        "wilson95": [
+         0.646,
+         1.0
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 42,
+      "aa_version": "v4.3",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "qwen/qwen3.8-27b",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-16",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.429,
+        "wilson95": [
+         0.158,
+         0.75
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 40,
+      "aa_version": "v4.3",
+      "notes": "AA figure is for Qwen3.8 (family); the 27B size is not separately reported.",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4.1-flash",
+     "context": 1000000,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-08",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.571,
+        "wilson95": [
+         0.25,
+         0.842
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 39.5,
+      "aa_note": "secondary, unverified",
+      "livebench_agentic_coding": 77.27,
+      "sources": [
+       "pinggy"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-pro-0813",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-08-12",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 36,
+      "aa_version": "v4.3",
+      "swe_bench_verified": 80.6,
+      "sources": [
+       "aa-v4.3",
+       "vellum"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-0423",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-10-07",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-0423:thinking",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": true,
+     "released": "2026-10-07",
+     "measured": {},
+     "prior": {}
+    }
+   ]
+  },
+  "triage": {
+   "description": "fast, cheap classification, routing and short summaries",
+   "eligible": 78,
+   "ranked": [
+    {
+     "id": "z-ai/glm-5.3-flash",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-26",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 1.0,
+        "wilson95": [
+         0.646,
+         1.0
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 42,
+      "aa_version": "v4.3",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "qwen/qwen3.8-27b",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-16",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.429,
+        "wilson95": [
+         0.158,
+         0.75
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 40,
+      "aa_version": "v4.3",
+      "notes": "AA figure is for Qwen3.8 (family); the 27B size is not separately reported.",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4.1-flash",
+     "context": 1000000,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-08",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.571,
+        "wilson95": [
+         0.25,
+         0.842
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 39.5,
+      "aa_note": "secondary, unverified",
+      "livebench_agentic_coding": 77.27,
+      "sources": [
+       "pinggy"
+      ]
+     }
+    },
+    {
+     "id": "Meta-Llama-3-1-8B-Instruct-FP8",
+     "context": 128000,
+     "capabilities": [
+      "batch_api"
+     ],
+     "open_weights": true,
+     "released": "2024-01-01",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "nex-agi/nex-n2.5-mini",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-22",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "meta-llama/llama-3.2-3b-instruct",
+     "context": 131072,
+     "capabilities": [
+      "batch_api",
+      "pdf_upload"
+     ],
+     "open_weights": true,
+     "released": "2024-01-01",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "inception/mercury-2.5-preview",
+     "context": 260000,
+     "capabilities": [
+      "parallel_tool_calls",
+      "reasoning",
+      "structured_output",
+      "tool_calling"
+     ],
+     "open_weights": false,
+     "released": "2026-09-01",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "google/diffusiongemma",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning"
+     ],
+     "open_weights": true,
+     "released": "2026-09-19",
+     "measured": {},
+     "prior": {}
+    }
+   ]
+  },
+  "vision": {
+   "description": "image understanding",
+   "eligible": 76,
+   "ranked": [
+    {
+     "id": "xiaomi/mimo-v2.6-pro",
+     "context": 1048576,
+     "capabilities": [
+      "audio_input",
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-21",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 46.3,
+      "aa_note": "secondary, unverified",
+      "sources": [
+       "morph"
+      ]
+     }
+    },
+    {
+     "id": "minimax/minimax-m3",
+     "context": 512000,
+     "capabilities": [
+      "batch_api",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-06-01",
+     "measured": {},
+     "prior": {
+      "aa_index": 44,
+      "aa_version": "v4.1",
+      "swe_bench_verified": 80.5,
+      "sources": [
+       "aa-glm52",
+       "vellum"
+      ]
+     }
+    },
+    {
+     "id": "moonshotai/kimi-k2.6",
+     "context": 256000,
+     "capabilities": [
+      "batch_api",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-04-16",
+     "measured": {},
+     "prior": {
+      "aa_index": 43,
+      "aa_version": "v4.1",
+      "swe_bench_verified": 80.2,
+      "sources": [
+       "aa-glm52",
+       "vellum"
+      ]
+     }
+    },
+    {
+     "id": "z-ai/glm-5.3-flash",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-26",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 1.0,
+        "wilson95": [
+         0.646,
+         1.0
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 42,
+      "aa_version": "v4.3",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "qwen/qwen3.8-27b",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "video_input",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-08-16",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.429,
+        "wilson95": [
+         0.158,
+         0.75
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 40,
+      "aa_version": "v4.3",
+      "notes": "AA figure is for Qwen3.8 (family); the 27B size is not separately reported.",
+      "sources": [
+       "aa-v4.3"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4.1-flash",
+     "context": 1000000,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-09-08",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.571,
+        "wilson95": [
+         0.25,
+         0.842
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "aa_index": 39.5,
+      "aa_note": "secondary, unverified",
+      "livebench_agentic_coding": 77.27,
+      "sources": [
+       "pinggy"
+      ]
+     }
+    },
+    {
+     "id": "deepseek/deepseek-v4-flash-vision-exp-cybersecurity",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-10-13",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "z-ai/glm-5.3-flash-apex",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-10-05",
+     "measured": {},
+     "prior": {}
+    }
+   ]
+  },
+  "uncensored_writing": {
+   "description": "content a standard model refuses; personal, non-sensitive use",
+   "eligible": 23,
+   "ranked": [
+    {
+     "id": "gemma-4-26b-a4b-it-chimeraxheretic",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-10-08",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "z-ai/glm-5.3-flash-apex-abliterated",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-10-05",
+     "measured": {},
+     "prior": {
+      "notes": "No published evaluation found. Reports structured_output false.",
+      "sources": []
+     }
+    },
+    {
+     "id": "z-ai/glm-5.3-flash-uncensored",
+     "context": 1048576,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-07-29",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.857,
+        "wilson95": [
+         0.487,
+         0.974
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "notes": "Uncensored fine-tune, not a documented refusal-direction removal.",
+      "sources": []
+     }
+    },
+    {
+     "id": "qwen/qwen3.8-27b-obliterated",
+     "context": 524288,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-07-29",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.286,
+        "wilson95": [
+         0.082,
+         0.641
+        ]
+       }
+      ]
+     },
+     "prior": {
+      "notes": "Base-model prior only. A different Qwen3.8-27B abliteration reports roughly flat MMLU-style proxy scores with refusals 98 -> 39 of 100 (self-reported).",
+      "sources": [
+       "qwen38-abliterated-card",
+       "abliteration-comparison"
+      ]
+     }
+    },
+    {
+     "id": "qwen/qwen3.8-27b-obliterated:thinking",
+     "context": 524288,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "structured_output",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-07-29",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.429,
+        "wilson95": [
+         0.158,
+         0.75
+        ]
+       }
+      ]
+     },
+     "prior": {}
+    },
+    {
+     "id": "Qwen3.5-27B-Blossom-V6.4-Derestricted",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-05-15",
+     "measured": {},
+     "prior": {}
+    },
+    {
+     "id": "Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-05-15",
+     "measured": {
+      "capability": [
+       {
+        "task_family": "foreman_planning",
+        "n": 7,
+        "pass_rate": 0.714,
+        "wilson95": [
+         0.359,
+         0.918
+        ]
+       }
+      ]
+     },
+     "prior": {}
+    },
+    {
+     "id": "Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted-Lite",
+     "context": 262144,
+     "capabilities": [
+      "batch_api",
+      "reasoning",
+      "tool_calling",
+      "vision"
+     ],
+     "open_weights": true,
+     "released": "2026-05-15",
+     "measured": {},
+     "prior": {}
+    }
+   ]
+  }
+ },
+ "evidence_order": [
+  "measured (foreman eval, capability observations)",
+  "cited priors (nanogpt-priors.json)",
+  "declared capabilities and recency"
+ ],
+ "sources": {
+  "aa-v4.3": {
+   "url": "https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v4-3",
+   "title": "Artificial Analysis Intelligence Index v4.3",
+   "official": true
+  },
+  "aa-glm52": {
+   "url": "https://artificialanalysis.ai/articles/glm-5-2-is-the-new-leading-open-weights-model-on-the-artificial-analysis-intelligence-index",
+   "title": "GLM-5.2 leads open weights (index v4.1)",
+   "official": true
+  },
+  "vellum": {
+   "url": "https://www.vellum.ai/open-llm-leaderboard",
+   "title": "Vellum open LLM leaderboard",
+   "official": false
+  },
+  "pinggy": {
+   "url": "https://pinggy.io/blog/best_open_source_self_hosted_llms_for_coding/",
+   "title": "Best open source LLMs for coding (LiveBench-based)",
+   "official": false
+  },
+  "morph": {
+   "url": "https://www.morphllm.com/best-open-source-llm",
+   "title": "Best open source LLMs 2026",
+   "official": false
+  },
+  "abliteration-comparison": {
+   "url": "https://arxiv.org/abs/2512.13655",
+   "title": "Comparative Analysis of LLM Abliteration Methods",
+   "official": true
+  },
+  "qwen38-abliterated-card": {
+   "url": "https://huggingface.co/hotdogs/Qwen3.8-27B-abliterated",
+   "title": "Qwen3.8-27B-abliterated model card (self-reported proxy)",
+   "official": false
+  }
+ },
+ "multipliers": [
+  {
+   "model": "Gemma-4-31B-Cognitive-Unshackled",
+   "prompt_tokens": 233,
+   "allowance_delta": 233,
+   "ratio": 1.0,
+   "multiplier": 1,
+   "noisy": false,
+   "measured_at": "2026-10-14T14:55:15+00:00"
+  },
+  {
+   "model": "z-ai/glm-5.3",
+   "prompt_tokens": 233,
+   "allowance_delta": 233,
+   "ratio": 1.0,
+   "multiplier": 1,
+   "noisy": false,
+   "measured_at": "2026-10-14T14:55:23+00:00"
+  },
+  {
+   "model": "qwen/qwen3.8-27b-obliterated:thinking",
+   "prompt_tokens": 232,
+   "allowance_delta": 232,
+   "ratio": 1.0,
+   "multiplier": 1,
+   "noisy": false,
+   "measured_at": "2026-10-14T14:55:29+00:00"
+  }
+ ]
+}

@@ -1,0 +1,267 @@
+{
+ "batch": "G",
+ "records": [
+  {
+   "id": "flux2-dev",
+   "name": "FLUX.2 [dev]",
+   "task": "image_generation",
+   "hf_repo": "black-forest-labs/FLUX.2-dev",
+   "open_weights": true,
+   "license": "FLUX Non-Commercial License (the model card says outputs may be used for personal, scientific and commercial purposes as described in that license; read the license text for exact terms). Gated: you must accept the license and acceptable use policy.",
+   "served_by": [
+    {
+     "service": "Together",
+     "model_id": "black-forest-labs/FLUX.2-dev",
+     "endpoint": "POST https://api.together.ai/v1/images/generations",
+     "pricing": "$0.0154+ per image",
+     "source": "https://docs.together.ai/docs/serverless-models"
+    }
+   ],
+   "local_feasible": "The model card gives a 4-bit quantized example that runs on an RTX 4090 with a remote text encoder. The full model is 32B parameters in BF16, and the card gives no VRAM figure.",
+   "notes": "The card lists single-reference and multi-reference editing, so this model also covers image editing. Together also serves FLUX.2 [pro], [flex] and [max] (closed). Open weights but non-commercial license: check the license before commercial use. Not tested whether the Together endpoint accepts reference images.",
+   "unknown": [
+    "exact VRAM for full model",
+    "whether Together's images endpoint takes reference images for editing"
+   ],
+   "sources": [
+    "https://huggingface.co/black-forest-labs/FLUX.2-dev (accessed 2026-10-12)",
+    "https://docs.together.ai/docs/serverless-models (accessed 2026-10-12)",
+    "https://docs.together.ai/docs/openai-api-compatibility (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "qwen-image",
+   "name": "Qwen-Image / Qwen-Image 2.0 family",
+   "task": "image_generation",
+   "hf_repo": "Qwen/Qwen-Image",
+   "open_weights": true,
+   "license": "Apache-2.0 per the Qwen-Image-Edit-2509 model card, which says Qwen-Image is Apache 2.0. I did not open the Qwen/Qwen-Image repo itself.",
+   "served_by": [
+    {
+     "service": "Together",
+     "model_id": "Qwen/Qwen-Image",
+     "endpoint": "POST https://api.together.ai/v1/images/generations",
+     "pricing": "$0.0058+ per image",
+     "source": "https://docs.together.ai/docs/serverless-models"
+    },
+    {
+     "service": "Together",
+     "model_id": "Qwen/Qwen-Image-2.0 and Qwen/Qwen-Image-2.0-Pro",
+     "endpoint": "POST https://api.together.ai/v1/images/generations",
+     "pricing": "$0.035+ and $0.075+ per image",
+     "source": "https://docs.together.ai/docs/serverless-models"
+    }
+   ],
+   "local_feasible": null,
+   "notes": "Qwen-Image is 20B parameters. I did not verify whether Qwen-Image 2.0 and 2.0 Pro have open weights, and they may be closed. Together also lists other image models at these prices: Seedream 3.0/4.0/5.0-lite, Ideogram 3.0/4.0, GPT Image 1.5/2, Nano Banana variants (google/flash-image-2.5, google/gemini-3-pro-image, google/flash-image-3.1) and Wan2.6-image. Treat all of these as closed APIs unless verified otherwise. I did not check Fireworks, DeepInfra, Novita, fal or Replicate for images.",
+   "unknown": [
+    "open-weight status of Qwen-Image 2.0 / 2.0 Pro",
+    "local VRAM",
+    "other providers' image pricing"
+   ],
+   "sources": [
+    "https://docs.together.ai/docs/serverless-models (accessed 2026-10-12)",
+    "https://huggingface.co/Qwen/Qwen-Image-Edit-2509 (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "qwen-image-edit-2509",
+   "name": "Qwen-Image-Edit-2509",
+   "task": "image_editing",
+   "hf_repo": "Qwen/Qwen-Image-Edit-2509",
+   "open_weights": true,
+   "license": "Apache-2.0",
+   "served_by": [],
+   "local_feasible": null,
+   "notes": "20B parameters in BF16. It does multi-image editing (best with 1 to 3 inputs), keeps identity and text styling consistent, and supports ControlNet-style conditions. The card says it is a monthly iteration. It also hints at a later 2511 version, which I did not confirm. I did not find which services host it, so served_by is empty.",
+   "unknown": [
+    "serving providers and their endpoints",
+    "pricing",
+    "local VRAM",
+    "existence of an official 2511 release"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen-Image-Edit-2509 (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "flux-kontext",
+   "name": "FLUX.1 Kontext [pro]/[max] (closed editing API)",
+   "task": "image_editing",
+   "hf_repo": null,
+   "open_weights": false,
+   "license": "Closed API (not verified from the license page)",
+   "served_by": [
+    {
+     "service": "Together",
+     "model_id": "black-forest-labs/FLUX.1-kontext-pro; black-forest-labs/FLUX.1-kontext-max",
+     "endpoint": "POST https://api.together.ai/v1/images/generations",
+     "pricing": "$0.04 per MP (pro); $0.08 per MP (max)",
+     "source": "https://docs.together.ai/docs/serverless-models"
+    }
+   ],
+   "local_feasible": false,
+   "notes": "The Together catalog lists these. I did not verify how the reference image is passed.",
+   "unknown": [
+    "how the input image is passed on Together"
+   ],
+   "sources": [
+    "https://docs.together.ai/docs/serverless-models (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "parakeet-tdt-0.6b-v3",
+   "name": "NVIDIA Parakeet TDT 0.6B v3",
+   "task": "asr",
+   "hf_repo": "nvidia/parakeet-tdt-0.6b-v3",
+   "open_weights": true,
+   "license": "CC BY 4.0 (commercial use allowed)",
+   "served_by": [
+    {
+     "service": "Together",
+     "model_id": "nvidia/parakeet-tdt-0.6b-v3",
+     "endpoint": "POST https://api.together.ai/v1/audio/transcriptions",
+     "pricing": "$0.0015 per audio minute",
+     "source": "https://docs.together.ai/docs/serverless-models"
+    }
+   ],
+   "local_feasible": "Yes. The card says at least 2 GB of RAM to load. It handles up to 24 minutes of audio with full attention on an A100 80GB, or up to 3 hours with local attention.",
+   "notes": "It covers 25 European languages with automatic language detection and gives word-level and segment-level timestamps. The card does not say it supports diarization, so treat diarization as unsupported by this model. Together also lists nvidia/nemotron-3-asr-streaming-0.6b and nvidia/nemotron-3.5-asr-streaming-0.6b at $0.0015 per minute, and openai/whisper-large-v3 at $0.0015 per minute. I did not verify licenses for the Nemotron or Whisper models.",
+   "unknown": [
+    "diarization support",
+    "Nemotron ASR licenses"
+   ],
+   "sources": [
+    "https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3 (accessed 2026-10-12)",
+    "https://docs.together.ai/docs/serverless-models (accessed 2026-10-12)",
+    "https://docs.together.ai/docs/openai-api-compatibility (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "voxtral",
+   "name": "Mistral Voxtral (Mini Transcribe V2 / Realtime / Mini 3B 2507)",
+   "task": "diarization",
+   "hf_repo": "mistralai/Voxtral-Mini-3B-2507",
+   "open_weights": true,
+   "license": "Apache-2.0 for Voxtral-Mini-3B-2507. Voxtral Realtime open weights are also Apache 2.0 per the Mistral docs. Voxtral Mini Transcribe V2 is served as an API, and I did not verify that its weights are open.",
+   "served_by": [
+    {
+     "service": "Mistral",
+     "model_id": "voxtral-mini-latest (the docs also show voxtral-mini-2507 in a sample response)",
+     "endpoint": "POST https://api.mistral.ai/v1/audio/transcriptions (Bearer auth; request body has a boolean `diarize`, default false; also a `stream` boolean)",
+     "pricing": "not found on the pages I opened",
+     "source": "https://docs.mistral.ai/api/endpoint/audio/transcriptions"
+    }
+   ],
+   "local_feasible": "Voxtral-Mini-3B-2507 is 5B parameters per the card and needs about 9.5 GB of GPU RAM in bf16 or fp16.",
+   "notes": "The API request has a `diarize` flag, and the Mistral docs say Voxtral Mini Transcribe V2 supports speaker diarization. The Voxtral-Mini-3B-2507 model card does not mention diarization, so do not assume the open weights diarize. The docs say nothing on whether Voxtral Realtime diarizes. One docs example uses a placeholder-looking model name, 'Camry'. Ignore it.",
+   "unknown": [
+    "pricing",
+    "whether open weights diarize",
+    "whether the Transcribe V2 weights are open",
+    "data retention"
+   ],
+   "sources": [
+    "https://docs.mistral.ai/capabilities/audio_transcription (accessed 2026-10-12)",
+    "https://docs.mistral.ai/api/endpoint/audio/transcriptions (accessed 2026-10-12)",
+    "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507 (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "qwen3-tts",
+   "name": "Qwen3-TTS 12Hz 1.7B (CustomVoice / Base / VoiceDesign)",
+   "task": "tts",
+   "hf_repo": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+   "open_weights": true,
+   "license": "Apache-2.0",
+   "served_by": [
+    {
+     "service": "Together",
+     "model_id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+     "endpoint": "vendor-specific; I did not open the Together TTS API page, so I cannot give the exact path",
+     "pricing": "$4.00 per 1M characters",
+     "source": "https://docs.together.ai/docs/serverless-models"
+    }
+   ],
+   "local_feasible": null,
+   "notes": "CustomVoice has 9 preset voices with style control and does not clone. The Base siblings (1.7B and 0.6B) are described as doing 3-second voice cloning, and VoiceDesign creates voices from text descriptions. Languages: Chinese, English, Japanese, Korean, German, French, Russian, Portuguese, Spanish and Italian. I did not verify that any provider serves the Base (cloning) model. Together also lists hexgrad/Kokoro-82M at $4.00 per 1M chars, canopylabs/orpheus-3b-0.1-ft at $15.00 per 1M chars, and closed Cartesia Sonic / Sonic 2 / Sonic 3 at $65.00 per 1M chars.",
+   "unknown": [
+    "the Together TTS endpoint path",
+    "which provider serves the cloning Base model",
+    "local VRAM"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice (accessed 2026-10-12)",
+    "https://docs.together.ai/docs/serverless-models (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "qwen3-embedding-8b",
+   "name": "Qwen3-Embedding-8B",
+   "task": "embedding",
+   "hf_repo": "Qwen/Qwen3-Embedding-8B",
+   "open_weights": true,
+   "license": "Apache-2.0",
+   "served_by": [
+    {
+     "service": "Fireworks",
+     "model_id": "Qwen3 Embedding 8B (exact model_id string not captured; the 4B and 0.6B versions are dedicated-only)",
+     "endpoint": "POST https://api.fireworks.ai/inference/v1/embeddings",
+     "pricing": "$0.10 per 1M tokens (serverless)",
+     "source": "https://docs.fireworks.ai/guides/querying-embeddings-models"
+    }
+   ],
+   "local_feasible": "The model is 8B parameters in BF16. The card shows self-hosting with Text Embeddings Inference (NVIDIA GPU or CPU), vLLM and Sentence Transformers. I did not find a VRAM figure.",
+   "notes": "The card lists 36 layers, a 32K sequence length and a 4096-dimension output, resizable from 32 to 4096. The card reports it ranked No.1 on the MTEB multilingual leaderboard (mean task score 70.58) as of 2025-06-05, which is not a current 2026 ranking. The model card shows Scaleway as an HF Inference Provider. Fireworks also offers Voyage embeddings (dedicated only), and legacy BERT models on serverless at $0.008–$0.016 per 1M tokens. Together serverless has no embedding models, per its serverless models page. OpenRouter documents POST https://openrouter.ai/api/v1/embeddings and GET https://openrouter.ai/api/v1/embeddings/models (Bearer auth); I did not check which models it serves.",
+   "unknown": [
+    "exact Fireworks model_id",
+    "whether the Fireworks models list needs auth",
+    "OpenRouter embedding model list and prices",
+    "current 2026 MTEB standing"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3-Embedding-8B (accessed 2026-10-12)",
+    "https://docs.fireworks.ai/guides/querying-embeddings-models (accessed 2026-10-12)",
+    "https://openrouter.ai/docs/api-reference/embeddings (accessed 2026-10-12)"
+   ]
+  },
+  {
+   "id": "qwen3-reranker-8b",
+   "name": "Qwen3-Reranker-8B",
+   "task": "rerank",
+   "hf_repo": "Qwen/Qwen3-Reranker-8B",
+   "open_weights": true,
+   "license": "Apache-2.0",
+   "served_by": [
+    {
+     "service": "Fireworks",
+     "model_id": "Qwen3 Reranker 8B (exact model_id string not captured; the 4B and 0.6B versions are dedicated-only)",
+     "endpoint": "POST https://api.fireworks.ai/inference/v1/rerank",
+     "pricing": "$0.20 per 1M tokens (serverless)",
+     "source": "https://docs.fireworks.ai/guides/querying-embeddings-models"
+    }
+   ],
+   "local_feasible": "The model is 8B parameters in BF16, with a 32K context. It needs transformers 4.51.0 or later. I did not find a VRAM figure.",
+   "notes": "The Fireworks page calls /rerank a simpler interface that does not yet support all models or parallelism options. It suggests /embeddings with `return_logits` for broader support. Fireworks also lists Voyage ReRank 2.5 as dedicated only. Together has no serverless rerank; only mixedbread-ai/mxbai-rerank-large-v2 on dedicated inference. The HF card says no HF Inference Provider currently deploys the model.",
+   "unknown": [
+    "exact Fireworks model_id",
+    "rerank pricing on other providers"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3-Reranker-8B (accessed 2026-10-12)",
+    "https://docs.fireworks.ai/guides/querying-embeddings-models (accessed 2026-10-12)",
+    "https://docs.together.ai/docs/serverless-models (accessed 2026-10-12)"
+   ]
+  }
+ ],
+ "open_questions": [
+  "Batch G is partial. I only checked Together, Fireworks, Mistral and OpenRouter pages and the Hugging Face cards listed above. Novita, Nebius, NVIDIA, HF Inference Providers, Replicate, fal, RunPod, Modal, Chutes, Venice, NanoGPT, Alibaba Model Studio and MiniMax are not covered.",
+  "DeepInfra: the base URL is https://api.deepinfra.com/v1/openai (chat completions documented there). Its embeddings, image, speech and rerank APIs are on a separate 'More APIs' page I did not open, so its endpoint paths and prices are unverified.",
+  "Fireworks audio transcription: docs.fireworks.ai/api-reference/audio-transcriptions returned 404, so the endpoint path, diarization support and pricing there are unverified.",
+  "No open-weight diarization model or voice-cloning API is verified in this batch (the Qwen3-TTS Base models are the only cloning candidate, with no verified host). Candidates to check next: pyannote, Whisper-based diarization on Replicate or fal, and ElevenLabs, Cartesia or MiniMax for cloning.",
+  "Mistral Voxtral Transcribe pricing and data-retention terms are not captured.",
+  "Together's TTS and rerank endpoint paths are not captured (rerank is only on dedicated inference).",
+  "Embedding and rerank rankings (MTEB) are from model-card dates in 2025, not verified as current for October 2026.",
+  "Privacy and retention terms were not researched for any provider in this batch."
+ ]
+}

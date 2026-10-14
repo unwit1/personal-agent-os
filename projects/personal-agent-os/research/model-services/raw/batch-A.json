@@ -1,0 +1,1410 @@
+{
+  "batch": "A",
+  "records": [
+    {
+      "id": "synthetic",
+      "name": "Synthetic",
+      "category": "subscription_allowance",
+      "homepage": "https://synthetic.new",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.synthetic.new/openai/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": false,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "anthropic-messages at https://api.synthetic.new/anthropic/v1/messages",
+          "text-completions at https://api.synthetic.new/openai/v1/completions",
+          "embeddings at https://api.synthetic.new/openai/v1/embeddings",
+          "quota inspection at https://api.synthetic.new/v2/quotas"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.synthetic.new/openai/v1",
+        "notes": "Subscriptions include API access and all always-on models. The documented OpenAI endpoint serves subscription usage."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Synthetic API key available after login",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance",
+        "plans": [
+          {
+            "name": "Subscription Packs",
+            "usd_per_month": 30,
+            "allowance": "Per pack: 500 weighted request units per five hours, $24 of API usage credits per week, and one concurrent request per model. All always-on models and documented embeddings are included.",
+            "reset_window": "5h_incremental_regeneration_and_weekly_incremental_regeneration",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": null,
+        "auto_recharge": null,
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": "Each pack regenerates 5% of its request quota every 15 minutes and 2% of its weekly credit quota every 202 minutes. Request units are weighted by model input price; Kimi K3 is the current one-unit baseline.",
+        "concurrency": "One full-speed request per model per pack; additional same-model requests queue. Different models run concurrently.",
+        "context_caps": "Current public catalog reports 131072 to 524288 tokens for the listed chat models."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Any agent framework",
+          "OpenAI-compatible tools",
+          "Roo",
+          "Cline",
+          "Octofriend",
+          "Claude Code",
+          "OpenCode",
+          "OpenClaw"
+        ],
+        "disallowed_uses": [
+          "Unlawful or rights-infringing content",
+          "Content prohibited by the terms, including obscene content, harassment, and incitement to discrimination or violence",
+          "Using person-related output for consequential decisions such as employment, credit, housing, or insurance"
+        ],
+        "automation_allowed": true,
+        "notes": "Pricing explicitly permits any agent framework. Listed clients are examples, not an exclusive approval list."
+      },
+      "privacy": {
+        "training_on_prompts": "Terms prohibit using submitted prompts or completions for model training, fine-tuning, benchmarking, or model improvement.",
+        "retention": "Vendor states that API prompts and completions are never stored.",
+        "zdr_available": true,
+        "regions": "The public model catalog identifies United States and Finland datacenters. The privacy policy separately states that personal information is processed in the United States."
+      },
+      "deployment": "subscription",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "embedding"
+      ],
+      "notable_models": [
+        {
+          "id": "hf:deepseek-ai/DeepSeek-V4.1-Flash",
+          "family": "DeepSeek",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 524288,
+          "notes": "Included; syn:large:text currently resolves to this model."
+        },
+        {
+          "id": "hf:moonshotai/Kimi-K3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 524288,
+          "notes": "Included; syn:large:vision currently resolves to this model."
+        },
+        {
+          "id": "hf:Qwen/Qwen3.8-27B",
+          "family": "Qwen",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 262144,
+          "notes": "Included; syn:small:vision currently resolves to this model."
+        },
+        {
+          "id": "hf:zai-org/GLM-4.7-Flash",
+          "family": "GLM",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 196608,
+          "notes": "Included; syn:small:text currently resolves to this model."
+        },
+        {
+          "id": "hf:zai-org/GLM-5.3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 524288,
+          "notes": "Included; marked Beta on pricing."
+        },
+        {
+          "id": "hf:zai-org/GLM-5.3-Flash",
+          "family": "GLM",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 524288,
+          "notes": "Included."
+        },
+        {
+          "id": "hf:openai/gpt-oss-120b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Included."
+        },
+        {
+          "id": "hf:nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+          "family": "Nemotron",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 262144,
+          "notes": "Included."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Coding-agent usage is permitted under the subscription.",
+          "status": "confirmed",
+          "evidence": "Pricing explicitly includes API access and says subscriptions work with any agent framework.",
+          "source": "https://synthetic.new/pricing"
+        },
+        {
+          "claim": "The current subscription is governed by both request and usage-value allowances.",
+          "status": "confirmed",
+          "evidence": "The rate-limit page documents 500 weighted request units per five hours and $24 of weekly credits per pack, both regenerated incrementally.",
+          "source": "https://synthetic.new/rate-limits"
+        }
+      ],
+      "unknown": [
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.metered_overage",
+        "billing.auto_recharge",
+        "billing.free_tier",
+        "notable_models[*].license",
+        "notable_models[*].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://synthetic.new/landing/home",
+          "title": "Synthetic homepage",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://synthetic.new/pricing",
+          "title": "Pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://synthetic.new/rate-limits",
+          "title": "Rate limits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://dev.synthetic.new/docs/api/overview",
+          "title": "API Overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://dev.synthetic.new/docs/api/getting-started",
+          "title": "Getting Started",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://dev.synthetic.new/docs/api/models",
+          "title": "Available Models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api.synthetic.new/openai/v1/models",
+          "title": "Public model catalog",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://dev.synthetic.new/docs/synthetic/quotas",
+          "title": "Quotas API",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://synthetic.new/policies/privacy",
+          "title": "Privacy Policy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://synthetic.new/policies/terms-of-service",
+          "title": "Terms of Service",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Overview explicitly documents /openai/v1, while Getting Started also uses https://api.synthetic.new/v1/. Both are documented; the former is recorded as the primary base. Quota examples containing a 135-request limit are examples, not the current plan. Embeddings documentation lists hf:nomic-ai/nomic-embed-text-v1.5 through Fireworks, so the first-party hosting statement should not be generalized to every endpoint."
+    },
+    {
+      "id": "nanogpt",
+      "name": "NanoGPT",
+      "category": "subscription_allowance",
+      "homepage": "https://nano-gpt.com",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.nano-gpt.com/api/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": false,
+        "auth_header": "Authorization: Bearer or x-api-key",
+        "other_protocols": [
+          "anthropic-messages at https://api.nano-gpt.com/api/v1/messages; Anthropic SDK base https://api.nano-gpt.com/api",
+          "openai-responses at https://api.nano-gpt.com/api/v1/responses"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://nano-gpt.com/api/subscription/v1",
+        "notes": "Documented chat endpoint: POST https://nano-gpt.com/api/subscription/v1/chat/completions. GET /models under this base always filters to subscription-included text models. Explicit provider selection bypasses subscription coverage; this URL must not be assumed to guarantee zero paid spending with every routing configuration."
+      },
+      "access": {
+        "signup_required": false,
+        "key_type": "Inference API key with configurable subscription/PAYG billing policy; separate management tokens cannot run inference",
+        "subscription_key_differs_from_api_key": false,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "PRO",
+            "usd_per_month": 12,
+            "allowance": "60 million input-token allowance units per week and 100 included images per day, shared between web and API. Most included text models consume one unit per input token; models marked 2x consume two. Cached input tokens still count.",
+            "reset_window": "weekly_Monday_00:00_UTC_and_daily",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "opt_in",
+        "auto_recharge": "off_by_default",
+        "free_tier": "One free model advertised for web use only."
+      },
+      "quotas": {
+        "rate_limits": "General API documentation states 25 requests/second. Subscription documentation additionally describes 60 requests/minute and a burst bucket of 10 requests/10 seconds. Optional per-key request/spend caps reset at midnight UTC.",
+        "concurrency": "Subscription: maximum 10 concurrent requests, documented in the February update and reiterated in a recent official comparison.",
+        "context_caps": null
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible clients",
+          "Cursor",
+          "Cline",
+          "Roo",
+          "OpenWebUI",
+          "LiteLLM",
+          "Kilo Code",
+          "OpenCode"
+        ],
+        "disallowed_uses": [
+          "Commercial subscription use, including resale, commercial products, or serving multiple end users",
+          "Multiple accounts or subscriptions used to bypass limits",
+          "Illegal, harmful, or abusive activity",
+          "Circumventing rate limits or access controls"
+        ],
+        "automation_allowed": true,
+        "notes": "Documented coding-tool API use is supported. Subscription coverage is restricted to personal, non-commercial use by one individual; PAYG separately permits commercial integrations and resale subject to model-provider terms. Client examples are not an exclusive approval list."
+      },
+      "privacy": {
+        "training_on_prompts": null,
+        "retention": "Normal inference content is not logged or retained by NanoGPT by default. API request/response logging is opt-in. Upstream provider retention varies; cloud sync and other storage features have separate policies.",
+        "zdr_available": true,
+        "regions": null
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "tts",
+        "asr",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "minimax/minimax-m2.7",
+          "family": "MiniMax",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Exact ID used in the official Chat Completion example. Current subscription inclusion was not independently verified."
+        },
+        {
+          "id": "z-ai/glm-5.3-flash-uncensored",
+          "family": "GLM",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "low",
+          "context_window": null,
+          "notes": "Official page describes an uncensored fine-tune and marks it Unavailable. It does not establish refusal-direction removal. Context is advertised as 1M without an exact integer."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "NanoGPT documents a subscription-only API base.",
+          "status": "confirmed",
+          "evidence": "Chat documentation directs subscription users to replace /api/v1 with /api/subscription/v1; model-list documentation specifies the corresponding subscription-only catalog.",
+          "source": "https://docs.nano-gpt.com/api-reference/endpoint/chat-completion"
+        },
+        {
+          "claim": "Explicit provider selection can charge PAYG instead of the subscription.",
+          "status": "confirmed",
+          "evidence": "Supported explicit provider selection is always PAYG at the selected provider's price plus routing markup and bypasses subscription coverage without requiring a separate PAYG override.",
+          "source": "https://docs.nano-gpt.com/api-reference/miscellaneous/provider-selection"
+        },
+        {
+          "claim": "Included usage stops at exhaustion unless paid overage is enabled.",
+          "status": "confirmed",
+          "evidence": "The FAQ requires Use balance after limits and an API-key policy that permits balance spending; subscription-only or zero-spend keys continue returning 429.",
+          "source": "https://nano-gpt.com/support"
+        }
+      ],
+      "unknown": [
+        "access.kyc_or_waitlist",
+        "quotas.context_caps",
+        "privacy.training_on_prompts",
+        "privacy.regions",
+        "notable_models[*].open_weights",
+        "notable_models[*].license",
+        "notable_models[*].context_window",
+        "notable_models[0].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://nano-gpt.com/api",
+          "title": "API integration",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nano-gpt.com/api-reference/miscellaneous/api-hosts",
+          "title": "API Hosts",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nano-gpt.com/api-reference/endpoint/chat-completion",
+          "title": "Chat Completion",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nano-gpt.com/api-reference/endpoint/models",
+          "title": "Models and subscription-only catalog",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nano-gpt.com/api-reference/miscellaneous/provider-selection",
+          "title": "Provider Selection",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nano-gpt.com/pricing",
+          "title": "NanoGPT Pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nano-gpt.com/support",
+          "title": "Support and subscription FAQ",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nano-gpt.com/blog/subscription-update-february-2026",
+          "title": "Subscription Update: New Usage Limits Starting February 17th",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nano-gpt.com/blog/openrouter-alternatives",
+          "title": "OpenRouter Alternatives",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nano-gpt.com/api-reference/miscellaneous/rate-limits",
+          "title": "Rate Limits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nano-gpt.com/api-reference/miscellaneous/auto-recharge",
+          "title": "Auto Recharge",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nano-gpt.com/legal/terms-of-service",
+          "title": "Terms of Service, updated October 11, 2026",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nano-gpt.com/privacy",
+          "title": "Privacy explainer",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nano-gpt.com/models/text/z-ai/glm-5.3-flash-uncensored",
+          "title": "GLM 5.3 Flash Uncensored",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "The website API page still documents https://nano-gpt.com/api/v1, while API Hosts recommends https://api.nano-gpt.com/api/v1. The subscription base is recorded exactly from its chat documentation. Model-list prose says authentication is optional, although the generated authorization schema says required. ZDR routing is explicitly best-effort and relies on upstream providers; NanoGPT does not run inference itself. The February article's $8 price is historical; current pricing is $12. Subscription modalities are narrower than the overall service modalities listed here."
+    },
+    {
+      "id": "arli-ai",
+      "name": "Arli AI",
+      "category": "subscription_allowance",
+      "homepage": "https://www.arliai.com",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.arliai.com/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models/textgen-models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "text-completions at https://api.arliai.com/v1/completions",
+          "SDNext-compatible image generation at https://api.arliai.com/sdapi/v1/txt2img",
+          "public model-status catalog at https://api.arliai.com/model/all"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.arliai.com/v1",
+        "notes": "The subscription inference service uses the documented API with account-plan concurrency, context, and model-access limits."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Arli AI API key; per-key generation parameter overrides are supported",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance",
+        "plans": [
+          {
+            "name": "Free",
+            "usd_per_month": 0,
+            "allowance": "Testing access: documentation states five requests per model every two days; delayed responses and one request at a time.",
+            "reset_window": "every_2_days",
+            "on_exhaustion": null
+          },
+          {
+            "name": "Starter",
+            "usd_per_month": 10,
+            "allowance": "Unlimited requests and tokens; one concurrent request; models up to 31B; 16384-token context; image generation up to 3 megapixels.",
+            "reset_window": "none",
+            "on_exhaustion": null
+          },
+          {
+            "name": "Core",
+            "usd_per_month": 15,
+            "allowance": "Unlimited requests and tokens; one concurrent request; models up to 355B; 32768-token context; image generation up to 3 megapixels.",
+            "reset_window": "none",
+            "on_exhaustion": null
+          },
+          {
+            "name": "Plus",
+            "usd_per_month": 20,
+            "allowance": "Unlimited requests and tokens; one concurrent request; models up to 355B; 131072-token context; image generation up to 3 megapixels.",
+            "reset_window": "none",
+            "on_exhaustion": null
+          },
+          {
+            "name": "Pro",
+            "usd_per_month": 30,
+            "allowance": "Unlimited requests and tokens; two concurrent requests; high priority; models up to 355B; 262144-token context; image generation up to 6 megapixels.",
+            "reset_window": "none",
+            "on_exhaustion": null
+          },
+          {
+            "name": "Max",
+            "usd_per_month": 160,
+            "allowance": "Unlimited requests and tokens; six concurrent requests; high priority; models up to 355B; 524288-token context; image generation up to 6 megapixels.",
+            "reset_window": "none",
+            "on_exhaustion": null
+          }
+        ],
+        "metered_overage": null,
+        "auto_recharge": null,
+        "free_tier": "Five test requests per model every two days; pricing lists 12K maximum context, delayed/slower responses, one concurrent request, and no image-generation tools."
+      },
+      "quotas": {
+        "rate_limits": "Paid plans advertise no request-count limit. Text-generation documentation nevertheless says requests are subject to account-plan rate and concurrency limits, with temporary restrictions possible.",
+        "concurrency": "Free/Starter/Core/Plus: 1; Pro: 2; Max: 6.",
+        "context_caps": "Free: advertised 12K; Starter: 16384; Core: 32768; Plus: 131072; Pro: 262144; Max: 524288 tokens."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Frontends supporting the standard OpenAI API",
+          "SillyTavern",
+          "DurenAI",
+          "Wyvern",
+          "JanitorAI",
+          "RisuAI",
+          "Roo Code",
+          "Kilo Code"
+        ],
+        "disallowed_uses": [
+          "Sharing, transferring, or selling an account",
+          "Multiple accounts or circumvention of limits",
+          "Illegal, fraudulent, or harmful activities",
+          "Damaging service availability",
+          "Using Arli branding for a downstream service without permission",
+          "Violating individual model licenses or usage policies"
+        ],
+        "automation_allowed": true,
+        "notes": "Coding agents are explicitly supported. Terms contemplate downstream applications, with branding and model-license conditions."
+      },
+      "privacy": {
+        "training_on_prompts": null,
+        "retention": "Prompts and outputs are processed transiently and discarded without storage. Usage metadata is retained for up to 60 days; account information remains while the account is active.",
+        "zdr_available": true,
+        "regions": null
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image"
+      ],
+      "notable_models": [
+        {
+          "id": null,
+          "family": "GLM",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "abliterated",
+          "context_window": null,
+          "notes": "Homepage advertises GLM-4.6-Derestricted. Publisher weights are ArliAI/GLM-4.6-Derestricted-v3; its card documents norm-preserving biprojected refusal-direction removal. Exact hosted API ID, current checkpoint version, and hosted context were not verified."
+        },
+        {
+          "id": null,
+          "family": "Mistral Nemo / RPMax",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Publisher card for ArliAI/Mistral-Nemo-12B-ArliAI-RPMax-v1.1 describes creative-writing/RP QLoRA training and access through arliai.com. This is not evidence of abliteration. Current hosted ID and availability were not independently verified."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Paid Arli AI plans advertise unlimited requests and tokens.",
+          "status": "confirmed",
+          "evidence": "Every paid pricing tier lists unlimited requests and tokens, with explicit concurrency and context caps.",
+          "source": "https://www.arliai.com/pricing"
+        },
+        {
+          "claim": "Arli publishes an actually abliterated GLM derivative.",
+          "status": "confirmed",
+          "evidence": "The publisher card documents removing the refusal component from weight directions while preserving weight magnitudes.",
+          "source": "https://huggingface.co/ArliAI/GLM-4.6-Derestricted-v3"
+        },
+        {
+          "claim": "Arli offers RP-oriented models and client support.",
+          "status": "confirmed",
+          "evidence": "The RPMax publisher card states the model can be accessed at arliai.com; current roleplay documentation supports multiple RP frontends.",
+          "source": "https://huggingface.co/ArliAI/Mistral-Nemo-12B-ArliAI-RPMax-v1.1"
+        }
+      ],
+      "unknown": [
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[*].on_exhaustion",
+        "billing.metered_overage",
+        "billing.auto_recharge",
+        "privacy.training_on_prompts",
+        "privacy.regions",
+        "notable_models[*].id",
+        "notable_models[*].context_window",
+        "notable_models[1].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://www.arliai.com",
+          "title": "Arli AI homepage and FAQ",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.arliai.com/pricing",
+          "title": "Pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.arliai.com/quick-start",
+          "title": "Quick Start",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.arliai.com/docs/api",
+          "title": "API Documentation",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.arliai.com/docs/textgen",
+          "title": "Text Generation Guide",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.arliai.com/quick-start/roleplay",
+          "title": "Roleplay Quick Start",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.arliai.com/privacy",
+          "title": "Privacy Policy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.arliai.com/terms",
+          "title": "Terms and Conditions",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/ArliAI/GLM-4.6-Derestricted-v3",
+          "title": "GLM-4.6-Derestricted-v3 publisher model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/ArliAI/Mistral-Nemo-12B-ArliAI-RPMax-v1.1",
+          "title": "Mistral-Nemo-12B-ArliAI-RPMax-v1.1 publisher model card",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Weights run in-house on Arli's own on-premises servers. Homepage says no rate limits, whereas text-generation docs mention plan-based rate limits; paid request counts are unlimited, but unrestricted throughput is not established. Arli says many fine-tunes are served as extracted LoRAs and may differ from original weights. The dynamic model page yielded no model rows, and the public status endpoint could not be retrieved."
+    },
+    {
+      "id": "venice",
+      "name": "Venice",
+      "category": "subscription_allowance",
+      "homepage": "https://venice.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.venice.ai/api/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": false,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "openai-responses at https://api.venice.ai/api/v1/responses"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.venice.ai/api/v1",
+        "notes": "Bundled credits, USD credits, and DIEM are account payment sources used by the same API. Available sources are consumed automatically, subject to key spending limits."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "INFERENCE or ADMIN API key",
+        "subscription_key_differs_from_api_key": false,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "Free",
+            "usd_per_month": 0,
+            "allowance": "Web allowance: 10 text prompts/day and 15 image prompts/day; API access is advertised, but this does not establish unlimited free API inference.",
+            "reset_window": "daily",
+            "on_exhaustion": null
+          },
+          {
+            "name": "Pro",
+            "usd_per_month": 18,
+            "allowance": "Unlimited web text prompts, 1000 web image prompts/day, and 100 monthly credits shared across premium features and API usage. At 100 credits/$1, the monthly credits equal $1.",
+            "reset_window": "monthly_and_daily_image_allowance",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Pro Plus",
+            "usd_per_month": 68,
+            "allowance": "7500 monthly credits, equivalent to $75 of API spend; higher image limits; two-month credit banking.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Max",
+            "usd_per_month": 200,
+            "allowance": "22500 monthly credits, equivalent to $225 of API spend; highest image limits; three-month credit banking.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          }
+        ],
+        "metered_overage": "automatic",
+        "auto_recharge": null,
+        "free_tier": "Free web allowances and API access are advertised. A model page additionally advertises 500 welcome credits for new accounts; the pricing comparison places welcome credits under paid tiers, so universal eligibility is uncertain."
+      },
+      "quotas": {
+        "rate_limits": "Default text/embedding tiers: XS 500 RPM/5M TPM; S 150 RPM/3M TPM; M and L 100 RPM/2M TPM. Images: 20 RPM; speech/transcription: 60 RPM. Actual limits depend on model and key; GET /api_keys/rate_limits is authoritative.",
+        "concurrency": null,
+        "context_caps": "Model-specific; current Venice Uncensored 1.2 is advertised as 128K tokens."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible clients",
+          "Claude Code",
+          "Cursor",
+          "Cline",
+          "Kilo Code",
+          "OpenCode",
+          "Codex CLI",
+          "Aider",
+          "OpenClaw",
+          "Hermes Agent"
+        ],
+        "disallowed_uses": [
+          "Scripted or automated web-interface usage",
+          "Abusive or excessive API usage",
+          "Selling or transferring access granted by the terms",
+          "Illegal activity or rights violations",
+          "API uses whose failure could cause death, serious injury, or significant physical, financial, or safety harm"
+        ],
+        "automation_allowed": null,
+        "notes": "Official docs promote autonomous API agents. Terms section 12(d) broadly prohibits third-party automation of any portion of the service, then specifically prohibits automated web usage. Section 7.1 says personal/non-commercial use, while 7.3 describes products serving end users. These provisions conflict with broad commercial/automation marketing and require clarification."
+      },
+      "privacy": {
+        "training_on_prompts": "Venice Uncensored 1.2 explicitly promises no prompt training. Private routes process content solely for inference; a universal upstream training policy for Anonymous routes was not verified.",
+        "retention": "Venice does not store/log normal inference content. Private models have contract-enforced zero retention; Anonymous models obscure identity but expose prompt content to the upstream provider. Operational metadata is retained separately.",
+        "zdr_available": true,
+        "regions": null
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "tts",
+        "asr",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "venice-uncensored-1-2",
+          "family": "Dolphin / Mistral 24B",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "low",
+          "context_window": 131072,
+          "notes": "Current catalog offers Venice Uncensored 1.2. Publisher weights: dphn/Dolphin-Mistral-24B-Venice-Edition. Vendor describes KTO training without abliteration. API rates: $0.20/M input and $0.90/M output."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Dolphin-Mistral-24B-Venice-Edition is available through the Venice Uncensored family.",
+          "status": "confirmed",
+          "evidence": "The publisher card identifies Venice Uncensored as the hosted name; the current vendor catalog lists venice-uncensored-1-2.",
+          "source": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition"
+        },
+        {
+          "claim": "Pro does not include API credits.",
+          "status": "contradicted",
+          "evidence": "Current pricing explicitly includes 100 monthly credits for API and premium features. Pro Plus and Max include larger shared credit bundles.",
+          "source": "https://venice.ai/pricing"
+        },
+        {
+          "claim": "Venice Uncensored 1.2 is abliterated.",
+          "status": "contradicted",
+          "evidence": "The official model page describes KTO reinforcement learning without abliteration.",
+          "source": "https://venice.ai/models/venice-uncensored-1-2"
+        },
+        {
+          "claim": "API usage is unlimited because Pro web text usage is unlimited.",
+          "status": "contradicted",
+          "evidence": "API usage consumes credits and uses model-dependent published rates; web allowances are separate.",
+          "source": "https://venice.ai/pricing"
+        }
+      ],
+      "unknown": [
+        "access.kyc_or_waitlist",
+        "billing.plans[0].on_exhaustion",
+        "billing.auto_recharge",
+        "quotas.concurrency",
+        "restrictions.automation_allowed",
+        "privacy.regions"
+      ],
+      "sources": [
+        {
+          "url": "https://venice.ai/pricing",
+          "title": "Venice Pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://venice.ai/uncensored",
+          "title": "Venice plans and free allowances",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.venice.ai/overview/about-venice",
+          "title": "Venice API overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.venice.ai/api-reference/api-spec",
+          "title": "API Reference and authentication",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.venice.ai/guides/getting-started/generating-api-key",
+          "title": "Generating an API Key and balance consumption",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.venice.ai/api-reference/error-codes",
+          "title": "Error Codes",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.venice.ai/api-reference/rate-limiting",
+          "title": "Rate Limits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.venice.ai/models/overview",
+          "title": "All Models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://venice.ai/models/venice-uncensored-1-2",
+          "title": "Venice Uncensored 1.2",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition",
+          "title": "Dolphin-Mistral-24B-Venice-Edition publisher model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.venice.ai/overview/privacy",
+          "title": "API Privacy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://venice.ai/legal/tos",
+          "title": "Terms of Service",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "PAYG after bundled-credit exhaustion means consumption of an existing spendable USD/DIEM balance, not a verified automatic credit-card charge. If all spendable balances are insufficient, inference returns 402 and asks the user to add credits. The older venice-uncensored ID remains in examples, but current catalog uses venice-uncensored-1-2; the older ID's live alias behavior was not verified. The model page contains conflicting version-history dates and broad capability labels; only catalog-confirmed vision/tool capabilities were relied upon."
+    },
+    {
+      "id": "chutes",
+      "name": "Chutes",
+      "category": "subscription_allowance",
+      "homepage": "https://chutes.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://llm.chutes.ai/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": false,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": null
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "cpk_ API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Plus",
+            "usd_per_month": 10,
+            "allowance": "Bundled daily request quota and a monthly maximum PAYG-equivalent usage value of 5x the subscription fee, equivalent to $50 by calculation. Shorter-window safeguards may also apply.",
+            "reset_window": "daily_and_monthly_with_shorter_rolling_safeguards",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Pro",
+            "usd_per_month": 20,
+            "allowance": "Larger bundled daily request quota and a monthly maximum PAYG-equivalent usage value of 5x the subscription fee, equivalent to $100 by calculation. Shorter-window safeguards may also apply.",
+            "reset_window": "daily_and_monthly_with_shorter_rolling_safeguards",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Enterprise",
+            "usd_per_month": null,
+            "allowance": "Custom billing, volume discounts, custom rate limits, and dedicated support.",
+            "reset_window": null,
+            "on_exhaustion": null
+          }
+        ],
+        "metered_overage": "automatic",
+        "auto_recharge": null,
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": null,
+        "concurrency": null,
+        "context_caps": "Live public catalog is model-specific: examples include Qwen3-32B at 40960, DeepSeek-V3.2 at 131072, GLM-5.1 at 202752, and Kimi-K3 at 1048576 tokens."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible agents and clients"
+        ],
+        "disallowed_uses": [
+          "Using subscriptions for large-scale automated inference",
+          "Using subscriptions for production applications or similar high-volume workloads",
+          "Using subscriptions for high concurrency, high query volume, or highly automated usage",
+          "Multiple subscriptions used to circumvent quotas or enforcement",
+          "Violating law or third-party model terms"
+        ],
+        "automation_allowed": null,
+        "notes": "Subscription terms permit manual interactions and low-volume API usage. Highly automated or production workloads must use PAYG; there is no unconditional subscription automation permission."
+      },
+      "privacy": {
+        "training_on_prompts": "Official FAQ states customer data is never used for training. Third-party/user-created chutes have separate author-controlled data practices.",
+        "retention": "Public system-hosted LLM API content is never persisted; transient in-memory processing and short-lived non-reversible prefix hashes support routing. Usage metadata is collected. Chat applications may retain history; third-party chutes differ.",
+        "zdr_available": true,
+        "regions": "FAQ lists Oregon, Virginia, Ireland, Frankfurt, Singapore, and Tokyo. These are platform regions, not a verified selectable residency guarantee for each public model."
+      },
+      "deployment": "serverless",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "tts",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "deepseek-ai/DeepSeek-V3.2-TEE",
+          "family": "DeepSeek",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Live catalog root is deepseek-ai/DeepSeek-V3.2; FP8; confidential_compute=true."
+        },
+        {
+          "id": "Qwen/Qwen3-32B-TEE",
+          "family": "Qwen",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 40960,
+          "notes": "Live catalog serves an FP8 variant with confidential_compute=true. Hosted context differs from other possible deployments of the base model."
+        },
+        {
+          "id": "moonshotai/Kimi-K3-TEE",
+          "family": "Kimi",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Live catalog lists text/image/video input, MXFP4, and confidential_compute=true."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Chutes subscriptions have caps based on usage value, not only request counts.",
+          "status": "confirmed",
+          "evidence": "The February announcement caps monthly benefit at 5x subscription value using model per-token PAYG prices and permits shorter rolling-window enforcement.",
+          "source": "https://chutes.ai/news/community-announcement-february"
+        },
+        {
+          "claim": "Usage beyond subscription limits transitions to PAYG.",
+          "status": "confirmed",
+          "evidence": "Current pricing advertises PAYG beyond quota, with 6% off for Plus and 10% off for Pro.",
+          "source": "https://chutes.ai/pricing"
+        },
+        {
+          "claim": "Subscriptions authorize unrestricted background or production automation.",
+          "status": "contradicted",
+          "evidence": "Terms require PAYG for production, high-volume, high-concurrency, or highly automated usage.",
+          "source": "https://chutes.ai/terms"
+        }
+      ],
+      "unknown": [
+        "api.other_protocols",
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[2].usd_per_month",
+        "billing.plans[2].reset_window",
+        "billing.plans[2].on_exhaustion",
+        "billing.auto_recharge",
+        "billing.free_tier",
+        "quotas.rate_limits",
+        "quotas.concurrency",
+        "restrictions.automation_allowed",
+        "notable_models[*].refusal_profile",
+        "notable_models[2].open_weights",
+        "notable_models[2].license"
+      ],
+      "sources": [
+        {
+          "url": "https://chutes.ai",
+          "title": "Chutes homepage and subscription plans",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/pricing",
+          "title": "Pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/news/community-announcement-february",
+          "title": "Community Announcement — February 27th, 2026",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/agents",
+          "title": "Agent Hub",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/docs/guides/starter-guide",
+          "title": "The Chutes Starter Guide",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://llm.chutes.ai/v1/models",
+          "title": "Live public model catalog",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/terms",
+          "title": "Terms of Service",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/privacy",
+          "title": "Privacy Policy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/docs/help/faq",
+          "title": "Frequently Asked Questions",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://chutes.ai/docs",
+          "title": "Developer documentation and model guides",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
+          "title": "DeepSeek-V3.2 publisher model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3-32B",
+          "title": "Qwen3-32B publisher model card",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Current public pages offer Plus and Pro; the February announcement's $3 Base tier is historical and was not verified as currently purchasable. Exact daily request counts, four-hour dollar caps, reset alignment, and behavior when PAYG balance is empty were not publicly verified. The announcement describes a rolling four-hour window as an example rather than a fixed current specification. Pricing's no-subscription wording describes PAYG availability; the same page offers optional subscriptions. Some homepage prices differ from pricing-page values, so live catalog data was used for model facts."
+    },
+    {
+      "id": "poe-api",
+      "name": "Poe API",
+      "category": "subscription_allowance",
+      "homepage": "https://poe.com",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.poe.com/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": false,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "openai-responses at https://api.poe.com/v1/responses",
+          "anthropic-messages at https://api.poe.com/v1/messages; Anthropic SDK base https://api.poe.com; only official Anthropic bots supported"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.poe.com/v1",
+        "notes": "API calls consume the account's existing subscription compute points without separate API billing setup. Purchased add-on points work across API and Poe chat."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Poe API key generated at https://poe.com/api/keys",
+        "subscription_key_differs_from_api_key": false,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "10 thousand points/day",
+            "usd_per_month": null,
+            "allowance": "10000 compute points/day.",
+            "reset_window": "daily",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "660 thousand points/month",
+            "usd_per_month": null,
+            "allowance": "660000 compute points/month.",
+            "reset_window": "monthly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "1.65 million points/month",
+            "usd_per_month": null,
+            "allowance": "1650000 compute points/month.",
+            "reset_window": "monthly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "3.3 million points/month",
+            "usd_per_month": null,
+            "allowance": "3300000 compute points/month.",
+            "reset_window": "monthly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "8.25 million points/month",
+            "usd_per_month": null,
+            "allowance": "8250000 compute points/month.",
+            "reset_window": "monthly",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": null,
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": "500 requests/minute; documented request-based rate-limit headers and 429 responses.",
+        "concurrency": null,
+        "context_caps": "Per bot/model. Subscription FAQ advertises full bot context up to 2M tokens; live catalog supplies individual context lengths."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible external applications",
+          "Cursor",
+          "Cline",
+          "Continue",
+          "Custom applications"
+        ],
+        "disallowed_uses": [
+          "Accessing private bots through the OpenAI-compatible API",
+          "Calling App-Creator or Script-Bot-Creator through the OpenAI-compatible API",
+          "Calling non-Anthropic or custom bots through the Anthropic-compatible API",
+          "Transferring compute points outside permitted subscription-sharing features"
+        ],
+        "automation_allowed": true,
+        "notes": "Official external-application guidance permits applications to charge the creator's Poe account or use each user's API key/OAuth. No exclusive coding-client list is established. Unsupported fields may be ignored, and Chat Completions audio input is documented as unsupported."
+      },
+      "privacy": {
+        "training_on_prompts": "Full-shield bots prohibit model-provider training on interactions. Half-shield third-party developer bots/apps may use interactions for training. The privacy center says official Poe bots and specified provider prompt bots do not train on chats.",
+        "retention": "Provider-specific. Poe's privacy center gives OpenAI and Anthropic retention of 30 days as examples. Third-party developers may store chats. A universal API-specific retention period was not verified.",
+        "zdr_available": null,
+        "regions": null
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "claude-sonnet-5.5",
+          "family": "Claude",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 1000000,
+          "notes": "Exact lowercase ID and context returned by the live Poe model catalog."
+        },
+        {
+          "id": "mistral-large-4",
+          "family": "Mistral",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 524288,
+          "notes": "Live catalog explicitly describes an open-weight multimodal model in public preview."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Poe API calls can consume subscription compute points.",
+          "status": "confirmed",
+          "evidence": "Subscribers use the same point allocation through Poe chat or programmatic API calls, with no additional setup.",
+          "source": "https://creator.poe.com/docs/external-applications/openai-compatible-api"
+        },
+        {
+          "claim": "The OpenAI-compatible base URL is https://api.poe.com/v1.",
+          "status": "confirmed",
+          "evidence": "Official SDK examples use this exact base; the Chat Completions endpoint appends /chat/completions.",
+          "source": "https://creator.poe.com/docs/external-applications/openai-compatible-api"
+        },
+        {
+          "claim": "Additional points can extend usage after subscription points are consumed.",
+          "status": "confirmed",
+          "evidence": "Add-on points are purchased through the API-key page, work across API/chat, and remain usable for one year. FAQ quotes pricing starting at $30 per million add-on points.",
+          "source": "https://help.poe.com/hc/en-us/articles/19945140063636-Poe-Purchases-FAQs"
+        }
+      ],
+      "unknown": [
+        "access.kyc_or_waitlist",
+        "billing.plans[*].usd_per_month",
+        "billing.auto_recharge",
+        "billing.free_tier",
+        "quotas.concurrency",
+        "privacy.zdr_available",
+        "privacy.regions",
+        "notable_models[0].open_weights",
+        "notable_models[*].license",
+        "notable_models[*].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://creator.poe.com/docs/external-applications/openai-compatible-api",
+          "title": "OpenAI Compatible API",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://creator.poe.com/api-reference/createChatCompletion",
+          "title": "Create chat completion",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://creator.poe.com/api-reference/listModels",
+          "title": "List available models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://creator.poe.com/docs/external-applications/anthropic-compatible-api",
+          "title": "Anthropic Compatible API",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://creator.poe.com/docs/external-applications/external-application-guide?bot_name=Claude-Code",
+          "title": "External Application Guide",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://poe.com/subscription_plans",
+          "title": "Poe Subscription Plans",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://help.poe.com/hc/en-us/articles/19945140063636-Poe-Purchases-FAQs",
+          "title": "Poe Purchases FAQs",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api.poe.com/v1/models",
+          "title": "Live public model catalog",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://poe.com/pages/privacy",
+          "title": "Poe Privacy Policy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://poe.com/pages/privacy-center",
+          "title": "Poe Privacy Center",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://poe.com/pages/tos",
+          "title": "Poe Terms of Service",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Plan names are the allowance labels shown on the official page. The page rendered annual EUR prices despite a footer saying US dollars; exact USD monthly prices are therefore null. FAQ independently advertises subscriptions starting at $4.99/month without mapping every allowance to a USD price. Plan points do not roll over unless specified. Exhaustion means 402 when the total usable point balance is depleted; existing add-on points can continue funding requests. Documentation says /models is public despite including a generic authentication example. Chat Completions parameter limitations differ from Responses features."
+    }
+  ],
+  "open_questions": [
+    "Poe: What are the exact USD monthly prices for each currently displayed point allowance? The unauthenticated official plan page rendered annual EUR amounts.",
+    "Chutes: What are the current exact daily request quotas, four-hour dollar-value caps, and monthly reset alignment for Plus and Pro?",
+    "Chutes: What happens after a usage-value cap when there is no PAYG balance, and can automatic PAYG fallback be disabled?",
+    "Chutes: What is the exact documented Anthropic-compatible endpoint, and are subscription and PAYG credentials identical?",
+    "Venice: How should API-agent and downstream-product documentation be reconciled with the broad automation prohibition and personal/non-commercial language in the current terms?",
+    "Venice: Are 500 welcome credits available to every new free account, or only qualifying paid accounts?",
+    "Arli AI: What are the current exact hosted API IDs and versions for GLM-4.6-Derestricted and RPMax models? Downloadable publisher weights do not establish the currently served checkpoint.",
+    "Arli AI: Which paid-plan throughput limits exist beyond concurrency, given the conflict between no-rate-limit marketing and text-generation documentation?",
+    "Synthetic: Are paid overage or automatic recharge options available, and do subscription credentials differ from usage-based credentials?",
+    "NanoGPT: Does the subscription endpoint reject explicit paid provider selection under every key policy, or can it still spend PAYG balance? The docs confirm coverage bypass but do not fully specify this combination.",
+    "NanoGPT: Which current models carry the 2x subscription multiplier, and which exact text/image models are included today?",
+    "All services: Exact model licenses, refusal tuning, inference residency, and upstream privacy policies remain unknown wherever explicitly listed in each record."
+  ]
+}

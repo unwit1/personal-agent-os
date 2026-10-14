@@ -1,0 +1,1462 @@
+{
+  "batch": "C",
+  "records": [
+    {
+      "id": "together-ai",
+      "name": "Together AI",
+      "category": "hosted_api",
+      "homepage": "https://www.together.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.together.ai/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": null
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "Together API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "Serverless",
+            "usd_per_month": null,
+            "allowance": "Prepaid credit balance consumed by usage; minimum first purchase $15, subsequent purchases $5.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "unknown",
+        "free_tier": "No general free trial; platform access requires a positive prepaid balance. The model catalog nevertheless lists Prism-ML/Ternary-Bonsai-27B with free input and output pricing."
+      },
+      "quotas": {
+        "rate_limits": "Serverless is best-effort. High volume or bursts can produce HTTP 429 or 503; the current page does not publish a universal numerical RPM/TPM allowance. Provisioned throughput provides contractual guarantees.",
+        "concurrency": null,
+        "context_caps": "Model-specific: gpt-oss-120b 131072; MiniMax-M3 524288; Kimi-K3 1048576; GLM-5.3 and GLM-5.3-Flash 1048575; DeepSeek-V4.1-Flash 1000000."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI Python SDK",
+          "OpenAI TypeScript SDK",
+          "REST clients"
+        ],
+        "disallowed_uses": [
+          "Transmitting financial or medical information or sensitive personal data under the published standard terms.",
+          "Unlawful or infringing content, pornography, or material harmful to minors.",
+          "Standalone resale, leasing, licensing, or distribution of the service.",
+          "Using the service to develop a competing service or conduct competitive analysis or benchmarking.",
+          "Circumventing API limits or imposing excessive load."
+        ],
+        "automation_allowed": true,
+        "notes": "Official documentation describes programmatic API use and agent workflows. Standard terms still apply; contractual enterprise terms may differ."
+      },
+      "privacy": {
+        "training_on_prompts": "Training is a separate explicit opt-in, disabled by default.",
+        "retention": "Prompt and response storage is enabled by default for product improvements. Enabling ZDR prevents persistent storage of inference content; account and usage metadata remain. Explicitly uploaded batch and fine-tuning files remain until deleted. The default prompt-storage duration is not specified.",
+        "zdr_available": true,
+        "regions": "Serverless has no region selection. Dedicated/VPC deployments support residency requirements, including EU regions. Passthrough models send content to upstream providers."
+      },
+      "deployment": "serverless",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "rerank",
+        "tts",
+        "asr",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "Qwen/Qwen3-Coder-Next-FP8",
+          "family": "Qwen3-Coder",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Removed from serverless on 2026-05-14; deprecation history explicitly says dedicated endpoints remain supported."
+        },
+        {
+          "id": "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "family": "Qwen3-Coder",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Removed from serverless on 2026-06-04; dedicated endpoints remain supported."
+        },
+        {
+          "id": "zai-org/GLM-5.3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License; Hugging Face identifier glm-5.3",
+          "refusal_profile": "unknown",
+          "context_window": 1048575,
+          "notes": "Listed for serverless inference."
+        },
+        {
+          "id": "zai-org/GLM-5.3-Flash",
+          "family": "GLM",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 1048575,
+          "notes": "Listed for serverless inference."
+        },
+        {
+          "id": "MiniMaxAI/MiniMax-M3",
+          "family": "MiniMax",
+          "open_weights": true,
+          "license": "MiniMax Community License; Hugging Face identifier minimax-community",
+          "refusal_profile": "unknown",
+          "context_window": 524288,
+          "notes": "Listed in chat and vision catalogs."
+        },
+        {
+          "id": "moonshotai/Kimi-K3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Listed in chat and vision catalogs."
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Listed for serverless inference."
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Removed from serverless in September 2026; dedicated endpoints remain supported."
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "family": "DeepSeek",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": 1000000,
+          "notes": "Current catalog entry."
+        },
+        {
+          "id": "black-forest-labs/FLUX.2-dev",
+          "family": "FLUX",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Image-generation API model; requires a positive balance."
+        },
+        {
+          "id": "openai/whisper-large-v3",
+          "family": "Whisper",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Speech-to-text catalog entry."
+        },
+        {
+          "id": "canopylabs/orpheus-3b-0.1-ft",
+          "family": "Orpheus",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Text-to-speech catalog entry."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The current documented OpenAI-compatible hostname is api.together.ai, rather than the supplied api.together.xyz candidate.",
+          "status": "confirmed",
+          "evidence": "The SDK configuration and REST examples use https://api.together.ai/v1.",
+          "source": "https://docs.together.ai/docs/inference/openai-compatibility"
+        },
+        {
+          "claim": "ZDR is enabled by default.",
+          "status": "contradicted",
+          "evidence": "ZDR requires disabling prompt and response storage in organization settings.",
+          "source": "https://docs.together.ai/docs/zero-data-retention"
+        },
+        {
+          "claim": "Qwen3-Coder-Next-FP8, Qwen3-Coder-480B-FP8, and gpt-oss-20b remain generally available on serverless.",
+          "status": "contradicted",
+          "evidence": "Deprecation history records their serverless removals while marking dedicated endpoint support as Yes.",
+          "source": "https://docs.together.ai/docs/deprecations"
+        },
+        {
+          "claim": "Embedding and rerank models are currently available through serverless.",
+          "status": "contradicted",
+          "evidence": "The catalog explicitly lists no serverless embedding or rerank models and describes reranking through dedicated inference.",
+          "source": "https://docs.together.ai/docs/serverless/models"
+        },
+        {
+          "claim": "Hermes-4 is currently hosted.",
+          "status": "unverified",
+          "evidence": "No Hermes-4 entry was verified in the reviewed current catalogs.",
+          "source": "https://docs.together.ai/docs/serverless/models"
+        }
+      ],
+      "unknown": [
+        "api.other_protocols",
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[0].usd_per_month",
+        "billing.auto_recharge",
+        "quotas.concurrency",
+        "quotas.rate_limits.numeric_limits",
+        "privacy.retention.default_duration",
+        "notable_models[*].refusal_profile",
+        "notable_models[0].context_window",
+        "notable_models[1].open_weights",
+        "notable_models[1].license",
+        "notable_models[1].context_window",
+        "notable_models[3].open_weights",
+        "notable_models[3].license",
+        "notable_models[7].context_window",
+        "notable_models[9].open_weights",
+        "notable_models[9].license",
+        "notable_models[9].context_window",
+        "notable_models[10].open_weights",
+        "notable_models[10].license",
+        "notable_models[10].context_window",
+        "notable_models[11].open_weights",
+        "notable_models[11].license",
+        "notable_models[11].context_window",
+        "model_availability.Hermes-4",
+        "embedding_model_ids"
+      ],
+      "sources": [
+        {"url": "https://docs.together.ai/docs/inference/openai-compatibility", "title": "OpenAI compatibility", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/reference/models", "title": "List all models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/docs/billing-credits", "title": "Credits", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/docs/billing-spend-controls", "title": "Spend controls", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/docs/privacy-and-security", "title": "Privacy and security", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/docs/zero-data-retention", "title": "Zero data retention", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/docs/serverless/rate-limits", "title": "Serverless rate limits", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/docs/serverless/models", "title": "Available models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/docs/deprecations", "title": "Deprecations", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.together.ai/llms.txt", "title": "Official documentation index and agent workflow descriptions", "accessed": "2026-10-12", "official": true},
+        {"url": "https://www.together.ai/terms-of-service", "title": "Terms of Service", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/Qwen/Qwen3-Coder-Next", "title": "Qwen3-Coder-Next model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/zai-org/GLM-5.3", "title": "GLM-5.3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/MiniMaxAI/MiniMax-M3", "title": "MiniMax-M3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/moonshotai/Kimi-K3", "title": "Kimi-K3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-120b", "title": "gpt-oss-120b model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-20b", "title": "gpt-oss-20b model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash", "title": "DeepSeek-V4.1-Flash model card", "accessed": "2026-10-12", "official": true}
+      ],
+      "notes": "No authenticated availability test was performed. The .xyz hostname's continued alias support is unverified. Auto-recharge docs describe enabling it, while the standard terms authorize threshold replenishment; the new-account default remains unknown. The gpt-oss-20b removal appears as September 14 in the scheduled table and September 15 in history. The rerank catalog mentions dedicated availability of mixedbread-ai/mxbai-rerank-large-v2, while deprecation history marks the differently capitalized mixedbread-ai/Mxbai-Rerank-Large-V2 as unsupported on on-demand endpoints; confirm exact dedicated availability. Open weights and licenses do not establish low-refusal tuning or abliteration."
+    },
+    {
+      "id": "fireworks-ai",
+      "name": "Fireworks AI",
+      "category": "hosted_api",
+      "homepage": "https://fireworks.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.fireworks.ai/inference/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": null,
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "anthropic-messages at https://api.fireworks.ai/inference/v1/messages",
+          "openai-responses at https://api.fireworks.ai/inference/v1/responses"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.fireworks.ai/inference/v1",
+        "notes": "Fire Pass uses the same inference base URL with dedicated fpk_ keys and enabled router IDs. It is experimental and closed to new subscriptions."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Standard fw_ API key; Fire Pass fpk_ key",
+        "subscription_key_differs_from_api_key": true,
+        "kyc_or_waitlist": "Fire Pass is not open to new subscriptions; existing users and promo recipients retain access."
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "Serverless",
+            "usd_per_month": null,
+            "allowance": "Purchased prepaid credits consumed by token usage. Contracted customers may arrange postpaid billing.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Fire Pass",
+            "usd_per_month": null,
+            "allowance": "Covered requests to enabled open-weight model routers while the pass is active; numerical allowance not publicly verified.",
+            "reset_window": null,
+            "on_exhaustion": "unknown"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "unknown",
+        "free_tier": "The official credit FAQ describes a $1 initial credit. Exhaustion requires purchasing credits to continue; eligibility and expiration were not verified."
+      },
+      "quotas": {
+        "rate_limits": "Adaptive per-account/per-model limits separately measure total prompt TPM, uncached prompt TPM, and generated TPM. They grow 25% at most every 15 minutes when usage exceeds 50% of the current limit. Ceilings depend on model size and spending tier; current account limits are in the dashboard and response headers.",
+        "concurrency": null,
+        "context_caps": "Published model labels: GPT OSS 120B 131k; MiniMax M3 512k; GLM-5.3, Kimi K3, and DeepSeek V4.1 Flash 1M. Fire Pass's kimi-fast-latest router explicitly lists 1040000 context tokens and 131072 output tokens."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Standard API: compatible OpenAI and Anthropic clients",
+          "Fire Pass: Claude Code, OpenCode, Pi, Cursor IDE, VS Code Chat, GitHub Copilot app/CLI, DeepSeek Harness",
+          "Fire Pass documentation also provides Cline, Kilo Code, OpenClaw, and LangChain Deep Agent configurations"
+        ],
+        "disallowed_uses": [
+          "Fire Pass production workloads.",
+          "Fire Pass access to models or routers outside its enabled routes.",
+          "Fire Pass use of auto, auto-instant, or FireRouter.",
+          "Fire Pass key sharing."
+        ],
+        "automation_allowed": true,
+        "notes": "Standard APIs support agent and batch workflows. Fire Pass is limited to personal, non-production agentic coding. Codex CLI and ChatGPT desktop are unsupported with Fire Pass because their Responses API usage does not accept Fire Pass keys. Unattended/background automation permission under Fire Pass was not explicitly verified."
+      },
+      "privacy": {
+        "training_on_prompts": "Prompts, API inputs, and training data are not used to train or improve Fireworks models without explicit opt-in.",
+        "retention": "Open-model inference defaults to no persistent prompt/output logging. Prompt caching can retain content in volatile memory for minutes. Responses API store=True is the default and retains conversations for 30 days; store=False disables that storage. Operational metadata remains.",
+        "zdr_available": true,
+        "regions": "US-only serverless is documented at https://us.api.fireworks.ai/inference/v1 with specified US router IDs. EU-only serverless requires contacting sales. Enterprise accounts can enforce a ZDR policy."
+      },
+      "deployment": "serverless",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "rerank",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": null,
+          "family": "Qwen3-Coder",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 262144,
+          "notes": "The official model library lists Qwen3 Coder 480B A35B Instruct and 30B A3B Instruct. Exact API IDs and their current serverless status were not verified."
+        },
+        {
+          "id": "accounts/fireworks/models/glm-5p3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License; Hugging Face identifier glm-5.3",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Ready and serverless-supported; provider labels context as 1M."
+        },
+        {
+          "id": "accounts/fireworks/models/minimax-m3",
+          "family": "MiniMax",
+          "open_weights": true,
+          "license": "MiniMax Community License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Ready and serverless-supported. Operational specification says 512k context; description says the underlying model has 1M. Image input is marked unsupported."
+        },
+        {
+          "id": "accounts/fireworks/models/kimi-k3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Ready, serverless-supported, vision-capable; provider labels context as 1M."
+        },
+        {
+          "id": "accounts/fireworks/models/gpt-oss-120b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Ready and serverless-supported; provider labels context as 131k."
+        },
+        {
+          "id": "accounts/fireworks/models/deepseek-v4p1-flash",
+          "family": "DeepSeek",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Ready, serverless-supported, image input supported; provider labels context as 1M."
+        },
+        {
+          "id": "accounts/fireworks/models/qwen3-embedding-8b",
+          "family": "Qwen3 Embedding",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Serverless embeddings; model page labels context as 40k."
+        },
+        {
+          "id": "accounts/fireworks/models/qwen3-reranker-8b",
+          "family": "Qwen3 Reranker",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Serverless reranking at /rerank; model page labels context as 40k."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The base URL includes /inference/v1.",
+          "status": "confirmed",
+          "evidence": "The OpenAI client example supplies https://api.fireworks.ai/inference/v1.",
+          "source": "https://docs.fireworks.ai/tools-sdks/openai-compatibility"
+        },
+        {
+          "claim": "A model-list endpoint is documented.",
+          "status": "confirmed",
+          "evidence": "GET https://api.fireworks.ai/v1/accounts/{account_id}/models requires Bearer authentication. This is a management endpoint, separate from the inference base.",
+          "source": "https://docs.fireworks.ai/api-reference/list-models"
+        },
+        {
+          "claim": "Self-serve billing is postpaid by default.",
+          "status": "contradicted",
+          "evidence": "The billing FAQ specifies prepaid credits; postpaid billing is an option for contracted customers.",
+          "source": "https://docs.fireworks.ai/faq-new/billing-pricing/how-does-billing-and-credit-usage-work"
+        },
+        {
+          "claim": "Every API surface retains no conversation content by default.",
+          "status": "contradicted",
+          "evidence": "Responses API store=True defaults to 30-day conversation retention.",
+          "source": "https://docs.fireworks.ai/guides/security_compliance/data_handling"
+        },
+        {
+          "claim": "Qwen3-Coder-Next, Hermes-4, and gpt-oss-20b are currently served.",
+          "status": "unverified",
+          "evidence": "Their current availability was not verified from the reviewed official model pages.",
+          "source": "https://docs.fireworks.ai/guides/recommended-models"
+        }
+      ],
+      "unknown": [
+        "api.models_path",
+        "billing.plans[0].usd_per_month",
+        "billing.plans[1].usd_per_month",
+        "billing.plans[1].allowance.quantity",
+        "billing.plans[1].reset_window",
+        "billing.plans[1].on_exhaustion",
+        "billing.auto_recharge",
+        "billing.free_tier.eligibility",
+        "billing.free_tier.expiration",
+        "quotas.concurrency",
+        "restrictions.Fire_Pass.background_automation",
+        "notable_models[*].refusal_profile",
+        "notable_models[0].id",
+        "notable_models[0].open_weights",
+        "notable_models[0].license",
+        "notable_models[1:8].context_window",
+        "notable_models[6:8].open_weights",
+        "notable_models[6:8].license",
+        "model_availability.Qwen3-Coder-Next",
+        "model_availability.Hermes-4",
+        "model_availability.gpt-oss-20b",
+        "current_image_model_ids",
+        "current_ASR_model_ids",
+        "current_TTS_model_ids"
+      ],
+      "sources": [
+        {"url": "https://docs.fireworks.ai/tools-sdks/openai-compatibility", "title": "OpenAI compatibility", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/api-reference/list-models", "title": "List Models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/tools-sdks/anthropic-compatibility", "title": "Anthropic compatibility", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/faq-new/billing-pricing/how-does-billing-and-credit-usage-work", "title": "Billing and credit usage", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/faq-new/billing-pricing/what-happens-when-i-finish-my-1-dollar-credit", "title": "How do credits work?", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/firepass", "title": "Fire Pass", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/serverless/rate-limits", "title": "Serverless Rate Limits", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/guides/security_compliance/data_handling", "title": "Zero Data Retention and Responses retention", "accessed": "2026-10-12", "official": true},
+        {"url": "https://fireworks.ai/privacy-policy", "title": "Privacy Policy", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/serverless/us-only-serverless", "title": "US-only Serverless", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/", "title": "Build with Fireworks AI", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/guides/video-audio-inputs", "title": "Video and Audio Inputs", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.fireworks.ai/guides/recommended-models", "title": "Recommended models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://fireworks.ai/models?modelTypes=LLM&providers=Qwen", "title": "Qwen model library", "accessed": "2026-10-12", "official": true},
+        {"url": "https://app.fireworks.ai/models/fireworks/glm-5p3", "title": "GLM-5.3 API model", "accessed": "2026-10-12", "official": true},
+        {"url": "https://app.fireworks.ai/models/fireworks/minimax-m3", "title": "MiniMax M3 API model", "accessed": "2026-10-12", "official": true},
+        {"url": "https://app.fireworks.ai/models/fireworks/kimi-k3", "title": "Kimi K3 API model", "accessed": "2026-10-12", "official": true},
+        {"url": "https://app.fireworks.ai/models/fireworks/gpt-oss-120b", "title": "GPT OSS 120B API model", "accessed": "2026-10-12", "official": true},
+        {"url": "https://app.fireworks.ai/models/fireworks/deepseek-v4p1-flash", "title": "DeepSeek V4.1 Flash API model", "accessed": "2026-10-12", "official": true},
+        {"url": "https://app.fireworks.ai/models/fireworks/qwen3-embedding-8b", "title": "Qwen3 Embedding 8B", "accessed": "2026-10-12", "official": true},
+        {"url": "https://app.fireworks.ai/models/fireworks/qwen3-reranker-8b", "title": "Qwen3 Reranker 8B", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/zai-org/GLM-5.3", "title": "GLM-5.3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/MiniMaxAI/MiniMax-M3", "title": "MiniMax-M3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/moonshotai/Kimi-K3", "title": "Kimi-K3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-120b", "title": "gpt-oss-120b model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash", "title": "DeepSeek-V4.1-Flash model card", "accessed": "2026-10-12", "official": true}
+      ],
+      "notes": "No documented inference-base GET /models endpoint was verified; use the separate management URL above. Optional Auto Reload is documented, but its new-account default is not explicit. Fire Pass pricing, quantitative allowance, reset schedule, and exhaustion behavior remain unknown. Rounded provider context labels were not converted into guessed integers. MiniMax M3's description and operational context/input specifications conflict. Published weight availability does not establish low-refusal tuning or abliteration."
+    },
+    {
+      "id": "groq",
+      "name": "GroqCloud",
+      "category": "hosted_api",
+      "homepage": "https://groq.com",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.groq.com/openai/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "openai-responses at https://api.groq.com/openai/v1/responses",
+          "audio-transcriptions at https://api.groq.com/openai/v1/audio/transcriptions",
+          "audio-speech at https://api.groq.com/openai/v1/audio/speech"
+        ]
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "Groq API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": "Some catalog models are Enterprise-only and require contacting sales; general KYC requirements were not verified."
+      },
+      "billing": {
+        "model": "metered",
+        "plans": [
+          {
+            "name": "Free",
+            "usd_per_month": 0,
+            "allowance": "Model-specific request, token, and audio limits.",
+            "reset_window": "per_minute_and_daily",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Developer",
+            "usd_per_month": null,
+            "allowance": "Postpaid usage billing; charged at month-end or progressive lifetime-usage thresholds.",
+            "reset_window": "none",
+            "on_exhaustion": "unknown"
+          }
+        ],
+        "metered_overage": "automatic",
+        "auto_recharge": "n/a",
+        "free_tier": "A continuing Free plan is documented. GPT OSS 120B and 20B each list 30 RPM, 1000 RPD, 8000 TPM, and 200000 TPD."
+      },
+      "quotas": {
+        "rate_limits": "Organization-scoped and model-specific. Free GPT OSS: 30 RPM, 1000 RPD, 8000 TPM, 200000 TPD. Developer GPT OSS 120B/20B: 1000 RPM and 250000 TPM in the current model catalog. Cached tokens do not count toward rate limits. Excess returns HTTP 429.",
+        "concurrency": null,
+        "context_caps": "GPT OSS 120B/20B: 131072 context, 65536 maximum completion. Enterprise MiniMax M2.7: 196608 context. Qwen3.8-27B: 131072 context, 16384 completion. Orpheus entries: 4000 context."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible clients",
+          "Groq Python SDK",
+          "Groq TypeScript SDK",
+          "Customer applications using the API"
+        ],
+        "disallowed_uses": [
+          "Reselling or leasing access to an account.",
+          "Reselling or distributing Cloud Services without express approval.",
+          "Developing competing Cloud Services.",
+          "High-risk activities, fee avoidance, and export-control violations.",
+          "PHI processing except as permitted by the applicable BAA."
+        ],
+        "automation_allowed": true,
+        "notes": "The agreement expressly permits API integration into customer applications and access by their end users. Preview models are for evaluation and should not be used in production. The June 22, 2026 agreement states these services are not for consumer use."
+      },
+      "privacy": {
+        "training_on_prompts": "The current agreement limits data supplied for prompting, fine-tuning, or customization to providing the customer's Cloud Services.",
+        "retention": "Inference content is not routinely retained. Reliability or abuse investigations may retain inputs/outputs for up to 30 days, longer if legally required. Batch files persist up to 30 days; fine-tuning data persists until deleted. Usage metadata is always retained.",
+        "zdr_available": true,
+        "regions": "Retained customer data is stored in US Google Cloud Platform buckets. Compute-region selection was not verified."
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "audio",
+        "asr",
+        "tts"
+      ],
+      "notable_models": [
+        {
+          "id": "openai/gpt-oss-120b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Production model."
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Production model."
+        },
+        {
+          "id": "qwen/qwen3.8-27b",
+          "family": "Qwen",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Vision-capable preview model; this is not a Qwen3-Coder model ID."
+        },
+        {
+          "id": "minimaxai/minimax-m2.7",
+          "family": "MiniMax",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 196608,
+          "notes": "Enterprise-only preview entry; current catalog did not verify M3."
+        },
+        {
+          "id": "whisper-large-v3",
+          "family": "Whisper",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Production ASR model."
+        },
+        {
+          "id": "whisper-large-v3-turbo",
+          "family": "Whisper",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Production ASR model."
+        },
+        {
+          "id": "canopylabs/orpheus-v1-english",
+          "family": "Orpheus",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 4000,
+          "notes": "Preview TTS model."
+        },
+        {
+          "id": "canopylabs/orpheus-arabic-saudi",
+          "family": "Orpheus",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 4000,
+          "notes": "Preview TTS model."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Groq's OpenAI base includes /openai/v1, and listing models requires a key.",
+          "status": "confirmed",
+          "evidence": "The model-list example calls GET https://api.groq.com/openai/v1/models with a Bearer API key.",
+          "source": "https://console.groq.com/docs/models"
+        },
+        {
+          "claim": "Developer billing requires prepaid credits.",
+          "status": "contradicted",
+          "evidence": "Upgrade has no immediate charge; token usage is billed at month-end or progressive thresholds.",
+          "source": "https://console.groq.com/docs/billing-faqs"
+        },
+        {
+          "claim": "All customers can enable ZDR.",
+          "status": "confirmed",
+          "evidence": "Data Controls permits ZDR; persistence-dependent features are disabled when required.",
+          "source": "https://console.groq.com/docs/your-data"
+        },
+        {
+          "claim": "Qwen3-Coder, GLM-5.x, MiniMax-M3, Kimi-K3, Hermes-4, or latest DeepSeek hosting is confirmed.",
+          "status": "unverified",
+          "evidence": "The reviewed current catalog does not confirm these requested entries. MiniMax M2.7 is explicitly listed instead.",
+          "source": "https://console.groq.com/docs/models"
+        }
+      ],
+      "unknown": [
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist.general_KYC",
+        "billing.plans[1].usd_per_month",
+        "billing.plans[1].on_exhaustion",
+        "quotas.concurrency",
+        "privacy.regions.compute_regions",
+        "notable_models[*].refusal_profile",
+        "notable_models[2:8].open_weights",
+        "notable_models[2:8].license",
+        "notable_models[4:6].context_window",
+        "model_availability.Qwen3-Coder-Next",
+        "model_availability.Qwen3-Coder_variants",
+        "model_availability.GLM-5.x",
+        "model_availability.MiniMax-M3",
+        "model_availability.Kimi-K3",
+        "model_availability.Hermes-4",
+        "model_availability.latest_DeepSeek",
+        "embedding_model_availability",
+        "rerank_model_availability",
+        "image_generation_model_availability"
+      ],
+      "sources": [
+        {"url": "https://console.groq.com/docs/openai", "title": "OpenAI Compatibility", "accessed": "2026-10-12", "official": true},
+        {"url": "https://console.groq.com/docs/api-reference", "title": "Groq API Reference", "accessed": "2026-10-12", "official": true},
+        {"url": "https://console.groq.com/docs/models", "title": "Supported Models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://console.groq.com/docs/rate-limits", "title": "Rate Limits", "accessed": "2026-10-12", "official": true},
+        {"url": "https://console.groq.com/docs/billing-faqs", "title": "Billing FAQs", "accessed": "2026-10-12", "official": true},
+        {"url": "https://console.groq.com/docs/your-data", "title": "Your Data in GroqCloud", "accessed": "2026-10-12", "official": true},
+        {"url": "https://console.groq.com/docs/legal/services-agreement", "title": "Groq Services Agreement", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-120b", "title": "gpt-oss-120b model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-20b", "title": "gpt-oss-20b model card", "accessed": "2026-10-12", "official": true}
+      ],
+      "notes": "Developer invoices are automatically collected; that is postpaid collection, not automatic credit recharge. Standard progressive thresholds are $1/$10/$100/$500/$1000 before monthly-only collection; India uses $1/$10 then recurring $100 thresholds. The agreement also permits prepaid Service Credits, so contractual credit arrangements can coexist with self-serve postpaid billing. Catalog omissions are recorded as unverified availability, not categorical absence. No low-refusal tuning or abliteration was verified."
+    },
+    {
+      "id": "cerebras-inference",
+      "name": "Cerebras Inference",
+      "category": "hosted_api",
+      "homepage": "https://www.cerebras.ai/inference",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.cerebras.ai/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": null
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "Cerebras API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": "Free Trial requires a verified payment method. Dedicated/Enterprise inference requires a sales agreement; general KYC was not verified."
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "Free Trial",
+            "usd_per_month": 0,
+            "allowance": "One-time $5 promotional credit after adding a valid payment method; expires after 30 days.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Developer",
+            "usd_per_month": null,
+            "allowance": "PayGo credits purchased upfront and consumed by input/output token usage; purchased credits expire after one year.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Enterprise",
+            "usd_per_month": null,
+            "allowance": "Custom agreement, capacity, and pricing.",
+            "reset_window": null,
+            "on_exhaustion": "unknown"
+          }
+        ],
+        "metered_overage": "automatic",
+        "auto_recharge": "unknown",
+        "free_tier": "No permanently renewing free tier. The $5/30-day trial is conditional on a verified payment method and does not automatically enroll the user in paid usage."
+      },
+      "quotas": {
+        "rate_limits": "Current docs: Trial GPT OSS 120B and Qwen3.8-27B each 5 RPM, 30000 uncached TPM, 90000 total TPM, 1M TPH and TPD. Developer GPT OSS: 1000 RPM, 1M uncached TPM, 3M total TPM. Developer Qwen: 300 RPM, 150000 uncached TPM, temporarily 750000 total TPM. Organization-scoped continuous token buckets; Developer has no hourly/daily token caps.",
+        "concurrency": null,
+        "context_caps": "Shared catalog: GPT OSS 120B 65k trial / 131k paid; Qwen3.8-27B 64k trial / 128k paid. Public model reference specifies GPT OSS maximum context 131072. Trial Qwen permits two images per request; paid permits ten, with 10 MiB payload."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible clients",
+          "Cerebras Python SDK",
+          "Cerebras TypeScript SDK",
+          "Third-party tools with custom OpenAI-compatible provider configuration"
+        ],
+        "disallowed_uses": [
+          "Developer tier is not intended for production use."
+        ],
+        "automation_allowed": true,
+        "notes": "API integration and agent workflows are documented. Production capacity is sold through Enterprise/Dedicated inference. A complete acceptable-use restriction inventory was not verified."
+      },
+      "privacy": {
+        "training_on_prompts": "The terms explicitly do not grant Cerebras rights to use Service Content for training or fine-tuning models.",
+        "retention": "The inference support FAQ says prompt content, API requests/responses, chat logs, and model inputs/outputs are not retained. Organization details, emails, and usage/billing metrics remain.",
+        "zdr_available": true,
+        "regions": null
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision"
+      ],
+      "notable_models": [
+        {
+          "id": "gpt-oss-120b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Current Shared Inference model; free-trial context is lower."
+        },
+        {
+          "id": "qwen-3.8-27b",
+          "family": "Qwen",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current Shared Inference model with image input. Exact integer provider context limits were not verified from the rounded 64k/128k labels."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The OpenAI base is https://api.cerebras.ai/v1.",
+          "status": "confirmed",
+          "evidence": "Compatibility docs supply that exact URL and explicitly append /chat/completions.",
+          "source": "https://inference-docs.cerebras.ai/resources/openai"
+        },
+        {
+          "claim": "Cerebras documents both authenticated and public model discovery.",
+          "status": "confirmed",
+          "evidence": "GET /v1/models uses Bearer authentication; GET https://api.cerebras.ai/public/v1/models is a separate public metadata endpoint.",
+          "source": "https://inference-docs.cerebras.ai/api-reference/models/public-models"
+        },
+        {
+          "claim": "Cerebras offers a permanent free API tier.",
+          "status": "contradicted",
+          "evidence": "Current rate-limit FAQ specifies only a $5 trial expiring after 30 days.",
+          "source": "https://inference-docs.cerebras.ai/support/rate-limits"
+        },
+        {
+          "claim": "PayGo uses prepaid credits.",
+          "status": "confirmed",
+          "evidence": "The PayGo FAQ describes upfront credit purchases, zero-balance blocking, and optional recharge.",
+          "source": "https://support.cerebras.net/articles/5041581099-cerebras-self-serve-paygo-faq"
+        },
+        {
+          "claim": "Requested Qwen3-Coder, GLM-5.x, MiniMax, Kimi-K3, Hermes-4, gpt-oss-20b, and latest DeepSeek are confirmed on Shared Inference.",
+          "status": "unverified",
+          "evidence": "The current Shared Inference catalog lists only GPT OSS 120B and Qwen3.8-27B; additional families require dedicated arrangements.",
+          "source": "https://inference-docs.cerebras.ai/models/overview"
+        }
+      ],
+      "unknown": [
+        "api.other_protocols",
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist.general_KYC",
+        "billing.plans[1].usd_per_month",
+        "billing.plans[2].usd_per_month",
+        "billing.plans[2].reset_window",
+        "billing.plans[2].on_exhaustion",
+        "billing.auto_recharge",
+        "quotas.concurrency",
+        "privacy.regions",
+        "restrictions.disallowed_uses.complete_inventory",
+        "notable_models[*].refusal_profile",
+        "notable_models[1].license",
+        "notable_models[1].context_window",
+        "model_availability.Qwen3-Coder-Next",
+        "model_availability.Qwen3-Coder_variants",
+        "model_availability.GLM-5.x",
+        "model_availability.MiniMax",
+        "model_availability.Kimi-K3",
+        "model_availability.Hermes-4",
+        "model_availability.gpt-oss-20b",
+        "model_availability.latest_DeepSeek",
+        "embedding_model_availability",
+        "rerank_model_availability",
+        "image_generation_model_availability",
+        "ASR_model_availability",
+        "TTS_model_availability"
+      ],
+      "sources": [
+        {"url": "https://inference-docs.cerebras.ai/resources/openai", "title": "OpenAI Compatibility", "accessed": "2026-10-12", "official": true},
+        {"url": "https://inference-docs.cerebras.ai/api-reference/models/list-models", "title": "List models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://inference-docs.cerebras.ai/api-reference/models/public-models", "title": "Public models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://inference-docs.cerebras.ai/models/overview", "title": "Model Catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://www.cerebras.ai/pricing", "title": "Cerebras Inference Pricing", "accessed": "2026-10-12", "official": true},
+        {"url": "https://inference-docs.cerebras.ai/support/rate-limits", "title": "Rate Limits and Free Trial FAQ", "accessed": "2026-10-12", "official": true},
+        {"url": "https://support.cerebras.net/articles/5041581099-cerebras-self-serve-paygo-faq", "title": "Developer Tier PayGo FAQ", "accessed": "2026-10-12", "official": true},
+        {"url": "https://support.cerebras.net/articles/1811589793-does-cerebras-retain-my-data", "title": "Does Cerebras retain my data?", "accessed": "2026-10-12", "official": true},
+        {"url": "https://www.cerebras.ai/terms-of-service", "title": "Terms of Use", "accessed": "2026-10-12", "official": true},
+        {"url": "https://inference-docs.cerebras.ai/llms.txt", "title": "Official integration and agent documentation index", "accessed": "2026-10-12", "official": true},
+        {"url": "https://inference-docs.cerebras.ai/support/pricing", "title": "Older pricing documentation", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-120b", "title": "gpt-oss-120b model card", "accessed": "2026-10-12", "official": true}
+      ],
+      "notes": "Current pricing/rate-limit docs supersede an older official pricing page describing a free tier, 8192-token free context, and Exploration billing as coming soon. Current docs also conflict with the PayGo support FAQ: FAQ lists Qwen 450 RPM and GPT OSS 500000 uncached TPM; current rate-limit docs list 300 RPM and 1000000 respectively. Actual account limits need verification. Zero balance normally blocks requests, but the FAQ warns that brief negative balances caused by usage spikes can be charged at period-end; metered_overage reflects that exception. Recharge capability is confirmed, default is unknown. No low-refusal or abliterated deployment was verified."
+    },
+    {
+      "id": "deepinfra",
+      "name": "DeepInfra",
+      "category": "hosted_api",
+      "homepage": "https://deepinfra.com",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.deepinfra.com/v1/openai",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": null,
+        "models_list_requires_auth": null,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "anthropic-messages at https://api.deepinfra.com/anthropic/v1/messages"
+        ]
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "DeepInfra API key/access token",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": "Email/password accounts require email verification for unrestricted access; Google, GitHub, and corporate SSO are documented. General KYC was not verified."
+      },
+      "billing": {
+        "model": "metered",
+        "plans": [],
+        "metered_overage": "unknown",
+        "auto_recharge": "unknown",
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": "Default limits are concurrency-based, not fixed requests per minute. HTTP 429 can also occur under model load. Limit increases are available by request.",
+        "concurrency": "200 concurrent requests per model per account; two models permit 200 each.",
+        "context_caps": "GPT OSS 120B/20B: 131072. Current GLM-5.3-Flash, Kimi-K3, and DeepSeek-V4.1-Flash catalog entries label context 1024k. Qwen3 embeddings label 32k."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI Python SDK",
+          "OpenAI Node.js SDK",
+          "REST clients",
+          "Anthropic-compatible clients"
+        ],
+        "disallowed_uses": [
+          "Using the service to create competing services.",
+          "Unauthorized resale, sublicensing, or sharing account credentials.",
+          "Circumventing quotas or security controls.",
+          "Illegal, fraudulent, deceptive, or infringing uses.",
+          "Hazardous applications requiring fail-safe performance."
+        ],
+        "automation_allowed": true,
+        "notes": "Programmatic inference, bulk work, and agent integrations are documented. Terms distinguish customer applications from resale of the underlying service."
+      },
+      "privacy": {
+        "training_on_prompts": "Terms prohibit training or improving models on customer data except to provide the customer's requested service, such as their fine-tuning. Privacy docs identify Google/Anthropic model exceptions.",
+        "retention": "Ordinary inference inputs/outputs exist in memory and are deleted after processing. Documentation separately permits short-lived image output storage and encrypted disk storage for bulk inference. Terms allow authorized support retention until 30 days after issue resolution, operational metadata, and legally/security-required records.",
+        "zdr_available": true,
+        "regions": "The company states it operates GPU infrastructure in eight US data centers. Per-request regional routing and residency selection were not verified."
+      },
+      "deployment": "serverless",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "rerank",
+        "asr",
+        "tts",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "zai-org/GLM-5.3-Flash",
+          "family": "GLM",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current public catalog entry; context displayed as 1024k."
+        },
+        {
+          "id": "moonshotai/Kimi-K3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current public catalog entry; context displayed as 1024k."
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "family": "DeepSeek",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current public catalog entry; context displayed as 1024k."
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Public hosted model page."
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 131072,
+          "notes": "Public hosted model page."
+        },
+        {
+          "id": "Qwen/Qwen3-Embedding-8B",
+          "family": "Qwen3 Embedding",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current embeddings catalog; 0.6B and 4B variants are also listed."
+        },
+        {
+          "id": "nvidia/llama-nemotron-rerank-vl-1b-v2",
+          "family": "Llama Nemotron Rerank",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current multimodal reranker catalog entry."
+        },
+        {
+          "id": "black-forest-labs/FLUX-2-klein-4b",
+          "family": "FLUX",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current image-generation catalog entry."
+        },
+        {
+          "id": "openai/whisper-large-v3-turbo",
+          "family": "Whisper",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current ASR catalog; openai/whisper-large-v3 is also listed."
+        },
+        {
+          "id": "hexgrad/Kokoro-82M",
+          "family": "Kokoro",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current TTS catalog entry."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The OpenAI base ends in /v1/openai, not /openai/v1.",
+          "status": "confirmed",
+          "evidence": "Quickstart explicitly configures https://api.deepinfra.com/v1/openai.",
+          "source": "https://docs.deepinfra.com/quickstart"
+        },
+        {
+          "claim": "Unauthenticated catalog discovery is documented.",
+          "status": "confirmed",
+          "evidence": "The official model-deprecation guide documents GET https://api.deepinfra.com/models/list without authentication and distinguishes catalog history from active serving models.",
+          "source": "https://deepinfra.com/blog/model-deprecation-llm-apps"
+        },
+        {
+          "claim": "A documented List Models page proves the OpenAI GET /models route.",
+          "status": "contradicted",
+          "evidence": "The examined API-reference List Models page is instead GET https://api.deepinfra.com/typesafe/v1/models with Bearer authentication.",
+          "source": "https://docs.deepinfra.com/api-reference/decisions/list-models"
+        },
+        {
+          "claim": "The default concurrency allowance is 200 per model.",
+          "status": "confirmed",
+          "evidence": "The rate-limit documentation explicitly states 200 concurrent requests per model per account.",
+          "source": "https://docs.deepinfra.com/account/rate-limits"
+        },
+        {
+          "claim": "Qwen3-Coder-Next, Hermes-4, and current MiniMax-M3 serving are confirmed.",
+          "status": "unverified",
+          "evidence": "Current hosting was not verified from readable live model entries. An official deprecation blog names MiniMax-M3 as a replacement, but this alone does not prove current serving.",
+          "source": "https://deepinfra.com/blog/model-deprecation-llm-apps"
+        }
+      ],
+      "unknown": [
+        "api.models_path",
+        "api.models_list_requires_auth",
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist.general_KYC",
+        "billing.plans",
+        "billing.prepaid_vs_postpaid.self_serve_default",
+        "billing.metered_overage",
+        "billing.auto_recharge",
+        "billing.free_tier",
+        "billing.zero_balance_behavior",
+        "privacy.retention.image_output_duration",
+        "privacy.retention.bulk_duration",
+        "privacy.regions.request_routing",
+        "notable_models[*].refusal_profile",
+        "notable_models[0].open_weights",
+        "notable_models[0].license",
+        "notable_models[0:3].context_window",
+        "notable_models[5:9].open_weights",
+        "notable_models[5:9].license",
+        "notable_models[5:10].context_window",
+        "model_availability.Qwen3-Coder-Next",
+        "model_availability.Qwen3-Coder_variants",
+        "model_availability.Hermes-4",
+        "model_availability.MiniMax-M3"
+      ],
+      "sources": [
+        {"url": "https://docs.deepinfra.com/quickstart", "title": "Quickstart", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/account/signing-in", "title": "Signing In", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/blog/model-deprecation-llm-apps", "title": "Model Deprecation: Build LLM Apps That Last", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/api-reference/decisions/list-models", "title": "Typesafe List Models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/api-reference/chat-completions/anthropic-messages", "title": "Anthropic Messages", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/api-reference/billing/add-funds", "title": "Add Funds", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/api-reference/billing/setup-topup", "title": "Setup Topup", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/pricing", "title": "Pricing", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/account/rate-limits", "title": "Rate Limits", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/account/data-privacy", "title": "Data Privacy", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/terms", "title": "Terms of Service", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/series-b", "title": "Infrastructure and US data centers", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.deepinfra.com/", "title": "DeepInfra modalities and agent integrations", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/models/text-generation", "title": "Text generation catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/models/embeddings", "title": "Embeddings catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/models/reranker", "title": "Reranker catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/models/text-to-image", "title": "Image generation catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/models/automatic-speech-recognition", "title": "ASR catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/models/text-to-speech", "title": "TTS catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/openai/gpt-oss-120b", "title": "GPT OSS 120B", "accessed": "2026-10-12", "official": true},
+        {"url": "https://deepinfra.com/openai/gpt-oss-20b", "title": "GPT OSS 20B", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-120b", "title": "gpt-oss-120b model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/moonshotai/Kimi-K3", "title": "Kimi-K3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash", "title": "DeepSeek-V4.1-Flash model card", "accessed": "2026-10-12", "official": true}
+      ],
+      "notes": "Add Funds and threshold top-up APIs are documented; standard terms also describe monthly invoices for Service Orders. Neither establishes the default billing mode for a new self-serve account, so that remains unknown. Setup Topup's request schema has enabled=true by default; this is a submitted-request default, not proof that newly created accounts have auto-recharge enabled. The official blog demonstrates SDK models.list(), but an explicit OpenAI REST model-list URL and its auth requirement were not verified. Public catalog fetches failed in the research browser. ZDR terms and operational privacy docs differ in their stated exceptions, especially image outputs and bulk inference. No low-refusal tuning or abliteration was verified."
+    },
+    {
+      "id": "novita-ai",
+      "name": "Novita AI",
+      "category": "hosted_api",
+      "homepage": "https://novita.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.novita.ai/openai",
+        "includes_v1": false,
+        "chat_path": "/v1/chat/completions",
+        "models_path": "/v1/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "anthropic-compatible SDK base at https://api.novita.ai/anthropic",
+          "Fish Audio TTS at https://api.novita.ai/v4beta/txt2speech"
+        ]
+      },
+      "subscription_api": {
+        "base_url": null,
+        "notes": "Novita Coding Plan is documented. A separate subscription endpoint was not verified. The FAQ says Coding Plan quota is used first, then the API balance."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Novita API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": "Some models require whitelist approval through support. The FAQ also refers to verification level affecting limits; exact verification/KYC requirements were not published in the reviewed content."
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Model API",
+            "usd_per_month": null,
+            "allowance": "Prepaid account credit consumed by model usage; manual top-up amount must exceed $10.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Coding Plan Lite",
+            "usd_per_month": 19.9,
+            "allowance": "50 million base-rate-equivalent tokens; model-cost weights apply and both input and output count.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Coding Plan Pro",
+            "usd_per_month": 49.9,
+            "allowance": "150 million base-rate-equivalent tokens.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Coding Plan Max",
+            "usd_per_month": 199.9,
+            "allowance": "750 million base-rate-equivalent tokens.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          }
+        ],
+        "metered_overage": "automatic",
+        "auto_recharge": "unknown",
+        "free_tier": "New User Vouchers are documented for first-time registered users; monetary amount and expiration were not verified."
+      },
+      "quotas": {
+        "rate_limits": "Model-specific RPM and TPM per account. T1–T5 depend on top-ups during the current and previous two calendar months, with thresholds $50/$500/$3000/$10000. Numerical limit tables were not readable. Coding plans have their own RPM ceilings, but exact values were not verified. Excess returns HTTP 429.",
+        "concurrency": null,
+        "context_caps": "Provider labels: Qwen3-Coder-Next 256K context/64K output; GLM-5.3-Flash and Kimi-K3 1M; MiniMax-M3 977K; GPT OSS 120B 128K context/32K output. BGE-M3 embeddings are listed at 8K."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Model API: OpenAI-compatible SDKs and REST clients",
+          "Model API: Anthropic-compatible clients",
+          "Model API: custom scripts and CI integrations"
+        ],
+        "disallowed_uses": [
+          "Uses prohibited by Novita's Acceptable Use Policy.",
+          "Coding subscription use from CI or scripts outside supported tools is described as prohibited in an official vendor comparison article; exact contractual scope needs confirmation."
+        ],
+        "automation_allowed": true,
+        "notes": "automation_allowed applies to the metered Model API. The official October 12 article says metered API use has no tool allowlist and supports custom CI scripts, while coding subscriptions are restricted to supported tools. A complete Coding Plan client list, personal/team-use rules, resale rules, and background-automation terms were not verified."
+      },
+      "privacy": {
+        "training_on_prompts": "Terms section 10.2 says customer content is not used by default to train Novita's models or improve its services.",
+        "retention": "Terms specify ZDR for content beyond generating and delivering output, except legal requirements, service delivery, or technical support. Automated safety screening is permitted. Privacy policy separately retains account and transaction data seven years, communications three years, and technical information two years.",
+        "zdr_available": true,
+        "regions": null
+      },
+      "deployment": "serverless",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "rerank",
+        "tts",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "qwen/qwen3-coder-next",
+          "family": "Qwen3-Coder",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 262144,
+          "notes": "Verified serverless API ID. Integer context is the upstream native specification; Novita labels its limit 256K."
+        },
+        {
+          "id": "zai-org/glm-5.3-flash",
+          "family": "GLM",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Verified serverless API ID; provider labels 1M context and supports text/image/video inputs."
+        },
+        {
+          "id": "minimax/minimax-m3",
+          "family": "MiniMax",
+          "open_weights": true,
+          "license": "MiniMax Community License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Verified serverless API ID; provider labels context 977K."
+        },
+        {
+          "id": "moonshotai/kimi-k3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Verified serverless API ID; provider labels context 1M."
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "family": "gpt-oss",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Serverless listing says 128K context and 32K output. Its image-input claim conflicts with the upstream text-only model card."
+        },
+        {
+          "id": "deepseek/deepseek-v4.1-flash",
+          "family": "DeepSeek",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Exact ID appears in the current LLM API examples; pricing labels context 1M."
+        },
+        {
+          "id": "baai/bge-m3",
+          "family": "BGE",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Exact model enum in the embeddings API."
+        },
+        {
+          "id": "s1",
+          "family": "Fish Audio",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Exact model value documented for the separate /v4beta/txt2speech endpoint."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The stated SDK base is https://api.novita.ai/openai, while REST paths include /openai/v1.",
+          "status": "confirmed",
+          "evidence": "The LLM guide uses that base; cURL and model-list references use /openai/v1/chat/completions and /openai/v1/models.",
+          "source": "https://docs.novita.ai/guides/llm-api"
+        },
+        {
+          "claim": "GET models requires authentication.",
+          "status": "confirmed",
+          "evidence": "GET https://api.novita.ai/openai/v1/models lists Authorization as a required Bearer header.",
+          "source": "https://docs.novita.ai/api-reference/model-apis-llm-list-models"
+        },
+        {
+          "claim": "Coding Plan exhaustion stops all further billed usage.",
+          "status": "contradicted",
+          "evidence": "The FAQ explicitly says API account balance is charged after Coding Plan quota is exhausted.",
+          "source": "https://docs.novita.ai/guides/LLM-FAQ"
+        },
+        {
+          "claim": "Qwen3-Coder-Next is hosted with API ID qwen/qwen3-coder-next.",
+          "status": "confirmed",
+          "evidence": "The current model page supplies this exact ID and serverless support.",
+          "source": "https://novita.ai/models/model-detail/qwen-qwen3-coder-next?from=pricing"
+        },
+        {
+          "claim": "A rerank API is documented.",
+          "status": "confirmed",
+          "evidence": "POST https://api.novita.ai/openai/v1/rerank is documented, but the reviewed reference does not identify a supported model ID.",
+          "source": "https://docs.novita.ai/api-reference/model-apis-llm-create-rerank"
+        },
+        {
+          "claim": "Hermes-4, gpt-oss-20b, or ASR hosting is confirmed.",
+          "status": "unverified",
+          "evidence": "These entries were not verified in the reviewed current official catalog and API references.",
+          "source": "https://novita.ai/pricing"
+        }
+      ],
+      "unknown": [
+        "subscription_api.base_url",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist.exact_verification_requirements",
+        "billing.plans[0].usd_per_month",
+        "billing.auto_recharge",
+        "billing.free_tier.amount",
+        "billing.free_tier.expiration",
+        "quotas.rate_limits.numeric_limits",
+        "quotas.concurrency",
+        "restrictions.Coding_Plan.allowed_clients",
+        "restrictions.Coding_Plan.background_automation",
+        "restrictions.Coding_Plan.personal_or_team_scope",
+        "restrictions.resale_rules",
+        "privacy.regions",
+        "notable_models[*].refusal_profile",
+        "notable_models[1].open_weights",
+        "notable_models[1].license",
+        "notable_models[1:8].context_window",
+        "notable_models[6:8].open_weights",
+        "notable_models[6:8].license",
+        "model_availability.Hermes-4",
+        "model_availability.gpt-oss-20b",
+        "ASR_model_availability",
+        "rerank_model_ids",
+        "Qwen3_Embedding_8B.exact_API_id",
+        "image_model_ids"
+      ],
+      "sources": [
+        {"url": "https://docs.novita.ai/guides/llm-api", "title": "Large Language Models API", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/api-reference/model-apis-llm-list-models", "title": "List models", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/guides/llm-anthropic-compatibility", "title": "Anthropic SDK Compatibility", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/guides/payment-methods", "title": "Payment Methods", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/guides/auto-top-up", "title": "Automatic Top-Up", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/guides/llm-billing", "title": "LLM API Billing", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/guides/LLM-FAQ", "title": "LLM FAQs", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/guides/llm-rate-limits", "title": "Rate limits", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/coding-plan", "title": "Novita Coding Plan", "accessed": "2026-10-12", "official": true},
+        {"url": "https://blogs.novita.ai/ai-coding-plans/", "title": "Official October 12 coding-plan pricing and API comparison", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/legal/terms-of-service", "title": "Terms of Service", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/legal/privacy-policy", "title": "Privacy Policy", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/pricing", "title": "Pricing and model catalog", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/models/model-detail/qwen-qwen3-coder-next?from=pricing", "title": "Qwen3 Coder Next model detail", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/models/model-detail/zai-org-glm-5.3-flash?from=pricing", "title": "GLM 5.3 Flash model detail", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/models/model-detail/minimax-minimax-m3?from=pricing", "title": "MiniMax M3 model detail", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/models/model-detail/moonshotai-kimi-k3?from=pricing", "title": "Kimi K3 model detail", "accessed": "2026-10-12", "official": true},
+        {"url": "https://novita.ai/models/model-detail/openai-gpt-oss-120b?from=pricing", "title": "GPT OSS 120B model detail", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/api-reference/model-apis-llm-create-embeddings", "title": "Create embeddings", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/api-reference/model-apis-llm-create-rerank", "title": "Create rerank", "accessed": "2026-10-12", "official": true},
+        {"url": "https://docs.novita.ai/api-reference/model-apis-fish-audio-text-to-speech", "title": "Fish Audio Text to Speech", "accessed": "2026-10-12", "official": true},
+        {"url": "https://blogs.novita.ai/qwen3-coder-next-on-novita/", "title": "Older Qwen3-Coder-Next launch article", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/Qwen/Qwen3-Coder-Next", "title": "Qwen3-Coder-Next model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/MiniMaxAI/MiniMax-M3", "title": "MiniMax-M3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/moonshotai/Kimi-K3", "title": "Kimi-K3 model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/openai/gpt-oss-120b", "title": "gpt-oss-120b model card", "accessed": "2026-10-12", "official": true},
+        {"url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash", "title": "DeepSeek-V4.1-Flash model card", "accessed": "2026-10-12", "official": true}
+      ],
+      "notes": "Current guides repeatedly state SDK base https://api.novita.ai/openai but REST examples append /v1; this is an official documentation inconsistency, not a tested SDK configuration. An older launch blog instead uses /v3/openai and uppercase Qwen/Qwen3-Coder-Next; current model/API references were preferred. Coding prices and monthly allowances are verified from Novita's own October 12 article because plan cards were not readable on the landing page. The same article makes broad supported-tool restrictions, while the October 10 FAQ describes automatic API-balance fallback; precise subscription enforcement needs clarification. Pricing lists Qwen3 Embedding 8B, but the embedding reference's model enum lists only baai/bge-m3. Image services include Qwen-Image text-to-image/editing; exact model IDs were not verified. No low-refusal tuning or abliteration was established."
+    }
+  ],
+  "open_questions": [
+    "What are the new-account auto-recharge defaults for Together, Fireworks, Cerebras, DeepInfra, and Novita? Optional setup documentation alone does not establish defaults.",
+    "Does Together still support https://api.together.xyz/v1 as an alias, and what are its current dedicated embedding/rerank model IDs?",
+    "Does Fireworks document an OpenAI-style inference GET /models endpoint, separately from its authenticated management model list?",
+    "What are Fire Pass's current price, numerical allowance, reset window, exhaustion behavior, and unattended/background automation rules?",
+    "What are DeepInfra's default self-serve prepaid/postpaid mode, general free-credit allowance, zero-balance behavior, and explicit OpenAI model-list REST URL/auth requirement?",
+    "Which requested models missing from readable catalogs are currently serving, especially Hermes-4, Qwen3-Coder-Next on DeepInfra/Fireworks, and MiniMax-M3 on DeepInfra?",
+    "Which current Fireworks image-generation, ASR, and TTS models are available, and on which deployment surfaces?",
+    "What are Cerebras' actual account limits where current rate-limit docs and its PayGo support FAQ disagree, and which requested families are available through dedicated contracts?",
+    "What are Novita's exact subscription endpoint/key distinctions, approved-client list, automation/team/resale restrictions, numerical RPM/TPM ceilings, and serving regions?",
+    "Which Novita rerank and image model IDs are currently accepted, and does Novita currently serve ASR or gpt-oss-20b?",
+    "How should Novita's documented /openai SDK base and /openai/v1 REST paths be configured with unmodified current OpenAI SDKs?",
+    "What exceptions and precise retention durations apply to DeepInfra image outputs, bulk inference, and partner models?",
+    "No served model's low-refusal tuning or actual refusal-direction abliteration was verified; these require explicit deployment/model documentation rather than inference from open weights or licensing."
+  ]
+}

@@ -241,6 +241,7 @@ def select(
     excluded_classes: dict[str, list[str]] | None = None,
     require_avoid: bool = False,
     requirements: dict[str, Any] | None = None,
+    headroom: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Choose a provider/model/effort for one node. Pure and deterministic.
 
@@ -253,8 +254,12 @@ def select(
     (model_profile.py): hard keys filter, ``prefer_*`` keys order candidates
     ahead of cost. They also bind overrides, so an override cannot route a
     local-only workload to a remote provider.
+    ``headroom`` is plan allowance state per provider (headroom.py): an
+    ``exhausted`` plan is skipped until it resets; other states scale the
+    provider's relative cost by their ``multiplier``.
     """
     availability = availability or {}
+    headroom = headroom or {}
     excluded_set = set(excluded or [])
     avoid_set = set(avoid or [])
     running = running or {}
@@ -275,6 +280,9 @@ def select(
             return "excluded after a provider failure on this node"
         if provider["roles"] is not None and role not in provider["roles"]:
             return f"not configured for role {role}"
+        plan = headroom.get(provider["id"]) or {}
+        if plan.get("state") == "exhausted":
+            return "plan allowance exhausted" + (f" until {plan['until']}" if plan.get("until") else "")
         if requirements:
             return profile_problem(provider.get("profile") or normalize_profile(None, provider.get("adapter"), provider.get("options")), requirements)
         return None
@@ -370,18 +378,25 @@ def select(
                 # paying for a stronger class (or settling for a weaker one).
                 break
             continue
+        def weighted(item: dict[str, Any]) -> float:
+            base = item["costs"].get(candidate_class, DEFAULT_COSTS.get(candidate_class, 1.0))
+            return base * float((headroom.get(item["id"]) or {}).get("multiplier") or 1.0)
+
         chosen = min(
             candidates,
             key=lambda item: (
                 item["id"] in avoid_set,
                 preference_rank(item.get("profile") or {}, requirements),
-                item["costs"].get(candidate_class, DEFAULT_COSTS.get(candidate_class, 1.0)),
+                weighted(item),
                 running.get(load_key(item["id"]), 0),
                 item["priority"],
             ),
         )
         model = chosen["models"][candidate_class]
-        cost = chosen["costs"].get(candidate_class, DEFAULT_COSTS.get(candidate_class, 1.0))
+        cost = weighted(chosen)
+        plan = headroom.get(chosen["id"]) or {}
+        if float(plan.get("multiplier") or 1.0) != 1.0:
+            notes.append(f"{chosen['id']} plan {plan.get('state')} ({plan.get('detail')}): cost x{float(plan['multiplier']):g}")
         reason = f"cheapest usable provider for {candidate_class} (relative cost {cost:g})"
         if candidate_class != target_class:
             reason = f"no usable provider covers {target_class}; nearest covered class {candidate_class} (relative cost {cost:g})"

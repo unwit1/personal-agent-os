@@ -20,6 +20,7 @@ from .base import (
     InvocationPlan,
     RunningAgent,
     SubprocessAdapter,
+    ProviderStatus,
     build_env,
     classify_failure,
     extract_structured,
@@ -54,12 +55,56 @@ class ClaudeCodeAdapter(SubprocessAdapter):
         _, help_text = self._run_quick([executable, "--help"])
         return {flag: flag in help_text for flag in OPTIONAL_FLAGS}
 
+    def probe(self) -> ProviderStatus:
+        from ..secret_refs import resolve
+
+        secret_env = (self.provider.get("options") or {}).get("secret_env")
+        if secret_env is None:
+            secret_env = {}
+        if not isinstance(secret_env, dict):
+            return ProviderStatus(self.provider["id"], False, reason="claude_code options.secret_env must be a dict")
+        for ref in secret_env.values():
+            if not resolve(ref):
+                return ProviderStatus(self.provider["id"], False, reason=f"secret {ref} not configured")
+        return super().probe()
+
+    def _env(self, request: AgentLaunchRequest, options: dict[str, Any]) -> dict[str, str]:
+        env = build_env(self.provider.get("env_allowlist", []), request.env_allowlist, self.env_prefixes)
+        if "env" in options or "secret_env" in options:
+            for name in list(env):
+                if name.upper() in {"ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_BASE_URL"}:
+                    del env[name]
+        extra_env = options.get("env") or {}
+        if not isinstance(extra_env, dict):
+            raise RuntimeError("claude_code options.env must be a dict")
+        for name, value in extra_env.items():
+            if (not isinstance(name, str) or
+                    not name.startswith(("ANTHROPIC_", "CLAUDE_", "API_TIMEOUT")) or
+                    any(word in name.upper() for word in ("KEY", "TOKEN", "SECRET"))):
+                raise RuntimeError(f"claude_code options.env contains disallowed name {name!r}")
+            if not isinstance(value, str):
+                raise RuntimeError(f"claude_code options.env value for {name} must be a string")
+            env[name] = value
+        secret_env = options.get("secret_env") or {}
+        if not isinstance(secret_env, dict):
+            raise RuntimeError("claude_code options.secret_env must be a dict")
+        if secret_env:
+            from ..secret_refs import resolve
+
+            for name, ref in secret_env.items():
+                value = resolve(ref)
+                if not value:
+                    raise RuntimeError(f"secret {ref} not configured")
+                env[name] = value
+        return env
+
     def resolve_invocation(self, request: AgentLaunchRequest) -> InvocationPlan:
+        options = self.provider.get("options", {})
+        env = self._env(request, options)
         status = self.probe()
         if not status.available or not status.executable:
             raise RuntimeError(f"{self.provider['id']} is unavailable: {status.reason}")
         features = status.features
-        options = self.provider.get("options", {})
         argv = ["-p", "--output-format", "json", "--model", request.model]
         if request.provider_effort and features.get("--effort"):
             argv += ["--effort", request.provider_effort]
@@ -91,7 +136,7 @@ class ClaudeCodeAdapter(SubprocessAdapter):
             executable=status.executable,
             argv=argv,
             cwd=request.cwd,
-            env=build_env(self.provider.get("env_allowlist", []), request.env_allowlist, self.env_prefixes),
+            env=env,
             stdin_path=request.prompt_path,
             provider=self.provider["id"],
             model=request.model,

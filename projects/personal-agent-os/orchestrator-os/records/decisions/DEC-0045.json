@@ -1,0 +1,25 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0045",
+  "type": "DEC",
+  "title": "Model services catalog, presets, read-only discovery, endpoint path styles, allowance billing profile, Claude Code coding-plan bridge, registered-provider foreman",
+  "status": "accepted",
+  "summary": "Operator request 2026-10-12: choose among subscription, hosted open-weight and abliterated models. Implemented through Orchestrator runs ms-foundation, ms-services and ms-catalog-claude (Codex implementers until its quota ran out, then Claude; reviews by the other provider where available). endpoints.py adds path_style auto/root/append_v1; legacy base URLs are unchanged, and bases already ending in /vN are no longer doubled. model_profile adds billing and privacy blocks: is_paid stays true for metered, credit and GPU billing and for allowances whose overage is metered or unknown. Only an allowance with overage 'blocked' counts as unpaid, so the allow_paid_spend gate is not weakened. The claude_code adapter accepts options.env (ANTHROPIC_/CLAUDE_ names only, no key/token/secret names) and options.secret_env, and strips the operator's ANTHROPIC_* credentials whenever a bridge is configured. model_services.py loads and validates the source-backed catalog (28 services, 20 models, 9 media; 0 errors). Presets refuse automation_allowed=false and client-restricted plans, and need --ack-terms when the terms are unclear. Presets always set a secret_ref, so a cloud vendor key never reaches a third-party host (a high-severity review finding, fixed before integration). discover is GET-only and sends Authorization only to the endpoint's own host. The GUI gains a Model services panel; foreman use registered makes any eligible registered provider the session foreman, with paid gating unchanged.",
+  "prior_art": {"checked": "orchestrate prior-art lookup 'OpenAI-compatible provider catalog, model discovery, service presets, multi-provider gateway'", "found": "PA-litellm (BORROW: compromised on PyPI 2026-03, heavy), PA-vllm (WRAP)", "reused": "http_api OpenAI-compatible adapter, model_profile.endpoint_entry, secret_refs, service.add_model_endpoint, foreman_deploy.use", "why_custom": "the needed subset is small and stdlib-only; LiteLLM stays a borrow-only reference"},
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/model_services.py"},
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/endpoints.py"},
+    {"rel": "evidence", "ref": "projects/personal-agent-os/research/model-services/catalog.json"},
+    {"rel": "evidence", "ref": "projects/personal-agent-os/research/model-services/VERIFICATION.md"},
+    {"rel": "documents", "ref": "docs/model-services.md"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "IMP-0056"},
+    {"rel": "relates_to", "ref": "IMP-0057"},
+    {"rel": "relates_to", "ref": "IMP-0058"},
+    {"rel": "relates_to", "ref": "IMP-0059"}
+  ],
+  "metrics": {"services": 28, "models": 20, "media": 9, "catalog_validation_errors": 0, "model_services_tests": 188, "full_suite_failures_new": 0, "full_suite_failures_preexisting": 15, "paid_spend_usd": 0, "live_vendor_calls_with_keys": 0},
+  "provenance": {"session": "2026-10-12 operator session (Claude Code coordinating Codex + Claude workers)", "author_tier": "frontier (Opus 5.5) coordinator; implementation by gpt-6-sol/gpt-6.1-sol (Codex) and claude sonnet/opus workers"},
+  "created_at": "2026-10-12T21:45:00+00:00",
+  "updated_at": "2026-10-12T21:45:00+00:00"
+}

@@ -140,6 +140,20 @@ class ApiAdapterTests(unittest.TestCase):
             result = run(adapter, request(Path(tmp)))
         self.assertEqual((result.outcome, len(attempts), result.usage["input_tokens"]), ("completed", 2, 10))
 
+    def test_overloaded_429_is_unavailable_not_quota(self) -> None:
+        def opener(req, timeout=0):
+            body = b'{"error":{"message":"Model is temporarily overloaded.","status":429,"code":"model_overloaded"}}'
+            raise urllib.error.HTTPError("https://x", 429, "err", Message(), io.BytesIO(body))
+
+        def quota(req, timeout=0):
+            raise http_error(429)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            options = {"base_url": "http://127.0.0.1:1/x", "max_attempts": 1}
+            overloaded = run(http_api.OpenAiCompatibleAdapter({"id": "local", "options": options}, opener=opener), request(Path(tmp)))
+            limited = run(http_api.OpenAiCompatibleAdapter({"id": "local", "options": options}, opener=quota), request(Path(tmp)))
+        self.assertEqual((overloaded.failure_kind, limited.failure_kind), ("unavailable", "quota"))
+
     def test_auth_failure_is_not_retried(self) -> None:
         attempts = []
 

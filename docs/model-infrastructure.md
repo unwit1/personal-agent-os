@@ -15,7 +15,19 @@ phases; paid compute stays behind the budget/approval gate.
 Any server that speaks the OpenAI Chat Completions API works: vLLM
 (`vllm serve <model> --port 8000`), Ollama (`http://127.0.0.1:11434`), LM
 Studio, llama.cpp `llama-server`, TGI, or a proxy in front of a RunPod pod or
-serverless endpoint. Agent OS posts to `<base_url>/v1/chat/completions`.
+serverless endpoint. Agent OS resolves the API root using `path_style`, then
+posts to `<api_root>/chat/completions`. `root` uses the supplied base URL,
+`append_v1` adds `/v1`, and `auto` keeps a final version segment such as
+`/v1` but otherwise adds `/v1`. Choose the style from the server's documented
+full chat URL; see [Model services](model-services.md) for examples.
+
+## Model service catalog and presets
+
+[Model services](model-services.md) covers the source-backed catalog, plan and
+endpoint review, local secrets, read-only model discovery, provider presets,
+Claude Code bridges, and registered-provider foremen. These are text/code
+integration paths; image and audio candidates remain catalog records until
+adapters are implemented.
 
 ## 0. Credentials (one-time, pop-up dialogs)
 

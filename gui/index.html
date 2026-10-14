@@ -39,6 +39,7 @@
             <option value="">Default planner</option>
             <option value="claude">Claude Opus (recommended)</option>
             <option value="chatgpt">ChatGPT</option>
+            <option value="registered">Registered provider…</option>
             <option value="more">Other (OpenRouter, local, GPU)…</option>
           </select>
         </label>
@@ -143,8 +144,17 @@
           <option value="chatgpt">ChatGPT (your subscription)</option>
           <option value="openrouter">OpenRouter model (pay per token, no rental)</option>
           <option value="local">Local model (a server on this computer)</option>
+          <option value="registered">Registered provider (one already in your providers)</option>
           <option value="huggingface">Hugging Face model (rented GPU)</option>
         </select></label>
+        <div id="fm-reg" class="fm-group hidden">
+          <div class="row">
+            <label>Provider<select id="fm-reg-provider"><option value="">(loading)</option></select></label>
+            <label>Model<select id="fm-reg-model"></select></label>
+          </div>
+          <p id="fm-reg-note" class="muted">Enabled providers that may plan and answer right now. A paid one only plans runs that allow paid credits.</p>
+          <div class="row"><button id="fm-use-reg" class="primary">Use as Foreman</button></div>
+        </div>
         <div id="fm-sub" class="fm-group">
           <label>Model<select id="fm-sub-model"></select></label>
           <div class="row"><button id="fm-use" class="primary">Use as Foreman</button></div>
@@ -225,6 +235,14 @@
         <table><thead><tr><th>Model</th><th>Status</th><th>Detail</th></tr></thead><tbody id="compute-queue"></tbody></table>
         <h3>Refusals and shadow foreman</h3>
         <table><thead><tr><th>Route</th><th>Kind</th><th>Summary</th></tr></thead><tbody id="compute-signals"></tbody></table>
+      </details>
+    </section>
+
+    <section class="panel">
+      <details id="services-panel" class="efficiency">
+        <summary>Model services <span id="services-badge" class="badge hidden"></span></summary>
+        <p class="muted" id="services-note">Subscriptions, hosted APIs, custom hosting and gateways from the reviewed catalog. Opening this reads the local catalog only; a vendor is contacted only when you press List models. Adding a service writes a secret reference to your providers, never a key.</p>
+        <table class="services"><thead><tr><th>Service</th><th>Category</th><th>Status</th><th>Plans</th><th>Restrictions</th><th>Privacy</th></tr></thead><tbody id="services-list"></tbody></table>
       </details>
     </section>
     </details>

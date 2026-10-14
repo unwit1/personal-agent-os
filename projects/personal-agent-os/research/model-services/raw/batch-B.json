@@ -1,0 +1,1282 @@
+{
+  "batch": "B",
+  "records": [
+    {
+      "id": "featherless",
+      "name": "Featherless Chat and Developer",
+      "category": "subscription_allowance",
+      "homepage": "https://featherless.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.featherless.ai/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": false,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": []
+      },
+      "subscription_api": {
+        "base_url": "https://api.featherless.ai/v1",
+        "notes": "Chat and Developer use the documented OpenAI-compatible endpoint. Different plan permissions apply."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Dashboard API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Chat",
+            "usd_per_month": 25,
+            "allowance": "Unlimited tokens and requests, subject to concurrent-unit capacity and permitted interactive use.",
+            "reset_window": "none",
+            "on_exhaustion": "unknown"
+          },
+          {
+            "name": "Developer",
+            "usd_per_month": 50,
+            "allowance": "Minimum $50 monthly prepaid credits; successful requests consume credits according to model-specific input/output token prices. Unused credits roll over indefinitely.",
+            "reset_window": "monthly",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "unknown",
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": null,
+        "concurrency": "Chat: 4 concurrent units. Developer: 100 concurrent units. Requests reserve model-specific units; exceeding the available budget returns HTTP 429.",
+        "context_caps": "Chat: 32K. Developer: up to 256K."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Chat: SillyTavern",
+          "Chat: RisuAI",
+          "Chat: Wyvern",
+          "Chat: other OpenAI-compatible frontends for human-driven interaction",
+          "Developer: Cline",
+          "Developer: Pi Agent",
+          "Developer: Kilo Code",
+          "Developer: OpenCode",
+          "Developer: OpenHands",
+          "Developer: n8n",
+          "Developer: custom agents"
+        ],
+        "disallowed_uses": [
+          "Chat: coding agents",
+          "Chat: app/API traffic",
+          "Chat: production API",
+          "Chat: background automation",
+          "Chat: benchmarking",
+          "Chat and Developer: reselling access"
+        ],
+        "automation_allowed": false,
+        "notes": "The boolean applies to Chat. Developer expressly permits coding agents, production API traffic, and background automation. Chat misuse can cause cancellation without refund."
+      },
+      "privacy": {
+        "training_on_prompts": null,
+        "retention": "API chats, prompts, and completions are processed in real time and are not logged or stored.",
+        "zdr_available": true,
+        "regions": null
+      },
+      "deployment": "serverless",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "embedding"
+      ],
+      "notable_models": [
+        {
+          "id": "moonshotai/Kimi-K3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License; Hugging Face identifier kimi-k3",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Featherless documents this exact API model ID. Context value describes the original model; Featherless plan caps are lower."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Chat excludes coding agents and background automation.",
+          "status": "confirmed",
+          "evidence": "Exact restriction: \"Chat plan is for interactive, human-driven use by the purchaser. Not for reselling, app/API traffic, background automation, or benchmarking.\" Table: \"Coding agents | No\".",
+          "source": "https://featherless.ai/pricing"
+        },
+        {
+          "claim": "Developer access is separately billed by consumption.",
+          "status": "confirmed",
+          "evidence": "Developer starts at $50/month in prepaid credits; successful requests deduct token-based charges. Calls stop at zero balance until credits are added.",
+          "source": "https://featherless.ai/docs/billing"
+        },
+        {
+          "claim": "Model enumeration requires an API key.",
+          "status": "contradicted",
+          "evidence": "The models endpoint explicitly supports authenticated and unauthenticated requests.",
+          "source": "https://featherless.ai/docs/api-reference-models"
+        }
+      ],
+      "unknown": [
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.auto_recharge",
+        "billing.free_tier",
+        "billing.plans[0].on_exhaustion",
+        "quotas.rate_limits",
+        "privacy.training_on_prompts",
+        "privacy.regions",
+        "notable_models[0].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://featherless.ai/pricing",
+          "title": "Pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://featherless.ai/docs/plans",
+          "title": "Plans",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://featherless.ai/docs/billing",
+          "title": "Billing & Payment Methods",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://featherless.ai/docs/quickstart-guide",
+          "title": "Quickstart guide",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://featherless.ai/docs/api-reference-models",
+          "title": "/v1/models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://featherless.ai/docs/concurrency-limits",
+          "title": "Concurrent Unit Limits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://featherless.ai/docs/privacy-and-logging",
+          "title": "Privacy and Logging",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://featherless.ai/docs/embeddings",
+          "title": "Embeddings",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://webflowcms.featherless.ai/blog/kimi-k3-in-opencode-claude-code-and-your-coding-agent",
+          "title": "How to Use Kimi K3 in Opencode, Claude Code, and Your Coding Agent",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/moonshotai/Kimi-K3",
+          "title": "moonshotai/Kimi-K3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Conflicting official wording: the plans guide describes some Chat tiers as suitable for coding and agentic workloads, while the pricing page explicitly excludes those uses from Chat. The pricing restriction should govern routing conservatively. Developer is metered prepaid access, not unlimited coding. No low-refusal tuning or abliteration was verified for the listed model. No additional API protocol was verified."
+    },
+    {
+      "id": "minimax-m-plan",
+      "name": "MiniMax M Plan / legacy Coding Plan",
+      "category": "subscription_allowance",
+      "homepage": "https://www.minimax.io/m-plan",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.minimax.io/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "anthropic-messages; documented base URL https://api.minimax.io/anthropic"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.minimax.io/v1",
+        "notes": "Subscription Key uses the same documented OpenAI base URL as the API platform. Anthropic-compatible base URL: https://api.minimax.io/anthropic. Billing depends on key type, not a separately documented subscription hostname."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "M Plan Subscription Key, documented with sk-cp- prefix; standard pay-as-you-go API Key is separate",
+        "subscription_key_differs_from_api_key": true,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Go",
+            "usd_per_month": 22,
+            "allowance": "Baseline usage allowance; absolute quantity is not published in the current overview.",
+            "reset_window": "5h_first_use_window_and_7d_first_use_window",
+            "on_exhaustion": "metered_overage"
+          },
+          {
+            "name": "Explore",
+            "usd_per_month": 55,
+            "allowance": "3 times Go usage.",
+            "reset_window": "5h_first_use_window_and_7d_first_use_window",
+            "on_exhaustion": "metered_overage"
+          },
+          {
+            "name": "Build",
+            "usd_per_month": 132,
+            "allowance": "7.5 times Go usage.",
+            "reset_window": "5h_first_use_window_and_7d_first_use_window",
+            "on_exhaustion": "metered_overage"
+          }
+        ],
+        "metered_overage": "opt_in",
+        "auto_recharge": "unknown",
+        "free_tier": "MiniMax Code has limited free model access; the public comparison table excludes an API key from Free."
+      },
+      "quotas": {
+        "rate_limits": "Dynamic RPM/TPM throttling; thresholds can tighten during peak traffic. Exact M Plan numeric thresholds were not verified.",
+        "concurrency": null,
+        "context_caps": "API model table lists 1,000,000 tokens for MiniMax-M3 and MiniMax-M3.1-Flash-Preview. A tool integration example configures 524,288 tokens, so client configuration may impose a lower limit."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Any AI tool supporting OpenAI-compatible or Anthropic-compatible protocols",
+          "MiniMax Code",
+          "Claude Code",
+          "Codex",
+          "Cursor",
+          "OpenCode",
+          "Pi",
+          "Hermes Agent",
+          "OpenClaw",
+          "Dify",
+          "Open WebUI",
+          "LangChain",
+          "OpenHands"
+        ],
+        "disallowed_uses": [
+          "Sharing the Subscription Key"
+        ],
+        "automation_allowed": null,
+        "notes": "FAQ positions M Plan for individual interactive developer use and recommends pay-as-you-go for production. Integration docs also show Dify workflows and LangChain. A blanket background-automation prohibition or permission was not verified."
+      },
+      "privacy": {
+        "training_on_prompts": null,
+        "retention": null,
+        "zdr_available": null,
+        "regions": null
+      },
+      "deployment": "subscription",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "MiniMax-M3.1-Flash-Preview",
+          "family": "MiniMax M3",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 1000000,
+          "notes": "Current M Plan text model; API docs say it is available only through M Plan and MiniMax Code for now."
+        },
+        {
+          "id": "MiniMax-M3",
+          "family": "MiniMax M3",
+          "open_weights": true,
+          "license": "MiniMax Community License; Hugging Face identifier minimax-community",
+          "refusal_profile": "unknown",
+          "context_window": 1000000,
+          "notes": "Listed by the API platform. Current M Plan overview names M3.1 Flash Preview instead. The downloadable M3 license includes commercial notice/authorization conditions and prohibited uses."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Subscription Keys and pay-as-you-go API Keys are different and not interchangeable.",
+          "status": "confirmed",
+          "evidence": "Subscription Keys consume M Plan allowance and eligible credit packs; standard keys charge the API account balance.",
+          "source": "https://platform.minimax.io/docs/m-plan/faq"
+        },
+        {
+          "claim": "Current M Plan can be represented as a fixed prompt allowance per five hours.",
+          "status": "unverified",
+          "evidence": "Current overview publishes relative usage tiers. Consumption varies by model, context, task complexity, and thinking depth; no fixed prompt counts were verified.",
+          "source": "https://platform.minimax.io/docs/m-plan/intro"
+        },
+        {
+          "claim": "Quota exhaustion automatically falls back to the pay-as-you-go account balance.",
+          "status": "contradicted",
+          "evidence": "Purchased credit packs are used next. Pay-as-you-go requires replacing the Subscription Key with a standard API Key.",
+          "source": "https://platform.minimax.io/docs/m-plan/faq"
+        }
+      ],
+      "unknown": [
+        "access.kyc_or_waitlist",
+        "billing.plans[*].absolute_allowance",
+        "billing.legacy_coding_plan_prompts_per_5h",
+        "billing.auto_recharge",
+        "quotas.concurrency",
+        "quotas.numeric_rate_limits",
+        "restrictions.automation_allowed",
+        "privacy.training_on_prompts",
+        "privacy.retention",
+        "privacy.zdr_available",
+        "privacy.regions",
+        "notable_models[0].open_weights",
+        "notable_models[0].license",
+        "notable_models[*].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://www.minimax.io/m-plan",
+          "title": "M Plan",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/m-plan/intro",
+          "title": "M Plan overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/m-plan/faq",
+          "title": "M Plan FAQ",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/m-plan/usage-rules",
+          "title": "Usage",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/m-plan/monthly-offer",
+          "title": "M Plan monthly: 50% off your first month",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/m-plan/quickstart",
+          "title": "Subscribe to M Plan",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/m-plan/other-tools",
+          "title": "Other Tools",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+          "title": "OpenAI SDK",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+          "title": "Anthropic SDK",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/docs/api-reference/models/openai/list-models",
+          "title": "List Models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://platform.minimax.io/protocol/privacy-policy",
+          "title": "MiniMax API Privacy Policy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
+          "title": "MiniMaxAI/MiniMax-M3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blame/main/LICENSE",
+          "title": "MiniMax M3 LICENSE",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Legacy Coding Plan and Token Plan overview URLs redirect to M Plan. Prices are regular monthly rates; an official first-month 50% discount runs through October 14. Both usage windows begin on first use and reset independently; these are fixed first-use windows rather than continuously rolling restoration. Video uses only the weekly window. Exhaustion is blocked without eligible purchased credits; those credits are consumed automatically once available and expire after one year. Auto-renewal is distinct from credit auto-recharge. API privacy page was not fully extractable; its indexed statement about not training to profile consumers does not establish a general no-training policy."
+    },
+    {
+      "id": "kimi-code",
+      "name": "Kimi Code",
+      "category": "subscription_allowance",
+      "homepage": "https://www.kimi.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.kimi.ai/coding/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": null,
+        "models_list_requires_auth": null,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "OpenAI Responses at https://api.kimi.ai/coding/v1/responses",
+          "anthropic-messages; overseas base URL https://api.kimi.ai/coding/",
+          "anthropic-messages; China base URL https://api.kimi.com/coding/; documented full endpoint https://api.kimi.com/coding/v1/messages"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.kimi.ai/coding/v1",
+        "notes": "Overseas subscription endpoint. China OpenAI-compatible base URL: https://api.kimi.com/coding/v1. Standard pay-as-you-go platform comparison lists https://api.moonshot.ai/v1 overseas and https://api.moonshot.cn/v1 in China."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Kimi Code Console API key; official clients also support account login",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Plus",
+            "usd_per_month": 19,
+            "allowance": "Shared monthly membership credit pool metered by actual usage; absolute credit quantity not verified.",
+            "reset_window": "5h_rolling_and_monthly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Pro",
+            "usd_per_month": 39,
+            "allowance": "Larger shared monthly membership credit pool; absolute credit quantity not verified.",
+            "reset_window": "5h_rolling_and_monthly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Max",
+            "usd_per_month": 99,
+            "allowance": "Larger shared monthly membership credit pool; absolute credit quantity not verified.",
+            "reset_window": "5h_rolling_and_monthly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Ultra",
+            "usd_per_month": 199,
+            "allowance": "Largest credit pool among current international plans; absolute credit quantity not verified.",
+            "reset_window": "5h_rolling_and_monthly",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "opt_in",
+        "auto_recharge": "unknown",
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": "Current international plans: rolling five-hour usage limit plus monthly shared credits, without a weekly cap. Legacy plans retain a weekly reset measured from subscription date. Numeric five-hour limits were not verified.",
+        "concurrency": null,
+        "context_caps": "k3: 262,144 tokens on Plus, up to 1,048,576 on Pro and above. k3-256k: 262,144. kimi-for-coding: 1,048,576. kimi-for-coding-highspeed: 262,144."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Kimi Code Desktop",
+          "Kimi Code CLI",
+          "Kimi Code for VS Code",
+          "Claude Code",
+          "OpenCode",
+          "Codex",
+          "Hermes Agent",
+          "OpenClaw",
+          "Other compatible mainstream coding tools and agent frameworks for interactive use"
+        ],
+        "disallowed_uses": [
+          "Non-interactive automation",
+          "Scripted batch execution",
+          "Data annotation pipelines",
+          "Account or API access resale",
+          "Repackaging Kimi Code capabilities as a service",
+          "Spoofing or altering client identity",
+          "Account sharing through a reverse proxy"
+        ],
+        "automation_allowed": false,
+        "notes": "Personal interactive use only. This restriction does not establish a prohibition on agent tool calls within an interactive coding session. Official examples preserve the client's actual identity."
+      },
+      "privacy": {
+        "training_on_prompts": "International privacy policy permits using user content, including prompts and generated content, to train and optimize models. No Kimi Code-specific exemption was verified.",
+        "retention": "Personal information is retained as needed for service, legal, security, and business purposes; no fixed prompt-retention period was verified.",
+        "zdr_available": null,
+        "regions": "International policy permits storage outside the user's country but does not identify specific countries. China-site policy states personal information is stored in China."
+      },
+      "deployment": "subscription",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "k3",
+          "family": "Kimi K3",
+          "open_weights": true,
+          "license": "Kimi K3 License; Hugging Face identifier kimi-k3",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Plus is limited to 262,144 context; Pro and above unlock the larger context. Claude Code's k3[1m] configuration notation is not the ordinary API model ID."
+        },
+        {
+          "id": "k3-256k",
+          "family": "Kimi K3",
+          "open_weights": true,
+          "license": "Kimi K3 License; Hugging Face identifier kimi-k3",
+          "refusal_profile": "unknown",
+          "context_window": 262144,
+          "notes": "Hosted K3 context-limited variant; no separate downloadable checkpoint was verified. Supports image input, not video input."
+        },
+        {
+          "id": "kimi-for-coding",
+          "family": "Kimi K2.8 Preview",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Current alias maps to K2.8 Preview; supports image and video input."
+        },
+        {
+          "id": "kimi-for-coding-highspeed",
+          "family": "Kimi K2.7 Code HighSpeed",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": 262144,
+          "notes": "Pro and above; model table specifies three times quota consumption."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Kimi Code prohibits non-interactive background automation.",
+          "status": "confirmed",
+          "evidence": "Guidelines restrict subscriptions to personal interactive use and identify scripted batches and annotation pipelines as outside scope.",
+          "source": "https://www.kimi.com/en/help/kimi-code/community-guidelines"
+        },
+        {
+          "claim": "All current Kimi Code subscribers have a weekly quota window.",
+          "status": "contradicted",
+          "evidence": "Current international plans remove the weekly limit; legacy subscriptions retain it. Both remain subject to monthly credits and a five-hour limit.",
+          "source": "https://www.kimi.ai/help/kimi-code/benefits"
+        },
+        {
+          "claim": "Optional Extra Usage can continue requests after subscription limits are reached.",
+          "status": "confirmed",
+          "evidence": "Once enabled, exhausted subscription allowance falls back to the purchased Extra Usage balance; an optional monthly spending cap is available.",
+          "source": "https://www.kimi.ai/help/kimi-code/benefits"
+        }
+      ],
+      "unknown": [
+        "api.models_path",
+        "api.models_list_requires_auth",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[*].absolute_allowance",
+        "billing.auto_recharge",
+        "billing.free_tier",
+        "quotas.numeric_rate_limits",
+        "quotas.concurrency",
+        "privacy.zdr_available",
+        "privacy.kimi_code_specific_training_exemption",
+        "privacy.exact_prompt_retention_period",
+        "privacy.international_processing_countries",
+        "notable_models[2].open_weights",
+        "notable_models[2].license",
+        "notable_models[3].open_weights",
+        "notable_models[3].license",
+        "notable_models[*].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://www.kimi.ai/help/membership/membership-pricing",
+          "title": "Pricing details",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.ai/help/kimi-code/benefits",
+          "title": "Membership Benefits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/en/help/kimi-code/membership-guide",
+          "title": "Kimi Code Overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/en/help/kimi-code/models",
+          "title": "Model Configuration",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/en/help/kimi-code/third-party-agents",
+          "title": "Third-party Tools",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/en/help/kimi-code/community-guidelines",
+          "title": "Kimi Code Community Guidelines",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/code/docs/en/third-party-tools/codex.html",
+          "title": "Using Kimi in Codex",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/code/docs/en/third-party-tools/claude-code.html",
+          "title": "Claude Code",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/en/help/kimi-api/api-error-codes",
+          "title": "Kimi API Error Code Reference",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.ai/user/agreement/userPrivacy?version=v2",
+          "title": "International Privacy Policy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.kimi.com/user/agreement/userPrivacy?version=v2",
+          "title": "China-site Privacy Policy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/moonshotai/Kimi-K3",
+          "title": "moonshotai/Kimi-K3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Prices describe international plans, not China-market RMB plans. Extra Usage is optional; without it, exhausted quota blocks further requests until reset or upgrade. The official documentation does not present its compatible-client examples as a verified exhaustive allowlist. A coding /models endpoint was reported by secondary sources, but official documentation sufficient to populate that field was not verified. Open weights do not establish low-refusal tuning or abliteration."
+    },
+    {
+      "id": "z-ai-glm-coding-plan",
+      "name": "Z.ai GLM Coding Plan",
+      "category": "subscription_allowance",
+      "homepage": "https://z.ai/subscribe",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.z.ai/api/paas/v4/",
+        "includes_v1": false,
+        "chat_path": "/chat/completions",
+        "models_path": null,
+        "models_list_requires_auth": null,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "Coding Plan anthropic-messages; base URL https://api.z.ai/api/anthropic",
+          "Coding Plan OpenAI Responses; base URL https://api.z.ai/api/v1"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.z.ai/api/coding/paas/v4",
+        "notes": "OpenAI Chat Completions uses this dedicated coding base, appending /chat/completions. General API SDK examples use https://api.z.ai/api/paas/v4/; normalize the trailing slash when joining paths."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Z.ai API key created through API Keys management",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance",
+        "plans": [
+          {
+            "name": "Lite",
+            "usd_per_month": 18,
+            "allowance": "2,000 credits per five hours; 10,000 credits per week.",
+            "reset_window": "5h_dynamic_and_weekly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Pro",
+            "usd_per_month": null,
+            "allowance": "12,000 credits per five hours; 60,000 credits per week.",
+            "reset_window": "5h_dynamic_and_weekly",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Max",
+            "usd_per_month": null,
+            "allowance": "28,000 credits per five hours; 140,000 credits per week.",
+            "reset_window": "5h_dynamic_and_weekly",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "n/a",
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": "General-purpose supported agents receive best-effort service and may be temporarily rate-limited under high inference load. Numeric plan RPM/TPM thresholds were not verified.",
+        "concurrency": null,
+        "context_caps": "GLM-5.3 and GLM-5.3-Flash are documented as 1M context with 128K maximum output. Published weight configurations specify 1,048,576 positions."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "ZCode",
+          "Claude Code",
+          "Claude for IDE",
+          "Codex",
+          "OpenCode",
+          "Pi",
+          "Cursor",
+          "Cline",
+          "TRAE",
+          "Qoder",
+          "Droid",
+          "Kilo Code",
+          "Roo Code",
+          "Crush",
+          "Goose",
+          "Eigent",
+          "AutoClaw",
+          "OpenClaw",
+          "Hermes Agent",
+          "SillyTavern"
+        ],
+        "disallowed_uses": [
+          "Subscription benefits in unsupported tools",
+          "Subscription benefits in unsupported scenarios",
+          "API calls outside the plan's permitted supported-tool scope"
+        ],
+        "automation_allowed": true,
+        "notes": "Automation is supported within documented tools and scenarios, including automated engineering and office workflows. This does not authorize a custom orchestrator absent from the supported list."
+      },
+      "privacy": {
+        "training_on_prompts": null,
+        "retention": "API DPA says customer-provided/generated content is processed in real time without storage. General privacy provisions separately permit retaining input while an account exists.",
+        "zdr_available": null,
+        "regions": "Generally Singapore, according to the privacy policy and API DPA."
+      },
+      "deployment": "subscription",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "glm-5.3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License; Hugging Face identifier glm-5.3",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Current Coding Plan model; text-only input. Context integer comes from the published weight configuration."
+        },
+        {
+          "id": "glm-5.3-flash",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Current Coding Plan multimodal model; supports image/video input. FlashX is documented as not yet available on the plan."
+        },
+        {
+          "id": "glm-5.2",
+          "family": "GLM",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Coding Plan requests are automatically routed to GLM-5.3; this is not evidence that an unchanged GLM-5.2 deployment is served."
+        },
+        {
+          "id": "glm-5.1",
+          "family": "GLM",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Coding Plan requests are automatically routed to GLM-5.3."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "Coding Plan usage outside the listed supported tools is permitted.",
+          "status": "contradicted",
+          "evidence": "Tool Integration explicitly limits benefits to the published tools/product environments and excludes other tools or scenarios.",
+          "source": "https://docs.z.ai/devpack/tool/others"
+        },
+        {
+          "claim": "Current individual plans use fixed prompt counts per five hours.",
+          "status": "contradicted",
+          "evidence": "Current plan allowance is credits calculated from input, cached-input, output tokens, and MCP calls, with five-hour and weekly caps.",
+          "source": "https://docs.z.ai/devpack/overview"
+        },
+        {
+          "claim": "Quota exhaustion automatically spends the API account balance.",
+          "status": "contradicted",
+          "evidence": "FAQ says supported-tool calls consume plan quota only and do not deduct the account balance on exhaustion.",
+          "source": "https://docs.z.ai/devpack/faq"
+        }
+      ],
+      "unknown": [
+        "api.models_path",
+        "api.models_list_requires_auth",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[1].usd_per_month",
+        "billing.plans[2].usd_per_month",
+        "billing.legacy_prompts_per_5h",
+        "billing.free_tier",
+        "quotas.numeric_rate_limits",
+        "quotas.concurrency",
+        "privacy.training_on_prompts",
+        "privacy.zdr_available",
+        "privacy.coding_plan_applicability_of_api_dpa",
+        "notable_models[2].open_weights",
+        "notable_models[2].license",
+        "notable_models[2].context_window",
+        "notable_models[3].open_weights",
+        "notable_models[3].license",
+        "notable_models[3].context_window",
+        "notable_models[*].refusal_profile"
+      ],
+      "sources": [
+        {
+          "url": "https://z.ai/subscribe",
+          "title": "GLM Coding Plan",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/devpack/overview",
+          "title": "GLM Coding Plan Overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/devpack/faq",
+          "title": "GLM Coding Plan FAQ",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/devpack/tool/others",
+          "title": "Tool Integration",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/devpack/notice/usage-revision",
+          "title": "Plan Update Announcement",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/guides/overview/quick-start",
+          "title": "Quick Start",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/guides/llm/glm-5.3",
+          "title": "GLM-5.3",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash",
+          "title": "GLM-5.3-Flash/FlashX",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.z.ai/legal-agreement/privacy-policy",
+          "title": "Privacy Policy and Data Processing Addendum for API Services",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3",
+          "title": "zai-org/GLM-5.3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/config.json",
+          "title": "GLM-5.3 model configuration",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+          "title": "zai-org/GLM-5.3-Flash model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/raw/main/config.json",
+          "title": "GLM-5.3-Flash model configuration",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "New credit-based plans became available July 30, 2026; legacy plans may preserve different benefits and accounting. The overview says five-hour credits reset five hours after consumption and weekly credits reset every seven days from subscription. Pro/Max prices were not extractable from an official page. Privacy scope is uncertain: general terms discuss improvement/training and input retention, while the API DPA for business/enterprise customers promises no content storage. The GLM-5.3 guide also says previous Coding Plan subscribers currently have a Chat-Completions-only model API restriction, despite the tool guide listing three protocols. Open weights and licenses do not establish low-refusal tuning or abliteration."
+    },
+    {
+      "id": "alibaba-cloud-model-studio",
+      "name": "Alibaba Cloud Model Studio / DashScope International Coding Plan",
+      "category": "subscription_allowance",
+      "homepage": "https://www.alibabacloud.com/product/modelstudio",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": null,
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "Pay-as-you-go anthropic-messages; Singapore base URL https://dashscope-intl.aliyuncs.com/apps/anthropic",
+          "Native DashScope; Singapore base URL https://dashscope-intl.aliyuncs.com/api/v1",
+          "Native authenticated model list: GET https://dashscope-intl.aliyuncs.com/api/v1/models",
+          "Coding Plan anthropic-messages; base URL https://coding-intl.dashscope.aliyuncs.com/apps/anthropic"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://coding-intl.dashscope.aliyuncs.com/v1",
+        "notes": "Dedicated Coding Plan endpoint and sk-sp- key. Anthropic base: https://coding-intl.dashscope.aliyuncs.com/apps/anthropic. Coding Plan model enumeration through an API is explicitly unsupported. A separate Token Plan is documented at https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1 and https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic, also restricted to interactive tools."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "General Model Studio key: sk-xxxxx. Coding Plan-specific key: sk-sp-xxxxx. Keys are region-specific.",
+        "subscription_key_differs_from_api_key": true,
+        "kyc_or_waitlist": "Account information must be completed before new Model Studio activation. Coding Plan Pro has limited subscription slots, restocked daily at 00:00 UTC+08:00; no separate KYC requirement was verified."
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Coding Plan Pro",
+            "usd_per_month": 50,
+            "allowance": "Up to 6,000 model requests per five hours, 45,000 per week, and 90,000 per month; all caps apply simultaneously.",
+            "reset_window": "5h_rolling_weekly_monday_and_monthly_renewal",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "unknown",
+        "free_tier": "General API: eligible Singapore models typically receive 1,000,000 combined input/output tokens per model, valid for 90 days. Dedicated Coding Plan keys do not consume this quota. General API calls become pay-as-you-go after exhaustion unless Free Quota Only is enabled; that protection is disabled by default."
+      },
+      "quotas": {
+        "rate_limits": "Coding Plan request-rate thresholds are dynamically managed and not published. General API RPM/TPM limits vary by model and aggregate at Alibaba Cloud account level.",
+        "concurrency": "Coding Plan enforces dynamically adjustable concurrency limits without published numeric thresholds.",
+        "context_caps": null
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "Claude Code",
+          "OpenClaw",
+          "Hermes Agent",
+          "OpenCode",
+          "Cursor",
+          "Codex",
+          "Qwen Code",
+          "QwenPaw",
+          "Cherry Studio",
+          "Chatbox",
+          "Cline",
+          "Qoder",
+          "Qoder CN",
+          "Lingma",
+          "Kilo CLI",
+          "WorkBuddy",
+          "Other compatible programming tools for interactive use"
+        ],
+        "disallowed_uses": [
+          "Coding Plan: automated scripts",
+          "Coding Plan: application backends",
+          "Coding Plan: other non-interactive scenarios",
+          "Coding Plan: account sharing",
+          "Model Studio: resale without express authorization",
+          "Model Studio: using models or outputs to train or develop competing products/services without express authorization"
+        ],
+        "automation_allowed": false,
+        "notes": "The boolean applies to Coding Plan. The general API supports application integration. Listed tools are examples; the decisive subscription restriction is personal interactive use. Scope violations can cause suspension or key revocation."
+      },
+      "privacy": {
+        "training_on_prompts": "Model Studio documentation says customer data is not used for model training; product terms permit model improvement only with separate consent.",
+        "retention": "Model Studio stores data generated from model and application calls. Exact retention duration was not verified.",
+        "zdr_available": null,
+        "regions": "Access region determines data storage. Inference runs within the selected service deployment scope. Regions include Singapore, Beijing, Hong Kong, Tokyo, Frankfurt, and Virginia; regional keys and model availability differ."
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "tts",
+        "asr",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "qwen3.7-plus",
+          "family": "Qwen",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Explicitly listed for Coding Plan with vision support."
+        },
+        {
+          "id": "glm-5",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Explicit Coding Plan model. Hosted context cap was not verified."
+        },
+        {
+          "id": "MiniMax-M2.5",
+          "family": "MiniMax",
+          "open_weights": true,
+          "license": "Modified-MIT; Hugging Face identifier modified-mit",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Explicit Coding Plan model; preserve API model-ID capitalization."
+        },
+        {
+          "id": "kimi-k2.5",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Modified MIT; Hugging Face identifier modified-mit",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Explicit Coding Plan model with vision support."
+        },
+        {
+          "id": "kimi-k3",
+          "family": "Kimi K3",
+          "open_weights": true,
+          "license": "Kimi K3 License; Hugging Face identifier kimi-k3",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Listed in general Model Studio recommendations, not the Coding Plan allowlist."
+        },
+        {
+          "id": "ZHIPU/GLM-5.3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License; Hugging Face identifier glm-5.3",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Exact identifier linked by general model recommendations. Not listed for Coding Plan."
+        },
+        {
+          "id": "glm-5.2",
+          "family": "GLM",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "General Model Studio recommendation; not listed for Coding Plan."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "International Coding Plan requires a distinct key and endpoint.",
+          "status": "confirmed",
+          "evidence": "Dedicated sk-sp- key and coding-intl endpoint are not interchangeable with general sk- keys and pay-as-you-go endpoints.",
+          "source": "https://www.alibabacloud.com/help/en/model-studio/coding-plan"
+        },
+        {
+          "claim": "Coding Plan permits automated scripts and application backends.",
+          "status": "contradicted",
+          "evidence": "The subscription is restricted to interactive programming tools and expressly excludes these scenarios.",
+          "source": "https://www.alibabacloud.com/help/en/model-studio/coding-plan"
+        },
+        {
+          "claim": "Coding Plan supports OpenAI Responses and API model discovery.",
+          "status": "contradicted",
+          "evidence": "FAQ says Responses is unsupported and the Coding Plan model list cannot be queried through an API.",
+          "source": "https://www.alibabacloud.com/help/en/model-studio/coding-plan-faq"
+        },
+        {
+          "claim": "General Model Studio has an authenticated model-list endpoint.",
+          "status": "confirmed",
+          "evidence": "GET /api/v1/models is documented under native DashScope, with Authorization: Bearer authentication.",
+          "source": "https://www.alibabacloud.com/help/en/model-studio/list-models"
+        }
+      ],
+      "unknown": [
+        "api.models_path_under_openai_base",
+        "access.separate_kyc_requirement",
+        "billing.auto_recharge",
+        "billing.token_plan_prices_and_allowances",
+        "quotas.context_caps",
+        "quotas.numeric_coding_plan_rate_limits",
+        "quotas.numeric_coding_plan_concurrency",
+        "privacy.retention_duration",
+        "privacy.zdr_available",
+        "notable_models[0].open_weights",
+        "notable_models[0].license",
+        "notable_models[6].open_weights",
+        "notable_models[6].license",
+        "notable_models[*].context_window",
+        "notable_models[*].refusal_profile",
+        "MiniMax-M3_availability_on_general_Model_Studio"
+      ],
+      "sources": [
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/coding-plan",
+          "title": "Coding plan overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/coding-plan-faq",
+          "title": "Coding Plan FAQ",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/base-url",
+          "title": "Base URL overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/compatibility-of-openai-with-dashscope",
+          "title": "OpenAI compatible - Chat",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/regions",
+          "title": "Regions and endpoints",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/list-models",
+          "title": "List models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/new-free-quota",
+          "title": "Free quota for new users",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/privacy-notice",
+          "title": "Security certifications and privacy",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-product-terms-of-service-v-3-8-0",
+          "title": "Alibaba Cloud International Product Terms of Service",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://www.alibabacloud.com/help/en/model-studio/models",
+          "title": "Recommended models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5",
+          "title": "zai-org/GLM-5 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3",
+          "title": "zai-org/GLM-5.3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5",
+          "title": "MiniMaxAI/MiniMax-M2.5 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/moonshotai/Kimi-K2.5",
+          "title": "moonshotai/Kimi-K2.5 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/moonshotai/Kimi-K3",
+          "title": "moonshotai/Kimi-K3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Coding Plan five-hour usage is restored minute-by-minute after five hours; weekly reset is Monday 00:00 UTC+08:00; monthly reset is the renewal date at 00:00 UTC+08:00. Lite stopped new subscriptions March 20 and renewals/upgrades April 13. General API modalities do not imply Coding Plan coverage. Coding Plan's exact allowlist also includes qwen3.6-plus and qwen3.5-plus. Regional legacy OpenAI bases: Beijing https://dashscope.aliyuncs.com/compatible-mode/v1; Singapore https://dashscope-intl.aliyuncs.com/compatible-mode/v1; Virginia https://dashscope-us.aliyuncs.com/compatible-mode/v1; Hong Kong https://cn-hongkong.dashscope.aliyuncs.com/compatible-mode/v1. Recommended workspace bases: Beijing https://{WorkspaceId}.cn-beijing.maas.aliyuncs.com/compatible-mode/v1; Singapore https://{WorkspaceId}.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1; Tokyo https://{WorkspaceId}.ap-northeast-1.maas.aliyuncs.com/compatible-mode/v1; Frankfurt https://{WorkspaceId}.eu-central-1.maas.aliyuncs.com/compatible-mode/v1; Virginia https://{WorkspaceId}.us-east-1.maas.aliyuncs.com/compatible-mode/v1; Hong Kong https://{WorkspaceId}.cn-hongkong.maas.aliyuncs.com/compatible-mode/v1. Official inconsistencies: the OpenAI Chat page incorrectly labels a Singapore workspace URL as Beijing; the regions page says Virginia has no DashScope domain while Base URL overview lists dashscope-us. Use the dedicated Base URL overview as the explicit endpoint inventory, with these conflicts unresolved. No low-refusal tuning or abliteration was verified."
+    }
+  ],
+  "open_questions": [
+    "Featherless: can the vendor reconcile its broad Chat-plan wording in the plans guide with the explicit Chat restrictions on the pricing page?",
+    "MiniMax: what are the absolute current M Plan usage allowances and the officially preserved legacy prompt quotas per five hours?",
+    "MiniMax: what prompt-training, retention, processing-region, and zero-data-retention policies apply specifically to Subscription Keys?",
+    "Kimi Code: is a coding /models endpoint officially documented, what authentication does it require, and are Code keys explicitly non-interchangeable with pay-as-you-go keys?",
+    "Kimi Code: what are the numeric five-hour limits and monthly credit allocations for each international plan, and is there a Code-specific privacy exemption?",
+    "Z.ai: what are the current official Pro/Max monthly prices, and which legacy prompt-based allowances remain renewable?",
+    "Z.ai: does the business/enterprise API DPA's no-content-storage clause apply to individual Coding Plan subscribers, and how does it interact with the general privacy policy?",
+    "Z.ai: how should the Chat-Completions-only restriction for previous Coding Plan subscribers be reconciled with the tool guide's Anthropic and Responses endpoints?",
+    "Alibaba: can the vendor resolve the conflicting Beijing and Virginia endpoint statements?",
+    "Alibaba: what are the separate Token Plan prices, credit allowances, exhaustion behavior, and client restrictions, and is MiniMax-M3 available in the general international catalog?",
+    "Alibaba: what fixed retention periods or zero-data-retention options apply to general Model Studio and Coding Plan requests?",
+    "For all services: no refusal profile should be inferred from open-weight availability or license; low-refusal tuning and actual refusal-direction removal require separate model-specific evidence."
+  ]
+}

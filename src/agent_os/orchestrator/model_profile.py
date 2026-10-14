@@ -29,19 +29,79 @@ deterministic policy gates regardless of which model is chosen.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
 DEPLOYMENTS = ("subscription", "api", "serverless", "gpu_pod", "local")
-# Deployments billed to outside credits (per token or per GPU-hour), as opposed
-# to flat subscriptions and local hardware. A run uses them only when its
-# policy allows paid spend (allow_paid_spend).
+BILLING_MODES = ("seat", "allowance", "metered", "credits", "free", "local", "per_gpu_time")
+ALLOWANCE_UNITS = ("requests", "prompts", "tokens", "points", "usd_value", "unknown")
+RESET_WINDOWS = ("5h_rolling", "daily", "weekly", "monthly", "none", "unknown")
+OVERAGE = ("blocked", "metered", "unknown")
+TRAINING_ON_PROMPTS = ("no", "yes", "opt_out", "unknown")
+WEIGHTS_LOCATIONS = ("vendor", "third_party", "self", "unknown")
+# Deployments normally billed to outside credits (per token or per GPU-hour).
+# A declared allowance with blocked overage can override this classification.
 PAID_DEPLOYMENTS = frozenset({"api", "serverless", "gpu_pod"})
 
 
 def is_paid(provider: dict[str, Any]) -> bool:
     profile = provider.get("profile") or normalize_profile(None, provider.get("adapter"), provider.get("options"))
+    billing = profile.get("billing") if isinstance(profile.get("billing"), dict) else None
+    if billing:
+        mode = billing.get("mode")
+        if mode == "allowance":
+            # A blocked allowance cannot incur usage spend, even on an API.
+            return billing.get("overage") != "blocked"
+        if mode in {"metered", "credits", "per_gpu_time"}:
+            return True
     return str(profile.get("deployment") or "") in PAID_DEPLOYMENTS
+
+
+# Sensitive runs (work records, HR, payroll, applicants, personal archives) stay
+# on the operator's own subscriptions and local models: never a third-party
+# host or a per-token API. Runs in these repositories (directory names,
+# casefolded) default to sensitive; ~/.agent-os/sensitive-repos.json (a JSON
+# list) replaces the list.
+DEFAULT_SENSITIVE_REPOS = ("hr gui", "rtec-hr", "job applicant dashboard", "overtimeparser", "scanrenamer",
+                           "agentos-ambient-capture", "iphone-message-archive")
+SENSITIVE_DEPLOYMENTS = frozenset({"subscription", "local"})
+
+
+def sensitive_repos(home: Path | None = None) -> set[str]:
+    if home is None:
+        from ..capabilities import registry_path
+
+        home = registry_path().parent
+    try:
+        listed = json.loads((Path(home) / "sensitive-repos.json").read_text(encoding="utf-8"))
+        if isinstance(listed, list):
+            return {str(item).casefold() for item in listed}
+    except (OSError, ValueError):
+        pass
+    return set(DEFAULT_SENSITIVE_REPOS)
+
+
+def is_sensitive(policy: dict[str, Any], repository: str | None, home: Path | None = None) -> bool:
+    """Run policy ``sensitive_data``: true/false, or "auto" (the repository list)."""
+    setting = (policy or {}).get("sensitive_data", "auto")
+    if isinstance(setting, bool):
+        return setting
+    return bool(repository) and Path(str(repository)).name.casefold() in sensitive_repos(home)
+
+
+def sensitive_problem(provider: dict[str, Any]) -> str | None:
+    """Why a provider may not see sensitive work, or None."""
+    profile = provider.get("profile") or normalize_profile(None, provider.get("adapter"), provider.get("options"))
+    privacy = profile.get("privacy") if isinstance(profile.get("privacy"), dict) else {}
+    if privacy.get("weights_location") == "third_party":
+        return "third-party host"
+    if str(profile.get("deployment") or "") not in SENSITIVE_DEPLOYMENTS:
+        return f"{profile.get('deployment')} deployment"
+    return None
+
+
 MODALITIES = ("text", "code", "vision", "image", "audio", "multimodal", "embedding")
 REFUSAL_PROFILES = ("standard", "low", "abliterated", "unknown")
 
@@ -74,13 +134,54 @@ def _as_list(value: Any) -> list[str]:
     return [str(item).strip().lower() for item in items if str(item).strip()]
 
 
+def _enum(value: Any, allowed: tuple[str, ...]) -> str:
+    normalized = str(value).strip().lower() if value is not None else "unknown"
+    return normalized if normalized in allowed else "unknown"
+
+
+def _optional_string(value: Any) -> str | None:
+    return str(value) if value is not None else None
+
+
+def _normalize_billing(raw: Any) -> dict[str, Any]:
+    raw = raw if isinstance(raw, dict) else {}
+    allowance_raw = raw.get("allowance")
+    allowance = None
+    if isinstance(allowance_raw, dict):
+        amount = allowance_raw.get("amount")
+        allowance = {
+            "unit": _enum(allowance_raw.get("unit"), ALLOWANCE_UNITS),
+            "amount": amount if isinstance(amount, (int, float)) and not isinstance(amount, bool) else None,
+            "reset_window": _enum(allowance_raw.get("reset_window"), RESET_WINDOWS),
+        }
+    triggers = raw.get("metered_triggers")
+    return {
+        "mode": _enum(raw.get("mode"), BILLING_MODES),
+        "plan": _optional_string(raw.get("plan")),
+        "allowance": allowance,
+        "overage": _enum(raw.get("overage"), OVERAGE),
+        "metered_triggers": [str(item) for item in triggers if isinstance(item, str)] if isinstance(triggers, list) else [],
+    }
+
+
+def _normalize_privacy(raw: Any) -> dict[str, Any]:
+    raw = raw if isinstance(raw, dict) else {}
+    zdr = raw.get("zdr")
+    return {
+        "training_on_prompts": _enum(raw.get("training_on_prompts"), TRAINING_ON_PROMPTS),
+        "retention": _optional_string(raw.get("retention")),
+        "zdr": zdr if isinstance(zdr, bool) else None,
+        "weights_location": _enum(raw.get("weights_location"), WEIGHTS_LOCATIONS),
+    }
+
+
 def normalize_profile(raw: Any, adapter: Any = None, options: dict[str, Any] | None = None) -> dict[str, Any]:
     raw = raw if isinstance(raw, dict) else {}
     deployment = str(raw.get("deployment") or default_deployment(adapter, options)).lower()
     modalities = [item for item in _as_list(raw.get("modalities")) if item in MODALITIES] or ["text", "code"]
     refusal = str(raw.get("refusal_profile") or "standard").lower()
     context_window = raw.get("context_window")
-    return {
+    profile = {
         "deployment": deployment if deployment in DEPLOYMENTS else "api",
         "modalities": modalities,
         "open_weights": bool(raw.get("open_weights", deployment in {"local", "gpu_pod", "serverless"})),
@@ -89,6 +190,26 @@ def normalize_profile(raw: Any, adapter: Any = None, options: dict[str, Any] | N
         "context_window": int(context_window) if isinstance(context_window, (int, float)) and context_window > 0 else None,
         "revision": str(raw["revision"]) if raw.get("revision") else None,
     }
+    if "billing" in raw:
+        profile["billing"] = _normalize_billing(raw["billing"])
+    if "privacy" in raw:
+        profile["privacy"] = _normalize_privacy(raw["privacy"])
+    return profile
+
+
+def allowance_summary(profile: dict[str, Any]) -> str | None:
+    """A short display label for a declared allowance."""
+    billing = profile.get("billing")
+    if not isinstance(billing, dict) or billing.get("mode") != "allowance":
+        return None
+    allowance = billing.get("allowance")
+    if isinstance(allowance, dict):
+        amount = allowance.get("amount")
+        unit = allowance.get("unit") or "unknown"
+        window = allowance.get("reset_window") or "unknown"
+        quantity = f"{amount} {unit}" if amount is not None else f"unknown {unit}"
+        return f"allowance {quantity} / {window}, overage {billing.get('overage') or 'unknown'}"
+    return f"allowance unknown, overage {billing.get('overage') or 'unknown'}"
 
 
 def normalize_requirements(raw: Any) -> dict[str, Any]:
@@ -170,6 +291,10 @@ def endpoint_entry(
     modalities: list[str] | None = None,
     roles: list[str] | None = None,
     revision: str | None = None,
+    billing: dict[str, Any] | None = None,
+    privacy: dict[str, Any] | None = None,
+    path_style: str | None = None,
+    paths: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     """Registry entry for an OpenAI-compatible endpoint (vLLM, Ollama, LM
     Studio, llama.cpp server, TGI, a RunPod/serverless proxy): the plug-in path
@@ -180,9 +305,15 @@ def endpoint_entry(
     evidence justifies more.
     """
     from .router import MODEL_CLASSES
+    from .endpoints import PATH_STYLES, validate_base_url
 
     if not provider_id or not base_url or not model:
         raise ValueError("provider id, base_url and model are required")
+    validate_base_url(base_url)
+    if path_style is not None and path_style not in PATH_STYLES:
+        raise ValueError(f"path_style must be one of {PATH_STYLES}")
+    if paths is not None and not isinstance(paths, dict):
+        raise ValueError("paths must be a dict")
     bad = [item for item in classes if item not in MODEL_CLASSES]
     if bad or not classes:
         raise ValueError(f"classes must be among {MODEL_CLASSES}, got {classes}")
@@ -194,12 +325,20 @@ def endpoint_entry(
     for key, value in (("deployment", deployment), ("open_weights", open_weights), ("license", license), ("context_window", context_window), ("revision", revision)):
         if value is not None:
             profile_raw[key] = value
+    if billing is not None:
+        profile_raw["billing"] = billing
+    if privacy is not None:
+        profile_raw["privacy"] = privacy
     profile = normalize_profile(profile_raw, "openai_api", {"base_url": base_url})
     if refusal_profile not in REFUSAL_PROFILES:
         raise ValueError(f"refusal_profile must be one of {REFUSAL_PROFILES}")
     options: dict[str, Any] = {"base_url": base_url.rstrip("/"), "send_reasoning_effort": False}
     if secret_ref:
         options["secret_ref"] = secret_ref
+    if path_style is not None:
+        options["path_style"] = path_style
+    if paths is not None:
+        options["paths"] = dict(paths)
     return {
         "id": provider_id,
         "adapter": "openai_api",

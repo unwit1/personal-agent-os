@@ -157,6 +157,11 @@ DEFAULT_POLICY: dict[str, Any] = {
     # Operator switch: may this run spend outside credits (per-token APIs such
     # as OpenRouter, rented GPUs)? Off: only subscriptions and local models.
     "allow_paid_spend": False,
+    # Operator switch: does this run handle work or personal records? True
+    # keeps every node, the foreman included, on own subscriptions and local
+    # models (model_profile.sensitive_problem). "auto": true in the listed
+    # sensitive repositories (model_profile.sensitive_repos).
+    "sensitive_data": "auto",
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -237,6 +242,8 @@ def _check_policy(policy: dict[str, Any]) -> None:
         raise PolicyError("planner_capability_class must be a model capability class")
     if policy["planner_effort"] not in EFFORTS:
         raise PolicyError(f"planner_effort must be one of {EFFORTS}")
+    if policy.get("sensitive_data", "auto") not in (True, False, "auto"):
+        raise PolicyError("sensitive_data must be true, false or auto")
     mode = policy.get("affected_tests_first", "retries")
     if isinstance(mode, bool):
         policy["affected_tests_first"] = mode = "always" if mode else "off"
