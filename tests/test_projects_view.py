@@ -99,9 +99,11 @@ class ProjectsViewTests(unittest.TestCase):
         for kind, prefix in [("claude", ["claude", "--resume"]), ("codex", ["codex", "resume"]), ("cloud", ["claude", "--teleport"])]:
             with self.subTest(kind=kind):
                 popen = Mock()
-                out = view.resume_command(kind, "session-1", self.repo, popen=popen)
+                # The executable is resolved to its full path (npm .CMD shims).
+                with patch.object(view.shutil, "which", side_effect=lambda name: f"C:/npm/{name}.CMD"):
+                    out = view.resume_command(kind, "session-1", self.repo, popen=popen)
                 self.assertTrue(out["opened"])
-                self.assertEqual(popen.call_args.args[0], prefix + ["session-1"])
+                self.assertEqual(popen.call_args.args[0], [f"C:/npm/{prefix[0]}.CMD", *prefix[1:], "session-1"])
                 self.assertEqual(popen.call_args.kwargs["cwd"], str(self.repo.resolve()))
                 self.assertIn("creationflags", popen.call_args.kwargs)
                 self.assertNotIn("shell", popen.call_args.kwargs)

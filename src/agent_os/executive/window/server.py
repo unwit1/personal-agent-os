@@ -260,6 +260,10 @@ class Api:
                 with self.wake.request():
                     try:
                         result = cloud_lane.submit(repo, params["task"], home=self.usage_home)
+                    except cloud_lane.CloudLaneError as exc:
+                        # The lane's own messages (untrusted folder, dirty tree, no link) carry no secrets.
+                        self.pending.audit({"action_id": "command-center.cloud", "item_id": params["project"], "status": "failed"})
+                        raise ValueError(f"cloud submission failed: {exc}") from None
                     except Exception:
                         self.pending.audit({"action_id": "command-center.cloud", "item_id": params["project"], "status": "failed"})
                         raise ValueError("cloud submission failed") from None

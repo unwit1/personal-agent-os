@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -108,6 +109,8 @@ def resume_command(kind: str, session_id: str, path: Path | str, *, popen: Any =
         raise ValueError("project checkout is missing")
     argv = {"claude": ["claude", "--resume", session_id], "codex": ["codex", "resume", session_id],
             "cloud": ["claude", "--teleport", session_id]}[kind]
+    # npm installs these as .CMD shims, which CreateProcess finds only by full path.
+    argv[0] = shutil.which(argv[0]) or argv[0]
     (popen or subprocess.Popen)(argv, cwd=str(Path(path).resolve()),
                                 creationflags=getattr(subprocess, "CREATE_NEW_CONSOLE", 0))
     return {"opened": True, "kind": kind, "session_id": session_id}

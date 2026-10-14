@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -21,6 +22,45 @@ from .window import model_bridge
 from .window.confirm import ENV_HOME, _write_json, window_home
 
 ADAPTERS = frozenset({"claude_code", "codex_cli", "openai_api"})
+AUTO_FREE = "auto"
+AUTO_FREE_ATTEMPTS = 4
+# Free models that produced good results in foreman evals and catalog review go first.
+FREE_PREFERENCE = ("gemma-4-31b", "nemotron-3-super", "gemma-4-26b", "nemotron-3-ultra", "laguna-s", "inkling:free", "dots-3")
+
+
+def _free_order(slugs: list[str]) -> list[str]:
+    def rank(slug: str) -> int:
+        return next((i for i, hint in enumerate(FREE_PREFERENCE) if hint in slug), len(FREE_PREFERENCE))
+    # Content-safety classifiers are not chat models.
+    return sorted((s for s in slugs if "content-safety" not in s), key=rank)
+
+
+def _resolve(name: str) -> str:
+    """Full path for a CLI name: npm installs claude/codex as .CMD shims,
+    which CreateProcess finds only by full path. The registry defaults the
+    name, so resolve whatever is configured."""
+    return shutil.which(name) or name
+
+
+def _safe_error(exc: BaseException) -> str:
+    """A category for the operator, never the provider's text (it can echo the request or a key)."""
+    status = getattr(exc, "status", None)
+    if status is None:
+        match = re.match(r"HTTP (\d{3})", str(exc))
+        status = int(match.group(1)) if match else None
+    if status == 429:
+        return "Model is rate-limited (upstream or quota); retry shortly or pick another model"
+    if status in (401, 403):
+        return "Provider rejected the credentials"
+    if status == 404:
+        return "Provider does not serve this model"
+    if status in (402,):
+        return "Provider requires credits for this request"
+    if isinstance(exc, (TimeoutError, subprocess.TimeoutExpired)) or "timed out" in str(exc).lower():
+        return "Provider timed out"
+    if status and status >= 500:
+        return "Provider is unavailable right now"
+    return "Provider request failed"
 _ID = re.compile(r"^[A-Za-z0-9_-]{1,100}$")
 _LOCK = threading.RLock()
 _CONVERSATION_LOCKS: dict[str, threading.RLock] = {}
@@ -47,8 +87,9 @@ def _entries(registry: Any = None) -> list[dict]:
 
         slugs = list(dict.fromkeys(p["slug"] for p in FreeInputs.load_default().catalog.get("models", []) if p.get("slug")))
         entries = [p for p in entries if p["id"] != "openrouter-free"]
+        # "auto" moves to the next free model when one is rate-limited upstream (common on free models).
         entries.append({"id": "openrouter-free", "adapter": "openai_api", "label": "OpenRouter free",
-                        "models": {slug: slug for slug in slugs},
+                        "models": {AUTO_FREE: AUTO_FREE, **{slug: slug for slug in slugs}}, "free_slugs": slugs,
                         "options": {"base_url": "https://openrouter.ai/api/v1", "secret_ref": "secrets://openrouter/default"}})
     return entries
 
@@ -122,15 +163,23 @@ def _redact(value: Any, key: str) -> Any:
 
 def _codex(entry: dict, model: str, messages: list[dict], runner: Any, home: Path) -> dict:
     root = model_bridge.REPO_ROOT
-    argv = [entry.get("executable") or "codex", "exec", "--json", "--skip-git-repo-check", "-s", "read-only", "-m", model,
+    # npm installs codex as a .CMD shim, which CreateProcess finds only by full path.
+    exe = _resolve(entry.get("executable") or "codex")
+    argv = [exe, "exec", "--json", "--skip-git-repo-check", "-s", "read-only", "-m", model,
             "-c", f"mcp_servers.agent-os.command={json.dumps(sys.executable)}",
             "-c", f'mcp_servers.agent-os.args={json.dumps([str(root / "agent.py"), "mcp"])}',
-            "\n".join(f"{m['role']}: {m['content']}" for m in messages)]
+            "-"]
     # Subscription CLIs must not silently use an inherited API credential.
     env = {k: v for k, v in model_bridge._child_env().items() if k not in {"OPENAI_API_KEY", "OPENAI_BASE_URL"}}
     env[ENV_HOME] = str(home)
-    done = runner(argv, cwd=str(root), capture_output=True, text=True, encoding="utf-8", timeout=600, env=env)
+    # The conversation goes on stdin: Windows caps a command line at ~32K characters.
+    prompt = "\n".join(f"{m['role']}: {m['content']}" for m in messages)
+    done = runner(argv, input=prompt, cwd=str(root), capture_output=True, text=True, encoding="utf-8", timeout=600, env=env)
     if done.returncode:
+        # Classify without echoing: stderr can contain the private prompt.
+        text = f"{done.stdout or ''}\n{getattr(done, 'stderr', '') or ''}".lower()
+        if "usage limit" in text or "rate limit" in text or "429" in text:
+            return {"error": "Codex usage limit reached; it resets on the Usage tab's schedule"}
         return {"error": "Codex request failed"}
     reply, usage = "", {}
     for line in (done.stdout or "").splitlines():
@@ -144,6 +193,9 @@ def _codex(entry: dict, model: str, messages: list[dict], runner: Any, home: Pat
         if event.get("type") == "turn.completed":
             usage = event.get("usage") or {}
         if event.get("type") in {"error", "turn.failed"}:
+            detail = json.dumps(event).lower()
+            if "usage limit" in detail or "rate limit" in detail or "429" in detail:
+                return {"error": "Codex usage limit reached; it resets on the Usage tab's schedule"}
             return {"error": "Codex request failed"}
     return {"reply": reply, "usage": usage, "error": None if reply else "Codex returned no final message"}
 
@@ -198,7 +250,8 @@ def send(conversation_id: str, provider_id: str, model: str, text: str, project:
             messages.append({"role": "user", "content": text})
             if entry["adapter"] == "claude_code":
                 bridge = (bridge_factory or model_bridge.ChatBridge)(home / "chats" / conversation_id,
-                            runner=runner or subprocess.run, claude=entry.get("executable") or "claude", pending_home=home)
+                            runner=runner or subprocess.run, claude=_resolve(entry.get("executable") or "claude"),
+                            pending_home=home)
                 reply = bridge.send(conversation_id, (system + "\n\n" if system else "") + text, model=model)
                 result.update(reply=reply.get("reply", ""), usage=reply.get("usage") or {},
                               error="Claude request failed" if reply.get("error") else None)
@@ -211,25 +264,44 @@ def send(conversation_id: str, provider_id: str, model: str, text: str, project:
                 key = adapter.key()
                 if entry.get("options", {}).get("secret_ref") and not key:
                     return {**result, "error": "Provider secret is not configured"}
-                if provider_id == "openrouter-free":
-                    from ..orchestrator.free_dispatch import FreeInputs
+                candidates = [model]
+                if provider_id == "openrouter-free" and model == AUTO_FREE:
+                    candidates = _free_order(entry.get("free_slugs") or [])[:AUTO_FREE_ATTEMPTS]
+                    if not candidates:
+                        return {**result, "error": "No free models are cached; refresh the Usage tab"}
+                last: BaseException | None = None
+                for candidate in candidates:
+                    if provider_id == "openrouter-free":
+                        from ..orchestrator.free_dispatch import FreeInputs
 
-                    with _QUOTA_LOCK:
-                        governor = FreeInputs.load_default().governor
-                        allowed, _reason = governor.can_spend(model)
-                        if not allowed:
-                            return {**result, "error": "Free quota unavailable"}
-                        # Reserve before dispatch: concurrent requests cannot
-                        # overspend the daily/minute allowance.
-                        governor.record({"model": model, "outcome": "success", "lane": "chat"})
-                payload = adapter._post(url, {"model": model, "messages": messages},
-                                        {"authorization": f"Bearer {key}"} if key else {}, 600)
-                reply, usage = adapter.parse(payload, model)
-                result.update(reply=reply, usage=usage, error=None if reply else "Provider returned no message")
-        except Exception:
+                        with _QUOTA_LOCK:
+                            governor = FreeInputs.load_default().governor
+                            allowed, _reason = governor.can_spend(candidate)
+                            if not allowed:
+                                return {**result, "error": "Free quota unavailable"}
+                            # Reserve before dispatch: concurrent requests cannot
+                            # overspend the daily/minute allowance.
+                            governor.record({"model": candidate, "outcome": "success", "lane": "chat"})
+                    try:
+                        payload = adapter._post(url, {"model": candidate, "messages": messages},
+                                                {"authorization": f"Bearer {key}"} if key else {}, 600)
+                    except Exception as exc:
+                        last = exc
+                        if model == AUTO_FREE and _safe_error(exc).startswith("Model is rate-limited"):
+                            continue  # a busy free model: try the next one
+                        raise
+                    reply, usage = adapter.parse(payload, candidate)
+                    result.update(reply=reply, usage=usage, error=None if reply else "Provider returned no message")
+                    if model == AUTO_FREE:
+                        result["served_by"] = candidate
+                    last = None
+                    break
+                if last is not None:
+                    raise last
+        except Exception as exc:
             # Never return CLI stderr, HTTP bodies or exception text: they can
-            # contain credentials or a complete private request.
-            result.update(reply="", error="Provider request failed", usage={})
+            # contain credentials or a complete private request. A category is safe.
+            result.update(reply="", error=_safe_error(exc), usage={})
         if key:
             result = _redact(result, key)
         if result["error"]:
@@ -237,7 +309,8 @@ def send(conversation_id: str, provider_id: str, model: str, text: str, project:
             return result
         stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
         record["turns"] += [{"role": "user", "text": text, "at": stamp},
-                            {"role": "assistant", "text": result["reply"], "at": stamp}]
+                            {"role": "assistant", "text": result["reply"], "at": stamp,
+                             **({"served_by": result["served_by"]} if result.get("served_by") else {})}]
         record["updated_at"] = stamp
         if key:
             record = _redact(record, key)

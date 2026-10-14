@@ -75,8 +75,63 @@ class ChatHubTests(unittest.TestCase):
         with patch.object(hub.secret_refs, "status", return_value={"configured": True}), \
              patch("agent_os.orchestrator.free_dispatch.FreeInputs.load_default", return_value=inputs):
             free = next(p for p in hub.providers(self.registry) if p["id"] == "openrouter-free")
-        self.assertEqual(free["models"], ["one:free", "two:free"])
+        self.assertEqual(free["models"], ["auto", "one:free", "two:free"])
         self.assertFalse(free["sensitive_ok"])
+
+    def _free_send(self, opener, model="auto"):
+        slugs = ["x/content-safety:free", "busy/model:free", "google/gemma-4-31b-it:free", "spare:free"]
+        inputs = SimpleNamespace(catalog={"models": [{"slug": s} for s in slugs]},
+                                 governor=SimpleNamespace(can_spend=lambda m: (True, ""), record=lambda event: event))
+        with patch.object(hub.secret_refs, "status", return_value={"configured": True}), \
+             patch("agent_os.orchestrator.free_dispatch.FreeInputs.load_default", return_value=inputs):
+            return self.send("openrouter-free", model, opener=opener)
+
+    def test_auto_free_moves_past_rate_limited_models(self):
+        import urllib.error
+
+        tried = []
+
+        def opener(request, **kwargs):
+            model = json.loads(request.data)["model"]
+            tried.append(model)
+            if model != "spare:free":
+                raise urllib.error.HTTPError(request.full_url, 429, "busy", {}, io.BytesIO(b'{"error":"upstream secret-ish text"}'))
+            return Response(json.dumps({"choices": [{"message": {"content": "free answer"}}], "usage": {}}).encode())
+
+        out = self._free_send(opener)
+        self.assertEqual(out["reply"], "free answer")
+        self.assertEqual(out["served_by"], "spare:free")
+        # Preferred model first, content-safety classifier never tried, retries stop at the first success.
+        self.assertEqual(tried[0], "google/gemma-4-31b-it:free")
+        self.assertNotIn("x/content-safety:free", tried)
+        self.assertEqual(tried[-1], "spare:free")
+        turns = hub.conversation(self.home, "c1")["turns"]
+        self.assertEqual(turns[-1]["served_by"], "spare:free")
+
+    def test_rate_limit_error_is_categorised_without_provider_text(self):
+        import urllib.error
+
+        def opener(request, **kwargs):
+            raise urllib.error.HTTPError(request.full_url, 429, "busy", {}, io.BytesIO(b'{"error":"upstream secret-ish text"}'))
+
+        out = self._free_send(opener, model="google/gemma-4-31b-it:free")
+        self.assertIn("rate-limited", out["error"])
+        self.assertNotIn("secret-ish", json.dumps(out))
+
+    def test_safe_error_categories(self):
+        from agent_os.orchestrator.retry import RetryableError
+
+        self.assertIn("rate-limited", hub._safe_error(RetryableError("HTTP 429: x", status=429)))
+        self.assertIn("credentials", hub._safe_error(RuntimeError("HTTP 401: x")))
+        self.assertIn("does not serve", hub._safe_error(RuntimeError("HTTP 404: x")))
+        self.assertIn("unavailable", hub._safe_error(RetryableError("HTTP 503: x", status=503)))
+        self.assertEqual(hub._safe_error(ValueError("boom with private text")), "Provider request failed")
+
+    def test_codex_usage_limit_is_reported_plainly(self):
+        runner = Mock(return_value=SimpleNamespace(returncode=1, stdout="", stderr="You've hit your usage limit. PRIVATE PROMPT"))
+        out = self.send("codex", "gpt", runner=runner)
+        self.assertIn("usage limit", out["error"])
+        self.assertNotIn("PRIVATE", json.dumps(out))
 
     def test_sensitive_rejected_before_context_or_dispatch(self):
         context = Mock(side_effect=AssertionError("context must not load"))
@@ -188,7 +243,8 @@ class ChatHubTests(unittest.TestCase):
         record["turns"] = [{"role": "user", "text": "TURN-" + str(i), "at": "now"} for i in range(30)]
         hub._write_json(self.home / "chats" / "c1.json", record)
         self.send("codex", "gpt", runner=runner)
-        prompt = runner.call_args.args[0][-1]
+        self.assertEqual(runner.call_args.args[0][-1], "-")  # prompt on stdin, not the command line
+        prompt = runner.call_args.kwargs["input"]
         self.assertIn("TURN-20", prompt)
         self.assertNotIn("TURN-19", prompt)
         runner.return_value = SimpleNamespace(returncode=0, stdout=json.dumps({"type": "turn.failed", "error": "secret"}))
