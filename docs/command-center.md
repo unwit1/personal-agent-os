@@ -202,6 +202,35 @@ Repository validation retains the four baseline errors: the missing applicant
 dashboard integration document and three malformed DEC-0045 links. No live
 provider calls, cloud submissions, commits or pushes were made.
 
+## Review and live verification (2026-10-14)
+
+Reviewed line by line: the open-URL allowlist (exact HTTPS vendor hosts, no
+credentials or odd ports), cloud preview/confirm (re-checks path, privacy,
+branch and clean tree at confirm), resume (session must belong to the
+project; argv, never a shell), remote-host validation (exact host[:port]),
+and chat_hub's privacy ordering (sensitive check before context or dispatch;
+provider, model and project fixed per conversation).
+
+Fixed after live testing: claude/codex resolved to full paths (npm `.CMD`
+shims are invisible to CreateProcess by bare name, so Codex chat and resume
+failed); Codex prompt on stdin (Windows command-line cap); OpenRouter free
+`auto` model that moves past upstream-rate-limited models; plain error
+categories without provider text; cloud submit errors keep the lane's message.
+
+Live, through `agent-os app --no-window`: all five tabs load and the
+embedded control GUI answers; Usage reports Claude, Codex, NanoGPT and 1,000
+free OpenRouter requests; 20 projects with 7 sensitive; chats answered on
+Claude (Haiku), NanoGPT (Gemma-4-31B) and OpenRouter free (auto, served by
+Nemotron 3 Super); a project chat carried Agent OS context; a sensitive
+project was refused on a free model; Codex reached the CLI and reported its
+exhausted usage window. The Claude cloud lane was verified separately with
+one test session.
+
+Open: Tailscale is installed but not signed in (operator deferred). Remote
+viewing of the Runs tab needs the orchestrator GUI proxied too, since the
+iframe points at this PC's loopback address. ChatGPT-as-front-end through a
+developer-mode MCP connector is a later stage.
+
 ## Sources
 
 Claude cloud sessions and `--cloud` (code.claude.com/docs/en/claude-code-on-the-web); routines and the `/fire` API (code.claude.com/docs/en/routines); cloud-credit promotion (ghacks.net, 2026-09-26); Claude saved reset and `/limit-reset` (madrobot.blog 2026-09-23; explainx.ai); Codex banked resets (developersdigest.tech; openclawdc.com); OpenRouter free limits (openrouter.zendesk.com; truefoundry.com); ChatGPT developer mode (zuplo.com; speakeasy.com); Paperclip (github.com/paperclipai/paperclip; betterstack.com); Hermes Agent (releasebot.io/updates/nousresearch/hermes-agent).
