@@ -56,6 +56,7 @@ class ParserTests(unittest.TestCase):
             day.mkdir(parents=True)
             lines = [json.dumps({"timestamp": "2026-10-14T10:00:00Z", "payload": {"type": "token_count", "rate_limits": {"primary": {"used_percent": 10, "window_minutes": 300, "resets_at": NOW}}}}),
                      json.dumps({"timestamp": "2026-10-14T11:00:00Z", "payload": {"type": "token_count", "rate_limits": {"primary": {"used_percent": 40, "window_minutes": 300, "resets_at": NOW}}}}),
+                     json.dumps({"timestamp": "2026-10-14T12:00:00Z", "payload": {"type": "token_count", "rate_limits": {"primary": None, "secondary": None}}}),
                      "not json"]
             (day / "rollout.jsonl").write_text("\n".join(lines), encoding="utf-8")
             self.assertEqual(headroom.read_codex(Path(tmp))["windows"][0]["used"], 0.4)

@@ -143,3 +143,33 @@ def topup_advice(state: dict[str, Any], policy: dict[str, Any], now: datetime | 
     advice.update(alert=True, shortfall_usd=round(threshold - total, 6),
                   reason=f"purchased credits {total:.2f} < threshold {threshold:.2f}; high allowance not active")
     return advice
+
+
+# Lifetime purchases that raise the free-model daily cap; free_policy's
+# ``credit_threshold_usd`` wins when it is set.
+HIGH_ALLOWANCE_CREDITS_USD = 10.0
+
+
+def refresh(home: Any = None, *, opener: Callable[..., Any] | None = None,
+            resolve: Callable[[str], str | None] = secret_refs.resolve) -> dict[str, Any]:
+    """Read the account and write ``<home>/free-compute/account.json`` with
+    ``high_allowance`` (true/false, or None when credits are unreadable), the
+    file ``free_dispatch.FreeInputs`` reads. Values only: never the key."""
+    from pathlib import Path
+
+    from .store import orchestrator_home
+
+    state = account_state(opener=opener, resolve=resolve)
+    total = _number(state.get("credits_total"))
+    try:
+        from . import free_policy
+
+        threshold = _number(free_policy.load().get("credit_threshold_usd"))
+    except Exception:
+        threshold = None
+    threshold = HIGH_ALLOWANCE_CREDITS_USD if threshold is None else threshold
+    state["high_allowance"] = None if total is None else total >= threshold
+    path = (Path(home) if home is not None else orchestrator_home()) / "free-compute" / "account.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(state, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    return state

@@ -240,6 +240,18 @@ def register(commands: argparse._SubParsersAction) -> None:
 
     hdr = actions.add_parser("headroom", help="plan allowance left per subscription provider (Claude, Codex, NanoGPT) and how routing treats it")
     hdr.add_argument("--refresh", action="store_true", help="re-read every source now (the Claude probe spends a few Haiku tokens)")
+    hdr.add_argument("--all", action="store_true", help="also show OpenRouter free quota, one-time credits/resets with advice, and cloud sessions")
+    cld = actions.add_parser("cloud", help="Claude Code cloud sessions: submit a task (spends a cloud credit before plan limits), follow up, list")
+    cld.add_argument("action", choices=["submit", "send", "list", "check"])
+    cld.add_argument("text", nargs="?", help="submit: the task; send: the follow-up message")
+    cld.add_argument("--repo", default=".", help="submit/check: repository root (default: current directory)")
+    cld.add_argument("--session", help="send: session id or claude.ai/code URL")
+    cld.add_argument("--allow-dirty", action="store_true", help="submit: upload uncommitted tracked changes as they are (native Windows bundles them)")
+    ext = actions.add_parser("extras", help="one-time plan extras (cloud credit, saved usage resets): list, or record a status; never redeems")
+    ext.add_argument("action", choices=["list", "set"])
+    ext.add_argument("id", nargs="?")
+    ext.add_argument("status", nargs="?", choices=["unknown", "available", "used", "expired"])
+    ext.add_argument("--note")
     qte = actions.add_parser("quote", help="no-spend quote: API vs GPU pod vs serverless, low/expected/high, with the budget gate (no model call, no provisioning)")
     qte.add_argument("--workload", required=True, help="JSON file: workload (workload.py)")
     qte.add_argument("--options", help="JSON file: list of priced options (kind api|gpu_pod|serverless; see quote.py)")
@@ -823,12 +835,50 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         else:
             emit(manager().status())
         return 0
+    if action == "cloud":
+        from . import cloud_lane
+        from ..capabilities import registry_path
+
+        home = registry_path().parent
+        try:
+            if args.action == "list":
+                emit({"sessions": cloud_lane.sessions(home)})
+            elif args.action == "check":
+                emit(cloud_lane.preflight(Path(args.repo), allow_dirty=args.allow_dirty))
+            elif args.action == "submit":
+                emit(cloud_lane.submit(Path(args.repo), args.text or "", home=home, allow_dirty=args.allow_dirty))
+            else:
+                if not args.session or not args.text:
+                    raise cloud_lane.CloudLaneError("send needs --session and a message")
+                emit(cloud_lane.send(args.session, args.text, home=home))
+        except cloud_lane.CloudLaneError as exc:
+            emit({"error": str(exc)})
+            return 1
+        return 0
+    if action == "extras":
+        from . import plan_extras
+        from ..capabilities import registry_path
+
+        home = registry_path().parent
+        if args.action == "set":
+            if not args.id or not args.status:
+                emit({"error": "extras set needs an id and a status"})
+                return 1
+            emit(plan_extras.set_status(home, args.id, args.status, args.note))
+        else:
+            emit({"extras": list(plan_extras.load(home).values())})
+        return 0
     if action == "headroom":
         from . import headroom
         from ..capabilities import registry_path
         from .router import ProviderRegistry
 
         providers = ProviderRegistry().providers
+        if args.all:
+            from . import usage_hub
+
+            emit(usage_hub.summary(refresh=args.refresh, providers=providers))
+            return 0
         plans = headroom.for_providers(providers, registry_path().parent, force=args.refresh, background=False)
         emit({"providers": plans, "cache": str(headroom.cache_path(registry_path().parent)),
               "rules": {"exhausted": f">= {headroom.EXHAUSTED_AT:.0%} of a window used: skipped until it resets",

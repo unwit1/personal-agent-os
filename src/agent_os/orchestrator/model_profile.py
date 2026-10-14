@@ -88,7 +88,17 @@ def is_sensitive(policy: dict[str, Any], repository: str | None, home: Path | No
     setting = (policy or {}).get("sensitive_data", "auto")
     if isinstance(setting, bool):
         return setting
-    return bool(repository) and Path(str(repository)).name.casefold() in sensitive_repos(home)
+    if not repository:
+        return False
+    listed = sensitive_repos(home)
+    path = Path(str(repository))
+    # A folder inside a sensitive repository is sensitive too.
+    return any(part.name.casefold() in listed for part in (path, *path.parents) if part.name)
+
+
+def sensitive_paths(paths: list[str | Path], home: Path | None = None) -> bool:
+    """True when any path lies in a sensitive repository."""
+    return any(is_sensitive({}, str(Path(item).resolve()), home) for item in paths if item)
 
 
 def sensitive_problem(provider: dict[str, Any]) -> str | None:

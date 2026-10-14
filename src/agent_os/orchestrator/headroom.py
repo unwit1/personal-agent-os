@@ -153,7 +153,9 @@ def read_codex(sessions: Path | None = None) -> dict[str, Any] | None:
                 continue
             limits = (event.get("payload") or {}).get("rate_limits")
             if isinstance(limits, dict):
-                return parse_codex(limits, _epoch(event.get("timestamp")) or path.stat().st_mtime)
+                parsed = parse_codex(limits, _epoch(event.get("timestamp")) or path.stat().st_mtime)
+                if parsed["windows"]:  # some turns log rate_limits with no windows; keep looking back
+                    return parsed
     return None
 
 
