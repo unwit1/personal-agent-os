@@ -941,10 +941,352 @@ const Executive = (() => {
     });
   }
 
+  const hub = { providers: [], projects: [], id: null, record: null, sending: new Set() };
+  const byId = id => document.getElementById(id);
+
+  function button(label, action, className) {
+    const node = el('button', className || '', label);
+    node.type = 'button';
+    node.addEventListener('click', () => Promise.resolve().then(action).catch(error => showError(error.message)));
+    return node;
+  }
+
+  function vendorLink(url, label) {
+    const node = el('a', '', label || url);
+    try {
+      const parsed = new URL(url);
+      if (parsed.protocol === 'https:' && ['claude.ai', 'chatgpt.com', 'nano-gpt.com', 'openrouter.ai', 'github.com'].includes(parsed.hostname)
+          && !parsed.username && !parsed.password) {
+        node.href = parsed.href;
+        node.target = '_blank';
+        node.rel = 'noopener noreferrer';
+      }
+    } catch (_) { /* Invalid saved links remain plain text. */ }
+    return node;
+  }
+
+  function projectChoices() {
+    const select = byId('hub-project');
+    const current = select.value;
+    select.replaceChildren(el('option', '', 'No project'));
+    select.firstChild.value = '';
+    hub.projects.forEach(project => {
+      const option = el('option', '', project.name + (project.sensitive ? ' (sensitive)' : ''));
+      option.value = project.id;
+      select.appendChild(option);
+    });
+    select.value = current;
+  }
+
+  function providerChoices() {
+    const project = hub.projects.find(p => p.id === byId('hub-project').value);
+    const select = byId('hub-provider');
+    const current = select.value;
+    select.replaceChildren();
+    hub.providers.forEach(provider => {
+      const option = el('option', '', provider.label + ' · ' + provider.headroom);
+      option.value = provider.id;
+      option.disabled = Boolean(project && project.sensitive && !provider.sensitive_ok);
+      if (option.disabled) option.title = 'Sensitive projects stay on approved subscription or local providers';
+      select.appendChild(option);
+    });
+    const available = Array.from(select.options).find(p => p.value === current && !p.disabled)
+      || Array.from(select.options).find(p => !p.disabled);
+    select.value = available ? available.value : '';
+    modelChoices();
+  }
+
+  function modelChoices() {
+    const provider = hub.providers.find(p => p.id === byId('hub-provider').value);
+    const select = byId('hub-model');
+    const current = select.value;
+    select.replaceChildren();
+    ((provider && provider.models) || []).forEach(model => {
+      const option = el('option', '', model);
+      option.value = model;
+      select.appendChild(option);
+    });
+    select.value = provider && provider.models.includes(current) ? current : ((provider && provider.default_model) || '');
+    hubControls();
+  }
+
+  function hubControls() {
+    const busy = hub.sending.has(hub.id);
+    const provider = byId('hub-provider').selectedOptions[0];
+    ['hub-project', 'hub-provider', 'hub-model'].forEach(id => { byId(id).disabled = Boolean(hub.record) || busy; });
+    byId('hub-send').disabled = busy || !byId('hub-model').value || !provider || provider.disabled;
+    byId('hub-delete').disabled = !hub.record || busy;
+    byId('hub-status').textContent = busy ? 'Waiting for reply…' : '';
+  }
+
+  function renderHubLog(turns) {
+    const log = byId('hub-log');
+    log.replaceChildren();
+    (turns || []).forEach(turn => {
+      const message = el('div', 'hub-message ' + (turn.role === 'user' ? 'user' : 'assistant'));
+      message.appendChild(el('strong', '', turn.role === 'user' ? 'You' : 'Model'));
+      message.appendChild(el('div', '', turn.text));
+      if (turn.at) message.appendChild(el('div', 'muted', new Date(turn.at).toLocaleString()));
+      log.appendChild(message);
+    });
+    log.scrollTop = log.scrollHeight;
+  }
+
+  async function hubConversations() {
+    const rows = await apiCall('GET', '/api/chat/conversations');
+    const list = byId('hub-conversations');
+    list.replaceChildren();
+    rows.forEach(row => list.appendChild(button(row.title + ' · ' + row.provider, async () => {
+      const record = await apiCall('GET', '/api/chat/conversation?id=' + encodeURIComponent(row.id));
+      hub.id = row.id;
+      hub.record = record;
+      byId('hub-project').value = record.project || '';
+      providerChoices();
+      byId('hub-provider').value = record.provider;
+      modelChoices();
+      byId('hub-model').value = record.model;
+      renderHubLog(record.turns);
+      hubControls();
+      await hubConversations();
+    }, row.id === hub.id ? 'on' : '')));
+    if (!rows.length) list.appendChild(el('p', 'muted', 'No saved conversations yet.'));
+  }
+
+  function newHubConversation() {
+    hub.id = 'chat_' + crypto.randomUUID();
+    hub.record = null;
+    byId('hub-input').value = '';
+    renderHubLog([]);
+    providerChoices();
+    hubConversations().catch(() => {});
+  }
+
+  async function loadHub() {
+    const [providers, projects] = await Promise.all([
+      apiCall('GET', '/api/chat/providers'), apiCall('GET', '/api/projects'),
+    ]);
+    hub.providers = providers;
+    hub.projects = projects;
+    projectChoices();
+    if (!hub.id) newHubConversation();
+    else if (!hub.record) providerChoices();
+    await hubConversations();
+    hubControls();
+  }
+
+  async function hubSend() {
+    const text = byId('hub-input').value.trim();
+    const id = hub.id;
+    if (!text || hub.sending.has(id)) return;
+    const body = { conversation_id: id, text, provider: byId('hub-provider').value,
+      model: byId('hub-model').value, project: byId('hub-project').value || null };
+    hub.sending.add(id);
+    byId('hub-input').value = '';
+    hubControls();
+    renderHubLog([...(hub.record ? hub.record.turns : []), {role: 'user', text}]);
+    try {
+      const result = await apiCall('POST', '/api/chat/send', body);
+      if (result.error) throw new Error(result.error);
+      if (hub.id === id) {
+        hub.record = await apiCall('GET', '/api/chat/conversation?id=' + encodeURIComponent(id));
+        renderHubLog(hub.record.turns);
+      }
+      await hubConversations();
+      await pollPending();
+    } catch (error) {
+      if (hub.id === id) byId('hub-input').value = text;
+      showError(error.message);
+    } finally {
+      hub.sending.delete(id);
+      hubControls();
+    }
+  }
+
+  async function loadProjects() {
+    hub.projects = await apiCall('GET', '/api/projects');
+    const list = byId('projects-list');
+    list.replaceChildren();
+    hub.projects.forEach(project => {
+      const card = el('section', 'card');
+      card.appendChild(el('h2', '', project.name + (project.sensitive ? ' · sensitive' : '')));
+      card.appendChild(el('div', 'muted', project.path || 'Local checkout missing'));
+      if (project.git) {
+        const git = project.git;
+        card.appendChild(el('div', '', `${git.branch || 'No branch'} · ${git.dirty} dirty · ahead ${git.ahead ?? '?'} / behind ${git.behind ?? '?'}`));
+      }
+      if (project.handoff) {
+        const summary = el('details', 'project-handoff');
+        summary.appendChild(el('summary', '', 'Latest handoff · ' + (project.handoff.created_at || '')));
+        ['completed', 'remaining', 'decisions', 'validation'].forEach(key => {
+          if (project.handoff[key]) summary.appendChild(el('p', '', key + ':\n' + [].concat(project.handoff[key]).join('\n')));
+        });
+        card.appendChild(summary);
+      }
+      [['claude', 'claude_sessions'], ['codex', 'codex_sessions'], ['cloud', 'cloud_sessions']].forEach(([kind, field]) => {
+        card.appendChild(el('strong', '', kind === 'cloud' ? 'Claude cloud' : kind === 'claude' ? 'Claude' : 'Codex'));
+        if (!project[field].length) card.appendChild(el('div', 'muted', 'No sessions'));
+        project[field].forEach(session => {
+          const id = session.id || session.session_id;
+          const row = el('div', 'session-row');
+          row.appendChild(el('span', '', id + ' · ' + (session.modified_at || session.at || '')));
+          const resume = button(kind === 'cloud' ? 'Teleport' : 'Resume', () => apiCall('POST', '/api/projects/resume',
+            {kind, session_id: id, project: project.id}));
+          resume.disabled = !project.path;
+          row.appendChild(resume);
+          if (session.url) row.appendChild(vendorLink(session.url, 'Open session'));
+          card.appendChild(row);
+        });
+      });
+      const compose = el('div', 'cloud-task');
+      const label = el('label', '', 'Task for Claude cloud');
+      const input = el('textarea');
+      input.rows = 2;
+      label.appendChild(input);
+      compose.appendChild(label);
+      const preview = button('Preview cloud task', async () => {
+        if (!input.value.trim()) return;
+        preview.disabled = true;
+        try {
+          const result = await apiCall('POST', '/api/cloud/preview', {project: project.id, task: input.value.trim()});
+          showPreview({id: result.confirm_token, title: 'Claude cloud · ' + project.name,
+            content: JSON.stringify(result.preview, null, 2)}, 'command-center.cloud');
+        } finally { preview.disabled = project.sensitive || !project.path; }
+      });
+      preview.disabled = project.sensitive || !project.path;
+      if (project.sensitive) preview.title = 'Sensitive projects cannot use cloud sessions';
+      compose.appendChild(preview);
+      card.appendChild(compose);
+      list.appendChild(card);
+    });
+    if (!hub.projects.length) list.appendChild(el('p', 'muted', 'No registered projects.'));
+  }
+
+  async function loadUsage() {
+    const usage = await apiCall('GET', '/api/usage');
+    const plans = byId('usage-plans');
+    plans.replaceChildren();
+    (usage.plans || []).forEach(plan => {
+      const card = el('section', 'card');
+      card.appendChild(el('h2', '', plan.label));
+      card.appendChild(el('strong', 'state-' + plan.state, plan.state || 'unknown'));
+      if (plan.detail) card.appendChild(el('p', 'muted', plan.detail));
+      (plan.windows || []).forEach(window => {
+        const used = typeof window.used === 'number' ? Math.max(0, Math.min(1, window.used)) : null;
+        const label = el('label', '', (window.name || window.id || window.window || 'Usage window') +
+          (used === null ? ' · unknown' : ` · ${Math.round(used * 100)}% used`));
+        if (used !== null) {
+          const bar = el('progress', 'usage-meter');
+          bar.max = 1;
+          bar.value = used;
+          bar.setAttribute('aria-label', label.textContent);
+          label.appendChild(bar);
+        }
+        card.appendChild(label);
+        if (window.resets_at) card.appendChild(el('div', 'muted', 'Resets ' + new Date(window.resets_at).toLocaleString()));
+      });
+      plans.appendChild(card);
+    });
+    const free = usage.free || {};
+    byId('usage-free').textContent = free.error || `${free.daily_left ?? '?'} / ${free.daily_allowance ?? '?'} requests left today · ` +
+      `${free.minute_left ?? '?'} left this minute · resets ${free.reset_at ? new Date(free.reset_at).toLocaleString() : '?'}`;
+    const extras = byId('usage-extras');
+    extras.replaceChildren();
+    (usage.extras || []).forEach(extra => {
+      const card = el('div', 'card');
+      card.appendChild(el('strong', '', extra.title));
+      card.appendChild(el('div', 'muted', extra.status + (extra.expires ? ' · expires ' + new Date(extra.expires).toLocaleString() : '')));
+      card.appendChild(el('div', '', extra.applies_to));
+      const redeem = extra.redeem || {};
+      const open = button('Open', () => apiCall('POST', '/api/open-url', {url: redeem.target}));
+      open.disabled = redeem.kind !== 'url';
+      open.title = redeem.label || '';
+      card.appendChild(open);
+      if (redeem.kind === 'terminal') card.appendChild(el('div', 'muted', redeem.label));
+      const mark = button('Mark used', async () => {
+        await apiCall('POST', '/api/extras', {id: extra.id, status: 'used'});
+        await loadUsage();
+      });
+      mark.disabled = extra.status === 'used';
+      card.appendChild(mark);
+      extras.appendChild(card);
+    });
+    const advice = byId('usage-advice');
+    advice.replaceChildren();
+    (usage.advice || []).forEach(tip => advice.appendChild(el('p', '', tip.message)));
+    if (!(usage.advice || []).length) advice.appendChild(el('p', 'muted', 'No advice right now.'));
+    const clouds = byId('usage-cloud');
+    clouds.replaceChildren();
+    (usage.cloud_sessions || []).forEach(session => {
+      const row = el('div', 'session-row');
+      row.appendChild(vendorLink(session.url, session.session_id));
+      row.appendChild(el('span', 'muted', session.branch + ' · ' + (session.at || '')));
+      clouds.appendChild(row);
+    });
+    if (!(usage.cloud_sessions || []).length) clouds.appendChild(el('p', 'muted', 'No cloud sessions yet.'));
+  }
+
+  function setupCommandCenter() {
+    const names = ['today', 'projects', 'runs', 'chat', 'usage'];
+    function select(name) {
+      names.forEach(key => {
+        byId('cc-' + key).classList.toggle('hidden', key !== name);
+        const tab = byId('cc-tab-' + key);
+        tab.classList.toggle('on', key === name);
+        tab.setAttribute('aria-selected', String(key === name));
+        tab.tabIndex = key === name ? 0 : -1;
+      });
+      clearError();
+      const loader = {projects: loadProjects, chat: loadHub, usage: loadUsage}[name];
+      if (loader) loader().catch(() => {});
+    }
+    names.forEach((name, index) => {
+      const tab = byId('cc-tab-' + name);
+      tab.addEventListener('click', () => select(name));
+      tab.addEventListener('keydown', event => {
+        const moves = {ArrowRight: (index + 1) % names.length, ArrowLeft: (index + names.length - 1) % names.length, Home: 0, End: names.length - 1};
+        if (moves[event.key] !== undefined) {
+          event.preventDefault();
+          const next = names[moves[event.key]];
+          select(next);
+          byId('cc-tab-' + next).focus();
+        }
+      });
+    });
+    byId('projects-refresh').addEventListener('click', () => loadProjects().catch(() => {}));
+    byId('usage-refresh').addEventListener('click', () => loadUsage().catch(() => {}));
+    byId('hub-project').addEventListener('change', providerChoices);
+    byId('hub-provider').addEventListener('change', modelChoices);
+    byId('hub-new').addEventListener('click', newHubConversation);
+    byId('hub-send').addEventListener('click', hubSend);
+    byId('hub-input').addEventListener('keydown', event => {
+      if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); hubSend(); }
+    });
+    byId('hub-delete').addEventListener('click', () => {
+      apiCall('POST', '/api/chat/delete', {id: hub.id}).then(newHubConversation).catch(() => {});
+    });
+    byId('keep-awake').addEventListener('change', async () => {
+      const checkbox = byId('keep-awake');
+      try { await apiCall('POST', '/api/config', {keep_awake: checkbox.checked}); }
+      catch (_) { checkbox.checked = !checkbox.checked; }
+    });
+    apiCall('GET', '/api/config').then(config => {
+      byId('keep-awake').checked = config.keep_awake;
+      if (config.orchestrator_url) {
+        const url = new URL(config.orchestrator_url);
+        if (url.protocol === 'http:' && ['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname)) {
+          byId('runs-frame').src = url.href;
+          byId('runs-frame').classList.remove('hidden');
+          byId('runs-notice').classList.add('hidden');
+        }
+      }
+    }).catch(() => {});
+  }
+
   function init() {
     initToken();
     setupTabs();
     setupChat();
+    setupCommandCenter();
     loadItems();
     startPolling();
   }

@@ -4,19 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="agent-os-token" content="{{TOKEN}}">
-  <title>Agent OS Executive</title>
+  <title>Agent OS Command Center</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">Agent OS <span>Executive</span></div>
+    <div class="brand">Agent OS <span>Command Center</span></div>
     <span class="spacer"></span>
     <div id="provider-errors" class="muted"></div>
   </header>
 
+  <nav class="command-tabs" role="tablist" aria-label="Command Center">
+    <button id="cc-tab-today" class="tab on" role="tab" aria-selected="true" aria-controls="cc-today">Today</button>
+    <button id="cc-tab-projects" class="tab" role="tab" aria-selected="false" aria-controls="cc-projects" tabindex="-1">Projects</button>
+    <button id="cc-tab-runs" class="tab" role="tab" aria-selected="false" aria-controls="cc-runs" tabindex="-1">Runs</button>
+    <button id="cc-tab-chat" class="tab" role="tab" aria-selected="false" aria-controls="cc-chat" tabindex="-1">Chat</button>
+    <button id="cc-tab-usage" class="tab" role="tab" aria-selected="false" aria-controls="cc-usage" tabindex="-1">Usage</button>
+    <span class="spacer"></span>
+    <label class="inline"><input id="keep-awake" type="checkbox">Keep this PC awake while work runs</label>
+  </nav>
+
   <div id="busy" class="busy hidden" role="status" aria-live="polite"><span class="spinner"></span><span id="busy-text">Loading…</span></div>
 
-  <main class="executive-container">
+  <main id="cc-today" class="executive-container command-panel" role="tabpanel" aria-labelledby="cc-tab-today">
     <div class="tabs-container">
       <div class="tabs" role="tablist">
         <button id="tab-work" class="tab on" role="tab" aria-selected="true">Work</button>
@@ -50,8 +60,43 @@
       </div>
     </div>
 
-    <div id="pending-previews" class="pending-previews"></div>
   </main>
+
+  <main id="cc-projects" class="command-panel hidden" role="tabpanel" aria-labelledby="cc-tab-projects">
+    <div class="row"><h1>Projects</h1><button id="projects-refresh" type="button">Refresh</button></div>
+    <div id="projects-list" class="cards"></div>
+  </main>
+  <main id="cc-runs" class="command-panel hidden" role="tabpanel" aria-labelledby="cc-tab-runs">
+    <p id="runs-notice" class="muted">Start agent-os app to view Runs here.</p>
+    <iframe id="runs-frame" class="hidden" title="Orchestrator runs and model services" referrerpolicy="no-referrer"></iframe>
+  </main>
+  <main id="cc-chat" class="command-panel hidden" role="tabpanel" aria-labelledby="cc-tab-chat">
+    <aside class="panel"><div class="row"><h2>Conversations</h2><button id="hub-new" type="button">New</button></div>
+      <div id="hub-conversations"></div>
+    </aside>
+    <section class="panel hub-chat-panel">
+      <div class="hub-selects">
+        <label>Project<select id="hub-project"><option value="">No project</option></select></label>
+        <label>Provider<select id="hub-provider"></select></label>
+        <label>Model<select id="hub-model"></select></label>
+      </div>
+      <p class="muted">Start a new conversation to change its project, provider or model.</p>
+      <div id="hub-log" role="log" aria-live="polite"></div>
+      <label>Message<textarea id="hub-input" rows="3" placeholder="Message the selected model"></textarea></label>
+      <div class="row"><button id="hub-send" type="button" class="primary">Send</button>
+        <button id="hub-delete" type="button" class="danger">Delete conversation</button><span id="hub-status" role="status"></span></div>
+    </section>
+  </main>
+  <main id="cc-usage" class="command-panel hidden" role="tabpanel" aria-labelledby="cc-tab-usage">
+    <div class="row"><h1>Usage</h1><button id="usage-refresh" type="button">Refresh</button></div>
+    <div id="usage-plans" class="cards"></div>
+    <section class="panel"><h2>Free quota</h2><div id="usage-free"></div></section>
+    <section class="panel"><h2>Credits and saved resets</h2><div id="usage-extras" class="cards"></div></section>
+    <section class="panel"><h2>Advice</h2><div id="usage-advice"></div></section>
+    <section class="panel"><h2>Cloud sessions</h2><div id="usage-cloud"></div></section>
+  </main>
+  <div id="pending-previews" class="pending-previews" aria-live="polite"></div>
+
 
   <style>
     .executive-container {

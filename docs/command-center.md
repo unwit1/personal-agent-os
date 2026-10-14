@@ -1,6 +1,6 @@
 # Command Center: one app for every plan, project and agent
 
-Status: design and build spec, 2026-10-14. Operator decisions (this date):
+Status: implemented on `agent-os/command-center`, 2026-10-14. Operator decisions (this date):
 extend Agent OS rather than adopt Paperclip or Hermes; Tailscale for viewing
 from other devices; commit and merge the orchestrator work onto main's line
 (branch `agent-os/command-center`).
@@ -169,6 +169,38 @@ Add `agent-os app` to the README command list, and keep
 `docs/orchestrator-os/COMMANDS.md` and `tests/test_command_reference.py`
 passing. Run `python -m pytest tests -q -p no:cacheprovider` for the new and
 touched test files; report results.
+
+## Implementation handoff (2026-10-14)
+
+The build spec is implemented: `agent-os app` runs both loopback servers,
+opens the Edge app window, and monitors work from one keep-awake thread.
+Today preserves the Executive workflow; Projects inventories metadata and
+opens resume consoles; Runs embeds the existing control GUI; Chat persists
+separate conversations; Usage reads the shared plan summary and records
+operator-maintained extras status. Remote Host authorities are exact allowlist
+entries; configuring a Tailscale proxy remains an operator setup step.
+
+Privacy is checked before context retrieval and dispatch. Conversations retain
+their original project/provider/model to prevent rerouting sensitive history.
+HTTP redirects are refused, secrets are redacted, and the free lane reserves
+quota before dispatch. Cloud preflight creates a one-time preview; Confirm
+rechecks privacy, checkout, branch and clean-tree requirements before submitting.
+Deleted conversations become content-free tombstones, honoring the no-file-deletion
+constraint. MCP previews from either CLI use the same Executive window home.
+
+Prior art: checked the local registry (including PA-litellm and PA-hermes-agent)
+and the design's Paperclip/Hermes comparison. Reused Agent OS's stdlib adapters,
+provider registry, cloud lane and PendingStore; added no dependencies.
+
+Validation: the requested regression set (command reference, cloud/extras,
+headroom, all new tests and all existing Executive window tests) passed **471
+tests**. New tests use fake HTTP openers, CLI runners, processes and in-memory
+HTTP requests. `node --check gui/executive.js` and `git diff --check` passed.
+On this Windows sandbox, Python 3.14's owner-only temporary directories require
+a test-process-only legacy mkdir-permissions shim under ignored `.agent-local/`.
+Repository validation retains the four baseline errors: the missing applicant
+dashboard integration document and three malformed DEC-0045 links. No live
+provider calls, cloud submissions, commits or pushes were made.
 
 ## Sources
 

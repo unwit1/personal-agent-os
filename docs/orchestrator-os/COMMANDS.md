@@ -1,5 +1,10 @@
 # Orchestrator OS command reference
 
+The top-level `agent-os app` command opens the Command Center, embedding the
+control GUI alongside Today, Projects, Chat and Usage. Flags: `--no-window`,
+`--port PORT`, and repeatable `--remote-host HOST`. Both servers stay on loopback;
+remote hosts allow exact Host headers from a private proxy, not remote binding.
+
 Generated from `agent-os orchestrate --help`; kept complete by
 `tests/test_command_reference.py`. Commands marked † may spend model
 calls or usage; the rest are deterministic. The coding-run workflow

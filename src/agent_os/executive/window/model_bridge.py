@@ -15,7 +15,7 @@ DEFAULT_EFFORT = "medium"
 DEFAULT_TIMEOUT_SECONDS = 600
 
 
-API_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN")
+API_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_BASE_URL")
 
 
 def _child_env() -> dict[str, str]:
@@ -44,6 +44,7 @@ def build_invocation(
     session_id: str | None = None,
     mcp_config_path: Path | str = "",
     claude: str = "claude",
+    model: str | None = None,
 ) -> list[str]:
     argv = [
         claude, "-p", prompt,
@@ -51,7 +52,7 @@ def build_invocation(
         # The window runs short, interactive tasks: a fast model at medium
         # effort keeps a click responsive (the CLI default was Opus at full
         # effort, which made small tasks take minutes). Overridable.
-        "--model", os.environ.get("AGENT_OS_EXECUTIVE_MODEL", DEFAULT_MODEL),
+        "--model", model or os.environ.get("AGENT_OS_EXECUTIVE_MODEL", DEFAULT_MODEL),
         "--effort", os.environ.get("AGENT_OS_EXECUTIVE_EFFORT", DEFAULT_EFFORT),
         "--mcp-config", str(mcp_config_path),
         "--strict-mcp-config",
@@ -100,11 +101,13 @@ class ChatBridge:
         runner: Callable[..., Any] = subprocess.run,
         claude: str = "claude",
         timeout: int = DEFAULT_TIMEOUT_SECONDS,
+        pending_home: Path | str | None = None,
     ) -> None:
         self.home = Path(home)
         self.runner = runner
         self.claude = claude
         self.timeout = timeout
+        self.pending_home = Path(pending_home) if pending_home is not None else self.home
 
     @property
     def sessions_path(self) -> Path:
@@ -121,15 +124,18 @@ class ChatBridge:
         self.home.mkdir(parents=True, exist_ok=True)
         self.sessions_path.write_text(json.dumps(sessions, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
-    def send(self, conversation_id: str, text: str) -> dict[str, Any]:
+    def send(self, conversation_id: str, text: str, model: str | None = None) -> dict[str, Any]:
         sessions = self._sessions()
         session_id = sessions.get(conversation_id)
         config = mcp_config(self.home / "mcp-config.json")
-        argv = build_invocation(text, session_id, config, self.claude)
+        argv = build_invocation(text, session_id, config, self.claude, model)
+        from .confirm import ENV_HOME
+
+        env = {**_child_env(), ENV_HOME: str(self.pending_home)}
         try:
             proc = self.runner(
                 argv, capture_output=True, text=True, timeout=self.timeout,
-                encoding="utf-8", cwd=str(REPO_ROOT), env=_child_env(),
+                encoding="utf-8", cwd=str(REPO_ROOT), env=env,
             )
         except (OSError, subprocess.SubprocessError) as exc:
             return {"reply": "", "session_id": session_id, "error": f"{type(exc).__name__}: {exc}"}
@@ -151,4 +157,7 @@ class ChatBridge:
         if data.get("is_error") or returncode:
             error = str(data.get("result") or stderr or f"claude exited with {returncode}")
         reply = "" if error else str(data.get("result") or "")
-        return {"reply": reply, "session_id": new_sid, "error": error}
+        result = {"reply": reply, "session_id": new_sid, "error": error}
+        if "usage" in data:
+            result["usage"] = data["usage"]
+        return result

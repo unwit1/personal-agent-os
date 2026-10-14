@@ -23,8 +23,11 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from ...paths import ROOT
+from ...orchestrator import cloud_lane, plan_extras, usage_hub
+from .. import chat_hub, projects_view
+from ..keep_awake import KeepAwake
 from . import actions_openings, model_bridge
-from .confirm import ItemState, PendingStore, window_home
+from .confirm import ItemState, PendingStore, _write_json, window_home
 from .rescue_view import rescue_view
 
 GUI_DIR = ROOT / "gui"
@@ -55,7 +58,9 @@ def _known_projects() -> list[dict]:
 
 class Api:
     def __init__(self, registry: Any, bridge: Any, home: Path, transport: Any = None,
-                 gateway_factory: Any = None) -> None:
+                 gateway_factory: Any = None, *, orchestrator_url: str | None = None,
+                 remote_hosts: tuple[str, ...] = (), wake: Any = None,
+                 usage_home: Path | None = None) -> None:
         self.registry = registry
         if transport is None:
             from .transport import default_transport
@@ -69,6 +74,15 @@ class Api:
         self.home = home
         self.pending = PendingStore(home)
         self.state = ItemState(home)
+        self.orchestrator_url = orchestrator_url
+        self.remote_hosts = list(remote_hosts)
+        self.usage_home = usage_home if usage_home is not None else usage_hub._home()
+        try:
+            config = json.loads((home / "config.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            config = {}
+        enabled = config.get("keep_awake", True) is True if isinstance(config, dict) else True
+        self.wake = wake or KeepAwake(enabled=enabled)
 
     # -- helpers --------------------------------------------------------------
 
@@ -105,7 +119,8 @@ class Api:
         return {"pending": self.pending.list(), "previews": self._previews()}
 
     def _model(self, conversation_id: Any, text: str) -> dict[str, Any]:
-        result = dict(self.bridge.send(str(conversation_id or "default"), text) or {})
+        with self.wake.request():
+            result = dict(self.bridge.send(str(conversation_id or "default"), text) or {})
         result["message"] = result.get("reply") or result.get("error") or ""
         result["previews"] = self._previews()
         return result
@@ -123,6 +138,19 @@ class Api:
     # -- routes ---------------------------------------------------------------
 
     def get(self, path: str, query: dict[str, list[str]]) -> Any:
+        if path == "/api/usage":
+            return usage_hub.summary(home=self.usage_home)
+        if path == "/api/chat/providers":
+            return chat_hub.providers()
+        if path == "/api/chat/conversations":
+            return chat_hub.conversations(self.home)
+        if path == "/api/chat/conversation":
+            return chat_hub.conversation(self.home, (query.get("id") or [""])[0])
+        if path == "/api/projects":
+            return projects_view.projects(state_home=self.usage_home)
+        if path == "/api/config":
+            return {"orchestrator_url": self.orchestrator_url, "keep_awake": self.wake.enabled,
+                    "remote_hosts": self.remote_hosts}
         if path == "/api/items":
             tab = (query.get("tab") or [None])[0] or None
             return self.registry.outstanding(tab, state=self.state)
@@ -142,6 +170,57 @@ class Api:
         raise KeyError(path)
 
     def post(self, path: str, body: dict[str, Any]) -> Any:
+        if path == "/api/config":
+            enabled = body.get("keep_awake")
+            if not isinstance(enabled, bool):
+                raise ValueError("keep_awake must be a boolean")
+            _write_json(self.home / "config.json", {"keep_awake": enabled})
+            self.wake.configure(enabled)
+            return self.get(path, {})
+        if path == "/api/extras":
+            return plan_extras.set_status(self.usage_home, str(body.get("id") or ""), str(body.get("status") or ""))
+        if path == "/api/open-url":
+            value = body.get("url")
+            if not isinstance(value, str) or any(ord(c) <= 32 for c in value) or "\\" in value:
+                raise ValueError("invalid URL")
+            url = urlparse(value)
+            if (url.scheme != "https" or url.hostname not in {"claude.ai", "chatgpt.com", "nano-gpt.com", "openrouter.ai", "github.com"}
+                    or url.username is not None or url.password is not None or url.port not in (None, 443)):
+                raise ValueError("URL is not an allowed HTTPS vendor URL")
+            return {"opened": bool(webbrowser.open(value))}
+        if path == "/api/chat/send":
+            with self.wake.request():
+                result = chat_hub.send(str(body.get("conversation_id") or ""), str(body.get("provider") or body.get("provider_id") or ""),
+                                       str(body.get("model") or ""), body.get("text"), project=body.get("project") or None, home=self.home)
+            return {**result, "previews": self._previews()}
+        if path == "/api/chat/delete":
+            return chat_hub.delete(self.home, str(body.get("id") or body.get("conversation_id") or ""))
+        if path == "/api/projects/resume":
+            project = str(body.get("project") or "")
+            repo = projects_view.project_path(project)
+            kind = str(body.get("kind") or "")
+            sid = str(body.get("session_id") or "")
+            # Only allow sessions actually associated with the selected checkout.
+            row = next((p for p in projects_view.projects(state_home=self.usage_home) if p["id"] == project), None)
+            field = {"claude": "claude_sessions", "codex": "codex_sessions", "cloud": "cloud_sessions"}.get(kind)
+            if not row or not field or not any(s.get("id", s.get("session_id")) == sid for s in row[field]):
+                raise ValueError("session does not belong to this project")
+            return projects_view.resume_command(kind, sid, repo)
+        if path == "/api/cloud/preview":
+            project = str(body.get("project") or "")
+            task = str(body.get("task") or "").strip()
+            if not task:
+                raise ValueError("task is required")
+            repo = projects_view.project_path(project)
+            from ...orchestrator.model_profile import is_sensitive
+
+            if is_sensitive({}, str(repo), self.usage_home):
+                raise ValueError("sensitive projects cannot use cloud sessions")
+            info = cloud_lane.preflight(repo)
+            preview = {**info, "project": project, "task": task}
+            token = self.pending.create("command-center.cloud", {"id": project, "title": project},
+                                        {"project": project, "repo": str(repo), "task": task, "branch": info.get("branch")}, preview)
+            return {"status": "needs_confirmation", "preview": preview, "confirm_token": token}
         if path == "/api/brain-dump":
             text = str(_first(body, "text", "message") or "").strip()
             if not text:
@@ -166,7 +245,28 @@ class Api:
             token = _first(body, "confirm_token", "preview_id", "token")
             if not token:
                 raise ValueError("confirm_token is required")
-            result = self.registry.confirm(str(token), self.pending)
+            record = next((r for r in self.pending.list() if r["token"] == str(token)), None)
+            if record and record["action_id"] == "command-center.cloud":
+                record = self.pending.take(str(token))
+                params = record["params"]
+                repo = projects_view.project_path(params["project"])
+                from ...orchestrator.model_profile import is_sensitive
+
+                if str(repo) != params["repo"] or is_sensitive({}, str(repo), self.usage_home):
+                    raise ValueError("project path or privacy policy changed; make a new preview")
+                info = cloud_lane.preflight(repo)
+                if info.get("branch") != params.get("branch"):
+                    raise ValueError("project branch changed; make a new preview")
+                with self.wake.request():
+                    try:
+                        result = cloud_lane.submit(repo, params["task"], home=self.usage_home)
+                    except Exception:
+                        self.pending.audit({"action_id": "command-center.cloud", "item_id": params["project"], "status": "failed"})
+                        raise ValueError("cloud submission failed") from None
+                self.pending.audit({"action_id": "command-center.cloud", "item_id": params["project"],
+                                    "session_id": result.get("session_id"), "status": "done"})
+            else:
+                result = self.registry.confirm(str(token), self.pending)
             return {"status": "done", "result": result, "message": "Done."}
         if path == "/api/dismiss":
             return self.dismiss(body)
@@ -369,7 +469,9 @@ def _bind_exclusive(host: str, port: int, handler: Any, attempts: int = 20) -> T
 
 def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, bridge: Any = None,
                  home: Path | str | None = None, transport: Any = None,
-                 gateway_factory: Any = None) -> tuple[ThreadingHTTPServer, str]:
+                 gateway_factory: Any = None, *, orchestrator_url: str | None = None,
+                 remote_hosts: tuple[str, ...] = (), wake: Any = None,
+                 usage_home: Path | None = None) -> tuple[ThreadingHTTPServer, str]:
     if host not in LOOPBACK_HOSTS:
         raise ValueError("the Executive window only binds to loopback")
     home_path = window_home(home)
@@ -380,15 +482,28 @@ def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, b
     if bridge is None:
         bridge = model_bridge.ChatBridge(home_path)
     token = secrets.token_urlsafe(24)
-    api = Api(registry, bridge, home_path, transport=transport, gateway_factory=gateway_factory)
+    remote_hosts = tuple(_remote_host(value) for value in remote_hosts)
+    api = Api(registry, bridge, home_path, transport=transport, gateway_factory=gateway_factory,
+              orchestrator_url=orchestrator_url, remote_hosts=remote_hosts, wake=wake, usage_home=usage_home)
     server = _bind_exclusive(host, port, make_handler(api, token, set()))
     actual = server.server_address[1]
     allowed = {f"{name}:{actual}".casefold() for name in ("127.0.0.1", "localhost", "[::1]")}
+    allowed.update(remote_hosts)
     server.RequestHandlerClass = make_handler(api, token, allowed)
     server.daemon_threads = True
     server.api = api  # type: ignore[attr-defined]
     server.token = token  # type: ignore[attr-defined]
     return server, token
+
+
+def _remote_host(value: str) -> str:
+    """An exact Host authority, never a URL, wildcard, credential or path."""
+    if not isinstance(value, str) or not value or any(c.isspace() for c in value) or any(c in value for c in "/\\@?#*"):
+        raise ValueError("remote host must be host[:port]")
+    parsed = urlparse("//" + value)
+    if not parsed.hostname or parsed.port is not None and not 0 < parsed.port <= 65535:
+        raise ValueError("invalid remote host")
+    return value.casefold()
 
 
 def _find_edge() -> str | None:
@@ -426,4 +541,59 @@ def serve(port: int = 0, open_window: bool = True, host: str = "127.0.0.1", home
         pass
     finally:
         server.server_close()
+    return 0
+
+
+def _runs_active() -> bool:
+    from ...orchestrator import service
+
+    return any(run.get("state") in {"PLANNING", "RUNNING", "VALIDATING", "REVIEWING", "INTEGRATING"}
+               for run in service.list_runs())
+
+
+def serve_app(port: int = 0, open_window: bool = True, remote_hosts: tuple[str, ...] = (),
+              home: Path | str | None = None, *, orchestrator_builder: Any = None,
+              executive_builder: Any = None, opener: Any = None, active: Any = None) -> int:
+    """Serve the existing control GUI alongside the Executive in one process."""
+    from ...orchestrator import server as control_server
+
+    control, _ = (orchestrator_builder or control_server.build_server)(host="127.0.0.1", port=0)
+    executive = None
+    stop = threading.Event()
+    threads: list[threading.Thread] = []
+    try:
+        orchestrator_url = f"http://127.0.0.1:{control.server_address[1]}/"
+        executive, _ = (executive_builder or build_server)(port=port, home=home,
+                         orchestrator_url=orchestrator_url, remote_hosts=tuple(remote_hosts))
+        control.api.start_model_checks()
+        try:
+            from ...orchestrator import foreman_deploy
+
+            foreman_deploy.manager().resume()
+        except Exception:
+            print(json.dumps({"foreman_resume_error": "Foreman could not resume; inspect it in Runs"}), flush=True)
+        worker = threading.Thread(target=control.serve_forever, name="agent-os-control", daemon=True)
+        worker.start()
+        threads.append(worker)
+        monitor = threading.Thread(target=executive.api.wake.monitor, args=(stop, active or _runs_active),
+                                   name="agent-os-keep-awake", daemon=True)
+        monitor.start()
+        threads.append(monitor)
+        url = f"http://127.0.0.1:{executive.server_address[1]}/"
+        print(json.dumps({"app": url, "orchestrator": orchestrator_url, "note": "Ctrl+C closes the app servers"}), flush=True)
+        if open_window:
+            (opener or open_app_window)(url)
+        try:
+            executive.serve_forever()
+        except KeyboardInterrupt:
+            pass
+    finally:
+        stop.set()
+        if threads:
+            control.shutdown()
+        control.server_close()
+        if executive is not None:
+            executive.server_close()
+        for thread in threads:
+            thread.join(timeout=5)
     return 0

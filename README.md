@@ -216,10 +216,18 @@ the run is complete, paused, blocked, or waiting at a declared approval gate.
 ```powershell
 agent-os orchestrate providers --suggest --write
 agent-os orchestrate gui
+agent-os app
 agent-os orchestrate start-recommended --goal "..." --project personal-agent-os
 ```
 
 See `docs/multi-agent-orchestrator.md`.
+
+`agent-os app` opens the Command Center desktop window with Today, Projects,
+Runs, Chat and Usage tabs. Use `--no-window` to serve without opening Edge,
+`--port PORT` to choose the Executive port, and repeat `--remote-host HOST`
+to allow exact Tailscale proxy Host headers. Both servers bind only to loopback.
+The keep-awake preference holds Windows awake during runs and chat/cloud
+requests. Cloud tasks require a preview and Confirm. See [command-center.md](docs/command-center.md).
 
 The GUI opens in **Simple Mode**: one **Continue Roadmap** button finds the
 next unfinished roadmap stage (or resumes unfinished work) and drives it, a
