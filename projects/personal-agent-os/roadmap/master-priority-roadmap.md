@@ -1382,3 +1382,18 @@ borrow its prompt-cache and footprint rules. Do not adopt its multi-agent board
 as a runtime: the orchestrator's worktree, validator and review gates stay.
 Phases H1-H6 each carry their own test; promotion follows the usual
 noninferior-validation rule.
+
+
+## Operator-priority: Unified Life Hub / OpenMuse source subsumption
+
+**Priority: HIGH / implementation ready — requested 2026-10-15. Status: PLANNED (roadmap and handoff committed; implementation not yet started).** The operator wants one hub to direct all personal life, finances, commitments, communications, work, creative projects, devices, and specialist coding agents. It must reuse and **subsume** working code and tests before writing replacements, reducing time and token spend; this is for personal use, with minimal required provenance/notice housekeeping.
+
+Canonical step-by-step implementation plan: [Unified Life Hub — OpenMuse Integration](unified-life-hub-openmuse-integration.md).
+Source-level reuse and test inspection checklist: [OpenMuse source reuse audit](../research/openmuse-source-reuse-audit-2026-10-15.md).
+Paste-ready implementation prompt: [Unified Life Hub implementation handoff](unified-life-hub-implementation-handoff.md).
+
+Source candidates: CopilotKit/openmuse (AG-UI, rich cross-device UI, task/browser/computer workers); nano-muse/nanoMuse (device mesh, fallback tool ladder, reminders, desktop/phone); tahodev/openmuse (exact-action approvals, secrets separation, audit/worker security); diggerhq/openmuse (topic task delegation, return-path, cloud worker UX). The companion audit distinguishes repository/tree-verified candidates from unverified implementations; **copy no code without inspecting its implementation and tests at pinned SHA**.
+
+Reconcile rather than duplicate existing Orchestrator, Personal Executive queue/event bus, browser bridge, knowledge ingestion, model infrastructure, existing GUI, cross-surface registry and Hermes integration. The critical path is **LH-00 audit → LH-01 event/run stream projection → LH-02 exact-action approvals → LH-03 durable tasks/topic workers → LH-04 unified responsive hub**, followed by priorities, device pairing, controlled computer use, communications, finance/household, restricted HR, knowledge, proactivity, and hardening (LH-05..LH-14). Start with a read-only, synthetic end-to-end slice and verify before permissioned external actions.
+
+This priority is a cross-cutting **experience/integration track** for P3–P8, not an additional executive brain or replacement for established P0/P1 performance, security and recovery gates. Agents may begin LH-00/LH-01 on a separate branch/worktree immediately while other Orchestrator objectives continue; sensitive connector enrollment, spending, policy weakening, HR/financial writes and production security changes still require the existing consent and validation process.
