@@ -334,7 +334,7 @@ class Api:
             result = brain_dump.process(text, known_projects=_known_projects(), existing_ids=store.existing_ids())
             added = store.add(result, tab=body.get("tab"))  # the store falls back to "work"
             return {**result, "added": added, "refresh": True,
-                    "message": f"Captured {len(added)} item(s); {len(result['clarifications'])} need a project; {len(result['duplicates'])} duplicate(s)."}
+                    "message": _captured_message(len(added), len(result["clarifications"]), len(result["duplicates"]))}
         if path == "/api/coding/start":
             goal = str(body.get("goal") or "").strip()
             if not goal:
@@ -617,6 +617,17 @@ def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, b
     server.api = api  # type: ignore[attr-defined]
     server.token = token  # type: ignore[attr-defined]
     return server, token
+
+
+def _captured_message(added: int, need_project: int, duplicates: int) -> str:
+    if not added and duplicates:
+        return "You already have that note." if duplicates == 1 else f"You already have those {duplicates} notes."
+    text = "Saved 1 note." if added == 1 else f"Saved {added} notes."
+    if need_project:
+        text += f" {need_project} still need{'s' if need_project == 1 else ''} a project."
+    if duplicates:
+        text += f" Skipped {duplicates} you already had."
+    return text
 
 
 def _remote_host(value: str) -> str:

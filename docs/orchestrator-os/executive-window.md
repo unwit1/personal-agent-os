@@ -33,7 +33,7 @@ Each item has a title, why line, source, and optional buttons for registered act
 {
   id: string,                    # unique action identifier
   label: string,                 # UI button label
-  tab: "work" | "personal" | "any",
+  applies_to: list of item kinds, or "*" for every item,
   handler: fn(item, params, *, confirm: bool),  # receives item context
   consequential: bool            # if True, preview-only until Confirm
 }
@@ -54,7 +54,7 @@ Providers are called each time the window refreshes. A provider function must re
 Register a new action — appears as a button and as an MCP tool:
 
 ```python
-registry.register_action(id="my_action", label="...", tab="work", handler=fn, consequential=True)
+registry.register_action(id="my_action", label="...", applies_to=["my_kind"], handler=fn, consequential=True)
 ```
 
 Once registered, the action:

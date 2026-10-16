@@ -55,8 +55,12 @@ const Executive = (() => {
       })
       .catch(error => {
         console.error('API call failed:', error);
+        if (error instanceof TypeError) {
+          // fetch rejects with a TypeError when the server cannot be reached at all.
+          error.message = "Can't reach the Command Center. Is it still running? Start it again, then press Retry.";
+        }
         if (!quiet) {
-          showError(error.message);
+          showError(error.message, error instanceof TypeError ? {text: error.message} : undefined);
         }
         throw error;
       });
@@ -100,7 +104,7 @@ const Executive = (() => {
     const raw = normalizeErrors(errors);
     const what = names.length ? names.join(' and ') : 'some of your items';
     const missing = /not found|no such file|FileNotFound/i.test(raw);
-    return `Couldn't load ${what}.` + (missing ? " A file this needs wasn't found." : ' Please try again.');
+    return `Couldn't load ${what}.` + (missing ? " Something it needs isn't set up on this computer. Open Details to see what." : ' Please try again.');
   }
 
   function showError(message, options) {
@@ -894,6 +898,8 @@ const Executive = (() => {
       });
   }
 
+  let refreshNotes = () => {};
+
   function handleBrainDumpSend() {
     const input = document.getElementById('brain-dump-input');
     const send = document.getElementById('brain-dump-send');
@@ -908,7 +914,7 @@ const Executive = (() => {
         loadItems();
       })
       .catch(() => { /* error already shown */ })
-      .finally(() => { send.disabled = false; });
+      .finally(() => { send.disabled = false; refreshNotes(); });
   }
 
   // Plain-English wording for a pending action: question, one-sentence consequence,
@@ -1038,9 +1044,20 @@ const Executive = (() => {
     actions.appendChild(cancelBtn);
 
     card.appendChild(actions);
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !cancelBtn.disabled) { event.preventDefault(); cancelBtn.click(); }
+    });
     container.appendChild(card);
     const active = document.activeElement;
     if (!active || !['INPUT', 'TEXTAREA'].includes(active.tagName)) confirmBtn.focus();
+  }
+
+  // The card that had focus is gone; put focus somewhere useful instead of on the page body.
+  function returnFocus() {
+    const active = document.activeElement;
+    if (active && active !== document.body && document.body.contains(active)) return;
+    const input = document.getElementById('chat-input');
+    if (input && input.offsetParent !== null) input.focus();
   }
 
   function handleConfirm(preview, cardElement) {
@@ -1054,6 +1071,7 @@ const Executive = (() => {
     })
       .then(response => {
         cardElement.remove();
+        returnFocus();
         const success = preview.copy && preview.copy.success;
         const message = (success && success !== 'Done.') ? success : (response.message || success);
         if (message) {
@@ -1077,6 +1095,7 @@ const Executive = (() => {
     })
       .then(() => {
         cardElement.remove();
+        returnFocus();
         loadItems();
       })
       .catch(() => {
@@ -1277,8 +1296,9 @@ const Executive = (() => {
 
     chatSend.addEventListener('click', handleChatSend);
     document.getElementById('brain-dump-send').addEventListener('click', handleBrainDumpSend);
-    chatInput.addEventListener('keypress', event => {
-      if (event.key === 'Enter' && !event.shiftKey) {
+    refreshNotes = needsText(document.getElementById('brain-dump-send'), document.getElementById('brain-dump-input'), 'Type a note first');
+    chatInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
         event.preventDefault();
         handleChatSend();
       }
@@ -1287,6 +1307,24 @@ const Executive = (() => {
 
   const hub = { providers: [], projects: [], id: null, record: null, sending: new Set() };
   const byId = id => document.getElementById(id);
+
+  function friendlyTime(value) {
+    if (!value) return '';
+    const when = new Date(value);
+    return Number.isNaN(when.getTime()) ? String(value) : when.toLocaleString([], {dateStyle: 'medium', timeStyle: 'short'});
+  }
+
+  // A button that stays off until its text box has something in it, and says why.
+  function needsText(buttonEl, inputEl, reason, blocked) {
+    const update = () => {
+      const empty = !inputEl.value.trim();
+      buttonEl.disabled = Boolean(blocked) || empty;
+      buttonEl.title = blocked || (empty ? reason : '');
+    };
+    inputEl.addEventListener('input', update);
+    update();
+    return update;
+  }
 
   function button(label, action, className) {
     const node = el('button', className || '', label);
@@ -1460,7 +1498,7 @@ const Executive = (() => {
       }
       if (project.handoff) {
         const summary = el('details', 'project-handoff');
-        summary.appendChild(el('summary', '', 'Latest handoff · ' + (project.handoff.created_at || '')));
+        summary.appendChild(el('summary', '', 'Latest handoff · ' + friendlyTime(project.handoff.created_at)));
         ['completed', 'remaining', 'decisions', 'validation'].forEach(key => {
           if (project.handoff[key]) summary.appendChild(el('p', '', key + ':\n' + [].concat(project.handoff[key]).join('\n')));
         });
@@ -1472,7 +1510,7 @@ const Executive = (() => {
         project[field].forEach(session => {
           const id = session.id || session.session_id;
           const row = el('div', 'session-row');
-          row.appendChild(el('span', '', id + ' · ' + (session.modified_at || session.at || '')));
+          row.appendChild(el('span', '', id + ' · ' + friendlyTime(session.modified_at || session.at)));
           const resume = button(kind === 'cloud' ? 'Teleport' : 'Resume', () => apiCall('POST', '/api/projects/resume',
             {kind, session_id: id, project: project.id}));
           resume.disabled = !project.path;
@@ -1487,6 +1525,9 @@ const Executive = (() => {
       input.rows = 2;
       label.appendChild(input);
       compose.appendChild(label);
+      const cloudBlocked = project.sensitive ? 'Sensitive projects cannot use cloud sessions'
+        : (!project.path ? "This project's folder isn't on this computer" : '');
+      let refreshCloud = () => {};
       const preview = button('Preview cloud task', async () => {
         if (!input.value.trim()) return;
         preview.disabled = true;
@@ -1494,10 +1535,9 @@ const Executive = (() => {
           const result = await apiCall('POST', '/api/cloud/preview', {project: project.id, task: input.value.trim()});
           showPreview({id: result.confirm_token, title: 'Claude cloud · ' + project.name,
             content: JSON.stringify(result.preview, null, 2)}, 'command-center.cloud');
-        } finally { preview.disabled = project.sensitive || !project.path; }
+        } finally { refreshCloud(); }
       });
-      preview.disabled = project.sensitive || !project.path;
-      if (project.sensitive) preview.title = 'Sensitive projects cannot use cloud sessions';
+      refreshCloud = needsText(preview, input, 'Describe the task first', cloudBlocked);
       compose.appendChild(preview);
       card.appendChild(compose);
       const coding = el('div', 'cloud-task');
@@ -1513,9 +1553,10 @@ const Executive = (() => {
           const result = await apiCall('POST', '/api/coding/start', {project: project.id, repo: project.id, goal: goalInput.value.trim()});
           showPreview({...result.preview, id: result.confirm_token, action_id: 'coding.start',
             title: 'Coding run · ' + project.name}, 'coding.start');
-        } finally { startCoding.disabled = !project.path; }
+        } finally { refreshCoding(); }
       });
-      startCoding.disabled = !project.path;
+      const refreshCoding = needsText(startCoding, goalInput, 'Describe the goal first',
+        project.path ? '' : "This project's folder isn't on this computer");
       coding.appendChild(startCoding);
       card.appendChild(coding);
       list.appendChild(card);
@@ -1621,7 +1662,7 @@ const Executive = (() => {
     byId('hub-new').addEventListener('click', newHubConversation);
     byId('hub-send').addEventListener('click', hubSend);
     byId('hub-input').addEventListener('keydown', event => {
-      if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); hubSend(); }
+      if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) { event.preventDefault(); hubSend(); }
     });
     byId('hub-delete').addEventListener('click', () => {
       apiCall('POST', '/api/chat/delete', {id: hub.id}).then(newHubConversation).catch(() => {});

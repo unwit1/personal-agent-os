@@ -49,4 +49,10 @@ def rescue_view(
             window_item = queue_item.get("window_item")
             if isinstance(window_item, dict) and window_item.get("id") is not None:
                 item_id = str(window_item["id"])
+    # Count what the Today list shows: projects are already queue items, so the
+    # rescue's own queue + project total double counts them.
+    waiting = len(q["queue_items"])
+    titles = {str((item.get("window_item") or {}).get("title")) for item in q["queue_items"]}
+    shown = isinstance(action, dict) and (item_id is not None or str(action.get("title")) in titles)
+    result["suppressed"] = max(0, waiting - 1) if shown else waiting
     return {**result, "item_id": item_id, "tab": tab, "errors": q["errors"] + project_errors}

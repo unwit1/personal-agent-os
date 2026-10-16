@@ -132,6 +132,15 @@ def gate_card(gate: dict[str, Any], node: dict[str, Any] | None = None) -> dict[
     return card
 
 
+
+def _short(text: str, limit: int) -> str:
+    """Cut at a word boundary and say so, instead of stopping mid-word or mid-bracket."""
+    text = " ".join(str(text).split())
+    if len(text) <= limit:
+        return text
+    cut = text[:limit].rsplit(" ", 1)[0] or text[:limit]
+    return cut.rstrip(" ,;:(-") + "…"
+
 def failure_card(node: dict[str, Any]) -> dict[str, Any]:
     failures = node.get("failures") or []
     kind = failures[-1]["kind"] if failures else "process_error"
@@ -145,7 +154,7 @@ def failure_card(node: dict[str, Any]) -> dict[str, Any]:
     return {
         "kind": "failure",
         "node": node["id"],
-        "title": f"This part could not be finished: {node['goal'][:90]}",
+        "title": f"This part could not be finished: {_short(node['goal'], 90)}",
         "what": what,
         "changed": "Partial work is saved on its own branch. Nothing on your main branch has changed.",
         "recommended": {"label": "Try Again", "action": "retry", "does": "Tries this part again, on another agent if one is available."},

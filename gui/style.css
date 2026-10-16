@@ -75,6 +75,8 @@ label { display: grid; gap: 4px; color: var(--muted); font-size: 12px; margin-bo
 label.inline { display: flex; align-items: center; gap: 6px; margin: 0; }
 input, textarea, select { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; }
 textarea { resize: vertical; }
+input, textarea, select { max-width: 100%; min-width: 0; box-sizing: border-box; }
+label { min-width: 0; }
 .grid2 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .spacer { flex: 1; }
@@ -97,7 +99,7 @@ button:disabled { opacity: .5; cursor: default; }
 .controls { margin-top: 10px; }
 .override { margin-top: 10px; }
 .override summary { cursor: pointer; color: var(--muted); font-size: 12px; margin-bottom: 8px; }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr)); gap: 10px; }
 .card { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 6px; }
 .card-head { display: flex; justify-content: space-between; gap: 8px; }
 .card-title { font-weight: 600; word-break: break-all; }
@@ -311,4 +313,12 @@ button.small { padding: 4px 10px; font-size: 12px; }
 @media (max-width: 1024px) {
   #cc-today { height: auto; min-height: 0; overflow: visible; }
   #cc-today .chat-log { max-height: 60vh; }
+}
+
+/* Empty chat: say what it is for, instead of a blank panel. */
+#chat-log:empty::before { content: "Ask a question or give me a task. I ask before I send or change anything."; color: var(--muted); font-size: 13px; padding: 8px 0; }
+
+/* Bigger tap targets on touch screens. */
+@media (pointer: coarse), (max-width: 640px) {
+  .item-options button, .card .actions button, .preview-actions button, .cloud-task button { min-height: 40px; padding-left: 12px; padding-right: 12px; }
 }
