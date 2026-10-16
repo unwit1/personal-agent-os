@@ -208,6 +208,27 @@ Accounts need `allow_organize` set by the operator (default off, per account) in
 `.agent-local/mail/accounts.json` before any organize action can move mail. Nothing
 is moved otherwise.
 
+## Proactive watcher
+
+`agent-os executive watch --once` runs one sweep; `agent-os executive watch --interval 300` loops.
+`tools/install-executive-watcher.ps1` registers a per-user Task Scheduler task (every 5 minutes, no admin
+rights, idempotent; `-Uninstall` removes it) so the assistant stays current without the Dashboard open.
+
+Each sweep (`executive/watcher.py: sweep_once`):
+
+- pulls pending Dashboard applicant events (`rtec_applicants.pending_events`), publishes each to the Event Bus
+  as a local-only `communication.received` / `context.changed` event, and acknowledges it in the Dashboard
+  only after the publish succeeded (a failed publish is retried next sweep; republishing dedups by id);
+- runs `executive.routing` over pending events;
+- notes RTEC-HR knowledge file changes (mtime/count vs. last sweep; set `RTEC_HR_KNOWLEDGE_DIR` to override the
+  registry checkout) as a `context.changed` event with `payload.kind = knowledge_refresh_needed`. Ingestion
+  is never run automatically, and the first sweep only records a baseline;
+- writes `watcher-state.json` in the window home (last sweep, counts, per-source status, errors).
+
+It never sends and never edits Dashboard records. A missing Dashboard DB or RTEC-HR checkout shows up as
+`sources.<name>: unavailable` rather than an error. `watcher.watcher_items()` yields a single `watcher_status`
+command-center item, only when the last sweep had errors or new events.
+
 ## Per-project Next Action Engine
 
 See [executive-project-actions.md](executive-project-actions.md) for the EXEC-1 per-project Next Action Engine.

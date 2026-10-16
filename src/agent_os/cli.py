@@ -235,6 +235,9 @@ def _register_executive(commands) -> None:
     project_gaps.add_argument("--min-score", type=float, default=0.2)
     project_gaps.add_argument("--enqueue", action="store_true")
     project_gaps.add_argument("--tab", choices=["work", "personal"], default="personal")
+    watch = sub.add_parser("watch")
+    watch.add_argument("--once", action="store_true", help="run one sweep and exit")
+    watch.add_argument("--interval", type=float, default=None, help="seconds between sweeps (loop)")
 
 
 def _approval_state(batch: dict) -> dict:
@@ -253,7 +256,14 @@ def _dispatch_executive(args) -> int:
     from .executive import applicants as ex
 
     cmd = args.executive_command
-    if cmd == "route":
+    if cmd == "watch":
+        from .executive import watcher
+
+        if args.once or args.interval is None:
+            _print(watcher.sweep_once(_executive_event_bus()))
+        else:
+            watcher.watch(args.interval, sweep=lambda: watcher.sweep_once(_executive_event_bus()))
+    elif cmd == "route":
         from .executive import routing
 
         bus = _executive_event_bus()
