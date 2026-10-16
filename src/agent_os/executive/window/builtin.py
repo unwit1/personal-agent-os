@@ -18,14 +18,22 @@ from . import (
     providers_candidates,
     providers_intake,
     providers_knowledge_gaps,
-    providers_browser_routines,
     providers_mail,
     providers_orchestrator,
-    providers_phone,
     providers_projects,
     registry,
 )
 from ..event_bus import EventBus, DEFAULT_DIR
+
+# Optional providers: a checkout without them still starts the window.
+try:
+    from . import providers_browser_routines
+except ImportError:
+    providers_browser_routines = None
+try:
+    from . import providers_phone
+except ImportError:
+    providers_phone = None
 
 _initialized = False
 
@@ -49,8 +57,10 @@ def default_registry() -> registry.Registry:
         registry.register_provider("brain_dump", providers_brain_dump.brain_dump_items)
         registry.register_provider("knowledge_gaps", providers_knowledge_gaps.knowledge_gap_items)
         registry.register_provider("memory_candidates", providers_candidates.candidate_items)
-        registry.register_provider("browser_routines", providers_browser_routines.browser_routine_items)
-        registry.register_provider("phone", providers_phone.phone_items)
+        if providers_browser_routines is not None:
+            registry.register_provider("browser_routines", providers_browser_routines.browser_routine_items)
+        if providers_phone is not None:
+            registry.register_provider("phone", providers_phone.phone_items)
         registry.register_provider("intake", providers_intake.intake_items)
 
         # Register actions
@@ -65,8 +75,10 @@ def default_registry() -> registry.Registry:
         actions_knowledge_gaps.register(registry.REGISTRY)
         actions_candidates.register(registry.REGISTRY)
         actions_projects.register(registry.REGISTRY)
-        providers_browser_routines.register(registry.REGISTRY)
-        providers_phone.register(registry.REGISTRY)
+        if providers_browser_routines is not None:
+            providers_browser_routines.register(registry.REGISTRY)
+        if providers_phone is not None:
+            providers_phone.register(registry.REGISTRY)
 
         # Attach the shared local Event Bus
         registry.REGISTRY.attach_event_bus(EventBus(DEFAULT_DIR))

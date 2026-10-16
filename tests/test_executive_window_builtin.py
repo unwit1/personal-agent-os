@@ -41,6 +41,10 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         provider_names = set(reg._providers.keys())
 
         expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects", "brain_dump", "knowledge_gaps", "memory_candidates", "browser_routines", "phone", "intake"}
+        if builtin.providers_browser_routines is None:
+            expected_providers.discard("browser_routines")
+        if builtin.providers_phone is None:
+            expected_providers.discard("phone")
         self.assertEqual(provider_names, expected_providers)
 
     def test_default_registry_registers_actions(self):
@@ -83,6 +87,10 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "browser_routine.acknowledge",
             "phone.done",
         }
+        if builtin.providers_browser_routines is None:
+            expected_actions = {a for a in expected_actions if not a.startswith("browser_routine.")}
+        if builtin.providers_phone is None:
+            expected_actions = {a for a in expected_actions if not a.startswith("phone.")}
         self.assertEqual(action_ids, expected_actions)
 
     def test_new_actions_are_item_options_and_tools(self):

@@ -17,10 +17,16 @@ from .browser_bridge_server import (
     load_or_create_token as browser_bridge_token,
     serve as serve_browser_bridge,
 )
-from .ambient_captures import import_ready as import_ambient_ready
-from .ambient_captures import list_captures as list_ambient_captures
-from .ambient_captures import show_capture as show_ambient_capture
-from .ambient_captures import watch as watch_ambient_captures
+try:
+    from .ambient_captures import import_ready as import_ambient_ready
+    from .ambient_captures import list_captures as list_ambient_captures
+    from .ambient_captures import show_capture as show_ambient_capture
+    from .ambient_captures import watch as watch_ambient_captures
+except ImportError:  # module not present in this checkout; the rest of the CLI still works
+    def _ambient_unavailable(*_args, **_kwargs):
+        raise SystemExit("ambient-captures is not available in this checkout (agent_os/ambient_captures.py is missing)")
+
+    import_ambient_ready = list_ambient_captures = show_ambient_capture = watch_ambient_captures = _ambient_unavailable
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
