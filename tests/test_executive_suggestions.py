@@ -83,7 +83,6 @@ class SuggestionTests(unittest.TestCase):
     def test_score_order_label_reasons_and_unreviewed(self):
         gw = FakeGateway({"ref-a": review(60, "maybe"), "ref-c": review(90)})
         out, audit = self.go(gw)
-        self.assertEqual([s["applicant_ref"] for s in out["suggestions"]], ["ref-c", "ref-a"])
         top = out["suggestions"][0]
         self.assertEqual(top["label"], "Dashboard AI review: advisory; you decide")
         self.assertEqual(top["score"], 90)
@@ -92,6 +91,9 @@ class SuggestionTests(unittest.TestCase):
         self.assertEqual(top["review_reasons"]["strengths"], ["st"])
         self.assertEqual(top["review_reasons"]["criteria"][0]["met"], "yes")
         self.assertEqual(out["unreviewed_matching_count"], 1)
+        # Unreviewed fit follows the reviewed ones with score None.
+        self.assertEqual([s["applicant_ref"] for s in out["suggestions"]], ["ref-c", "ref-a", "ref-b"])
+        self.assertIsNone(out["suggestions"][-1]["score"])
         audit.assert_called_once()
 
     def test_non_matching_and_pending_excluded(self):
@@ -106,7 +108,7 @@ class SuggestionTests(unittest.TestCase):
     def test_no_reviews_creates_none(self):
         gw = FakeGateway()
         out, _ = self.go(gw)
-        self.assertEqual(out["suggestions"], [])
+        self.assertEqual([s["score"] for s in out["suggestions"]], [None] * 3)
         self.assertEqual(out["unreviewed_matching_count"], 3)
         self.assertEqual(set(gw.calls), {"ranked", "match_for"})
 
@@ -127,6 +129,72 @@ class SuggestionTests(unittest.TestCase):
         for secret in ("SECRET-AA", "SECRET-RACE", "SECRET-KEY", "SECRET-SRC"):
             self.assertNotIn(secret, text)
         self.assertNotIn("Ann", audit_text)
+
+
+REAL_ROWS = {
+    "New": [
+        {"agent_ref": "ref-d", "name": "Dee", "position": "Transit Driver", "submitted": "2026-09-20", "status": "New", "county": "Laurel", "city": "X"},
+        {"agent_ref": "ref-e", "name": "Eli", "position": "Dispatcher", "submitted": "2026-09-21", "status": "New", "county": "Laurel", "city": "X"},
+        {"agent_ref": "ref-f", "name": "Fay", "position": "Transit Driver", "submitted": "2026-09-22", "status": "New", "county": "Knox", "city": "X"},
+    ],
+}
+
+
+def real_match(primary, alternates=(), match=True, pending=False):
+    return {
+        "match": match, "pending": pending, "primary": primary, "primary_minutes": 20,
+        "alternates": [{"group": g, "minutes": 40, "applied": False} for g in alternates],
+        "reasons": ["near " + str(primary)], "groups": [primary] if primary else [], "group_label": str(primary),
+        "manager": None,
+    }
+
+
+class RealShapeTests(unittest.TestCase):
+    def go(self, opening):
+        matches = {
+            "ref-d": real_match("Laurel", ["Knox"]),
+            "ref-e": real_match("Laurel"),
+            "ref-f": real_match("Knox"),
+        }
+        gw = FakeGateway({"ref-d": review(91), "ref-e": review(84)})
+        gw.matches = matches
+        rows = [r for group in REAL_ROWS.values() for r in group]
+
+        def list_real(status=None, limit=50, offset=0):
+            picked = [r for r in rows if not status or r["status"] == status][offset:offset + limit]
+            return {"count": len(picked), "results": [dict(r) for r in picked]}
+
+        def ranked(min_score=0):
+            return [({k: v for k, v in r.items() if k != "agent_ref"} | {"applicant_ref": r["agent_ref"]}, gw.reviews[r["agent_ref"]])
+                    for r in rows if r["agent_ref"] in gw.reviews]
+
+        gw.ranked = ranked
+        with patch.object(ex.rtec_applicants, "list_applicants", side_effect=list_real), \
+                patch.object(ex.rtec_applicants, "_audit_access"):
+            return ex.suggestions(opening, gateway=gw)
+
+    def refs(self, opening):
+        return [s["applicant_ref"] for s in self.go(opening)["suggestions"]]
+
+    def test_bus_driver_maps_to_transit_driver(self):
+        self.assertEqual(self.refs("Bus Driver"), ["ref-d", "ref-f"])
+
+    def test_dispatcher_position(self):
+        self.assertEqual(self.refs("Dispatcher"), ["ref-e"])
+
+    def test_county_with_suffix(self):
+        self.assertEqual(self.refs("Laurel County"), ["ref-d", "ref-e", ])
+        self.assertEqual(self.refs("laurel"), ["ref-d", "ref-e"])
+        self.assertEqual(self.go("Laurel County")["opening"], "Laurel")
+
+    def test_alternate_group_and_pending(self):
+        self.assertEqual(self.refs("Knox"), ["ref-d", "ref-f"])
+        self.assertFalse(ex._fits(real_match("Laurel", pending=True), "Laurel"))
+        self.assertFalse(ex._fits(real_match("Laurel", match=False), "Laurel"))
+
+    def test_fits_position_needs_applicant_position(self):
+        self.assertFalse(ex._fits(real_match("Laurel"), "Dispatcher", "Transit Driver"))
+        self.assertTrue(ex._fits(real_match("Laurel"), "customer service representative", "CSR"))
 
 
 if __name__ == "__main__":
