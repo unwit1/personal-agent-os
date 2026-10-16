@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import uuid
 from datetime import date, datetime, timedelta
 from typing import Any, Iterable, Mapping
@@ -92,7 +93,25 @@ def _age_days(submitted: Any, now: datetime) -> int | None:
 
 
 def _norm(value: Any) -> str:
-    return " ".join(str(value or "").split()).casefold()
+    text = " ".join(str(value or "").split()).casefold()
+    if text.endswith(" county"):
+        text = text[: -len(" county")].rstrip()
+    return text
+
+
+# Same aliases as the Dashboard opening matcher.
+_POSITION_PATTERNS = (
+    ("Transit Driver", re.compile(r"\b(transit driver|bus driver|driver)\b")),
+    ("Garage Attendant", re.compile(r"\bgarage attendant\b")),
+    ("Dispatcher", re.compile(r"\bdispatcher\b")),
+    ("CSR", re.compile(r"\b(csr|customer service representative)\b")),
+)
+
+
+def _positions(text: Any) -> set[str]:
+    """Canonical positions named in free text (an opening or an applicant position)."""
+    folded = " ".join(str(text or "").split()).casefold()
+    return {name for name, pattern in _POSITION_PATTERNS if pattern.search(folded)}
 
 
 def _opening_name(value: Any) -> str:
@@ -104,20 +123,42 @@ def _opening_name(value: Any) -> str:
     return _norm(value)
 
 
-def _fits(match: Any, opening: str) -> bool:
-    """Dashboard fit rule: opening is the match or an alternate; pending never fits."""
+def _fits(match: Any, opening: str, position_text: Any = None) -> bool:
+    """Dashboard fit rule; pending never fits.
+
+    Real ``match_for`` shape: ``match`` is a bool and the opening fits when it names
+    the primary county group, a group, or an alternate group, or names a position
+    that the applicant's position text also names. A string-shaped ``match``
+    (legacy) is compared with the opening name directly.
+    """
     if not match or _get(match, "pending"):
         return False
     wanted = _norm(opening)
-    if _opening_name(_get(match, "match")) == wanted:
+    flag = _get(match, "match")
+    if isinstance(flag, (str, Mapping)):
+        if _opening_name(flag) == wanted:
+            return True
+        return any(_opening_name(alt) == wanted for alt in (_get(match, "alternates") or []))
+    if not flag:
+        return False
+    groups = _get(match, "groups") or []
+    if isinstance(groups, (str, Mapping)):
+        groups = [groups]
+    names = [_get(match, "primary"), *groups]
+    for alt in _get(match, "alternates") or []:
+        names.append(_get(alt, "group") if isinstance(alt, Mapping) else alt)
+    if wanted and any(_opening_name(n) == wanted for n in names if n):
         return True
-    return any(_opening_name(alt) == wanted for alt in (_get(match, "alternates") or []))
+    return bool(_positions(opening) & _positions(position_text))
 
 
 def _clean_opening(opening: Any) -> str:
     if not isinstance(opening, str) or not opening.strip():
         raise ValueError("opening must be a non-empty string")
-    return opening.strip()
+    text = opening.strip()
+    if text.casefold().endswith(" county"):
+        text = text[: -len(" county")].rstrip()
+    return text or opening.strip()
 
 
 def _jsonable(value: Any) -> Any:
@@ -257,7 +298,7 @@ def suggestions(opening: str, *, gateway: Any = None) -> dict[str, Any]:
         if _get(applicant, "status") not in REVIEWABLE_STATUSES:
             continue
         match = gateway.match_for(ref)
-        if not _fits(match, opening):
+        if not _fits(match, opening, _get(applicant, "position")):
             continue
         entry = _project(applicant)
         entry.update(_review_fields(review))
@@ -270,8 +311,14 @@ def suggestions(opening: str, *, gateway: Any = None) -> dict[str, Any]:
     for ref in roster:
         if ref in reviewed:
             continue
-        if _fits(gateway.match_for(ref), opening):
+        match = gateway.match_for(ref)
+        if _fits(match, opening, roster[ref].get("position")):
             unreviewed += 1
+            entry = _project(roster[ref])
+            entry.update(score=None, recommendation=None, review_reasons=None)
+            entry["match_reasons"] = list(_get(match, "reasons") or [])
+            entry["label"] = ADVISORY_LABEL
+            results.append(entry)
 
     rtec_applicants._audit_access(
         "executive.suggestions", metadata={"result_count": len(results)}
@@ -300,6 +347,8 @@ def _top_n(top_n: int | None) -> int:
 def _fits_county(applicant: Any, match: Any, county: str) -> bool:
     wanted = _norm(county)
     if not wanted:
+        return False
+    if "Transit Driver" not in _positions(_get(applicant, "position")):
         return False
     if _norm(_get(applicant, "county")) == wanted:
         return True
@@ -416,7 +465,7 @@ def plan_outreach(
     for ref in applicant_refs:
         applicant = roster[ref]
         match = gateway.match_for(ref)
-        if not _fits(match, opening):
+        if not _fits(match, opening, applicant.get("position")):
             excluded.append(
                 {
                     "applicant_ref": ref,
@@ -448,6 +497,7 @@ def plan_outreach(
                 "applicant_ref": ref,
                 "name": applicant["name"],
                 "county": applicant["county"],
+                "position": applicant.get("position"),
                 "manager": _jsonable(manager),
                 "slots": _slot_records(slots),
                 "subject": subject,
@@ -539,7 +589,7 @@ def approve_batch(
             continue
 
         match = gateway.match_for(ref)
-        if not _fits(match, batch["opening"]):
+        if not _fits(match, batch["opening"], item.get("position")):
             out.update(state="HELD", decision="held", hold_reason="opening_no_longer_fits")
             decided.append(out)
             continue

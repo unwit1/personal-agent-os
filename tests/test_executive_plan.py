@@ -23,7 +23,14 @@ ROWS = {
 MATCHES = {
     "ref-a": {"match": "Tech", "pending": False, "alternates": [], "reasons": ["m-a"]},
     "ref-c": {"match": "Clerk", "pending": False, "alternates": ["Tech"], "reasons": ["m-c"]},
+    # Real Dashboard match_for shape.
+    "ref-d": {"match": True, "pending": False, "primary": "Laurel", "primary_minutes": 15,
+              "alternates": [{"group": "Knox", "minutes": 40, "applied": False}],
+              "reasons": ["m-d"], "groups": ["Laurel"], "group_label": "Laurel", "manager": None},
 }
+ROWS["New"].append(
+    {"agent_ref": "ref-d", "name": "Dee", "position": "Transit Driver", "submitted": "2026-09-22", "status": "New", "county": "Laurel", "city": "X"}
+)
 SLOTS = [(datetime(2026, 10, 5, 9), "free"), (datetime(2026, 10, 5, 13), "free"), (datetime(2026, 10, 6, 10), "free")]
 
 
@@ -108,6 +115,14 @@ class PlanTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.plan(["ref-a"], opening="Clerk", store=store)
         self.assertEqual(store.data, {})
+
+    def test_real_shape_fit_plans_for_county_and_position(self):
+        for opening in ("Laurel", "Laurel County", "Knox", "Bus Driver"):
+            batch, _, _ = self.plan(["ref-d"], opening=opening)
+            self.assertEqual([i["applicant_ref"] for i in batch["items"]], ["ref-d"], opening)
+            self.assertEqual(batch["items"][0]["position"], "Transit Driver")
+        with self.assertRaises(ValueError):
+            self.plan(["ref-d"], opening="Dispatcher")
 
     def test_validation(self):
         for refs in ([], ["ref-a", "ref-a"], ["nope"], "ref-a", [""]):

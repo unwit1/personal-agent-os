@@ -14,9 +14,9 @@ from agent_os.executive.gateway import SyntheticDashboardGateway
 EEO_KEYS = ("gender", "race", "veteran", "disability")
 
 
-def _app(ref, county, status="New", match=None):
+def _app(ref, county, status="New", match=None, position="Transit Driver"):
     return {
-        "applicant_ref": ref, "name": ref.upper(), "position": "Tech", "submitted": "2026-09-20",
+        "applicant_ref": ref, "name": ref.upper(), "position": position, "submitted": "2026-09-20",
         "status": status, "county": county, "city": "X",
         "gender": "SECRET", "race": "SECRET", "veteran": "SECRET", "disability": "SECRET",
         "match": match or {"match": "Tech", "pending": False, "reasons": ["r-" + ref], "groups": []},
@@ -81,6 +81,21 @@ class CountyCandidateTests(unittest.TestCase):
             out = ex.county_candidates("Kent", top_n=10, gateway=gateway)
         self.assertEqual([a["applicant_ref"] for a in out["applicants"]], ["b", "e", "c", "a", "g"])
         self.assertIsNone(out["applicants"][-1]["score"])
+
+    def test_county_suffix_normalized(self):
+        out = self.go(ex.county_candidates, "Kent County", top_n=10)
+        self.assertEqual(out["county"], "Kent")
+        self.assertEqual(out["count"], 4)
+
+    def test_dispatcher_only_excluded_from_driver_card(self):
+        gateway = _gateway()
+        gateway.applicants["h"] = _app("h", "Kent", position="Dispatcher")
+        gateway.reviews["h"] = _rev(99)
+        with patch.object(ex.rtec_applicants, "_audit_access"), \
+                patch.object(ex, "_reviewable_applicants", return_value={}):
+            out = ex.county_candidates("Kent", top_n=10, gateway=gateway)
+        self.assertNotIn("h", [a["applicant_ref"] for a in out["applicants"]])
+        self.assertEqual(out["count"], 4)
 
     def test_open_county_groups(self):
         groups = self.go(ex.open_county_groups, top_n=1)
