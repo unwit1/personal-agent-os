@@ -93,8 +93,41 @@ def test_full_flow_start_answer_propose_save(env):
     assert task['status'] == 'saved'
     assert task['revisions'] == [{'n': 1, 'sha256': result['sha256'], 'path': str(md_target)}]
     assert providers_documents.document_items() == []
-    audit = [json.loads(line) for line in pending.audit_path.read_text().splitlines()]
+    audit_text = pending.audit_path.read_text()
+    audit = [json.loads(line) for line in audit_text.splitlines()]
     assert audit[-1]['result'] == result
+    assert audit[-1]['params']['text_sha256'] == result['sha256']
+    assert 'Final edit.' not in audit_text and 'Email HR' not in audit_text
+
+
+def test_second_task_for_same_role_saves_next_version(env):
+    reg, pending, out = env
+    first = _start(reg, pending, 'job_description')['doc_id']
+    saved = reg.invoke('document.save', _task_item(first), {'text': 'first\n'}, pending)
+    reg.confirm(saved['confirm_token'], pending)
+    second = _start(reg, pending, 'job_description')['doc_id']
+    preview = reg.invoke('document.save', _task_item(second), {'text': 'second\n'}, pending)
+    assert preview['preview']['paths'][0].endswith('job_description-v2.md')
+    result = reg.confirm(preview['confirm_token'], pending)
+    assert Path(result['path']).read_text(encoding='utf-8') == 'second\n'
+    assert (out / 'executive-assistant' / 'job_description-v1.md').read_text(encoding='utf-8') == 'first\n'
+
+
+def test_stale_propose_refuses_and_keeps_newer_draft(env):
+    reg, pending, out = env
+    doc_id = _start(reg, pending, 'job_description')['doc_id']
+    proposed = reg.invoke('document.propose', _task_item(doc_id), {}, pending)
+    reg.invoke('document.answer', _task_item(doc_id), {'changes': 'Add travel'}, pending)
+    newer = doc_store.DocumentTaskStore().get(doc_id)['draft']
+    with pytest.raises(ValueError, match='draft changed since preview'):
+        reg.confirm(proposed['confirm_token'], pending)
+    task = doc_store.DocumentTaskStore().get(doc_id)
+    assert task['draft'] == newer and task.get('draft_source', 'template') == 'template'
+
+    reg.invoke('document.answer', _task_item(doc_id), {'text': '# Hand-written\n'}, pending)
+    answered = reg.invoke('document.answer', _task_item(doc_id), {'answers': {'pay': 'Grade 12'}}, pending)
+    assert answered['result']['draft'] == '# Hand-written\n'
+    assert 'unchanged' in answered['result']['note']
 
 
 def test_save_writes_pinned_preview_text_not_current_draft(env):

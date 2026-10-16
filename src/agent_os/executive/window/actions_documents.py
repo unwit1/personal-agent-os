@@ -6,6 +6,7 @@ pending params, and Confirm writes those params unchanged (never regenerated).
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any, Callable
 
@@ -47,6 +48,17 @@ def _last_saved_text(task: dict[str, Any]) -> str:
         return Path(revisions[-1]["path"]).read_text(encoding="utf-8")
     except (OSError, KeyError):
         return ""
+
+
+def _redact_text(params: dict[str, Any]) -> Any:
+    """Take the pinned text out of the pending params before Confirm audits them.
+
+    registry.confirm audits the same params dict after the handler runs, so the
+    audit log records only the text's sha256, never the HR document itself."""
+    text = params.pop("text", None)
+    if isinstance(text, str):
+        params["text_sha256"] = documents.sha256(text)
+    return text
 
 
 def _start(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
@@ -110,18 +122,26 @@ def _answer(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> d
         "status": task["status"],
         "draft": draft,
         "open_questions": unanswered,
-        "note": "Updated the draft only; nothing is saved until document.save is confirmed.",
+        "note": (
+            "Recorded the answers, but left your hand-written draft unchanged; pass text to revise it."
+            if source == "text" and text is None else
+            "Updated the draft only; nothing is saved until document.save is confirmed."
+        ),
     }
 
 
 def _propose(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
+    pinned = _redact_text(params) if confirm else None
     store = _store()
     task = _open_task(store, item)
     if not confirm:
-        text = params.get("text", task["draft"])
+        if "text" in params:
+            text = params["text"]  # explicitly supplied; pinned for Confirm
+        else:
+            text = task["draft"]
+            params["draft_sha256"] = documents.sha256(text)  # Confirm refuses if the draft moved on
         if not isinstance(text, str) or not text.strip():
             raise ValueError("text must be the complete draft")
-        params["text"] = text  # pin the previewed text for Confirm
         return {
             "doc_id": task["id"],
             "title": f"Proposed {_title(task)}",
@@ -130,12 +150,25 @@ def _propose(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> 
             "sha256": documents.sha256(text),
             "note": "Marks this draft as proposed on Confirm; nothing is written to disk.",
         }
-    text = params.get("text")
+    text = pinned
+    if text is None:
+        if documents.sha256(task["draft"]) != params.get("draft_sha256"):
+            raise ValueError("draft changed since preview; propose again")
+        text = task["draft"]
     if not isinstance(text, str):
         raise ValueError("missing previewed text")
     source = "text" if text != task["draft"] else task.get("draft_source", "template")
     store.update(task["id"], draft=text, draft_source=source, status="proposed")
     return {"doc_id": task["id"], "status": "proposed", "sha256": documents.sha256(text)}
+
+
+def _next_version(task: dict[str, Any]) -> int:
+    """One past the highest {doc_type}-vN.md already in the role's shared folder."""
+    directory = documents.output_dir(task["role"], base=OUTPUT_BASE)
+    pattern = re.compile(re.escape(task["doc_type"]) + r"-v(\d+)\.md")
+    found = [int(m.group(1)) for p in directory.glob(task["doc_type"] + "-v*.md")
+             if (m := pattern.fullmatch(p.name))]
+    return max(found, default=0) + 1
 
 
 def _targets(task: dict[str, Any], version: int) -> tuple[Path, Path | None]:
@@ -146,13 +179,14 @@ def _targets(task: dict[str, Any], version: int) -> tuple[Path, Path | None]:
 
 
 def _save(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
+    pinned = _redact_text(params) if confirm else None
     store = _store()
     task = _open_task(store, item)
     if not confirm:
         text = params.get("text", task["draft"])
         if not isinstance(text, str) or not text.strip():
             raise ValueError("text must be the complete document")
-        version = len(task.get("revisions") or []) + 1
+        version = _next_version(task)
         md_path, docx_path = _targets(task, version)
         digest = documents.sha256(text)
         # Pin exactly what is previewed; Confirm writes these params unchanged.
@@ -167,7 +201,7 @@ def _save(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dic
             "note": "Writes exactly this text on Confirm."
                     + ("" if docx_path else " python-docx is not installed, so no .docx will be written."),
         }
-    text, version, digest = params.get("text"), params.get("version"), params.get("sha256")
+    text, version, digest = pinned, params.get("version"), params.get("sha256")
     if not isinstance(text, str) or not isinstance(version, int) or documents.sha256(text) != digest:
         raise ValueError("pending save does not match its preview")
     md_path, docx_path = _targets(task, version)
