@@ -54,9 +54,9 @@ class LocalGatewayTests(unittest.TestCase):
                         self.assertEqual(applicant["availability"], "weekdays")
                         return "Manager"
                     return types.SimpleNamespace(manager_for_applicant=manager_for,
-                        suggest_slots=lambda manager, duration, count: [(datetime(2026, 10, 5, 10), "free")])
+                        suggest_slots=lambda manager, duration_minutes=30, now=None, count=3, exclude_applicant_key=None: [(datetime(2026, 10, 5, 10), "free")])
                 if name == "interview_outreach":
-                    return types.SimpleNamespace(render_outreach=lambda *args: ("Subject", "Body"),
+                    return types.SimpleNamespace(render_outreach=lambda *args, **kwargs: ("Subject", "Body"),
                         record_outreach_drafted=lambda *args: "draft-1")
                 if name == "email_sender":
                     def send_now(key, kind, to_addr, subject, body):
