@@ -110,7 +110,8 @@ class ExecutiveMcpTests(unittest.TestCase):
         err, out = call("executive.suggestions", opening="Tech")
         self.assertFalse(err, out)
         self.assertEqual(out["label"], ex.ADVISORY_LABEL)
-        self.assertEqual(out["count"], 1)
+        self.assertEqual(out["count"], 2)  # reviewed fits first, then unreviewed fits with no score
+        self.assertIsNone(out["suggestions"][1]["score"])
         self.assertEqual(out["suggestions"][0]["applicant_ref"], "ref-a")
         self.assertEqual(out["suggestions"][0]["score"], 88)
         self.assertEqual(out["suggestions"][0]["label"], ex.ADVISORY_LABEL)

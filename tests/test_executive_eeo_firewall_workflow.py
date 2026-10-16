@@ -47,7 +47,7 @@ def no_leak(case, payload, where):
 
 def _app(ref, county="Kent"):
     return {
-        "applicant_ref": ref, "name": ref.upper(), "position": "Tech", "submitted": "2026-09-20",
+        "applicant_ref": ref, "name": ref.upper(), "position": "Transit Driver", "submitted": "2026-09-20",
         "status": "New", "county": county, "city": "Dover", "email": ref + "@example.test",
         "match": dict(match="Tech", pending=False, reasons=["fits-" + ref], groups=[], **RESTRICTED),
         **RESTRICTED,

@@ -20,7 +20,7 @@ SLOT = datetime(2026, 10, 5, 9)
 
 def _app(ref, county="Kent"):
     return {
-        "applicant_ref": ref, "name": ref.upper(), "position": "Tech", "submitted": "2026-09-20",
+        "applicant_ref": ref, "name": ref.upper(), "position": "Transit Driver", "submitted": "2026-09-20",
         "status": "New", "county": county, "city": "Dover", "email": ref + "@example.test",
         "gender": "SECRET", "race": "SECRET", "veteran": "SECRET", "disability": "SECRET",
         "match": {"match": "Tech", "pending": False, "reasons": ["fits-" + ref], "groups": []},
@@ -77,7 +77,7 @@ class ComposeActionTests(unittest.TestCase):
         self.assertEqual(compose["kind"], "outreach")
         self.assertEqual(compose["applicant_ref"], "a")
         self.assertEqual(compose["county"], "Kent")
-        self.assertIn("Tech", compose["subject"])
+        self.assertIn("Transit Driver", compose["subject"])
         self.assertIn("Hello A", compose["body"])
         self.assert_no_write()
 
@@ -86,7 +86,7 @@ class ComposeActionTests(unittest.TestCase):
         compose = out["result"]["compose"]
         self.assertEqual(compose["kind"], "interview")
         self.assertEqual(compose["to"], "a@example.test")
-        self.assertEqual(compose["subject"], "Interview invitation: Tech")
+        self.assertEqual(compose["subject"], "Interview invitation: Transit Driver")
         self.assertIn("Dover office", compose["body"])
         names = [name for name, _args in self.gateway.calls]
         for needed in ("manager_for", "suggest_slots", "render_outreach"):
