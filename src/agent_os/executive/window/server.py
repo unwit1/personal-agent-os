@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import secrets
 import shutil
 import subprocess
@@ -24,9 +25,9 @@ from urllib.parse import parse_qs, urlparse
 
 from ...paths import ROOT
 from ...orchestrator import cloud_lane, plan_extras, usage_hub
-from .. import chat_hub, projects_view
+from .. import chat_hub, documents, projects_view
 from ..keep_awake import KeepAwake
-from . import actions_candidates_query, actions_openings, model_bridge
+from . import actions_candidates_query, actions_documents, actions_openings, model_bridge
 from .confirm import ItemState, PendingStore, _write_json, window_home
 from .rescue_view import rescue_view
 
@@ -40,6 +41,32 @@ STATIC_FILES = {
 TOKEN_PLACEHOLDERS = (b"{{TOKEN}}", b"__AGENT_OS_TOKEN__")
 LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
 MAX_BODY = 1_000_000
+
+_DOC_KIND = r"(?:job\s+description|internal\s+(?:job\s+)?posting)"
+_DOC_REQUEST = re.compile(
+    r"^\s*(?:please\s+)?(?:(?:can|could|would)\s+you\s+)?(?:i\s+(?:need|want)\s+|help\s+me\s+)?(?:to\s+)?"
+    r"(?:(?:write|draft|create|make|start|prepare|do|put\s+together)\s+)?(?:me\s+)?(?:an?\s+|the\s+)?(?:new\s+)?"
+    rf"(?P<kinds>{_DOC_KIND}(?:\s*(?:,|and|&|\+)\s*(?:an?\s+)?(?:new\s+)?{_DOC_KIND})*)"
+    r"\s+(?:for|of)\s+(?:an?\s+|the\s+)?(?P<role>[^.?!\n]{2,80}?)\s*[.?!]*\s*$",
+    re.IGNORECASE,
+)
+
+
+def parse_document_request(text: str) -> dict[str, Any] | None:
+    """Recognise 'new job description for X', 'internal posting for X' or both; None otherwise."""
+    match = _DOC_REQUEST.match(text)
+    if not match:
+        return None
+    kinds = match.group("kinds").lower()
+    doc_types = []
+    if "job description" in kinds:
+        doc_types.append("job_description")
+    if "posting" in kinds:
+        doc_types.append("internal_posting")
+    role = re.sub(r"\s+", " ", match.group("role")).strip(" ,")
+    if not role or not doc_types:
+        return None
+    return {"doc_types": doc_types, "role": role}
 
 
 def _first(body: dict[str, Any], *keys: str) -> Any:
@@ -134,6 +161,27 @@ class Api:
             return {"message": f"Could not preview the openings change: {type(exc).__name__}: {exc}"[:600],
                     "previews": self._previews(), "opening_event": event}
         return {"message": "Confirm to update openings", "previews": self._previews(), "opening_event": event}
+
+    def _start_document(self, doc_type: Any, role: Any) -> dict[str, Any]:
+        """Run document.start without a provider item; nothing is saved until Confirm."""
+        out = self.registry.invoke("document.start", actions_documents.start_item(),
+                                   {"doc_type": doc_type, "role": role}, self.pending)
+        return out["result"]
+
+    def _document_chat(self, request: dict[str, Any]) -> dict[str, Any]:
+        try:
+            tasks = [self._start_document(t, request["role"]) for t in request["doc_types"]]
+        except Exception as exc:
+            return {"message": f"Could not start the document: {type(exc).__name__}: {exc}"[:600],
+                    "previews": self._previews(), "documents": []}
+        parts = []
+        for task in tasks:
+            label = documents.DOC_LABELS.get(task["doc_type"], task["doc_type"])
+            lines = [f"I started a draft {label.lower()} for {task['role']}. Please answer these before I finish it:"]
+            lines += [f"{n}. {q['text']}" for n, q in enumerate(task["questions"], 1)]
+            parts.append("\n".join(lines))
+        parts.append("Nothing is saved yet. Answer in the Today tab; Save asks you to confirm first.")
+        return {"message": "\n\n".join(parts), "previews": self._previews(), "documents": tasks, "refresh": True}
 
     def _candidates(self, query: dict[str, Any]) -> dict[str, Any]:
         """Answer 'who are good applicants for X' from existing reviews, without the model."""
@@ -259,6 +307,9 @@ class Api:
             added = store.add(result, tab=body.get("tab"))  # the store falls back to "work"
             return {**result, "added": added, "refresh": True,
                     "message": f"Captured {len(added)} item(s); {len(result['clarifications'])} need a project; {len(result['duplicates'])} duplicate(s)."}
+        if path == "/api/documents/start":
+            task = self._start_document(body.get("doc_type"), body.get("role"))
+            return {"status": "done", "task": task, "questions": task["questions"], "refresh": True}
         if path == "/api/pending":
             return self._pending_view()
         if path == "/api/act":
@@ -310,6 +361,9 @@ class Api:
             query = actions_candidates_query.parse_candidate_query(text)
             if query is not None:
                 return self._candidates(query)
+            document_request = parse_document_request(text)
+            if document_request is not None:
+                return self._document_chat(document_request)
             return self._model(body.get("conversation_id"), text)
         if path == "/api/send":
             return self.send(body)
