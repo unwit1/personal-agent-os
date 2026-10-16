@@ -254,3 +254,40 @@ def register(reg: registry.Registry) -> None:
         description="Discard a document task without saving",
         params_schema={},
     )
+
+
+def start_item() -> dict[str, Any]:
+    """Synthetic item for document.start; a new task has no provider item yet."""
+    return {"id": "document-start", "kind": "document_start", "title": "Start a document"}
+
+
+def task_item(doc_id: str, question_id: str | None = None) -> dict[str, Any]:
+    context: dict[str, Any] = {"doc_id": doc_id}
+    if question_id:
+        context["question_id"] = question_id
+    return {"id": f"document:{doc_id}", "kind": "document_task", "context": context}
+
+
+def start_task(doc_type: str, role: str) -> dict[str, Any]:
+    """Start a draft (nothing is saved) and return the task with the questions to answer."""
+    return _start(start_item(), {"doc_type": doc_type, "role": role}, confirm=False)
+
+
+def answer_task(doc_id: str, answers: dict[str, Any] | None = None, changes: str | None = None) -> dict[str, Any]:
+    params: dict[str, Any] = {}
+    if answers:
+        params["answers"] = answers
+    if changes:
+        params["changes"] = changes
+    return _answer(task_item(doc_id), params, confirm=False)
+
+
+def list_tasks() -> list[dict[str, Any]]:
+    out = []
+    for task in _store().tasks():
+        out.append({
+            "doc_id": task["id"], "doc_type": task["doc_type"], "role": task["role"],
+            "status": task.get("status"), "draft": task.get("draft"),
+            "questions": documents.open_questions(task.get("questions") or []),
+        })
+    return out

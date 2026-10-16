@@ -482,6 +482,82 @@ const Executive = (() => {
       });
   }
 
+  const documentDrafts = {};
+
+  function renderDocumentQuestion(item) {
+    const group = document.createElement('div');
+    group.className = 'item-options';
+    const input = document.createElement('textarea');
+    input.rows = 2;
+    input.placeholder = 'Your answer';
+    input.setAttribute('aria-label', 'Your answer');
+    const answer = document.createElement('button');
+    answer.type = 'button';
+    answer.textContent = 'Answer';
+    answer.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (!text) return;
+      answer.disabled = true;
+      runAction(item, 'document.answer', { answer: text })
+        .then(loadItems)
+        .catch(() => { answer.disabled = false; });
+    });
+    group.appendChild(input);
+    group.appendChild(answer);
+    return group;
+  }
+
+  function renderDocumentTask(item) {
+    const docId = item.context && item.context.doc_id;
+    const group = document.createElement('div');
+    const draft = document.createElement('pre');
+    draft.className = 'document-draft';
+    draft.style.whiteSpace = 'pre-wrap';
+    draft.textContent = documentDrafts[docId] || 'Press Save to see the full text before anything is written.';
+    group.appendChild(draft);
+
+    const changes = document.createElement('textarea');
+    changes.rows = 2;
+    changes.placeholder = 'What should change in this draft?';
+    changes.setAttribute('aria-label', 'Requested changes');
+    group.appendChild(changes);
+
+    const buttons = document.createElement('div');
+    buttons.className = 'item-options';
+    const makeButton = (label, onClick, consequential) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = label;
+      if (consequential) btn.className = 'option-consequential';
+      btn.addEventListener('click', onClick);
+      buttons.appendChild(btn);
+    };
+    makeButton('Propose changes', () => {
+      const text = changes.value.trim();
+      if (!text) {
+        // No changes typed: preview the current draft and ask for confirmation.
+        runAction(item, 'document.propose', {}).then(loadItems).catch(() => { /* error already shown */ });
+        return;
+      }
+      runAction(item, 'document.answer', { changes: text })
+        .then(response => {
+          const result = response && response.result;
+          if (result && result.draft) documentDrafts[docId] = result.draft;
+          loadItems();
+        })
+        .catch(() => { /* error already shown */ });
+    });
+    makeButton('Save', () => {
+      runAction(item, 'document.save', {}).catch(() => { /* error already shown */ });
+    }, true);
+    makeButton('Discard', () => {
+      if (!window.confirm('Discard this draft without saving?')) return;
+      runAction(item, 'document.discard', {}).then(loadItems).catch(() => { /* error already shown */ });
+    });
+    group.appendChild(buttons);
+    return group;
+  }
+
   function renderItem(item) {
     const card = document.createElement('div');
     card.className = 'item-card';
@@ -530,9 +606,14 @@ const Executive = (() => {
       card.appendChild(renderMailFiltered(item));
     } else if (item.kind === 'brain_dump_clarification') {
       card.appendChild(renderBrainDumpClarification(item));
+    } else if (item.kind === 'document_question') {
+      card.appendChild(renderDocumentQuestion(item));
+    } else if (item.kind === 'document_task') {
+      card.appendChild(renderDocumentTask(item));
     }
 
-    if (item.options && item.options.length > 0) {
+    const ownsOptions = item.kind === 'document_question' || item.kind === 'document_task';
+    if (!ownsOptions && item.options && item.options.length > 0) {
       const optionsDiv = document.createElement('div');
       optionsDiv.className = 'item-options';
       item.options.forEach(option => {

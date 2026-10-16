@@ -776,8 +776,30 @@ WINDOW_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
 }
 
+DOCUMENT_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "executive_documents.start": {
+        "description": "Executive documents: start a draft job description or internal posting for a role and return the questions to ask the operator. Creates a draft task only; saving is the operator's Save and Confirm click in the Executive window.",
+        "inputSchema": {"type": "object", "properties": {
+            "doc_type": {"type": "string", "enum": ["job_description", "internal_posting"]},
+            "role": {"type": "string"},
+        }, "required": ["doc_type", "role"], "additionalProperties": False},
+    },
+    "executive_documents.answer": {
+        "description": "Executive documents: record the operator's answers and/or requested changes on an open document task and return the updated draft. Updates the draft only; never saves a file.",
+        "inputSchema": {"type": "object", "properties": {
+            "doc_id": {"type": "string"},
+            "answers": {"type": "object", "description": "{question_id: answer text}"},
+            "changes": {"type": "string"},
+        }, "required": ["doc_id"], "additionalProperties": False},
+    },
+    "executive_documents.list": {
+        "description": "Executive documents: list open document tasks with their drafts and unanswered questions. Read-only.",
+        "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
+    },
+}
+
 WINDOW_RUN_TOOL = "executive_window.run"
-WINDOW_TOOL_NAMES = frozenset([*WINDOW_TOOL_SCHEMAS, WINDOW_RUN_TOOL])
+WINDOW_TOOL_NAMES = frozenset([*WINDOW_TOOL_SCHEMAS, *DOCUMENT_TOOL_SCHEMAS, WINDOW_RUN_TOOL])
 
 PROJECT_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "executive_projects.next": {
@@ -873,7 +895,7 @@ CAPTURE_TOOL_NAMES = frozenset(CAPTURE_TOOL_SCHEMAS)
 
 def _window_tool_schemas() -> dict[str, dict[str, Any]]:
     """Window tool schemas; the run schema is built from the live registry on every call."""
-    schemas = dict(WINDOW_TOOL_SCHEMAS)
+    schemas = {**WINDOW_TOOL_SCHEMAS, **DOCUMENT_TOOL_SCHEMAS}
     try:
         schemas[WINDOW_RUN_TOOL] = _window_run_schema()
     except Exception:
@@ -986,6 +1008,24 @@ def _window_run(action_id: str, item_id: str, params: dict[str, Any] | None = No
     if action_id not in {option.get("action_id") for option in item.get("options", [])}:
         raise ValueError(f"action {action_id} is not an option for item {item_id}")
     return registry.invoke(action_id, item, params, PendingStore(home))
+
+
+def _documents_start(doc_type: str, role: str) -> dict[str, Any]:
+    from .executive.window import actions_documents
+
+    return actions_documents.start_task(doc_type, role)
+
+
+def _documents_answer(doc_id: str, answers: dict[str, Any] | None = None, changes: str | None = None) -> dict[str, Any]:
+    from .executive.window import actions_documents
+
+    return actions_documents.answer_task(doc_id, answers, changes)
+
+
+def _documents_list() -> dict[str, Any]:
+    from .executive.window import actions_documents
+
+    return {"tasks": actions_documents.list_tasks()}
 
 
 def _projects_next(project: str, stale_days: int | None = None) -> dict[str, Any]:
@@ -1251,6 +1291,9 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive_window.explain": _window_explain,
             "executive_window.history": _window_history,
             "executive_window.run": _window_run,
+            "executive_documents.start": _documents_start,
+            "executive_documents.answer": _documents_answer,
+            "executive_documents.list": _documents_list,
             "executive_projects.next": _projects_next,
             "executive_projects.scan": _projects_scan,
             "executive_routing.reason": _routing_reason,
