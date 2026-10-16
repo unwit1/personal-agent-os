@@ -189,6 +189,58 @@ class NoSelfApprovalTests(unittest.TestCase):
         self.assertNotIn("approved_consequential", execute.call_args.kwargs)
         self.assertEqual(self.pending.list(), [])
 
+    def routine_run(self, approve):
+        """A browser routine paused on CLICK; approve=True is the window's Confirm (approve_run)."""
+        from agent_os import browser_routines
+        from agent_os.browser_bridge import BridgeStore
+
+        home = Path(self.home) / "routines"
+        policy_path = browser_routines._home(home) / "policies" / "run-1.json"
+        policy_path.write_text(json.dumps({"issuer": "routine:run-1", "session_ids": ["tab-1"], "approved_hashes": []}))
+        browser_routines.save_run({
+            "run_id": "run-1", "status": "needs_approval", "policy": str(policy_path),
+            "pending_approval": {"actions": CLICK, "actions_hash": BridgeStore.actions_hash(CLICK)},
+        }, home)
+        if approve:
+            browser_routines.approve_run("run-1", home)
+        env = getattr(browser_control, "POLICY_ENV", "AGENT_OS_BROWSER_POLICY")
+        return policy_path, patch.dict(os.environ, {env: str(policy_path)})
+
+    def test_routine_resume_runs_the_operator_approved_action_once(self):
+        """After the window approval, the resumed routine's re-issued call executes (once)."""
+        policy_path, env = self.routine_run(approve=True)
+        with env, patch.object(mcp_server, "browser_execute", return_value={"state": "completed"}) as execute:
+            err, out = call("browser.execute", session_id="tab-1", actions=CLICK, approved_consequential=True)
+            self.assertFalse(err, out)
+            self.assertEqual(out, {"state": "completed"})
+            execute.assert_called_once()
+            self.assertEqual(execute.call_args.args, ("tab-1", CLICK))
+            self.assertIs(execute.call_args.kwargs["approved_consequential"], True)
+            self.assertEqual(execute.call_args.kwargs["issued_by"], "routine:run-1")
+            self.assertEqual(self.pending.list(), [])
+            self.assertEqual(json.loads(policy_path.read_text())["approved_hashes"], [])
+
+            err, out = call("browser.execute", session_id="tab-1", actions=CLICK, approved_consequential=True)
+            self.assertEqual(execute.call_count, 1)  # the approval is single-use
+            self.assert_parked(out, "browser.execute_consequential")
+
+    def test_routine_without_operator_approval_cannot_self_approve(self):
+        _, env = self.routine_run(approve=False)
+        with env, patch.object(mcp_server, "browser_execute") as execute:
+            err, out = call("browser.execute", session_id="tab-1", actions=CLICK, approved_consequential=True)
+            self.assertFalse(err, out)
+            execute.assert_not_called()
+            self.assert_parked(out, "browser.execute_consequential")
+
+    def test_routine_approval_is_bound_to_its_actions_and_tab(self):
+        _, env = self.routine_run(approve=True)
+        other = [{"op": "click", "selector": "#delete"}]
+        with env, patch.object(mcp_server, "browser_execute") as execute:
+            call("browser.execute", session_id="tab-1", actions=other, approved_consequential=True)
+            call("browser.execute", session_id="tab-2", actions=CLICK, approved_consequential=True)
+            execute.assert_not_called()
+            self.assertEqual(len(self.pending.list()), 2)
+
     def test_pending_record_reaches_the_window(self):
         """The window's /api/pending reads PendingStore(window_home()), the store MCP writes to."""
         from agent_os.executive.window.confirm import window_home

@@ -1185,6 +1185,38 @@ def _executive_send(batch_id: str, confirm_send: bool = False) -> dict[str, Any]
     return _await_operator_confirm("executive.send_batch", item, {"batch_id": batch_id}, preview)
 
 
+def _consume_routine_approval(session_id: str, actions: list[dict[str, Any]]) -> str | None:
+    """Redeem a browser-routine approval the operator already clicked in the window.
+
+    browser_routine.approve (a consequential window action, so a human Confirm)
+    writes the paused actions' hash into the run's policy file; the routine's MCP
+    server is started with that file in its environment. A matching call is
+    allowed once and the hash is removed. Returns the run's issuer, or None.
+    """
+    import os
+    from . import browser_control
+    from .browser_bridge import BridgeStore
+
+    path = os.environ.get(getattr(browser_control, "POLICY_ENV", "AGENT_OS_BROWSER_POLICY"))
+    if not path:
+        return None
+    policy_path = Path(path)
+    try:
+        policy = json.loads(policy_path.read_text(encoding="utf-8"))
+        digest = BridgeStore.actions_hash(actions)
+    except (OSError, ValueError, TypeError):
+        return None
+    if not isinstance(policy, dict) or session_id not in (policy.get("session_ids") or []):
+        return None
+    hashes = list(policy.get("approved_hashes") or [])
+    if digest not in hashes:
+        return None
+    hashes.remove(digest)
+    policy["approved_hashes"] = hashes
+    policy_path.write_text(json.dumps(policy, indent=2), encoding="utf-8")
+    return str(policy.get("issuer") or "")
+
+
 def _browser_execute(
     session_id: str,
     actions: list[dict[str, Any]],
@@ -1195,6 +1227,10 @@ def _browser_execute(
     """The model cannot open the consequential gate itself; that needs the operator's Confirm."""
     if approved_consequential is not True:
         return browser_execute(session_id, actions, issued_by=issued_by, wait_seconds=wait_seconds)
+    issuer = _consume_routine_approval(session_id, actions)
+    if issuer is not None:
+        return browser_execute(session_id, actions, issued_by=issuer or issued_by,
+                               approved_consequential=True, wait_seconds=wait_seconds)
     params = {"session_id": session_id, "actions": actions, "issued_by": issued_by, "wait_seconds": wait_seconds}
     preview = {"session_id": session_id, "actions": actions, "approved_consequential": True}
     item = {"id": f"browser-session-{session_id}", "kind": "browser_command", "title": f"Browser actions in session {session_id}"}
