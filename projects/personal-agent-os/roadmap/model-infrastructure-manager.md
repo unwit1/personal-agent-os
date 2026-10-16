@@ -5,6 +5,8 @@ Owner: Orchestrator OS / Personal Agent OS
 Tracked improvement: **IMP-0015**  
 Requested: 2026-09-29
 
+**Coding-specific implementation track (2026-10-16):** [Cost-Aware Coding Delegation — Deterministic Patch, Test, and Escalation Pipeline](cost-aware-coding-delegation.md) (CCD-0 through CCD-7). **Proposed, not implemented.** Extends IMP-0015 and the existing FreeComputeBroker/router/worktree/validator/evaluation stack; does not create a parallel broker. The later implementation agent should begin at CCD-0 audit and reuse current infrastructure.
+
 ## Goal
 
 Build one provider-neutral control plane that lets Orchestrator select, acquire,

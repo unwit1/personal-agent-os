@@ -1293,6 +1293,8 @@ Design principle:
 **Priority: HIGH — requested 2026-09-29.** Canonical detailed specification:
 [model-infrastructure-manager.md](model-infrastructure-manager.md) (IMP-0015).
 
+**2026-10-16 scoped follow-up (roadmap only):** [Cost-Aware Coding Delegation](cost-aware-coding-delegation.md) stages CCD-0–CCD-7 extend IMP-0015's free-first model routing with deterministic patch checking, isolated application, existing tests, bounded repair, evidence-driven premium escalation, and cost-per-verified-change benchmarks. This is proposed work for a later coding agent, **not an implemented capability**; first step is deduplication/audit of the existing router and worktree/validation paths. Preserve the present priority order and stage-gated rollout.
+
 This is the provider-neutral, plug-and-play model and cloud-compute layer for
 Orchestrator OS. It covers automatic model research/benchmarking and intelligent
 routing across subscription/API/open-weight/abliterated models; RunPod-first but
