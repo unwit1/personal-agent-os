@@ -11,8 +11,8 @@
   <header class="topbar">
     <div class="brand">Agent OS <span>Command Center</span></div>
     <span class="spacer"></span>
-    <div id="provider-errors" class="muted"></div>
   </header>
+  <div id="error-banner" class="error-banner hidden" role="alert"></div>
 
   <nav class="command-tabs" role="tablist" aria-label="Command Center">
     <button id="cc-tab-today" class="tab on" role="tab" aria-selected="true" aria-controls="cc-today">Today</button>
@@ -26,20 +26,28 @@
 
   <div id="busy" class="busy hidden" role="status" aria-live="polite"><span class="spinner"></span><span id="busy-text">Loading…</span></div>
 
+  <div id="pending-previews" class="pending-previews" aria-live="polite"></div>
+
   <main id="cc-today" class="executive-container command-panel" role="tabpanel" aria-labelledby="cc-tab-today">
     <div class="tabs-container">
-      <div class="tabs" role="tablist">
-        <button id="tab-work" class="tab on" role="tab" aria-selected="true">Work</button>
-        <button id="tab-personal" class="tab" role="tab" aria-selected="false">Personal</button>
-        <button id="rescue-toggle" type="button" class="tab" aria-pressed="false">Rescue</button>
+      <div class="today-heading">
+        <h1>Today</h1>
+        <p id="today-count" class="muted">Checking what needs you…</p>
+      </div>
+      <div class="tabs-row">
+        <div class="tabs" role="tablist" aria-label="Work or personal">
+          <button id="tab-work" class="tab on" role="tab" aria-selected="true" aria-controls="work-tab">Work</button>
+          <button id="tab-personal" class="tab" role="tab" aria-selected="false" aria-controls="personal-tab" tabindex="-1">Personal</button>
+        </div>
+        <button id="rescue-toggle" type="button" class="tab" aria-pressed="false" title="Show only the one thing to do next">Just one thing</button>
       </div>
 
       <div id="rescue-panel" class="rescue-panel hidden" aria-live="polite"></div>
       <div id="items-panel" class="items-panel">
-        <div id="work-tab" class="tab-content on">
+        <div id="work-tab" class="tab-content on" role="tabpanel" aria-labelledby="tab-work">
           <div id="work-items" class="items-list"></div>
         </div>
-        <div id="personal-tab" class="tab-content">
+        <div id="personal-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-personal">
           <div id="personal-items" class="items-list"></div>
         </div>
       </div>
@@ -48,13 +56,21 @@
     <div class="chat-container">
       <div class="chat-panel">
         <div id="chat-log" class="chat-log"></div>
+        <div id="chat-examples" class="chat-examples">
+          <span class="muted">Try:</span>
+          <button type="button" class="chip">Find top applicants</button>
+          <button type="button" class="chip">Write a job description</button>
+          <button type="button" class="chip">What needs me today?</button>
+          <button type="button" class="chip">Start a coding task</button>
+        </div>
+        <div id="chat-busy" class="chat-busy hidden" role="status" aria-live="polite"><span class="spinner"></span>Working on it... this can take up to a minute</div>
         <div class="chat-compose">
-          <input id="chat-input" placeholder="Message the model" autocomplete="off">
+          <input id="chat-input" aria-label="Ask me anything" placeholder="Ask me anything - e.g. 'Draft a job description for an Executive Assistant'" autocomplete="off">
           <button id="chat-send" class="primary">Send</button>
         </div>
         <div class="brain-dump-compose">
-          <label for="brain-dump-input">Brain dump</label>
-          <textarea id="brain-dump-input" placeholder="Brain dump: one thought per line"></textarea>
+          <label for="brain-dump-input">Quick notes</label>
+          <textarea id="brain-dump-input" placeholder="Quick notes: one thought per line"></textarea>
           <button id="brain-dump-send" type="button">Capture</button>
         </div>
       </div>
@@ -95,15 +111,11 @@
     <section class="panel"><h2>Advice</h2><div id="usage-advice"></div></section>
     <section class="panel"><h2>Cloud sessions</h2><div id="usage-cloud"></div></section>
   </main>
-  <div id="pending-previews" class="pending-previews" aria-live="polite"></div>
-
-
   <style>
     .executive-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      height: 100vh;
       overflow: hidden;
     }
     .tabs-container {
@@ -206,15 +218,16 @@
     .brain-dump-compose label { grid-column: 1 / -1; font-size: 12px; color: var(--muted); }
     .brain-dump-compose textarea { min-height: 56px; resize: vertical; }
     .rescue-panel { padding: 10px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+    /* In the page flow under the header, so it never covers the chat box or Capture button. */
     .pending-previews {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
+      position: sticky;
+      top: 45px;
       display: grid;
       gap: 8px;
-      max-width: 320px;
+      padding: 0 20px;
       z-index: 10;
     }
+    .pending-previews:empty { display: none; }
     .preview-card {
       border: 2px solid var(--warn);
       border-radius: 8px;
@@ -225,8 +238,14 @@
     }
     .preview-title {
       font-weight: 600;
-      color: var(--warn);
+      font-size: 15px;
+      color: #8a5a12;
     }
+    @media (prefers-color-scheme: dark) {
+      .preview-title { color: var(--warn); }
+    }
+    .preview-details summary { cursor: pointer; font-size: 13px; color: var(--muted); }
+    .preview-details .preview-content { max-height: 30vh; overflow-y: auto; margin-top: 4px; }
     .preview-content {
       font-size: 13px;
       white-space: pre-wrap;
@@ -238,7 +257,7 @@
       margin-top: 6px;
     }
     .preview-actions button {
-      flex: 1;
+      flex: 1 1 auto;
       padding: 6px 10px;
       font-size: 12px;
     }
@@ -262,6 +281,8 @@
     }
     .review-panel.hidden { display: none; }
     .review-title { font-weight: 600; }
+    .review-label { font-size: 12px; color: #8a5a12; font-weight: 600; }
+    .review-fields ul { margin: 0; padding-left: 18px; }
     .review-fields { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 0; font-size: 13px; }
     .review-fields dt { color: var(--muted); }
     .review-fields dd { margin: 0; word-break: break-word; }
@@ -291,7 +312,11 @@
     @media (max-width: 1024px) {
       .executive-container {
         grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
       }
+      .tabs-container, .items-panel, .chat-container { overflow: visible; }
+      .tab-content { height: auto; overflow: visible; }
       .chat-container {
         border-left: none;
         border-top: 1px solid var(--line);

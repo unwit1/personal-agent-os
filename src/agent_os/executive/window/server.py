@@ -136,6 +136,9 @@ class Api:
                 "confirm_token": record["token"],
                 "action_id": record.get("action_id"),
                 "item_id": item.get("id"),
+                "item_title": item.get("title"),
+                "county": (item.get("context") or {}).get("county"),
+                "data": record.get("preview"),
                 "title": f"{record.get('action_id')}: {item.get('title') or item.get('id') or ''}",
                 "content": json.dumps(record.get("preview"), indent=2, default=str, ensure_ascii=False),
                 "created_at": record.get("created_at"),
@@ -172,14 +175,19 @@ class Api:
         try:
             tasks = [self._start_document(t, request["role"]) for t in request["doc_types"]]
         except Exception as exc:
-            return {"message": f"Could not start the document: {type(exc).__name__}: {exc}"[:600],
+            return {"message": "I couldn't start that document. Please check the job title and try again.",
+                    "details": f"{type(exc).__name__}: {exc}"[:600],
                     "previews": self._previews(), "documents": []}
-        parts = []
+        labels = [documents.DOC_LABELS.get(t["doc_type"], t["doc_type"]).lower() for t in tasks]
+        # Questions shared by both drafts are asked once; each answer goes to every draft.
+        questions: dict[str, dict[str, Any]] = {}
         for task in tasks:
-            label = documents.DOC_LABELS.get(task["doc_type"], task["doc_type"])
-            lines = [f"I started a draft {label.lower()} for {task['role']}. Please answer these before I finish it:"]
-            lines += [f"{n}. {q['text']}" for n, q in enumerate(task["questions"], 1)]
-            parts.append("\n".join(lines))
+            for q in task["questions"]:
+                questions.setdefault(q["id"], q)
+        lines = [f"I started a draft {' and a draft '.join(labels)} for {tasks[0]['role']}. "
+                 f"Please answer these before I finish {'them' if len(tasks) > 1 else 'it'}:"]
+        lines += [f"{n}. {q['text']}" for n, q in enumerate(questions.values(), 1)]
+        parts = ["\n".join(lines)]
         parts.append("Nothing is saved yet. Answer in the Today tab; Save asks you to confirm first.")
         return {"message": "\n\n".join(parts), "previews": self._previews(), "documents": tasks, "refresh": True}
 
