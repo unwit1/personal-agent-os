@@ -1,0 +1,231 @@
+{
+ "tasks": [
+  {
+   "id": "command-center-ux",
+   "role": "implementer",
+   "capability_class": "balanced",
+   "effort": "medium",
+   "depends_on": [],
+   "scope": [
+    "gui/executive.js",
+    "gui/executive.html",
+    "gui/style.css",
+    "src/agent_os/executive/rescue.py",
+    "tests/test_executive_window_gui.py",
+    "tests/test_executive_window_gui_rescue.py",
+    "tests/test_executive_rescue.py",
+    "src/agent_os/executive/window/server.py",
+    "src/agent_os/executive/window/actions_documents.py",
+    "src/agent_os/executive/window/doc_store.py",
+    "src/agent_os/executive/window/providers_documents.py",
+    "tests/test_executive_documents_entry.py",
+    "tests/test_executive_documents.py"
+   ],
+   "goal": "Fix the command center UI findings in docs/audits/2026-10-16-hr-assistant/command-center-ux.md, in priority order, with plain-English copy (the user is a busy non-technical HR manager):\n1 (blocker) Applicant review: gui/executive.js sends applicant_id (around lines 186, 212) but the server requires applicant_ref; the panel reads review.fields/review.decisions but the server returns flat keys plus available_decisions; the list reads 'suggestion' but data has 'recommendation'. Fix all three; show score, recommendation, summary, strengths, concerns; build decision buttons from available_decisions; label 'AI suggestion - you decide'. Check the real response shape in src/agent_os/executive/window/actions_applicant_decisions.py and providers_applicants.py.\n2 Confirm card: human title like 'Decline <name> (<county>)?', one-sentence consequence instead of raw JSON (keep a collapsible 'Details'), buttons named for the action / 'Keep as is', success message naming what happened, role=alertdialog and focus the primary button; must not cover the chat input.\n3 Don't show 'Update county openings' on every item (only on applicant/county items); Dismiss and Snooze must call /api/act directly instead of going through the chat model.\n4 Errors: red dismissible banner with Retry for provider load errors, friendly chat error styling, clear stale errors on next success; no raw exception text by default (put it under Details); never the word 'provider'.\n5 Phone layout: allow normal page scrolling under 1024px, fix height overflow at desktop (Capture button must be visible at 1366x768 and 390x844).\n6 Jargon: 'Priority N of M' instead of ranking formula, hide internal source names, chat placeholder \"Ask me anything - e.g. 'Draft a job description for an Executive Assistant'\", rename Brain dump -> Quick notes and Rescue -> Just one thing, and reword rescue.py's 'run agent-os executive rescue again' message.\n7 First screen: a 'Today' heading with a count of items needing the user, plus example chips that fill the chat box: 'Find top applicants', 'Write a job description', 'What needs me today?', 'Start a coding task'.\n8 Busy state 'Working on it... this can take up to a minute' near the input; chat bubbles must not stretch (align-content:start).\n9 Rescue: hide the empty list when one item is shown.\n10 a11y: label the chat input, role=tablist/tab with arrow keys, the warning icon needs text '(asks before doing)', preview title colour #8a5a12.\nUpdate tests in tests/test_executive_window_gui*.py (they assert on JS/HTML text) to match.\n\nIMPORTANT CONTEXT: the command center is now the Command Center app built by Codex (read docs/command-center.md first). `agent-os app` serves tabs Today (the Executive window, gui/executive.html + gui/executive.js), Projects, Runs (embedded orchestrator GUI), Chat (src/agent_os/executive/chat_hub.py) and Usage, all from src/agent_os/executive/window/server.py. Build on that code; do not create a parallel UI. Apply the fixes to the Today tab and the shared header; keep the other tabs working (tests/test_command_center_*.py). 11. When the user asks for both a job description and an internal posting, the document questions are currently listed twice (src/agent_os/executive/window/server.py documents chat reply and document_question items): ask shared questions once and apply each answer to both tasks (actions_documents / doc_store); add to scope.",
+   "validators": [
+    {
+     "kind": "command",
+     "name": "gui-tests",
+     "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_executive_window_gui.py",
+      "tests/test_executive_window_gui_rescue.py",
+      "tests/test_executive_window_gui_brain_dump.py",
+      "tests/test_executive_window_gui_mail_cleanup.py",
+      "tests/test_executive_window_gui_resume.py",
+      "tests/test_executive_rescue.py",
+      "tests/test_executive_window_server.py",
+      "tests/test_command_center_server.py",
+      "tests/test_command_center_app.py",
+      "tests/test_executive_documents_entry.py",
+      "tests/test_executive_documents.py"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "coding-from-command-center",
+   "role": "implementer",
+   "capability_class": "balanced",
+   "effort": "medium",
+   "depends_on": [
+    "command-center-ux"
+   ],
+   "scope": [
+    "src/agent_os/executive/window/actions_coding.py",
+    "src/agent_os/executive/window/providers_orchestrator.py",
+    "src/agent_os/executive/window/server.py",
+    "src/agent_os/executive/window/builtin.py",
+    "gui/executive.js",
+    "tests/test_executive_window_coding.py",
+    "tests/test_executive_window_builtin.py",
+    "tests/test_executive_window_provider_orchestrator.py",
+    "src/agent_os/executive/projects_view.py",
+    "tests/test_projects_view.py"
+   ],
+   "goal": "Let the user run ALL agentic coding from the Executive command center through the Orchestrator, so every coding task gets the orchestrator's routing, budgets, review and records.\n1. New src/agent_os/executive/window/actions_coding.py registering action 'coding.start' (consequential: it spends model usage). Params: goal (str), repo (registered project id from agent_os.registry canonical projects, or a path), optional project. Preview (no side effects): resolved repo/project, the goal, and the orchestrator's provider picks and cost estimate if cheaply available (agent_os.orchestrator.service.providers / quote; skip if unavailable), plus the sentence 'Starts an orchestrator run that plans, codes, tests and reviews on its own branch; nothing is merged without you.' On confirm: call agent_os.orchestrator.service.start_recommended(goal, repo, project, policy={}) WITHOUT driving it in the request thread (start it in a background thread or use the service's non-blocking path such as no-drive then a daemon thread calling engine().run_loop), and return run_id.\n2. providers_orchestrator.py: in addition to gates and parked nodes, emit one 'coding_run' item per non-terminal run (title = the run goal shortened, why = state and progress like '3 of 5 tasks done', tab 'work'), and a completed-run item that stays until dismissed showing the result branch. Add actions on coding_run items: 'coding.pause', 'coding.resume', 'coding.stop' (stop is consequential) calling service.control.\n3. server.py /api/chat: detect 'start a coding task: <goal>', 'code: <goal> in <repo>', 'have the orchestrator <goal>' and return a confirm preview for coding.start (never start without Confirm). Add POST /api/coding/start doing the same.\n4. gui/executive.js: coding_run items show progress and Pause/Resume/Stop; the 'Start a coding task' chip prefills 'Start a coding task: '.\n5. Register in builtin.py and update tests/test_executive_window_builtin.py expectations. Tests in tests/test_executive_window_coding.py with orchestrator.service functions monkeypatched (never call real models): preview has no side effects, confirm starts exactly once, chat intent returns a confirmation not a start, run items render.\n\nIMPORTANT CONTEXT: the command center is now the Command Center app built by Codex (read docs/command-center.md first). `agent-os app` serves tabs Today (the Executive window, gui/executive.html + gui/executive.js), Projects, Runs (embedded orchestrator GUI), Chat (src/agent_os/executive/chat_hub.py) and Usage, all from src/agent_os/executive/window/server.py. Build on that code; do not create a parallel UI. The Runs tab already embeds the orchestrator control GUI and Projects can resume Claude/Codex sessions; this task adds starting an orchestrator run from the Chat/Today input and from a project row in the Projects tab ('Start coding task' button prefilled with the project), and shows active runs as Today items. Respect the sensitive-project rules in model_profile / chat_hub (sensitive repos never go to third-party/free models).",
+   "validators": [
+    {
+     "kind": "command",
+     "name": "coding-tests",
+     "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_executive_window_coding.py",
+      "tests/test_executive_window_builtin.py",
+      "tests/test_executive_window_provider_orchestrator.py",
+      "tests/test_executive_window_server.py",
+      "tests/test_executive_window_gui.py",
+      "tests/test_command_center_server.py",
+      "tests/test_projects_view.py"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "no-self-approval",
+   "role": "implementer",
+   "capability_class": "reasoning",
+   "effort": "medium",
+   "scope": [
+    "src/agent_os/mcp_server.py",
+    "src/agent_os/executive/window/actions_executive.py",
+    "src/agent_os/executive/window/confirm.py",
+    "tests/test_executive_no_self_approval.py",
+    "tests/test_executive_mcp.py",
+    "tests/test_executive_window_actions_executive.py",
+    "tests/test_executive_send.py",
+    "tests/test_browser_bridge.py"
+   ],
+   "goal": "Security fix: the chat model can approve its own consequential actions. See docs/audits/2026-10-16-hr-assistant/computer-access.md ('Self-approved, a real gap') and hr-task-sweep.md gap 2. Today: MCP executive.send accepts confirm_send=true (mcp_server.py ~710, ~1102-1115), MCP browser.execute accepts approved_consequential=true (~177, ~1277), MCP executive.approve can be called by the model, and the window action executive.approve_batch is registered consequential=False (actions_executive.py ~113-120). The Executive window chat runs claude -p with every mcp__agent-os__* tool pre-allowed, so the model can approve+send in one turn.\n\nRequired: only a human click (window Confirm) can make a consequential side effect happen.\n1. In mcp_server.py, when executive.send is called with confirm_send=true, or browser.execute with approved_consequential=true, or executive.approve is called: do NOT execute. Instead create a pending record with agent_os.executive.window.confirm.PendingStore().create(action_id, item, params, preview) for a matching window action and return {status:'needs_confirmation', confirm_token_issued:true, message:'Waiting for you to click Confirm in the command center.'} WITHOUT returning the token itself to the model. Preview-only calls (confirm_send false etc.) keep working unchanged. If no window action exists for that operation yet, register thin ones in actions_executive.py (consequential=True) that call the same underlying functions on confirm.\n2. Mark executive.approve_batch consequential=True.\n3. Make sure the pending record appears in the window's /api/pending list so the user sees it (check how server.py _previews/_pending_view read PendingStore).\n4. Tests (tests/test_executive_no_self_approval.py): each of the three MCP paths with the approval flag set performs no send/execute (monkeypatch the underlying send/browser functions and assert not called), returns needs_confirmation without a token string, and leaves exactly one pending record; confirming that record through Registry.confirm performs the action once. Update existing tests that asserted the old self-approve behaviour to the new contract (do not delete coverage). Also apply the same rule to any new consequential paths in src/agent_os/executive/chat_hub.py and cloud_lane submits if they can be triggered by a model without a human Confirm.",
+   "validators": [
+    {
+     "kind": "command",
+     "name": "approval-tests",
+     "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_executive_no_self_approval.py",
+      "tests/test_executive_mcp.py",
+      "tests/test_executive_window_actions_executive.py",
+      "tests/test_executive_send.py",
+      "tests/test_executive_window_mcp.py",
+      "tests/test_executive_approval.py"
+     ]
+    }
+   ],
+   "depends_on": []
+  },
+  {
+   "id": "hr-policy-lookup",
+   "role": "implementer",
+   "capability_class": "balanced",
+   "effort": "medium",
+   "scope": [
+    "src/agent_os/executive/hr_knowledge.py",
+    "src/agent_os/mcp_server.py",
+    "tests/test_executive_hr_knowledge.py"
+   ],
+   "goal": "Let the assistant answer HR policy questions ('What's our policy on overtime for drivers?') from the RTEC-HR knowledge repository with citations. See docs/audits/2026-10-16-hr-assistant/hr-task-sweep.md task 3 and gap 3. The RTEC-HR repo is a registered project (id rtec-hr-process-model resolves to the RTEC-HR checkout through agent_os.registry / agent_os.machine.resolve_path; also honour env RTEC_HR_ROOT). Its curated knowledge lives under knowledge/libraries/** as JSON claim files and Markdown (e.g. a hours-pay-benefits JSON with overtime rules and handbook page citations).\n1. New module src/agent_os/executive/hr_knowledge.py: locate the RTEC-HR root; walk knowledge/** *.json and *.md, NEVER reading any path containing 'restricted-evidence', 'restricted', 'private' or files marked omitted; extract claim-like records (for JSON: objects with text/claim/statement/summary plus source/citation/page/effective/superseded fields; for Markdown: heading-delimited sections); simple keyword scoring (casefold tokens, synonym map: OT->overtime, PTO->paid time off, driver->transit driver) returning top N {text, source_path (relative), citation, effective_date, superseded_by}. Cache the parsed index in memory keyed by file mtimes. No model calls.\n2. mcp_server.py: add tool hr.policy_lookup {query, limit} returning those results plus 'answer_guidance': 'Quote the claim and cite source_path/citation. If nothing relevant is found say so; do not substitute general law.'\n3. Tests with a temp fake RTEC-HR tree (synthetic policy JSON + a restricted-evidence file containing a marker string that must never appear in results).",
+   "validators": [
+    {
+     "kind": "command",
+     "name": "hr-knowledge-tests",
+     "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_executive_hr_knowledge.py",
+      "tests/test_executive_mcp.py"
+     ]
+    }
+   ],
+   "depends_on": []
+  },
+  {
+   "id": "computer-tools",
+   "role": "implementer",
+   "capability_class": "reasoning",
+   "effort": "medium",
+   "depends_on": [
+    "no-self-approval"
+   ],
+   "scope": [
+    "src/agent_os/executive/computer.py",
+    "src/agent_os/executive/window/actions_computer.py",
+    "src/agent_os/executive/window/builtin.py",
+    "src/agent_os/mcp_server.py",
+    "tests/test_executive_computer.py",
+    "tests/test_executive_window_builtin.py",
+    "docs/orchestrator-os/executive-window.md"
+   ],
+   "goal": "Give the command center's assistant tiered, approval-gated access to the user's computer (Windows primary, must also work on Linux for tests), per docs/audits/2026-10-16-hr-assistant/computer-access.md 'Changes' 2 and 'Security recommendation'. NO unrestricted shell for the model.\n1. src/agent_os/executive/computer.py: config at ~/.agent-os/computer.json {allowed_roots: [paths], drafts_root: path} (defaults: allowed_roots = [user's Documents, Desktop, Downloads] if they exist; drafts_root = <repo>/.agent-local/executive/drafts). Path guard resolving symlinks/.. and rejecting anything outside allowed_roots. Functions: list_dir, read_text (txt/md/csv/json; .docx via python-docx if available; .xlsx via openpyxl if available; .pdf via pypdf if available; size cap 2 MB, else metadata only), search_files (name glob + optional content substring, capped), write_draft (new file under drafts_root only, never overwrite: add -vN), and consequential operations: write_file (overwrite/create under allowed_roots; makes a .bak backup first), move_file, delete_file (move to a .agent-local trash, never hard delete), open_path (os.startfile on Windows / xdg-open), run_command (argv list, no shell, cwd inside allowed_roots, timeout 120s, output capped). Every call appends a JSONL audit line (op, path, ok, timestamp; never file contents) under confirm.window_home()/computer-audit.jsonl.\n2. Tiers: free = list/read/search; automatic+logged = write_draft; needs window Confirm = write_file, move_file, delete_file, open_path, run_command. Implement the Confirm tier as window actions in actions_computer.py (consequential=True; preview shows a unified diff for write_file, the exact argv for run_command, the source/target for moves) registered in builtin.py.\n3. mcp_server.py tools: computer.list, computer.read, computer.search, computer.write_draft execute directly; computer.write, computer.move, computer.delete, computer.open, computer.run create a pending window confirmation (same mechanism the no-self-approval task added; never return the token to the model) and reply 'Waiting for you to click Confirm in the command center.'\n4. Tests with temp allowed roots: path escape (.., absolute outside, symlink) rejected; free ops work; draft never overwrites; consequential ops do nothing until Registry.confirm; delete goes to trash; run_command refuses strings and shell metacharacters; audit has no contents.\n5. Document the tiers and config in docs/orchestrator-os/executive-window.md.",
+   "validators": [
+    {
+     "kind": "command",
+     "name": "computer-tests",
+     "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_executive_computer.py",
+      "tests/test_executive_window_builtin.py",
+      "tests/test_executive_mcp.py"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "proactive-watcher",
+   "role": "implementer",
+   "capability_class": "balanced",
+   "effort": "medium",
+   "depends_on": [],
+   "scope": [
+    "src/agent_os/executive/watcher.py",
+    "src/agent_os/cli.py",
+    "tools/install-executive-watcher.ps1",
+    "tests/test_executive_watcher.py",
+    "docs/orchestrator-os/executive-window.md"
+   ],
+   "goal": "Make the assistant proactive without the user having the Applicant Dashboard open. See docs/audits/2026-10-16-hr-assistant/computer-access.md 'Why nothing updates proactively' and 'Changes' 3.\n1. src/agent_os/executive/watcher.py: sweep_once(): (a) pull new applicant events via agent_os.rtec_applicants applicant events + event_ack (read the existing functions; ack only after successfully publishing), publish each to the executive EventBus (agent_os.executive.event_bus) as normalized events and run executive.routing over them; (b) if any RTEC-HR knowledge file mtime changed since last sweep, record a 'knowledge_refresh_needed' event (do not run ingestion automatically); (c) write a small state file under confirm.window_home()/watcher-state.json with last sweep time, counts and errors. Read-only plus local event/index writes only: never sends, never edits Dashboard records. All sources optional: a missing Dashboard DB or RTEC-HR checkout is reported in the state, not raised.\n2. CLI: `agent-os executive watch --once` and `agent-os executive watch --interval 300` (loop) in src/agent_os/cli.py following the existing executive subcommand style.\n3. tools/install-executive-watcher.ps1: registers a per-user Windows Task Scheduler task running `python <repo>\\agent.py executive watch --once` every 5 minutes, idempotent, with -Uninstall switch; no admin rights required.\n4. The command center should show watcher health: add the state (last sweep, new applicants found, errors) to an existing provider or as one 'watcher_status' item only when there are errors or new events.\n5. Tests with fake event sources: events published and acked exactly once, ack not called on publish failure, missing sources tolerated, state written.\n6. Document in docs/orchestrator-os/executive-window.md.",
+   "validators": [
+    {
+     "kind": "command",
+     "name": "watcher-tests",
+     "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_executive_watcher.py",
+      "tests/test_executive_event_bus.py",
+      "tests/test_executive_routing.py",
+      "tests/test_executive_cli.py"
+     ]
+    }
+   ]
+  }
+ ]
+}
