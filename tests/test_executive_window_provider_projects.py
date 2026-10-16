@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+import hashlib
 import unittest
 from datetime import date
 from pathlib import Path
@@ -11,6 +12,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.executive.window.providers_projects import project_items
+from agent_os.executive.window_queue import queue_item_from_window_item
 
 
 class ProjectItemsTests(unittest.TestCase):
@@ -54,11 +56,12 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertEqual(items, [])
 
     def test_active_project_with_no_flags_produces_no_items(self):
-        """An active project without any flags produces no items."""
+        """A concrete next action is surfaced even without problem flags."""
         entry = self._make_registry_entry()
         state = self._make_state(next_action="Do something")
         items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
-        self.assertEqual(items, [])
+        self.assertEqual([item["kind"] for item in items], ["project_next_action"])
+        self.assertEqual(items[0]["title"], "Do something")
 
     def test_single_decision_produces_decision_item(self):
         """A project with one decision_needed produces a decision item (and no_next_action if no next_action)."""
@@ -109,6 +112,62 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertEqual(items1[0]["id"], items2[0]["id"])
         self.assertTrue(items1[0]["id"].startswith("project:p1:decision:"))
 
+    def test_duplicate_normalized_decisions_have_one_item_and_queue_identity(self):
+        entry = self._make_registry_entry(tab="personal")
+        state = self._make_state(
+            next_action="Write release notes",
+            decisions_needed=["  Choose a database  ", "Choose a database", "  Choose a database\t"],
+        )
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {},
+        )
+        decisions = [item for item in items if item["kind"] == "project_decision"]
+        self.assertEqual(len(decisions), 1)
+        decision = decisions[0]
+        trimmed = "Choose a database"
+        expected_id = f"project:p1:decision:{hashlib.sha1(trimmed.encode('utf-8')).hexdigest()[:10]}"
+        self.assertEqual(decision["id"], expected_id)
+        self.assertEqual(decision["title"], trimmed)
+        self.assertEqual(decision["context"]["decision"], trimmed)
+        self.assertEqual(decision["score"], 3)
+        self.assertEqual(decision["tab"], "personal")
+        queue_items = [queue_item_from_window_item(item, "projects", queued_at="2026-10-05T00:00:00Z") for item in decisions]
+        self.assertEqual(len({item["id"] for item in queue_items}), 1)
+        self.assertEqual(len({item["entity_id"] for item in queue_items}), 1)
+
+    def test_distinct_decisions_keep_order_score_and_project_tab(self):
+        entry = self._make_registry_entry(tab="work")
+        state = self._make_state(
+            next_action="Write release notes",
+            decisions_needed=["First decision", "Second decision", "Third decision"],
+        )
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {},
+        )
+        decisions = [item for item in items if item["kind"] == "project_decision"]
+        self.assertEqual([item["title"] for item in decisions], state["decisions_needed"])
+        self.assertEqual([item["score"] for item in decisions], [3, 3, 3])
+        self.assertEqual([item["tab"] for item in decisions], ["work", "work", "work"])
+
+    def test_repeated_normalized_blockers_and_waiting_on_are_listed_once(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(
+            next_action="Resolve dependency",
+            blockers=[" Vendor ", "Vendor", "Approval", " Approval "],
+            waiting_on=[" Review ", "Review", "Legal", " Legal "],
+        )
+        items = project_items(
+            lambda: [(entry, state)], today=date(2026, 10, 5),
+            deferral_counts=lambda: {},
+        )
+        blocked = next(item for item in items if item["kind"] == "project_blocked")
+        self.assertEqual(
+            blocked["why"],
+            "Blocked by: Vendor; Approval | Waiting on: Review; Legal",
+        )
+
     def test_stalled_project_produces_item(self):
         """A project without update for > stale_days produces a stalled item."""
         entry = self._make_registry_entry()
@@ -122,6 +181,48 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertIn("is stalled", item["title"])
         self.assertEqual(item["score"], 2)
         self.assertIn("age_days", item)
+
+    def test_blocked_project_details_and_stable_id(self):
+        entry = self._make_registry_entry("p-blocked", "Blocked project", "personal")
+        def items(blockers, waiting_on):
+            state = self._make_state(project="p-blocked", next_action="Do work", blockers=blockers, waiting_on=waiting_on)
+            return project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+
+        blockers_only = next(i for i in items(["Vendor", "Approval"], []) if i["kind"] == "project_blocked")
+        self.assertEqual(blockers_only["why"], "Blocked by: Vendor; Approval")
+        waiting_only = next(i for i in items([], ["Review"]) if i["kind"] == "project_blocked")
+        self.assertEqual(waiting_only["why"], "Waiting on: Review")
+        both = [i for i in items(["Vendor"], ["Review"]) if i["kind"] == "project_blocked"]
+        self.assertEqual(len(both), 1)
+        self.assertEqual(both[0]["why"], "Blocked by: Vendor | Waiting on: Review")
+        self.assertEqual(both[0]["id"], "project:p-blocked:blocked")
+        self.assertEqual(both[0]["title"], "Blocked project is blocked")
+        self.assertEqual(both[0]["score"], 2)
+        self.assertEqual(both[0]["context"], {"project": "p-blocked"})
+        self.assertEqual(both[0]["tab"], "personal")
+        changed_text = [i for i in items(["Different"], ["Other"]) if i["kind"] == "project_blocked"]
+        self.assertEqual(changed_text[0]["id"], both[0]["id"])
+
+    def test_empty_or_invalid_blocking_lists_emit_no_item(self):
+        entry = self._make_registry_entry()
+        for blockers, waiting_on in (([], []), (None, {}), ("bad", [None, 3]), ([" ", 1], [])):
+            state = self._make_state(blockers=blockers, waiting_on=waiting_on, next_action="Do work")
+            self.assertFalse(any(i["kind"] == "project_blocked" for i in project_items(
+                lambda: [(entry, state)], today=date(2026, 10, 5)
+            )))
+
+    def test_blocked_items_respect_inactive_filter_and_coexist_in_order(self):
+        entry = self._make_registry_entry()
+        inactive = self._make_state(status="inactive", blockers=["X"])
+        self.assertEqual(project_items(lambda: [(entry, inactive)], today=date(2026, 10, 5)), [])
+        state = self._make_state(
+            updated_at="2026-08-01T10:00:00Z", decisions_needed=["Choose"],
+            blockers=["X"], waiting_on=["Y"], next_action="Do work",
+        )
+        result = project_items(lambda: [(entry, state)], today=date(2026, 10, 5), stale_days=30,
+                               deferral_counts=lambda: {"p1": 3})
+        kinds = [i["kind"] for i in result]
+        self.assertEqual(kinds, ["project_decision", "project_stalled", "project_blocked", "project_repeatedly_deferred"])
 
     def test_no_next_action_produces_item(self):
         """A project without next_action produces a no_next_action item."""
@@ -211,11 +312,65 @@ class ProjectItemsTests(unittest.TestCase):
         self.assertEqual(vague_item["tab"], "personal")
 
     def test_project_with_current_priorities_is_not_stalled(self):
-        """A project with current_priorities (fallback to next_action) is not flagged no_next_action."""
+        """A current priority fallback is surfaced as the concrete next action."""
         entry = self._make_registry_entry()
         state = self._make_state(current_priorities=["Priority 1"])
         items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
-        self.assertEqual(items, [])
+        self.assertEqual([item["title"] for item in items], ["Priority 1"])
+
+    def test_next_action_identity_trim_tabs_and_queue_payload(self):
+        for tab in ("work", "personal"):
+            entry = self._make_registry_entry("p-action", "Action Project", tab)
+            state = self._make_state(project="p-action", next_action="  Write release notes \t")
+            read = lambda: project_items(lambda: [(entry, state)], today=date(2026, 10, 5), deferral_counts=lambda: {})
+            item = next(i for i in read() if i["kind"] == "project_next_action")
+            repeated = next(i for i in read() if i["kind"] == "project_next_action")
+            suffix = hashlib.sha1(b"Write release notes").hexdigest()[:10]
+            self.assertEqual(item["id"], f"project:p-action:next-action:{suffix}")
+            self.assertEqual(item["id"], repeated["id"])
+            self.assertEqual(item["title"], "Write release notes")
+            self.assertEqual(item["why"], "Next action for Action Project")
+            self.assertEqual(item["score"], 1)
+            self.assertEqual(item["tab"], tab)
+            self.assertEqual(item["context"], {"project": "p-action"})
+            queue_item = queue_item_from_window_item(item, "projects", queued_at="2026-10-05T00:00:00Z")
+            self.assertEqual(queue_item["window_item"]["context"], {"project": "p-action"})
+            self.assertNotIn("Write release notes", str(queue_item["window_item"]["context"]))
+
+    def test_changed_action_gets_fresh_identity(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(next_action="First action")
+        load = lambda: [(entry, state)]
+        first = next(i for i in project_items(load, today=date(2026, 10, 5)) if i["kind"] == "project_next_action")
+        state["next_action"] = "Second action"
+        second = next(i for i in project_items(load, today=date(2026, 10, 5)) if i["kind"] == "project_next_action")
+        self.assertNotEqual(first["id"], second["id"])
+
+    def test_next_action_unknown_age_allowed_and_inactive_suppressed(self):
+        entry = self._make_registry_entry()
+        state = self._make_state(updated_at=None, next_action="Write release notes")
+        items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5))
+        self.assertEqual([i["kind"] for i in items], ["project_next_action"])
+        inactive = self._make_state(status="inactive", next_action="Write release notes")
+        self.assertEqual(project_items(lambda: [(entry, inactive),], today=date(2026, 10, 5)), [])
+
+    def test_each_problem_flag_suppresses_concrete_action(self):
+        cases = [
+            ("stalled", {"updated_at": "2026-08-01T10:00:00Z"}),
+            ("blocked", {"blockers": ["external"]}),
+            ("needs_decision", {"decisions_needed": ["Choose"]}),
+            ("repeatedly_deferred", {}),
+            ("no_next_action", {"next_action": ""}),
+            ("vague_next_action", {"next_action": "Work on project X"}),
+        ]
+        for flag, overrides in cases:
+            with self.subTest(flag=flag):
+                entry = self._make_registry_entry()
+                state_values = {"next_action": "Write release notes", **overrides}
+                state = self._make_state(**state_values)
+                items = project_items(lambda: [(entry, state)], today=date(2026, 10, 5), stale_days=30,
+                                      deferral_counts=lambda: {"p1": 3})
+                self.assertFalse(any(i["kind"] == "project_next_action" for i in items))
 
     def test_tab_personal_when_entry_tab_is_personal(self):
         """Items inherit tab='personal' from registry entry."""

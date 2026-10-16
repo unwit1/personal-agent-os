@@ -176,6 +176,50 @@ def register(commands: argparse._SubParsersAction) -> None:
     madd.add_argument("--force", action="store_true", help="replace an existing entry with the same id")
     madd.add_argument("--path", help="registry file (default: the machine-local registry)")
 
+    svc = actions.add_parser("services", help="model service catalog: list/show/validate, read-only model discovery, and registry presets (preview unless --write)")
+    svc_actions = svc.add_subparsers(dest="services_action", required=True)
+    svc_common = argparse.ArgumentParser(add_help=False)
+    svc_common.add_argument("--catalog", help="catalog file (default: projects/personal-agent-os/research/model-services/catalog.json)")
+    svc_list = svc_actions.add_parser("list", parents=[svc_common], help="one summary row per service")
+    svc_list.add_argument("--category", choices=["subscription_allowance", "hosted_api", "custom_hosting", "gateway"])
+    svc_list.add_argument("--status", choices=["preset_ready", "preset_restricted", "bridge_claude_code", "catalog_only", "deferred"])
+    svc_show = svc_actions.add_parser("show", parents=[svc_common], help="the full catalog record of one service")
+    svc_show.add_argument("service_id")
+    svc_actions.add_parser("validate", parents=[svc_common], help="check the catalog against its schema (exit 1 on errors; staleness is a warning)")
+    svc_res = svc_actions.add_parser("research", parents=[svc_common], help="rank a subscription's included models per task family from live catalog, measured evals and cited priors; writes the fit table")
+    svc_res.add_argument("service_id", choices=["nanogpt"])
+    svc_res.add_argument("--measure-multiplier", action="append", metavar="MODEL", help="measure this model's allowance multiplier (1x/2x) with one short request; repeatable")
+    svc_res.add_argument("--family", help="print only this family's ranking")
+    svc_res.add_argument("--no-write", action="store_true")
+    svc_disc = svc_actions.add_parser("discover", parents=[svc_common], help="read-only GET of an endpoint's model list (cached locally; never POSTs)")
+    svc_disc.add_argument("service_id")
+    svc_disc.add_argument("--endpoint")
+    svc_add = svc_actions.add_parser("add", parents=[svc_common], help="register a service's OpenAI-compatible endpoint as a provider; preview unless --write")
+    svc_add.add_argument("service_id")
+    svc_add.add_argument("--model", required=True, help="exact model id the endpoint expects")
+    svc_add.add_argument("--classes", default="fast,balanced", help="capability classes this model may serve (comma list)")
+    svc_add.add_argument("--endpoint")
+    svc_add.add_argument("--plan")
+    svc_add.add_argument("--provider-id", help="default: <service>, or <service>-<endpoint> for a non-default endpoint")
+    svc_add.add_argument("--roles", help="comma list (default inline)")
+    svc_add.add_argument("--cost", type=float, default=1.0, help="relative cost per call (default 1.0, so the entry does not take over routing)")
+    svc_add.add_argument("--max-concurrency", type=int, default=2)
+    svc_add.add_argument("--ack-terms", action="store_true", help="record that you read the plan's terms (needed when automation is unclear)")
+    svc_add.add_argument("--write", action="store_true")
+    svc_add.add_argument("--force", action="store_true", help="replace an existing entry with the same id")
+    svc_add.add_argument("--path", help="registry file (default: the machine-local registry)")
+    svc_bridge = svc_actions.add_parser("bridge", parents=[svc_common], help="register a coding plan as a Claude Code bridge provider; preview unless --write")
+    svc_bridge.add_argument("service_id")
+    svc_bridge.add_argument("--plan")
+    svc_bridge.add_argument("--model-map", help="Claude Code alias map, e.g. sonnet=glm-5.1,opus=glm-5.1")
+    svc_bridge.add_argument("--provider-id", help="default: <service>-claude-code")
+    svc_bridge.add_argument("--roles", help="comma list (default inline,planner)")
+    svc_bridge.add_argument("--cost", type=float, default=1.0)
+    svc_bridge.add_argument("--ack-terms", action="store_true")
+    svc_bridge.add_argument("--write", action="store_true")
+    svc_bridge.add_argument("--force", action="store_true")
+    svc_bridge.add_argument("--path", help="registry file (default: the machine-local registry)")
+
     actions.add_parser("refusals", help="refusal/non-answer telemetry by provider/model/refusal profile (no model call)")
 
     evq = actions.add_parser("eval-queue", help="evaluate queued catalog models once served: plan is deterministic; run calls orchestrate eval (real calls, bounded)")
@@ -194,6 +238,20 @@ def register(commands: argparse._SubParsersAction) -> None:
     rdr.add_argument("--modality", help="catalog: filter, e.g. audio")
     rdr.add_argument("--refusal-profile", help="catalog: filter by declared refusal hint, e.g. abliterated")
 
+    hdr = actions.add_parser("headroom", help="plan allowance left per subscription provider (Claude, Codex, NanoGPT) and how routing treats it")
+    hdr.add_argument("--refresh", action="store_true", help="re-read every source now (the Claude probe spends a few Haiku tokens)")
+    hdr.add_argument("--all", action="store_true", help="also show OpenRouter free quota, one-time credits/resets with advice, and cloud sessions")
+    cld = actions.add_parser("cloud", help="Claude Code cloud sessions: submit a task (spends a cloud credit before plan limits), follow up, list")
+    cld.add_argument("action", choices=["submit", "send", "list", "check"])
+    cld.add_argument("text", nargs="?", help="submit: the task; send: the follow-up message")
+    cld.add_argument("--repo", default=".", help="submit/check: repository root (default: current directory)")
+    cld.add_argument("--session", help="send: session id or claude.ai/code URL")
+    cld.add_argument("--allow-dirty", action="store_true", help="submit: upload uncommitted tracked changes as they are (native Windows bundles them)")
+    ext = actions.add_parser("extras", help="one-time plan extras (cloud credit, saved usage resets): list, or record a status; never redeems")
+    ext.add_argument("action", choices=["list", "set"])
+    ext.add_argument("id", nargs="?")
+    ext.add_argument("status", nargs="?", choices=["unknown", "available", "used", "expired"])
+    ext.add_argument("--note")
     qte = actions.add_parser("quote", help="no-spend quote: API vs GPU pod vs serverless, low/expected/high, with the budget gate (no model call, no provisioning)")
     qte.add_argument("--workload", required=True, help="JSON file: workload (workload.py)")
     qte.add_argument("--options", help="JSON file: list of priced options (kind api|gpu_pod|serverless; see quote.py)")
@@ -256,14 +314,14 @@ def register(commands: argparse._SubParsersAction) -> None:
     fmn = actions.add_parser("foreman", help="session foreman: deploy a Hugging Face model on a RunPod GPU within the job budget and use it as the planner for new runs")
     fmn.add_argument("action", choices=["use", "preview", "deploy", "status", "stop", "eval", "strategy", "reap", "evidence"],
                      help="eval: score the live foreman's per-task model choices and efficiency on labeled planning cases (real calls)")
-    fmn.add_argument("link", nargs="?", help="preview/deploy: Hugging Face model link or org/name; use: claude, chatgpt, openrouter or local")
+    fmn.add_argument("link", nargs="?", help="preview/deploy: Hugging Face model link or org/name; use: claude, chatgpt, openrouter, local or registered")
     fmn.add_argument("--model", help="use: pin one model (e.g. opus, gpt-6.1-sol, or a local model id)")
     fmn.add_argument("--base-url", help="use local: the OpenAI-compatible server, e.g. http://127.0.0.1:11434")
     fmn.add_argument("--secret-ref", help="use local: secrets://<provider>/<profile> holding the server's API key, if it needs one")
     fmn.add_argument("--job-usd", type=float, help="job budget; default: the machine budget's per-job cap")
     fmn.add_argument("--idle-minutes", type=int, default=15)
     fmn.add_argument("--coding-agent", action="store_true", help="deploy/preview: also serve the model as a Codex CLI coding agent (64k context, tool calling; bigger GPU)")
-    fmn.add_argument("--provider", help="eval: provider id to evaluate (default: the ready session foreman)")
+    fmn.add_argument("--provider", help="use registered: the registered provider id to make the foreman; eval: provider id to evaluate (default: the ready session foreman)")
     fmn.add_argument("--case", action="append", help="eval: only these case ids")
     fmn.add_argument("--split", choices=["dev", "holdout", "dev2", "holdout2", "dev_all", "holdout_all", "all"], default="dev", help="eval: dev* cases may be used for tuning; holdout* never are")
 
@@ -401,6 +459,61 @@ def _tasks(args: argparse.Namespace) -> list[dict[str, Any]] | None:
         return None
     data = json.loads(Path(args.tasks).read_text(encoding="utf-8-sig"))
     return data.get("tasks") if isinstance(data, dict) else data
+
+
+def _comma_list(value: str | None) -> list[str] | None:
+    items = [item.strip() for item in (value or "").split(",") if item.strip()]
+    return items or None
+
+
+def _services(args: argparse.Namespace, emit) -> int:
+    from . import model_services
+
+    try:
+        catalog = model_services.load(args.catalog)
+    except FileNotFoundError as exc:
+        emit({"error": model_services.NOT_COMPILED, "detail": str(exc)})
+        return 1
+    sub = args.services_action
+    if sub == "list":
+        emit(model_services.services(catalog, category=args.category, status=args.status))
+        return 0
+    if sub == "research":
+        from . import model_research
+
+        fit = model_research.research(measure=args.measure_multiplier, write=not args.no_write)
+        if args.family:
+            fit = {"family": args.family, **(fit["families"].get(args.family) or {"error": f"unknown family; one of {sorted(fit['families'])}"}),
+                   "allowance": fit["allowance"], **({"written": fit["written"]} if fit.get("written") else {})}
+        emit(fit)
+        return 0
+    if sub == "show":
+        emit(model_services.show(args.service_id, catalog=catalog))
+        return 0
+    if sub == "validate":
+        result = model_services.validate(catalog)
+        emit(result)
+        return 1 if result["errors"] else 0
+    if sub == "discover":
+        models = model_services.discover(args.service_id, args.endpoint, catalog=catalog)
+        emit({"service": args.service_id, "endpoint": args.endpoint, "models": models})
+        return 0
+    if sub == "add":
+        entry = model_services.preset_entry(args.service_id, model=args.model, classes=_comma_list(args.classes) or [], endpoint=args.endpoint,
+                                            plan=args.plan, provider_id=args.provider_id, roles=_comma_list(args.roles), cost=args.cost,
+                                            max_concurrency=args.max_concurrency, ack_terms=args.ack_terms, catalog=catalog)
+    else:
+        mapping: dict[str, str] = {}
+        for pair in _comma_list(args.model_map) or []:
+            alias, sep, model = pair.partition("=")
+            if not sep:
+                raise ValueError(f"--model-map expects alias=model pairs, got {pair!r}")
+            mapping[alias.strip().lower()] = model.strip()
+        entry = model_services.bridge_entry(args.service_id, plan=args.plan, models=mapping, provider_id=args.provider_id,
+                                            roles=_comma_list(args.roles), cost=args.cost, ack_terms=args.ack_terms, catalog=catalog)
+    result = service.add_model_endpoint(entry, write=args.write, path=args.path, force=args.force)
+    emit(result)
+    return 1 if result.get("error") else 0
 
 
 def dispatch(args: argparse.Namespace, emit) -> int:
@@ -619,6 +732,8 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         result = service.add_model_endpoint(entry, write=args.write, path=args.path, force=args.force)
         emit(result)
         return 1 if result.get("error") else 0
+    if action == "services":
+        return _services(args, emit)
     if action == "foreman-shadow":
         from . import foreman
         from .model_profile import parse_pairs
@@ -688,7 +803,8 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from .foreman_deploy import manager
 
         if args.action == "use":
-            emit(manager().use(str(args.link or ""), model=args.model, base_url=args.base_url, secret_ref=args.secret_ref))
+            emit(manager().use(str(args.link or ""), model=args.model, base_url=args.base_url, secret_ref=args.secret_ref,
+                               provider=args.provider))
             return 0
         if args.action in {"preview", "deploy"} and not args.link:
             emit({"error": "a Hugging Face link is required"})
@@ -718,6 +834,57 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             emit(foreman_eval.run(args.provider, cases=args.case, split=args.split))
         else:
             emit(manager().status())
+        return 0
+    if action == "cloud":
+        from . import cloud_lane
+        from ..capabilities import registry_path
+
+        home = registry_path().parent
+        try:
+            if args.action == "list":
+                emit({"sessions": cloud_lane.sessions(home)})
+            elif args.action == "check":
+                emit(cloud_lane.preflight(Path(args.repo), allow_dirty=args.allow_dirty))
+            elif args.action == "submit":
+                emit(cloud_lane.submit(Path(args.repo), args.text or "", home=home, allow_dirty=args.allow_dirty))
+            else:
+                if not args.session or not args.text:
+                    raise cloud_lane.CloudLaneError("send needs --session and a message")
+                emit(cloud_lane.send(args.session, args.text, home=home))
+        except cloud_lane.CloudLaneError as exc:
+            emit({"error": str(exc)})
+            return 1
+        return 0
+    if action == "extras":
+        from . import plan_extras
+        from ..capabilities import registry_path
+
+        home = registry_path().parent
+        if args.action == "set":
+            if not args.id or not args.status:
+                emit({"error": "extras set needs an id and a status"})
+                return 1
+            emit(plan_extras.set_status(home, args.id, args.status, args.note))
+        else:
+            emit({"extras": list(plan_extras.load(home).values())})
+        return 0
+    if action == "headroom":
+        from . import headroom
+        from ..capabilities import registry_path
+        from .router import ProviderRegistry
+
+        providers = ProviderRegistry().providers
+        if args.all:
+            from . import usage_hub
+
+            emit(usage_hub.summary(refresh=args.refresh, providers=providers))
+            return 0
+        plans = headroom.for_providers(providers, registry_path().parent, force=args.refresh, background=False)
+        emit({"providers": plans, "cache": str(headroom.cache_path(registry_path().parent)),
+              "rules": {"exhausted": f">= {headroom.EXHAUSTED_AT:.0%} of a window used: skipped until it resets",
+                        "tight": f"under {headroom.TIGHT_LEFT:.0%} left, or far ahead of pace: cost x{headroom.MULTIPLIERS['tight']:g}",
+                        "expiring": f"resets within {headroom.EXPIRING_SHARE:.0%} of its window with over {headroom.EXPIRING_UNUSED:.0%} unused: "
+                                    f"cost x{headroom.MULTIPLIERS['expiring']:g}"}})
         return 0
     if action == "quote":
         from . import quote as quote_lib

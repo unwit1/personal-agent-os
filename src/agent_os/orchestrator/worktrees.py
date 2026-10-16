@@ -31,6 +31,14 @@ ARTIFACT_EXCLUDES = (
     ":(exclude,glob)**/.pytest_cache/**",
     ":(exclude,glob)**/.mypy_cache/**",
     ":(exclude,glob)**/.ruff_cache/**",
+    # Scratch output: the worker prompt sends long command output to .agent-os-scratch/.
+    ":(exclude,glob).agent-os-scratch/**",
+    # Test-run output that sandboxed workers write to the repository root to read it back
+    # (pytest-result.txt, pytest-validation.log, .agent-local-test-output.txt, ...); root only.
+    ":(exclude,glob)pytest*.txt",
+    ":(exclude,glob)pytest*.log",
+    ":(exclude,glob)*test-output*",
+    ":(exclude,glob).agent-local-test-output*",
 )
 MAX_DIFF_CHARS = 60_000
 

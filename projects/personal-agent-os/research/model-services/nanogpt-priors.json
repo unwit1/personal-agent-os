@@ -1,0 +1,29 @@
+{
+  "schema": "nanogpt-priors/1",
+  "reviewed_at": "2026-10-14",
+  "notes": "Public benchmark priors for NanoGPT subscription models. Priors order candidates only until measured evidence (orchestrate foreman eval, capability observations) exists. Vendor-reported and secondary figures are flagged; benchmark versions differ across sources and are not comparable across columns. Abliteration evidence: no controlled abliterated-vs-base comparison was found for these variants; a 2025 comparison of abliteration tools found GSM8K changes from +1.5 to -18.8 points depending on tool and model, with Qwen-family models degrading more than others.",
+  "sources": {
+    "aa-v4.3": {"url": "https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v4-3", "title": "Artificial Analysis Intelligence Index v4.3", "official": true},
+    "aa-glm52": {"url": "https://artificialanalysis.ai/articles/glm-5-2-is-the-new-leading-open-weights-model-on-the-artificial-analysis-intelligence-index", "title": "GLM-5.2 leads open weights (index v4.1)", "official": true},
+    "vellum": {"url": "https://www.vellum.ai/open-llm-leaderboard", "title": "Vellum open LLM leaderboard", "official": false},
+    "pinggy": {"url": "https://pinggy.io/blog/best_open_source_self_hosted_llms_for_coding/", "title": "Best open source LLMs for coding (LiveBench-based)", "official": false},
+    "morph": {"url": "https://www.morphllm.com/best-open-source-llm", "title": "Best open source LLMs 2026", "official": false},
+    "abliteration-comparison": {"url": "https://arxiv.org/abs/2512.13655", "title": "Comparative Analysis of LLM Abliteration Methods", "official": true},
+    "qwen38-abliterated-card": {"url": "https://huggingface.co/hotdogs/Qwen3.8-27B-abliterated", "title": "Qwen3.8-27B-abliterated model card (self-reported proxy)", "official": false}
+  },
+  "models": {
+    "z-ai/glm-5.3": {"families": ["planning", "coding_agent", "long_context"], "aa_index": null, "notes": "AA v4.3 names GLM-5.3 a leading open-weights model.", "sources": ["aa-v4.3"]},
+    "z-ai/glm-5.3:thinking": {"families": ["planning", "coding_agent"], "aa_index": null, "notes": "Thinking variant of GLM-5.3.", "sources": ["aa-v4.3"]},
+    "z-ai/glm-5.3-flash": {"families": ["triage", "extraction", "long_context"], "aa_index": 42, "aa_version": "v4.3", "sources": ["aa-v4.3"]},
+    "qwen/qwen3.8-27b": {"families": ["triage", "extraction"], "aa_index": 40, "aa_version": "v4.3", "notes": "AA figure is for Qwen3.8 (family); the 27B size is not separately reported.", "sources": ["aa-v4.3"]},
+    "deepseek/deepseek-v4-pro-0813": {"families": ["planning", "coding_agent", "long_context"], "aa_index": 36, "aa_version": "v4.3", "swe_bench_verified": 80.6, "swe_bench_note": "secondary source; version of V4 Pro not stated", "sources": ["aa-v4.3", "vellum"]},
+    "deepseek/deepseek-v4.1-flash": {"families": ["coding_agent", "long_context", "triage"], "aa_index": 39.5, "aa_note": "secondary, unverified", "livebench_agentic_coding": 77.27, "livebench_note": "secondary source", "sources": ["pinggy"]},
+    "xiaomi/mimo-v2.6-pro": {"families": ["planning", "long_context"], "aa_index": 46.3, "aa_note": "secondary, unverified", "sources": ["morph"]},
+    "minimax/minimax-m3": {"families": ["coding_agent"], "aa_index": 44, "aa_version": "v4.1", "swe_bench_verified": 80.5, "swe_bench_note": "secondary source", "sources": ["aa-glm52", "vellum"]},
+    "moonshotai/kimi-k2.6": {"families": ["coding_agent"], "aa_index": 43, "aa_version": "v4.1", "swe_bench_verified": 80.2, "swe_bench_note": "secondary source", "sources": ["aa-glm52", "vellum"]},
+    "moonshotai/kimi-k2.7-code": {"families": ["coding_agent"], "notes": "Coding-tuned variant; one secondary MCPMark-Verified figure (81.1).", "sources": ["morph"]},
+    "qwen/qwen3.8-27b-obliterated": {"families": ["uncensored_writing"], "abliterated": true, "notes": "Base-model prior only. A different Qwen3.8-27B abliteration reports roughly flat MMLU-style proxy scores with refusals 98 -> 39 of 100 (self-reported).", "sources": ["qwen38-abliterated-card", "abliteration-comparison"]},
+    "z-ai/glm-5.3-flash-apex-abliterated": {"families": ["uncensored_writing"], "abliterated": true, "notes": "No published evaluation found. Reports structured_output false.", "sources": []},
+    "z-ai/glm-5.3-flash-uncensored": {"families": ["uncensored_writing"], "abliterated": false, "notes": "Uncensored fine-tune, not a documented refusal-direction removal.", "sources": []}
+  }
+}

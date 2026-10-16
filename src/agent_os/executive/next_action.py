@@ -125,7 +125,12 @@ def next_item(queue_items: list[Any], bus: Any = None) -> dict:
         Dict with 'next' (top item or None), 'considered' (count of ranked items),
         'why' (explain result for top item or None).
     """
-    ranked = rank(queue_items)
+    eligible_items = [
+        item
+        for item in queue_items
+        if isinstance(item, dict) and item.get("status") not in {"completed", "cancelled", "deferred"}
+    ]
+    ranked = rank(eligible_items)
 
     return {
         "next": ranked[0] if ranked else None,

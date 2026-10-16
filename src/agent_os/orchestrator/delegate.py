@@ -150,6 +150,16 @@ def _availability(registry: ProviderRegistry, home: Path | None = None) -> dict[
     return result
 
 
+def _headroom() -> dict[str, dict[str, Any]]:
+    from . import headroom
+    from ..capabilities import registry_path
+
+    try:
+        return headroom.for_providers(ProviderRegistry().providers, registry_path().parent)
+    except Exception:
+        return {}
+
+
 def delegate(
     prompt: str,
     *,
@@ -169,19 +179,32 @@ def delegate(
     attach_mode: str = "datamark",
     requirements: dict[str, Any] | None = None,
     budget_home: Path | None = None,
+    sensitive: bool | None = None,
 ) -> dict[str, Any]:
     """Route, run, validate and record one read-only task. ``role='inline'``
     marks a self-contained prompt, which direct API workers may serve. Never raises for a
-    worker failure; the outcome is in the returned record."""
+    worker failure; the outcome is in the returned record.
+    ``sensitive`` (default: auto, from ``cwd`` and ``attachments``) keeps the
+    task on own subscriptions and local models, as for a sensitive run."""
+    from .model_profile import sensitive_paths, sensitive_problem
+
+    # Plan headroom reads real usage, so only the machine registry tracks it.
+    plans = _headroom() if registry is None else {}
     registry = registry or ProviderRegistry()
+    if sensitive is None:
+        sensitive = sensitive_paths([cwd, *(attachments or [])])
+    blocked = [item["id"] for item in registry.providers if sensitive_problem(item)] if sensitive else []
     override = {"provider": provider, "model": model} if (provider or model) else None
-    choice = select(registry, capability_class=capability_class, effort=effort, role=role, availability=_availability(registry, home), override=override, requirements=requirements)
+    choice = select(registry, capability_class=capability_class, effort=effort, role=role, availability=_availability(registry, home), override=override,
+                    requirements=requirements, headroom=plans, excluded=blocked)
     call_id = f"DLG-{uuid.uuid4().hex[:12]}"
     root = Path(home or orchestrator_home()) / "delegations" / call_id
     root.mkdir(parents=True, exist_ok=True)
     outcome: dict[str, Any] = {"id": call_id, "task_family": task_family, "role": role, "requested_class": capability_class, "effort": effort, "selection": choice, "started_at": utc_now_iso()}
     if requirements:
         outcome["requirements"] = requirements
+    if sensitive:
+        outcome["sensitive"] = True
     if not choice.get("resolved"):
         from . import provider_health
 

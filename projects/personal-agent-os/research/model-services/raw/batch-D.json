@@ -1,0 +1,1750 @@
+{
+  "batch": "D",
+  "records": [
+    {
+      "id": "nebius-token-factory",
+      "name": "Nebius Token Factory, formerly Nebius AI Studio",
+      "category": "hosted_api",
+      "homepage": "https://nebius.com/services/token-factory",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.tokenfactory.nebius.com/v1/",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "OpenAI-compatible embeddings at https://api.tokenfactory.nebius.com/v1/embeddings"
+        ]
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "Token Factory API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "metered",
+        "plans": [
+          {
+            "name": "Starter Plan",
+            "usd_per_month": null,
+            "allowance": "Usage-priced inference. New signups receive $1 in trial credit, valid for 30 days.",
+            "reset_window": "none",
+            "on_exhaustion": "metered_overage"
+          },
+          {
+            "name": "Enterprise Platform",
+            "usd_per_month": null,
+            "allowance": "Dedicated capacity and negotiated service arrangements.",
+            "reset_window": null,
+            "on_exhaustion": "unknown"
+          }
+        ],
+        "metered_overage": "automatic",
+        "auto_recharge": "on_by_default",
+        "free_tier": "$1 introductory credit lasting 30 days. Billing setup and a bank card are mandatory during onboarding."
+      },
+      "quotas": {
+        "rate_limits": "Enterprise marketing lists a Starter baseline of 600 RPM and 400,000 TPM. Detailed documentation describes dynamic limits evaluated in rolling 15-minute windows: usage at least 80% raises the next limit by 20%; usage at most 50% lowers it by a factor of 1.5; maximum growth is 20 times the base allocation. Actual defaults appear in the console.",
+        "concurrency": null,
+        "context_caps": "Model-specific. Official cookbooks advertise 1M context for MiniMax-M3, Kimi-K3 and GLM-5.3-Flash; authenticated catalog access is needed to establish account-specific availability and limits."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI Python SDK",
+          "OpenAI JavaScript SDK",
+          "HTTP clients",
+          "OpenCode",
+          "OpenHands"
+        ],
+        "disallowed_uses": [
+          "Using public serverless endpoints for production workloads that require a guaranteed processing region"
+        ],
+        "automation_allowed": true,
+        "notes": "Listed clients are documented integration examples, not an exhaustive legal whitelist. Public endpoints offer no stable-region guarantee. The old Token Factory terms apply only to specified customers with active reserves; most customers moved to the Nebius Services Agreement on September 28, 2026."
+      },
+      "privacy": {
+        "training_on_prompts": "Nebius states that its zero-retention mode does not store or reuse requests and outputs for training. Applicability to every default configuration was not independently established.",
+        "retention": "Zero retention is advertised for inference; retention of account metadata, observability records and uploaded training artifacts was not established.",
+        "zdr_available": true,
+        "regions": "Public serverless endpoints are Global and may change processing location without notice. Dedicated endpoints can provide regional placement; marketing identifies EU and US deployments."
+      },
+      "deployment": "serverless",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "embedding"
+      ],
+      "notable_models": [
+        {
+          "id": "zai-org/GLM-5.3-Flash",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Exact API ID appears in the official OpenHands cookbook; hosted context is advertised as 1M."
+        },
+        {
+          "id": "MiniMaxAI/MiniMax-M3",
+          "family": "MiniMax",
+          "open_weights": true,
+          "license": "MiniMax Community License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Official OpenCode cookbook verifies this ID and advertises 1M hosted context. Availability is account-dependent."
+        },
+        {
+          "id": "moonshotai/Kimi-K3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Official OpenCode cookbook verifies this ID and advertises 1M hosted context. Native model-card context is 1,048,576; the exact hosted cap was not established."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The current documented OpenAI-compatible hostname is api.tokenfactory.nebius.com.",
+          "status": "confirmed",
+          "evidence": "Quickstart explicitly sets base_url to https://api.tokenfactory.nebius.com/v1/.",
+          "source": "https://docs.tokenfactory.nebius.com/quickstart"
+        },
+        {
+          "claim": "GET /v1/models requires bearer authentication.",
+          "status": "confirmed",
+          "evidence": "The models reference marks Authorization as required.",
+          "source": "https://docs.tokenfactory.nebius.com/api-reference/models/list-models"
+        },
+        {
+          "claim": "Public serverless inference guarantees EU or US regional residency.",
+          "status": "contradicted",
+          "evidence": "Public-endpoint documentation says processing location is dynamic and no particular region is guaranteed.",
+          "source": "https://docs.tokenfactory.nebius.com/public-serverless"
+        },
+        {
+          "claim": "Bank-card billing can continue beyond a prepaid balance.",
+          "status": "confirmed",
+          "evidence": "Usage debits the balance in real time; negative balances trigger automatic card charging at the monthly boundary or configured threshold.",
+          "source": "https://docs.tokenfactory.nebius.com/other-capabilities/billing-new"
+        }
+      ],
+      "unknown": [
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[0].usd_per_month",
+        "billing.plans[1].usd_per_month",
+        "billing.plans[1].reset_window",
+        "billing.plans[1].on_exhaustion",
+        "quotas.concurrency",
+        "privacy.default_training_policy",
+        "privacy.metadata_and_artifact_retention",
+        "notable_models[*].context_window",
+        "notable_models[*].refusal_profile",
+        "current_availability_and_exact_ids_for_Qwen3-Coder-Next_Hermes-4_Dolphin_and_rerankers"
+      ],
+      "sources": [
+        {
+          "url": "https://nebius.com/services/token-factory",
+          "title": "Nebius Token Factory",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nebius.com/events/webinar-llm-distillation",
+          "title": "Nebius AI Studio, now Nebius Token Factory",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.tokenfactory.nebius.com/quickstart",
+          "title": "Quickstart",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.tokenfactory.nebius.com/api-reference/models/list-models",
+          "title": "List models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.tokenfactory.nebius.com/api-reference/inference/create-embeddings",
+          "title": "Create embeddings",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.tokenfactory.nebius.com/other-capabilities/billing-new",
+          "title": "Billing & Consumption",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.tokenfactory.nebius.com/ai-models-inference/rate-limits",
+          "title": "Rate Limits & Scaling",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.tokenfactory.nebius.com/public-serverless",
+          "title": "Public Serverless Endpoints",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nebius.com/services/token-factory/enterprise-grade-inference",
+          "title": "Enterprise-grade inference",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://nebius.com/services/token-factory/text-to-image",
+          "title": "Token Factory text-to-image and privacy information",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://dev.nebius.com/cookbook/openhands-agent-canvas",
+          "title": "Run OpenHands Agent Canvas on Nebius Token Factory models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://dev.nebius.com/cookbook/opencode-nebius-token-factory",
+          "title": "How to use OpenCode with Nebius Token Factory models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+          "title": "GLM-5.3-Flash model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
+          "title": "MiniMax-M3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/moonshotai/Kimi-K3",
+          "title": "Kimi-K3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.tokenfactory.nebius.com/legal/terms-of-service",
+          "title": "Token Factory terms and transition notice",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nebius.com/legal/agreement",
+          "title": "Nebius Services Agreement",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "The legacy api.studio.nebius.com candidate was not verified as a currently supported alias. Preserve the documented trailing slash and join paths without duplicating it. Starter/Startup naming and baseline-limit descriptions differ across official pages. Automatic charging here means settling usage charges, not necessarily buying a fixed prepaid-credit bundle. Published 1M hosted context labels were not converted into guessed integer limits."
+    },
+    {
+      "id": "nvidia-nim-api",
+      "name": "NVIDIA API Catalog / hosted NIM APIs",
+      "category": "hosted_api",
+      "homepage": "https://build.nvidia.com",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": null,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "OpenAI-compatible embeddings at https://integrate.api.nvidia.com/v1/embeddings",
+          "NVIDIA reranking at https://ai.api.nvidia.com/v1/retrieval/nvidia/llama-nemotron-rerank-1b-v2/reranking"
+        ]
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "NVIDIA Developer API key generated through the API Catalog",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "API Catalog trial",
+            "usd_per_month": 0,
+            "allowance": null,
+            "reset_window": null,
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "unknown",
+        "free_tier": "Hosted API trial credits are documented. An NVIDIA staff answer dated September 16, 2024 described 1,000 signup credits and 4,000 additional credits associated with a business-email/90-day AI Enterprise trial. A current universal grant was not verified."
+      },
+      "quotas": {
+        "rate_limits": null,
+        "concurrency": null,
+        "context_caps": "Model-specific. GLM-5.3 documents 1,048,576 tokens. NV-EmbedQA-E5-v5 accepts at most 8,192 input tokens; llama-nemotron-rerank-1b-v2 supports documents up to 8,192 tokens."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "HTTP API clients",
+          "OpenAI-compatible clients"
+        ],
+        "disallowed_uses": [
+          "Production use of trial access without a separate NVIDIA or service-provider subscription",
+          "Use of trial access beyond internal testing and evaluation without the required subscription"
+        ],
+        "automation_allowed": true,
+        "notes": "Programmatic inference is documented, subject to trial-purpose restrictions. Downloadable/self-hosted NIM and partner-hosted production services are separate deployment and licensing arrangements."
+      },
+      "privacy": {
+        "training_on_prompts": "API Trial Terms section 3.3 permits collection of User Content and Generated Content to improve NVIDIA products and services, including AI models.",
+        "retention": null,
+        "zdr_available": null,
+        "regions": null
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "audio",
+        "embedding",
+        "rerank"
+      ],
+      "notable_models": [
+        {
+          "id": "z-ai/glm-5.3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "API reference confirms the exact ID. NVIDIA describes the license as MIT-like with an additional security-review condition for Model-as-a-Service operators exceeding $10 billion aggregate revenue over 12 consecutive months."
+        },
+        {
+          "id": "nvidia/nv-embedqa-e5-v5",
+          "family": "NeMo Retriever / E5",
+          "open_weights": null,
+          "license": "NVIDIA AI Foundation Models Community License Agreement and MIT License",
+          "refusal_profile": "unknown",
+          "context_window": 8192,
+          "notes": "Embedding model. input_type must distinguish query from passage."
+        },
+        {
+          "id": "nvidia/llama-nemotron-rerank-1b-v2",
+          "family": "NeMo Retriever / Llama",
+          "open_weights": null,
+          "license": "NVIDIA Open Model License Agreement; additional Llama 3.2 Community Model License terms",
+          "refusal_profile": "unknown",
+          "context_window": 8192,
+          "notes": "Reranking uses the separate ai.api.nvidia.com endpoint, not /chat/completions on the integrate hostname."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The hosted OpenAI-compatible base URL includes /v1.",
+          "status": "confirmed",
+          "evidence": "NIM Operator documentation explicitly identifies https://integrate.api.nvidia.com/v1 and its /models URL.",
+          "source": "https://docs.nvidia.com/nim-operator/latest/guardrail.html"
+        },
+        {
+          "claim": "API Catalog trial access can be used for unrestricted production automation.",
+          "status": "contradicted",
+          "evidence": "Trial terms limit unsubscribed use to internal testing and evaluation; production requires a separate subscription.",
+          "source": "https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf"
+        },
+        {
+          "claim": "The current universal free-tier rate limit is 40 RPM.",
+          "status": "unverified",
+          "evidence": "Opened official hosted-API guidance discusses rate limiting but does not establish a universal numeric quota.",
+          "source": "https://docs.nvidia.com/aiq-blueprint/2.2.0/customization/swapping-models.html"
+        },
+        {
+          "claim": "Hosted trial prompts are guaranteed excluded from model improvement.",
+          "status": "contradicted",
+          "evidence": "Section 3.3 permits using user and generated content to improve products, including AI models.",
+          "source": "https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf"
+        }
+      ],
+      "unknown": [
+        "api.models_list_requires_auth",
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[0].allowance",
+        "billing.plans[0].reset_window",
+        "billing.auto_recharge",
+        "quotas.rate_limits",
+        "quotas.concurrency",
+        "privacy.retention",
+        "privacy.zdr_available",
+        "privacy.regions",
+        "notable_models[*].refusal_profile",
+        "notable_models[1].open_weights",
+        "notable_models[2].open_weights",
+        "current_API_availability_and_exact_ids_for_MiniMax-M3_Kimi-K3_Qwen3-Coder-Next_Hermes-4_and_Dolphin"
+      ],
+      "sources": [
+        {
+          "url": "https://docs.api.nvidia.com/nim/docs/api-quickstart",
+          "title": "API Catalog Quickstart Guide",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nvidia.com/nim-operator/latest/guardrail.html",
+          "title": "Managing NeMo Guardrails",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/reference/z-ai-glm-5-3-infer",
+          "title": "GLM-5.3 inference API reference",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/reference/z-ai-glm-5-3",
+          "title": "GLM-5.3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/docs/faq",
+          "title": "NIM FAQ",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://forums.developer.nvidia.com/t/api-credits-for-build-nvidia-com/306633",
+          "title": "API credits for build.nvidia.com — NVIDIA staff response, September 2024",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nvidia.com/rag/2.6.0/troubleshooting.html",
+          "title": "RAG Blueprint troubleshooting: running out of credits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf",
+          "title": "NVIDIA API Trial Terms of Service",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.nvidia.com/aiq-blueprint/2.2.0/customization/swapping-models.html",
+          "title": "Swapping Models: NVIDIA Hosted API Considerations",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/re/reference/nvidia-nv-embedqa-e5-v5-infer",
+          "title": "NV-EmbedQA-E5-v5 embedding API reference",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/reference/nvidia-nv-embedqa-e5-v5",
+          "title": "NV-EmbedQA-E5-v5 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/reference/nvidia-llama-nemotron-rerank-1b-v2",
+          "title": "Llama Nemotron Rerank 1B v2 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/reference/nvidia-llama-nemotron-rerank-1b-v2-infer",
+          "title": "Llama Nemotron Rerank 1B v2 API reference",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.api.nvidia.com/nim/reference/google-gemma-3n-e4b-it-infer",
+          "title": "Gemma 3n inference reference: image and audio inputs",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "The 1,000/5,000-credit figures are historical NVIDIA staff statements, not a verified October 2026 entitlement. Community reports of 40 RPM were not promoted to a confirmed quota. Official examples authenticate /models, but the requirement for that listing endpoint was not explicitly established. A model-card label of Global does not establish actual data-center locations."
+    },
+    {
+      "id": "mistral-la-plateforme",
+      "name": "Mistral AI Studio / La Plateforme",
+      "category": "hosted_api",
+      "homepage": "https://console.mistral.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.mistral.ai/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "Mistral FIM at https://api.mistral.ai/v1/fim/completions",
+          "Embeddings at https://api.mistral.ai/v1/embeddings",
+          "Audio transcription at https://api.mistral.ai/v1/audio/transcriptions"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://api.mistral.ai/v1",
+        "notes": "Current subscriptions documentation says plans apply across Studio, API and Vibe. Included monthly usage is consumed first; optional prepaid PAYG extends usage. No separate subscription inference hostname was identified."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Workspace API key; personal or service-account-owned credentials are documented",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": "Education pricing requires verified student eligibility; general API identity-verification requirements were not established."
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Free mode",
+            "usd_per_month": 0,
+            "allowance": null,
+            "reset_window": "monthly",
+            "on_exhaustion": "unknown"
+          },
+          {
+            "name": "Pro",
+            "usd_per_month": null,
+            "allowance": null,
+            "reset_window": "monthly",
+            "on_exhaustion": "unknown"
+          },
+          {
+            "name": "Education",
+            "usd_per_month": 14.99,
+            "allowance": null,
+            "reset_window": "monthly",
+            "on_exhaustion": "unknown"
+          },
+          {
+            "name": "Team",
+            "usd_per_month": 24.99,
+            "allowance": null,
+            "reset_window": "monthly",
+            "on_exhaustion": "unknown"
+          },
+          {
+            "name": "Enterprise",
+            "usd_per_month": null,
+            "allowance": null,
+            "reset_window": "monthly",
+            "on_exhaustion": "unknown"
+          }
+        ],
+        "metered_overage": "opt_in",
+        "auto_recharge": "off_by_default",
+        "free_tier": "Free mode provides limited access to Studio and Vibe. A precise API request/token/usage-value allowance was not verified."
+      },
+      "quotas": {
+        "rate_limits": "Completion limits are per model and organization, measured in tokens per minute and requests per second; actual values are shown in Admin API Limits. Audio and OCR have separate limits.",
+        "concurrency": null,
+        "context_caps": "Model-specific. Current cards label Codestral 128k, embeddings 8k, GLM-5.3 1M, and deprecated Devstral 2 256k."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible clients",
+          "Mistral SDKs",
+          "HTTP clients",
+          "Service-account-authenticated workflow workers"
+        ],
+        "disallowed_uses": null,
+        "automation_allowed": true,
+        "notes": "Service accounts explicitly support machine-to-machine workloads and workflow workers. Published subscription usage is shared across API, Studio and Vibe Code; this is not documented as a coding-client-only allowance. A comprehensive current prohibited-use list was not verified."
+      },
+      "privacy": {
+        "training_on_prompts": "Studio/API data may participate in improvement programs. An Admin Privacy toggle under Anonymous improvement data allows opting out. The API toggle is separate from the Vibe toggle.",
+        "retention": "With approved ZDR, eligible stateless request inputs and outputs are retained only as needed to return the response. Default non-ZDR retention duration was not verified.",
+        "zdr_available": true,
+        "regions": "Global endpoint has no committed inference geography. Optional api.eu.mistral.ai and api.us.mistral.ai endpoints select regional inference. Regional inference does not make all account, billing and control-plane metadata regional."
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "embedding",
+        "audio",
+        "tts",
+        "asr",
+        "image"
+      ],
+      "notable_models": [
+        {
+          "id": "zai-glm-5-3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Mistral hosts this third-party model without Mistral modifications. Card advertises 1M context and 128k maximum output."
+        },
+        {
+          "id": "codestral-2508",
+          "family": "Codestral",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current Premier model for code completion and FIM; card labels context 128k."
+        },
+        {
+          "id": "devstral-2512",
+          "family": "Devstral",
+          "open_weights": true,
+          "license": "Modified MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Deprecated May 22, 2026. Official card directs new integrations to Mistral Medium 3.5; advertised context is 256k."
+        },
+        {
+          "id": "codestral-embed-2505",
+          "family": "Codestral Embed",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Code embedding API; card labels context 8k and price $0.15 per million tokens."
+        },
+        {
+          "id": "mistral-embed-2312",
+          "family": "Mistral Embed",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Embedding API; card labels context 8k and price $0.10 per million tokens."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The current documented base URL is https://api.mistral.ai/v1.",
+          "status": "confirmed",
+          "evidence": "Official migration guide demonstrates this base URL with the OpenAI client.",
+          "source": "https://docs.mistral.ai/resources/migration-guides"
+        },
+        {
+          "claim": "Subscriptions can include API usage.",
+          "status": "confirmed",
+          "evidence": "Subscription documentation says monthly usage is shared across Studio, API and Vibe Code.",
+          "source": "https://docs.mistral.ai/admin/billing-usage/subscriptions"
+        },
+        {
+          "claim": "Allowance exhaustion always incurs automatic overage.",
+          "status": "contradicted",
+          "evidence": "Further usage draws from prepaid credits only when PAYG is enabled; otherwise usage can stop.",
+          "source": "https://docs.mistral.ai/admin/billing-usage/subscriptions"
+        },
+        {
+          "claim": "ZDR covers all Mistral API products.",
+          "status": "contradicted",
+          "evidence": "ZDR excludes stateful products, files, agents, conversations and batch files, and requires approval.",
+          "source": "https://docs.mistral.ai/admin/monitor-comply/zero-data-retention"
+        },
+        {
+          "claim": "Devstral 2 is the current model recommended for new integrations.",
+          "status": "contradicted",
+          "evidence": "Its model card marks it deprecated and names Mistral Medium 3.5 as replacement.",
+          "source": "https://docs.mistral.ai/models/devstral-2-25-12"
+        }
+      ],
+      "unknown": [
+        "access.subscription_key_differs_from_api_key",
+        "access.general_kyc_or_waitlist",
+        "billing.plans[1].usd_per_month",
+        "billing.plans[4].usd_per_month",
+        "billing.plans[*].allowance",
+        "billing.plans[*].on_exhaustion",
+        "quotas.concurrency",
+        "restrictions.disallowed_uses",
+        "privacy.default_non_zdr_retention",
+        "privacy.default_API_training_toggle_state",
+        "notable_models[*].context_window",
+        "notable_models[*].refusal_profile",
+        "notable_models[1].open_weights",
+        "notable_models[1].license",
+        "notable_models[3].open_weights",
+        "notable_models[3].license",
+        "notable_models[4].open_weights",
+        "notable_models[4].license",
+        "hosted_reranker_availability"
+      ],
+      "sources": [
+        {
+          "url": "https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key",
+          "title": "Activate Studio and generate an API key",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/resources/migration-guides",
+          "title": "Migration guides",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/api/endpoint/models",
+          "title": "Models Endpoints",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://mistral.ai/pricing/",
+          "title": "Mistral pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/admin/billing-usage/subscriptions",
+          "title": "Subscription",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/admin/billing-usage/billing",
+          "title": "Billing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/admin/billing-usage/usage-limits",
+          "title": "Usage and limits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/admin/identity-access/service-accounts",
+          "title": "Service accounts",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training",
+          "title": "Opt out of input/output data training",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/admin/monitor-comply/zero-data-retention",
+          "title": "Zero data retention",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://help.mistral.ai/en/articles/347612-can-i-activate-zero-data-retention-zdr",
+          "title": "Can I activate Zero Data Retention?",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/inference/regional-inference",
+          "title": "Regional inference",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/models",
+          "title": "Models Overview",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/models/zai-glm-5-3",
+          "title": "Z.ai GLM 5.3",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3",
+          "title": "GLM-5.3 model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/models/codestral-25-08",
+          "title": "Codestral 25.08",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/models/devstral-2-25-12",
+          "title": "Devstral 2",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/models/codestral-embed-25-05",
+          "title": "Codestral Embed",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/models/mistral-embed-23-12",
+          "title": "Mistral Embed",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/studio/audio/speech_to_text/offline_transcription",
+          "title": "Offline transcription",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://docs.mistral.ai/resources/cookbooks/mistral-connectors-05-connectors-in-completions",
+          "title": "Using Connectors in Chat Completions",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Team price is per user per month, excluding taxes. The pricing extraction places Pro and Education together, displays $14.99 alongside Education eligibility, and exposes $25.5/month and $15/month API-credit amounts without reliably identifying their respective variants. Those allowance mappings and standard Pro price remain null. It also displays a Team $50/month figure without a sufficiently clear allowance label. ZDR docs say paid plans; the Help Center more specifically requires PAYG. Context labels such as 8k and 128k were not converted into guessed exact integers."
+    },
+    {
+      "id": "deepseek-api",
+      "name": "DeepSeek API",
+      "category": "hosted_api",
+      "homepage": "https://platform.deepseek.com",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://api.deepseek.com",
+        "includes_v1": false,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": true,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "Anthropic-compatible API base at https://api.deepseek.com/anthropic",
+          "OpenAI-compatible Responses at https://api.deepseek.com/responses",
+          "Documented OpenAI-compatible /v1 base alternative at https://api.deepseek.com/v1"
+        ]
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "DeepSeek Open Platform API key",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": "Terms reserve the right to request documentation establishing the legality of recharge funds; universal signup KYC or waitlisting was not established."
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "Prepaid API usage",
+            "usd_per_month": null,
+            "allowance": "Token-priced usage deducted from granted or topped-up balances; granted balance is used first.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "unknown",
+        "free_tier": null
+      },
+      "quotas": {
+        "rate_limits": "Current documentation enforces account-level concurrent-connection limits and returns HTTP 429 when exceeded. A separate universal RPM/TPM quota was not verified.",
+        "concurrency": "deepseek-flash: 2,500; deepseek-v4-pro: 500. Calculated per account across API keys. Capacity-expansion requests are available without an additional expansion charge.",
+        "context_caps": "Both current pricing-table models advertise 1M context and maximum 384K output. Exact integer interpretation of these abbreviated hosted limits was not established."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible SDKs and HTTP clients",
+          "Anthropic-compatible SDKs",
+          "Claude Code",
+          "OpenCode",
+          "OpenClaw",
+          "nanobot"
+        ],
+        "disallowed_uses": [
+          "Sharing or publicly disclosing API keys",
+          "Exposing API keys in browser or other client-side code",
+          "Illegal uses, infringement of others' rights, or disruption of platform operation",
+          "Uses prohibited by applicable export-control and sanctions laws"
+        ],
+        "automation_allowed": true,
+        "notes": "Open Platform terms expressly permit integration into downstream applications serving internal and external users. Developers must disclose applicable privacy processing rules and obtain consent or another legal basis when required."
+      },
+      "privacy": {
+        "training_on_prompts": null,
+        "retention": "Responses API is stateless and does not persist response/conversation objects. Files API uploads remain permanently unless an expiry is set or they are deleted; optional expiry is 1 hour to 30 days. General policy retains account-related personal data, including inputs, while the account exists; API-specific logging retention was not established.",
+        "zdr_available": null,
+        "regions": "The February 10, 2026 privacy policy states that collected personal data is processed and stored in the People's Republic of China."
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision"
+      ],
+      "notable_models": [
+        {
+          "id": "deepseek-flash",
+          "family": "DeepSeek-V4.1-Flash",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Current API ID serves DeepSeek-V4.1-Flash and supports vision. Legacy deepseek-v4-flash and deepseek-v4-flash-vision-exp names are accepted but redirect to this model."
+        },
+        {
+          "id": "deepseek-v4-pro",
+          "family": "DeepSeek-V4-Pro",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Pricing table identifies the API version as DeepSeek-V4-Pro-0813, advertises 1M context, and says service continued after September 14, 2026."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The principal documented base URL does not include /v1.",
+          "status": "confirmed",
+          "evidence": "First-call documentation uses https://api.deepseek.com and calls /chat/completions.",
+          "source": "https://api-docs.deepseek.com/quick_start/pricing-details-cny/"
+        },
+        {
+          "claim": "Official integration documentation also uses a /v1 base alternative.",
+          "status": "confirmed",
+          "evidence": "The nanobot configuration explicitly sets apiBase to https://api.deepseek.com/v1.",
+          "source": "https://api-docs.deepseek.com/quick_start/agent_integrations/nanobot/"
+        },
+        {
+          "claim": "DeepSeek offers an Anthropic-compatible endpoint.",
+          "status": "confirmed",
+          "evidence": "Anthropic guide explicitly documents https://api.deepseek.com/anthropic.",
+          "source": "https://api-docs.deepseek.com/guides/anthropic_api/"
+        },
+        {
+          "claim": "Current API concurrency is unlimited.",
+          "status": "contradicted",
+          "evidence": "Current rate-limit page lists account-level limits of 2,500 for Flash and 500 for Pro.",
+          "source": "https://api-docs.deepseek.com/quick_start/rate_limit/"
+        },
+        {
+          "claim": "Collected personal data is stored in China.",
+          "status": "confirmed",
+          "evidence": "Current privacy policy identifies the People's Republic of China for collection, processing and storage.",
+          "source": "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html?os=___"
+        }
+      ],
+      "unknown": [
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.general_kyc_or_waitlist",
+        "billing.plans[0].usd_per_month",
+        "billing.auto_recharge",
+        "billing.free_tier",
+        "quotas.universal_RPM_or_TPM",
+        "privacy.training_on_prompts",
+        "privacy.API_logging_retention",
+        "privacy.zdr_available",
+        "notable_models[*].context_window",
+        "notable_models[*].refusal_profile",
+        "embedding_and_reranker_API_availability"
+      ],
+      "sources": [
+        {
+          "url": "https://api-docs.deepseek.com/quick_start/pricing-details-cny/",
+          "title": "Your First API Call",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/api/deepseek-api/",
+          "title": "DeepSeek API authentication reference",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/api/list-models/",
+          "title": "Lists Models",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/quick_start/pricing/?helper=penn&method=individual",
+          "title": "Models & Pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/quick_start/rate_limit/",
+          "title": "Rate Limit & Isolation",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/quick_start/error_codes/",
+          "title": "Error Codes",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/guides/anthropic_api/",
+          "title": "Using the Anthropic API",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/quick_start/agent_integrations/nanobot/",
+          "title": "Integrating nanobot",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/guides/coding_agents/",
+          "title": "Integrate with AI Tools",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/api/create-response/",
+          "title": "Responses API",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://api-docs.deepseek.com/guides/files_api/",
+          "title": "Files API",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html?trk=public_post_comment-text",
+          "title": "DeepSeek Open Platform Terms of Service",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html?os=___",
+          "title": "DeepSeek Privacy Policy — February 10, 2026",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+          "title": "DeepSeek-V4.1-Flash model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
+          "title": "DeepSeek-V4-Pro model card",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "Some official pricing, models and rate-limit pages were retrievable through live search extracts but their direct opens repeatedly failed. Current pricing reports peak/off-peak token rates; no monthly subscription was verified. The general privacy policy excludes the developer's downstream end-user processing rules from its scope, so it was not treated as a complete API prompt-training guarantee. Stateless Responses behavior does not establish ZDR for logs or caches. Official integrations vary between the root base and /v1; use the base appropriate to the documented client configuration."
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "category": "gateway",
+      "homepage": "https://openrouter.ai",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": null,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": null
+      },
+      "subscription_api": null,
+      "access": {
+        "signup_required": true,
+        "key_type": "OpenRouter inference API key; management keys are separate administrative credentials; BYOK provider credentials are optional",
+        "subscription_key_differs_from_api_key": null,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "credits",
+        "plans": [
+          {
+            "name": "Free",
+            "usd_per_month": 0,
+            "allowance": ":free models: 50 requests per UTC day below the paid-credit threshold; official tutorial says purchasing $10 once raises the ceiling to 1,000 requests/day.",
+            "reset_window": "daily",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Standard Pay-as-you-go",
+            "usd_per_month": null,
+            "allowance": "Prepaid USD credits; provider inference rates passed through. Credit purchases carry a 5.5% platform fee.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "Business Pay-as-you-go",
+            "usd_per_month": null,
+            "allowance": "Usage-priced access; pricing page lists an 8% platform fee.",
+            "reset_window": "none",
+            "on_exhaustion": "unknown"
+          },
+          {
+            "name": "Enterprise",
+            "usd_per_month": null,
+            "allowance": "Negotiated fees and allowances; invoicing and credit lines are available.",
+            "reset_window": null,
+            "on_exhaustion": "unknown"
+          }
+        ],
+        "metered_overage": "none",
+        "auto_recharge": "off_by_default",
+        "free_tier": ":free model variants have zero token price but request limits. The official tutorial documents 20 RPM, 50/day initially, and 1,000/day after a $10 credit purchase. Paid fallbacks and paid features can incur charges."
+      },
+      "quotas": {
+        "rate_limits": "Official tutorial: :free variants 20 RPM, 50/day or 1,000/day depending on purchased credits. Paid-model limits generally pass through from providers; DDoS protection also applies. Current limits reference describes a higher-tier threshold granted one credit below the nominal threshold to accommodate fees/rounding.",
+        "concurrency": "No universal numeric concurrency cap verified. Certain prepaid accounts have an in-flight estimated-spend budget that can reject concurrent paid requests with HTTP 402 even while their balance is positive.",
+        "context_caps": "Model- and provider-specific. Catalog context_length and top_provider.context_length can differ; free endpoints can have smaller contexts than paid equivalents."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible SDKs",
+          "HTTP clients",
+          "Coding agents",
+          "Application backends"
+        ],
+        "disallowed_uses": null,
+        "automation_allowed": true,
+        "notes": "Provider routing supports order, allow_fallbacks, require_parameters, only, ignore, quantizations, sort, max_price, preferred_min_throughput and preferred_max_latency. Defaults include allow_fallbacks=true, require_parameters=false and data_collection=allow. Set provider.zdr=true for eligible ZDR inference endpoints and data_collection=deny to exclude collecting providers. No comprehensive current prohibited-use or resale policy was established."
+      },
+      "privacy": {
+        "training_on_prompts": "OpenRouter does not log prompt/response content by default; providers have separate policies. data_collection=deny excludes providers that collect user data. Policy labels represent OpenRouter's best knowledge rather than definitive third-party policy authority.",
+        "retention": "OpenRouter retains request metadata; content logging is opt-in. Provider retention varies. Optional response caching stores content for its TTL; account-level ZDR disables caching, but per-request provider.zdr alone does not.",
+        "zdr_available": true,
+        "regions": "Current pricing and routing reference list EU and US in-region routing for Business and Enterprise, using eu.openrouter.ai and us.openrouter.ai. An older sovereign-AI guide describes EU routing as enterprise-by-request."
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "rerank",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "z-ai/glm-5.3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Current catalog includes the model; refusal tuning and abliteration are not established."
+        },
+        {
+          "id": "minimax/minimax-m3",
+          "family": "MiniMax",
+          "open_weights": true,
+          "license": "MiniMax Community License",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Supports text, image and video inputs. Captured catalog listed top_provider.context_length as 524,288 despite model context_length of 1,048,576."
+        },
+        {
+          "id": "moonshotai/kimi-k3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License",
+          "refusal_profile": "unknown",
+          "context_window": 1048576,
+          "notes": "Multimodal model. Provider-specific output limits must be checked separately."
+        },
+        {
+          "id": "qwen/qwen3-coder-next",
+          "family": "Qwen",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": 262144,
+          "notes": "Coding model operating in non-thinking mode."
+        },
+        {
+          "id": "nousresearch/hermes-4-405b",
+          "family": "Hermes / Llama",
+          "open_weights": true,
+          "license": "llama3, as labelled on the official model card",
+          "refusal_profile": "low",
+          "context_window": 131072,
+          "notes": "Nous describes post-training and reduced refusal rates. Refusal-direction removal was not verified."
+        },
+        {
+          "id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+          "family": "Dolphin / Mistral",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "low",
+          "context_window": null,
+          "notes": "Exact API id differs from canonical_slug venice/uncensored. Official model card redirects to dphn/Dolphin-Mistral-24B-Venice-Edition and describes uncensored tuning. Abliteration was not verified."
+        },
+        {
+          "id": "qwen/qwen3-embedding-8b",
+          "family": "Qwen",
+          "open_weights": true,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Official OpenRouter page links model weights and lists embedding providers; exact context is abbreviated as 33K."
+        },
+        {
+          "id": "qwen/qwen3-reranker-8b",
+          "family": "Qwen",
+          "open_weights": null,
+          "license": null,
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Official catalog page identifies a text reranking model for query-document relevance scoring."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The base URL contains /api/v1.",
+          "status": "confirmed",
+          "evidence": "Official routing examples post to https://openrouter.ai/api/v1/chat/completions.",
+          "source": "https://openrouter.ai/docs/guides/routing/provider-selection"
+        },
+        {
+          "claim": "A $10 credit purchase unlocks 1,000 free-model requests per day.",
+          "status": "confirmed",
+          "evidence": "Official free-tier tutorial documents this ceiling and the unchanged 20 RPM limit.",
+          "source": "https://openrouter.ai/blog/tutorials/how-to-get-the-lowest-cost-llm-inference-on-openrouter/"
+        },
+        {
+          "claim": "provider.zdr=true filters inference providers to ZDR endpoints.",
+          "status": "confirmed",
+          "evidence": "Routing reference describes this request-level filter and its combination with account/guardrail enforcement.",
+          "source": "https://openrouter.ai/docs/guides/routing/provider-selection"
+        },
+        {
+          "claim": "Per-request provider.zdr also disables OpenRouter response caching.",
+          "status": "contradicted",
+          "evidence": "Caching documentation says account-level ZDR disables caching, while per-request provider.zdr does not change cache eligibility.",
+          "source": "https://openrouter.ai/docs/guides/features/response-caching"
+        },
+        {
+          "claim": "Hermes 4 and Dolphin Venice are verified abliterated models.",
+          "status": "unverified",
+          "evidence": "Official cards describe reduced refusals or uncensored fine-tuning; no refusal-direction-removal method was established.",
+          "source": "https://huggingface.co/NousResearch/Hermes-4-405B"
+        }
+      ],
+      "unknown": [
+        "api.models_list_requires_auth",
+        "api.other_protocols",
+        "subscription_api",
+        "access.subscription_key_differs_from_api_key",
+        "access.kyc_or_waitlist",
+        "billing.plans[1].usd_per_month",
+        "billing.plans[2].usd_per_month",
+        "billing.plans[3].usd_per_month",
+        "billing.plans[2].on_exhaustion",
+        "billing.plans[3].on_exhaustion",
+        "billing.plans[3].reset_window",
+        "restrictions.disallowed_uses",
+        "privacy.metadata_retention_duration",
+        "notable_models[0:4].refusal_profile",
+        "notable_models[5].context_window",
+        "notable_models[6].license",
+        "notable_models[6].context_window",
+        "notable_models[6].refusal_profile",
+        "notable_models[7].open_weights",
+        "notable_models[7].license",
+        "notable_models[7].context_window",
+        "notable_models[7].refusal_profile",
+        "Hermes-4_and_Dolphin_actual_abliteration"
+      ],
+      "sources": [
+        {
+          "url": "https://openrouter.ai/pricing",
+          "title": "OpenRouter pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/support/",
+          "title": "OpenRouter support and billing FAQ",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/api_reference/limits",
+          "title": "Credit, budget and rate limits",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/blog/tutorials/how-to-get-the-lowest-cost-llm-inference-on-openrouter/",
+          "title": "Official free-tier and cost tutorial",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/guides/routing/provider-selection",
+          "title": "Provider Routing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/api/api-reference/models/list-all-models-and-their-properties",
+          "title": "List all models and their properties",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/api/v1/models",
+          "title": "Public model catalog response",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/blog/insights/zero-data-retention/",
+          "title": "Zero Data Retention: provider and OpenRouter distinctions",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/guides/features/response-caching",
+          "title": "Response Caching",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/guides/get-started/sovereign-ai",
+          "title": "Sovereign AI",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/guides/overview/multimodal/video-generation",
+          "title": "Video Generation",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/guides/overview/multimodal/audio",
+          "title": "OpenRouter Audio",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/docs/cookbook/evaluate-and-optimize/rag",
+          "title": "RAG with Embeddings & Rerank",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/z-ai/glm-5.3",
+          "title": "GLM 5.3 API catalog page",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/minimax/minimax-m3",
+          "title": "MiniMax M3 API catalog page",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/moonshotai/kimi-k3",
+          "title": "Kimi K3 API catalog page",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/qwen/qwen3-coder-next",
+          "title": "Qwen3 Coder Next API catalog page",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3",
+          "title": "Official GLM-5.3 weights and license",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
+          "title": "Official MiniMax-M3 weights and license",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/moonshotai/Kimi-K3",
+          "title": "Official Kimi-K3 weights and license",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+          "title": "Official Qwen3-Coder-Next model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/NousResearch/Hermes-4-405B",
+          "title": "Official Hermes 4 405B model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition",
+          "title": "Official Dolphin Mistral Venice Edition model card",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/qwen/qwen3-embedding-8b",
+          "title": "Qwen3 Embedding 8B API catalog page",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://openrouter.ai/qwen/qwen3-reranker-8b",
+          "title": "Qwen3 Reranker 8B API catalog page",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "The model-list API reference marks bearer authorization required, but the public catalog URL returned data through an unauthenticated web open; the conflicting authentication field remains null. Pricing and routing docs list Business/Enterprise EU and US routing, whereas the sovereign-AI guide describes a narrower enterprise-by-request EU offering. Current BYOK pricing uses $25,000/month of list-price inference without fees, followed by a 5% fee; older request-count allowances should not be assumed. The free-limit reference's numeric table was incomplete in extraction, so numeric caps are supported by the official tutorial. Model moderation metadata is not evidence of low-refusal training or abliteration."
+    },
+    {
+      "id": "hugging-face-inference-providers",
+      "name": "Hugging Face Inference Providers",
+      "category": "gateway",
+      "homepage": "https://huggingface.co/docs/inference-providers/index",
+      "openai_compatible": true,
+      "api": {
+        "base_url": "https://router.huggingface.co/v1",
+        "includes_v1": true,
+        "chat_path": "/chat/completions",
+        "models_path": "/models",
+        "models_list_requires_auth": null,
+        "auth_header": "Authorization: Bearer",
+        "other_protocols": [
+          "Hugging Face task APIs through InferenceClient and provider-specific routes, including https://router.huggingface.co/hf-inference/models/{model_id}"
+        ]
+      },
+      "subscription_api": {
+        "base_url": "https://router.huggingface.co/v1",
+        "notes": "PRO and organization included credits apply to routed requests on the same gateway. There is no separate subscription inference endpoint. Included credits do not apply when using a custom provider key."
+      },
+      "access": {
+        "signup_required": true,
+        "key_type": "Hugging Face user access token with Make calls to Inference Providers permission; fine-grained tokens are documented",
+        "subscription_key_differs_from_api_key": false,
+        "kyc_or_waitlist": null
+      },
+      "billing": {
+        "model": "allowance_plus_metered",
+        "plans": [
+          {
+            "name": "Free account",
+            "usd_per_month": 0,
+            "allowance": "No included monthly credits according to the currently opened pricing page.",
+            "reset_window": "none",
+            "on_exhaustion": "blocked"
+          },
+          {
+            "name": "PRO",
+            "usd_per_month": 9,
+            "allowance": "$2/month in general-purpose Hugging Face compute credits, shared with other eligible compute services.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Team",
+            "usd_per_month": null,
+            "allowance": "$2/month per seat in general-purpose compute credits; organization credits are pooled.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          },
+          {
+            "name": "Enterprise",
+            "usd_per_month": null,
+            "allowance": "$2/month per seat in general-purpose compute credits; organization credits are pooled.",
+            "reset_window": "monthly",
+            "on_exhaustion": "payg"
+          }
+        ],
+        "metered_overage": "opt_in",
+        "auto_recharge": "unknown",
+        "free_tier": "Current opened documentation says free accounts receive no monthly credits and must purchase credits or upgrade. Search-indexed official text still reports $0.10/month, subject to change."
+      },
+      "quotas": {
+        "rate_limits": null,
+        "concurrency": null,
+        "context_caps": "Model- and provider-dependent. GET /v1/models exposes provider context, price and performance information when available; native model-card limits do not guarantee every provider exposes the same cap."
+      },
+      "restrictions": {
+        "allowed_clients": [
+          "OpenAI-compatible clients for chat completions",
+          "Hugging Face InferenceClient",
+          "Hugging Face JavaScript inference client",
+          "HTTP clients",
+          "GitHub Actions automation"
+        ],
+        "disallowed_uses": null,
+        "automation_allowed": true,
+        "notes": "The /v1 OpenAI-compatible endpoint is documented for chat completion tasks only. Embeddings, image/video generation and speech tasks use Hugging Face inference clients or task/provider routes. Default routing selects the fastest provider; :cheapest, :preferred and explicit :provider suffixes are documented. Provider-specific terms still need checking."
+      },
+      "privacy": {
+        "training_on_prompts": "Hugging Face says it does not store user data for training when routing inference. External providers have their own policies.",
+        "retention": "Hugging Face does not store routed request bodies or responses. Debugging logs are retained for up to 30 days without user data or tokens. Provider retention is separate.",
+        "zdr_available": null,
+        "regions": null
+      },
+      "deployment": "api",
+      "modalities": [
+        "text",
+        "code",
+        "vision",
+        "image",
+        "audio",
+        "embedding",
+        "asr",
+        "video"
+      ],
+      "notable_models": [
+        {
+          "id": "zai-org/GLM-5.3",
+          "family": "GLM",
+          "open_weights": true,
+          "license": "GLM-5.3 License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Chat-completion documentation demonstrates zai-org/GLM-5.3:baseten. Model page lists multiple inference providers; exact hosted context varies."
+        },
+        {
+          "id": "MiniMaxAI/MiniMax-M3",
+          "family": "MiniMax",
+          "open_weights": true,
+          "license": "MiniMax Community License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Official model page lists Inference Providers, including Novita. Exact router/provider cap was not established."
+        },
+        {
+          "id": "moonshotai/Kimi-K3",
+          "family": "Kimi",
+          "open_weights": true,
+          "license": "Kimi K3 License",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Official model page lists Together AI and additional providers. Native context is 1,048,576; per-provider exposed cap was not established."
+        },
+        {
+          "id": "Qwen/Qwen3-Coder-Next",
+          "family": "Qwen",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "unknown",
+          "context_window": null,
+          "notes": "Official page lists Featherless AI inference. Native context is 262,144, but provider-specific cap was not verified."
+        },
+        {
+          "id": "dphn/Dolphin-Mistral-24B-Venice-Edition",
+          "family": "Dolphin / Mistral",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "refusal_profile": "low",
+          "context_window": null,
+          "notes": "Official model page lists Featherless AI. Older cognitivecomputations model-card URL redirects here. Uncensored tuning is documented; abliteration is not."
+        },
+        {
+          "id": "thenlper/gte-large",
+          "family": "GTE",
+          "open_weights": true,
+          "license": "MIT",
+          "refusal_profile": "unknown",
+          "context_window": 512,
+          "notes": "Official feature-extraction documentation recommends this embedding model. Model card documents a 512-token maximum and HF Inference availability. Use task APIs rather than the chat-only /v1 endpoint."
+        }
+      ],
+      "verified_findings": [
+        {
+          "claim": "The OpenAI-compatible router base includes /v1.",
+          "status": "confirmed",
+          "evidence": "Official examples set base_url to https://router.huggingface.co/v1.",
+          "source": "https://huggingface.co/docs/inference-providers/en/index"
+        },
+        {
+          "claim": "PRO includes $2/month of inference-eligible credits for $9/month.",
+          "status": "confirmed",
+          "evidence": "Inference pricing lists $2 general-purpose compute credits; Hugging Face pricing lists PRO at $9/month.",
+          "source": "https://huggingface.co/docs/inference-providers/pricing"
+        },
+        {
+          "claim": "Current free accounts universally receive $0.10/month.",
+          "status": "contradicted",
+          "evidence": "The opened pricing page lists None for Free Users, although indexed official search text still says $0.10.",
+          "source": "https://huggingface.co/docs/inference-providers/pricing"
+        },
+        {
+          "claim": "The OpenAI-compatible /v1 endpoint supports embeddings and speech as well as chat.",
+          "status": "contradicted",
+          "evidence": "Documentation explicitly limits this endpoint to chat completion tasks and directs other tasks to inference clients.",
+          "source": "https://huggingface.co/docs/inference-providers/en/index"
+        },
+        {
+          "claim": "Hugging Face's routing layer stores prompt bodies for training.",
+          "status": "contradicted",
+          "evidence": "Security documentation says request/response bodies are not stored and debugging logs exclude user data and tokens.",
+          "source": "https://huggingface.co/docs/inference-providers/security"
+        }
+      ],
+      "unknown": [
+        "api.models_list_requires_auth",
+        "access.kyc_or_waitlist",
+        "billing.plans[2].usd_per_month",
+        "billing.plans[3].usd_per_month",
+        "billing.auto_recharge",
+        "quotas.rate_limits",
+        "quotas.concurrency",
+        "restrictions.disallowed_uses",
+        "privacy.zdr_available",
+        "privacy.regions",
+        "privacy.provider_specific_training_and_retention",
+        "notable_models[0:5].context_window",
+        "notable_models[0:4].refusal_profile",
+        "notable_models[5].refusal_profile",
+        "Hermes-4_router_availability",
+        "dedicated_reranker_task_availability"
+      ],
+      "sources": [
+        {
+          "url": "https://huggingface.co/docs/inference-providers/en/index",
+          "title": "Inference Providers: authentication, routing and model listing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/docs/inference-providers/pricing",
+          "title": "Pricing and Billing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/pricing",
+          "title": "Hugging Face pricing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/docs/inference-providers/security",
+          "title": "Security & Compliance",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/docs/inference-providers/tasks/chat-completion",
+          "title": "Chat Completion",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/docs/inference-providers/tasks/feature-extraction",
+          "title": "Feature Extraction",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/docs/inference-providers/tasks/zero-shot-classification",
+          "title": "Example Hugging Face task API route",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/docs/inference-providers/index",
+          "title": "Inference Providers supported tasks and automation guides",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/docs/inference-providers/main/providers/hf-inference",
+          "title": "HF Inference and speech-recognition example",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/zai-org/GLM-5.3",
+          "title": "Official GLM-5.3 model card and provider listing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
+          "title": "Official MiniMax-M3 model card and provider listing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/moonshotai/Kimi-K3",
+          "title": "Official Kimi-K3 model card and provider listing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+          "title": "Official Qwen3-Coder-Next model card and provider listing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition",
+          "title": "Official Dolphin Venice model card and provider listing",
+          "accessed": "2026-10-12",
+          "official": true
+        },
+        {
+          "url": "https://huggingface.co/thenlper/gte-large",
+          "title": "Official GTE-large model card",
+          "accessed": "2026-10-12",
+          "official": true
+        }
+      ],
+      "notes": "PRO credits are dollar usage-value credits, not unlimited requests or a fixed token allowance, and are shared with eligible Endpoints, Spaces and Jobs usage. Continued usage requires purchased credits; custom provider keys bill the provider directly and bypass included HF credits. Current opened pricing supersedes the conflicting $0.10 indexed extract. Hugging Face's routing-layer no-content-storage policy does not establish provider-wide ZDR or regional residency. Listed modalities describe the broader Inference Providers service, not capabilities of the chat-only /v1 route."
+    }
+  ],
+  "open_questions": [
+    "What are NVIDIA API Catalog's current universal signup-credit grant, credit expiry/reset terms, numerical rate limits and model-list authentication requirement? Historical staff answers and community reports do not establish October 2026 entitlements.",
+    "What are the unambiguous current Mistral Pro price and per-plan API usage-value allowances? The pricing extraction exposes overlapping Pro/Education variants and unlabeled Team amounts.",
+    "Does Mistral's current default API training toggle differ by plan, and what is non-ZDR API content/log retention?",
+    "Does DeepSeek offer an API-specific no-training agreement or ZDR option, and what are prompt/log/cache retention periods beyond stateless response objects and file storage?",
+    "Does OpenRouter officially require authentication for GET /api/v1/models? The current reference says required, while the public catalog was readable without supplied credentials.",
+    "How should OpenRouter's newer Business/Enterprise EU/US residency offering be reconciled with its narrower enterprise-by-request sovereign-AI guide?",
+    "Has Hugging Face fully retired the $0.10 free monthly credit? The opened pricing page says no free credits, while live indexed official text still contains the older amount.",
+    "What provider-specific caps and privacy terms apply to each selected Hugging Face and OpenRouter route? Native model context and gateway-wide policies do not establish endpoint-specific guarantees.",
+    "Can current authenticated Nebius and NVIDIA catalogs verify the remaining requested model IDs, including Qwen3-Coder-Next, Hermes-4, Dolphin Venice, embeddings and rerankers, without treating model-card presence as proof of hosted availability?",
+    "No examined official model card established actual refusal-direction removal for Hermes 4 or Dolphin Venice. Is there a separate official technical report documenting abliteration for either exact checkpoint?"
+  ]
+}

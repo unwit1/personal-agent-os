@@ -160,9 +160,14 @@
   // other sources (OpenRouter, local, Hugging Face GPU) live under More.
   async function quickForeman(select) {
     const choice = select.value;
-    if (choice === "more") {
+    if (choice === "more" || choice === "registered") {
       $("more").open = true;
       $("foreman-panel").open = true;
+      if (choice === "registered") {
+        $("fm-source").value = "registered";
+        S.foremanSourceSet = true;
+        showSource();
+      }
       $("foreman-panel").scrollIntoView({ behavior: "smooth" });
       await syncQuickForeman();
       return;
@@ -181,7 +186,7 @@
     } catch { return; }
     const live = FOREMAN_ACTIVE.includes(view.status);
     const select = $("quick-foreman");
-    select.value = !live ? "" : ["claude", "chatgpt"].includes(view.kind) ? view.kind : "more";
+    select.value = !live ? "" : ["claude", "chatgpt", "registered"].includes(view.kind) ? view.kind : "more";
     select.title = live ? `Foreman: ${SOURCE_LABEL[view.kind] || view.kind} (${(view.model || {}).repo || ""})` : "Default planner";
   }
 
@@ -510,14 +515,40 @@
 
   function money(value) { return value == null ? "—" : `$${Number(value).toFixed(2)}`; }
 
-  const SOURCE_LABEL = { claude: "Claude", chatgpt: "ChatGPT", openrouter: "OpenRouter", local: "Local model", huggingface: "Hugging Face" };
+  const SOURCE_LABEL = { claude: "Claude", chatgpt: "ChatGPT", openrouter: "OpenRouter", local: "Local model", huggingface: "Hugging Face", registered: "Registered provider" };
+
+  function showRegisteredModels() {
+    const entry = (S.eligibleForemen || []).find((item) => item.provider === $("fm-reg-provider").value);
+    const models = entry ? [...new Set(Object.values(entry.models || {}))] : [];
+    $("fm-reg-model").replaceChildren(el("option", { value: "" }, entry ? `Default (${(entry.models || {}).reasoning || models[0] || entry.provider})` : "—"), ...models.map((m) => el("option", { value: m }, m)));
+    $("fm-reg-note").textContent = entry
+      ? [entry.adapter, entry.deployment, entry.billing, entry.paid ? "paid: only plans runs that allow paid credits" : "no outside spend"].filter(Boolean).join(" · ")
+      : "No registered provider can be the foreman right now: it must be enabled, allowed to plan, and answering.";
+    $("fm-use-reg").disabled = !entry;
+  }
+
+  async function loadEligibleForemen() {
+    const { foremen } = await api("foreman/eligible");
+    S.eligibleForemen = foremen || [];
+    const current = $("fm-reg-provider").value;
+    $("fm-reg-provider").replaceChildren(...(S.eligibleForemen.length
+      ? S.eligibleForemen.map((item) => el("option", { value: item.provider }, `${item.provider}${item.paid ? " (paid)" : ""}`))
+      : [el("option", { value: "" }, "(none eligible)")]));
+    if (S.eligibleForemen.some((item) => item.provider === current)) $("fm-reg-provider").value = current;
+    showRegisteredModels();
+  }
 
   function showSource() {
     const source = $("fm-source").value;
     $("fm-sub").classList.toggle("hidden", !["claude", "chatgpt"].includes(source));
     $("fm-local").classList.toggle("hidden", source !== "local");
     $("fm-or").classList.toggle("hidden", source !== "openrouter");
+    $("fm-reg").classList.toggle("hidden", source !== "registered");
     $("fm-hf").classList.toggle("hidden", source !== "huggingface");
+    if (source === "registered" && !S.eligibleForemen) {
+      S.eligibleForemen = [];
+      loadEligibleForemen().catch((error) => { S.eligibleForemen = null; toast(error.message); });
+    }
     const choice = (S.foremanChoices || {})[source];
     if (choice) {
       const current = $("fm-sub-model").value;
@@ -630,7 +661,9 @@
     }));
     $("fm-use-or").addEventListener("click", (event) => useForeman(event.currentTarget, { kind: "openrouter", model: $("fm-or-model").value.trim() }));
     $("fm-use-local").addEventListener("click", (event) => useForeman(event.currentTarget, { kind: "local", base_url: $("fm-local-url").value.trim(), model: $("fm-local-model").value || undefined }));
-    $("foreman-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the session foreman", loadForeman); });
+    $("fm-reg-provider").addEventListener("change", showRegisteredModels);
+    $("fm-use-reg").addEventListener("click", (event) => useForeman(event.currentTarget, { kind: "registered", provider: $("fm-reg-provider").value, model: $("fm-reg-model").value || undefined }));
+    $("foreman-panel").addEventListener("toggle", (event) => { if (event.target.open) { S.eligibleForemen = null; act(null, "refresh", "reading the session foreman", loadForeman); } });
     $("fm-preview").addEventListener("click", (event) => act(event.currentTarget, "refresh", "reading the model and GPU prices", previewForeman));
     $("fm-deploy").addEventListener("click", (event) => act(event.currentTarget, "start-task", "starting the foreman deployment", async () => {
       renderForeman(await api("foreman/deploy", foremanInputs()));
@@ -642,8 +675,139 @@
     loadForeman().then((live) => { if (live) $("foreman-panel").open = true; }).catch(() => {});
   }
 
+  // ------------------------------------------------------------ model services
+
+  const SERVICE_STATUS = { preset_ready: "ready to add", preset_restricted: "add after reading the terms", bridge_claude_code: "Claude Code bridge",
+    catalog_only: "listed only", deferred: "not yet" };
+  const SERVICE_ADDABLE = ["preset_ready", "preset_restricted"];
+  const BRIDGE_ALIAS = { fast: "haiku", balanced: "sonnet", reasoning: "opus" };
+
+  function planText(plan) {
+    const billing = plan.billing || {};
+    const price = plan.usd_per_month != null ? ` · $${plan.usd_per_month}/month` : "";
+    const terms = plan.allowance_summary || [billing.mode, billing.overage ? `overage ${billing.overage}` : null].filter(Boolean).join(", ") || "billing unknown";
+    return `${plan.name || plan.id}: ${terms}${price}`;
+  }
+
+  function restrictionText(item) {
+    const r = item.restrictions || {};
+    const notes = [r.notes, (r.disallowed_uses || []).length ? `not for ${r.disallowed_uses.join(", ")}` : null];
+    if (!SERVICE_ADDABLE.includes(item.integration_status) && item.integration_status !== "bridge_claude_code") notes.unshift(item.integration_notes);
+    return notes.filter(Boolean).join(" · ") || "—";
+  }
+
+  function privacyText(privacy) {
+    const p = privacy || {};
+    const zdr = p.zdr == null ? "unknown" : p.zdr ? "yes" : "no";
+    return `training: ${p.training_on_prompts ?? "unknown"} · ZDR: ${zdr}`;
+  }
+
+  function renderServices(view) {
+    S.services = view.services || [];
+    $("services-badge").classList.toggle("hidden", !(view.notice || view.warnings || view.errors));
+    $("services-badge").textContent = view.notice ? "not compiled" : view.errors ? `${view.errors} errors` : view.warnings ? `${view.warnings} warnings` : "";
+    if (view.notice) {
+      $("services-list").replaceChildren(el("tr", {}, el("td", { colspan: "6", class: "muted" }, `The model service ${view.notice}. It appears here once it is compiled.`)));
+      return;
+    }
+    $("services-list").replaceChildren(...(S.services.length ? S.services.flatMap((item) => {
+      const open = S.serviceOpen === item.id;
+      const row = el("tr", { class: `svc-row${open ? " open" : ""}`, title: "Show endpoints and add it", onclick: () => toggleService(item.id) },
+        el("td", {}, item.name || item.id, item.stale ? el("span", { class: "badge stale", title: `reviewed ${item.reviewed_at || "never"}; check the vendor's current terms` }, "stale") : null),
+        el("td", {}, (item.category || "").replace(/_/g, " ")),
+        el("td", {}, SERVICE_STATUS[item.integration_status] || item.integration_status || ""),
+        el("td", {}, ...(item.plans || []).map((plan) => el("div", {}, planText(plan)))),
+        el("td", {}, restrictionText(item)),
+        el("td", {}, privacyText(item.privacy)));
+      return open ? [row, el("tr", { class: "svc-detail" }, el("td", { colspan: "6" }, serviceDetail(item)))] : [row];
+    }) : [el("tr", {}, el("td", { colspan: "6", class: "muted" }, "The catalog lists no services."))]));
+  }
+
+  function toggleService(id) {
+    S.serviceOpen = S.serviceOpen === id ? null : id;
+    renderServices({ services: S.services });
+  }
+
+  function serviceDetail(item) {
+    const plans = item.plans || [];
+    const bridge = item.integration_status === "bridge_claude_code";
+    const firstPlan = (bridge && plans.find((plan) => (plan.allowed_clients || []).some((c) => /claude code/i.test(c)))) || plans[0];
+    const endpoint = el("select", {}, ...(item.endpoints || []).map((ep) => el("option", { value: ep.id }, `${ep.id} (${ep.protocol})`)));
+    const plan = el("select", {}, ...plans.map((p) => el("option", { value: p.id }, p.name || p.id)));
+    const model = el("select", {}, el("option", { value: "" }, "(press List models)"));
+    const classes = ["fast", "balanced", "reasoning"].map((name) => el("input", { type: "checkbox", value: name }));
+    classes.forEach((box) => { box.checked = box.value !== "reasoning"; });
+    const ack = el("input", { type: "checkbox" });
+    const ackLabel = el("label", { class: "inline switch" }, ack, " I have read this plan's terms");
+    const result = el("pre", { class: "svc-result hidden" });
+    const chosenPlan = () => plans.find((p) => p.id === plan.value);
+    const syncPlan = () => {
+      const current = chosenPlan();
+      ackLabel.classList.toggle("hidden", !(current && current.needs_ack));
+      if (current && current.endpoint && (item.endpoints || []).some((ep) => ep.id === current.endpoint) && !bridge) endpoint.value = current.endpoint;
+    };
+    if (firstPlan) plan.value = firstPlan.id;
+    plan.addEventListener("change", syncPlan);
+    syncPlan();
+    const fillModels = (ids) => {
+      const current = model.value;
+      model.replaceChildren(el("option", { value: "" }, ids.length ? "(choose a model)" : "(no models listed)"), ...ids.map((id) => el("option", { value: id }, id)));
+      if (ids.includes(current)) model.value = current;
+    };
+    // The catalog's own model list (local; no vendor call) until List models asks the vendor.
+    api(`services/${encodeURIComponent(item.id)}`).then((detail) => {
+      if (model.options.length <= 1) fillModels((detail.models || []).map((m) => m.id).filter(Boolean));
+    }).catch(() => {});
+    const body = (write) => {
+      const picked = classes.filter((box) => box.checked).map((box) => box.value);
+      const base = { service: item.id, plan: plan.value || undefined, ack_terms: ack.checked, write };
+      // A bridge maps the chosen model onto Claude Code's alias for each ticked work type.
+      if (bridge) return { ...base, models: model.value ? Object.fromEntries(picked.map((name) => [BRIDGE_ALIAS[name], model.value])) : undefined };
+      if (!model.value) throw new Error("pick a model (List models asks the service for its list)");
+      if (!picked.length) throw new Error("pick at least one work type");
+      return { ...base, model: model.value, classes: picked, endpoint: endpoint.value || undefined };
+    };
+    const send = async (write) => {
+      const view = await api(bridge ? "services/bridge" : "services/add", body(write));
+      result.textContent = view.error || JSON.stringify(view.entry || view, null, 2);
+      result.classList.remove("hidden");
+      if (view.written) {
+        toast(`${(view.entry || {}).id || "provider"} added to your providers`);
+        S.eligibleForemen = null;
+      }
+    };
+    const actions = [];
+    if (SERVICE_ADDABLE.includes(item.integration_status) || bridge) {
+      actions.push(el("button", { onclick: (event) => act(event.currentTarget, "refresh", "previewing the provider entry", () => send(false)) }, "Preview"));
+      actions.push(el("button", { class: "primary", onclick: (event) => act(event.currentTarget, "start-task", "adding the provider", () => send(true)) },
+        bridge ? "Add as Claude Code bridge" : "Add to my providers"));
+    } else {
+      actions.push(el("span", { class: "muted" }, `Not addable: ${item.integration_notes || SERVICE_STATUS[item.integration_status] || item.integration_status}`));
+    }
+    return el("div", { class: "svc-panel" },
+      el("ul", { class: "svc-endpoints" }, ...(item.endpoints || []).map((ep) => el("li", {}, `${ep.id} · ${ep.protocol} · `, el("code", {}, ep.base_url || "")))),
+      el("div", { class: "row" },
+        el("label", {}, "Endpoint", endpoint),
+        el("button", { onclick: (event) => act(event.currentTarget, "refresh", `asking ${item.name || item.id} for its models`, async () => {
+          const { models } = await api("services/discover", { service: item.id, endpoint: endpoint.value || undefined });
+          fillModels(models || []);
+          toast(`${(models || []).length} model${(models || []).length === 1 ? "" : "s"} listed`);
+        }) }, "List models")),
+      el("div", { class: "row" },
+        plans.length ? el("label", {}, "Plan", plan) : null,
+        el("label", {}, "Model", model)),
+      el("div", { class: "row" }, ...classes.map((box) => el("label", { class: "inline switch" }, box, ` ${box.value}`)), ackLabel),
+      el("div", { class: "row" }, ...actions),
+      result);
+  }
+
+  async function loadServices() {
+    renderServices(await api("services"));
+  }
+
   function wireSimple() {
     wireForeman();
+    $("services-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the model service catalog", loadServices); });
     $("compute-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading models and compute", loadCompute); });
     $("models-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the model list", async () => renderModels(await api("models"))); });
     $("models-refresh").addEventListener("click", (event) => act(event.currentTarget, "refresh", "checking the official model lists", async () => renderModels(await api("models/refresh", {}))));

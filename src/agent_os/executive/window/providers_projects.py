@@ -19,8 +19,10 @@ def project_items(
 
     For each active project (status == "active"), derive next action, blockers,
     and flags via project_next_action(); emit items for decisions_needed, stalled,
-    no_next_action, vague_next_action, and repeatedly_deferred flags. Deferral
-    counts may be provided by deferral_counts; repeated deferrals emit a project item.
+    blocked, no_next_action, vague_next_action, and repeatedly_deferred flags. A
+    blocked project emits one item with its normalized blockers and waiting-on
+    details. Deferral counts may be provided by deferral_counts; repeated deferrals
+    emit a project item.
 
     Args:
         load_projects: Callable returning list of (registry_entry, state) tuples.
@@ -108,6 +110,27 @@ def project_items(
                 }
             )
 
+        # Blocked project item (score 2), with normalized blocker details.
+        if "blocked" in flags:
+            blockers = result.get("blockers", [])
+            waiting_on = result.get("waiting_on", [])
+            sections = []
+            if blockers:
+                sections.append("Blocked by: " + "; ".join(blockers))
+            if waiting_on:
+                sections.append("Waiting on: " + "; ".join(waiting_on))
+            items.append(
+                {
+                    **base,
+                    "id": f"project:{pid}:blocked",
+                    "kind": "project_blocked",
+                    "title": f"{name} is blocked",
+                    "why": " | ".join(sections),
+                    "score": 2,
+                    "context": {"project": pid},
+                }
+            )
+
         # Repeatedly deferred project item (score 2).
         if "repeatedly_deferred" in flags:
             n = result.get("deferrals")
@@ -157,6 +180,28 @@ def project_items(
                 }
             )
 
+        # A concrete action is useful queue work when no other project issue
+        # needs attention. Unknown age is informational and does not suppress it.
+        action = result.get("next_action")
+        trimmed_action = action.strip() if isinstance(action, str) else ""
+        if (
+            trimmed_action
+            and project_actions.is_vague_action(trimmed_action) is False
+            and set(flags).issubset({"unknown_age"})
+        ):
+            action_id = hashlib.sha1(trimmed_action.encode("utf-8")).hexdigest()[:10]
+            items.append(
+                {
+                    **base,
+                    "id": f"project:{pid}:next-action:{action_id}",
+                    "kind": "project_next_action",
+                    "title": trimmed_action,
+                    "why": f"Next action for {name}",
+                    "score": 1,
+                    "context": {"project": pid},
+                }
+            )
+
     return items
 
 
@@ -193,4 +238,3 @@ def _load_projects() -> list[tuple[dict, dict]]:
         except Exception:
             continue
     return projects
-

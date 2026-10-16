@@ -1,0 +1,1722 @@
+{
+ "batch": "F",
+ "records": [
+  {
+   "id": "qwen3-coder-next",
+   "name": "Qwen3-Coder-Next",
+   "hf_repos": [
+    "Qwen/Qwen3-Coder-Next",
+    "Qwen/Qwen3-Coder-Next-Base",
+    "Qwen/Qwen3-Coder-Next-FP8",
+    "Qwen/Qwen3-Coder-Next-GGUF"
+   ],
+   "family": "Qwen3-Next / Qwen3-Coder",
+   "base_model": "Not named on the model card. A separate Qwen/Qwen3-Coder-Next-Base repo exists.",
+   "params_total_b": 80,
+   "params_active_b": 3,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": 262144,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Qwen instruct release. No claim of reduced refusals.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "OpenRouter",
+     "model_id": "qwen/qwen3-coder-next",
+     "source": "https://openrouter.ai/api/v1/models/qwen/qwen3-coder-next/endpoints"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "qwen/qwen3-coder-next",
+     "source": "https://nano-gpt.com/api/v1/models"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "SWE-bench Verified",
+     "score": "70.6",
+     "source": "https://huggingface.co/Qwen/Qwen3-Coder-Next"
+    },
+    {
+     "name": "SWE-bench Pro",
+     "score": "44.3",
+     "source": "https://huggingface.co/Qwen/Qwen3-Coder-Next"
+    },
+    {
+     "name": "Terminal-Bench 2.0",
+     "score": "36.2",
+     "source": "https://huggingface.co/Qwen/Qwen3-Coder-Next"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation"
+   ],
+   "unknown": [
+    "released",
+    "base_model"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3-Coder-Next (accessed 2026-10-12)",
+    "https://huggingface.co/api/models?author=Qwen (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/qwen/qwen3-coder-next/endpoints (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "Architecture is hybrid Gated DeltaNet + Gated Attention with MoE: 512 experts, 10 routed + 1 shared active. Non-thinking only (emits no <think> blocks). Tool calling needs the qwen3_coder parser, sglang>=0.5.8 or vllm>=0.15.0. HF repo created 2026-01-30 and last modified 2026-02-03; the card's citation shows an access date of 2026-02-03, but there is no explicit release date. OpenRouter has a single provider (Parasail, bf16). The HF router does not list it. Superseded on agentic coding by Qwen3.6/3.8 per their own cards."
+  },
+  {
+   "id": "qwen3.8-27b",
+   "name": "Qwen3.8-27B",
+   "hf_repos": [
+    "Qwen/Qwen3.8-27B",
+    "Qwen/Qwen3.8-27B-FP8"
+   ],
+   "family": "Qwen3.8",
+   "base_model": "Not named on the card (pre-training + post-training). Successor to Qwen3.6-27B.",
+   "params_total_b": 27,
+   "params_active_b": 27,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": 262144,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Qwen release. No reduced-refusal claim. Note: Venice's model list sets an 'Uncensored' trait on its qwen-3-8-27b endpoint (source HF Qwen/Qwen3.8-27B-FP8). That is a provider label, not a property of the weights.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "HF Inference Providers",
+     "model_id": "Qwen/Qwen3.8-27B (novita 1,000,000 ctx; ovhcloud; deepinfra; featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Novita",
+     "model_id": "Qwen/Qwen3.8-27B (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "Qwen/Qwen3.8-27B",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    },
+    {
+     "service": "Featherless",
+     "model_id": "Qwen/Qwen3.8-27B (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "qwen/qwen3.8-27b",
+     "source": "https://openrouter.ai/api/v1/models/qwen/qwen3.8-27b/endpoints"
+    },
+    {
+     "service": "Chutes",
+     "model_id": "Qwen/Qwen3.8-27B-TEE",
+     "source": "https://llm.chutes.ai/v1/models"
+    },
+    {
+     "service": "Venice",
+     "model_id": "qwen-3-8-27b; e2ee-qwen3-8-27b",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "qwen/qwen3.8-27b; qwen/qwen3.8-27b:thinking; TEE/qwen3.8-27b",
+     "source": "https://nano-gpt.com/api/v1/models"
+    },
+    {
+     "service": "Synthetic",
+     "model_id": "hf:Qwen/Qwen3.8-27B",
+     "source": "https://api.synthetic.new/openai/v1/models"
+    },
+    {
+     "service": "Cerebras",
+     "model_id": "qwen-3.8-27b",
+     "source": "https://inference-docs.cerebras.ai/models/overview"
+    },
+    {
+     "service": "Groq",
+     "model_id": "qwen/qwen3.8-27b (preview)",
+     "source": "https://console.groq.com/docs/models"
+    },
+    {
+     "service": "Alibaba",
+     "model_id": "listed as an OpenRouter provider for qwen/qwen3.8-27b (native Model Studio id not verified)",
+     "source": "https://openrouter.ai/api/v1/models/qwen/qwen3.8-27b/endpoints"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "Terminal-Bench 2.1 (Terminus)",
+     "score": "73.0",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    },
+    {
+     "name": "SWE-bench Pro",
+     "score": "61.7",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    },
+    {
+     "name": "DeepSWE 1.1",
+     "score": "42.2",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    },
+    {
+     "name": "NL2Repo-Bench",
+     "score": "42.3",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    },
+    {
+     "name": "LiveCodeBench v6",
+     "score": "90.3",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    },
+    {
+     "name": "GPQA Diamond",
+     "score": "89.2",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    },
+    {
+     "name": "HLE",
+     "score": "30.8",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    },
+    {
+     "name": "IFBench",
+     "score": "79.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "research",
+    "extraction",
+    "lore",
+    "creative"
+   ],
+   "unknown": [
+    "released",
+    "base_model"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.8-27B (accessed 2026-10-12)",
+    "https://huggingface.co/api/models?author=Qwen (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/qwen/qwen3.8-27b/endpoints (accessed 2026-10-12)",
+    "https://llm.chutes.ai/v1/models (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://api.synthetic.new/openai/v1/models (accessed 2026-10-12)",
+    "https://inference-docs.cerebras.ai/models/overview (accessed 2026-10-12)",
+    "https://console.groq.com/docs/models (accessed 2026-10-12)",
+    "https://api.deepinfra.com/v1/openai/models (accessed 2026-10-12)"
+   ],
+   "notes": "THE MODEL EXISTS: Qwen3.8-27B is a real release (HF repo created 2026-08-05; card citation 'August, 2026'). Dense hybrid Gated DeltaNet/Gated Attention with MTP. Native vision-language (image/video input). Context is 262,144 native, up to 1M with static YaRN, which the card warns may hurt short-text performance. Thinking is on by default; reasoning_effort is xhigh (default) | medium | low, and it can be disabled with enable_thinking=false. HF safetensors metadata shows 28B. Provider context varies: Novita/Phala/Alibaba 1M, Cerebras 65,536 (Cerebras docs say 64k free / 128k paid). The card's benchmark table compares against 'Opus 4.6 Max' (vendor-chosen comparator). NanoGPT also lists community variants such as qwen/qwen3.8-27b-uncensored, -obliterated, -novelist, -antislop, -darkidol; their provenance and method were not verified. Other Qwen3.8 open repos: Qwen/Qwen3.8-2.4T-A95B(-FP8) and Qwen/Qwen3.8-Flash-Next(-FP8)."
+  },
+  {
+   "id": "qwen3.8-flash-next",
+   "name": "Qwen3.8-Flash-Next",
+   "hf_repos": [
+    "Qwen/Qwen3.8-Flash-Next",
+    "Qwen/Qwen3.8-Flash-Next-FP8"
+   ],
+   "family": "Qwen3.8 (experimental Qwen4-architecture preview)",
+   "base_model": "Not specified on the card",
+   "params_total_b": 125,
+   "params_active_b": 6,
+   "license": "qwen-community-1.0",
+   "open_weights": true,
+   "context_window": 262144,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Qwen release. No reduced-refusal claim.",
+   "abliteration_method": null,
+   "served_by": [],
+   "benchmarks_prior": [
+    {
+     "name": "SWE-bench Pro",
+     "score": "62.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next"
+    },
+    {
+     "name": "GPQA Diamond",
+     "score": "91.7",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next"
+    },
+    {
+     "name": "LiveCodeBench v6",
+     "score": "91.9",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next"
+    },
+    {
+     "name": "IFBench",
+     "score": "81.3",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next"
+    },
+    {
+     "name": "DeepSWE 1.1",
+     "score": "58.7",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next"
+    },
+    {
+     "name": "Toolathlon Verified",
+     "score": "73.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "research"
+   ],
+   "unknown": [
+    "released",
+    "base_model",
+    "served_by"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.8-Flash-Next (accessed 2026-10-12)",
+    "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/blob/main/LICENSE (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "Included as a nearby real Qwen3.8 release. Params are 125B total and 6B activated, plus 51B n-gram embedding and 4B MTP; HF safetensors metadata says 180B, which conflicts with the card text. Context is 262,144, extensible to 1M. LICENSE differs from Apache: Qwen Community License 1.0 requires a separate license from Qwen before any commercial use by an entity running a 'Model as a Service' or 'AI Work Assistant' (AI coding/office productivity product) business, and a model-name display for products over 100M MAU or $20M monthly revenue. Internal use with no third-party access is exempt. Not found on the HF router. Hosted availability was not verified; NanoGPT lists qwen/qwen3.8-flash, but that may be the closed API model, not this repo."
+  },
+  {
+   "id": "qwen3.6-35b-a3b",
+   "name": "Qwen3.6-35B-A3B",
+   "hf_repos": [
+    "Qwen/Qwen3.6-35B-A3B",
+    "Qwen/Qwen3.6-35B-A3B-FP8"
+   ],
+   "family": "Qwen3.6",
+   "base_model": null,
+   "params_total_b": 35,
+   "params_active_b": 3,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": 262144,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Qwen release. No reduced-refusal claim.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "HF Inference Providers",
+     "model_id": "Qwen/Qwen3.6-35B-A3B (deepinfra, scaleway, featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "Qwen/Qwen3.6-35B-A3B",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    },
+    {
+     "service": "Featherless",
+     "model_id": "Qwen/Qwen3.6-35B-A3B (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "qwen/qwen3.6-35b-a3b",
+     "source": "https://openrouter.ai/api/v1/models/qwen/qwen3.6-35b-a3b/endpoints"
+    },
+    {
+     "service": "Venice",
+     "model_id": "qwen3-6-35b-a3b; e2ee-qwen3-6-35b-a3b (32k ctx)",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "qwen/qwen3.6-35b-a3b; qwen/qwen3.6-35b-a3b:thinking; TEE/qwen3.6-35b-a3b",
+     "source": "https://nano-gpt.com/api/v1/models"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "SWE-bench Verified",
+     "score": "73.4",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
+    },
+    {
+     "name": "SWE-bench Pro",
+     "score": "49.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
+    },
+    {
+     "name": "Terminal-Bench 2.0",
+     "score": "51.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
+    },
+    {
+     "name": "LiveCodeBench v6",
+     "score": "80.4",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
+    },
+    {
+     "name": "MCP-Atlas",
+     "score": "62.8",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
+    },
+    {
+     "name": "MMLU-Pro",
+     "score": "85.2",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
+    },
+    {
+     "name": "SuperGPQA",
+     "score": "64.7",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "extraction",
+    "research"
+   ],
+   "unknown": [
+    "released",
+    "base_model"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.6-35B-A3B (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/qwen/qwen3.6-35b-a3b/endpoints (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://api.deepinfra.com/v1/openai/models (accessed 2026-10-12)"
+   ],
+   "notes": "Small-active MoE that is cheap to self-host. Context is 262,144 native, YaRN to 1,010,000. Thinking is on by default; enable_thinking=false gives instruct mode; preserve_thinking is available. HF repo created 2026-04-15; card citation says April 2026."
+  },
+  {
+   "id": "qwen3.6-27b",
+   "name": "Qwen3.6-27B",
+   "hf_repos": [
+    "Qwen/Qwen3.6-27B",
+    "Qwen/Qwen3.6-27B-FP8"
+   ],
+   "family": "Qwen3.6",
+   "base_model": null,
+   "params_total_b": 27,
+   "params_active_b": 27,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": 262144,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Qwen release.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "HF Inference Providers",
+     "model_id": "Qwen/Qwen3.6-27B (ovhcloud, deepinfra, featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "qwen/qwen3.6-27b",
+     "source": "https://openrouter.ai/api/v1/models/qwen/qwen3.6-27b/endpoints"
+    },
+    {
+     "service": "Chutes",
+     "model_id": "Qwen/Qwen3.6-27B-TEE",
+     "source": "https://llm.chutes.ai/v1/models"
+    },
+    {
+     "service": "Venice",
+     "model_id": "qwen3-6-27b",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "qwen/qwen3.6-27b; qwen/qwen3.6-27b:thinking; TEE/qwen3.6-27b",
+     "source": "https://nano-gpt.com/api/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "Qwen/Qwen3.6-27B",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "SWE-bench Verified",
+     "score": "77.2",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-27B"
+    },
+    {
+     "name": "SWE-bench Pro",
+     "score": "53.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-27B"
+    },
+    {
+     "name": "Terminal-Bench 2.0",
+     "score": "59.3",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-27B"
+    },
+    {
+     "name": "LiveCodeBench v6",
+     "score": "83.9",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-27B"
+    },
+    {
+     "name": "MMLU-Pro",
+     "score": "86.2",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-27B"
+    },
+    {
+     "name": "GPQA Diamond",
+     "score": "87.8",
+     "source": "https://huggingface.co/Qwen/Qwen3.6-27B"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "research",
+    "extraction"
+   ],
+   "unknown": [
+    "released",
+    "base_model"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.6-27B (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/qwen/qwen3.6-27b/endpoints (accessed 2026-10-12)",
+    "https://llm.chutes.ai/v1/models (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "Predecessor to Qwen3.8-27B; the Qwen3.8-27B card shows large gains over it. Context is 262,144 native, up to 1,010,000. Card citation says April 2026; HF repo created 2026-04-21. Alibaba is also listed as an OpenRouter provider."
+  },
+  {
+   "id": "qwen3.5-9b",
+   "name": "Qwen3.5-9B",
+   "hf_repos": [
+    "Qwen/Qwen3.5-9B",
+    "Qwen/Qwen3.5-9B-Base"
+   ],
+   "family": "Qwen3.5 (small)",
+   "base_model": "Qwen/Qwen3.5-9B-Base (separate base repo exists)",
+   "params_total_b": 9,
+   "params_active_b": null,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": 262144,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Qwen release.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "HF Inference Providers",
+     "model_id": "Qwen/Qwen3.5-9B (together, ovhcloud, deepinfra, featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Together",
+     "model_id": "Qwen/Qwen3.5-9B (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "qwen/qwen3.5-9b",
+     "source": "https://openrouter.ai/api/v1/models/qwen/qwen3.5-9b/endpoints"
+    },
+    {
+     "service": "Venice",
+     "model_id": "qwen3-5-9b",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "qwen/qwen3.5-9b",
+     "source": "https://nano-gpt.com/api/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "Qwen/Qwen3.5-9B",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "MMLU-Pro",
+     "score": "82.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "GPQA Diamond",
+     "score": "81.7",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "LiveCodeBench v6",
+     "score": "65.6",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "IFEval",
+     "score": "91.5",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "BFCL-V4",
+     "score": "66.1",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "TAU2-Bench",
+     "score": "79.1",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "extraction",
+    "automation"
+   ],
+   "unknown": [
+    "params_active_b (card ambiguous on dense vs MoE)",
+    "released"
+   ],
+   "sources": [
+    "https://huggingface.co/Qwen/Qwen3.5-9B (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/qwen/qwen3.5-9b/endpoints (accessed 2026-10-12)"
+   ],
+   "notes": "The card's overview lists a standard FFN, which suggests a dense model, but the series highlights mention sparse MoE, so active params are left unknown. HF metadata says 10B. Vision-language (image-text-to-text). Context is 262,144 native, up to 1,010,000 with YaRN. Card citation says February 2026. Other Qwen3.5 small sizes with real repos: Qwen/Qwen3.5-0.8B, Qwen/Qwen3.5-2B, Qwen/Qwen3.5-4B. Qwen3.5 has no 8B/14B/30B-A3B; the closest sizes are 9B, 27B and 35B-A3B. Older Qwen3 4B/8B/14B/30B-A3B are superseded and were not re-researched."
+  },
+  {
+   "id": "qwen3.5-4b",
+   "name": "Qwen3.5-4B",
+   "hf_repos": [
+    "Qwen/Qwen3.5-4B",
+    "Qwen/Qwen3.5-4B-Base"
+   ],
+   "family": "Qwen3.5 (small)",
+   "base_model": "Qwen/Qwen3.5-4B-Base (separate base repo exists)",
+   "params_total_b": 4.66,
+   "params_active_b": null,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Qwen release.",
+   "abliteration_method": null,
+   "served_by": [],
+   "benchmarks_prior": [
+    {
+     "name": "MMLU-Pro",
+     "score": "79.1",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "GPQA Diamond",
+     "score": "76.2",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "LiveCodeBench v6",
+     "score": "55.8",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "IFEval",
+     "score": "89.8",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "BFCL-V4",
+     "score": "50.3",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+     "name": "TAU2-Bench",
+     "score": "79.9",
+     "source": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "extraction"
+   ],
+   "unknown": [
+    "context_window",
+    "released",
+    "params_active_b",
+    "served_by"
+   ],
+   "sources": [
+    "https://huggingface.co/api/models/Qwen/Qwen3.5-4B (accessed 2026-10-12)",
+    "https://huggingface.co/Qwen/Qwen3.5-9B (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "Param count is from HF safetensors metadata (4,659,865,088). Benchmarks come from the comparison table on the 9B card. The 4B card itself was not read for context, so context_window is null; the 9B sibling has 262,144. Not on the HF router. No hosted provider was verified. Best suited to local/edge use."
+  },
+  {
+   "id": "glm-5.3",
+   "name": "GLM-5.3",
+   "hf_repos": [
+    "zai-org/GLM-5.3",
+    "zai-org/GLM-5.3-BF16"
+   ],
+   "family": "GLM-5",
+   "base_model": "Same base as GLM-5.2 (per the card: all gains from post-training)",
+   "params_total_b": 753,
+   "params_active_b": null,
+   "license": "glm-5.3 (custom, MIT-style grant plus a Z.AI security review for MaaS businesses with more than $10B revenue over 12 months)",
+   "open_weights": true,
+   "context_window": 1000000,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Z.ai release. No reduced-refusal claim.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "Z.ai",
+     "model_id": "glm-5.3",
+     "source": "https://docs.z.ai/guides/llm/glm-5.3"
+    },
+    {
+     "service": "HF Inference Providers",
+     "model_id": "zai-org/GLM-5.3 (novita, together, fireworks-ai, baseten, deepinfra, zai-org, featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Together",
+     "model_id": "zai-org/GLM-5.3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Fireworks",
+     "model_id": "zai-org/GLM-5.3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Novita",
+     "model_id": "zai-org/GLM-5.3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "zai-org/GLM-5.3",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    },
+    {
+     "service": "Featherless",
+     "model_id": "zai-org/GLM-5.3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "z-ai/glm-5.3",
+     "source": "https://openrouter.ai/api/v1/models/z-ai/glm-5.3/endpoints"
+    },
+    {
+     "service": "Synthetic",
+     "model_id": "hf:zai-org/GLM-5.3 (524,288 ctx)",
+     "source": "https://api.synthetic.new/openai/v1/models"
+    },
+    {
+     "service": "Venice",
+     "model_id": "z-ai-glm-5-3; e2ee-glm-5-3-p",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "z-ai/glm-5.3; z-ai/glm-5.3:thinking; TEE/glm-5.3",
+     "source": "https://nano-gpt.com/api/v1/models"
+    },
+    {
+     "service": "NVIDIA",
+     "model_id": "z-ai/glm-5.3",
+     "source": "https://integrate.api.nvidia.com/v1/models"
+    },
+    {
+     "service": "Poe",
+     "model_id": "GLM-5.3 (official bot, operated by @novitaai)",
+     "source": "https://poe.com/GLM-5.3"
+    },
+    {
+     "service": "Alibaba",
+     "model_id": "listed as an OpenRouter provider for z-ai/glm-5.3",
+     "source": "https://openrouter.ai/api/v1/models/z-ai/glm-5.3/endpoints"
+    },
+    {
+     "service": "Mistral",
+     "model_id": "listed as an OpenRouter provider for z-ai/glm-5.3",
+     "source": "https://openrouter.ai/api/v1/models/z-ai/glm-5.3/endpoints"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "Terminal-Bench 2.1",
+     "score": "88.2",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "Terminal-Bench 3.0",
+     "score": "28.3",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "DeepSWE v1.1",
+     "score": "66.9",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "HLE w/ tools",
+     "score": "62.5",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "Toolathlon Verified",
+     "score": "73.0",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "AutomationBench v1.0.6",
+     "score": "48.2",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "Agents' Last Exam (ALE-CLI)",
+     "score": "28.5",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "GDPval-AA v2",
+     "score": "1769",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    },
+    {
+     "name": "CyberGym",
+     "score": "84.5",
+     "source": "https://huggingface.co/zai-org/GLM-5.3"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "research",
+    "extraction",
+    "lore",
+    "creative"
+   ],
+   "unknown": [
+    "params_active_b",
+    "released"
+   ],
+   "sources": [
+    "https://huggingface.co/zai-org/GLM-5.3 (accessed 2026-10-12)",
+    "https://huggingface.co/zai-org/GLM-5.3/blob/main/LICENSE (accessed 2026-10-12)",
+    "https://docs.z.ai/guides/llm/glm-5.3 (accessed 2026-10-12)",
+    "https://huggingface.co/zai-org/GLM-5.2 (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/z-ai/glm-5.3/endpoints (accessed 2026-10-12)",
+    "https://api.synthetic.new/openai/v1/models (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://integrate.api.nvidia.com/v1/models (accessed 2026-10-12)",
+    "https://poe.com/GLM-5.3 (accessed 2026-10-12)"
+   ],
+   "notes": "Z.ai docs: 1M context, 128K max output, text-only input. Reasoning is always on, with effort low | high | max (default max); it cannot be disabled. Base URLs exactly as documented: OpenAI Chat Completions https://api.z.ai/api/coding/paas/v4 (Quick Start examples use https://api.z.ai/api/paas/v4/chat/completions), OpenAI Responses https://api.z.ai/api/v1, Anthropic https://api.z.ai/api/anthropic. Available to all GLM Coding Plan users (points quota; off-peak and weekends cost 50% points). The HF card says clear_thinking defaults to false and recommends true for chat. LICENSE CHANGE: GLM-5.2 was MIT, but GLM-5.3 uses a custom 'glm-5.3' license. Active params are not published (HF metadata says 753B total). Repo created 2026-08-25; no explicit release date. Provider contexts vary: Synthetic 524,288; Reka 262,144. Docs comparisons cite 'Mythos 5' and 'GPT-5.6 Sol' as vendor-chosen comparators."
+  },
+  {
+   "id": "glm-5.3-flash",
+   "name": "GLM-5.3-Flash",
+   "hf_repos": [
+    "zai-org/GLM-5.3-Flash",
+    "zai-org/GLM-5.3-Flash-BF16"
+   ],
+   "family": "GLM-5",
+   "base_model": null,
+   "params_total_b": 320,
+   "params_active_b": 18,
+   "license": "mit",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official Z.ai release.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "HF Inference Providers",
+     "model_id": "zai-org/GLM-5.3-Flash (novita, together, fireworks-ai, baseten, deepinfra, zai-org, featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "z-ai/glm-5.3-flash",
+     "source": "https://openrouter.ai/api/v1/models/z-ai/glm-5.3-flash/endpoints"
+    },
+    {
+     "service": "Z.ai",
+     "model_id": "listed as an OpenRouter provider (Z.AI) for z-ai/glm-5.3-flash; the Z.ai docs page for GLM-5.3 lists only glm-5.3",
+     "source": "https://openrouter.ai/api/v1/models/z-ai/glm-5.3-flash/endpoints"
+    },
+    {
+     "service": "Synthetic",
+     "model_id": "hf:zai-org/GLM-5.3-Flash (524,288 ctx)",
+     "source": "https://api.synthetic.new/openai/v1/models"
+    },
+    {
+     "service": "Venice",
+     "model_id": "z-ai-glm-5-3-flash; e2ee-glm-5-3-flash",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "z-ai/glm-5.3-flash; TEE/glm-5.3-flash",
+     "source": "https://nano-gpt.com/api/v1/models"
+    },
+    {
+     "service": "NVIDIA",
+     "model_id": "z-ai/glm-5.3-flash",
+     "source": "https://integrate.api.nvidia.com/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "zai-org/GLM-5.3-Flash",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    },
+    {
+     "service": "Together",
+     "model_id": "zai-org/GLM-5.3-Flash (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Fireworks",
+     "model_id": "zai-org/GLM-5.3-Flash (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Novita",
+     "model_id": "zai-org/GLM-5.3-Flash (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "Terminal-Bench 2.1",
+     "score": "84.3",
+     "source": "https://huggingface.co/zai-org/GLM-5.3-Flash"
+    },
+    {
+     "name": "ExtractBench mean",
+     "score": "80.75",
+     "source": "https://huggingface.co/zai-org/GLM-5.3-Flash"
+    },
+    {
+     "name": "Agent's Last Exam (ALE CLI)",
+     "score": "26.3",
+     "source": "https://huggingface.co/zai-org/GLM-5.3-Flash"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "extraction",
+    "research"
+   ],
+   "unknown": [
+    "context_window (model card)",
+    "released",
+    "base_model"
+   ],
+   "sources": [
+    "https://huggingface.co/zai-org/GLM-5.3-Flash (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/z-ai/glm-5.3-flash/endpoints (accessed 2026-10-12)",
+    "https://api.synthetic.new/openai/v1/models (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://integrate.api.nvidia.com/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "MIT licence, unlike the flagship GLM-5.3. The card calls it the first natively multimodal model in the GLM-5 series, claims it beats GLM-5.2 at one-tenth the price, and says it 'approaches Claude Opus 4.8' on coding/agentic work (vendor claim). The card gives no context window; the HF router and OpenRouter show 1,048,576 for most providers. Relevant for extraction (ExtractBench reported). NanoGPT also lists z-ai/glm-5.3-flash-uncensored and z-ai/glm-5.3-flash-apex-abliterated; their provenance was not verified."
+  },
+  {
+   "id": "minimax-m3",
+   "name": "MiniMax-M3",
+   "hf_repos": [
+    "MiniMaxAI/MiniMax-M3",
+    "MiniMaxAI/MiniMax-M3-MXFP8"
+   ],
+   "family": "MiniMax-M",
+   "base_model": null,
+   "params_total_b": 428,
+   "params_active_b": 23,
+   "license": "minimax-community (commercial use allowed with 'Built with MiniMax M3' attribution, a one-time notice to api@minimax.io, prior written authorization above $20M yearly revenue, and an AUP that bars military use etc.)",
+   "open_weights": true,
+   "context_window": 1000000,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official release. No reduced-refusal claim. The license includes an acceptable-use appendix.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "MiniMax",
+     "model_id": "MiniMax-M3",
+     "source": "https://platform.minimax.io/docs/guides/models-intro"
+    },
+    {
+     "service": "HF Inference Providers",
+     "model_id": "MiniMaxAI/MiniMax-M3 (novita 1M, together 524,288, fireworks-ai 512,000, deepinfra 524,288, featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Together",
+     "model_id": "MiniMaxAI/MiniMax-M3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Fireworks",
+     "model_id": "MiniMaxAI/MiniMax-M3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Novita",
+     "model_id": "MiniMaxAI/MiniMax-M3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "MiniMaxAI/MiniMax-M3",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "minimax/minimax-m3",
+     "source": "https://openrouter.ai/api/v1/models/minimax/minimax-m3/endpoints"
+    },
+    {
+     "service": "Venice",
+     "model_id": "minimax-m3-preview (524,288 ctx)",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "minimax/minimax-m3; minimax/minimax-m3:thinking",
+     "source": "https://nano-gpt.com/api/v1/models"
+    },
+    {
+     "service": "Poe",
+     "model_id": "MiniMax-M3 (official bot, operated by @minimax)",
+     "source": "https://poe.com/MiniMax-M3"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "SWE-bench Verified",
+     "score": "80.5",
+     "source": "https://huggingface.co/MiniMaxAI/MiniMax-M3"
+    },
+    {
+     "name": "SWE-bench Pro",
+     "score": "59",
+     "source": "https://huggingface.co/MiniMaxAI/MiniMax-M3"
+    },
+    {
+     "name": "MMMU-Pro (10 options)",
+     "score": "78.1",
+     "source": "https://huggingface.co/MiniMaxAI/MiniMax-M3"
+    },
+    {
+     "name": "Long-Horizon Terminal Bench (mean reward x100, 46 tasks)",
+     "score": "38.5",
+     "source": "https://huggingface.co/MiniMaxAI/MiniMax-M3"
+    },
+    {
+     "name": "APEX-Agents",
+     "score": "27.7",
+     "source": "https://huggingface.co/MiniMaxAI/MiniMax-M3"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "research",
+    "extraction"
+   ],
+   "unknown": [
+    "released",
+    "base_model"
+   ],
+   "sources": [
+    "https://huggingface.co/MiniMaxAI/MiniMax-M3 (accessed 2026-10-12)",
+    "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/main/LICENSE (accessed 2026-10-12)",
+    "https://platform.minimax.io/docs/guides/models-intro (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/minimax/minimax-m3/endpoints (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://poe.com/MiniMax-M3 (accessed 2026-10-12)"
+   ],
+   "notes": "Native multimodal (text/image/video) MoE using MiniMax Sparse Attention. The thinking parameter takes enabled | adaptive | disabled. HF safetensors says 427B. Repo created 2026-06-02; paper arXiv 2606.13392. Newer: MiniMax-M3.1-Flash-Preview (1M context) is on the MiniMax platform, available only via M Plan and MiniMax Code for now; no open weights were seen. MiniMax M2.5/M2.7 close to new users on 2026-10-19, retire on 2026-11-18, and M Plan/Token Plan requests reroute to M3.1-Flash-Preview from 2026-10-19. Hosted context is often 512K, not 1M. The MiniMax docs page did not state the API base URL."
+  },
+  {
+   "id": "kimi-k3",
+   "name": "Kimi K3",
+   "hf_repos": [
+    "moonshotai/Kimi-K3"
+   ],
+   "family": "Kimi-K",
+   "base_model": null,
+   "params_total_b": 2800,
+   "params_active_b": 104,
+   "license": "Kimi K3 License (custom permissive: MaaS businesses with more than $20M revenue over 12 months need a separate agreement; products with more than 100M MAU or $20M monthly revenue must display 'Kimi K3'; internal use is exempt)",
+   "open_weights": true,
+   "context_window": 1048576,
+   "released": null,
+   "refusal_profile": "standard",
+   "refusal_evidence": "Official release. No reduced-refusal claim.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "Kimi",
+     "model_id": "kimi-k3",
+     "source": "https://huggingface.co/moonshotai/Kimi-K3"
+    },
+    {
+     "service": "HF Inference Providers",
+     "model_id": "moonshotai/Kimi-K3 (together, fireworks-ai, baseten, deepinfra, featherless-ai)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Together",
+     "model_id": "moonshotai/Kimi-K3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "Fireworks",
+     "model_id": "moonshotai/Kimi-K3 (via HF router)",
+     "source": "https://router.huggingface.co/v1/models"
+    },
+    {
+     "service": "DeepInfra",
+     "model_id": "moonshotai/Kimi-K3",
+     "source": "https://api.deepinfra.com/v1/openai/models"
+    },
+    {
+     "service": "OpenRouter",
+     "model_id": "moonshotai/kimi-k3",
+     "source": "https://openrouter.ai/api/v1/models/moonshotai/kimi-k3/endpoints"
+    },
+    {
+     "service": "Chutes",
+     "model_id": "moonshotai/Kimi-K3-TEE",
+     "source": "https://llm.chutes.ai/v1/models"
+    },
+    {
+     "service": "Synthetic",
+     "model_id": "hf:moonshotai/Kimi-K3 (524,288 ctx)",
+     "source": "https://api.synthetic.new/openai/v1/models"
+    },
+    {
+     "service": "Venice",
+     "model_id": "kimi-k3; e2ee-kimi-k3-p",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "moonshotai/kimi-k3; TEE/kimi-k3",
+     "source": "https://nano-gpt.com/api/v1/models"
+    },
+    {
+     "service": "NVIDIA",
+     "model_id": "moonshotai/kimi-k3",
+     "source": "https://integrate.api.nvidia.com/v1/models"
+    },
+    {
+     "service": "Poe",
+     "model_id": "Kimi-K3 (official bot, operated by @moonshotai)",
+     "source": "https://poe.com/Kimi-K3"
+    },
+    {
+     "service": "Alibaba",
+     "model_id": "listed as an OpenRouter provider for moonshotai/kimi-k3",
+     "source": "https://openrouter.ai/api/v1/models/moonshotai/kimi-k3/endpoints"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "GPQA Diamond",
+     "score": "93.5",
+     "source": "https://huggingface.co/moonshotai/Kimi-K3"
+    },
+    {
+     "name": "HLE-Full (no tools / with tools)",
+     "score": "43.5 / 56.0",
+     "source": "https://huggingface.co/moonshotai/Kimi-K3"
+    },
+    {
+     "name": "Terminal-Bench 2.1",
+     "score": "88.3",
+     "source": "https://huggingface.co/moonshotai/Kimi-K3"
+    },
+    {
+     "name": "DeepSWE",
+     "score": "67.5",
+     "source": "https://huggingface.co/moonshotai/Kimi-K3"
+    },
+    {
+     "name": "BrowseComp",
+     "score": "91.2",
+     "source": "https://huggingface.co/moonshotai/Kimi-K3"
+    },
+    {
+     "name": "OSWorld-Verified",
+     "score": "84.8",
+     "source": "https://huggingface.co/moonshotai/Kimi-K3"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "coding",
+    "automation",
+    "research",
+    "lore",
+    "creative"
+   ],
+   "unknown": [
+    "released",
+    "base_model"
+   ],
+   "sources": [
+    "https://huggingface.co/moonshotai/Kimi-K3 (accessed 2026-10-12)",
+    "https://huggingface.co/moonshotai/Kimi-K3/blob/main/LICENSE (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/moonshotai/kimi-k3/endpoints (accessed 2026-10-12)",
+    "https://llm.chutes.ai/v1/models (accessed 2026-10-12)",
+    "https://api.synthetic.new/openai/v1/models (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://integrate.api.nvidia.com/v1/models (accessed 2026-10-12)",
+    "https://poe.com/Kimi-K3 (accessed 2026-10-12)"
+   ],
+   "notes": "MoE: 93 layers, KDA + Gated MLA, 896 experts (16 active + 2 shared). Weights are MXFP4 with MXFP8 activations via QAT. Thinking is always on and returns reasoning_content; reasoning_effort low | high | max (default max). The HF card says the Kimi platform domain is platform.kimi.ai, offering OpenAI- and Anthropic-compatible APIs; the base URL was not captured in this batch. Repo created 2026-06-13; benchmarks dated 'as of July 23, 2026'. The release date is ambiguous, so it is null. Kimi-K2.7-Code (moonshotai/Kimi-K2.7-Code) also exists as a coding-specific predecessor. Many hosts cap context at 524,288. Very large (2.8T): self-hosting is impractical."
+  },
+  {
+   "id": "hermes-4-405b",
+   "name": "Hermes 4 405B",
+   "hf_repos": [
+    "NousResearch/Hermes-4-405B",
+    "NousResearch/Hermes-4-405B-FP8"
+   ],
+   "family": "Hermes 4 (Nous Research)",
+   "base_model": "meta-llama/Llama-3.1-405B",
+   "params_total_b": 406,
+   "params_active_b": 406,
+   "license": "llama3",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "low",
+   "refusal_evidence": "Card claims 'extreme improvements on steerability, especially on reduced refusal rates', 'broadly neutral alignment' and SOTA on RefusalBench (Nous's own benchmark). Achieved by post-training (fine-tune), not abliteration.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "OpenRouter",
+     "model_id": "nousresearch/hermes-4-405b (Nebius, fp8, 131,072 ctx)",
+     "source": "https://openrouter.ai/api/v1/models/nousresearch/hermes-4-405b/endpoints"
+    },
+    {
+     "service": "Nebius",
+     "model_id": "sole OpenRouter provider for nousresearch/hermes-4-405b",
+     "source": "https://openrouter.ai/api/v1/models/nousresearch/hermes-4-405b/endpoints"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "nousresearch/hermes-4-405b; nousresearch/hermes-4-405b:thinking",
+     "source": "https://nano-gpt.com/api/v1/models"
+    }
+   ],
+   "benchmarks_prior": [
+    {
+     "name": "RefusalBench (reasoning, avg of 5) [secondary: third-party-hosted table attributed to Nous]",
+     "score": "57.10%",
+     "source": "https://lmstudio.ai/nousresearch/hermes-4.3-36b"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative",
+    "lore",
+    "research"
+   ],
+   "unknown": [
+    "context_window",
+    "released",
+    "benchmarks (tables only in images and the arXiv PDF, which could not be parsed)"
+   ],
+   "sources": [
+    "https://huggingface.co/NousResearch/Hermes-4-405B (accessed 2026-10-12)",
+    "https://arxiv.org/abs/2508.18255 (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/nousresearch/hermes-4-405b/endpoints (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "Hybrid reasoning with <think> segments. Tech report arXiv 2508.18255 dated 2025-08-25; repo created 2025-08-06. The HF card's 'Inference Providers' text lists Nous Portal, Chutes, Nebius and Luminal, but the HF widget says no HF Inference Provider deploys it, and Chutes' public /v1/models showed no Hermes-4 entry. Treat Chutes as unverified. Llama 3 community licence terms apply. Old (2025) base; capability is well below 2026 frontier models for coding."
+  },
+  {
+   "id": "hermes-4-70b",
+   "name": "Hermes 4 70B",
+   "hf_repos": [
+    "NousResearch/Hermes-4-70B",
+    "NousResearch/Hermes-4-70B-FP8"
+   ],
+   "family": "Hermes 4 (Nous Research)",
+   "base_model": "meta-llama/Meta-Llama-3.1-70B",
+   "params_total_b": 70,
+   "params_active_b": 70,
+   "license": "llama3",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "low",
+   "refusal_evidence": "Same Hermes 4 reduced-refusal post-training claims. The Hermes 4.3 card reports Hermes 4 70B (reasoning) at 59.50% on RefusalBench.",
+   "abliteration_method": null,
+   "served_by": [],
+   "benchmarks_prior": [
+    {
+     "name": "RefusalBench (reasoning)",
+     "score": "59.50%",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "AIME 24 / AIME 25",
+     "score": "73.5 / 67.4",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "GPQA Diamond",
+     "score": "66.1",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "MMLU-Pro",
+     "score": "80.7",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "IFEval",
+     "score": "78.7",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "MATH-500",
+     "score": "95.5",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "SimpleQA",
+     "score": "17.9",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative",
+    "lore"
+   ],
+   "unknown": [
+    "context_window",
+    "released",
+    "served_by"
+   ],
+   "sources": [
+    "https://huggingface.co/api/models/NousResearch/Hermes-4-70B (accessed 2026-10-12)",
+    "https://huggingface.co/NousResearch/Hermes-4.3-36B (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/nousresearch/hermes-4-70b/endpoints (accessed 2026-10-12)"
+   ],
+   "notes": "The OpenRouter model id nousresearch/hermes-4-70b exists but currently has an empty endpoints list (no live provider). A third-party search snippet cited a 131,072 context; this is unverified. Repo created 2025-08-18."
+  },
+  {
+   "id": "hermes-4-14b",
+   "name": "Hermes 4 14B",
+   "hf_repos": [
+    "NousResearch/Hermes-4-14B",
+    "NousResearch/Hermes-4-14B-FP8",
+    "NousResearch/Hermes4-Qwen3-14B-30k-CoT-budget"
+   ],
+   "family": "Hermes 4 (Nous Research)",
+   "base_model": "Qwen/Qwen3-14B-Base",
+   "params_total_b": 14,
+   "params_active_b": 14,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "low",
+   "refusal_evidence": "Card repeats the Hermes 4 RefusalBench SOTA and reduced-refusal steerability claims (fine-tune, not abliteration). No 14B-specific number is given in text.",
+   "abliteration_method": null,
+   "served_by": [],
+   "benchmarks_prior": [],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative",
+    "lore"
+   ],
+   "unknown": [
+    "context_window",
+    "released",
+    "benchmarks",
+    "served_by"
+   ],
+   "sources": [
+    "https://huggingface.co/NousResearch/Hermes-4-14B (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "The 14B param count comes from the model name and the Qwen3-14B base. The HF safetensors panel shows '425k params', an apparent metadata anomaly. Benchmarks exist only as images and in the tech report. No hosted provider was verified. Hermes4-Qwen3-14B-30k-CoT-budget is a related variant whose purpose was not researched."
+  },
+  {
+   "id": "hermes-4.3-36b",
+   "name": "Hermes 4.3 36B",
+   "hf_repos": [
+    "NousResearch/Hermes-4.3-36B",
+    "NousResearch/Hermes-4.3-36B-centralized",
+    "NousResearch/Hermes-4.3-36B-GGUF"
+   ],
+   "family": "Hermes 4 (Nous Research)",
+   "base_model": "ByteDance-Seed/Seed-OSS-36B-Base",
+   "params_total_b": 36,
+   "params_active_b": 36,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "low",
+   "refusal_evidence": "Card: 'SOTA across non-abliterated models on the RefusalBench Leaderboard', with answer rates of 74.60% (non-reasoning) and 72.29% (reasoning). Fine-tuned, not abliterated.",
+   "abliteration_method": null,
+   "served_by": [],
+   "benchmarks_prior": [
+    {
+     "name": "RefusalBench answer rate (non-reasoning / reasoning)",
+     "score": "74.60% / 72.29%",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "MMLU-Pro (Psyche)",
+     "score": "80.7",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "GPQA Diamond (Psyche)",
+     "score": "65.5",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "IFEval (Psyche)",
+     "score": "77.9",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "AIME 25 (Psyche)",
+     "score": "69.3",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    },
+    {
+     "name": "SimpleQA (Psyche)",
+     "score": "6.0",
+     "source": "https://huggingface.co/NousResearch/Hermes-4.3-36B"
+    }
+   ],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative",
+    "lore"
+   ],
+   "unknown": [
+    "context_window",
+    "released",
+    "served_by"
+   ],
+   "sources": [
+    "https://huggingface.co/NousResearch/Hermes-4.3-36B (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/nousresearch/hermes-4.3-36b/endpoints (accessed 2026-10-12)"
+   ],
+   "notes": "First Hermes trained in a decentralized way via Psyche. The card text lists Nous Portal and Chutes but also says no HF Inference Provider deploys it; OpenRouter returned 404 for nousresearch/hermes-4.3-36b. Hosting is unverified. Repo created 2025-10-28 (centralized) and 2025-11-17 (main). The very low SimpleQA (6.0) is a warning sign for lore/factual recall without RAG."
+  },
+  {
+   "id": "dolphin-mistral-24b-venice-edition",
+   "name": "Dolphin Mistral 24B Venice Edition (Venice Uncensored)",
+   "hf_repos": [
+    "dphn/Dolphin-Mistral-24B-Venice-Edition"
+   ],
+   "family": "Dolphin (dphn / Cognitive Computations) on Mistral Small",
+   "base_model": "Mistral-Small-24B-Base-2501 (model tree: fine-tuned from mistralai/Mistral-Small-24B-Instruct-2501)",
+   "params_total_b": 24,
+   "params_active_b": 24,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "low",
+   "refusal_evidence": "Card describes it as an effort to create 'the most uncensored version of Mistral 24B' and says 'Dolphin does not impose its ethics or guidelines on you'; behaviour is steered by the system prompt. Method is fine-tuning per the model tree. The card does not mention abliteration.",
+   "abliteration_method": null,
+   "served_by": [
+    {
+     "service": "Venice",
+     "model_id": "venice-uncensored-1-2 (128,000 ctx; Venice lists HF source cognitivecomputations/Dolphin-Mistral-24B-Venice-Edition)",
+     "source": "https://api.venice.ai/api/v1/models"
+    },
+    {
+     "service": "Featherless",
+     "model_id": "dphn/Dolphin-Mistral-24B-Venice-Edition (32k ctx)",
+     "source": "https://featherless.ai/models/dphn/Dolphin-Mistral-24B-Venice-Edition"
+    },
+    {
+     "service": "NanoGPT",
+     "model_id": "venice-uncensored",
+     "source": "https://nano-gpt.com/api/v1/models"
+    }
+   ],
+   "benchmarks_prior": [],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative",
+    "lore"
+   ],
+   "unknown": [
+    "context_window",
+    "released",
+    "benchmarks"
+   ],
+   "sources": [
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition (accessed 2026-10-12)",
+    "https://api.venice.ai/api/v1/models (accessed 2026-10-12)",
+    "https://featherless.ai/models/dphn/Dolphin-Mistral-24B-Venice-Edition (accessed 2026-10-12)",
+    "https://nano-gpt.com/api/v1/models (accessed 2026-10-12)",
+    "https://openrouter.ai/api/v1/models/cognitivecomputations/dolphin-mistral-24b-venice-edition:free/endpoints (accessed 2026-10-12)"
+   ],
+   "notes": "Context conflicts: the card's vLLM example uses 131072, Venice lists 128,000 and Featherless 32k. Recommended temperature is about 0.15; the template is Mistral V7-Tekken. A system prompt is strongly advised. It is the default Venice model. 'Venice Uncensored 1.2' may be a later revision than the HF repo; the version mapping is unverified. NanoGPT's 'venice-uncensored' presumably proxies Venice, but the mapping is unverified. The OpenRouter id cognitivecomputations/dolphin-mistral-24b-venice-edition:free exists but has no live endpoints. The org shows as dphn on HF, and Venice still references cognitivecomputations. Old base (Jan 2025): weak for coding and agentic work."
+  },
+  {
+   "id": "huihui-qwen3.5-abliterated",
+   "name": "Huihui Qwen3.5 abliterated (huihui-ai)",
+   "hf_repos": [
+    "huihui-ai/Huihui-Qwen3.5-0.8B-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-2B-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-4B-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-9B-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-27B-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-35B-A3B-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-122B-A10B-abliterated-GGUF"
+   ],
+   "family": "Qwen3.5 (community abliteration)",
+   "base_model": "Qwen/Qwen3.5-<size> (e.g. Qwen/Qwen3.5-27B, Qwen/Qwen3.5-35B-A3B per cardData)",
+   "params_total_b": null,
+   "params_active_b": null,
+   "license": "apache-2.0 (inherits base)",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "abliterated",
+   "refusal_evidence": "Author documents it: 'an uncensored version of Qwen/Qwen3.5-27B created with abliteration', with warnings that safety filtering is 'significantly reduced' and that it is not for production or public use.",
+   "abliteration_method": "Refusal-direction removal following Sumandora's remove-refusals-with-transformers; described as a 'crude, proof-of-concept implementation ... without using TransformerLens'. Layer and parameter details are not given for the Qwen3.5 repos.",
+   "served_by": [
+    {
+     "service": "Featherless",
+     "model_id": "huihui-ai/Huihui-Qwen3.5-27B-abliterated (32k ctx)",
+     "source": "https://featherless.ai/models/huihui-ai/Huihui-Qwen3.5-27B-abliterated"
+    }
+   ],
+   "benchmarks_prior": [],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative",
+    "lore"
+   ],
+   "unknown": [
+    "params per repo (sizes per repo name; 27B HF metadata 28B; 35B-A3B 35.95B)",
+    "context_window",
+    "released",
+    "vs_base"
+   ],
+   "sources": [
+    "https://huggingface.co/api/models?author=huihui-ai&search=Qwen3.5 (accessed 2026-10-12)",
+    "https://huggingface.co/api/models?author=huihui-ai&search=Qwen3.5-122B (accessed 2026-10-12)",
+    "https://huggingface.co/huihui-ai/Huihui-Qwen3.5-27B-abliterated (accessed 2026-10-12)",
+    "https://huggingface.co/api/models/huihui-ai/Huihui-Qwen3.5-35B-A3B-abliterated (accessed 2026-10-12)",
+    "https://featherless.ai/models/huihui-ai/Huihui-Qwen3.5-27B-abliterated (accessed 2026-10-12)",
+    "https://router.huggingface.co/v1/models (accessed 2026-10-12)"
+   ],
+   "notes": "These are all the huihui-ai Qwen3.5 repos the HF API returned (created 2026-02-27 to 2026-03-21). No 397B variant was found. The 122B-A10B variant is GGUF only. The author publishes no benchmark comparison against the base and no degradation measurement. Ollama: huihui_ai/qwen3.5-abliterated. Not on the HF router. NanoGPT lists only older huihui repos (Llama-3.3-70B, R1-distills, Qwen2.5-32B). Related third-party alternative: ArliAI/Qwen3.5-27B-Derestricted. Featherless (secondary) describes it as 'Norm-Preserving Biprojected Abliteration'; not researched further."
+  },
+  {
+   "id": "huihui-qwen3.5-claude-opus-distill-abliterated",
+   "name": "Huihui Qwen3.5 Claude-4.6-Opus (distill) abliterated",
+   "hf_repos": [
+    "huihui-ai/Huihui-Qwen3.5-4B-Claude-4.6-Opus-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-9B-Claude-4.6-Opus-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-27B-Claude-4.6-Opus-abliterated",
+    "huihui-ai/Huihui-Qwen3.5-35B-A3B-Claude-4.6-Opus-abliterated"
+   ],
+   "family": "Qwen3.5 (third-party reasoning distill + abliteration)",
+   "base_model": "For 27B: Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled (itself from Qwen/Qwen3.5-27B). Other sizes presumably analogous; unverified.",
+   "params_total_b": null,
+   "params_active_b": null,
+   "license": "apache-2.0 (27B card)",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "abliterated",
+   "refusal_evidence": "Author documents abliteration of the Jackrong distill (27B card).",
+   "abliteration_method": "Same remove-refusals-with-transformers approach (huihui 'crude PoC, no TransformerLens').",
+   "served_by": [],
+   "benchmarks_prior": [],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative"
+   ],
+   "unknown": [
+    "base_model for non-27B sizes",
+    "context_window",
+    "released",
+    "vs_base",
+    "served_by"
+   ],
+   "sources": [
+    "https://huggingface.co/api/models?author=huihui-ai&search=Qwen3.5 (accessed 2026-10-12)",
+    "https://huggingface.co/huihui-ai/Huihui-Qwen3.5-27B-Claude-4.6-Opus-abliterated (accessed 2026-10-12)"
+   ],
+   "notes": "Two-stage derivative: a community reasoning-trace distillation, then abliteration. The provenance of the distillation data and any terms affecting it are unknown, so treat it as higher risk. No benchmarks were published."
+  },
+  {
+   "id": "huihui-qwen3.6-3.8-abliterated",
+   "name": "Huihui Qwen3.6 / Qwen3.8 abliterated (huihui-ai)",
+   "hf_repos": [
+    "huihui-ai/Huihui-Qwen3.8-27B-abliterated",
+    "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
+    "huihui-ai/Huihui-Qwen3.8-27B-Coder390-EfficientThink-abliterated",
+    "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated",
+    "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-GGUF",
+    "huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated-v2-GGUF",
+    "huihui-ai/Huihui-Qwen3.6-27B-abliterated",
+    "huihui-ai/Huihui-Qwen3.6-27B-abliterated-MTP-GGUF",
+    "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated",
+    "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
+    "huihui-ai/Huihui-Qwen3.6-35B-A3B-Claude-4.6-Opus-abliterated",
+    "huihui-ai/Huihui-Qwen3.6-35B-A3B-Claude-4.7-Opus-abliterated",
+    "huihui-ai/Huihui-Qwen3.6-35B-A3B-Claude-4.7-Opus-abliterated-MTP-GGUF",
+    "huihui-ai/Huihui-ThinkingCap-Qwen3.6-27B-abliterated"
+   ],
+   "family": "Qwen3.6/3.8 (community abliteration)",
+   "base_model": "Qwen/Qwen3.8-27B; Qwen/Qwen3.8-Flash-Next; Qwen/Qwen3.6-27B; Qwen/Qwen3.6-35B-A3B (per respective cards)",
+   "params_total_b": null,
+   "params_active_b": null,
+   "license": "apache-2.0 for the Qwen3.8-27B and Qwen3.6-27B derivatives; qwen-community-1.0 for Qwen3.8-Flash-Next-abliterated",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "abliterated",
+   "refusal_evidence": "Author-documented abliteration on each card read (Qwen3.8-27B, Qwen3.8-Flash-Next, Qwen3.6-27B).",
+   "abliteration_method": "remove-refusals-with-transformers style refusal-direction removal. The Qwen3.8-27B card says the latest update ablates only layers 18 to 51, leaving the MTP and vision components unmodified, which the author says 'helps retain more of the original model's performance'. The earlier version is at revision d42ca89.",
+   "served_by": [
+    {
+     "service": "Featherless",
+     "model_id": "huihui-ai/Huihui-Qwen3.6-27B-abliterated (32k ctx)",
+     "source": "https://featherless.ai/models/huihui-ai/Huihui-Qwen3.6-27B-abliterated"
+    },
+    {
+     "service": "Featherless",
+     "model_id": "huihui-ai/Huihui-Qwen3.8-27B-abliterated (card says listed on Featherless; Featherless page not opened)",
+     "source": "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated"
+    }
+   ],
+   "benchmarks_prior": [],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative",
+    "lore"
+   ],
+   "unknown": [
+    "context_window",
+    "released",
+    "vs_base",
+    "Coder390-EfficientThink and ThinkingCap provenance"
+   ],
+   "sources": [
+    "https://huggingface.co/api/models?author=huihui-ai&search=Qwen3.8 (accessed 2026-10-12)",
+    "https://huggingface.co/api/models?author=huihui-ai&search=Qwen3.6 (accessed 2026-10-12)",
+    "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated (accessed 2026-10-12)",
+    "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-Flash-Next-abliterated (accessed 2026-10-12)",
+    "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-27B-abliterated (accessed 2026-10-12)",
+    "https://featherless.ai/models/huihui-ai/Huihui-Qwen3.6-27B-abliterated (accessed 2026-10-12)"
+   ],
+   "notes": "Not requested explicitly, but these are the newest huihui-ai Qwen abliterations and the most relevant ones. Ollama: huihui_ai/Qwen3.8-abliterated and huihui_ai/qwen3.6-abliterated:27b. No benchmark deltas are published for any of them. The Qwen3.8-Flash-Next abliteration inherits the qwen-community-1.0 MaaS/'AI Work Assistant' restriction. Huihui-Qwen3.8-27B-Coder390-EfficientThink-abliterated was created 2026-10-11 and its card was not read. Featherless caps these at 32k context."
+  },
+  {
+   "id": "huihui-gpt-oss-20b-abliterated",
+   "name": "Huihui gpt-oss-20b abliterated (v1, v2, mxfp4-v2)",
+   "hf_repos": [
+    "huihui-ai/Huihui-gpt-oss-20b-BF16-abliterated",
+    "huihui-ai/Huihui-gpt-oss-20b-BF16-abliterated-v2",
+    "huihui-ai/Huihui-gpt-oss-20b-mxfp4-abliterated-v2"
+   ],
+   "family": "gpt-oss (community abliteration)",
+   "base_model": "openai/gpt-oss-20b (via unsloth/gpt-oss-20b-BF16). v2 is fine-tuned from huihui-ai/Huihui-gpt-oss-20b-BF16-abliterated.",
+   "params_total_b": null,
+   "params_active_b": null,
+   "license": "apache-2.0",
+   "open_weights": true,
+   "context_window": null,
+   "released": null,
+   "refusal_profile": "abliterated",
+   "refusal_evidence": "Author documents an abliterated v1. v2 adds SFT on a dataset of harmful instructions generated by the v1 abliterated model, so v2 is abliteration plus a low-refusal fine-tune.",
+   "abliteration_method": "v1: abliteration, with the method not detailed on the v2 card. v2: plus SFT (TRL 0.23.0) on self-generated harmful-instruction data. The author reports loss/accuracy/entropy improving within 400 steps, an eval-train gap under 0.01, and a rising grad norm late in training.",
+   "served_by": [],
+   "benchmarks_prior": [],
+   "vs_base": null,
+   "suggested_prior_task_families": [
+    "creative"
+   ],
+   "unknown": [
+    "params_total_b",
+    "context_window",
+    "released",
+    "vs_base",
+    "served_by"
+   ],
+   "sources": [
+    "https://huggingface.co/api/models?author=huihui-ai&search=gpt-oss (accessed 2026-10-12)",
+    "https://huggingface.co/api/models?author=huihui-ai&search=oss (accessed 2026-10-12)",
+    "https://huggingface.co/huihui-ai/Huihui-gpt-oss-20b-BF16-abliterated-v2 (accessed 2026-10-12)",
+    "https://featherless.ai/models/huihui-ai/Huihui-gpt-oss-20b-BF16-abliterated-v2 (accessed 2026-10-12)"
+   ],
+   "notes": "Only 20b variants exist in the HF API listing. No huihui-ai gpt-oss-120b abliterated repo was found: the search returned none and huihui-ai/Huihui-gpt-oss-120b-BF16-abliterated returned 401 (HF's response for nonexistent or private repos). Repos were created 2025-08-06 (v1) and 2025-09-27 (v2). Quants: GGUF Q4_K_M (llama.cpp b6115+) and Ollama huihui_ai/gpt-oss-abliterated:20b-v2-q4_K_M (Ollama 0.11.8+). No benchmark comparison against the base. The 20B base is a 2025 model and weak against 2026 options. Not on Featherless (404)."
+  }
+ ],
+ "open_questions": [
+  "Agent OS MCP (agent.context) call was denied by permission mode, so no project context or handoff was loaded; the result needs routing through Agent OS by the orchestrator.",
+  "OpenRouter bulk GET https://openrouter.ai/api/v1/models returned an anomalous 10-model list with 'anthropic/...'-prefixed ids (possibly a proxy or interception artefact). Per-model /api/v1/models/{id}/endpoints calls worked and were used instead. Re-verify the bulk endpoint from the router host.",
+  "Arli AI catalogue could not be verified (api.arliai.com/v1/models returned 401; arliai.com/models returned 404). Arli serving status for every model is unknown.",
+  "Together and Fireworks native model ids were verified only through the HF Inference Providers mapping, not through their own /models endpoints (auth required).",
+  "GLM-5.3 active parameter count is not published on HF or in the Z.ai docs.",
+  "Exact public release dates are not stated on most cards. HF repo createdAt values are recorded in notes as proxies only.",
+  "Hermes 4 405B/70B/14B full benchmark tables (incl. RefusalBench per size) are only in images or the arXiv PDF, which could not be parsed. The 405B RefusalBench 57.10% figure is secondary.",
+  "Hermes 4/4.3 hosted availability conflicts: HF cards list Nous Portal, Chutes, Nebius and Luminal, but Chutes /v1/models shows no Hermes-4, OpenRouter shows only Nebius for 405B, and 70B has no live endpoints.",
+  "What Venice's 'Uncensored' trait on qwen-3-8-27b and qwen-3-6-plus means (system-prompt policy vs modified weights) is undocumented.",
+  "Provenance and method of NanoGPT's uncensored/obliterated variants (qwen/qwen3.8-27b-uncensored, -obliterated, z-ai/glm-5.3-uncensored, z-ai/glm-5.3-flash-apex-abliterated) were not verified.",
+  "No huihui-ai (or other) abliterated variant publishes benchmark deltas against its base. Degradation must be measured locally before routing to these models.",
+  "Alibaba Model Studio native model ids for qwen3.8-27b and qwen3-coder-next were not verified from official Alibaba docs (only via OpenRouter provider listings and third-party aggregators).",
+  "Qwen3.5-4B context window and the dense-vs-MoE status of Qwen3.5-4B/9B need confirmation from the 4B card or config.",
+  "Venice 'kimi-k3-fast' id was truncated in the fetch and is unverified.",
+  "Kimi platform and MiniMax platform API base URLs and /models endpoints were out of scope for this model batch and were not captured."
+ ]
+}

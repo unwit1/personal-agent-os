@@ -358,6 +358,109 @@
         else el.value = value;
     }
 
+    var KEY_CODES = { Enter: 13, Escape: 27, Tab: 9, " ": 32, Space: 32, ArrowUp: 38, ArrowDown: 40,
+        ArrowLeft: 37, ArrowRight: 39, Home: 36, End: 35, Backspace: 8, Delete: 46 };
+
+    // Widget toolkits such as Dojo (ADP Reporting) open menus on mousedown and read the legacy keyCode,
+    // so a bare .click() or a KeyboardEvent without keyCode does nothing there.
+    function pressPointer(target) {
+        var view = target.ownerDocument.defaultView || window;
+        var rect = target.getBoundingClientRect ? target.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 };
+        var point = { bubbles: true, cancelable: true, view: view, button: 0,
+            clientX: rect.left + rect.width / 2, clientY: rect.top + rect.height / 2 };
+        var Pointer = view.PointerEvent || view.MouseEvent;
+        target.dispatchEvent(new Pointer("pointerdown", point));
+        target.dispatchEvent(new view.MouseEvent("mousedown", point));
+        target.dispatchEvent(new Pointer("pointerup", point));
+        target.dispatchEvent(new view.MouseEvent("mouseup", point));
+    }
+
+    function pressKey(target, key) {
+        var view = target.ownerDocument.defaultView || window;
+        var code = KEY_CODES[key] || (key.length === 1 ? key.toUpperCase().charCodeAt(0) : 0);
+        ["keydown", "keypress", "keyup"].forEach(function (type) {
+            if (type === "keypress" && !(key.length === 1 || key === "Enter")) return;
+            var event = new view.KeyboardEvent(type, { key: key, code: key, bubbles: true, cancelable: true });
+            Object.defineProperty(event, "keyCode", { get: function () { return code; } });
+            Object.defineProperty(event, "which", { get: function () { return code; } });
+            target.dispatchEvent(event);
+        });
+        return code;
+    }
+
+    function shown(el) {
+        var rect = el.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0;
+    }
+
+    function optionText(el) {
+        return clean(el.innerText || el.textContent);
+    }
+
+    async function selectOption(action) {
+        var field = resolve(action);
+        if (isSensitiveField(field)) {
+            return { blocked: true, reason: "Refused: credential, payment or identity field" };
+        }
+        var wanted = clean(String(action.text || "")).toLowerCase();
+        if (!wanted) throw new Error("select_option needs text");
+        if (field.tagName === "SELECT") {
+            var match = Array.prototype.find.call(field.options, function (o) { return clean(o.text).toLowerCase().indexOf(wanted) >= 0; });
+            if (!match) return { ok: false, error: "no option matches: " + action.text };
+            field.value = match.value;
+            field.dispatchEvent(new Event("change", { bubbles: true }));
+            return { ok: true, result: { selected: clean(match.text) } };
+        }
+        var doc = field.ownerDocument;
+        var limit = Math.min(Number(action.timeout_ms || 4000), 15000);
+        async function waitOptions(ms) {
+            var started = Date.now(), found = [];
+            while (Date.now() - started < ms) {
+                await sleep(250);
+                found = Array.prototype.filter.call(
+                    doc.querySelectorAll("[role=option], .dijitMenuItem, .dijitComboBoxMenu li, li[role=menuitem]"), shown);
+                if (found.length) break;
+            }
+            return found;
+        }
+        field.focus();
+        pressPointer(field);
+        pressKey(field, "ArrowDown");
+        var options = await waitOptions(Math.min(limit, 1500));
+        if (!options.length) {  // widgets like Dojo's FilteringSelect open only from their arrow button
+            var widget = field.closest(".dijitComboBox, [widgetid], [role=combobox]") || field.parentElement;
+            var arrow = widget && widget.querySelector(".dijitArrowButton, [data-dojo-attach-point*='_buttonNode'], button");
+            if (arrow) {
+                pressPointer(arrow);
+                arrow.click();
+                options = await waitOptions(limit);
+            }
+        }
+        var choice = options.find(function (o) { return optionText(o).toLowerCase().indexOf(wanted) >= 0; });
+        if (!choice) {
+            pressKey(field, "Escape");
+            return { ok: false, error: "no option matches: " + action.text,
+                result: { options: options.map(function (o) { return optionText(o).slice(0, 80); }) } };
+        }
+        var picked = optionText(choice);
+        pressPointer(choice);
+        choice.click();
+        await sleep(300);
+        if (clean(field.value).toLowerCase() !== picked.toLowerCase()) {
+            // Some widgets ignore synthetic option clicks but accept the option's exact text, Enter and blur.
+            field.focus();
+            setNativeValue(field, picked);
+            field.dispatchEvent(new Event("input", { bubbles: true }));
+            pressKey(field, "Enter");
+            field.dispatchEvent(new Event("change", { bubbles: true }));
+            field.blur();
+            field.dispatchEvent(new Event("blur"));
+            await sleep(300);
+        }
+        return { ok: clean(field.value).toLowerCase() === picked.toLowerCase() || field.tagName !== "INPUT",
+            result: { selected: picked.slice(0, 120), value: field.value } };
+    }
+
     async function runAction(action, approved) {
         switch (action.op) {
         case "inspect":
@@ -389,6 +492,7 @@
                 };
             }
             if (target.scrollIntoView) target.scrollIntoView({ block: "center" });
+            pressPointer(target);
             target.click();
             return { ok: true, result: { clicked: cssPath(target), label: actionLabel(target) } };
         }
@@ -407,6 +511,15 @@
             field.dispatchEvent(new Event("change", { bubbles: true }));
             return { ok: true, result: { typed_into: cssPath(field), length: String(action.text || "").length } };
         }
+        case "key": {
+            var keyTarget = action.selector ? resolve(action) : (document.activeElement || document.body);
+            var key = String(action.key || action.text || "");
+            if (!key) throw new Error("key action needs key");
+            if (keyTarget.focus) keyTarget.focus();
+            return { ok: true, result: { key: key, key_code: pressKey(keyTarget, key), target: cssPath(keyTarget) } };
+        }
+        case "select_option":
+            return await selectOption(action);
         default:
             throw new Error("unsupported in-page action: " + action.op);
         }

@@ -14,6 +14,7 @@ import sqlite3
 import uuid
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 from .fingerprints import text_sha256
 from .paths import INDEX_DIR
@@ -28,6 +29,17 @@ def _canonical_json(value: Any) -> str:
 
 def _payload_hash(payload_json: str) -> str:
     return text_sha256(payload_json)
+
+
+def normalize_capture_key(value: Any) -> str:
+    """Comparable form of a capture key: source ids as-is, URLs without
+    fragment, trailing slash or ``www.`` (matches the browser extension)."""
+    text = str(value or "").strip()
+    if not re.match(r"^https?://", text, re.IGNORECASE):
+        return text
+    parts = urlsplit(text)
+    origin = f"{parts.scheme.lower()}://{parts.netloc.lower()}".replace("://www.", "://", 1)
+    return origin + parts.path.rstrip("/") + (f"?{parts.query}" if parts.query else "")
 
 
 class BridgeStore:
@@ -270,6 +282,44 @@ class BridgeStore:
             result.append(item)
         return result
 
+    def saved_capture_keys(self, keys: list[Any]) -> list[str]:
+        """Return the given keys that match a stored browser capture, by
+        source id (``nexus:game:id``) or by the capture's URL."""
+        wanted: list[str] = []
+        for key in keys[:500]:
+            normalized = normalize_capture_key(key)
+            if normalized and normalized not in wanted:
+                wanted.append(normalized)
+        if not wanted:
+            return []
+        found: set[str] = set()
+        with self._connect() as connection:
+            for start in range(0, len(wanted), 200):
+                chunk = wanted[start:start + 200]
+                marks = ",".join("?" for _ in chunk)
+                found.update(
+                    row["source_key"]
+                    for row in connection.execute(
+                        f"SELECT source_key FROM browser_events "
+                        f"WHERE source='browser-capture' AND source_key IN ({marks})",
+                        chunk,
+                    )
+                )
+            urls = {key for key in wanted if key.startswith("http") and key not in found}
+            if urls:
+                for row in connection.execute(
+                    "SELECT payload_json FROM browser_events WHERE source='browser-capture'"
+                ):
+                    try:
+                        payload = json.loads(row["payload_json"])
+                    except (TypeError, ValueError):
+                        continue
+                    for field in ("url", "canonical_url"):
+                        normalized = normalize_capture_key(payload.get(field))
+                        if normalized in urls:
+                            found.add(normalized)
+        return [key for key in wanted if key in found]
+
     def find_discord_author_matches(
         self,
         aliases: list[str],
@@ -421,8 +471,8 @@ class BridgeStore:
         if not isinstance(actions, list) or not actions or len(actions) > 25:
             raise ValueError("actions must be a non-empty list of at most 25 items")
         allowed = {
-            "inspect", "extract", "wait", "click", "type", "scroll",
-            "navigate", "back", "forward", "reload", "open_tab",
+            "inspect", "extract", "wait", "click", "type", "key", "select_option", "scroll",
+            "navigate", "back", "forward", "reload", "open_tab", "close_tab",
         }
         normalized: list[dict[str, Any]] = []
         for raw in actions:
@@ -562,6 +612,23 @@ class BridgeStore:
                 ),
             )
         return self.command_status(command_id)
+
+    @classmethod
+    def actions_hash(cls, actions: Any) -> str:
+        """Stable fingerprint of a normalized action list (approval binding)."""
+        return text_sha256(_canonical_json(cls._validate_actions(actions)))
+
+    def commands_by_issuer(self, issued_by: str, limit: int = 200) -> list[dict[str, Any]]:
+        with self._connect() as connection:
+            ids = [
+                row["command_id"]
+                for row in connection.execute(
+                    "SELECT command_id FROM browser_commands WHERE issued_by=? "
+                    "ORDER BY created_at, command_id LIMIT ?",
+                    (str(issued_by), max(1, min(int(limit), 1000))),
+                )
+            ]
+        return [self.command_status(command_id) for command_id in ids]
 
     def command_status(self, command_id: str) -> dict[str, Any]:
         command_id = str(command_id or "").strip()

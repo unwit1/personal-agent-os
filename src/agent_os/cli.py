@@ -443,6 +443,10 @@ def _dispatch_executive(args) -> int:
 def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="agent-os")
     commands = root.add_subparsers(dest="command", required=True)
+    app = commands.add_parser("app", help="open the Command Center: Today, Projects, Runs, Chat and Usage")
+    app.add_argument("--no-window", action="store_true")
+    app.add_argument("--port", type=int, default=0)
+    app.add_argument("--remote-host", action="append", default=[], metavar="HOST")
     commands.add_parser("projects")
     scan_projects = commands.add_parser("scan-projects")
     scan_projects.add_argument("--root")
@@ -886,7 +890,11 @@ def main(argv: list[str] | None = None) -> int:
                 pass
     args = parser().parse_args(argv)
     try:
-        if args.command == "projects":
+        if args.command == "app":
+            from .executive.window.server import serve_app
+
+            return serve_app(port=args.port, open_window=not args.no_window, remote_hosts=tuple(args.remote_host))
+        elif args.command == "projects":
             _print(projects())
         elif args.command == "scan-projects":
             _print(scan(Path(args.root) if args.root else None))

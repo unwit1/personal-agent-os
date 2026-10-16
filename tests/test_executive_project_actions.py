@@ -337,6 +337,43 @@ class TestListFieldExtraction(unittest.TestCase):
         result = project_next_action(state, today=date(2026, 10, 5))
         self.assertEqual(result["delegable_work"], ["Write docs", "Review code"])
 
+    def test_all_list_fields_are_trimmed_deduplicated_and_preserve_case_and_order(self):
+        state = {
+            "project": "p1",
+            "blockers": [" Issue A ", "Issue B", "Issue A", "issue a", "  Issue B  "],
+            "waiting_on": [" Approval ", "Feedback", "Approval"],
+            "decisions_needed": [" Choose scope ", "Choose scope", "choose scope"],
+            "delegable_work": [" Write docs ", "Review code", "Write docs"],
+        }
+        original = {key: value.copy() if isinstance(value, list) else value for key, value in state.items()}
+
+        result = project_next_action(state, today=date(2026, 10, 5))
+
+        self.assertEqual(result["blockers"], ["Issue A", "Issue B", "issue a"])
+        self.assertEqual(result["waiting_on"], ["Approval", "Feedback"])
+        self.assertEqual(result["decisions_needed"], ["Choose scope", "choose scope"])
+        self.assertEqual(result["delegable_work"], ["Write docs", "Review code"])
+        self.assertEqual(state, original)
+
+    def test_scan_returns_normalized_metadata_and_deduplicated_decisions(self):
+        state = {
+            "project": "p1",
+            "status": "active",
+            "blockers": [" Issue ", "Issue"],
+            "waiting_on": [" Approval ", "Approval"],
+            "decisions_needed": [" Choose ", "Choose"],
+            "delegable_work": [" Docs ", "Docs"],
+        }
+
+        result = scan([state], today=date(2026, 10, 5))
+        project = result["projects"][0]
+
+        self.assertEqual(project["blockers"], ["Issue"])
+        self.assertEqual(project["waiting_on"], ["Approval"])
+        self.assertEqual(project["decisions_needed"], ["Choose"])
+        self.assertEqual(project["delegable_work"], ["Docs"])
+        self.assertEqual(result["needs_decision"], ["p1"])
+
     def test_all_list_fields_missing_returns_empty_lists(self):
         state = {"project": "p1"}
         result = project_next_action(state, today=date(2026, 10, 5))
@@ -634,6 +671,7 @@ class TestScanBasic(unittest.TestCase):
     def test_scan_empty_list(self):
         result = scan([], today=date(2026, 10, 5))
         self.assertEqual(result["projects"], [])
+        self.assertEqual(result["blocked"], [])
         self.assertEqual(result["stalled"], [])
         self.assertEqual(result["no_next_action"], [])
         self.assertEqual(result["needs_decision"], [])
@@ -705,6 +743,30 @@ class TestScanBasic(unittest.TestCase):
         ]
         result = scan(states, today=date(2026, 10, 5))
         self.assertEqual(result["needs_decision"], ["p2"])
+
+    def test_scan_blocked_list_uses_normalized_dependencies_and_order(self):
+        states = [
+            {"project": "z", "status": "active", "waiting_on": ["Review"]},
+            {"project": "c", "status": "active", "blockers": ["Issue"], "waiting_on": ["Approval"]},
+            {"project": "b", "status": "active", "blockers": ["Issue"]},
+            {"project": "a", "status": "active", "blockers": "malformed", "waiting_on": [None, "  "]},
+            {"project": "d", "status": "active", "blockers": [], "waiting_on": []},
+        ]
+        original = [dict(state) for state in states]
+        result = scan(states, today=date(2026, 10, 5))
+        self.assertEqual(result["blocked"], ["b", "c", "z"])
+        self.assertEqual(states, original)
+
+    def test_scan_blocked_respects_inactive_filter(self):
+        states = [
+            {"project": "active", "status": "active", "blockers": ["Issue"]},
+            {"project": "inactive", "status": "inactive", "waiting_on": ["Approval"]},
+        ]
+        self.assertEqual(scan(states, today=date(2026, 10, 5))["blocked"], ["active"])
+        self.assertEqual(
+            scan(states, today=date(2026, 10, 5), include_inactive=True)["blocked"],
+            ["active", "inactive"],
+        )
 
     def test_scan_custom_stale_days(self):
         result = scan([], today=date(2026, 10, 5), stale_days=60)

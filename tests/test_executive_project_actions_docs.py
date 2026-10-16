@@ -61,12 +61,31 @@ class TestExecutiveProjectActionsDocumentation(unittest.TestCase):
             "repeatedly_deferred", "REPEATED_DEFERRAL_THRESHOLD", "project_deferral_counts", "task.deferred",
         ))
 
+    def test_doc_describes_list_normalization_and_decision_identity(self):
+        self.assert_terms(self.content, (
+            "whitespace is trimmed", "non-string", "case-sensitively",
+            "first-occurrence order", "does not rewrite `state.json`",
+            "one window item", "trimmed decision text", "stable ID",
+            '"  Choose a region  "', '"Choose a Region"',
+        ))
+        self.assertIn("Preview shows the proposed change; Confirm", self.content)
+
     def test_executive_window_links_to_project_actions_doc(self):
         self.assertIn("executive-project-actions.md", self.window_content)
 
     def test_both_docs_describe_repeatedly_deferred_window_item(self):
         for content in (self.window_content, self.content):
             self.assertIn("project_repeatedly_deferred", content)
+
+    def test_doc_describes_concrete_next_action_window_items(self):
+        self.assert_terms(self.content, (
+            "`project_next_action` item (score 1)", "non-empty, concrete `next_action`",
+            "suppressed while any project problem flag is present", "`unknown_age` alone",
+            "10-character SHA-1 prefix", "Changing the action therefore creates a new queue identity",
+            "project:alpha:next-action:", '"Review API plan"', '"Ship API plan"',
+            'tab: "personal"', "Executive Queue", "project.resume", "project.set_next_action",
+            "preview/Confirm flow",
+        ))
 
 
 if __name__ == "__main__":

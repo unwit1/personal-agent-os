@@ -131,6 +131,8 @@ def publish_deferral(
     item_id: str,
     deferred_at: str | None = None,
     until: str | None = None,
+    *,
+    sensitivity: str = "personal",
 ) -> tuple[dict[str, Any], bool]:
     """Publish an identifier-only task deferral event."""
     if deferred_at is None:
@@ -147,7 +149,7 @@ def publish_deferral(
             "until": until,
         },
         domain="executive-window",
-        sensitivity="personal",
+        sensitivity=sensitivity,
         subject=entity_id,
     )
 
@@ -158,6 +160,8 @@ def publish_status_change(
     item_id: str,
     status: str,
     changed_at: str | None = None,
+    *,
+    sensitivity: str = "personal",
 ) -> tuple[dict[str, Any], bool]:
     """Publish an identifier-only completion or cancellation event."""
     if status not in ("completed", "cancelled"):
@@ -176,7 +180,7 @@ def publish_status_change(
             "changed_at": changed_at,
         },
         domain="executive-window",
-        sensitivity="personal",
+        sensitivity=sensitivity,
         subject=entity_id,
     )
 

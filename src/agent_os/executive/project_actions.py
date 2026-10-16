@@ -108,7 +108,16 @@ def project_next_action(
         field = state.get(field_name, [])
         if not isinstance(field, list):
             return []
-        return [item for item in field if isinstance(item, str) and item.strip()]
+        normalized = []
+        seen = set()
+        for item in field:
+            if not isinstance(item, str):
+                continue
+            item = item.strip()
+            if item and item not in seen:
+                normalized.append(item)
+                seen.add(item)
+        return normalized
 
     blockers = extract_list_field("blockers")
     waiting_on = extract_list_field("waiting_on")
@@ -196,6 +205,7 @@ def scan(
         'stalled' (list of project ids flagged stalled),
         'no_next_action' (list of project ids flagged no_next_action),
         'needs_decision' (list of project ids flagged needs_decision),
+        'blocked' (list of project ids flagged blocked),
         'vague_next_action' (list of project ids flagged vague_next_action),
         'repeatedly_deferred' (list of project ids flagged repeatedly_deferred),
         'stale_days' (threshold used)
@@ -223,6 +233,7 @@ def scan(
     stalled = [p["project"] for p in project_results if "stalled" in p["flags"]]
     no_next_action = [p["project"] for p in project_results if "no_next_action" in p["flags"]]
     needs_decision = [p["project"] for p in project_results if "needs_decision" in p["flags"]]
+    blocked = [p["project"] for p in project_results if "blocked" in p["flags"]]
     vague_next_action = [p["project"] for p in project_results if "vague_next_action" in p["flags"]]
     repeatedly_deferred = [p["project"] for p in project_results if "repeatedly_deferred" in p["flags"]]
 
@@ -231,6 +242,7 @@ def scan(
         "stalled": stalled,
         "no_next_action": no_next_action,
         "needs_decision": needs_decision,
+        "blocked": blocked,
         "vague_next_action": vague_next_action,
         "repeatedly_deferred": repeatedly_deferred,
         "stale_days": stale_days,

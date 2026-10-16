@@ -28,7 +28,18 @@ The project's snooze count (`deferrals`) is not a state field: callers pass it i
 - **next_action** is extracted from the `next_action` field. If not present or empty, the function uses the first non-empty entry from `current_priorities`.
 - **next_action_source** indicates where `next_action` came from: `"next_action"`, `"current_priorities"`, or None if neither is available.
 - **suggested_next_action**: see Suggested Next Action below.
-- List fields (**blockers**, **waiting_on**, **decisions_needed**, **delegable_work**) are filtered to remove non-strings and whitespace-only entries.
+- List fields (**blockers**, **waiting_on**, **decisions_needed**, **delegable_work**) are normalized in the synthesized result: whitespace is trimmed; invalid (non-string) and blank entries are ignored; duplicate entries are removed case-sensitively; and the first-occurrence order is preserved. This is a read-time normalization only and does not rewrite `state.json`.
+
+For example, the raw `decisions_needed` list below produces one window item titled `Choose a region`; the whitespace-padded duplicate normalizes to the same text and stable item ID:
+
+```json
+{
+  "state.json": {"decisions_needed": ["  Choose a region  ", "Choose a region", "", 7, "Choose a Region"]},
+  "synthesized": {"decisions_needed": ["Choose a region", "Choose a Region"]}
+}
+```
+
+Deduplication is case-sensitive, so `Choose a Region` remains distinct. The original state is left as recorded. For decision window items, the trimmed decision text is used to derive the stable ID.
 - **age_days** is calculated from the first 10 characters of `updated_at` (`YYYY-MM-DD`, so a bare date is accepted) as the number of days since that date, relative to `today`. Non-parseable dates result in None; a future date gives a negative value.
 - **deferrals** is the project snooze count, supplied as an input by the project integration and defaulting to 0 when unavailable; it is included in the synthesized result.
 
@@ -70,13 +81,41 @@ Flags are generated based on the extracted state and are always sorted alphabeti
 - **stalled**: List of project ids with the `stalled` flag set.
 - **no_next_action**: List of project ids with the `no_next_action` flag set.
 - **needs_decision**: List of project ids with the `needs_decision` flag set.
+- **blocked**: List of project ids whose normalized `blockers` or `waiting_on` lists are nonempty. It follows project-id ordering and the `include_inactive` filtering above; it is an empty list when no scanned projects qualify.
 - **vague_next_action**: List of project ids with the `vague_next_action` flag set.
 - **repeatedly_deferred**: List of project ids with the `repeatedly_deferred` flag set.
 - **stale_days**: The threshold used for staleness detection.
 
+`project-scan` and `executive_projects.scan` expose this additive `blocked` field through their existing scan-result forwarding. The summary contains project identifiers, while dependency details remain in each entry in `projects`, as in this example:
+
+```json
+{
+  "blocked": ["alpha", "beta"],
+  "projects": [
+    {"project": "alpha", "blockers": ["API review"], "waiting_on": []},
+    {"project": "beta", "blockers": [], "waiting_on": ["Design approval"]}
+  ]
+}
+```
+
+This adds no writes or commands.
+
 The scan result allows quick identification of projects in specific conditions (e.g., all stalled projects, all projects awaiting decisions).
 
 The Executive window projects provider emits a score-1 `project_vague_next_action` item for projects flagged with `vague_next_action`.
+
+### Concrete next-action window items
+
+The provider also emits a `project_next_action` item (score 1) when the synthesized project has a non-empty, concrete `next_action`. A value selected from `current_priorities` qualifies through the same `next_action` fallback. The item is suppressed while any project problem flag is present; `unknown_age` alone is informational and does not suppress it. Problem items retain their existing eligibility, scores, titles, and identifiers.
+
+The item title is the trimmed next-action text. Its stable ID includes the project id and a 10-character SHA-1 prefix of that trimmed action text. Changing the action therefore creates a new queue identity. For example, for project `alpha`:
+
+```text
+next_action = "Review API plan"  -> project:alpha:next-action:<hash of "Review API plan">
+next_action = "Ship API plan"    -> project:alpha:next-action:<different hash>
+```
+
+Project items inherit the registry entry's tab; absent an explicit `tab: "personal"`, they appear on the work tab. The Executive Queue ranks `project_next_action` alongside other queue items using the existing priority, age, and id ordering. These items offer read-only `project.resume` and `project.set_next_action` through the existing preview/Confirm flow; set-next-action preview shows the before and after values, and Confirm writes the new action and `updated_at` to `state.json`.
 
 ## Default Constant
 
@@ -124,9 +163,9 @@ Parameters: optional `stale_days` and `include_inactive`. Returns the same resul
 
 Project actions in the Executive window are available through the window registry's preview/Confirm flow. Both state-changing actions below write only through this flow.
 
-- **`project.resume`**: Returns a read-only resumption packet for the project; available for all project items: `project_decision`, `project_stalled`, `project_no_next_action`, `project_vague_next_action`, and `project_repeatedly_deferred`.
-- **`project.set_next_action`**: Available for `project_stalled`, `project_no_next_action`, `project_vague_next_action`, and `project_repeatedly_deferred` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
-- **`project.resolve_decision`**: Available for `project_decision` items whose context carries the project and decision text. Takes the `resolution` parameter. Confirm removes that decision from `decisions_needed`, appends `{decision, resolution, resolved_on}` to the optional `decisions_resolved` state field, and sets `updated_at`. The action errors if the decision is no longer open.
+- **`project.resume`**: Returns a read-only resumption packet for the project; available for all project items: `project_decision`, `project_stalled`, `project_no_next_action`, `project_vague_next_action`, `project_repeatedly_deferred`, `project_blocked`, and `project_next_action`.
+- **`project.set_next_action`**: Available for `project_stalled`, `project_no_next_action`, `project_vague_next_action`, `project_repeatedly_deferred`, `project_blocked`, and `project_next_action` items. Takes the `next_action` parameter. Empty or vague text is rejected using `is_vague_action()`. Preview shows the before and after values. Confirm writes `next_action` and `updated_at` to the project's `state.json`.
+- **`project.resolve_decision`**: Available for `project_decision` items whose context carries the project and decision text. Takes the `resolution` parameter. Preview shows the proposed change; Confirm removes that decision from `decisions_needed`, appends `{decision, resolution, resolved_on}` to the optional `decisions_resolved` state field, and sets `updated_at`. The action matches the decision text exactly as stored in `state.json`; a whitespace-padded entry must be cleaned in the project state before it can be resolved using the trimmed text shown in the normalized window item. The action errors if the decision is no longer open.
 
 ## Repeated Deferrals
 
