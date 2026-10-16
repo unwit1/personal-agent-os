@@ -5,7 +5,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 
 import contextlib
 import tempfile
-import threading
 import unittest
 from unittest import mock
 
@@ -44,14 +43,14 @@ class CodingTests(unittest.TestCase):
         self.bridge = FakeBridge()
         self.api = Api(self.registry, self.bridge, self.home, transport=object(), gateway_factory=lambda: None,
                        wake=FakeWake(), usage_home=Path(tmp.name) / "usage")
-        self.started = threading.Event()
         self.start = mock.Mock(return_value={"run_id": "run-abcdef12"})
         self.engine = mock.Mock()
-        self.engine.run_loop.side_effect = lambda *a, **k: self.started.set()
+        self.engine.providers.return_value = {
+            "recommendations": {"planner:reasoning:medium": {"provider": "claude", "model": "m"}}
+        }
         self.patches = [
             mock.patch("agent_os.orchestrator.service.start_recommended", self.start),
             mock.patch("agent_os.orchestrator.service.engine", return_value=self.engine),
-            mock.patch("agent_os.orchestrator.service.providers", return_value={"providers": [{"id": "claude"}]}),
         ]
         for patch in self.patches:
             patch.start()
@@ -62,21 +61,23 @@ class CodingTests(unittest.TestCase):
         self.assertEqual(out["status"], "needs_confirmation")
         self.assertEqual(out["preview"]["goal"], "add a test")
         self.assertEqual(out["preview"]["repo"], str(self.repo.resolve()))
-        self.assertEqual(out["preview"]["routing"]["providers"], ["claude"])
+        self.assertEqual(
+            out["preview"]["routing"]["providers"],
+            {"planner:reasoning:medium": {"provider": "claude", "model": "m"}},
+        )
         self.assertIn("nothing is merged without you", out["preview"]["note"])
         self.start.assert_not_called()
-        self.engine.run_loop.assert_not_called()
+        self.engine.reload_providers.assert_not_called()
 
     def test_confirm_starts_exactly_once(self):
         out = self.api.post("/api/coding/start", {"goal": "add a test", "repo": str(self.repo)})
         result = self.api.post("/api/confirm", {"confirm_token": out["confirm_token"]})
         self.assertEqual(result["result"]["run_id"], "run-abcdef12")
-        self.assertTrue(self.started.wait(5))
         self.start.assert_called_once()
         args, kwargs = self.start.call_args
         self.assertEqual(args[0], "add a test")
         self.assertEqual(kwargs.get("policy"), {})
-        self.engine.run_loop.assert_called_once()
+        self.assertIsNone(kwargs.get("background", "missing"))
         with self.assertRaises(Exception):
             self.api.post("/api/confirm", {"confirm_token": out["confirm_token"]})
         self.start.assert_called_once()
@@ -114,7 +115,8 @@ class CodingTests(unittest.TestCase):
                    "progress": {"passed": 3, "total": 5}, "gates": [], "nodes": []},
             "r2": {"goal": "Done thing", "state": "COMPLETE", "integration": {"branch": "orch/r2"}},
         }
-        items = providers_orchestrator.orchestrator_items(lambda: runs, statuses.__getitem__)
+        with mock.patch.object(providers_orchestrator, "_dismissed", return_value=False):
+            items = providers_orchestrator.orchestrator_items(lambda: runs, statuses.__getitem__)
         by_id = {i["id"]: i for i in items}
         self.assertEqual(set(by_id), {"coding:r1", "coding_done:r2"})
         running = by_id["coding:r1"]

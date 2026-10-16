@@ -7,7 +7,6 @@ review and records. Starting spends model usage, so it only happens on Confirm.
 from __future__ import annotations
 
 import re
-import threading
 from pathlib import Path
 from typing import Any
 
@@ -65,34 +64,20 @@ def _resolve(repo: Any, project: Any) -> tuple[str, str | None]:
 
 
 def _routing_preview() -> dict[str, Any]:
-    """Provider picks and cost estimate when cheaply available; never raises."""
+    """Provider recommendations from the non-mutating engine view; never raises."""
     try:
         from agent_os.orchestrator import service
 
-        info = service.providers()
+        recs = service.engine().providers().get("recommendations") or {}
     except Exception:
         return {}
-    out: dict[str, Any] = {}
-    if isinstance(info, dict):
-        picks = info.get("providers") if isinstance(info.get("providers"), list) else info.get("picks")
-        if isinstance(picks, list):
-            out["providers"] = [
-                (p.get("id") or p.get("provider")) if isinstance(p, dict) else p for p in picks
-            ]
-        for key in ("estimate", "quote", "cost_estimate"):
-            if key in info:
-                out["cost_estimate"] = info[key]
-                break
-    return out
-
-
-def _drive(run_id: str) -> None:
-    from agent_os.orchestrator import service
-
-    try:
-        service.engine().run_loop(run_id, owner="command-center")
-    except Exception:
-        pass  # the run records its own failure; the request already returned
+    return {
+        "providers": {
+            key: {"provider": rec.get("provider"), "model": rec.get("model")}
+            for key, rec in recs.items()
+            if isinstance(rec, dict)
+        }
+    }
 
 
 def _start(item: dict, params: dict, *, confirm: bool) -> dict:
@@ -114,9 +99,8 @@ def _start(item: dict, params: dict, *, confirm: bool) -> dict:
         }
     from agent_os.orchestrator import service
 
-    summary = service.start_recommended(goal, path, project_id, policy={})
+    summary = service.start_recommended(goal, path, project_id, policy={}, background=None)
     run_id = summary["run_id"]
-    threading.Thread(target=_drive, args=(run_id,), name=f"coding-run-{run_id[:8]}", daemon=True).start()
     return {"run_id": run_id, "goal": goal, "repo": path, "project": project_id}
 
 

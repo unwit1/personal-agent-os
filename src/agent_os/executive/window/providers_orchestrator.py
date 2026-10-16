@@ -2,10 +2,33 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 from typing import Any, Callable
 
 
 _TERMINAL_RUN_STATES = frozenset({"COMPLETE", "FAILED"})
+_DONE_MAX_AGE = timedelta(days=7)
+_DONE_MAX_SHOWN = 5
+
+
+def _recent(updated_at: Any) -> bool:
+    """Whether a run finished within the display window; undated runs are kept."""
+    try:
+        moment = datetime.fromisoformat(str(updated_at).replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    if moment.tzinfo is None:
+        moment = moment.replace(tzinfo=timezone.utc)
+    return datetime.now(timezone.utc) - moment <= _DONE_MAX_AGE
+
+
+def _dismissed(item_id: str) -> bool:
+    from .confirm import ItemState, window_home
+
+    try:
+        return ItemState(window_home()).is_hidden(item_id)
+    except OSError:
+        return False
 
 
 def orchestrator_items(
@@ -26,6 +49,7 @@ def orchestrator_items(
 
         status = service.status
     items: list[dict[str, Any]] = []
+    done_shown = 0
     for run in list_runs() or []:
         run_id = run.get("run_id")
         if not run_id:
@@ -33,7 +57,13 @@ def orchestrator_items(
         # COMPLETE and FAILED are terminal: a dead run has nothing the operator
         # can act on. A completed run shows its result branch until dismissed.
         if run.get("state") in _TERMINAL_RUN_STATES:
-            if run.get("state") == "COMPLETE":
+            if (
+                run.get("state") == "COMPLETE"
+                and done_shown < _DONE_MAX_SHOWN
+                and _recent(run.get("updated_at"))
+                and not _dismissed(f"coding_done:{run_id}")
+            ):
+                done_shown += 1
                 try:
                     items.append(_completed_run_item(run_id, status(run_id)))
                 except (KeyError, ValueError, OSError):
