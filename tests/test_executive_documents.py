@@ -37,6 +37,31 @@ def _start(reg, pending, doc_type='internal_posting'):
     return started['result']
 
 
+def test_shared_questions_asked_once_and_applied_to_both_tasks(env):
+    reg, pending, _out = env
+    job = _start(reg, pending, 'job_description')
+    posting = _start(reg, pending, 'internal_posting')
+
+    items = providers_documents.document_items()
+    questions = [i for i in items if i['kind'] == 'document_question']
+    titles = [i['title'] for i in questions]
+    assert len(titles) == len(set(titles))
+    assert len(questions) == len(posting['questions'])  # the posting asks a superset
+    shared = next(i for i in questions if i['context']['question_id'] == 'reports_to')
+    assert set(shared['context']['doc_ids']) == {job['doc_id'], posting['doc_id']}
+    only_posting = next(i for i in questions if i['context']['question_id'] == 'how_to_apply')
+    assert 'doc_ids' not in only_posting['context']
+
+    reg.invoke('document.answer', shared, {'answer': 'The Director'}, pending)
+    store = doc_store.DocumentTaskStore()
+    for doc_id in (job['doc_id'], posting['doc_id']):
+        answers = {q['id']: q['answer'] for q in store.get(doc_id)['questions']}
+        assert answers['reports_to'] == 'The Director'
+    remaining = [i['context']['question_id'] for i in providers_documents.document_items()
+                 if i['kind'] == 'document_question']
+    assert 'reports_to' not in remaining
+
+
 def test_full_flow_start_answer_propose_save(env):
     reg, pending, out = env
     started = _start(reg, pending)

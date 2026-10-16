@@ -84,6 +84,21 @@ def _start(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> di
 
 
 def _answer(item: dict[str, Any], params: dict[str, Any], *, confirm: bool) -> dict[str, Any]:
+    result = _answer_one(item, params)
+    # A question shared by several tasks (same role) is asked once; apply the answer to each.
+    context = item.get("context") or {}
+    question_id, answer = context.get("question_id"), params.get("answer")
+    if question_id and isinstance(answer, str):
+        for other in context.get("doc_ids") or []:
+            if other != context.get("doc_id"):
+                try:
+                    _answer_one(task_item(other, question_id), {"answer": answer})
+                except (KeyError, ValueError):
+                    continue  # that task was discarded or removed meanwhile
+    return result
+
+
+def _answer_one(item: dict[str, Any], params: dict[str, Any]) -> dict[str, Any]:
     store = _store()
     task = _open_task(store, item)
     raw_answers = params.get("answers") or {}
