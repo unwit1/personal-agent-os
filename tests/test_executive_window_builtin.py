@@ -40,7 +40,7 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         reg = builtin.default_registry()
         provider_names = set(reg._providers.keys())
 
-        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects", "brain_dump", "knowledge_gaps", "memory_candidates", "browser_routines", "phone", "intake"}
+        expected_providers = {"applicants", "orchestrator", "mail", "counties", "mail_cleanup", "projects", "brain_dump", "knowledge_gaps", "memory_candidates", "documents", "browser_routines", "phone", "intake"}
         if builtin.providers_browser_routines is None:
             expected_providers.discard("browser_routines")
         if builtin.providers_phone is None:
@@ -81,6 +81,11 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "project.resume",
             "project.set_next_action",
             "project.resolve_decision",
+            "document.start",
+            "document.answer",
+            "document.propose",
+            "document.save",
+            "document.discard",
             "browser_routine.approve",
             "browser_routine.decline",
             "browser_routine.retry",
@@ -146,6 +151,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "knowledge_gap.enqueue",
             "candidate.accept",
             "candidate.reject",
+            "document.propose",
+            "document.save",
         }
         # The old direct senders are gone: every email goes through compose.
         self.assertNotIn("email.send", reg._actions)
@@ -167,6 +174,9 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "item.snooze",
             "mail.organize_inbox",
             "project.resume",
+            "document.start",
+            "document.answer",
+            "document.discard",
         }
 
         for action_id in non_consequential_actions:

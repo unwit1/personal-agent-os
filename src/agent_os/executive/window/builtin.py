@@ -6,6 +6,7 @@ from . import (
     actions_applicant_decisions,
     actions_brain_dump,
     actions_candidates,
+    actions_documents,
     actions_email,
     actions_knowledge_gaps,
     actions_projects,
@@ -16,6 +17,7 @@ from . import (
     providers_applicants,
     providers_brain_dump,
     providers_candidates,
+    providers_documents,
     providers_intake,
     providers_knowledge_gaps,
     providers_mail,
@@ -57,6 +59,7 @@ def default_registry() -> registry.Registry:
         registry.register_provider("brain_dump", providers_brain_dump.brain_dump_items)
         registry.register_provider("knowledge_gaps", providers_knowledge_gaps.knowledge_gap_items)
         registry.register_provider("memory_candidates", providers_candidates.candidate_items)
+        registry.register_provider("documents", providers_documents.document_items)
         if providers_browser_routines is not None:
             registry.register_provider("browser_routines", providers_browser_routines.browser_routine_items)
         if providers_phone is not None:
@@ -75,6 +78,7 @@ def default_registry() -> registry.Registry:
         actions_knowledge_gaps.register(registry.REGISTRY)
         actions_candidates.register(registry.REGISTRY)
         actions_projects.register(registry.REGISTRY)
+        actions_documents.register(registry.REGISTRY)
         if providers_browser_routines is not None:
             providers_browser_routines.register(registry.REGISTRY)
         if providers_phone is not None:
