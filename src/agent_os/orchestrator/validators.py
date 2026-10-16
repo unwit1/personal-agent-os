@@ -62,6 +62,9 @@ def _run_tree(command: Any, *, cwd: str, shell: bool, timeout: int) -> subproces
     process = subprocess.Popen(
         command, cwd=cwd, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.DEVNULL,
         text=True, encoding="utf-8", errors="replace", env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+        # Own session on POSIX, so killing a timed-out validator's tree cannot signal
+        # the caller's process group (the driver, the test runner, the terminal).
+        start_new_session=os.name != "nt",
     )
     try:
         stdout, stderr = process.communicate(timeout=timeout)
