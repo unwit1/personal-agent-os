@@ -273,6 +273,28 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         self.assertEqual(result["max_drive_minutes"], 30)
         self.assertNotIn("unexpected_private_field", json.dumps(result))
 
+    def test_openings_reads_config_from_runtime_root_when_roots_differ(self):
+        with tempfile.TemporaryDirectory() as project_dir:
+            (Path(project_dir) / "Config").mkdir()
+            (self.root / "Config" / "openings_settings.json").write_text(
+                json.dumps({"transit_driver_groups": ["Bell"]}),
+                encoding="utf-8",
+            )
+            with patch.object(
+                ra,
+                "get_project",
+                return_value={"id": "job-applicant-dashboard", "path": project_dir, "path_source": "discovered"},
+            ), patch.dict(
+                "os.environ",
+                {
+                    "RTEC_DASHBOARD_RUNTIME_DIR": str(self.root),
+                    "RTEC_HR_AUTOMATION_HOME": str(Path(project_dir) / "no-home"),
+                },
+            ):
+                result = ra.openings_status()
+        self.assertTrue(result["configured"])
+        self.assertEqual(result["transit_driver_groups"], ["Bell"])
+
     def test_search_does_not_rank_or_search_private_notes(self):
         visible = ra.search_applicants("Pulaski")
         self.assertEqual(visible["count"], 1)
