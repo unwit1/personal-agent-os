@@ -115,8 +115,7 @@ class CodingTests(unittest.TestCase):
                    "progress": {"passed": 3, "total": 5}, "gates": [], "nodes": []},
             "r2": {"goal": "Done thing", "state": "COMPLETE", "integration": {"branch": "orch/r2"}},
         }
-        with mock.patch.object(providers_orchestrator, "_dismissed", return_value=False):
-            items = providers_orchestrator.orchestrator_items(lambda: runs, statuses.__getitem__)
+        items = providers_orchestrator.orchestrator_items(lambda: runs, statuses.__getitem__)
         by_id = {i["id"]: i for i in items}
         self.assertEqual(set(by_id), {"coding:r1", "coding_done:r2"})
         running = by_id["coding:r1"]
