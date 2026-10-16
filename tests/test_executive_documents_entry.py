@@ -97,7 +97,7 @@ class ServerEntryTest(DocumentsEntryBase):
         self.assertIn("message", out)
         self.assertIn("previews", out)
         self.assertIn("Nothing is saved", out["message"])
-        self.assertIn("reports to", out["message"])
+        self.assertIn("report to", out["message"])
         self.assertFalse(self.out.exists())
 
     def test_chat_other_text_still_goes_to_model(self):
