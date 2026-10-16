@@ -1,0 +1,273 @@
+{
+  "schema": "personal-agent-os/model-provider-economics/low-refusal-candidate-snapshot/v1",
+  "date": "2026-10-10",
+  "data_status": "catalog_research_only_no_authenticated_model_execution_or_refusal_testing",
+  "scope": "OpenRouter-hosted low-refusal/uncensored candidates plus Venice-direct verified Heretic comparator; selected, not exhaustive",
+  "research_questions": [
+    "What actual low-refusal or abliterated variants are available on OpenRouter?",
+    "Does the current serving ENDPOINT support native tools, rather than the weights merely being trained for them?",
+    "Is the low-refusal variant cheaper per validated accepted Orchestrator task than base GLM?"
+  ],
+  "key_findings": [
+    "Direct Venice Heretic is an explicitly documented abliterated GLM-4.7-Flash derivative with native function calling; no OpenRouter listing for that exact derivative was validated.",
+    "OpenRouter currently offers several low-refusal/uncensored fine-tunes, but most examined entries either lack tools or lack a current priced operational endpoint.",
+    "OpenRouter Hermes 4 405B weights claim tool capability, but OpenRouter's endpoint-specific FAQ explicitly states tools unsupported. This is a provider-feature conflict; endpoint wins.",
+    "Dolphin 3.0 R1 and Dolphin 3.0 free slugs have $0 token quotes, not confirmed live throughput or native tools.",
+    "Base OpenRouter GLM 4.7 Flash remains a strong low-cost native-tool benchmark baseline, and its 200K context is larger than earlier casual assumptions.",
+    "Do not conflate lower refusal, literal weight abliteration, and provider moderation (separate measurable dimensions)."
+  ],
+  "evaluation_constraints": {
+    "no_paid_calls_run": true,
+    "no_refusal_samples_run": true,
+    "server_side_route_eligibility": "require model existence, nonempty live endpoints, provider current price, native tools supported if requested, refusal test only on permitted prompts, available budget",
+    "paired_tasks": "identical fixed benign coding, test repair, code review, JSON tool calling, context packing and legitimate ambiguity-sensitive test set, independent validators",
+    "minimum_observations": "pilot 3 paired calls/case, then >=10 distinct tasks per family with repeated samples and confidence intervals",
+    "separate_outcomes": [
+      "task_success",
+      "refusal_rate_on_benign_tasks",
+      "tool_call_schema_validity",
+      "unsupported_endpoint_errors",
+      "cost_per_verified_success",
+      "latency",
+      "retry_count",
+      "provider_moderation_vs_model_refusal"
+    ],
+    "risk_note": "Refusal characteristics must not be used to bypass Orchestrator deterministic authorization, secret safety, approval and protected-path controls."
+  },
+  "directory_scan_limitation": "OpenRouter public pages were checked directly; not a complete authenticated live catalog or endpoint inventory. API query was not retrieved in this tool environment.",
+  "metadata_api_docs": "https://openrouter.ai/docs/api/api-reference/models/get-models",
+  "endpoint_api_docs": "https://openrouter.ai/docs/client-sdks/typescript/api-reference/endpoints",
+  "parameter_gating": "https://openrouter.ai/docs/guides/features/structured-outputs",
+  "venice_heretic": "https://cdn.venice.ai/models/olafangensan-glm-4-7-flash-heretic",
+  "method_paper": "https://github.com/izikeros/heretic",
+  "candidates": [
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "z-ai/glm-4.7-flash",
+      "model": "GLM 4.7 Flash",
+      "alignment_class": "standard",
+      "uncensored_claim": false,
+      "price_usd_per_million_input": 0.06,
+      "price_usd_per_million_output": 0.4,
+      "cache_read_usd_per_million": 0.01,
+      "context_tokens": 200000,
+      "tool_support": {
+        "weights_claim": "yes",
+        "api_endpoint": "explicit_yes",
+        "evidence": "OpenRouter FAQ states tools/tool_choice accepted"
+      },
+      "json_support": {
+        "api_endpoint": "json_schema_supported"
+      },
+      "availability_status": "listed_with_active_provider_endpoints",
+      "providers_seen": [
+        "Venice",
+        "Cloudflare",
+        "NovitaAI"
+      ],
+      "ranking": "production_comparison_baseline",
+      "source_url": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "caveat": "Three upstream providers with materially differing uptime/throughput; verify per-endpoint billing and tool parameter support immediately before benchmark."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "Venice direct",
+      "model_id": "olafangensan-glm-4.7-flash-heretic",
+      "model": "GLM 4.7 Flash Heretic",
+      "alignment_class": "abliterated_heretic_community_variant",
+      "uncensored_claim": true,
+      "base_model": "z-ai/glm-4.7-flash",
+      "price_usd_per_million_input": 0.07,
+      "price_usd_per_million_output": 0.4,
+      "cache_read_usd_per_million": 0.04,
+      "context_tokens": 200000,
+      "tool_support": {
+        "weights_claim": "yes",
+        "api_endpoint": "provider_documented_yes",
+        "evidence": "Venice explicitly claims native tool use and function calling"
+      },
+      "json_support": {
+        "api_endpoint": "provider_documented_json_schema"
+      },
+      "availability_status": "vendor_public_api_page_no_authenticated_probe",
+      "ranking": "first_low_refusal_comparison",
+      "source_url": "https://cdn.venice.ai/models/olafangensan-glm-4-7-flash-heretic",
+      "caveat": "NOT confirmed to be offered via OpenRouter. Separate Venice API key required; provider claim not tested. Abliterated variant does NOT inherit standard-model benchmark scores. Vendor identifies private zero-retention tier."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "nousresearch/hermes-4-405b",
+      "model": "Hermes 4 405B",
+      "alignment_class": "developer_claimed_lower_refusal_instruction_tuned_not_confirmed_abliterated",
+      "uncensored_claim": false,
+      "price_usd_per_million_input": 1,
+      "price_usd_per_million_output": 3,
+      "cache_read_usd_per_million": null,
+      "context_tokens": 131072,
+      "tool_support": {
+        "weights_claim": "yes",
+        "api_endpoint": "explicit_no",
+        "evidence": "OpenRouter FAQ explicitly says model endpoint does not accept tools"
+      },
+      "json_support": {
+        "api_endpoint": "response_format_json_no_schema_enforcement"
+      },
+      "availability_status": "active_upstream_provider_listed",
+      "providers_seen": [
+        "Nebius Token Factory"
+      ],
+      "ranking": "text_only_research_and_code_generation",
+      "source_url": "https://openrouter.ai/nousresearch/hermes-4-405b",
+      "caveat": "Do not route native tool-calling tasks here despite model card describing tools. Source scores: LiveCodeBench 68.6% AA reasoning, Terminal Bench Hard 11.4%; harness-specific, not Orchestrator results."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "nousresearch/hermes-4-70b",
+      "model": "Hermes 4 70B",
+      "alignment_class": "developer_claimed_lower_refusal_instruction_tuned_not_confirmed_abliterated",
+      "uncensored_claim": false,
+      "price_usd_per_million_input": null,
+      "price_usd_per_million_output": null,
+      "context_tokens": 131072,
+      "tool_support": {
+        "weights_claim": "yes",
+        "api_endpoint": "unknown_no_endpoint_parameters_retrieved"
+      },
+      "availability_status": "model_card_found_no_live_price_or_upstream_endpoint_quote_on_page",
+      "ranking": "research_only_until_active_endpoint",
+      "source_url": "https://openrouter.ai/nousresearch/hermes-4-70b",
+      "caveat": "Earlier cached API subpage lists $0.13/$0.40; not copied as live price because current page lacks price. Probe model endpoint first."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
+      "model": "Dolphin 3.0 R1 Mistral 24B Free",
+      "alignment_class": "dolphin_low_refusal_community_instruct",
+      "uncensored_claim": "family_level_not_quantified",
+      "price_usd_per_million_input": 0,
+      "price_usd_per_million_output": 0,
+      "context_tokens": 32768,
+      "tool_support": {
+        "weights_claim": "intended_for_function_calling",
+        "api_endpoint": "unknown"
+      },
+      "availability_status": "free_variant_catalog_page_only_no_authenticated_inference_probe",
+      "ranking": "experimental_free_reasoning_worker",
+      "source_url": "https://openrouter.ai/cognitivecomputations/dolphin3.0-r1-mistral-24b:free",
+      "caveat": "Zero-token price shown but current route availability, tool support, model response and quota not verified; do not infer that advertised training objective implies endpoint tools."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "cognitivecomputations/dolphin3.0-mistral-24b:free",
+      "model": "Dolphin 3.0 Mistral 24B Free",
+      "alignment_class": "dolphin_low_refusal_community_instruct",
+      "uncensored_claim": "family_level_not_quantified",
+      "price_usd_per_million_input": 0,
+      "price_usd_per_million_output": 0,
+      "context_tokens": 32768,
+      "tool_support": {
+        "weights_claim": "intended_for_function_calling",
+        "api_endpoint": "unknown"
+      },
+      "availability_status": "free_variant_catalog_page_only_no_authenticated_inference_probe",
+      "ranking": "experimental_free_instruction_worker",
+      "source_url": "https://openrouter.ai/cognitivecomputations/dolphin3.0-mistral-24b:free",
+      "caveat": "Rate limited, small context and old training cutoff; check presence of active provider and supported_parameters before trials."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+      "model": "Venice Uncensored Dolphin Mistral 24B",
+      "alignment_class": "uncensored_finetuned_not_documented_abliterated",
+      "uncensored_claim": true,
+      "price_usd_per_million_input": 0.2,
+      "price_usd_per_million_output": 0.9,
+      "context_tokens": 128000,
+      "tool_support": {
+        "weights_claim": "user_steerable",
+        "api_endpoint": "explicit_no",
+        "evidence": "OpenRouter FAQ says tools unsupported"
+      },
+      "json_support": {
+        "api_endpoint": "json_no_schema_enforcement"
+      },
+      "availability_status": "active_provider_listed",
+      "providers_seen": [
+        "Venice"
+      ],
+      "ranking": "text_only_low_refusal_specialist",
+      "source_url": "https://openrouter.ai/cognitivecomputations/dolphin-mistral-24b-venice-edition",
+      "caveat": "Not a coding-generalist recommendation; max output 8192; no tools."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "thedrummer/cydonia-24b-v4.1",
+      "model": "TheDrummer Cydonia 24B V4.1",
+      "alignment_class": "uncensored_creative_finetune_not_documented_abliterated",
+      "uncensored_claim": true,
+      "price_usd_per_million_input": 0.3,
+      "price_usd_per_million_output": 0.5,
+      "cache_read_usd_per_million": 0.15,
+      "context_tokens": 131072,
+      "tool_support": {
+        "weights_claim": "not_coding_primary",
+        "api_endpoint": "explicit_no",
+        "evidence": "OpenRouter FAQ says tools unsupported"
+      },
+      "json_support": {
+        "api_endpoint": "json_schema_advertised_verify_enforcement"
+      },
+      "availability_status": "active_provider_listed",
+      "providers_seen": [
+        "Parasail"
+      ],
+      "ranking": "non_coding_creative_specialist",
+      "source_url": "https://openrouter.ai/thedrummer/cydonia-24b-v4.1",
+      "caveat": "Fine-tuned mainly for creative writing/roleplay, not evidenced as competent coder."
+    },
+    {
+      "observed_on": "2026-10-10",
+      "source_kind": "provider_model_page",
+      "benchmark_type": "not_run",
+      "service": "OpenRouter",
+      "model_id": "cognitivecomputations/dolphin-llama-3-70b",
+      "model": "Dolphin Llama 3 70B",
+      "alignment_class": "uncensored_finetune",
+      "uncensored_claim": true,
+      "price_usd_per_million_input": null,
+      "price_usd_per_million_output": null,
+      "context_tokens": 8192,
+      "tool_support": {
+        "weights_claim": "designed_for_functions",
+        "api_endpoint": "unknown"
+      },
+      "availability_status": "catalog_card_only_no_live_quote",
+      "ranking": "exclude_context_and_price",
+      "source_url": "https://openrouter.ai/cognitivecomputations/dolphin-llama-3-70b",
+      "caveat": "8K context and no live price. Too constrained for normal Orchestrator repo work."
+    }
+  ]
+}
