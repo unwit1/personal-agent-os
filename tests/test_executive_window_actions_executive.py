@@ -172,7 +172,7 @@ class ActionExecutiveTests(unittest.TestCase):
                 "ref-c": "drop",
             },
         }
-        actions_executive._approve_batch(item, approve_params, confirm=False)
+        actions_executive._approve_batch(item, approve_params, confirm=True)
 
         # Preview reach_out
         self.gw.calls.clear()
@@ -207,7 +207,7 @@ class ActionExecutiveTests(unittest.TestCase):
                 "ref-c": "drop",
             },
         }
-        actions_executive._approve_batch(item, approve_params, confirm=False)
+        actions_executive._approve_batch(item, approve_params, confirm=True)
 
         # Send with confirmation
         self.gw.calls.clear()
@@ -220,24 +220,47 @@ class ActionExecutiveTests(unittest.TestCase):
         self.assertEqual(self.gw.sends(), ["ref-a", "ref-b"])
         self.assertIn(("send_now", "ref-a", ex.OUTREACH_KIND, EMAILS["ref-a"]), self.gw.calls)
 
-    def test_register_adds_two_actions(self):
-        """register() adds plan and approve; reach_out goes through compose."""
+    def test_register_adds_actions(self):
+        """register() adds plan and approve for applicant groups, plus the confirm-only
+        send and browser actions for model requests; reach_out goes through compose."""
         reg = registry.Registry()
         actions_executive.register(reg)
 
         actions = {a["id"]: a for a in reg.actions()}
 
-        self.assertIn("executive.plan_interviews", actions)
-        self.assertIn("executive.approve_batch", actions)
+        self.assertEqual(set(actions), {"executive.plan_interviews", "executive.approve_batch",
+                                        "executive.send_batch", "browser.execute_consequential"})
         self.assertNotIn("executive.reach_out", actions)
 
-        # Verify properties
+        # Approval is the operator's decision, so it needs a window Confirm.
         self.assertFalse(actions["executive.plan_interviews"]["consequential"])
-        self.assertFalse(actions["executive.approve_batch"]["consequential"])
+        self.assertTrue(actions["executive.approve_batch"]["consequential"])
+        self.assertTrue(actions["executive.send_batch"]["consequential"])
+        self.assertTrue(actions["browser.execute_consequential"]["consequential"])
 
         # Verify applies_to
         for action_id in ["executive.plan_interviews", "executive.approve_batch"]:
             self.assertEqual(actions[action_id]["applies_to"], ["applicant_group"])
+
+    def test_approve_batch_preview_changes_nothing_until_confirm(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pending = PendingStore(tmp)
+            reg = registry.Registry()
+            actions_executive.register(reg)
+            item = {"id": "group-1", "kind": "applicant_group", "tab": "work"}
+            plan = reg.invoke("executive.plan_interviews", item, {
+                "applicant_refs": ["ref-a"], "opening": "Tech", "interview_type": "phone",
+                "location": "Office", "duration_minutes": 30}, pending)
+            batch_id = plan["result"]["batch_id"]
+
+            out = reg.invoke("executive.approve_batch", item,
+                             {"batch_id": batch_id, "choices": {"ref-a": "confirm"}}, pending)
+            self.assertEqual(out["status"], "needs_confirmation")
+            self.assertEqual(self.store.load(batch_id)["state"], ex.PENDING_APPROVAL)
+
+            done = reg.confirm(out["confirm_token"], pending)
+            self.assertEqual(done["state"], ex.APPROVED)
+            self.assertEqual(self.store.load(batch_id)["state"], ex.APPROVED)
 
     def test_actions_through_registry(self):
         """Test that actions work when invoked through the registry."""
@@ -284,7 +307,8 @@ class ActionExecutiveTests(unittest.TestCase):
                 "batch_id": batch_id,
                 "choices": {"ref-a": "confirm", "ref-b": "confirm"},
             }
-            reg.invoke("executive.approve_batch", item, approve_params, pending)
+            approval = reg.invoke("executive.approve_batch", item, approve_params, pending)
+            reg.confirm(approval["confirm_token"], pending)
 
             # Preview reach_out (should not actually send)
             self.gw.calls.clear()
