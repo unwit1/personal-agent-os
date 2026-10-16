@@ -675,6 +675,10 @@ EXECUTIVE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Applicant Executive: use this to answer 'who should I interview', 'good/best applicants for <opening>' and similar questions. Returns applicants matching an opening with their existing Dashboard AI review scores, best first. Advisory; the operator decides. Never triggers new reviews.",
         "inputSchema": {"type": "object", "properties": {"opening": {"type": "string"}}, "required": ["opening"], "additionalProperties": False},
     },
+    "hr.policy_lookup": {
+        "description": "Look up HR policy claims (e.g. 'overtime for drivers') in the curated RTEC-HR knowledge repository. Returns claims with source_path, citation, effective_date, superseded_by. Deterministic keyword search; restricted evidence is never read.",
+        "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}, "limit": {"type": "integer", "minimum": 1, "maximum": 20, "default": 5}}, "required": ["query"], "additionalProperties": False},
+    },
     "executive.plan": {
         "description": "Applicant Executive: propose interview slots and draft outreach into one PENDING_APPROVAL batch. Writes only the local outbox; sends nothing.",
         "inputSchema": {
@@ -1108,6 +1112,12 @@ def _executive_store() -> Any:
     return OutboxStore()
 
 
+def _hr_policy_lookup(query: str, limit: int = 5) -> dict[str, Any]:
+    from .executive import hr_knowledge
+
+    return hr_knowledge.policy_lookup(query, limit)
+
+
 def _executive_needs_action(limit: int = 100) -> dict[str, Any]:
     from .executive import applicants
 
@@ -1355,6 +1365,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         {
             "executive.needs_action": _executive_needs_action,
             "executive.suggestions": _executive_suggestions,
+            "hr.policy_lookup": _hr_policy_lookup,
             "executive.plan": _executive_plan,
             "executive.batch": _executive_batch,
             "executive.approve": _executive_approve,
