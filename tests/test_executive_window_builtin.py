@@ -90,6 +90,11 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "coding.pause",
             "coding.resume",
             "coding.stop",
+            "computer.write_file",
+            "computer.move_file",
+            "computer.delete_file",
+            "computer.open_path",
+            "computer.run_command",
             "browser_routine.approve",
             "browser_routine.decline",
             "browser_routine.retry",
@@ -159,6 +164,11 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "document.save",
             "coding.start",
             "coding.stop",
+            "computer.write_file",
+            "computer.move_file",
+            "computer.delete_file",
+            "computer.open_path",
+            "computer.run_command",
         }
         # The old direct senders are gone: every email goes through compose.
         self.assertNotIn("email.send", reg._actions)

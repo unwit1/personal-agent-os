@@ -7,6 +7,7 @@ from . import (
     actions_brain_dump,
     actions_candidates,
     actions_coding,
+    actions_computer,
     actions_documents,
     actions_email,
     actions_knowledge_gaps,
@@ -81,6 +82,7 @@ def default_registry() -> registry.Registry:
         actions_projects.register(registry.REGISTRY)
         actions_documents.register(registry.REGISTRY)
         actions_coding.register(registry.REGISTRY)
+        actions_computer.register(registry.REGISTRY)
         if providers_browser_routines is not None:
             providers_browser_routines.register(registry.REGISTRY)
         if providers_phone is not None:

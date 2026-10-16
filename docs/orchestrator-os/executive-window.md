@@ -130,6 +130,42 @@ Non-consequential actions (dismiss, snooze) execute immediately.
 
 **Model access control:** `claude -p --output-format json --mcp-config <file> --strict-mcp-config --allowedTools 'mcp__agent-os__*'` exposes only Agent OS MCP tools; no direct network access.
 
+### Computer access
+
+The chat model has no shell and no general file tools. It reaches the operator's computer only through the `computer.*` MCP tools (`src/agent_os/executive/computer.py`), in three tiers:
+
+| Tier | MCP tool | Runs |
+| --- | --- | --- |
+| Free (read-only) | `computer.list`, `computer.read`, `computer.search` | immediately |
+| Automatic, logged | `computer.write_draft` | immediately; new file under `drafts_root` only, never overwrites (`name-v2.md`, `name-v3.md`, ...) |
+| Window Confirm | `computer.write`, `computer.move`, `computer.delete`, `computer.open`, `computer.run` | only after the operator clicks Confirm |
+
+The Confirm-tier tools never act themselves. They run the guard and preview now, park a pending confirmation in `PendingStore` (the same mechanism `executive.approve` and `executive.send` use), and reply `Waiting for you to click Confirm in the command center.` The confirm token stays on disk and is never returned to the model. The window shows each request as a consequential action on a `computer_request` item (`actions_computer.py`: `computer.write_file`, `computer.move_file`, `computer.delete_file`, `computer.open_path`, `computer.run_command`). Previews show:
+
+- `write_file`: a unified diff against the current file. The write is refused if the file changed after the preview. An existing file is copied to `<name>.bak` first.
+- `move_file`: the source and target. A move never overwrites, and both paths must lie under the allowed roots.
+- `delete_file`: the path. Confirm moves it into the Agent OS trash (default `.agent-local/executive/trash`) with a `.origin.json` sidecar that records the original path. Nothing is hard-deleted.
+- `open_path`: the path and the opener (`os.startfile` on Windows, `xdg-open` on Linux).
+- `run_command`: the exact argv and cwd. Commands run with no shell, a 120 s timeout, stdin closed, and stdout/stderr each capped at 20,000 characters. The tool refuses command strings, arguments that contain shell metacharacters (`; & | < > $` backtick, newline), shell interpreters (`cmd`, `powershell`, `pwsh`, `bash`, `sh`, `wsl`, ...) and `.bat`/`.cmd` programs. The cwd must be under an allowed root; it defaults to the first root.
+
+**Config:** `~/.agent-os/computer.json` (override the location with `$AGENT_OS_COMPUTER_CONFIG`):
+
+```json
+{
+  "allowed_roots": ["C:/Users/me/Documents", "C:/Users/me/Desktop"],
+  "drafts_root": "C:/path/to/personal-agent-os/.agent-local/executive/drafts",
+  "trash_root": "C:/path/to/personal-agent-os/.agent-local/executive/trash"
+}
+```
+
+Defaults: `allowed_roots` is the user's Documents, Desktop and Downloads folders, where they exist. `drafts_root` is `<repo>/.agent-local/executive/drafts`, and `trash_root` is `<repo>/.agent-local/executive/trash`.
+
+**Path guard:** every path is expanded and resolved (symlinks and `..`) before use. It must lie under an allowed root; relative paths start at the first root. Escapes are refused, whether by `..`, by an absolute path outside the roots, or by a symlink that points outside. Search never follows directory symlinks and skips file symlinks that leave the roots.
+
+**Reads:** `.txt`, `.md`, `.csv` and `.json` are read as text. `.docx`, `.xlsx` and `.pdf` are read when python-docx, openpyxl or pypdf is installed. Files over 2 MB, and files of any other type, return metadata only. Search returns at most 100 results.
+
+**Audit:** every call, including previews and refusals, appends `{ts, op, path, ok}` to `<window home>/computer-audit.jsonl`. Failures add the error type, `run_command` adds the program name, and moves add the target. File contents never go into this audit.
+
 **Privacy:** Applicant data is allowlisted to `_VIEW_FIELDS = ("applicant_ref", "name", "position", "submitted", "status", "county", "city")`. Forbidden: internal keys, EEO, self-ID, AAP data.
 
 ## Server and connection

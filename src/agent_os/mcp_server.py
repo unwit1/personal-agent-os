@@ -719,6 +719,60 @@ EXECUTIVE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 
 TOOL_SCHEMAS.update(EXECUTIVE_TOOL_SCHEMAS)
 
+_COMPUTER_PATH = {"type": "string", "description": "Path under an allowed root (relative paths start at the first root)"}
+_COMPUTER_CONFIRM = " Nothing happens here: it queues a preview and waits for the operator's Confirm click in the command center."
+COMPUTER_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "computer.list": {
+        "description": "Computer: list a folder under the operator's allowed roots (~/.agent-os/computer.json). Read-only.",
+        "inputSchema": {"type": "object", "properties": {"path": _COMPUTER_PATH}, "required": ["path"], "additionalProperties": False},
+    },
+    "computer.read": {
+        "description": "Computer: read a file under the allowed roots (txt, md, csv, json; docx, xlsx, pdf when their readers are installed). Files over 2 MB or of other types return metadata only. Read-only.",
+        "inputSchema": {"type": "object", "properties": {"path": _COMPUTER_PATH}, "required": ["path"], "additionalProperties": False},
+    },
+    "computer.search": {
+        "description": "Computer: find files under a folder in the allowed roots by name glob and optional content substring. Capped results. Read-only.",
+        "inputSchema": {"type": "object", "properties": {
+            "root": _COMPUTER_PATH,
+            "pattern": {"type": "string", "default": "*"},
+            "contains": {"type": "string"},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 100, "default": 100},
+        }, "required": ["root"], "additionalProperties": False},
+    },
+    "computer.write_draft": {
+        "description": "Computer: save a new draft file in the Agent OS drafts folder. Never overwrites (adds -vN). Runs immediately and is logged.",
+        "inputSchema": {"type": "object", "properties": {"name": {"type": "string", "description": "Plain file name, e.g. letter.md"}, "content": {"type": "string"}},
+                        "required": ["name", "content"], "additionalProperties": False},
+    },
+    "computer.write": {
+        "description": "Computer: create or overwrite a file under the allowed roots (an existing file is backed up to .bak first)." + _COMPUTER_CONFIRM,
+        "inputSchema": {"type": "object", "properties": {"path": _COMPUTER_PATH, "content": {"type": "string"}},
+                        "required": ["path", "content"], "additionalProperties": False},
+    },
+    "computer.move": {
+        "description": "Computer: move or rename a file or folder within the allowed roots; never overwrites." + _COMPUTER_CONFIRM,
+        "inputSchema": {"type": "object", "properties": {"source": _COMPUTER_PATH, "target": _COMPUTER_PATH},
+                        "required": ["source", "target"], "additionalProperties": False},
+    },
+    "computer.delete": {
+        "description": "Computer: move a file or folder to the Agent OS trash (never a hard delete)." + _COMPUTER_CONFIRM,
+        "inputSchema": {"type": "object", "properties": {"path": _COMPUTER_PATH}, "required": ["path"], "additionalProperties": False},
+    },
+    "computer.open": {
+        "description": "Computer: open a file or folder under the allowed roots with its default application." + _COMPUTER_CONFIRM,
+        "inputSchema": {"type": "object", "properties": {"path": _COMPUTER_PATH}, "required": ["path"], "additionalProperties": False},
+    },
+    "computer.run": {
+        "description": "Computer: run one program as an argv list (no shell; shell interpreters and metacharacters are refused) in a folder under the allowed roots, 120 s timeout." + _COMPUTER_CONFIRM,
+        "inputSchema": {"type": "object", "properties": {
+            "argv": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+            "cwd": _COMPUTER_PATH,
+        }, "required": ["argv"], "additionalProperties": False},
+    },
+}
+
+TOOL_SCHEMAS.update(COMPUTER_TOOL_SCHEMAS)
+
 
 def _window_registry() -> Any:
     from .executive.window.builtin import default_registry
@@ -1177,6 +1231,65 @@ def _executive_send(batch_id: str, confirm_send: bool = False) -> dict[str, Any]
     return _await_operator_confirm("executive.send_batch", item, {"batch_id": batch_id}, preview)
 
 
+def _computer_list(path: str) -> dict[str, Any]:
+    from .executive import computer
+
+    return computer.list_dir(path)
+
+
+def _computer_read(path: str) -> dict[str, Any]:
+    from .executive import computer
+
+    return computer.read_text(path)
+
+
+def _computer_search(root: str, pattern: str = "*", contains: str | None = None, limit: int = 100) -> dict[str, Any]:
+    from .executive import computer
+
+    return computer.search_files(root, pattern=pattern, contains=contains, limit=limit)
+
+
+def _computer_write_draft(name: str, content: str) -> dict[str, Any]:
+    from .executive import computer
+
+    return computer.write_draft(name, content)
+
+
+def _computer_confirm(action_id: str, title: str, params: dict[str, Any]) -> dict[str, Any]:
+    """Preview a Confirm-tier computer action (the guard runs now) and park it for the window."""
+    import hashlib
+
+    registry = _window_registry()
+    preview = registry._get(action_id)["handler"]({}, params, confirm=False)
+    if action_id == "computer.write_file":
+        params = {**params, "expect_sha256": preview.get("base_sha256")}
+    digest = hashlib.sha256(json.dumps([action_id, params], sort_keys=True, default=str).encode("utf-8")).hexdigest()[:12]
+    item = {"id": f"computer-{digest}", "kind": "computer_request", "title": title}
+    return _await_operator_confirm(action_id, item, params, preview)
+
+
+def _computer_write(path: str, content: str) -> dict[str, Any]:
+    return _computer_confirm("computer.write_file", f"Write {path}", {"path": path, "content": content})
+
+
+def _computer_move(source: str, target: str) -> dict[str, Any]:
+    return _computer_confirm("computer.move_file", f"Move {source} to {target}", {"source": source, "target": target})
+
+
+def _computer_delete(path: str) -> dict[str, Any]:
+    return _computer_confirm("computer.delete_file", f"Move {path} to trash", {"path": path})
+
+
+def _computer_open(path: str) -> dict[str, Any]:
+    return _computer_confirm("computer.open_path", f"Open {path}", {"path": path})
+
+
+def _computer_run(argv: list[str], cwd: str | None = None) -> dict[str, Any]:
+    if not isinstance(argv, list):
+        raise ValueError("argv must be a list of arguments, not a command string")
+    return _computer_confirm("computer.run_command", "Run " + " ".join(str(a) for a in argv)[:200], {"argv": argv, "cwd": cwd})
+
+
 def _consume_routine_approval(session_id: str, actions: list[dict[str, Any]]) -> str | None:
     """Redeem a browser-routine approval the operator already clicked in the window.
 
@@ -1359,6 +1472,15 @@ def methods() -> dict[str, Callable[..., Any]]:
             "executive.batch": _executive_batch,
             "executive.approve": _executive_approve,
             "executive.send": _executive_send,
+            "computer.list": _computer_list,
+            "computer.read": _computer_read,
+            "computer.search": _computer_search,
+            "computer.write_draft": _computer_write_draft,
+            "computer.write": _computer_write,
+            "computer.move": _computer_move,
+            "computer.delete": _computer_delete,
+            "computer.open": _computer_open,
+            "computer.run": _computer_run,
             "executive_window.outstanding": _window_outstanding,
             "executive_window.actions": _window_actions,
             "executive_window.next": _window_next,
@@ -1409,6 +1531,7 @@ INSTRUCTIONS = (
     " connector.set_registration_state previews by default and changes only one registration between desired and disabled when confirm_write=true."
     " Use connector.import to attach explicitly reviewed provider/scopes to a current candidate; it never copies credentials and writes only when reviewed=true and confirm_write=true."
     " connector.register previews metadata by default and writes only when confirm_write=true; credentials and unverified health states are rejected."
+    " computer.list/read/search are read-only and computer.write_draft saves a new draft; computer.write/move/delete/open/run only queue a preview, and nothing happens until the user clicks Confirm in the command center."
 )
 
 
