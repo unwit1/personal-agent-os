@@ -110,6 +110,12 @@ def _contract(role: str) -> str:
     )
 
 
+def _adjacent(task: dict[str, Any], other: dict[str, Any]) -> bool:
+    if other.get("id") in (task.get("depends_on") or []) or task.get("id") in (other.get("depends_on") or []):
+        return True
+    return bool({str(path) for path in task.get("scope") or []} & {str(path) for path in other.get("scope") or []})
+
+
 def _sibling_lines(run: dict[str, Any], node: dict[str, Any]) -> list[str]:
     """Other planned tasks, so a reviewer does not flag work that belongs to one of them."""
     nodes = run.get("nodes") or {}
@@ -118,6 +124,10 @@ def _sibling_lines(run: dict[str, Any], node: dict[str, Any]) -> list[str]:
         other for other in nodes.values()
         if other.get("id") != subject and other.get("role") in {"implementer", "test_author"}
     ]
+    if subject in nodes:
+        # Only tasks that could plausibly own something missing here: ones it
+        # depends on or that depend on it, or that list one of the same files.
+        siblings = [other for other in siblings if _adjacent(nodes[subject], other)]
     if not siblings:
         return []
     lines = ["Other tasks in this run cover the following; do not report their work as missing here:"]
@@ -230,11 +240,20 @@ def _node_blocks(run: dict[str, Any], node: dict[str, Any], diff: str | None, fi
             "```",
             "",
         ]
+        settled = [item for item in findings or [] if item.get("disposition") in {"follow_up", "rejected"}]
+        findings = [item for item in findings or [] if item not in settled]
         if findings:
             lines += ["Earlier review rounds left these findings unresolved. Check each against the current change: report it again",
                       "(same id and summary) if it still applies, and do not approve while one does.", ""]
             for item in findings[-10:]:
                 lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
+            lines.append("")
+        if settled:
+            lines += ["Already decided (accepted as a follow-up, or rejected with a reason). Do not report these again unless the",
+                      "current change makes one worse or the stated reason is wrong:", ""]
+            for item in settled[-10:]:
+                why = f" ({item['disposition_reason'][:120]})" if item.get("disposition_reason") else ""
+                lines.append(f"- [{item['id']}] {item['disposition']} {item.get('path') or ''}: {str(item['summary'])[:160]}{why}")
             lines.append("")
     if role == "repairer" and findings:
         lines += ["Address these review findings (fix them, or reject one with a concrete reason):", ""]
