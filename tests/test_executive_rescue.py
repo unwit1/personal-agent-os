@@ -70,6 +70,11 @@ class RescueTests(unittest.TestCase):
         self.assertIsNone(got["action"])
         self.assertEqual(got["suppressed"], 0)
 
+    def test_follow_up_message_is_plain_english(self):
+        got = rescue([], [], today=TODAY)
+        self.assertEqual(got["then"], "Finish this one step, then press Just one thing again.")
+        self.assertNotIn("agent-os", got["then"])
+
 
 if __name__ == "__main__":
     unittest.main()

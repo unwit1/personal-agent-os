@@ -5,7 +5,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 
 import unittest
 
-from agent_os.executive.window.providers_orchestrator import orchestrator_items
+from agent_os.executive.window import providers_orchestrator
+
+CODING_KINDS = {"coding_run", "coding_done"}
+
+
+def orchestrator_items(list_runs, status):
+    """Gate and parked-node items only; the coding_run items have their own tests."""
+    return [i for i in providers_orchestrator.orchestrator_items(list_runs, status) if i["kind"] not in CODING_KINDS]
 
 
 class OrchestratorProviderTests(unittest.TestCase):

@@ -82,18 +82,71 @@ const Executive = (() => {
     ).join('; ');
   }
 
-  function showError(message) {
-    const container = document.getElementById('provider-errors');
-    if (container) {
-      container.textContent = normalizeErrors(message);
+  const LOAD_NAMES = {
+    applicants: 'applicants', mail: 'mail', documents: 'documents', projects: 'projects',
+    calendar: 'your calendar', orchestrator: 'running work', brain_dump: 'quick notes',
+  };
+  let retryAction = null;
+
+  // Plain-English summary of a failed load; the raw text only ever goes under Details.
+  function friendlyLoadError(errors) {
+    const list = [].concat(errors || []);
+    const names = [];
+    list.forEach(e => {
+      const key = e && typeof e === 'object' ? (e.provider || e.source || e.name) : null;
+      const label = key ? (LOAD_NAMES[key] || null) : null;
+      if (label && !names.includes(label)) names.push(label);
+    });
+    const raw = normalizeErrors(errors);
+    const what = names.length ? names.join(' and ') : 'some of your items';
+    const missing = /not found|no such file|FileNotFound/i.test(raw);
+    return `Couldn't load ${what}.` + (missing ? " A file this needs wasn't found." : ' Please try again.');
+  }
+
+  function showError(message, options) {
+    const opts = options || {};
+    const banner = document.getElementById('error-banner');
+    if (!banner) return;
+    const raw = normalizeErrors(message);
+    banner.replaceChildren();
+    banner.classList.remove('hidden');
+    banner.appendChild(el('span', 'error-text', opts.text || "Something didn't work. Please try again."));
+    retryAction = opts.retry === undefined ? loadItems : opts.retry;
+    if (retryAction) {
+      const retry = el('button', 'small', 'Retry');
+      retry.type = 'button';
+      retry.addEventListener('click', () => {
+        const again = retryAction;
+        clearError();
+        if (again) again();
+      });
+      banner.appendChild(retry);
+    }
+    const close = el('button', 'small ghost', 'Dismiss');
+    close.type = 'button';
+    close.addEventListener('click', clearError);
+    banner.appendChild(close);
+    if (raw) {
+      const details = el('details', 'error-details');
+      details.appendChild(el('summary', null, 'Details'));
+      details.appendChild(el('pre', null, raw));
+      banner.appendChild(details);
     }
   }
 
   function clearError() {
-    const container = document.getElementById('provider-errors');
-    if (container) {
-      container.textContent = '';
+    const banner = document.getElementById('error-banner');
+    if (banner) {
+      banner.replaceChildren();
+      banner.classList.add('hidden');
     }
+    retryAction = null;
+  }
+
+  function markAsks(btn) {
+    btn.setAttribute('aria-label', btn.textContent + ' (asks before doing)');
+    btn.title = 'Asks you to confirm first';
+    return btn;
   }
 
   function el(tag, className, text) {
@@ -118,19 +171,23 @@ const Executive = (() => {
     if (!raw) return null;
     const token = response.confirm_token || (response.result && response.result.confirm_token);
     if (typeof raw === 'object') {
-      return Object.assign({}, raw, { id: raw.id || token });
+      return Object.assign({}, raw, { id: raw.id || token, data: raw });
     }
-    return { id: token, title: 'Pending action', content: String(raw) };
+    return { id: token, title: 'Pending action', content: String(raw), data: {} };
   }
 
-  function handleActResult(response, actionId) {
+  function handleActResult(response, actionId, item) {
     if (!response) return;
     if (response.message) addChatMessage('agent', response.message);
     if (actionId === 'project.resume' && response.result && response.result.packet) renderResume(response.result.packet);
     const compose = findCompose(response);
     if (compose) showCompose(compose);
     const preview = findPreview(response);
-    if (preview) showPreview(preview, actionId);
+    if (preview) {
+      preview.action_id = preview.action_id || actionId;
+      if (item && !preview.county) preview.county = (item.context && item.context.county) || null;
+      showPreview(preview, actionId);
+    }
     if (response.error) showError(response.error);
   }
 
@@ -145,7 +202,7 @@ const Executive = (() => {
     })
       .then(response => {
         showBusy(false);
-        handleActResult(response, actionId);
+        handleActResult(response, actionId, item);
         return response;
       })
       .catch(error => {
@@ -164,12 +221,11 @@ const Executive = (() => {
     applicants.forEach(applicant => {
       const row = el('button', 'applicant-row');
       row.type = 'button';
-      const name = applicant.name || applicant.display_name || applicant.id || 'Applicant';
+      const name = applicant.name || applicant.display_name || 'Applicant';
       row.appendChild(el('span', 'applicant-name', name));
       const bits = [];
-      if (applicant.rank !== undefined && applicant.rank !== null) bits.push('#' + applicant.rank);
       if (applicant.score !== undefined && applicant.score !== null) bits.push('score ' + applicant.score);
-      if (applicant.suggestion) bits.push(applicant.suggestion);
+      if (applicant.recommendation) bits.push(applicant.recommendation);
       if (bits.length) row.appendChild(el('span', 'applicant-meta', bits.join(' · ')));
       row.addEventListener('click', () => openApplicantReview(item, applicant, card));
       group.appendChild(row);
@@ -183,33 +239,49 @@ const Executive = (() => {
   function openApplicantReview(item, applicant, card) {
     const panel = card.querySelector('.review-panel');
     if (!panel) return;
-    const params = { applicant_id: applicant.id };
+    const params = { applicant_ref: applicant.applicant_ref };
     runAction(item, 'applicant.review', params)
       .then(response => {
-        const result = (response && response.result) || response || {};
-        const review = result.review || result;
-        const fields = review.fields || result.fields || applicant.fields || {};
-        const decisions = review.decisions || result.decisions || applicant.decisions || [];
+        const review = (response && response.result) || response || {};
+        const decisions = review.available_decisions || [];
         panel.innerHTML = '';
         panel.classList.remove('hidden');
-        panel.appendChild(el('div', 'review-title', applicant.name || applicant.id || 'Applicant'));
+        panel.appendChild(el('div', 'review-title', review.name || applicant.name || 'Applicant'));
+        panel.appendChild(el('div', 'review-label', 'AI suggestion - you decide'));
         const list = el('dl', 'review-fields');
-        Object.keys(fields).forEach(key => {
-          const value = fields[key];
-          list.appendChild(el('dt', null, key));
-          list.appendChild(el('dd', null, value === null || value === undefined ? '' :
-            (typeof value === 'object' ? JSON.stringify(value) : String(value))));
-        });
+        const addRow = (label, value) => {
+          const items = [].concat(value === undefined || value === null ? [] : value).filter(v => v !== '');
+          if (!items.length) return;
+          list.appendChild(el('dt', null, label));
+          const dd = el('dd');
+          if (items.length > 1) {
+            const ul = el('ul');
+            items.forEach(v => ul.appendChild(el('li', null, String(v))));
+            dd.appendChild(ul);
+          } else {
+            dd.textContent = String(items[0]);
+          }
+          list.appendChild(dd);
+        };
+        addRow('Score', review.score);
+        addRow('AI suggestion', review.recommendation);
+        addRow('Summary', review.summary);
+        addRow('Strengths', review.strengths);
+        addRow('Concerns', review.concerns);
         panel.appendChild(list);
         const buttons = el('div', 'item-options');
         decisions.forEach(decision => {
-          const actionId = decision.action_id || decision.id;
+          const actionId = decision.action_id;
           if (!actionId) return;
-          const btn = el('button', decision.consequential ? 'option-consequential' : '', decision.label || actionId);
+          const btn = el('button', '', decision.label || actionId);
           btn.type = 'button';
+          if (['decline', 'hold'].includes(decision.decision)) {
+            btn.classList.add('option-consequential');
+            markAsks(btn);
+          }
           btn.addEventListener('click', () => {
             btn.disabled = true;
-            runAction(item, actionId, Object.assign({ applicant_id: applicant.id }, decision.params || {}))
+            runAction(item, actionId, { applicant_ref: applicant.applicant_ref })
               .then(() => loadItems())
               .catch(() => { /* error already shown */ })
               .finally(() => { btn.disabled = false; });
@@ -309,12 +381,12 @@ const Executive = (() => {
           status.textContent = 'Sent';
           addChatMessage('agent', 'Sent: ' + (payload.subject || '(no subject)'));
           if (response && response.record_error) {
-            showError('Sent, but the applicant status was not recorded: ' + normalizeErrors(response.record_error));
-            addChatMessage('agent', 'Warning: applicant status not recorded: ' + normalizeErrors(response.record_error));
+            showError(response.record_error, { text: 'The email was sent, but the applicant’s status was not updated in the Dashboard.', retry: null });
+            addChatMessage('agent', 'The email was sent, but the applicant’s status was not updated in the Dashboard.');
           }
           if (response && response.warning) {
-            showError('Sent. Warning: ' + normalizeErrors(response.warning));
-            addChatMessage('agent', 'Warning: ' + normalizeErrors(response.warning));
+            showError(response.warning, { text: 'The email was sent, with a warning.', retry: null });
+            addChatMessage('agent', 'The email was sent, with a warning. See the banner at the top for details.');
           }
           closeCompose();
           loadItems();
@@ -393,6 +465,7 @@ const Executive = (() => {
           const actionCell = document.createElement('td');
           if (entry.target_folder) {
             const btn = textEl('button', 'option-consequential mail-cleanup-apply', 'Apply ' + category);
+            markAsks(btn);
             btn.addEventListener('click', () => handleMailOrganizeApply(item, account, category, btn));
             actionCell.appendChild(btn);
           }
@@ -467,7 +540,8 @@ const Executive = (() => {
         if (response.confirm_token && response.preview) {
           const previewObj = {
             id: response.confirm_token,
-            title: 'mail.organize_apply: ' + account + '/' + category,
+            action_id: 'mail.organize_apply',
+            title: 'Move ' + category + ' emails in ' + account + '?',
             content: JSON.stringify(response.preview, null, 2),
           };
           showPreview(previewObj, 'mail.organize_apply');
@@ -528,7 +602,10 @@ const Executive = (() => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = label;
-      if (consequential) btn.className = 'option-consequential';
+      if (consequential) {
+        btn.className = 'option-consequential';
+        markAsks(btn);
+      }
       btn.addEventListener('click', onClick);
       buttons.appendChild(btn);
     };
@@ -558,6 +635,19 @@ const Executive = (() => {
     return group;
   }
 
+  const APPLICANT_KINDS = ['applicant_group', 'county_openings', 'openings_console'];
+
+  // Applicant and county actions only make sense on applicant/county items; per-applicant
+  // actions live in the review panel instead of on the card.
+  function optionShownOnCard(item, option) {
+    const id = option.action_id || '';
+    if (id.startsWith('applicant.')) return false;
+    if (id === 'coding.pause') return !(item.context && item.context.paused);
+    if (id === 'coding.resume') return !!(item.context && item.context.paused);
+    if (id === 'openings.event' || id.startsWith('county.')) return APPLICANT_KINDS.includes(item.kind);
+    return true;
+  }
+
   function renderItem(item) {
     const card = document.createElement('div');
     card.className = 'item-card';
@@ -578,17 +668,12 @@ const Executive = (() => {
     if (item.rank && item.rank.position) {
       const rank = document.createElement('div');
       rank.className = 'item-rank';
-      rank.textContent = 'Rank ' + item.rank.position + ' of ' + item.rank.of + (item.rank.ranking ? ' — ' + item.rank.ranking : '');
+      rank.textContent = 'Priority ' + item.rank.position + ' of ' + item.rank.of;
       card.appendChild(rank);
     }
 
     const meta = document.createElement('div');
     meta.className = 'item-meta';
-    if (item.source) {
-      const source = document.createElement('span');
-      source.textContent = 'Source: ' + item.source;
-      meta.appendChild(source);
-    }
     if (item.age || item.due) {
       const timing = document.createElement('span');
       timing.textContent = item.age || item.due || '—';
@@ -596,6 +681,14 @@ const Executive = (() => {
     }
     if (meta.children.length > 0) {
       card.appendChild(meta);
+    }
+
+    if (item.kind === 'coding_run' && item.context && item.context.total) {
+      const bar = el('progress');
+      bar.max = item.context.total;
+      bar.value = item.context.passed || 0;
+      bar.setAttribute('aria-label', (item.context.passed || 0) + ' of ' + item.context.total + ' tasks done');
+      card.appendChild(bar);
     }
 
     if (item.kind === 'county_openings') {
@@ -621,11 +714,23 @@ const Executive = (() => {
           return;
         }
         if (option.action_id === 'brain_dump.clarify') return;
+        if (!optionShownOnCard(item, option)) return;
         const btn = document.createElement('button');
         btn.className = option.consequential ? 'option-consequential' : '';
-        btn.textContent = option.label;
+        btn.textContent = option.action_id === 'item.snooze' ? 'Snooze until tomorrow' : option.label;
+        if (option.consequential) markAsks(btn);
         btn.addEventListener('click', () => {
-          if (option.action_id === 'brain_dump.stage_candidate' || option.action_id === 'project.resume') {
+          if (option.action_id === 'item.dismiss' || option.action_id === 'item.snooze') {
+            const snooze = option.action_id === 'item.snooze';
+            btn.disabled = true;
+            runAction(item, option.action_id, snooze ? { hours: 24 } : {})
+              .then(() => {
+                addChatMessage('agent', (snooze ? 'Snoozed until tomorrow: ' : 'Dismissed: ') + item.title);
+                loadItems();
+              })
+              .catch(() => { btn.disabled = false; });
+          } else if (option.action_id === 'brain_dump.stage_candidate' || option.action_id === 'project.resume'
+              || option.action_id.startsWith('coding.')) {
             runAction(item, option.action_id, {}).then(loadItems).catch(() => { /* error already shown */ });
           } else {
             handleOptionClick(item, option);
@@ -639,7 +744,7 @@ const Executive = (() => {
     return card;
   }
 
-  function renderItems(items) {
+  function renderItems(items, quiet) {
     const workItems = items.filter(i => i.tab === 'work');
     const personalItems = items.filter(i => i.tab === 'personal');
 
@@ -650,7 +755,7 @@ const Executive = (() => {
     personalList.innerHTML = '';
 
     if (workItems.length === 0) {
-      workList.innerHTML = '<div class="muted" style="padding: 16px;">No work items</div>';
+      if (!quiet) workList.innerHTML = '<div class="muted" style="padding: 16px;">Nothing waiting on you here</div>';
     } else {
       workItems.forEach(item => {
         workList.appendChild(renderItem(item));
@@ -658,7 +763,7 @@ const Executive = (() => {
     }
 
     if (personalItems.length === 0) {
-      personalList.innerHTML = '<div class="muted" style="padding: 16px;">No personal items</div>';
+      if (!quiet) personalList.innerHTML = '<div class="muted" style="padding: 16px;">Nothing waiting on you here</div>';
     } else {
       personalItems.forEach(item => {
         personalList.appendChild(renderItem(item));
@@ -677,11 +782,11 @@ const Executive = (() => {
     const buttons = document.querySelectorAll('.item-options button');
     buttons.forEach(btn => btn.disabled = true);
 
-    showBusy(true);
+    showChatBusy(true);
     clearError();
     apiCall('POST', '/api/option', payload)
       .then(response => {
-        showBusy(false);
+        showChatBusy(false);
         if (response.message) {
           addChatMessage('agent', response.message);
         }
@@ -694,7 +799,7 @@ const Executive = (() => {
         loadItems();
       })
       .catch(() => {
-        showBusy(false);
+        showChatBusy(false);
         buttons.forEach(btn => btn.disabled = false);
       });
   }
@@ -706,6 +811,39 @@ const Executive = (() => {
     bubble.textContent = text;
     log.appendChild(bubble);
     log.scrollTop = log.scrollHeight;
+    const examples = document.getElementById('chat-examples');
+    if (examples) examples.classList.add('hidden');
+    return bubble;
+  }
+
+  function addChatError(text, details, retry) {
+    const bubble = addChatMessage('agent error', text + ' ');
+    bubble.setAttribute('role', 'alert');
+    if (retry) {
+      const again = el('button', 'small', 'Try again');
+      again.type = 'button';
+      again.addEventListener('click', () => { again.disabled = true; retry(); });
+      bubble.appendChild(again);
+    }
+    if (details) {
+      const more = el('details', 'error-details');
+      more.appendChild(el('summary', null, 'Details'));
+      more.appendChild(el('pre', null, details));
+      bubble.appendChild(more);
+    }
+  }
+
+  function showChatBusy(show) {
+    const node = document.getElementById('chat-busy');
+    if (node) node.classList.toggle('hidden', !show);
+  }
+
+  function setTodayCount(items) {
+    const node = document.getElementById('today-count');
+    if (!node) return;
+    const n = items.length;
+    node.textContent = n === 0 ? 'Nothing needs you right now.' :
+      (n === 1 ? '1 thing needs you today.' : n + ' things need you today.');
   }
 
   function handleChatSend() {
@@ -719,18 +857,23 @@ const Executive = (() => {
     chatInFlight = true;
     input.disabled = true;
     send.disabled = true;
-    showBusy(true);
+    showChatBusy(true);
+    clearError();
 
     input.value = '';
     addChatMessage('you', text);
 
     const convId = getOrCreateConversationId();
-    apiCall('POST', '/api/chat', {
+    const retry = () => { input.value = text; handleChatSend(); };
+    const unavailable = "The assistant isn't available right now. Your message wasn't lost —";
+    apiCallQuiet('POST', '/api/chat', {
       conversation_id: convId,
       message: text,
-    }, false)
+    })
       .then(response => {
-        if (response.message) {
+        if (response.error && !response.reply) {
+          addChatError(unavailable, normalizeErrors(response.error), retry);
+        } else if (response.message) {
           addChatMessage('agent', response.message);
         }
         const compose = findCompose(response);
@@ -739,14 +882,14 @@ const Executive = (() => {
         if (preview) showPreview(preview, 'chat');
         if (response.refresh || compose || preview) loadItems();
       })
-      .catch(() => {
-        /* error already shown */
+      .catch(error => {
+        addChatError(unavailable, error.message, retry);
       })
       .finally(() => {
         chatInFlight = false;
         input.disabled = false;
         send.disabled = false;
-        showBusy(false);
+        showChatBusy(false);
         input.focus();
       });
   }
@@ -768,22 +911,111 @@ const Executive = (() => {
       .finally(() => { send.disabled = false; });
   }
 
+  // Plain-English wording for a pending action: question, one-sentence consequence,
+  // the button label and what to say once it is done.
+  function describePreview(preview, actionId) {
+    const data = (preview.data && typeof preview.data === 'object') ? preview.data : preview;
+    const action = preview.action_id || actionId || '';
+    const name = data.name || 'this applicant';
+    const county = preview.county || data.county;
+    const where = county ? ' (' + county + ')' : '';
+    const text = preview.title && !/^[a-z_.-]+:/.test(preview.title) ? preview.title : '';
+    switch (action) {
+      case 'applicant.decline':
+        return {
+          title: 'Decline ' + name + where + '?',
+          body: 'Their status will change to Denied in the Applicant Dashboard. No email is sent.',
+          confirm: 'Decline applicant', success: name + ' declined.',
+        };
+      case 'applicant.hold':
+        return {
+          title: 'Put ' + name + where + ' on hold?',
+          body: 'A hold note is added to the Applicant Dashboard. Their status does not change.',
+          confirm: 'Put on hold', success: name + ' put on hold.',
+        };
+      case 'openings.event':
+      case 'county.opening_change':
+        return {
+          title: 'Update openings' + (county ? ' for ' + county : '') + '?',
+          body: 'This changes the number of open positions recorded in the Applicant Dashboard.',
+          confirm: 'Update openings', success: 'Openings updated' + (county ? ' for ' + county : '') + '.',
+        };
+      case 'document.save':
+        return {
+          title: text || 'Save this document?',
+          body: 'A new file is saved with exactly the text under Details. Nothing existing is overwritten.',
+          confirm: 'Save document', success: 'Document saved.',
+        };
+      case 'document.propose':
+        return {
+          title: text || 'Mark this draft as ready?',
+          body: 'The draft is marked as ready for saving. Nothing is written to disk yet.',
+          confirm: 'Mark as ready', success: 'Draft marked as ready.',
+        };
+      case 'mail.organize_apply':
+        return {
+          title: text || 'Move these emails?',
+          body: 'The matching emails are moved to their folder.',
+          confirm: 'Move emails', success: 'Emails moved.',
+        };
+      case 'orchestrator.approve_gate':
+        return { title: 'Approve this step?', body: 'The paused work carries on.', confirm: 'Approve', success: 'Approved.' };
+      case 'orchestrator.decline_gate':
+        return { title: 'Decline this step?', body: 'The paused work does not carry on.', confirm: 'Decline', success: 'Declined.' };
+      case 'coding.start':
+        return {
+          title: 'Start this coding run?',
+          body: 'Starts an orchestrator run that plans, codes, tests and reviews on its own branch; nothing is merged without you.',
+          confirm: 'Start coding', success: 'Coding run started. Follow it on the Today list or the Runs tab.',
+        };
+      case 'coding.stop':
+        return { title: 'Stop this coding run?', body: 'The run stops and its workers are cancelled.', confirm: 'Stop run', success: 'Run stopped.' };
+      case 'command-center.cloud':
+        return {
+          title: text || 'Start this task in the cloud?',
+          body: 'The task is sent to Claude in the cloud and starts running.',
+          confirm: 'Start task', success: 'Task started.',
+        };
+      default:
+        return {
+          title: text || 'Go ahead with this change?',
+          body: 'Nothing changes until you say so. Open Details to see exactly what will happen.',
+          confirm: 'Go ahead', success: 'Done.',
+        };
+    }
+  }
+
   function showPreview(preview, actionId) {
     const container = document.getElementById('pending-previews');
     const card = document.createElement('div');
     card.className = 'preview-card';
     card.id = 'preview-' + (preview.id || actionId + '_' + Date.now());
+    const copy = describePreview(preview, actionId);
+    preview.copy = copy;
+    card.setAttribute('role', 'alertdialog');
+    card.setAttribute('aria-labelledby', card.id + '-title');
+    card.setAttribute('aria-describedby', card.id + '-body');
 
     const title = document.createElement('div');
     title.className = 'preview-title';
-    title.textContent = 'Preview: ' + (preview.title || 'Pending action');
+    title.id = card.id + '-title';
+    title.textContent = copy.title;
     card.appendChild(title);
 
-    if (preview.content) {
-      const content = document.createElement('div');
-      content.className = 'preview-content';
-      content.textContent = preview.content;
-      card.appendChild(content);
+    const body = document.createElement('div');
+    body.className = 'preview-body';
+    body.id = card.id + '-body';
+    body.textContent = copy.body;
+    card.appendChild(body);
+
+    const detailText = preview.content ||
+      (preview.data && Object.keys(preview.data).length ? JSON.stringify(preview.data, null, 2) : '');
+    if (detailText) {
+      const details = document.createElement('details');
+      details.className = 'preview-details';
+      details.appendChild(el('summary', null, 'Details'));
+      details.appendChild(el('div', 'preview-content', detailText));
+      card.appendChild(details);
     }
 
     const actions = document.createElement('div');
@@ -791,7 +1023,7 @@ const Executive = (() => {
 
     const confirmBtn = document.createElement('button');
     confirmBtn.className = 'primary';
-    confirmBtn.textContent = 'Confirm';
+    confirmBtn.textContent = copy.confirm;
     confirmBtn.addEventListener('click', () => {
       handleConfirm(preview, card);
     });
@@ -799,7 +1031,7 @@ const Executive = (() => {
 
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'ghost';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = 'Keep as is';
     cancelBtn.addEventListener('click', () => {
       handleDismiss(preview, card);
     });
@@ -807,6 +1039,8 @@ const Executive = (() => {
 
     card.appendChild(actions);
     container.appendChild(card);
+    const active = document.activeElement;
+    if (!active || !['INPUT', 'TEXTAREA'].includes(active.tagName)) confirmBtn.focus();
   }
 
   function handleConfirm(preview, cardElement) {
@@ -820,8 +1054,10 @@ const Executive = (() => {
     })
       .then(response => {
         cardElement.remove();
-        if (response.message) {
-          addChatMessage('agent', response.message);
+        const success = preview.copy && preview.copy.success;
+        const message = (success && success !== 'Done.') ? success : (response.message || success);
+        if (message) {
+          addChatMessage('agent', message);
         }
         loadItems();
       })
@@ -930,18 +1166,24 @@ const Executive = (() => {
     panel.textContent = '';
     panel.classList.remove('hidden');
     const action = result.action;
-    panel.appendChild(textEl('div', 'item-title', action ? action.title : 'Nothing to rescue right now'));
+    panel.appendChild(textEl('div', 'item-title', action ? action.title : 'Nothing urgent right now'));
     if (action && action.project) panel.appendChild(textEl('div', 'item-meta', 'Project: ' + action.project));
     if (action && action.due) panel.appendChild(textEl('div', 'item-meta', 'Due: ' + action.due));
     if (result.why) panel.appendChild(textEl('div', 'item-why', result.why));
     if (result.then) panel.appendChild(textEl('div', 'item-why', result.then));
-    panel.appendChild(textEl('div', 'muted', `${result.suppressed || 0} other item(s) hidden`));
-    if (result.item_id !== undefined && result.item_id !== null) {
-      renderItems(items.filter(i => String(i.id) === String(result.item_id)));
-    } else {
-      renderItems([]);
+    const others = result.suppressed || 0;
+    if (others > 0) {
+      panel.appendChild(textEl('div', 'muted', others === 1
+        ? '1 other thing is waiting — showing just one.'
+        : `${others} other things are waiting — showing just one.`));
     }
-    if (result.errors && [].concat(result.errors).length) showError(result.errors);
+    const shown = (result.item_id !== undefined && result.item_id !== null)
+      ? items.filter(i => String(i.id) === String(result.item_id)) : [];
+    // Nothing to list means no empty-list message either; the panel above says it all.
+    renderItems(shown, true);
+    if (result.errors && [].concat(result.errors).length) {
+      showError(result.errors, { text: friendlyLoadError(result.errors) });
+    }
   }
 
   function loadItems() {
@@ -952,6 +1194,7 @@ const Executive = (() => {
         apiCall('GET', '/api/rescue?tab=' + encodeURIComponent(activeTab())),
       ]).then(([itemsResponse, result]) => {
         showBusy(false);
+        setTodayCount(itemsResponse.items || []);
         renderRescue(result, itemsResponse.items || []);
       }).catch(() => { showBusy(false); });
       return;
@@ -961,10 +1204,11 @@ const Executive = (() => {
       .then(response => {
         showBusy(false);
         if (response.items) {
+          setTodayCount(response.items);
           renderItems(response.items);
         }
-        if (response.errors) {
-          showError(response.errors);
+        if (response.errors && [].concat(response.errors).length) {
+          showError(response.errors, { text: friendlyLoadError(response.errors) });
         } else {
           clearError();
         }
@@ -987,24 +1231,43 @@ const Executive = (() => {
       loadItems();
     });
 
-    tabWork.addEventListener('click', () => {
-      tabWork.classList.add('on');
-      tabPersonal.classList.remove('on');
-      tabWork.setAttribute('aria-selected', 'true');
-      tabPersonal.setAttribute('aria-selected', 'false');
-      workTab.classList.add('on');
-      personalTab.classList.remove('on');
+    function selectTab(personal) {
+      const [on, off, onPanel, offPanel] = personal
+        ? [tabPersonal, tabWork, personalTab, workTab] : [tabWork, tabPersonal, workTab, personalTab];
+      on.classList.add('on');
+      off.classList.remove('on');
+      on.setAttribute('aria-selected', 'true');
+      off.setAttribute('aria-selected', 'false');
+      on.tabIndex = 0;
+      off.tabIndex = -1;
+      onPanel.classList.add('on');
+      offPanel.classList.remove('on');
       if (rescueMode) loadItems();
-    });
+    }
 
-    tabPersonal.addEventListener('click', () => {
-      tabPersonal.classList.add('on');
-      tabWork.classList.remove('on');
-      tabPersonal.setAttribute('aria-selected', 'true');
-      tabWork.setAttribute('aria-selected', 'false');
-      personalTab.classList.add('on');
-      workTab.classList.remove('on');
-      if (rescueMode) loadItems();
+    tabWork.addEventListener('click', () => selectTab(false));
+    tabPersonal.addEventListener('click', () => selectTab(true));
+    [tabWork, tabPersonal].forEach(tab => {
+      tab.addEventListener('keydown', event => {
+        const keys = { ArrowRight: 'next', ArrowLeft: 'next', Home: 'work', End: 'personal' };
+        const move = keys[event.key];
+        if (!move) return;
+        event.preventDefault();
+        const personal = move === 'next' ? tab === tabWork : move === 'personal';
+        selectTab(personal);
+        (personal ? tabPersonal : tabWork).focus();
+      });
+    });
+  }
+
+  function setupExamples() {
+    document.querySelectorAll('#chat-examples button').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const input = document.getElementById('chat-input');
+        input.value = chip.dataset.fill
+          || (/^start a coding task$/i.test(chip.textContent.trim()) ? 'Start a coding task: ' : chip.textContent);
+        input.focus();
+      });
     });
   }
 
@@ -1237,6 +1500,24 @@ const Executive = (() => {
       if (project.sensitive) preview.title = 'Sensitive projects cannot use cloud sessions';
       compose.appendChild(preview);
       card.appendChild(compose);
+      const coding = el('div', 'cloud-task');
+      const goalLabel = el('label', '', 'Goal for an orchestrator coding run');
+      const goalInput = el('textarea');
+      goalInput.rows = 2;
+      goalLabel.appendChild(goalInput);
+      coding.appendChild(goalLabel);
+      const startCoding = button('Start coding task', async () => {
+        if (!goalInput.value.trim()) return;
+        startCoding.disabled = true;
+        try {
+          const result = await apiCall('POST', '/api/coding/start', {project: project.id, repo: project.id, goal: goalInput.value.trim()});
+          showPreview({...result.preview, id: result.confirm_token, action_id: 'coding.start',
+            title: 'Coding run · ' + project.name}, 'coding.start');
+        } finally { startCoding.disabled = !project.path; }
+      });
+      startCoding.disabled = !project.path;
+      coding.appendChild(startCoding);
+      card.appendChild(coding);
       list.appendChild(card);
     });
     if (!hub.projects.length) list.appendChild(el('p', 'muted', 'No registered projects.'));
@@ -1367,6 +1648,7 @@ const Executive = (() => {
     initToken();
     setupTabs();
     setupChat();
+    setupExamples();
     setupCommandCenter();
     loadItems();
     startPolling();

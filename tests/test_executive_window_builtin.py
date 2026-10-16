@@ -86,6 +86,10 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "document.propose",
             "document.save",
             "document.discard",
+            "coding.start",
+            "coding.pause",
+            "coding.resume",
+            "coding.stop",
             "browser_routine.approve",
             "browser_routine.decline",
             "browser_routine.retry",
@@ -153,6 +157,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "candidate.reject",
             "document.propose",
             "document.save",
+            "coding.start",
+            "coding.stop",
         }
         # The old direct senders are gone: every email goes through compose.
         self.assertNotIn("email.send", reg._actions)
@@ -177,6 +183,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "document.start",
             "document.answer",
             "document.discard",
+            "coding.pause",
+            "coding.resume",
         }
 
         for action_id in non_consequential_actions:

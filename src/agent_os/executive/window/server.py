@@ -27,7 +27,7 @@ from ...paths import ROOT
 from ...orchestrator import cloud_lane, plan_extras, usage_hub
 from .. import chat_hub, documents, projects_view
 from ..keep_awake import KeepAwake
-from . import actions_candidates_query, actions_documents, actions_openings, model_bridge
+from . import actions_candidates_query, actions_coding, actions_documents, actions_openings, model_bridge
 from .confirm import ItemState, PendingStore, _write_json, window_home
 from .rescue_view import rescue_view
 
@@ -136,6 +136,9 @@ class Api:
                 "confirm_token": record["token"],
                 "action_id": record.get("action_id"),
                 "item_id": item.get("id"),
+                "item_title": item.get("title"),
+                "county": (item.get("context") or {}).get("county"),
+                "data": record.get("preview"),
                 "title": f"{record.get('action_id')}: {item.get('title') or item.get('id') or ''}",
                 "content": json.dumps(record.get("preview"), indent=2, default=str, ensure_ascii=False),
                 "created_at": record.get("created_at"),
@@ -172,16 +175,41 @@ class Api:
         try:
             tasks = [self._start_document(t, request["role"]) for t in request["doc_types"]]
         except Exception as exc:
-            return {"message": f"Could not start the document: {type(exc).__name__}: {exc}"[:600],
+            return {"message": "I couldn't start that document. Please check the job title and try again.",
+                    "details": f"{type(exc).__name__}: {exc}"[:600],
                     "previews": self._previews(), "documents": []}
-        parts = []
+        labels = [documents.DOC_LABELS.get(t["doc_type"], t["doc_type"]).lower() for t in tasks]
+        # Questions shared by both drafts are asked once; each answer goes to every draft.
+        questions: dict[str, dict[str, Any]] = {}
         for task in tasks:
-            label = documents.DOC_LABELS.get(task["doc_type"], task["doc_type"])
-            lines = [f"I started a draft {label.lower()} for {task['role']}. Please answer these before I finish it:"]
-            lines += [f"{n}. {q['text']}" for n, q in enumerate(task["questions"], 1)]
-            parts.append("\n".join(lines))
+            for q in task["questions"]:
+                questions.setdefault(q["id"], q)
+        lines = [f"I started a draft {' and a draft '.join(labels)} for {tasks[0]['role']}. "
+                 f"Please answer these before I finish {'them' if len(tasks) > 1 else 'it'}:"]
+        lines += [f"{n}. {q['text']}" for n, q in enumerate(questions.values(), 1)]
+        parts = ["\n".join(lines)]
         parts.append("Nothing is saved yet. Answer in the Today tab; Save asks you to confirm first.")
         return {"message": "\n\n".join(parts), "previews": self._previews(), "documents": tasks, "refresh": True}
+
+    def _coding_start(self, goal: Any, repo: Any, project: Any) -> dict[str, Any]:
+        """Preview coding.start; the run only starts through /api/confirm."""
+        params = {"goal": goal, "repo": repo or project, "project": project}
+        return self.registry.invoke("coding.start", actions_coding.start_item(),
+                                    {k: v for k, v in params.items() if v}, self.pending)
+
+    def _coding_chat(self, request: dict[str, Any]) -> dict[str, Any]:
+        if not request.get("repo"):
+            return {"message": "Which project? Say \"code: " + request["goal"] + " in <project>\" "
+                    "or use Start coding task on a project in the Projects tab.",
+                    "previews": self._previews()}
+        try:
+            out = self._coding_start(request["goal"], request["repo"], None)
+        except Exception as exc:
+            return {"message": f"Could not preview the coding task: {type(exc).__name__}: {exc}"[:600],
+                    "previews": self._previews()}
+        return {"message": "Confirm to start the coding run; nothing starts until you do.",
+                "preview": {**out["preview"], "action_id": "coding.start"},
+                "confirm_token": out["confirm_token"], "previews": self._previews()}
 
     def _candidates(self, query: dict[str, Any]) -> dict[str, Any]:
         """Answer 'who are good applicants for X' from existing reviews, without the model."""
@@ -307,6 +335,11 @@ class Api:
             added = store.add(result, tab=body.get("tab"))  # the store falls back to "work"
             return {**result, "added": added, "refresh": True,
                     "message": f"Captured {len(added)} item(s); {len(result['clarifications'])} need a project; {len(result['duplicates'])} duplicate(s)."}
+        if path == "/api/coding/start":
+            goal = str(body.get("goal") or "").strip()
+            if not goal:
+                raise ValueError("goal is required")
+            return self._coding_start(goal, body.get("repo") or None, body.get("project") or None)
         if path == "/api/documents/start":
             task = self._start_document(body.get("doc_type"), body.get("role"))
             return {"status": "done", "task": task, "questions": task["questions"], "refresh": True}
@@ -364,6 +397,9 @@ class Api:
             document_request = parse_document_request(text)
             if document_request is not None:
                 return self._document_chat(document_request)
+            coding_request = actions_coding.parse_coding_request(text)
+            if coding_request is not None:
+                return self._coding_chat(coding_request)
             return self._model(body.get("conversation_id"), text)
         if path == "/api/send":
             return self.send(body)

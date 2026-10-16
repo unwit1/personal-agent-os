@@ -37,7 +37,7 @@ def rescue(
             "action": action,
             "why": why[:200],
             "suppressed": considered - 1 if action is not None else considered,
-            "then": "Finish this one step, then run `agent-os executive rescue` again.",
+            "then": "Finish this one step, then press Just one thing again.",
         }
 
     deadline_limit = today + timedelta(days=horizon_days)
