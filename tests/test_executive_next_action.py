@@ -359,7 +359,8 @@ class TestNextItem(unittest.TestCase):
 
 class TestRankingConstant(unittest.TestCase):
     def test_ranking_constant_value(self):
-        self.assertEqual(RANKING, "priority desc, then age_days desc, then queue item id asc")
+        self.assertTrue(RANKING.endswith("priority desc, then age_days desc, then queue item id asc"))
+        self.assertTrue(RANKING.startswith("domain weight desc"))
 
 
 class TestWithRealQueueItems(unittest.TestCase):

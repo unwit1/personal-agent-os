@@ -19,8 +19,15 @@ API_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_BASE_URL
 
 
 def _child_env() -> dict[str, str]:
-    """Parent environment minus API credentials so the CLI uses the subscription."""
-    return {k: v for k, v in os.environ.items() if k not in API_KEY_VARS}
+    """Parent environment minus API credentials and Claude session variables.
+
+    Dropping the credentials makes the CLI use the subscription; dropping the
+    session variables keeps the child from resuming the parent Claude session.
+    """
+    return {
+        k: v for k, v in os.environ.items()
+        if k not in API_KEY_VARS and k != "CLAUDECODE" and not k.startswith(("CLAUDE_CODE_", "CLAUDECODE_"))
+    }
 
 
 def mcp_config(path: Path | str) -> Path:

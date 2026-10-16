@@ -67,7 +67,7 @@ def project_items(
     for pid in sorted(projects_by_pid):
         registry_entry, state = projects_by_pid[pid]
         name = registry_entry.get("name") or pid
-        tab = "personal" if registry_entry.get("tab") == "personal" else "work"
+        tab = "personal" if _is_personal(registry_entry) else "work"
 
         result = project_actions.project_next_action(
             state, today=today, stale_days=stale_days, deferrals=counts.get(pid, 0)
@@ -203,6 +203,19 @@ def project_items(
             )
 
     return items
+
+
+_PERSONAL_CLASSES = {"hobby", "lore", "game", "games", "gaming", "personal", "fiction", "entertainment"}
+
+
+def _is_personal(entry: dict) -> bool:
+    """True when the registry marks the project as personal or not work-related."""
+    if entry.get("tab") == "personal" or entry.get("work_related") is False:
+        return True
+    return any(
+        isinstance(entry.get(key), str) and entry[key].strip().lower() in _PERSONAL_CLASSES
+        for key in ("classification", "category", "type")
+    )
 
 
 def _default_deferral_counts() -> dict[str, int]:

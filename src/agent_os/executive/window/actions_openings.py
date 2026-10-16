@@ -116,7 +116,7 @@ def register(registry: Any) -> None:
     registry.register_action(
         id="openings.event",
         label="Update county openings",
-        applies_to="*",
+        applies_to=["applicant_group", "county_openings", "openings_console"],
         handler=openings_event,
         consequential=True,
         description="Record an opening event (close, quit, new) for a county; previews, then applies on Confirm.",
