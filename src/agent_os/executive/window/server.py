@@ -26,7 +26,7 @@ from ...paths import ROOT
 from ...orchestrator import cloud_lane, plan_extras, usage_hub
 from .. import chat_hub, projects_view
 from ..keep_awake import KeepAwake
-from . import actions_openings, model_bridge
+from . import actions_candidates_query, actions_openings, model_bridge
 from .confirm import ItemState, PendingStore, _write_json, window_home
 from .rescue_view import rescue_view
 
@@ -134,6 +134,32 @@ class Api:
             return {"message": f"Could not preview the openings change: {type(exc).__name__}: {exc}"[:600],
                     "previews": self._previews(), "opening_event": event}
         return {"message": "Confirm to update openings", "previews": self._previews(), "opening_event": event}
+
+    def _candidates(self, query: dict[str, Any]) -> dict[str, Any]:
+        """Answer 'who are good applicants for X' from existing reviews, without the model."""
+        from agent_os.executive import applicants
+
+        opening = query["opening"]
+        limit = query.get("limit") or 5
+        try:
+            result = applicants.suggestions(opening)
+        except Exception as exc:
+            return {"message": f"Could not look up applicants for {opening}: {type(exc).__name__}"[:600],
+                    "previews": self._previews(), "candidates": []}
+        shown = str(result.get("opening") or opening)
+        rows = list(result.get("suggestions") or [])[:limit]
+        if not rows:
+            return {"message": f"No reviewed applicants match {shown} yet.",
+                    "previews": self._previews(), "candidates": []}
+        parts = []
+        for index, row in enumerate(rows, 1):
+            score = row.get("score")
+            reasons = row.get("review_reasons") or {}
+            why = reasons.get("summary") or "; ".join(row.get("match_reasons") or []) or "no review yet"
+            label = f"score {score}" if score is not None else "not yet reviewed"
+            parts.append(f"{index}. {row.get('name') or row.get('applicant_ref')} ({label}) - {why}")
+        return {"message": f"Top applicants for {shown}: " + "; ".join(parts),
+                "previews": self._previews(), "candidates": rows}
 
     # -- routes ---------------------------------------------------------------
 
@@ -281,6 +307,9 @@ class Api:
             event = actions_openings.parse_opening_event(text)
             if event is not None:
                 return self._opening_event(event)
+            query = actions_candidates_query.parse_candidate_query(text)
+            if query is not None:
+                return self._candidates(query)
             return self._model(body.get("conversation_id"), text)
         if path == "/api/send":
             return self.send(body)

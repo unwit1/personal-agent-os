@@ -555,7 +555,7 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": {"type": "object", "properties": {"project_id": {"type": "string"}}, "required": ["project_id"]},
     },
     "applicant.list": {
-        "description": "List normalized RTEC Applicant Dashboard records for administrative HR workflow. This is not a ranking or employment-decision tool.",
+        "description": "List normalized RTEC Applicant Dashboard records for administrative HR workflow (roster, status, filters). For 'who should I interview' or 'good applicants for <opening>' questions, use executive.suggestions instead; it returns ranked, reviewed matches.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -672,7 +672,7 @@ EXECUTIVE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "minimum": 1, "maximum": 500, "default": 100}}, "additionalProperties": False},
     },
     "executive.suggestions": {
-        "description": "Applicant Executive: existing Dashboard AI reviews for applicants matching an opening, best first. Advisory; the operator decides. Never triggers new reviews.",
+        "description": "Applicant Executive: use this to answer 'who should I interview', 'good/best applicants for <opening>' and similar questions. Returns applicants matching an opening with their existing Dashboard AI review scores, best first. Advisory; the operator decides. Never triggers new reviews.",
         "inputSchema": {"type": "object", "properties": {"opening": {"type": "string"}}, "required": ["opening"], "additionalProperties": False},
     },
     "executive.plan": {
