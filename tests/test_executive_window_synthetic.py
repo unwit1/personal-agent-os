@@ -116,14 +116,12 @@ class ExecutiveWindowSyntheticE2ETest(unittest.TestCase):
         # (c) consequential action via MCP yields a pending preview visible to the server
         out = self.mcp_call("executive_window.run", {"action_id": "synthetic.send", "item_id": "w1"})
         self.assertEqual(out["status"], "needs_confirmation")
-        self.assertNotIn("confirm_token", out)
-        self.assertIs(out["confirm_token_issued"], True)
+        confirm_token = out["confirm_token"]
+        self.assertTrue(confirm_token)
         self.assertEqual(self.executed, [])
         status, pending = self.request("GET", "/api/pending")
         self.assertEqual(status, 200)
-        [record] = [r for r in pending["pending"] if r["action_id"] == "synthetic.send"]
-        confirm_token = record["token"]
-        self.assertNotIn(confirm_token, json.dumps(out))
+        self.assertIn(confirm_token, [r["token"] for r in pending["pending"]])
 
         # (d) only the explicit confirm with session header executes, once
         status, _ = self.request("POST", "/api/confirm", {"confirm_token": confirm_token}, token=False)

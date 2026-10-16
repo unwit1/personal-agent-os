@@ -251,22 +251,19 @@ class NoSelfApprovalTests(unittest.TestCase):
         self.assertEqual(record["action_id"], "executive.approve_batch")
         self.assertEqual(record["item"]["title"], f"Approve outreach batch {batch_id}")
 
-    def test_window_run_does_not_return_token(self):
-        calls = []
-        reg = registry.Registry()
-        reg.register_provider("synthetic", lambda: [
-            {"id": "syn-1", "tab": "work", "kind": "synthetic", "title": "T", "why": "w", "source": "test"}])
-        reg.register_action("synthetic.send", "Synthetic send", ["synthetic"],
-                            lambda item, params, confirm=False: calls.append(confirm) or {"preview": item["id"]}, True)
-        with patch.object(mcp_server, "_window_registry", lambda: reg):
-            err, out = call("executive_window.run", action_id="synthetic.send", item_id="syn-1")
-        self.assertFalse(err, out)
-        self.assertEqual(calls, [False])
-        record = self.assert_parked(out, "synthetic.send")
-        self.assertEqual(out["preview"], {"preview": "syn-1"})
-
-        self.assertEqual(reg.confirm(record["token"], self.pending), {"preview": "syn-1"})
-        self.assertEqual(calls, [False, True])
+    def test_no_mcp_tool_can_redeem_a_pending_record(self):
+        """The window's Confirm click is the only way to redeem a parked record."""
+        batch_id = self.plan()
+        call("executive.approve", batch_id=batch_id, choices={"ref-a": "confirm"})
+        [record] = self.pending.list()
+        tools = {t["name"] for t in mcp_server._handle_mcp(
+            {"jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {}}, mcp_server.methods())["result"]["tools"]}
+        self.assertFalse([n for n in tools if "confirm" in n.lower()], tools)
+        for name in ("executive.approve", "executive.send", "browser.execute", "executive_window.run"):
+            self.assertNotIn("confirm_token", mcp_server.TOOL_SCHEMAS.get(name, mcp_server.EXECUTIVE_TOOL_SCHEMAS.get(name, {}))
+                             .get("inputSchema", {}).get("properties", {}))
+        self.assertEqual(self.store.load(batch_id)["state"], ex.PENDING_APPROVAL)
+        self.assertEqual([r["token"] for r in self.pending.list()], [record["token"]])
 
     def test_window_actions_are_consequential(self):
         actions = {a["id"]: a for a in self.reg.actions()}

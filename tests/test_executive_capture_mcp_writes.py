@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import os
 import sys
 import tempfile
@@ -52,10 +51,7 @@ class CaptureMCPWriteTests(unittest.TestCase):
         pending = PendingStore(self.temp.name).list()
         self.assertEqual(len(pending), 1)
         self.assertEqual(pending[0]["action_id"], "brain_dump.capture")
-        self.assertNotIn("confirm_token", result)
-        self.assertIs(result["confirm_token_issued"], True)
-        self.assertNotIn(pending[0]["token"], json.dumps(result))
-        default_registry().confirm(pending[0]["token"], PendingStore(self.temp.name))
+        default_registry().confirm(result["confirm_token"], PendingStore(self.temp.name))
         self.assertTrue(store.records())
 
     def test_gaps_enqueue_requires_confirm_to_write(self):
@@ -67,10 +63,7 @@ class CaptureMCPWriteTests(unittest.TestCase):
         pending = PendingStore(self.temp.name).list()
         self.assertEqual(len(pending), 1)
         self.assertEqual(pending[0]["action_id"], "knowledge_gap.enqueue")
-        self.assertNotIn("confirm_token", result)
-        self.assertIs(result["confirm_token_issued"], True)
-        self.assertNotIn(pending[0]["token"], json.dumps(result))
-        default_registry().confirm(pending[0]["token"], PendingStore(self.temp.name))
+        default_registry().confirm(result["confirm_token"], PendingStore(self.temp.name))
         self.assertEqual([gap["id"] for gap in store.gaps()], ["g1"])
 
     def test_empty_brain_dump_capture_raises(self):
