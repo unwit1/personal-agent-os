@@ -801,7 +801,9 @@ def get_timeline(applicant_ref: str, limit: int = 100) -> dict[str, Any] | None:
 
 def openings_status() -> dict[str, Any]:
     """Return organization-level openings configuration, never candidate fit."""
-    path = _project_root() / _OPENINGS_RELATIVE
+    runtime = _runtime_root()
+    config_root = runtime if (runtime / "Config").is_dir() else _project_root()
+    path = config_root / _OPENINGS_RELATIVE
     data = _load_local_json(path)
     if not data:
         _audit_health("applicant.openings", {"configured": False})
