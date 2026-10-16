@@ -280,12 +280,15 @@ class LocalDashboardGateway:
         return self._module("interview_calendar").manager_for_applicant(self._raw(applicant))
 
     def suggest_slots(self, manager: Any, duration_minutes: int, count: int) -> list[tuple[datetime, str]]:
-        return self._module("interview_calendar").suggest_slots(manager, duration_minutes, count)
+        return self._module("interview_calendar").suggest_slots(
+            manager, duration_minutes=duration_minutes, count=count
+        )
 
     def render_outreach(self, name: str, position: str, slots: list[Any], interview_type: str,
                         location: str, duration_minutes: int, message: str, county: str) -> tuple[str, str]:
         return self._module("interview_outreach").render_outreach(
-            name, position, slots, interview_type, location, duration_minutes, message, county
+            name, position, slots, interview_type=interview_type, location=location,
+            duration_minutes=duration_minutes, message=message, county=county,
         )
 
     def record_outreach_drafted(self, applicant_key: str, slots: list[Any], interview_type: str,
