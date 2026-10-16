@@ -791,6 +791,28 @@ class ReviewAndIntegrationTests(OrchestratorFixture):
             self.assertNotEqual(review["provider"], author)
         self.assertEqual(self.git("show", f"{record['integration']['branch']}:a/fixed.txt"), "fixed\n")
 
+    def test_repair_that_changes_nothing_is_not_reviewed_again(self) -> None:
+        finding = {"id": "1", "severity": "high", "path": "a/impl.txt", "summary": "missing null check", "evidence": "line 1", "recommended_action": "add a guard"}
+        calls = {"reviewer": 0, "repairer": 0}
+
+        def script(request, call):
+            if request.role == "reviewer":
+                calls["reviewer"] += 1
+                return {"structured": {"status": "done", "verdict": "changes_requested", "findings": [finding]}}
+            if request.role == "repairer":
+                calls["repairer"] += 1
+                return {"structured": {"status": "already_done"}}
+            return {"edits": {"a/impl.txt": "impl\n"}, "structured": {"status": "done"}}
+
+        synthetic.SCRIPTS["alpha"] = script
+        synthetic.SCRIPTS["beta"] = script
+        run_id = self.create([self.task("a")])
+        final = self.engine.run_loop(run_id, max_ticks=80)
+        self.assertEqual(final["state"], "APPROVAL_REQUIRED")
+        self.assertEqual(final["gates"][0]["kind"], "unresolved_review_findings")
+        print(f"REVIEW_CALLS reviewer={calls['reviewer']} repairer={calls['repairer']}")
+        self.assertLessEqual(calls["reviewer"], 2, "an unchanged tree must not be reviewed again by the same tier")
+
     def test_looks_good_is_not_a_review(self) -> None:
         def script(request, call):
             if request.role == "reviewer":

@@ -1284,6 +1284,17 @@ class Orchestrator:
             node["completed_at"] = now()
             self._release_claim(record, node, "repair validated")
             subject["state"] = "WAITING_FOR_REVIEW"
+            blocking = material(
+                [item for item in subject["review"]["findings"] if item["round"] == subject["review"]["rounds"]],
+                record["policy"]["material_severities"],
+            )
+            tree = _tree_hash(subject["worktree"]["path"]) if subject.get("worktree") else None
+            if blocking and tree and tree == subject["review"].get("reviewed_tree"):
+                # The repair left the reviewed tree untouched and closed no
+                # finding: a reviewer would judge identical code again.
+                self.ledger.emit(record["run_id"], "work_avoided", subject["id"], category="unchanged_review", model_calls_avoided=1, reason="the repair changed nothing and fixed no finding, so the same code was not reviewed again", tokens_avoided_estimate=self._measured_average(record, "reviewer"))
+                self._after_blocking_review(record, subject, blocking, exhausted=True)
+                return
             self._create_reviewer(record, subject)
             return
         if self._review_required(record, node):
@@ -1600,7 +1611,12 @@ class Orchestrator:
             subject["state"] = "PASSED"
             subject["completed_at"] = now()
             return
-        if subject["review"]["rounds"] < record["policy"]["max_review_rounds"]:
+        subject["review"]["reviewed_tree"] = _tree_hash(subject["worktree"]["path"]) if subject.get("worktree") else None
+        self._after_blocking_review(record, subject, blocking)
+
+    def _after_blocking_review(self, record: dict[str, Any], subject: dict[str, Any], blocking: list[dict[str, Any]], *, exhausted: bool = False) -> None:
+        """Next step for material findings: repair, a stronger reviewer, a last repair, then a person."""
+        if not exhausted and subject["review"]["rounds"] < record["policy"]["max_review_rounds"]:
             subject["state"] = "NEEDS_REPAIR"
             self._create_repair(record, subject, blocking)
             return
@@ -2124,7 +2140,9 @@ class Orchestrator:
             diff = manager.diff(cwd, subject["worktree"]["base_commit"])
             # Findings earlier rounds left open: the new reviewer checks them
             # instead of judging the change from scratch and missing them.
-            findings = material(subject["review"]["findings"], policy["material_severities"]) or None
+            # Settled ones are listed too, so the reviewer stops re-raising them.
+            settled = [item for item in subject["review"]["findings"] if item["disposition"] in {"follow_up", "rejected"}]
+            findings = [*material(subject["review"]["findings"], policy["material_severities"]), *settled] or None
         if node["role"] == "repairer" and subject:
             wanted = set(node.get("finding_ids") or [])
             findings = [item for item in subject["review"]["findings"] if item["id"] in wanted]

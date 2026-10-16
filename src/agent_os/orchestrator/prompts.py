@@ -230,11 +230,20 @@ def _node_blocks(run: dict[str, Any], node: dict[str, Any], diff: str | None, fi
             "```",
             "",
         ]
+        settled = [item for item in findings or [] if item.get("disposition") in {"follow_up", "rejected"}]
+        findings = [item for item in findings or [] if item not in settled]
         if findings:
             lines += ["Earlier review rounds left these findings unresolved. Check each against the current change: report it again",
                       "(same id and summary) if it still applies, and do not approve while one does.", ""]
             for item in findings[-10:]:
                 lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
+            lines.append("")
+        if settled:
+            lines += ["Already decided (accepted as a follow-up, or rejected with a reason). Do not report these again unless the",
+                      "current change makes one worse or the stated reason is wrong:", ""]
+            for item in settled[-10:]:
+                why = f" ({item['disposition_reason'][:120]})" if item.get("disposition_reason") else ""
+                lines.append(f"- [{item['id']}] {item['disposition']} {item.get('path') or ''}: {str(item['summary'])[:160]}{why}")
             lines.append("")
     if role == "repairer" and findings:
         lines += ["Address these review findings (fix them, or reject one with a concrete reason):", ""]
