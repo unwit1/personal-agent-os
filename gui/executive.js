@@ -642,6 +642,8 @@ const Executive = (() => {
   function optionShownOnCard(item, option) {
     const id = option.action_id || '';
     if (id.startsWith('applicant.')) return false;
+    if (id === 'coding.pause') return !(item.context && item.context.paused);
+    if (id === 'coding.resume') return !!(item.context && item.context.paused);
     if (id === 'openings.event' || id.startsWith('county.')) return APPLICANT_KINDS.includes(item.kind);
     return true;
   }
@@ -679,6 +681,14 @@ const Executive = (() => {
     }
     if (meta.children.length > 0) {
       card.appendChild(meta);
+    }
+
+    if (item.kind === 'coding_run' && item.context && item.context.total) {
+      const bar = el('progress');
+      bar.max = item.context.total;
+      bar.value = item.context.passed || 0;
+      bar.setAttribute('aria-label', (item.context.passed || 0) + ' of ' + item.context.total + ' tasks done');
+      card.appendChild(bar);
     }
 
     if (item.kind === 'county_openings') {
@@ -719,7 +729,8 @@ const Executive = (() => {
                 loadItems();
               })
               .catch(() => { btn.disabled = false; });
-          } else if (option.action_id === 'brain_dump.stage_candidate' || option.action_id === 'project.resume') {
+          } else if (option.action_id === 'brain_dump.stage_candidate' || option.action_id === 'project.resume'
+              || option.action_id.startsWith('coding.')) {
             runAction(item, option.action_id, {}).then(loadItems).catch(() => { /* error already shown */ });
           } else {
             handleOptionClick(item, option);
@@ -951,6 +962,14 @@ const Executive = (() => {
         return { title: 'Approve this step?', body: 'The paused work carries on.', confirm: 'Approve', success: 'Approved.' };
       case 'orchestrator.decline_gate':
         return { title: 'Decline this step?', body: 'The paused work does not carry on.', confirm: 'Decline', success: 'Declined.' };
+      case 'coding.start':
+        return {
+          title: 'Start this coding run?',
+          body: 'Starts an orchestrator run that plans, codes, tests and reviews on its own branch; nothing is merged without you.',
+          confirm: 'Start coding', success: 'Coding run started. Follow it on the Today list or the Runs tab.',
+        };
+      case 'coding.stop':
+        return { title: 'Stop this coding run?', body: 'The run stops and its workers are cancelled.', confirm: 'Stop run', success: 'Run stopped.' };
       case 'command-center.cloud':
         return {
           title: text || 'Start this task in the cloud?',
@@ -1245,7 +1264,8 @@ const Executive = (() => {
     document.querySelectorAll('#chat-examples button').forEach(chip => {
       chip.addEventListener('click', () => {
         const input = document.getElementById('chat-input');
-        input.value = chip.dataset.fill || chip.textContent;
+        input.value = chip.dataset.fill
+          || (/^start a coding task$/i.test(chip.textContent.trim()) ? 'Start a coding task: ' : chip.textContent);
         input.focus();
       });
     });
@@ -1480,6 +1500,24 @@ const Executive = (() => {
       if (project.sensitive) preview.title = 'Sensitive projects cannot use cloud sessions';
       compose.appendChild(preview);
       card.appendChild(compose);
+      const coding = el('div', 'cloud-task');
+      const goalLabel = el('label', '', 'Goal for an orchestrator coding run');
+      const goalInput = el('textarea');
+      goalInput.rows = 2;
+      goalLabel.appendChild(goalInput);
+      coding.appendChild(goalLabel);
+      const startCoding = button('Start coding task', async () => {
+        if (!goalInput.value.trim()) return;
+        startCoding.disabled = true;
+        try {
+          const result = await apiCall('POST', '/api/coding/start', {project: project.id, repo: project.id, goal: goalInput.value.trim()});
+          showPreview({...result.preview, id: result.confirm_token, action_id: 'coding.start',
+            title: 'Coding run · ' + project.name}, 'coding.start');
+        } finally { startCoding.disabled = !project.path; }
+      });
+      startCoding.disabled = !project.path;
+      coding.appendChild(startCoding);
+      card.appendChild(coding);
       list.appendChild(card);
     });
     if (!hub.projects.length) list.appendChild(el('p', 'muted', 'No registered projects.'));
