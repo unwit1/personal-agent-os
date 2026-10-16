@@ -56,6 +56,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "email.reply_draft",
             "executive.plan_interviews",
             "executive.approve_batch",
+            "executive.send_batch",
+            "browser.execute_consequential",
             "orchestrator.approve_gate",
             "orchestrator.decline_gate",
             "item.dismiss",
@@ -152,6 +154,10 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         consequential_actions = {
             "orchestrator.approve_gate",
             "orchestrator.decline_gate",
+            # Model-requested steps the operator must Confirm (no self-approval).
+            "executive.approve_batch",
+            "executive.send_batch",
+            "browser.execute_consequential",
             "mail.organize_apply",
             "brain_dump.capture",
             "applicant.decline",
@@ -185,7 +191,6 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         non_consequential_actions = {
             "email.reply_draft",
             "executive.plan_interviews",
-            "executive.approve_batch",
             "item.dismiss",
             "item.snooze",
             "mail.organize_inbox",
