@@ -46,6 +46,9 @@ def run_validator(validator: dict[str, Any], cwd: Path | str, timeout: int = 900
             # signature, so a failure that already exists on the base commit
             # can still be recognised as pre-existing (engine baseline excuse).
             result["failed_tests"] = failed_tests(output) or error_signature(completed.stdout or "", completed.stderr or "", cwd)
+            excerpt = failure_excerpt(output)
+            if excerpt:
+                result["excerpt"] = redact(excerpt, EXCERPT_LIMIT)
         return result
     if kind == "outputs_present":
         missing = [item for item in validator.get("outputs", []) if not (Path(cwd) / item).exists()]
@@ -141,6 +144,33 @@ def error_signature(stdout: str, stderr: str, cwd: Path | str) -> list[str]:
     if not lines:
         lines = [line for line in (stdout + "\n" + stderr).splitlines() if _ERROR_LINE.search(line) and "Warning" not in line]
     return sorted({"error: " + clean(line) for line in lines if line.strip()})[:50]
+
+
+EXCERPT_LIMIT = 1200
+_EXCERPT_LINE = re.compile(
+    r"^(?:FAILED |ERROR |FAIL: |ERROR: )"  # failing test ids (pytest, unittest)
+    r"|^E {2,}\S"  # pytest assertion detail
+    r"|^\S+\.py:\d+: \w*(?:Error|Exception)\b"  # pytest location line
+    r"|^(?:\w+\.)*\w*(?:Error|Exception)\b"  # exception line, unittest and tracebacks
+)
+
+
+def failure_excerpt(output: str, limit: int = EXCERPT_LIMIT) -> str:
+    """The lines that say why a test run failed: failing test ids plus
+    assertion and exception lines, in order, de-duplicated and capped.
+
+    The output tail usually holds only the summary ("Ran 15 tests",
+    "FAILED (failures=2)"), so a retried worker could not see the error.
+    Measured on pytest and unittest runs with assertion, syntax, import,
+    runtime and attribute failures: the explaining line was kept in every
+    case at about 300 bytes. Empty when no such line parses."""
+    lines = [line.rstrip() for line in output.splitlines() if _EXCERPT_LINE.match(line)]
+    text = ""
+    for line in dict.fromkeys(lines):
+        if len(text) + len(line) + 1 > limit:
+            break
+        text += line + "\n"
+    return text.rstrip("\n")
 
 
 def failed_tests(output: str) -> list[str]:

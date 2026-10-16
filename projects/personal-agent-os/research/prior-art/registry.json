@@ -1,7 +1,7 @@
 {
   "schema": "personal-agent/prior-art-registry/v1",
   "entry_schema": "schemas/prior-art-entry-v1.schema.json",
-  "as_of": "2026-09-29",
+  "as_of": "2026-10-16",
   "workflow": "projects/personal-agent-os/research/prior-art/README.md",
   "permission_note": "Operator states full academic reuse permission for projects found (2026-09-29); licenses and attribution are still recorded for provenance.",
   "entries": [
@@ -3398,6 +3398,65 @@
         "an open-source OpenRouter free-model router appears in discovery queries"
       ],
       "revisit_by": "2026-10-31"
+    },
+    {
+      "id": "PA-distill",
+      "name": "distill",
+      "repository": "https://github.com/samuelfaj/distill",
+      "organization": "samuelfaj",
+      "description": "Lightweight coding agent harness and TUI (Rust fork of a SpaceXAI agent) with main/worker/utility model tiers, deterministic tool-output reduction and Jev routing",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "Apache-2.0 with NOTICE; idea borrowed, no code copied",
+      "evaluated_revision": "6114133 @ 2026-10-16",
+      "evaluated_at": "2026-10-16",
+      "language": "Rust",
+      "capability_areas": [
+        "tool output compression",
+        "history eviction",
+        "context compaction",
+        "main/worker model tiers",
+        "test output filtering",
+        "code navigation index"
+      ],
+      "agent_os_overlap": "Agent OS delegates the agent loop to Claude Code / Codex, so it never sees tool results; distill's savings live inside that loop. Planner/worker/reviewer routing, worktree isolation, retry backoff and the cost ledger already exist in orchestrator/.",
+      "useful_parts": {
+        "algorithms": [
+          "send the concrete error back on a failed check (main->worker spec)",
+          "fold a rerun's unchanged failures into one line",
+          "evict history only when the prompt cache is cold"
+        ],
+        "tests_benchmarks": [
+          "tools/task_cost_eval: frozen tasks, external graders, alternating arm order, failed runs kept"
+        ]
+      },
+      "integration": "borrowed: validator failure excerpt and unchanged-failure note in retry prompts (validators.failure_excerpt, engine._prior_attempts)",
+      "risks": {
+        "maintenance": "single maintainer, very active",
+        "provider_lock_in": "Jev routing is a paid external API",
+        "dependency_weight": "~2.2M lines of Rust; build needs protoc and downloads ripgrep"
+      },
+      "evidence": {
+        "development_savings": "small: the borrowed retry excerpt is ~30 lines",
+        "runtime_savings": "measured offline 2026-10-16 on 528 real Claude Code tool results: the shipped reduction pipeline saved 0 bytes (94% of bytes hit its exact-output guard: grep/cat/head/tail/sed); warm history eviction cost 2-6% more than it saved, cold-only saved 0.16%",
+        "quality": "with guards off, lossy crushers removed text the model later used in 28-47% of reduced results; retry excerpt kept the explaining error line in 12/12 pytest+unittest failure kinds at ~300 bytes vs 0/12 for test names only",
+        "reliability": "2261/2271 workspace tests pass; 9 deterministic failures look like rename leftovers, 1 flaky",
+        "security": "neutral; its secret detector flagged 90/528 ordinary results",
+        "complexity": "adopting the harness would add a Rust toolchain and a third worker adapter",
+        "maintenance": "fast-moving fork",
+        "portability": "Linux/macOS sandboxing; Windows untested here"
+      },
+      "decision": "BORROW",
+      "rationale": "Its token savings act on tool results inside the agent loop, which Agent OS does not own, and on our measured traffic they were ~0%. BENCHMARKS.md savings compare max-effort native runs to auto-effort distill runs on three tiny tasks and the author's own todo.md says no financial gain was validated. Worth borrowing: concrete error text in retry prompts and the unchanged-failure fold.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone https://github.com/samuelfaj/distill @ 6114133 (2026-10-16)",
+        "offline replay bench of jev_lanes::reduce_payload and native command filters over this session's transcripts"
+      ],
+      "revisit_when": [
+        "Agent OS runs its own agent loop (http_api adapter with tool use)",
+        "distill publishes paired results with equal effort settings"
+      ]
     }
   ]
 }

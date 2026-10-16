@@ -57,7 +57,7 @@ from .review import MalformedReview, apply_dispositions, material, parse_review
 from .router import ProviderRegistry, load_key, select
 from .store import RunStore, pid_alive, redact
 from .stall import repeated_command
-from .validators import run_all
+from .validators import EXCERPT_LIMIT, run_all
 from .worktrees import GitError, WorktreeManager, current_branch, git, head_commit, is_dirty, repository_root
 
 
@@ -1512,6 +1512,9 @@ class Orchestrator:
             detail,
             node.get("capability_class"),
         )
+        excerpt = "\n".join(item["excerpt"] for item in validation.get("evidence", []) if not item.get("passed") and item.get("excerpt"))
+        if excerpt:
+            node["failures"][-1]["excerpt"] = redact(excerpt, EXCERPT_LIMIT)
         policy = record["policy"]
         if self._fallback_to_model(record, node, "validator_failed", detail):
             return
@@ -3347,11 +3350,21 @@ def _prior_attempts(node: dict[str, Any], severities: list[str] | None = None) -
     if not lines:
         return ""
     if node["failures"] and node["failures"][-1]["kind"] == "validator_failed":
+        last = node["failures"][-1]
+        excerpt = last.get("excerpt")
+        if excerpt:
+            # Workers often cannot run the tests themselves, so the error text
+            # is what makes a same-tier fix possible instead of an escalation.
+            lines.append("- failing validator output:\n" + "\n".join("    " + line for line in excerpt.splitlines()))
+            earlier = [item for item in node["failures"][:-1] if item["kind"] == "validator_failed"]
+            if earlier and earlier[-1].get("excerpt") == excerpt:
+                lines.append("- this is the same failing output as the previous attempt: that change did not affect it.")
         # A retried worker otherwise sees the earlier work in its worktree,
         # reports already_done, and fails the same validator again.
         lines.append(
-            "- the work in your worktree FAILS validation. Do not report already_done: fix the failure named above"
-            " (run that test to see why), then report done."
+            "- the work in your worktree FAILS validation. Do not report already_done: fix the failure "
+            + ("shown above" if excerpt else "named above (run that test to see why)")
+            + ", then report done."
         )
     return "\n\nContext from earlier attempts on this assignment (your worktree keeps their partial work):\n" + "\n".join(lines) + "\n"
 
