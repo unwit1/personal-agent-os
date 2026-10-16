@@ -110,6 +110,12 @@ def _contract(role: str) -> str:
     )
 
 
+def _adjacent(task: dict[str, Any], other: dict[str, Any]) -> bool:
+    if other.get("id") in (task.get("depends_on") or []) or task.get("id") in (other.get("depends_on") or []):
+        return True
+    return bool({str(path) for path in task.get("scope") or []} & {str(path) for path in other.get("scope") or []})
+
+
 def _sibling_lines(run: dict[str, Any], node: dict[str, Any]) -> list[str]:
     """Other planned tasks, so a reviewer does not flag work that belongs to one of them."""
     nodes = run.get("nodes") or {}
@@ -118,6 +124,10 @@ def _sibling_lines(run: dict[str, Any], node: dict[str, Any]) -> list[str]:
         other for other in nodes.values()
         if other.get("id") != subject and other.get("role") in {"implementer", "test_author"}
     ]
+    if subject in nodes:
+        # Only tasks that could plausibly own something missing here: ones it
+        # depends on or that depend on it, or that list one of the same files.
+        siblings = [other for other in siblings if _adjacent(nodes[subject], other)]
     if not siblings:
         return []
     lines = ["Other tasks in this run cover the following; do not report their work as missing here:"]

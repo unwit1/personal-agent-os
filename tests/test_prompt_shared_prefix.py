@@ -77,6 +77,19 @@ class SharedPrefixTests(unittest.TestCase):
             plain = prompts.build(_run(None), REVIEWERS[0][0], diff="+x", findings=[open_one])
         self.assertNotIn("Already decided", plain)
 
+    def test_reviewer_only_hears_about_related_tasks(self):
+        run = _run(None)
+        run["nodes"] = {
+            "a": {"id": "a", "role": "implementer", "goal": "do a", "scope": ["src/a.py"]},
+            "b": {"id": "b", "role": "implementer", "goal": "do b", "scope": ["src/b.py"], "depends_on": ["a"]},
+            "c": {"id": "c", "role": "implementer", "goal": "do c", "scope": ["src/a.py", "src/c.py"]},
+            "d": {"id": "d", "role": "implementer", "goal": "do d unrelated", "scope": ["src/d.py"]},
+        }
+        text = "\n".join(prompts._sibling_lines(run, {"id": "a.review1", "role": "reviewer", "subject": "a"}))
+        self.assertIn("- b: do b", text)
+        self.assertIn("- c: do c", text)
+        self.assertNotIn("unrelated", text)
+
     def test_worker_prefix_is_identical_and_node_text_follows_it(self):
         run = _run(True)
         prefix = prompts.shared_prefix(run, "worker")
