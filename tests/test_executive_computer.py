@@ -18,7 +18,7 @@ from agent_os.executive.window.confirm import ENV_HOME, PendingStore
 SECRET = "TOP-SECRET-CONTENT-123"
 
 
-def call(name, **arguments):
+def call(name, /, **arguments):
     request = {"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": name, "arguments": arguments}}
     result = mcp_server._handle_mcp(request, mcp_server.methods())["result"]
     return bool(result.get("isError")), json.loads(result["content"][0]["text"])
