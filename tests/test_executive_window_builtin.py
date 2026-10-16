@@ -56,6 +56,8 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "email.reply_draft",
             "executive.plan_interviews",
             "executive.approve_batch",
+            "executive.send_batch",
+            "browser.execute_consequential",
             "orchestrator.approve_gate",
             "orchestrator.decline_gate",
             "item.dismiss",
@@ -90,6 +92,11 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "coding.pause",
             "coding.resume",
             "coding.stop",
+            "computer.write_file",
+            "computer.move_file",
+            "computer.delete_file",
+            "computer.open_path",
+            "computer.run_command",
             "browser_routine.approve",
             "browser_routine.decline",
             "browser_routine.retry",
@@ -147,6 +154,10 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         consequential_actions = {
             "orchestrator.approve_gate",
             "orchestrator.decline_gate",
+            # Model-requested steps the operator must Confirm (no self-approval).
+            "executive.approve_batch",
+            "executive.send_batch",
+            "browser.execute_consequential",
             "mail.organize_apply",
             "brain_dump.capture",
             "applicant.decline",
@@ -159,6 +170,11 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
             "document.save",
             "coding.start",
             "coding.stop",
+            "computer.write_file",
+            "computer.move_file",
+            "computer.delete_file",
+            "computer.open_path",
+            "computer.run_command",
         }
         # The old direct senders are gone: every email goes through compose.
         self.assertNotIn("email.send", reg._actions)
@@ -175,7 +191,6 @@ class TestExecutiveWindowBuiltin(unittest.TestCase):
         non_consequential_actions = {
             "email.reply_draft",
             "executive.plan_interviews",
-            "executive.approve_batch",
             "item.dismiss",
             "item.snooze",
             "mail.organize_inbox",
