@@ -89,13 +89,17 @@ def _start(item: dict, params: dict, *, confirm: bool) -> dict:
     from agent_os.orchestrator import model_profile
 
     if not confirm:
+        sensitive = bool(model_profile.is_sensitive({}, path))
+        note = PREVIEW_NOTE
+        if sensitive:
+            note += " This is a sensitive project: it never goes to third-party or free models."
         return {
             "goal": goal,
             "repo": path,
             "project": project_id,
-            "sensitive": model_profile.is_sensitive({}, path),
-            "routing": _routing_preview(),
-            "note": PREVIEW_NOTE,
+            "sensitive": sensitive,
+            "routing": {} if sensitive else _routing_preview(),
+            "note": note,
         }
     from agent_os.orchestrator import service
 

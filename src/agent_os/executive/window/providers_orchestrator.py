@@ -6,6 +6,8 @@ from typing import Any, Callable
 
 
 _TERMINAL_RUN_STATES = frozenset({"COMPLETE", "FAILED"})
+# list_runs is newest first; only this many finished runs are shown (and read).
+_MAX_COMPLETED_ITEMS = 5
 
 
 def orchestrator_items(
@@ -26,6 +28,7 @@ def orchestrator_items(
 
         status = service.status
     items: list[dict[str, Any]] = []
+    completed_shown = 0
     for run in list_runs() or []:
         run_id = run.get("run_id")
         if not run_id:
@@ -33,7 +36,8 @@ def orchestrator_items(
         # COMPLETE and FAILED are terminal: a dead run has nothing the operator
         # can act on. A completed run shows its result branch until dismissed.
         if run.get("state") in _TERMINAL_RUN_STATES:
-            if run.get("state") == "COMPLETE":
+            if run.get("state") == "COMPLETE" and completed_shown < _MAX_COMPLETED_ITEMS:
+                completed_shown += 1
                 try:
                     items.append(_completed_run_item(run_id, status(run_id)))
                 except (KeyError, ValueError, OSError):
