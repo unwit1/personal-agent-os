@@ -148,7 +148,7 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         }
     },
     "browser.execute": {
-        "description": "Run bounded DOM/browser actions in one registered Firefox/Tampermonkey session. Supported ops: inspect, extract, wait, click, type, scroll, navigate, back, forward, reload, open_tab. The browser-side safety gate blocks sensitive credential/payment fields and pauses risky submit/send/delete/purchase-style clicks unless approved_consequential=true. Use only when the user asked to operate their browser.",
+        "description": "Run bounded DOM/browser actions in one registered Firefox/Tampermonkey session. Supported ops: inspect, extract, wait, click, type, scroll, navigate, back, forward, reload, open_tab. The browser-side safety gate blocks sensitive credential/payment fields and pauses risky submit/send/delete/purchase-style clicks. approved_consequential=true does not run anything: it queues the actions for the operator to Confirm in the command center. Use only when the user asked to operate their browser.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -177,7 +177,7 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
                 "approved_consequential": {
                     "type": "boolean",
                     "default": False,
-                    "description": "Set true only after the user has explicitly approved the consequential action that previously returned approval_required."
+                    "description": "Set true to ask the operator to approve a consequential action that previously returned approval_required; it returns needs_confirmation and runs only after the operator clicks Confirm in the command center."
                 },
                 "wait_seconds": {"type": "number", "minimum": 0, "maximum": 30, "default": 12}
             },
@@ -695,7 +695,7 @@ EXECUTIVE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": {"type": "object", "properties": {"batch_id": {"type": "string"}}, "required": ["batch_id"], "additionalProperties": False},
     },
     "executive.approve": {
-        "description": "Applicant Executive: record the operator's per-item choices and move the batch to APPROVED. choices maps every applicant_ref to 'confirm', 'drop', or a list of ISO slot datetimes. Approval does not authorize sending.",
+        "description": "Applicant Executive: propose the operator's per-item choices for a batch. choices maps every applicant_ref to 'confirm', 'drop', or a list of ISO slot datetimes. Returns needs_confirmation; the batch moves to APPROVED only after the operator clicks Confirm in the command center. Approval does not authorize sending.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -707,7 +707,7 @@ EXECUTIVE_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         },
     },
     "executive.send": {
-        "description": "Applicant Executive: send an APPROVED batch through the Dashboard. Dry-run preview unless confirm_send=true, which requires the operator's explicit authorization to send in this request.",
+        "description": "Applicant Executive: send an APPROVED batch through the Dashboard. Always a dry-run preview; confirm_send=true queues the send and returns needs_confirmation, and nothing is sent until the operator clicks Confirm in the command center.",
         "inputSchema": {
             "type": "object",
             "properties": {"batch_id": {"type": "string"}, "confirm_send": {"type": "boolean", "default": False}},
@@ -1139,27 +1139,65 @@ def _executive_batch(batch_id: str) -> dict[str, Any]:
     return status
 
 
-def _executive_approve(batch_id: str, choices: dict[str, Any]) -> dict[str, Any]:
-    from .executive import applicants
+def _await_operator_confirm(action_id: str, item: dict[str, Any], params: dict[str, Any], preview: Any) -> dict[str, Any]:
+    """Park a model-requested consequential step for the window's Confirm button.
 
-    return applicants.approve_batch(batch_id, choices, gateway=_executive_gateway(), store=_executive_store())
+    The confirm token stays on disk for the window; the model never sees it, so
+    only a human click can redeem it.
+    """
+    from .executive.window.confirm import PendingStore
+
+    PendingStore().create(action_id, item, params, preview)
+    return {
+        "status": "needs_confirmation",
+        "confirm_token_issued": True,
+        "action_id": action_id,
+        "preview": preview,
+        "message": "Waiting for you to click Confirm in the command center.",
+    }
+
+
+def _executive_approve(batch_id: str, choices: dict[str, Any]) -> dict[str, Any]:
+    """Approval is the operator's decision: preview it and wait for Confirm."""
+    from .executive.window.actions_executive import approve_preview
+
+    preview = approve_preview(batch_id, choices, store=_executive_store())
+    item = {"id": f"executive-batch-{batch_id}", "kind": "executive_batch", "title": f"Approve outreach batch {batch_id}"}
+    return _await_operator_confirm("executive.approve_batch", item, {"batch_id": batch_id, "choices": choices}, preview)
 
 
 def _executive_send(batch_id: str, confirm_send: bool = False) -> dict[str, Any]:
-    """Dry-run unless confirm_send is exactly true; approval never authorizes delivery."""
+    """Always a dry-run here; confirm_send=true only queues the send for the operator's Confirm."""
     from .executive import applicants
 
-    store = _executive_store()
+    preview = applicants.send_batch(batch_id, confirm=False, store=_executive_store())
     if confirm_send is not True:
-        return applicants.send_batch(batch_id, confirm=False, store=store)
-    return applicants.send_batch(batch_id, confirm=True, gateway=_executive_gateway(), store=store)
+        return preview
+    item = {"id": f"executive-batch-{batch_id}", "kind": "executive_batch", "title": f"Send outreach batch {batch_id}"}
+    return _await_operator_confirm("executive.send_batch", item, {"batch_id": batch_id}, preview)
+
+
+def _browser_execute(
+    session_id: str,
+    actions: list[dict[str, Any]],
+    issued_by: str = "agent-os",
+    approved_consequential: bool = False,
+    wait_seconds: float = 12.0,
+) -> dict[str, Any]:
+    """The model cannot open the consequential gate itself; that needs the operator's Confirm."""
+    if approved_consequential is not True:
+        return browser_execute(session_id, actions, issued_by=issued_by, wait_seconds=wait_seconds)
+    params = {"session_id": session_id, "actions": actions, "issued_by": issued_by, "wait_seconds": wait_seconds}
+    preview = {"session_id": session_id, "actions": actions, "approved_consequential": True}
+    item = {"id": f"browser-session-{session_id}", "kind": "browser_command", "title": f"Browser actions in session {session_id}"}
+    return _await_operator_confirm("browser.execute_consequential", item, params, preview)
 
 
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
         "browser.sessions": browser_sessions,
         "browser.inspect": browser_inspect,
-        "browser.execute": browser_execute,
+        "browser.execute": _browser_execute,
         "browser.command_status": browser_command_status,
         "project.list": lambda: projects(),
         "project.identify": lambda path: identify_project(Path(path)),
@@ -1317,7 +1355,7 @@ SERVER_CAPABILITIES = {"tools": {"listChanged": False}}
 SUPPORTED_PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")
 INSTRUCTIONS = (
     "Use browser.sessions first. Prefer browser.inspect for read-only page context, and use browser.execute only when the user asks you to interact with their registered Firefox browser. "
-    "Use browser.execute only for browser actions the user requested. If it returns approval_required, explain the pending action and call it again with approved_consequential=true only after explicit user approval. "
+    "Use browser.execute only for browser actions the user requested. If it returns approval_required, explain the pending action; calling it again with approved_consequential=true only queues it, and it runs after the user clicks Confirm in the command center. "
     "Never request, extract, or type passwords, payment-card data, security codes, or other authentication secrets through browser.execute. "
     "Use agent.context first for substantial project work. It retrieves compact context only. "
     "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory. "

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
+import tempfile
 import unittest
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -11,6 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import mcp_server
 from agent_os.executive import applicants as ex
+from agent_os.executive.window import actions_executive, registry
+from agent_os.executive.window.confirm import ENV_HOME, PendingStore
 
 FUTURE = datetime.now().replace(microsecond=0) + timedelta(days=3)
 ROWS = [{"agent_ref": "ref-a", "name": "Ann", "position": "Tech", "submitted": "2026-09-20",
@@ -87,6 +91,18 @@ class ExecutiveMcpTests(unittest.TestCase):
         for p in patches:
             p.start()
             self.addCleanup(p.stop)
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        env = patch.dict(os.environ, {ENV_HOME: tmp.name})
+        env.start()
+        self.addCleanup(env.stop)
+        self.pending = PendingStore()
+        self.reg = registry.Registry()
+        actions_executive.register(self.reg)
+        for name, value in (("GATEWAY_FACTORY", lambda: self.gw), ("STORE_FACTORY", lambda: self.store)):
+            factory = patch.object(actions_executive, name, value)
+            factory.start()
+            self.addCleanup(factory.stop)
 
     def plan(self):
         err, out = call("executive.plan", applicant_refs=["ref-a"], opening="Tech",
@@ -126,8 +142,18 @@ class ExecutiveMcpTests(unittest.TestCase):
 
         err, out = call("executive.send", batch_id=batch_id, confirm_send=True)
         self.assertTrue(err)  # not approved yet
+        self.assertEqual(self.pending.list(), [])
+
+        # The model can only propose approval; the operator's Confirm records it.
         err, out = call("executive.approve", batch_id=batch_id, choices={"ref-a": "confirm"})
         self.assertFalse(err, out)
+        self.assertEqual(out["status"], "needs_confirmation")
+        self.assertNotIn("confirm_token", out)
+        self.assertEqual(self.store.load(batch_id)["state"], ex.PENDING_APPROVAL)
+        [record] = self.pending.list()
+        self.assertEqual(record["action_id"], "executive.approve_batch")
+        self.assertNotIn(record["token"], json.dumps(out))
+        self.reg.confirm(record["token"], self.pending)
         self.assertEqual(self.store.load(batch_id)["state"], ex.APPROVED)
 
         err, out = call("executive.send", batch_id=batch_id)
@@ -135,12 +161,22 @@ class ExecutiveMcpTests(unittest.TestCase):
         self.assertTrue(out["dry_run"])
         err, out = call("executive.send", batch_id=batch_id, confirm_send="yes")
         self.assertTrue(out["dry_run"])
+        self.assertEqual(self.pending.list(), [])
         self.assertFalse([c for c in self.gw.calls if c[0] == "send_now"])
 
         err, out = call("executive.send", batch_id=batch_id, confirm_send=True)
         self.assertFalse(err, out)
-        self.assertFalse(out["dry_run"])
-        self.assertEqual(out["sent"], ["ref-a"])
+        self.assertEqual(out["status"], "needs_confirmation")
+        self.assertTrue(out["confirm_token_issued"])
+        self.assertTrue(out["preview"]["dry_run"])
+        self.assertFalse([c for c in self.gw.calls if c[0] == "send_now"])
+        [record] = self.pending.list()
+        self.assertEqual(record["action_id"], "executive.send_batch")
+        self.assertNotIn(record["token"], json.dumps(out))
+
+        sent = self.reg.confirm(record["token"], self.pending)
+        self.assertFalse(sent["dry_run"])
+        self.assertEqual(sent["sent"], ["ref-a"])
         self.assertEqual([c for c in self.gw.calls if c[0] == "send_now"], [("send_now", "ref-a")])
 
     def test_unknown_batch_is_error(self):
