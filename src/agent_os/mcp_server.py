@@ -959,7 +959,7 @@ def _capture_brain_dump_capture(text: str, tab: str = "work") -> dict[str, Any]:
     from .executive.window.confirm import PendingStore, window_home
 
     item = {"id": "brain-dump-capture", "kind": "brain_dump_capture", "title": "Brain dump capture (MCP)"}
-    return _window_registry().invoke("brain_dump.capture", item, {"text": text, "tab": tab}, PendingStore(window_home()))
+    return _withhold_token(_window_registry().invoke("brain_dump.capture", item, {"text": text, "tab": tab}, PendingStore(window_home())))
 
 
 def _capture_gaps_enqueue(gaps: list, tab: str = "personal", budget: int = 1, min_score: float = 0.2) -> dict[str, Any]:
@@ -967,7 +967,7 @@ def _capture_gaps_enqueue(gaps: list, tab: str = "personal", budget: int = 1, mi
 
     item = {"id": "knowledge-gap-enqueue", "kind": "knowledge_gap_enqueue", "title": "Enqueue knowledge gaps (MCP)"}
     params = {"gaps": gaps, "tab": tab, "budget": budget, "min_score": min_score}
-    return _window_registry().invoke("knowledge_gap.enqueue", item, params, PendingStore(window_home()))
+    return _withhold_token(_window_registry().invoke("knowledge_gap.enqueue", item, params, PendingStore(window_home())))
 
 
 def _window_next(tab: str | None = None) -> dict[str, Any]:
@@ -1007,9 +1007,12 @@ def _window_run(action_id: str, item_id: str, params: dict[str, Any] | None = No
         raise ValueError(f"unknown item: {item_id}")
     if action_id not in {option.get("action_id") for option in item.get("options", [])}:
         raise ValueError(f"action {action_id} is not an option for item {item_id}")
-    result = registry.invoke(action_id, item, params, PendingStore(home))
+    return _withhold_token(registry.invoke(action_id, item, params, PendingStore(home)))
+
+
+def _withhold_token(result: dict[str, Any]) -> dict[str, Any]:
+    """The token stays on disk for the window; only a human Confirm click may redeem it."""
     if result.pop("confirm_token", None) is not None:
-        # The token stays on disk for the window; only a human Confirm click may redeem it.
         result["confirm_token_issued"] = True
         result["message"] = "Waiting for you to click Confirm in the command center."
     return result

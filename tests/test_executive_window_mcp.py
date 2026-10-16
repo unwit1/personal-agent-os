@@ -52,10 +52,11 @@ class WindowMcpTests(unittest.TestCase):
         self.assertIn("synthetic.send", run["description"])
         self.assertFalse([n for n in tools if "confirm" in n.lower()])
 
-    def test_consequential_run_returns_token_and_never_confirms(self):
+    def test_consequential_run_withholds_token_and_never_confirms(self):
         out = self.call("executive_window.run", {"action_id": "synthetic.send", "item_id": "syn-1"})
         self.assertEqual(out["status"], "needs_confirmation")
-        self.assertTrue(out["confirm_token"])
+        self.assertNotIn("confirm_token", out)
+        self.assertIs(out["confirm_token_issued"], True)
         self.assertTrue(self.calls)
         self.assertNotIn(True, self.calls)
 
