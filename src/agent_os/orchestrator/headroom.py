@@ -201,6 +201,10 @@ def source_key(provider: dict[str, Any]) -> str | None:
     """Which allowance a registry entry draws on, or None when untracked."""
     adapter = provider.get("adapter")
     options = provider.get("options") or {}
+    billing = (provider.get("profile") or {}).get("billing")
+    if isinstance(billing, dict) and billing.get("mode") == "credits":
+        # Billed to prepaid credits (e.g. a Claude cloud-session credit), not a plan window.
+        return None
     if adapter == "codex_cli":
         return "codex"
     if adapter == "claude_code":

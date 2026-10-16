@@ -89,6 +89,7 @@ class SourceAndRefreshTests(unittest.TestCase):
     def test_source_keys(self) -> None:
         self.assertEqual(headroom.source_key({"adapter": "codex_cli"}), "codex")
         self.assertEqual(headroom.source_key({"adapter": "claude_code"}), "claude")
+        self.assertIsNone(headroom.source_key({"adapter": "claude_code", "profile": {"billing": {"mode": "credits"}}}))
         self.assertIsNone(headroom.source_key({"adapter": "claude_code", "options": {"env": {"ANTHROPIC_BASE_URL": "https://bridge"}}}))
         nano = {"adapter": "openai_api", "options": {"base_url": "https://n/sub/v1", "secret_ref": "secrets://nanogpt/subscription",
                                                      "catalog": {"service": "nanogpt", "endpoint": "subscription"}}}
