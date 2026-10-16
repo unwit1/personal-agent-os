@@ -731,7 +731,7 @@ def _window_run_schema() -> dict[str, Any]:
     actions = _window_registry().actions()
     ids = [action["id"] for action in actions]
     lines = [
-        f"{action['id']}: {action['label']}" + (" (consequential: returns a preview and confirm_token only)" if action["consequential"] else "")
+        f"{action['id']}: {action['label']}" + (" (consequential: returns a preview only; the operator confirms in the window)" if action["consequential"] else "")
         for action in actions
     ]
     return {
@@ -1007,7 +1007,12 @@ def _window_run(action_id: str, item_id: str, params: dict[str, Any] | None = No
         raise ValueError(f"unknown item: {item_id}")
     if action_id not in {option.get("action_id") for option in item.get("options", [])}:
         raise ValueError(f"action {action_id} is not an option for item {item_id}")
-    return registry.invoke(action_id, item, params, PendingStore(home))
+    result = registry.invoke(action_id, item, params, PendingStore(home))
+    if result.pop("confirm_token", None) is not None:
+        # The token stays on disk for the window; only a human Confirm click may redeem it.
+        result["confirm_token_issued"] = True
+        result["message"] = "Waiting for you to click Confirm in the command center."
+    return result
 
 
 def _documents_start(doc_type: str, role: str) -> dict[str, Any]:

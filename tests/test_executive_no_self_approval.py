@@ -199,6 +199,23 @@ class NoSelfApprovalTests(unittest.TestCase):
         self.assertEqual(record["action_id"], "executive.approve_batch")
         self.assertEqual(record["item"]["title"], f"Approve outreach batch {batch_id}")
 
+    def test_window_run_does_not_return_token(self):
+        calls = []
+        reg = registry.Registry()
+        reg.register_provider("synthetic", lambda: [
+            {"id": "syn-1", "tab": "work", "kind": "synthetic", "title": "T", "why": "w", "source": "test"}])
+        reg.register_action("synthetic.send", "Synthetic send", ["synthetic"],
+                            lambda item, params, confirm=False: calls.append(confirm) or {"preview": item["id"]}, True)
+        with patch.object(mcp_server, "_window_registry", lambda: reg):
+            err, out = call("executive_window.run", action_id="synthetic.send", item_id="syn-1")
+        self.assertFalse(err, out)
+        self.assertEqual(calls, [False])
+        record = self.assert_parked(out, "synthetic.send")
+        self.assertEqual(out["preview"], {"preview": "syn-1"})
+
+        self.assertEqual(reg.confirm(record["token"], self.pending), {"preview": "syn-1"})
+        self.assertEqual(calls, [False, True])
+
     def test_window_actions_are_consequential(self):
         actions = {a["id"]: a for a in self.reg.actions()}
         for action_id in ("executive.approve_batch", "executive.send_batch", "browser.execute_consequential"):
