@@ -157,10 +157,15 @@ def resolved_versions(home: Path | None = None, limit_files: int = 200) -> dict[
 # ---------------------------------------------------------------------------
 
 
-def refresh(*, online: bool = True, registry: Any = None, opener=None, codex_cache: Path | None = None) -> dict[str, Any]:
+def refresh(*, online: bool = True, registry: Any = None, opener=None, codex_cache: Path | None = None) -> dict[str, Any] | None:
     """Merge every source into the catalog; record notices and proposals."""
     from .router import ProviderRegistry
 
+    if registry is None and online:
+        from ..capabilities import registry_path as _registry_path
+
+        if not Path(_registry_path()).exists():
+            return None
     with _LOCK:
         catalog = load()
         first = not catalog["models"]

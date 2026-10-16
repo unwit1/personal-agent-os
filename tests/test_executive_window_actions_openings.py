@@ -49,7 +49,7 @@ class ActionTests(unittest.TestCase):
         actions = {a["id"]: a for a in self.registry.actions()}
         self.assertEqual(set(actions), {"county.refresh", "county.opening_change", "openings.event"})
         self.assertTrue(actions["openings.event"]["consequential"])
-        self.assertEqual(actions["openings.event"]["applies_to"], "*")
+        self.assertEqual(actions["openings.event"]["applies_to"], ["applicant_group", "county_openings", "openings_console"])
         self.assertTrue(actions["county.opening_change"]["consequential"])
         self.assertEqual(actions["county.opening_change"]["applies_to"], ["county_openings", "openings_console"])
         self.assertFalse(actions["county.refresh"]["consequential"])

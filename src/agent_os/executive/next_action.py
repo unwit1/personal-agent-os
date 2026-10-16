@@ -8,11 +8,37 @@ from __future__ import annotations
 
 from typing import Any
 
-RANKING = "priority desc, then age_days desc, then queue item id asc"
+RANKING = (
+    "domain weight desc (hiring, communications, approvals, projects, personal), "
+    "then priority desc, then age_days desc, then queue item id asc"
+)
+
+# Highest weight first; matched as substrings of the item kind and source.
+_DOMAIN_TERMS: tuple[tuple[int, tuple[str, ...]], ...] = (
+    (5, ("applicant", "county", "opening", "candidate review", "candidate_review", "email reply", "email_reply")),
+    (4, ("mail", "email", "3cx", "phone")),
+    (3, ("approval", "gate", "orchestrator")),
+    (2, ("project",)),
+)
+
+
+def domain_weight(item: dict) -> int:
+    """Domain weight: hiring 5 > communications 4 > approvals 3 > projects 2 > personal 1."""
+    window_item = item.get("window_item")
+    window_item = window_item if isinstance(window_item, dict) else {}
+    text = " ".join(
+        value.lower()
+        for value in (window_item.get("kind"), window_item.get("source"), item.get("source"))
+        if isinstance(value, str)
+    )
+    for weight, terms in _DOMAIN_TERMS:
+        if any(term in text for term in terms):
+            return weight
+    return 1
 
 
 def rank(queue_items: list[Any]) -> list[dict]:
-    """Rank queue items by priority (desc), age_days (desc), then id (asc).
+    """Rank queue items by domain weight, priority (desc), age_days (desc), then id (asc).
 
     Args:
         queue_items: list of queue item dicts with priority and age_days (optional)
@@ -39,7 +65,7 @@ def rank(queue_items: list[Any]) -> list[dict]:
         item_id = str(item.get("id", ""))
 
         # Return tuple for sorting: negative priority (desc), negative age_days (desc), id (asc)
-        return (-priority, -age_days, item_id)
+        return (-domain_weight(item), -priority, -age_days, item_id)
 
     return sorted(items, key=sort_key)
 
