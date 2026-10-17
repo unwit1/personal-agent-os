@@ -42,7 +42,7 @@ REMEDIES: dict[str, str] = {
     "validator_failed:": "retry prompt quotes the failing validator output (validators.failure_excerpt)",
     "validator_failed:unchanged": "retry prompt says the failing output did not change",
     "permission_denied:": "editing workers may run their validators and read-only commands (engine._worker_allowed_tools)",
-    "blocked_on_host:validated": "blocked_on_host with changed files is validated instead of deferred",
+    "blocked_on_host:deferred": "blocked_on_host with changed files is validated instead of deferred; only a step that changed nothing is deferred",
     "refused": "refusal is recorded and the node fails over to another model class",
     "review_oscillation": "repair that restores a reviewed version stops the cheap review loop",
     "invalid_model": "the provider/class is excluded for the node and the model learned as unavailable",
@@ -116,8 +116,12 @@ def signatures(record: dict[str, Any]) -> list[dict[str, Any]]:
         if node.get("escalations"):
             add(node, f"escalated{node['escalations']}", f"escalated:{node.get('role')}", f"{node['escalations']} escalation(s); now {node.get('capability_class')}")
         if node.get("state") == "FAILED_FINAL":
-            last = failures[-1]["kind"] if failures else "unknown"
-            add(node, "failed_final", f"failed_final:{last}", node.get("wait_reason") or "")
+            reason = node.get("wait_reason") or ""
+            if failures:
+                signature = f"failed_final:{failures[-1]['kind']}"
+            else:
+                signature = "unroutable" if "provider" in reason.lower() else "failed_final:unknown"
+            add(node, "failed_final", signature, reason)
     for gate in record.get("gates") or []:
         if gate.get("kind") == "unresolved_review_findings":
             node = record["nodes"].get(gate.get("node") or "") or {"id": gate.get("node") or "?"}
