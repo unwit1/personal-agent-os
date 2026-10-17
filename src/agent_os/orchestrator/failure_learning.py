@@ -46,6 +46,7 @@ REMEDIES: dict[str, str] = {
     "refused": "refusal is recorded and the node fails over to another model class",
     "review_oscillation": "repair that restores a reviewed version stops the cheap review loop",
     "review_unresolved": "after the extra repair, late medium-or-lower findings no repair was asked to fix become follow-ups instead of a gate (engine._after_blocking_review)",
+    "failed_final:validator_failed": "planner drops task validators that collect the whole test suite (planner._planned_validators), so an unrelated module's failure cannot fail a task check; the project suite is judged against the base commit",
     "invalid_model": "the provider/class is excluded for the node and the model learned as unavailable",
     "unavailable": "provider breaker opens after repeated unavailability",
     "process_error": "provider failover after repeated process errors on the node",
