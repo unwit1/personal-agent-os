@@ -74,6 +74,11 @@ class OrchestratorError(ValueError):
     pass
 
 
+def _finding_key(fid: str) -> str:
+    """Finding id without the `R<round>-` prefixes added by each review round."""
+    return re.sub(r"^(?:R\d+-)+", "", fid)
+
+
 def _label(value: Any) -> str | None:
     text = _LABEL_CLEAN.sub("-", str(value or "").casefold()).strip("-._")[:64]
     return text or None
@@ -1703,6 +1708,28 @@ class Orchestrator:
             self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="extra_repair", reason="the last review raised only new findings; one bounded repair before asking you")
             self._create_repair(record, subject, blocking)
             return
+        repaired_keys = {
+            _finding_key(fid)
+            for node in record["nodes"].values()
+            if node.get("role") == "repairer" and node.get("subject") == subject["id"]
+            for fid in node.get("finding_ids") or []
+        }
+        late = [item for item in blocking if _finding_key(item["id"]) not in repaired_keys and item.get("severity") not in {"critical", "high"}]
+        if late:
+            reviewers = subject["review"].get("reviewers") or []
+            reviewer_provider = (reviewers[-1].get("provider") if reviewers else None) or "unknown"
+            for item in late:
+                # Never given to a repairer and not severe: record, don't block.
+                item["disposition"] = "follow_up"
+                subject["review"].setdefault("follow_ups", []).append({key: item[key] for key in ("id", "severity", "summary", "round") if key in item} | {"reviewer": reviewer_provider})
+            blocking = [item for item in blocking if item not in late]
+            if not blocking:
+                subject["state"] = "PASSED"
+                subject["completed_at"] = now()
+                reason = f"{len(late)} late non-severe finding(s) never sent to a repair recorded as follow-ups"
+                self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="late_findings_follow_up", reason=reason)
+                self.store.append_event(record["run_id"], "review.follow_ups", subject["id"], reason)
+                return
         self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_rounds", reason=f"stopped the review/fix cycle after {subject['review']['rounds']} round(s); asking you instead")
         subject["state"] = "APPROVAL_REQUIRED"
         self._open_gate(
