@@ -64,6 +64,7 @@ class WorkerAllowedToolsTests(unittest.TestCase):
         text = " ".join(_WORKER_RULES_TAIL)
         self.assertIn("If a command is denied, do not retry", text)
         self.assertIn("not a host action", text)
+        self.assertIn("chained commands are denied as a whole", text)
 
 
 if __name__ == "__main__":
