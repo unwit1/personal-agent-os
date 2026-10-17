@@ -24,6 +24,11 @@ all available history.
     decisions: consult `projects/personal-agent-os/research/prior-art/` (proportional
     to the change) before new subsystems or dependencies, prefer subsuming over
     depending, and record what was checked in the decision.
+13. Every model failure is a defect to remove, not noise. Apply the deterministic
+    remedy, record the failure, and fix what has no remedy or keeps recurring
+    (`policy/orchestrator-os.policy.json` `failure_learning`; the orchestrator does
+    this automatically via `agent-os orchestrate learn`). When you hit a worker
+    failure by hand, add its remedy and a regression test the same way.
 
 Raw transcripts and broad history are archival sources, not default prompt input.
 Derived indexes must remain disposable and rebuildable from canonical Git state.

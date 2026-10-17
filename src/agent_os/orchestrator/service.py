@@ -45,6 +45,7 @@ def engine() -> Orchestrator:
     with _ENGINE_LOCK:
         if _ENGINE is None:
             _ENGINE = Orchestrator()
+            _ENGINE.enable_failure_fixing()
             _ENGINE_IS_DEFAULT = True
         return _ENGINE
 

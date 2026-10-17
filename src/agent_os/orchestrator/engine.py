@@ -57,6 +57,7 @@ from .review import MalformedReview, apply_dispositions, material, parse_review
 from .router import ProviderRegistry, load_key, select
 from .store import RunStore, pid_alive, redact
 from .stall import repeated_command
+from . import failure_learning
 from . import refusal as refusal_lib
 from .validators import EXCERPT_LIMIT, run_all
 from .worktrees import GitError, WorktreeManager, current_branch, git, head_commit, is_dirty, repository_root
@@ -120,6 +121,11 @@ class Orchestrator:
         self._lock = threading.RLock()
         self.ledger = Ledger(self.store.run_dir)
         self._prefixes: dict[tuple[str, str], str] = {}
+        # Failure learning side effects (failure_learning.py): file an
+        # improvement record, start a fix run. Only the machine's default
+        # engine (service.engine) gets the real ones; an embedded engine
+        # (tests, custom hosts) records signatures and nothing else.
+        self.failure_hooks: dict[str, Callable[..., Any] | None] = {"improve": None, "launch": None}
 
     def _run_prefix(self, record: dict[str, Any], node: dict[str, Any]) -> str | None:
         """The run-level prompt prefix for the node's family, compiled once per (run, family).
@@ -870,6 +876,7 @@ class Orchestrator:
                     self._sleep(max(float(record["policy"]["poll_interval_seconds"]), IDLE_TICK_SECONDS))
             return summary
         finally:
+            self._learn_failures(run_id)
             self.store.release_driver(run_id)
 
     # ------------------------------------------------------------------
@@ -2656,6 +2663,84 @@ class Orchestrator:
             self.ledger.emit(record["run_id"], "loop_guard", node_id, guard="launch_budget", reason=gate["reason"])
         return gate
 
+    def enable_failure_fixing(self) -> None:
+        """Give this engine the real failure-learning side effects: file IMP
+        records in the Agent OS repository and start fix runs."""
+        self.failure_hooks = {"improve": _capture_failure_improvement, "launch": self._launch_fix_run}
+
+    def _learn_failures(self, run_id: str) -> dict[str, Any] | None:
+        """Policy failure_learning: record every failure of the run under a
+        signature; file an improvement for unremedied or recurring ones and,
+        in mode "fix", start a fix run for each (failure_learning.py)."""
+        try:
+            with self._lock:
+                record = self.store.load(run_id)
+                policy = record["policy"]
+                mode = policy.get("failure_learning", "fix")
+                if mode not in failure_learning.MODES or mode == "off":
+                    return None
+                outcome = failure_learning.learn(self.store.home, record, repeat_runs=int(policy.get("failure_learning_repeat_runs") or 2))
+                self.store.save(record)
+            report: dict[str, Any] = {**outcome, "improvements": [], "fix_runs": [], "skipped": []}
+            if mode in {"improve", "fix"} and self.failure_hooks.get("improve"):
+                for need in outcome["needs_improvement"]:
+                    improvement = self.failure_hooks["improve"](need)
+                    improvement_id = (improvement or {}).get("id")
+                    if not improvement_id:
+                        continue
+                    report["improvements"].append(improvement_id)
+                    self.store.append_event(run_id, "failure_learning.improvement", None, f"{need['signature']} -> {improvement_id}")
+                    if mode != "fix" or not self.failure_hooks.get("launch") or record.get("origin", {}).get("type") == "failure_learning":
+                        continue
+                    blocked = failure_learning.fix_run_allowed(self.store.home, need["signature"], daily_limit=int(policy.get("failure_learning_daily_fix_runs") or 0),
+                                                               active_runs=self._active_fix_runs())
+                    if blocked:
+                        report["skipped"].append(f"{need['signature']}: {blocked}")
+                        continue
+                    fix_run = self.failure_hooks["launch"](record, need, improvement_id)
+                    if fix_run:
+                        failure_learning.note_fix_run(self.store.home, need["signature"], fix_run, improvement_id)
+                        report["fix_runs"].append(fix_run)
+                        self.store.append_event(run_id, "failure_learning.fix_run", None, f"{need['signature']} -> {fix_run}")
+            return report
+        except Exception as exc:  # learning must never break or hide the run itself
+            try:
+                self.store.append_event(run_id, "failure_learning.error", None, redact(f"{type(exc).__name__}: {exc}", 300))
+            except Exception:
+                pass
+            return None
+
+    def _active_fix_runs(self) -> list[str]:
+        active = []
+        for row in failure_learning._read(failure_learning.fix_runs_path(self.store.home)):
+            try:
+                if self.store.load(row["run_id"])["state"] not in failure_learning.TERMINAL_STATES:
+                    active.append(row["run_id"])
+            except (KeyError, OSError, ValueError):
+                continue
+        return active
+
+    def _launch_fix_run(self, parent: dict[str, Any], need: dict[str, Any], improvement_id: str) -> str | None:
+        """Start a capped fix run on Agent OS itself; it ends on a branch."""
+        from ..paths import ROOT
+
+        policy = parent["policy"]
+        created = self.create_run(
+            failure_learning.fix_goal(improvement_id, need),
+            repository=ROOT,
+            project="personal-agent-os",
+            policy={"auto_continue": True, "failure_learning": "improve", "final_integration": "branch",
+                    "max_usd": float(policy.get("failure_learning_fix_max_usd") or 5.0),
+                    "allow_paid_spend": bool(policy.get("allow_paid_spend"))},
+            origin={"type": "failure_learning", "signature": need["signature"], "improvement": improvement_id, "parent_run": parent["run_id"]},
+        )
+        run_id = created["run_id"]
+        self.start(run_id, auto_continue=True)
+        from .service import drive_in_background
+
+        drive_in_background(run_id)
+        return run_id
+
     def _record_refusal(self, record: dict[str, Any], node: dict[str, Any], category: str, text: str) -> None:
         """Append a refusal to <home>/refusals.jsonl (``orchestrate refusals``);
         a plain bad answer (worker_failure) is not a refusal."""
@@ -3400,6 +3485,14 @@ def _scope_additions(paths: list[str] | None) -> list[str]:
         if path not in clean:
             clean.append(path)
     return clean
+
+
+def _capture_failure_improvement(need: dict[str, Any]) -> dict[str, Any] | None:
+    """File (or extend) the improvement record for a failure signature."""
+    from ..improvements import capture_improvement
+
+    result = capture_improvement("personal-agent-os", **failure_learning.improvement_fields(need))
+    return result.get("record")
 
 
 def _reset_for_retry(record: dict[str, Any], node: dict[str, Any]) -> None:

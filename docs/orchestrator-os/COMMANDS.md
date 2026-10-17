@@ -45,6 +45,7 @@ checkpoint) are described here and in [ENTRYPOINT.md](ENTRYPOINT.md).
 | `orchestrate secrets` | provider-neutral secret references `secrets://<provider>/<profile>`: `setup` (masked pop-ups for every known credential), `set [--gui]`, `status`, `delete`; OS keyring or env; values never printed |
 | `orchestrate model-add` | register an OpenAI-compatible endpoint (open-weight or abliterated model) in the machine-local registry; preview unless `--write` (see [model-infrastructure.md](../model-infrastructure.md)) |
 | `orchestrate refusals` | refusal/non-answer telemetry by provider, model and refusal profile (no model call) |
+| `orchestrate learn` | `[run_id ...] [--all] [--summary]`. Failure learning: record run failures as signatures, file improvements and start capped fix runs (policy `failure_learning`); with no run, the 30-day signature summary |
 | `orchestrate quote` | no-spend quote for a workload: API vs GPU pod vs serverless, low/expected/high, budget gate and routing requirements (no model call, no provisioning) |
 | `orchestrate radar` | Model Research Radar: scan the Hugging Face Hub (text, vision, image, ASR, TTS, ...) into a local catalog with license/revision/size and queue eval candidates (no model call, no weight downloads) |
 | `orchestrate eval-queue` † | evaluate queued catalog models once served: `plan` (deterministic) explains readiness; `run` calls `orchestrate eval` per suggested suite (bounded real calls) and records the outcome with an attribution check |
