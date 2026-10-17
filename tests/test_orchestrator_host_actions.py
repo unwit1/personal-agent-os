@@ -3,6 +3,8 @@
 A sandboxed worker cannot restart the MCP server or drive a nested run. Asking
 through an approval gate only relaunched the same worker, which asked again, so
 the orchestrator now defers such steps and the MCP server reloads edited code.
+A step that changed files is validated instead of deferred: the validators
+decide whether its work stands.
 """
 
 from __future__ import annotations
@@ -57,8 +59,11 @@ class HostActionTests(OrchestratorFixture):
     def test_host_level_needs_decision_is_deferred_without_a_gate(self) -> None:
         self.run_blocked("needs_decision", "Can the Agent OS MCP server be restarted from its owning host?")
 
-    def test_deferred_step_with_unmerged_work_holds_its_dependents(self) -> None:
-        question = "needs a client restart"
+    def test_blocked_on_host_with_edits_is_validated_and_merged(self) -> None:
+        # Measured 2026-10-17: 13 of 48 worker calls reported blocked_on_host
+        # only because their own test run was denied; deferring them discarded
+        # finished work and stalled every dependent.
+        question = "pytest was denied here, so the validator was not run; host should run it"
 
         def script(request, call):
             if request.role == "reviewer":
@@ -71,13 +76,16 @@ class HostActionTests(OrchestratorFixture):
         for name in self.providers:
             synthetic.SCRIPTS[name] = script
         run_id = self.create([self.task("verify", scope=["a"]), self.task("impl", depends_on=["verify"])])
-        self.engine.run_loop(run_id, max_ticks=40)
+        final = self.engine.run_loop(run_id, max_ticks=40)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
         record = self.engine.load(run_id)
-        verify = record["nodes"]["verify"]
-        self.assertTrue(verify["integration"]["deferred"])
-        self.assertIn("a/api.py", verify["integration"]["unmerged_files"])
-        self.assertNotIn("impl", record["integration"]["merged"])
-        self.assertIn("deferred host action on verify", record["nodes"]["impl"]["wait_reason"])
+        self.assertFalse((record["nodes"]["verify"].get("integration") or {}).get("deferred"))
+        self.assertFalse(record.get("deferred_host_actions"))
+        self.assertIn("verify", record["integration"]["merged"])
+        self.assertIn("impl", record["integration"]["merged"])
+        events = [event["type"] for event in self.engine.events(run_id)] if hasattr(self.engine, "events") else []
+        if events:
+            self.assertIn("host_action.validated_instead", events)
 
     def test_design_questions_still_open_a_gate(self) -> None:
         self.assertFalse(_host_action("keep the v1 API?"))
