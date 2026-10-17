@@ -167,6 +167,7 @@ def approved_argv(command: Any, patterns: list[str], project_commands: list[str]
 
 _PYTEST_VALUE_OPTIONS = {"-k", "-m", "-p", "-o", "-c", "--rootdir"}
 _UNITTEST_VALUE_OPTIONS = {"-k", "-p", "-s", "-t"}
+_INFO_OPTIONS = {"-h", "--help", "-V", "--version"}
 
 
 def _collects_whole_suite(argv: list[str]) -> bool:
@@ -174,7 +175,8 @@ def _collects_whole_suite(argv: list[str]) -> bool:
 
     pytest runs the whole suite unless a positional argument names a ``.py``
     file, a ``file::node`` id, or a path under ``tests/``. unittest runs the
-    whole suite with ``discover`` or with no module argument.
+    whole suite with ``discover`` or with no module argument. Help and version
+    flags print and exit without collecting anything, so they are never whole-suite.
     """
     if argv[:1] == ["pytest"]:
         kind, args, value_options = "pytest", argv[1:], _PYTEST_VALUE_OPTIONS
@@ -182,6 +184,8 @@ def _collects_whole_suite(argv: list[str]) -> bool:
         kind, args = argv[2], argv[3:]
         value_options = _PYTEST_VALUE_OPTIONS if kind == "pytest" else _UNITTEST_VALUE_OPTIONS
     else:
+        return False
+    if _INFO_OPTIONS.intersection(args):
         return False
     positional: list[str] = []
     skip_value = False

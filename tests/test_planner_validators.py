@@ -48,7 +48,15 @@ class PlannedValidatorWholeSuiteTests(unittest.TestCase):
         self.assertEqual(notes, [])
         self.assertEqual(validators[0]["command"], command.split())
 
+    def test_help_and_version_flags_are_kept(self):
+        for command in ("python -m unittest -h", "python -m pytest --help"):
+            with self.subTest(command=command):
+                validators, notes = self.plan([command])
+                self.assertEqual(notes, [])
+                self.assertEqual(validators[0]["command"], command.split())
+
     def test_collects_whole_suite_classification(self):
+        self.assertFalse(_collects_whole_suite(["python", "-m", "unittest", "-h"]))
         self.assertTrue(_collects_whole_suite(["pytest"]))
         self.assertTrue(_collects_whole_suite(["python", "-m", "pytest", "tests/"]))
         self.assertTrue(_collects_whole_suite(["python", "-m", "pytest", "-k", "tests/test_x.py", "."]))
