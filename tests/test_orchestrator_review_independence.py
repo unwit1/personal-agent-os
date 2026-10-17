@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import time
 from datetime import datetime, timedelta, timezone
 
 from tests.test_orchestrator import OrchestratorFixture, synthetic
@@ -27,7 +26,7 @@ class ReviewIndependenceTests(OrchestratorFixture):
         synthetic.SCRIPTS["alpha"] = self.script()
         run_id = self.create([self.task("a")], wait_for_reset_seconds=300)
         self.engine.start(run_id)
-        for _ in range(200):  # validation runs in the background: tick until review is requested
+        for _ in range(8):
             self.engine.step(run_id)
             # Validation runs on a background thread; without waiting for it the
             # node reached review only when the thread happened to win the race
@@ -36,7 +35,6 @@ class ReviewIndependenceTests(OrchestratorFixture):
             node = self.node(run_id, "a")
             if node["state"] == "WAITING_FOR_REVIEW":
                 break
-            time.sleep(0.02)
         reviewer = next(n for n in self.engine.load(run_id)["nodes"].values() if n["role"] == "reviewer")
         self.engine.step(run_id)
         reviewer = self.engine.load(run_id)["nodes"][reviewer["id"]]

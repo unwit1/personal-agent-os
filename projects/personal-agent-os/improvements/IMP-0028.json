@@ -10,7 +10,7 @@
   "observation": "Failure signature validator_failed:unchanged recurred in 2 run(s) (4 occurrence(s) in 30 days) although a remedy exists: retry prompt says the failing output did not change.",
   "evidence": [
     "run-20261017T051106Z-ea5151/register-remedy-imp-0022 (sonnet): editable-scope=ok; control-plane=ok; negative-evidence=ok; affected-tests=FAIL (broken by this change (affected tests): test_orchestrator_review_independence.Re",
-    "run-20261017T051106Z-ea5151/register-remedy-imp-0022 (sonnet): editable-scope=ok; control-plane=ok; negative-evidence=ok; affected-tests=FAIL (broken by this change (affected tests): test_orchestrator_review_independence.Re"
+    "<id> (sonnet): editable-scope=ok; control-plane=ok; negative-evidence=ok; affected-tests=FAIL (broken by this change (affected tests): <id>.Re"
   ],
   "suspected_root_cause": null,
   "suggested_direction": "Find why the existing remedy does not prevent it and make a deterministic change (code, prompt rule, validator or permission) that does.",
@@ -26,6 +26,6 @@
   },
   "github": null,
   "created_at": "2026-10-17T05:53:28.939294+00:00",
-  "updated_at": "2026-10-17T05:53:28.939294+00:00",
+  "updated_at": "2026-10-17T06:04:03.451547+00:00",
   "notes": null
 }
