@@ -149,6 +149,13 @@ DEFAULT_POLICY: dict[str, Any] = {
     # Editing workers may run their own validators and read-only commands
     # (engine._worker_allowed_tools); off restores provider-only permissions.
     "worker_self_check": True,
+    # Every model failure is a defect to remove (failure_learning.py): "off",
+    # "record" (signatures only), "improve" (also IMP records) or "fix" (also
+    # a capped fix run per new or recurring signature, ending on a branch).
+    "failure_learning": "fix",
+    "failure_learning_repeat_runs": 2,
+    "failure_learning_daily_fix_runs": 3,
+    "failure_learning_fix_max_usd": 5.0,
     "default_validators": [],
     "completion_validators": [],
     "announce_claims": True,

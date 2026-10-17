@@ -221,6 +221,10 @@ def register(commands: argparse._SubParsersAction) -> None:
     svc_bridge.add_argument("--path", help="registry file (default: the machine-local registry)")
 
     actions.add_parser("refusals", help="refusal/non-answer telemetry by provider/model/refusal profile (no model call)")
+    learn = actions.add_parser("learn", help="failure learning: record run failures as signatures, file improvements and start fix runs (policy failure_learning)")
+    learn.add_argument("run_ids", nargs="*", help="runs to learn from (default: show the signature summary only)")
+    learn.add_argument("--all", action="store_true", help="learn from every run on this machine")
+    learn.add_argument("--summary", action="store_true", help="print signatures seen in the last 30 days")
 
     evq = actions.add_parser("eval-queue", help="evaluate queued catalog models once served: plan is deterministic; run calls orchestrate eval (real calls, bounded)")
     evq.add_argument("action", choices=["plan", "run"])
@@ -1045,6 +1049,17 @@ def dispatch(args: argparse.Namespace, emit) -> int:
             emit(evalqueue.plan(args.model, incumbent=args.incumbent))
         else:
             emit(evalqueue.run(args.model, incumbent=args.incumbent, max_calls=args.max_calls))
+        return 0
+    if action == "learn":
+        from . import failure_learning
+
+        engine = service.engine()
+        run_ids = [item["run_id"] for item in engine.store.list_runs()] if args.all else list(args.run_ids)
+        reports = {run_id: engine._learn_failures(run_id) for run_id in run_ids}
+        payload: dict[str, Any] = {"runs": reports} if run_ids else {}
+        if args.summary or not run_ids:
+            payload["summary"] = failure_learning.summary(engine.store.home)
+        emit(payload)
         return 0
     if action == "refusals":
         from pathlib import Path as _Path

@@ -189,6 +189,8 @@ def result_signals(payload: dict[str, Any]) -> dict[str, Any]:
         "safety_stops": len(safety) if isinstance(safety, list) else int(bool(safety)),
         "permission_denials": len(denials) if isinstance(denials, list) else 0,
         "denied_tools": tools,
+        "denied_commands": [str(command)[:120] for item in denials if isinstance(item, dict) and item.get("tool_name") == "Bash"
+                            for command in [(item.get("tool_input") or {}).get("command")] if command][:10],
     }
 
 

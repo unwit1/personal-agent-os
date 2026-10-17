@@ -46,9 +46,10 @@ class ClaudeCodeSignalTests(unittest.TestCase):
         self.assertEqual(result.outcome, "completed")
         self.assertEqual(result.signals["permission_denials"], 2)
         self.assertEqual(result.signals["denied_tools"], {"Bash": 2})
+        self.assertEqual(result.signals["denied_commands"], ["python -m pytest"])
 
     def test_signals_tolerate_missing_fields(self) -> None:
-        self.assertEqual(result_signals({}), {"stop_reason": None, "safety_stops": 0, "permission_denials": 0, "denied_tools": {}})
+        self.assertEqual(result_signals({}), {"stop_reason": None, "safety_stops": 0, "permission_denials": 0, "denied_tools": {}, "denied_commands": []})
 
 
 class RefusalRoutingTests(OrchestratorFixture):
