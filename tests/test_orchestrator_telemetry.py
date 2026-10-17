@@ -22,7 +22,7 @@ from agent_os.orchestrator.adapters import synthetic  # noqa: E402
 from agent_os.orchestrator.adapters.claude_code import ClaudeCodeAdapter  # noqa: E402
 from agent_os.orchestrator.adapters.codex_cli import CodexCliAdapter  # noqa: E402
 from agent_os.orchestrator.ledger import Ledger, describe, read_events, summarize  # noqa: E402
-from agent_os.orchestrator.validators import test_counts  # noqa: E402
+from agent_os.orchestrator.validators import test_counts as parse_test_counts  # noqa: E402
 
 FAIL = {"kind": "command", "command": [sys.executable, "-c", "import sys; sys.exit(1)"]}
 
@@ -90,9 +90,9 @@ class UsageNormalizationTests(unittest.TestCase):
         self.assertEqual(silent.usage["accuracy"], "unavailable")
 
     def test_test_counts_from_unittest_and_pytest(self) -> None:
-        self.assertEqual(test_counts("Ran 44 tests in 1s\n\nFAILED (failures=1, errors=1)"), {"tests_run": 44, "tests_failed": 2, "tests_passed": 42})
-        self.assertEqual(test_counts("==== 3 passed, 1 failed in 0.2s ===="), {"tests_run": 4, "tests_failed": 1, "tests_passed": 3})
-        self.assertEqual(test_counts("no tests here"), {})
+        self.assertEqual(parse_test_counts("Ran 44 tests in 1s\n\nFAILED (failures=1, errors=1)"), {"tests_run": 44, "tests_failed": 2, "tests_passed": 42})
+        self.assertEqual(parse_test_counts("==== 3 passed, 1 failed in 0.2s ===="), {"tests_run": 4, "tests_failed": 1, "tests_passed": 3})
+        self.assertEqual(parse_test_counts("no tests here"), {})
 
 
 class LedgerUnitTests(unittest.TestCase):

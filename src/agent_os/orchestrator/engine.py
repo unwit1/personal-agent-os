@@ -57,6 +57,7 @@ from .review import MalformedReview, apply_dispositions, material, parse_review
 from .router import ProviderRegistry, load_key, select
 from .store import RunStore, pid_alive, redact
 from .stall import repeated_command
+from . import refusal as refusal_lib
 from .validators import EXCERPT_LIMIT, run_all
 from .worktrees import GitError, WorktreeManager, current_branch, git, head_commit, is_dirty, repository_root
 
@@ -1056,6 +1057,8 @@ class Orchestrator:
             "duration_ms": payload["duration_ms"],
             "at": now(),
         }
+        if result.signals:
+            node["result"]["signals"] = result.signals
         usage = record["usage"]
         usage["workers"] += 1
         if model_call:
@@ -1078,6 +1081,8 @@ class Orchestrator:
                 usage=call_usage,
                 prompt_chars=node.get("prompt_chars"),
                 prompt_tokens_estimate=usage_lib.estimate_tokens(node["prompt_chars"]) if node.get("prompt_chars") is not None else None,
+                stop_reason=result.signals.get("stop_reason"),
+                permission_denials=result.signals.get("permission_denials"),
             )
         else:
             self.ledger.emit(record["run_id"], "local_execution", node["id"], what=f"deterministic step {node['id']}", passed=result.outcome == "completed")
@@ -1104,10 +1109,23 @@ class Orchestrator:
             )
             return
         status = structured.get("status") if isinstance(structured, dict) else None
+        if status == "blocked_on_host" and node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
+            path = node["worktree"]["path"]
+            changed = self._manager(record).changed_files(path, node["worktree"]["base_commit"]) or is_dirty(path)
+            if changed:
+                # Workers report blocked_on_host after finishing an edit when a
+                # command (usually their own test run) was denied. Deferring
+                # discarded that work and stalled its dependents; the
+                # validators decide whether it stands.
+                note = redact(structured.get("summary") or "", 300)
+                self.store.append_event(record["run_id"], "host_action.validated_instead", node["id"], note)
+                structured = {**structured, "status": "done", "host_note": note}
+                status = "done"
         if status in {"needs_decision", "blocked_on_host"}:
             if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
                 self._checkpoint(record, node, "needs decision")
             question = redact(structured.get("question") or structured.get("summary") or "the agent needs a decision", 500)
+            self._record_refusal(record, node, refusal_lib.classify(question), question)
             # A host-level prerequisite is not a decision a person can answer
             # through the gate: approving only relaunched the same worker, which
             # asked again. Defer it and keep the run moving instead.
@@ -1280,6 +1298,30 @@ class Orchestrator:
             node["completed_at"] = now()
             self._release_claim(record, node, "repair validated")
             subject["state"] = "WAITING_FOR_REVIEW"
+            blocking = material(
+                [item for item in subject["review"]["findings"] if item["round"] == subject["review"]["rounds"]],
+                record["policy"]["material_severities"],
+            )
+            tree = _tree_hash(subject["worktree"]["path"]) if subject.get("worktree") else None
+            reverted = _reverted_paths(subject) if blocking and subject.get("worktree") else []
+            if reverted:
+                # The repair put a file back to a version an earlier review
+                # already judged: reviewers disagree with each other (measured
+                # 2026-10-17: one file flipped between two versions over five
+                # reviews and three repairs). Another cheap round only flips it
+                # again; go straight to the stronger reviewer, then a person.
+                reason = f"repair restored an already-reviewed version of {', '.join(reverted[:3])}; reviewers disagree"
+                self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_oscillation", reason=reason)
+                self.store.append_event(record["run_id"], "review.oscillation", subject["id"], reason)
+                subject["review"]["oscillation"] = True
+                self._after_blocking_review(record, subject, blocking, exhausted=True)
+                return
+            if blocking and tree and tree == subject["review"].get("reviewed_tree"):
+                # The repair left the reviewed tree untouched and closed no
+                # finding: a reviewer would judge identical code again.
+                self.ledger.emit(record["run_id"], "work_avoided", subject["id"], category="unchanged_review", model_calls_avoided=1, reason="the repair changed nothing and fixed no finding, so the same code was not reviewed again", tokens_avoided_estimate=self._measured_average(record, "reviewer"))
+                self._after_blocking_review(record, subject, blocking, exhausted=True)
+                return
             self._create_reviewer(record, subject)
             return
         if self._review_required(record, node):
@@ -1599,7 +1641,14 @@ class Orchestrator:
             subject["state"] = "PASSED"
             subject["completed_at"] = now()
             return
-        if subject["review"]["rounds"] < record["policy"]["max_review_rounds"]:
+        subject["review"]["reviewed_tree"] = _tree_hash(subject["worktree"]["path"]) if subject.get("worktree") else None
+        if subject.get("worktree"):
+            subject["review"].setdefault("reviewed_files", []).append(_changed_blobs(subject["worktree"]["path"], subject["worktree"]["base_commit"]))
+        self._after_blocking_review(record, subject, blocking)
+
+    def _after_blocking_review(self, record: dict[str, Any], subject: dict[str, Any], blocking: list[dict[str, Any]], *, exhausted: bool = False) -> None:
+        """Next step for material findings: repair, a stronger reviewer, a last repair, then a person."""
+        if not exhausted and subject["review"]["rounds"] < record["policy"]["max_review_rounds"]:
             subject["state"] = "NEEDS_REPAIR"
             self._create_repair(record, subject, blocking)
             return
@@ -1612,7 +1661,7 @@ class Orchestrator:
             self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_escalated", reason="findings remain after the allowed rounds; asking a stronger reviewer before a person")
             self._create_reviewer(record, subject, capability="reasoning")
             return
-        if not subject["review"].get("final_repair"):
+        if not subject["review"].get("final_repair") and not subject["review"].get("oscillation"):
             # The stronger reviewer confirmed the findings, so they are real
             # and concrete: one last repair before asking a person (once).
             subject["review"]["final_repair"] = True
@@ -1623,7 +1672,7 @@ class Orchestrator:
             return
         repaired = subject["review"].get("final_repair_ids") or []
         new = [item for item in blocking if not any(item["id"] == fid or item["id"].endswith("-" + fid) for fid in repaired)]
-        if new and len(new) == len(blocking) and not subject["review"].get("extra_repair"):
+        if new and len(new) == len(blocking) and not subject["review"].get("extra_repair") and not subject["review"].get("oscillation"):
             # Every blocking finding is new in the review after the final
             # repair: no worker has been asked to fix them yet. One more
             # bounded repair (once per node) instead of waiting on a person.
@@ -1719,14 +1768,17 @@ class Orchestrator:
             node["wait_reason"] = "cancelled; will resume when the run resumes"
             return
         policy = record["policy"]
-        if provider and kind == "invalid_model" and policy["provider_failover"]:
+        if kind == "refused":
+            self._record_refusal(record, node, "provider_policy", detail)
+        if provider and kind in {"invalid_model", "refused"} and policy["provider_failover"]:
             capability = (node.get("selection") or {}).get("capability_class")
-            self._learn_unavailable_model(provider, (node.get("selection") or {}).get("model"), detail)
+            if kind == "invalid_model":
+                self._learn_unavailable_model(provider, (node.get("selection") or {}).get("model"), detail)
             if capability:
                 excluded = node.setdefault("excluded_classes", {}).setdefault(provider, [])
                 if capability not in excluded:
                     excluded.append(capability)
-                    self.store.append_event(record["run_id"], "provider.class_failover", node["id"], f"{provider}/{capability} excluded after invalid_model")
+                    self.store.append_event(record["run_id"], "provider.class_failover", node["id"], f"{provider}/{capability} excluded after {kind}")
                     self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind, capability_class=capability)
         elif provider and policy["provider_failover"]:
             same_kind = [
@@ -2083,7 +2135,9 @@ class Orchestrator:
             diff = manager.diff(cwd, subject["worktree"]["base_commit"])
             # Findings earlier rounds left open: the new reviewer checks them
             # instead of judging the change from scratch and missing them.
-            findings = material(subject["review"]["findings"], policy["material_severities"]) or None
+            # Settled ones are listed too, so the reviewer stops re-raising them.
+            settled = [item for item in subject["review"]["findings"] if item["disposition"] in {"follow_up", "rejected"}]
+            findings = [*material(subject["review"]["findings"], policy["material_severities"]), *settled] or None
         if node["role"] == "repairer" and subject:
             wanted = set(node.get("finding_ids") or [])
             findings = [item for item in subject["review"]["findings"] if item["id"] in wanted]
@@ -2194,7 +2248,7 @@ class Orchestrator:
             provider_effort=selection["provider_effort"],
             read_only=node["role"] in {"reviewer", "planner"},
             timeout_seconds=int(policy["worker_timeout_seconds"]),
-            allowed_tools=list((provider.get("options") or {}).get("allowed_tools") or []),
+            allowed_tools=_worker_allowed_tools(record, node, provider),
         )
         node["state"] = "LAUNCHING"
         node["attempts"] = attempt
@@ -2591,6 +2645,22 @@ class Orchestrator:
         if kind == "budget_exhausted":
             self.ledger.emit(record["run_id"], "loop_guard", node_id, guard="launch_budget", reason=gate["reason"])
         return gate
+
+    def _record_refusal(self, record: dict[str, Any], node: dict[str, Any], category: str, text: str) -> None:
+        """Append a refusal to <home>/refusals.jsonl (``orchestrate refusals``);
+        a plain bad answer (worker_failure) is not a refusal."""
+        if category == "worker_failure":
+            return
+        selection = node.get("selection") or {}
+        provider = self.registry().get(selection.get("provider") or "") or {}
+        family = (selection.get("free_attempt") or {}).get("task_family") or f"orchestrator-{node['role']}"
+        try:
+            refusal_lib.record(self.store.home, category=category, task_family=str(family),
+                               selection={**selection, "profile": provider.get("profile") or {}},
+                               call_id=f"{record['run_id']}/{node['id']}/{node.get('attempts')}", excerpt=text)
+        except (OSError, ValueError):
+            return
+        self.store.append_event(record["run_id"], "refusal.recorded", node["id"], f"{category}: {redact(text, 160)}")
 
     def _defer_host_action(self, record: dict[str, Any], node: dict[str, Any], action: str) -> None:
         """Set aside a step only the host can do, without asking a person.
@@ -3101,6 +3171,32 @@ _HOST_ACTION_PATTERN = (
 )
 
 
+# Read-only commands a worker may run without a prompt, plus its own
+# validators. Measured 2026-10-17 over 48 worker calls: 36 hit permission
+# denials (107 in all, 26 of them the task's own test run) and 13 ended
+# blocked_on_host only because they could not run their validator.
+WORKER_READ_ONLY_COMMANDS = ("git status", "git diff", "git log", "git show", "ls", "grep", "rg", "wc", "mkdir -p .agent-os-scratch", "python -m py_compile")
+_TEST_RUNNERS = (("python", "-m", "pytest"), ("python", "-m", "unittest"), ("python3", "-m", "pytest"), ("python3", "-m", "unittest"))
+
+
+def _worker_allowed_tools(record: dict[str, Any], node: dict[str, Any], provider: dict[str, Any]) -> list[str]:
+    """Pre-approved tool patterns for a worker: the provider's own, and for
+    editing roles the read-only commands and the node's validator commands
+    (a test runner by prefix, so a worker can run one test file)."""
+    tools = list((provider.get("options") or {}).get("allowed_tools") or [])
+    if node["role"] in {"reviewer", "planner"} or not record["policy"].get("worker_self_check", True):
+        return tools
+    tools += [f"Bash({command}:*)" for command in WORKER_READ_ONLY_COMMANDS]
+    for validator in node.get("validators") or record["policy"].get("default_validators") or []:
+        if validator.get("kind") != "command" or not validator.get("command"):
+            continue
+        command = validator["command"]
+        parts = command.split() if isinstance(command, str) else [str(item) for item in command]
+        runner = next((prefix for prefix in _TEST_RUNNERS if tuple(parts[:3]) == prefix), None)
+        tools.append(f"Bash({' '.join(runner)}:*)" if runner else f"Bash({' '.join(parts)})")
+    return list(dict.fromkeys(tools))
+
+
 def _host_action(text: str) -> bool:
     """Whether a worker's question is a host-level prerequisite rather than a
     design decision: no answer through a gate lets a sandboxed worker do it."""
@@ -3198,6 +3294,36 @@ def _tree_hash(cwd: str | Path) -> str | None:
         return None
     value = completed.stdout.strip()
     return value if completed.returncode == 0 and value else None
+
+
+def _changed_blobs(cwd: str | Path, base_commit: str) -> dict[str, str]:
+    """Blob id at HEAD of every path that differs from the base commit
+    ("deleted" for a removed path)."""
+    from .worktrees import git
+
+    try:
+        paths = [line for line in git(["diff", "--name-only", base_commit, "HEAD"], cwd).stdout.splitlines() if line.strip()]
+        listed = git(["ls-tree", "HEAD", "--", *paths], cwd).stdout.splitlines() if paths else []
+    except Exception:
+        return {}
+    blobs = {line.split("\t", 1)[1]: line.split()[2] for line in listed if "\t" in line}
+    return {path: blobs.get(path, "deleted") for path in paths}
+
+
+def _reverted_paths(subject: dict[str, Any]) -> list[str]:
+    """Paths the latest repair changed back to a version reviewed before the
+    last review round; empty when there is no such flip."""
+    snapshots = subject["review"].get("reviewed_files") or []
+    if len(snapshots) < 2:
+        return []
+    current = _changed_blobs(subject["worktree"]["path"], subject["worktree"]["base_commit"])
+    last = snapshots[-1]
+    reverted = []
+    for path in sorted(set(current) | set(last)):
+        now_version, last_version = current.get(path, "base"), last.get(path, "base")
+        if now_version != last_version and any(snapshot.get(path, "base") == now_version for snapshot in snapshots[:-1]):
+            reverted.append(path)
+    return reverted
 
 
 def _validation_key(tree: str, validators: list[dict[str, Any]]) -> str:

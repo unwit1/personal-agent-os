@@ -109,6 +109,12 @@ class ClaudeCodeAdapter(SubprocessAdapter):
             return self.failed("malformed", "no JSON result on stdout")
         final_text = str(payload.get("result") or "")
         usage_counts = from_claude(payload)
+        signals = result_signals(payload)
+        if signals.get("stop_reason") == "refusal" or signals.get("safety_stops"):
+            # The model declined (provider policy). Retrying the same model
+            # repeats it; the engine records it and routes elsewhere.
+            return AgentResult(outcome="failed", failure_kind="refused", summary=final_text[:600], usage=usage_counts,
+                               detail=(final_text or "the model declined the request")[:400], signals=signals)
         if payload.get("is_error") or str(payload.get("subtype", "success")) != "success" or returncode not in (0, None):
             text = final_text or str(payload.get("subtype") or stderr)
             return AgentResult(
@@ -117,10 +123,28 @@ class ClaudeCodeAdapter(SubprocessAdapter):
                 summary=final_text[:600],
                 usage=usage_counts,
                 detail=text[:400],
+                signals=signals,
             )
         structured = payload.get("structured_output") if isinstance(payload.get("structured_output"), dict) else None
         structured = structured or extract_structured(final_text)
-        return AgentResult(outcome="completed", summary=final_text[-600:], structured=structured, usage=usage_counts)
+        return AgentResult(outcome="completed", summary=final_text[-600:], structured=structured, usage=usage_counts, signals=signals)
+
+
+def result_signals(payload: dict[str, Any]) -> dict[str, Any]:
+    """How a Claude Code call ended, from its JSON result: the API stop
+    reason, safety stops and the tool calls the permission layer denied."""
+    denials = payload.get("permission_denials") or []
+    safety = payload.get("safety_stops") or []
+    tools: dict[str, int] = {}
+    for item in denials:
+        name = str((item or {}).get("tool_name") or "?") if isinstance(item, dict) else "?"
+        tools[name] = tools.get(name, 0) + 1
+    return {
+        "stop_reason": payload.get("stop_reason"),
+        "safety_stops": len(safety) if isinstance(safety, list) else int(bool(safety)),
+        "permission_denials": len(denials) if isinstance(denials, list) else 0,
+        "denied_tools": tools,
+    }
 
 
 def lean_flags(options: dict[str, Any], features: dict[str, bool], read_only: bool) -> list[str]:

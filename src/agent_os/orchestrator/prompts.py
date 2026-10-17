@@ -141,6 +141,10 @@ _WORKER_RULES_TAIL = (
     "  python processes on this machine belong to the orchestrator.",
     "- Everything you need is in this prompt and the worktree. Do not consult Agent OS, memory, or other context",
     "  tools. Read only the files you need, make the change, run your validator once, and finish.",
+    "- Run each shell command on its own from the worktree root, exactly as written (no cd, &&, ;, pipes or heredocs):",
+    "  chained commands are denied as a whole. Read files with Read, Grep and Glob, not cat, head or sed.",
+    "- If a command is denied, do not retry or work around it: the orchestrator runs your validators after you finish.",
+    "  A denied command is not a host action; report status done when your change is complete.",
     "- If a decision would materially change the requested outcome, stop and report status needs_decision with a question.",
     "- If the assignment is already fully done in this worktree, change nothing and report status already_done, citing the evidence in summary.",
 )
@@ -155,6 +159,8 @@ _REVIEWER_RULES = (
     "Severity: critical/high = wrong behaviour, data loss, or security; medium = bad code that should be cut or",
     "simplified before merge; low/info = optional polish. Give the smallest concrete fix for each finding.",
     "Report evidenced problems only, not style preferences. An approval with no findings must still be a structured result.",
+    "A change the assignment explicitly asks for is never a finding above low. If you think the assignment itself is",
+    "mistaken, say so as low or info with your evidence; do not ask for the requested change to be removed.",
 )
 
 
@@ -229,11 +235,20 @@ def _node_blocks(run: dict[str, Any], node: dict[str, Any], diff: str | None, fi
             "```",
             "",
         ]
+        settled = [item for item in findings or [] if item.get("disposition") in {"follow_up", "rejected"}]
+        findings = [item for item in findings or [] if item not in settled]
         if findings:
             lines += ["Earlier review rounds left these findings unresolved. Check each against the current change: report it again",
                       "(same id and summary) if it still applies, and do not approve while one does.", ""]
             for item in findings[-10:]:
                 lines.append(f"- [{item['id']}] {item['severity']} {item.get('path') or ''}: {str(item['summary'])[:300]}")
+            lines.append("")
+        if settled:
+            lines += ["Already decided (accepted as a follow-up, or rejected with a reason). Do not report these again unless the",
+                      "current change makes one worse or the stated reason is wrong:", ""]
+            for item in settled[-10:]:
+                why = f" ({item['disposition_reason'][:120]})" if item.get("disposition_reason") else ""
+                lines.append(f"- [{item['id']}] {item['disposition']} {item.get('path') or ''}: {str(item['summary'])[:160]}{why}")
             lines.append("")
     if role == "repairer" and findings:
         lines += ["Address these review findings (fix them, or reject one with a concrete reason):", ""]

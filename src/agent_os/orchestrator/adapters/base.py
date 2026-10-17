@@ -157,6 +157,9 @@ class AgentResult:
     usage: dict[str, Any] = field(default_factory=dict)  # see orchestrator.usage
     duration_ms: int | None = None
     detail: str | None = None
+    # Provider-reported facts about how the call ended: stop_reason,
+    # safety_stops and permission_denials (counts), denied_tools.
+    signals: dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
