@@ -1,0 +1,232 @@
+{
+  "entries": [
+    {
+      "id": "PA-rtk",
+      "name": "RTK (Rust Token Killer)",
+      "repository": "https://github.com/rtk-ai/rtk",
+      "organization": "rtk-ai",
+      "description": "Single Rust binary plus agent hooks that rewrite shell commands (git, pytest, ls, grep, ruff...) to compact filtered output, with raw-output recovery on failure",
+      "license": "Apache-2.0 (hooks, filters) + BUSL-1.1 (compression engine, proxy)",
+      "license_spdx": "Apache-2.0 AND BUSL-1.1",
+      "license_status": "mixed; the rtk-oss edition is Apache-2.0 only; no code copied",
+      "evaluated_revision": "7bff768 @ 2026-10-17",
+      "evaluated_at": "2026-10-17",
+      "language": "Rust",
+      "capability_areas": [
+        "tool output compression",
+        "command output filtering",
+        "agent hooks",
+        "raw output recovery"
+      ],
+      "agent_os_overlap": "Workers run Claude Code or Codex, which accept PreToolUse hooks, so a hook could be installed per worker; but 94% of measured tool-result bytes already come from narrowed commands and distill's equivalent pipeline saved 0 bytes on them. Retry prompts already quote failing test output.",
+      "useful_parts": {
+        "algorithms": [
+          "store full output behind a hash and show a recall hint when a filtered command fails"
+        ],
+        "tests_benchmarks": [
+          "per-filter >=20% savings floor tested on captured real command-output fixtures"
+        ]
+      },
+      "integration": "none now; possible later as a per-worker PreToolUse hook (rtk-oss edition) if replay shows a large unfiltered git/pytest share",
+      "risks": {
+        "maintenance": "very active, many contributors, fast-moving filters",
+        "license": "full binary includes BUSL-1.1 engine; the oss edition avoids it",
+        "dependency_weight": "third-party binary in every worker worktree; hook fires only on Bash calls"
+      },
+      "evidence": {
+        "development_savings": "none: adopting it is a hook config, but nothing to build or borrow today",
+        "runtime_savings": "unmeasured here; README says bash-output bytes only, estimated as bytes/4. JetBrains SkillsBench on Claude Code measured +7.6% cost at low effort and ~0% at high effort; Quesma's 1,740-run Terminal-Bench 2.1 study found reported reductions did not become cheaper runs",
+        "quality": "independent runs showed unchanged task quality; fixtures show filters keep failures and drop passing lines, but no later-use check exists",
+        "reliability": "falls back to the raw command if a filter fails; propagates exit codes",
+        "security": "hook rewrites every Bash command; it ships integrity checks (SHA-256 hook verification) and a trust model, not audited here",
+        "complexity": "low to configure, high to audit 100+ filters",
+        "maintenance": "active",
+        "portability": "Linux/macOS/Windows binaries; hooks for 18 agents incl. Claude Code and Codex"
+      },
+      "decision": "DEFER",
+      "rationale": "Independent cost evidence is flat to negative and on our measured traffic 94% of bytes are already narrowed by the model's own commands, so there is little left to filter. Revisit only if a replay shows a large unfiltered git/pytest share.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 https://github.com/rtk-ai/rtk @ 7bff768 (2026-10-17)",
+        "https://blog.jetbrains.com/ai/2026/07/rtk-claude-code-token-savings/",
+        "https://quesma.com/blog/does-rtk-make-ai-coding-cheaper/",
+        "web search found no r/OpenSourceAI thread; Reddit unreachable"
+      ],
+      "revisit_when": [
+        "replay of recorded tool results shows >15% of bytes from unfiltered git/pytest/ruff commands",
+        "a paired-run study on Claude Code shows net cost savings at equal effort",
+        "Agent OS runs its own agent loop"
+      ]
+    },
+    {
+      "id": "PA-headroom",
+      "name": "Headroom",
+      "repository": "https://github.com/headroomlabs-ai/headroom",
+      "organization": "headroomlabs-ai",
+      "description": "Local context-compression layer (library, proxy, agent wrapper, MCP server) with a reversible compress-cache-retrieve store, JSON/code/prose compressors and optional output-token shaping",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "Apache-2.0; model weights hosted separately, license not checked; no code copied",
+      "evaluated_revision": "2912b7b @ 2026-10-16",
+      "evaluated_at": "2026-10-17",
+      "language": "Python (Rust core crates, TypeScript SDK)",
+      "capability_areas": [
+        "tool output compression",
+        "reversible compression",
+        "context compaction",
+        "api proxy",
+        "output token reduction",
+        "mcp server"
+      ],
+      "agent_os_overlap": "A proxy reachable through the worker's base-URL setting is the only route here that acts on Claude Code/Codex traffic without Agent OS owning the loop. The same results already failed our later-use check for lossy crushers and history rewrites cost 2-6% more than they saved.",
+      "useful_parts": {
+        "algorithms": [
+          "per-tool retrieval-rate as the quality signal for how aggressively to compress (compression_feedback.py)",
+          "hold out 10% of conversations as an unshaped control so savings are measured, not estimated"
+        ],
+        "tests_benchmarks": [
+          "benchmarks/index_proof_table.py: seeded offline proof table using provider tokenizer"
+        ]
+      },
+      "integration": "none now; candidate offline replay of recorded tool results through compress() in library mode",
+      "risks": {
+        "maintenance": "fast-moving, commercial team offering, vendor perks banner",
+        "quality": "lossy compressors; recovery depends on the model calling the retrieval tool",
+        "dependency_weight": "Python package with Hugging Face model, SQLite store, learned telemetry and a proxy",
+        "cache": "rewriting tool results in history changes the prefix; cache mode only partly mitigates"
+      },
+      "evidence": {
+        "development_savings": "none yet; borrowing the retrieval-rate signal and holdout pattern is small",
+        "runtime_savings": "first-party only: 21-57% on four seeded synthetic scenarios (README), higher on repetitive JSON/logs, small on prose; not measured on our traffic",
+        "quality": "README accuracy table is N=100 with deltas inside the CI and tests prompts not coding tasks; one hands-on Copilot test found more tokens consumed because needed information was removed; our replay found lossy crushers removed text the model later used in 28-47% of reduced results",
+        "reliability": "not exercised here (not run)",
+        "security": "runs locally; proxy forwards provider keys and persistent stores of originals on disk",
+        "complexity": "high: proxy, wrapper, MCP server, memory, learn command",
+        "maintenance": "active, stars and trending badges but vendor-reported numbers",
+        "portability": "Python/pip, Claude Code, Codex and 15 other agents via wrap or proxy"
+      },
+      "decision": "DEFER",
+      "rationale": "It is the only candidate that could run as a drop-in proxy, but savings are first-party and synthetic, lossy reduction already failed our later-use check, and history rewrites risk the cache. Run the offline replay before any live trial.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 https://github.com/headroomlabs-ai/headroom @ 2912b7b (2026-10-16)",
+        "https://www.besthub.dev/articles/headroom-netflix-engineer-s-open-source-context-compression-tool-does-it-save-tokens-or-burn-more-47bbfbb23ea9",
+        "web search found no r/OpenSourceAI thread; Reddit unreachable"
+      ],
+      "revisit_when": [
+        "offline replay of the 528 recorded results shows >10% bytes saved with <5% later-use loss",
+        "an independent paired coding-agent benchmark appears",
+        "Agent OS gains its own loop or a proxy layer"
+      ]
+    },
+    {
+      "id": "PA-tml",
+      "name": "TML (Tool Manifest Language)",
+      "repository": "https://github.com/maf404/tml",
+      "organization": "maf404",
+      "description": "Compact line-based format and OpenAPI converter that describes API tools to LLMs with fewer tokens; a schema format, not a tool-output reducer",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "Apache-2.0; no code copied",
+      "evaluated_revision": "452a192 @ 2026-04-14",
+      "evaluated_at": "2026-10-17",
+      "language": "JavaScript",
+      "capability_areas": [
+        "tool schema compression",
+        "tool description format",
+        "openapi conversion"
+      ],
+      "agent_os_overlap": "Tool schemas for Claude Code and Codex are defined by the CLIs and their MCP servers; Agent OS has no loop in which to send a .min tool block. The assignment called it a single-file tool-call verbosity reducer; the repo is a schema format with a CLI and studio UI.",
+      "useful_parts": {
+        "algorithms": [
+          "pipe-delimited one-line-per-endpoint tool description"
+        ],
+        "tests_benchmarks": [
+          "benchmarks/measure-tokens.js: token counts taken from Claude API input_tokens"
+        ]
+      },
+      "integration": "none; would apply only to an own-loop adapter in adapters/http_api.py",
+      "risks": {
+        "maintenance": "experimental v0.1, single maintainer, last commit April 2026",
+        "quality": "models are trained on JSON function schemas; a custom format has no robustness evidence",
+        "dependency_weight": "small Node CLI"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "README claims 174 vs 769 tokens (77%) for 3 tools; benchmarks README shows 243 vs 1047; MCP comparison rows are character-based estimates",
+        "quality": "100% tool selection on 5 scenarios and 35 calls against one weather API with 3 tools; no baseline of hand-trimmed JSON or tool search",
+        "reliability": "not run",
+        "security": "neutral; Studio server holds an API key in .env",
+        "complexity": "low",
+        "maintenance": "low activity",
+        "portability": "any text model, but not what CLI tool loaders accept"
+      },
+      "decision": "REJECT",
+      "rationale": "It shortens tool schemas the CLIs define rather than tool results, rests on 3-tool, 5-scenario benchmarks with mixed estimated and measured numbers, and Agent OS has no loop to use it in.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 https://github.com/maf404/tml @ 452a192 (2026-04-14)",
+        "web search found one Reddit post via a snapshot mirror (subreddit not confirmed, one comment); no independent benchmark"
+      ],
+      "revisit_when": [
+        "Agent OS builds an own tool-calling loop with a large custom tool list",
+        "independent benchmark compares it with JSON schemas and tool search"
+      ]
+    },
+    {
+      "id": "PA-intel-adaptive-token-compressor",
+      "name": "Intel Adaptive Token Compressor",
+      "repository": "https://github.com/open-edge-platform/edge-ai-libraries/tree/main/libraries/adaptive-token-compressor",
+      "organization": "open-edge-platform (Intel)",
+      "description": "Python library with a harness compressor (LLMLingua-2 over system prompt and context) and a tool compressor (predictor LLM selects tools, accumulate mode keeps the prefix cache stable)",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "license_status": "Apache-2.0; no code copied",
+      "evaluated_revision": "1914e10 @ 2026-10-17",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "system prompt compression",
+        "tool schema selection",
+        "context compaction",
+        "prefix cache stability"
+      ],
+      "agent_os_overlap": "Tool selection acts on the tools array an agent loop sends, which Agent OS does not own with Claude Code or Codex; the harness half is LLMLingua again (see PA-llmlingua) and is lossy.",
+      "useful_parts": {
+        "algorithms": [
+          "accumulate: union of predicted tools per conversation in append-only order so the tool block stays a prefix extension and the cache keeps hitting",
+          "per-compressor metrics for tokens, ratio and latency"
+        ],
+        "tests_benchmarks": []
+      },
+      "integration": "none now; the append-only-tool-set idea can inform an own-loop adapter or per-role allowlists chosen once at worker start",
+      "risks": {
+        "maintenance": "first release 2026.2, weeks old, corporate sample library",
+        "quality": "source docstring says trailing-carrier placements fail on multi-turn agents; ~60% of turns change the predicted tool set",
+        "dependency_weight": "needs a Lingua model server and an external predictor LLM endpoint"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "no published numbers in repo or docs; README says 'significantly reduce token usage'",
+        "quality": "docstrings report internal findings (placement failures, prediction instability) with the referenced report not in the repo",
+        "reliability": "has tests and health checks; not run here",
+        "security": "sends task context to a predictor endpoint",
+        "complexity": "high for what it saves: two model servers",
+        "maintenance": "new, Intel-backed",
+        "portability": "PyTorch/OpenVINO, Intel XPU default"
+      },
+      "decision": "DEFER",
+      "rationale": "Tool selection needs a loop Agent OS does not own and there are no published numbers; the one idea worth keeping, append-only tool sets that protect the prefix cache, can be tested when an own-loop adapter exists.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 https://github.com/open-edge-platform/edge-ai-libraries @ 1914e10 (2026-10-17)",
+        "https://docs.openedgeplatform.intel.com/dev/edge-ai-libraries/adaptive-token-compressor/index.html",
+        "web search found no independent evaluation and no r/OpenSourceAI thread"
+      ],
+      "revisit_when": [
+        "Agent OS runs its own agent loop with a large tool list",
+        "Intel publishes accuracy and token numbers for ToolCompressor"
+      ]
+    }
+  ]
+}
