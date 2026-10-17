@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0024",
+  "project": "personal-agent-os",
+  "title": "Worker failure: escalated:implementer",
+  "category": "bug",
+  "subsystem": "orchestrator",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "Failure signature escalated:implementer recurred in 2 run(s) (4 occurrence(s) in 30 days) although a remedy exists: escalation ladder (stronger tier after failed attempts).",
+  "evidence": [
+    "hr-cc-run4/computer-tools (fable): 1 escalation(s); now frontier",
+    "hr-cc-run4/proactive-watcher (sonnet): 1 escalation(s); now balanced"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Find why the existing remedy does not prevent it and make a deterministic change (code, prompt rule, validator or permission) that does.",
+  "acceptance": [
+    "a regression test reproduces escalated:implementer from a recorded case and passes with the fix",
+    "escalated:implementer does not recur in the next runs (agent-os orchestrate learn --summary)"
+  ],
+  "risks": [],
+  "dedupe_key": "f9e0c1dfbffb93073b356e405fbb3fadf5b0a90d0021dd8fbbb39bf7883f269e",
+  "source": {
+    "type": "regression",
+    "reference": "escalated:implementer"
+  },
+  "github": null,
+  "created_at": "2026-10-17T05:11:06.248948+00:00",
+  "updated_at": "2026-10-17T05:11:06.248948+00:00",
+  "notes": null
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0026",
+  "project": "personal-agent-os",
+  "title": "Worker failure: unroutable",
+  "category": "bug",
+  "subsystem": "orchestrator",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "Failure signature unroutable has no deterministic remedy yet (6 occurrence(s) in 1 run(s)).",
+  "evidence": [
+    "<id> (local): no provider: no usable provider covers balanced or any fallback class",
+    "<id> (local): no provider: no usable provider covers balanced or any fallback class",
+    "<id> (local): no provider: no usable provider covers balanced or any fallback class",
+    "<id> (local): no provider: no usable provider covers balanced or any fallback class",
+    "<id> (local): no provider: no usable provider covers balanced or any fallback class"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Reproduce it from the run records, then add a deterministic remedy (code, prompt rule, validator or permission) and list it in failure_learning.REMEDIES.",
+  "acceptance": [
+    "a regression test reproduces unroutable from a recorded case and passes with the fix",
+    "unroutable does not recur in the next runs (agent-os orchestrate learn --summary)"
+  ],
+  "risks": [],
+  "dedupe_key": "8576396fe76967ee8b56b351f09df14834993a8fba65828ea8f2e0211abcc142",
+  "source": {
+    "type": "regression",
+    "reference": "unroutable"
+  },
+  "github": null,
+  "created_at": "2026-10-17T05:12:07.045203+00:00",
+  "updated_at": "2026-10-17T05:12:07.045203+00:00",
+  "notes": null
+}

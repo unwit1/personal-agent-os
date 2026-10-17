@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0022",
+  "project": "personal-agent-os",
+  "title": "Worker failure: failed_final:validator_failed",
+  "category": "bug",
+  "subsystem": "orchestrator",
+  "status": "candidate",
+  "priority": "high",
+  "observation": "Failure signature failed_final:validator_failed has no deterministic remedy yet (1 occurrence(s) in 1 run(s)).",
+  "evidence": [
+    "mi-rights-gate/source-resolvers (opus): validator still failing after 2 escalation(s): editable-scope=ok; source-resolvers-suite=FAIL (ERROR tests/test_gui_queue.py - ImportError while importing test",
+    "hr-cc-run4/computer-tools (fable): validator still failing after 1 escalation(s): editable-scope=ok; control-plane=ok; negative-evidence=ok; computer-tests=FAIL (=========================== short"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Reproduce it from the run records, then add a deterministic remedy (code, prompt rule, validator or permission) and list it in failure_learning.REMEDIES.",
+  "acceptance": [
+    "a regression test reproduces failed_final:validator_failed from a recorded case and passes with the fix",
+    "failed_final:validator_failed does not recur in the next runs (agent-os orchestrate learn --summary)"
+  ],
+  "risks": [],
+  "dedupe_key": "65320beb9528607c40d484a6054b52bc072925fb3f331f86b6f4d18421811c5e",
+  "source": {
+    "type": "regression",
+    "reference": "failed_final:validator_failed"
+  },
+  "github": null,
+  "created_at": "2026-10-17T05:11:06.126822+00:00",
+  "updated_at": "2026-10-17T05:11:06.269116+00:00",
+  "notes": null
+}

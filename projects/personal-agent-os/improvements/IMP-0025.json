@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0025",
+  "project": "personal-agent-os",
+  "title": "Worker failure: scope_violation",
+  "category": "bug",
+  "subsystem": "orchestrator",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "Failure signature scope_violation has no deterministic remedy yet (1 occurrence(s) in 1 run(s)).",
+  "evidence": [
+    "hr-cc-run4/no-self-approval.repair3 (fable): editable-scope=FAIL (edits outside declared scope: tests/test_executive_capture_mcp_writes.py, tests/test_executive_window_mcp.py, tests/test_executive_window_s"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Reproduce it from the run records, then add a deterministic remedy (code, prompt rule, validator or permission) and list it in failure_learning.REMEDIES.",
+  "acceptance": [
+    "a regression test reproduces scope_violation from a recorded case and passes with the fix",
+    "scope_violation does not recur in the next runs (agent-os orchestrate learn --summary)"
+  ],
+  "risks": [],
+  "dedupe_key": "1d60f77b71aacd95b2cfaca45ebdd6bde8da36a589a7eb7aa2b824d1e061cc11",
+  "source": {
+    "type": "regression",
+    "reference": "scope_violation"
+  },
+  "github": null,
+  "created_at": "2026-10-17T05:11:06.282150+00:00",
+  "updated_at": "2026-10-17T05:11:06.282150+00:00",
+  "notes": null
+}

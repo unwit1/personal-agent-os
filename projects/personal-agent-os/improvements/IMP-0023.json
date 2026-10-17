@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0023",
+  "project": "personal-agent-os",
+  "title": "Worker failure: blocked_on_host:deferred",
+  "category": "bug",
+  "subsystem": "orchestrator",
+  "status": "superseded",
+  "priority": "medium",
+  "observation": "Failure signature blocked_on_host:deferred recurred in 2 run(s) (5 occurrence(s) in 30 days) although a remedy exists: blocked_on_host with changed files is validated instead of deferred; only a step that changed nothing is deferred.",
+  "evidence": [
+    "hr-cc-run4/hr-policy-lookup (sonnet): Implemented hr_knowledge.py, the hr.policy_lookup MCP tool and tests, but could not run the validator because the sandbox denied the pytest command; run: python",
+    "hr-cc-run4/proactive-watcher (sonnet): Added the missing sys.path insert to tests/test_executive_watcher.py (likely cause of the collection error); pytest could not be run here, so run the validator",
+    "remedied by commit d9bc51db (blocked_on_host with changed files is validated, not deferred); all recorded occurrences predate it"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Find why the existing remedy does not prevent it and make a deterministic change (code, prompt rule, validator or permission) that does.",
+  "acceptance": [
+    "a regression test reproduces blocked_on_host:deferred from a recorded case and passes with the fix",
+    "blocked_on_host:deferred does not recur in the next runs (agent-os orchestrate learn --summary)"
+  ],
+  "risks": [],
+  "dedupe_key": "fe6c8bb0e0aec3417583aa378049828a5717090f322d39279c273158fd2ef24c",
+  "source": {
+    "type": "regression",
+    "reference": "blocked_on_host:deferred"
+  },
+  "github": null,
+  "created_at": "2026-10-17T05:11:06.193715+00:00",
+  "updated_at": "2026-10-17T05:11:28.875215+00:00",
+  "notes": null
+}
