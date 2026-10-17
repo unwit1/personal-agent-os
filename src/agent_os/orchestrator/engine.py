@@ -1715,7 +1715,9 @@ class Orchestrator:
             for fid in node.get("finding_ids") or []
         }
         late = [item for item in blocking if _finding_key(item["id"]) not in repaired_keys and item.get("severity") not in {"critical", "high"}]
-        if late:
+        if late and not subject["review"].get("oscillation"):
+            # Contradicting reviewers re-raise reverted findings under new ids;
+            # those are not late and still go to a person.
             reviewers = subject["review"].get("reviewers") or []
             reviewer_provider = (reviewers[-1].get("provider") if reviewers else None) or "unknown"
             for item in late:
