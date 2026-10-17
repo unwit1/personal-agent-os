@@ -57,6 +57,7 @@ from .review import MalformedReview, apply_dispositions, material, parse_review
 from .router import ProviderRegistry, load_key, select
 from .store import RunStore, pid_alive, redact
 from .stall import repeated_command
+from . import refusal as refusal_lib
 from .validators import EXCERPT_LIMIT, run_all
 from .worktrees import GitError, WorktreeManager, current_branch, git, head_commit, is_dirty, repository_root
 
@@ -1060,6 +1061,8 @@ class Orchestrator:
             "duration_ms": payload["duration_ms"],
             "at": now(),
         }
+        if result.signals:
+            node["result"]["signals"] = result.signals
         usage = record["usage"]
         usage["workers"] += 1
         if model_call:
@@ -1082,6 +1085,8 @@ class Orchestrator:
                 usage=call_usage,
                 prompt_chars=node.get("prompt_chars"),
                 prompt_tokens_estimate=usage_lib.estimate_tokens(node["prompt_chars"]) if node.get("prompt_chars") is not None else None,
+                stop_reason=result.signals.get("stop_reason"),
+                permission_denials=result.signals.get("permission_denials"),
             )
         else:
             self.ledger.emit(record["run_id"], "local_execution", node["id"], what=f"deterministic step {node['id']}", passed=result.outcome == "completed")
@@ -1124,6 +1129,7 @@ class Orchestrator:
             if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
                 self._checkpoint(record, node, "needs decision")
             question = redact(structured.get("question") or structured.get("summary") or "the agent needs a decision", 500)
+            self._record_refusal(record, node, refusal_lib.classify(question), question)
             # A host-level prerequisite is not a decision a person can answer
             # through the gate: approving only relaunched the same worker, which
             # asked again. Defer it and keep the run moving instead.
@@ -1751,14 +1757,17 @@ class Orchestrator:
             node["wait_reason"] = "cancelled; will resume when the run resumes"
             return
         policy = record["policy"]
-        if provider and kind == "invalid_model" and policy["provider_failover"]:
+        if kind == "refused":
+            self._record_refusal(record, node, "provider_policy", detail)
+        if provider and kind in {"invalid_model", "refused"} and policy["provider_failover"]:
             capability = (node.get("selection") or {}).get("capability_class")
-            self._learn_unavailable_model(provider, (node.get("selection") or {}).get("model"), detail)
+            if kind == "invalid_model":
+                self._learn_unavailable_model(provider, (node.get("selection") or {}).get("model"), detail)
             if capability:
                 excluded = node.setdefault("excluded_classes", {}).setdefault(provider, [])
                 if capability not in excluded:
                     excluded.append(capability)
-                    self.store.append_event(record["run_id"], "provider.class_failover", node["id"], f"{provider}/{capability} excluded after invalid_model")
+                    self.store.append_event(record["run_id"], "provider.class_failover", node["id"], f"{provider}/{capability} excluded after {kind}")
                     self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind, capability_class=capability)
         elif provider and policy["provider_failover"]:
             same_kind = [
@@ -2665,6 +2674,22 @@ class Orchestrator:
         if kind == "budget_exhausted":
             self.ledger.emit(record["run_id"], "loop_guard", node_id, guard="launch_budget", reason=gate["reason"])
         return gate
+
+    def _record_refusal(self, record: dict[str, Any], node: dict[str, Any], category: str, text: str) -> None:
+        """Append a refusal to <home>/refusals.jsonl (``orchestrate refusals``);
+        a plain bad answer (worker_failure) is not a refusal."""
+        if category == "worker_failure":
+            return
+        selection = node.get("selection") or {}
+        provider = self.registry().get(selection.get("provider") or "") or {}
+        family = (selection.get("free_attempt") or {}).get("task_family") or f"orchestrator-{node['role']}"
+        try:
+            refusal_lib.record(self.store.home, category=category, task_family=str(family),
+                               selection={**selection, "profile": provider.get("profile") or {}},
+                               call_id=f"{record['run_id']}/{node['id']}/{node.get('attempts')}", excerpt=text)
+        except (OSError, ValueError):
+            return
+        self.store.append_event(record["run_id"], "refusal.recorded", node["id"], f"{category}: {redact(text, 160)}")
 
     def _defer_host_action(self, record: dict[str, Any], node: dict[str, Any], action: str) -> None:
         """Set aside a step only the host can do, without asking a person.
