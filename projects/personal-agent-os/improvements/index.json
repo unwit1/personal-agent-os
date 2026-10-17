@@ -164,7 +164,7 @@
       "status": "in_progress",
       "priority": "high",
       "dedupe_key": null,
-      "updated_at": "2026-09-29T17:12:02.042373+00:00",
+      "updated_at": "2026-10-01T15:23:00+00:00",
       "github_issue_number": null
     },
     {
@@ -220,6 +220,72 @@
       "priority": "high",
       "dedupe_key": null,
       "updated_at": "2026-10-01T14:00:00+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0021",
+      "title": "Worker failure: review_unresolved",
+      "category": "bug",
+      "subsystem": "orchestrator",
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "2c0fb6c807a5d6d6690ce2ae5df66952af7ccf95ea28c5e49abcf092e80abc22",
+      "updated_at": "2026-10-17T05:11:06.294472+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0022",
+      "title": "Worker failure: failed_final:validator_failed",
+      "category": "bug",
+      "subsystem": "orchestrator",
+      "status": "candidate",
+      "priority": "high",
+      "dedupe_key": "65320beb9528607c40d484a6054b52bc072925fb3f331f86b6f4d18421811c5e",
+      "updated_at": "2026-10-17T05:11:06.269116+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0023",
+      "title": "Worker failure: blocked_on_host:deferred",
+      "category": "bug",
+      "subsystem": "orchestrator",
+      "status": "superseded",
+      "priority": "medium",
+      "dedupe_key": "fe6c8bb0e0aec3417583aa378049828a5717090f322d39279c273158fd2ef24c",
+      "updated_at": "2026-10-17T05:11:28.875215+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0024",
+      "title": "Worker failure: escalated:implementer",
+      "category": "bug",
+      "subsystem": "orchestrator",
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "f9e0c1dfbffb93073b356e405fbb3fadf5b0a90d0021dd8fbbb39bf7883f269e",
+      "updated_at": "2026-10-17T05:11:06.248948+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0025",
+      "title": "Worker failure: scope_violation",
+      "category": "bug",
+      "subsystem": "orchestrator",
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "1d60f77b71aacd95b2cfaca45ebdd6bde8da36a589a7eb7aa2b824d1e061cc11",
+      "updated_at": "2026-10-17T05:11:06.282150+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0026",
+      "title": "Worker failure: unroutable",
+      "category": "bug",
+      "subsystem": "orchestrator",
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "8576396fe76967ee8b56b351f09df14834993a8fba65828ea8f2e0211abcc142",
+      "updated_at": "2026-10-17T05:12:07.045203+00:00",
       "github_issue_number": null
     }
   ]

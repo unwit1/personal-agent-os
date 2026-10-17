@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0021",
+  "project": "personal-agent-os",
+  "title": "Worker failure: review_unresolved",
+  "category": "bug",
+  "subsystem": "orchestrator",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "Failure signature review_unresolved has no deterministic remedy yet (1 occurrence(s) in 1 run(s)).",
+  "evidence": [
+    "selfcheck-on/gui-start-error (sonnet): 2 material finding(s) remain after 5 review round(s)",
+    "hr-cc-run4/coding-from-command-center (sonnet): 3 material finding(s) remain after 5 review round(s)"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Reproduce it from the run records, then add a deterministic remedy (code, prompt rule, validator or permission) and list it in failure_learning.REMEDIES.",
+  "acceptance": [
+    "a regression test reproduces review_unresolved from a recorded case and passes with the fix",
+    "review_unresolved does not recur in the next runs (agent-os orchestrate learn --summary)"
+  ],
+  "risks": [],
+  "dedupe_key": "2c0fb6c807a5d6d6690ce2ae5df66952af7ccf95ea28c5e49abcf092e80abc22",
+  "source": {
+    "type": "regression",
+    "reference": "review_unresolved"
+  },
+  "github": null,
+  "created_at": "2026-10-17T05:11:06.058548+00:00",
+  "updated_at": "2026-10-17T05:11:06.294472+00:00",
+  "notes": null
+}
