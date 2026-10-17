@@ -55,6 +55,7 @@ class SignatureTests(unittest.TestCase):
         self.assertIsNone(fl.remedy_for("stuck"))
         self.assertIn("changed nothing", fl.remedy_for("blocked_on_host:deferred"))
         self.assertIsNone(fl.remedy_for("refused_twice"))
+        self.assertIn("follow-ups", fl.remedy_for("review_unresolved"))
 
 
 class LearnTests(unittest.TestCase):
