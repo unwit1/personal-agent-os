@@ -210,3 +210,19 @@ not own, and our measured facts argue against them.
 - **Headroom BORROW test**: proposed on tool results, while the BORROW targets
   Agent OS's own artefacts, part of which `MAX_DIFF_CHARS` truncation already
   covers (see #7).
+
+## Offline checks run (2026-10-17, no model calls)
+
+Over the 8 recorded runs on this machine (90 worker launches, 34 reviewer
+prompts) and the four replayed hr-cc-run4 implementer transcripts:
+
+| # | Check | Result | Bar | Decision |
+|---|---|---|---|---|
+| 5 | Merge conflicts among failed tasks | 0 conflicts; all 8 failures were validator failures | at least 5% | Close for now |
+| 7 | Reviewer diffs hitting `MAX_DIFF_CHARS`; validator excerpts at their cap | 1 of 34 (2.9%); 0 of 8 | at least 5% | Close for now |
+| 8 | Identical launch failure repeated | 0 | at least 3% | Close for now |
+| 6 | Whole-file reads followed by an edit: bytes outside the edited symbol | 5 such reads; 15% excess (22.2 KB read, 18.8 KB in edited symbols). Workers mostly read ranges already | at least 25% | Close for now |
+
+Still open, needing data the runs do not record yet: #1 (diffs later found
+defective), #2 (per-tier pass rates), #3 and #4 (historical diffs with
+review outcomes).
