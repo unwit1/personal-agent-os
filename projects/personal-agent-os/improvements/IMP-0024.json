@@ -10,7 +10,10 @@
   "observation": "Failure signature escalated:implementer recurred in 2 run(s) (4 occurrence(s) in 30 days) although a remedy exists: escalation ladder (stronger tier after failed attempts).",
   "evidence": [
     "hr-cc-run4/computer-tools (fable): 1 escalation(s); now frontier",
-    "hr-cc-run4/proactive-watcher (sonnet): 1 escalation(s); now balanced"
+    "hr-cc-run4/proactive-watcher (sonnet): 1 escalation(s); now balanced",
+    "run-20261017T051106Z-20a677/remedy-review-unresolved (sonnet): 2 escalation(s); now balanced",
+    "run-20261017T051106Z-ea5151/planner-reject-broad-validators (haiku): 1 escalation(s); now fast",
+    "run-20261017T051106Z-ea5151/register-remedy-imp-0022 (sonnet): 2 escalation(s); now balanced"
   ],
   "suspected_root_cause": null,
   "suggested_direction": "Find why the existing remedy does not prevent it and make a deterministic change (code, prompt rule, validator or permission) that does.",
@@ -26,6 +29,6 @@
   },
   "github": null,
   "created_at": "2026-10-17T05:11:06.248948+00:00",
-  "updated_at": "2026-10-17T05:11:06.248948+00:00",
+  "updated_at": "2026-10-17T05:53:28.915582+00:00",
   "notes": null
 }

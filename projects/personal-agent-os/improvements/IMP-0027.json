@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0027",
+  "project": "personal-agent-os",
+  "title": "Worker failure: validator_failed:AssertionError",
+  "category": "bug",
+  "subsystem": "orchestrator",
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "Failure signature validator_failed:AssertionError recurred in 2 run(s) (2 occurrence(s) in 30 days) although a remedy exists: retry prompt quotes the failing validator output (validators.failure_excerpt).",
+  "evidence": [
+    "run-20261017T051106Z-ea5151/register-remedy-imp-0022 (sonnet): editable-scope=ok; control-plane=ok; negative-evidence=ok; affected-tests=FAIL (broken by this change (affected tests): test_orchestrator_review_independence.Re"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Find why the existing remedy does not prevent it and make a deterministic change (code, prompt rule, validator or permission) that does.",
+  "acceptance": [
+    "a regression test reproduces validator_failed:AssertionError from a recorded case and passes with the fix",
+    "validator_failed:AssertionError does not recur in the next runs (agent-os orchestrate learn --summary)"
+  ],
+  "risks": [],
+  "dedupe_key": "0bc04fd4e4c1fc22417439df711c3e06345681b3f362976cca74bf30dd61ae44",
+  "source": {
+    "type": "regression",
+    "reference": "validator_failed:AssertionError"
+  },
+  "github": null,
+  "created_at": "2026-10-17T05:53:28.926942+00:00",
+  "updated_at": "2026-10-17T05:53:28.926942+00:00",
+  "notes": null
+}
