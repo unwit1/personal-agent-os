@@ -60,6 +60,23 @@ class SharedPrefixTests(unittest.TestCase):
         patch.start()
         self.addCleanup(patch.stop)
 
+    def test_reviewer_is_told_which_findings_are_already_decided(self):
+        open_one = {"id": "R2-1", "severity": "high", "path": "src/a.py", "summary": "still open", "disposition": "open"}
+        settled = [
+            {"id": "R1-4", "severity": "low", "path": "tests/t.py", "summary": "shim hides items", "disposition": "follow_up", "disposition_reason": None},
+            {"id": "R1-5", "severity": "medium", "path": "src/a.py", "summary": "path regex", "disposition": "rejected", "disposition_reason": "paths are quoted upstream"},
+        ]
+        with mock.patch.object(prompts, "_sibling_lines", return_value=[]):
+            text = prompts.build(_run(None), REVIEWERS[0][0], diff="+x", findings=[open_one, *settled])
+        unresolved, decided = text.split("Already decided", 1)
+        self.assertIn("[R2-1]", unresolved)
+        self.assertNotIn("[R1-4]", unresolved)
+        self.assertIn("[R1-4] follow_up", decided)
+        self.assertIn("paths are quoted upstream", decided)
+        with mock.patch.object(prompts, "_sibling_lines", return_value=[]):
+            plain = prompts.build(_run(None), REVIEWERS[0][0], diff="+x", findings=[open_one])
+        self.assertNotIn("Already decided", plain)
+
     def test_worker_prefix_is_identical_and_node_text_follows_it(self):
         run = _run(True)
         prefix = prompts.shared_prefix(run, "worker")
