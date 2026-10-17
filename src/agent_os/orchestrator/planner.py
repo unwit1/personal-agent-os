@@ -165,16 +165,58 @@ def approved_argv(command: Any, patterns: list[str], project_commands: list[str]
         return None
 
 
+_PYTEST_VALUE_OPTIONS = {"-k", "-m", "-p", "-o", "-c", "--rootdir"}
+_UNITTEST_VALUE_OPTIONS = {"-k", "-p", "-s", "-t"}
+
+
+def _collects_whole_suite(argv: list[str]) -> bool:
+    """True when a pytest or unittest argv would collect the whole test suite.
+
+    pytest runs the whole suite unless a positional argument names a ``.py``
+    file, a ``file::node`` id, or a path under ``tests/``. unittest runs the
+    whole suite with ``discover`` or with no module argument.
+    """
+    if argv[:1] == ["pytest"]:
+        kind, args, value_options = "pytest", argv[1:], _PYTEST_VALUE_OPTIONS
+    elif len(argv) >= 3 and argv[1] == "-m" and argv[2] in ("pytest", "unittest"):
+        kind, args = argv[2], argv[3:]
+        value_options = _PYTEST_VALUE_OPTIONS if kind == "pytest" else _UNITTEST_VALUE_OPTIONS
+    else:
+        return False
+    positional: list[str] = []
+    skip_value = False
+    for token in args:
+        if skip_value:
+            skip_value = False
+        elif token in value_options:
+            skip_value = True
+        elif not token.startswith("-"):
+            positional.append(token)
+    if kind == "unittest":
+        return "discover" in positional or not positional
+    for token in positional:
+        path = token[2:] if token.startswith("./") else token
+        path = path.rstrip("/")
+        if path.endswith(".py") or "::" in token or path.startswith("tests/"):
+            return False
+    return True
+
+
 def _planned_validators(task: dict[str, Any], patterns: list[str], project_commands: list[str], notes: list[str]) -> list[dict[str, Any]]:
     proposed = task.get("validators") or []
     if not isinstance(proposed, list):
         return []
+    known = {" ".join(str(item).split()) for item in project_commands or []}
     validators = []
     for index, item in enumerate(proposed[:4], start=1):
         command = item.get("command") if isinstance(item, dict) else item
         argv = approved_argv(command, patterns, project_commands)
         if argv is None:
             notes.append(f"{task.get('id')}: dropped unapproved validator {str(command)[:80]!r}")
+            continue
+        text = " ".join(" ".join(str(part) for part in command).split()) if isinstance(command, list) else " ".join(str(command).split())
+        if text not in known and _collects_whole_suite(argv):
+            notes.append(f"{task.get('id')}: dropped validator {text} that collects the whole test suite; name test modules")
             continue
         validators.append({"kind": "command", "command": argv, "name": f"planned-{index}"})
     return validators
