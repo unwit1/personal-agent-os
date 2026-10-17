@@ -1108,6 +1108,18 @@ class Orchestrator:
             )
             return
         status = structured.get("status") if isinstance(structured, dict) else None
+        if status == "blocked_on_host" and node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
+            path = node["worktree"]["path"]
+            changed = self._manager(record).changed_files(path, node["worktree"]["base_commit"]) or is_dirty(path)
+            if changed:
+                # Workers report blocked_on_host after finishing an edit when a
+                # command (usually their own test run) was denied. Deferring
+                # discarded that work and stalled its dependents; the
+                # validators decide whether it stands.
+                note = redact(structured.get("summary") or "", 300)
+                self.store.append_event(record["run_id"], "host_action.validated_instead", node["id"], note)
+                structured = {**structured, "status": "done", "host_note": note}
+                status = "done"
         if status in {"needs_decision", "blocked_on_host"}:
             if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
                 self._checkpoint(record, node, "needs decision")
@@ -2256,7 +2268,7 @@ class Orchestrator:
             provider_effort=selection["provider_effort"],
             read_only=node["role"] in {"reviewer", "planner"},
             timeout_seconds=int(policy["worker_timeout_seconds"]),
-            allowed_tools=list((provider.get("options") or {}).get("allowed_tools") or []),
+            allowed_tools=_worker_allowed_tools(record, node, provider),
         )
         node["state"] = "LAUNCHING"
         node["attempts"] = attempt
@@ -3161,6 +3173,32 @@ _HOST_ACTION_PATTERN = (
     r"|\b(?:mcp|host|server|client) restart"
     r"|\bhost[- ]level\b|\bhost operator\b|\bowning (?:mcp )?host\b|\bnested (?:agent os )?orchestrat"
 )
+
+
+# Read-only commands a worker may run without a prompt, plus its own
+# validators. Measured 2026-10-17 over 48 worker calls: 36 hit permission
+# denials (107 in all, 26 of them the task's own test run) and 13 ended
+# blocked_on_host only because they could not run their validator.
+WORKER_READ_ONLY_COMMANDS = ("git status", "git diff", "git log", "git show", "ls", "grep", "rg", "wc", "mkdir -p .agent-os-scratch", "python -m py_compile")
+_TEST_RUNNERS = (("python", "-m", "pytest"), ("python", "-m", "unittest"), ("python3", "-m", "pytest"), ("python3", "-m", "unittest"))
+
+
+def _worker_allowed_tools(record: dict[str, Any], node: dict[str, Any], provider: dict[str, Any]) -> list[str]:
+    """Pre-approved tool patterns for a worker: the provider's own, and for
+    editing roles the read-only commands and the node's validator commands
+    (a test runner by prefix, so a worker can run one test file)."""
+    tools = list((provider.get("options") or {}).get("allowed_tools") or [])
+    if node["role"] in {"reviewer", "planner"} or not record["policy"].get("worker_self_check", True):
+        return tools
+    tools += [f"Bash({command}:*)" for command in WORKER_READ_ONLY_COMMANDS]
+    for validator in node.get("validators") or record["policy"].get("default_validators") or []:
+        if validator.get("kind") != "command" or not validator.get("command"):
+            continue
+        command = validator["command"]
+        parts = command.split() if isinstance(command, str) else [str(item) for item in command]
+        runner = next((prefix for prefix in _TEST_RUNNERS if tuple(parts[:3]) == prefix), None)
+        tools.append(f"Bash({' '.join(runner)}:*)" if runner else f"Bash({' '.join(parts)})")
+    return list(dict.fromkeys(tools))
 
 
 def _host_action(text: str) -> bool:

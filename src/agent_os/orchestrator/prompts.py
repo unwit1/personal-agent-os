@@ -152,6 +152,8 @@ _WORKER_RULES_TAIL = (
     "  python processes on this machine belong to the orchestrator.",
     "- Everything you need is in this prompt and the worktree. Do not consult Agent OS, memory, or other context",
     "  tools. Read only the files you need, make the change, run your validator once, and finish.",
+    "- If a command is denied, do not retry or work around it: the orchestrator runs your validators after you finish.",
+    "  A denied command is not a host action; report status done when your change is complete.",
     "- If a decision would materially change the requested outcome, stop and report status needs_decision with a question.",
     "- If the assignment is already fully done in this worktree, change nothing and report status already_done, citing the evidence in summary.",
 )

@@ -146,6 +146,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     "max_launches": 40,
     "poll_interval_seconds": 2.0,
     "worker_timeout_seconds": 3600,
+    # Editing workers may run their own validators and read-only commands
+    # (engine._worker_allowed_tools); off restores provider-only permissions.
+    "worker_self_check": True,
     "default_validators": [],
     "completion_validators": [],
     "announce_claims": True,
