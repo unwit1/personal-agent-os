@@ -667,29 +667,35 @@ class Orchestrator:
                 deferred = node["state"] == "PASSED" and (node.get("integration") or {}).get("deferred")
                 if node["state"] == "PASSED" and not deferred:
                     raise OrchestratorError(f"{node_id} already passed; use review-again to re-check it")
-                if deferred:
-                    # A deferred host action merged nothing; once the host
-                    # problem is fixed the step can run again.
-                    node["integrated"] = False
-                    node["integration"] = None
-                    node["completed_at"] = None
-                    record["deferred_host_actions"] = [item for item in record.get("deferred_host_actions") or [] if item.get("node") != node_id]
-                node["state"] = "FAILED_RETRYABLE"
-                node["retries"] = 0
-                node["selection"] = None
-                node["excluded_providers"] = []  # a retry starts routing afresh
-                node["wait_reason"] = "retry requested by user"
-                subject = record["nodes"].get(node.get("subject") or "") if node["role"] == "repairer" else None
-                if (subject is not None and subject["state"] == "FAILED_FINAL"
-                        and subject.get("wait_reason") == f"repair {node_id} could not pass validation"):
-                    # This repair's failure is what failed its subject; while it
-                    # retries, the subject waits on it again instead of blocking the run.
-                    subject["state"] = "NEEDS_REPAIR"
-                    subject["wait_reason"] = f"waiting for retried repair {node_id}"
+                # Recorded in control (which a driver re-reads before saving),
+                # so a driver holding an older copy of the run applies the
+                # retry instead of saving over it (_apply_pending_retries).
+                _operator_changed(record)
+                record["control"].setdefault("retries", {})[node_id] = record["control"]["rev"]
+                _reset_for_retry(record, node)
+                node["retry_rev"] = record["control"]["rev"]
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "node.retry", node_id, "retry requested by user")
             return self.summary(record)
+
+    def _apply_pending_retries(self, record: dict[str, Any]) -> bool:
+        """Apply retries another process requested after this record was
+        loaded: measured 2026-10-17, a second retry issued while the first
+        retry's driver was mid-tick was saved over and silently lost."""
+        applied = False
+        for node_id, rev in (record["control"].get("retries") or {}).items():
+            node = record["nodes"].get(node_id)
+            if node is None or int(node.get("retry_rev") or 0) >= int(rev) or node["state"] in ACTIVE_NODE_STATES:
+                continue
+            if node["state"] == "PASSED" and not (node.get("integration") or {}).get("deferred"):
+                node["retry_rev"] = int(rev)  # it passed meanwhile; nothing to redo
+                continue
+            _reset_for_retry(record, node)
+            node["retry_rev"] = int(rev)
+            applied = True
+            self.store.append_event(record["run_id"], "node.retry_applied", node_id, "retry requested while another process held the run")
+        return applied
 
     def reassign(self, run_id: str, node_id: str, provider: str, model: str | None = None, effort: str | None = None) -> dict[str, Any]:
         with self._lock:
@@ -778,6 +784,9 @@ class Orchestrator:
             record = self.store.load(run_id)
             if self._recover_landing(record):
                 self.store.save(record)
+            if self._apply_pending_retries(record):
+                self._derive_state(record)
+                self.store.save(record)
             if record["state"] == "COMPLETE":
                 return self.summary(record)
             if record["control"].get("stop_requested"):
@@ -790,7 +799,8 @@ class Orchestrator:
                 # Without Auto Continue a stage boundary is a stopping point: the
                 # tick that sees a stage pass integrates it but launches nothing.
                 boundary = not record["policy"]["auto_continue"] and _count_passed(record) > passed_before
-                self.store.refresh_control(record)  # a pause sent during _poll applies before anything launches
+                if self.store.refresh_control(record):  # a pause sent during _poll applies before anything launches
+                    self._apply_pending_retries(record)
                 dispatching = dispatch and record["control"]["started"] and not record["control"]["paused"]
                 if dispatching and not self._blocked(record):
                     self._integrate(record)
@@ -3434,6 +3444,29 @@ def _scope_additions(paths: list[str] | None) -> list[str]:
         if path not in clean:
             clean.append(path)
     return clean
+
+
+def _reset_for_retry(record: dict[str, Any], node: dict[str, Any]) -> None:
+    """Put a failed or deferred node back in the queue (``retry``)."""
+    if node["state"] == "PASSED" and (node.get("integration") or {}).get("deferred"):
+        # A deferred host action merged nothing; once the host problem is
+        # fixed the step can run again.
+        node["integrated"] = False
+        node["integration"] = None
+        node["completed_at"] = None
+        record["deferred_host_actions"] = [item for item in record.get("deferred_host_actions") or [] if item.get("node") != node["id"]]
+    node["state"] = "FAILED_RETRYABLE"
+    node["retries"] = 0
+    node["selection"] = None
+    node["excluded_providers"] = []  # a retry starts routing afresh
+    node["wait_reason"] = "retry requested by user"
+    subject = record["nodes"].get(node.get("subject") or "") if node["role"] == "repairer" else None
+    if (subject is not None and subject["state"] == "FAILED_FINAL"
+            and subject.get("wait_reason") == f"repair {node['id']} could not pass validation"):
+        # This repair's failure is what failed its subject; while it
+        # retries, the subject waits on it again instead of blocking the run.
+        subject["state"] = "NEEDS_REPAIR"
+        subject["wait_reason"] = f"waiting for retried repair {node['id']}"
 
 
 def _operator_changed(record: dict[str, Any]) -> None:
