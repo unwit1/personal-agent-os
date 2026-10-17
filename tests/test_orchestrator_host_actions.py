@@ -56,6 +56,20 @@ class HostActionTests(OrchestratorFixture):
         self.assertEqual(node["state"], "FAILED_RETRYABLE")
         self.assertFalse(self.engine.load(record["run_id"]).get("deferred_host_actions"))
 
+    def test_retry_survives_a_driver_holding_an_older_copy(self) -> None:
+        # Measured 2026-10-17: two retries in a row; the first one's driver was
+        # mid-tick when the second was saved, then saved over it.
+        record = self.run_blocked("blocked_on_host", "needs a client restart")
+        stale = self.engine.store.load(record["run_id"])
+        self.engine.retry(record["run_id"], "verify")
+        self.engine.store.save(stale)  # the older copy lands last
+        self.assertEqual(self.engine.store.load(record["run_id"])["nodes"]["verify"]["state"], "PASSED")
+        self.engine.step(record["run_id"])
+        node = self.engine.load(record["run_id"])["nodes"]["verify"]
+        self.assertNotEqual((node["state"], bool((node.get("integration") or {}).get("deferred"))), ("PASSED", True))
+        events = (self.engine.store.run_dir(record["run_id"]) / "events.jsonl").read_text(encoding="utf-8")
+        self.assertIn("node.retry_applied", events)
+
     def test_host_level_needs_decision_is_deferred_without_a_gate(self) -> None:
         self.run_blocked("needs_decision", "Can the Agent OS MCP server be restarted from its owning host?")
 
