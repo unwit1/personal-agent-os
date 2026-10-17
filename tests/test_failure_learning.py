@@ -171,3 +171,38 @@ class EngineFailureLearningTests(OrchestratorFixture):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FlakyRecheckTests(unittest.TestCase):
+    """A test blamed on a change is rerun once; a clean pass marks it flaky."""
+
+    def make(self, body: str) -> Path:
+        root = Path(tempfile.mkdtemp())
+        (root / "tests").mkdir()
+        (root / "tests" / "__init__.py").write_text("", encoding="utf-8")
+        (root / "tests" / "test_flip.py").write_text("import unittest\n\nclass T(unittest.TestCase):\n    def test_x(self):\n" + body, encoding="utf-8")
+        return root
+
+    def test_clean_rerun_is_flaky_failing_or_missing_is_not(self) -> None:
+        from agent_os.orchestrator.engine import _rerun_passes
+
+        self.assertEqual(_rerun_passes(["test_flip.T.test_x"], self.make("        pass\n"), 60), ["test_flip.T.test_x"])
+        self.assertEqual(_rerun_passes(["test_flip.T.test_x"], self.make("        self.fail('real')\n"), 60), [])
+        self.assertEqual(_rerun_passes(["test_gone.T.test_x"], self.make("        pass\n"), 60), [])
+
+
+class FlakyEngineTests(OrchestratorFixture):
+    def test_a_flaky_new_failure_does_not_fail_the_task_and_is_recorded(self) -> None:
+        from unittest import mock
+
+        code = ("import os,sys;print('FAIL: test_broken (t.broken)') if len(os.listdir('a')) > 1 else None;"
+                "sys.exit(1 if len(os.listdir('a')) > 1 else 0)")
+        suite = {"kind": "command", "command": [sys.executable, "-c", code], "name": "project-validation-1"}
+        with mock.patch("agent_os.orchestrator.engine._rerun_passes", return_value=["t.broken"]):
+            run_id = self.create([self.task("a", validators=[suite])], require_independent_review_for_model_edits=False)
+            final = self.engine.run_loop(run_id, max_ticks=40)
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+        record = self.engine.load(run_id)
+        self.assertEqual(record["flaky_tests"], ["t.broken"])
+        self.assertIn("flaky_test", [item["signature"] for item in fl.signatures(record)])
+        self.assertIsNone(fl.remedy_for("flaky_test"))  # a flaky test always becomes an improvement

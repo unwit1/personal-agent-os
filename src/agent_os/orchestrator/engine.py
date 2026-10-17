@@ -1383,7 +1383,14 @@ class Orchestrator:
                 result.update(passed=True, baseline_failures=len(result["failed_tests"]), detail=redact(f"only failures already present on the base commit ({len(result['failed_tests'])})", 400))
             elif known is not None:
                 new = sorted(set(result["failed_tests"]) - set(known))
-                result.update(new_failures=new[:20], detail=redact(f"broken by this change (affected tests): {', '.join(new[:5])}", 400))
+                flaky = self._flaky_tests(record, node["id"], new, cwd)
+                new = [test for test in new if test not in flaky]
+                if flaky:
+                    result["flaky_tests"] = flaky
+                if not new:
+                    result.update(passed=True, detail=redact(f"only pre-existing or flaky failures ({', '.join(flaky[:3])})", 400))
+                else:
+                    result.update(new_failures=new[:20], detail=redact(f"broken by this change (affected tests): {', '.join(new[:5])}", 400))
         self.ledger.emit(record["run_id"], "tests_completed", node["id"], selection="affected", selected=result["selected"], of=result["of"], passed=result["passed"], duration_s=result["seconds"], **_test_totals([result]))
         return result
 
@@ -1447,7 +1454,7 @@ class Orchestrator:
                 "reused": {"tree": tree[:12], "from": cached["at"]},
                 "at": now(),
             }
-            self._excuse_baseline_failures(record, node_id, validators, validation)
+            self._excuse_baseline_failures(record, node_id, validators, validation, cwd=cwd)
             self.ledger.emit(run_id, "cache_hit", node_id, what="test results for identical code", tree=tree[:12])
             self.ledger.emit(run_id, "tests_completed", node_id, reused=True, passed=validation["passed"], **_test_totals(cached["evidence"]))
             self.ledger.emit(run_id, "work_avoided", node_id, category="validation_cache", model_calls_avoided=0, reason="identical code was already tested in this run", seconds_avoided=cached.get("duration_s"), tokens_avoided_estimate=None)
@@ -1463,7 +1470,7 @@ class Orchestrator:
         tree = _tree_hash(cwd)
         key = _validation_key(tree, validators) if tree and record["policy"].get("reuse_validation", True) else None
         cache = record.setdefault("validation_cache", {})
-        self._excuse_baseline_failures(record, node_id, validators, validation)
+        self._excuse_baseline_failures(record, node_id, validators, validation, cwd=cwd)
         validation["at"] = now()
         commands = [item for item in validation["evidence"] if item["kind"] != "scope"]
         if key:
@@ -1473,7 +1480,25 @@ class Orchestrator:
         self.ledger.emit(run_id, "tests_completed", node_id, passed=validation["passed"], duration_s=duration, **_test_totals(commands))
         return validation
 
-    def _excuse_baseline_failures(self, record: dict[str, Any], node_id: str | None, validators: list[dict[str, Any]], validation: dict[str, Any]) -> None:
+    def _flaky_tests(self, record: dict[str, Any], node_id: str | None, tests: list[str], cwd: str | Path) -> list[str]:
+        """Tests among ``tests`` that pass when rerun once on the same code.
+
+        A test that failed here but passed on the base commit is blamed on the
+        change. Measured 2026-10-17: a race in one test (about 50% failures)
+        failed two fix runs whose code was correct. Only a handful of new
+        failures are rechecked: many at once are not flakes. Each flaky test is
+        recorded (failure_learning signature flaky_test) so it gets fixed."""
+        if not tests or len(tests) > 5:
+            return []
+        flaky = _rerun_passes(tests, cwd, int(record["policy"]["worker_timeout_seconds"]))
+        for test in flaky:
+            self.store.append_event(record["run_id"], "validation.flaky", node_id, test)
+            record.setdefault("flaky_tests", [])
+            if test not in record["flaky_tests"]:
+                record["flaky_tests"].append(test)
+        return flaky
+
+    def _excuse_baseline_failures(self, record: dict[str, Any], node_id: str | None, validators: list[dict[str, Any]], validation: dict[str, Any], *, cwd: str | Path | None = None) -> None:
         """Judge a project-wide suite by what the change broke, not by what was
         already broken.
 
@@ -1497,6 +1522,10 @@ class Orchestrator:
             if known is None:
                 continue
             new = sorted(set(item["failed_tests"]) - set(known))
+            flaky = self._flaky_tests(record, node_id, new, cwd) if new and cwd is not None else []
+            if flaky:
+                item["flaky_tests"] = flaky
+                new = [test for test in new if test not in flaky]
             if new:
                 # The retry prompt carries this line: name what broke, not
                 # just a failure count, so the next attempt can fix it.
@@ -1505,8 +1534,9 @@ class Orchestrator:
                 item["detail"] = redact(f"broken by this change: {', '.join(new[:5])}" + (f"; {excused} other failure(s) also fail on the base commit" if excused else ""), 400)
                 continue
             item["passed"] = True
-            item["baseline_failures"] = len(item["failed_tests"])
-            item["detail"] = redact(f"only failures already present on the base commit ({len(item['failed_tests'])}); none introduced", 400)
+            item["baseline_failures"] = len(item["failed_tests"]) - len(flaky)
+            item["detail"] = redact(f"only failures already present on the base commit ({len(item['failed_tests']) - len(flaky)})"
+                                    + (f" or flaky ({', '.join(flaky[:3])})" if flaky else "") + "; none introduced", 400)
             self.store.append_event(record["run_id"], "validation.baseline_excused", node_id, f"{item['name']}: {len(item['failed_tests'])} pre-existing failure(s)")
         validation["passed"] = all(item["passed"] for item in validation["evidence"])
 
@@ -3534,6 +3564,31 @@ def _scope_additions(paths: list[str] | None) -> list[str]:
         if path not in clean:
             clean.append(path)
     return clean
+
+
+def _rerun_passes(tests: list[str], cwd: str | Path, timeout: int) -> list[str]:
+    """The tests (unittest ids as failed_tests reports them, or pytest node
+    ids) that pass when run once more on the same tree."""
+    import sys
+
+    from .validators import run_validator
+
+    unittest_ids = [test for test in tests if "::" not in test]
+    pytest_ids = [test for test in tests if "::" in test]
+    groups = []
+    if unittest_ids:
+        names = [f"tests.{test}" if (Path(cwd) / "tests" / f"{test.split('.')[0]}.py").exists() else test for test in unittest_ids]
+        groups.append((unittest_ids, [sys.executable, "-m", "unittest", *names]))
+    if pytest_ids:
+        groups.append((pytest_ids, [sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", *pytest_ids]))
+    passing: list[str] = []
+    for ids, command in groups:
+        outcome = run_validator({"kind": "command", "name": "flake-check", "command": command}, cwd, timeout)
+        # Only a clean pass of every rerun test counts: a rerun that fails or
+        # cannot load a test (reported under another name) proves nothing.
+        if outcome["passed"] and int(outcome.get("tests_run") or 0) >= len(ids):
+            passing += ids
+    return passing
 
 
 def _capture_failure_improvement(need: dict[str, Any]) -> dict[str, Any] | None:

@@ -28,6 +28,10 @@ class ReviewIndependenceTests(OrchestratorFixture):
         self.engine.start(run_id)
         for _ in range(8):
             self.engine.step(run_id)
+            # Validation runs on a background thread; without waiting for it the
+            # node reached review only when the thread happened to win the race
+            # (failed about half the time, and blocked two fix runs on 2026-10-17).
+            self.engine._sleep(0)
             node = self.node(run_id, "a")
             if node["state"] == "WAITING_FOR_REVIEW":
                 break

@@ -122,6 +122,8 @@ def signatures(record: dict[str, Any]) -> list[dict[str, Any]]:
             else:
                 signature = "unroutable" if "provider" in reason.lower() else "failed_final:unknown"
             add(node, "failed_final", signature, reason)
+    for test in record.get("flaky_tests") or []:
+        add({"id": "_run", "role": None}, f"flaky:{test}", "flaky_test", test)
     for gate in record.get("gates") or []:
         if gate.get("kind") == "unresolved_review_findings":
             node = record["nodes"].get(gate.get("node") or "") or {"id": gate.get("node") or "?"}
