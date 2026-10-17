@@ -1,0 +1,136 @@
+{
+  "entries": [
+    {
+      "id": "PA-caveman",
+      "name": "Caveman",
+      "repository": "https://github.com/JuliusBrussee/caveman",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "d262ab3 @ 2026-10-13",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["output style compression", "instruction files", "memory file compression", "tool output compression", "eval methodology"],
+      "agent_os_overlap": "Output-style skill and hooks would run inside worker CLIs; Agent OS never sees the loop. Its proxy/shrink tool-output compression hits the same wall recorded in PA-distill.",
+      "decision": "REJECT",
+      "rationale": "Its own HONEST-NUMBERS page shows 3% (caveman) to 35% (ultracave) fewer output tokens than a plain 'be concise' control, n=10, one run, at about 1,160 extra input tokens. Outside A/Bs it cites show billed output -44% but total cost +0.06%, and 662 real sessions where output was 0.3% of tokens. That matches our ledger, where input and cache re-reads dominate. Borrow only the three-arm eval method (none / be concise / skill).",
+      "confidence": "medium",
+      "evidence": {
+        "development_savings": "none: adopting it adds installer and hook surface to maintain",
+        "runtime_savings": "unproven for our workload; vendor eval 3-35% of output tokens vs terse control, outside tests show about 0% net cost; proxy input savings (33.2%) are on synthetic files and not measured on our traffic",
+        "quality": "no reviewed fidelity snapshot committed; JetBrains 86-task A/B reports no measurable quality loss; terse worker reports risk dropping negations and numbers",
+        "reliability": "hook stdin and Windows pipe handling occupy much of the maintainer notes; a user reported net-negative A/B (#550)",
+        "security": "installer edits settings.json and hooks; telemetry list in SECURITY.md; Cloud component is closed source; nothing was run here",
+        "complexity": "very large repo (Go proxy, engine, TypeScript CLI, extension, installers for 30+ agents) for a small effect",
+        "maintenance": "single maintainer, very active, frequent rule rewrites that invalidate earlier benchmarks",
+        "portability": "claims 30+ agents; only the Claude Code and Codex paths matter to us"
+      },
+      "provenance": [
+        "git clone --depth 1 https://github.com/JuliusBrussee/caveman @ d262ab3 (2026-10-13)",
+        "README.md, docs/HONEST-NUMBERS.md, LICENSING.md read; evals/ not run",
+        "web search (standard): secondary coverage and ComputingForGeeks comparison seen only as search snippets; r/OpenSourceAI posting not confirmed (Reddit unreachable)"
+      ],
+      "revisit_when": [
+        "Our cost ledger shows worker output prose above about 5% of run cost",
+        "Agent OS runs its own agent loop and can inject style rules per call"
+      ]
+    },
+    {
+      "id": "PA-token-savior",
+      "name": "token-savior",
+      "repository": "https://github.com/Mibayy/token-savior",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "770e055 @ 2026-10-15",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["code navigation index", "symbol-level reads", "MCP tool manifest size", "agent memory", "benchmark methodology"],
+      "agent_os_overlap": "A worker-side MCP server replacing native Read/Grep/Edit; Agent OS would only configure it per worker. Overlaps the code navigation index idea in PA-distill.",
+      "decision": "DEFER",
+      "rationale": "Mechanism is plausible, but every number is author-run. The -80% tsbench figure comes from a harness the README says is not public, the August re-measurement was withdrawn because the tools were never called, and the October run is 8 tasks on one repo with Haiku (cost -45%, wall time +40%). The independent single-task -43% mentioned in the assignment was not found. Our own data says reads are already narrow.",
+      "confidence": "low",
+      "evidence": {
+        "development_savings": "none for building Agent OS; the idea is a symbol-level read tool for large files",
+        "runtime_savings": "author reports -45% cost on 8 tasks (Haiku 4.5, 3 passes, tools called in 23/24 sessions) and -80% active tokens on 96 tasks (not reproducible); editing tasks showed no gain; new-token counts exclude cache reads",
+        "quality": "tsbench 97.9% vs 78.3% is author-graded and the harness is private; the 8-task re-run reports all sessions succeeded",
+        "reliability": "index per fresh session adds start-up time (+40% wall); stale index risk when native edits bypass it",
+        "security": "MCP server with edit tools and a bash rewriter; not run here; the repo ships a CLAUDE.md that tells agents to avoid native tools on source code",
+        "complexity": "large Python package (per-language annotators, graph ranker, memory DB) plus MCP config in each worker",
+        "maintenance": "single maintainer, very active, public retractions show weak benchmark discipline",
+        "portability": "stdio MCP works for Claude Code and Codex; profiles tuned on Claude models"
+      },
+      "provenance": [
+        "git clone --depth 1 https://github.com/Mibayy/token-savior @ 770e055 (2026-10-15)",
+        "README.md benchmark section and CLAUDE.md read; the tsbench repo was not cloned",
+        "web search (standard): PyPI listing and directory pages repeat the author's numbers; no independent replication found; r/OpenSourceAI posting not confirmed"
+      ],
+      "revisit_when": [
+        "An offline replay of our tool results shows whole-file source reads above about 10% of tool-result bytes",
+        "tsbench or an independent paired run with cache-inclusive cost is published"
+      ]
+    },
+    {
+      "id": "PA-claude-code-memory-setup",
+      "name": "claude-code-memory-setup",
+      "repository": "https://github.com/lucasrosati/claude-code-memory-setup",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "62d0d09 @ 2026-10-07",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["durable memory", "session handoff", "code knowledge graph", "chat history import", "obsidian vault"],
+      "agent_os_overlap": "Git-backed durable memory, handoffs and context compilation already exist; PA-mem0, PA-graphiti and PA-letta cover the memory side. Graphify-style code graphs fall in the same bucket as token-savior's index.",
+      "decision": "REJECT",
+      "rationale": "The README now says its 71.5x per session headline has no published session ledger and 499x per query has no baseline; the ~20,000 vs ~280 token illustration measures one retrieval, not a session. A third-party test found about 2x on one repo. The memory, save/resume and auto-log functions duplicate what Agent OS already does with git-backed handoffs.",
+      "confidence": "medium",
+      "evidence": {
+        "development_savings": "none: it is a setup guide and scripts, not a library",
+        "runtime_savings": "unproven; author-labelled illustration only; a third-party single-repo test found about 54k vs 108k tokens with Graphify",
+        "quality": "no recall or correctness measurement; the benchmark protocol defines arms but has no results, and its summarizer fixture checks arithmetic only",
+        "reliability": "depends on an Obsidian vault, Graphify and Claude Code hooks staying in sync; not run here",
+        "security": "chat history import copies private conversations into a vault; AST mode keeps code local",
+        "complexity": "adds Obsidian, Graphify and import pipelines beside our existing memory",
+        "maintenance": "single maintainer; recent commits are mostly honesty corrections to claims",
+        "portability": "Claude Code only"
+      },
+      "provenance": [
+        "git clone --depth 1 https://github.com/lucasrosati/claude-code-memory-setup @ 62d0d09 (2026-10-07)",
+        "README.md real-results and evidence sections read; Graphify itself (safishamsi/graphify) not cloned",
+        "web search (standard): GitHub topic and blog coverage; r/OpenSourceAI posting not confirmed"
+      ],
+      "revisit_when": [
+        "A published paired benchmark with a full session ledger",
+        "A gap analysis shows many worker sessions end without a handoff file"
+      ]
+    },
+    {
+      "id": "PA-costaffective",
+      "name": "CostAffective",
+      "repository": "https://github.com/okyashgajjar/CostAffective-MCP",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "5aaf8f6 @ 2026-08-02",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["MCP code index", "output stashing with handles", "agent memory", "session instructions", "token budgeting"],
+      "agent_os_overlap": "Worker-side MCP server, same surface as token-savior. The stash-and-handle idea overlaps validator logging in Agent OS, which already keeps full output and sends a short excerpt to retry prompts.",
+      "decision": "REJECT",
+      "rationale": "The 45.9% figure is retracted by the repo's own PUBLIC_RELEASE_AUDIT.md ('No saved artifact', with 42.1% and 33.6% in other documents), along with 81.7%, 2.2x faster and same-quality claims. Older self-benchmarks had 0.0% keyword coverage or measured another project. Only the stash-and-handle idea is novel, and our data says large outputs are rare.",
+      "confidence": "medium",
+      "evidence": {
+        "development_savings": "none for Agent OS development",
+        "runtime_savings": "no end-to-end measurement exists; retracted claims only; stash idea would act on results over about 8 KB, which are a small share of our bytes (to be confirmed by replay)",
+        "quality": "no quality-equivalence verification; retrieval accuracy numbers come from a run with broken file matching",
+        "reliability": "Go with CGO, Tree-sitter and SQLite; the install script builds from source; not run here",
+        "security": "curl-pipe-bash installer that installs Go and a C compiler; website outside the repo cannot be audited",
+        "complexity": "Go toolchain plus CGO added to a Python stdlib-first project",
+        "maintenance": "single maintainer, last commit 2026-08-02; the audit shows a young project still cleaning up claims",
+        "portability": "Claude Code, Cursor, OpenCode, Codex; Linux, macOS, Windows via WSL"
+      },
+      "provenance": [
+        "git clone --depth 1 https://github.com/okyashgajjar/CostAffective-MCP @ 5aaf8f6 (2026-08-02); repo URL found via mcp.so listing and the author's Medium post title, repo README is branded CostWise",
+        "README.md and PUBLIC_RELEASE_AUDIT.md read; Medium article could not be fetched (proxy refused), claim known from search snippets only",
+        "web search (standard and extended): the 45.9% claim traced to the author's own post; r/OpenSourceAI posting not confirmed"
+      ],
+      "revisit_when": [
+        "A reproducible paired benchmark with billed cost is committed",
+        "Replay of our tool results shows large outputs are a material share of bytes"
+      ]
+    }
+  ]
+}
