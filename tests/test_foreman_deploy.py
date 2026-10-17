@@ -685,7 +685,7 @@ class ContextFitTests(OrchestratorFixture):
 
     def test_oversized_prompt_skips_the_small_window_provider(self) -> None:
         tiny = provider("tiny", costs={"fast": 0.1, "balanced": 0.1, "reasoning": 0.1, "frontier": 0.1},
-                        profile={"context_window": 1000})
+                        profile={"context_window": 2000})
         registry = ProviderRegistry(providers=[tiny, provider("alpha")])
         synthetic.SCRIPTS["tiny"] = synthetic.SCRIPTS["alpha"] = __import__("test_orchestrator").edit_script()
         self.engine = Orchestrator(RunStore(self.tmp / "home"), registry=registry, telemetry_store=LocalTelemetryStore(self.telemetry_path),
@@ -695,7 +695,7 @@ class ContextFitTests(OrchestratorFixture):
         for _ in range(20):
             self.engine.step(small)
         self.assertEqual(self.engine.load(small)["nodes"]["a"]["selection"]["provider"], "tiny")  # fits: cheapest wins
-        big = self.create([self.task("b", goal="work on b. " + "Details that must be read carefully. " * 150, review_required=False)])
+        big = self.create([self.task("b", goal="work on b. " + "Details that must be read carefully. " * 200, review_required=False)])
         self.engine.start(big)
         for _ in range(20):
             self.engine.step(big)
