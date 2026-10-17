@@ -42,6 +42,7 @@ from .adapters.base import kill_tree
 from .ledger import Ledger
 from .model import (
     ACTIVE_NODE_STATES,
+    DEFAULT_POLICY,
     DISPATCHABLE_NODE_STATES,
     INTEGRATED_ROLES,
     PROVIDER_FAILURES,
@@ -2720,10 +2721,10 @@ class Orchestrator:
             with self._lock:
                 record = self.store.load(run_id)
                 policy = record["policy"]
-                mode = policy.get("failure_learning", "fix")
+                mode = policy.get("failure_learning", DEFAULT_POLICY["failure_learning"])
                 if mode not in failure_learning.MODES or mode == "off":
                     return None
-                outcome = failure_learning.learn(self.store.home, record, repeat_runs=int(policy.get("failure_learning_repeat_runs") or 2))
+                outcome = failure_learning.learn(self.store.home, record, repeat_runs=int(policy.get("failure_learning_repeat_runs", DEFAULT_POLICY["failure_learning_repeat_runs"])))
                 self.store.save(record)
             report: dict[str, Any] = {**outcome, "improvements": [], "fix_runs": [], "skipped": []}
             if mode in {"improve", "fix"} and self.failure_hooks.get("improve"):
@@ -2736,7 +2737,7 @@ class Orchestrator:
                     self.store.append_event(run_id, "failure_learning.improvement", None, f"{need['signature']} -> {improvement_id}")
                     if mode != "fix" or not self.failure_hooks.get("launch") or record.get("origin", {}).get("type") == "failure_learning":
                         continue
-                    blocked = failure_learning.fix_run_allowed(self.store.home, need["signature"], daily_limit=int(policy.get("failure_learning_daily_fix_runs") or 0),
+                    blocked = failure_learning.fix_run_allowed(self.store.home, need["signature"], daily_limit=int(policy.get("failure_learning_daily_fix_runs", DEFAULT_POLICY["failure_learning_daily_fix_runs"])),
                                                                active_runs=self._active_fix_runs())
                     if blocked:
                         report["skipped"].append(f"{need['signature']}: {blocked}")
@@ -2774,7 +2775,7 @@ class Orchestrator:
             repository=ROOT,
             project="personal-agent-os",
             policy={"auto_continue": True, "failure_learning": "improve", "final_integration": "branch",
-                    "max_usd": float(policy.get("failure_learning_fix_max_usd") or 5.0),
+                    "max_usd": float(policy.get("failure_learning_fix_max_usd", DEFAULT_POLICY["failure_learning_fix_max_usd"])),
                     "allow_paid_spend": bool(policy.get("allow_paid_spend"))},
             origin={"type": "failure_learning", "signature": need["signature"], "improvement": improvement_id, "parent_run": parent["run_id"]},
         )
