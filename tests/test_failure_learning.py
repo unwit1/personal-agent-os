@@ -189,6 +189,11 @@ class FlakyRecheckTests(unittest.TestCase):
         self.assertEqual(_rerun_passes(["test_flip.T.test_x"], self.make("        pass\n"), 60), ["test_flip.T.test_x"])
         self.assertEqual(_rerun_passes(["test_flip.T.test_x"], self.make("        self.fail('real')\n"), 60), [])
         self.assertEqual(_rerun_passes(["test_gone.T.test_x"], self.make("        pass\n"), 60), [])
+        # Fails on the first two reruns, passes on the third: still a flake.
+        root = self.make("        import pathlib\n        p = pathlib.Path(__file__).with_suffix('.n')\n"
+                         "        n = int(p.read_text()) if p.exists() else 0\n        p.write_text(str(n + 1))\n"
+                         "        self.assertGreaterEqual(n, 2)\n")
+        self.assertEqual(_rerun_passes(["test_flip.T.test_x"], root, 60), ["test_flip.T.test_x"])
 
 
 class FlakyEngineTests(OrchestratorFixture):
