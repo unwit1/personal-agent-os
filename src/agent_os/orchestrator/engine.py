@@ -2669,7 +2669,7 @@ class Orchestrator:
         records in the Agent OS repository and start fix runs."""
         self.failure_hooks = {"improve": _capture_failure_improvement, "launch": self._launch_fix_run}
 
-    def _learn_failures(self, run_id: str) -> dict[str, Any] | None:
+    def _learn_failures(self, run_id: str, mode: str | None = None) -> dict[str, Any] | None:
         """Policy failure_learning: record every failure of the run under a
         signature; file an improvement for unremedied or recurring ones and,
         in mode "fix", start a fix run for each (failure_learning.py)."""
@@ -2677,7 +2677,7 @@ class Orchestrator:
             with self._lock:
                 record = self.store.load(run_id)
                 policy = record["policy"]
-                mode = policy.get("failure_learning", DEFAULT_POLICY["failure_learning"])
+                mode = mode or policy.get("failure_learning", DEFAULT_POLICY["failure_learning"])
                 if mode not in failure_learning.MODES or mode == "off":
                     return None
                 outcome = failure_learning.learn(self.store.home, record, repeat_runs=int(policy.get("failure_learning_repeat_runs", DEFAULT_POLICY["failure_learning_repeat_runs"])))
@@ -2685,7 +2685,11 @@ class Orchestrator:
             report: dict[str, Any] = {**outcome, "improvements": [], "fix_runs": [], "skipped": []}
             if mode in {"improve", "fix"} and self.failure_hooks.get("improve"):
                 for need in outcome["needs_improvement"]:
-                    improvement = self.failure_hooks["improve"](need)
+                    try:
+                        improvement = self.failure_hooks["improve"](need)
+                    except (ValueError, OSError) as exc:  # e.g. the privacy gate: skip this one, keep the rest
+                        report["skipped"].append(f"{need['signature']}: {redact(exc, 160)}")
+                        continue
                     improvement_id = (improvement or {}).get("id")
                     if not improvement_id:
                         continue

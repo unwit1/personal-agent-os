@@ -181,6 +181,9 @@ def register(commands: argparse._SubParsersAction) -> None:
     learn.add_argument("run_ids", nargs="*", help="runs to learn from (default: show the signature summary only)")
     learn.add_argument("--all", action="store_true", help="learn from every run on this machine")
     learn.add_argument("--summary", action="store_true", help="print signatures seen in the last 30 days")
+    learn.add_argument("--mode", choices=["record", "improve", "fix"], default="improve",
+                       help="improve (default): record and file improvements; fix: also start fix runs. Backfilling past runs "
+                            "should not start fix runs for failures a later change may already remedy")
 
     evq = actions.add_parser("eval-queue", help="evaluate queued catalog models once served: plan is deterministic; run calls orchestrate eval (real calls, bounded)")
     evq.add_argument("action", choices=["plan", "run"])
@@ -888,7 +891,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
 
         engine = service.engine()
         run_ids = [item["run_id"] for item in engine.store.list_runs()] if args.all else list(args.run_ids)
-        reports = {run_id: engine._learn_failures(run_id) for run_id in run_ids}
+        reports = {run_id: engine._learn_failures(run_id, mode=args.mode) for run_id in run_ids}
         payload: dict[str, Any] = {"runs": reports} if run_ids else {}
         if args.summary or not run_ids:
             payload["summary"] = failure_learning.summary(engine.store.home)

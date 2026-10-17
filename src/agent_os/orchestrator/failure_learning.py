@@ -205,6 +205,15 @@ def learn(home: Path, record: dict[str, Any], *, repeat_runs: int = 2) -> dict[s
     return {"recorded": len(new), "needs_improvement": list(needs.values())}
 
 
+_LONG_TOKEN = re.compile(r"[A-Za-z0-9_+/=-]{24,}")
+
+
+def _scrub(text: str) -> str:
+    """Evidence text without long tokens (hashes, worktree paths, ids) that
+    the improvement privacy gate rejects."""
+    return _LONG_TOKEN.sub("<id>", text)
+
+
 def improvement_fields(need: dict[str, Any]) -> dict[str, Any]:
     """Arguments for improvements.capture_improvement, deduplicated per signature."""
     signature = need["signature"]
@@ -227,7 +236,7 @@ def improvement_fields(need: dict[str, Any]) -> dict[str, Any]:
             f"a regression test reproduces {signature} from a recorded case and passes with the fix",
             f"{signature} does not recur in the next runs (agent-os orchestrate learn --summary)",
         ],
-        "evidence": need["examples"],
+        "evidence": [_scrub(line) for line in need["examples"]],
         "source": {"type": "regression", "reference": signature},
         "dedupe_key": f"failure-signature:{signature}",
     }

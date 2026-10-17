@@ -79,6 +79,11 @@ class LearnTests(unittest.TestCase):
         self.assertEqual(fields["dedupe_key"], "failure-signature:validator_failed:ImportError")
         self.assertIn("although a remedy exists", fields["observation"])
 
+    def test_evidence_drops_long_identifiers(self) -> None:
+        fields = fl.improvement_fields({"signature": "unroutable", "remedy": None, "runs": 1, "occurrences": 1,
+                                        "examples": ["r/n (local): worktree /tmp/wt/af03a901deadbeefcafe0123456789ab failed"]})
+        self.assertNotIn("af03a901deadbeefcafe0123456789ab", fields["evidence"][0])
+
     def test_daily_limit_and_active_fix_runs_block_new_fix_runs(self) -> None:
         self.assertIsNone(fl.fix_run_allowed(self.home, "stuck", daily_limit=1, active_runs=[]))
         fl.note_fix_run(self.home, "stuck", "fix-1", "IMP-1")
@@ -141,6 +146,22 @@ class EngineFailureLearningTests(OrchestratorFixture):
         self.engine.run_loop(run_id, max_ticks=60)
         self.assertGreater(len(improvements), before)  # the fix run's own failure was still filed
         self.assertEqual(launches, [])
+
+    def test_a_rejected_improvement_does_not_stop_the_others(self) -> None:
+        filed = []
+
+        def improve(need):
+            if need["signature"] == "stuck":
+                raise ValueError("improvement rejected by privacy gate: long_identifier")
+            filed.append(need["signature"])
+            return {"id": "IMP-9"}
+
+        self.engine.failure_hooks = {"improve": improve, "launch": None}
+        run_id = self.stuck_run()
+        report = self.engine._learn_failures(run_id)  # already learned: nothing new
+        self.assertEqual(report["recorded"], 0)
+        events = (self.engine.store.run_dir(run_id) / "events.jsonl").read_text(encoding="utf-8")
+        self.assertNotIn("failure_learning.error", events)
 
     def test_policy_defaults(self) -> None:
         self.assertEqual(DEFAULT_POLICY["failure_learning"], "fix")
