@@ -1477,7 +1477,7 @@ class Orchestrator:
         return validation
 
     def _flaky_tests(self, record: dict[str, Any], node_id: str | None, tests: list[str], cwd: str | Path) -> list[str]:
-        """Tests among ``tests`` that pass when rerun once on the same code.
+        """Tests among ``tests`` that pass in one of up to RERUNS reruns on the same code.
 
         A test that failed here but passed on the base commit is blamed on the
         change. Measured 2026-10-17: a race in one test (about 50% failures)
@@ -3522,6 +3522,9 @@ def _scope_additions(paths: list[str] | None) -> list[str]:
     return clean
 
 
+RERUNS = 3
+
+
 def _rerun_passes(tests: list[str], cwd: str | Path, timeout: int) -> list[str]:
     """The tests (unittest ids as failed_tests reports them, or pytest node
     ids) that pass when run once more on the same tree."""
@@ -3539,11 +3542,15 @@ def _rerun_passes(tests: list[str], cwd: str | Path, timeout: int) -> list[str]:
         groups.append((pytest_ids, [sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", *pytest_ids]))
     passing: list[str] = []
     for ids, command in groups:
-        outcome = run_validator({"kind": "command", "name": "flake-check", "command": command}, cwd, timeout)
-        # Only a clean pass of every rerun test counts: a rerun that fails or
-        # cannot load a test (reported under another name) proves nothing.
-        if outcome["passed"] and int(outcome.get("tests_run") or 0) >= len(ids):
-            passing += ids
+        # Up to RERUNS attempts: a broken test never passes, a racy one under
+        # load can fail several times in a row (measured 2026-10-17: one
+        # recheck missed a ~50% flake twice). Only a clean pass of every rerun
+        # test counts; a rerun that cannot load a test proves nothing.
+        for _ in range(RERUNS):
+            outcome = run_validator({"kind": "command", "name": "flake-check", "command": command}, cwd, timeout)
+            if outcome["passed"] and int(outcome.get("tests_run") or 0) >= len(ids):
+                passing += ids
+                break
     return passing
 
 
