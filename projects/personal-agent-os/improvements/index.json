@@ -238,10 +238,10 @@
       "title": "Worker failure: failed_final:validator_failed",
       "category": "bug",
       "subsystem": "orchestrator",
-      "status": "candidate",
+      "status": "implemented",
       "priority": "high",
       "dedupe_key": "65320beb9528607c40d484a6054b52bc072925fb3f331f86b6f4d18421811c5e",
-      "updated_at": "2026-10-17T05:53:28.950079+00:00",
+      "updated_at": "2026-10-17T06:29:14.003579+00:00",
       "github_issue_number": null
     },
     {

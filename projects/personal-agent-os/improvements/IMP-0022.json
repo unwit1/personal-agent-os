@@ -5,14 +5,15 @@
   "title": "Worker failure: failed_final:validator_failed",
   "category": "bug",
   "subsystem": "orchestrator",
-  "status": "candidate",
+  "status": "implemented",
   "priority": "high",
   "observation": "Failure signature failed_final:validator_failed has no deterministic remedy yet (1 occurrence(s) in 1 run(s)).",
   "evidence": [
     "mi-rights-gate/source-resolvers (opus): validator still failing after 2 escalation(s): editable-scope=ok; source-resolvers-suite=FAIL (ERROR tests/test_gui_queue.py - ImportError while importing test",
     "hr-cc-run4/computer-tools (fable): validator still failing after 1 escalation(s): editable-scope=ok; control-plane=ok; negative-evidence=ok; computer-tests=FAIL (=========================== short",
     "run-20261017T051106Z-20a677/remedy-review-unresolved (sonnet): validator still failing after 2 escalation(s): editable-scope=ok; control-plane=ok; negative-evidence=ok; affected-tests=FAIL (broken by this change (affected t",
-    "run-20261017T051106Z-ea5151/register-remedy-imp-0022 (sonnet): validator still failing after 2 escalation(s): editable-scope=ok; control-plane=ok; negative-evidence=ok; affected-tests=FAIL (broken by this change (affected t"
+    "run-20261017T051106Z-ea5151/register-remedy-imp-0022 (sonnet): validator still failing after 2 escalation(s): editable-scope=ok; control-plane=ok; negative-evidence=ok; affected-tests=FAIL (broken by this change (affected t",
+    "fix run run-20261017T051106Z-ea5151 merged with the remedy registered: audit ea0dba2d"
   ],
   "suspected_root_cause": null,
   "suggested_direction": "Reproduce it from the run records, then add a deterministic remedy (code, prompt rule, validator or permission) and list it in failure_learning.REMEDIES.",
@@ -28,6 +29,6 @@
   },
   "github": null,
   "created_at": "2026-10-17T05:11:06.126822+00:00",
-  "updated_at": "2026-10-17T05:53:28.950079+00:00",
+  "updated_at": "2026-10-17T06:29:14.003579+00:00",
   "notes": null
 }
