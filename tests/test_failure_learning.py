@@ -39,19 +39,21 @@ class SignatureTests(unittest.TestCase):
             node("c", result={"signals": {"denied_commands": ["python -c 'print(1)'", "cd x && ls"]}}),
             node("d", integration={"deferred": True, "reason": "needs a restart"}, review={"oscillation": True}, escalations=1),
             node("e", state="FAILED_FINAL", failures=[{"kind": "stuck", "detail": "looping"}]),
+            node("f", state="FAILED_FINAL", wait_reason="no provider: no usable provider covers balanced"),
         ], gates=[{"id": "G1", "kind": "unresolved_review_findings", "node": "d", "reason": "2 findings"}])
         found = sorted(item["signature"] for item in fl.signatures(rec))
         self.assertEqual(found, sorted([
             "validator_failed:AssertionError", "validator_failed:unchanged", "scope_violation",
             "permission_denied:python -c", "permission_denied:cd x",
             "blocked_on_host:deferred", "review_oscillation", "escalated:implementer",
-            "stuck", "failed_final:stuck", "review_unresolved",
+            "stuck", "failed_final:stuck", "unroutable", "review_unresolved",
         ]))
 
     def test_remedies_match_by_prefix(self) -> None:
         self.assertIn("failure_excerpt", fl.remedy_for("validator_failed:ImportError"))
         self.assertIn("did not change", fl.remedy_for("validator_failed:unchanged"))
         self.assertIsNone(fl.remedy_for("stuck"))
+        self.assertIn("changed nothing", fl.remedy_for("blocked_on_host:deferred"))
         self.assertIsNone(fl.remedy_for("refused_twice"))
 
 
