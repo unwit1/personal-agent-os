@@ -227,10 +227,10 @@
       "title": "Worker failure: review_unresolved",
       "category": "bug",
       "subsystem": "orchestrator",
-      "status": "candidate",
+      "status": "implemented",
       "priority": "medium",
       "dedupe_key": "2c0fb6c807a5d6d6690ce2ae5df66952af7ccf95ea28c5e49abcf092e80abc22",
-      "updated_at": "2026-10-17T05:11:06.294472+00:00",
+      "updated_at": "2026-10-17T06:26:00.449897+00:00",
       "github_issue_number": null
     },
     {
