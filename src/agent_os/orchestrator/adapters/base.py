@@ -232,7 +232,13 @@ def kill_tree(pid: int) -> None:
         import signal
 
         try:
-            os.killpg(os.getpgid(pid), signal.SIGTERM)
+            group = os.getpgid(pid)
+            if group == os.getpgrp():
+                # The child shares our process group: signalling the group would
+                # terminate this process and everything started from our terminal.
+                os.kill(pid, signal.SIGTERM)
+            else:
+                os.killpg(group, signal.SIGTERM)
         except OSError:
             try:
                 os.kill(pid, signal.SIGTERM)
