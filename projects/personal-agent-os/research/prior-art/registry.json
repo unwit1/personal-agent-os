@@ -1,7 +1,7 @@
 {
   "schema": "personal-agent/prior-art-registry/v1",
   "entry_schema": "schemas/prior-art-entry-v1.schema.json",
-  "as_of": "2026-10-16",
+  "as_of": "2026-10-17",
   "workflow": "projects/personal-agent-os/research/prior-art/README.md",
   "permission_note": "Operator states full academic reuse permission for projects found (2026-09-29); licenses and attribution are still recorded for provenance.",
   "entries": [
@@ -3456,6 +3456,1301 @@
       "revisit_when": [
         "Agent OS runs its own agent loop (http_api adapter with tool use)",
         "distill publishes paired results with equal effort settings"
+      ]
+    },
+    {
+      "id": "PA-rtk",
+      "name": "RTK (Rust Token Killer)",
+      "repository": "https://github.com/rtk-ai/rtk",
+      "organization": "rtk-ai",
+      "description": "Rust CLI proxy that rewrites shell command output (git, ls, grep, pytest, cargo, docker) into compact forms via agent PreToolUse hooks",
+      "license": "Apache-2.0 (CLI, filters, hooks); BUSL-1.1 (proxy daemon and compression engine)",
+      "license_status": "dual; an Apache-only rtk-oss edition exists; BUSL bars offering it to third parties as a commercial service",
+      "evaluated_revision": "develop @ 7bff768 (2026-10-17)",
+      "evaluated_at": "2026-10-17",
+      "language": "Rust",
+      "capability_areas": [
+        "tool-output compression",
+        "CLI hooks",
+        "shell output filtering",
+        "token analytics"
+      ],
+      "agent_os_overlap": "Agent OS never sees tool results; they stay inside Claude Code/Codex. Only a worker-CLI hook could use it. PA-distill already records near-zero savings on our already-narrowed traffic.",
+      "useful_parts": {
+        "algorithms": [
+          "tee raw output to disk and show a recovery hint on failure"
+        ],
+        "tests_benchmarks": [
+          "per-filter fixture tests with a 20% savings floor and a failure-line survival check"
+        ]
+      },
+      "integration": "none; optional hook in worker CLIs only if replay shows large un-narrowed output",
+      "risks": {
+        "maintenance": "very active; fast-moving",
+        "licensing": "BUSL-1.1 parts",
+        "correctness": "rewriting commands can hide lines validators or retry prompts need; built-in Read/Grep tools bypass the Bash hook"
+      },
+      "evidence": {
+        "development_savings": "none: Agent OS has no code path that needs it",
+        "runtime_savings": "near zero on our traffic (94% of bytes already narrowed by grep/head/tail); vendor 90% is a bash-output byte ratio, not cost; independent A/B tests (JetBrains, Quesma, search summaries) found 0% to +7.6% cost",
+        "quality": "JetBrains reported unchanged task quality; no data on our validators",
+        "reliability": "falls back to the raw command on filter failure; tee file for recovery",
+        "security": "hook rewrites commands and can auto-allow them via permissionDecision, which widens the trust surface; integrity check exists in the repo",
+        "complexity": "adds a binary plus hook config to every worker environment",
+        "maintenance": "active upstream, large surface (100+ filters) that tracks tool output formats",
+        "portability": "hooks exist for Claude Code, Codex and others"
+      },
+      "decision": "DEFER",
+      "rationale": "Measured savings on our traffic are near zero and independent paired benchmarks show no net cost gain. The only part worth borrowing is the tee-and-hint recovery idea, which fits the retry-prompt work already done.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone rtk-ai/rtk @ 7bff768, README.md, docs/guide/resources/savings-explained.md, hooks/claude/rtk-rewrite.sh, src/core/tee.rs (2026-10-17)",
+        "web search summaries of JetBrains blog (2026/07) and Quesma 'does rtk make ai coding cheaper'; full pages not fetched (proxy refused)"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "PA-distill"
+        }
+      ],
+      "revisit_when": [
+        "a replay shows un-narrowed git/pytest/ls output is at least 25% of tool-result bytes",
+        "Agent OS gains its own agent loop"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-headroom",
+      "name": "Headroom",
+      "repository": "https://github.com/headroomlabs-ai/headroom",
+      "organization": "headroomlabs-ai",
+      "description": "Reversible compression layer for tool outputs, logs, JSON and history, shipped as a library, an OpenAI/Anthropic-compatible proxy and an MCP server",
+      "license": "Apache-2.0",
+      "license_status": "Apache-2.0 per LICENSE and README",
+      "evaluated_revision": "default branch @ 2912b7b (2026-10-16)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python (with Rust crates)",
+      "capability_areas": [
+        "tool-output compression",
+        "reversible compression (CCR)",
+        "API proxy",
+        "MCP server",
+        "output-token shaping"
+      ],
+      "agent_os_overlap": "Proxy and MCP server act on tool results and history inside Claude Code/Codex, which Agent OS does not own. Reversible stub-plus-retrieve could apply to Agent OS's own handoffs and validator logs.",
+      "useful_parts": {
+        "algorithms": [
+          "compress-cache-retrieve stubs with a hash handle",
+          "per-content-type crushers",
+          "cache-aligned append-only terseness note"
+        ],
+        "tests_benchmarks": [
+          "seeded offline index_proof_table.py",
+          "CCR regression and adversarial benchmarks"
+        ]
+      },
+      "integration": "none; optional MCP tool for workers only if replay passes",
+      "risks": {
+        "maintenance": "very active, large surface",
+        "correctness": "lossy crushers; CCR originals expire (default TTL 1800 s) and a retrieve is an extra call",
+        "dependency_weight": "heavy (Python plus Rust, ONNX models, proxy daemon)"
+      },
+      "evidence": {
+        "development_savings": "small: the stub-plus-retrieve pattern is a few hundred lines for our own artefacts",
+        "runtime_savings": "vendor 21-57% on seeded MCP-style payloads (repetitive JSON, search results); the README says dense output compresses little; unmeasured on our narrowed shell output; a 614M-token session replay (search summary) found about 3.7% total with rtk and caveman",
+        "quality": "its accuracy suite is GSM8K/TruthfulQA/SQuAD/BFCL at N=100, not coding-agent task success; our lossy-crusher measurement lost needed text in 28-47% of results",
+        "reliability": "CCR makes loss recoverable if the model asks; secondhand reports of net cost increases from re-reads (unverified)",
+        "security": "a proxy sees all prompts and API keys in transit",
+        "complexity": "proxy, store and MCP server are extra moving parts",
+        "maintenance": "active upstream; forks with the same name exist",
+        "portability": "wraps Claude Code, Codex and others"
+      },
+      "decision": "BORROW",
+      "rationale": "The reversible stub-plus-retrieve design addresses our measured later-needed-text loss and could apply to Agent OS's own large artefacts without any proxy. Do not wrap or depend on the proxy: its savings come from payloads we do not produce and the numbers are self-measured.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone headroomlabs-ai/headroom @ 2912b7b, README.md, headroom/cache/compression_store.py, headroom/transforms/ listing (2026-10-17)",
+        "web search summaries (mer.vin, besthub.dev, codepointer substack); no full-page fetch possible"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "PA-distill"
+        }
+      ],
+      "revisit_when": [
+        "replay shows reversible reduction saves at least 10% of tool-result bytes with under 5% later-use loss",
+        "Agent OS gains its own agent loop or API proxy"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-tml",
+      "name": "tml (Tool Manifest Language / OATR)",
+      "repository": "https://github.com/maf404/tml",
+      "organization": "maf404",
+      "description": "Compact text format (.tml source, .min compiled) for describing API tools to LLMs; a tool-schema format, not a tool-output reducer",
+      "license": "Apache-2.0",
+      "license_status": "Apache-2.0 per LICENSE file",
+      "evaluated_revision": "default branch @ 452a192 (2026-04-14)",
+      "evaluated_at": "2026-10-17",
+      "language": "JavaScript",
+      "capability_areas": [
+        "tool schema compaction",
+        "tool selection"
+      ],
+      "agent_os_overlap": "Claude Code and Codex build their own tool schemas, which sit in the cached prefix at 0.1x re-read cost. Agent OS cannot substitute a schema format.",
+      "useful_parts": {
+        "algorithms": [
+          "pipe-delimited one-line-per-endpoint format"
+        ],
+        "tests_benchmarks": []
+      },
+      "integration": "none",
+      "risks": {
+        "maintenance": "single author; last commit 2026-04-14",
+        "correctness": "own notes list an id-normalization bug failing the REST Countries spike (0/3)"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "vendor 77% is against verbose OpenAPI JSON for 3 tools; against a minimal JSON schema the same table shows 251 vs 174 tokens; schema tokens are cached anyway",
+        "quality": "100% accuracy on 5 weather scenarios, one API, Claude only; no independent benchmark found",
+        "reliability": "prototype quality, test scripts need hand-edited auth headers",
+        "security": "neutral",
+        "complexity": "adds a compiler step and a new format for models to learn",
+        "maintenance": "stale and small",
+        "portability": "text format works with any model, but not with CLIs that fix their own schemas"
+      },
+      "decision": "REJECT",
+      "rationale": "It shrinks tool schemas, not tool output, the evidence is three tools on one API against a verbose baseline, and our cached prefix makes schema tokens cheap. Agent OS has no surface to apply it.",
+      "confidence": "high",
+      "provenance": [
+        "shallow clone maf404/tml @ 452a192, README.md, CLAUDE.md benchmark notes (2026-10-17)",
+        "web search summary (a Reddit mirror post, subreddit not shown; arXiv 2605.29676 abstract-level)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS gains its own agent loop with large custom tool sets",
+        "an independent benchmark on coding-agent tool use appears"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-intel-adaptive-token-compressor",
+      "name": "Intel Adaptive Token Compressor",
+      "repository": "https://github.com/open-edge-platform/edge-ai-libraries/tree/main/libraries/adaptive-token-compressor",
+      "organization": "open-edge-platform",
+      "description": "Python library compressing system prompts (section-aware LLMLingua-2) and tool lists (LLM-scored tool selection) with cache-aware tool placement",
+      "license": "Apache-2.0",
+      "license_status": "Apache-2.0 per README badge and LICENSE file",
+      "evaluated_revision": "default branch @ 1914e10 (2026-10-17)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "system prompt compression",
+        "tool schema selection",
+        "prompt compression telemetry"
+      ],
+      "agent_os_overlap": "The harness prompt and tool lists belong to Claude Code/Codex and are cached. The context compiler already loads only matched skills.",
+      "useful_parts": {
+        "algorithms": [
+          "score-threshold tool filtering with fall-back to the full list on predictor failure",
+          "cache-friendly tool placement modes"
+        ],
+        "tests_benchmarks": []
+      },
+      "integration": "none",
+      "risks": {
+        "dependency_weight": "needs a Lingua server (Docker, PyTorch or OpenVINO) and a predictor LLM endpoint",
+        "correctness": "LLMLingua-2 is lossy and its default model is trained on meeting transcripts",
+        "maintenance": "initial 2026.2 release"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "no savings figure published; an extra predictor call per turn can cost more than it saves under prompt caching",
+        "quality": "no task-success evaluation published; unit tests only",
+        "reliability": "safe fallback to the full tool list is a good design point",
+        "security": "sends prompts to extra local services",
+        "complexity": "two model-serving dependencies for a stdlib-first project",
+        "maintenance": "new, vendor-backed, edge-hardware focused",
+        "portability": "Intel XPU/OpenVINO oriented; CPU and CUDA also supported"
+      },
+      "decision": "REJECT",
+      "rationale": "It needs two model services, compresses prompts and schemas that Agent OS does not own or that are already cheap via the cache, and publishes no savings or quality evidence. Only the fall-back-to-full-list tool-filter idea is worth remembering.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone open-edge-platform/edge-ai-libraries @ 1914e10, libraries/adaptive-token-compressor README, docs/user-guide/get-started.md, src/adaptive_token_compressor/tool/compressor.py (2026-10-17)",
+        "web search summary of docs.openedgeplatform.intel.com"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Intel publishes an accuracy or cost benchmark on agent workloads",
+        "Agent OS gains its own agent loop with large tool lists"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-hindsight",
+      "name": "Hindsight",
+      "repository": "https://github.com/vectorize-io/hindsight",
+      "organization": "vectorize-io",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "5331da2",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "agent memory retrieval",
+        "hybrid retrieval rank fusion",
+        "temporal recall"
+      ],
+      "agent_os_overlap": "Context compiler matcher over Git JSON memory records; no rank fusion of lexical, tag and recency signals.",
+      "useful_parts": {
+        "algorithms": [
+          "fusion of semantic, BM25, graph and temporal recall arms"
+        ]
+      },
+      "integration": "",
+      "risks": {
+        "claims": "LongMemEval numbers are vendor or co-author measured"
+      },
+      "evidence": {
+        "development_savings": "small (fusion in stdlib)",
+        "runtime_savings": "unmeasured",
+        "quality": "vendor-reported LongMemEval 83.6-94.6%; reproduction is by paper co-authors; no arm ablation seen",
+        "reliability": "n/a",
+        "security": "Postgres service would hold private memory",
+        "complexity": "service plus database if adopted; stdlib fusion is small",
+        "maintenance": "active (pushed 2026-10-16)",
+        "portability": "Python and Postgres; not Git-canonical"
+      },
+      "decision": "DEFER",
+      "rationale": "Headline accuracy is vendor-measured and the server would be a second memory authority. A stdlib rank-fusion experiment in the context matcher is cheap but needs a recall@k fixture first.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), engine/search/retrieval.py and README",
+        "arXiv 2512.12818",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": [
+        "a recall@k fixture for context compile exists",
+        "context matcher misses known-relevant records"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-cognee",
+      "name": "Cognee",
+      "repository": "https://github.com/topoteretes/cognee",
+      "organization": "topoteretes",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "37f788b",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "graph memory",
+        "knowledge graph extraction",
+        "agent memory search modes"
+      ],
+      "agent_os_overlap": "Knowledge library and profile facts are already structured Git JSON with provenance; no LLM graph extraction.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {
+        "architecture": "second non-Git memory authority"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none; adds LLM calls at ingest",
+        "quality": "vendor benchmark: 24 HotPotQA questions, LLM judge; no independent evaluation",
+        "reliability": "n/a",
+        "security": "graph and vector stores would hold private data",
+        "complexity": "graph database plus vector store plus LLM extraction",
+        "maintenance": "active (pushed 2026-10-16)",
+        "portability": "Python library and MCP server"
+      },
+      "decision": "REJECT",
+      "rationale": "LLM graph extraction and a database duplicate the Git-backed store, and the benchmark evidence is vendor-only on an unrelated task.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), SearchType.py, pyproject.toml",
+        "cognee.ai benchmark pages (vendor)",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": [
+        "cross-record questions the context compiler cannot answer become a FAIL"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-acon",
+      "name": "ACON",
+      "repository": "https://github.com/microsoft/acon",
+      "organization": "microsoft",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "d63f9ae",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "context compression",
+        "guideline optimization from paired failures",
+        "prompt optimization"
+      ],
+      "agent_os_overlap": "Retry prompts quote failing test output; handoff templates are hand-written; history lives in the CLI.",
+      "useful_parts": {
+        "algorithms": [
+          "optimize an instruction from cases where full context succeeds and compressed context fails"
+        ]
+      },
+      "integration": "",
+      "risks": {
+        "fit": "history compression has no hook in Claude Code or Codex adapters"
+      },
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "paper reports 26-54% peak tokens; peak tokens are not cost under 1-hour cache pricing",
+        "quality": "authors' own results on AppWorld, OfficeBench, QA; not coding agents; no reproduction found",
+        "reliability": "our replay: lossy reduction removed later-used text in 28-47% of results",
+        "security": "none",
+        "complexity": "research framework needing AppWorld data and an OpenAI key",
+        "maintenance": "one-shot release, last commit 2025-10-14",
+        "portability": "Python 3.11"
+      },
+      "decision": "DEFER",
+      "rationale": "History compression has no hook in our architecture and loses on measured cache economics; the contrastive guideline-tuning loop may help handoff and retry templates later.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), README and src/productive_agents/ctxopt",
+        "arXiv 2510.00615",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS gains its own agent loop",
+        "retry or handoff template tuning becomes a goal"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-focus-active-context-compression",
+      "name": "Focus (Active Context Compression)",
+      "repository": "https://arxiv.org/abs/2601.07190",
+      "organization": "Nikhil Verma",
+      "license": "none found (no repository located)",
+      "license_spdx": "NOASSERTION",
+      "evaluated_revision": "arXiv v1 (2026-01-12); no code",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "agent-controlled context pruning",
+        "context compression",
+        "long-horizon coding agents"
+      ],
+      "agent_os_overlap": "Agent OS does not own the agent loop; history is inside Claude Code or Codex.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {
+        "evidence": "five SWE-bench Lite instances, one model"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "paper: 22.7% fewer total tokens; ignores cache pricing, and our trimming test cost 2-6% more than it saved",
+        "quality": "3/5 vs 3/5 accuracy on five tasks; cannot show parity",
+        "reliability": "paper notes overhead can exceed benefit on iterative work",
+        "security": "none",
+        "complexity": "needs loop ownership via adapters/http_api.py",
+        "maintenance": "no repository",
+        "portability": "n/a"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "No code exists to audit and the evidence is five tasks; only an offline cache-priced model of drop-after-checkpoint is worth running, and it is expected to kill the idea.",
+      "confidence": "low",
+      "provenance": [
+        "arXiv 2601.07190 and hyper.ai mirrors via web search (2026-10-17)",
+        "searched for author, start_focus, complete_focus plus github: no repository found"
+      ],
+      "links": [],
+      "revisit_when": [
+        "author releases code",
+        "Agent OS gains its own agent loop"
+      ],
+      "revisit_by": "2026-11-16"
+    },
+    {
+      "id": "PA-agent-reach",
+      "name": "Agent-Reach",
+      "repository": "https://github.com/Panniantong/Agent-Reach",
+      "organization": "Panniantong",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "94f06c1",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "web read and search tools",
+        "per-platform fallback routing",
+        "capability health check"
+      ],
+      "agent_os_overlap": "Workers already have web access through the coding CLI; no capability preflight doctor command for adapters.",
+      "useful_parts": {
+        "workflows": [
+          "doctor command: per-capability health check with fix hint"
+        ]
+      },
+      "integration": "",
+      "risks": {
+        "security": "cookie-based logins for social platforms"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none",
+        "quality": "no benchmark; depends on scraping that platforms can break",
+        "reliability": "primary plus fallback routing visible in code; unmeasured",
+        "security": "needs cookies or a logged-in browser for several platforms",
+        "complexity": "many third-party CLIs to install",
+        "maintenance": "active (commit 2026-10-08)",
+        "portability": "Python 3.10+, README mainly Chinese"
+      },
+      "decision": "REJECT",
+      "rationale": "Scraping glue with credential exposure and unrelated to memory or context; only the doctor-style preflight pattern is worth noting.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), README and agent_reach/channels",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": [
+        "a worker task needs a platform the CLI cannot reach"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-graphify",
+      "name": "Graphify",
+      "repository": "https://github.com/Graphify-Labs/graphify",
+      "organization": "Graphify-Labs",
+      "description": "Codebase and docs knowledge graph for coding agents, built locally with tree-sitter, served via skills, hooks and MCP.",
+      "license": "Apache-2.0 (LICENSE) with LICENSE-MIT also present; confirm which applies",
+      "evaluated_revision": "86c57be (2026-10-16)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "codebase knowledge graph",
+        "context selection",
+        "agent memory"
+      ],
+      "agent_os_overlap": "orchestrator/repomap.py already gives planners a repo map; memory and handoff layers overlap the memory half.",
+      "useful_parts": {
+        "always_on_instruction_plus_graph_report": "pre-read summary file referenced from the instruction file"
+      },
+      "integration": "none planned; would be a worker-side skill/MCP install",
+      "risks": {
+        "writes_graphify-out_into_target_repo": "dirties worktrees",
+        "scope": "very large surface beyond code maps"
+      },
+      "evidence": {
+        "development_savings": "none shown",
+        "runtime_savings": "unmeasured here; README says 80% fewer tokens, repo harness measures coverage not tokens",
+        "quality": "author harness: 82.0% vs 70.8% key-fact coverage on 6 ERPNext questions, unreplicated",
+        "reliability": "unknown",
+        "security": "local parsing; docs semantic pass sends content to a model backend",
+        "complexity": "high, hundreds of modules and many ingestors",
+        "maintenance": "very active, last commit 2026-10-16",
+        "portability": "many agent CLIs supported"
+      },
+      "decision": "DEFER",
+      "rationale": "Code-context benefit is shown only on 6 author-chosen questions, it duplicates our repomap, and it adds a large dependency that writes into the target repo.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone .oss-cache/Graphify-Labs__graphify",
+        "BENCHMARKS.md",
+        "web search roundups and reviews (2026-10-17); no r/OpenSourceAI thread found"
+      ],
+      "links": [],
+      "revisit_when": [
+        "an independent benchmark shows lower exploration cost or higher task success",
+        "planner or worker context misses cause repeated FAILs"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-repo-map",
+      "name": "repo-map",
+      "repository": "https://github.com/noambinabout-boop/repo-map",
+      "organization": "noambinabout-boop",
+      "description": "MCP server with a tree-sitter symbol graph, PageRank importance and symbol-level read tools for Python and JS/TS.",
+      "license": "MIT",
+      "evaluated_revision": "46215ac (2026-08-19)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "repository map",
+        "symbol ranking",
+        "symbol-level reading"
+      ],
+      "agent_os_overlap": "overlaps orchestrator/repomap.py and the PA-aider ranking idea; adds symbol-scoped reads.",
+      "useful_parts": {
+        "grep_code_with_enclosing_symbol": "hits reported inside their def/class",
+        "get_symbol": "read one body instead of a file"
+      },
+      "integration": "none planned",
+      "risks": {
+        "claim_unreproducible": "no benchmark harness in repo",
+        "languages": "Python and JS/TS only"
+      },
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "claims -33% workflow tokens on one unpublished workflow; our results are already narrowed so likely lower",
+        "quality": "unmeasured",
+        "reliability": "edge-freezing tests only",
+        "security": "local only, cache in home directory",
+        "complexity": "moderate, single server plus tree-sitter deps",
+        "maintenance": "single author, active in 2026-08",
+        "portability": "any MCP client"
+      },
+      "decision": "DEFER",
+      "rationale": "Savings figure comes from one unpublished workflow; test the symbol-vs-file read replay before building anything.",
+      "confidence": "low",
+      "provenance": [
+        "shallow clone .oss-cache/noambinabout-boop__repo-map",
+        "README.md",
+        "no independent coverage or r/OpenSourceAI thread found"
+      ],
+      "links": [],
+      "revisit_when": [
+        "replay shows whole-file reads over 10% of tool-result bytes",
+        "a benchmark harness is published"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-repomapper",
+      "name": "RepoMapper",
+      "repository": "https://github.com/pdavis68/RepoMapper",
+      "organization": "pdavis68",
+      "description": "CLI and MCP server port of Aider's repo map: tree-sitter tags, personalized PageRank, token-budget fitting.",
+      "license": "MIT",
+      "evaluated_revision": "3ef8914 (2025-12-08)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "repository map",
+        "symbol ranking",
+        "context selection"
+      ],
+      "agent_os_overlap": "Same technique as the PA-aider BORROW entry; orchestrator/repomap.py is the Agent OS counterpart.",
+      "useful_parts": {
+        "personalized_pagerank_with_budget_search": "rank toward goal files then binary-search the map size to a token budget"
+      },
+      "integration": "none; reimplement with ast in repomap.py if ever needed",
+      "risks": {
+        "stale": "no commits in 10 months",
+        "dependencies": "networkx and tree-sitter, not stdlib",
+        "provenance": "LLM-written from a spec, no tests"
+      },
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "no claim made",
+        "quality": "unmeasured",
+        "reliability": "no tests",
+        "security": "local only",
+        "complexity": "about 1,200 lines, easy to read",
+        "maintenance": "stale since 2025-12",
+        "portability": "any MCP client"
+      },
+      "decision": "REJECT",
+      "rationale": "Stale, untested and non-stdlib as a dependency; the PageRank idea stays tracked under PA-aider.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone .oss-cache/pdavis68__RepoMapper",
+        "README.md",
+        "no r/OpenSourceAI thread found"
+      ],
+      "links": [
+        {
+          "ref": "PA-aider",
+          "relation": "same technique",
+          "rel": "relates_to"
+        }
+      ],
+      "revisit_when": [
+        "planner context misses cause repeated FAILs and PA-aider ranking is pursued"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-agentless-mcp",
+      "name": "agentless-mcp",
+      "repository": "https://github.com/dmarlow-personal/agentless-mcp",
+      "organization": "dmarlow-personal",
+      "description": "Model-free tree-sitter repo map, symbol lookup, patch parsing, lint, validation and equivalence-clustered voting; CLI plus read-only MCP server.",
+      "license": "MIT",
+      "evaluated_revision": "9bb51ac (2026-10-10)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "repository map",
+        "patch validation",
+        "deterministic validators",
+        "symbol lookup"
+      ],
+      "agent_os_overlap": "Its lint/validate/vote mirror our deterministic validators and retry handling; the tool-order hook acts on the worker CLI.",
+      "useful_parts": {
+        "lint_diff": "complexity, contract-drift and clone deltas on a diff against its base",
+        "equivalence_clustering": "collapse byte-identical candidate results before voting",
+        "tool_order_gate": "defer broad grep until a symbol-map call"
+      },
+      "integration": "call the CLI from a validator step; optional worker hook config",
+      "risks": {
+        "single_author": "early project",
+        "benchmark_scope": "localization only, author-run",
+        "grammar_download": "fetches a digest-verified grammar bundle unless disabled"
+      },
+      "evidence": {
+        "development_savings": "small to moderate if lint replaces hand-written checks",
+        "runtime_savings": "unmeasured on our workload; possible retry reduction",
+        "quality": "SWE-Explore-Bench n=60 Sonnet: restricted-tool arm beat free choice on six localization metrics, CIs exclude 0 (author-run)",
+        "reliability": "deterministic, no model calls",
+        "security": "local, no model; hooks read Bash commands",
+        "complexity": "moderate, separate CLI to install",
+        "maintenance": "active, last commit 2026-10-10",
+        "portability": "CLI works from any agent; MCP read-only"
+      },
+      "decision": "WRAP",
+      "rationale": "Only project here with a published paired benchmark and a deterministic, callable lint/validate side; localization gain still needs showing on our tasks.",
+      "confidence": "low",
+      "provenance": [
+        "shallow clone .oss-cache/dmarlow-personal__agentless-mcp",
+        "README.md",
+        "Glama listing used to locate the repo",
+        "no r/OpenSourceAI thread found"
+      ],
+      "links": [],
+      "revisit_when": [
+        "lint --diff test flags at least 20% of validator-failing diffs with under 10% false positives",
+        "an independent replication of the benchmark appears"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-code-review-graph",
+      "name": "code-review-graph",
+      "repository": "https://github.com/tirth8205/code-review-graph",
+      "organization": "tirth8205",
+      "description": "Local tree-sitter/SQLite code graph with blast-radius and risk-scored change analysis served over MCP for code review.",
+      "license": "MIT",
+      "evaluated_revision": "d72e8fb (2026-10-15)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "code review context",
+        "impact analysis",
+        "codebase knowledge graph"
+      ],
+      "agent_os_overlap": "Independent reviewers check diffs; blast-radius context (callers, dependents, tests) is what they currently grep for.",
+      "useful_parts": {
+        "blast_radius": "changed symbols to callers, dependents and tests",
+        "risk_scored_change_analysis": "rank changed files by risk"
+      },
+      "integration": "stdlib ast/grep approximation feeding reviewer prompts; not the graph store",
+      "risks": {
+        "baseline": "headline compares against feeding the whole corpus",
+        "surface": "30 tools, installer rewrites hooks and instruction files",
+        "maintenance_load": "large"
+      },
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "claims 65x on flask against whole-corpus baseline; not comparable to a grep-narrowing agent",
+        "quality": "repo has impact_accuracy and agent_baseline benchmarks, author-run",
+        "reliability": "over 100 test modules, CI on four Python versions",
+        "security": "documented invariants (no shell=True, path validation)",
+        "complexity": "high for the full tool; low for the concept",
+        "maintenance": "very active, last commit 2026-10-15",
+        "portability": "16 agent platforms"
+      },
+      "decision": "BORROW",
+      "rationale": "Take the blast-radius idea for reviewer context; the 65x headline uses a baseline no real agent uses, so skip the graph store.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone .oss-cache/tirth8205__code-review-graph",
+        "README.md",
+        "docs/REPRODUCING.md",
+        "web search listings; no r/OpenSourceAI thread found"
+      ],
+      "links": [],
+      "revisit_when": [
+        "reviewer misses are traced to unseen callers or tests",
+        "the offline blast-radius replay shows at least a quarter of valid findings outside the diff"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-composio-agent-orchestrator",
+      "name": "Composio Agent Orchestrator (Orchestrator.inc)",
+      "repository": "https://github.com/ComposioHQ/agent-orchestrator",
+      "description": "Plan, run and supervise coding agents in worktrees with CI/review feedback loop",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "fb6497f @ 2026-10-17",
+      "evaluated_at": "2026-10-17",
+      "language": "Go",
+      "capability_areas": [
+        "worker per worktree",
+        "SCM observer CI/review/merge-conflict nudges",
+        "planner agent",
+        "status kanban"
+      ],
+      "agent_os_overlap": "Planner, worktree workers and CLI adapters already exist in orchestrator/. Differs: interactive desktop/tmux sessions and a persistent planner agent.",
+      "evidence": {
+        "development_savings": "small: a conflict-only retry prompt is a few dozen lines",
+        "runtime_savings": "unknown; depends on how often integration conflicts occur in our runs",
+        "quality": "no published evaluation of CI-fix success",
+        "reliability": "nudge gating for TUI permission dialogs is careful but irrelevant to headless runs",
+        "security": "worktree isolates the branch only",
+        "complexity": "large Go and desktop codebase; nothing to import",
+        "maintenance": "very active (pushed 2026-10-17); repo ownership in flux",
+        "portability": "desktop app with Go daemon, not a library"
+      },
+      "decision": "DEFER",
+      "rationale": "Product is a desktop/TUI workspace for interactive sessions. Only small ideas map: status derived from observed PR/CI/review facts, and a conflict-only retry worker. No measured benefit published. Repo appears to have moved to OrchestratorInc.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone read 2026-10-17 (.oss-cache)",
+        "web search roundups; no r/OpenSourceAI thread found (Reddit unreachable)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "conflicts are >=5% of failed tasks in recorded runs",
+        "the project publishes CI-fix success measurements"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-omnigent",
+      "name": "Omnigent",
+      "repository": "https://github.com/omnigent-ai/omnigent",
+      "description": "Open-source meta-harness over Claude Code, Codex, Cursor and others with policies and sandboxing",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "903eeba @ 2026-10-16",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "meta-harness over coding CLIs",
+        "policy engine (allow/ask/deny)",
+        "cost budget downgrade gate",
+        "cloud sandboxes"
+      ],
+      "agent_os_overlap": "Overlaps deterministic validators and Cedar/OPA entries; cost-budget escalation overlaps router/escalation logic. No equivalent of its server, sessions or sandboxes.",
+      "evidence": {
+        "development_savings": "small: a budget rule is a short function over the existing cost ledger",
+        "runtime_savings": "unknown until replayed on hr-cc-run4 ledger (43% of cost was frontier retries)",
+        "quality": "no quality evaluation published",
+        "reliability": "fail-closed on unpriced usage is a good pattern; upstream admits turn-boundary overshoot",
+        "security": "policy at tool-call phase via native PreToolUse hooks is a genuine control",
+        "complexity": "dependency would add a server, DB and web stack; the idea alone is cheap",
+        "maintenance": "alpha, very active",
+        "portability": "supports many CLIs; heavy to run"
+      },
+      "decision": "BORROW",
+      "rationale": "Policy enforcement is real and wired to PreToolUse hooks. Borrow the cost-budget semantics (soft ask thresholds, hard cap that forces a cheaper tier instead of stopping, fail-closed on unpriced models). Do not depend on an alpha server platform. No savings are measured upstream.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone read 2026-10-17 (.oss-cache)",
+        "web search roundups; no r/OpenSourceAI thread found (Reddit unreachable)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "replay shows the downgrade rule saves >=20% of retry cost without extra failures",
+        "Agent OS adds tool-level gating via CLI hooks"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-fractal",
+      "name": "fractal (plasma-ai)",
+      "repository": "https://github.com/plasma-ai/fractal",
+      "description": "Hierarchical agent loops with recursive self-organization in git worktrees",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "e0cb096 @ 2026-09-17",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "hierarchical agent loops",
+        "recursive subtask spawning",
+        "iteration/depth/children/cost/time caps",
+        "SQLite run ledger"
+      ],
+      "agent_os_overlap": "Worktree-per-node and cost ledger overlap. Recursive self-spawning does not exist in Agent OS, which plans once up front.",
+      "evidence": {
+        "development_savings": "none now",
+        "runtime_savings": "negative expected: more agent calls per goal",
+        "quality": "no benchmark versus flat plans",
+        "reliability": "unattended loops bounded by real config caps",
+        "security": "approval gates disabled by default; worktree isolates branch only",
+        "complexity": "tmux, TUI and SQLite stack",
+        "maintenance": "active",
+        "portability": "five agent backends but tmux assumed"
+      },
+      "decision": "REJECT",
+      "rationale": "Recursion is unmeasured and adds fan-out and retry cost, while our parallelism was only 1.43x and retries were 43% of cost. Nodes run with approvals disabled by default. The cap-set idea is noted for a future subtask feature.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone read 2026-10-17 (.oss-cache)",
+        "web search roundups; no r/OpenSourceAI thread found (Reddit unreachable)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS lets workers spawn subtasks",
+        "a published comparison shows recursion beating flat planning on cost per solved task"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-bernstein",
+      "name": "Bernstein",
+      "repository": "https://github.com/chernistry/bernstein",
+      "description": "Scheduler for CLI coding agents in parallel worktrees with policy as code and audit chain",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "65a519a @ 2026-10-16",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "deterministic scheduler",
+        "worktree per task with merge gates",
+        "hash-chained audit log",
+        "gate-evasion benchmark",
+        "replay journal"
+      ],
+      "agent_os_overlap": "Closest to orchestrator/: planner, worktrees, adapters, gates, retry to other models. Lacks nothing we lack except an audit chain and a gate-evasion test suite.",
+      "evidence": {
+        "development_savings": "small to medium: fixtures come from our own past misses",
+        "runtime_savings": "none directly",
+        "quality": "its published gate catch rate is low (2 of 8) and self-reported; no verified SWE-Bench result found",
+        "reliability": "replayable task graph, but agent output is not deterministic",
+        "security": "tamper-evident log and approval queue are useful; audit chain is opt-in",
+        "complexity": "large codebase (about 2,150 Python files); borrow ideas not code",
+        "maintenance": "beta, solo maintainer, very active",
+        "portability": "50+ CLI adapters, Python 3.12+"
+      },
+      "decision": "BORROW",
+      "rationale": "Borrow the gate-evasion fixture idea (changes that once slipped past a gate, measure catch rate) and an optional SHA-256 chain over the run ledger. Its own docs concede the evasion suite catches 2 of 8 and the audit chain is opt-in. Do not depend on a solo-maintained beta.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone read 2026-10-17 (.oss-cache)",
+        "web search roundups; no r/OpenSourceAI thread found (Reddit unreachable)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "a verified SWE-Bench Lite result is published",
+        "validator-miss fixtures show catch rate below 80%"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-claude-squad",
+      "name": "Claude Squad",
+      "repository": "https://github.com/smtg-ai/claude-squad",
+      "description": "Terminal UI managing multiple coding agents in tmux and git worktrees",
+      "license": "AGPL-3.0",
+      "license_spdx": "AGPL-3.0-only",
+      "evaluated_revision": "ce1ffb4 @ 2026-08-20",
+      "evaluated_at": "2026-10-17",
+      "language": "Go",
+      "capability_areas": [
+        "tmux session manager",
+        "worktree per agent",
+        "manual diff review"
+      ],
+      "agent_os_overlap": "Worktree-per-worker already in Agent OS; the interactive tmux TUI is a different product.",
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none",
+        "quality": "no claims, no evaluation",
+        "reliability": "manual merge and review",
+        "security": "auto-yes prompt acceptance is a hazard",
+        "complexity": "simple Go and tmux",
+        "maintenance": "maintained, last commit 2026-08",
+        "portability": "Go binary, tmux required"
+      },
+      "decision": "REJECT",
+      "rationale": "Human-in-the-loop multiplexer with no validation or review layer; auto-yes mode is a hazard for pipelines; AGPL rules out reuse of code.",
+      "confidence": "high",
+      "provenance": [
+        "shallow clone read 2026-10-17 (.oss-cache)",
+        "web search roundups; no r/OpenSourceAI thread found (Reddit unreachable)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "license changes",
+        "Agent OS adds an interactive operator console"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-superset",
+      "name": "Superset",
+      "repository": "https://github.com/superset-sh/superset",
+      "organization": "superset-sh",
+      "license": "Elastic-2.0",
+      "license_spdx": "Elastic-2.0",
+      "evaluated_revision": "491ca53f",
+      "evaluated_at": "2026-10-17",
+      "language": "TypeScript",
+      "capability_areas": [
+        "parallel agent workspaces",
+        "worktree per task",
+        "agent lifecycle hooks",
+        "desktop IDE"
+      ],
+      "agent_os_overlap": "Worktree-per-task and multi-CLI support already exist in the orchestrator; Superset adds a human-facing GUI.",
+      "useful_parts": {
+        "ideas": [
+          "scope CLI lifecycle hooks to project config or an env-var guard, never global user config (HOOKS_INVESTIGATION.md)"
+        ]
+      },
+      "evidence": {
+        "development_savings": "none; GUI product",
+        "runtime_savings": "none measured",
+        "quality": "no benchmark; vendor comparison pages only",
+        "reliability": "own investigation doc shows hooks firing outside the app",
+        "security": "writes hooks into global agent configs",
+        "complexity": "large Electron monorepo",
+        "maintenance": "very active",
+        "portability": "macOS primary, Linux experimental, no Windows"
+      },
+      "decision": "REJECT",
+      "rationale": "Human-facing IDE under a source-available (ELv2) license; isolation is plain git worktree, which we already use. Only lesson is hook-scoping hygiene.",
+      "confidence": "high",
+      "provenance": [
+        "shallow clone 2026-10-17",
+        "web search: vendor and roundup pages; no r/OpenSourceAI thread found"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS installs CLI hooks that touch user-level config"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-orca",
+      "name": "Orca",
+      "repository": "https://github.com/stablyai/orca",
+      "organization": "stablyai",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "fd1c6a59",
+      "evaluated_at": "2026-10-17",
+      "language": "TypeScript",
+      "capability_areas": [
+        "parallel agent worktrees",
+        "best-of-N agent comparison",
+        "worktree removal safety",
+        "multi-agent coordination skill"
+      ],
+      "agent_os_overlap": "Worktree-per-worker and coordinator/worker states exist; Orca's removal guards are a checklist for our cleanup.",
+      "useful_parts": {
+        "modules": [
+          "src/main/worktree-removal-safety.ts",
+          "src/main/worktree-removal-home-guard.ts",
+          "src/main/worktree-orphan-gitdir-proof.ts"
+        ]
+      },
+      "evidence": {
+        "development_savings": "small; checklist for cleanup tests",
+        "runtime_savings": "none measured",
+        "quality": "no benchmark; best-of-N selection left to the human",
+        "reliability": "extensive worktree failure handling and tests in the repo",
+        "security": "agent trust presets and credential file protection present, not audited",
+        "complexity": "very large Electron app",
+        "maintenance": "very active",
+        "portability": "macOS, Windows, Linux desktop"
+      },
+      "decision": "BORROW",
+      "rationale": "Borrow only the worktree-removal guard conditions as unit fixtures for our cleanup. The GUI is out of scope and best-of-N is not justified by our retry-cost data.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone 2026-10-17",
+        "web search: vendor and review pages; orchestration skill is a stub, protocol served by the binary"
+      ],
+      "links": [],
+      "revisit_when": [
+        "validators can act as a cheap best-of-N selector",
+        "worktree cleanup incident"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-scion",
+      "name": "Scion",
+      "repository": "https://github.com/GoogleCloudPlatform/scion",
+      "organization": "GoogleCloudPlatform",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "18d1bb3",
+      "evaluated_at": "2026-10-17",
+      "language": "Go",
+      "capability_areas": [
+        "container per agent",
+        "per-agent credentials",
+        "worktree isolation",
+        "multi-agent messaging",
+        "launch failure memo"
+      ],
+      "agent_os_overlap": "Worktree isolation exists; container and credential isolation per worker does not.",
+      "useful_parts": {
+        "modules": [
+          "pkg/agent/failure_memo.go",
+          "pkg/util/git.go (relative-path worktrees, git >= 2.48)",
+          "pkg/stagedsecrets"
+        ]
+      },
+      "evidence": {
+        "development_savings": "none until container workers are needed",
+        "runtime_savings": "none measured; perf/bench covers platform API and start-up only",
+        "quality": "anecdotal demos, no benchmark",
+        "reliability": "auth fail-fast and failure memo show care; experimental status",
+        "security": "per-agent container and credential isolation is the main strength",
+        "complexity": "very high (hub, broker, Kubernetes)",
+        "maintenance": "active, Google-published testbed",
+        "portability": "Docker, Podman, Apple containers, Kubernetes"
+      },
+      "decision": "DEFER",
+      "rationale": "Container isolation matters only for untrusted or multi-tenant workers; the cheap failure-memo idea needs a replay count of repeated identical launch failures first.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone 2026-10-17",
+        "web search: InfoQ, DevOps.com coverage repeating the README"
+      ],
+      "links": [],
+      "revisit_when": [
+        "workers run untrusted code or need separate credentials",
+        "replay shows repeated identical launch failures"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-deepagents",
+      "name": "deepagents",
+      "repository": "https://github.com/langchain-ai/deepagents",
+      "organization": "langchain-ai",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "e80fd67",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": [
+        "agent harness",
+        "auto-summarization",
+        "tool-output eviction to filesystem",
+        "sub-agents with isolated context",
+        "planning tool"
+      ],
+      "agent_os_overlap": "Sub-agents are our worktree workers; context management happens inside the CLI, not in Agent OS. Overlaps PA-langgraph and PA-smolagents.",
+      "useful_parts": {
+        "ideas": [
+          "offload tool results over 20k tokens to a file and return head plus path (filesystem.py)"
+        ],
+        "modules": [
+          "libs/deepagents/deepagents/middleware/summarization.py"
+        ]
+      },
+      "evidence": {
+        "development_savings": "negative if adopted as a harness (rewrite of CLI workers)",
+        "runtime_savings": "unverified; defaults 85% trigger, keep 10%, no ablation in repo",
+        "quality": "vendor-run evals in libs/evals, not independently verified",
+        "reliability": "unknown",
+        "security": "permissions middleware and sandbox backends exist",
+        "complexity": "LangGraph dependency stack",
+        "maintenance": "very active",
+        "portability": "model-agnostic, Python"
+      },
+      "decision": "DEFER",
+      "rationale": "Harness duplicates what the CLIs do; our measurements (cache rewrite cost, lossy loss rate, 94% already-narrow output) argue against its heuristics. The lossless large-result offload needs a replay count before any work.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone 2026-10-17",
+        "web search found no independent evaluation"
+      ],
+      "links": [
+        {
+          "rel": "relates_to",
+          "ref": "PA-langgraph"
+        }
+      ],
+      "revisit_when": [
+        "Agent OS gains its own agent loop via adapters/http_api.py",
+        "replay shows results over 20k tokens carry material input cost"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-pi-coding-agent",
+      "name": "Pi coding agent",
+      "repository": "https://github.com/badlogic/pi-mono",
+      "organization": "badlogic (README now references earendil-works)",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "8efd314",
+      "evaluated_at": "2026-10-17",
+      "language": "TypeScript",
+      "capability_areas": [
+        "minimal coding agent harness",
+        "RPC and JSON driving mode",
+        "prompt-cache warming cost model",
+        "extensions and skills"
+      ],
+      "agent_os_overlap": "Could be a third CLI adapter beside Claude Code and Codex; its cache-warmer is a cost-model reference.",
+      "useful_parts": {
+        "modules": [
+          "packages/coding-agent/src/core/cache-warmer.ts",
+          "packages/coding-agent/src/core/compaction/compaction.ts",
+          "packages/coding-agent/docs/rpc.md"
+        ]
+      },
+      "evidence": {
+        "development_savings": "adapter spike needed",
+        "runtime_savings": "possible via cheaper model tiers; unproven",
+        "quality": "no external benchmark reviewed; packages/evals not run",
+        "reliability": "unknown",
+        "security": "project trust manager present; not audited",
+        "complexity": "moderate adapter surface",
+        "maintenance": "very active; repo location may have moved",
+        "portability": "Node 22.19+, many providers"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "Print/JSON/RPC modes make an adapter feasible and could add a cheaper escalation tier, but that is unproven and the canonical repo (badlogic/pi-mono vs earendil-works/pi) must be confirmed.",
+      "confidence": "low",
+      "provenance": [
+        "shallow clone 2026-10-17",
+        "web search found no independent evaluation"
+      ],
+      "links": [],
+      "revisit_when": [
+        "a lower-cost model tier is wanted in the escalation ladder"
+      ],
+      "revisit_by": "2026-11-16"
+    },
+    {
+      "id": "PA-caveman",
+      "name": "Caveman",
+      "repository": "https://github.com/JuliusBrussee/caveman",
+      "license": "Apache-2.0",
+      "evaluated_revision": "d262ab3 @ 2026-10-13 (v4.0.1)",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "output compression",
+        "instruction skills",
+        "tool-output shrinking proxy",
+        "eval methodology"
+      ],
+      "agent_os_overlap": "Agent OS has no output-style instruction; distill tool-output compression exists and saved 0 bytes on 528 replayed results.",
+      "decision": "BORROW",
+      "rationale": "Borrow the three-arm eval (none, 'be concise', skill) and test a terse-reviewer line; the proxy overlaps measured-useless output shrinking and output tokens are a small share of spend.",
+      "confidence": "medium",
+      "evidence": {
+        "development_savings": "low: a one-line instruction is cheap to test; the proxy and hooks are not worth porting",
+        "runtime_savings": "unproven for us: author measured 3% (caveman) to 35% (ultracave) over 'be concise' on output only; JetBrains A/B 8.5% fewer output tokens; 33.2% input claim is author-run, 54 runs, mostly proxy shrinking",
+        "quality": "JetBrains 86-task A/B found no measurable loss (p=0.82); risk of dropping failing-test detail in retry prompts untested here",
+        "reliability": "hooks silently fail by design; per-turn reinforcement can fight other injected instructions",
+        "security": "installs hooks and a local proxy into agent settings; not run or audited here",
+        "complexity": "high for the full package (30+ agents, proxy, engine); trivial for a single instruction line",
+        "maintenance": "very active, rapid releases, partly commercial (Auto, Cloud)",
+        "portability": "wide agent coverage; our reuse would be an instruction string only"
+      },
+      "revisit_when": [
+        "an offline reviewer/planner replay shows output tokens are over 15% of run cost"
+      ]
+    },
+    {
+      "id": "PA-token-savior",
+      "name": "token-savior",
+      "repository": "https://github.com/Mibayy/token-savior",
+      "license": "MIT",
+      "evaluated_revision": "770e055 @ 2026-10-15 (v4.24.0)",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "MCP code navigation",
+        "symbol-level reads",
+        "tool manifest reduction",
+        "persistent memory"
+      ],
+      "agent_os_overlap": "Workers use native CLI tools; Agent OS has no code-index tool. Tool-result share of input cost is about 20%.",
+      "decision": "INVESTIGATE",
+      "rationale": "The -43% figure is one task on Sonnet 4.5 from a third-party blog and the maintainer's -80% is self-run on active tokens; a 10-task cost A/B is needed first.",
+      "confidence": "low",
+      "evidence": {
+        "development_savings": "unknown: no orchestrator change needed, MCP can be attached per worker",
+        "runtime_savings": "unproven: independent -43% is a single prompt on a small repo; maintainer -80% active tokens excludes cheap cached reads",
+        "quality": "maintainer reports 97.9% (188/192) on own tsbench with native source tools forbidden; no independent replication found",
+        "reliability": "unknown; index staleness across worktrees untested",
+        "security": "MCP server plus hooks with persistent memory store; not run or audited here",
+        "complexity": "adds a per-worktree index and dependency; large surface (hooks, memory, bench scripts)",
+        "maintenance": "active, version 4.24.0, single maintainer",
+        "portability": "MCP, plus hooks configs for Codex, Gemini, Cursor"
+      },
+      "revisit_when": [
+        "the 10-task A/B shows at least 15% lower total cost at equal validator pass rate, or an independent multi-task benchmark appears"
+      ]
+    },
+    {
+      "id": "PA-claude-code-memory-setup",
+      "name": "claude-code-memory-setup",
+      "repository": "https://github.com/lucasrosati/claude-code-memory-setup",
+      "license": "MIT",
+      "evaluated_revision": "62d0d09 @ 2026-10-07",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "session memory",
+        "Obsidian vault",
+        "code knowledge graph",
+        "handoff commands"
+      ],
+      "agent_os_overlap": "Agent OS already has git-backed durable memory, context compilation and handoffs.",
+      "decision": "REJECT",
+      "rationale": "It duplicates existing memory and handoff features and the author states the 71.5x and 499x savings claims are not reproducible.",
+      "confidence": "high",
+      "evidence": {
+        "development_savings": "none: guide and scripts for a manual Obsidian workflow",
+        "runtime_savings": "unproven: README says headline ratios are author-reported; the 71.4x is one 20,000 vs 280 token illustration, not a session measurement",
+        "quality": "no correctness evaluation; notes can go stale and source reads are still needed",
+        "reliability": "depends on manual vault upkeep and an auto-save hook",
+        "security": "hooks and chat imports write into a vault; not run here",
+        "complexity": "adds a second memory store alongside git-backed memory",
+        "maintenance": "single author, recently updated, benchmark protocol only",
+        "portability": "tied to Claude Code CLAUDE.md and Obsidian"
+      },
+      "revisit_when": [
+        "a published benchmark with session ledgers shows Graphify-style graph queries beat grep on our recorded worker questions"
+      ]
+    },
+    {
+      "id": "PA-costaffective",
+      "name": "CostAffective",
+      "repository": "not found",
+      "license": "unknown",
+      "evaluated_revision": "no repository located",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": [
+        "MCP server",
+        "token reduction"
+      ],
+      "agent_os_overlap": "unknown until the mechanism is known; likely overlaps tool-result or manifest reduction already measured as small.",
+      "decision": "INVESTIGATE",
+      "rationale": "Two web searches (standard and extended) found no project by this name or the 45.9% figure, so nothing could be evaluated.",
+      "confidence": "low",
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unproven: 45.9% claim has no traceable source, workload or baseline",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown; no code reviewed",
+        "complexity": "unknown",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "revisit_when": [
+        "someone supplies the repository URL or the post that makes the 45.9% claim"
       ]
     }
   ]

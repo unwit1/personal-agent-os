@@ -1,0 +1,100 @@
+{
+  "entries": [
+    {
+      "id": "PA-caveman",
+      "name": "Caveman",
+      "repository": "https://github.com/JuliusBrussee/caveman",
+      "license": "Apache-2.0",
+      "evaluated_revision": "d262ab3 @ 2026-10-13 (v4.0.1)",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["output compression", "instruction skills", "tool-output shrinking proxy", "eval methodology"],
+      "agent_os_overlap": "Agent OS has no output-style instruction; distill tool-output compression exists and saved 0 bytes on 528 replayed results.",
+      "decision": "BORROW",
+      "rationale": "Borrow the three-arm eval (none, 'be concise', skill) and test a terse-reviewer line; the proxy overlaps measured-useless output shrinking and output tokens are a small share of spend.",
+      "confidence": "medium",
+      "evidence": {
+        "development_savings": "low: a one-line instruction is cheap to test; the proxy and hooks are not worth porting",
+        "runtime_savings": "unproven for us: author measured 3% (caveman) to 35% (ultracave) over 'be concise' on output only; JetBrains A/B 8.5% fewer output tokens; 33.2% input claim is author-run, 54 runs, mostly proxy shrinking",
+        "quality": "JetBrains 86-task A/B found no measurable loss (p=0.82); risk of dropping failing-test detail in retry prompts untested here",
+        "reliability": "hooks silently fail by design; per-turn reinforcement can fight other injected instructions",
+        "security": "installs hooks and a local proxy into agent settings; not run or audited here",
+        "complexity": "high for the full package (30+ agents, proxy, engine); trivial for a single instruction line",
+        "maintenance": "very active, rapid releases, partly commercial (Auto, Cloud)",
+        "portability": "wide agent coverage; our reuse would be an instruction string only"
+      },
+      "revisit_when": "an offline reviewer/planner replay shows output tokens are over 15% of run cost"
+    },
+    {
+      "id": "PA-token-savior",
+      "name": "token-savior",
+      "repository": "https://github.com/Mibayy/token-savior",
+      "license": "MIT",
+      "evaluated_revision": "770e055 @ 2026-10-15 (v4.24.0)",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["MCP code navigation", "symbol-level reads", "tool manifest reduction", "persistent memory"],
+      "agent_os_overlap": "Workers use native CLI tools; Agent OS has no code-index tool. Tool-result share of input cost is about 20%.",
+      "decision": "INVESTIGATE",
+      "rationale": "The -43% figure is one task on Sonnet 4.5 from a third-party blog and the maintainer's -80% is self-run on active tokens; a 10-task cost A/B is needed first.",
+      "confidence": "low",
+      "evidence": {
+        "development_savings": "unknown: no orchestrator change needed, MCP can be attached per worker",
+        "runtime_savings": "unproven: independent -43% is a single prompt on a small repo; maintainer -80% active tokens excludes cheap cached reads",
+        "quality": "maintainer reports 97.9% (188/192) on own tsbench with native source tools forbidden; no independent replication found",
+        "reliability": "unknown; index staleness across worktrees untested",
+        "security": "MCP server plus hooks with persistent memory store; not run or audited here",
+        "complexity": "adds a per-worktree index and dependency; large surface (hooks, memory, bench scripts)",
+        "maintenance": "active, version 4.24.0, single maintainer",
+        "portability": "MCP, plus hooks configs for Codex, Gemini, Cursor"
+      },
+      "revisit_when": "the 10-task A/B shows at least 15% lower total cost at equal validator pass rate, or an independent multi-task benchmark appears"
+    },
+    {
+      "id": "PA-claude-code-memory-setup",
+      "name": "claude-code-memory-setup",
+      "repository": "https://github.com/lucasrosati/claude-code-memory-setup",
+      "license": "MIT",
+      "evaluated_revision": "62d0d09 @ 2026-10-07",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["session memory", "Obsidian vault", "code knowledge graph", "handoff commands"],
+      "agent_os_overlap": "Agent OS already has git-backed durable memory, context compilation and handoffs.",
+      "decision": "REJECT",
+      "rationale": "It duplicates existing memory and handoff features and the author states the 71.5x and 499x savings claims are not reproducible.",
+      "confidence": "high",
+      "evidence": {
+        "development_savings": "none: guide and scripts for a manual Obsidian workflow",
+        "runtime_savings": "unproven: README says headline ratios are author-reported; the 71.4x is one 20,000 vs 280 token illustration, not a session measurement",
+        "quality": "no correctness evaluation; notes can go stale and source reads are still needed",
+        "reliability": "depends on manual vault upkeep and an auto-save hook",
+        "security": "hooks and chat imports write into a vault; not run here",
+        "complexity": "adds a second memory store alongside git-backed memory",
+        "maintenance": "single author, recently updated, benchmark protocol only",
+        "portability": "tied to Claude Code CLAUDE.md and Obsidian"
+      },
+      "revisit_when": "a published benchmark with session ledgers shows Graphify-style graph queries beat grep on our recorded worker questions"
+    },
+    {
+      "id": "PA-costaffective",
+      "name": "CostAffective",
+      "repository": "not found",
+      "license": "unknown",
+      "evaluated_revision": "no repository located",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["MCP server", "token reduction"],
+      "agent_os_overlap": "unknown until the mechanism is known; likely overlaps tool-result or manifest reduction already measured as small.",
+      "decision": "INVESTIGATE",
+      "rationale": "Two web searches (standard and extended) found no project by this name or the 45.9% figure, so nothing could be evaluated.",
+      "confidence": "low",
+      "evidence": {
+        "development_savings": "unknown",
+        "runtime_savings": "unproven: 45.9% claim has no traceable source, workload or baseline",
+        "quality": "unknown",
+        "reliability": "unknown",
+        "security": "unknown; no code reviewed",
+        "complexity": "unknown",
+        "maintenance": "unknown",
+        "portability": "unknown"
+      },
+      "revisit_when": "someone supplies the repository URL or the post that makes the 45.9% claim"
+    }
+  ]
+}
