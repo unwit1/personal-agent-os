@@ -159,6 +159,8 @@ _REVIEWER_RULES = (
     "Severity: critical/high = wrong behaviour, data loss, or security; medium = bad code that should be cut or",
     "simplified before merge; low/info = optional polish. Give the smallest concrete fix for each finding.",
     "Report evidenced problems only, not style preferences. An approval with no findings must still be a structured result.",
+    "A change the assignment explicitly asks for is never a finding above low. If you think the assignment itself is",
+    "mistaken, say so as low or info with your evidence; do not ask for the requested change to be removed.",
 )
 
 

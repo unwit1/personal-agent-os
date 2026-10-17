@@ -1303,6 +1303,19 @@ class Orchestrator:
                 record["policy"]["material_severities"],
             )
             tree = _tree_hash(subject["worktree"]["path"]) if subject.get("worktree") else None
+            reverted = _reverted_paths(subject) if blocking and subject.get("worktree") else []
+            if reverted:
+                # The repair put a file back to a version an earlier review
+                # already judged: reviewers disagree with each other (measured
+                # 2026-10-17: one file flipped between two versions over five
+                # reviews and three repairs). Another cheap round only flips it
+                # again; go straight to the stronger reviewer, then a person.
+                reason = f"repair restored an already-reviewed version of {', '.join(reverted[:3])}; reviewers disagree"
+                self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_oscillation", reason=reason)
+                self.store.append_event(record["run_id"], "review.oscillation", subject["id"], reason)
+                subject["review"]["oscillation"] = True
+                self._after_blocking_review(record, subject, blocking, exhausted=True)
+                return
             if blocking and tree and tree == subject["review"].get("reviewed_tree"):
                 # The repair left the reviewed tree untouched and closed no
                 # finding: a reviewer would judge identical code again.
@@ -1629,6 +1642,8 @@ class Orchestrator:
             subject["completed_at"] = now()
             return
         subject["review"]["reviewed_tree"] = _tree_hash(subject["worktree"]["path"]) if subject.get("worktree") else None
+        if subject.get("worktree"):
+            subject["review"].setdefault("reviewed_files", []).append(_changed_blobs(subject["worktree"]["path"], subject["worktree"]["base_commit"]))
         self._after_blocking_review(record, subject, blocking)
 
     def _after_blocking_review(self, record: dict[str, Any], subject: dict[str, Any], blocking: list[dict[str, Any]], *, exhausted: bool = False) -> None:
@@ -1646,7 +1661,7 @@ class Orchestrator:
             self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_escalated", reason="findings remain after the allowed rounds; asking a stronger reviewer before a person")
             self._create_reviewer(record, subject, capability="reasoning")
             return
-        if not subject["review"].get("final_repair"):
+        if not subject["review"].get("final_repair") and not subject["review"].get("oscillation"):
             # The stronger reviewer confirmed the findings, so they are real
             # and concrete: one last repair before asking a person (once).
             subject["review"]["final_repair"] = True
@@ -1657,7 +1672,7 @@ class Orchestrator:
             return
         repaired = subject["review"].get("final_repair_ids") or []
         new = [item for item in blocking if not any(item["id"] == fid or item["id"].endswith("-" + fid) for fid in repaired)]
-        if new and len(new) == len(blocking) and not subject["review"].get("extra_repair"):
+        if new and len(new) == len(blocking) and not subject["review"].get("extra_repair") and not subject["review"].get("oscillation"):
             # Every blocking finding is new in the review after the final
             # repair: no worker has been asked to fix them yet. One more
             # bounded repair (once per node) instead of waiting on a person.
@@ -3279,6 +3294,36 @@ def _tree_hash(cwd: str | Path) -> str | None:
         return None
     value = completed.stdout.strip()
     return value if completed.returncode == 0 and value else None
+
+
+def _changed_blobs(cwd: str | Path, base_commit: str) -> dict[str, str]:
+    """Blob id at HEAD of every path that differs from the base commit
+    ("deleted" for a removed path)."""
+    from .worktrees import git
+
+    try:
+        paths = [line for line in git(["diff", "--name-only", base_commit, "HEAD"], cwd).stdout.splitlines() if line.strip()]
+        listed = git(["ls-tree", "HEAD", "--", *paths], cwd).stdout.splitlines() if paths else []
+    except Exception:
+        return {}
+    blobs = {line.split("\t", 1)[1]: line.split()[2] for line in listed if "\t" in line}
+    return {path: blobs.get(path, "deleted") for path in paths}
+
+
+def _reverted_paths(subject: dict[str, Any]) -> list[str]:
+    """Paths the latest repair changed back to a version reviewed before the
+    last review round; empty when there is no such flip."""
+    snapshots = subject["review"].get("reviewed_files") or []
+    if len(snapshots) < 2:
+        return []
+    current = _changed_blobs(subject["worktree"]["path"], subject["worktree"]["base_commit"])
+    last = snapshots[-1]
+    reverted = []
+    for path in sorted(set(current) | set(last)):
+        now_version, last_version = current.get(path, "base"), last.get(path, "base")
+        if now_version != last_version and any(snapshot.get(path, "base") == now_version for snapshot in snapshots[:-1]):
+            reverted.append(path)
+    return reverted
 
 
 def _validation_key(tree: str, validators: list[dict[str, Any]]) -> str:
