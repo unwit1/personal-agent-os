@@ -55,6 +55,8 @@ class SignatureTests(unittest.TestCase):
         self.assertIsNone(fl.remedy_for("stuck"))
         self.assertIn("changed nothing", fl.remedy_for("blocked_on_host:deferred"))
         self.assertIsNone(fl.remedy_for("refused_twice"))
+        self.assertIn("whole test suite", fl.remedy_for("failed_final:validator_failed"))
+        self.assertIsNone(fl.remedy_for("failed_final:stuck"))  # exact key: only validator failures are covered
         self.assertIn("follow-ups", fl.remedy_for("review_unresolved"))
 
 
