@@ -1,0 +1,426 @@
+{
+  "schema": "personal-agent/orchestrator-audit-remediation-tracker/v1",
+  "program": "OAR-2026-10-18",
+  "created_at": "2026-10-18",
+  "audit_base_commit": "c2b23ea3e59273d503248061f1710799676abd05",
+  "status": "planned",
+  "priority": "p0-correctness-and-privacy-before-new-nonessential-features",
+  "canonical_roadmap": "projects/personal-agent-os/roadmap/orchestrator-audit-remediation-2026-10-18.md",
+  "handoff": "projects/personal-agent-os/roadmap/orchestrator-audit-remediation-agent-handoff.md",
+  "fidelity": "Source-inspected findings are not runtime-verified; historical measurements do not establish current quality",
+  "next_unblocked": "OAR-00",
+  "promotion_gates": [
+    "verified failing reproduction or explicit evidence disproving hypothesis",
+    "focused and full applicable tests run with exact results",
+    "independent review and protected policy gates preserved",
+    "no regression in permission/privacy/validation",
+    "paired incumbent-candidate evaluations for performance/routing/review changes",
+    "typed evidence plus resumable handoff"
+  ],
+  "items": [
+    {
+      "id": "OAR-00",
+      "title": "Restore CI and split core/private integration tests",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [],
+      "source_paths": [
+        ".github/workflows/agent-os-maintenance.yml"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_surfaces.py",
+        "tests/test_readiness_doc.py"
+      ],
+      "audit_evidence": "GitHub Actions 39010082397 checkout blocked all tests",
+      "acceptance": "Core CI runs and reflects injected failure without private checkout",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-01",
+      "title": "Refresh and classify the full test baseline",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [
+        "OAR-00"
+      ],
+      "source_paths": [
+        "docs/orchestrator-os/self-audit/tests.md",
+        "tests/readiness_fixtures.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator.py",
+        "tests/test_orchestrator_state_machine.py",
+        "tests/test_readiness_fixtures.py"
+      ],
+      "audit_evidence": "Historical 2026-09-30 suite: 985 tests, 12 failures, 11 errors",
+      "acceptance": "Current supported environment results and reproducible attribution recorded",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-02",
+      "title": "Durable race-safe operator command reconciliation",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/store.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_control_race.py",
+        "tests/test_orchestrator_state_machine.py"
+      ],
+      "audit_evidence": "set_auto_continue and reassign changes are not all merged by refresh_control",
+      "acceptance": "No acknowledged control lost/duplicated under concurrent process and restart tests",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-03",
+      "title": "Nonblocking cancellable deterministic jobs",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/validators.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator.py",
+        "tests/test_orchestrator_state_machine.py"
+      ],
+      "audit_evidence": "_run_deterministic calls validator synchronously within dispatch tick",
+      "acceptance": "Slow deterministic commands do not stall unrelated dispatch or controls",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": true
+    },
+    {
+      "id": "OAR-04",
+      "title": "Environment-aware validation cache correctness",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/model.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_economy.py",
+        "tests/test_orchestrator_test_selection.py"
+      ],
+      "audit_evidence": "Tree+command-based reuse omits many environment inputs",
+      "acceptance": "Zero unsafe cache hits on adversarial changing-input fixtures",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-05",
+      "title": "Truthful final completion verification contracts",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/validators.py"
+      ],
+      "related_tests": [
+        "tests/test_readiness_validators.py",
+        "tests/test_orchestrator_host_actions.py"
+      ],
+      "audit_evidence": "run_all([]) passes vacuously; final completion can reflect no run-level tests",
+      "acceptance": "No fully-validated claim without actual required final check",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": true
+    },
+    {
+      "id": "OAR-06",
+      "title": "Single-probe half-open circuit breaker",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/retry.py",
+        "src/agent_os/orchestrator/provider_health.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_api_retry.py"
+      ],
+      "audit_evidence": "CircuitBreaker.allow does not reserve an in-flight half-open probe",
+      "acceptance": "No more than one half-open trial under concurrent callers",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-07",
+      "title": "Indexed lossless event cursor and SSE replay",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/store.py",
+        "src/agent_os/orchestrator/server.py",
+        "src/agent_os/orchestrator/ledger.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_telemetry.py",
+        "tests/test_orchestrator_surfaces.py"
+      ],
+      "audit_evidence": "read_events parses entire file and retains only last limit of matches",
+      "acceptance": "No lost events with lagging clients; tail read cost bounded",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-08",
+      "title": "Project-scoped private run-history retrieval",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/repomap.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_control_race.py",
+        "tests/test_readiness_privacy.py"
+      ],
+      "audit_evidence": "History sharing copies cross-run directories and prompt.md",
+      "acceptance": "Zero cross-scope leaks, Git integration pollution or raw-prompt disclosure",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-09",
+      "title": "Unrounded Wilson qualification and CAP evidence hygiene",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/capability.py",
+        "policy/orchestrator-os.policy.json"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_eval.py",
+        "tests/test_foreman_shadow.py"
+      ],
+      "audit_evidence": "Rounded confidence and 100% floor contradictory for finite samples",
+      "acceptance": "Statistically valid qualification, deterministic authorization boundary",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": true
+    },
+    {
+      "id": "OAR-10",
+      "title": "Evidence-qualified shadow routing and controlled promotion",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-09",
+        "OAR-16"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/router.py",
+        "src/agent_os/orchestrator/route_calibration.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_models.py",
+        "tests/test_orchestrator_policy_caps.py"
+      ],
+      "audit_evidence": "Live select uses class/provider cost, not CAP Wilson qualification directly",
+      "acceptance": "Held-out validated outcomes noninferior and total cost lower before promotion",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-11",
+      "title": "Pre-execution publication and exfiltration controls",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/control_plane.py",
+        "src/agent_os/orchestrator/adapters/claude_code.py",
+        "src/agent_os/orchestrator/adapters/codex_cli.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_control_plane.py",
+        "tests/test_orchestrator_operator_grants.py"
+      ],
+      "audit_evidence": "Post-hoc output scanning cannot undo unauthorized side effects",
+      "acceptance": "Outbound side effects blocked at trust boundary in no-network adversarial tests",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": true
+    },
+    {
+      "id": "OAR-12",
+      "title": "Bounded self-repair quality and cost replay",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01",
+        "OAR-16"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/failure_learning.py",
+        "src/agent_os/orchestrator/engine.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_state_machine.py",
+        "tests/test_orchestrator_host_actions.py"
+      ],
+      "audit_evidence": "Default auto-fix exists without causal task-level cost benefit demonstrated",
+      "acceptance": "Measured net improvement without recursive runaway or policy weakening",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-13",
+      "title": "Explicit cap/budget profiles with in-flight reservations",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/model.py",
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/api_budget.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_spend_cap.py",
+        "tests/test_orchestrator_policy_caps.py"
+      ],
+      "audit_evidence": "Default token and USD caps None; launch count does not bound resource use",
+      "acceptance": "No silent metered overrun; exact versus estimated costs separated",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-14",
+      "title": "Material-defect-preserving review cost experiments",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01",
+        "OAR-16"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/prompts.py",
+        "src/agent_os/orchestrator/review.py",
+        "src/agent_os/orchestrator/context_anatomy.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_review_independence.py",
+        "tests/test_orchestrator_telemetry.py"
+      ],
+      "audit_evidence": "Historical reviewer exposure 5.5M tokens/17 reporting calls",
+      "acceptance": "Held-out material defects noninferior at lower end-to-end cost",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-15",
+      "title": "Incremental engine decomposition after characterization",
+      "priority": "P2",
+      "status": "planned",
+      "depends_on": [
+        "OAR-02",
+        "OAR-03",
+        "OAR-04",
+        "OAR-05",
+        "OAR-06",
+        "OAR-07",
+        "OAR-08",
+        "OAR-11"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/model.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_state_machine.py",
+        "tests/test_orchestrator.py"
+      ],
+      "audit_evidence": "engine.py 3738 lines and overlapping state responsibilities",
+      "acceptance": "Trace/state parity and nonregression verified before incremental extraction",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    },
+    {
+      "id": "OAR-16",
+      "title": "Shared fault injection, security and performance eval corpus",
+      "priority": "P0",
+      "status": "planned",
+      "depends_on": [
+        "OAR-01"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/eval.py",
+        "src/agent_os/orchestrator/benchmark.py",
+        "projects/personal-agent-os/orchestrator-os/evals/"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_eval.py",
+        "tests/test_orchestrator_benchmark.py",
+        "tests/test_readiness_privacy.py"
+      ],
+      "audit_evidence": "Cross-cutting current reproducibility and quality gaps",
+      "acceptance": "Versioned seeded fixtures with independent evaluators and offline replay",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": true
+    },
+    {
+      "id": "OAR-17",
+      "title": "Canary, rollback and independent release signoff",
+      "priority": "P1",
+      "status": "planned",
+      "depends_on": [
+        "OAR-02",
+        "OAR-03",
+        "OAR-04",
+        "OAR-05",
+        "OAR-06",
+        "OAR-07",
+        "OAR-08",
+        "OAR-09",
+        "OAR-10",
+        "OAR-11",
+        "OAR-12",
+        "OAR-13",
+        "OAR-14",
+        "OAR-16"
+      ],
+      "source_paths": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/service.py"
+      ],
+      "related_tests": [
+        "tests/test_orchestrator_state_machine.py",
+        "tests/test_orchestrator_surfaces.py"
+      ],
+      "audit_evidence": "Critical correctness and quality fixes need controlled promotion",
+      "acceptance": "Staged rollout meets explicit safety, reliability and cost gates with rollback proven",
+      "first_action": "Re-check current HEAD, reproduce with a failing synthetic fixture, then implement minimally",
+      "protected_path_approval_required": false
+    }
+  ]
+}
