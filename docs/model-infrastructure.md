@@ -10,6 +10,10 @@ Contract, keeping its credentials out of Git, and measuring its refusals.
 Cloud GPU provisioning, quotes, training and image/audio adapters are later
 phases; paid compute stays behind the budget/approval gate.
 
+## Dated provider/benchmark research (2026-10-10)
+
+The agent-readable, evidence-linked model and provider pricing snapshots, coding subscription use constraints, GPU quotes and published benchmark priors are maintained at [model-provider economics research](../projects/personal-agent-os/research/model-provider-economics/README.md). Read the small index first and selectively retrieve JSON records rather than adding them to default context. Data is research, NOT runtime routing defaults; paid-route promotion requires current quotes, applicable plan eligibility and measured CAP/EVR evidence. No live model eval was executed by the research pass.
+
 ## 1. Serve the model
 
 Any server that speaks the OpenAI Chat Completions API works: vLLM
