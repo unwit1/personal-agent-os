@@ -2,7 +2,7 @@
 
 Status: active / canonical priority order  
 Owner: Personal Agent OS  
-Reprioritized: 2026-09-19
+Reprioritized: 2026-10-18 (OAR-2026-10-18 urgent remediation; existing completed items unchanged)
 
 ## Purpose
 
@@ -28,6 +28,16 @@ Use these rules when deciding what to implement next:
 6. **Escalate only on evidence.** Start with the cheapest reliable path and move to stronger reasoning only after validation failure, ambiguity, conflict, or explicit quality requirements.
 7. **Do not shift cost invisibly.** OpenAI/Anthropic API delegation is optional and separately billed. First exhaust savings that reduce total work instead of merely moving it to another bill.
 8. **Preserve correctness and privacy.** Usage savings must not weaken validation, employee-data boundaries, provenance, or user approval controls.
+
+---
+
+## P0-HOTFIX — Orchestrator reliability, privacy, and independent evaluation (OAR-2026-10-18)
+
+**Priority: CRITICAL/HIGH VALUE; operator-requested 2026-10-18. Status: PLANNED / agent-ready — not implemented.** Correctness, privacy, external-action prevention, and trustworthy CI take precedence over adding new Orchestrator features. Detailed [OAR audit remediation plan](orchestrator-audit-remediation-2026-10-18.md) (18 staged work packages covering all 16 findings), [machine-readable dependency tracker](orchestrator-audit-remediation-tracker.json), and [paste-ready implementation handoff](orchestrator-audit-remediation-agent-handoff.md) are canonical for this program. This is a **remediation/evaluation track within P1.2A**, not a replacement orchestrator or a declaration that a historical finding is still reproduced.
+
+**Immediate unblocked start:** OAR-00 repair the failing mandatory CI path (GitHub Actions run 39010082397, private Ingester Engine checkout blocked core tests) and OAR-01 refresh the full test baseline. Then prioritize OAR-02 operator-command races, OAR-04 validation cache correctness, OAR-05 honest completion contracts, OAR-08 run-history isolation and OAR-11 pre-execution publication boundaries. Parallelize scoped nonblocking execution, circuit recovery, cursor-based events, statistical CAP quality, shadow routing, resource budgets, self-healing/reviewer evaluations and the shared fault corpus only when the gate/dependency graph allows; defer engine modularization until safety behavior has reproducible tests.
+
+**Definition of done:** verified old failure or documented nonreproduction, deterministic regression on candidate, cross-platform and full-suite evidence, no weaker protected control/review/privacy/spend checks, replayable crash/concurrency/adversarial fixtures, evidence-backed lower *total cost per validated task* where savings are claimed, staged canary and rollback. Do not change protected policies/evaluators or merge/push to main without explicit approval. Existing IMP-0015/18/19/22, CCD, LH-01 and recovery/test suites are reused rather than duplicated.
 
 ---
 
@@ -742,7 +752,7 @@ Open:
 ### P1.2A — Multi-agent coding orchestrator + control GUI
 
 Status: **implemented, first release** (2026-09-22, merged to `main`; see
-`docs/multi-agent-orchestrator.md`). Implemented:
+`docs/multi-agent-orchestrator.md`). A separate **P0-HOTFIX, high-value October 18, 2026 audit remediation** is now open (OAR-2026-10-18), with a staged [implementation plan](orchestrator-audit-remediation-2026-10-18.md), tracker and agent handoff; this does not revise the historical first-release status. Implemented:
 - provider-neutral engine, with Claude Code and Codex CLI adapters whose flags
   were verified against the installed `--help`;
 - a registry-driven router covering model and effort, user overrides and
@@ -1234,6 +1244,8 @@ architecture or privacy controls into this global Agent OS roadmap.
 ---
 
 ## Current engineering queue
+
+**Urgent 2026-10-18 override:** execute the [OAR-2026-10-18 CI/correctness/privacy remediation](orchestrator-audit-remediation-2026-10-18.md) first where applicable. OAR-00/OAR-01 are the safe first slices, with a dependency-aware [tracker](orchestrator-audit-remediation-tracker.json). This override does not reopen work already marked complete or authorize protected changes.
 
 Unless an urgent correctness/privacy bug or explicitly promoted user request intervenes, coding agents should pull work in this order:
 
