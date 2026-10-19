@@ -7,6 +7,8 @@ Requested: 2026-09-29
 
 **Coding-specific implementation track (2026-10-16):** [Cost-Aware Coding Delegation — Deterministic Patch, Test, and Escalation Pipeline](cost-aware-coding-delegation.md) (CCD-0 through CCD-7). **Proposed, not implemented.** Extends IMP-0015 and the existing FreeComputeBroker/router/worktree/validator/evaluation stack; does not create a parallel broker. The later implementation agent should begin at CCD-0 audit and reuse current infrastructure.
 
+**Safeguard-aware model fallback / refusal resolution (2026-10-19): HIGH-PRIORITY, P0 safety/correctness prerequisite.** [SAR-0 through SAR-9: Safeguard-Aware Refusal Resolution and Policy-Bounded Model Fallback](safeguard-aware-refusal-resolution.md) is an **agent-ready implementation plan, not currently implemented**. Extends IMP-0015's existing `refusal.py`, adapter signals, `engine._fail`, router, Task Context Contract, CAP/EVR and budget gates. Fixes policy-vs-refusal precedence before automatic refusal-driven model switching; preserves root-task authorization and full DAG lineage, permits only eligible alternative routes, and measures over-refusal recovery with adversarial negative tests. **Do not spin up a second model router or turn a model refusal into permission to bypass policy.** Start with SAR-0 baseline, SAR-1 pure policy adjudication and SAR-2 native provider signal normalization. Protected policy/evaluator edits require the normal operator grant.
+
 ## Goal
 
 Build one provider-neutral control plane that lets Orchestrator select, acquire,
