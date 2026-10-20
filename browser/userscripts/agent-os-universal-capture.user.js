@@ -2456,7 +2456,7 @@
 
     function buildCapture() {
         var base = genericCapture();
-        var adapters = [storyPageAdapter, redditAdapter, amazonAdapter, youtubeAdapter, nexusAdapter, xenforoAdapter];
+        var adapters = [herobloksDetailAdapter, storyPageAdapter, redditAdapter, amazonAdapter, youtubeAdapter, nexusAdapter, xenforoAdapter];
         for (var i = 0; i < adapters.length; i += 1) {
             try {
                 var adapted = adapters[i](base);
@@ -2491,7 +2491,7 @@
         else button.style.background = "#20242b";
     }
 
-    function sendCapture(capture, button) {
+    function sendCapture(capture, button, finished) {
         var settings = loadSettings();
         var endpoint = settings.endpoint || "";
         var token = settings.token || "";
@@ -2509,6 +2509,7 @@
             var count = queueCapture(capture, "endpoint-not-configured");
             setButtonState(button, "✓ Queued (" + count + ")", "ok");
             window.setTimeout(function () { setButtonState(button, "+ Agent OS", ""); }, 1600);
+            if (finished) finished("queued");
             return;
         }
 
@@ -2532,20 +2533,24 @@
                         // Success does not require JSON.
                     }
                     setButtonState(button, duplicate ? "✓ Already Saved" : "✓ Saved", "ok");
+                    if (finished) finished("saved");
                 } else {
                     var count = queueCapture(capture, "http-" + response.status);
                     setButtonState(button, "Queued after error (" + count + ")", "error");
+                    if (finished) finished("queued");
                 }
                 window.setTimeout(function () { setButtonState(button, "+ Agent OS", ""); }, 1800);
             },
             onerror: function () {
                 var count = queueCapture(capture, "network-error");
                 setButtonState(button, "Queued offline (" + count + ")", "error");
+                if (finished) finished("queued");
                 window.setTimeout(function () { setButtonState(button, "+ Agent OS", ""); }, 1800);
             },
             ontimeout: function () {
                 var count = queueCapture(capture, "timeout");
                 setButtonState(button, "Queued timeout (" + count + ")", "error");
+                if (finished) finished("queued");
                 window.setTimeout(function () { setButtonState(button, "+ Agent OS", ""); }, 1800);
             }
         });
@@ -3655,6 +3660,191 @@
         return base;
     }
 
+    // -- HeroBloks minifigure intake ---------------------------------------------
+    // Adding captures a reference in Agent OS; it does NOT claim that the
+    // figure is owned or alter a HeroBloks account. Brickmen can later ingest
+    // this source with its original ID and URL.
+    var HEROBLOKS_SAVED_KEY = "agent_os_herobloks_saved_v1";
+
+    function herobloksInfo(href) {
+        try {
+            var url = new URL(href, location.href);
+            if (!/^(?:www\.)?herobloks\.com$/i.test(url.hostname)) return null;
+            var match = url.pathname.match(/^\/figures\/(\d+)(?:\/|$)/i);
+            if (!match) return null;
+            return { id: match[1], url: "https://www.herobloks.com/figures/" + match[1],
+                sourceId: "herobloks:figure:" + match[1] };
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function herobloksDetailAdapter(base) {
+        var info = herobloksInfo(location.href);
+        if (!info) return null;
+        base.site = "herobloks.com";
+        base.content_type = "minifigure";
+        base.source_id = info.sourceId;
+        base.canonical_url = info.url;
+        base.url = info.url;
+        var heading = document.querySelector("main h1, main h2, h1, h2");
+        base.title = cleanText(heading && heading.textContent) ||
+            base.title.replace(/^HeroBloks\s*-\s*/i, "").split(" - ")[0];
+        base.metadata = Object.assign({}, base.metadata, {
+            adapter: "herobloks-figure", figure_id: info.id,
+            catalog: "herobloks", collection_state: "unclassified"
+        });
+        return base;
+    }
+
+    function herobloksCaptured(info, button) {
+        var saved = GM_getValue(HEROBLOKS_SAVED_KEY, {});
+        var queue = GM_getValue(QUEUE_KEY, []);
+        var queued = Array.isArray(queue) && queue.some(function (item) {
+            return item && item.capture && item.capture.source_id === info.sourceId;
+        });
+        if (saved && saved[info.sourceId]) {
+            button.textContent = "✓ In Agent OS";
+            button.disabled = true;
+        } else if (queued) {
+            button.textContent = "⏳ Queued";
+            button.title = "Queued in Agent OS intake; retry queued captures when connected";
+            button.disabled = true;
+        } else {
+            button.textContent = "+ Agent OS";
+            button.disabled = false;
+        }
+    }
+
+    function captureHerobloks(info, title, image, button) {
+        if (button.disabled) return;
+        var capture = herobloksDetailAdapter(genericCapture());
+        if (!capture || capture.source_id !== info.sourceId) {
+            capture = genericCapture();
+            capture.site = "herobloks.com";
+            capture.content_type = "minifigure";
+            capture.source_id = info.sourceId;
+            capture.url = info.url;
+            capture.canonical_url = info.url;
+            capture.metadata = Object.assign({}, capture.metadata, {
+                adapter: "herobloks-card", figure_id: info.id,
+                catalog: "herobloks", collection_state: "unclassified"
+            });
+        }
+        if (title) capture.title = title;
+        if (image) capture.image = image;
+        button.disabled = true;
+        button.textContent = "Saving…";
+        // Reuse the capture transport/queue rather than creating another
+        // endpoint or bypassing its deduplication checks.
+        sendCapture(capture, null, function (result) {
+            if (result === "saved") {
+                var saved = GM_getValue(HEROBLOKS_SAVED_KEY, {});
+                if (!saved || typeof saved !== "object") saved = {};
+                saved[info.sourceId] = new Date().toISOString();
+                GM_setValue(HEROBLOKS_SAVED_KEY, saved);
+            }
+            herobloksCaptured(info, button);
+        });
+    }
+
+    function herobloksSingleFigureCard(link) {
+        var node = link.parentElement;
+        var candidates = [];
+        for (var depth = 0; node && depth < 4; depth += 1, node = node.parentElement) {
+            if (node.matches("main, body, html, nav, header, footer")) break;
+            var ids = new Set(Array.from(node.querySelectorAll("a[href*='/figures/']"))
+                .map(function (a) { var i = herobloksInfo(a.href); return i && i.id; })
+                .filter(Boolean));
+            if (ids.size !== 1) break;
+            candidates.push(node);
+        }
+        return candidates.find(function (item) {
+            return item.matches("article, li, mat-card, .card, .figure-card, .figure-tile, .figure-item, .tile, .thumbnail, [class*='figure-card']");
+        }) || candidates[0] || null;
+    }
+
+    function addHerobloksControls() {
+        if (!/^(?:www\.)?herobloks\.com$/i.test(hostname())) return;
+        var own = herobloksInfo(location.href);
+        if (own) {
+            var heading = document.querySelector("main h1, main h2, h1, h2");
+            if (heading && !document.getElementById("aos-herobloks-detail-controls")) {
+                var controls = document.createElement("span");
+                controls.id = "aos-herobloks-detail-controls";
+                controls.style.cssText = "display:inline-flex;gap:8px;vertical-align:middle;margin:8px;flex-wrap:wrap";
+                var add = document.createElement("button");
+                buttonCss(add);
+                add.style.padding = "6px 10px";
+                addHerobloksClick(add, own, function () { return cleanText(heading.textContent); },
+                    function () { return cleanText((document.querySelector('meta[property="og:image"]') || {}).content); });
+                controls.appendChild(add);
+
+                // Hiding on a detail page hides this exact variant from future
+                // listings; the detail page itself remains accessible.
+                if (typeof browser !== "undefined" && browser.runtime) {
+                    var hide = document.createElement("button");
+                    buttonCss(hide);
+                    hide.style.padding = "6px 10px";
+                    hide.style.background = "#59423a";
+                    hide.textContent = "⊘ Hide figure";
+                    function refreshHide() {
+                        return browser.runtime.sendMessage({ type: "filters-get" }).then(function (state) {
+                            var rule = (state.rules || []).find(function (r) {
+                                return r.scope === "herobloks" && r.field === "id" &&
+                                    r.value === own.sourceId && r.enabled !== false;
+                            });
+                            hide.dataset.ruleId = rule ? rule.id : "";
+                            hide.textContent = rule ? "↶ Unhide figure" : "⊘ Hide figure";
+                        }).catch(function () { hide.textContent = "Hide unavailable"; hide.disabled = true; });
+                    }
+                    hide.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        hide.disabled = true;
+                        var pending = hide.dataset.ruleId
+                            ? browser.runtime.sendMessage({ type: "filters-remove-rule", id: hide.dataset.ruleId })
+                            : browser.runtime.sendMessage({ type: "filters-add-rule",
+                                rule: { scope: "herobloks", field: "id", value: own.sourceId } });
+                        pending.then(refreshHide).catch(function () { hide.textContent = "Retry hide"; })
+                            .finally(function () { hide.disabled = false; });
+                    });
+                    controls.appendChild(hide);
+                    refreshHide();
+                }
+                heading.insertAdjacentElement("afterend", controls);
+            }
+            // Do not spray controls over "other versions" text on a detail page.
+            return;
+        }
+        document.querySelectorAll("a[href*='/figures/']").forEach(function (link) {
+            var info = herobloksInfo(link.href);
+            if (!info) return;
+            var card = herobloksSingleFigureCard(link);
+            if (!card || card.dataset.aosHerobloksAdded === "1") return;
+            card.dataset.aosHerobloksAdded = "1";
+            var button = document.createElement("button");
+            buttonCss(button);
+            button.className = "agent-os-card-save aos-herobloks-save";
+            button.style.cssText += ";padding:6px 9px;margin:6px;position:relative";
+            var title = cleanText(card.querySelector("h2, h3, h4, .title")?.textContent ||
+                link.getAttribute("title") || link.querySelector("img")?.alt || link.textContent);
+            var img = card.querySelector("img");
+            addHerobloksClick(button, info, function () { return title; },
+                function () { return img && img.src || ""; });
+            card.appendChild(button);
+        });
+    }
+
+    function addHerobloksClick(button, info, getTitle, getImage) {
+        herobloksCaptured(info, button);
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            captureHerobloks(info, getTitle(), getImage(), button);
+        }, true);
+    }
+
     function captureNexusCard(card, link, button) {
         var info = nexusInfoFromUrl(link.href);
         if (!info) return;
@@ -3851,6 +4041,7 @@
     initializeBrowserJournal();
     initializeBridgeSync();
     addNexusCardButtons();
+    addHerobloksControls();
     addXenforoThreadButtons();
     addRedditPostButtons();
     addStorySiteButtons();
@@ -3888,6 +4079,7 @@
             scheduled = false;
             addFloatingButton();
             addNexusCardButtons();
+            addHerobloksControls();
             addXenforoThreadButtons();
             addRedditPostButtons();
             addStorySiteButtons();
