@@ -1,0 +1,36 @@
+name: Browser extension tests
+
+on:
+  pull_request:
+    paths:
+      - "browser/extension/**"
+      - "browser/userscripts/agent-os-universal-capture.user.js"
+      - ".github/workflows/browser-extension-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "browser/extension/**"
+      - "browser/userscripts/agent-os-universal-capture.user.js"
+      - ".github/workflows/browser-extension-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: browser/extension/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build and test Firefox extension
+        working-directory: browser/extension
+        run: |
+          npm ci
+          npm test

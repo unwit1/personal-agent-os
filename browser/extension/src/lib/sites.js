@@ -935,7 +935,78 @@
         };
     }
 
-    var BUILTIN = [reddit, nexus, ao3, xenforo, ffn, youtube, steam, search, amazon];
+    // -- HeroBloks ---------------------------------------------------------------
+    // A figure's numeric ID is the identity; a character name can refer to
+    // many different brands, print runs and variants.
+    function herobloksFigureId(href, base) {
+        var url = parseUrl(href, base);
+        if (!url || !hostIs(url.hostname, "herobloks.com")) return "";
+        var match = url.pathname.match(/^\/figures\/(\d+)(?:\/|$)/i);
+        return match ? match[1] : "";
+    }
+
+    function herobloksFigureLinks(root) {
+        return Array.from(root.querySelectorAll("a[href*='/figures/']")).filter(function (link) {
+            return Boolean(herobloksFigureId(link.href, link.ownerDocument.baseURI));
+        });
+    }
+
+    function herobloksItemFor(link) {
+        // Prefer a recognizable card. Never hide a container holding *other*
+        // figure IDs, because that could remove an entire search result grid.
+        var ancestors = [];
+        var node = link.parentElement;
+        for (var depth = 0; node && depth < 4; depth += 1, node = node.parentElement) {
+            if (node.matches("main, body, html, nav, header, footer")) break;
+            ancestors.push(node);
+        }
+        function sameFigureOnly(candidate) {
+            var ids = new Set(herobloksFigureLinks(candidate).map(function (a) {
+                return herobloksFigureId(a.href, a.ownerDocument.baseURI);
+            }));
+            return ids.size === 1;
+        }
+        var chosen = ancestors.find(function (candidate) {
+            return candidate.matches("article, li, mat-card, .card, .figure-card, .figure-tile, .figure-item, .tile, .thumbnail, [class*='figure-card']") &&
+                sameFigureOnly(candidate);
+        });
+        if (!chosen) chosen = ancestors.find(sameFigureOnly);
+        return chosen || link;
+    }
+
+    var herobloks = {
+        scope: "herobloks",
+        matches: function (loc) { return hostIs(loc.hostname, "herobloks.com"); },
+        quickHide: true,
+        items: function (root) {
+            var ownPage = (root.location && root.location.pathname.match(/^\/figures\/(\d+)(?:\/|$)/i) || [])[1] || "";
+            var seen = new Set();
+            var out = [];
+            herobloksFigureLinks(root).forEach(function (link) {
+                var id = herobloksFigureId(link.href, root.baseURI);
+                // Never hide the figure detail page's own navigational links.
+                if (id === ownPage) return;
+                var item = herobloksItemFor(link);
+                if (!seen.has(item)) { seen.add(item); out.push(item); }
+            });
+            return out;
+        },
+        facets: function (item) {
+            var link = item.matches("a[href]") ? item : herobloksFigureLinks(item)[0];
+            var id = link ? herobloksFigureId(link.href, link.ownerDocument.baseURI) : "";
+            var image = link && link.querySelector("img[alt]") || item.querySelector("img[alt]");
+            return {
+                kind: "figure",
+                id: id ? "herobloks:figure:" + id : "",
+                title: text(item, "h2, h3, h4, .figure-name, .title") ||
+                    clean(link && (link.getAttribute("title") || link.textContent)) ||
+                    clean(image && image.alt)
+            };
+        },
+        exempt: function () { return {}; }
+    };
+
+    var BUILTIN = [reddit, nexus, ao3, xenforo, ffn, youtube, steam, search, amazon, herobloks];
 
     function adaptersFor(loc, doc, customSites) {
         var list = BUILTIN.filter(function (adapter) {
@@ -1043,7 +1114,7 @@
         ao3TagFromPath: ao3TagFromPath,
         byScope: {
             reddit: reddit, nexus: nexus, ao3: ao3, xenforo: xenforo, ffn: ffn,
-            youtube: youtube, steam: steam, search: search, amazon: amazon
+            youtube: youtube, steam: steam, search: search, amazon: amazon, herobloks: herobloks
         }
     };
 });
