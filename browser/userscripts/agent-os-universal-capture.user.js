@@ -3665,6 +3665,7 @@
     // figure is owned or alter a HeroBloks account. Brickmen can later ingest
     // this source with its original ID and URL.
     var HEROBLOKS_SAVED_KEY = "agent_os_herobloks_saved_v1";
+    var herobloksPending = new Set();
 
     function herobloksInfo(href) {
         try {
@@ -3687,7 +3688,7 @@
         base.source_id = info.sourceId;
         base.canonical_url = info.url;
         base.url = info.url;
-        var heading = document.querySelector("main h1, main h2, h1, h2");
+        var heading = document.querySelector("main h1, main h2, main h3, h1, h2");
         base.title = cleanText(heading && heading.textContent) ||
             base.title.replace(/^HeroBloks\s*-\s*/i, "").split(" - ")[0];
         base.metadata = Object.assign({}, base.metadata, {
@@ -3718,6 +3719,15 @@
 
     function captureHerobloks(info, title, image, button) {
         if (button.disabled) return;
+        var saved = GM_getValue(HEROBLOKS_SAVED_KEY, {});
+        var queue = GM_getValue(QUEUE_KEY, []);
+        if ((saved && saved[info.sourceId]) || (Array.isArray(queue) && queue.some(function (entry) {
+            return entry && entry.capture && entry.capture.source_id === info.sourceId;
+        })) || herobloksPending.has(info.sourceId)) {
+            herobloksCaptured(info, button);
+            return;
+        }
+        herobloksPending.add(info.sourceId);
         var capture = herobloksDetailAdapter(genericCapture());
         if (!capture || capture.source_id !== info.sourceId) {
             capture = genericCapture();
@@ -3738,6 +3748,7 @@
         // Reuse the capture transport/queue rather than creating another
         // endpoint or bypassing its deduplication checks.
         sendCapture(capture, null, function (result) {
+            herobloksPending.delete(info.sourceId);
             if (result === "saved") {
                 var saved = GM_getValue(HEROBLOKS_SAVED_KEY, {});
                 if (!saved || typeof saved !== "object") saved = {};
@@ -3768,10 +3779,13 @@
         if (!/^(?:www\.)?herobloks\.com$/i.test(hostname())) return;
         var own = herobloksInfo(location.href);
         if (own) {
-            var heading = document.querySelector("main h1, main h2, h1, h2");
+            var oldControls = document.getElementById("aos-herobloks-detail-controls");
+            if (oldControls && oldControls.dataset.figureId !== own.id) oldControls.remove();
+            var heading = document.querySelector("main h1, main h2, main h3, h1, h2");
             if (heading && !document.getElementById("aos-herobloks-detail-controls")) {
                 var controls = document.createElement("span");
                 controls.id = "aos-herobloks-detail-controls";
+                controls.dataset.figureId = own.id;
                 controls.style.cssText = "display:inline-flex;gap:8px;vertical-align:middle;margin:8px;flex-wrap:wrap";
                 var add = document.createElement("button");
                 buttonCss(add);
@@ -3821,8 +3835,12 @@
             var info = herobloksInfo(link.href);
             if (!info) return;
             var card = herobloksSingleFigureCard(link);
-            if (!card || card.dataset.aosHerobloksAdded === "1") return;
-            card.dataset.aosHerobloksAdded = "1";
+            if (!card) return;
+            if (card.dataset.aosHerobloksAdded && card.dataset.aosHerobloksAdded !== info.id) {
+                card.querySelectorAll(":scope > .aos-herobloks-save").forEach(function (old) { old.remove(); });
+            }
+            if (card.dataset.aosHerobloksAdded === info.id) return;
+            card.dataset.aosHerobloksAdded = info.id;
             var button = document.createElement("button");
             buttonCss(button);
             button.className = "agent-os-card-save aos-herobloks-save";
