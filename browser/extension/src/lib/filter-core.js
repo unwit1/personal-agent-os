@@ -47,6 +47,7 @@
         steam: "Steam Workshop",
         search: "Search engines",
         amazon: "Amazon",
+        herobloks: "HeroBloks minifigures",
         custom: "Custom sites"
     };
 
@@ -60,6 +61,7 @@
         steam: { enabled: true },
         search: { enabled: true },
         amazon: { enabled: true, hideSponsored: false },
+        herobloks: { enabled: true },
         custom: { enabled: true }
     };
 
