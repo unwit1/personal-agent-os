@@ -80,14 +80,16 @@ if ($Reinstall -or $missing) {
 
 # 3. Data folder and mode ----------------------------------------------------------------------------
 $shopCli = @($python, '-c', 'import sys; from agent_shopping.cli import main; sys.exit(main())')
+$cmdParts = @($shopCli)
 if ($Demo) {
   $env:AGENT_SHOPPING_HOME = Join-Path $env:USERPROFILE '.agent-os-shopping-demo'
-  $env:AGENT_SHOPPING_CMD = "`"$python`" -c `"import sys; from agent_shopping.cli import main; sys.exit(main())`" --demo-stores"
+  $cmdParts += '--demo-stores'
   Say "DEMO mode: invented stores and prices, kept in $env:AGENT_SHOPPING_HOME"
-} else {
-  if (-not $env:AGENT_SHOPPING_HOME) { $env:AGENT_SHOPPING_HOME = Join-Path $env:USERPROFILE '.agent-os-shopping' }
-  $env:AGENT_SHOPPING_CMD = "`"$python`" -c `"import sys; from agent_shopping.cli import main; sys.exit(main())`""
+} elseif (-not $env:AGENT_SHOPPING_HOME) {
+  $env:AGENT_SHOPPING_HOME = Join-Path $env:USERPROFILE '.agent-os-shopping'
 }
+# A JSON array survives paths with spaces; the adapter reads it without any shell quoting.
+$env:AGENT_SHOPPING_CMD = ConvertTo-Json -Compress -InputObject $cmdParts
 $firstRun = -not (Test-Path (Join-Path $env:AGENT_SHOPPING_HOME 'canonical'))
 New-Item -ItemType Directory -Force -Path $env:AGENT_SHOPPING_HOME | Out-Null
 Remove-Item Env:\LIVE_PURCHASES_ENABLED -ErrorAction SilentlyContinue   # this build is manual checkout only
@@ -96,6 +98,7 @@ Remove-Item Env:\LIVE_PURCHASES_ENABLED -ErrorAction SilentlyContinue   # this b
 if ($firstRun -and -not $Demo) {
   Say 'First run: turning on free, keyless sources (no account, no cost)'
   & $shopCli[0] $shopCli[1] $shopCli[2] --home $env:AGENT_SHOPPING_HOME stores add-free | Out-Null
+  if ($LASTEXITCODE -ne 0) { Say 'Could not turn on the free sources; the health check below says why.' }
 }
 
 # 5. Doctor ---------------------------------------------------------------------------------------------
@@ -107,10 +110,22 @@ if ($Demo) { $doctorArgs += '--demo-stores' }
 
 # Optional: scheduled price checks ---------------------------------------------------------------------
 if ($InstallWatchTask) {
-  $taskCmd = "`"$python`" -c `"import sys; from agent_shopping.cli import main; sys.exit(main())`" --home `"$env:AGENT_SHOPPING_HOME`" watch-due"
-  schtasks /Create /F /SC HOURLY /MO 2 /TN 'AgentOS Shopping watch' /TR $taskCmd | Out-Null
-  if ($LASTEXITCODE -eq 0) { Say "Scheduled 'AgentOS Shopping watch' every 2 hours. Remove: schtasks /Delete /TN `"AgentOS Shopping watch`" /F" }
-  else { Say 'Could not create the scheduled task (Task Scheduler said no). Price checks still run when you press Run watcher now.' }
+  # The task runs a small .cmd file, so no quotes have to survive schtasks argument passing.
+  $runner = Join-Path (Split-Path $VenvPath -Parent) $(if ($Demo) { 'shopping-watch-demo.cmd' } else { 'shopping-watch.cmd' })
+  $demoFlag = if ($Demo) { ' --demo-stores' } else { '' }
+  Set-Content -Path $runner -Encoding ASCII -Value @(
+    '@echo off',
+    "`"$python`" -c `"import sys; from agent_shopping.cli import main; sys.exit(main())`" --home `"$env:AGENT_SHOPPING_HOME`"$demoFlag watch-due"
+  )
+  $taskName = if ($Demo) { 'AgentOS Shopping watch (demo)' } else { 'AgentOS Shopping watch' }
+  try {
+    $action = New-ScheduledTaskAction -Execute $runner          # typed value: spaces in the path are fine
+    $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(5) -RepetitionInterval (New-TimeSpan -Hours 2)
+    Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Force | Out-Null
+    Say "Scheduled '$taskName' every 2 hours. Remove: Unregister-ScheduledTask -TaskName '$taskName'"
+  } catch {
+    Say "Could not create the scheduled task ($($_.Exception.Message)). Price checks still run when you press Run watcher now."
+  }
 }
 
 # 6. Start the window ------------------------------------------------------------------------------------

@@ -57,11 +57,24 @@ def _error(code: str, message: str, *, retryable: bool = False, hint: str = "") 
     return {"ok": False, "error": {"code": code, "message": message, "retryable": retryable, "hint": hint}}
 
 
+def parse_command(text: str) -> list[str]:
+    """``AGENT_SHOPPING_CMD``: a JSON array (preferred, what the Windows launcher writes) or a shell-style string."""
+    if text.startswith("["):
+        value = json.loads(text)
+        if not isinstance(value, list) or not value or not all(isinstance(x, str) for x in value):
+            raise ValueError("AGENT_SHOPPING_CMD must be a JSON array of strings")
+        return value
+    if os.name != "nt":
+        return shlex.split(text)
+    # Windows: non-POSIX shlex keeps quote characters inside tokens; strip one surrounding pair.
+    return [t[1:-1] if len(t) >= 2 and t[0] == t[-1] and t[0] in "\"'" else t for t in shlex.split(text, posix=False)]
+
+
 def locate_command() -> list[str] | None:
     """Find the Shopping CLI without any hard-coded user or checkout path."""
-    configured = os.environ.get("AGENT_SHOPPING_CMD")
+    configured = (os.environ.get("AGENT_SHOPPING_CMD") or "").strip()
     if configured:
-        return shlex.split(configured, posix=os.name != "nt")
+        return parse_command(configured)
     exe = shutil.which("agent-shopping")
     if exe:
         return [exe]
@@ -86,6 +99,7 @@ class ShoppingAdapter:
         self.timeout = timeout
         self._contract: dict[str, Any] | None = None
         self._seen: OrderedDict[str, dict[str, Any]] = OrderedDict()
+        self._inflight: set[str] = set()
         self._lock = threading.Lock()
 
     # -- process boundary --------------------------------------------------------------
@@ -155,6 +169,17 @@ class ShoppingAdapter:
             with self._lock:
                 if request_id in self._seen:
                     return {**self._seen[request_id], "duplicate": True}
+                if request_id in self._inflight:
+                    return _error("duplicate_in_progress", "This request is already being handled.", retryable=True)
+                self._inflight.add(request_id)
+            try:
+                return self._call_once(op, args, request_id)
+            finally:
+                with self._lock:
+                    self._inflight.discard(request_id)
+        return self._call_once(op, args, None)
+
+    def _call_once(self, op: str, args: dict[str, Any], request_id: str | None) -> dict[str, Any]:
         if op != "shopping.contract":
             negotiated = self.contract()
             if not negotiated["ok"]:

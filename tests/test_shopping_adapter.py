@@ -111,6 +111,42 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(argv[argv.index("--profile") + 1], "alex")
 
 
+class CommandParsingTests(unittest.TestCase):
+    def test_json_array_survives_paths_with_spaces(self):
+        from agent_os.shopping_adapter import parse_command
+        cmd = r'["C:\\Users\\Jo Smith\\venv\\python.exe","-c","import sys; from agent_shopping.cli import main; sys.exit(main())","--demo-stores"]'
+        self.assertEqual(parse_command(cmd), [r"C:\Users\Jo Smith\venv\python.exe", "-c",
+                                              "import sys; from agent_shopping.cli import main; sys.exit(main())", "--demo-stores"])
+
+    def test_windows_style_string_has_no_stray_quotes(self):
+        from unittest import mock
+        from agent_os import shopping_adapter
+        with mock.patch.object(shopping_adapter.os, "name", "nt"):
+            got = shopping_adapter.parse_command('"C:\\Program Files\\Py\\python.exe" "C:\\x y\\shopping.py" --demo-stores')
+        self.assertEqual(got, ["C:\\Program Files\\Py\\python.exe", "C:\\x y\\shopping.py", "--demo-stores"])
+
+    def test_concurrent_duplicate_write_runs_once(self):
+        import time
+        started = threading.Event()
+
+        def slow(n):
+            started.set()
+            time.sleep(0.3)
+            return {"ok": True, "result": {}}
+
+        runner = FakeRunner({"shopping.wishlist.add": slow})
+        a = adapter(runner)
+        a.contract()
+        results = []
+        t = threading.Thread(target=lambda: results.append(a.call("shopping.wishlist.add", {"want": {}}, request_id="same")))
+        t.start()
+        started.wait(2)
+        second = a.call("shopping.wishlist.add", {"want": {}}, request_id="same")
+        t.join()
+        self.assertEqual(second["error"]["code"], "duplicate_in_progress")
+        self.assertEqual([c[0] for c in runner.calls].count("shopping.wishlist.add"), 1)
+
+
 class WindowRouteTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()

@@ -381,7 +381,7 @@ const ShoppingTab = (() => {
   }
 
   function activate() {
-    document.querySelectorAll('.tab').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected', 'false'); });
+    document.querySelectorAll('.tab[role="tab"]').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected', 'false'); });
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('on'));
     const tab = document.getElementById('tab-shopping');
     tab.classList.add('on'); tab.setAttribute('aria-selected', 'true');
