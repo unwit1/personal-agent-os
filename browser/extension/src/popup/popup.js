@@ -205,6 +205,26 @@ async function renderTasks() {
     });
 }
 
+async function renderCollector() {
+    var web = activeTab && /^https?:/.test(activeTab.url || "");
+    $("collector-toggle").disabled = !web;
+    if (!web) { $("collector-state").textContent = ""; return; }
+    var status = await browser.runtime.sendMessage({ type: "collector-status", tab_id: activeTab.id });
+    $("collector-state").textContent = status.here ? (status.paused ? "(paused)" : "(this tab)") : (status.elsewhere ? "(another tab)" : "(off)");
+    $("collector-toggle").textContent = status.here ? "Stop collector in this tab"
+        : (status.elsewhere ? "Move the collector to this tab" : "Make this the collector tab");
+    $("collector-resume").hidden = !status.paused;
+    $("collector-toggle").onclick = async function () {
+        var result = await browser.runtime.sendMessage({ type: "collector-set", tab_id: activeTab.id, on: !status.here });
+        if (result && result.ok === false) $("collector-state").textContent = "(" + result.error + ")";
+        renderCollector();
+    };
+    $("collector-resume").onclick = async function () {
+        await browser.runtime.sendMessage({ type: "collector-resume", tab_id: activeTab.id });
+        renderCollector();
+    };
+}
+
 $("new-task").addEventListener("click", function () {
     var url = activeTab && /^https?:/.test(activeTab.url || "") ? activeTab.url : "";
     browser.tabs.create({ url: browser.runtime.getURL("options/options.html#tasks" + (url ? "?url=" + encodeURIComponent(url) : "")) });
@@ -224,4 +244,5 @@ browser.tabs.query({ active: true, currentWindow: true }).then(function (tabs) {
     renderCommands();
     renderRoutines();
     renderTasks();
+    renderCollector();
 });

@@ -1,12 +1,25 @@
 # Agent OS for Firefox
 
-One extension that replaces the Tampermonkey userscript and the Reddit Subreddit Hider add-on:
+One extension that replaces the Tampermonkey userscripts (Universal Capture, Shopping collector) and the Reddit Subreddit Hider add-on:
 
 - **Capture**: the Universal Capture userscript (`../userscripts/agent-os-universal-capture.user.js`) is bundled unchanged at build time and runs on a GM_* shim (`src/content/gm-shim.js`). That covers per-item save buttons, the browser journal, Discord indexing, Amazon cart import, HeroBloks minifigure reference capture, and every menu command (toolbar popup → *Capture tools*).
 - **Content filters**: hide items by rule on Reddit (subreddit, user, domain, flair, keyword, promoted, NSFW), Nexus Mods (tag, uploader/author, category, game, adult, translations — on by default, detected from Nexus's Translation tag, translated-title wording and language-only tags; tags come from the public Nexus GraphQL API and are cached for 3 days), AO3 (tag, fandom, author, rating, warning, category, language, fandom-count, word-count, WIP), XenForo forums such as SpaceBattles, Sufficient Velocity and QQ (author, prefix, tag, forum; posts by hidden authors collapse inside threads), FanFiction.net, YouTube (channel, keyword, Shorts), Steam Workshop, Google/DuckDuckGo/Bing results (domain), Amazon (sponsored), HeroBloks (individual figure IDs), and any custom site defined by CSS selectors.
 - **Old Reddit**: `www.`, `new.` and `np.reddit.com` page loads redirect to `old.reddit.com`. Pages old Reddit cannot show are left alone (`/media`, share links `/s/…`, chat, settings). Add `?aos_new=1` to a URL to open it on new Reddit once. You can toggle this in the popup or options.
 - **Agent OS bridge**: pairs with `agent-os browser-bridge` through a native-messaging helper (no token pasting), starts the bridge when it is down, registers each tab as a session, and executes `browser.execute` commands. The safety gate always refuses typing into credential, payment or identity fields, and pauses consequential clicks (submit/send/delete/buy…) with `approval_required` unless the command is approved.
 - **Preference sync**: rule changes are sent to the bridge as a `content-filters` / `rules_snapshot` event, so Agent OS knows what you hide.
+
+## Shopping collector (replaces the Tampermonkey collector)
+
+Agent OS Shopping reads stores that block ordinary automated access (Amazon, Walmart, Target, Lowe's and others) in **one tab you choose**. This used to need a separate Tampermonkey userscript and a pasted bridge token; it is now built in and uses the extension's own bridge pairing.
+
+- **Turn it on:** open a store page, then toolbar button → *Shopping collector* → *Make this the collector tab* (or right-click → *Agent OS → Make this the Shopping collector tab*). A blue badge appears in that tab. Only one tab is the collector; choosing another moves it.
+- **What it can do:** only `navigate`, `wait`, `scroll` and `extract` (JSON-LD, `__NEXT_DATA__`, meta tags, product tiles, sibling-cell grids). A command containing anything else (click, type, open_tab…) is refused before any step runs. It never clicks, types, signs in or buys.
+- **Human checks:** on a CAPTCHA, "verify you are human" or access-denied page it stops, shows a red badge, and reports `approval_required` to Shopping. It also withdraws its collector capability right away, so Shopping stops sending work instead of waiting for a timeout. Handle the check yourself if you like, then choose *Resume after human check* (popup) or *Resume Shopping collector* (right-click).
+- **How Shopping finds it:** the tab gets a second bridge session, `firefox-<install>-collector-<tab>`, separate from its normal Agent OS session, advertising `capabilities.shopping_collector`. Results use the userscript's shape (`{url, title, steps: [{kind, data}]}`), so Agent OS Shopping needs no changes. Pacing and daily caps stay in Shopping.
+- **Limits:** the collector setting does not survive a Firefox restart (tab ids change); mark the tab again. Recipes (search URLs, selectors) live in Shopping's `browser_collection.RECIPES`.
+- **Tampermonkey copy:** collector userscript v0.1.6+ stands down when it sees this extension. Older copies do not: disable *Agent OS Shopping Collector* in Tampermonkey.
+
+Code: `src/lib/collector-core.js` (page reading, human-check detection), `src/content/collector.js`, `src/background-collector.js`. Tests: `tests/collector.test.js` (needs Python with Agent OS importable; it also parses the result with Shopping's parser when `agent_shopping` is installed).
 
 ## Scheduled tasks (recorded clicks and sign-ins)
 
@@ -71,7 +84,7 @@ Optional tests: `AOS_NETWORK_TESTS=1` calls the live Nexus API. `AOS_LIVE_FIXTUR
 
    For a quick trial without signing: `about:debugging` → *This Firefox* → *Load Temporary Add-on…* → `dist/agent-os-firefox/manifest.json` (removed when Firefox restarts).
 
-3. Disable the Tampermonkey copy of *Agent OS Universal Capture* and the *Reddit Subreddit Hider* add-on. Userscript v3.13.0+ stands down automatically when it sees the extension, but older copies do not.
+3. Disable the Tampermonkey copies of *Agent OS Universal Capture* and *Agent OS Shopping Collector*, and the *Reddit Subreddit Hider* add-on. Userscript v3.13.0+ stands down automatically when it sees the extension, but older copies do not.
 
 If you had a remote (Apps Script) capture endpoint configured in Tampermonkey, enter it again under *Options → Agent OS & capture*. The bridge pairs on its own.
 
@@ -84,6 +97,9 @@ If you had a remote (Apps Script) capture endpoint configured in Tampermonkey, e
     src/content/filter.js/.css  in-page hiding, ⊘ buttons, counter, context-menu answers
     src/content/gm-shim.js      Tampermonkey API on browser.storage.local ("gm:" keys)
     src/content/executor.js     bridge DOM actions + safety gate
+    src/background-collector.js Shopping collector tab: its own bridge session, read-only command runner, pause on human checks
+    src/lib/collector-core.js   collector page reading + human-check detection (shared with tests)
+    src/content/collector.js    collector page side and badge
     src/popup, src/options      toolbar popup and settings page
     native/                     native-messaging host (bridge token handoff + auto-start)
     tools/                      build/sign and native-host installer

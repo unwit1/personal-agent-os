@@ -601,6 +601,7 @@ async function bridgeTickInner() {
                 await pollCommands(tab);
             }
         }
+        if (typeof collectorTick === "function") await collectorTick();   // background-collector.js
     } catch (error) {
         bridgeBackoffUntil = Date.now() + (error.code === "unauthorized" ? 5000 : 20000);
     }
@@ -637,12 +638,20 @@ function createMenus() {
         browser.menus.create({ id: "aos-save", parentId: MENU_ROOT, title: "Save page to Agent OS", contexts: ["page", "selection", "link", "image"] });
         browser.menus.create({ id: "aos-reveal", parentId: MENU_ROOT, title: "Show / re-hide filtered items", contexts: ["all"] });
         browser.menus.create({ id: "aos-options", parentId: MENU_ROOT, title: "Manage filters…", contexts: ["all"] });
+        browser.menus.create({ id: "aos-sep-2", parentId: MENU_ROOT, type: "separator", contexts: ["page"] });
+        browser.menus.create({ id: "aos-collector", parentId: MENU_ROOT, title: "Make this the Shopping collector tab", contexts: ["page"] });
+        browser.menus.create({ id: "aos-collector-resume", parentId: MENU_ROOT, title: "Resume Shopping collector", visible: false, contexts: ["page"] });
     });
 }
 
 browser.menus.onShown.addListener(async function (info, tab) {
     if (!info.menuIds || info.menuIds.indexOf(MENU_ROOT) === -1 || !tab) return;
     var instance = ++menuInstance;
+    if (typeof collectorStatus === "function") {
+        var collector = await collectorStatus(tab.id);
+        browser.menus.update("aos-collector", { title: collector.here ? "Stop Shopping collector in this tab" : "Make this the Shopping collector tab" });
+        browser.menus.update("aos-collector-resume", { visible: collector.paused });
+    }
     var options = [];
     try {
         var response = await browser.tabs.sendMessage(tab.id, { type: "filters-context-options" });
@@ -680,6 +689,10 @@ browser.menus.onClicked.addListener(function (info, tab) {
         }).catch(function () {});
     } else if (info.menuItemId === "aos-options") {
         browser.runtime.openOptionsPage();
+    } else if (info.menuItemId === "aos-collector" && tab) {
+        collectorStatus(tab.id).then(function (status) { return setCollector(tab.id, !status.here); }).catch(function () {});
+    } else if (info.menuItemId === "aos-collector-resume" && tab) {
+        resumeCollector(tab.id).catch(function () {});
     }
 });
 
@@ -742,6 +755,10 @@ browser.runtime.onMessage.addListener(function (message, sender) {
                 payload: Object.assign({ version: browser.runtime.getManifest().version }, message.entry)
             }] }
         }).catch(function () { return { ok: false }; });
+    case "collector-set":
+    case "collector-resume":
+    case "collector-status":
+        return collectorMessage(message, sender);
     case "nexus-lookup":
         return nexusLookup(message.items || []);
     case "filters-get":
