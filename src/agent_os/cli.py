@@ -182,6 +182,7 @@ def _register_executive(commands) -> None:
     window = sub.add_parser("window")
     window.add_argument("--port", type=int, default=8770)
     window.add_argument("--no-open", action="store_true")
+    window.add_argument("--tab", choices=["shopping"], default=None, help="open straight to this tab")
     next_action = sub.add_parser("next")
     next_action.add_argument("--tab", choices=["work", "personal"], default=None)
     explain = sub.add_parser("explain")
@@ -292,7 +293,7 @@ def _dispatch_executive(args) -> int:
         _print({"approval": approval, "dry_run": not args.confirm, "result": result})
     elif cmd == "window":
         from .executive.window import server
-        return server.serve(port=args.port, open_window=not args.no_open)
+        return server.serve(port=args.port, open_window=not args.no_open, tab=args.tab)
     elif cmd == "next":
         from .executive import next_action
 

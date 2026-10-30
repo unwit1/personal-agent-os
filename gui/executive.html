@@ -6,6 +6,7 @@
   <meta name="agent-os-token" content="{{TOKEN}}">
   <title>Agent OS Executive</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="shopping.css">
 </head>
 <body>
   <header class="topbar">
@@ -21,6 +22,7 @@
       <div class="tabs" role="tablist">
         <button id="tab-work" class="tab on" role="tab" aria-selected="true">Work</button>
         <button id="tab-personal" class="tab" role="tab" aria-selected="false">Personal</button>
+        <button id="tab-shopping" class="tab" role="tab" aria-selected="false">Shopping</button>
         <button id="rescue-toggle" type="button" class="tab" aria-pressed="false">Rescue</button>
       </div>
 
@@ -32,6 +34,7 @@
         <div id="personal-tab" class="tab-content">
           <div id="personal-items" class="items-list"></div>
         </div>
+        <div id="shopping-tab" class="tab-content shopping-tab"></div>
       </div>
     </div>
 
@@ -264,5 +267,6 @@
   </style>
 
   <script src="executive.js"></script>
+  <script src="shopping.js"></script>
 </body>
 </html>

@@ -33,6 +33,8 @@ STATIC_FILES = {
     "/executive.html": ("executive.html", "text/html; charset=utf-8"),
     "/executive.js": ("executive.js", "text/javascript; charset=utf-8"),
     "/style.css": ("style.css", "text/css; charset=utf-8"),
+    "/shopping.css": ("shopping.css", "text/css; charset=utf-8"),
+    "/shopping.js": ("shopping.js", "text/javascript; charset=utf-8"),
 }
 TOKEN_PLACEHOLDERS = (b"{{TOKEN}}", b"__AGENT_OS_TOKEN__")
 LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
@@ -55,8 +57,9 @@ def _known_projects() -> list[dict]:
 
 class Api:
     def __init__(self, registry: Any, bridge: Any, home: Path, transport: Any = None,
-                 gateway_factory: Any = None) -> None:
+                 gateway_factory: Any = None, shopping: Any = None) -> None:
         self.registry = registry
+        self._shopping = shopping
         if transport is None:
             from .transport import default_transport
 
@@ -120,6 +123,14 @@ class Api:
                     "previews": self._previews(), "opening_event": event}
         return {"message": "Confirm to update openings", "previews": self._previews(), "opening_event": event}
 
+    @property
+    def shopping(self) -> Any:
+        if self._shopping is None:
+            from agent_os.shopping_adapter import ShoppingAdapter
+
+            self._shopping = ShoppingAdapter()
+        return self._shopping
+
     # -- routes ---------------------------------------------------------------
 
     def get(self, path: str, query: dict[str, list[str]]) -> Any:
@@ -156,6 +167,19 @@ class Api:
                     "message": f"Captured {len(added)} item(s); {len(result['clarifications'])} need a project; {len(result['duplicates'])} duplicate(s)."}
         if path == "/api/pending":
             return self._pending_view()
+        if path == "/api/shopping":
+            # Token-protected POST only: wishlist and price data are not readable by a cross-origin GET.
+            op = str(body.get("op") or "")
+            if not op:
+                raise ValueError("op is required")
+            if op == "health":
+                return self.shopping.health()
+            args = body.get("args") or {}
+            if not isinstance(args, dict):
+                raise ValueError("args must be an object")
+            if op == "shopping.research.start":
+                args = {**args, "detach": True}      # the adapter is one process per call; research must outlive it
+            return self.shopping.call(op, args, request_id=str(body.get("request_id") or "") or None)
         if path == "/api/act":
             item = self._item(body.get("item_id"))
             params = body.get("params") or {}
@@ -369,7 +393,7 @@ def _bind_exclusive(host: str, port: int, handler: Any, attempts: int = 20) -> T
 
 def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, bridge: Any = None,
                  home: Path | str | None = None, transport: Any = None,
-                 gateway_factory: Any = None) -> tuple[ThreadingHTTPServer, str]:
+                 gateway_factory: Any = None, shopping: Any = None) -> tuple[ThreadingHTTPServer, str]:
     if host not in LOOPBACK_HOSTS:
         raise ValueError("the Executive window only binds to loopback")
     home_path = window_home(home)
@@ -380,7 +404,7 @@ def build_server(host: str = "127.0.0.1", port: int = 0, registry: Any = None, b
     if bridge is None:
         bridge = model_bridge.ChatBridge(home_path)
     token = secrets.token_urlsafe(24)
-    api = Api(registry, bridge, home_path, transport=transport, gateway_factory=gateway_factory)
+    api = Api(registry, bridge, home_path, transport=transport, gateway_factory=gateway_factory, shopping=shopping)
     server = _bind_exclusive(host, port, make_handler(api, token, set()))
     actual = server.server_address[1]
     allowed = {f"{name}:{actual}".casefold() for name in ("127.0.0.1", "localhost", "[::1]")}
@@ -414,12 +438,14 @@ def open_app_window(url: str) -> None:
     webbrowser.open(url)
 
 
-def serve(port: int = 0, open_window: bool = True, host: str = "127.0.0.1", home: Path | str | None = None) -> int:
+def serve(port: int = 0, open_window: bool = True, host: str = "127.0.0.1", home: Path | str | None = None,
+          tab: str | None = None) -> int:
     server, _token = build_server(host, port, home=home)
     url = f"http://{host}:{server.server_address[1]}/"
     print(json.dumps({"executive_window": url, "note": "Ctrl+C closes the server"}), flush=True)
     if open_window:
-        threading.Timer(0.5, lambda: open_app_window(url)).start()
+        target = url + (f"#{tab}" if tab else "")
+        threading.Timer(0.5, lambda: open_app_window(target)).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
