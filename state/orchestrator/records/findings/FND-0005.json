@@ -1,0 +1,32 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0005",
+  "type": "FND",
+  "title": "Single-sample capability numbers are unreliable; this task family is too ambiguous to qualify routes",
+  "status": "accepted",
+  "summary": "Sonnet scored 0.80, 0.55 and 0.70 on identical calls; its earlier single-sample 0.75 (EVR-0005) was one draw. With 3 samples all three routes are indistinguishable (0.67-0.70, overlapping item-level intervals), voting adds <= 0.05, and only 2 of 20 items are answered identically across 9 samples. Consequences: (1) CAP comparisons need multiple samples before any routing claim (policy min_samples_for_qualification = 10 is justified); (2) research_implementation_classification, as defined, measures label/rubric ambiguity more than model capability; (3) route qualification should use task families with objective, deterministic ground truth.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EVR-0006"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "EXP-0001"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0005"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0004"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0002 -> ORCH-0003 (EXP-0001)",
+    "author_tier": "frontier (Opus 5.5) analysis of deterministic eval output"
+  },
+  "created_at": "2026-09-29T02:40:00+00:00",
+  "updated_at": "2026-09-29T02:40:00+00:00"
+}

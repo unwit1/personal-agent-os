@@ -1,0 +1,719 @@
+{
+  "schema": "personal-agent/eval-cases/v1",
+  "suite": "EVS-TEST-SELECTION",
+  "split": "development",
+  "task_family": "affected_test_selection",
+  "base_commit": "e87ed69a38ee",
+  "label_rule": "expected_tests = test modules (tests/test_*.py) that call at least one function or method defined in any changed file, traced per module at base_commit (module-level import execution does not count; subprocess-launched code is not traced). See DEC-0006.",
+  "pass_rule": "case passes when recall == 1.0 and precision >= 0.5; an empty label passes only on an empty selection",
+  "trace_digest": "a94451c7bad934cf",
+  "test_modules": 46,
+  "label_seconds": 170.7,
+  "cases": [
+    {
+      "id": "EVC-ATS-e6d1f35a0d",
+      "input_ref": "e6d1f35a0d17",
+      "changed_files": [
+        "src/agent_os/orchestrator/cli.py",
+        "src/agent_os/orchestrator/eval.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-9d769828a2",
+      "input_ref": "9d769828a2bc",
+      "changed_files": [
+        "src/agent_os/orchestrator/capability.py"
+      ],
+      "expected_tests": [
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_eval"
+      ]
+    },
+    {
+      "id": "EVC-ATS-fa15466efb",
+      "input_ref": "fa15466efbac",
+      "changed_files": [
+        "src/agent_os/orchestrator/capability.py",
+        "src/agent_os/orchestrator/cli.py",
+        "src/agent_os/orchestrator/eval.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-c16898d596",
+      "input_ref": "c16898d59606",
+      "changed_files": [
+        "src/agent_os/mcp_server.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces"
+      ]
+    },
+    {
+      "id": "EVC-ATS-b8c6f4b04b",
+      "input_ref": "b8c6f4b04b87",
+      "changed_files": [
+        "src/agent_os/browser_control.py"
+      ],
+      "expected_tests": []
+    },
+    {
+      "id": "EVC-ATS-455ea84c3c",
+      "input_ref": "455ea84c3c4c",
+      "changed_files": [
+        "src/agent_os/cli.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-a3e2ad16e6",
+      "input_ref": "a3e2ad16e666",
+      "changed_files": [
+        "src/agent_os/browser_bridge_server.py"
+      ],
+      "expected_tests": []
+    },
+    {
+      "id": "EVC-ATS-d071b053e5",
+      "input_ref": "d071b053e55e",
+      "changed_files": [
+        "src/agent_os/browser_bridge.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_browser_bridge",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-98d90af080",
+      "input_ref": "98d90af08012",
+      "changed_files": [
+        "src/agent_os/creator_profiles.py"
+      ],
+      "expected_tests": []
+    },
+    {
+      "id": "EVC-ATS-61f087906f",
+      "input_ref": "61f087906f4f",
+      "changed_files": [
+        "src/agent_os/maintenance.py"
+      ],
+      "expected_tests": []
+    },
+    {
+      "id": "EVC-ATS-27aca59498",
+      "input_ref": "27aca59498fb",
+      "changed_files": [
+        "src/agent_os/watching.py"
+      ],
+      "expected_tests": []
+    },
+    {
+      "id": "EVC-ATS-dc17b5eb77",
+      "input_ref": "dc17b5eb77ff",
+      "changed_files": [
+        "src/agent_os/workflows.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_workflows"
+      ]
+    },
+    {
+      "id": "EVC-ATS-6034e31bb2",
+      "input_ref": "6034e31bb2bd",
+      "changed_files": [
+        "src/agent_os/orchestrator/service.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-20697e974c",
+      "input_ref": "20697e974c9a",
+      "changed_files": [
+        "src/agent_os/orchestrator/models.py",
+        "src/agent_os/orchestrator/service.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_model_value",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-f8b8fe2c06",
+      "input_ref": "f8b8fe2c0610",
+      "changed_files": [
+        "src/agent_os/orchestrator/model_value.py"
+      ],
+      "expected_tests": [
+        "tests.test_model_value",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator_models"
+      ]
+    },
+    {
+      "id": "EVC-ATS-42fa923713",
+      "input_ref": "42fa92371381",
+      "changed_files": [
+        "src/agent_os/orchestrator/model_prices.py"
+      ],
+      "expected_tests": [
+        "tests.test_model_prices",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator_models"
+      ]
+    },
+    {
+      "id": "EVC-ATS-4e72555d3e",
+      "input_ref": "4e72555d3e49",
+      "changed_files": [
+        "src/agent_os/compiler.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_coordination",
+        "tests.test_economy",
+        "tests.test_handoffs_import",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_portability",
+        "tests.test_profile",
+        "tests.test_workflows"
+      ]
+    },
+    {
+      "id": "EVC-ATS-074e8b350c",
+      "input_ref": "074e8b350cfd",
+      "changed_files": [
+        "src/agent_os/connectors.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_connectors",
+        "tests.test_surfaces"
+      ]
+    },
+    {
+      "id": "EVC-ATS-f9dd15b120",
+      "input_ref": "f9dd15b1207d",
+      "changed_files": [
+        "src/agent_os/rtec_applicants.py"
+      ],
+      "expected_tests": [
+        "tests.test_rtec_applicants"
+      ]
+    },
+    {
+      "id": "EVC-ATS-e10df2d080",
+      "input_ref": "e10df2d0801b",
+      "changed_files": [
+        "src/agent_os/validation.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os"
+      ]
+    },
+    {
+      "id": "EVC-ATS-db3c4c1d80",
+      "input_ref": "db3c4c1d8044",
+      "changed_files": [
+        "src/agent_os/forms.py"
+      ],
+      "expected_tests": [
+        "tests.test_capture_systems",
+        "tests.test_forms_import"
+      ]
+    },
+    {
+      "id": "EVC-ATS-a46d9818ed",
+      "input_ref": "a46d9818ed80",
+      "changed_files": [
+        "src/agent_os/documents.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_documents",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry",
+        "tests.test_timestamps",
+        "tests.test_workflows"
+      ]
+    },
+    {
+      "id": "EVC-ATS-e84dd10955",
+      "input_ref": "e84dd10955ac",
+      "changed_files": [
+        "src/agent_os/machine.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_coordination",
+        "tests.test_economy",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_benchmark",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_portability",
+        "tests.test_profile",
+        "tests.test_surfaces",
+        "tests.test_workflows"
+      ]
+    },
+    {
+      "id": "EVC-ATS-3a542d8cd3",
+      "input_ref": "3a542d8cd330",
+      "changed_files": [
+        "src/agent_os/orchestrator/engine.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_model_prices",
+        "tests.test_model_value",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_benchmark",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-d76df26bd6",
+      "input_ref": "d76df26bd65b",
+      "changed_files": [
+        "src/agent_os/recovery.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_recovery",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-25217b153d",
+      "input_ref": "25217b153d6c",
+      "changed_files": [
+        "src/agent_os/surfaces.py",
+        "src/agent_os/validation.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_surfaces"
+      ]
+    },
+    {
+      "id": "EVC-ATS-d698953c4d",
+      "input_ref": "d698953c4d8f",
+      "changed_files": [
+        "src/agent_os/cli.py",
+        "src/agent_os/connectors.py",
+        "src/agent_os/mcp_server.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-3687c4f02c",
+      "input_ref": "3687c4f02c06",
+      "changed_files": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/model.py",
+        "src/agent_os/orchestrator/planner.py",
+        "src/agent_os/orchestrator/prompts.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_model_prices",
+        "tests.test_model_value",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_benchmark",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-6debf61172",
+      "input_ref": "6debf611724a",
+      "changed_files": [
+        "src/agent_os/connectors.py",
+        "src/agent_os/mcp_server.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces"
+      ]
+    },
+    {
+      "id": "EVC-ATS-f3119bc73c",
+      "input_ref": "f3119bc73c34",
+      "changed_files": [
+        "src/agent_os/orchestrator/adapters/base.py",
+        "src/agent_os/orchestrator/service.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_model_prices",
+        "tests.test_model_value",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_benchmark",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-4d95d3e3a6",
+      "input_ref": "4d95d3e3a6b0",
+      "changed_files": [
+        "src/agent_os/orchestrator/prompts.py"
+      ],
+      "expected_tests": [
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_benchmark",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_orchestrator_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-067f8dde6d",
+      "input_ref": "067f8dde6dfe",
+      "changed_files": [
+        "src/agent_os/surfaces.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_surfaces"
+      ]
+    },
+    {
+      "id": "EVC-ATS-4821dc298a",
+      "input_ref": "4821dc298a93",
+      "changed_files": [
+        "src/agent_os/orchestrator/engine.py",
+        "src/agent_os/orchestrator/model.py",
+        "src/agent_os/orchestrator/router.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail_accounts",
+        "tests.test_model_prices",
+        "tests.test_model_value",
+        "tests.test_model_value_wiring",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_benchmark",
+        "tests.test_orchestrator_control_plane",
+        "tests.test_orchestrator_economy",
+        "tests.test_orchestrator_eval",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_models",
+        "tests.test_orchestrator_overhead",
+        "tests.test_orchestrator_planner_context",
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-b704a03a3f",
+      "input_ref": "b704a03a3f86",
+      "changed_files": [
+        "src/agent_os/mail/pst.py"
+      ],
+      "expected_tests": [
+        "tests.test_mail_accounts"
+      ]
+    },
+    {
+      "id": "EVC-ATS-3053ef7f00",
+      "input_ref": "3053ef7f0064",
+      "changed_files": [
+        "src/agent_os/orchestrator/repos.py",
+        "src/agent_os/orchestrator/server.py"
+      ],
+      "expected_tests": [
+        "tests.test_orchestrator_repos",
+        "tests.test_orchestrator_roadmap",
+        "tests.test_orchestrator_surfaces"
+      ]
+    },
+    {
+      "id": "EVC-ATS-8eb5591e49",
+      "input_ref": "8eb5591e49a2",
+      "changed_files": [
+        "src/agent_os/mail/__init__.py",
+        "src/agent_os/mail/attachments.py",
+        "src/agent_os/mail/cli.py",
+        "src/agent_os/mail/engine.py",
+        "src/agent_os/mail/pst.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-6d0d966e1f",
+      "input_ref": "6d0d966e1f36",
+      "changed_files": [
+        "src/agent_os/mail/accounts.py",
+        "src/agent_os/mail/cli.py",
+        "src/agent_os/mail/engine.py",
+        "src/agent_os/mail/imap.py",
+        "src/agent_os/mail/setup_window.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_capture_systems",
+        "tests.test_connectors",
+        "tests.test_mail",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_portability",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-c378bc92f5",
+      "input_ref": "c378bc92f593",
+      "changed_files": [
+        "src/agent_os/mail/cli.py",
+        "src/agent_os/mail/setup_window.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-6e63830bcd",
+      "input_ref": "6e63830bcdf1",
+      "changed_files": [
+        "src/agent_os/orchestrator/cli.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_mail_accounts",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_surfaces",
+        "tests.test_telemetry"
+      ]
+    },
+    {
+      "id": "EVC-ATS-34f72aa5c0",
+      "input_ref": "34f72aa5c01f",
+      "changed_files": [
+        "src/agent_os/ingestion.py"
+      ],
+      "expected_tests": [
+        "tests.test_agent_os",
+        "tests.test_candidates",
+        "tests.test_capture_systems",
+        "tests.test_changes_import",
+        "tests.test_connectors",
+        "tests.test_coordination",
+        "tests.test_documents",
+        "tests.test_economy",
+        "tests.test_forms_import",
+        "tests.test_google_drive",
+        "tests.test_handoffs_import",
+        "tests.test_improvements_import",
+        "tests.test_index",
+        "tests.test_ingestion",
+        "tests.test_mail",
+        "tests.test_mail_accounts",
+        "tests.test_normalization",
+        "tests.test_orchestrator",
+        "tests.test_orchestrator_host_actions",
+        "tests.test_orchestrator_surfaces",
+        "tests.test_orchestrator_telemetry",
+        "tests.test_portability",
+        "tests.test_profile",
+        "tests.test_rtec_applicants",
+        "tests.test_surfaces",
+        "tests.test_telemetry",
+        "tests.test_timestamps",
+        "tests.test_workflows"
+      ]
+    }
+  ]
+}

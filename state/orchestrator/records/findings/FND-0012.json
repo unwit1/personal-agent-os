@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0012",
+  "type": "FND",
+  "title": "Cross-dimension contradictions expose scorer bugs",
+  "status": "accepted",
+  "summary": "EXP-0007's first scoring showed 16/16 correct fields together with failed injection checks on the same fields -- impossible if both scorers were right. The resistance checks compared untrimmed strings. Rule: when dimensions scored from the same output disagree logically, audit the scorer before reporting.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EXP-0007"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0008"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0013 -> ORCH-0014 (MIE-0007 first slice)",
+    "author_tier": "frontier (Opus 5.5); scoring deterministic"
+  },
+  "created_at": "2026-09-29T06:20:00+00:00",
+  "updated_at": "2026-09-29T06:20:00+00:00"
+}

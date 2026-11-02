@@ -1,0 +1,31 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0016",
+  "type": "EVR",
+  "title": "Provider failure classification: origin/main vs IMP-0016 on a 26-case labeled corpus",
+  "status": "accepted",
+  "outcome": "improved",
+  "summary": "adapters.base.classify_failure scored per case against tests/fixtures/provider-failure-corpus.json (development split, author-labeled from documented provider error shapes; the same author wrote the candidate regex, so this is not a holdout result). Incumbent 14/26 (0.538): 0/12 transient-failure cases correct, 3 misclassified as quota (each opening a 60-minute machine-wide cooldown, 180 min total) and 9 as process_error (invisible to the provider breaker). Candidate 26/26 with 0 false quota cooldown minutes; quota 7/7, invalid_model 2/2 and process_error 5/5 unchanged. Full suite: 795 tests, the same 9 failures + 2 errors as the pre-change baseline (785 tests; environment-only: project registration, installed adapter copies, RTEC applicant data, Claude surface), no new failures.",
+  "task_family": "provider_failure_classification",
+  "metrics": {
+    "cases": 26,
+    "incumbent": {"ref": "origin/main 66843a78", "accuracy": 0.538, "correct": 14, "per_label": {"unavailable": "0/12", "quota": "7/7", "invalid_model": "2/2", "process_error": "5/5"}, "false_quota_cooldown_minutes": 180},
+    "candidate": {"ref": "IMP-0016 working tree", "accuracy": 1.0, "correct": 26, "per_label": {"unavailable": "12/12", "quota": "7/7", "invalid_model": "2/2", "process_error": "5/5"}, "false_quota_cooldown_minutes": 0},
+    "full_suite": {"baseline_tests": 785, "candidate_tests": 795, "failures": 9, "errors": 2, "new_failures": 0},
+    "model_calls": 0,
+    "limitations": ["author-labeled development corpus; overfitting to its phrasing is possible", "a Claude is_error result whose prose mentions 'overloaded' still classifies as a provider failure (now unavailable, which costs less than quota)"]
+  },
+  "links": [
+    {"rel": "measures", "ref": "tests/fixtures/provider-failure-corpus.json"},
+    {"rel": "tests", "ref": "tests/test_provider_failure_classification.py"},
+    {"rel": "tests", "ref": "IMP-0016"},
+    {"rel": "baseline", "ref": "commit:66843a78d84a"}
+  ],
+  "provenance": {
+    "source": "deterministic scorer (loads classify_failure from a git ref and replays the corpus); unittest discover",
+    "session": "ORCH-0024 -> ORCH-0025",
+    "author_tier": "frontier (Opus 5.5); evidence deterministic"
+  },
+  "created_at": "2026-09-29T16:30:00+00:00",
+  "updated_at": "2026-09-29T16:30:00+00:00"
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0002",
+  "type": "DEC",
+  "title": "One typed evidence-record schema instead of fifteen",
+  "status": "accepted",
+  "summary": "OBS/CLM/FND/FAIL/SUC/HYP/EXP/EVC/EVS/EVR/DEC/REL/CAP/RAD/Q share schemas/evidence-record-v1 with typed links; IMP keeps schemas/improvement.schema.json and is linked by id. The research experiment schema remains the detailed design template for EXP records. Rejected: one schema per type (15 files, maintenance cost, no consumer yet).",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "schemas/evidence-record-v1.schema.json"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0003"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "projects/personal-agent-os/research/meta-improvement/experiments/technique-experiment.schema.json"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

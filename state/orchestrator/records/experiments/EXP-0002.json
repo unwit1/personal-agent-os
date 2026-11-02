@@ -1,0 +1,88 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0002",
+  "type": "EXP",
+  "title": "Route qualification on an objectively labeled family: affected test selection",
+  "status": "rejected",
+  "summary": "40 development cases generated from git history with deterministic labels (171 s, no model call). Routes: deterministic import-graph (incumbent), deterministic select-all, gpt-6-luna @fast, Haiku @fast, Sonnet @balanced; 3 samples per model route (9 calls; one Haiku sample hit the Claude weekly limit). No cheap route qualifies: Luna 0.19 and Haiku 0.15 case pass rate with recall ~0.5 (they under-select). Sonnet is noninferior to the deterministic selector (0.383 vs 0.375) but costs $0.20 and 62 s per run against $0 and 7 s, with lower recall (0.92 vs 0.98). Outcome for the hypothesis 'a cheap model route qualifies': rejected. Outcome for the execution hierarchy: the deterministic rung wins this family; use the import-graph selector (and improve its precision) rather than a model.",
+  "outcome": "rejected",
+  "task_family": "affected_test_selection",
+  "metrics": {
+    "cases": 40,
+    "label_seconds": 170.7,
+    "model_calls": 9,
+    "measured_cost_usd": 1.19,
+    "case_pass_rate": {
+      "deterministic:import-graph": 0.375,
+      "deterministic:all-tests": 0.125,
+      "gpt-6-luna": 0.192,
+      "claude-haiku-4-5-20251001": 0.15,
+      "claude-sonnet-5-5": 0.383
+    },
+    "mean_recall": {
+      "deterministic:import-graph": 0.982,
+      "deterministic:all-tests": 1.0,
+      "gpt-6-luna": 0.514,
+      "claude-haiku-4-5-20251001": 0.531,
+      "claude-sonnet-5-5": 0.919
+    },
+    "mean_precision": {
+      "deterministic:import-graph": 0.512,
+      "deterministic:all-tests": 0.177,
+      "gpt-6-luna": 0.819,
+      "claude-haiku-4-5-20251001": 0.766,
+      "claude-sonnet-5-5": 0.696
+    },
+    "mean_selected_of_46": {
+      "deterministic:import-graph": 14.1,
+      "claude-sonnet-5-5": 9.9,
+      "gpt-6-luna": 2.5,
+      "claude-haiku-4-5-20251001": 3.3
+    },
+    "sample_pass_rates": {
+      "gpt-6-luna": [
+        0.2,
+        0.225,
+        0.15
+      ],
+      "claude-haiku-4-5-20251001": [
+        0.125,
+        0.175,
+        null
+      ],
+      "claude-sonnet-5-5": [
+        0.375,
+        0.45,
+        0.325
+      ]
+    }
+  },
+  "links": [
+    {
+      "rel": "measures",
+      "ref": "EVR-0007"
+    },
+    {
+      "rel": "baseline",
+      "ref": "EVR-0006"
+    },
+    {
+      "rel": "implements",
+      "ref": "DEC-0006"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0007"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0004"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0003 -> ORCH-0004 (EXP-0002)",
+    "author_tier": "frontier (Opus 5.5) analysis of deterministic eval output"
+  },
+  "created_at": "2026-09-29T02:55:00+00:00",
+  "updated_at": "2026-09-29T02:55:00+00:00"
+}

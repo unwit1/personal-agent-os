@@ -1,0 +1,35 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0027",
+  "type": "DEC",
+  "title": "Command reference + drift guard; foundational build assessed as substantially complete",
+  "status": "accepted",
+  "summary": "Added docs/orchestrator-os/COMMANDS.md listing all 45 orchestrate subcommands (generated from the CLI, model-spending ones marked) with a drift-guard test that fails if the doc and the registered set diverge; ENTRYPOINT links it. Assessment (constitution section 12 meta-economics, section 13 stop conditions): the Orchestrator OS foundation is broad and evidenced -- constitution/policy/entrypoint, protected control plane with append-only negative evidence and publication guard (mutation-tested), eval runner + capability evidence, affected-test selection, state-machine + mutation testing (found 3 real engine/test defects: FAIL-0003, FAIL-0004, the fail-open guard, plus the vacuous-invariant FND-0008), provider health, attachments, OTel trace, prior-art registry (50 projects), simplification engine, failure mining, corpus import, context-utility telemetry; 24 checkpoints, every pass gated on the full suite and pushed to main. Remaining MIE items are now gated or lower marginal value: IMP-0004 (routing by measured capability) needs real per-family sample volume no route has reached; live security evaluation is operator-gated (FND-0013, DEC-0025); holdout governance and quality/complexity budgets (MIE-0018) need operator decisions. Recommendation: move the autonomous loop to a lighter cadence or pause, and resume per-item when an operator decision or real model volume unblocks it.",
+  "prior_art": null,
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "docs/orchestrator-os/COMMANDS.md"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_command_reference.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0025"
+    }
+  ],
+  "metrics": {
+    "subcommands_documented": 45,
+    "checkpoints": 24,
+    "real_defects_fixed": 3,
+    "model_calls": 0
+  },
+  "provenance": {
+    "session": "ORCH-0023 -> ORCH-0024 (consolidation + assessment)",
+    "author_tier": "frontier (Opus 4.8)"
+  },
+  "created_at": "2026-09-29T08:55:00+00:00",
+  "updated_at": "2026-09-29T08:55:00+00:00"
+}

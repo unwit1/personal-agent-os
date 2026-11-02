@@ -1,0 +1,29 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0011",
+  "type": "EXP",
+  "title": "IMP-0019 shadow rotation advisor: would rotating at semantic boundaries have beaten continuing?",
+  "status": "open",
+  "summary": "Hypothesis: within-node rotation at semantic boundaries (retry/repair attempt boundaries) would have cost less input tokens than continuing with Orchestrator's re-attempt behavior for a material share of multi-call workers. Method: the deterministic shadow rotation advisor in src/agent_os/orchestrator/rotation_advisor.py, implemented per DEC-0044 (docs/orchestrator-os/self-audit/rotation-advisor.md). The advisor scores each eligible call boundary in past orchestrator runs using a break-even cost model based on IMP-0018's context-economy harness (EVR-0018). For each boundary k, it estimates: C_continue(k) = sum of input tokens for remaining calls (hindsight); C_rotate(k) = estimated fresh-worker bootstrap + structured handoff + targeted retrieval + rediscovery overhead. It recommends rotation only at semantic boundaries where savings > 20% margin. Mode: shadow advice only; no dispatch changes or network calls. Predictions are not yet compared with replayed outcomes. The real-telemetry evaluation requires a host command: `python -m agent_os.cli orchestrate rotation-advisor --out docs/orchestrator-os/self-audit/rotation-advisor-baseline.json`. Synthetic-fixture tests validate the cost model, constants, decision rules, privacy guarantees and shadow-mode invariants.",
+  "outcome": "n/a",
+  "task_family": "rotation_advice",
+  "metrics": {
+    "model_calls": 0,
+    "spend_usd": 0,
+    "dispatch_changed": false,
+    "synthetic_fixture_tests": 23
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/rotation_advisor.py"},
+    {"rel": "relates_to", "ref": "IMP-0019"},
+    {"rel": "relates_to", "ref": "EVR-0018"},
+    {"rel": "relates_to", "ref": "DEC-0044"},
+    {"rel": "relates_to", "ref": "docs/orchestrator-os/self-audit/rotation-advisor.md"}
+  ],
+  "provenance": {
+    "source": "deterministic shadow advisor over per-call telemetry (no network, no paid compute)",
+    "session": "run-20261002T083019Z-8ff831 / evidence-records"
+  },
+  "created_at": "2026-10-02T08:00:00+00:00",
+  "updated_at": "2026-10-02T08:00:00+00:00"
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0010",
+  "type": "FND",
+  "title": "A documented recovery guarantee was never wired: workflow runs wrote no recovery checkpoints",
+  "status": "accepted",
+  "summary": "docs/restart-recovery.md states that P0.1 writes a local recovery checkpoint whenever it saves a workflow run. recovery.checkpoint_workflow_record implemented it (2026-09-21, ce8a7323) but no caller ever existed, so staged workflows never wrote recovery checkpoints. orchestrate simplify flagged the function as unused; tracing it showed a missing integration, not dead code. Now called on run start and every save, with a git-backed regression test.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "projects/personal-agent-os/orchestrator-os/simplification-report.json"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "src/agent_os/workflows.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "docs/restart-recovery.md"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0011"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0011 -> ORCH-0012 (simplification apply)",
+    "author_tier": "frontier (Opus 5.5); measurements deterministic"
+  },
+  "created_at": "2026-09-29T05:40:00+00:00",
+  "updated_at": "2026-09-29T05:40:00+00:00"
+}

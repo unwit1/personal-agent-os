@@ -1,0 +1,19 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0040",
+  "type": "DEC",
+  "title": "Credential setup through masked pop-up dialogs into the OS keyring",
+  "status": "accepted",
+  "summary": "Operator asked (2026-09-29) which credentials Model Infrastructure needs and to save them locally with Windows pop-ups. secret_prompt.py lists the known credentials with purpose, minimal scope and source: secrets://runpod/default (read-only key until provisioning is approved; public pricing works without it), secrets://huggingface/default (Read token; optional, radar now sends it when configured), secrets://local-abliterated/default (only if the operator's model server needs a key). `orchestrate secrets setup` shows one masked tkinter dialog per credential (topmost), stores non-empty values via secret_refs.store (Windows Credential Manager, entries agent-os/<provider>/<profile>), skips blank/Cancel and already-configured refs unless --reprompt, and reports presence/source only. `secrets set <ref> --gui` does one ref; `secrets status` with no ref lists all known refs. No payment data enters Agent OS.",
+  "prior_art": {"checked": "existing api-key and secret_refs commands", "found": "keyring already the store", "reused": "secret_refs.store/status, keyring WinVault backend", "why_custom": "stdlib tkinter dialog; no dependency"},
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/secret_prompt.py"},
+    {"rel": "tests", "ref": "tests/test_secret_prompt.py"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "DEC-0030"}
+  ],
+  "metrics": {"model_calls": 0, "new_tests": 3},
+  "provenance": {"session": "ORCH-0034 -> ORCH-0035 (operator request)", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-30T00:45:00+00:00",
+  "updated_at": "2026-09-30T00:45:00+00:00"
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0006",
+  "type": "DEC",
+  "title": "Labels for affected_test_selection come from per-module call tracing; protected-path changes under grant",
+  "status": "accepted",
+  "summary": "Labeling rule: expected tests = test modules that call at least one function or method defined in a changed file, traced per module at the case file's base commit with a call-only tracer (module import execution excluded). Chosen over revert-and-run (about 11 min of full-suite time per commit, far over the 30 min budget, and dominated by tests added in the same commit) and over the static import graph (that is a competing route, so it cannot also define the label). Known limits: code launched in subprocesses is not traced (e.g. browser_control.py gets an empty label), and labels describe the test suite at the base commit. Case pass rule: recall 1.0 and precision >= 0.5, so select-all cannot win. Protected paths changed under the operator's explicit grant in the ORCH-0004 prompt: policy/orchestrator-os.policy.json (added src/agent_os/orchestrator/eval.py to protected_paths, one line), evals/suites/EVS-TEST-SELECTION.json (new), and eval.py itself (new family, deterministic routes, scorer). No check was weakened.",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/eval.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/suites/EVS-TEST-SELECTION.json"
+    },
+    {
+      "rel": "implements",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/cases/development/affected-test-selection.json"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0005"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0003 -> ORCH-0004 (EXP-0002)",
+    "author_tier": "frontier (Opus 5.5) analysis of deterministic eval output"
+  },
+  "created_at": "2026-09-29T02:55:00+00:00",
+  "updated_at": "2026-09-29T02:55:00+00:00"
+}

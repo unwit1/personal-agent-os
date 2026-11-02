@@ -1,0 +1,49 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0024",
+  "type": "DEC",
+  "title": "Import AgentDojo injection corpus as data (MIT), never committed",
+  "status": "accepted",
+  "summary": "orchestrate corpus import XC-agentdojo fetches AgentDojo's injection-task modules at the pinned revision 089ed468cf3e (MIT) and stores an index of attacker goals under .agent-local/corpora/agentdojo (gitignored); Git keeps only the registry entry, counts and provenance, never the payloads (FND-0013: import attack content as data, do not author it). 27 injection tasks across banking(9)/slack(5)/travel(7)/workspace(6). The parser reads GOAL string and f-string literals statically (ast), running no fetched code. MIT permits evaluation and redistribution; Agent OS policy still forbids using it for training/fine-tune (evaluation corpus). Deriving runnable EVS-SECURITY cases from these goals is the next step; this pass establishes the licensed, pinned, machine-local corpus and the importer.",
+  "prior_art": {
+    "checked": "PA-agentdojo (fresh), PA-promptfoo, PA-garak",
+    "found": "AgentDojo is the standard indirect-injection agent benchmark (MIT)",
+    "reused": "the corpus itself as evaluation data",
+    "why_custom": "importer keeps payloads machine-local and records only provenance in Git; no dependency on the AgentDojo harness"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/corpus.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_corpus.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0013"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0019"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "projects/personal-agent-os/orchestrator-os/evals/external-corpora.json"
+    }
+  ],
+  "metrics": {
+    "injection_tasks": 27,
+    "suites": 4,
+    "revision": "089ed468cf3e",
+    "committed_payloads": 0,
+    "model_calls": 0
+  },
+  "provenance": {
+    "session": "ORCH-0020 -> ORCH-0021 (attack corpus import)",
+    "author_tier": "frontier (Opus 4.8)"
+  },
+  "created_at": "2026-09-29T08:30:00+00:00",
+  "updated_at": "2026-09-29T08:30:00+00:00"
+}

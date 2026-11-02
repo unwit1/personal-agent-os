@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "HYP-0003",
+  "type": "HYP",
+  "title": "Affected-tests-first pays on first attempts when the first-attempt failure rate exceeds ~36%",
+  "status": "proposed",
+  "summary": "If orchestrator telemetry shows that more than ~36% of first-attempt validations fail (tests_completed events with passed=false on attempt 1), switching affected_tests_first from 'retries' to 'always' lowers total validation wall time. Measure from run telemetry once at least 30 real validations exist; do not change the default before then.",
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EVR-0011"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0007"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0004 -> ORCH-0005 (IMP-0006)",
+    "author_tier": "frontier (Opus 5.5) design; measurements deterministic"
+  },
+  "created_at": "2026-09-29T03:40:00+00:00",
+  "updated_at": "2026-09-29T03:40:00+00:00"
+}

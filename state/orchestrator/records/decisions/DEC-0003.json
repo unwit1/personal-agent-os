@@ -1,0 +1,28 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0003",
+  "type": "DEC",
+  "title": "Enforce the control-plane boundary at the validator step",
+  "status": "accepted",
+  "summary": "Protected paths are checked deterministically for every orchestrated node that targets this repository, from the policy file in the trusted running checkout (not the candidate worktree), with a hard-coded floor if the policy is missing. Only the operator can grant paths (run policy protected_paths_allowed). Limitation: work done outside Orchestrator (a human-driven agent session) is not intercepted; policy text, `orchestrate control-check` and Git review cover that path.",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/control_plane.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_orchestrator_control_plane.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0006"
+    }
+  ],
+  "provenance": {
+    "session": "orchestrator-os bootstrap 2026-09-28",
+    "author_tier": "frontier (Opus 5.5) unless stated"
+  },
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

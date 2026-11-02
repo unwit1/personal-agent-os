@@ -1,0 +1,130 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-a17f98bb20",
+  "type": "CAP",
+  "title": "foreman_planning via foreman-openrouter/deepseek/deepseek-v4-flash (medium)",
+  "status": "active",
+  "key": {
+    "task_family": "foreman_planning",
+    "role": "planner",
+    "provider": "foreman-openrouter",
+    "model_resolved": "deepseek/deepseek-v4-flash",
+    "effort": "medium",
+    "toolset": "none"
+  },
+  "metrics": {
+    "sample_count": 37,
+    "final_success": 32,
+    "validator_pass_rate": 0.865,
+    "pass_rate_wilson95": [
+      0.72,
+      0.941
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.86,
+    "contract_pass_rate": 0.865,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 53.16,
+    "mean_input_tokens": 1695.68,
+    "mean_output_tokens": 5108.95,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "task count out of range": 2,
+      "under-provisioned": 1,
+      "over-provisioned": 1,
+      "invalid plan": 1
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-gui-sort"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-usage-field"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-slow-tests"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-stale-cache"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-idempotent-ledger"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-scheduler-fairness"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-token-exposure"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T140833Z:d2-rename"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-readme-link"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-default-idle"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-quote-test"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-cli-flag"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-gui-copy"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-report-column"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-flaky-reaper"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-wrong-cost"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-plugin-sandbox"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-distributed-budget"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-key-rotation"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T141730Z:h2-typo-comments"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "20260930T134541Z",
+    "observed_to": "20260930T141730Z"
+  },
+  "updated_at": "2026-09-30T14:42:57.783844+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FAIL-0006",
+  "type": "FAIL",
+  "title": "Run-state read denied during a concurrent atomic replace (read side of FAIL-0005)",
+  "status": "resolved",
+  "summary": "The ORCH-0035 full-suite gate raised PermissionError [Errno 13] in tests/test_orchestrator_roadmap.py::test_continue_returns_immediately_and_reports_each_step: engine.status -> store.load -> storage.load_json opened state.json while the driver thread was os.replace-ing it. On Windows an open for read can be denied during a replace. FAIL-0005 added retries to the write side only; this is the matching read side. The change under test (GUI view) did not touch engine, store or storage. Fix: storage.load_json retries PermissionError up to 5 times with 50 ms exponential backoff and re-raises on the last attempt.",
+  "signature": "windows_sharing_violation_on_atomic_replace",
+  "recurrence": 1,
+  "task_family": "push_gate",
+  "links": [
+    {"rel": "relates_to", "ref": "src/agent_os/storage.py"},
+    {"rel": "tests", "ref": "tests/test_storage_replace.py"},
+    {"rel": "derived_from", "ref": "FAIL-0005"}
+  ],
+  "provenance": {"session": "ORCH-0034 -> ORCH-0035 gate", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-30T00:30:00+00:00",
+  "updated_at": "2026-09-30T00:30:00+00:00"
+}

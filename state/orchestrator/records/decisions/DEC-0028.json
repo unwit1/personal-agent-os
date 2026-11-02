@@ -1,0 +1,42 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0028",
+  "type": "DEC",
+  "title": "Prioritize provider-neutral Model Infrastructure Manager across text, image, voice and ML",
+  "status": "accepted",
+  "summary": "Operator explicitly superseded the ORCH-0024 maintenance/pause recommendation with a high-priority implementation request: build a provider-neutral Model Infrastructure Manager / Compute Broker. It must continuously research and benchmark new model releases, intelligently route benign work across subscription/API models and legitimate low-refusal/open/abliterated workloads across self-hosted/cloud models, manage RunPod-first but multi-provider compute and local credentials, compare API/serverless/GPU economics, quote and budget paid jobs before launch, and support image generation/editing, multimodal inference, LoRA/fine-tuning/general ML, and first-class voice/audio workloads (ASR, TTS, speech-to-speech, conversion, diarization, enhancement, alignment, audio generation and supported adaptation/training). The detailed roadmap is projects/personal-agent-os/roadmap/model-infrastructure-manager.md (IMP-0015). Safety-relevant context must not be intentionally concealed; consequential actions, spending and secret access remain deterministic policy gates.",
+  "prior_art": "Required before implementation: model gateways/routers, cloud GPU brokers, model registries/eval systems, training job managers.",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "projects/personal-agent-os/roadmap/model-infrastructure-manager.md"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "projects/personal-agent-os/improvements/IMP-0015.json"
+    },
+    {
+      "rel": "supersedes",
+      "ref": "DEC-0027"
+    }
+  ],
+  "metrics": {
+    "operator_priority": "high",
+    "modalities": [
+      "text",
+      "code",
+      "image",
+      "multimodal",
+      "voice",
+      "audio",
+      "general_ml"
+    ],
+    "paid_compute_started": false
+  },
+  "provenance": {
+    "session": "operator request 2026-09-29",
+    "author_tier": "operator"
+  },
+  "created_at": "2026-09-29T16:30:00+00:00",
+  "updated_at": "2026-09-29T16:30:00+00:00"
+}

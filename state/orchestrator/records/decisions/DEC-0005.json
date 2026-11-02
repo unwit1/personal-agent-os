@@ -1,0 +1,32 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0005",
+  "type": "DEC",
+  "title": "Eval runner design: trusted judge, pinned base, quality verdict separate from cost",
+  "status": "accepted",
+  "summary": "orchestrate eval reads suites from the trusted checkout; test suites run each git ref in a detached worktree after overwriting runner files with the trusted copies (a candidate cannot weaken its judge); case suites run routes via delegate in a worktree pinned to the case file's base_commit. The per-candidate verdict uses only the quality dimension (pass rate + new failing tests, or accuracy); cost/latency/tokens get their own verdicts and never rescue a quality regression. Eval observations pass only when accuracy clears the family floor, and accuracy-scored samples supersede contract-only ones in CAP pass rates. Known gap: src/agent_os/orchestrator/eval.py is evaluator code but is not yet a protected path; adding it requires an operator grant (policy change).",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/eval.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_orchestrator_eval.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "IMP-0003"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0001"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0001 -> ORCH-0002 (IMP-0003)",
+    "author_tier": "frontier (Opus 5.5) synthesis of eval output"
+  },
+  "created_at": "2026-09-29T01:45:00+00:00",
+  "updated_at": "2026-09-29T01:45:00+00:00"
+}

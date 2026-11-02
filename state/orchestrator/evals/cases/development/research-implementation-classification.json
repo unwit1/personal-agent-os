@@ -1,0 +1,111 @@
+{
+  "schema": "personal-agent/eval-cases/v1",
+  "suite": "EVS-CAPABILITY-CLASSIFICATION",
+  "split": "development",
+  "task_family": "research_implementation_classification",
+  "base_commit": "f8f4453f",
+  "prompt_template": "the MIE backlog classification prompt: item id + title + proposed_change; answer implemented|partial|missing with existing evidence paths",
+  "label_source": "single adjudicator (Opus 5.5) after reading both cheap-model answers; noisy until a second independent label exists",
+  "cases": [
+    {
+      "id": "EVC-RIC-MIE-0001",
+      "input_ref": "MIE-0001",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0002",
+      "input_ref": "MIE-0002",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0003",
+      "input_ref": "MIE-0003",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0004",
+      "input_ref": "MIE-0004",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0005",
+      "input_ref": "MIE-0005",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0006",
+      "input_ref": "MIE-0006",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0007",
+      "input_ref": "MIE-0007",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0008",
+      "input_ref": "MIE-0008",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0009",
+      "input_ref": "MIE-0009",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0010",
+      "input_ref": "MIE-0010",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0011",
+      "input_ref": "MIE-0011",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0012",
+      "input_ref": "MIE-0012",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0013",
+      "input_ref": "MIE-0013",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0014",
+      "input_ref": "MIE-0014",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0015",
+      "input_ref": "MIE-0015",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0016",
+      "input_ref": "MIE-0016",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0017",
+      "input_ref": "MIE-0017",
+      "expected_status": "partial"
+    },
+    {
+      "id": "EVC-RIC-MIE-0018",
+      "input_ref": "MIE-0018",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0019",
+      "input_ref": "MIE-0019",
+      "expected_status": "missing"
+    },
+    {
+      "id": "EVC-RIC-MIE-0020",
+      "input_ref": "MIE-0020",
+      "expected_status": "missing"
+    }
+  ]
+}

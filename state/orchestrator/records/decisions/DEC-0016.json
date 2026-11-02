@@ -1,0 +1,39 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0016",
+  "type": "DEC",
+  "title": "OpenTelemetry trace projection with borrowed GenAI conventions, no dependency, no content",
+  "status": "accepted",
+  "summary": "orchestrate trace <run-id> projects a run's append-only telemetry into OTLP/JSON: invoke_workflow (root, marked provisional), node, invoke_agent (gen_ai.operation.name, gen_ai.provider.name, gen_ai.request.model, gen_ai.response.model from the resolved model, gen_ai.usage.* tokens, error.type) and execute_tool validator spans; other events become span events. Only allowlisted structural fields are exported (tests plant secret markers in the goal and worker output and assert they never appear). Validation: strict parse into the official opentelemetry-proto ExportTraceServiceRequest (dev venv only) succeeded for a two-task run (11 spans). Any OTLP/HTTP receiver that accepts JSON (for example the OpenTelemetry Collector's otlphttp receiver at /v1/traces) can ingest the file; Phoenix (PA-phoenix) stays deferred.",
+  "prior_art": {
+    "checked": "PA-otel-genai (fresh), PA-openllmetry, PA-langfuse, PA-phoenix",
+    "found": "GenAI semantic conventions for model/tool/agent spans; exporters are dependency-heavy",
+    "reused": "attribute names and span taxonomy from the GenAI conventions; official opentelemetry-proto used only as an external validator",
+    "why_custom": "a ~200-line stdlib projection avoids the OTel SDK dependency and keeps the privacy allowlist in Agent OS"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/trace.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_orchestrator_trace.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "MIE-0017"
+    }
+  ],
+  "metrics": {
+    "otlp_proto_strict_parse": true,
+    "spans_two_task_run": 11,
+    "model_calls": 0
+  },
+  "provenance": {
+    "session": "ORCH-0012 -> ORCH-0013 (MIE-0017)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T05:35:00+00:00",
+  "updated_at": "2026-09-29T05:35:00+00:00"
+}

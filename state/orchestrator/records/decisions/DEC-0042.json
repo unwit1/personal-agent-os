@@ -1,0 +1,42 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0042",
+  "type": "DEC",
+  "title": "Compute lifecycle: build the in-house gated lifecycle on the native RunPod API; do not wrap SkyPilot for RunPod now",
+  "status": "accepted",
+  "summary": "Based on EXP-0009. Wrapping SkyPilot for RunPod would (a) give no stop, only terminate, so the mandatory max-runtime auto-stop becomes auto-destroy anyway; (b) add a second lifecycle state store (~/.sky) that the write-ahead spend reservation and reconcile would have to chase; (c) require a plaintext ~/.runpod/config.toml, which conflicts with secrets:// references and the never-write-plaintext rule; (d) add a large dependency for a single provider. The in-house gated provisioning interface (compute.provision/status/stop/destroy/reconcile, budget.effective preconditions, write-ahead reservation, idempotent launch-or-lookup) owns state and secrets, and a native RunPod adapter is the next step behind it. Revisit SkyPilot (or dstack) as an optional adapter when multi-cloud placement or spot-instance recovery across providers is needed, or if RunPod stop/multi-node support lands upstream.",
+  "prior_art": {
+    "checked": "PA-skypilot (installed 0.13.0, source read offline); PA-dstack noted",
+    "found": "SkyPilot RunPod provisioner and cloud feature flags",
+    "reused": "lifecycle vocabulary (launch/status/autodown/down) and the terminate-only finding inform the native adapter",
+    "why_custom": "state ownership, secrets:// without plaintext, and gated budget reconcile"
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "EXP-0009"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0015"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0041"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "projects/personal-agent-os/research/prior-art/registry.json"
+    }
+  ],
+  "metrics": {
+    "paid_compute_usd": 0,
+    "model_calls": 0
+  },
+  "provenance": {
+    "session": "supervisor session 2026-10-01/02",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-10-02T03:55:00+00:00",
+  "updated_at": "2026-10-02T03:55:00+00:00"
+}

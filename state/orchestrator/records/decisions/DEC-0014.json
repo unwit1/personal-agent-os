@@ -1,0 +1,34 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0014",
+  "type": "DEC",
+  "title": "Simplification engine: subsumed static analysis over the whole repository, candidates only",
+  "status": "accepted",
+  "summary": "orchestrate simplify builds a component view from the existing import graph and Git history and proposes dead-module, unused-public-function, duplicate-body, dependency-removal and prior-art replace/borrow candidates; it deletes nothing. Candidates become IMP records and are applied in separate passes with tests (IMP-0010, IMP-0011).",
+  "prior_art": {
+    "checked": "discovery for dead code and duplicate detection: vulture, deadcode, dead, Skylos, PyChase (all now in the registry)",
+    "found": "vulture is the reference name-usage heuristic; PyChase-style AST normalization for clones",
+    "reused": "vulture's heuristic (validated 3/3 against vulture itself), AST-normalization idea",
+    "why_custom": "the engine must join import graph, tests, Git churn and the prior-art registry, which no single tool does; vulture stays an optional external cross-check"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/simplify.py"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "EXP-0006"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0011"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0010 -> ORCH-0011 (MIE-0011 first slice)",
+    "author_tier": "frontier (Opus 5.5); analysis deterministic"
+  },
+  "created_at": "2026-09-29T05:15:00+00:00",
+  "updated_at": "2026-09-29T05:15:00+00:00"
+}

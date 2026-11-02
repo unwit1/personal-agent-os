@@ -1,0 +1,191 @@
+{
+  "entries": [
+    {
+      "id": "PA-rtk",
+      "name": "RTK (Rust Token Killer)",
+      "repository": "https://github.com/rtk-ai/rtk",
+      "organization": "rtk-ai",
+      "description": "Rust CLI proxy that rewrites shell command output (git, ls, grep, pytest, cargo, docker) into compact forms via agent PreToolUse hooks",
+      "license": "Apache-2.0 (CLI, filters, hooks); BUSL-1.1 (proxy daemon and compression engine)",
+      "license_status": "dual; an Apache-only rtk-oss edition exists; BUSL bars offering it to third parties as a commercial service",
+      "evaluated_revision": "develop @ 7bff768 (2026-10-17)",
+      "evaluated_at": "2026-10-17",
+      "language": "Rust",
+      "capability_areas": ["tool-output compression", "CLI hooks", "shell output filtering", "token analytics"],
+      "agent_os_overlap": "Agent OS never sees tool results; they stay inside Claude Code/Codex. Only a worker-CLI hook could use it. PA-distill already records near-zero savings on our already-narrowed traffic.",
+      "useful_parts": {
+        "algorithms": ["tee raw output to disk and show a recovery hint on failure"],
+        "tests_benchmarks": ["per-filter fixture tests with a 20% savings floor and a failure-line survival check"]
+      },
+      "integration": "none; optional hook in worker CLIs only if replay shows large un-narrowed output",
+      "risks": {
+        "maintenance": "very active; fast-moving",
+        "licensing": "BUSL-1.1 parts",
+        "correctness": "rewriting commands can hide lines validators or retry prompts need; built-in Read/Grep tools bypass the Bash hook"
+      },
+      "evidence": {
+        "development_savings": "none: Agent OS has no code path that needs it",
+        "runtime_savings": "near zero on our traffic (94% of bytes already narrowed by grep/head/tail); vendor 90% is a bash-output byte ratio, not cost; independent A/B tests (JetBrains, Quesma, search summaries) found 0% to +7.6% cost",
+        "quality": "JetBrains reported unchanged task quality; no data on our validators",
+        "reliability": "falls back to the raw command on filter failure; tee file for recovery",
+        "security": "hook rewrites commands and can auto-allow them via permissionDecision, which widens the trust surface; integrity check exists in the repo",
+        "complexity": "adds a binary plus hook config to every worker environment",
+        "maintenance": "active upstream, large surface (100+ filters) that tracks tool output formats",
+        "portability": "hooks exist for Claude Code, Codex and others"
+      },
+      "decision": "DEFER",
+      "rationale": "Measured savings on our traffic are near zero and independent paired benchmarks show no net cost gain. The only part worth borrowing is the tee-and-hint recovery idea, which fits the retry-prompt work already done.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone rtk-ai/rtk @ 7bff768, README.md, docs/guide/resources/savings-explained.md, hooks/claude/rtk-rewrite.sh, src/core/tee.rs (2026-10-17)",
+        "web search summaries of JetBrains blog (2026/07) and Quesma 'does rtk make ai coding cheaper'; full pages not fetched (proxy refused)"
+      ],
+      "links": [{"rel": "relates_to", "ref": "PA-distill"}],
+      "revisit_when": [
+        "a replay shows un-narrowed git/pytest/ls output is at least 25% of tool-result bytes",
+        "Agent OS gains its own agent loop"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-headroom",
+      "name": "Headroom",
+      "repository": "https://github.com/headroomlabs-ai/headroom",
+      "organization": "headroomlabs-ai",
+      "description": "Reversible compression layer for tool outputs, logs, JSON and history, shipped as a library, an OpenAI/Anthropic-compatible proxy and an MCP server",
+      "license": "Apache-2.0",
+      "license_status": "Apache-2.0 per LICENSE and README",
+      "evaluated_revision": "default branch @ 2912b7b (2026-10-16)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python (with Rust crates)",
+      "capability_areas": ["tool-output compression", "reversible compression (CCR)", "API proxy", "MCP server", "output-token shaping"],
+      "agent_os_overlap": "Proxy and MCP server act on tool results and history inside Claude Code/Codex, which Agent OS does not own. Reversible stub-plus-retrieve could apply to Agent OS's own handoffs and validator logs.",
+      "useful_parts": {
+        "algorithms": ["compress-cache-retrieve stubs with a hash handle", "per-content-type crushers", "cache-aligned append-only terseness note"],
+        "tests_benchmarks": ["seeded offline index_proof_table.py", "CCR regression and adversarial benchmarks"]
+      },
+      "integration": "none; optional MCP tool for workers only if replay passes",
+      "risks": {
+        "maintenance": "very active, large surface",
+        "correctness": "lossy crushers; CCR originals expire (default TTL 1800 s) and a retrieve is an extra call",
+        "dependency_weight": "heavy (Python plus Rust, ONNX models, proxy daemon)"
+      },
+      "evidence": {
+        "development_savings": "small: the stub-plus-retrieve pattern is a few hundred lines for our own artefacts",
+        "runtime_savings": "vendor 21-57% on seeded MCP-style payloads (repetitive JSON, search results); the README says dense output compresses little; unmeasured on our narrowed shell output; a 614M-token session replay (search summary) found about 3.7% total with rtk and caveman",
+        "quality": "its accuracy suite is GSM8K/TruthfulQA/SQuAD/BFCL at N=100, not coding-agent task success; our lossy-crusher measurement lost needed text in 28-47% of results",
+        "reliability": "CCR makes loss recoverable if the model asks; secondhand reports of net cost increases from re-reads (unverified)",
+        "security": "a proxy sees all prompts and API keys in transit",
+        "complexity": "proxy, store and MCP server are extra moving parts",
+        "maintenance": "active upstream; forks with the same name exist",
+        "portability": "wraps Claude Code, Codex and others"
+      },
+      "decision": "BORROW",
+      "rationale": "The reversible stub-plus-retrieve design addresses our measured later-needed-text loss and could apply to Agent OS's own large artefacts without any proxy. Do not wrap or depend on the proxy: its savings come from payloads we do not produce and the numbers are self-measured.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone headroomlabs-ai/headroom @ 2912b7b, README.md, headroom/cache/compression_store.py, headroom/transforms/ listing (2026-10-17)",
+        "web search summaries (mer.vin, besthub.dev, codepointer substack); no full-page fetch possible"
+      ],
+      "links": [{"rel": "relates_to", "ref": "PA-distill"}],
+      "revisit_when": [
+        "replay shows reversible reduction saves at least 10% of tool-result bytes with under 5% later-use loss",
+        "Agent OS gains its own agent loop or API proxy"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-tml",
+      "name": "tml (Tool Manifest Language / OATR)",
+      "repository": "https://github.com/maf404/tml",
+      "organization": "maf404",
+      "description": "Compact text format (.tml source, .min compiled) for describing API tools to LLMs; a tool-schema format, not a tool-output reducer",
+      "license": "Apache-2.0",
+      "license_status": "Apache-2.0 per LICENSE file",
+      "evaluated_revision": "default branch @ 452a192 (2026-04-14)",
+      "evaluated_at": "2026-10-17",
+      "language": "JavaScript",
+      "capability_areas": ["tool schema compaction", "tool selection"],
+      "agent_os_overlap": "Claude Code and Codex build their own tool schemas, which sit in the cached prefix at 0.1x re-read cost. Agent OS cannot substitute a schema format.",
+      "useful_parts": {
+        "algorithms": ["pipe-delimited one-line-per-endpoint format"],
+        "tests_benchmarks": []
+      },
+      "integration": "none",
+      "risks": {
+        "maintenance": "single author; last commit 2026-04-14",
+        "correctness": "own notes list an id-normalization bug failing the REST Countries spike (0/3)"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "vendor 77% is against verbose OpenAPI JSON for 3 tools; against a minimal JSON schema the same table shows 251 vs 174 tokens; schema tokens are cached anyway",
+        "quality": "100% accuracy on 5 weather scenarios, one API, Claude only; no independent benchmark found",
+        "reliability": "prototype quality, test scripts need hand-edited auth headers",
+        "security": "neutral",
+        "complexity": "adds a compiler step and a new format for models to learn",
+        "maintenance": "stale and small",
+        "portability": "text format works with any model, but not with CLIs that fix their own schemas"
+      },
+      "decision": "REJECT",
+      "rationale": "It shrinks tool schemas, not tool output, the evidence is three tools on one API against a verbose baseline, and our cached prefix makes schema tokens cheap. Agent OS has no surface to apply it.",
+      "confidence": "high",
+      "provenance": [
+        "shallow clone maf404/tml @ 452a192, README.md, CLAUDE.md benchmark notes (2026-10-17)",
+        "web search summary (a Reddit mirror post, subreddit not shown; arXiv 2605.29676 abstract-level)"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Agent OS gains its own agent loop with large custom tool sets",
+        "an independent benchmark on coding-agent tool use appears"
+      ],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-intel-adaptive-token-compressor",
+      "name": "Intel Adaptive Token Compressor",
+      "repository": "https://github.com/open-edge-platform/edge-ai-libraries/tree/main/libraries/adaptive-token-compressor",
+      "organization": "open-edge-platform",
+      "description": "Python library compressing system prompts (section-aware LLMLingua-2) and tool lists (LLM-scored tool selection) with cache-aware tool placement",
+      "license": "Apache-2.0",
+      "license_status": "Apache-2.0 per README badge and LICENSE file",
+      "evaluated_revision": "default branch @ 1914e10 (2026-10-17)",
+      "evaluated_at": "2026-10-17",
+      "language": "Python",
+      "capability_areas": ["system prompt compression", "tool schema selection", "prompt compression telemetry"],
+      "agent_os_overlap": "The harness prompt and tool lists belong to Claude Code/Codex and are cached. The context compiler already loads only matched skills.",
+      "useful_parts": {
+        "algorithms": ["score-threshold tool filtering with fall-back to the full list on predictor failure", "cache-friendly tool placement modes"],
+        "tests_benchmarks": []
+      },
+      "integration": "none",
+      "risks": {
+        "dependency_weight": "needs a Lingua server (Docker, PyTorch or OpenVINO) and a predictor LLM endpoint",
+        "correctness": "LLMLingua-2 is lossy and its default model is trained on meeting transcripts",
+        "maintenance": "initial 2026.2 release"
+      },
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "no savings figure published; an extra predictor call per turn can cost more than it saves under prompt caching",
+        "quality": "no task-success evaluation published; unit tests only",
+        "reliability": "safe fallback to the full tool list is a good design point",
+        "security": "sends prompts to extra local services",
+        "complexity": "two model-serving dependencies for a stdlib-first project",
+        "maintenance": "new, vendor-backed, edge-hardware focused",
+        "portability": "Intel XPU/OpenVINO oriented; CPU and CUDA also supported"
+      },
+      "decision": "REJECT",
+      "rationale": "It needs two model services, compresses prompts and schemas that Agent OS does not own or that are already cheap via the cache, and publishes no savings or quality evidence. Only the fall-back-to-full-list tool-filter idea is worth remembering.",
+      "confidence": "medium",
+      "provenance": [
+        "shallow clone open-edge-platform/edge-ai-libraries @ 1914e10, libraries/adaptive-token-compressor README, docs/user-guide/get-started.md, src/adaptive_token_compressor/tool/compressor.py (2026-10-17)",
+        "web search summary of docs.openedgeplatform.intel.com"
+      ],
+      "links": [],
+      "revisit_when": [
+        "Intel publishes an accuracy or cost benchmark on agent workloads",
+        "Agent OS gains its own agent loop with large tool lists"
+      ],
+      "revisit_by": null
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0022",
+  "type": "DEC",
+  "title": "Worker publication is operator-gated: deterministic guard plus adapter deny defaults",
+  "status": "accepted",
+  "summary": "control_plane.publication_check fails any orchestrated editing node (every repository) whose worker transcript shows an executed publishing command (git push, package publish/upload, gh release/pr/repo create, docker push, outbound curl or Invoke-WebRequest with POST/PUT/PATCH). Only executed commands count -- Codex --json command_execution events and shell-prompt log lines -- so prose such as 'I did not git push' never triggers it. Adapter defaults add a first layer: Claude Code editing workers get --disallowedTools publishing patterns; Codex workspace-write workers get sandbox_workspace_write.network_access=false explicitly. Operator-only opt-outs: run policy allow_worker_publication, provider option allow_publishing. Limits: Claude Code's JSON output has no command transcript, so for it the deny rule is the enforcement; the guard's patterns are a deny-list, not an allow-list. Mutation score of the guard functions 0.87 (20/23; survivors equivalent or cosmetic).",
+  "prior_art": {
+    "checked": "PA-openhands (sandbox), PA-camel, Codex/Claude CLI sandbox and permission options (CLI help 2026-09-29)",
+    "found": "CLI-level sandboxes and tool deny rules exist; no transcript-level publication detector in the registry",
+    "reused": "Codex sandbox network setting; Claude Code permission deny rules",
+    "why_custom": "a small deterministic transcript check is adapter-independent and keeps the approval rule in Agent OS"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "IMP-0014"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/control_plane.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_publication_guard.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0021"
+    }
+  ],
+  "metrics": {
+    "guard_mutation_score": 0.87,
+    "mutants": 23,
+    "killed": 20,
+    "model_calls": 0
+  },
+  "provenance": {
+    "session": "ORCH-0018 -> ORCH-0019 (IMP-0014)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T08:35:00+00:00",
+  "updated_at": "2026-09-29T08:35:00+00:00"
+}

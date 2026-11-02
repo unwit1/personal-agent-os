@@ -1,0 +1,61 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0044",
+  "type": "DEC",
+  "title": "Shadow rotation advisor (IMP-0019 phase 1): deterministic continue-vs-rotate cost model over existing telemetry, advice only, aggregates-only report",
+  "status": "accepted",
+  "summary": "rotation_advisor.py (to be built) scores, for each worker in past runs, whether ending the episode and starting a fresh worker (checkpoint + structured handoff + targeted retrieval) would have cost less input than continuing. It records advice only: only cli.py imports it, and it never changes dispatch. Inputs are limited to what context_economy._read_run already parses (eligible calls: input, output, cache_read, prompt estimate, attempt, seq, role, node), per-node counters from a second ledger.read_events pass (retry, model_escalated and fallback keyed by node; review_started and review_completed keyed by data.subject; review_required derived from review_completed with material findings or a blocked verdict, since it is not a ledger event type; repair nodes <s>.repairN inherit <s>'s review counters), and os.stat sizes of last-message.md for calibration only. A worker is one node's eligible call series ordered by (attempt, seq) as in _node_series. Candidate boundaries are k = 1..n-1, and attempt changes are the semantic boundaries. Workers with ineligible calls are unscored. Cost model, with integer ceil rounding: C_continue(k) = sum of I over calls[k:]. Because every call is already a fresh CLI process, C_continue(k) is the observed cost of Orchestrator's existing re-attempt (original prompt plus a failure note), so savings(k) estimates whether a capped structured handoff + targeted retrieval restart would have cost less than that re-attempt. B(role) = ceil median first-call input for that role in the run, falling back to all runs (confidence x ROLE_FALLBACK_WEIGHT 0.5), else unscored. H(k) = min(HANDOFF_CAP 8000, ceil(HANDOFF_FACTOR 0.5 x sum of O over calls[:k])). R(c) = the call's prompt estimate, falling back to the role median. D(k) = ceil(REDISCOVERY_RATE 0.25 x B x (retries + review rounds + review-required rounds before the boundary's seq)). C_rotate(k) = sum over calls[k:] of (B + H + R) + D. Rule: rotate only at a semantic boundary where savings > MARGIN 0.2 x C_continue (strict); otherwise continue. A worker's chosen boundary is the max-savings rotate boundary, with ties going to the smallest k. Phase 1 never emits compact (CLI workers are one process per call, so no session can be compacted from outside) or split_parallel (telemetry has no separability data). The enum keeps both values and their counts stay 0. Explanations use a closed numeric field set mirroring the roadmap's context_pressure block (context_window_utilization is always null). The report personal-agent/orchestrator-rotation-advice/v1 has mode shadow and dispatch_changes 0. It holds aggregates only: coverage, advice counts, savings, explanation stats, a margin-sensitivity curve, and calibration of each estimated component against an observed quantity, never the decision ratio: bootstrap_ratio = (B + R) / I(c_k) at scored semantic boundaries, where I(c_k) is the observed fresh-process input, and handoff_ratio = observed last-message size / H(k). The offline falsifier uses the bootstrap_ratio median, so strong projected savings cannot read as miscalibration. Privacy follows context_economy: assert_aggregate_only with the node-id and worker-dir forbidden set, and node ids are never emitted. The real-telemetry evaluation is a host step: python agent.py orchestrate rotation-advisor --out docs/orchestrator-os/self-audit/rotation-advisor-baseline.json, then EXP/EVR records with task_family rotation_advice. The full contract is pinned in docs/orchestrator-os/self-audit/rotation-advisor.md.",
+  "prior_art": {
+    "checked": "agent-os orchestrate prior-art lookup \"episodic agent rotation / context-pressure shadow advisor / continue-vs-restart cost model\" -> PA-llmlingua (DEFER), PA-optuna (DEFER), PA-litellm (BORROW), PA-openhands (BORROW), PA-openrouter-api (INVESTIGATE), PA-ragas (BORROW), PA-routellm (BORROW), PA-aflow (DEFER)",
+    "found": "No continue-vs-restart cost model in the registry. OpenHands: conversation condensers and stuck detection inside its own runtime. RouteLLM: calibrating a routing threshold on a cost-vs-quality curve over a development set. LLMLingua: token-level compression that needs a local model. Optuna: parameter search over a cheap objective. Ragas: context precision/recall metric definitions. LiteLLM: retry/fallback semantics. AFlow: MCTS over workflows. OpenRouter API: keyword match only.",
+    "reused": "IMP-0018 context_economy harness (_read_run, _node_series, _Labels, _stats, _ratio, RUN_ID, assert_aggregate_only), ledger.read_events, usage.CHARS_PER_TOKEN/ESTIMATE_METHOD; RouteLLM's threshold-curve idea as the offline margin_sensitivity block; OpenHands condensers noted as the future source for compact",
+    "why_custom": "Nothing in the registry estimates when restarting a coding-agent episode beats continuing it from per-call telemetry. The model is a few integer formulas over data Agent OS already parses, so a dependency would add risk without capability (DEC-0009). IMP-0019 forbids a parallel measurement stack, so the advisor extends the IMP-0018 harness instead."
+  },
+  "links": [
+    {
+      "rel": "decides",
+      "ref": "docs/orchestrator-os/self-audit/rotation-advisor.md"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0019"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0018"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0018"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0013"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0009"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "research:PA-routellm"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "research:PA-openhands"
+    }
+  ],
+  "metrics": {
+    "paid_compute_usd": 0,
+    "real_provider_calls": 0,
+    "network_calls_in_tests": 0,
+    "model_calls": 0,
+    "dispatch_changes": 0
+  },
+  "provenance": {
+    "session": "run-20261002T083019Z-8ff831 / rotation-design",
+    "author_tier": "frontier (Opus 5.5) design decision"
+  },
+  "created_at": "2026-10-02T08:45:00+00:00",
+  "updated_at": "2026-10-02T08:45:00+00:00"
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "FND-0014",
+  "type": "FND",
+  "title": "An eval route whose provider cannot serve the role silently falls through to another provider",
+  "status": "accepted",
+  "summary": "eval.call_route -> delegate(provider=X) uses the analyst role. router.select treats an unusable override (e.g. an HTTP endpoint registered with roles ['inline']) as 'override provider X ignored' and routes the case to the cheapest usable provider instead. The EVR row keeps the requested route spec as 'ref' but records the provider that actually answered, so a reader comparing refs could attribute another model's accuracy to the candidate. The fall-through is intentional for coding runs (overrides are advisory there), but for measurement it is an attribution error. Mitigated outside the protected harness: evalqueue refuses candidates lacking the analyst role and marks a run invalid when the recorded provider differs from the requested one; model-add gained --roles. A harness-level fix (fail the route when its override is not honoured) needs an operator grant because eval.py is a protected control-plane path (IMP-0017).",
+  "links": [
+    {"rel": "relates_to", "ref": "src/agent_os/orchestrator/eval.py"},
+    {"rel": "relates_to", "ref": "src/agent_os/orchestrator/router.py"},
+    {"rel": "tests", "ref": "tests/test_evalqueue.py"},
+    {"rel": "relates_to", "ref": "IMP-0017"}
+  ],
+  "provenance": {"session": "ORCH-0031 -> ORCH-0032 (code reading while building the eval-queue runner)", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T22:40:00+00:00",
+  "updated_at": "2026-09-29T22:40:00+00:00"
+}

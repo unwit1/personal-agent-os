@@ -1,0 +1,64 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EXP-0004",
+  "type": "EXP",
+  "title": "Mutation testing of control-plane tests",
+  "status": "accepted",
+  "summary": "mutmut (PA-mutmut) refuses native Windows ('please use the WSL', upstream issue #397), so a small stdlib AST mutator was subsumed (src/agent_os/orchestrator/mutation.py; comparison/boolean/constant/return/if operators; mutants run in throwaway worktrees). control_plane.py vs tests.test_orchestrator_control_plane: 30/36 killed (0.833) at e6aaa360. Survivors revealed a real defect -- applies_to() returned False on OSError, disabling the guard when the target path cannot be resolved (fail-open) -- plus an untested missing/corrupt-policy fallback, an unasserted failure detail and the directory-itself case. After the fix and four tests: 36/36 (1.0) at 10425545. Baselines for other runtime modules: provider_health.py 0.759 (mostly unpinned boundary constants), test_selection.py 0.741.",
+  "outcome": "improved",
+  "task_family": "mutation_testing",
+  "metrics": {
+    "control_plane.py": {
+      "before": {
+        "mutants": 36,
+        "killed": 30,
+        "score": 0.833,
+        "ref": "e6aaa360"
+      },
+      "after": {
+        "mutants": 36,
+        "killed": 36,
+        "score": 1.0,
+        "ref": "10425545"
+      }
+    },
+    "provider_health.py": {
+      "mutants": 87,
+      "killed": 66,
+      "score": 0.759,
+      "seconds": 26.3
+    },
+    "test_selection.py": {
+      "mutants": 58,
+      "killed": 43,
+      "score": 0.741,
+      "seconds": 248.8
+    },
+    "defect_found": "applies_to() failed open on OSError",
+    "model_calls": 0
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/mutation.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "src/agent_os/orchestrator/control_plane.py"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "FND-0008"
+    },
+    {
+      "rel": "decides",
+      "ref": "DEC-0012"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0008 -> ORCH-0009 (mutation testing)",
+    "author_tier": "frontier (Opus 5.5); measurements deterministic"
+  },
+  "created_at": "2026-09-29T05:40:00+00:00",
+  "updated_at": "2026-09-29T05:40:00+00:00"
+}

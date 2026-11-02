@@ -1,0 +1,41 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0026",
+  "type": "DEC",
+  "title": "Context-utility telemetry for delegate attachments (MIE-0009 first slice)",
+  "status": "accepted",
+  "summary": "delegate now records, for each attachment-bearing call, an approximate context-utility signal (context_utility.attachment_utility): per-attachment referenced/unreferenced by name-stem word-boundary match or a distinctive token (a >=6-char word unique to one attachment), plus attached-token estimate and utilization. orchestrate context-report aggregates these across recorded delegations and flags attachments that are always attached but never referenced (trim candidates). Deterministic, no model call. The method is conservative and cannot see paraphrase, so the report is labelled approximate and used only to flag persistently unreferenced context, not to prove waste. This serves the cheapest-reliable-route goal by making over-attachment visible after DEC-0018 made attaching cheap.",
+  "prior_art": {
+    "checked": "PA-llmlingua (context compression), PA-letta (context paging)",
+    "found": "compression/paging reduce context; utility measurement is upstream of both",
+    "reused": "nothing (deterministic token attribution)",
+    "why_custom": "small approximate signal over Agent OS's own delegation outcomes; no dependency"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/context_utility.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_context_utility.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "DEC-0018"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "MIE-0009"
+    }
+  ],
+  "metrics": {
+    "model_calls": 0
+  },
+  "provenance": {
+    "session": "ORCH-0022 -> ORCH-0023 (MIE-0009)",
+    "author_tier": "frontier (Opus 4.8)"
+  },
+  "created_at": "2026-09-29T08:45:00+00:00",
+  "updated_at": "2026-09-29T08:45:00+00:00"
+}

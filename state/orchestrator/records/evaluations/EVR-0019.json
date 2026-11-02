@@ -1,0 +1,30 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0019",
+  "type": "EVR",
+  "title": "Shadow rotation advisor validated on synthetic fixtures (IMP-0019 shadow phase)",
+  "status": "accepted",
+  "outcome": "n/a",
+  "summary": "Synthetic-fixture tests validated the shadow rotation advisor cost model, decision rules, explanation fields, privacy guarantees and shadow-mode invariants. Test modules: tests.test_rotation_advisor (9 tests on formulas, bootstrap fallback, semantic boundaries, decision edge, never-emitted compact/split_parallel, causality), tests.test_rotation_advisor_report (6 tests on deterministic aggregation, coverage counting, malformed-line handling, privacy assertions), tests.test_rotation_advisor_cli (1 test on CLI integration), tests.test_rotation_advisor_shadow (7 tests on shadow invariants, no worker file access, no dispatch changes, no engine imports). All 23 tests passed. Real-telemetry evaluation is pending the host command: `python -m agent_os.cli orchestrate rotation-advisor --out docs/orchestrator-os/self-audit/rotation-advisor-baseline.json`; results will be recorded separately once run.",
+  "task_family": "rotation_advice",
+  "metrics": {
+    "test_cases_passed": 23,
+    "test_modules": 4,
+    "model_calls": 0,
+    "spend_usd": 0,
+    "dispatch_changed": false,
+    "network_calls": 0
+  },
+  "links": [
+    {"rel": "evidence_for", "ref": "EXP-0011"},
+    {"rel": "relates_to", "ref": "IMP-0019"},
+    {"rel": "relates_to", "ref": "EVR-0018"},
+    {"rel": "measures", "ref": "src/agent_os/orchestrator/rotation_advisor.py"}
+  ],
+  "provenance": {
+    "source": "synthetic test fixtures in worktree",
+    "session": "run-20261002T083019Z-8ff831 / evidence-records"
+  },
+  "created_at": "2026-10-02T08:00:00+00:00",
+  "updated_at": "2026-10-02T08:00:00+00:00"
+}

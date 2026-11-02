@@ -1,0 +1,24 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0031",
+  "type": "DEC",
+  "title": "Shadow foreman: proposals from any profile (incl. abliterated) scored against incumbent runs, no routing authority",
+  "status": "accepted",
+  "summary": "Implements the roadmap's shadow-mode rollout for an optional open/abliterated foreman (IMP-0015). foreman.propose renders a finished or running run's goal and planned tasks (planner/implementer/test_author nodes, not engine-added reviewers/repairers) as a Task Context Contract carrying the safety-relevant fact that the proposal is a shadow evaluation, then routes one inline delegate call under the operator's requirements (e.g. prefer_refusal_profile=abliterated) with an output contract of tasks[id, capability_class, depends_on, reason]. Proposals are stored under <home>/foreman-shadow/<run>/ with contract digest, route, usage and refusal category. foreman.compare is deterministic: per task agree / cheaper_likely_ok (incumbent passed first attempt, no retries or escalation) / cheaper_risky (incumbent needed retries or escalation) / stronger, plus DAG edge differences, extra tasks and unscored tasks; report aggregates per foreman route. The labels are a proxy (a cheaper class passing is inferred, not observed), so they justify targeted evals, not promotion. The foreman gets no routing authority; promotion requires eval + shadow evidence (Phase 3).",
+  "prior_art": {
+    "checked": "prior-art lookup (shadow evaluation / canary routing): PA-routellm, PA-llmrouter (learned routers, DEFER for lack of volume)",
+    "found": "learned routers need hundreds of labeled outcomes; shadow comparison is how Agent OS will collect them",
+    "reused": "delegate (routing, contract check, refusal taxonomy), context_contract, RunStore",
+    "why_custom": "scoring against Agent OS run records is specific to this engine; ~150 lines, no dependency"
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/foreman.py"},
+    {"rel": "tests", "ref": "tests/test_foreman_shadow.py"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "DEC-0030"}
+  ],
+  "metrics": {"model_calls": 0, "paid_compute": 0, "new_tests": 5},
+  "provenance": {"session": "ORCH-0026 -> ORCH-0027", "author_tier": "frontier (Opus 5.5)"},
+  "created_at": "2026-09-29T19:40:00+00:00",
+  "updated_at": "2026-09-29T19:40:00+00:00"
+}

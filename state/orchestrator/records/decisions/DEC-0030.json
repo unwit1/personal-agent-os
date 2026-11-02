@@ -1,0 +1,31 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0030",
+  "type": "DEC",
+  "title": "IMP-0015 first slice: provider-neutral model profiles, workload requirements, secret refs, Task Context Contract, refusal telemetry",
+  "status": "accepted",
+  "summary": "Operator priority (DEC-0028): make open-weight and abliterated models plug-and-play with neutral routing and neutral context. The existing stdlib router, provider registry, OpenAI-compatible HTTP adapter, keyring code and delegate attachments were extended rather than duplicated. (1) model_profile.py: registry entries may declare a profile (deployment, modalities, open_weights, license, refusal_profile, context_window, revision), with defaults inferred from the adapter; workloads declare hard requirements (deployment, refusal_profile, modalities, open_weights) and soft prefer_* keys. router.select filters on hard keys, orders on soft keys ahead of cost, applies requirements to overrides too, and records the chosen profile on every selection. Nodes (tasks.json 'requirements') and delegate (--require/--prefer) pass them through; reviewers and repairers inherit the subject's requirements. Unknown keys or values fail loudly. Without requirements, routing is unchanged. (2) secret_refs.py: secrets://<provider>/<profile> resolved from AGENT_OS_SECRET_* env vars or the OS keyring; status never returns values; an entry's secret_ref never falls back to a vendor key. (3) context_contract.py: one rendered prompt for every provider, with inputs fenced through the shared delegate.fence_document; safety-relevant facts cannot be omitted (ContextLaunderingError) and every omission is listed. (4) refusal.py: deterministic taxonomy for contract-failed answers, recorded by delegate to <home>/refusals.jsonl and summarized by `orchestrate refusals`. (5) `orchestrate model-add` previews, then with --write adds, an OpenAI-compatible endpoint entry to the machine-local registry; inline role only; never overwrites without --force. The OpenAI-compatible adapter gained options.system. No paid compute, no model calls, no protected-path changes.",
+  "prior_art": {
+    "checked": "prior-art lookup: 'model gateway router provider registry capability metadata' (PA-litellm, PA-routellm, PA-llmrouter, PA-camel), 'secret reference keyring credentials', 'context contract prompt minimization' (PA-llmlingua, PA-camel), 'refusal detection classification'",
+    "found": "no registry entry covers model catalogs/capability profiles, cloud GPU brokers or secret-reference schemes; LiteLLM's provider abstraction remains BORROW-only (compromised on PyPI 2026-03, DEC-0009); CaMeL's data/control separation already informs the untrusted-input fencing",
+    "reused": "existing router, ProviderRegistry, OpenAiCompatibleAdapter (base_url for local servers), keyring backend, delegate attachment fencing (DEC-0018)",
+    "why_custom": "small stdlib extensions of existing primitives; model-catalog/GPU-broker prior art (e.g. SkyPilot, vLLM, Hugging Face model metadata) should be evaluated into the registry before Phase 2/3 design"
+  },
+  "links": [
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/model_profile.py"},
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/secret_refs.py"},
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/context_contract.py"},
+    {"rel": "implements", "ref": "src/agent_os/orchestrator/refusal.py"},
+    {"rel": "tests", "ref": "tests/test_model_infra.py"},
+    {"rel": "relates_to", "ref": "IMP-0015"},
+    {"rel": "relates_to", "ref": "DEC-0028"},
+    {"rel": "relates_to", "ref": "docs/model-infrastructure.md"}
+  ],
+  "metrics": {"model_calls": 0, "paid_compute": 0, "new_tests": 21, "protected_paths_touched": 0},
+  "provenance": {
+    "session": "ORCH-0025 -> ORCH-0026 (operator /loop: model routing + neutral context first)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T19:00:00+00:00",
+  "updated_at": "2026-09-29T19:00:00+00:00"
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0013",
+  "type": "DEC",
+  "title": "Inspect AI: DEFER with a proven wrap pattern",
+  "status": "accepted",
+  "summary": "Do not add inspect-ai now: Agent OS's own suites run in orchestrate eval with the same results, and the capabilities Inspect would add (sandboxes, benchmark ports) are unavailable on this machine (no Docker/WSL) or need model-backed runs through a bridge. Wrapping is cheap and proven (33 lines, exact fidelity), so the trigger to revisit is concrete: the first external benchmark import from evals/external-corpora.json, or Docker/WSL becoming available, or API-key workers making benchmark-scale runs affordable. Then add it as an optional extra behind an adapter; Agent OS keeps suite definitions, scoring rules and promotion authority.",
+  "prior_art": {
+    "checked": "PA-inspect-ai (fresh), inspect_evals ports, Inspect sandbox and ModelAPI extension points",
+    "found": "exact-fidelity bridge in 33 lines; sandboxes need Docker/WSL (absent); 69-package footprint",
+    "reused": "nothing yet; bridge kept as spike artifact",
+    "why_custom": "orchestrate eval already covers Agent OS suites; Inspect deferred until external benchmarks or sandboxes are needed"
+  },
+  "links": [
+    {
+      "rel": "evidence_for",
+      "ref": "EXP-0005"
+    },
+    {
+      "rel": "implements",
+      "ref": "IMP-0008"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0009 -> ORCH-0010 (IMP-0008)",
+    "author_tier": "frontier (Opus 5.5); measurements deterministic"
+  },
+  "created_at": "2026-09-29T04:50:00+00:00",
+  "updated_at": "2026-09-29T04:50:00+00:00"
+}

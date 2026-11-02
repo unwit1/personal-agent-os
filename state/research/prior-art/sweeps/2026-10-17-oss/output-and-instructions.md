@@ -1,0 +1,43 @@
+# Prior-art sweep 2026-10-17: output-and-instructions
+
+Candidates came from web search (Reddit is unreachable here). No search result showed any of these four posted on r/OpenSourceAI, so none is claimed as such. Caveman's README cites Hacker News, Adobe Research, JetBrains and Elastic, not Reddit.
+
+## Caveman
+
+- Repository: https://github.com/JuliusBrussee/caveman, shallow clone at d262ab3 (2026-10-13), tag v4.0.1
+- License: Apache-2.0 (LICENSING.md: whole repo since 3.0.0; Caveman Cloud and Auto are separate commercial services)
+- What it does: a family of voice skills (`caveman`, `ultracave`, `megacave`) injected through SessionStart, SubagentStart and UserPromptSubmit hooks, so the agent writes terse answers. 4.0 added a proxy/engine ("Read less" shrinks logs, JSON and test output before the model reads them), "Blocks" (saved scripts the agent re-runs), "Auto" (hosted model/effort picker; needs an account) and Browse. Also ships `skills/{investigate-first,lean-build,surgical-patch,verify-and-stop}` work-pattern skills.
+- Claims vs evidence: the README is unusually candid. On ten dev questions, "Answer concisely." alone cuts output from 6,983 to 4,334 tokens. `/caveman` adds only 3% more at the median, `/ultracave` 35% more (3.1.0 rules, not re-run), and the rules cost about 1,160 input tokens per session. JetBrains' paired A/B on 86 tasks found 8.5% fewer output tokens and no quality loss. The headline "33.2% fewer input tokens" comes from 54 Claude Code runs (18 answers) by the author, and nearly all of it is the proxy shrinking tool output (130,611 to 22,994 bytes), not the voice. The 54% "Auto" figure is interim and vendor-run. Adobe's 1.4 to 2.4x applies to caveman-style output on API workloads with output-heavy answers. The Adobe finding that cavemanning the prompt hurts is relevant to us.
+- Fit for Agent OS: output is a small share of our cost; implementer cost is dominated by tool results and frontier retries (hr-cc-run4). A voice instruction would only touch reviewer, planner and handoff prose, and risks truncating validator-failure detail that retry prompts depend on. The "Read less" proxy is the same class as lossy crushers that dropped text the model later used in 28-47% of results, and our replay shows 94% of bytes were already narrowed, so it has little left to remove. The one cheap borrow is the three-arm eval design (none, "be concise", skill), which makes the honest baseline "be concise".
+- Test to run: offline, using recorded reviewer and planner outputs. Re-generate 20 reviewer verdicts with (a) the current prompt, (b) an added "Answer first, one idea per sentence, keep paths, numbers and error text verbatim" line, and compare output tokens and whether the verdict and its cited findings match. Justify implementing only if output tokens drop at least 25% on reviewer/planner calls with identical findings; below that, the output share of cost makes it not worth the churn.
+- Verdict: BORROW the three-arm eval method and a terse-reviewer instruction line for testing; do not adopt the proxy or hooks, because output tokens are a small share of our spend and the tool-output proxy overlaps what we already measured as saving nothing.
+
+## token-savior
+
+- Repository: https://github.com/Mibayy/token-savior, shallow clone at 770e055 (2026-10-15), tag v4.24.0
+- License: MIT
+- What it does: a Python MCP server that replaces file reads and greps with symbol-level tools (`find_symbol`, `get_function_source`, `get_full_context`, `replace_symbol_source`), plus persistent memory, a bash-rewriter hook, a read-guard hook and a `ts_search` tool-discovery layer so the manifest stays small (`tiny_plus` profile of 15 tools, about 2.5K tokens).
+- Claims vs evidence: the "-43%" figure is not from the maintainer. A ComputingForgeeks post ran one prompt ("propose 3 improvements") on one small TypeScript repo with Sonnet 4.5: 160,740 tokens against a 284,473 baseline. That is a single task, so it is an anecdote, not a benchmark. The maintainer's own headline is "-80% active tokens, 97.9% (188/192) on tsbench, 96 tasks, Opus 4.7" in a benchmark the same author wrote (separate repo, Mibayy/tsbench), where the tuned config forbids native Read/Grep/Edit on source code. "Active tokens" appears to exclude cached reads, which are 0.1x price for us, so the dollar effect is smaller than the percentage. The repo's own docs say its discipline-instruction option "costs 3-4% more per session with no measured gain", which is a useful honest note. No independent multi-task replication was found.
+- Fit for Agent OS: workers run inside Claude Code/Codex, so an MCP server is usable per worker with no orchestrator change, but it adds a dependency, an index per worktree, and tool-schema tokens on every call. Symbol-level reads attack the tool-result share (about 20% of input cost), and our replay shows most results were already narrowed. The idea worth borrowing is the small default manifest with search-to-discover, which Claude Code now does natively.
+- Test to run: replay-style A/B on 10 recorded implementer tasks from past runs (same prompt, same model tier): arm A native tools, arm B token-savior `tiny_plus` MCP in a throwaway worktree. Measure total cost including cache reads, validator pass rate and retries. Justify a WRAP only if cost drops at least 15% at equal pass rate across the 10 tasks.
+- Verdict: INVESTIGATE because the only independent number is one task on an older model and the maintainer's -80% excludes cache effects; run the 10-task A/B before any decision.
+
+## claude-code-memory-setup
+
+- Repository: https://github.com/lucasrosati/claude-code-memory-setup, shallow clone at 62d0d09 (2026-10-07)
+- License: MIT
+- What it does: a documentation guide plus a few scripts: an Obsidian vault (Zettelkasten notes) as cross-session memory read through a vault CLAUDE.md, `/resume` and `/save` commands, a chat-import pipeline, an auto-save hook, and Graphify (an AST-based code knowledge graph exported as notes) for selective code context.
+- Claims vs evidence: the README itself now says the historical "71.5x per session" and "499x per query" claims are author-reported and not reproducible. The 71.4x illustration is about 20,000 tokens of source against 280 tokens of graph output for one query, not a session measurement, and the payloads and tokenizer were not published. The repo added a benchmark protocol and an offline summarizer, but states that no new performance results are claimed. Treat it as a workflow guide with no measured savings.
+- Fit for Agent OS: Agent OS already has git-backed durable memory, context compilation and handoffs, so an Obsidian vault is a second memory store with its own staleness problem. The Graphify piece (AST graph of a repo for "where is X" questions) is the only part that could be new, and the README admits source reads remain necessary when notes go stale. The `/save` and auto-save hook pattern matches our handoff step.
+- Test to run: none worth building on this repo. If a code-graph experiment is wanted, evaluate Graphify directly by answering 20 recorded "where is X defined/used" worker questions from a graph versus the grep/read calls the worker actually made, counting tokens and correctness.
+- Verdict: REJECT because it duplicates existing Agent OS memory and handoff features and its savings figures are unreproducible by the author's own admission.
+
+## CostAffective
+
+- Repository: not found. Searched the web for "CostAffective MCP server 45.9% fewer tokens github" (standard) and `"CostAffective" MCP server Claude Code cost reduction tokens` (extended); results were generic MCP token-cost articles (GitHub MCP tool-definition overhead, mcplens on Medium) and nothing matching the name or the 45.9% figure. No repo was cloned. Evaluated 2026-10-17.
+- License: unknown, no repository found
+- What it does: unknown; per the assignment, an MCP server claiming 45.9% fewer tokens. Nothing could be verified about its mechanism.
+- Claims vs evidence: the 45.9% number could not be traced to any author, workload or baseline. No benchmark harness was located.
+- Fit for Agent OS: cannot be assessed. If it is a tool-schema or output reduction MCP, the same constraints as token-savior apply: cache reads are already cheap and tool results are about 20% of input cost.
+- Test to run: obtain the repository URL or the post making the claim from whoever flagged it, then repeat the token-savior A/B on the same 10 recorded tasks. Until then there is nothing to test.
+- Verdict: INVESTIGATE because the repository could not be found; re-check once someone supplies the URL or exact name.

@@ -1,0 +1,29 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVS-CAPABILITY-CLASSIFICATION",
+  "type": "EVS",
+  "title": "Cheap-model classification accuracy",
+  "status": "active",
+  "summary": "Development cases for read-only classification task families run through `orchestrate delegate`; score = accuracy vs expected labels, reported per route with cost per success.",
+  "metrics": {
+    "runners": [
+      "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json"
+    ],
+    "dimensions": [
+      "accuracy",
+      "cost_per_success",
+      "latency",
+      "contract_pass"
+    ],
+    "task_families": [
+      "research_implementation_classification"
+    ],
+    "splits": [
+      "development"
+    ],
+    "regression_for": []
+  },
+  "links": [],
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

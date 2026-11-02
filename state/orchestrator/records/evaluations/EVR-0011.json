@@ -1,0 +1,65 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0011",
+  "type": "EVR",
+  "title": "Affected-tests-first: time share of the selected subset on real-commit cases",
+  "status": "accepted",
+  "summary": "Deterministic measurement, no model calls: each of 47 test modules timed at HEAD (4 parallel workers, so absolute times are inflated but ratios hold), then for the 40 EVS-TEST-SELECTION cases the import-graph selection's share of total module time. Failing attempts get their signal after the subset (mean 36%, median 21% of full-suite time); passing attempts pay the subset on top of the full suite. Break-even first-attempt failure rate ~36%. 13 affected modules were missed across 40 cases (the full suite still runs afterwards, so misses delay but never hide a failure).",
+  "task_family": "affected_test_selection",
+  "outcome": "n/a",
+  "metrics": {
+    "affected_time_share": {
+      "mean": 0.361,
+      "median": 0.212,
+      "p90": 0.871,
+      "max": 0.942
+    },
+    "sum_module_seconds": 647.3,
+    "modules": 47,
+    "slowest_modules": [
+      [
+        "tests.test_orchestrator",
+        166.76
+      ],
+      [
+        "tests.test_orchestrator_roadmap",
+        96.37
+      ],
+      [
+        "tests.test_orchestrator_telemetry",
+        55.46
+      ],
+      [
+        "tests.test_orchestrator_surfaces",
+        34.24
+      ],
+      [
+        "tests.test_orchestrator_host_actions",
+        33.61
+      ]
+    ],
+    "missed_affected_modules_total": 13,
+    "cases": 40,
+    "break_even_failure_rate": 0.36
+  },
+  "links": [
+    {
+      "rel": "measures",
+      "ref": "src/agent_os/orchestrator/test_selection.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "IMP-0006"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0007"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0004 -> ORCH-0005 (IMP-0006)",
+    "author_tier": "frontier (Opus 5.5) design; measurements deterministic"
+  },
+  "created_at": "2026-09-29T03:40:00+00:00",
+  "updated_at": "2026-09-29T03:40:00+00:00"
+}

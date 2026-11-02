@@ -1,0 +1,29 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVS-CONTEXT",
+  "type": "EVS",
+  "title": "Planner context and retrieval",
+  "status": "active",
+  "summary": "Planner repository map and read budget; selective profile retrieval.",
+  "metrics": {
+    "runners": [
+      "tests/test_orchestrator_planner_context.py",
+      "tests/test_profile.py"
+    ],
+    "dimensions": [
+      "completion_success",
+      "context_tokens"
+    ],
+    "task_families": [
+      "context",
+      "retrieval"
+    ],
+    "splits": [
+      "development"
+    ],
+    "regression_for": []
+  },
+  "links": [],
+  "created_at": "2026-09-28T23:55:00+00:00",
+  "updated_at": "2026-09-28T23:55:00+00:00"
+}

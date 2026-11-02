@@ -1,0 +1,41 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0022",
+  "type": "EVR",
+  "title": "RouteLLM-style shadow route calibration on real run telemetry (offline, advice only)",
+  "status": "accepted",
+  "outcome": "positive",
+  "summary": "The supervisor ran `agent.py orchestrate route-calibration` over the real local orchestrator home: 26 runs, 386 editing nodes (354 labeled, 32 unlabeled; 401 reviewer nodes excluded), 0 malformed lines. Shadow mode; routing was not changed. Advice: escalate earlier for implementer, repairer and test_author nodes on the fast and balanced classes (planner: insufficient data). Across thresholds the curve is flat (cheap share 0.4802, kept pass rate 0.8824, 45 escalations avoided), so the deciding signal is per-cell failure rate, not a threshold. This matches what was observed on 2026-10-02: fast-tier (Haiku) implementers repeatedly exhausted five review rounds and needed gate approval with findings still open. Recommended next step: a bounded experiment that starts implementer/test_author nodes one class higher (fast to balanced) and compares review rounds and cost per accepted node, before any routing change.",
+  "metrics": {
+    "runs": 26,
+    "nodes": 386,
+    "labeled": 354,
+    "reviewer_nodes_excluded": 401,
+    "cheap_share": 0.4802,
+    "kept_pass_rate": 0.8824,
+    "escalations_avoided": 45,
+    "routing_changed": false,
+    "model_calls": 0,
+    "spend_usd": 0
+  },
+  "links": [
+    {
+      "rel": "measures",
+      "ref": "src/agent_os/orchestrator/route_calibration.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "IMP-0015"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "EVR-0020"
+    }
+  ],
+  "provenance": {
+    "session": "supervisor session 2026-10-02 (host step after run-20261002T113455Z-47d600)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-10-02T15:45:00+00:00",
+  "updated_at": "2026-10-02T15:45:00+00:00"
+}

@@ -1,0 +1,56 @@
+# Prior-art sweep 2026-10-17: batch memory-and-context
+
+Reddit is unreachable from this environment. Web searches for r/OpenSourceAI
+threads on any of these five projects returned none, so none is claimed as
+posted there. Existing registry entries consulted: PA-mem0, PA-graphiti,
+PA-letta, PA-llmlingua, PA-distill.
+
+## Hindsight
+
+- Repository: https://github.com/vectorize-io/hindsight, shallow clone at commit 5331da2 (2026-10-16), evaluated 2026-10-17.
+- License: MIT (LICENSE file, Vectorize AI, Inc.).
+- What it does: Agent memory server (Postgres-backed API plus clients). `hindsight-api-slim/hindsight_api/engine/search/retrieval.py` hands each recall to four arms (semantic vector, BM25, graph link expansion, temporal), fuses the ranked lists (`fusion.py`), then reranks (`reranking.py`). It also has retain, recall and "reflect" operations over world/experience/opinion fact types.
+- Claims vs evidence: README claims state-of-the-art on LongMemEval and says the numbers were independently reproduced by Virginia Tech and The Washington Post. Those two are co-authors of the paper (arXiv 2512.12818, 83.6% with a 20B open model, 91.4% with a larger backbone), so "independent" is generous. The vendor benchmark page later says 94.6%, with no reproduction details. Competitor scores in the README chart are self-reported by their vendors, with different models and judges. I found no published ablation in the repo showing that all four arms are needed, and no third-party critique or r/OpenSourceAI thread. Evidence is vendor-sourced and plausible, not proven.
+- Fit for Agent OS: Agent OS memory is Git JSON records retrieved by the context compiler. Hybrid lexical plus semantic retrieval with rank fusion is a sound, well-known idea, but the repo's records are small and curated, and a Postgres service would be a second memory authority (same objection as PA-mem0). Reusable part: reciprocal-rank fusion of a lexical arm and a tag/recency arm in the context matcher, in stdlib. Temporal-window query parsing is also borrowable, and overlaps PA-graphiti's bi-temporal idea.
+- Test to run: Offline. Take the existing context-compile queries with known-good matched records (or the last N `agent-os context` calls and the records the agent then used), score the current matcher against a stdlib BM25 plus recency plus tag fusion, and report recall@k. Justify implementing only if fusion beats the current matcher by a clear margin on recall@5 without raising loaded tokens.
+- Verdict: DEFER because the headline numbers are vendor-measured and the service is too heavy, but a stdlib rank-fusion experiment in the context matcher is cheap and should wait for a recall@k fixture.
+
+## Cognee
+
+- Repository: https://github.com/topoteretes/cognee, shallow clone at commit 37f788b (2026-10-16), evaluated 2026-10-17.
+- License: Apache-2.0 (pyproject.toml and LICENSE).
+- What it does: Python library and MCP server that ingests documents, uses an LLM to extract entities and relations into a graph store plus vector store (Kuzu by default, others pluggable), and answers via about twenty `SearchType` modes (`cognee/modules/search/types/SearchType.py`): chunks, summaries, graph completion, chain-of-thought graph completion, temporal, Cypher, coding rules, skills and more.
+- Claims vs evidence: Cognee's published comparison against Mem0, Graphiti and LightRAG uses a 24-question HotPotQA subset, 45 runs per system, and an LLM judge (DeepEval). Authors are the vendor, the question set is tiny, HotPotQA is not agent-memory work, and the docs concede judge inconsistency. A rival's comparison page (Vectorize) and EverMind cite Cognee figures only from Cognee's own docs. No independent evaluation and no r/OpenSourceAI thread found. The breadth of search modes shows ambition but no measured evidence that graph retrieval beats plain retrieval for coding-agent memory.
+- Fit for Agent OS: Poor. Graph extraction costs LLM calls at ingest, adds a database, and makes the store a non-Git authority. Agent OS facts are already structured JSON with provenance, so the extraction step solves a problem we do not have. The only borrowable idea is a "coding rules" memory type, which Agent OS already has as policy and skills.
+- Test to run: None worth the cost now. If revisited, run Cognee over the project's `memory/` records in a scratch directory and compare its answers to the context compiler on 20 recorded task queries, counting wrong or missing records. Revisit only if the number of cross-record questions the compiler fails grows.
+- Verdict: REJECT because the graph-extraction pipeline and database duplicate the Git-backed store and its benchmark evidence is vendor-only on an unrelated task.
+
+## ACON
+
+- Repository: https://github.com/microsoft/acon, shallow clone at commit d63f9ae (2025-10-14), evaluated 2026-10-17. Paper: arXiv 2510.00615 (ICML-track PMLR v306).
+- License: MIT (README badge and LICENSE file).
+- What it does: Research framework (`src/productive_agents/ctxopt/`: `history_optimizer.py`, `obs_optimizer.py`) that has an LLM compress agent history and tool observations under a natural-language guideline. An optimizer LLM revises the guideline by reading cases where the full-context agent succeeded and the compressed agent failed. The compressor can later be distilled into a smaller model. Benchmarks: AppWorld, OfficeBench, 8-objective QA.
+- Claims vs evidence: The paper reports 26-54% peak-token reduction while keeping accuracy, and over 95% of accuracy after distillation. The code release exists but was last pushed 2025-10-14, so it is a one-shot research drop, and the quickstart needs AppWorld data and an OpenAI key. Peak tokens are not dollars: with a 1-hour prompt cache, history re-reads cost 0.1x. Rewriting history mid-session cost us 2-6% more than it saved. Reported baselines are the authors' own on three benchmarks, not coding agents. I did not find an independent reproduction.
+- Fit for Agent OS: The compressor itself acts on history inside the CLI, which Agent OS does not control, so it does not fit. The transferable idea is the guideline-optimization loop: use paired success/failure runs to improve an instruction. Agent OS already records validator failures and has retry prompts quoting failing output, so the same contrastive loop could tune a handoff or retry-prompt template, a place where we do control the text. This overlaps PA-gepa and PA-dspy more than compression.
+- Test to run: Offline, no model calls to start: pick handoff or retry-prompt rewrites from past runs where the first attempt failed validators and the retry passed, and check whether the failing-case diff would have produced a different instruction. Do not test compression itself, since our replays (0 bytes saved, 28-47% of lossy removals later needed) already argue against it.
+- Verdict: DEFER because history compression has no hook in our architecture and loses on our measured cache economics, though the contrastive guideline-tuning loop is worth revisiting for handoff and retry templates.
+
+## Focus (Active Context Compression)
+
+- Repository: no code found. Paper only: https://arxiv.org/abs/2601.07190 (Nikhil Verma, 2026-01-12). Searched: arXiv listing and PDF, hyper.ai mirrors, web queries for the author plus "start_focus" / "complete_focus" and "github". Evaluated 2026-10-17; no commit.
+- License: none (no repository found).
+- What it does: Adds two tools, `start_focus` and `complete_focus`, to a ReAct loop. The agent marks a checkpoint, explores, then writes a summary to a persistent Knowledge block and the raw history since the checkpoint is dropped.
+- Claims vs evidence: 22.7% fewer tokens (14.9M to 11.5M) with the same accuracy (3/5), on five SWE-bench Lite instances, one model (Claude Haiku 4.5), with prompting that pushes frequent compression and by a single independent author. Five tasks with 3/5 versus 3/5 cannot show equal accuracy, and total tokens ignore cache pricing. The paper itself notes overhead can exceed benefit when work is iterative. Per-instance savings reached 57%, so variance is large. No code to audit and no replication.
+- Fit for Agent OS: Deleting history is a loop-owner feature; Agent OS does not own the loop in Claude Code or Codex. Our own measurements run against it: trimming mid-session cost 2-6% more than it saved because the cache is rewritten. It could only apply through `adapters/http_api.py` if Agent OS ever gains its own loop, and even then the cached-read price makes the saving doubtful. A cheap variant that does fit is an instruction asking workers to write a findings note before long exploration, but that is just handoff discipline we already have.
+- Test to run: Offline cost model, not an agent run: take recorded transcripts, mark plausible checkpoint points, and price "drop history after checkpoint" with the cache-rewrite cost included. Only if the net saving is above 10% on long sessions would an own-loop prototype be justified; expect it to fail given the 2026-10 trimming result.
+- Verdict: INVESTIGATE because no code exists to inspect and the evidence is five tasks, so only the offline cache-priced model is worth running, and it is expected to kill the idea.
+
+## Agent-Reach
+
+- Repository: https://github.com/Panniantong/Agent-Reach, shallow clone at commit 94f06c1 (2026-10-08), evaluated 2026-10-17.
+- License: MIT (LICENSE file and README badge).
+- What it does: Python CLI (`agent_reach/`) plus install docs that an agent reads to set up per-platform tools. It routes web, YouTube, RSS, GitHub, Twitter/X, Reddit, Bilibili, Xiaohongshu, LinkedIn, Facebook, Instagram and others to a primary backend with a fallback (Jina Reader for pages, Exa over MCP for search, yt-dlp, bili-cli, OpenCLI, rdt-cli, twitter-cli) and ships `agent-reach doctor` to report which channels work. The README is primarily in Chinese.
+- Claims vs evidence: "Completely free" is qualified in its own README: Reddit has no zero-config path, several platforms need cookies or a logged-in Chrome session via OpenCLI, and servers may need a roughly $1/month proxy. Free upstream services (Jina Reader, Exa MCP) can change terms. The routing-with-fallback and doctor claims are visible in code, but there is no benchmark or reliability measurement; it is a glue project over other tools and depends on scraping that platforms can break. Sponsor blocks sit in the README. Not found as an r/OpenSourceAI post; only aggregator and Product Hunt pages.
+- Fit for Agent OS: Not a memory or context technique. Workers already have web access through the coding CLI, and Agent OS policy keeps credentials out of repos, so cookie-based logins to social platforms are a security cost with no clear task benefit. The one borrowable pattern is the `doctor` command: a deterministic per-capability health check with a fix hint, which suits Agent OS adapter and tool preflight. The registry has no overlapping entry.
+- Test to run: None for the tool. For the pattern, add a preflight check listing which adapters and CLIs on the host respond, and see whether it removes failed worker launches in the next few runs.
+- Verdict: REJECT because it is scraping glue with credential exposure and unrelated to context or memory; only the doctor-style preflight idea is noted for reuse.

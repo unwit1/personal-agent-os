@@ -1,0 +1,95 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-cbe590764c",
+  "type": "CAP",
+  "title": "foreman_planning via codex/gpt-6-astra (medium)",
+  "status": "active",
+  "key": {
+    "task_family": "foreman_planning",
+    "role": "planner",
+    "provider": "codex",
+    "model_resolved": "gpt-6-astra",
+    "effort": "medium",
+    "toolset": "none"
+  },
+  "metrics": {
+    "sample_count": 12,
+    "final_success": 11,
+    "validator_pass_rate": 0.917,
+    "pass_rate_wilson95": [
+      0.646,
+      0.985
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.92,
+    "contract_pass_rate": 0.917,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 32.96,
+    "mean_input_tokens": 12141.83,
+    "mean_output_tokens": 913.42,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "under-provisioned": 1
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-readme-link"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-default-idle"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-quote-test"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-cli-flag"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-gui-copy"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-report-column"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-flaky-reaper"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-wrong-cost"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-plugin-sandbox"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-distributed-budget"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-key-rotation"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-typo-comments"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "20260930T143531Z",
+    "observed_to": "20260930T143531Z"
+  },
+  "updated_at": "2026-09-30T14:42:57.783792+00:00"
+}

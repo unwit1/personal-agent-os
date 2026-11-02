@@ -1,0 +1,32 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "EVR-0017",
+  "type": "EVR",
+  "title": "First live no-spend API-vs-RunPod quote (roadmap acceptance 3, smoke test)",
+  "status": "accepted",
+  "outcome": "demonstrated",
+  "summary": "`orchestrate quote --gpu-from runpod` on 2026-09-29 against RunPod's live public gpuTypes inventory (23 offers with >= 80 GB VRAM). Workload: private batch inference, 20,000 items x (2,000 input + 800 output tokens), vram_gb 80. LIVE: GPU prices (A100 PCIe community $1.19/h, A100 SXM community $1.39/h, A100 PCIe secure $1.59/h). ASSUMED (operator inputs, not measured): API option at $3/$15 per Mtok; 1,500 generated tokens/s aggregate for a batched vLLM server on one A100 80GB; prefill weight 0.1; default 8 min startup + 10 min idle; failure rates API 0.05, GPU 0.10. Result: A100 PCIe community expected $5.25 (low $4.03, high $7.70, 4.4 billed h) vs API expected $378.95; recommended GPU pod; saving $373.69 expected. Every option's budget gate returned requires_approval (budget not approved), and sensitivity=private produced routing requirements deployment in {local, gpu_pod, serverless}. Nothing was provisioned. The magnitude depends almost entirely on the assumed throughput; a measured vLLM benchmark for the chosen model must replace it before a paid run.",
+  "task_family": "compute_quote",
+  "metrics": {
+    "live_offers_ge_80gb": 23,
+    "options": [
+      {"id": "runpod:A100 PCIe:community", "usd_per_hour": 1.19, "cost_usd": {"low": 4.0298, "expected": 5.2541, "high": 7.7027}, "billed_hours_expected": 4.4152},
+      {"id": "runpod:A100 SXM:community", "usd_per_hour": 1.39, "cost_usd": {"low": 4.7071, "expected": 6.1372, "high": 8.9972}},
+      {"id": "runpod:A100 PCIe:secure", "usd_per_hour": 1.59, "cost_usd": {"low": 5.3844, "expected": 7.0202, "high": 10.2918}},
+      {"id": "api-example-3in-15out", "cost_usd": {"low": 341.0526, "expected": 378.9474, "high": 473.6842}}
+    ],
+    "assumed_inputs": ["api price $3/$15 per Mtok", "gen 1500 tok/s", "prefill weight 0.1", "startup 8 min", "idle 10 min", "failure api 0.05 / gpu 0.10"],
+    "gate": "requires_approval for all options",
+    "provisioned": false,
+    "model_calls": 0,
+    "spend_usd": 0
+  },
+  "links": [
+    {"rel": "measures", "ref": "src/agent_os/orchestrator/quote.py"},
+    {"rel": "measures", "ref": "src/agent_os/orchestrator/compute.py"},
+    {"rel": "relates_to", "ref": "IMP-0015"}
+  ],
+  "provenance": {"source": "agent-os orchestrate quote --gpu-from runpod (live RunPod GraphQL gpuTypes, unauthenticated)", "session": "ORCH-0028 -> ORCH-0029"},
+  "created_at": "2026-09-29T21:00:00+00:00",
+  "updated_at": "2026-09-29T21:00:00+00:00"
+}

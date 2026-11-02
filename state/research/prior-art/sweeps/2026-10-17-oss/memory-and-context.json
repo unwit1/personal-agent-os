@@ -1,0 +1,188 @@
+{
+  "entries": [
+    {
+      "id": "PA-hindsight",
+      "name": "Hindsight",
+      "repository": "https://github.com/vectorize-io/hindsight",
+      "organization": "vectorize-io",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "5331da2",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["agent memory retrieval", "hybrid retrieval rank fusion", "temporal recall"],
+      "agent_os_overlap": "Context compiler matcher over Git JSON memory records; no rank fusion of lexical, tag and recency signals.",
+      "useful_parts": {
+        "algorithms": ["fusion of semantic, BM25, graph and temporal recall arms"]
+      },
+      "integration": "",
+      "risks": {"claims": "LongMemEval numbers are vendor or co-author measured"},
+      "evidence": {
+        "development_savings": "small (fusion in stdlib)",
+        "runtime_savings": "unmeasured",
+        "quality": "vendor-reported LongMemEval 83.6-94.6%; reproduction is by paper co-authors; no arm ablation seen",
+        "reliability": "n/a",
+        "security": "Postgres service would hold private memory",
+        "complexity": "service plus database if adopted; stdlib fusion is small",
+        "maintenance": "active (pushed 2026-10-16)",
+        "portability": "Python and Postgres; not Git-canonical"
+      },
+      "decision": "DEFER",
+      "rationale": "Headline accuracy is vendor-measured and the server would be a second memory authority. A stdlib rank-fusion experiment in the context matcher is cheap but needs a recall@k fixture first.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), engine/search/retrieval.py and README",
+        "arXiv 2512.12818",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": ["a recall@k fixture for context compile exists", "context matcher misses known-relevant records"],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-cognee",
+      "name": "Cognee",
+      "repository": "https://github.com/topoteretes/cognee",
+      "organization": "topoteretes",
+      "license": "Apache-2.0",
+      "license_spdx": "Apache-2.0",
+      "evaluated_revision": "37f788b",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["graph memory", "knowledge graph extraction", "agent memory search modes"],
+      "agent_os_overlap": "Knowledge library and profile facts are already structured Git JSON with provenance; no LLM graph extraction.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {"architecture": "second non-Git memory authority"},
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none; adds LLM calls at ingest",
+        "quality": "vendor benchmark: 24 HotPotQA questions, LLM judge; no independent evaluation",
+        "reliability": "n/a",
+        "security": "graph and vector stores would hold private data",
+        "complexity": "graph database plus vector store plus LLM extraction",
+        "maintenance": "active (pushed 2026-10-16)",
+        "portability": "Python library and MCP server"
+      },
+      "decision": "REJECT",
+      "rationale": "LLM graph extraction and a database duplicate the Git-backed store, and the benchmark evidence is vendor-only on an unrelated task.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), SearchType.py, pyproject.toml",
+        "cognee.ai benchmark pages (vendor)",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": ["cross-record questions the context compiler cannot answer become a FAIL"],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-acon",
+      "name": "ACON",
+      "repository": "https://github.com/microsoft/acon",
+      "organization": "microsoft",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "d63f9ae",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["context compression", "guideline optimization from paired failures", "prompt optimization"],
+      "agent_os_overlap": "Retry prompts quote failing test output; handoff templates are hand-written; history lives in the CLI.",
+      "useful_parts": {
+        "algorithms": ["optimize an instruction from cases where full context succeeds and compressed context fails"]
+      },
+      "integration": "",
+      "risks": {"fit": "history compression has no hook in Claude Code or Codex adapters"},
+      "evidence": {
+        "development_savings": "small",
+        "runtime_savings": "paper reports 26-54% peak tokens; peak tokens are not cost under 1-hour cache pricing",
+        "quality": "authors' own results on AppWorld, OfficeBench, QA; not coding agents; no reproduction found",
+        "reliability": "our replay: lossy reduction removed later-used text in 28-47% of results",
+        "security": "none",
+        "complexity": "research framework needing AppWorld data and an OpenAI key",
+        "maintenance": "one-shot release, last commit 2025-10-14",
+        "portability": "Python 3.11"
+      },
+      "decision": "DEFER",
+      "rationale": "History compression has no hook in our architecture and loses on measured cache economics; the contrastive guideline-tuning loop may help handoff and retry templates later.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), README and src/productive_agents/ctxopt",
+        "arXiv 2510.00615",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": ["Agent OS gains its own agent loop", "retry or handoff template tuning becomes a goal"],
+      "revisit_by": null
+    },
+    {
+      "id": "PA-focus-active-context-compression",
+      "name": "Focus (Active Context Compression)",
+      "repository": "https://arxiv.org/abs/2601.07190",
+      "organization": "Nikhil Verma",
+      "license": "none found (no repository located)",
+      "license_spdx": "NOASSERTION",
+      "evaluated_revision": "arXiv v1 (2026-01-12); no code",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["agent-controlled context pruning", "context compression", "long-horizon coding agents"],
+      "agent_os_overlap": "Agent OS does not own the agent loop; history is inside Claude Code or Codex.",
+      "useful_parts": {},
+      "integration": "",
+      "risks": {"evidence": "five SWE-bench Lite instances, one model"},
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "paper: 22.7% fewer total tokens; ignores cache pricing, and our trimming test cost 2-6% more than it saved",
+        "quality": "3/5 vs 3/5 accuracy on five tasks; cannot show parity",
+        "reliability": "paper notes overhead can exceed benefit on iterative work",
+        "security": "none",
+        "complexity": "needs loop ownership via adapters/http_api.py",
+        "maintenance": "no repository",
+        "portability": "n/a"
+      },
+      "decision": "INVESTIGATE",
+      "rationale": "No code exists to audit and the evidence is five tasks; only an offline cache-priced model of drop-after-checkpoint is worth running, and it is expected to kill the idea.",
+      "confidence": "low",
+      "provenance": [
+        "arXiv 2601.07190 and hyper.ai mirrors via web search (2026-10-17)",
+        "searched for author, start_focus, complete_focus plus github: no repository found"
+      ],
+      "links": [],
+      "revisit_when": ["author releases code", "Agent OS gains its own agent loop"],
+      "revisit_by": "2026-11-16"
+    },
+    {
+      "id": "PA-agent-reach",
+      "name": "Agent-Reach",
+      "repository": "https://github.com/Panniantong/Agent-Reach",
+      "organization": "Panniantong",
+      "license": "MIT",
+      "license_spdx": "MIT",
+      "evaluated_revision": "94f06c1",
+      "evaluated_at": "2026-10-17",
+      "capability_areas": ["web read and search tools", "per-platform fallback routing", "capability health check"],
+      "agent_os_overlap": "Workers already have web access through the coding CLI; no capability preflight doctor command for adapters.",
+      "useful_parts": {
+        "workflows": ["doctor command: per-capability health check with fix hint"]
+      },
+      "integration": "",
+      "risks": {"security": "cookie-based logins for social platforms"},
+      "evidence": {
+        "development_savings": "none",
+        "runtime_savings": "none",
+        "quality": "no benchmark; depends on scraping that platforms can break",
+        "reliability": "primary plus fallback routing visible in code; unmeasured",
+        "security": "needs cookies or a logged-in browser for several platforms",
+        "complexity": "many third-party CLIs to install",
+        "maintenance": "active (commit 2026-10-08)",
+        "portability": "Python 3.10+, README mainly Chinese"
+      },
+      "decision": "REJECT",
+      "rationale": "Scraping glue with credential exposure and unrelated to memory or context; only the doctor-style preflight pattern is worth noting.",
+      "confidence": "medium",
+      "provenance": [
+        "git clone --depth 1 (2026-10-17), README and agent_reach/channels",
+        "web search found no r/OpenSourceAI thread"
+      ],
+      "links": [],
+      "revisit_when": ["a worker task needs a platform the CLI cannot reach"],
+      "revisit_by": null
+    }
+  ]
+}

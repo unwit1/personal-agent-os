@@ -1,0 +1,34 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0012",
+  "type": "DEC",
+  "title": "Subsumed mutation tester; control-plane guard fails closed",
+  "status": "accepted",
+  "summary": "mutation.py is the mutation-testing tool (orchestrate mutate <module> --tests <modules>), run as a developer check on protected control-plane modules before changes land. control_plane.applies_to() now returns True (apply the guard) when the repository path cannot be resolved. control_plane.py and tests/test_orchestrator_control_plane.py are protected paths; both changed under the standing grant because the next action required them, and the change strengthens the guard.",
+  "prior_art": {
+    "checked": "PA-mutmut (fresh), mutmut 3 installed in .agent-local/venv-dev",
+    "found": "mutmut refuses native Windows (WSL required, issue #397)",
+    "reused": "classic mutation operators and the killed/survived model from mutmut",
+    "why_custom": "the reference tool does not run on the operator's platform; the subsumed tool is ~200 lines of stdlib"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/mutation.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/control_plane.py"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "EXP-0004"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0008 -> ORCH-0009 (mutation testing)",
+    "author_tier": "frontier (Opus 5.5); measurements deterministic"
+  },
+  "created_at": "2026-09-29T05:40:00+00:00",
+  "updated_at": "2026-09-29T05:40:00+00:00"
+}

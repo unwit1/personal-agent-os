@@ -1,0 +1,42 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0011",
+  "type": "DEC",
+  "title": "Provider health shared across engine, delegate and eval; breaker for repeated unavailable failures",
+  "status": "accepted",
+  "summary": "provider_health.py owns the machine-wide cooldown file the engine already used (engine keeps alias names). Added: reset parsing for observed messages and Retry-After; a failure-window breaker (3 unavailable in 10 min -> 15 min cooldown, half-open by expiry); delegate/eval skip cooling providers, record cooldowns on quota/unavailable, and return 'unroutable' with deferred_until instead of silently spending on blocked providers. Evaluated: EVR-0012 (EVS-ROUTING noninferior), state-machine hunt 20 x 50 ops with unavailable bursts, 0 violations.",
+  "prior_art": {
+    "checked": "PA-pybreaker, PA-tenacity (fresh), existing engine cooldown code",
+    "found": "breaker state machine (pybreaker) already subsumed in retry.py; the engine already had quota cooldowns",
+    "reused": "existing engine cooldown file and routing filter; pybreaker closed/open/half-open semantics (half-open realized as cooldown expiry)",
+    "why_custom": "extends existing Agent OS state; no dependency needed"
+  },
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "IMP-0005"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/provider_health.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_provider_health.py"
+    },
+    {
+      "rel": "measures",
+      "ref": "EVR-0012"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FAIL-0001"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0007 -> ORCH-0008 (IMP-0005)",
+    "author_tier": "frontier (Opus 5.5)"
+  },
+  "created_at": "2026-09-29T05:00:00+00:00",
+  "updated_at": "2026-09-29T05:00:00+00:00"
+}

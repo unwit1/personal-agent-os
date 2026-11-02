@@ -1,0 +1,119 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "CAP-e31c23e956",
+  "type": "CAP",
+  "title": "foreman_planning via claude-code/claude-opus-5-5 (medium)",
+  "status": "active",
+  "key": {
+    "task_family": "foreman_planning",
+    "role": "planner",
+    "provider": "claude-code",
+    "model_resolved": "claude-opus-5-5",
+    "effort": "medium",
+    "toolset": "none"
+  },
+  "metrics": {
+    "sample_count": 18,
+    "final_success": 16,
+    "validator_pass_rate": 0.889,
+    "pass_rate_wilson95": [
+      0.672,
+      0.969
+    ],
+    "qualified_at_floor": null,
+    "mean_accuracy": 0.89,
+    "contract_pass_rate": 0.889,
+    "pass_basis": "accuracy_vs_labels",
+    "contract_only_samples": 0,
+    "repairs": 0,
+    "mean_seconds": 20.79,
+    "mean_input_tokens": 9139.61,
+    "mean_output_tokens": 1930.0,
+    "total_cost_usd": null,
+    "cost_per_success_usd": null,
+    "failure_clusters": {
+      "task count out of range": 2
+    },
+    "availability_failures": 0
+  },
+  "links": [
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221052Z:ho-version-bump"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221052Z:ho-list-limit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221052Z:ho-blocked-badge"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221052Z:ho-double-release"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221052Z:ho-rate-limit"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260929T221052Z:ho-secret-retention"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-readme-link"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-default-idle"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-quote-test"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-cli-flag"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-gui-copy"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-report-column"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-flaky-reaper"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-wrong-cost"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-plugin-sandbox"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-distributed-budget"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-key-rotation"
+    },
+    {
+      "rel": "derived_from",
+      "ref": "local:capability/observations.jsonl#20260930T143531Z:h2-typo-comments"
+    }
+  ],
+  "provenance": {
+    "source": "agent-os orchestrate capability --write",
+    "observed_from": "20260929T221052Z",
+    "observed_to": "20260930T143531Z"
+  },
+  "updated_at": "2026-09-30T14:42:57.783709+00:00"
+}

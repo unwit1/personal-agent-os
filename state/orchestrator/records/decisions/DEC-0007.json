@@ -1,0 +1,40 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0007",
+  "type": "DEC",
+  "title": "Affected-tests-first validation: selector as runtime code, retries-only default, full suite still gates",
+  "status": "accepted",
+  "summary": "ImportGraphSelector moved to src/agent_os/orchestrator/test_selection.py (runtime candidate); eval.py (protected evaluator) now only imports it, changed under the operator's standing grant because the next action required it. The engine runs the selected test modules before the full declared validators on editing nodes whose project validators run unittest; a new failure fails the attempt fast, failures already on the base commit are excused through the project validator's baseline, otherwise the full validators run unchanged and still gate completion and integration. Default 'retries' (only after a failed attempt and on repairers) because EVR-0011 shows the step pays only when more than ~36% of validations fail and no run telemetry exists yet to show that rate; policy accepts off | retries | always. Evaluated noninferior: EVR-0008 (control plane), EVR-0009 and EVR-0010 (routing).",
+  "links": [
+    {
+      "rel": "implements",
+      "ref": "IMP-0006"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/agent_os/orchestrator/test_selection.py"
+    },
+    {
+      "rel": "measures",
+      "ref": "EVR-0011"
+    },
+    {
+      "rel": "evidence_for",
+      "ref": "EVR-0010"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "FND-0007"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "HYP-0003"
+    }
+  ],
+  "provenance": {
+    "session": "ORCH-0004 -> ORCH-0005 (IMP-0006)",
+    "author_tier": "frontier (Opus 5.5) design; measurements deterministic"
+  },
+  "created_at": "2026-09-29T03:40:00+00:00",
+  "updated_at": "2026-09-29T03:40:00+00:00"
+}
