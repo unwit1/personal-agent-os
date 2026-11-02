@@ -7,7 +7,7 @@
   "summary": "`agent-os orchestrate benchmark` offline scenarios: model calls by tier, avoided work, prompt and context size.",
   "metrics": {
     "runners": [
-      "src/agent_os/orchestrator/benchmark.py",
+      "src/orchestrator_os/benchmark.py",
       "tests/test_orchestrator_benchmark.py"
     ],
     "dimensions": [

@@ -7,7 +7,7 @@
   "summary": "Development cases for read-only classification task families run through `orchestrate delegate`; score = accuracy vs expected labels, reported per route with cost per success.",
   "metrics": {
     "runners": [
-      "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json"
+      "state/orchestrator/evals/cases/development/research-implementation-classification.json"
     ],
     "dimensions": [
       "accuracy",

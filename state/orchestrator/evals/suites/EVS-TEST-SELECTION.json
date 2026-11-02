@@ -7,7 +7,7 @@
   "summary": "Given the src files a real commit changed, select the test modules that execute code in them. Labels come from per-module call tracing at the case file's base commit, with no model involved (DEC-0006). A case passes on recall 1.0 with precision >= 0.5. Deterministic routes (deterministic:import-graph, deterministic:all-tests) compete with model routes.",
   "metrics": {
     "runners": [
-      "projects/personal-agent-os/orchestrator-os/evals/cases/development/affected-test-selection.json"
+      "state/orchestrator/evals/cases/development/affected-test-selection.json"
     ],
     "dimensions": [
       "accuracy",
