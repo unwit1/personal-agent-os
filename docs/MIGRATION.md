@@ -9,11 +9,13 @@ live in personal-agent-os (`docs/adr/0001-orchestrator-os-extraction.md`,
 
 | Commit | Change | Why |
 |---|---|---|
-| `dea4c32`, `65aa586` | mechanical copy + import rewrite | `extract.py` output, see `PROVENANCE.json` |
-| `08a310f`, `fa5efa8` | affected-test selection and simplify find `src/` packages instead of `agent_os` | selection was a no-op on every other repository |
-| `b7d60d1`, `8060b7d` | evidence moves to `state/`; suite runner paths re-pointed | records unchanged byte for byte |
-| `678ce16` | control-plane floor and append-only guard use `host.OS_REL` | **security**: the copied literals left holdouts and FAIL/EVR records unprotected here |
-| `6a51685` | any repository with `policy/orchestrator-os.policy.json` is guarded | before, only the control repo was |
+| `642ed34`, `fa4c349` | mechanical copy + import rewrite | `extract.py` output, see `PROVENANCE.json` |
+| `a8068f9`, `184178f` | affected-test selection and simplify find `src/` packages instead of `agent_os` | selection was a no-op on every other repository |
+| `5ee2358`, `58485a7` | evidence moves to `state/`; suite runner paths re-pointed | records unchanged byte for byte |
+| `78968ab` | control-plane floor and append-only guard use `host.OS_REL` | **security**: the copied literals left holdouts and FAIL/EVR records unprotected here |
+| `ac68f10` | any repository with `policy/orchestrator-os.policy.json` is guarded | before, only the control repo was |
+| `abcb710` | docs, status, checkpoint ORCH-0001, host-requirement skips | |
+| `69ad9cf` | Harness² lab adapter, EXP-0013 | Option C of DEC-0045 |
 
 ## Run state
 

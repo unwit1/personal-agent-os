@@ -5,7 +5,7 @@
   "created_at": "2026-11-02T18:12:38.174951+00:00",
   "git": {
     "branch": "main",
-    "commit": "c6b6d21",
+    "commit": "abcb710",
     "dirty": true
   },
   "phase": "M0 extraction: standalone package + Agent OS bridge (Milestones C-D done; E-H open)",
@@ -13,7 +13,7 @@
     "Baseline audit of personal-agent-os@ce09ad2 (docs/audits/2026-10-orchestrator-baseline.md in personal-agent-os): 3337 tests, 10 environment-only failures",
     "Mechanical extraction with provenance (PROVENANCE.json, migrations/orchestrator-os-extraction/extract.py in personal-agent-os)",
     "Single host seam orchestrator_os.host; StandaloneHost; Agent OS host in agent_os.orchestrator_host",
-    "Fixed: control-plane floor and negative-evidence paths were layout literals (678ce16); guard any target repo with a committed policy (6a51685); affected-test selection hard-coded agent_os (08a310f)",
+    "Fixed: control-plane floor and negative-evidence paths were layout literals (78968ab); guard any target repo with a committed policy (ac68f10); affected-test selection hard-coded agent_os (a8068f9)",
     "Standalone run proven: tests/test_standalone.py (no agent_os import; start-recommended completes and integrates on an unregistered repo)",
     "Agent OS bridge: AGENT_OS_ORCHESTRATOR_BACKEND=internal|external; contract test tests/test_orchestrator_bridge.py in personal-agent-os",
     "Harness2 Option C adapter (src/orchestrator_os/lab_harness2.py): Propose-Probe-Compose through our BenchmarkAdapter + scripted Proposer, zero model calls, network-isolated; EXP-0013 (inconclusive: synthetic fixture, scripted proposals)"
