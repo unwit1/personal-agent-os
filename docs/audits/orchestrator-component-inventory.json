@@ -786,7 +786,7 @@
    "subprocess": true,
    "network": false,
    "recommendation": "KEEP",
-   "evidence": "safety core; extraction exposed path assumptions (fixed in orchestrator-os 678ce16, 6a51685)",
+   "evidence": "safety core; extraction exposed path assumptions (fixed in orchestrator-os 78968ab, ac68f10)",
    "confidence": "high"
   },
   {
@@ -2508,7 +2508,7 @@
    "subprocess": true,
    "network": false,
    "recommendation": "SIMPLIFY",
-   "evidence": "heuristic candidates; same agent_os hard-coding (fixed in orchestrator-os 08a310f)",
+   "evidence": "heuristic candidates; same agent_os hard-coding (fixed in orchestrator-os a8068f9)",
    "confidence": "high"
   },
   {
@@ -2645,7 +2645,7 @@
    "subprocess": true,
    "network": false,
    "recommendation": "SIMPLIFY",
-   "evidence": "was hard-coded to agent_os package names (fixed in orchestrator-os 08a310f)",
+   "evidence": "was hard-coded to agent_os package names (fixed in orchestrator-os a8068f9)",
    "confidence": "high"
   },
   {

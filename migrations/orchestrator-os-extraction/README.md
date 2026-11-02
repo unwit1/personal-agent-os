@@ -2,7 +2,7 @@
 
 | File | Purpose |
 |---|---|
-| `extract.py` | builds the initial `orchestrator-os` tree from this checkout. It only reads the source, and is reproducible for commit `dea4c32` of the new repository |
+| `extract.py` | builds the initial `orchestrator-os` tree from this checkout. It only reads the source, and is reproduces the import commits `642ed34` and `fa4c349` and the `state/` tree of `5ee2358` in the new repository |
 | `overlay/` | new files in that tree: `host.py`, `__main__.py`, `pyproject.toml`, CI, `AGENTS.md`, `tests/test_standalone.py` |
 | `inventory.py` | regenerates `docs/audits/orchestrator-component-inventory.json` metrics |
 

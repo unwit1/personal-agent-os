@@ -54,10 +54,37 @@ R=8, P=6 (4k/3k at k=2). The library `EXPERIENCE.md` files were written.
 - Integration is Option C: an optional, commit-pinned extra with one `BenchmarkAdapter` (about 150–250 lines) and one `Proposer` subclass (about 60–100 lines). Option B (re-implement) is estimated at 500–700 lines plus prompts, which is not justified while the seam works without a fork.
 - Python 3.12+ only, so the extra cannot be a core dependency (we support 3.11).
 
-## Status
+## Status and first experiment
 
-Done: research and assessment; isolated demo run; integration design. Not
-done: the adapter itself and the first Orchestrator experiment
-(context-construction target, synthetic provider). They are the next
-deterministic action in orchestrator-os `state/orchestrator/status.json`. No
-claim of measured improvement is made.
+Done:
+
+- research and assessment;
+- the isolated demo run;
+- the Option C adapter: `orchestrator-os` `src/orchestrator_os/lab_harness2.py`, commit `69ad9cf`, test `tests/test_lab_harness2.py`;
+- the first experiment (EXP-0013, report in `docs/lab/harness2-context-k2.json` there).
+
+The experiment ran `run_domain(mode=agg, k=2)` over 3 dev tasks inside
+`unshare -rn`. Proposals came from a scripted proposer; scoring used the
+Orchestrator's deterministic scorer. Result: 3/3 tasks done, 24 executions,
+24 proposer calls, **0 model calls**.
+
+| Variant (worker context packet) | Dev recall | Dev tokens | Held-out recall | Held-out tokens |
+|---|---|---|---|---|
+| existing rule (`prompts._context_packet`) | 0.694 | 188.0 | 1.0 | 188.0 |
+| shortened summary | 0.694 | 153.0 | 1.0 | 153.0 |
+| task-specific constraints | 1.0 | 117.7 | 1.0 | 116.5 |
+| Harness²-composed (INV+DOM via PPC) | 1.0 | 82.7 | 1.0 | 81.5 |
+
+What this shows:
+
+- The integration works end to end through the seams. Nothing was forked.
+- The incumbent's 8-item cap drops required constraints once a project lists more than 8. That is a cheap, deterministic candidate fix.
+
+What it does not show:
+
+- That Harness² finds improvements. I scripted the proposals and wrote the fixture.
+- That task success improves. Recall of named constraints is only a proxy.
+
+The outcome is recorded as **inconclusive**. The next step needs approved
+spend: a model proposer, with candidates scored by `orchestrator eval` on the
+EVS suites.
