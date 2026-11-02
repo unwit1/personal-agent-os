@@ -1,0 +1,41 @@
+{
+  "schema": "personal-agent/orchestrator-os-status/v1",
+  "updated_at": "2026-11-02T18:20:00+00:00",
+  "phase": "M0 extraction: standalone package + Agent OS bridge (Milestones C-D done; E-H open)",
+  "active_objective": "Make orchestrator-os the authoritative Orchestrator: publish the repository, run Agent OS on the external backend, then simplify with measured, differential changes and run the first bounded Harness2 experiment.",
+  "completed": [
+    "Baseline audit of personal-agent-os@ce09ad2 (docs/audits/2026-10-orchestrator-baseline.md in personal-agent-os): 3337 tests, 10 environment-only failures",
+    "Mechanical extraction with provenance (PROVENANCE.json, migrations/orchestrator-os-extraction/extract.py in personal-agent-os)",
+    "Single host seam orchestrator_os.host; StandaloneHost; Agent OS host in agent_os.orchestrator_host",
+    "Fixed: control-plane floor and negative-evidence paths were layout literals (678ce16); guard any target repo with a committed policy (6a51685); affected-test selection hard-coded agent_os (08a310f)",
+    "Standalone run proven: tests/test_standalone.py (no agent_os import; start-recommended completes and integrates on an unregistered repo)",
+    "Agent OS bridge: AGENT_OS_ORCHESTRATOR_BACKEND=internal|external; contract test tests/test_orchestrator_bridge.py in personal-agent-os"
+  ],
+  "blockers": [
+    "Publication: unwit1/orchestrator-os does not exist and this session cannot create repositories; operator creates it (private) and pushes branch orchestrator-os/main from personal-agent-os",
+    "Windows verification: no Windows run yet (CI matrix includes windows-latest)",
+    "Phase Two comparisons (direct vs orchestrated) need approved provider spend"
+  ],
+  "recent_decisions": [
+    "DEC-0045"
+  ],
+  "next_action": {
+    "summary": "After publication: (1) run CI on ubuntu+windows; (2) set AGENT_OS_ORCHESTRATOR_BACKEND=external on the workstation for a week of normal use; (3) start simplification backlog S1-S4 (delete 4 unreachable modules, table-driven cli.dispatch, direct route for small tasks, failure_learning default improve) each as a differential change with the full suite as gate; (4) Harness2 adapter (Option C, DEC-0045) on the context-construction target with the synthetic provider only.",
+    "worker_class": "balanced",
+    "effort": "medium",
+    "why_this_class": "mechanical, test-gated changes; no frontier reasoning needed",
+    "prior_art": "Harness2 (google-research/harness2@6868817) adapter seam; table-driven argparse dispatch",
+    "context_refs": [
+      "PROVENANCE.json",
+      "src/orchestrator_os/host.py",
+      "src/orchestrator_os/control_plane.py",
+      "docs/MIGRATION.md",
+      "state/orchestrator/records/decisions/DEC-0045.json"
+    ],
+    "stop_conditions": [
+      "a backlog item is implemented, tested and committed",
+      "any paid provider call",
+      "a protected path needs editing without operator grant"
+    ]
+  }
+}

@@ -35,6 +35,8 @@ CLAUDE_RESULT = {
 }
 
 
+from host_requirements import requires_agent_os_checkout, requires_agent_os_host  # noqa: E402
+
 class UsageNormalizationTests(unittest.TestCase):
     def test_claude_input_includes_cache_reads_and_writes(self) -> None:
         record = usage.from_claude(CLAUDE_RESULT)
@@ -308,6 +310,8 @@ class EngineTelemetryTests(OrchestratorFixture):
         self.assertEqual(final["state"], "COMPLETE")
         self.assertIn("could not be written", final["telemetry_warning"])
 
+    @requires_agent_os_checkout
+
     def test_nested_repository_is_not_its_parent_project(self) -> None:
         from orchestrator_os.host import ROOT
 
@@ -317,6 +321,8 @@ class EngineTelemetryTests(OrchestratorFixture):
         __import__("subprocess").run(["git", "init", "-q"], cwd=nested, check=True)
         self.assertIsNone(self.engine._resolve_target(nested, None)[0])
         self.assertEqual(self.engine._resolve_target(ROOT / "src", None)[0], "personal-agent-os")
+
+    @requires_agent_os_host
 
     def test_context_selection_is_recorded_for_registered_projects(self) -> None:
         run_id = self.engine.create_run("goal", repository=self.repo, project="personal-agent-os", tasks=[self.task("a")], policy=self.policy(default_validators=[PASS]))["run_id"]

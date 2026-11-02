@@ -95,9 +95,9 @@ class ContextEconomyCLITests(unittest.TestCase):
 
         result = subprocess.run(
             [
-                "python",
+                sys.executable,
                 "-m",
-                "agent_os",
+                "orchestrator_os",
                 "orchestrate",
                 "context-economy",
                 "--home",

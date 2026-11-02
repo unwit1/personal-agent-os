@@ -1,0 +1,37 @@
+{
+  "schema": "personal-agent/evidence-record/v1",
+  "id": "DEC-0045",
+  "type": "DEC",
+  "title": "Extract the Orchestrator into orchestrator-os behind one host seam; Agent OS selects the engine through one bridge",
+  "status": "accepted",
+  "created_at": "2026-11-02T18:20:00+00:00",
+  "summary": "The Orchestrator moves to the orchestrator_os package (repository unwit1/orchestrator-os) by mechanical copy from personal-agent-os@ce09ad2 with a file-level provenance map, not a history rewrite. orchestrator_os.host is the only stand-in for Agent OS: state root (ORCHESTRATOR_STATE_ROOT, editable checkout, ~/.orchestrator-os; legacy layout detected), machine config dir, and optional project services served by StandaloneHost or agent_os.orchestrator_host. Agent OS picks internal or external engine with AGENT_OS_ORCHESTRATOR_BACKEND (default internal until cutover). Orchestrator-owned evidence (evals, records, provider policy, prior art, improvement backlog) moves to state/; checkpoints and status remain Agent OS session history. Harness2 is adopted only as an optional offline lab through its BenchmarkAdapter/Proposer seams (Option C); its executors are never used. Extraction exposed three control-plane path assumptions, fixed with tests.",
+  "prior_art": {
+    "checked": "Ingester Engine extraction (ingester_bridge.py) as in-house precedent; google-research/harness2 implementation review; git subtree/filter-repo for history",
+    "found": "ingester_bridge resolves an installed package or sibling checkout; Harness2 exposes BenchmarkAdapter (12 methods) and an overridable Proposer.call",
+    "reused": "the bridge pattern (one resolver, explicit install hint); Harness2 deterministic demo as the first pipeline check",
+    "why_custom": "the host seam is ~200 lines of forwarding over existing functions; no library offers it"
+  },
+  "links": [
+    {
+      "rel": "relates_to",
+      "ref": "PROVENANCE.json"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/orchestrator_os/host.py"
+    },
+    {
+      "rel": "implements",
+      "ref": "src/orchestrator_os/control_plane.py"
+    },
+    {
+      "rel": "tests",
+      "ref": "tests/test_standalone.py"
+    },
+    {
+      "rel": "relates_to",
+      "ref": "docs/MIGRATION.md"
+    }
+  ]
+}

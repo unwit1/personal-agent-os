@@ -13,7 +13,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from test_orchestrator_surfaces import SurfaceFixture  # noqa: E402
+from test_orchestrator import OrchestratorFixture  # noqa: E402
+from orchestrator_os import service as _service  # noqa: E402
+
+
+class SurfaceFixture(OrchestratorFixture):
+    # Was imported from Agent OS's test_orchestrator_surfaces, which tests Agent OS's CLI/MCP.
+    def setUp(self) -> None:
+        super().setUp()
+        _service.set_engine(self.engine)
+        self.addCleanup(_service.set_engine, None)
 
 from orchestrator_os import model_view, radar, refusal, throughput  # noqa: E402
 from orchestrator_os.compute import _cache_path  # noqa: E402

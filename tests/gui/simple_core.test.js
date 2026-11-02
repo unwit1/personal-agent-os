@@ -1,9 +1,9 @@
-// Simple Mode UI state (gui/simple-core.js). Run: node --test tests/gui/
+// Simple Mode UI state (src/orchestrator_os/gui/simple-core.js). Run: node --test tests/gui/
 "use strict";
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const core = require("../../gui/simple-core.js");
+const core = require("../../src/orchestrator_os/gui/simple-core.js");
 
 test("every button acknowledges a click with new visible text", () => {
   for (const action of ["continue", "start-task", "pause", "stop", "resume", "decide", "retry", "fresh", "help"]) {

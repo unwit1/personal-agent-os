@@ -6,10 +6,15 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from orchestrator_os.context_bench import SCHEMA, build, compare
 
 
+from host_requirements import requires_agent_os_host  # noqa: E402
+
+
+@requires_agent_os_host
 class ContextBenchTests(unittest.TestCase):
     def test_build_is_deterministic_and_omits_task_text(self) -> None:
         fixtures = Path(__file__).resolve().parent / "fixtures"

@@ -21,6 +21,7 @@ from pathlib import Path
 from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from orchestrator_os.adapters import synthetic
 from orchestrator_os.adapters.base import AgentLaunchRequest, RunningAgent
@@ -71,6 +72,8 @@ def edit_script(extra: dict | None = None):
 
     return script
 
+
+from host_requirements import requires_agent_os_checkout, requires_agent_os_host  # noqa: E402
 
 class OrchestratorFixture(unittest.TestCase):
     providers = ("alpha", "beta")
@@ -990,6 +993,8 @@ class NeutralityAndPrivacyTests(OrchestratorFixture):
             self.create([self.task("a", depends_on=["b"]), self.task("b", depends_on=["a"])])
         with self.assertRaises(PlanError):
             self.create([self.task("a", depends_on=["missing"])])
+
+    @requires_agent_os_host
 
     def test_claims_are_announced_and_released_through_coordination(self) -> None:
         with mock.patch("agent_os.registry.identify_project", return_value={"id": "fixture-project"}):

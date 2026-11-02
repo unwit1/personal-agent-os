@@ -69,6 +69,8 @@ def roadmap_script(request, call):
     }
 
 
+from host_requirements import requires_agent_os_checkout, requires_agent_os_host  # noqa: E402
+
 class RoadmapParsingTests(unittest.TestCase):
     def test_classify_statuses(self) -> None:
         self.assertEqual(roadmap.classify("Status: **complete** (x)")[0], "complete")
@@ -134,6 +136,8 @@ class RoadmapParsingTests(unittest.TestCase):
         self.assertEqual(roadmap.relevant_items(stage, items), items[1:])
         goal = roadmap.build_goal("demo", stage, "ROADMAP.md", {"remaining": items})
         self.assertNotIn("Merge branch", goal)
+
+    @requires_agent_os_checkout
 
     def test_real_project_roadmap_scans(self) -> None:
         from orchestrator_os.host import ROOT
