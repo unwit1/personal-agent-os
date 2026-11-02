@@ -15,9 +15,9 @@ sys.path.insert(0, str(ROOT / "src"))
 from orchestrator_os import control_plane  # noqa: E402
 from orchestrator_os.validators import run_all  # noqa: E402
 
-FAIL = "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-9001.json"
-EVR = "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-9001.json"
-EVR_OK = "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-9002.json"
+FAIL = "state/orchestrator/records/failures/FAIL-9001.json"
+EVR = "state/orchestrator/records/evaluations/EVR-9001.json"
+EVR_OK = "state/orchestrator/records/evaluations/EVR-9002.json"
 BASE_FAIL = {"id": "FAIL-9001", "type": "FAIL", "status": "open", "summary": "Worker crashed.", "links": [{"rel": "relates_to", "ref": "x"}], "recurrence": 1, "updated_at": "t0"}
 
 
@@ -81,7 +81,7 @@ class NegativeEvidenceTests(unittest.TestCase):
         self.assertTrue(any("links changed type" in item for item in self.problems([FAIL])))
 
     def test_unrelated_json_is_ignored(self) -> None:
-        other = "projects/personal-agent-os/orchestrator-os/status.json"
+        other = "state/orchestrator/status.json"
         self.write(other, {"a": "old"})
         self.git("add", "-A")
         self.git("commit", "-q", "-m", "status")
@@ -101,8 +101,8 @@ class NegativeEvidenceTests(unittest.TestCase):
         self.assertEqual(self.problems([FAIL]), [])
 
     def test_new_records_and_operator_grants(self) -> None:
-        self.write("projects/personal-agent-os/orchestrator-os/records/failures/FAIL-9002.json", {"id": "FAIL-9002"})
-        self.assertEqual(self.problems(["projects/personal-agent-os/orchestrator-os/records/failures/FAIL-9002.json"]), [])
+        self.write("state/orchestrator/records/failures/FAIL-9002.json", {"id": "FAIL-9002"})
+        self.assertEqual(self.problems(["state/orchestrator/records/failures/FAIL-9002.json"]), [])
         self.write(FAIL, {**BASE_FAIL, "summary": "Rewritten."})
         self.assertEqual(self.problems([FAIL], allowed=[FAIL]), [])
 
@@ -115,7 +115,7 @@ class NegativeEvidenceTests(unittest.TestCase):
     def test_repository_history_complies(self) -> None:
         """Dogfood: the real FAIL-0001 correction (appended text, status change)
         satisfies the rule against its original commit."""
-        path = "projects/personal-agent-os/orchestrator-os/records/failures/FAIL-0001.json"
+        path = "state/orchestrator/records/failures/FAIL-0001.json"
         first = subprocess.run(["git", "log", "--diff-filter=A", "--format=%H", "--", path], cwd=ROOT, capture_output=True, text=True).stdout.split()
         if not first:
             self.skipTest("FAIL-0001 not in history")

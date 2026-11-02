@@ -32,8 +32,8 @@ PROJECT_ID = "personal-agent-os"
 # Minimum protection that survives a deleted or corrupted policy file.
 FLOOR = (
     "policy/**",
-    "src/agent_os/orchestrator/control_plane.py",
-    "src/agent_os/orchestrator/validators.py",
+    "src/orchestrator_os/control_plane.py",
+    "src/orchestrator_os/validators.py",
     "projects/personal-agent-os/orchestrator-os/evals/holdout/**",
     "projects/personal-agent-os/orchestrator-os/evals/evaluators/**",
 )

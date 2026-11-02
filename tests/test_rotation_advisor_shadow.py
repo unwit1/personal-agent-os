@@ -20,7 +20,7 @@ class RotationAdvisorShadowTests(unittest.TestCase):
     def test_no_source_file_imports_rotation_advisor(self):
         """Scan every .py file under src/agent_os except rotation_advisor.py and cli.py.
         Assert that none imports rotation_advisor."""
-        src_dir = Path(__file__).resolve().parents[1] / "src" / "agent_os"
+        src_dir = Path(__file__).resolve().parents[1] / "src" / "orchestrator_os"
 
         # Find all Python files except rotation_advisor.py and cli.py
         python_files = []

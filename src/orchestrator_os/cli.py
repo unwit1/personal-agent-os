@@ -347,7 +347,7 @@ def register(commands: argparse._SubParsersAction) -> None:
     simp.add_argument("--write", action="store_true", help="write projects/personal-agent-os/orchestrator-os/simplification-report.json")
 
     mut = actions.add_parser("mutate", help="mutation testing: mutate a module in throwaway worktrees and run the named tests (no model call)")
-    mut.add_argument("module", help="repo-relative path, e.g. src/agent_os/orchestrator/control_plane.py")
+    mut.add_argument("module", help="repo-relative path, e.g. src/orchestrator_os/control_plane.py")
     mut.add_argument("--tests", action="append", required=True, help="test module, e.g. tests.test_orchestrator_control_plane (repeatable)")
     mut.add_argument("--ref", default="HEAD")
     mut.add_argument("--function", action="append", help="limit mutants to these functions")

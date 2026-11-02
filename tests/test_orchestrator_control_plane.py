@@ -24,7 +24,7 @@ from orchestrator_os.validators import run_all  # noqa: E402
 
 class ControlPlaneTests(unittest.TestCase):
     def test_protected_paths_are_blocked(self) -> None:
-        changed = ["policy/orchestrator-os.policy.json", "projects/personal-agent-os/orchestrator-os/evals/holdout/case.json", "src/agent_os/cli.py"]
+        changed = ["policy/orchestrator-os.policy.json", "state/orchestrator/evals/holdout/case.json", "src/agent_os/cli.py"]
         self.assertEqual(control_plane.protected_changes(changed), changed[:2])
         self.assertFalse(control_plane.check(changed)["passed"])
 
@@ -79,7 +79,7 @@ class ControlPlaneTests(unittest.TestCase):
             # A tampered policy inside some worktree has no effect on the check.
             (Path(tmp) / "policy").mkdir()
             (Path(tmp) / "policy" / "orchestrator-os.policy.json").write_text("{}", encoding="utf-8")
-            self.assertFalse(control_plane.check(["projects/personal-agent-os/orchestrator-os/evals/suites/EVS-ROUTING.json"])["passed"])
+            self.assertFalse(control_plane.check(["state/orchestrator/evals/suites/EVS-ROUTING.json"])["passed"])
 
     def test_validator_step_includes_control_plane_only_when_enabled(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

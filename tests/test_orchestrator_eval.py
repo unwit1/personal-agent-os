@@ -177,7 +177,7 @@ class GovernanceTests(unittest.TestCase):
         with self.assertRaises(evaluation.EvalError):
             evaluation.check_holdout(suite, [], operator_holdout=False)
         evaluation.check_holdout(suite, [], operator_holdout=True)
-        by_path = {"id": "EVS-Y", "type": "EVS", "metrics": {"splits": ["development"], "runners": ["projects/personal-agent-os/orchestrator-os/evals/holdout/cases.json"]}}
+        by_path = {"id": "EVS-Y", "type": "EVS", "metrics": {"splits": ["development"], "runners": ["state/orchestrator/evals/holdout/cases.json"]}}
         with self.assertRaises(evaluation.EvalError):
             evaluation.check_holdout(by_path, [], operator_holdout=False)
         with self.assertRaises(evaluation.EvalError):
@@ -210,7 +210,7 @@ class GovernanceTests(unittest.TestCase):
 
 class RunnerTests(unittest.TestCase):
     def _case_file(self):
-        return json.loads((ROOT / "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json").read_text(encoding="utf-8"))
+        return json.loads((ROOT / "state/orchestrator/evals/cases/development/research-implementation-classification.json").read_text(encoding="utf-8"))
 
     def test_variants_share_calls_and_samples_aggregate(self) -> None:
         case_file = self._case_file()
@@ -259,7 +259,7 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(list((Path(self.tmp.name) / "eval-worktrees").glob("*")), [])  # cleaned up
 
     def test_case_route_scores_accuracy_and_records_it(self) -> None:
-        case_file = json.loads((ROOT / "projects/personal-agent-os/orchestrator-os/evals/cases/development/research-implementation-classification.json").read_text(encoding="utf-8"))
+        case_file = json.loads((ROOT / "state/orchestrator/evals/cases/development/research-implementation-classification.json").read_text(encoding="utf-8"))
         labels = {case["input_ref"]: case["expected_status"] for case in case_file["cases"]}
         answers = dict(labels)
         answers["MIE-0001"] = "missing" if labels["MIE-0001"] != "missing" else "partial"

@@ -252,7 +252,7 @@ def fix_goal(improvement_id: str, need: dict[str, Any]) -> str:
     return (
         f"Fix orchestrator worker failure {need['signature']} ({improvement_id}). It occurred {need['occurrences']} time(s) in "
         f"{need['runs']} run(s). {remedy}\nExamples (run/node (model): detail):\n{examples}\n"
-        "Make the smallest deterministic change in src/agent_os/orchestrator (code, worker prompt rule, permission or "
+        "Make the smallest deterministic change in src/orchestrator_os (code, worker prompt rule, permission or "
         "validator) that prevents this failure, add a regression test that reproduces it, and list the remedy in "
         "failure_learning.REMEDIES. Do not edit protected paths (policy/**, validators.py, review.py, eval.py, "
         "control_plane.py); if the fix needs one, report status needs_decision and say which."
