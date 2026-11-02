@@ -22,8 +22,14 @@ from typing import Any, Callable
 UNITTEST_MARKERS = ("unittest discover", "unittest", "pytest")
 
 
-def module_imports(source: str, module_name: str) -> set[str]:
-    """agent_os modules imported by a module's source (absolute and relative)."""
+def module_imports(source: str, module_name: str, roots: set[str] | frozenset[str] | None = None) -> set[str]:
+    """First-party modules imported by a module's source (absolute and relative).
+
+    ``roots`` are the repository's top-level package names (from ``src/``).
+    Without them, the module's own top-level package is the only root, and
+    relative imports always count.
+    """
+    roots = set(roots) if roots else {module_name.split(".", 1)[0]}
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", SyntaxWarning)
@@ -34,7 +40,7 @@ def module_imports(source: str, module_name: str) -> set[str]:
     found = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
-            found |= {alias.name for alias in node.names if alias.name.startswith("agent_os")}
+            found |= {alias.name for alias in node.names if alias.name.split(".", 1)[0] in roots}
         elif isinstance(node, ast.ImportFrom):
             if node.level:
                 parts = package.split(".")
@@ -42,7 +48,7 @@ def module_imports(source: str, module_name: str) -> set[str]:
                 target = f"{base}.{node.module}" if node.module else base
             else:
                 target = node.module or ""
-            if target.startswith("agent_os"):
+            if node.level or target.split(".", 1)[0] in roots:
                 found.add(target)
                 found |= {f"{target}.{alias.name}" for alias in node.names}
     return found
@@ -52,17 +58,17 @@ def _git_reader(repo: Path, commit: str) -> tuple[list[str], Callable[[str], str
     def run(args: list[str]) -> str:
         return subprocess.run(["git", *args], cwd=repo, capture_output=True, text=True, encoding="utf-8", errors="replace", stdin=subprocess.DEVNULL).stdout
 
-    names = run(["ls-tree", "-r", "--name-only", commit, "src/agent_os", "tests"]).splitlines()
+    names = run(["ls-tree", "-r", "--name-only", commit, "src", "tests"]).splitlines()
     return names, lambda path: run(["show", f"{commit}:{path}"])
 
 
 def _tree_reader(repo: Path) -> tuple[list[str], Callable[[str], str]]:
-    names = [path.relative_to(repo).as_posix() for root in ("src/agent_os", "tests") if (repo / root).is_dir() for path in (repo / root).rglob("*.py")]
+    names = [path.relative_to(repo).as_posix() for root in ("src", "tests") if (repo / root).is_dir() for path in (repo / root).rglob("*.py")]
     return names, lambda path: (repo / path).read_text(encoding="utf-8", errors="replace")
 
 
 class ImportGraphSelector:
-    """Select test modules whose transitive agent_os import closure contains a
+    """Select test modules whose transitive first-party import closure contains a
     changed module. ``commit`` reads sources from Git; ``commit=None`` reads
     the working tree of ``repo`` (a node's worktree)."""
 
@@ -71,11 +77,13 @@ class ImportGraphSelector:
 
         self.repo = Path(repo or ROOT)
         names, read = _git_reader(self.repo, commit) if commit else _tree_reader(self.repo)
-        self.src = {name: self._module(name) for name in names if name.startswith("src/agent_os/") and name.endswith(".py")}
+        # Every package under src/ is first-party (src layout), whatever it is named.
+        self.src = {name: self._module(name) for name in names if name.startswith("src/") and name.count("/") >= 2 and name.endswith(".py")}
+        self.roots = frozenset(module.split(".", 1)[0] for module in self.src.values())
         tests = [name for name in names if name.startswith("tests/") and Path(name).name.startswith("test_") and name.endswith(".py") and name.count("/") == 1]
         known = set(self.src.values())
-        self.graph = {module: {item for item in module_imports(read(path), module) if item in known} for path, module in self.src.items()}
-        self.test_imports = {f"tests.{Path(path).stem}": {item for item in module_imports(read(path), "tests.x") if item in known} for path in tests}
+        self.graph = {module: {item for item in module_imports(read(path), module, self.roots) if item in known} for path, module in self.src.items()}
+        self.test_imports = {f"tests.{Path(path).stem}": {item for item in module_imports(read(path), "tests.x", self.roots) if item in known} for path in tests}
         self._closures: dict[str, set[str]] = {}
 
     @staticmethod
@@ -120,7 +128,7 @@ def runs_unit_tests(validators: list[dict[str, Any]]) -> bool:
 
 def affected_first_validator(changed_files: list[str], worktree: Path | str, python: str) -> dict[str, Any] | None:
     """A command validator for the affected test modules, or None when nothing
-    is selected (no agent_os sources in the tree, or no affected module)."""
+    is selected (no src/ packages in the tree, or no affected module)."""
     try:
         selector = ImportGraphSelector(None, worktree)
     except OSError:

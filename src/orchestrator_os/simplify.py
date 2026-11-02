@@ -1,7 +1,7 @@
 """Simplification engine, first deterministic slice (MIE-0011):
 ``agent-os orchestrate simplify``.
 
-Builds a component view of ``src/agent_os`` and proposes candidates, deleting
+Builds a component view of the repository's ``src/`` packages and proposes candidates, deleting
 nothing:
 
 * per module: non-blank lines, importers (src and tests, from the import
@@ -41,7 +41,7 @@ from typing import Any
 from .host import ROOT
 from .test_selection import ImportGraphSelector
 
-ENTRY_POINTS = {"orchestrator_os", "orchestrator_os.__main__", "orchestrator_os.cli"}
+ENTRY_SUFFIXES = ("", ".__main__", ".cli")
 MIN_DUPLICATE_STATEMENTS = 5
 LARGE_MODULE_LINES = 400
 REPORT = OS_DIR / "simplification-report.json"
@@ -90,6 +90,7 @@ def _git(args: list[str], root: Path) -> str:
 def build(root: Path | None = None, *, churn_days: int = 90) -> dict[str, Any]:
     root = Path(root or ROOT)
     selector = ImportGraphSelector(None, root)
+    entry_points = {package + suffix for package in selector.roots for suffix in ENTRY_SUFFIXES}
     modules = {module: path for path, module in selector.src.items()}
     importers: dict[str, set[str]] = defaultdict(set)
     for source_module, targets in selector.graph.items():
@@ -108,7 +109,7 @@ def build(root: Path | None = None, *, churn_days: int = 90) -> dict[str, Any]:
 
     churn: dict[str, int] = defaultdict(int)
     for line in _git(["log", f"--since={churn_days}.days", "--name-only", "--format="], root).splitlines():
-        if line.startswith("src/agent_os/") and line.endswith(".py"):
+        if line.startswith("src/") and line.endswith(".py"):
             churn[line] += 1
 
     corpus_files = [p for p in root.rglob("*.py") if ".agent-local" not in p.parts and "third_party" not in p.parts and ".git" not in p.parts]
@@ -148,7 +149,7 @@ def build(root: Path | None = None, *, churn_days: int = 90) -> dict[str, Any]:
                         if fingerprint:
                             fingerprints[fingerprint].append(f"{module}:{node.name}.{item.name}")
 
-    dead_modules = [c for c in components if c["importer_count"] == 0 and c["test_count"] == 0 and c["module"] not in ENTRY_POINTS and not c["module"].endswith("__init__")]
+    dead_modules = [c for c in components if c["importer_count"] == 0 and c["test_count"] == 0 and c["module"] not in entry_points and not c["module"].endswith("__init__")]
     duplicates = [{"fingerprint": key, "functions": sorted(value)} for key, value in fingerprints.items() if len(value) > 1]
 
     pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))

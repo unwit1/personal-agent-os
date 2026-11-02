@@ -119,17 +119,17 @@ class TestSelectionFamilyTests(unittest.TestCase):
             self.assertEqual(evaluation.normalize_test_module(raw), "tests.test_x")
 
     def test_module_imports_resolve_relative_imports(self) -> None:
-        source = "from ..timestamps import utc_now_iso\nfrom . import capability\nimport orchestrator_os.host\nimport json\n"
+        source = "from .timestamps import utc_now_iso\nfrom . import capability\nimport orchestrator_os.host\nimport json\n"
         found = evaluation._module_imports(source, "orchestrator_os.eval")
         self.assertIn("orchestrator_os.timestamps", found)
         self.assertIn("orchestrator_os.capability", found)
-        self.assertIn("agent_os.paths", found)
+        self.assertIn("orchestrator_os.host", found)
         self.assertNotIn("json", found)
 
     def test_import_graph_selector_is_transitive(self) -> None:
         selector = evaluation.ImportGraphSelector(evaluation.resolve_commit("HEAD"))
-        chosen = selector.select(["src/agent_os/timestamps.py"])
-        self.assertIn("tests.test_timestamps", chosen)
+        chosen = selector.select(["src/orchestrator_os/timestamps.py"])
+        self.assertIn("tests.test_orchestrator_telemetry_counts", chosen)  # via orchestrator_os.telemetry -> timestamps
         self.assertIn("tests.test_orchestrator_eval", chosen)  # via orchestrator_os.eval -> timestamps
 
     def test_deterministic_route_needs_no_model_and_counts_no_calls(self) -> None:
