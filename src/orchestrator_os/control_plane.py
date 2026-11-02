@@ -72,11 +72,45 @@ def protected_changes(changed: Iterable[str], allowed: Iterable[str] = (), polic
     return hits
 
 
+TARGET_POLICY = Path("policy") / "orchestrator-os.policy.json"
+# Where append-only evidence lives in a target repository that does not say
+# (control_plane.records_dir). The second entry is the pre-extraction layout.
+RECORDS_CANDIDATES = (f"{OS_REL}/records/", "projects/personal-agent-os/orchestrator-os/records/")
+
+
+def target_policy(repository: str | Path | None) -> tuple[dict[str, Any] | None, str]:
+    """The control-plane policy that governs ``repository`` and its records prefix.
+
+    The state root uses its own policy. Any other repository opts in by
+    committing ``policy/orchestrator-os.policy.json``; it is read from the
+    run's repository checkout (workers edit separate worktrees), never from a
+    candidate worktree. Returns ``(None, prefix)`` when no policy applies.
+    """
+    try:
+        repo = Path(repository).resolve() if repository is not None else None
+    except OSError:
+        repo = None
+    if repo is None or repo == ROOT.resolve():
+        return load_policy(), RECORDS
+    path = repo / TARGET_POLICY
+    if not path.is_file():
+        return None, RECORDS
+    policy = load_policy(path)
+    declared = (policy.get("control_plane") or {}).get("records_dir")
+    if isinstance(declared, str) and declared.strip("/"):
+        return policy, declared.strip("/") + "/"
+    prefix = next((item for item in RECORDS_CANDIDATES if (repo / item).is_dir()), RECORDS)
+    return policy, prefix
+
+
 def applies_to(repository: str | Path | None, project: str | None) -> bool:
     if project == PROJECT_ID:
         return True
     try:
-        return repository is not None and Path(repository).resolve() == ROOT.resolve()
+        if repository is None:
+            return False
+        repo = Path(repository).resolve()
+        return repo == ROOT.resolve() or (repo / TARGET_POLICY).is_file()
     except OSError:
         # Fail closed: when the target cannot be resolved, apply the guard
         # (mutation testing showed the old False here disabled it; DEC-0012).
@@ -146,7 +180,9 @@ def _base_json(repo: Path, base: str, path: str) -> Any:
         return None
 
 
-def negative_evidence_changes(repo: Path | str, base: str, changed: Iterable[str], allowed: Iterable[str] = ()) -> list[str]:
+def negative_evidence_changes(repo: Path | str, base: str, changed: Iterable[str], allowed: Iterable[str] = (), records: str | None = None) -> list[str]:
+    records = records or RECORDS
+    failures, outcome_dirs = records + "failures/", (records + "experiments/", records + "evaluations/")
     """Violations of the append-only rule for FAIL records and for EXP/EVR
     records whose outcome was negative at ``base``."""
     repo = Path(repo)
@@ -156,8 +192,8 @@ def negative_evidence_changes(repo: Path | str, base: str, changed: Iterable[str
         normalized = path.replace("\\", "/")
         if not normalized.endswith(".json") or any(_match(normalized, grant) for grant in grants):
             continue
-        in_failures = normalized.startswith(FAILURES)
-        if not in_failures and not normalized.startswith(OUTCOME_DIRS):
+        in_failures = normalized.startswith(failures)
+        if not in_failures and not normalized.startswith(outcome_dirs):
             continue
         old = _base_json(repo, base, normalized)
         if old is None:
@@ -177,8 +213,8 @@ def negative_evidence_changes(repo: Path | str, base: str, changed: Iterable[str
     return problems
 
 
-def negative_evidence_check(repo: Path | str, base: str, changed: list[str], allowed: Iterable[str] = ()) -> dict[str, Any]:
-    hits = negative_evidence_changes(repo, base, changed, allowed)
+def negative_evidence_check(repo: Path | str, base: str, changed: list[str], allowed: Iterable[str] = (), records: str | None = None) -> dict[str, Any]:
+    hits = negative_evidence_changes(repo, base, changed, allowed, records)
     return {"name": "negative-evidence", "kind": "scope", "passed": not hits,
             "detail": None if not hits else "negative evidence is append-only (supersede, never erase): " + "; ".join(hits[:5])}
 

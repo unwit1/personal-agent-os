@@ -207,11 +207,11 @@ def run_all(
         if control_plane is not None:
             from .control_plane import check
 
-            evidence.append(check(changed, control_plane.get("allowed") or []))
+            evidence.append(check(changed, control_plane.get("allowed") or [], control_plane.get("policy")))
             if control_plane.get("base_commit"):
                 from .control_plane import negative_evidence_check
 
-                evidence.append(negative_evidence_check(cwd, control_plane["base_commit"], changed, control_plane.get("allowed") or []))
+                evidence.append(negative_evidence_check(cwd, control_plane["base_commit"], changed, control_plane.get("allowed") or [], control_plane.get("records")))
     for validator in validators:
         evidence.append(run_validator(validator, cwd, timeout))
     declared = [item for item in evidence if item["kind"] not in {"none", "scope"}]

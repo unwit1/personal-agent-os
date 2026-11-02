@@ -3716,12 +3716,16 @@ def _control_plane(record: dict[str, Any], node: dict[str, Any] | None = None) -
     """Protected control/evaluation plane settings for this run, or None when
     the run targets another repository (control_plane.applies_to). With a node,
     the worktree base commit enables the negative-evidence append-only check."""
-    from .control_plane import applies_to
+    from .control_plane import applies_to, target_policy
 
     if not applies_to(record.get("repository"), record.get("project")):
         return None
     base = ((node or {}).get("worktree") or {}).get("base_commit")
-    return {"allowed": list(record["policy"].get("protected_paths_allowed") or []), "base_commit": base}
+    policy, records = target_policy(record.get("repository"))
+    # policy None (legacy project-id match without a committed policy): the
+    # state root's policy and floor apply, as before the extraction.
+    return {"allowed": list(record["policy"].get("protected_paths_allowed") or []), "base_commit": base,
+            "policy": policy, "records": records}
 
 
 def _publication_guard(record: dict[str, Any], node: dict[str, Any]) -> dict[str, Any] | None:
