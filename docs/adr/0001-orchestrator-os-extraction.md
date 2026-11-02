@@ -6,7 +6,7 @@ Date: 2026-11-02. Evidence: [baseline audit](../audits/2026-10-orchestrator-base
 ## Decision
 
 1. The Orchestrator becomes the package `orchestrator_os` in its own
-   repository, `unwit1/orchestrator-os`. Its CLI is `orchestrator`; the same
+   repository, `unwit1/orchestrator`. Its CLI is `orchestrator`; the same
    actions and exit codes are kept, and a leading `orchestrate` still parses.
 2. Exactly one module, `orchestrator_os.host`, stands where Agent OS used to
    be. It owns the state root, the machine config dir and optional project

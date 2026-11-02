@@ -10,40 +10,26 @@ Decision and evidence: `docs/adr/0001-orchestrator-os-extraction.md`,
 `docs/audits/2026-10-orchestrator-baseline.md`,
 `docs/audits/2026-11-orchestrator-simplification-backlog.md`.
 
-## Publish the new repository
+## Published repository
 
-The session that did the extraction could not create GitHub repositories, so
-the full `orchestrator-os` history was pushed to this repository as the
-branch **`claude/orchestrator-os-main`**. It has an unrelated root and shares
-no history with `main`.
+The extracted history lives at **https://github.com/unwit1/orchestrator**
+(private), branch `main`, published 2026-11-02. The package and CLI names are
+unchanged (`orchestrator-os`, `orchestrator_os`, `orchestrator`).
 
-1. Create `unwit1/orchestrator-os` on GitHub as **private**. `state/` holds eval holdouts and evidence records. Do not add a README or license, so the push is not rejected.
-2. Mirror the branch:
-
-   ```bash
-   git clone --branch claude/orchestrator-os-main --single-branch https://github.com/unwit1/personal-agent-os orchestrator-os
-   ```
-
-   ```bash
-   cd orchestrator-os && git remote set-url origin https://github.com/unwit1/orchestrator-os && git push -u origin claude/orchestrator-os-main:main
-   ```
-
-3. Delete the transport branch from personal-agent-os once the push is verified:
-
-   ```bash
-   git push https://github.com/unwit1/personal-agent-os --delete claude/orchestrator-os-main
-   ```
+```bash
+git clone https://github.com/unwit1/orchestrator
+```
 
 To rebuild the initial import independently and compare:
 
 ```bash
-python migrations/orchestrator-os-extraction/extract.py --dest /tmp/orchestrator-os-check
+python migrations/orchestrator-os-extraction/extract.py --dest /tmp/orchestrator-check
 ```
 
 ## Use it from Agent OS (opt-in until cutover)
 
 ```bash
-pip install -e <path-to-orchestrator-os>
+pip install -e <path-to-orchestrator-checkout>
 ```
 
 PowerShell:
