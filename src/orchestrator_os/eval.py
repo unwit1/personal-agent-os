@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from .host import RESEARCH_DIR
 
-from .host import OS_DIR
+from .host import OS_DIR, OS_REL
 
 import ast
 import json
@@ -731,7 +731,7 @@ def build_evr(suite: dict[str, Any], kind: str, results: list[dict[str, Any]], i
     verdicts = {item["verdict"] for item in comparisons.values()}
     outcome = "regressed" if "regressed" in verdicts else "improved" if verdicts == {"improved"} else "noninferior" if verdicts and verdicts <= {"improved", "noninferior"} else "inconclusive"
     stamp = utc_now_iso()
-    links = [{"rel": "measures", "ref": f"projects/personal-agent-os/orchestrator-os/evals/suites/{suite['id']}.json"}, {"rel": "baseline", "ref": _ref_link(kind, incumbent)}]
+    links = [{"rel": "measures", "ref": f"{OS_REL}/evals/suites/{suite['id']}.json"}, {"rel": "baseline", "ref": _ref_link(kind, incumbent)}]
     links += [{"rel": "candidate", "ref": _ref_link(kind, item)} for item in results if item is not incumbent]
     return {
         "schema": "personal-agent/evidence-record/v1", "id": evr_id, "type": "EVR",

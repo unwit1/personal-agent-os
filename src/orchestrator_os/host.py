@@ -76,6 +76,10 @@ else:
     RESEARCH_DIR = ROOT / "state" / "research"
     IMPROVEMENTS_DIR = ROOT / "state" / "improvements"
 
+# Repo-relative form of OS_DIR, for path patterns (control-plane floor,
+# append-only records, record links). Always POSIX.
+OS_REL = OS_DIR.relative_to(ROOT).as_posix()
+
 PROVIDER_POLICY_DIR = OS_DIR / "provider-policy"
 if not PROVIDER_POLICY_DIR.is_dir():
     PROVIDER_POLICY_DIR = PACKAGE_DIR / "defaults" / "provider-policy"

@@ -25,17 +25,16 @@ import re
 from pathlib import Path
 from typing import Any, Iterable
 
-from .host import ROOT
+from .host import OS_REL, ROOT
 
-POLICY_PATH = POLICY_PATH
 PROJECT_ID = "personal-agent-os"
 # Minimum protection that survives a deleted or corrupted policy file.
 FLOOR = (
     "policy/**",
     "src/orchestrator_os/control_plane.py",
     "src/orchestrator_os/validators.py",
-    "projects/personal-agent-os/orchestrator-os/evals/holdout/**",
-    "projects/personal-agent-os/orchestrator-os/evals/evaluators/**",
+    f"{OS_REL}/evals/holdout/**",
+    f"{OS_REL}/evals/evaluators/**",
 )
 
 
@@ -98,7 +97,7 @@ def check(changed: list[str], allowed: Iterable[str] = (), policy: dict[str, Any
 
 # -- negative evidence is append-only (policy control_plane.negative_evidence) --
 
-RECORDS = "projects/personal-agent-os/orchestrator-os/records/"
+RECORDS = f"{OS_REL}/records/"
 FAILURES = RECORDS + "failures/"
 OUTCOME_DIRS = (RECORDS + "experiments/", RECORDS + "evaluations/")
 NEGATIVE_OUTCOMES = {"rejected", "inconclusive", "regressed"}

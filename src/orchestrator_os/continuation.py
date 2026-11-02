@@ -15,7 +15,7 @@ entrypoint and the checkpoint; it never restates the architecture.
 
 from __future__ import annotations
 
-from .host import OS_DIR
+from .host import OS_DIR, OS_REL
 
 import json
 import re
@@ -92,7 +92,7 @@ def render_prompt(checkpoint: dict[str, Any]) -> str:
     return TEMPLATE.format(
         entrypoint=ENTRYPOINT,
         checkpoint_id=checkpoint["id"],
-        checkpoint_path=f"projects/personal-agent-os/orchestrator-os/checkpoints/{checkpoint['id']}.json",
+        checkpoint_path=f"{OS_REL}/checkpoints/{checkpoint['id']}.json",
         objective=checkpoint["active_objective"],
         next_action=action["summary"],
         prior_art=(f"\nBefore implementing, consult the prior-art registry (`agent-os orchestrate prior-art lookup \"{action['prior_art']}\"`) and refresh task-specific candidates if the matching entries are stale.\n" if action.get("prior_art") else ""),

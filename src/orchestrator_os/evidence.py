@@ -94,13 +94,33 @@ def validate_record(data: Any, label: str) -> list[str]:
     return errors
 
 
-def _ref_ok(ref: str, ids: set[str]) -> bool:
+def _provenance() -> tuple[str | None, dict[str, str]]:
+    """(origin commit, copied-path -> origin-path) from PROVENANCE.json, if this
+    state root was extracted from another repository."""
+    try:
+        data = json.loads((ROOT / "PROVENANCE.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None, {}
+    return data.get("source_commit"), dict(data.get("files") or {})
+
+
+def _inherited(label: str, files: dict[str, str]) -> bool:
+    """A record copied in by the extraction (its links point into the origin)."""
+    return any(label == key or (key.endswith("/") and label.startswith(key)) or label.startswith(key.rstrip("/") + "/") for key in files)
+
+
+def _ref_ok(ref: str, ids: set[str], moved: dict[str, str] | None = None) -> bool:
     if ref.startswith(("local:", "url:", "commit:", "research:")):
         return True
     if ref in ids:
         return True
     path = ref.split("#")[0].split(":")[0]
-    return bool(path) and (ROOT / path).exists()
+    if bool(path) and (ROOT / path).exists():
+        return True
+    for origin, current in (moved or {}).items():
+        if path == origin or (origin.endswith("/") and path.startswith(origin)):
+            return (ROOT / (current + path[len(origin):])).exists()
+    return False
 
 
 def validate_tree() -> dict[str, Any]:
@@ -121,6 +141,9 @@ def validate_tree() -> dict[str, Any]:
             if not pattern.endswith("/**") and "*" not in pattern and not (ROOT / pattern).exists():
                 warnings.append(f"protected path does not exist yet: {pattern}")
 
+    origin_commit, copied = _provenance()
+    # origin path -> path here, for links written before the extraction.
+    moved = {source: target for target, source in copied.items() if not source.startswith("new ")}
     all_records = records()
     ids = known_external_ids() | {data["id"] for _, data in all_records if isinstance(data, dict) and data.get("id")}
     seen: set[str] = set()
@@ -137,7 +160,12 @@ def validate_tree() -> dict[str, Any]:
         if path.stem != data["id"]:
             errors.append(f"{label}: file name must equal record id")
         for link in data.get("links") or []:
-            if not _ref_ok(str(link["ref"]), ids):
+            if _ref_ok(str(link["ref"]), ids, moved):
+                continue
+            if origin_commit and _inherited(label, copied):
+                # Append-only history keeps its original links; they resolve in the origin repository.
+                warnings.append(f"{label}: link {link['rel']} -> {link['ref']} resolves in the origin repository at {origin_commit[:12]}")
+            else:
                 errors.append(f"{label}: unresolved link {link['rel']} -> {link['ref']}")
 
     for path in sorted((OS_DIR / "evals" / "suites").glob("*.json")):

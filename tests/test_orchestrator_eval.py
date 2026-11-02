@@ -62,6 +62,21 @@ class ParseAndCompareTests(unittest.TestCase):
         self.assertEqual((verified["spec"], verified["base_spec"], verified["verify"]), ("codex@fast+verify", "codex@fast", True))
 
 
+def _has_commit(ref: str) -> bool:
+    try:
+        evaluation.resolve_commit(ref)
+        return True
+    except evaluation.EvalError:
+        return False
+
+
+# These cases were labelled against personal-agent-os history (pre-extraction
+# commits). They run where that history is the eval repository, e.g.
+# ORCHESTRATOR_STATE_ROOT=<personal-agent-os checkout>.
+ORIGIN_HISTORY = "needs personal-agent-os history (commit f8f4453f) as the eval repository"
+
+
+@unittest.skipUnless(_has_commit("f8f4453f"), ORIGIN_HISTORY)
 class VerifierTests(unittest.TestCase):
     BASE = "f8f4453f"  # pre-bootstrap commit: capability.py did not exist yet
 
@@ -69,18 +84,18 @@ class VerifierTests(unittest.TestCase):
         verifier = evaluation.EvidenceVerifier(evaluation.resolve_commit(self.BASE))
         self.assertTrue(verifier.entry_ok("src/agent_os/improvements.py:capture_improvement"))
         self.assertTrue(verifier.entry_ok("src/agent_os/improvements.py"))
-        self.assertTrue(verifier.entry_ok("src/orchestrator_os/"))
+        self.assertTrue(verifier.entry_ok("src/agent_os/orchestrator/"))
         self.assertTrue(verifier.entry_ok("src/agent_os/improvements.py:10"))
         self.assertFalse(verifier.entry_ok("src/agent_os/improvements.py:99999"))
         self.assertFalse(verifier.entry_ok("src/agent_os/improvements.py:no_such_symbol_xyz"))
-        self.assertFalse(verifier.entry_ok("src/orchestrator_os/capability.py:summarize"))
+        self.assertFalse(verifier.entry_ok("src/agent_os/orchestrator/capability.py:summarize"))
 
     def test_apply_downgrades_only_unverifiable_claims(self) -> None:
         verifier = evaluation.EvidenceVerifier(evaluation.resolve_commit(self.BASE))
         answer = {"items": [
             {"id": "A", "status": "partial", "evidence": ["src/agent_os/improvements.py:capture_improvement"]},
             {"id": "B", "status": "partial", "evidence": []},
-            {"id": "C", "status": "implemented", "evidence": ["src/agent_os/improvements.py", "src/orchestrator_os/capability.py"]},
+            {"id": "C", "status": "implemented", "evidence": ["src/agent_os/improvements.py", "src/agent_os/orchestrator/capability.py"]},
             {"id": "D", "status": "missing", "evidence": []},
         ]}
         result, stats = verifier.apply(answer)
@@ -184,7 +199,7 @@ class GovernanceTests(unittest.TestCase):
             evaluation.check_holdout({"metrics": {}}, [{"split": "rolling_private"}], operator_holdout=False)
 
     def test_suites_come_from_the_trusted_checkout(self) -> None:
-        self.assertEqual(evaluation.SUITES, ROOT / "projects" / "personal-agent-os" / "orchestrator-os" / "evals" / "suites")
+        self.assertEqual(evaluation.SUITES, ROOT / "state" / "orchestrator" / "evals" / "suites")
         self.assertEqual(evaluation.load_suite("EVS-CONTROL-PLANE")["id"], "EVS-CONTROL-PLANE")
         with self.assertRaises(evaluation.EvalError):
             evaluation.load_suite("EVS-DOES-NOT-EXIST")
@@ -212,6 +227,7 @@ class RunnerTests(unittest.TestCase):
     def _case_file(self):
         return json.loads((ROOT / "state/orchestrator/evals/cases/development/research-implementation-classification.json").read_text(encoding="utf-8"))
 
+    @unittest.skipUnless(_has_commit("f8f4453f"), ORIGIN_HISTORY)
     def test_variants_share_calls_and_samples_aggregate(self) -> None:
         case_file = self._case_file()
         labels = {case["input_ref"]: case["expected_status"] for case in case_file["cases"]}
@@ -253,7 +269,7 @@ class RunnerTests(unittest.TestCase):
         self.tmp.cleanup()
 
     def test_test_runner_uses_trusted_copy_in_a_detached_worktree(self) -> None:
-        result = evaluation.run_tests_for_ref("HEAD", ["tests/test_timestamps.py"])
+        result = evaluation.run_tests_for_ref("HEAD", ["tests/test_orchestrator_api_retry.py"])
         self.assertGreater(result["tests_run"], 0)
         self.assertEqual(result["failures"] + result["errors"], 0, result["failing"])
         self.assertEqual(list((Path(self.tmp.name) / "eval-worktrees").glob("*")), [])  # cleaned up
