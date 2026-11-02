@@ -28,7 +28,7 @@ class SimplifyTests(unittest.TestCase):
     def test_candidates_on_fixture(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            pkg = root / "src" / "orchestrator_os"
+            pkg = root / "src" / "agent_os"
             pkg.mkdir(parents=True)
             (root / "tests").mkdir()
             (pkg / "__init__.py").write_text("", encoding="utf-8")

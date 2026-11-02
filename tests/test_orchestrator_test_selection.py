@@ -25,11 +25,11 @@ WRAPPER = "from .calc import add\n\n\ndef double(x):\n    return add(x, x)\n"
 
 
 def write_tree(root: Path) -> None:
-    (root / "src" / "orchestrator_os").mkdir(parents=True)
+    (root / "src" / "agent_os").mkdir(parents=True)
     (root / "tests").mkdir()
-    (root / "src" / "orchestrator_os" / "__init__.py").write_text("", encoding="utf-8")
-    (root / "src" / "orchestrator_os" / "calc.py").write_text(CALC, encoding="utf-8")
-    (root / "src" / "orchestrator_os" / "wrapper.py").write_text(WRAPPER, encoding="utf-8")
+    (root / "src" / "agent_os" / "__init__.py").write_text("", encoding="utf-8")
+    (root / "src" / "agent_os" / "calc.py").write_text(CALC, encoding="utf-8")
+    (root / "src" / "agent_os" / "wrapper.py").write_text(WRAPPER, encoding="utf-8")
     (root / "tests" / "__init__.py").write_text("import sys, pathlib\nsys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / 'src'))\n", encoding="utf-8")
     (root / "tests" / "test_calc.py").write_text(TEST_CALC, encoding="utf-8")
     (root / "tests" / "test_via.py").write_text(TEST_VIA, encoding="utf-8")
