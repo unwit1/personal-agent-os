@@ -3,7 +3,9 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from agent_os.orchestrator import service
+from agent_os.orchestrator_bridge import module as _orchestrator_module
+
+service = _orchestrator_module("service")
 
 from . import registry as _registry
 from .confirm import ItemState, window_home

@@ -62,8 +62,10 @@ def _mail_scoped(function, account_arg: bool = False):
     return call
 
 
-from .orchestrator.service import MCP_TOOL_SCHEMAS as ORCHESTRATE_TOOL_SCHEMAS
-from .orchestrator.service import mcp_methods as orchestrate_methods
+from .orchestrator_bridge import module as _orchestrator_module
+
+ORCHESTRATE_TOOL_SCHEMAS = _orchestrator_module("service").MCP_TOOL_SCHEMAS
+orchestrate_methods = _orchestrator_module("service").mcp_methods
 from .mail.scopes import project_scope as mail_project_scope
 from .mail import account_status as mail_account_status, get_message as mail_get_message, get_thread as mail_get_thread, list_accounts as mail_accounts, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement

@@ -18,11 +18,15 @@ def orchestrator_items(
     injectable for testing.
     """
     if list_runs is None:
-        from agent_os.orchestrator import service
+        from agent_os.orchestrator_bridge import module
+
+        service = module("service")
 
         list_runs = service.list_runs
     if status is None:
-        from agent_os.orchestrator import service
+        from agent_os.orchestrator_bridge import module
+
+        service = module("service")
 
         status = service.status
     items: list[dict[str, Any]] = []
@@ -43,7 +47,9 @@ def orchestrator_items(
 
 def _gates_as_items(run_id: str, run_status: dict[str, Any]) -> list[dict[str, Any]]:
     """Convert open approval gates to outstanding items."""
-    from agent_os.orchestrator.simple import gate_card
+    from agent_os.orchestrator_bridge import module
+
+    gate_card = module("simple").gate_card
 
     items: list[dict[str, Any]] = []
     nodes_by_id = {node["id"]: node for node in run_status.get("nodes") or []}
@@ -68,7 +74,9 @@ def _gates_as_items(run_id: str, run_status: dict[str, Any]) -> list[dict[str, A
 
 def _parked_nodes_as_items(run_id: str, run_status: dict[str, Any]) -> list[dict[str, Any]]:
     """Convert parked/failed nodes to outstanding items."""
-    from agent_os.orchestrator.simple import failure_card
+    from agent_os.orchestrator_bridge import module
+
+    failure_card = module("simple").failure_card
 
     items: list[dict[str, Any]] = []
     for node in run_status.get("nodes") or []:

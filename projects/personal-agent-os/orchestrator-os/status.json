@@ -1,8 +1,8 @@
 {
   "schema": "personal-agent/orchestrator-os-status/v1",
-  "updated_at": "2026-10-02T15:40:00+00:00",
-  "phase": "P2 operator-requested provider-neutral model infrastructure expansion",
-  "active_objective": "Continue IMP-0015 integration: wire free-first routing (free_routing.decide) into engine dispatch behind opt-in run policy flag, then execute measurement-first third-party optimization (SkyPilot/RunPod, vLLM, TensorZero, etc.) and parallel IMP-0018/IMP-0019 experiments.",
+  "updated_at": "2026-11-02T18:30:00+00:00",
+  "phase": "Extraction to orchestrator-os (operator request 2026-11-02); this tree is frozen for new Orchestrator work",
+  "active_objective": "Orchestrator development moves to unwit1/orchestrator-os (ADR docs/adr/0001-orchestrator-os-extraction.md). Agent OS keeps the in-tree engine as the default backend until cutover and drives the external package through agent_os.orchestrator_bridge.",
   "completed": [
     "ORCH-0001 bootstrap: constitution, machine-readable policy, entrypoint, adapters point at it",
     "Control-plane protected-path validator enforced for orchestrated runs on this repository (DEC-0003)",
@@ -69,9 +69,11 @@
     "IMP-0018 Phase 1: shared run-level prompt prefix compiled once per run, byte-stable across workers (prompts.shared_prefix, engine cache, run policy shared_prefix default False per docs/orchestrator-os/self-audit/shared-prefix.md); parity test proves unchanged rule lines; synthetic before/after via context_economy (EVR-0021, EXP-0012)",
     "IMP-0015 third-party optimization track (measurement-first): RouteLLM-style shadow route calibrator (src/agent_os/orchestrator/route_calibration.py, CLI `orchestrate route-calibration --home --out`, synthetic-fixture tests, design docs/orchestrator-os/self-audit/route-calibration.md, prior art PA-routellm BORROW); advice only, routing unchanged; real-telemetry evaluation pending supervisor run of `orchestrate route-calibration --out docs/orchestrator-os/self-audit/route-calibration-baseline.json`",
     "Executive window applicant workflow (run-20261002T170546Z-ece407): editable compose panel with To/Subject/Body and Send (no send without a Send click; direct SMTP+IMAP Sent-copy transport per operator change, FakeTransport for tests; failures surface as NOT SENT), counties-with-openings groups replacing Human review pending, applicant review panel with one-click decisions (applicant.reach_out/invite_interview/email_manager/decline/hold), manager email, natural-language opening events (county.opening_change, alias openings.event for the chat route; preview + Confirm, immediate county refresh), county.refresh, registered as actions and model tools; legacy senders email.send and executive.reach_out unregistered after landing (compose + POST /api/send is the only send path); docs: docs/orchestrator-os/executive-window.md, executive-applicant-workflow.md",
-    "Executive mail intelligence (run-20261002T170547Z-f7dd30): deterministic spam/bulk classifier (server junk folder, List-Unsubscribe/List-Id, Precedence bulk/list, marketing/notification sender patterns, promotional subjects, first-contact vs known correspondent, operator's own sent mail) so Commitments and Work/Personal mail items include only likely-human mail needing a reply; every filtered item carries a reason; precision/recall reported on a synthetic labeled set; operator-review queue for borderline cases; filtered counts shown in the window so nothing disappears silently. Whole-index categorizer (action needed, waiting on others, receipts/finance, newsletters/promotions, notifications, HR/applicants, personal, spam, archive-old) producing an ORGANIZATION PLAN (counts per category per account, sample subjects, target folder per category). Apply is IMAP-only per operator change (no Outlook/COM): MOVE, or COPY plus flag when MOVE is unsupported (refused unless PERMANENTFLAGS allows the keyword); identity verified before moving via the index's own Message-ID normalization, else (account_id, mailbox, UIDVALIDITY, UID), unverifiable messages skipped and reported; reversible moves only, never delete or expunge; every move journaled with an undo command; dry-run is the default; per-category operator Confirm and per-account allow_organize setting (default off). Window: 'Organize inbox' action and mail-cleanup group showing the plan with per-category Confirm buttons. Tests: tests/test_mail_organize.py (synthetic data and fakes only). Pending operator actions: (1) enable allow_organize (allow_moves) per account from the window, accounts are read_only today; (2) review the target folder names per category; (3) header backfill by resync so List-Unsubscribe/List-Id/Precedence signals exist for already-indexed mail."
+    "Executive mail intelligence (run-20261002T170547Z-f7dd30): deterministic spam/bulk classifier (server junk folder, List-Unsubscribe/List-Id, Precedence bulk/list, marketing/notification sender patterns, promotional subjects, first-contact vs known correspondent, operator's own sent mail) so Commitments and Work/Personal mail items include only likely-human mail needing a reply; every filtered item carries a reason; precision/recall reported on a synthetic labeled set; operator-review queue for borderline cases; filtered counts shown in the window so nothing disappears silently. Whole-index categorizer (action needed, waiting on others, receipts/finance, newsletters/promotions, notifications, HR/applicants, personal, spam, archive-old) producing an ORGANIZATION PLAN (counts per category per account, sample subjects, target folder per category). Apply is IMAP-only per operator change (no Outlook/COM): MOVE, or COPY plus flag when MOVE is unsupported (refused unless PERMANENTFLAGS allows the keyword); identity verified before moving via the index's own Message-ID normalization, else (account_id, mailbox, UIDVALIDITY, UID), unverifiable messages skipped and reported; reversible moves only, never delete or expunge; every move journaled with an undo command; dry-run is the default; per-category operator Confirm and per-account allow_organize setting (default off). Window: 'Organize inbox' action and mail-cleanup group showing the plan with per-category Confirm buttons. Tests: tests/test_mail_organize.py (synthetic data and fakes only). Pending operator actions: (1) enable allow_organize (allow_moves) per account from the window, accounts are read_only today; (2) review the target folder names per category; (3) header backfill by resync so List-Unsubscribe/List-Id/Precedence signals exist for already-indexed mail.",
+    "ORCH-0117: baseline audit, extraction to orchestrator-os with provenance, Agent OS host + bridge with contract test; three control-plane path assumptions found and fixed in the new repository"
   ],
   "blockers": [
+    "unwit1/orchestrator-os must be created by the operator (private); the tree is on branch claude/orchestrator-os-main (migrations/orchestrator-os-extraction/README.md)",
     "IMP-0015 slice 3: before any real RunPod launch, operator must provide a write-enabled RunPod API key and confirm the first launch (not yet received; slice 2 uses fake provider only)"
   ],
   "active_experiments": [
@@ -95,37 +97,23 @@
     "IMP-0015 FreeComputeBroker slice 10 remaining items: (a) Live allowance verification with a real secrets://openrouter/default key (read-only account/quota/credit awareness for operator-alert-only top-up recommendations); (b) Operator decision on which free-endpoint data policies are acceptable for repository code (determines whether free-model responses can be included in training data, logs, or other downstream use)."
   ],
   "next_action": {
-    "summary": "Wire free_routing.decide into engine dispatch behind an opt-in run policy flag ('free_routing_enabled' per task context). IMP-0015 slices 1 (SkyPilot spike: no wrap, native RunPod lifecycle, DEC-0042) and 2 (gated provisioning interface on a fake provider, DEC-0043) are complete. Remaining: (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) With an operator-served model: throughput measure, eval-queue run, foreman-shadow propose; record EVRs. Parallel high-priority: IMP-0018 Phase 0 context-economy measurement (input/output amplification, long-session growth, worker fan-out, checkpoint resume) and IMP-0019 episodic rotation shadow advisor (bootstrap, handoff, retrieval, retries/reviews). Promotion gate: held-out noninferior validation + lower cost per verified task. Never purchase credits or auto-recharge without explicit approval. IMP-0018 Phase 0 is complete (EVR-0018: fixed per-worker overhead is the largest measured share). Next for IMP-0018, Phase 1: dedupe that overhead by compiling the shared prefix once per run, cache-stable, and re-measure with `orchestrate context-economy`.",
-    "prior_art": "third-party model routing/delegation/inference efficiency (TensorZero, AgentScope, PydanticAI subagents, RouteLLM, LiteLLM); cloud GPU brokers (SkyPilot/native RunPod); inference runtimes/caching/schedulers (vLLM, SGLang, LMCache, AIBrix, llm-d); shadow evaluation / canary routing; cloud GPU brokers (SkyPilot); model metadata registries",
-    "worker_class": "reasoning",
+    "summary": "Publish orchestrator-os, then run Agent OS with AGENT_OS_ORCHESTRATOR_BACKEND=external and work the cutover checklist (orchestrator-os docs/MIGRATION.md). New Orchestrator changes go to orchestrator-os, not src/agent_os/orchestrator. The previous next action (free_routing.decide wiring, IMP-0015/18/19) is preserved as backlog S9/S7 in docs/audits/2026-11-orchestrator-simplification-backlog.md.",
+    "worker_class": "balanced",
     "effort": "medium",
-    "why_this_class": "cross-cutting contracts and evaluation design; implementation is deterministic stdlib code",
+    "why_this_class": "mechanical, test-gated migration steps",
     "context_refs": [
-      "src/agent_os/orchestrator/free_routing.py",
-      "src/agent_os/orchestrator/free_catalog.py",
-      "src/agent_os/orchestrator/free_quota.py",
-      "src/agent_os/orchestrator/free_specialization.py",
-      "src/agent_os/orchestrator/free_swarm.py",
-      "src/agent_os/orchestrator/free_metrics.py",
-      "projects/personal-agent-os/improvements/IMP-0019.json",
-      "projects/personal-agent-os/roadmap/episodic-agent-rotation.md",
-      "projects/personal-agent-os/improvements/IMP-0018.json",
-      "projects/personal-agent-os/roadmap/context-efficiency-token-amplification.md",
-      "projects/personal-agent-os/roadmap/model-infrastructure-manager.md",
-      "docs/model-infrastructure.md",
-      "src/agent_os/orchestrator/budget.py",
-      "src/agent_os/orchestrator/compute.py",
-      "projects/personal-agent-os/orchestrator-os/records/decisions/DEC-0041.json",
-      "projects/personal-agent-os/orchestrator-os/records/evaluations/EVR-0018.json",
-      "projects/personal-agent-os/orchestrator-os/records/experiments/EXP-0010.json",
-      "docs/orchestrator-os/self-audit/context-economy.md"
+      "docs/adr/0001-orchestrator-os-extraction.md",
+      "docs/audits/2026-10-orchestrator-baseline.md",
+      "docs/audits/2026-11-orchestrator-simplification-backlog.md",
+      "migrations/orchestrator-os-extraction/README.md",
+      "src/agent_os/orchestrator_bridge.py"
     ],
     "stop_conditions": [
-      "a slice is implemented, tested, recorded and merged",
-      "0 paid compute; model calls only when the operator has configured a foreman provider",
-      "any paid provisioning/training reaches the budget/approval gate",
-      "no OpenRouter credit purchase or auto-recharge without explicit operator approval"
-    ]
+      "the cutover checklist item is done and tested",
+      "any paid provider call",
+      "a protected path needs editing without operator grant"
+    ],
+    "superseded": "Wire free_routing.decide into engine dispatch behind an opt-in run policy flag ('free_routing_enabled' per task context). IMP-0015 slices 1 (SkyPilot spike: no wrap, native RunPod lifecycle, DEC-0042) and 2 (gated provisioning interface on a fake provider, DEC-0043) are complete. Remaining: (3) Before any real RunPod launch: operator provides a write-enabled key and confirms the first launch. (4) "
   },
   "meta_economics": {
     "bootstrap_ORCH-0001": {

@@ -1,0 +1,2905 @@
+{
+ "schema": "orchestrator-os/component-inventory/v1",
+ "source_commit": "ce09ad2dbfc202fe54d1f4bb02753eb10037c257",
+ "generated_by": "migrations/orchestrator-os-extraction/inventory.py",
+ "modules": [
+  {
+   "module": "agent_os.orchestrator",
+   "path": "src/agent_os/orchestrator/__init__.py",
+   "lines": 16,
+   "imports_internal": [
+    "agent_os.orchestrator.engine"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.api_budget",
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.context_anatomy",
+    "agent_os.orchestrator.context_bench",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.evalqueue",
+    "agent_os.orchestrator.foreman",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_optimize",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_metrics",
+    "agent_os.orchestrator.free_routing",
+    "agent_os.orchestrator.free_specialization",
+    "agent_os.orchestrator.free_swarm",
+    "agent_os.orchestrator.gpu_keep_busy",
+    "agent_os.orchestrator.model_view",
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.openrouter_account",
+    "agent_os.orchestrator.overhead",
+    "agent_os.orchestrator.prompt_measure",
+    "agent_os.orchestrator.provision",
+    "agent_os.orchestrator.secret_prompt",
+    "agent_os.orchestrator.server",
+    "agent_os.orchestrator.service",
+    "agent_os.orchestrator.shared_prefix_compare",
+    "agent_os.orchestrator.simplify"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters",
+   "path": "src/agent_os/orchestrator/adapters/__init__.py",
+   "lines": 109,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.adapters.claude_code",
+    "agent_os.orchestrator.adapters.codex_cli",
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.adapters.synthetic"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.overhead",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.service"
+   ],
+   "tests": [
+    "test_api_cost_estimate.py",
+    "test_codex_win_sandbox.py",
+    "test_delegate_api_budget.py",
+    "test_delegate_attachments.py",
+    "test_engine_reviewer_scope_map.py",
+    "test_failure_learning.py",
+    "test_foreman_deploy.py",
+    "test_foreman_shadow.py",
+    "test_kill_tree_safety.py",
+    "test_model_infra.py",
+    "test_orchestrator.py",
+    "test_orchestrator_api_retry.py",
+    "test_orchestrator_control_plane.py",
+    "test_orchestrator_economy.py",
+    "test_orchestrator_eval.py",
+    "test_orchestrator_host_actions.py",
+    "test_orchestrator_models.py",
+    "test_orchestrator_operator_grants.py",
+    "test_orchestrator_overhead.py",
+    "test_orchestrator_planner_context.py",
+    "test_orchestrator_roadmap.py",
+    "test_orchestrator_state_machine.py",
+    "test_orchestrator_task_cache_hit.py",
+    "test_orchestrator_telemetry.py",
+    "test_orchestrator_test_selection.py",
+    "test_orchestrator_trace.py",
+    "test_provider_failure_classification.py",
+    "test_provider_health.py",
+    "test_publication_guard.py",
+    "test_readiness_cost.py",
+    "test_readiness_review.py",
+    "test_readiness_unregistered.py",
+    "test_readiness_validators.py",
+    "test_readiness_worktree.py",
+    "test_review_oscillation.py",
+    "test_worker_refusals.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.base",
+   "path": "src/agent_os/orchestrator/adapters/base.py",
+   "lines": 400,
+   "imports_internal": [
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.adapters.claude_code",
+    "agent_os.orchestrator.adapters.codex_cli",
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.adapters.synthetic",
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_optimize",
+    "agent_os.orchestrator.prompts",
+    "agent_os.orchestrator.validators"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.claude_code",
+   "path": "src/agent_os/orchestrator/adapters/claude_code.py",
+   "lines": 240,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.control_plane",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.adapters"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.codex_cli",
+   "path": "src/agent_os/orchestrator/adapters/codex_cli.py",
+   "lines": 312,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.secret_refs",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.adapters"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.http_api",
+   "path": "src/agent_os/orchestrator/adapters/http_api.py",
+   "lines": 290,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.model_value",
+    "agent_os.orchestrator.retry",
+    "agent_os.orchestrator.secret_refs",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.throughput"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.synthetic",
+   "path": "src/agent_os/orchestrator/adapters/synthetic.py",
+   "lines": 150,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.benchmark"
+   ],
+   "tests": [
+    "test_orchestrator_review_independence.py",
+    "test_orchestrator_spend_cap.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.win_sandbox",
+   "path": "src/agent_os/orchestrator/adapters/win_sandbox/__init__.py",
+   "lines": 0,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [],
+   "tests": [],
+   "reachable_from_entrypoints": false,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.win_sandbox.agent_os_pytest_tmp",
+   "path": "src/agent_os/orchestrator/adapters/win_sandbox/agent_os_pytest_tmp.py",
+   "lines": 45,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [],
+   "tests": [],
+   "reachable_from_entrypoints": false,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adapters.win_sandbox.sitecustomize",
+   "path": "src/agent_os/orchestrator/adapters/win_sandbox/sitecustomize.py",
+   "lines": 49,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [],
+   "tests": [],
+   "reachable_from_entrypoints": false,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.adaptive_concurrency",
+   "path": "src/agent_os/orchestrator/adaptive_concurrency.py",
+   "lines": 85,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.foreman_deploy"
+   ],
+   "tests": [
+    "test_adaptive_concurrency.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.api_budget",
+   "path": "src/agent_os/orchestrator/api_budget.py",
+   "lines": 216,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.budget",
+    "agent_os.orchestrator.model_profile"
+   ],
+   "imports_agent_os": [
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate"
+   ],
+   "tests": [
+    "test_api_budget.py",
+    "test_api_budget_cli.py",
+    "test_delegate_api_budget.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.artifacts",
+   "path": "src/agent_os/orchestrator/artifacts.py",
+   "lines": 84,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.fingerprints",
+    "agent_os.timestamps"
+   ],
+   "dependents": [],
+   "tests": [
+    "test_workload_quote.py"
+   ],
+   "reachable_from_entrypoints": false,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "INVESTIGATE",
+   "evidence": "orchestrator/artifacts.py has no importer; the name collides with Agent OS workflow artifacts, string search is noisy",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.benchmark",
+   "path": "src/agent_os/orchestrator/benchmark.py",
+   "lines": 473,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.adapters.synthetic",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.roadmap",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [
+    "agent_os.compiler",
+    "agent_os.registry",
+    "agent_os.telemetry"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.models"
+   ],
+   "tests": [
+    "test_orchestrator_benchmark.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.budget",
+   "path": "src/agent_os/orchestrator/budget.py",
+   "lines": 162,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.api_budget",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.model_view",
+    "agent_os.orchestrator.provision",
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_budget.py",
+    "test_compute_provision.py",
+    "test_compute_provision_cli.py",
+    "test_compute_provision_mcp.py",
+    "test_foreman_deploy.py",
+    "test_foreman_utilization.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.capability",
+   "path": "src/agent_os/orchestrator/capability.py",
+   "lines": 184,
+   "imports_internal": [
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.fingerprints",
+    "agent_os.paths",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.free_specialization"
+   ],
+   "tests": [
+    "test_capability_revision.py",
+    "test_foreman_deploy.py",
+    "test_orchestrator_control_plane.py",
+    "test_orchestrator_eval.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.cli",
+   "path": "src/agent_os/orchestrator/cli.py",
+   "lines": 1009,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.api_budget",
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.budget",
+    "agent_os.orchestrator.capability",
+    "agent_os.orchestrator.compute",
+    "agent_os.orchestrator.context_anatomy",
+    "agent_os.orchestrator.context_bench",
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.context_utility",
+    "agent_os.orchestrator.continuation",
+    "agent_os.orchestrator.control_plane",
+    "agent_os.orchestrator.corpus",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.evalqueue",
+    "agent_os.orchestrator.failure_learning",
+    "agent_os.orchestrator.foreman",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.mining",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.mutation",
+    "agent_os.orchestrator.overhead",
+    "agent_os.orchestrator.prior_art",
+    "agent_os.orchestrator.provision",
+    "agent_os.orchestrator.quote",
+    "agent_os.orchestrator.radar",
+    "agent_os.orchestrator.refusal",
+    "agent_os.orchestrator.roadmap",
+    "agent_os.orchestrator.rotation_advisor",
+    "agent_os.orchestrator.route_calibration",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.secret_prompt",
+    "agent_os.orchestrator.secret_refs",
+    "agent_os.orchestrator.server",
+    "agent_os.orchestrator.service",
+    "agent_os.orchestrator.simplify",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.throughput",
+    "agent_os.orchestrator.trace",
+    "agent_os.orchestrator.usage_report",
+    "agent_os.orchestrator.workload"
+   ],
+   "imports_agent_os": [],
+   "dependents": [],
+   "tests": [
+    "test_api_budget_cli.py",
+    "test_command_reference.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": true,
+   "recommendation": "SIMPLIFY",
+   "evidence": "dispatch() CC 242: a single if-chain over ~60 actions; table-driven dispatch removes it without behaviour change",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.compute",
+   "path": "src/agent_os/orchestrator/compute.py",
+   "lines": 127,
+   "imports_internal": [
+    "agent_os.orchestrator.secret_refs",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.model_view"
+   ],
+   "tests": [
+    "test_compute_inventory.py",
+    "test_compute_provision_cli.py",
+    "test_model_view.py",
+    "test_throughput.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "EXTRACT",
+   "evidence": "GPU price/inventory",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.compute_fake",
+   "path": "src/agent_os/orchestrator/compute_fake.py",
+   "lines": 201,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.provision"
+   ],
+   "tests": [
+    "test_compute_fake.py",
+    "test_compute_provision.py",
+    "test_compute_provision_mcp.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "fake GPU provider for compute tests",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.context_anatomy",
+   "path": "src/agent_os/orchestrator/context_anatomy.py",
+   "lines": 176,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.planner",
+    "agent_os.orchestrator.prompts",
+    "agent_os.orchestrator.repomap"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.shared_prefix_compare"
+   ],
+   "tests": [
+    "test_context_anatomy_prefix.py",
+    "test_foreman_deploy.py",
+    "test_prompt_sections_parity.py",
+    "test_shared_prefix_compare.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.context_bench",
+   "path": "src/agent_os/orchestrator/context_bench.py",
+   "lines": 192,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.prompt_measure",
+    "agent_os.orchestrator.repomap",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [
+    "agent_os.economy"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_context_bench.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.context_contract",
+   "path": "src/agent_os/orchestrator/context_contract.py",
+   "lines": 127,
+   "imports_internal": [
+    "agent_os.orchestrator.delegate"
+   ],
+   "imports_agent_os": [
+    "agent_os.fingerprints"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.foreman"
+   ],
+   "tests": [
+    "test_foreman_shadow.py",
+    "test_model_infra.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.context_economy",
+   "path": "src/agent_os/orchestrator/context_economy.py",
+   "lines": 482,
+   "imports_internal": [
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.context_bench",
+    "agent_os.orchestrator.rotation_advisor",
+    "agent_os.orchestrator.route_calibration",
+    "agent_os.orchestrator.shared_prefix_compare"
+   ],
+   "tests": [
+    "test_context_economy.py",
+    "test_context_economy_privacy.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.context_utility",
+   "path": "src/agent_os/orchestrator/context_utility.py",
+   "lines": 110,
+   "imports_internal": [
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate"
+   ],
+   "tests": [
+    "test_context_utility.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.continuation",
+   "path": "src/agent_os/orchestrator/continuation.py",
+   "lines": 136,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.paths",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_orchestrator_control_plane.py",
+    "test_prior_art.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.control_plane",
+   "path": "src/agent_os/orchestrator/control_plane.py",
+   "lines": 262,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.adapters.claude_code",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.validators"
+   ],
+   "tests": [
+    "test_negative_evidence.py",
+    "test_orchestrator_control_plane.py",
+    "test_publication_guard.py",
+    "test_publication_guard_literals.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "safety core; extraction exposed path assumptions (fixed in orchestrator-os 678ce16, 6a51685)",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.corpus",
+   "path": "src/agent_os/orchestrator/corpus.py",
+   "lines": 182,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_corpus.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.delegate",
+   "path": "src/agent_os/orchestrator/delegate.py",
+   "lines": 310,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.api_budget",
+    "agent_os.orchestrator.capability",
+    "agent_os.orchestrator.context_utility",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.provider_health",
+    "agent_os.orchestrator.refusal",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.context_contract",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.foreman"
+   ],
+   "tests": [
+    "test_delegate_api_budget.py",
+    "test_delegate_attachments.py",
+    "test_model_infra.py",
+    "test_orchestrator_control_plane.py",
+    "test_provider_health.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.engine",
+   "path": "src/agent_os/orchestrator/engine.py",
+   "lines": 3737,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.control_plane",
+    "agent_os.orchestrator.failure_learning",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.model_value",
+    "agent_os.orchestrator.planner",
+    "agent_os.orchestrator.prompts",
+    "agent_os.orchestrator.provider_health",
+    "agent_os.orchestrator.refusal",
+    "agent_os.orchestrator.repomap",
+    "agent_os.orchestrator.review",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.service",
+    "agent_os.orchestrator.simple",
+    "agent_os.orchestrator.stall",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.task_cache",
+    "agent_os.orchestrator.test_selection",
+    "agent_os.orchestrator.usage",
+    "agent_os.orchestrator.validators",
+    "agent_os.orchestrator.worktrees"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.coordination",
+    "agent_os.fingerprints",
+    "agent_os.improvements",
+    "agent_os.machine",
+    "agent_os.paths",
+    "agent_os.registry",
+    "agent_os.telemetry",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.overhead",
+    "agent_os.orchestrator.roadmap",
+    "agent_os.orchestrator.service"
+   ],
+   "tests": [
+    "test_engine_shared_prefix.py",
+    "test_failure_learning.py",
+    "test_foreman_deploy.py",
+    "test_free_routing_engine.py",
+    "test_orchestrator.py",
+    "test_orchestrator_control_plane.py",
+    "test_orchestrator_control_race.py",
+    "test_orchestrator_host_actions.py",
+    "test_orchestrator_operator_grants.py",
+    "test_orchestrator_review_independence.py",
+    "test_orchestrator_state_machine.py",
+    "test_orchestrator_telemetry_counts.py",
+    "test_readiness_cost.py",
+    "test_readiness_dirty_large.py",
+    "test_readiness_privacy.py",
+    "test_readiness_review.py",
+    "test_readiness_unregistered.py",
+    "test_readiness_validators.py",
+    "test_readiness_worktree.py",
+    "test_validator_failure_excerpt.py",
+    "test_worker_self_check.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "SIMPLIFY",
+   "evidence": "3737 lines, _launch CC 81, _fail CC 49; churn leader (71 commits/60d). Split only along real seams: dispatch/launch, validation+review, integration",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.eval",
+   "path": "src/agent_os/orchestrator/eval.py",
+   "lines": 800,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.capability",
+    "agent_os.orchestrator.control_plane",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.test_selection"
+   ],
+   "imports_agent_os": [
+    "agent_os.fingerprints",
+    "agent_os.paths",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.evalqueue",
+    "agent_os.orchestrator.mutation"
+   ],
+   "tests": [
+    "test_delegate_attachments.py",
+    "test_eval_override.py",
+    "test_orchestrator_eval.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.evalqueue",
+   "path": "src/agent_os/orchestrator/evalqueue.py",
+   "lines": 141,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.radar",
+    "agent_os.orchestrator.router"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.model_view"
+   ],
+   "tests": [
+    "test_evalqueue.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.evidence",
+   "path": "src/agent_os/orchestrator/evidence.py",
+   "lines": 197,
+   "imports_internal": [
+    "agent_os.orchestrator.prior_art"
+   ],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [],
+   "tests": [
+    "test_orchestrator_control_plane.py",
+    "test_orchestrator_eval.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.failure_learning",
+   "path": "src/agent_os/orchestrator/failure_learning.py",
+   "lines": 275,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.engine"
+   ],
+   "tests": [
+    "test_failure_learning.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.foreman",
+   "path": "src/agent_os/orchestrator/foreman.py",
+   "lines": 208,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.context_contract",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.model_view"
+   ],
+   "tests": [
+    "test_foreman_shadow.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "foreman-only",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.foreman_deploy",
+   "path": "src/agent_os/orchestrator/foreman_deploy.py",
+   "lines": 1420,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adaptive_concurrency",
+    "agent_os.orchestrator.budget",
+    "agent_os.orchestrator.compute",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.gpu_keep_busy",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.prefix_stability",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.secret_refs",
+    "agent_os.orchestrator.service",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.vllm_metrics",
+    "agent_os.orchestrator.vllm_tuning",
+    "agent_os.orchestrator.weight_cache"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_optimize",
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_foreman_deploy.py",
+    "test_foreman_utilization.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "EXTRACT",
+   "evidence": "1420 lines of GPU/RunPod foreman lifecycle; operator-gated, unused without a paid key; move behind an optional extra",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.foreman_eval",
+   "path": "src/agent_os/orchestrator/foreman_eval.py",
+   "lines": 385,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.capability",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.planner",
+    "agent_os.orchestrator.prompts",
+    "agent_os.orchestrator.provider_health",
+    "agent_os.orchestrator.repomap",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.foreman_optimize"
+   ],
+   "tests": [
+    "test_foreman_deploy.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "foreman-only eval corpus hard-coded to Agent OS paths",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.foreman_optimize",
+   "path": "src/agent_os/orchestrator/foreman_optimize.py",
+   "lines": 146,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_eval"
+   ],
+   "imports_agent_os": [],
+   "dependents": [],
+   "tests": [
+    "test_foreman_deploy.py"
+   ],
+   "reachable_from_entrypoints": false,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "DELETE",
+   "evidence": "no production importer; referenced only by test_foreman_deploy and research notes",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.foreman_strategy",
+   "path": "src/agent_os/orchestrator/foreman_strategy.py",
+   "lines": 522,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.capability",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.model_value",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_eval"
+   ],
+   "tests": [
+    "test_foreman_deploy.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "foreman-only; goes with foreman_deploy",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.free_catalog",
+   "path": "src/agent_os/orchestrator/free_catalog.py",
+   "lines": 155,
+   "imports_internal": [
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_routing"
+   ],
+   "tests": [
+    "test_free_catalog.py",
+    "test_free_radar.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "INVESTIGATE",
+   "evidence": "free-model catalogue; part of the free-compute broker (IMP-0015)",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.free_dispatch",
+   "path": "src/agent_os/orchestrator/free_dispatch.py",
+   "lines": 175,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.control_plane",
+    "agent_os.orchestrator.free_catalog",
+    "agent_os.orchestrator.free_policy",
+    "agent_os.orchestrator.free_quota",
+    "agent_os.orchestrator.free_routing",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.workload"
+   ],
+   "imports_agent_os": [
+    "agent_os.storage"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.engine"
+   ],
+   "tests": [
+    "test_free_dispatch.py",
+    "test_free_routing_engine.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "INVESTIGATE",
+   "evidence": "free-compute broker",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.free_metrics",
+   "path": "src/agent_os/orchestrator/free_metrics.py",
+   "lines": 328,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.free_quota"
+   ],
+   "imports_agent_os": [],
+   "dependents": [],
+   "tests": [
+    "test_free_metrics.py"
+   ],
+   "reachable_from_entrypoints": false,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "DELETE",
+   "evidence": "no production importer; reachable only from its own test (static + string search incl. CLI/MCP/JSON)",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.free_policy",
+   "path": "src/agent_os/orchestrator/free_policy.py",
+   "lines": 136,
+   "imports_internal": [
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.paths",
+    "agent_os.storage"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.free_dispatch"
+   ],
+   "tests": [
+    "test_free_policy.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "INVESTIGATE",
+   "evidence": "free-compute broker",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.free_quota",
+   "path": "src/agent_os/orchestrator/free_quota.py",
+   "lines": 202,
+   "imports_internal": [
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_metrics"
+   ],
+   "tests": [
+    "test_free_quota.py",
+    "test_free_routing_engine.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "INVESTIGATE",
+   "evidence": "free-compute broker",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.free_routing",
+   "path": "src/agent_os/orchestrator/free_routing.py",
+   "lines": 393,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.free_catalog",
+    "agent_os.orchestrator.free_specialization",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.workload"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_swarm"
+   ],
+   "tests": [
+    "test_free_routing.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "MERGE",
+   "evidence": "second routing authority (free-first) parallel to router.select; keep as a router policy input, not a decision path",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.free_specialization",
+   "path": "src/agent_os/orchestrator/free_specialization.py",
+   "lines": 155,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.capability"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.free_routing"
+   ],
+   "tests": [
+    "test_free_specialization.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "INVESTIGATE",
+   "evidence": "free-compute broker",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.free_swarm",
+   "path": "src/agent_os/orchestrator/free_swarm.py",
+   "lines": 205,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.free_routing",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.gpu_keep_busy"
+   ],
+   "tests": [
+    "test_free_swarm.py",
+    "test_gpu_keep_busy.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "INVESTIGATE",
+   "evidence": "free-compute broker",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.gpu_keep_busy",
+   "path": "src/agent_os/orchestrator/gpu_keep_busy.py",
+   "lines": 94,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.free_swarm",
+    "agent_os.orchestrator.model"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.foreman_deploy"
+   ],
+   "tests": [
+    "test_gpu_keep_busy.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "GPU foreman support",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.ledger",
+   "path": "src/agent_os/orchestrator/ledger.py",
+   "lines": 425,
+   "imports_internal": [
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.rotation_advisor",
+    "agent_os.orchestrator.route_calibration",
+    "agent_os.orchestrator.shared_prefix_compare",
+    "agent_os.orchestrator.simple",
+    "agent_os.orchestrator.trace",
+    "agent_os.orchestrator.usage_report"
+   ],
+   "tests": [
+    "test_context_economy.py",
+    "test_context_economy_cli.py",
+    "test_context_economy_privacy.py",
+    "test_free_routing_engine.py",
+    "test_orchestrator_models.py",
+    "test_orchestrator_overhead.py",
+    "test_orchestrator_telemetry.py",
+    "test_rotation_advisor_cli.py",
+    "test_rotation_advisor_report.py",
+    "test_route_calibration_cli.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "event ledger used by engine; overlaps trace/usage_report only as readers",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.mining",
+   "path": "src/agent_os/orchestrator/mining.py",
+   "lines": 124,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_mining.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.model",
+   "path": "src/agent_os/orchestrator/model.py",
+   "lines": 555,
+   "imports_internal": [
+    "agent_os.orchestrator.model_profile"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.context_anatomy",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_routing",
+    "agent_os.orchestrator.gpu_keep_busy",
+    "agent_os.orchestrator.planner",
+    "agent_os.orchestrator.review",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.validators"
+   ],
+   "tests": [
+    "test_failure_learning.py",
+    "test_foreman_deploy.py",
+    "test_foreman_shadow.py",
+    "test_free_routing_policy_flag.py",
+    "test_model_infra.py",
+    "test_orchestrator.py",
+    "test_orchestrator_control_plane.py",
+    "test_orchestrator_control_race.py",
+    "test_orchestrator_economy.py",
+    "test_orchestrator_host_actions.py",
+    "test_orchestrator_policy_caps.py",
+    "test_orchestrator_roadmap.py",
+    "test_orchestrator_test_selection.py",
+    "test_planner_goal_length.py",
+    "test_readiness_cost.py",
+    "test_reviewer_scope_map_policy.py",
+    "test_shared_prefix_policy.py",
+    "test_worker_scope_map_policy.py",
+    "test_worker_self_check.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.model_prices",
+   "path": "src/agent_os/orchestrator/model_prices.py",
+   "lines": 131,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.models"
+   ],
+   "tests": [
+    "test_model_prices.py",
+    "test_model_value_wiring.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.model_profile",
+   "path": "src/agent_os/orchestrator/model_profile.py",
+   "lines": 213,
+   "imports_internal": [
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.secret_refs"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.api_budget",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.free_routing",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.workload"
+   ],
+   "tests": [
+    "test_capability_revision.py",
+    "test_evalqueue.py",
+    "test_foreman_deploy.py",
+    "test_model_infra.py",
+    "test_model_view.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.model_value",
+   "path": "src/agent_os/orchestrator/model_value.py",
+   "lines": 128,
+   "imports_internal": [
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.models"
+   ],
+   "tests": [
+    "test_api_cost_estimate.py",
+    "test_model_value.py",
+    "test_model_value_wiring.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "MERGE",
+   "evidence": "fourth model-quality store next to capability, provider_health, route_calibration",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.model_view",
+   "path": "src/agent_os/orchestrator/model_view.py",
+   "lines": 57,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.budget",
+    "agent_os.orchestrator.compute",
+    "agent_os.orchestrator.evalqueue",
+    "agent_os.orchestrator.foreman",
+    "agent_os.orchestrator.radar",
+    "agent_os.orchestrator.refusal",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.throughput"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_model_view.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.models",
+   "path": "src/agent_os/orchestrator/models.py",
+   "lines": 491,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.model_prices",
+    "agent_os.orchestrator.model_value",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.model_value",
+    "agent_os.orchestrator.server",
+    "agent_os.orchestrator.service"
+   ],
+   "tests": [
+    "test_model_value_wiring.py",
+    "test_orchestrator_models.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.mutation",
+   "path": "src/agent_os/orchestrator/mutation.py",
+   "lines": 220,
+   "imports_internal": [
+    "agent_os.orchestrator.eval"
+   ],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.openrouter_account",
+   "path": "src/agent_os/orchestrator/openrouter_account.py",
+   "lines": 145,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.secret_refs"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [],
+   "tests": [
+    "test_openrouter_account.py"
+   ],
+   "reachable_from_entrypoints": false,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "DELETE",
+   "evidence": "no production importer; only its own test",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.overhead",
+   "path": "src/agent_os/orchestrator/overhead.py",
+   "lines": 260,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.roadmap",
+    "agent_os.orchestrator.router",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.worktrees"
+   ],
+   "imports_agent_os": [
+    "agent_os.telemetry"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.planner",
+   "path": "src/agent_os/orchestrator/planner.py",
+   "lines": 320,
+   "imports_internal": [
+    "agent_os.orchestrator.model"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.context_anatomy",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval"
+   ],
+   "tests": [
+    "test_foreman_deploy.py",
+    "test_orchestrator_economy.py",
+    "test_orchestrator_host_actions.py",
+    "test_planner_goal_length.py",
+    "test_planner_validators.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.prefix_stability",
+   "path": "src/agent_os/orchestrator/prefix_stability.py",
+   "lines": 127,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.fingerprints"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.foreman_deploy"
+   ],
+   "tests": [
+    "test_prefix_stability.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.prior_art",
+   "path": "src/agent_os/orchestrator/prior_art.py",
+   "lines": 190,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.evidence",
+    "agent_os.orchestrator.simplify"
+   ],
+   "tests": [
+    "test_prior_art.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.prompt_measure",
+   "path": "src/agent_os/orchestrator/prompt_measure.py",
+   "lines": 71,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.prompts",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.context_bench"
+   ],
+   "tests": [
+    "test_prompt_measure.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.prompts",
+   "path": "src/agent_os/orchestrator/prompts.py",
+   "lines": 353,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [
+    "agent_os.compiler"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.context_anatomy",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.prompt_measure"
+   ],
+   "tests": [
+    "test_context_anatomy_prefix.py",
+    "test_orchestrator_control_race.py",
+    "test_orchestrator_planner_context.py",
+    "test_orchestrator_roadmap.py",
+    "test_prompt_scope_map.py",
+    "test_prompt_sections_parity.py",
+    "test_prompt_shared_prefix.py",
+    "test_review_oscillation.py",
+    "test_worker_self_check.py",
+    "test_worker_stall.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.provider_health",
+   "path": "src/agent_os/orchestrator/provider_health.py",
+   "lines": 189,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.router"
+   ],
+   "tests": [
+    "test_foreman_deploy.py",
+    "test_orchestrator.py",
+    "test_provider_failure_classification.py",
+    "test_provider_health.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.provision",
+   "path": "src/agent_os/orchestrator/provision.py",
+   "lines": 369,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.budget",
+    "agent_os.orchestrator.compute_fake",
+    "agent_os.orchestrator.secret_refs",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.storage"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.service"
+   ],
+   "tests": [
+    "test_compute_provision.py",
+    "test_compute_provision_mcp.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "paid GPU provisioning; operator-gated",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.quote",
+   "path": "src/agent_os/orchestrator/quote.py",
+   "lines": 119,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_budget.py",
+    "test_compute_inventory.py",
+    "test_workload_quote.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.radar",
+   "path": "src/agent_os/orchestrator/radar.py",
+   "lines": 344,
+   "imports_internal": [
+    "agent_os.orchestrator.secret_refs",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.evalqueue",
+    "agent_os.orchestrator.model_view"
+   ],
+   "tests": [
+    "test_evalqueue.py",
+    "test_free_radar.py",
+    "test_model_view.py",
+    "test_radar.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.refusal",
+   "path": "src/agent_os/orchestrator/refusal.py",
+   "lines": 106,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.model_view"
+   ],
+   "tests": [
+    "test_model_infra.py",
+    "test_model_view.py",
+    "test_worker_refusals.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.repomap",
+   "path": "src/agent_os/orchestrator/repomap.py",
+   "lines": 220,
+   "imports_internal": [
+    "agent_os.orchestrator.worktrees"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.context_anatomy",
+    "agent_os.orchestrator.context_bench",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.roadmap"
+   ],
+   "tests": [
+    "test_orchestrator_planner_context.py",
+    "test_readiness_dirty_large.py",
+    "test_readiness_privacy.py",
+    "test_repomap_scope.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.repos",
+   "path": "src/agent_os/orchestrator/repos.py",
+   "lines": 150,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.registry"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_orchestrator_repos.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.retry",
+   "path": "src/agent_os/orchestrator/retry.py",
+   "lines": 132,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.adapters.http_api"
+   ],
+   "tests": [
+    "test_orchestrator_api_retry.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "132 lines, bounded retry for http_api only; a library would not remove meaningful code",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.review",
+   "path": "src/agent_os/orchestrator/review.py",
+   "lines": 84,
+   "imports_internal": [
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.engine"
+   ],
+   "tests": [],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.roadmap",
+   "path": "src/agent_os/orchestrator/roadmap.py",
+   "lines": 744,
+   "imports_internal": [
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.repomap",
+    "agent_os.orchestrator.usage",
+    "agent_os.orchestrator.worktrees"
+   ],
+   "imports_agent_os": [
+    "agent_os.compiler",
+    "agent_os.registry",
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.overhead",
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_orchestrator_host_actions.py",
+    "test_orchestrator_roadmap.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.rotation_advisor",
+   "path": "src/agent_os/orchestrator/rotation_advisor.py",
+   "lines": 278,
+   "imports_internal": [
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_rotation_advisor.py",
+    "test_rotation_advisor_report.py",
+    "test_rotation_advisor_shadow.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "MERGE",
+   "evidence": "shadow-only advisor, 1 importer (cli); same as route_calibration",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.route_calibration",
+   "path": "src/agent_os/orchestrator/route_calibration.py",
+   "lines": 366,
+   "imports_internal": [
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_route_calibration_estimate.py",
+    "test_route_calibration_outcomes.py",
+    "test_route_calibration_report.py",
+    "test_route_calibration_shadow.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "MERGE",
+   "evidence": "shadow-only advisor, 1 importer (cli); fold into usage_report or delete after its experiment closes",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.router",
+   "path": "src/agent_os/orchestrator/router.py",
+   "lines": 446,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.provider_health"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.capability",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.evalqueue",
+    "agent_os.orchestrator.foreman",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_routing",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.model_view",
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.overhead"
+   ],
+   "tests": [
+    "test_capability_revision.py",
+    "test_delegate_api_budget.py",
+    "test_delegate_attachments.py",
+    "test_evalqueue.py",
+    "test_foreman_deploy.py",
+    "test_foreman_shadow.py",
+    "test_free_dispatch.py",
+    "test_free_routing.py",
+    "test_free_routing_engine.py",
+    "test_model_infra.py",
+    "test_model_value_wiring.py",
+    "test_model_view.py",
+    "test_orchestrator.py",
+    "test_orchestrator_api_retry.py",
+    "test_orchestrator_control_plane.py",
+    "test_orchestrator_economy.py",
+    "test_orchestrator_eval.py",
+    "test_orchestrator_host_actions.py",
+    "test_orchestrator_models.py",
+    "test_orchestrator_state_machine.py",
+    "test_provider_health.py",
+    "test_readiness_cost.py",
+    "test_readiness_dirty_large.py",
+    "test_readiness_privacy.py",
+    "test_readiness_review.py",
+    "test_readiness_unregistered.py",
+    "test_readiness_validators.py",
+    "test_readiness_worktree.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "single production router (16 importers); free_routing/route_calibration/rotation_advisor/model_value feed it advisory data",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.secret_prompt",
+   "path": "src/agent_os/orchestrator/secret_prompt.py",
+   "lines": 66,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.secret_refs"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_secret_prompt.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.secret_refs",
+   "path": "src/agent_os/orchestrator/secret_refs.py",
+   "lines": 114,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.adapters.codex_cli",
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.compute",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.model_profile",
+    "agent_os.orchestrator.openrouter_account",
+    "agent_os.orchestrator.provision",
+    "agent_os.orchestrator.radar",
+    "agent_os.orchestrator.secret_prompt"
+   ],
+   "tests": [
+    "test_compute_inventory.py",
+    "test_foreman_deploy.py",
+    "test_model_infra.py",
+    "test_secret_prompt.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.server",
+   "path": "src/agent_os/orchestrator/server.py",
+   "lines": 640,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.budget",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.model_view",
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.repos",
+    "agent_os.orchestrator.roadmap",
+    "agent_os.orchestrator.service",
+    "agent_os.orchestrator.simple",
+    "agent_os.orchestrator.usage_report"
+   ],
+   "imports_agent_os": [
+    "agent_os.paths",
+    "agent_os.registry"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_model_view.py",
+    "test_orchestrator_repos.py",
+    "test_orchestrator_roadmap.py",
+    "test_orchestrator_surfaces.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.service",
+   "path": "src/agent_os/orchestrator/service.py",
+   "lines": 515,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.adapters",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.provision"
+   ],
+   "imports_agent_os": [
+    "agent_os.capabilities",
+    "agent_os.paths",
+    "agent_os.storage"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_compute_provision_mcp.py",
+    "test_foreman_deploy.py",
+    "test_foreman_utilization.py",
+    "test_model_infra.py",
+    "test_orchestrator_bridge.py",
+    "test_orchestrator_economy.py",
+    "test_orchestrator_roadmap.py",
+    "test_orchestrator_surfaces.py",
+    "test_worker_control_guard.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.shared_prefix_compare",
+   "path": "src/agent_os/orchestrator/shared_prefix_compare.py",
+   "lines": 124,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.context_anatomy",
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.ledger"
+   ],
+   "imports_agent_os": [],
+   "dependents": [],
+   "tests": [
+    "test_shared_prefix_compare.py"
+   ],
+   "reachable_from_entrypoints": false,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "DELETE",
+   "evidence": "one-off measurement script (__main__) whose result is recorded in EVR-0021",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.simple",
+   "path": "src/agent_os/orchestrator/simple.py",
+   "lines": 615,
+   "imports_internal": [
+    "agent_os.orchestrator.ledger"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_orchestrator_roadmap.py",
+    "test_simple_swarm_chat.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.simplify",
+   "path": "src/agent_os/orchestrator/simplify.py",
+   "lines": 194,
+   "imports_internal": [
+    "agent_os.orchestrator",
+    "agent_os.orchestrator.prior_art",
+    "agent_os.orchestrator.test_selection"
+   ],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_simplify.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "SIMPLIFY",
+   "evidence": "heuristic candidates; same agent_os hard-coding (fixed in orchestrator-os 08a310f)",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.stall",
+   "path": "src/agent_os/orchestrator/stall.py",
+   "lines": 63,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.engine"
+   ],
+   "tests": [
+    "test_worker_stall.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.store",
+   "path": "src/agent_os/orchestrator/store.py",
+   "lines": 294,
+   "imports_internal": [
+    "agent_os.orchestrator.model"
+   ],
+   "imports_agent_os": [
+    "agent_os.local_paths",
+    "agent_os.paths",
+    "agent_os.storage",
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.capability",
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.compute",
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.context_utility",
+    "agent_os.orchestrator.delegate",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.foreman",
+    "agent_os.orchestrator.foreman_deploy",
+    "agent_os.orchestrator.foreman_eval",
+    "agent_os.orchestrator.foreman_strategy",
+    "agent_os.orchestrator.free_catalog",
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_policy",
+    "agent_os.orchestrator.free_quota",
+    "agent_os.orchestrator.free_swarm",
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.model_value",
+    "agent_os.orchestrator.model_view",
+    "agent_os.orchestrator.models",
+    "agent_os.orchestrator.overhead",
+    "agent_os.orchestrator.provision",
+    "agent_os.orchestrator.radar",
+    "agent_os.orchestrator.review",
+    "agent_os.orchestrator.rotation_advisor",
+    "agent_os.orchestrator.route_calibration",
+    "agent_os.orchestrator.throughput",
+    "agent_os.orchestrator.trace",
+    "agent_os.orchestrator.usage_report",
+    "agent_os.orchestrator.validators"
+   ],
+   "tests": [
+    "test_engine_shared_prefix.py",
+    "test_foreman_deploy.py",
+    "test_free_policy.py",
+    "test_free_routing_engine.py",
+    "test_orchestrator.py",
+    "test_orchestrator_control_race.py",
+    "test_orchestrator_eval.py",
+    "test_orchestrator_state_machine.py",
+    "test_readiness_cost.py",
+    "test_readiness_dirty_large.py",
+    "test_readiness_privacy.py",
+    "test_readiness_review.py",
+    "test_readiness_unregistered.py",
+    "test_readiness_validators.py",
+    "test_readiness_worktree.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "run store; 33 importers",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.task_cache",
+   "path": "src/agent_os/orchestrator/task_cache.py",
+   "lines": 184,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.engine"
+   ],
+   "tests": [
+    "test_task_cache.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.test_selection",
+   "path": "src/agent_os/orchestrator/test_selection.py",
+   "lines": 131,
+   "imports_internal": [],
+   "imports_agent_os": [
+    "agent_os.paths"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.eval",
+    "agent_os.orchestrator.simplify"
+   ],
+   "tests": [
+    "test_orchestrator_test_selection.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "SIMPLIFY",
+   "evidence": "was hard-coded to agent_os package names (fixed in orchestrator-os 08a310f)",
+   "confidence": "high"
+  },
+  {
+   "module": "agent_os.orchestrator.throughput",
+   "path": "src/agent_os/orchestrator/throughput.py",
+   "lines": 149,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [
+    "agent_os.timestamps"
+   ],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.model_view"
+   ],
+   "tests": [
+    "test_model_view.py",
+    "test_throughput.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.trace",
+   "path": "src/agent_os/orchestrator/trace.py",
+   "lines": 205,
+   "imports_internal": [
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli"
+   ],
+   "tests": [
+    "test_orchestrator_trace.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "OTLP projection of the ledger, read-only",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.usage",
+   "path": "src/agent_os/orchestrator/usage.py",
+   "lines": 200,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.adapters.claude_code",
+    "agent_os.orchestrator.adapters.codex_cli",
+    "agent_os.orchestrator.adapters.http_api",
+    "agent_os.orchestrator.adapters.synthetic",
+    "agent_os.orchestrator.benchmark",
+    "agent_os.orchestrator.context_bench",
+    "agent_os.orchestrator.context_economy",
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.prompt_measure",
+    "agent_os.orchestrator.prompts",
+    "agent_os.orchestrator.roadmap",
+    "agent_os.orchestrator.usage_report"
+   ],
+   "tests": [
+    "test_orchestrator_models.py",
+    "test_orchestrator_overhead.py",
+    "test_orchestrator_telemetry.py",
+    "test_orchestrator_telemetry_counts.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.usage_report",
+   "path": "src/agent_os/orchestrator/usage_report.py",
+   "lines": 190,
+   "imports_internal": [
+    "agent_os.orchestrator.ledger",
+    "agent_os.orchestrator.store",
+    "agent_os.orchestrator.usage"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.server"
+   ],
+   "tests": [
+    "test_orchestrator_control_race.py",
+    "test_orchestrator_overhead.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": true,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "read-only report over ledger/usage",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.validators",
+   "path": "src/agent_os/orchestrator/validators.py",
+   "lines": 222,
+   "imports_internal": [
+    "agent_os.orchestrator.adapters.base",
+    "agent_os.orchestrator.control_plane",
+    "agent_os.orchestrator.model",
+    "agent_os.orchestrator.store"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.engine"
+   ],
+   "tests": [
+    "test_kill_tree_safety.py",
+    "test_negative_evidence.py",
+    "test_orchestrator_control_plane.py",
+    "test_orchestrator_telemetry.py",
+    "test_validator_error_signature.py",
+    "test_validator_failure_excerpt.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.vllm_metrics",
+   "path": "src/agent_os/orchestrator/vllm_metrics.py",
+   "lines": 113,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.foreman_deploy"
+   ],
+   "tests": [
+    "test_vllm_metrics.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": true,
+   "recommendation": "EXTRACT",
+   "evidence": "GPU foreman support",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.vllm_tuning",
+   "path": "src/agent_os/orchestrator/vllm_tuning.py",
+   "lines": 161,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.foreman_deploy"
+   ],
+   "tests": [
+    "test_vllm_tuning.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "GPU foreman support",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.weight_cache",
+   "path": "src/agent_os/orchestrator/weight_cache.py",
+   "lines": 85,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.foreman_deploy"
+   ],
+   "tests": [
+    "test_weight_cache.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "EXTRACT",
+   "evidence": "GPU foreman support",
+   "confidence": "medium"
+  },
+  {
+   "module": "agent_os.orchestrator.workload",
+   "path": "src/agent_os/orchestrator/workload.py",
+   "lines": 112,
+   "imports_internal": [
+    "agent_os.orchestrator.model_profile"
+   ],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.cli",
+    "agent_os.orchestrator.free_dispatch",
+    "agent_os.orchestrator.free_routing"
+   ],
+   "tests": [
+    "test_budget.py",
+    "test_compute_inventory.py",
+    "test_throughput.py",
+    "test_workload_quote.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": false,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  },
+  {
+   "module": "agent_os.orchestrator.worktrees",
+   "path": "src/agent_os/orchestrator/worktrees.py",
+   "lines": 249,
+   "imports_internal": [],
+   "imports_agent_os": [],
+   "dependents": [
+    "agent_os.orchestrator.engine",
+    "agent_os.orchestrator.overhead",
+    "agent_os.orchestrator.repomap",
+    "agent_os.orchestrator.roadmap"
+   ],
+   "tests": [
+    "test_orchestrator.py",
+    "test_orchestrator_economy.py",
+    "test_orchestrator_state_machine.py",
+    "test_readiness_worktree.py"
+   ],
+   "reachable_from_entrypoints": true,
+   "writes_files": false,
+   "subprocess": true,
+   "network": false,
+   "recommendation": "KEEP",
+   "evidence": "no finding in this pass",
+   "confidence": "low"
+  }
+ ]
+}

@@ -60,8 +60,7 @@ from .launcher import status as launcher_status
 from .launcher import verify as verify_launcher
 from .machine import describe as describe_machine
 from .machine import write_override
-from .orchestrator.cli import dispatch as dispatch_orchestrate
-from .orchestrator.cli import register as register_orchestrate
+from .orchestrator_bridge import module as _orchestrator_module
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .recovery import get_checkpoint, inspect_recovery, list_checkpoints, resume_recovery
@@ -864,7 +863,7 @@ def parser() -> argparse.ArgumentParser:
     review.add_argument("--changed-file", action="append", default=[])
     review.add_argument("--tests-failed", action="store_true")
     review.add_argument("--architecture-change", action="store_true")
-    register_orchestrate(commands)
+    _orchestrator_module("cli").register(commands)
     _register_executive(commands)
     return root
 
@@ -1263,7 +1262,7 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "executive":
             return _dispatch_executive(args)
         elif args.command == "orchestrate":
-            return dispatch_orchestrate(args, _print)
+            return _orchestrator_module("cli").dispatch(args, _print)
     except (KeyError, OSError, ValueError, ImportError) as exc:
         _print({"error": str(exc)})
         return 2
