@@ -1,0 +1,233 @@
+{
+ "schema": "orchestrator-os/lab-harness2-context/v1",
+ "harness2_commit": "6868817518876de8fd170c6a8354daca273b6191",
+ "k": 2,
+ "model_calls": 0,
+ "harness2": {
+  "done": 3,
+  "failed": 0,
+  "executions": 24,
+  "proposer_calls": 24,
+  "adopted_harness": [
+   "library/k2/agg/context/harnesses/admin-action/harness/scripts/context.py",
+   "library/k2/agg/context/harnesses/export-column/harness/scripts/context.py",
+   "library/k2/agg/context/harnesses/pricing-discount/harness/scripts/context.py"
+  ]
+ },
+ "selection": "scripted stand-in for Harness2's blind model pick (most goal-relevant constraints, then fewest tokens)",
+ "caveat": "synthetic fixture; recall of named constraints is a proxy, not task success",
+ "summary": {
+  "existing": {
+   "dev": {
+    "recall": 0.694,
+    "tokens": 188.0
+   },
+   "holdout": {
+    "recall": 1.0,
+    "tokens": 188.0
+   }
+  },
+  "shortened": {
+   "dev": {
+    "recall": 0.694,
+    "tokens": 153.0
+   },
+   "holdout": {
+    "recall": 1.0,
+    "tokens": 153.0
+   }
+  },
+  "task_specific": {
+   "dev": {
+    "recall": 1.0,
+    "tokens": 117.7
+   },
+   "holdout": {
+    "recall": 1.0,
+    "tokens": 116.5
+   }
+  },
+  "harness2_composed": {
+   "dev": {
+    "recall": 1.0,
+    "tokens": 82.7
+   },
+   "holdout": {
+    "recall": 1.0,
+    "tokens": 81.5
+   }
+  }
+ },
+ "rows": [
+  {
+   "variant": "existing",
+   "task": "pricing-discount",
+   "split": "dev",
+   "recall": 0.75,
+   "missing": [
+    "tests: new code needs a unit test next to it"
+   ],
+   "tokens": 188
+  },
+  {
+   "variant": "existing",
+   "task": "export-column",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 188
+  },
+  {
+   "variant": "existing",
+   "task": "admin-action",
+   "split": "dev",
+   "recall": 0.333,
+   "missing": [
+    "admin: support role cannot delete customers",
+    "tests: new code needs a unit test next to it"
+   ],
+   "tokens": 188
+  },
+  {
+   "variant": "existing",
+   "task": "web-widget",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 188
+  },
+  {
+   "variant": "existing",
+   "task": "export-timezone",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 188
+  },
+  {
+   "variant": "shortened",
+   "task": "pricing-discount",
+   "split": "dev",
+   "recall": 0.75,
+   "missing": [
+    "tests: new code needs a unit test next to it"
+   ],
+   "tokens": 153
+  },
+  {
+   "variant": "shortened",
+   "task": "export-column",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 153
+  },
+  {
+   "variant": "shortened",
+   "task": "admin-action",
+   "split": "dev",
+   "recall": 0.333,
+   "missing": [
+    "admin: support role cannot delete customers",
+    "tests: new code needs a unit test next to it"
+   ],
+   "tokens": 153
+  },
+  {
+   "variant": "shortened",
+   "task": "web-widget",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 153
+  },
+  {
+   "variant": "shortened",
+   "task": "export-timezone",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 153
+  },
+  {
+   "variant": "task_specific",
+   "task": "pricing-discount",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 119
+  },
+  {
+   "variant": "task_specific",
+   "task": "export-column",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 117
+  },
+  {
+   "variant": "task_specific",
+   "task": "admin-action",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 117
+  },
+  {
+   "variant": "task_specific",
+   "task": "web-widget",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 116
+  },
+  {
+   "variant": "task_specific",
+   "task": "export-timezone",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 117
+  },
+  {
+   "variant": "harness2_composed",
+   "task": "pricing-discount",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 84
+  },
+  {
+   "variant": "harness2_composed",
+   "task": "export-column",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 82
+  },
+  {
+   "variant": "harness2_composed",
+   "task": "admin-action",
+   "split": "dev",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 82
+  },
+  {
+   "variant": "harness2_composed",
+   "task": "web-widget",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 81
+  },
+  {
+   "variant": "harness2_composed",
+   "task": "export-timezone",
+   "split": "holdout",
+   "recall": 1.0,
+   "missing": [],
+   "tokens": 82
+  }
+ ]
+}

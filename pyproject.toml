@@ -13,6 +13,8 @@ dependencies = ["keyring>=25,<26", "jsonschema>=4.23,<5"]
 [project.optional-dependencies]
 # pytest only for the Windows-sandbox plugin tests.
 dev = ["pytest>=8"]
+# Offline improvement lab (orchestrator_os.lab_harness2). Pinned commit; Python 3.12+.
+harness2 = ["harness2 @ git+https://github.com/google-research/harness2@6868817518876de8fd170c6a8354daca273b6191 ; python_version >= '3.12'"]
 
 [project.scripts]
 orchestrator = "orchestrator_os.__main__:main"
