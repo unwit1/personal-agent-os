@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="agent-os-token" content="__AGENT_OS_TOKEN__">
+  <title>Agent OS Orchestrator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Agent OS <span>Orchestrator</span></div>
+    <button id="repo-button" class="repo-button" data-target-name="repository" title="Choose which repository to work in">
+      <span class="repo-icon" aria-hidden="true">&#128193;</span><span id="repo-name">Choose a repository</span><span aria-hidden="true">&#9662;</span>
+    </button>
+    <span class="spacer"></span>
+    <button id="help-button" class="help" data-target-name="help">Tell me what to press</button>
+    <div class="mode-switch" role="group" aria-label="Mode">
+      <button id="mode-simple" class="mode on" aria-pressed="true">Simple</button>
+      <button id="mode-advanced" class="mode" aria-pressed="false">Advanced</button>
+    </div>
+  </header>
+
+  <div id="advice" class="advice hidden" role="status" aria-live="polite">
+    <span id="advice-text"></span>
+    <button id="advice-close" class="ghost small" aria-label="Close">✕</button>
+  </div>
+  <div id="busy" class="busy hidden" role="status" aria-live="polite"><span class="spinner"></span><span id="busy-text"></span></div>
+
+  <!-- ============================== SIMPLE MODE ============================== -->
+  <main id="simple-mode">
+    <section class="panel hero start-card">
+      <h2 class="start-title">What should the agents do?</h2>
+      <textarea id="task-goal" rows="3" placeholder="Describe a task, or leave this empty to continue the roadmap"></textarea>
+      <div class="muted" id="s-next-line"><span id="s-next">—</span> <span id="s-next-why"></span></div>
+      <div class="options-row">
+        <label class="option">Foreman
+          <select id="quick-foreman" title="The model that plans the work and picks a model for each task">
+            <option value="">Default planner</option>
+            <option value="claude">Claude Opus (recommended)</option>
+            <option value="chatgpt">ChatGPT</option>
+            <option value="more">Other (OpenRouter, local, GPU)…</option>
+          </select>
+        </label>
+        <label class="inline switch" title="When a roadmap task finishes, start the next one automatically"><input type="checkbox" id="until-done"> Keep going</label>
+        <label class="inline switch" title="Off: only your Claude/ChatGPT subscriptions and local models. On: this run may also use per-token APIs (OpenRouter) and rented GPUs (RunPod) when they are the most efficient option."><input type="checkbox" id="allow-paid"> Allow paid credits</label>
+      </div>
+      <button id="continue-button" class="big primary" data-target-name="continue">
+        <span class="spinner hidden" id="continue-spinner"></span><span id="continue-label">START</span>
+      </button>
+      <div class="hidden" aria-hidden="true">
+        <span id="s-project"></span><span id="s-roadmap"></span><span id="s-stage-dots"></span>
+      </div>
+    </section>
+
+    <section id="run-panel" class="panel run-panel hidden" aria-live="polite">
+      <div class="run-head">
+        <span id="r-overall" class="status-pill">—</span>
+        <span class="eyebrow" id="r-eyebrow">RUN</span>
+        <span class="spacer"></span>
+        <button id="pause-button" data-target-name="pause">Pause</button>
+        <button id="resume-button" data-target-name="resume" class="hidden">Resume</button>
+        <button id="stop-button" data-target-name="stop" class="danger">Stop</button>
+      </div>
+      <div id="r-headline" class="headline"></div>
+      <div class="progress" aria-hidden="true"><div id="r-progress-bar" class="progress-bar"></div></div>
+      <div class="now-line"><span class="fact-label">Now</span> <span id="r-task">—</span> <span class="muted" id="r-tasks"></span></div>
+      <div class="hidden"><span id="r-stage"></span></div>
+
+      <div id="r-problems"></div>
+      <div id="r-summary" class="summary hidden"></div>
+
+      <div class="swarm">
+        <div class="swarm-head"><span class="fact-label">Swarm</span> <span id="r-swarm-count">—</span> <span class="muted" id="r-swarm-models"></span></div>
+        <div id="r-swarm-agents" class="swarm-agents"></div>
+      </div>
+
+      <div class="tasklist">
+        <div class="fact-label">Tasks</div>
+        <div id="r-tasklist"></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button id="tab-updates" class="tab on" role="tab" aria-selected="true">Updates</button>
+        <button id="tab-chat" class="tab" role="tab" aria-selected="false">Chat <span id="chat-badge" class="badge hidden"></span></button>
+      </div>
+      <ol id="r-updates" class="updates"></ol>
+      <div id="r-chat" class="chat hidden">
+        <div id="chat-log" class="chat-log"></div>
+        <div class="chat-compose">
+          <input id="chat-input" placeholder="Message the agents, e.g. “keep the GUI changes small” (they see it from their next step)" autocomplete="off">
+          <button id="chat-send" class="primary">Send</button>
+        </div>
+      </div>
+
+      <details id="r-details" class="efficiency">
+        <summary>Details: steps, agents and activity</summary>
+        <div class="cols">
+          <div>
+            <h3>Progress</h3>
+            <ol id="r-steps" class="steps"></ol>
+          </div>
+          <div>
+            <h3>Agents</h3>
+            <table class="agents"><tbody id="r-agents"></tbody></table>
+            <div id="r-warning" class="wait hidden"></div>
+          </div>
+        </div>
+        <h3>Activity</h3>
+        <ol id="r-activity" class="activity"></ol>
+        <details id="r-efficiency" class="efficiency">
+          <summary>Token and efficiency report</summary>
+          <p class="muted">“Measured” and “exact” numbers come from the providers or from counting. “Estimated” numbers are calculated and labelled as such.</p>
+          <table><tbody id="r-eff-rows"></tbody></table>
+          <div class="muted" id="r-eff-files"></div>
+        </details>
+        <details class="advanced-details">
+          <summary>Raw details</summary>
+          <pre id="r-advanced"></pre>
+        </details>
+      </details>
+    </section>
+
+    <section id="older-runs-panel" class="panel hidden">
+      <details id="older-runs">
+        <summary>Older unfinished runs <span id="older-count" class="badge"></span></summary>
+        <p class="muted">Runs that stopped more than 12 hours ago and were never finished. Show one to continue it, or dismiss it to clear it away.</p>
+        <table><tbody id="older-rows"></tbody></table>
+      </details>
+    </section>
+
+    <details id="more" class="more">
+      <summary>More: foreman options, models, usage and compute</summary>
+      <div class="row"><button id="settings-button" data-target-name="settings" class="ghost">Settings</button></div>
+
+    <section class="panel">
+      <details id="foreman-panel" class="efficiency">
+        <summary>Session foreman <span id="foreman-badge" class="badge hidden"></span></summary>
+        <p class="muted">The foreman plans every run you start while it is set: it breaks the goal into tasks and picks which model runs each one.</p>
+        <p id="fm-host" class="muted hidden"></p>
+        <label>Foreman<select id="fm-source">
+          <option value="claude">Claude (your subscription)</option>
+          <option value="chatgpt">ChatGPT (your subscription)</option>
+          <option value="openrouter">OpenRouter model (pay per token, no rental)</option>
+          <option value="local">Local model (a server on this computer)</option>
+          <option value="huggingface">Hugging Face model (rented GPU)</option>
+        </select></label>
+        <div id="fm-sub" class="fm-group">
+          <label>Model<select id="fm-sub-model"></select></label>
+          <div class="row"><button id="fm-use" class="primary">Use as Foreman</button></div>
+        </div>
+        <div id="fm-or" class="fm-group hidden">
+          <div class="row">
+            <label>OpenRouter model<input id="fm-or-model" list="fm-or-list" placeholder="qwen/qwen3-235b-a22b-2507" autocomplete="off" spellcheck="false"></label>
+            <button id="fm-or-load">List Models &amp; Prices</button>
+          </div>
+          <datalist id="fm-or-list"></datalist>
+          <p class="muted">Pay per token with your OpenRouter key: no GPU, no idle cost. Set a credit limit on the key in OpenRouter; it is the hard cap.</p>
+          <div class="row"><button id="fm-use-or" class="primary">Use as Foreman</button></div>
+        </div>
+        <div id="fm-local" class="fm-group hidden">
+          <div class="row">
+            <label>Server URL<input id="fm-local-url" placeholder="http://127.0.0.1:11434" value="http://127.0.0.1:11434" autocomplete="off" spellcheck="false"></label>
+            <button id="fm-local-list">Find Models</button>
+          </div>
+          <label>Model<select id="fm-local-model"><option value="">(press Find Models)</option></select></label>
+          <p class="muted">Any OpenAI-compatible server: Ollama (port 11434), LM Studio (1234), llama.cpp, vLLM (8000). Nothing is rented or billed.</p>
+          <div class="row"><button id="fm-use-local" class="primary">Use as Foreman</button></div>
+        </div>
+        <div id="fm-hf" class="fm-group hidden">
+        <p class="muted">Agent OS rents the cheapest GPU that fits the model, starts it, and shuts it down before the job budget runs out, or after every attached run has planned and it has been idle for a while.</p>
+        <div class="row">
+          <label>Project budget ($)<input id="fm-project" type="number" min="0" step="0.5" inputmode="decimal"></label>
+          <label>Budget for this job ($)<input id="fm-job" type="number" min="0" step="0.5" inputmode="decimal"></label>
+          <label>Shut down after idle (min)<input id="fm-idle" type="number" min="1" step="1" value="15"></label>
+        </div>
+        <label>Hugging Face model link<input id="fm-link" placeholder="https://huggingface.co/org/model" autocomplete="off" spellcheck="false"></label>
+        <div class="row">
+          <button id="fm-preview">Check Cost</button>
+          <button id="fm-deploy" class="primary">Deploy as Foreman</button>
+          <span class="spacer"></span><span id="fm-budget" class="muted"></span>
+        </div>
+        </div>
+        <div class="row"><button id="fm-stop" class="danger hidden">Stop Foreman</button></div>
+        <dl id="fm-status" class="kv wide hidden"></dl>
+      </details>
+    </section>
+
+    <section class="panel">
+      <details id="models-panel" class="efficiency">
+        <summary>AI models <span id="models-badge" class="badge hidden"></span></summary>
+        <p class="muted">Agent OS checks the official Claude and OpenAI model lists and the Codex app's own list every day (no AI model is used for this). Newer versions of the same model are used automatically; switching to a different model waits for you.</p>
+        <div class="row"><span id="models-headline" class="muted"></span><span class="spacer"></span><button id="models-refresh">Check Now</button></div>
+        <div id="models-proposals"></div>
+        <table><thead><tr><th>Agent</th><th>Work type</th><th>Model</th><th></th></tr></thead><tbody id="models-tiers"></tbody></table>
+        <div id="models-notices"></div>
+        <details><summary>How each model has done in your runs</summary>
+          <p class="muted">"Clean" means its work needed no retry: no failed call, rejected result, test failure after its change, or false "done". Usage-limit failures are not counted against a model. Few calls say little.</p>
+          <table><thead><tr><th>Model</th><th>Role</th><th>Calls</th><th>Clean</th><th>Avg input tokens</th></tr></thead><tbody id="models-scorecard"></tbody></table>
+        </details>
+      </details>
+    </section>
+
+    <section class="panel">
+      <details id="usage-panel" class="efficiency">
+        <summary>Model usage across all runs</summary>
+        <p class="muted">Totals from every orchestrated run on this computer. Test and benchmark runs are not included.</p>
+        <table><tbody id="usage-rows"></tbody></table>
+      </details>
+    </section>
+
+    <section class="panel">
+      <details id="compute-panel" class="efficiency">
+        <summary>Models &amp; compute <span id="compute-badge" class="badge hidden"></span></summary>
+        <p class="muted" id="compute-note"></p>
+        <h3>Registered models</h3>
+        <table><thead><tr><th>Provider</th><th>Models</th><th>Deployment</th><th>Refusal profile</th><th>Roles</th></tr></thead><tbody id="compute-providers"></tbody></table>
+        <h3>Discovered models <span class="muted" id="compute-catalog-size"></span></h3>
+        <table><thead><tr><th>Model</th><th>Pipeline</th><th>License</th><th>Refusal hint</th><th>Downloads</th></tr></thead><tbody id="compute-catalog"></tbody></table>
+        <h3>GPU prices <span class="muted" id="compute-inventory-at"></span></h3>
+        <table><thead><tr><th>GPU</th><th>VRAM</th><th>Tier</th><th>$/hour</th></tr></thead><tbody id="compute-inventory"></tbody></table>
+        <h3>Measured throughput</h3>
+        <table><thead><tr><th>Model</th><th>GPU</th><th>Engine</th><th>Tokens/s</th><th>Source</th></tr></thead><tbody id="compute-throughput"></tbody></table>
+        <h3>Eval queue <span class="muted" id="compute-queue-summary"></span></h3>
+        <table><thead><tr><th>Model</th><th>Status</th><th>Detail</th></tr></thead><tbody id="compute-queue"></tbody></table>
+        <h3>Refusals and shadow foreman</h3>
+        <table><thead><tr><th>Route</th><th>Kind</th><th>Summary</th></tr></thead><tbody id="compute-signals"></tbody></table>
+      </details>
+    </section>
+    </details>
+
+    <dialog id="repo-dialog" aria-labelledby="repo-title">
+      <div class="row"><h2 id="repo-title">Choose a repository</h2><span class="spacer"></span>
+        <button id="repo-new-button" class="primary">+ New repository</button></div>
+      <form id="repo-new" class="repo-new hidden" method="dialog">
+        <label>Name<input id="repo-new-name" placeholder="my-new-project" autocomplete="off" required></label>
+        <label>What is it for? (optional)<input id="repo-new-description" placeholder="One line for the README"></label>
+        <label>Create it in<select id="repo-new-parent"></select></label>
+        <label class="inline"><input type="checkbox" id="repo-new-github"> Also create a private repository on GitHub and upload it</label>
+        <div class="row"><button id="repo-new-create" class="primary" type="button">Create and open</button>
+          <button id="repo-new-cancel" class="ghost" type="button">Cancel</button></div>
+      </form>
+      <input id="repo-search" type="search" placeholder="Search repositories" aria-label="Search repositories" autocomplete="off">
+      <div id="repo-list" class="repo-list" role="list"><p class="muted">Looking for your repositories…</p></div>
+      <div class="row"><span class="muted" id="repo-roots"></span><span class="spacer"></span><button id="repo-close" class="ghost">Close</button></div>
+    </dialog>
+
+    <dialog id="settings-dialog">
+      <h2>Settings</h2>
+      <label>Cost preference
+        <select id="set-preference"><option value="economy">Economy — cheapest models first</option><option value="balanced" selected>Balanced</option><option value="quality">Quality — stronger models</option></select></label>
+      <p class="muted">Advanced Mode shows every agent, branch, model and log line. Switch with the buttons at the top right.</p>
+      <div class="row"><span class="spacer"></span><button id="settings-close" class="primary">Done</button></div>
+    </dialog>
+
+    <dialog id="explain-dialog">
+      <h2 id="explain-title"></h2>
+      <p id="explain-body"></p>
+      <p class="muted">This explanation is built in; asking for it does not use a model.</p>
+      <div class="row"><span class="spacer"></span><button id="explain-close" class="primary">Got it</button></div>
+    </dialog>
+  </main>
+
+  <!-- ============================== ADVANCED MODE ============================== -->
+  <main id="advanced-mode" class="hidden">
+    <div class="row adv-bar">
+      <label class="run-picker">Run
+        <select id="run-select"><option value="">— new task —</option></select>
+      </label>
+      <button id="providers-button" class="ghost">Providers</button>
+    </div>
+
+    <section id="new-task" class="panel">
+      <h2>New task</h2>
+      <label>Goal<textarea id="goal" rows="3" placeholder="Describe the coding goal once. Agent OS plans, assigns, validates, reviews and integrates."></textarea></label>
+      <div class="grid2">
+        <label>Repository path<input id="repository" placeholder="C:\path\to\repo"></label>
+        <label>or registered project<input id="project" placeholder="personal-agent-os"></label>
+      </div>
+      <label>Validators (one command per line; default: the project's registered validation commands)
+        <textarea id="validators" rows="2" placeholder="python -m unittest discover -s tests"></textarea></label>
+      <div class="row">
+        <label class="inline">Preference
+          <select id="preference"><option value="economy">economy</option><option value="balanced" selected>balanced</option><option value="quality">quality</option></select>
+        </label>
+        <label class="inline switch"><input type="checkbox" id="new-auto" checked> Auto Continue</label>
+        <span class="spacer"></span>
+        <button id="create-manual" class="ghost">Create only</button>
+        <button id="start-recommended" class="primary">Start Recommended</button>
+      </div>
+    </section>
+
+    <section id="run" class="panel hidden">
+      <div class="run-head">
+        <div>
+          <div class="run-goal" id="run-goal"></div>
+          <div class="muted" id="run-meta"></div>
+        </div>
+        <span class="badge" id="run-state">—</span>
+      </div>
+      <div class="progress"><div id="progress-bar"></div></div>
+      <div class="muted" id="run-reason"></div>
+      <div class="row controls">
+        <label class="inline switch"><input type="checkbox" id="auto-toggle"> Auto Continue</label>
+        <button data-action="drive" class="primary">Drive</button>
+        <button data-action="step" class="ghost">Step</button>
+        <button data-action="pause">Pause</button>
+        <button data-action="resume">Resume</button>
+        <button data-action="stop" class="danger">Stop</button>
+        <span class="spacer"></span>
+        <span class="muted" id="driver"></span>
+      </div>
+      <details class="override">
+        <summary>Provider / model / effort override (applies to new launches; never edits manifests)</summary>
+        <div class="row">
+          <select id="ov-scope"><option value="run">whole run</option><option value="role:implementer">role: implementer</option><option value="role:reviewer">role: reviewer</option><option value="role:planner">role: planner</option><option value="role:repairer">role: repairer</option></select>
+          <select id="ov-provider"><option value="">(recommended provider)</option></select>
+          <input id="ov-model" placeholder="model (optional)">
+          <select id="ov-effort"><option value="">(stage effort)</option><option>none</option><option>low</option><option>medium</option><option>high</option></select>
+          <button id="ov-apply">Apply</button>
+          <button id="ov-clear" class="ghost">Clear</button>
+        </div>
+      </details>
+    </section>
+
+    <section id="gates" class="panel hidden">
+      <h2>Approval required</h2>
+      <div id="gate-list"></div>
+    </section>
+
+    <section id="agents" class="panel hidden">
+      <h2>Agents &amp; stages</h2>
+      <div id="agent-cards" class="cards"></div>
+    </section>
+
+    <div class="split">
+      <section id="findings" class="panel hidden">
+        <h2>Cross-review findings</h2>
+        <table><thead><tr><th>Node</th><th>Sev.</th><th>Path</th><th>Finding</th><th>Disposition</th></tr></thead><tbody id="finding-rows"></tbody></table>
+      </section>
+      <section id="final" class="panel hidden">
+        <h2>Validation &amp; integration</h2>
+        <div id="final-body"></div>
+      </section>
+    </div>
+
+    <section id="events" class="panel hidden">
+      <h2>Event log</h2>
+      <ol id="event-log"></ol>
+    </section>
+  </main>
+
+  <dialog id="providers-dialog">
+    <h2>Providers</h2>
+    <pre id="providers-body"></pre>
+    <div class="row"><button id="providers-suggest" class="ghost">Probe installed CLIs</button><button id="providers-write" class="ghost">Add missing to registry</button><span class="spacer"></span><button id="providers-close">Close</button></div>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="simple-core.js"></script>
+  <script src="app.js"></script>
+  <script src="simple.js"></script>
+</body>
+</html>

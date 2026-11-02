@@ -1,0 +1,17 @@
+{
+  "drive_scope": "synthetic-drive-001",
+  "files": [
+    {
+      "file_id": "file-alpha-001",
+      "name": "Alpha Notes.txt",
+      "parents": ["folder-inbox"],
+      "content": "Synthetic Drive alpha content v1."
+    },
+    {
+      "file_id": "file-beta-002",
+      "name": "Beta Notes.txt",
+      "parents": ["folder-inbox"],
+      "content": "Synthetic Drive beta content v1."
+    }
+  ]
+}

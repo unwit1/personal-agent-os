@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orchestrator-os"
+version = "0.1.0"
+description = "Provider-neutral orchestration of coding agents across Git repositories"
+requires-python = ">=3.11"
+# keyring: secrets:// references for provider keys. jsonschema: run/record validation.
+dependencies = ["keyring>=25,<26", "jsonschema>=4.23,<5"]
+
+[project.optional-dependencies]
+# pytest only for the Windows-sandbox plugin tests.
+dev = ["pytest>=8"]
+
+[project.scripts]
+orchestrator = "orchestrator_os.__main__:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+orchestrator_os = ["gui/*", "defaults/*.json", "adapters/win_sandbox/*.py"]

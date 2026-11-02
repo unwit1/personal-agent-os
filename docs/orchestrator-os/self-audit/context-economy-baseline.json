@@ -1,0 +1,2307 @@
+{
+  "amplification": {
+    "all": {
+      "amplification": {
+        "count": 652,
+        "max": 3037.3903,
+        "median": 53.2459,
+        "min": 0.0,
+        "p90": 645.4149
+      },
+      "cache_read_share": {
+        "count": 648,
+        "max": 0.9841,
+        "median": 0.8428,
+        "min": 0.1315,
+        "p90": 0.9566
+      },
+      "count": 653,
+      "output_ratio": {
+        "count": 648,
+        "max": 0.2339,
+        "median": 0.0242,
+        "min": 0.0048,
+        "p90": 0.0573
+      },
+      "pooled_amplification": 104.8479,
+      "pooled_output_ratio": 0.0156,
+      "sum_input": 263582200,
+      "sum_output": 4107883,
+      "sum_prompt_estimate": 2497489
+    },
+    "by_capability_class": {
+      "balanced": {
+        "amplification": {
+          "count": 304,
+          "max": 712.2787,
+          "median": 18.1236,
+          "min": 0.0,
+          "p90": 166.4438
+        },
+        "cache_read_share": {
+          "count": 304,
+          "max": 0.9706,
+          "median": 0.787,
+          "min": 0.1315,
+          "p90": 0.9134
+        },
+        "count": 305,
+        "output_ratio": {
+          "count": 304,
+          "max": 0.2339,
+          "median": 0.0312,
+          "min": 0.0051,
+          "p90": 0.0705
+        },
+        "pooled_amplification": 32.1388,
+        "pooled_output_ratio": 0.0252,
+        "sum_input": 45878936,
+        "sum_output": 1158008,
+        "sum_prompt_estimate": 1373833
+      },
+      "fast": {
+        "amplification": {
+          "count": 182,
+          "max": 3037.3903,
+          "median": 356.5137,
+          "min": 0.0,
+          "p90": 1173.8423
+        },
+        "cache_read_share": {
+          "count": 180,
+          "max": 0.9841,
+          "median": 0.9431,
+          "min": 0.5782,
+          "p90": 0.9711
+        },
+        "count": 182,
+        "output_ratio": {
+          "count": 180,
+          "max": 0.0854,
+          "median": 0.0118,
+          "min": 0.005,
+          "p90": 0.0257
+        },
+        "pooled_amplification": 541.1791,
+        "pooled_output_ratio": 0.0106,
+        "sum_input": 172689169,
+        "sum_output": 1828387,
+        "sum_prompt_estimate": 319098
+      },
+      "frontier": {
+        "amplification": {
+          "count": 9,
+          "max": 486.9323,
+          "median": 19.4097,
+          "min": 0.0,
+          "p90": 486.9323
+        },
+        "cache_read_share": {
+          "count": 7,
+          "max": 0.9279,
+          "median": 0.7779,
+          "min": 0.6612,
+          "p90": 0.9279
+        },
+        "count": 9,
+        "output_ratio": {
+          "count": 7,
+          "max": 0.0115,
+          "median": 0.0066,
+          "min": 0.0048,
+          "p90": 0.0115
+        },
+        "pooled_amplification": 27.2738,
+        "pooled_output_ratio": 0.007,
+        "sum_input": 1784578,
+        "sum_output": 12537,
+        "sum_prompt_estimate": 65432
+      },
+      "reasoning": {
+        "amplification": {
+          "count": 157,
+          "max": 1226.5622,
+          "median": 42.8953,
+          "min": 3.7112,
+          "p90": 327.0188
+        },
+        "cache_read_share": {
+          "count": 157,
+          "max": 0.9599,
+          "median": 0.856,
+          "min": 0.2616,
+          "p90": 0.9341
+        },
+        "count": 157,
+        "output_ratio": {
+          "count": 157,
+          "max": 0.1267,
+          "median": 0.0274,
+          "min": 0.0081,
+          "p90": 0.0514
+        },
+        "pooled_amplification": 58.4873,
+        "pooled_output_ratio": 0.0257,
+        "sum_input": 43229517,
+        "sum_output": 1108951,
+        "sum_prompt_estimate": 739126
+      }
+    },
+    "by_role": {
+      "implementer": {
+        "amplification": {
+          "count": 184,
+          "max": 3037.3903,
+          "median": 141.1598,
+          "min": 0.0,
+          "p90": 980.6436
+        },
+        "cache_read_share": {
+          "count": 180,
+          "max": 0.9841,
+          "median": 0.8955,
+          "min": 0.5782,
+          "p90": 0.9649
+        },
+        "count": 184,
+        "output_ratio": {
+          "count": 180,
+          "max": 0.1661,
+          "median": 0.0187,
+          "min": 0.0048,
+          "p90": 0.0349
+        },
+        "pooled_amplification": 367.5238,
+        "pooled_output_ratio": 0.0142,
+        "sum_input": 109529083,
+        "sum_output": 1549897,
+        "sum_prompt_estimate": 298019
+      },
+      "planner": {
+        "amplification": {
+          "count": 23,
+          "max": 544.6765,
+          "median": 81.9271,
+          "min": 3.7112,
+          "p90": 327.9068
+        },
+        "cache_read_share": {
+          "count": 24,
+          "max": 0.9466,
+          "median": 0.8462,
+          "min": 0.2616,
+          "p90": 0.9342
+        },
+        "count": 24,
+        "output_ratio": {
+          "count": 24,
+          "max": 0.1267,
+          "median": 0.0327,
+          "min": 0.0088,
+          "p90": 0.0759
+        },
+        "pooled_amplification": 108.9871,
+        "pooled_output_ratio": 0.0296,
+        "sum_input": 7778878,
+        "sum_output": 230191,
+        "sum_prompt_estimate": 55541
+      },
+      "repairer": {
+        "amplification": {
+          "count": 141,
+          "max": 2106.7234,
+          "median": 188.9689,
+          "min": 22.988,
+          "p90": 851.0812
+        },
+        "cache_read_share": {
+          "count": 141,
+          "max": 0.9807,
+          "median": 0.9276,
+          "min": 0.4206,
+          "p90": 0.9659
+        },
+        "count": 141,
+        "output_ratio": {
+          "count": 141,
+          "max": 0.067,
+          "median": 0.0146,
+          "min": 0.0051,
+          "p90": 0.0269
+        },
+        "pooled_amplification": 366.5077,
+        "pooled_output_ratio": 0.0121,
+        "sum_input": 102029511,
+        "sum_output": 1238088,
+        "sum_prompt_estimate": 278383
+      },
+      "reviewer": {
+        "amplification": {
+          "count": 276,
+          "max": 561.4868,
+          "median": 11.7271,
+          "min": 0.0,
+          "p90": 43.5855
+        },
+        "cache_read_share": {
+          "count": 275,
+          "max": 0.966,
+          "median": 0.7517,
+          "min": 0.1315,
+          "p90": 0.8605
+        },
+        "count": 276,
+        "output_ratio": {
+          "count": 275,
+          "max": 0.2339,
+          "median": 0.035,
+          "min": 0.0058,
+          "p90": 0.0738
+        },
+        "pooled_amplification": 17.3772,
+        "pooled_output_ratio": 0.0281,
+        "sum_input": 31728228,
+        "sum_output": 892769,
+        "sum_prompt_estimate": 1825851
+      },
+      "test_author": {
+        "amplification": {
+          "count": 28,
+          "max": 1260.4268,
+          "median": 164.3515,
+          "min": 43.3494,
+          "p90": 712.2787
+        },
+        "cache_read_share": {
+          "count": 28,
+          "max": 0.9722,
+          "median": 0.888,
+          "min": 0.7201,
+          "p90": 0.9588
+        },
+        "count": 28,
+        "output_ratio": {
+          "count": 28,
+          "max": 0.0444,
+          "median": 0.0167,
+          "min": 0.0057,
+          "p90": 0.0346
+        },
+        "pooled_amplification": 315.3168,
+        "pooled_output_ratio": 0.0157,
+        "sum_input": 12516500,
+        "sum_output": 196938,
+        "sum_prompt_estimate": 39695
+      }
+    }
+  },
+  "coverage": {
+    "calls": 666,
+    "calls_without_prompt_estimate": 1,
+    "eligible_calls": 653,
+    "events": 5350,
+    "exact_calls": 653,
+    "excluded": {
+      "estimated": 0,
+      "inconsistent": 0,
+      "synthetic": 0,
+      "unavailable": 13
+    },
+    "malformed_lines": 0,
+    "malformed_runs": 0,
+    "runs": 20,
+    "runs_without_run_started": 1,
+    "sanitized_labels": 0,
+    "synthetic_calls_excluded": 0,
+    "unparsed_worker_dirs": 0,
+    "unreported_calls": 13
+  },
+  "estimate_method": "characters/4",
+  "fanout": {
+    "by_run": {
+      "run-20260922T200659Z-5b8a73": {
+        "duplicated_fixed_overhead": 768222,
+        "escalations": 1,
+        "fallbacks": 1,
+        "fanout_input_ratio": 0.4476,
+        "negative_overhead_calls": 2,
+        "overhead_per_worker_call": {
+          "count": 4,
+          "max": 545702,
+          "median": 111799.0,
+          "min": -1078,
+          "p90": 545702
+        },
+        "overhead_share": 0.9945,
+        "planner_input": 1725628,
+        "repeat_attempt_input": 546825,
+        "retries": 2,
+        "worker_input": 772432,
+        "worker_nodes": {
+          "implementer": 1
+        },
+        "worker_nodes_total": 1
+      },
+      "run-20260923T200037Z-a1e3c0": {
+        "duplicated_fixed_overhead": 0,
+        "escalations": 0,
+        "fallbacks": 1,
+        "fanout_input_ratio": 0.0,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 0,
+          "max": null,
+          "median": null,
+          "min": null,
+          "p90": null
+        },
+        "overhead_share": null,
+        "planner_input": 913395,
+        "repeat_attempt_input": 757555,
+        "retries": 2,
+        "worker_input": 0,
+        "worker_nodes": {},
+        "worker_nodes_total": 0
+      },
+      "run-20260923T202405Z-5e4d75": {
+        "duplicated_fixed_overhead": 4205804,
+        "escalations": 2,
+        "fallbacks": 4,
+        "fanout_input_ratio": 28.1094,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 17,
+          "max": 673249,
+          "median": 169423,
+          "min": 53246,
+          "p90": 542157
+        },
+        "overhead_share": 0.9916,
+        "planner_input": 150890,
+        "repeat_attempt_input": 1500792,
+        "retries": 4,
+        "worker_input": 4241424,
+        "worker_nodes": {
+          "implementer": 3,
+          "repairer": 2,
+          "reviewer": 4
+        },
+        "worker_nodes_total": 9
+      },
+      "run-20260924T133405Z-dc8cf4": {
+        "duplicated_fixed_overhead": 3513677,
+        "escalations": 5,
+        "fallbacks": 0,
+        "fanout_input_ratio": 3.5405,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 15,
+          "max": 707011,
+          "median": 136525,
+          "min": 31276,
+          "p90": 596031
+        },
+        "overhead_share": 0.9957,
+        "planner_input": 996758,
+        "repeat_attempt_input": 2208803,
+        "retries": 0,
+        "worker_input": 3529024,
+        "worker_nodes": {
+          "implementer": 1,
+          "reviewer": 3,
+          "test_author": 2
+        },
+        "worker_nodes_total": 6
+      },
+      "run-20260924T143653Z-746b90": {
+        "duplicated_fixed_overhead": 7447200,
+        "escalations": 1,
+        "fallbacks": 2,
+        "fanout_input_ratio": null,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 11,
+          "max": 2417470,
+          "median": 451328,
+          "min": 93302,
+          "p90": 1632698
+        },
+        "overhead_share": 0.9975,
+        "planner_input": 0,
+        "repeat_attempt_input": 2418701,
+        "retries": 2,
+        "worker_input": 7465963,
+        "worker_nodes": {
+          "implementer": 4,
+          "repairer": 1,
+          "reviewer": 5
+        },
+        "worker_nodes_total": 10
+      },
+      "run-20260930T181109Z-d9a9d8": {
+        "duplicated_fixed_overhead": 3998231,
+        "escalations": 10,
+        "fallbacks": 0,
+        "fanout_input_ratio": 49.3609,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 25,
+          "max": 495012,
+          "median": 126573,
+          "min": 43555,
+          "p90": 363659
+        },
+        "overhead_share": 0.9759,
+        "planner_input": 83004,
+        "repeat_attempt_input": 2301313,
+        "retries": 0,
+        "worker_input": 4097152,
+        "worker_nodes": {
+          "implementer": 7,
+          "repairer": 1,
+          "reviewer": 4
+        },
+        "worker_nodes_total": 12
+      },
+      "run-20260930T215623Z-77a6c6": {
+        "duplicated_fixed_overhead": 3745190,
+        "escalations": 1,
+        "fallbacks": 7,
+        "fanout_input_ratio": 69.1464,
+        "negative_overhead_calls": 3,
+        "overhead_per_worker_call": {
+          "count": 32,
+          "max": 1024535,
+          "median": 47064.0,
+          "min": -2224,
+          "p90": 234586
+        },
+        "overhead_share": 0.9773,
+        "planner_input": 55420,
+        "repeat_attempt_input": 2189772,
+        "retries": 8,
+        "worker_input": 3832091,
+        "worker_nodes": {
+          "implementer": 7,
+          "repairer": 3,
+          "reviewer": 14
+        },
+        "worker_nodes_total": 24
+      },
+      "run-20261001T134610Z-4de43e": {
+        "duplicated_fixed_overhead": 5027249,
+        "escalations": 1,
+        "fallbacks": 0,
+        "fanout_input_ratio": 33.4265,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 37,
+          "max": 604106,
+          "median": 78251,
+          "min": 9053,
+          "p90": 394552
+        },
+        "overhead_share": 0.9768,
+        "planner_input": 153964,
+        "repeat_attempt_input": 301322,
+        "retries": 0,
+        "worker_input": 5146476,
+        "worker_nodes": {
+          "implementer": 1,
+          "repairer": 8,
+          "reviewer": 19,
+          "test_author": 8
+        },
+        "worker_nodes_total": 36
+      },
+      "run-20261001T150521Z-34580a": {
+        "duplicated_fixed_overhead": 2819179,
+        "escalations": 0,
+        "fallbacks": 0,
+        "fanout_input_ratio": 17.1849,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 19,
+          "max": 343936,
+          "median": 116523,
+          "min": 54376,
+          "p90": 265087
+        },
+        "overhead_share": 0.984,
+        "planner_input": 166725,
+        "repeat_attempt_input": 114196,
+        "retries": 1,
+        "worker_input": 2865157,
+        "worker_nodes": {
+          "implementer": 4,
+          "repairer": 4,
+          "reviewer": 10,
+          "test_author": 1
+        },
+        "worker_nodes_total": 19
+      },
+      "run-20261001T150522Z-8584cc": {
+        "duplicated_fixed_overhead": 14047187,
+        "escalations": 3,
+        "fallbacks": 0,
+        "fanout_input_ratio": 88.0028,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 61,
+          "max": 1294357,
+          "median": 171425,
+          "min": 12022,
+          "p90": 365123
+        },
+        "overhead_share": 0.9809,
+        "planner_input": 162731,
+        "repeat_attempt_input": 1429110,
+        "retries": 2,
+        "worker_input": 14320781,
+        "worker_nodes": {
+          "implementer": 8,
+          "repairer": 15,
+          "reviewer": 31
+        },
+        "worker_nodes_total": 54
+      },
+      "run-20261001T150523Z-16d97a": {
+        "duplicated_fixed_overhead": 10723509,
+        "escalations": 9,
+        "fallbacks": 0,
+        "fanout_input_ratio": 77.5314,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 58,
+          "max": 941020,
+          "median": 111823.5,
+          "min": 30059,
+          "p90": 414348
+        },
+        "overhead_share": 0.9786,
+        "planner_input": 141334,
+        "repeat_attempt_input": 2811532,
+        "retries": 1,
+        "worker_input": 10957825,
+        "worker_nodes": {
+          "implementer": 8,
+          "repairer": 13,
+          "reviewer": 24,
+          "test_author": 1
+        },
+        "worker_nodes_total": 46
+      },
+      "run-20261001T182509Z-c33b37": {
+        "duplicated_fixed_overhead": 75234581,
+        "escalations": 7,
+        "fallbacks": 0,
+        "fanout_input_ratio": 263.0379,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 92,
+          "max": 5835197,
+          "median": 257503.0,
+          "min": 30882,
+          "p90": 2333658
+        },
+        "overhead_share": 0.9928,
+        "planner_input": 288105,
+        "repeat_attempt_input": 8601311,
+        "retries": 2,
+        "worker_input": 75782541,
+        "worker_nodes": {
+          "implementer": 12,
+          "repairer": 24,
+          "reviewer": 45,
+          "test_author": 2
+        },
+        "worker_nodes_total": 83
+      },
+      "run-20261001T195202Z-16098f": {
+        "duplicated_fixed_overhead": 32591328,
+        "escalations": 8,
+        "fallbacks": 0,
+        "fanout_input_ratio": 93.8466,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 80,
+          "max": 3569432,
+          "median": 144648.0,
+          "min": 10848,
+          "p90": 1345429
+        },
+        "overhead_share": 0.9887,
+        "planner_input": 351252,
+        "repeat_attempt_input": 6990396,
+        "retries": 1,
+        "worker_input": 32963801,
+        "worker_nodes": {
+          "implementer": 13,
+          "repairer": 18,
+          "reviewer": 36
+        },
+        "worker_nodes_total": 67
+      },
+      "run-20261001T204554Z-d15302": {
+        "duplicated_fixed_overhead": 5717971,
+        "escalations": 1,
+        "fallbacks": 0,
+        "fanout_input_ratio": 7.3427,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 27,
+          "max": 542332,
+          "median": 179276,
+          "min": 35705,
+          "p90": 520652
+        },
+        "overhead_share": 0.9879,
+        "planner_input": 788288,
+        "repeat_attempt_input": 239519,
+        "retries": 0,
+        "worker_input": 5788180,
+        "worker_nodes": {
+          "implementer": 9,
+          "repairer": 1,
+          "reviewer": 13,
+          "test_author": 3
+        },
+        "worker_nodes_total": 26
+      },
+      "run-20261001T221649Z-761df5": {
+        "duplicated_fixed_overhead": 11755990,
+        "escalations": 0,
+        "fallbacks": 0,
+        "fanout_input_ratio": 26.1742,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 34,
+          "max": 2448886,
+          "median": 92025.0,
+          "min": 10117,
+          "p90": 1323790
+        },
+        "overhead_share": 0.9928,
+        "planner_input": 452419,
+        "repeat_attempt_input": 974620,
+        "retries": 1,
+        "worker_input": 11841698,
+        "worker_nodes": {
+          "implementer": 11,
+          "repairer": 5,
+          "reviewer": 17
+        },
+        "worker_nodes_total": 33
+      },
+      "run-20261002T001408Z-c3bb9e": {
+        "duplicated_fixed_overhead": 39655038,
+        "escalations": 6,
+        "fallbacks": 0,
+        "fanout_input_ratio": 102.8207,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 56,
+          "max": 4900734,
+          "median": 187748.0,
+          "min": 12499,
+          "p90": 1882740
+        },
+        "overhead_share": 0.9949,
+        "planner_input": 387664,
+        "repeat_attempt_input": 10060771,
+        "retries": 0,
+        "worker_input": 39859880,
+        "worker_nodes": {
+          "implementer": 9,
+          "repairer": 14,
+          "reviewer": 27
+        },
+        "worker_nodes_total": 50
+      },
+      "run-20261002T031119Z-2113b9": {
+        "duplicated_fixed_overhead": 4436183,
+        "escalations": 4,
+        "fallbacks": 0,
+        "fanout_input_ratio": 35.5558,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 9,
+          "max": 1823650,
+          "median": 120609,
+          "min": 21049,
+          "p90": 1823650
+        },
+        "overhead_share": 0.9969,
+        "planner_input": 125157,
+        "repeat_attempt_input": 1039027,
+        "retries": 0,
+        "worker_input": 4450060,
+        "worker_nodes": {
+          "implementer": 3,
+          "test_author": 1
+        },
+        "worker_nodes_total": 4
+      },
+      "run-20261002T050208Z-aa864e": {
+        "duplicated_fixed_overhead": 13955150,
+        "escalations": 3,
+        "fallbacks": 0,
+        "fanout_input_ratio": 69.8136,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 23,
+          "max": 3358092,
+          "median": 109193,
+          "min": 14548,
+          "p90": 2803819
+        },
+        "overhead_share": 0.9944,
+        "planner_input": 201026,
+        "repeat_attempt_input": 3050511,
+        "retries": 0,
+        "worker_input": 14034351,
+        "worker_nodes": {
+          "implementer": 5,
+          "repairer": 4,
+          "reviewer": 9,
+          "test_author": 1
+        },
+        "worker_nodes_total": 19
+      },
+      "run-20261002T050208Z-c5f7a0": {
+        "duplicated_fixed_overhead": 13007656,
+        "escalations": 0,
+        "fallbacks": 0,
+        "fanout_input_ratio": 30.2637,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 23,
+          "max": 2480255,
+          "median": 460282,
+          "min": 11551,
+          "p90": 1413235
+        },
+        "overhead_share": 0.9908,
+        "planner_input": 433823,
+        "repeat_attempt_input": 0,
+        "retries": 0,
+        "worker_input": 13129100,
+        "worker_nodes": {
+          "implementer": 4,
+          "repairer": 6,
+          "reviewer": 12,
+          "test_author": 1
+        },
+        "worker_nodes_total": 23
+      },
+      "run-20261002T062418Z-2e1e10": {
+        "duplicated_fixed_overhead": 712029,
+        "escalations": 1,
+        "fallbacks": 0,
+        "fanout_input_ratio": 3.6036,
+        "negative_overhead_calls": 0,
+        "overhead_per_worker_call": {
+          "count": 6,
+          "max": 254127,
+          "median": 102668.0,
+          "min": 24738,
+          "p90": 254127
+        },
+        "overhead_share": 0.9816,
+        "planner_input": 201295,
+        "repeat_attempt_input": 122405,
+        "retries": 0,
+        "worker_input": 725386,
+        "worker_nodes": {
+          "implementer": 2,
+          "repairer": 1,
+          "reviewer": 2
+        },
+        "worker_nodes_total": 5
+      }
+    },
+    "totals": {
+      "duplicated_fixed_overhead": 253361374,
+      "escalations": 63,
+      "fallbacks": 15,
+      "fanout_input_ratio": 32.8843,
+      "negative_overhead_calls": 5,
+      "overhead_per_worker_call": {
+        "count": 629,
+        "max": 5835197,
+        "median": 141405,
+        "min": -2224,
+        "p90": 1194991
+      },
+      "overhead_share": 0.9905,
+      "planner_input": 7778878,
+      "repeat_attempt_input": 47658481,
+      "retries": 26,
+      "worker_input": 255803322,
+      "worker_nodes": {
+        "implementer": 112,
+        "repairer": 120,
+        "reviewer": 275,
+        "test_author": 20
+      },
+      "worker_nodes_total": 527
+    }
+  },
+  "generated_at": "2026-10-02T07:56:15.264255+00:00",
+  "privacy": {
+    "passed": true,
+    "rule": "max80-no-whitespace",
+    "strings_checked": 1388
+  },
+  "provider_models": {
+    "claude-code": [
+      "fable",
+      "haiku",
+      "opus",
+      "sonnet"
+    ],
+    "codex": [
+      "gpt-5.6-terra",
+      "gpt-6-astra",
+      "gpt-6-luna",
+      "gpt-6-sol"
+    ]
+  },
+  "resume": {
+    "by_run": {
+      "run-20260922T200659Z-5b8a73": {
+        "checkpoints": 4,
+        "cold_resume_input": 225607,
+        "pauses": 2,
+        "resume_first_input": 1725628,
+        "resume_first_share": 0.6908,
+        "resume_overhead_input": 2272453,
+        "resume_share": 0.9097,
+        "resumes": 2,
+        "run_input": 2498060,
+        "warm_nodes": 2
+      },
+      "run-20260930T181109Z-d9a9d8": {
+        "checkpoints": 22,
+        "cold_resume_input": 748087,
+        "pauses": 4,
+        "resume_first_input": 775515,
+        "resume_first_share": 0.1855,
+        "resume_overhead_input": 775515,
+        "resume_share": 0.1855,
+        "resumes": 3,
+        "run_input": 4180156,
+        "warm_nodes": 3
+      },
+      "run-20260930T215623Z-77a6c6": {
+        "checkpoints": 22,
+        "cold_resume_input": 1027598,
+        "pauses": 1,
+        "resume_first_input": 2859913,
+        "resume_first_share": 0.7357,
+        "resume_overhead_input": 2859913,
+        "resume_share": 0.7357,
+        "resumes": 3,
+        "run_input": 3887511,
+        "warm_nodes": 12
+      },
+      "run-20261001T134610Z-4de43e": {
+        "checkpoints": 18,
+        "cold_resume_input": 4999118,
+        "pauses": 0,
+        "resume_first_input": 301322,
+        "resume_first_share": 0.0568,
+        "resume_overhead_input": 301322,
+        "resume_share": 0.0568,
+        "resumes": 1,
+        "run_input": 5300440,
+        "warm_nodes": 1
+      },
+      "run-20261001T150521Z-34580a": {
+        "checkpoints": 9,
+        "cold_resume_input": 2917686,
+        "pauses": 0,
+        "resume_first_input": 114196,
+        "resume_first_share": 0.0377,
+        "resume_overhead_input": 114196,
+        "resume_share": 0.0377,
+        "resumes": 1,
+        "run_input": 3031882,
+        "warm_nodes": 1
+      },
+      "run-20261001T150522Z-8584cc": {
+        "checkpoints": 30,
+        "cold_resume_input": 12823969,
+        "pauses": 2,
+        "resume_first_input": 1119065,
+        "resume_first_share": 0.0773,
+        "resume_overhead_input": 1659543,
+        "resume_share": 0.1146,
+        "resumes": 3,
+        "run_input": 14483512,
+        "warm_nodes": 7
+      },
+      "run-20261001T150523Z-16d97a": {
+        "checkpoints": 34,
+        "cold_resume_input": 8287627,
+        "pauses": 4,
+        "resume_first_input": 2082929,
+        "resume_first_share": 0.1877,
+        "resume_overhead_input": 2811532,
+        "resume_share": 0.2533,
+        "resumes": 4,
+        "run_input": 11099159,
+        "warm_nodes": 9
+      },
+      "run-20261001T182509Z-c33b37": {
+        "checkpoints": 48,
+        "cold_resume_input": 67469335,
+        "pauses": 2,
+        "resume_first_input": 7615224,
+        "resume_first_share": 0.1001,
+        "resume_overhead_input": 8601311,
+        "resume_share": 0.1131,
+        "resumes": 3,
+        "run_input": 76070646,
+        "warm_nodes": 7
+      },
+      "run-20261001T195202Z-16098f": {
+        "checkpoints": 44,
+        "cold_resume_input": 24460227,
+        "pauses": 2,
+        "resume_first_input": 6541213,
+        "resume_first_share": 0.1963,
+        "resume_overhead_input": 6990396,
+        "resume_share": 0.2098,
+        "resumes": 2,
+        "run_input": 33315053,
+        "warm_nodes": 8
+      }
+    },
+    "totals": {
+      "checkpoints": 231,
+      "cold_resume_input": 122959254,
+      "pauses": 17,
+      "resume_first_input": 23135005,
+      "resume_first_share": 0.1504,
+      "resume_overhead_input": 26386181,
+      "resume_share": 0.1715,
+      "resumes": 22,
+      "run_input": 153866419,
+      "warm_nodes": 50
+    }
+  },
+  "runs": [
+    "run-20260922T200659Z-5b8a73",
+    "run-20260923T200037Z-a1e3c0",
+    "run-20260923T202405Z-5e4d75",
+    "run-20260924T133405Z-dc8cf4",
+    "run-20260924T143653Z-746b90",
+    "run-20260930T181109Z-d9a9d8",
+    "run-20260930T215623Z-77a6c6",
+    "run-20261001T134610Z-4de43e",
+    "run-20261001T150521Z-34580a",
+    "run-20261001T150522Z-8584cc",
+    "run-20261001T150523Z-16d97a",
+    "run-20261001T182509Z-c33b37",
+    "run-20261001T195202Z-16098f",
+    "run-20261001T204554Z-d15302",
+    "run-20261001T221649Z-761df5",
+    "run-20261002T001408Z-c3bb9e",
+    "run-20261002T031119Z-2113b9",
+    "run-20261002T050208Z-aa864e",
+    "run-20261002T050208Z-c5f7a0",
+    "run-20261002T062418Z-2e1e10"
+  ],
+  "schema": "personal-agent/orchestrator-context-economy/v1",
+  "session_growth": {
+    "by_node_bucket": {
+      "1": {
+        "calls": 481,
+        "first_input": {
+          "count": 481,
+          "max": 4902348,
+          "median": 131712,
+          "min": 13038,
+          "p90": 996758
+        },
+        "growth_ratio": {
+          "count": 0,
+          "max": null,
+          "median": null,
+          "min": null,
+          "p90": null
+        },
+        "last_input": {
+          "count": 481,
+          "max": 4902348,
+          "median": 131712,
+          "min": 13038,
+          "p90": 996758
+        },
+        "nodes": 481,
+        "sum_input": 166694242
+      },
+      "2-3": {
+        "calls": 123,
+        "first_input": {
+          "count": 54,
+          "max": 5837182,
+          "median": 349165.5,
+          "min": 0,
+          "p90": 1825098
+        },
+        "growth_ratio": {
+          "count": 51,
+          "max": 13.1863,
+          "median": 0.7848,
+          "min": 0.0262,
+          "p90": 2.7958
+        },
+        "last_input": {
+          "count": 54,
+          "max": 2418701,
+          "median": 170288.5,
+          "min": 35791,
+          "p90": 1026412
+        },
+        "nodes": 54,
+        "sum_input": 73465543
+      },
+      "4+": {
+        "calls": 49,
+        "first_input": {
+          "count": 11,
+          "max": 3570804,
+          "median": 254157,
+          "min": 111484,
+          "p90": 3359326
+        },
+        "growth_ratio": {
+          "count": 11,
+          "max": 2.4238,
+          "median": 0.4327,
+          "min": 0.0177,
+          "p90": 2.0939
+        },
+        "last_input": {
+          "count": 11,
+          "max": 708005,
+          "median": 74085,
+          "min": 45157,
+          "p90": 546825
+        },
+        "nodes": 11,
+        "sum_input": 23422415
+      }
+    },
+    "by_run": {
+      "run-20260922T200659Z-5b8a73": {
+        "calls": 5,
+        "cumulative_input": [
+          1725628,
+          1951235,
+          1951235,
+          1951235,
+          2498060
+        ],
+        "growth_exponent": 0.1725,
+        "input_by_node_bucket": {
+          "1": 1725628,
+          "2-3": 0,
+          "4+": 772432,
+          "none": 0
+        }
+      },
+      "run-20260923T200037Z-a1e3c0": {
+        "calls": 3,
+        "cumulative_input": [
+          155840,
+          295275,
+          913395
+        ],
+        "growth_exponent": 1.5356,
+        "input_by_node_bucket": {
+          "1": 0,
+          "2-3": 913395,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20260923T202405Z-5e4d75": {
+        "calls": 18,
+        "cumulative_input": [
+          150890,
+          682187,
+          760188,
+          814989,
+          956803,
+          1127869,
+          1333392,
+          1877278,
+          1950144,
+          2027843,
+          2324793,
+          2458148,
+          2529680,
+          2677864,
+          2922154,
+          3597575,
+          3952365,
+          4392314
+        ],
+        "growth_exponent": 1.0043,
+        "input_by_node_bucket": {
+          "1": 2218411,
+          "2-3": 664099,
+          "4+": 1509804,
+          "none": 0
+        }
+      },
+      "run-20260924T133405Z-dc8cf4": {
+        "calls": 16,
+        "cumulative_input": [
+          996758,
+          1108242,
+          1671672,
+          1816596,
+          1884793,
+          1916971,
+          2513878,
+          2546181,
+          2670566,
+          3214617,
+          3263765,
+          3317394,
+          4025399,
+          4195011,
+          4387817,
+          4525782
+        ],
+        "growth_exponent": 0.5802,
+        "input_by_node_bucket": {
+          "1": 1497141,
+          "2-3": 0,
+          "4+": 3028641,
+          "none": 0
+        }
+      },
+      "run-20260924T143653Z-746b90": {
+        "calls": 11,
+        "cumulative_input": [
+          131570,
+          334947,
+          449510,
+          545297,
+          997485,
+          2633096,
+          3498225,
+          5916926,
+          6834070,
+          7325860,
+          7465963
+        ],
+        "growth_exponent": 1.88,
+        "input_by_node_bucket": {
+          "1": 4182133,
+          "2-3": 3283830,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20260930T181109Z-d9a9d8": {
+        "calls": 26,
+        "cumulative_input": [
+          83004,
+          159901,
+          241697,
+          390617,
+          455980,
+          605592,
+          733775,
+          895321,
+          991147,
+          1101832,
+          1262363,
+          1366685,
+          1514631,
+          1601659,
+          1794988,
+          2291375,
+          2656554,
+          3021733,
+          3386912,
+          3511832,
+          3611686,
+          3736595,
+          3916738,
+          3961895,
+          4128053,
+          4180156
+        ],
+        "growth_exponent": 1.2874,
+        "input_by_node_bucket": {
+          "1": 831091,
+          "2-3": 1711984,
+          "4+": 1637081,
+          "none": 0
+        }
+      },
+      "run-20260930T215623Z-77a6c6": {
+        "calls": 33,
+        "cumulative_input": [
+          55420,
+          91414,
+          143000,
+          143000,
+          143000,
+          143000,
+          178791,
+          344717,
+          422393,
+          631021,
+          945193,
+          1449408,
+          1599227,
+          1637732,
+          1672241,
+          1685279,
+          1742434,
+          1768451,
+          1839811,
+          1944305,
+          1978025,
+          2091801,
+          2129438,
+          3155850,
+          3191024,
+          3235533,
+          3371928,
+          3420609,
+          3492067,
+          3541759,
+          3617821,
+          3854501,
+          3887511
+        ],
+        "growth_exponent": 1.4574,
+        "input_by_node_bucket": {
+          "1": 803623,
+          "2-3": 3083888,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261001T134610Z-4de43e": {
+        "calls": 38,
+        "cumulative_input": [
+          153964,
+          225187,
+          268010,
+          338220,
+          365742,
+          608599,
+          807740,
+          1072000,
+          1206734,
+          1706442,
+          2269105,
+          2298827,
+          2600149,
+          2996350,
+          3026955,
+          3078352,
+          3211561,
+          3353378,
+          3379449,
+          3408633,
+          3677236,
+          3733962,
+          3747243,
+          3829238,
+          3844263,
+          3990350,
+          4021627,
+          4627508,
+          4641281,
+          4654657,
+          4699815,
+          4844718,
+          4860048,
+          4873636,
+          5014235,
+          5120908,
+          5216652,
+          5300440
+        ],
+        "growth_exponent": 1.1262,
+        "input_by_node_bucket": {
+          "1": 4799977,
+          "2-3": 500463,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261001T150521Z-34580a": {
+        "calls": 21,
+        "cumulative_input": [
+          52529,
+          166725,
+          253752,
+          362324,
+          470335,
+          564627,
+          632096,
+          731705,
+          882381,
+          995027,
+          1196545,
+          1328257,
+          1384142,
+          1580817,
+          1668729,
+          1875954,
+          2097804,
+          2295671,
+          2416656,
+          2683464,
+          3031882
+        ],
+        "growth_exponent": 1.2518,
+        "input_by_node_bucket": {
+          "1": 2865157,
+          "2-3": 166725,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261001T150522Z-8584cc": {
+        "calls": 63,
+        "cumulative_input": [
+          11471,
+          162731,
+          329590,
+          653946,
+          792670,
+          1150585,
+          1263700,
+          1465790,
+          1585634,
+          1786796,
+          1952857,
+          2134458,
+          2301874,
+          2506571,
+          2765883,
+          2915874,
+          3155830,
+          3281425,
+          3634831,
+          3874176,
+          3951524,
+          4198926,
+          4221048,
+          4394364,
+          4465317,
+          4933179,
+          5057296,
+          5109620,
+          5306155,
+          5479894,
+          5551829,
+          5624259,
+          5807405,
+          5883344,
+          6230870,
+          6286399,
+          6653561,
+          6691264,
+          7987394,
+          8193303,
+          9274939,
+          9507112,
+          9644366,
+          9966411,
+          10206985,
+          10395007,
+          10625440,
+          11224364,
+          11269481,
+          12429320,
+          12472633,
+          12713096,
+          12811591,
+          13018951,
+          13183324,
+          13326413,
+          13389809,
+          13508000,
+          13564849,
+          13648063,
+          14325421,
+          14440187,
+          14483512
+        ],
+        "growth_exponent": 1.3288,
+        "input_by_node_bucket": {
+          "1": 11209961,
+          "2-3": 3273551,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261001T150523Z-16d97a": {
+        "calls": 60,
+        "cumulative_input": [
+          11323,
+          141334,
+          267701,
+          471903,
+          801069,
+          932645,
+          1022724,
+          1138156,
+          1272804,
+          1367541,
+          1448452,
+          1546916,
+          1754531,
+          1809513,
+          2573216,
+          2612165,
+          2650376,
+          3179568,
+          3216965,
+          3773734,
+          4716968,
+          4964195,
+          5047678,
+          5188114,
+          5337447,
+          5591604,
+          5776380,
+          5967987,
+          6077962,
+          6189816,
+          6558777,
+          6644856,
+          6768055,
+          7005289,
+          7127576,
+          7283412,
+          7587852,
+          7676094,
+          8366304,
+          8496546,
+          8666713,
+          8783560,
+          8976836,
+          9061014,
+          9131760,
+          9216593,
+          9266193,
+          9324177,
+          9386241,
+          9773145,
+          10189221,
+          10252360,
+          10421494,
+          10505519,
+          10582335,
+          10658521,
+          10739650,
+          10938986,
+          11023422,
+          11099159
+        ],
+        "growth_exponent": 1.3637,
+        "input_by_node_bucket": {
+          "1": 6172580,
+          "2-3": 3605197,
+          "4+": 1321382,
+          "none": 0
+        }
+      },
+      "run-20261001T182509Z-c33b37": {
+        "calls": 93,
+        "cumulative_input": [
+          288105,
+          525152,
+          570251,
+          3153391,
+          3494323,
+          3571421,
+          4012914,
+          4310443,
+          4477595,
+          6347395,
+          6820950,
+          7470131,
+          7939965,
+          8519390,
+          10002008,
+          10039951,
+          12524557,
+          13727189,
+          13805263,
+          13896792,
+          19733974,
+          23131616,
+          25569018,
+          27537038,
+          27585951,
+          28556130,
+          30184261,
+          30289657,
+          30359670,
+          30462046,
+          31251976,
+          33255141,
+          34157569,
+          34261081,
+          34403888,
+          37270411,
+          37366552,
+          38261060,
+          39593580,
+          39667462,
+          39767492,
+          39978647,
+          41597654,
+          44159096,
+          44336311,
+          44419970,
+          46641518,
+          48281435,
+          48425726,
+          48663279,
+          48744067,
+          48966265,
+          51302064,
+          53663226,
+          53766745,
+          53858669,
+          53960319,
+          55880129,
+          56291518,
+          57727807,
+          60395454,
+          60455283,
+          60575497,
+          60677073,
+          60796243,
+          60887280,
+          61016350,
+          61173591,
+          61283511,
+          62813076,
+          62875590,
+          65198492,
+          65327830,
+          65945269,
+          68009196,
+          68097032,
+          68199749,
+          68395704,
+          69528287,
+          71278259,
+          71371520,
+          71443919,
+          72392274,
+          72461610,
+          72860603,
+          72920461,
+          73621565,
+          73991447,
+          75011142,
+          75101523,
+          75145200,
+          75977533,
+          76070646
+        ],
+        "growth_exponent": 1.2255,
+        "input_by_node_bucket": {
+          "1": 51670879,
+          "2-3": 24399767,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261001T195202Z-16098f": {
+        "calls": 81,
+        "cumulative_input": [
+          351252,
+          1864430,
+          2042616,
+          2371405,
+          2546171,
+          2723821,
+          2769774,
+          2929750,
+          3275617,
+          3407255,
+          3650263,
+          5568094,
+          5819691,
+          5912862,
+          5967100,
+          6110920,
+          7457881,
+          7490605,
+          7641023,
+          7658090,
+          8553118,
+          8671039,
+          8735651,
+          8766057,
+          8820403,
+          8986372,
+          9213916,
+          9632705,
+          9693705,
+          9744711,
+          9817356,
+          10336362,
+          12012044,
+          12042228,
+          13416074,
+          13455959,
+          13530679,
+          13591643,
+          14679900,
+          15491780,
+          15677575,
+          15743316,
+          15831388,
+          15899695,
+          16273670,
+          17445098,
+          17512609,
+          17919315,
+          18005363,
+          18073053,
+          18335171,
+          18456924,
+          18779305,
+          18963180,
+          19194848,
+          19447849,
+          19645662,
+          19680101,
+          23250905,
+          24866822,
+          24953245,
+          25009361,
+          25072483,
+          25884318,
+          25938979,
+          26054393,
+          26110836,
+          27536464,
+          27594051,
+          27704254,
+          27726219,
+          28511479,
+          28580942,
+          28650551,
+          29280580,
+          30091341,
+          30113852,
+          31137810,
+          33142547,
+          33268148,
+          33315053
+        ],
+        "growth_exponent": 0.9239,
+        "input_by_node_bucket": {
+          "1": 18146263,
+          "2-3": 6329083,
+          "4+": 8839707,
+          "none": 0
+        }
+      },
+      "run-20261001T204554Z-d15302": {
+        "calls": 28,
+        "cumulative_input": [
+          788288,
+          1013604,
+          1554844,
+          1990333,
+          2095601,
+          2639486,
+          2749565,
+          2989084,
+          3169777,
+          3499210,
+          3537811,
+          3682948,
+          3877786,
+          4057694,
+          4174840,
+          4220422,
+          4742671,
+          5031628,
+          5258918,
+          5337385,
+          5621745,
+          5678847,
+          5950005,
+          6097264,
+          6168277,
+          6317431,
+          6381638,
+          6576468
+        ],
+        "growth_exponent": 0.6529,
+        "input_by_node_bucket": {
+          "1": 5795709,
+          "2-3": 780759,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261001T221649Z-761df5": {
+        "calls": 35,
+        "cumulative_input": [
+          452419,
+          825610,
+          875271,
+          1124367,
+          1167096,
+          3617431,
+          3743074,
+          3758704,
+          3814350,
+          4369013,
+          4400801,
+          5726034,
+          5769198,
+          7121566,
+          7149385,
+          7308761,
+          7351138,
+          7440491,
+          7466690,
+          7566084,
+          7621762,
+          7647128,
+          7813438,
+          7838716,
+          8001000,
+          8040686,
+          8556085,
+          8586313,
+          8837747,
+          8999597,
+          10340946,
+          10369969,
+          11237095,
+          12211715,
+          12294117
+        ],
+        "growth_exponent": 0.9358,
+        "input_by_node_bucket": {
+          "1": 10452371,
+          "2-3": 1841746,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261002T001408Z-c3bb9e": {
+        "calls": 57,
+        "cumulative_input": [
+          387664,
+          760071,
+          1379173,
+          1403775,
+          1480098,
+          1748211,
+          1877415,
+          1913308,
+          2167632,
+          2359127,
+          2577078,
+          2642267,
+          3908194,
+          3962700,
+          5353357,
+          5389753,
+          5450870,
+          5978539,
+          6015346,
+          6605757,
+          6658945,
+          7211490,
+          7255304,
+          7447923,
+          7475115,
+          10813488,
+          15715836,
+          15791643,
+          15824122,
+          17021162,
+          18905784,
+          18956602,
+          19131820,
+          21471502,
+          24488338,
+          24540640,
+          24691287,
+          29269197,
+          30580542,
+          30751985,
+          30819974,
+          30893001,
+          31618199,
+          33332537,
+          34566095,
+          34620896,
+          34815541,
+          34966914,
+          35750807,
+          37294340,
+          37331423,
+          38026877,
+          38078674,
+          39239918,
+          39267044,
+          40225290,
+          40247544
+        ],
+        "growth_exponent": 1.3364,
+        "input_by_node_bucket": {
+          "1": 22787084,
+          "2-3": 17460460,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261002T031119Z-2113b9": {
+        "calls": 10,
+        "cumulative_input": [
+          125157,
+          147749,
+          269785,
+          306088,
+          354681,
+          1795988,
+          3621086,
+          3944334,
+          3982038,
+          4575217
+        ],
+        "growth_exponent": 1.8497,
+        "input_by_node_bucket": {
+          "1": 125157,
+          "2-3": 4450060,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261002T050208Z-aa864e": {
+        "calls": 24,
+        "cumulative_input": [
+          201026,
+          896462,
+          992931,
+          1109091,
+          1225767,
+          1506069,
+          1894094,
+          1946749,
+          2339591,
+          2365517,
+          5355249,
+          6195620,
+          6220455,
+          6301855,
+          7094227,
+          7125968,
+          7179406,
+          7808364,
+          7853370,
+          7922009,
+          11281335,
+          14086533,
+          14161292,
+          14235377
+        ],
+        "growth_exponent": 1.2818,
+        "input_by_node_bucket": {
+          "1": 7130104,
+          "2-3": 791905,
+          "4+": 6313368,
+          "none": 0
+        }
+      },
+      "run-20261002T050208Z-c5f7a0": {
+        "calls": 24,
+        "cumulative_input": [
+          433823,
+          2915649,
+          3448007,
+          4862813,
+          4884017,
+          4904804,
+          5135902,
+          5986472,
+          6009429,
+          6061222,
+          7166660,
+          7191154,
+          7653173,
+          7677285,
+          9148875,
+          9239360,
+          9917869,
+          10243872,
+          10400191,
+          11461979,
+          12136868,
+          12462575,
+          13063915,
+          13562923
+        ],
+        "growth_exponent": 0.8089,
+        "input_by_node_bucket": {
+          "1": 13562923,
+          "2-3": 0,
+          "4+": 0,
+          "none": 0
+        }
+      },
+      "run-20261002T062418Z-2e1e10": {
+        "calls": 7,
+        "cumulative_input": [
+          201295,
+          352190,
+          434007,
+          689596,
+          718050,
+          804276,
+          926681
+        ],
+        "growth_exponent": 0.7913,
+        "input_by_node_bucket": {
+          "1": 718050,
+          "2-3": 208631,
+          "4+": 0,
+          "none": 0
+        }
+      }
+    }
+  },
+  "worker_files": {
+    "by_role": {
+      "implementer": {
+        "last_message": {
+          "size": {
+            "count": 61,
+            "max": 1219,
+            "median": 631,
+            "min": 207,
+            "p90": 830
+          },
+          "sum_bytes": 38543
+        },
+        "other": {
+          "size": {
+            "count": 188,
+            "max": 1023,
+            "median": 897.0,
+            "min": 478,
+            "p90": 1017
+          },
+          "sum_bytes": 166476
+        },
+        "prompt": {
+          "size": {
+            "count": 188,
+            "max": 9694,
+            "median": 6444.5,
+            "min": 2691,
+            "p90": 8145
+          },
+          "sum_bytes": 1233118
+        },
+        "stderr": {
+          "size": {
+            "count": 188,
+            "max": 3680,
+            "median": 0.0,
+            "min": 0,
+            "p90": 0
+          },
+          "sum_bytes": 28740
+        },
+        "stdout": {
+          "size": {
+            "count": 188,
+            "max": 2286159,
+            "median": 5297.0,
+            "min": 531,
+            "p90": 86328
+          },
+          "sum_bytes": 9793618
+        }
+      },
+      "planner": {
+        "last_message": {
+          "size": {
+            "count": 6,
+            "max": 9449,
+            "median": 3164.0,
+            "min": 276,
+            "p90": 9449
+          },
+          "sum_bytes": 24191
+        },
+        "other": {
+          "size": {
+            "count": 24,
+            "max": 913,
+            "median": 632.0,
+            "min": 405,
+            "p90": 913
+          },
+          "sum_bytes": 14239
+        },
+        "prompt": {
+          "size": {
+            "count": 24,
+            "max": 12509,
+            "median": 9844.5,
+            "min": 3767,
+            "p90": 12332
+          },
+          "sum_bytes": 228852
+        },
+        "stderr": {
+          "size": {
+            "count": 24,
+            "max": 3080,
+            "median": 0.0,
+            "min": 0,
+            "p90": 0
+          },
+          "sum_bytes": 3080
+        },
+        "stdout": {
+          "size": {
+            "count": 24,
+            "max": 408466,
+            "median": 20113.5,
+            "min": 1770,
+            "p90": 87616
+          },
+          "sum_bytes": 1099804
+        }
+      },
+      "repairer": {
+        "last_message": {
+          "size": {
+            "count": 31,
+            "max": 943,
+            "median": 559,
+            "min": 208,
+            "p90": 880
+          },
+          "sum_bytes": 17711
+        },
+        "other": {
+          "size": {
+            "count": 144,
+            "max": 1030,
+            "median": 895.0,
+            "min": 479,
+            "p90": 1024
+          },
+          "sum_bytes": 129197
+        },
+        "prompt": {
+          "size": {
+            "count": 144,
+            "max": 11510,
+            "median": 7803.0,
+            "min": 4263,
+            "p90": 9871
+          },
+          "sum_bytes": 1147654
+        },
+        "stderr": {
+          "size": {
+            "count": 144,
+            "max": 3955,
+            "median": 0.0,
+            "min": 0,
+            "p90": 396
+          },
+          "sum_bytes": 38050
+        },
+        "stdout": {
+          "size": {
+            "count": 144,
+            "max": 1227835,
+            "median": 4820.0,
+            "min": 531,
+            "p90": 81538
+          },
+          "sum_bytes": 4476094
+        }
+      },
+      "reviewer": {
+        "last_message": {
+          "size": {
+            "count": 33,
+            "max": 3521,
+            "median": 978,
+            "min": 204,
+            "p90": 2068
+          },
+          "sum_bytes": 38185
+        },
+        "other": {
+          "size": {
+            "count": 280,
+            "max": 976,
+            "median": 645.0,
+            "min": 462,
+            "p90": 961
+          },
+          "sum_bytes": 180633
+        },
+        "prompt": {
+          "size": {
+            "count": 280,
+            "max": 72158,
+            "median": 22861.0,
+            "min": 5112,
+            "p90": 44905
+          },
+          "sum_bytes": 7503001
+        },
+        "stderr": {
+          "size": {
+            "count": 280,
+            "max": 3422,
+            "median": 0.0,
+            "min": 0,
+            "p90": 0
+          },
+          "sum_bytes": 52561
+        },
+        "stdout": {
+          "size": {
+            "count": 280,
+            "max": 232719,
+            "median": 5856.5,
+            "min": 531,
+            "p90": 49609
+          },
+          "sum_bytes": 5078390
+        }
+      },
+      "test_author": {
+        "last_message": {
+          "size": {
+            "count": 15,
+            "max": 928,
+            "median": 701,
+            "min": 315,
+            "p90": 876
+          },
+          "sum_bytes": 9865
+        },
+        "other": {
+          "size": {
+            "count": 28,
+            "max": 1021,
+            "median": 900.0,
+            "min": 493,
+            "p90": 1018
+          },
+          "sum_bytes": 24042
+        },
+        "prompt": {
+          "size": {
+            "count": 28,
+            "max": 9197,
+            "median": 6144.5,
+            "min": 3293,
+            "p90": 7232
+          },
+          "sum_bytes": 160280
+        },
+        "stderr": {
+          "size": {
+            "count": 28,
+            "max": 3284,
+            "median": 0.0,
+            "min": 0,
+            "p90": 0
+          },
+          "sum_bytes": 3482
+        },
+        "stdout": {
+          "size": {
+            "count": 28,
+            "max": 174367,
+            "median": 11142.5,
+            "min": 2259,
+            "p90": 86659
+          },
+          "sum_bytes": 949981
+        }
+      },
+      "unknown": {
+        "other": {
+          "size": {
+            "count": 3,
+            "max": 1014,
+            "median": 703,
+            "min": 405,
+            "p90": 1014
+          },
+          "sum_bytes": 2122
+        },
+        "prompt": {
+          "size": {
+            "count": 3,
+            "max": 6305,
+            "median": 3427,
+            "min": 3280,
+            "p90": 6305
+          },
+          "sum_bytes": 13012
+        },
+        "stderr": {
+          "size": {
+            "count": 3,
+            "max": 2237,
+            "median": 0,
+            "min": 0,
+            "p90": 2237
+          },
+          "sum_bytes": 2237
+        },
+        "stdout": {
+          "size": {
+            "count": 3,
+            "max": 1111213,
+            "median": 910,
+            "min": 0,
+            "p90": 1111213
+          },
+          "sum_bytes": 1112123
+        }
+      }
+    },
+    "prompt_bytes_per_estimated_token": {
+      "count": 663,
+      "max": 4.0905,
+      "median": 4.0481,
+      "min": 4.0204,
+      "p90": 4.0777
+    }
+  }
+}
