@@ -1,0 +1,504 @@
+{
+  "schema": "personal-agent-os/model-provider-economics/provider-and-gpu-snapshot/v1",
+  "snapshot_date": "2026-10-10",
+  "subscription_plans": [
+    {
+      "provider": "MiniMax",
+      "plan": "Token Plan Plus",
+      "usd_per_month": 20,
+      "agent_usage_class": "interactive_coding_tools_only",
+      "source_url": "https://platform.minimax.io/subscribe/token-plan",
+      "limitations": [
+        "3-4 simultaneous agents typical",
+        "5-hour rolling and weekly quotas",
+        "model-dependent quota estimate",
+        "peak-hour dynamic throttling",
+        "no production-use guarantee"
+      ],
+      "notes": "~1.7B M3-equivalent tokens/month is provider estimate; do not treat as an unrestricted allowance.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "MiniMax",
+      "plan": "Token Plan Max",
+      "usd_per_month": 50,
+      "agent_usage_class": "interactive_coding_tools_only",
+      "source_url": "https://platform.minimax.io/subscribe/token-plan",
+      "limitations": [
+        "4-5 simultaneous agents typical",
+        "5-hour rolling and weekly quotas",
+        "peak-hour dynamic throttling"
+      ],
+      "notes": "~5.1B M3-equivalent tokens/month is provider estimate.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "MiniMax",
+      "plan": "Token Plan Ultra",
+      "usd_per_month": 120,
+      "agent_usage_class": "interactive_coding_tools_only",
+      "source_url": "https://platform.minimax.io/subscribe/token-plan",
+      "limitations": [
+        "6-7 simultaneous agents typical",
+        "5-hour rolling and weekly quotas",
+        "peak-hour dynamic throttling"
+      ],
+      "notes": "~12.5B M3-equivalent tokens/month is provider estimate.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Z.ai",
+      "plan": "GLM Coding Plan Lite",
+      "usd_per_month": 18,
+      "agent_usage_class": "supported_coding_agent_tools",
+      "source_url": "https://docs.z.ai/devpack/overview",
+      "limitations": [
+        "2000 credits/5h; 10000 credits/week",
+        "model-specific token multipliers",
+        "automated agent use is supported but confirm specific unattended workload and terms"
+      ],
+      "notes": "Price is provider-documented starting at $18/month; exact tier pricing corroborated by published price tracker: https://www.usagepricing.com/blueprint/activity/zhipu-ai-2026-09-07-coding-plan-team-pricing",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Z.ai",
+      "plan": "GLM Coding Plan Pro",
+      "usd_per_month": 80,
+      "agent_usage_class": "supported_coding_agent_tools",
+      "source_url": "https://www.usagepricing.com/blueprint/activity/zhipu-ai-2026-09-07-coding-plan-team-pricing",
+      "limitations": [
+        "12000 credits/5h; 60000 credits/week",
+        "price secondary verified; reconfirm in authenticated checkout"
+      ],
+      "notes": "Credit quotas from official documentation; price corroborated by third-party pricing tracker.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Z.ai",
+      "plan": "GLM Coding Plan Max",
+      "usd_per_month": 168,
+      "agent_usage_class": "supported_coding_agent_tools",
+      "source_url": "https://www.usagepricing.com/blueprint/activity/zhipu-ai-2026-09-07-coding-plan-team-pricing",
+      "limitations": [
+        "28000 credits/5h; 140000 credits/week",
+        "price secondary verified; reconfirm in authenticated checkout"
+      ],
+      "notes": "Credit quotas from official documentation.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Kimi",
+      "plan": "Moderato",
+      "usd_per_month": 19,
+      "agent_usage_class": "supported_coding_tools",
+      "source_url": "https://www.kimi.ai/help/membership/membership-overview",
+      "limitations": [
+        "shared monthly credit pool",
+        "separate Kimi Code 5-hour and weekly windows",
+        "some context/model entitlements by tier",
+        "verify unattended background-agent eligibility"
+      ],
+      "notes": "Kimi Code API keys for third-party coding tools are documented at https://www.kimi.com/en/help/kimi-code/membership-guide",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Kimi",
+      "plan": "Allegretto",
+      "usd_per_month": 39,
+      "agent_usage_class": "supported_coding_tools",
+      "source_url": "https://www.kimi.ai/help/membership/membership-overview",
+      "limitations": [
+        "shared monthly credit pool",
+        "Kimi Code rolling limits",
+        "verify regional availability"
+      ],
+      "notes": "Public global membership plan.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Kimi",
+      "plan": "Allegro",
+      "usd_per_month": 99,
+      "agent_usage_class": "supported_coding_tools",
+      "source_url": "https://www.kimi.ai/help/membership/membership-overview",
+      "limitations": [
+        "shared monthly credit pool",
+        "Kimi Code rolling limits"
+      ],
+      "notes": "Public global membership plan.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Kimi",
+      "plan": "Vivace",
+      "usd_per_month": 199,
+      "agent_usage_class": "supported_coding_tools",
+      "source_url": "https://www.kimi.ai/help/membership/membership-overview",
+      "limitations": [
+        "shared monthly credit pool",
+        "Kimi Code rolling limits"
+      ],
+      "notes": "Public global membership plan.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Alibaba Cloud Model Studio",
+      "plan": "Coding Plan",
+      "usd_per_month": 50,
+      "agent_usage_class": "interactive_coding_tools_only",
+      "source_url": "https://www.alibabacloud.com/help/en/model-studio/coding-plan",
+      "limitations": [
+        "explicit ban on unattended scripts / application backends",
+        "maximum 6000 requests per 5 hours, 45000/week, 90000/month",
+        "throttling and limited slots"
+      ],
+      "notes": "EXCLUDE from autonomous unattended Orchestrator routing unless provider changes terms; product-specific prohibition: https://docs.modelstudio.console.alibabacloud.com/en/model-studio/coding-plan",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Chutes",
+      "plan": "Plus",
+      "usd_per_month": 10,
+      "agent_usage_class": "usage_allowance_plus_payg",
+      "source_url": "https://chutes.ai/pricing",
+      "limitations": [
+        "bundled daily request quota",
+        "6% PAYG discount after allowance",
+        "provider announced 5x PAYG-equivalent usage ceiling over variable windows"
+      ],
+      "notes": "Subscription is not unlimited. https://chutes.ai/news/community-announcement-february",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Chutes",
+      "plan": "Pro",
+      "usd_per_month": 20,
+      "agent_usage_class": "usage_allowance_plus_payg",
+      "source_url": "https://chutes.ai/pricing",
+      "limitations": [
+        "larger bundled daily quota",
+        "10% PAYG discount after allowance",
+        "provider announced 5x PAYG-equivalent usage ceiling over variable windows"
+      ],
+      "notes": "Provider ceiling notice https://chutes.ai/news/community-announcement-february",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Featherless",
+      "plan": "Chat",
+      "usd_per_month": 25,
+      "agent_usage_class": "human_interactive_only",
+      "source_url": "https://featherless.ai/pricing",
+      "limitations": [
+        "32K context",
+        "4 concurrent units",
+        "explicitly forbids background automation, coding agents, and benchmarking"
+      ],
+      "notes": "EXCLUDE for Orchestrator model evaluation and autonomous work.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "Featherless",
+      "plan": "Developer prepaid API",
+      "usd_per_month": 50,
+      "agent_usage_class": "background_automation_allowed",
+      "source_url": "https://featherless.ai/pricing",
+      "limitations": [
+        "$50 monthly prepaid credits, then per-token metering",
+        "credits roll over",
+        "256K context maximum",
+        "provider advertises 100 concurrent units"
+      ],
+      "notes": "NOT unlimited API inference: balance is prepaid credits. Only successful responses billed.",
+      "observed_on": "2026-10-10"
+    },
+    {
+      "provider": "OpenRouter",
+      "plan": "Free tier",
+      "usd_per_month": 0,
+      "agent_usage_class": "limited_api_calls",
+      "source_url": "https://openrouter.ai/pricing",
+      "limitations": [
+        "50 free requests/day on basic tier",
+        "free availability/model catalog volatile",
+        "requires live free-price verification"
+      ],
+      "notes": "Treat free models as opportunistic; see existing FreeComputeBroker.",
+      "observed_on": "2026-10-10"
+    }
+  ],
+  "gpu_quotes": [
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "RTX A5000",
+      "vram_gb": 24,
+      "usd_per_gpu_hour": 0.27,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Availability, disk, locality and provider variants change."
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "RTX 3090",
+      "vram_gb": 24,
+      "usd_per_gpu_hour": 0.5,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "RTX 4090",
+      "vram_gb": 24,
+      "usd_per_gpu_hour": 0.89,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Do not assume all large abliterated models fit in 24GB."
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "A40",
+      "vram_gb": 48,
+      "usd_per_gpu_hour": 0.59,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "RTX A6000",
+      "vram_gb": 48,
+      "usd_per_gpu_hour": 0.59,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "L40S",
+      "vram_gb": 48,
+      "usd_per_gpu_hour": 1.09,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "A100 PCIe",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 1.79,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "H100 PCIe",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 2.89,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "H100 SXM",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 3.99,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "pod_secure_listed",
+      "gpu": "H200",
+      "vram_gb": 141,
+      "usd_per_gpu_hour": 5.29,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "serverless_flex",
+      "gpu": "RTX 4090",
+      "vram_gb": 24,
+      "usd_per_gpu_hour": 1.1,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Charged active worker-time per second; cold start, overhead, storage extra."
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "serverless_flex",
+      "gpu": "A100",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 2.72,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "serverless_flex",
+      "gpu": "H100",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 4.79,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "serverless_flex",
+      "gpu": "A6000/A40 48GB class",
+      "vram_gb": 48,
+      "usd_per_gpu_hour": 1.22,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Runpod",
+      "compute_mode": "serverless_flex",
+      "gpu": "L40S 48GB class",
+      "vram_gb": 48,
+      "usd_per_gpu_hour": 1.75,
+      "source_url": "https://www.runpod.io/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Modal",
+      "compute_mode": "gpu_time",
+      "gpu": "T4",
+      "vram_gb": 16,
+      "usd_per_gpu_hour": 0.5904,
+      "source_url": "https://modal.com/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Derived from official $0.000164/sec *3600; CPU, memory, storage and egress charged separately."
+    },
+    {
+      "provider": "Modal",
+      "compute_mode": "gpu_time",
+      "gpu": "L4",
+      "vram_gb": 24,
+      "usd_per_gpu_hour": 0.7992,
+      "source_url": "https://modal.com/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Derived from $0.000222/sec*3600; additional charges."
+    },
+    {
+      "provider": "Modal",
+      "compute_mode": "gpu_time",
+      "gpu": "L40S",
+      "vram_gb": 48,
+      "usd_per_gpu_hour": 1.9512,
+      "source_url": "https://modal.com/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Derived from $0.000542/sec*3600; additional charges."
+    },
+    {
+      "provider": "Modal",
+      "compute_mode": "gpu_time",
+      "gpu": "A100 80GB",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 2.4984,
+      "source_url": "https://modal.com/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Derived from $0.000694/sec*3600; additional charges."
+    },
+    {
+      "provider": "Modal",
+      "compute_mode": "gpu_time",
+      "gpu": "H100 SXM5",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 3.9492,
+      "source_url": "https://modal.com/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Derived from $0.001097/sec*3600; additional charges."
+    },
+    {
+      "provider": "Lambda Cloud",
+      "compute_mode": "instance_single_gpu",
+      "gpu": "A6000",
+      "vram_gb": 48,
+      "usd_per_gpu_hour": 1.09,
+      "source_url": "https://lambda.ai/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Instant-availability and bundled instance billing conditions vary."
+    },
+    {
+      "provider": "Lambda Cloud",
+      "compute_mode": "instance_single_gpu",
+      "gpu": "H100 PCIe",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 3.29,
+      "source_url": "https://lambda.ai/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Lambda Cloud",
+      "compute_mode": "instance_single_gpu",
+      "gpu": "H100 SXM",
+      "vram_gb": 80,
+      "usd_per_gpu_hour": 4.29,
+      "source_url": "https://lambda.ai/pricing",
+      "observed_on": "2026-10-10",
+      "notes": ""
+    },
+    {
+      "provider": "Vast.ai",
+      "compute_mode": "marketplace_variable",
+      "gpu": "RTX 4090",
+      "vram_gb": 24,
+      "usd_per_gpu_hour": null,
+      "source_url": "https://vast.ai/pricing",
+      "observed_on": "2026-10-10",
+      "notes": "Live marketplace quote required; cannot claim a stable rate."
+    }
+  ],
+  "other_pricing": [
+    {
+      "provider": "OpenRouter",
+      "component": "standard payment/platform fee",
+      "value": "5.5% listed fee; inspect payment method and account plan",
+      "source_url": "https://openrouter.ai/pricing"
+    },
+    {
+      "provider": "Runpod",
+      "component": "container disk",
+      "usd_per_gb_month": 0.1,
+      "source_url": "https://www.runpod.io/pricing"
+    },
+    {
+      "provider": "Runpod",
+      "component": "standard network storage <1TB",
+      "usd_per_gb_month": 0.07,
+      "source_url": "https://www.runpod.io/pricing"
+    },
+    {
+      "provider": "Modal",
+      "component": "GPU-only hour equivalent excludes memory, CPU, network and volume costs",
+      "source_url": "https://modal.com/pricing"
+    }
+  ],
+  "economic_cautions": [
+    "Do not treat developer-coding subscription plans as general-purpose bulk API entitlements; enforce usage policy at routing time.",
+    "Provider-supplied usage equivalents are marketing estimates, not independent throughputs or true cost-per-task.",
+    "GPU $/hr is not directly comparable to $/token without measured sustained tokens/sec, GPU memory fit, utilization, concurrency, load time and support overhead.",
+    "Subscriptions may use weekly or 5-hour quotas even when monthly headline is large.",
+    "Prices are not guarantees. Request and store fresh quotes before spending."
+  ]
+}

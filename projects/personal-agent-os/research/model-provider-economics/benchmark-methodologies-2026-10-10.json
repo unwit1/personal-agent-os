@@ -1,0 +1,156 @@
+{
+  "schema": "personal-agent-os/model-provider-economics/benchmark-methods/v1",
+  "date": "2026-10-10",
+  "methods": [
+    {
+      "name": "Artificial Analysis Intelligence Index",
+      "url": "https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index",
+      "version": "4.3.2 observed on 2026-10-10",
+      "scope": "mixed reasoning coding science autonomy; not purely coding",
+      "measurement": "composite of ten named evals",
+      "compare_only_when": "same exact index version, model endpoint and reasoning config",
+      "risk": "Earlier scores in snapshots use older index versions; don't compare raw index scores across versions.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "Artificial Analysis Coding Agent Index",
+      "url": "https://artificialanalysis.ai/methodology/coding-agents-benchmarking",
+      "version": "v1.5 observed",
+      "scope": "long horizon code edits, terminal work, repository Q&A",
+      "measurement": "equal weight DeepSWE v1.1, Terminal-Bench 4.0, SWE-Atlas-QnA; three runs per task",
+      "compare_only_when": "same agent scaffold and exact model/provider route, same cost accounting",
+      "risk": "Current coding index differs from old AA Coding Index numbers; scores are not fungible.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "SWE-bench Verified",
+      "url": "https://www.swebench.com/",
+      "version": "Verified variant",
+      "scope": "real GitHub repo issue resolution",
+      "measurement": "unit-tests on generated code patch, completed issue fraction",
+      "compare_only_when": "same harness, agent, time cap and evaluation tasks",
+      "risk": "Vendor SWE-bench Verified scores can use different agents and scaffolds; not general API prompt quality.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "Terminal-Bench 2.1",
+      "url": "https://github.com/harbor-framework/terminal-bench-2-1",
+      "version": "2.1",
+      "scope": "agent completes containerized terminal challenges",
+      "measurement": "verifier success; official submission requires >=5 trials/task",
+      "compare_only_when": "same task revision, sandbox, agent, retry/scaffold settings",
+      "risk": "Documented corrections from 2.0; don't compare old 'Terminal Bench 2' or newer 4.0 to 2.1 directly.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "Terminal-Bench (continuous)",
+      "url": "https://github.com/harbor-framework/terminal-bench",
+      "version": "continuously versioned",
+      "scope": "broad technical terminal agents",
+      "measurement": "versioned Harbor container tasks with oracle and evaluator",
+      "compare_only_when": "same tagged dataset release",
+      "risk": "latest pointer changes; pin revision and oracle runs, especially when benchmark cases are bug-fixed.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "LiveCodeBench",
+      "url": "https://github.com/LiveCodeBench/LiveCodeBench",
+      "version": "v6 appears in Gemma4 publisher report; pin subset/date",
+      "scope": "algorithmic code synthesis/test prediction",
+      "measurement": "problem pass rate with temporal split",
+      "compare_only_when": "same v6 task subset, samples, pass@k and prompts",
+      "risk": "Code puzzle score ≠ repository bug-fixing capacity.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "Berkeley Function Calling Leaderboard",
+      "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+      "version": "lookup official revision",
+      "scope": "function-call selection, parameters, compositional tools",
+      "measurement": "tool-call structure and arguments, not repo code success",
+      "compare_only_when": "same function suite and endpoint-native tools availability",
+      "risk": "Weight support is insufficient if serving endpoint strips tools.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "Tau2 Bench",
+      "url": "https://github.com/sierra-research/tau2-bench",
+      "version": "pin eval revision",
+      "scope": "tool calling interactive business workflow",
+      "measurement": "simulated multi-step workflow success",
+      "compare_only_when": "same scenario, tools and success verifier",
+      "risk": "Business scenarios may not predict CLI coding performance.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "GPQA Diamond",
+      "url": "https://huggingface.co/datasets/Idavidrein/gpqa",
+      "version": "dataset revision",
+      "scope": "graduate-level scientific QA",
+      "measurement": "correct answers; report reasoning mode/prompt and metric",
+      "compare_only_when": "same data/cot/scaffold",
+      "risk": "Not agentic coding benchmark.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "MMLU-Pro",
+      "url": "https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro",
+      "version": "dataset revision",
+      "scope": "advanced knowledge reasoning",
+      "measurement": "accuracy",
+      "compare_only_when": "same shot/template/sampling",
+      "risk": "Benchmark-specific, not proxy for tool calling.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "AIME 2026",
+      "url": "https://huggingface.co/datasets/MathArena/aime_2026",
+      "version": "AIME 2026",
+      "scope": "mathematical reasoning",
+      "measurement": "math accuracy",
+      "compare_only_when": "same no-tools/tool condition and pass@k",
+      "risk": "Do not let high AIME overshadow low tool/coding scores.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "external_prior",
+      "new_agent_os_eval_results": 0
+    },
+    {
+      "name": "Agent OS native EVS/CAP/EVR",
+      "url": "https://github.com/unwit1/personal-agent-os/blob/main/projects/personal-agent-os/orchestrator-os/evals/README.md",
+      "version": "repository-controlled EVS revision",
+      "scope": "Orchestrator real workload task families",
+      "measurement": "verified accepted tasks, cost per pass, error, latency and refusal-category rate",
+      "compare_only_when": "pinned base revision, dataset, cases, grader and repeated samples",
+      "risk": "Protected evaluators and holdouts; never edit as part of an optimization claim.",
+      "checked_on": "2026-10-10",
+      "integration_priority": "canonical",
+      "new_agent_os_eval_results": 0
+    }
+  ],
+  "rules": [
+    "Time series must pin score harness; Artificial Analysis 2026 live Coding Agent Index v1.5 (DeepSWE 1.1 + Terminal-Bench 4.0 + SWE-Atlas-QnA) is different from the older Terminal-Bench 2.x and older index scores captured elsewhere.",
+    "Model scores and real agent/model pairing not identical. Recorded source category and scaffold per score are required.",
+    "Source numbers in this repo are published priors; no new runs in research pass.",
+    "Do not make low-refusal test prompts a pass-through for unsafe or unapproved actions. Benign false refusal and coding correctness should be measured separately."
+  ]
+}
